@@ -1,0 +1,12 @@
+2005-10-13  Satoshi Konno <skonno@cybergarage.org>
+
+	* v1.1
+	* Added cg_upnp_controlpoint_setuserdata() and cg_upnp_controlpoint_getuserdatga().
+	* Fixed some bugs to parser the name spaces using libxml2.
+	* Changed the configure to run 'make install' normally.
+	* Changed cg_thread_start() to sedt the flag at first.
+	* Fixed cg_upnp_control_soap_response_createfaultresponsenode() to set the namespace attribute in the response <UPnPError> node.
+
+2005-08-25 Satoshi Konno <skonno@cybergarage.org>
+
+        * The first release.
