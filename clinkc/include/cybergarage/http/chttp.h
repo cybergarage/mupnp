@@ -215,9 +215,10 @@ int cg_http_packet_getheaderinteger(CgHttpPacket *httpPkt, char* name);
 long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, char* name);
 int cg_http_packet_getheadersize(CgHttpPacket *httpPkt);
 
-void cg_http_packet_setcontent(CgHttpPacket *httpPkt, char *value);
-void cg_http_packet_setcontentpointer(CgHttpPacket *httpPkt, char *value);
-char *cg_http_packet_getcontent(CgHttpPacket *httpPkt);
+#define cg_http_packet_setcontent(httpPkt, value) cg_string_setvalue(httpPkt->content, value)
+#define cg_http_packet_setncontent(httpPkt, value, len) cg_string_setnvalue(httpPkt->content, value, len)
+#define cg_http_packet_setcontentpointer(httpPkt, value) cg_string_setpointervalue(httpPkt->content, value)
+#define cg_http_packet_getcontent(httpPkt) cg_string_getvalue(httpPkt->content)
 
 void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock);
 BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
@@ -273,9 +274,10 @@ BOOL cg_http_request_poststatuscode(CgHttpRequest *httpReq, int httpStatCode);
 #define cg_http_request_isnotiryrequest(httpReq) cg_streq(cg_http_request_getmethod(httpReq), CG_HTTP_NOTIFY)
 #define cg_http_request_issoapaction(httpReq) cg_http_packet_hasheader(((CgHttpPacket*)httpReq), CG_HTTP_SOAP_ACTION)
 
-#define cg_http_request_setcontent(httpReq,value) cg_http_packet_setcontent((CgHttpPacket*)httpReq,value)
-#define cg_http_request_setcontentpointer(httpReq,value) cg_http_packet_setcontentpointer((CgHttpPacket*)httpReq,value)
-#define cg_http_request_getcontent(httpReq) cg_http_packet_getcontent((CgHttpPacket*)httpReq)
+#define cg_http_request_setcontent(httpReq,value) cg_http_packet_setcontent(((CgHttpPacket*)httpReq),value)
+#define cg_http_request_setncontent(httpReq,value,len) cg_http_packet_setcontent(((CgHttpPacket*)httpReq),value,len)
+#define cg_http_request_setcontentpointer(httpReq,value) cg_http_packet_setcontentpointer(((CgHttpPacket*)httpReq),value)
+#define cg_http_request_getcontent(httpReq) cg_http_packet_getcontent(((CgHttpPacket*)httpReq))
 #define cg_http_request_getheaders(httpReq) cg_http_packet_getheaders((CgHttpPacket*)httpReq)
 #define cg_http_request_getheader(httpReq,name) cg_http_packet_getheader((CgHttpPacket*)httpReq,name)
 #define cg_http_request_setheadervalue(httpReq,name,value) cg_http_packet_setheadervalue((CgHttpPacket*)httpReq,name,value)
@@ -344,9 +346,10 @@ BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock);
 
 #define cg_http_response_issuccessful(httpRes) ((cg_http_response_getstatuscode(httpRes) == CG_HTTP_STATUS_OK) ? TRUE : FALSE)
 
-#define cg_http_response_setcontent(httpRes,value) cg_http_packet_setcontent((CgHttpPacket*)httpRes,value)
-#define cg_http_response_setcontentpointer(httpRes,value) cg_http_packet_setcontentpointer((CgHttpPacket*)httpRes,value)
-#define cg_http_response_getcontent(httpRes) cg_http_packet_getcontent((CgHttpPacket*)httpRes)
+#define cg_http_response_setcontent(httpRes,value) cg_http_packet_setcontent(((CgHttpPacket*)httpRes),value)
+#define cg_http_response_setncontent(httpRes,value, len) cg_http_packet_setncontent(((CgHttpPacket*)httpRes),value, len)
+#define cg_http_response_setcontentpointer(httpRes,value) cg_http_packet_setcontentpointer(((CgHttpPacket*)httpRes),value)
+#define cg_http_response_getcontent(httpRes) cg_http_packet_getcontent(((CgHttpPacket*)httpRes))
 #define cg_http_response_getheaders(p) cg_http_packet_getheaders((CgHttpPacket*)p)
 #define cg_http_response_getheader(p,n) cg_http_packet_getheader((CgHttpPacket*)p,n)
 #define cg_http_response_setheadervalue(httpRes,n,value) cg_http_packet_setheadervalue((CgHttpPacket*)httpRes,n,value)
