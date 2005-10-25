@@ -13,6 +13,12 @@
 *	08/21/05
 *		- Thanks for Theo Beisch <theo.beisch@gmx.de>
 *		- Changed cg_http_packet_read() to store length in HTTPPacket.
+*	10/25/05
+*		- The following functions move to define macros.
+*		  cg_http_packet_setcontent()
+*		  cg_http_packet_setcontentpointer()
+*		  cg_http_packet_getcontent()
+*		- cg_http_packet_setncontent() is added.
 *
 ******************************************************************/
 
@@ -172,33 +178,6 @@ void cg_http_packet_sethost(CgHttpPacket *httpPkt, char *addr, int port)
 #endif
 
 	cg_http_packet_setheadervalue(httpPkt, CG_HTTP_HOST, host);
-}
-
-/****************************************
-* cg_http_packet_setcontent
-****************************************/
-
-void cg_http_packet_setcontent(CgHttpPacket *httpPkt, char *value)
-{
-	cg_string_setvalue(httpPkt->content, value);
-}
-
-/****************************************
-* cg_http_packet_setcontentpointer
-****************************************/
-
-void cg_http_packet_setcontentpointer(CgHttpPacket *httpPkt, char *value)
-{
-	cg_string_setpointervalue(httpPkt->content, value);
-}
-
-/****************************************
-* cg_http_packet_getcontent
-****************************************/
-
-char *cg_http_packet_getcontent(CgHttpPacket *httpPkt)
-{
-	return cg_string_getvalue(httpPkt->content);
 }
 
 /****************************************

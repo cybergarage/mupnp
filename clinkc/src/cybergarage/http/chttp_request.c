@@ -17,6 +17,10 @@
 #include <cybergarage/http/chttp.h>
 #include <cybergarage/net/csocket.h>
 
+#if defined(CG_HTTP_CURL)
+#include <curl/curl.h>
+#endif
+
 /****************************************
 * cg_http_request_new
 ****************************************/
@@ -145,8 +149,11 @@ CgSocket *cg_http_request_getsocket(CgHttpRequest *httpReq)
 * cg_http_request_post
 ****************************************/
 
+#if !defined(CG_HTTP_CURL)
+
 CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int port)
 {
+
 	CgSocket *sock;
 	char *method, *uri, *version;
 		
@@ -187,8 +194,95 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	cg_socket_close(sock);
 	cg_socket_delete(sock);	
 	
+  return httpReq->httpRes;
+}
+
+#endif
+
+/****************************************
+* cg_http_request_post (libcurl)
+****************************************/
+
+#if defined(CG_HTTP_CURL)
+
+static size_t cg_http_request_post_callback(void *ptr, size_t size, size_t nmemb, void *data)
+{
+	CgHttpResponse *httpRes;
+	size_t realsize;
+
+	httpRes = (CgHttpResponse *)data;
+	realsize = size * nmemb;
+	cg_http_response_setncontent(httpRes, ptr, realsize);
+	cg_http_response_setcontentlength(httpRes, realsize);
+
+	return realsize;
+}
+
+CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int port)
+{
+	CgHttpResponse *httpRes;
+	CURL *curl;
+	CgHttpHeader *reqHeader;
+	struct curl_slist *curlHeaderList; 
+	CgString *headerStr;
+	CURLcode res;
+	char *uri, *method;
+	char url[CG_NET_URI_MAXLEN];
+	long retcode;
+
+	httpRes = httpReq->httpRes;
+
+	curl = curl_easy_init();
+	if (curl == NULL)
+		return httpReq->httpRes;		
+
+	method = cg_http_request_getmethod(httpReq);
+	uri = cg_http_request_geturi(httpReq);	
+
+	/**** url ****/
+	cg_net_gethosturl(ipaddr, port, uri, url, sizeof(url));
+	curl_easy_setopt(curl, CURLOPT_URL, url);
+
+	/**** header ****/
+	curlHeaderList = NULL;
+	headerStr = cg_string_new();
+	for (reqHeader = cg_http_request_getheaders(httpReq); reqHeader; reqHeader = cg_http_header_next(reqHeader)) {
+		cg_string_clear(headerStr);
+		cg_string_addvalue(headerStr, cg_http_header_getname(reqHeader));
+		cg_string_addvalue(headerStr, CG_HTTP_COLON CG_HTTP_SP);
+		cg_string_addvalue(headerStr, cg_http_header_getvalue(reqHeader));
+		curlHeaderList = curl_slist_append(curlHeaderList, cg_string_getvalue(headerStr));
+	}
+	cg_string_delete(headerStr);
+	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, curlHeaderList);
+
+	/**** content ****/
+	if (cg_strcaseeq(CG_HTTP_POST, method) == TRUE) {
+		curl_easy_setopt(curl, CURLOPT_POST, TRUE);
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, cg_http_request_getcontent(httpReq));
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, cg_http_request_getcontentlength(httpReq));
+	}
+
+	/**** response callback ****/
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, cg_http_request_post_callback);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)httpRes);
+
+	/**** useragent ****/
+	curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+
+	res = curl_easy_perform(curl);
+    
+	curl_slist_free_all(curlHeaderList); 
+
+	curl_easy_getinfo (curl, CURLINFO_HTTP_CODE, &retcode);
+	cg_http_response_setstatuscode(httpRes, retcode);
+
+	curl_easy_cleanup(curl);
+
 	return httpReq->httpRes;
 }
+
+#endif
 
 /****************************************
 * cg_http_request_read
