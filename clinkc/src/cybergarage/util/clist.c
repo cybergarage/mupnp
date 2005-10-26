@@ -10,6 +10,8 @@
 *
 *	01/17/05
 *		- first revision
+*	10/26/05
+*		- Added changes when the parametes are null.
 *
 ******************************************************************/
 
@@ -21,6 +23,9 @@
 
 void cg_list_header_init(CgList *list)
 {
+	if (list == NULL)
+		return;
+
 	list->headFlag = TRUE;			
 	list->prev = list->next = list;
 }
@@ -31,6 +36,9 @@ void cg_list_header_init(CgList *list)
 
 void cg_list_node_init(CgList *list)
 {
+	if (list == NULL)
+		return;
+
 	list->headFlag = FALSE;			
 	list->prev = list->next = list;
 }
@@ -44,6 +52,9 @@ int cg_list_size(CgList *headList)
 	CgList *list;
 	int listCnt;
 	
+	if (headList == NULL)
+		return 0;
+
 	listCnt = 0;
 	for (list = cg_list_next(headList); list != NULL; list = cg_list_next(list))
 		listCnt++;
@@ -60,6 +71,9 @@ CgList *cg_list_get(CgList *headList, int index)
 	CgList *list;
 	int n;
 	
+	if (headList == NULL)
+		return NULL;
+
 	list = cg_list_next(headList);
 	for (n=0; n<index; n++) {
 		if (list == NULL)
@@ -78,6 +92,9 @@ void cg_list_insert(
 CgList *prevList,
 CgList *list)
 {
+	if (prevList == NULL || list == NULL)
+		return;
+
 	list->prev = prevList;
 	list->next = prevList->next;
 	prevList->next->prev = list;
@@ -92,6 +109,9 @@ void cg_list_add(
 CgList *headList,
 CgList *list)
 {
+	if (headList == NULL || list == NULL)
+		return;
+
 	cg_list_insert(headList->prev, list);
 }
 
@@ -101,6 +121,9 @@ CgList *list)
 
 void cg_list_remove(CgList *list)
 {
+	if (list == NULL)
+		return;
+
 	list->prev->next = list->next;
 	list->next->prev = list->prev;
 	list->prev = list->next = list;
@@ -113,6 +136,9 @@ void cg_list_remove(CgList *list)
 CgList *cg_list_prev_circular (
 CgList *list)
 {
+	if (list == NULL)
+		return NULL;
+
 	if (list->prev->headFlag)
 		list = list->prev;
 	return list->prev;
@@ -125,6 +151,9 @@ CgList *list)
 CgList *cg_list_prev(
 CgList *list)
 {
+	if (list == NULL)
+		return NULL;
+
 	if (list->prev->headFlag == TRUE)
 		return NULL;
 	return list->prev;
@@ -137,6 +166,9 @@ CgList *list)
 CgList *cg_list_next_circular(
 CgList *list)
 {
+	if (list == NULL)
+		return NULL;
+
 	if (list->next->headFlag == TRUE)
 		list = list->next;
 	return list->next;
@@ -149,6 +181,9 @@ CgList *list)
 CgList *cg_list_next(
 CgList *list)
 {
+	if (list == NULL)
+		return NULL;
+
 	if (list->next->headFlag == TRUE)
 		return NULL;
 	return list->next;
@@ -161,6 +196,9 @@ CgList *list)
 void cg_list_clear(CgList *headList, CG_LIST_DESTRUCTORFUNC destructorFunc)
 {
 	CgList *list;
+
+	if (headList == NULL)
+		return;
 
 	list = cg_list_next(headList);
 	while(list != NULL) {
