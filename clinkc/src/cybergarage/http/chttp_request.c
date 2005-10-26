@@ -10,6 +10,10 @@
 *
 *	02/01/05
 *		- first revision
+*	10/25/05
+*		- Added support for libcurl in cg_http_request_post().
+*	10/26/05
+*		- Changed to use CURLOPT_CUSTOMREQUEST instead of CURLOPT_POST in cg_http_request_post().
 *
 ******************************************************************/
 
@@ -239,6 +243,9 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	method = cg_http_request_getmethod(httpReq);
 	uri = cg_http_request_geturi(httpReq);	
 
+	/**** method ****/
+	curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, method);
+
 	/**** url ****/
 	cg_net_gethosturl(ipaddr, port, uri, url, sizeof(url));
 	curl_easy_setopt(curl, CURLOPT_URL, url);
@@ -257,8 +264,7 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, curlHeaderList);
 
 	/**** content ****/
-	if (cg_strcaseeq(CG_HTTP_POST, method) == TRUE) {
-		curl_easy_setopt(curl, CURLOPT_POST, TRUE);
+	if (cg_http_request_ispostrequest(httpReq) == TRUE) {
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, cg_http_request_getcontent(httpReq));
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, cg_http_request_getcontentlength(httpReq));
 	}
