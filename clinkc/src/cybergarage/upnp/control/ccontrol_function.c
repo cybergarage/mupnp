@@ -115,7 +115,6 @@ CgXmlNode *cg_upnp_control_soap_response_createfaultresponsenode(int errCode, ch
 	/**** <UPnPError xmlns="urn:schemas-upnp-org:control-1-0"> ****/
 	upnpErrorNode = cg_xml_node_new();
 	cg_xml_node_setname(upnpErrorNode, CG_UPNP_CONTROL_FAULT_STRING);
-	cg_xml_node_setattribute(upnpErrorNode, CG_SOAP_ATTRIBUTE_XMLNS, CG_SOAP_XMLNS);
 	/**** Thanks for Visa Smolander (09/11/2005) ****/
 	cg_xml_node_setattribute(upnpErrorNode, CG_SOAP_ATTRIBUTE_XMLNS, CG_UPNP_CONTROL_XMLNS);
 	cg_xml_node_addchildnode(detailNode, upnpErrorNode);

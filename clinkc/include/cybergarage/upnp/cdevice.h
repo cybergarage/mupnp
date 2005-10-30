@@ -236,6 +236,7 @@ CgUpnpService *cg_upnp_device_getservicebyname(CgUpnpDevice *dev, char *name);
 CgUpnpService *cg_upnp_device_getservicebyscpdurl(CgUpnpDevice *dev, char *url);
 CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, char *url);
 CgUpnpService *cg_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, char *url);
+CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, char *sid);
 
 /**** Embedded IconList ****/
 #define cg_upnp_device_geticonlist(dev) (dev->iconList)
