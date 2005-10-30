@@ -26,7 +26,8 @@ extern "C" {
 * Define
 ****************************************/
 
-#define CG_UPNP_UUID_MAX_LEN (((4+1)*4) + 1)
+#define CG_UPNP_UUID_NAME "uuid"
+#define CG_UPNP_UUID_MAX_LEN (5 + ((4+1)*4) + 1)
 #define CG_UPNP_SEVERNAME_MAXLEN 64
 
 /****************************************

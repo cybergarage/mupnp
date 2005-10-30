@@ -10,6 +10,9 @@
 *
 *	02/14/05
 *		- first revision
+*	10/30/05
+*		- Thanks for Makela Aapo (aapo.makela@nokia.com)
+*		- Added cg_upnp_device_getservicebysid().
 *
 ******************************************************************/
 
@@ -859,6 +862,32 @@ CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, char *ur
 		
 	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
 		service = cg_upnp_device_getservicebycontrolurl(childDev, url);
+		if (service != NULL)
+			return service;
+	}
+	
+	return NULL;
+}
+
+/****************************************
+* cg_upnp_device_getservicebysid
+****************************************/
+
+CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, char *sid)
+{
+	CgUpnpService *service;
+	CgUpnpDevice *childDev;
+	
+	if (cg_strlen(sid) <= 0)
+		return NULL;
+			
+	for (service=cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) {
+		if (cg_upnp_service_getsubscriberbysid(service, sid) != NULL)
+			return service;
+	}
+		
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
+		service = cg_upnp_device_getservicebysid(childDev, sid);
 		if (service != NULL)
 			return service;
 	}
