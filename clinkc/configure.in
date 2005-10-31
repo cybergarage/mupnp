@@ -10,6 +10,9 @@
 #		- Thanks for Roland Moser <rmoser@gmx.at>
 #		- Changed the configure to run 'make install' normally.
 #
+#	10/31/05
+#		- Added libtool stuff and debian package creation
+#
 ############################################################
 
 AC_INIT(include/cybergarage/typedef.h)
@@ -33,10 +36,9 @@ LIBXML2_VERSION=2.6.20
 ##############################
 
 AC_PROG_CC
-AC_PROG_CXX
-AC_PROG_CPP
 AC_PROG_INSTALL
 AC_PROG_AWK
+AC_PROG_LIBTOOL
 AC_PROG_RANLIB
 AC_LANG_CPLUSPLUS
 
@@ -48,10 +50,24 @@ AC_LANG_CPLUSPLUS
 #if [ test $CYGWIN = yes || test $MINGW = yes ]; then
   #AC_LIBTOOL_WIN32_DLL
   #AM_DISABLE_STATIC
-  AC_PROG_LIBTOOL
   AC_CHECK_LIB([ws2_32],[main])
   #AC_CHECK_LIB([iphlpapi],[main])
 #fi
+
+##############################
+#Checks, if libtool is to be used
+###############################
+
+AC_ARG_WITH(libtool, [  --with-libtool	Use libtool to build the library],,)
+AM_CONDITIONAL(HAVE_LIBTOOL, test $with_libtool = yes)
+
+##############################
+#Checks, if timing info is printed
+##############################
+AC_ARG_WITH(timings, [  --with-timings	Show timings in debug-info],,)
+if [ test $with_timings = yes ]; then
+  CFLAGS="$CFLAGS -DSHOW_TIMINGS"
+fi
 
 ##############################
 # Checks for header files.
@@ -162,6 +178,7 @@ AC_CHECK_FUNCS([strdup])
 ##############################
 
 AC_OUTPUT([
+clinkc.pc
 Makefile
 include/Makefile
 lib/Makefile
