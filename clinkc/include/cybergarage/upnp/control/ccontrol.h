@@ -104,7 +104,7 @@ typedef struct _CgUpnpQueryRequest{
 * Function
 ****************************************/
 
-#define cg_upnp_control_isqueryrequest(httpReq) ((0 < cg_strstr(cg_soap_request_getsoapaction(httpReq), CG_UPNP_CONTROL_QUERY_SOAPACTION)) ? TRUE : FALSE)
+#define cg_upnp_control_isqueryrequest(httpReq) ((0 <= cg_strstr(cg_soap_request_getsoapaction(httpReq), CG_UPNP_CONTROL_QUERY_SOAPACTION)) ? TRUE : FALSE)
 #define cg_upnp_control_isactionrequest(httpReq) ((cg_upnp_control_isqueryrequest(httpReq) == TRUE) ? FALSE : TRUE)
 
 void cg_upnp_control_soap_request_initializeenvelopenode(CgSoapRequest *soapReq);
