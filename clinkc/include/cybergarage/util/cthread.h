@@ -12,7 +12,7 @@
 *		- first revision
 *
 *	10/31/05
-*		- Added comments to all functions and structs
+*		- Modified the thread struct to use the cg_list concept
 *
 ******************************************************************/
 
@@ -20,6 +20,7 @@
 #define _CG_UTIL_CTHREAD_H_
 
 #include <cybergarage/typedef.h>
+#include <cybergarage/util/clist.h>
 
 #if defined(WIN32) && !defined(ITRON)
 #include <windows.h>
@@ -41,40 +42,50 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
+/**
+ * \brief The generic wrapper struct for CyberLinkC's threads.
+ *
+ * This wrapper has been created to enable 100% code
+ * compatibility between different platforms (Linux, Win32 etc..)
+ */
 typedef struct _CgThread {
-	/** Indicates whether the thread is running or not */
+	BOOL headFlag;
+	struct _CgThread *prev;
+	struct _CgThread *next;
+		
+	/** Indicates whether this thread is ready to run */
 	BOOL runnableFlag;
 
 #if defined(WIN32) && !defined(ITRON)
-	HANDLE	hThread;
-	DWORD	threadID;
+	HANDLE hThread;
+	DWORD threadID;
 #elif defined(BTRON)
 	W taskID;
 #elif defined(ITRON)
-	ER_ID	taskID;
+	ER_ID taskID;
 #elif defined(TENGINE) && !defined(PROCESS_BASE)
 	ID taskID;
 #elif defined(TENGINE) && defined(PROCESS_BASE)
-	WERR taskID;
+ 	WERR taskID;
 #else
 
-  /** The POSIX thread handle */
-  pthread_t pThread;
+	/** The POSIX thread handle */
+	pthread_t pThread;
 
 #endif
 
-  /** Thread's worker function */
-  void (*action)(struct _CgThread *);
+	/** Thread's worker function */
+	void (*action)(struct _CgThread *);
 
-  /** Arbitrary user data pointer */
-  void *userData;
+	/** Arbitrary data pointer */
+	void *userData;
 
 } CgThread, CgThreadList;
 
@@ -149,6 +160,55 @@ void cg_thread_setuserdata(CgThread *thread, void *data);
  * \param thread Thread from which to get the pointer
  */
 void *cg_thread_getuserdata(CgThread *thread);
+
+#define cg_thread_next(thread) (CgThread *)cg_list_next((CgList *)thread)
+
+/****************************************
+* Function (Thread List)
+****************************************/
+
+/**
+ * Create a new thread list
+ *
+ * \return Thread list
+ */
+CgThreadList *cg_threadlist_new();
+
+/**
+ * Destroy a thread list
+ *
+ * \param threadList The thread list in question
+ */
+void cg_threadlist_delete(CgThreadList *threadList);
+
+/**
+ * Clear the contents of a thread list
+ *
+ * \param threadList Thread list in question
+ */
+#define cg_threadlist_clear(threadList) cg_list_clear((CgList *)threadList, (CG_LIST_DESTRUCTORFUNC)cg_thread_delete)
+
+/**
+ * Get the size of a thread list
+ *
+ * \param threadList The thread list in question
+ */
+#define cg_threadlist_size(threadList) cg_list_size((CgList *)threadList)
+
+/**
+ * Get the first actual item from a thread list to use as an iterator
+ *
+ * \param threadList The thread list in question
+ */
+#define cg_threadlist_gets(threadList) (CgThread *)cg_list_next((CgList *)threadList)
+
+/**
+ * Add a thread into a thread list
+ *
+ * \param threadList The thread list in question
+ * \param thread The thread to add to the list
+ */
+#define cg_threadlist_add(threadList, thread) cg_list_add((CgList *)threadList, (CgList *)thread)
 
 #ifdef  __cplusplus
 
