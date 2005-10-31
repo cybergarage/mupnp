@@ -17,6 +17,9 @@
 *		- Thanks for Smolander Visa <visa.smolander@nokia.com>
 *		- Added cg_upnp_controlpoint_setuserdata() and cg_upnp_controlpoint_getuserdatga().
 *
+*	10/31/05
+*		- Fixed severe bug in getting child devices
+*
 ******************************************************************/
 
 #include <cybergarage/upnp/ccontrolpoint.h>
@@ -103,7 +106,7 @@ BOOL cg_upnp_controlpoint_unlock(CgUpnpControlPoint *ctrlPoint)
 }
 
 /****************************************
-* cg_upnp_controlpoint_getdevicebyname
+* cg_upnp_controlpoint_geteventsubcallbackurl
 ****************************************/
 
 char *cg_upnp_controlpoint_geteventsubcallbackurl(CgUpnpControlPoint *ctrlPoint, char *ifaddr, char *buf, int bufLen)
@@ -194,13 +197,35 @@ static BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service, CgUp
 * cg_upnp_controlpoint_getdevice
 ****************************************/
 
+static BOOL cg_upnp_controlpoint_parseservicesfordevice(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt)
+{
+	CgUpnpService *service;
+	CgUpnpDevice *childDev;
+	
+	for (service=cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) {
+		if (cg_upnp_controlpoint_parsescservicescpd(service, ssdpPkt) == FALSE) {
+			return FALSE;
+		}
+	}
+	
+	/* Now only root SCPDs for root services are parsed, but also child 
+	   devices' services have to be parsed, so parse them */
+	for (childDev=cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
+		if (cg_upnp_controlpoint_parseservicesfordevice(childDev, ssdpPkt) == FALSE)
+		{
+			return FALSE;
+		}
+	}
+	
+	return TRUE;
+}
+
 static CgUpnpDevice *cg_upnp_controlpoint_createdevicefromssdkpacket(CgUpnpSSDPPacket *ssdpPkt)
 {
 	char *location;
 	CgNetURL *url;
 	CgUpnpDevice *dev;
 	BOOL parseSuccess;
-	CgUpnpService *service;
 	
 	location = cg_upnp_ssdp_packet_getlocation(ssdpPkt);
 	if (cg_strlen(location) <= 0)
@@ -218,11 +243,10 @@ static CgUpnpDevice *cg_upnp_controlpoint_createdevicefromssdkpacket(CgUpnpSSDPP
 		return NULL;
 	}
 
-	for (service=cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) {
-		if (cg_upnp_controlpoint_parsescservicescpd(service, ssdpPkt) == FALSE) {
-			cg_upnp_device_delete(dev);
-			return NULL;
-		}
+	if (cg_upnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == FALSE)
+	{
+		cg_upnp_device_delete(dev);
+		return NULL;
 	}
 	
 	cg_upnp_device_setssdppacket(dev, ssdpPkt);
