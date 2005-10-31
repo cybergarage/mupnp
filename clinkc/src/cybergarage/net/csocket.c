@@ -14,6 +14,10 @@
 *		- Thanks for Theo Beisch <theo.beisch@gmx.de>
 *		- Changed cg_socket_startup() for WindowsCE platform.
 *
+*	10/31/05
+*		- cg_socket_getrawtype and cg_socket_getprototype:
+*		  changed sock->type to socket->type to use the macro parameter
+*		  correctly.
 ******************************************************************/
 
 #include <cybergarage/net/csocket.h>
@@ -83,10 +87,10 @@ BOOL cg_socket_tosockaddrin(char *addr, int port, struct sockaddr_in *sockaddr, 
 BOOL cg_socket_tosockaddrinfo(int sockType, char *addr, int port, struct addrinfo **addrInfo, BOOL isBindAddr);
 #endif
 
-#define cg_socket_getrawtype(socket) ((sock->type == CG_NET_SOCKET_STREAM) ? SOCK_STREAM : SOCK_DGRAM)
+#define cg_socket_getrawtype(socket) ((socket->type == CG_NET_SOCKET_STREAM) ? SOCK_STREAM : SOCK_DGRAM)
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
-#define cg_socket_getprototype(socket) ((sock->type == CG_NET_SOCKET_STREAM) ? IPPROTO_TCP : IPPROTO_UDP)
+#define cg_socket_getprototype(socket) ((socket->type == CG_NET_SOCKET_STREAM) ? IPPROTO_TCP : IPPROTO_UDP)
 #endif
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
