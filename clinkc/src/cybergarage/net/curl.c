@@ -11,6 +11,11 @@
 *	03/16/05
 *		- first revision
 *
+*
+*	10/31/05
+*		- cg_net_getmodifierhosturl set the tag begin mark "<" before port
+*		  while it must come before "http://"
+*		  
 ******************************************************************/
 
 #include <cybergarage/net/curi.h>
@@ -41,7 +46,7 @@ char *cg_net_gethosturl(char *host, int port, char *uri, char *buf, int bufSize)
 }
 
 /****************************************
-* cg_net_gethosturl
+* cg_net_getmodifierhosturl
 ****************************************/
 
 char *cg_net_getmodifierhosturl(char *host, int port, char *uri, char *buf, int bufSize, char *begin, char *end)
@@ -53,7 +58,7 @@ char *cg_net_getmodifierhosturl(char *host, int port, char *uri, char *buf, int 
 #else
 	sprintf(buf,
 #endif
-		"http://%s%s%s%s:%d%s%s",
+		"%shttp://%s%s%s:%d%s%s",
 		begin,
 		((isIPv6Host == TRUE) ? "[" : ""),
 		host,
