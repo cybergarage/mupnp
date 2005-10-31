@@ -11,6 +11,9 @@
 *	02/13/05
 *		- first revision
 *
+*	10/31/05
+*		- Added cg_upnp_ssdpresponse_setext and _setserver
+*
 ******************************************************************/
 
 #ifndef _CG_UPNP_CSSDP_H_
@@ -59,6 +62,7 @@ extern "C" {
 #define CG_UPNP_SSDP_SEQ "SEQ" 
 #define CG_UPNP_SSDP_CALBACK "CALLBACK" 
 #define CG_UPNP_SSDP_TIMEOUT "TIMEOUT" 
+#define CG_UPNP_SSDP_SERVER "SERVER"
 
 /****************************************
 * Data Type
@@ -151,6 +155,12 @@ void cg_upnp_ssdpresponse_delete(CgUpnpSSDPResponse *ssdpRes);
 /**** ST ****/
 #define cg_upnp_ssdpresponse_setst(ssdpRes,value) cg_http_packet_setheadervalue((CgHttpPacket*)ssdpRes, CG_UPNP_SSDP_ST, value)
 #define cg_upnp_ssdpresponse_getst(ssdpRes) cg_http_packet_getheadervalue((CgHttpPacket*)ssdpRes,CG_UPNP_SSDP_ST)
+
+/**** EXT ****/
+#define cg_upnp_ssdpresponse_setext(ssdpRes) cg_http_packet_setheadervalue((CgHttpPacket*) ssdpRes, CG_UPNP_SSDP_EXT, "")
+
+/**** SERVER ****/
+#define cg_upnp_ssdpresponse_setserver(ssdpRes, value) cg_http_setheadervalue((CgHttpPacket*) ssdpRes, CG_UPNP_SSDP_SERVER, value)
 
 /**** Location ****/
 #define cg_upnp_ssdpresponse_setlocation(ssdpRes,value) cg_http_packet_setheadervalue((CgHttpPacket*)ssdpRes, CG_HTTP_LOCATION, value)
