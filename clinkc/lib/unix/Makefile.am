@@ -19,6 +19,7 @@ clinkc_source = \
 	../../src/cybergarage/util/cstring_tokenizer.c \
 	../../src/cybergarage/util/cstring_function.c \
 	../../src/cybergarage/util/cthread.c \
+	../../src/cybergarage/util/cthread_list.c \
 	../../src/cybergarage/util/ctime.c \
 	../../src/cybergarage/net/cdatagram_packet.c \
 	../../src/cybergarage/net/csocket.c \
