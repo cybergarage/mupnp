@@ -38,7 +38,7 @@ extern "C" {
 
 #define CG_UPNP_CONTROLPOINT_SSDP_RESPONSE_DEFAULT_PORT 39400
 #define CG_UPNP_CONTROLPOINT_HTTP_EVENT_DEFAULT_PORT 39500
-#define CG_UPNP_CONTROLPOINT_HTTP_EVENTSUB_URI "/evetSub"
+#define CG_UPNP_CONTROLPOINT_HTTP_EVENTSUB_URI "/eventSub"
 
 /****************************************
 * Data Type
