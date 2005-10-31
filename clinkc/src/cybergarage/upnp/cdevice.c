@@ -14,6 +14,9 @@
 *		- Thanks for Makela Aapo (aapo.makela@nokia.com)
 *		- Added cg_upnp_device_getservicebysid().
 *
+*	10/31/05
+*		- cg_upnp_device_getdevicebyname: Changed dev to childDev in for-loop
+*
 ******************************************************************/
 
 #include <cybergarage/upnp/cdevice.h>
@@ -352,8 +355,8 @@ CgUpnpDevice *cg_upnp_device_getdevicebyname(CgUpnpDevice *dev, char *name)
 		return NULL;
 			
 	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
-		if (cg_upnp_device_isname(dev, name) == TRUE)
-			return dev;
+		if (cg_upnp_device_isname(childDev, name) == TRUE)
+			return childDev;
 		moreChildDev = cg_upnp_device_getdevicebyname(childDev, name);
 		if (moreChildDev != NULL)
 			return moreChildDev;
