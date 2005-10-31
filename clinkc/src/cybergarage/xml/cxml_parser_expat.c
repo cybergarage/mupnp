@@ -11,6 +11,10 @@
 *	02/07/05
 *		- first revision
 *
+*	10/31/05
+*		- Added performance measurement functionality under
+*		  SHOW_TIMINGS macro (not enabled by default)
+*
 ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
@@ -38,6 +42,13 @@
 #endif
 
 #include <expat.h>
+
+#ifdef SHOW_TIMINGS
+#include <sys/time.h>
+#include <time.h>
+
+extern long int cg_total_elapsed_time;
+#endif
 
 /****************************************
 * cg_xml_parse (Expat)
@@ -95,11 +106,17 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 {
 	XML_Parser p;
 	CgExpatData expatData;
-
+#ifdef SHOW_TIMINGS
+	struct timeval start_time, end_time, elapsed_time;
+	
+	gettimeofday(&start_time, NULL);
+#endif	
 	p = XML_ParserCreate(NULL);
 	if (!p)
 		return FALSE;
-
+	/* Fix to get expat parser to work with DLink-routers */
+	if (data[len-1] == 0) len--;
+	
 	expatData.rootNode = NULL;
 	expatData.currNode = NULL;
 	XML_SetUserData(p, &expatData);
@@ -117,6 +134,16 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 
 	cg_xml_nodelist_add(nodeList, expatData.rootNode);
 
+#ifdef SHOW_TIMINGS
+	gettimeofday(&end_time, NULL);
+	timersub(&end_time, &start_time, &elapsed_time);
+	printf("Parsing XML completed. Elapsed time: "
+	       "%ld msec\n", ((elapsed_time.tv_sec*1000) + 
+			      (elapsed_time.tv_usec/1000)));
+	cg_total_elapsed_time += (elapsed_time.tv_sec*1000000)+
+				 (elapsed_time.tv_usec);
+	printf("Total elapsed time: %ld msec\n", cg_total_elapsed_time / 1000);
+#endif	
 	return TRUE;
 }
 
