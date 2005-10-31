@@ -15,6 +15,10 @@
 *		- Change cg_net_uri_new() to set "/" as the default path.
 *		- Changed cg_net_uri_set() to check a ":" and "@" in the password.
 *
+*
+*	10/31/05
+*		- cg_net_uri_set: Accepts URI (as a path), which doesn't have
+*		  a slash.
 ******************************************************************/
 
 #include <cybergarage/net/curi.h>
@@ -164,7 +168,14 @@ void cg_net_uri_set(CgNetURI *uri, char *value)
 	}
 	
 	if (shashIdx < 0)
+	{
+		/* Even a slash wasn't found in URL, so it represents only a
+		 part of path. Put slash infront and append rest of the string */
+		cg_string_setvalue(uri->path, CG_NET_URI_SLASH_DELIM);
+		cg_string_addvalue(uri->path, value);
+
 		return;
+	}
 	currIdx += shashIdx;
 	
 	/**** Path (Query/Fragment) ****/
