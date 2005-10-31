@@ -20,6 +20,10 @@
 *		  cg_http_packet_getcontent()
 *		- cg_http_packet_setncontent() is added.
 *
+*	10/31/05
+*		- cg_http_packet_sethost:
+		  port was an excess parameter for s(n)printf when port <= 0
+*
 ******************************************************************/
 
 #include <cybergarage/http/chttp.h>
@@ -158,9 +162,9 @@ void cg_http_packet_sethost(CgHttpPacket *httpPkt, char *addr, int port)
 	}
 	else {
 		if (cg_net_isipv6address(addr) == TRUE)
-			snprintf(host, sizeof(host), "[%s]", addr, port);
+			snprintf(host, sizeof(host), "[%s]", addr);
 		else
-			snprintf(host, sizeof(host), "%s", addr, port);
+			snprintf(host, sizeof(host), "%s", addr);
 	}
 #else	
 	if (0 < port) {
@@ -171,9 +175,9 @@ void cg_http_packet_sethost(CgHttpPacket *httpPkt, char *addr, int port)
 	}
 	else {
 		if (cg_net_isipv6address(addr) == TRUE)
-			sprintf(host, "[%s]", addr, port);
+			sprintf(host, "[%s]", addr);
 		else
-			sprintf(host, "%s", addr, port);
+			sprintf(host, "%s", addr);
 	}
 #endif
 
