@@ -160,7 +160,7 @@ void cg_upnp_ssdpresponse_delete(CgUpnpSSDPResponse *ssdpRes);
 #define cg_upnp_ssdpresponse_setext(ssdpRes) cg_http_packet_setheadervalue((CgHttpPacket*) ssdpRes, CG_UPNP_SSDP_EXT, "")
 
 /**** SERVER ****/
-#define cg_upnp_ssdpresponse_setserver(ssdpRes, value) cg_http_setheadervalue((CgHttpPacket*) ssdpRes, CG_UPNP_SSDP_SERVER, value)
+#define cg_upnp_ssdpresponse_setserver(ssdpRes, value) cg_http_packet_setheadervalue((CgHttpPacket*) ssdpRes, CG_UPNP_SSDP_SERVER, value)
 
 /**** Location ****/
 #define cg_upnp_ssdpresponse_setlocation(ssdpRes,value) cg_http_packet_setheadervalue((CgHttpPacket*)ssdpRes, CG_HTTP_LOCATION, value)
