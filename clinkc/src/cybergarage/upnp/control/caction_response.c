@@ -11,6 +11,9 @@
 *	05/17/05
 *		- first revision
 *
+*	10/31/05
+*		- Added cg_upnp_control_action_response_geterror
+*
 ******************************************************************/
 
 #include <cybergarage/upnp/cupnp_limit.h>
@@ -204,6 +207,43 @@ BOOL cg_upnp_control_action_response_getresult(CgUpnpActionResponse *actionRes, 
 		cg_upnp_argument_setvalue(arg, cg_xml_node_getvalue(argNode));
 	}
 
+	return TRUE;
+}
+
+/****************************************
+* cg_upnp_control_action_response_geterror
+****************************************/
+BOOL cg_upnp_control_action_response_geterror(CgUpnpActionResponse *actionRes, CgUpnpAction *action)
+{
+	CgXmlNode *resNode;
+	CgXmlNode *upnpErrorNode;
+	char *errDesc;
+	char *errCode;
+	
+	resNode = cg_upnp_control_action_response_getactionresponsenode(actionRes);
+	if (resNode == NULL)
+		return FALSE;
+		
+	/* Response node is FAULT node, there will be no output args,
+	   but set action status and description */
+	upnpErrorNode = cg_xml_node_getchildnode(resNode,
+						 CG_SOAP_DETAIL);
+	if (upnpErrorNode == NULL) return FALSE;
+		
+	upnpErrorNode = cg_xml_node_getchildnode(upnpErrorNode, 
+					CG_UPNP_CONTROL_FAULT_STRING);
+	if (upnpErrorNode == NULL) return FALSE;
+		
+	errDesc = cg_xml_node_getchildnodevalue(upnpErrorNode,
+				CG_UPNP_CONTROL_ERROR_DESCRIPTION);
+	errCode = cg_xml_node_getchildnodevalue(upnpErrorNode,
+				CG_UPNP_CONTROL_ERROR_CODE);
+		
+	if (errCode == NULL) return FALSE;
+		
+	cg_upnp_action_setstatusdescription(action, errDesc);
+	cg_upnp_action_setstatuscode(action, cg_str2int(errCode));
+		
 	return TRUE;
 }
 

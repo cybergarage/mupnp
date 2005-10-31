@@ -156,6 +156,7 @@ void cg_upnp_control_action_response_setresponse(CgUpnpActionResponse *actionRes
 
 CgXmlNode *cg_upnp_control_action_response_getactionresponsenode(CgUpnpActionResponse *actionRes);
 BOOL cg_upnp_control_action_response_getresult(CgUpnpActionResponse *actionRes, CgUpnpAction *action);
+BOOL cg_upnp_control_action_response_geterror(CgUpnpActionResponse *actionRes, CgUpnpAction *action);
 
 /****************************************
 * Function (QueryRequest)
