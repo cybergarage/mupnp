@@ -81,7 +81,7 @@ CgXmlAttribute *cg_xml_attributelist_get(CgXmlAttributeList *attrList, char *nam
 char *cg_xml_attributelist_getvalue(CgXmlAttributeList *attrList, char *name);
 
 /****************************************
-* Function (Attribure)
+* Function (Attributes)
 ****************************************/
 
 CgXmlAttribute *cg_xml_attribute_new();
@@ -171,6 +171,7 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 ****************************************/
 
 char *cg_xml_escapechars(CgString *str);
+char *cg_xml_unescapechars(CgString *str);
 
 
 #ifdef  __cplusplus
