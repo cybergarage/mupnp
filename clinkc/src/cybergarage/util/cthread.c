@@ -94,6 +94,9 @@ static void *PosixThreadProc(void *param)
 CgThread *cg_thread_new()
 {
 	CgThread *thread = (CgThread *)malloc(sizeof(CgThread));
+
+	cg_list_node_init((CgList *)thread);
+	
 	thread->runnableFlag = FALSE;
 	thread->action = NULL;
 	thread->userData = NULL;
@@ -107,6 +110,9 @@ CgThread *cg_thread_new()
 BOOL cg_thread_delete(CgThread *thread)
 {
 	cg_thread_stop(thread);
+
+	cg_list_remove((CgList *)thread);
+	
 	free(thread);
 	return TRUE;
 }

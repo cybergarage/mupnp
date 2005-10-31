@@ -10,6 +10,9 @@
 *
 *	05/09/05
 *		- first revision
+*	10/31/05
+*		- Thanks for Smolander Visa <visa.smolander@nokia.com>
+*		- Changed cg_upnp_control_action_request_createactionnode() to use the namespace.
 *
 *	10/31/05
 *		- Fixed not to include output-args in action request
@@ -168,13 +171,12 @@ CgXmlNode *cg_upnp_control_action_request_createactionnode(CgUpnpAction *action)
 	service = cg_upnp_action_getservice(action);
 	
 	actionNode = cg_xml_node_new();
+	/**** Thanks for Visa Smolander (10/31/2005) ****/
 	nameWithNamespace = cg_string_new();
 	cg_string_addvalue( nameWithNamespace, CG_UPNP_CONTROL_NS ":" );
 	cg_string_addvalue( nameWithNamespace, cg_upnp_action_getname(action) );
 	cg_xml_node_setname(actionNode, cg_string_getvalue( nameWithNamespace ) );
 	cg_string_delete( nameWithNamespace );
-
-	/* cg_xml_node_setname(actionNode, cg_upnp_action_getname(action)); */
 	cg_xml_node_setnamespace(actionNode, CG_UPNP_CONTROL_NS, cg_upnp_service_getservicetype(service));
 	
 	for (arg = cg_upnp_action_getarguments(action); arg; arg = cg_upnp_argument_next(arg)) {

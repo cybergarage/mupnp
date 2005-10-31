@@ -38,3 +38,31 @@ void cg_threadlist_delete(CgThreadList *threadList)
 	cg_threadlist_clear(threadList);
 	free(threadList);
 }
+
+/****************************************
+* cg_threadlist_start
+****************************************/
+
+BOOL cg_threadlist_start(CgThreadList *threadList)
+{
+	CgThreadList *thread;
+	
+	for (thread = cg_threadlist_gets(threadList); thread != NULL; thread = cg_thread_next(thread))
+		cg_thread_start(thread);
+
+	return TRUE;
+}
+
+/****************************************
+* cg_threadlist_stop
+****************************************/
+
+BOOL cg_threadlist_stop(CgThreadList *threadList)
+{
+	CgThreadList *thread;
+	
+	for (thread = cg_threadlist_gets(threadList); thread != NULL; thread = cg_thread_next(thread))
+		cg_thread_stop(thread);
+
+	return TRUE;
+}

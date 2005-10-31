@@ -10,6 +10,9 @@
 *
 *	02/07/05
 *		- first revision
+*	10/30/05
+*		- Thanks for Makela Aapo <aapo.makela@nokia.com>
+*		- Fixed a memory leak problem in the http client thread.
 *
 ******************************************************************/
 
@@ -38,6 +41,9 @@ CgHttpServer *cg_http_server_new()
 	httpServer->sock = NULL;
 	httpServer->acceptThread = NULL;
 	httpServer->listener = NULL;
+
+	/**** Thanks for Makela Aapo (10/31/05) ****/
+	httpServer->clientThreads = NULL;
 
 	cg_http_server_setuserdata(httpServer, NULL);
 		
@@ -134,7 +140,8 @@ static void cg_http_server_clientthread(CgThread *thread)
 	clientSock = clientData->clientSock;
 	
 	httpReq = cg_http_request_new();
-	while (cg_http_request_read(httpReq, clientSock) == TRUE) {
+	/**** Thanks for Makela Aapo (10/31/05) ****/
+	while (cg_http_request_read(httpReq, clientSock) == TRUE && cg_thread_isrunnable(thread) == TRUE) {
 		if (cg_debug_ison() == TRUE)
 			cg_http_request_print(httpReq);
 		if (httpServer->listener != NULL) {
@@ -149,6 +156,8 @@ static void cg_http_server_clientthread(CgThread *thread)
 	cg_http_request_delete(httpReq);
 	cg_socket_close(clientSock);
 	cg_socket_delete(clientSock);
+
+	cg_thread_delete(thread);
 }
 
 /****************************************
@@ -179,6 +188,10 @@ static void cg_http_server_thread(CgThread *thread)
 		httpClientThread = cg_thread_new();
 		cg_thread_setaction(httpClientThread, cg_http_server_clientthread);
 		cg_thread_setuserdata(httpClientThread, clientData);
+		
+		/**** Thanks for Makela Aapo (10/31/05) ****/
+		cg_threadlist_add(httpServer->clientThreads, httpClientThread);
+		
 		cg_thread_start(httpClientThread);		
 	}
 }
@@ -195,9 +208,18 @@ BOOL cg_http_server_start(CgHttpServer *httpServer)
 	httpServer->acceptThread = cg_thread_new();
 	cg_thread_setaction(httpServer->acceptThread, cg_http_server_thread);
 	cg_thread_setuserdata(httpServer->acceptThread, httpServer);
+
+	/**** Thanks for Makela Aapo (10/31/05) ****/
+	httpServer->clientThreads = cg_threadlist_new();
+
 	if (cg_thread_start(httpServer->acceptThread) == FALSE) {
 		cg_thread_delete(httpServer->acceptThread);
 		httpServer->acceptThread = NULL;
+
+		/**** Thanks for Makela Aapo (10/31/05) ****/
+		cg_threadlist_delete(httpServer->clientThreads);
+		httpServer->clientThreads = NULL;
+
 		return FALSE;
 	}
 
@@ -214,6 +236,12 @@ BOOL cg_http_server_stop(CgHttpServer *httpServer)
 		cg_thread_stop(httpServer->acceptThread);
 		cg_thread_delete(httpServer->acceptThread);
 		httpServer->acceptThread = NULL;
+	}
+	/**** Thanks for Makela Aapo (10/31/05) ****/
+	if (httpServer->clientThreads != NULL) {
+		cg_threadlist_stop(httpServer->clientThreads);
+		cg_threadlist_delete(httpServer->clientThreads);
+		httpServer->clientThreads = NULL;
 	}
 	return TRUE;
 }

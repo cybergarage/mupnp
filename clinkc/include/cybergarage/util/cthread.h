@@ -86,7 +86,6 @@ typedef struct _CgThread {
 
 	/** Arbitrary data pointer */
 	void *userData;
-
 } CgThread, CgThreadList;
 
 /**
@@ -209,6 +208,20 @@ void cg_threadlist_delete(CgThreadList *threadList);
  * \param thread The thread to add to the list
  */
 #define cg_threadlist_add(threadList, thread) cg_list_add((CgList *)threadList, (CgList *)thread)
+
+/**
+ * Start all threads in the thread list
+ *
+ * \param threadList The thread list in question
+ */
+BOOL cg_threadlist_start(CgThreadList *threadList);
+
+/**
+ * Stop all threads in the thread list
+ *
+ * \param threadList The thread list in question
+ */
+BOOL cg_threadlist_stop(CgThreadList *threadList);
 
 #ifdef  __cplusplus
 

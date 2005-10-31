@@ -24,6 +24,7 @@ CLINKCUTILSRC = \
 	$(CLINKCSRCROOT)/util/cstring_function.c \
 	$(CLINKCSRCROOT)/util/cstring_tokenizer.c \
 	$(CLINKCSRCROOT)/util/cthread.c \
+	$(CLINKCSRCROOT)/util/cthread_list.c \
 	$(CLINKCSRCROOT)/util/ctime.c
 
 CLINKCNETSRC = \

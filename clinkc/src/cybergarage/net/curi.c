@@ -14,8 +14,11 @@
 *		- Thanks for Theo Beisch <theo.beisch@gmx.de>
 *		- Change cg_net_uri_new() to set "/" as the default path.
 *		- Changed cg_net_uri_set() to check a ":" and "@" in the password.
-*
-*
+*	10/30/05
+*		- Thanks for Smolander Visa <visa.smolander@nokia.com>
+*		- Changed cg_net_uri_set(). Even a slash wasn't found in URL, 
+*		  so it represents only a  part of path. Put slash infront and 
+*		  append rest of the string.
 *	10/31/05
 *		- cg_net_uri_set: Accepts URI (as a path), which doesn't have
 *		  a slash.
@@ -169,13 +172,12 @@ void cg_net_uri_set(CgNetURI *uri, char *value)
 	
 	if (shashIdx < 0)
 	{
-		/* Even a slash wasn't found in URL, so it represents only a
-		 part of path. Put slash infront and append rest of the string */
+		/**** Thanks for Visa Smolander (10/30/2005) ****/
 		cg_string_setvalue(uri->path, CG_NET_URI_SLASH_DELIM);
 		cg_string_addvalue(uri->path, value);
-
-		return;
+ 		return;
 	}
+
 	currIdx += shashIdx;
 	
 	/**** Path (Query/Fragment) ****/

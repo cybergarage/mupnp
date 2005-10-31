@@ -385,6 +385,10 @@ SOURCE=..\..\..\src\cybergarage\util\cthread.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\cybergarage\util\cthread_list.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\cybergarage\util\ctime.c
 # End Source File
 # Begin Source File
