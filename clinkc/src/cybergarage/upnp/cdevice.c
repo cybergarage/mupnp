@@ -18,6 +18,7 @@
 *		- cg_upnp_device_getdevicebyname: Changed dev to childDev in for
 *		- cg_upnp_device_byebyefrom & _announcefrom: Added missing 
 *		  advertisement and byebye messages
+*		- Added EXT handling to postsearchresponse
 *
 ******************************************************************/
 
@@ -668,6 +669,7 @@ BOOL cg_upnp_device_postsearchresponse(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdp
 	char *remoteAddr;
 	int remotePort;
 	char rootDevLocation[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char serverBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
 	int ssdpMx;
 	int ssdpCount;
 	CgUpnpSSDPSocket *ssdpSock;
@@ -681,6 +683,11 @@ BOOL cg_upnp_device_postsearchresponse(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdp
 	cg_upnp_ssdpresponse_setleasetime(ssdpRes, cg_upnp_device_getleasetime(dev));
 	cg_upnp_ssdpresponse_setdate(ssdpRes, cg_http_getdate(cg_getcurrentsystemtime(), httpDateStr, sizeof(httpDateStr)));
 	cg_upnp_ssdpresponse_setst(ssdpRes, st);
+
+	cg_upnp_ssdpresponse_setext(ssdpRes);
+	cg_upnp_getservername(serverBuf, CG_UPNP_SSDP_HEADER_LINE_MAXSIZE);
+	cg_upnp_ssdpresponse_setserver(ssdpRes, serverBuf);
+
 	cg_upnp_ssdpresponse_setusn(ssdpRes, usn);
 	cg_upnp_ssdpresponse_setlocation(ssdpRes, rootDevLocation);
 
