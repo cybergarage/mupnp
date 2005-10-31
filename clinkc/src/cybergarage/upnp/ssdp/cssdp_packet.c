@@ -11,6 +11,9 @@
 *	06/01/05
 *		- first revision
 *
+*	10/31/05
+*		- Delete also ssdpTok in cg_upnp_ssdp_packet_set_header()
+
 ******************************************************************/
 
 #include <cybergarage/upnp/ssdp/cssdp_server.h>
@@ -111,6 +114,8 @@ void cg_upnp_ssdp_packet_setheader(CgUpnpSSDPPacket *ssdpPkt, char *ssdpMsg)
 		}
 		cg_string_tokenizer_delete(ssdpLineTok);
 	}
+
+	cg_string_tokenizer_delete(ssdpTok);
 }
 
 /****************************************
