@@ -15,7 +15,9 @@
 *		- Added cg_upnp_device_getservicebysid().
 *
 *	10/31/05
-*		- cg_upnp_device_getdevicebyname: Changed dev to childDev in for-loop
+*		- cg_upnp_device_getdevicebyname: Changed dev to childDev in for
+*		- cg_upnp_device_byebyefrom & _announcefrom: Added missing 
+*		  advertisement and byebye messages
 *
 ******************************************************************/
 
@@ -521,6 +523,11 @@ BOOL cg_upnp_device_announcefrom(CgUpnpDevice *dev, char *bindAddr)
 	/**** uuid:device-UUID::urn:schemas-upnp-org:device:deviceType:v ****/
 	cg_upnp_ssdprequest_setnt(ssdpReq, cg_upnp_device_getnotifydevicetypent(dev, ssdpLineBuf, sizeof(ssdpLineBuf)));
 	cg_upnp_ssdprequest_setusn(ssdpReq, cg_upnp_device_getnotifydevicetypeusn(dev, ssdpLineBuf, sizeof(ssdpLineBuf)));
+	cg_upnp_ssdp_socket_notifyfrom(ssdpSock, ssdpReq, bindAddr);
+
+	/**** root or embedded device UUID ****/
+	cg_upnp_ssdprequest_setnt(ssdpReq, cg_upnp_device_getudn(dev));
+	cg_upnp_ssdprequest_setusn(ssdpReq, cg_upnp_device_getudn(dev));
 	sentResult = cg_upnp_ssdp_socket_notifyfrom(ssdpSock, ssdpReq, bindAddr);
 	
 	cg_upnp_ssdprequest_delete(ssdpReq);
@@ -598,6 +605,11 @@ BOOL cg_upnp_device_byebyefrom(CgUpnpDevice *dev, char *bindAddr)
 	/**** uuid:device-UUID::urn:schemas-upnp-org:device:deviceType:v ****/
 	cg_upnp_ssdprequest_setnt(ssdpReq, cg_upnp_device_getnotifydevicetypent(dev, ssdpLineBuf, sizeof(ssdpLineBuf)));
 	cg_upnp_ssdprequest_setusn(ssdpReq, cg_upnp_device_getnotifydevicetypeusn(dev, ssdpLineBuf, sizeof(ssdpLineBuf)));
+	cg_upnp_ssdp_socket_notifyfrom(ssdpSock, ssdpReq, bindAddr);
+
+	/**** root or embedded device UUID ****/
+	cg_upnp_ssdprequest_setnt(ssdpReq, cg_upnp_device_getudn(dev));
+	cg_upnp_ssdprequest_setusn(ssdpReq, cg_upnp_device_getudn(dev));
 	sentResult = cg_upnp_ssdp_socket_notifyfrom(ssdpSock, ssdpReq, bindAddr);
 
 	cg_upnp_ssdprequest_delete(ssdpReq);
