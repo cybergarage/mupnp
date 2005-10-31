@@ -11,6 +11,9 @@
 *	01/17/05
 *		- first revision
 *
+*	10/31/05
+*		- Added comments to all functions and structs
+*
 ******************************************************************/
 
 #ifndef _CG_UTIL_CMUTEX_H_
@@ -37,9 +40,15 @@ extern "C" {
 #endif
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Types
+ ****************************************/
 
+/**
+ * \brief The generic wrapper struct for CyberLinkC's mutexes.
+ *
+ * This wrapper has been created to enable 100% code
+ * compatibility for different platforms (Linux, Win32 etc..)
+ */
 typedef struct _CgMutex {
 #if defined(WIN32) && !defined(ITRON)
 	HANDLE	mutexID;
@@ -52,21 +61,45 @@ typedef struct _CgMutex {
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 	WERR	mutexID;
 #else
+	/** The mutex entity */
 	pthread_mutex_t mutexID;
 #endif
 } CgMutex;
 
 /****************************************
-* Function
-****************************************/
+ * Functions
+ ****************************************/
 
+/** 
+ * Create a new mutex
+ */
 CgMutex *cg_mutex_new();
+
+/** 
+ * Destroy a mutex
+ *
+ * \param mutex The mutex to destroy
+ */
 BOOL cg_mutex_delete(CgMutex *mutex);
+
+/** 
+ * Acquire a mutex lock
+ *
+ * \param mutex Mutex to lock
+ */
 BOOL cg_mutex_lock(CgMutex *mutex);
+
+/** 
+ * Release a locked mutex
+ *
+ * \param mutex Mutex to unlock
+ */
 BOOL cg_mutex_unlock(CgMutex *mutex);
 
 #ifdef  __cplusplus
-}
+
+} /* extern "C" */
+
 #endif
 
 #endif
