@@ -153,6 +153,7 @@ typedef struct _CgHttpServer {
 	struct _CgHttpServer *next;
 	CgSocket *sock;
 	CgThread *acceptThread;
+	CgThread *clientThreads;
 	CG_HTTP_LISTENER listener;
 	void *userData;
 } CgHttpServer, CgHttpServerList;

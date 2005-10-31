@@ -13,10 +13,9 @@
 *	08/25/05
 *		- Thanks for Theo Beisch <theo.beisch@gmx.de>
 *		- Changed cg_upnp_controlpoint_geteventsubcallbackurl() to add < and > around callbackurl per UPnP def.
-*	09/06/06
+*	09/06/05
 *		- Thanks for Smolander Visa <visa.smolander@nokia.com>
 *		- Added cg_upnp_controlpoint_setuserdata() and cg_upnp_controlpoint_getuserdatga().
-*
 *	10/31/05
 *		- Fixed severe bug in getting child devices
 *
