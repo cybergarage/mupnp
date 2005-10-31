@@ -11,6 +11,11 @@
 *	05/17/05
 *		- first revision
 *
+*
+*	10/31/05
+*		- cg_upnp_action_post: If action post was unsuccessful, put the 
+*		  error message to the action response
+*
 ******************************************************************/
 
 #include <cybergarage/upnp/control/ccontrol.h>
@@ -89,8 +94,12 @@ BOOL cg_upnp_action_post(CgUpnpAction *action)
 	actionRes = cg_upnp_control_action_request_post(actionReq);
 	actionSuccess = cg_upnp_control_action_response_issuccessful(actionRes);
 	if (actionSuccess == TRUE) {
-		if (cg_upnp_control_action_response_getresult(actionRes, action) == FALSE)
+		if (cg_upnp_control_action_response_getresult(actionRes, action) == FALSE) {
 			actionSuccess = FALSE;
+		}
+	} else {
+		/* Action was unsuccesful, but put the error to the action */
+		cg_upnp_control_action_response_geterror(actionRes, action);
 	}
 
 	cg_upnp_control_action_request_delete(actionReq);
