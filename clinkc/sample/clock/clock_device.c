@@ -10,6 +10,9 @@
 *       05/11/05
 *               - first release.
 *
+*	10/31/05
+*		- Removed :schemas: from clock service description
+*
 ************************************************************/
 
 #ifdef HAVE_CONFIG_H
@@ -56,7 +59,7 @@ char *CLOCK_DEVICE_DESCRIPTION =
 " 		<serviceList>\n"
 " 			<service>\n"
 " 				<serviceType>urn:schemas-upnp-org:service:timer:1</serviceType>\n"
-" 				<serviceId>urn:schemas-upnp-org:serviceId:timer:1</serviceId>\n"
+" 				<serviceId>urn:upnp-org:serviceId:timer:1</serviceId>\n"
 " 				<SCPDURL>/service/timer/description.xml</SCPDURL>\n"
 " 				<controlURL>/service/timer/control</controlURL>\n"
 " 				<eventSubURL>/service/timer/eventSub</eventSubURL>\n"
