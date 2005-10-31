@@ -10,6 +10,9 @@
 *       05/11/05
 *               - first release.
 *
+*	10/31/05
+*		- Added some M-SEARCH sending actions
+*
 ************************************************************/
 
 #include <cybergarage/upnp/cupnp.h>
@@ -57,6 +60,10 @@ void PrintKeyMessage()
 	printf("'s' : Subscribe\n");
 	printf("'u' : Unsubscribe\n");
 #endif
+	printf("'r' : M-Search (rootdevice)\n");
+	printf("'h' : M-Search (ssdp:all)\n");
+	printf("'v' : M-Search (urn:schemas-upnp-org:device:clock:1)\n");
+	printf("'t' : M-Search (urn:schemas-upnp-org:service:timer:1)\n");
 	printf("'x' : eXit\n");
 }
 
@@ -443,6 +450,7 @@ int main( int argc, char* argv[] )
 {
 	CgUpnpControlPoint *ctrlPoint;
 	int key;
+	cg_debug_on();
 	
 	ctrlPoint = cg_upnp_controlpoint_new();
 	cg_upnp_controlpoint_setssdplistener(ctrlPoint, SSDPNotifyListner);
@@ -486,6 +494,22 @@ int main( int argc, char* argv[] )
 			UnsubscribeService(ctrlPoint);
 			break;
 #endif
+		case 'R':
+	          printf("M-Search upnp::rootdevice\n");
+		  cg_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
+		  break;
+		case 'H':
+	          printf("M-Search ssdp:all\n");
+		  cg_upnp_controlpoint_search(ctrlPoint, "ssdp:all");
+		  break;
+		case 'V':
+	          printf("M-Search device type\n");
+		  cg_upnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:device:clock:1");
+		  break;
+		case 'T':
+	          printf("M-Search service type\n");
+		  cg_upnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:service:timer:1");
+		  break;
 		case 'X':
 			break;
 		default:
