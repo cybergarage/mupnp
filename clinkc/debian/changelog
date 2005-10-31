@@ -1,0 +1,18 @@
+clinkc (1.0-3) unstable; urgency=low
+
+  * Added to sf.net CVS
+
+ -- Heikki Junnila <ext-heikki.junnila@nokia.com>  Mon, 31 Oct 2005 16:08:23 +0200
+
+clinkc (1.0-2) unstable; urgency=low
+
+  * Fixed Debian building.
+
+ -- Aapo Makela <aapo.makela@nokia.com>  Wed,  5 Oct 2005 12:57:28 +0300
+
+clinkc (1.0-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Aapo Makela <aapo.makela@nokia.com>  Mon, 22 Aug 2005 14:25:06 +0300
+
