@@ -11,6 +11,10 @@
 *	05/31/05
 *		- first revision
 *
+*	10/31/05
+*		- Changed "continue;" to "return FALSE;" in serverlist_open
+*		  to indicate that port allocation was unsuccessful
+*
 ******************************************************************/
 
 #include <cybergarage/upnp/ssdp/cssdp_server.h>
@@ -70,7 +74,7 @@ BOOL cg_upnp_ssdpresponse_serverlist_open(CgUpnpSSDPResponseServerList *ssdpServ
 		ssdpServer = cg_upnp_ssdpresponse_server_new();
 		if (cg_upnp_ssdpresponse_server_open(ssdpServer, bindPort, bindAddr) == FALSE) {
 			cg_upnp_ssdpresponse_server_delete(ssdpServer);
-			continue;
+			return FALSE; /* continue; */
 		}
 		cg_upnp_ssdpresponse_serverlist_add(ssdpServerList, ssdpServer);
 	}
