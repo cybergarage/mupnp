@@ -14,8 +14,12 @@
 *		- Thanks for Visa Smolander <visa.smolander@nokia.com>
 *		- Changed cg_thread_start() to set the flag at first.
 *
+*	10/31/05
+*		- Added a signal handler to block all signals to posix threads
+*
 ******************************************************************/
 
+#include <signal.h>
 #include <cybergarage/util/cthread.h>
 
 /****************************************
@@ -69,7 +73,14 @@ static VOID TEngineProcessBasedTaskProc(W param)
 #else
 static void *PosixThreadProc(void *param)
 {
+	sigset_t set;
 	CgThread *thread = (CgThread *)param;
+
+	/* Set signal handling for this thread; block all signals to
+	 * prevent premature death */
+	sigfillset(&set);
+	pthread_sigmask(SIG_SETMASK, &set, NULL);
+
 	if (thread->action != NULL)
 		thread->action(thread);
 	return 0;
