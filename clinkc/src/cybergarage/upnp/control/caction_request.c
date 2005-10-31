@@ -11,9 +11,9 @@
 *	05/09/05
 *		- first revision
 *
-*
 *	10/31/05
 *		- Fixed not to include output-args in action request
+*		- Fixed some namespace stuff during merge
 ******************************************************************/
 
 #include <cybergarage/upnp/control/ccontrol.h>
@@ -99,6 +99,8 @@ void cg_upnp_control_action_request_setsoaprequest(CgUpnpActionRequest *actionRe
 	for (argNode = cg_xml_node_getchildnodes(actionNode); argNode != NULL; argNode = cg_xml_node_next(argNode)) {
 		arg = cg_upnp_argument_new();
 		cg_upnp_argument_setargumentnode(arg, argNode);
+		cg_upnp_argument_setname(arg, cg_xml_node_getname( argNode ) );
+		cg_upnp_argument_setvalue(arg, cg_xml_node_getvalue( argNode ) );
 		cg_upnp_argumentlist_add(actionReq->argList, arg);
 	}
 
@@ -161,21 +163,26 @@ CgXmlNode *cg_upnp_control_action_request_createactionnode(CgUpnpAction *action)
 	CgXmlNode *actionNode;
 	CgUpnpArgument *arg;
 	CgXmlNode *argNode;
+	CgString *nameWithNamespace;
 		
 	service = cg_upnp_action_getservice(action);
 	
 	actionNode = cg_xml_node_new();
-	cg_xml_node_setname(actionNode, cg_upnp_action_getname(action));
+	nameWithNamespace = cg_string_new();
+	cg_string_addvalue( nameWithNamespace, CG_UPNP_CONTROL_NS ":" );
+	cg_string_addvalue( nameWithNamespace, cg_upnp_action_getname(action) );
+	cg_xml_node_setname(actionNode, cg_string_getvalue( nameWithNamespace ) );
+	cg_string_delete( nameWithNamespace );
+
+	/* cg_xml_node_setname(actionNode, cg_upnp_action_getname(action)); */
 	cg_xml_node_setnamespace(actionNode, CG_UPNP_CONTROL_NS, cg_upnp_service_getservicetype(service));
 	
 	for (arg = cg_upnp_action_getarguments(action); arg; arg = cg_upnp_argument_next(arg)) {
-		/* Don't include output args in the request */
-		if (cg_upnp_argument_isindirection(arg) == FALSE) {
+		if (cg_upnp_argument_isindirection(arg) == FALSE)
 			continue;
-		}
 		argNode = cg_xml_node_new();
-		cg_xml_node_setname(argNode, cg_upnp_argument_getname(arg));
-		cg_xml_node_setvalue(argNode, cg_upnp_argument_getvalue(arg));
+		cg_xml_node_setname(argNode, cg_upnp_argument_getname(arg));			
+		cg_xml_node_setvalue(argNode, cg_upnp_argument_getvalue(arg));			
 		cg_xml_node_addchildnode(actionNode, argNode);
 	}
 	
