@@ -11,6 +11,10 @@
 *	01/25/05
 *		- first revision
 *
+*	10/31/05
+*		- Changed CHttpHeader* pointers to CHttpServer* pointers
+*		  in CHttpServer struct.
+*
 ******************************************************************/
 
 #ifndef _CG_HTTP_CHTTP_H_
@@ -145,8 +149,8 @@ typedef void (*CG_HTTP_LISTENER)(CgHttpRequest *);
 
 typedef struct _CgHttpServer {
 	BOOL headFlag;
-	struct _CgHttpHeader *prev;
-	struct _CgHttpHeader *next;
+	struct _CgHttpServer *prev;
+	struct _CgHttpServer *next;
 	CgSocket *sock;
 	CgThread *acceptThread;
 	CG_HTTP_LISTENER listener;
