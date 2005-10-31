@@ -13,7 +13,6 @@
 *	09/11/05
 *		- Thanks for Visa Smolander <visa.smolander@nokia.com>
 *		- Changed cg_thread_start() to set the flag at first.
-*
 *	10/31/05
 *		- Added a signal handler to block all signals to posix threads
 *

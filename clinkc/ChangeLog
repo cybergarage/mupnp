@@ -20,6 +20,7 @@
 	* Added libtool support to configure.in
 	* Added debian package creation support to configure.in and Makefile.am
 	* cg_upnp_ssdpresponse_serverlist_open returns FALSE immediately if port opening fails
+	* Fixed a memory leak problem in the http client thread.
 
 2005-10-13  Satoshi Konno <skonno@cybergarage.org>
 
