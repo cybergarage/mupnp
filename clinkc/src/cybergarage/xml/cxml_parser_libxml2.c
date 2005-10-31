@@ -12,9 +12,13 @@
 *		- first version
 *		- The functions are created using a contribution from
 *		  Smolander Visa <visa.smolander@nokia.com> to CyberLink for C++.
-*	09/07/05
-*		- Thanks for  Smolander Visa <visa.smolander@nokia.com>
-*		- Fixed some bugs to parser the name spaces.
+*       09/07/05
+*               - Thanks for  Smolander Visa <visa.smolander@nokia.com>
+*               - Fixed some bugs to parser name spaces.
+*
+*       10/31/05
+*               - Added performance measurement functionality under
+*                 SHOW_TIMINGS macro (not enabled by default)
 *
 ******************************************************************/
 
@@ -36,6 +40,13 @@
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
+
+#ifdef SHOW_TIMINGS
+#include <sys/time.h>
+#include <time.h>
+
+extern long int cg_total_elapsed_time;
+#endif
 
 /****************************************
 * cg_libxml2_parse
@@ -135,7 +146,12 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 	xmlDocPtr doc;
 	xmlNodePtr cur;
 	BOOL parseSuccess;
-
+#ifdef SHOW_TIMINGS
+	struct timeval start_time, end_time, elapsed_time;
+	
+	gettimeofday(&start_time, NULL);
+#endif	
+	
 	// First, parse the XML memory buffer ito a DOM object
 	doc = xmlParseMemory( data, len );
 	if ( doc == NULL )
@@ -154,6 +170,16 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 	// Now all data is copied to CyberLink, release the original DOM object tree
 	xmlFreeDoc(doc);
 
+#ifdef SHOW_TIMINGS
+	gettimeofday(&end_time, NULL);
+	timersub(&end_time, &start_time, &elapsed_time);
+	printf("Parsing XML completed. Elapsed time: "
+	       "%ld msec\n", ((elapsed_time.tv_sec*1000) + 
+			      (elapsed_time.tv_usec/1000)));
+	cg_total_elapsed_time += (elapsed_time.tv_sec*1000000)+
+				 (elapsed_time.tv_usec);
+	printf("Total elapsed time: %ld msec\n", cg_total_elapsed_time / 1000);
+#endif	
 	return parseSuccess;
 }
 
