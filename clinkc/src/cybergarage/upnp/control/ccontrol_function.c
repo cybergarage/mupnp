@@ -15,7 +15,7 @@
 *		- Fixed cg_upnp_control_soap_response_createfaultresponsenode() to set
 *		  the namespace attribute in the response <UPnPError> node.
 *
-*************************************\*****************************/
+*****************************************************************/
 
 #include <cybergarage/upnp/control/ccontrol.h>
 
