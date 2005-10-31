@@ -18,6 +18,9 @@
 *		  cg_upnp_event_subscription_request_setunsubscription()
 *		- Change cg_upnp_event_subscription_request_setservice() to add / to preceede relative path statement (required e.g. for intel devices).
 *
+*	10/31/05
+*		- cg_upnp_event_subscription_request_setservice:
+*		  changed eventSubURLStr[1] to [0]
 ******************************************************************/
 
 #include <cybergarage/upnp/event/cevent.h>
@@ -89,7 +92,7 @@ static void cg_upnp_event_subscription_request_setservice(CgUpnpSubscriptionRequ
 	}
 	else {
 		/**** Thanks for Theo Beisch (2005/08/25) ****/
-		if (0 < cg_strlen(eventSubURLStr) && eventSubURLStr[1] != '/') {
+		if (0 < cg_strlen(eventSubURLStr) && eventSubURLStr[0] != '/') {
 			relativeEventSubURLStr = cg_string_new();
 			cg_string_addvalue(relativeEventSubURLStr, "/");
 			cg_string_addvalue(relativeEventSubURLStr, eventSubURLStr);
