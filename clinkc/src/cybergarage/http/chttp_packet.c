@@ -219,20 +219,16 @@ void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock)
 }
 
 /****************************************
-* cg_http_packet_read
+* cg_http_packet_read_headers
 ****************************************/
 
-BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize)
+void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize)
 {
 	CgStringTokenizer *strTok;
 	CgHttpHeader *header;
 	int readLen;
 	char *name, *value;
-	long conLen;
-	char *content;
-	CgString *contentStr;
-	char readChar[2];
-
+	
 	cg_http_packet_clear(httpPkt);
 
 	while (1) {
@@ -258,17 +254,43 @@ BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, i
 		}
 		cg_string_tokenizer_delete(strTok);
 	}
+}
+
+/****************************************
+* cg_http_packet_read_body
+****************************************/
+
+BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize)
+{
+	int readLen;
+	long conLen;
+	char *content;
+	CgString *contentStr;
+	char readChar[2];
+	int tries = 0;
 
 	conLen = cg_http_packet_getcontentlength(httpPkt);
 	content = NULL;
 	if (0 < conLen) {
 		content = (char *)malloc(conLen+1);
-		readLen = cg_socket_read(sock, content, conLen);
+		readLen = 0;
+		
+		/* Read content until conLen is reached, or tired of trying */
+		while (readLen < conLen && tries < 20)
+		{
+			readLen += cg_socket_read(sock, (content+readLen), (conLen-readLen));
+			tries++;
+		}
+		
 		if (readLen <= 0)
 			return TRUE;
 		content[readLen] = '\0';
 	}
-	else {
+	else if (cg_http_packet_getheadervalue(httpPkt, 
+					CG_HTTP_CONTENT_LENGTH) == NULL)
+	{
+		/* header existance must be checked! otherwise packets which
+		   rightly report 0 as content length, will jam the http */
 #if defined(CG_HTTP_SUPPORT_NO_CONTENTLENGTH_REQUEST)
 		contentStr = cg_string_new();
 		cg_string_setfreeflag(contentStr, FALSE);
@@ -283,8 +305,18 @@ BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, i
 	}
 
 	cg_http_packet_setcontentpointer(httpPkt, content);
-	
 	return TRUE;
+}
+
+/****************************************
+* cg_http_packet_read
+****************************************/
+
+BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize)
+{
+	cg_http_packet_read_headers(httpPkt, sock, lineBuf, lineBufSize);
+	
+	return cg_http_packet_read_body(httpPkt, sock, lineBuf, lineBufSize);
 }
 
 /****************************************

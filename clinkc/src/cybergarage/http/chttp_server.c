@@ -149,8 +149,10 @@ static void cg_http_server_clientthread(CgThread *thread)
 			cg_http_request_setuserdata(httpReq, httpServerUserData);
 			httpServer->listener(httpReq);
 		}
-		if (cg_http_request_iskeepaliveconnection(httpReq) == FALSE)
-			break;
+
+		/* TODO: HTTP 1.1 persistent connections */
+		/*if (cg_http_request_iskeepaliveconnection(httpReq) == FALSE) */
+		break;
 	}
 	cg_http_server_clientdata_delete(clientData);
 	cg_http_request_delete(httpReq);

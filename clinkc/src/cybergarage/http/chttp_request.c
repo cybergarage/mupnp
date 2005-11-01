@@ -21,8 +21,15 @@
 #include <cybergarage/http/chttp.h>
 #include <cybergarage/net/csocket.h>
 
-#if defined(CG_HTTP_CURL)
+#ifdef CG_HTTP_CURL
 #include <curl/curl.h>
+#endif
+
+#ifdef SHOW_TIMINGS
+#include <sys/time.h>
+#include <time.h>
+
+long int cg_total_elapsed_time;
 #endif
 
 /****************************************
@@ -160,7 +167,9 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 
 	CgSocket *sock;
 	char *method, *uri, *version;
-		
+#ifdef SHOW_TIMINGS
+	struct timeval start_time, end_time, elapsed_time;
+#endif		
 	cg_http_response_clear(httpReq->httpRes);
 	
 	sock = cg_socket_stream_new();
@@ -181,6 +190,10 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 		return httpReq->httpRes;		
 	}	
 	
+#ifdef SHOW_TIMINGS	
+	printf("\nRequest: %s%s%s:%d%s%s%s\n", method, CG_HTTP_SP, ipaddr, port, uri, CG_HTTP_SP, version);
+	gettimeofday(&start_time, NULL);
+#endif
 	/**** send first line ****/
 	cg_socket_write(sock, method, cg_strlen(method));
 	cg_socket_write(sock, CG_HTTP_SP, sizeof(CG_HTTP_SP)-1);
@@ -194,7 +207,16 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	
 	/**** read response ****/
 	cg_http_response_read(httpReq->httpRes, sock);
-	
+
+#ifdef SHOW_TIMINGS	
+	gettimeofday(&end_time, NULL);
+	timersub(&end_time, &start_time, &elapsed_time);
+	printf("Getting HTTP-response completed. Elapsed time: "
+	       "%ld msec\n", ((elapsed_time.tv_sec*1000) + 
+			      (elapsed_time.tv_usec/1000)));
+	cg_total_elapsed_time += (elapsed_time.tv_sec*1000000)+
+				 (elapsed_time.tv_usec);
+#endif
 	cg_socket_close(sock);
 	cg_socket_delete(sock);	
 	
@@ -315,7 +337,14 @@ BOOL cg_http_request_read(CgHttpRequest *httpReq, CgSocket *sock)
 		cg_http_request_setversion(httpReq, cg_string_tokenizer_nexttoken(strTok));
 	cg_string_tokenizer_delete(strTok);
 
-	cg_http_packet_read((CgHttpPacket *)httpReq, sock, lineBuf, sizeof(lineBuf));
+	/* Read headers */
+	cg_http_packet_read_headers((CgHttpPacket *)httpReq, sock, lineBuf, sizeof(lineBuf));
+	
+	/* HTTP-request must have Content-Length or Transfer-Encoding header
+	   in order to have body */
+	if (cg_http_packet_hasheader((CgHttpPacket *)httpReq, CG_HTTP_CONTENT_LENGTH) ||
+	    cg_http_packet_hasheader((CgHttpPacket *)httpReq, CG_HTTP_TRANSFER_ENCODING))
+		cg_http_packet_read_body((CgHttpPacket *)httpReq, sock, lineBuf, sizeof(lineBuf));
 	
 	return TRUE;
 }

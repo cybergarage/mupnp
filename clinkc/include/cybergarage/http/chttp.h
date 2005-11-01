@@ -226,6 +226,8 @@ int cg_http_packet_getheadersize(CgHttpPacket *httpPkt);
 #define cg_http_packet_getcontent(httpPkt) cg_string_getvalue(httpPkt->content)
 
 void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock);
+void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
+BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
 BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
 
 /**** Content-Length ****/
