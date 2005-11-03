@@ -222,6 +222,8 @@ int cg_http_packet_getheadersize(CgHttpPacket *httpPkt);
 
 #define cg_http_packet_setcontent(httpPkt, value) cg_string_setvalue(httpPkt->content, value)
 #define cg_http_packet_setncontent(httpPkt, value, len) cg_string_setnvalue(httpPkt->content, value, len)
+/* hjunnila */
+#define cg_http_packet_appendncontent(httpPkt, value, len) cg_string_naddvalue(httpPkt->content, value, len)
 #define cg_http_packet_setcontentpointer(httpPkt, value) cg_string_setpointervalue(httpPkt->content, value)
 #define cg_http_packet_getcontent(httpPkt) cg_string_getvalue(httpPkt->content)
 
@@ -355,6 +357,9 @@ BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock);
 
 #define cg_http_response_setcontent(httpRes,value) cg_http_packet_setcontent(((CgHttpPacket*)httpRes),value)
 #define cg_http_response_setncontent(httpRes,value, len) cg_http_packet_setncontent(((CgHttpPacket*)httpRes),value, len)
+/* hjunnila */
+#define cg_http_response_appendncontent(httpRes, value, len) cg_http_packet_appendncontent(((CgHttpPacket*) httpRes), value, len)
+
 #define cg_http_response_setcontentpointer(httpRes,value) cg_http_packet_setcontentpointer(((CgHttpPacket*)httpRes),value)
 #define cg_http_response_getcontent(httpRes) cg_http_packet_getcontent(((CgHttpPacket*)httpRes))
 #define cg_http_response_getheaders(p) cg_http_packet_getheaders((CgHttpPacket*)p)

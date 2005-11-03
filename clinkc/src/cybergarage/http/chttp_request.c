@@ -237,15 +237,10 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 
 static size_t cg_http_request_post_callback(void *ptr, size_t size, size_t nmemb, void *data)
 {
-	CgHttpResponse *httpRes;
-	size_t realsize;
+	/* Append the data */
+	cg_http_response_appendncontent((CgHttpResponse*) data, ptr, size * nmemb);
 
-	httpRes = (CgHttpResponse *)data;
-	realsize = size * nmemb;
-	cg_http_response_setncontent(httpRes, ptr, realsize);
-	cg_http_response_setcontentlength(httpRes, realsize);
-
-	return realsize;
+	return size * nmemb;
 }
 
 CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int port)
@@ -261,6 +256,10 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	long retcode;
 
 	httpRes = httpReq->httpRes;
+
+	/* Clear the response data because new data will not
+	 * overwrite it, but it is appended to the end */
+	cg_string_clear(httpRes->content);
 
 	curl = curl_easy_init();
 	if (curl == NULL)
@@ -302,8 +301,12 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	/**** useragent ****/
 	curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
 
+	/* Get the XML document with CURL */
 	res = curl_easy_perform(curl);
-    
+
+	/* Set the content length here, when we really know it */
+	cg_http_response_setcontentlength(httpRes, cg_string_length(httpRes->content));
+
 	curl_slist_free_all(curlHeaderList); 
 
 	curl_easy_getinfo (curl, CURLINFO_HTTP_CODE, &retcode);
