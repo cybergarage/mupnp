@@ -4,7 +4,7 @@ else
 lib_LIBRARIES = libclinkc.a
 endif
 
-INCLUDES = -I$(top_srcdir)/include @XML_CFLAGS@
+INCLUDES = -I$(top_srcdir)/include @XML_CFLAGS@ @HTTP_CFLAGS@
 
 ########################################
 # CyberLink
@@ -112,10 +112,10 @@ nobase_libclinkcinclude_HEADERS =  \
 if HAVE_LIBTOOL
 libclinkc_la_SOURCES = \
         $(clinkc_source)
-libclinkc_la_LIBADD = @XML_LIBS@
+libclinkc_la_LIBADD = @HTTP_LIBS@ @XML_LIBS@
 else
 libclinkc_a_SOURCES = \
         $(clinkc_source)
 libclinkc_a_CFLAGS = $(AM_CFLAGS)
-libclinkc_a_LIBADD = @XML_LIBS@
+libclinkc_a_LIBADD = @HTTP_LIBS@ @XML_LIBS@
 endif

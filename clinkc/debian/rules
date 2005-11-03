@@ -36,7 +36,7 @@ major=`ls lib/unix/.libs/lib*.so.* | \
 config.status: configure
 	dh_testdir
 	# Add here commands to configure the package.
-	CFLAGS="$(CFLAGS) -DCG_HTTP_SUPPORT_NO_CONTENTLENGTH_REQUEST" ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info --with-libtool --with-timings --enable-libxml2
+	CFLAGS="$(CFLAGS) -DCG_HTTP_SUPPORT_NO_CONTENTLENGTH_REQUEST" ./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) --prefix=/usr --mandir=\$${prefix}/share/man --infodir=\$${prefix}/share/info --with-libtool --with-timings --enable-libxml2 --enable-libcurl
 
 
 build: build-stamp

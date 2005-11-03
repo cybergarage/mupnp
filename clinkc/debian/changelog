@@ -1,8 +1,16 @@
+clinkc (1.0-4) unstable; urgency=low
+
+  * Added libcurl switch to configure scripts
+  * Built new release for testing
+
+ -- Heikki Junnila <ext-heikki.junnila@nokia.com>  Thu,  3 Nov 2005 09:56:28 +0200
+
 clinkc (1.0-3) unstable; urgency=low
 
   * Added to sf.net CVS
+  * Created debian package 
 
- -- Heikki Junnila <ext-heikki.junnila@nokia.com>  Mon, 31 Oct 2005 16:08:23 +0200
+ -- Heikki Junnila <hjunnila@localhost.localdomain>  Tue,  1 Nov 2005 16:04:24 +0200
 
 clinkc (1.0-2) unstable; urgency=low
 

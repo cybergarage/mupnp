@@ -21,6 +21,10 @@
 #include <cybergarage/http/chttp.h>
 #include <cybergarage/net/csocket.h>
 
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 #ifdef CG_HTTP_CURL
 #include <curl/curl.h>
 #endif

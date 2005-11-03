@@ -8,7 +8,7 @@ Standards-Version: 3.6.0
 Package: clinkc-dev
 Section: devel
 Architecture: any
-Depends: clinkc0
+Depends: clinkc0, ${shlibs:Depends}, ${misc:Depends}
 Description: CyberLink for C UPnP Library development files
   CyberLink for C UPnP Library development files
 
