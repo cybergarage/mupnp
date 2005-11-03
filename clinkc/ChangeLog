@@ -1,3 +1,6 @@
+2005-11-03  Heikki Junnila <ext-heikki.junnila@nokia.com>
+	* Updated configure and make scripts to use libcurl
+
 2005-10-31  Heikki Junnila for Aapo Mäkelä, Visa Smolander and Iain Simpson
 	* Removed all automatically generated files (Makefile.in, config/*, autom4te.cache/*, configure, etc...)
 	* Changed "<" to "<=" in cg_upnp_control_isqueryrequest()
