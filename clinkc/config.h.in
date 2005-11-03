@@ -1,5 +1,8 @@
 /* config.h.in.  Generated from configure.in by autoheader.  */
 
+/* LIBCURL */
+#undef CG_HTTP_CURL
+
 /* LIBXML2 */
 #undef CG_XMLPARSER_LIBXML2
 
