@@ -44,13 +44,16 @@ int cg_upnp_httpmu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpP
 	
 	dgmPkt = cg_upnp_ssdp_packet_getdatagrampacket(ssdpPkt);
 	recvLen = cg_socket_recv(sock, dgmPkt);
-	
+
 	if (recvLen <= 0)
 		return recvLen;
 
 	ssdpData = cg_socket_datagram_packet_getdata(dgmPkt);
+
+	/* set header information to the packets headerlist,
+	   this will leave only the request line in the datagram packet 
+	   which is need to verify the message */
 	cg_upnp_ssdp_packet_setheader(ssdpPkt, ssdpData);
-	cg_socket_datagram_packet_setdata(dgmPkt, NULL);
 	
 	return recvLen;
 }
