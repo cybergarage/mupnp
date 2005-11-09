@@ -34,7 +34,7 @@ extern "C" {
 ****************************************/
 
 /**** MAN ****/
-#define CG_UPNP_MAN_DISCOVER "ssdp:discover"
+#define CG_UPNP_MAN_DISCOVER "\"ssdp:discover\""
 
 /**** NT ****/
 #define CG_UPNP_NT_ROOTDEVICE "upnp:rootdevice"
@@ -199,7 +199,8 @@ char *cg_upnp_control_query_response_getreturnvalue(CgUpnpQueryResponse *queryRe
 * Function (MAN)
 ****************************************/
 
-#define cg_upnp_man_isdiscover(str) ((0 <= cg_strstr(str, CG_UPNP_MAN_DISCOVER)) ? TRUE : FALSE)
+/* check for exact string match as specified in UPnP Device Architecture 1.2.2 */
+#define cg_upnp_man_isdiscover(str) ((0 == cg_strstr(str, CG_UPNP_MAN_DISCOVER)) ? TRUE : FALSE)
 
 /****************************************
 * Function (ST)
