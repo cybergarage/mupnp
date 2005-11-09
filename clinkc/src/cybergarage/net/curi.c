@@ -44,7 +44,8 @@ CgNetURI *cg_net_uri_new()
 	uri->path = cg_string_new();
 	uri->query = cg_string_new();
 	uri->fragment = cg_string_new();
-
+	uri->request = NULL;
+	
 	/**** Thanks for Theo Beisch (2005/08/25) ****/
 	cg_string_setvalue(uri->path, CG_NET_URI_DEFAULT_PATH);
 		
@@ -65,6 +66,7 @@ void cg_net_uri_delete(CgNetURI *uri)
 	cg_string_delete(uri->path);
 	cg_string_delete(uri->query);
 	cg_string_delete(uri->fragment);
+	if (uri->request != NULL) cg_string_delete(uri->request);
 	
 	free(uri);
 }
@@ -84,6 +86,11 @@ void cg_net_uri_clear(CgNetURI *uri)
 	cg_string_clear(uri->path);
 	cg_string_clear(uri->query);
 	cg_string_clear(uri->fragment);
+	if (uri->request != NULL) 
+	{
+		cg_string_delete(uri->request);
+		uri->request = NULL;
+	}
 }
 
 /****************************************
@@ -170,18 +177,29 @@ void cg_net_uri_set(CgNetURI *uri, char *value)
 			uri->port = CG_NET_URI_DEFAULT_FTP_PORT;
 	}
 	
-	if (shashIdx < 0)
+	if (shashIdx > 0) currIdx += shashIdx;
+	
+	/*
+		Handle relative URL
+	*/
+	if (cg_net_uri_isabsolute(uri) == FALSE)
 	{
 		/**** Thanks for Visa Smolander (10/30/2005) ****/
-		cg_string_setvalue(uri->path, CG_NET_URI_SLASH_DELIM);
+		if (shashIdx != 0)
+		{
+			/* Add slash delimiter at the beginning of the URL,
+			   if it doesn't exist 
+			*/
+			cg_string_setvalue(uri->path, CG_NET_URI_SLASH_DELIM);
+		}
 		cg_string_addvalue(uri->path, value);
- 		return;
+		
+	} else {
+		/* First set path simply to the rest of URI */
+		cg_string_setnvalue(uri->path, value+currIdx,  uriLen-currIdx);
 	}
-
-	currIdx += shashIdx;
-	
+		
 	/**** Path (Query/Fragment) ****/
-	cg_string_setnvalue(uri->path, value+currIdx,  uriLen-currIdx);
 	sharpIdx = cg_strstr(value+currIdx, CG_NET_URI_SHARP_DELIM);
 	if (0 < sharpIdx) {
 		cg_string_setnvalue(uri->path, value+currIdx,  sharpIdx);
@@ -192,8 +210,24 @@ void cg_net_uri_set(CgNetURI *uri, char *value)
 		cg_string_setnvalue(uri->path, value+currIdx,  questionIdx);
 		queryLen = uriLen-(currIdx+questionIdx+1);
 		if (0 < sharpIdx)
-			queryLen -= uriLen - (currIdx+sharpIdx);
+			queryLen -= uriLen - (currIdx+sharpIdx+1);
 		cg_string_setnvalue(uri->query, value+currIdx+questionIdx+1,  queryLen);
 	}
 }
 
+
+char *cg_net_uri_getrequest(CgNetURI *uri)
+{
+	if (cg_net_uri_hasquery(uri) == FALSE)
+	{
+		return cg_net_uri_getpath(uri);
+	}
+	
+	if (uri->request == NULL) uri->request = cg_string_new();
+
+	cg_string_setvalue(uri->request, cg_net_uri_getpath(uri));
+	cg_string_addvalue(uri->request, CG_NET_URI_QUESTION_DELIM);
+	cg_string_addvalue(uri->request, cg_net_uri_getquery(uri));
+	
+	return cg_string_getvalue(uri->request);
+}

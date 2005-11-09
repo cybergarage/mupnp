@@ -64,6 +64,7 @@ typedef struct _CgNetURI CgNetURL;
 #define cg_net_url_getpath(urip) cg_string_getvalue(urip->path)
 #define cg_net_url_getquery(urip) cg_string_getvalue(urip->query)
 #define cg_net_url_getfragment(urip) cg_string_getvalue(urip->fragment)
+#define cg_net_url_getrequest(urip) cg_net_uri_getrequest(urip)
 
 #define cg_net_url_hasuri(urip) ((0 < cg_string_length(urip->uri)) ? TRUE : FALSE)
 #define cg_net_url_hasprotocol(urip) ((0 < cg_string_length(urip->protocol)) ? TRUE : FALSE)
@@ -74,6 +75,7 @@ typedef struct _CgNetURI CgNetURL;
 #define cg_net_url_haspath(urip) ((0 < cg_string_length(urip->path)) ? TRUE : FALSE)
 #define cg_net_url_hasquery(urip) ((0 < cg_string_length(urip->query)) ? TRUE : FALSE)
 #define cg_net_url_hasfragment(urip) ((0 < cg_string_length(urip->fragment)) ? TRUE : FALSE)
+#define cg_net_url_hasrequest(urip) cg_net_uri_hasrequest(urip)
 
 #define cg_net_url_ishttpprotocol(urip) cg_streq(cg_string_getvalue(urip->protocol), CG_NET_URI_PROTOCOL_HTTP)
 

@@ -60,6 +60,7 @@ typedef struct _CgNetURI {
 	CgString *path;
 	CgString *query;
 	CgString *fragment;
+	CgString *request;
 } CgNetURI;
 
 /****************************************
@@ -91,6 +92,7 @@ void cg_net_uri_set(CgNetURI *uri, char *value);
 #define cg_net_uri_getpath(urip) cg_string_getvalue(urip->path)
 #define cg_net_uri_getquery(urip) cg_string_getvalue(urip->query)
 #define cg_net_uri_getfragment(urip) cg_string_getvalue(urip->fragment)
+char *cg_net_uri_getrequest(CgNetURI *uri);
 
 #define cg_net_uri_hasuri(urip) ((0 < cg_string_length(urip->urip)) ? TRUE : FALSE)
 #define cg_net_uri_hasprotocol(urip) ((0 < cg_string_length(urip->protocol)) ? TRUE : FALSE)
@@ -101,6 +103,7 @@ void cg_net_uri_set(CgNetURI *uri, char *value);
 #define cg_net_uri_haspath(urip) ((0 < cg_string_length(urip->path)) ? TRUE : FALSE)
 #define cg_net_uri_hasquery(urip) ((0 < cg_string_length(urip->query)) ? TRUE : FALSE)
 #define cg_net_uri_hasfragment(urip) ((0 < cg_string_length(urip->fragment)) ? TRUE : FALSE)
+#define cg_net_uri_hasrequest(urip) cg_net_uri_haspath(urip)
 
 #define cg_net_uri_ishttpprotocol(urip) cg_streq(cg_string_getvalue(urip->protocol), CG_NET_URI_PROTOCOL_HTTP)
 

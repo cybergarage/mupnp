@@ -203,7 +203,7 @@ BOOL cg_upnp_device_parsedescriptionurl(CgUpnpDevice *dev, CgNetURL *url)
 {
 	char *host;
 	int port;
-	char *path;
+	char *request;
 	CgHttpRequest *httpReq;
 	CgHttpResponse *httpRes;
 	int statusCode;
@@ -218,11 +218,11 @@ BOOL cg_upnp_device_parsedescriptionurl(CgUpnpDevice *dev, CgNetURL *url)
 	port = cg_net_url_getport(url);
 	if (port <= 0)
 		port = CG_HTTP_DEFAULT_PORT;
-	path = cg_net_url_getpath(url);
-
+	request = cg_net_url_getrequest(url);
+	
 	httpReq = cg_http_request_new();
 	cg_http_request_setmethod(httpReq, CG_HTTP_GET);
-	cg_http_request_seturi(httpReq, path);
+	cg_http_request_seturi(httpReq, request);
 	cg_http_request_setcontentlength(httpReq, 0);
 	httpRes = cg_http_request_post(httpReq, host, port);
 	
