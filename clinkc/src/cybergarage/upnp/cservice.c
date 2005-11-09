@@ -174,13 +174,15 @@ BOOL cg_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url)
 {
 	char *host;
 	int port;
-	char *path;
+	char *request;
 	CgHttpRequest *httpReq;
 	CgHttpResponse *httpRes;
 	int statusCode;
 	char *content;
 	long contentLen;
 	BOOL parseSuccess;
+	
+	CgNetURL *fixedUrl;
 	
 	if (cg_net_url_ishttpprotocol(url) == FALSE)
 		return FALSE;
@@ -190,13 +192,13 @@ BOOL cg_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url)
 	if (port <= 0)
 		port = CG_HTTP_DEFAULT_PORT;
 	/**** Thanks for Theo Beisch (08/16/05) ****/
-	path = cg_net_url_getpath(url);
-	if (cg_strlen(path) <= 0)
-		path = "/";
+	request = cg_net_url_getrequest(url);
+	if (cg_strlen(request) <= 0)
+		request = "/";
 
 	httpReq = cg_http_request_new();
 	cg_http_request_setmethod(httpReq, CG_HTTP_GET);
-	cg_http_request_seturi(httpReq, path);
+	cg_http_request_seturi(httpReq, request);
 	cg_http_request_setcontentlength(httpReq, 0);
 	httpRes = cg_http_request_post(httpReq, host, port);
 	
@@ -212,6 +214,26 @@ BOOL cg_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url)
 	parseSuccess = cg_upnp_service_parsedescription(service, content, contentLen);
 
 	cg_http_request_delete(httpReq);
+	
+	/* Fix broken event URL */
+	request = cg_upnp_service_geteventsuburl(service);
+	if (cg_strlen(request) > 0 && request[0] != '/')
+	{
+		fixedUrl = cg_net_url_new();
+		cg_net_url_set(fixedUrl, request);
+		cg_upnp_service_seteventsuburl(service, cg_net_url_getrequest(fixedUrl));
+		cg_net_url_delete(fixedUrl);
+	}
+	
+	/* Fix broken control URL */
+	request = cg_upnp_service_getcontrolurl(service);
+	if (cg_strlen(request) > 0 && request[0] != '/')
+	{
+		fixedUrl = cg_net_url_new();
+		cg_net_url_set(fixedUrl, request);
+		cg_upnp_service_setcontrolurl(service, cg_net_url_getrequest(fixedUrl));
+		cg_net_url_delete(fixedUrl);
+	}
 	
 	return parseSuccess;
 }

@@ -168,6 +168,7 @@ static BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service, CgUp
 			locationURL = cg_net_url_new();
 			cg_net_url_set(locationURL, cg_upnp_device_geturlbase(rootDev));
 			cg_net_url_setpath(locationURL, cg_net_url_getpath(scpdURL));
+			cg_net_url_setquery(locationURL, cg_net_url_getquery(scpdURL));
 			scpdParseSuccess = cg_upnp_service_parsedescriptionurl(service, locationURL);
 			cg_net_url_delete(locationURL);
 			if (scpdParseSuccess == TRUE) {
@@ -185,6 +186,7 @@ static BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service, CgUp
 	locationURL = cg_net_url_new();
 	cg_net_url_set(locationURL, cg_upnp_ssdp_packet_getlocation(ssdpPkt));
 	cg_net_url_setpath(locationURL, cg_net_url_getpath(scpdURL));
+	cg_net_url_setquery(locationURL, cg_net_url_getquery(scpdURL));
 	scpdParseSuccess = cg_upnp_service_parsedescriptionurl(service, locationURL);
 	cg_net_url_delete(locationURL);
 	cg_net_url_delete(scpdURL);
@@ -261,7 +263,7 @@ static void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlP
 {
 	char *usn;
 	char udn[CG_UPNP_UDN_LEN_MAX];
-	CgUpnpDevice *dev;
+	CgUpnpDevice *dev = NULL;
 	
 	if (cg_upnp_ssdp_packet_isrootdevice(ssdpPkt) == FALSE)
 		return;
@@ -271,8 +273,13 @@ static void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlP
 	
 	cg_upnp_controlpoint_lock(ctrlPoint);
 	
-	dev = cg_upnp_controlpoint_getdevicebyname(ctrlPoint, udn);
-
+	/* Patch: test only root devices as cg_upnp_device_getbyname goes
+	   to infinite loop sometimes, getting root devices is enough */
+	for (dev = cg_upnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = cg_upnp_device_next(dev)) {
+		if (cg_upnp_device_isname(dev, udn) == TRUE)
+			break;
+	}
+	
 	if (dev != NULL) {
 		cg_upnp_controlpoint_unlock(ctrlPoint);
 		return;

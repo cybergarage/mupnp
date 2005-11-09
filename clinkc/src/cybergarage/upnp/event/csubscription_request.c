@@ -87,7 +87,7 @@ static void cg_upnp_event_subscription_request_setservice(CgUpnpSubscriptionRequ
 	eventSubURL = cg_net_url_new();
 	cg_net_url_set(eventSubURL, eventSubURLStr);
 	if (cg_net_url_isabsolute(eventSubURL) == TRUE) {
-		cg_http_request_seturi(subReq, cg_net_url_getpath(eventSubURL));
+		cg_http_request_seturi(subReq, cg_net_url_getrequest(eventSubURL));
 		httpPostURL = eventSubURLStr;
 	}
 	else {

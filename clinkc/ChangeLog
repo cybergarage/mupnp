@@ -1,3 +1,8 @@
+2005-11-09  Aapo Mäkelä <aapo.makela@nokia.com>
+	* Fix to use both path and query parts of URI in HTTP request URI
+	* Added fixing of broken event and control URLs
+	* Changed cg_upnp_controlpoint_createdevicefromssdppacket to not to call cg_upnp_getdevicebyname (which jams to infinite loop sometimes)
+
 2005-11-03  Heikki Junnila <ext-heikki.junnila@nokia.com>
 	* Updated configure and make scripts to use libcurl
 

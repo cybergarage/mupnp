@@ -178,7 +178,7 @@ void cg_upnp_control_request_sethostfromservice(CgSoapRequest *soapReq, CgUpnpSe
 	
 	/*** URI ***/
 	if (cg_net_url_isabsolute(ctrlURL) == TRUE)
-		cg_http_request_seturi(httpReq, cg_net_url_getpath(ctrlURL));
+		cg_http_request_seturi(httpReq, cg_net_url_getrequest(ctrlURL));
 	else
 		cg_http_request_seturi(httpReq, cg_upnp_service_getcontrolurl(service));
 	
