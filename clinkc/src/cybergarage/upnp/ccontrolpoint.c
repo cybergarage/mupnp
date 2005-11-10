@@ -273,12 +273,7 @@ static void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlP
 	
 	cg_upnp_controlpoint_lock(ctrlPoint);
 	
-	/* Patch: test only root devices as cg_upnp_device_getbyname goes
-	   to infinite loop sometimes, getting root devices is enough */
-	for (dev = cg_upnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = cg_upnp_device_next(dev)) {
-		if (cg_upnp_device_isname(dev, udn) == TRUE)
-			break;
-	}
+	dev = cg_upnp_controlpoint_getdevicebyname(ctrlPoint, udn);
 	
 	if (dev != NULL) {
 		cg_upnp_controlpoint_unlock(ctrlPoint);
