@@ -356,8 +356,8 @@ CgUpnpDevice *cg_upnp_device_getdevicebyname(CgUpnpDevice *dev, char *name)
 	
 	if (cg_strlen(name) <= 0)
 		return NULL;
-			
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
+	
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
 		if (cg_upnp_device_isname(childDev, name) == TRUE)
 			return childDev;
 		moreChildDev = cg_upnp_device_getdevicebyname(childDev, name);

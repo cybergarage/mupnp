@@ -1,3 +1,7 @@
+2005-11-10  Aapo Mäkelä <aapo.makela@nokia.com>
+	* Fixed cg_upnp_device_getdevicebyname() not to loop forever
+	* Changed cg_upnp_controlpoint_createdevicefromssdppacket to use cg_upnp_controlpoint_getdevicebyname() again
+
 2005-11-09  Aapo Mäkelä <aapo.makela@nokia.com>
 	* Fix to use both path and query parts of URI in HTTP request URI
 	* Added fixing of broken event and control URLs
