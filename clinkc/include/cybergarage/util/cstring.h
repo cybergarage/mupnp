@@ -32,8 +32,11 @@ extern "C" {
 /* UINT_MAX : 4294967295U */
 #define CG_STRING_INTEGER_BUFLEN 16 
  
- /* UINT_LONG : 18446744073709551615UL */
+ /* ULONG_MAX : 4294967295UL */
 #define CG_STRING_LONG_BUFLEN 32
+
+ /*  ULLONG_MAX : 18446744073709551615ULL */
+#define CG_STRING_LONGLONG_BUFLEN 32
 
 /****************************************
 * Data Type
@@ -108,8 +111,20 @@ char *cg_long2str(long value, char *buf, int bufSize);
 char *cg_strncpy(char *str1, char *str2, size_t cnt);
 char *cg_strncat(char *str1, char *str2, size_t cnt);
 
+#if defined(__USE_ISOC99)
+char *cg_longlong2str(long long value, char *buf, int bufSize);
+#elif defined(WIN32)
+char *cg_longlong2str(__int64 value, char *buf, int bufSize);
+#endif
+
 #define cg_str2int(value) atoi(value)
 #define cg_str2long(value) atol(value)
+
+#if defined(__USE_ISOC99)
+#define cg_str2longlong(value) atoll(value)
+#elif defined(WIN32)
+#define cg_str2longlong(value) _atoi64(value)
+#endif
 
 /****************************************
 * Function (StringTokenizer)
