@@ -1,3 +1,9 @@
+2005-11-11  Satoshi Konno <skonno@cybergarage.org>
+	* Added cg_longlong2str() and cg_str2longlong().
+	* Added cg_http_packet_setheaderlonglong() and cg_http_packet_getheaderlonglong().
+	* Extended cg_http_packet_setcontentlength() and cg_http_packet_getcontentlength() to 64bit
+	  when the compiler is supported C99 or the platform is WIN32.
+
 2005-11-10  Aapo Mäkelä <aapo.makela@nokia.com>
 	* Fixed cg_upnp_device_getdevicebyname() not to loop forever
 	* Changed cg_upnp_controlpoint_createdevicefromssdppacket to use cg_upnp_controlpoint_getdevicebyname() again
