@@ -220,6 +220,14 @@ int cg_http_packet_getheaderinteger(CgHttpPacket *httpPkt, char* name);
 long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, char* name);
 int cg_http_packet_getheadersize(CgHttpPacket *httpPkt);
 
+#if defined(__USE_ISOC99)
+void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, long long value);
+long long cg_http_packet_getheaderlonglongCgHttpPacket *httpPkt, char* name);
+#elif defined(WIN32)
+void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, __int64 value);
+__int64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name);
+#endif
+
 #define cg_http_packet_setcontent(httpPkt, value) cg_string_setvalue(httpPkt->content, value)
 #define cg_http_packet_setncontent(httpPkt, value, len) cg_string_setnvalue(httpPkt->content, value, len)
 /* hjunnila */
@@ -233,8 +241,13 @@ BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineB
 BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
 
 /**** Content-Length ****/
+#if defined(__USE_ISOC99) || defined(WIN32)
+#define cg_http_packet_setcontentlength(httpPkt,value) cg_http_packet_setheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH,value)
+#define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH)
+#else
 #define cg_http_packet_setcontentlength(httpPkt,value) cg_http_packet_setheaderlong(httpPkt,CG_HTTP_CONTENT_LENGTH,value)
-#define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderlong(httpPkt,CG_HTTP_CONTENT_LENGTH)
+#define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH)
+#endif
 
 /**** Connection ****/
 #define cg_http_packet_setconnection(httpPkt, value) cg_http_packet_setheadervalue(httpPkt,CG_HTTP_CONNECTION, value)
@@ -304,8 +317,8 @@ BOOL cg_http_request_poststatuscode(CgHttpRequest *httpReq, int httpStatCode);
 #define cg_http_request_getlocalport(httpReq) cg_socket_getport(httpReq->sock)
 
 /**** Content-Length ****/
-#define cg_http_request_setcontentlength(httpReq,value) cg_http_packet_setheaderlong((CgHttpPacket*)httpReq,CG_HTTP_CONTENT_LENGTH,value)
-#define cg_http_request_getcontentlength(httpReq) cg_http_packet_getheaderlong((CgHttpPacket*)httpReq,CG_HTTP_CONTENT_LENGTH)
+#define cg_http_request_setcontentlength(httpReq,value) cg_http_packet_setcontentlength((CgHttpPacket*)httpReq, value)
+#define cg_http_request_getcontentlength(httpReq) cg_http_packet_getcontentlength((CgHttpPacket*)httpReq)
 
 /**** Content-Type ****/
 #define cg_http_request_setcontenttype(httpReq,value) cg_http_packet_setheadervalue((CgHttpPacket*)httpReq,CG_HTTP_CONTENT_TYPE,value)
@@ -375,8 +388,8 @@ BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock);
 #define cg_http_response_getuserdata(httpRes) (httpRes->userData)
 
 /**** Content-Length ****/
-#define cg_http_response_setcontentlength(httpRes,value) cg_http_packet_setheaderlong((CgHttpPacket*)httpRes,CG_HTTP_CONTENT_LENGTH,value)
-#define cg_http_response_getcontentlength(httpRes) cg_http_packet_getheaderlong((CgHttpPacket*)httpRes,CG_HTTP_CONTENT_LENGTH)
+#define cg_http_response_setcontentlength(httpRes,value) cg_http_packet_setcontentlength((CgHttpPacket*)httpRes, value)
+#define cg_http_response_getcontentlength(httpRes) cg_http_packet_getcontentlength((CgHttpPacket*)httpRes)
 
 /**** Content-Type ****/
 #define cg_http_response_setcontenttype(httpRes,value) cg_http_packet_setheadervalue((CgHttpPacket*)httpRes,CG_HTTP_CONTENT_TYPE,value)
