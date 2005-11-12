@@ -19,10 +19,13 @@
 *		  cg_http_packet_setcontentpointer()
 *		  cg_http_packet_getcontent()
 *		- cg_http_packet_setncontent() is added.
-*
 *	10/31/05
 *		- cg_http_packet_sethost:
-		  port was an excess parameter for s(n)printf when port <= 0
+*		  port was an excess parameter for s(n)printf when port <= 0
+*	11/11/05
+*		- Added cg_http_packet_setheaderlonglong() and cg_http_packet_getheaderlonglong().
+*		- Extended cg_http_packet_setcontentlength() and cg_http_packet_getcontentlength() to 64bit
+*		  when the compiler is supported C99 or the platform is WIN32.
 *
 ******************************************************************/
 
@@ -117,6 +120,24 @@ void cg_http_packet_setheaderlong(CgHttpPacket *httpPkt, char* name, long value)
 }
 
 /****************************************
+* cg_http_packet_setheaderlonglong
+****************************************/
+
+#if defined(__USE_ISOC99)
+void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, long long value)
+{
+	char svalue[CG_STRING_LONGLONG_BUFLEN];
+	cg_http_packet_setheadervalue(httpPkt, name, cg_longlong2str(value, svalue, sizeof(svalue)));
+}
+#elif defined(WIN32)
+void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, __int64 value)
+{
+	char svalue[CG_STRING_LONGLONG_BUFLEN];
+	cg_http_packet_setheadervalue(httpPkt, name, cg_longlong2str(value, svalue, sizeof(svalue)));
+}
+#endif
+
+/****************************************
 * cg_http_packet_getheadervalue
 ****************************************/
 
@@ -143,6 +164,20 @@ long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, char* name)
 {
 	char *value = cg_http_packet_getheadervalue(httpPkt, name); 
 	return (value != NULL) ? atol(value) : 0;
+}
+
+/****************************************
+* cg_http_packet_getheaderlonglong
+****************************************/
+
+#if defined(__USE_ISOC99)
+long long cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name)
+#elif defined(WIN32)
+__int64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name)
+#endif
+{
+	char *value = cg_http_packet_getheadervalue(httpPkt, name); 
+	return (value != NULL) ? cg_str2longlong(value) : 0;
 }
 
 /****************************************
