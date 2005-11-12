@@ -246,7 +246,7 @@ BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, i
 #define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH)
 #else
 #define cg_http_packet_setcontentlength(httpPkt,value) cg_http_packet_setheaderlong(httpPkt,CG_HTTP_CONTENT_LENGTH,value)
-#define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH)
+#define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderlong(httpPkt,CG_HTTP_CONTENT_LENGTH)
 #endif
 
 /**** Connection ****/

@@ -170,6 +170,7 @@ long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, char* name)
 * cg_http_packet_getheaderlonglong
 ****************************************/
 
+#if defined(__USE_ISOC99) || defined(WIN32)
 #if defined(__USE_ISOC99)
 long long cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name)
 #elif defined(WIN32)
@@ -179,6 +180,7 @@ __int64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name)
 	char *value = cg_http_packet_getheadervalue(httpPkt, name); 
 	return (value != NULL) ? cg_str2longlong(value) : 0;
 }
+#endif
 
 /****************************************
 * cg_http_packet_getheadervalue
