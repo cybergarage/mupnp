@@ -10,6 +10,8 @@
 *
 *	01/25/05
 *		- first revision
+*	11/11/053qeds
+*		- Added cg_longlong2str() and cg_str2longlong().
 *
 ******************************************************************/
 
@@ -280,3 +282,23 @@ char *cg_long2str(long value, char *buf, int bufSize)
 #endif
 	return buf;
 }
+
+/****************************************
+* cg_longlong2str
+****************************************/
+
+#if defined(__USE_ISOC99)
+char *cg_longlong2str(long long value, char *buf, int bufSize)
+{
+#if defined(HAVE_SNPRINTF)
+	snprintf(buf, bufSize, "%lld", value);
+#else
+	sprintf(buf, "%lld", value);
+#endif
+}
+#elif defined(WIN32)
+char *cg_longlong2str(__int64 value, char *buf, int bufSize)
+{
+	return _i64toa(value, buf, 10);
+}
+#endif
