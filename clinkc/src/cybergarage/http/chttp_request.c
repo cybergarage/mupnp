@@ -29,7 +29,7 @@
 #include <curl/curl.h>
 #endif
 
-#ifdef SHOW_TIMINGS
+#ifdef CG_SHOW_TIMINGS
 #include <sys/time.h>
 #include <time.h>
 
@@ -171,7 +171,7 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 
 	CgSocket *sock;
 	char *method, *uri, *version;
-#ifdef SHOW_TIMINGS
+#ifdef CG_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
 #endif		
 	cg_http_response_clear(httpReq->httpRes);
@@ -194,7 +194,7 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 		return httpReq->httpRes;		
 	}	
 	
-#ifdef SHOW_TIMINGS	
+#ifdef CG_SHOW_TIMINGS	
 	printf("\nRequest: %s%s%s:%d%s%s%s\n", method, CG_HTTP_SP, ipaddr, port, uri, CG_HTTP_SP, version);
 	gettimeofday(&start_time, NULL);
 #endif
@@ -212,7 +212,7 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	/**** read response ****/
 	cg_http_response_read(httpReq->httpRes, sock);
 
-#ifdef SHOW_TIMINGS	
+#ifdef CG_SHOW_TIMINGS	
 	gettimeofday(&end_time, NULL);
 	timersub(&end_time, &start_time, &elapsed_time);
 	printf("Getting HTTP-response completed. Elapsed time: "

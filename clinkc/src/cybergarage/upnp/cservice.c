@@ -27,6 +27,15 @@
 #include <cybergarage/upnp/cdevice.h>
 #include <cybergarage/upnp/ssdp/cssdp.h>
 
+#ifdef CG_OPTIMIZED_CP_MODE
+#include <cybergarage/upnp/ccontrolpoint.h>
+#define cg_upnp_service_parseifnotparsed(service)  \
+			do { \
+				if (cg_upnp_service_isparsed(service) == FALSE) \
+					cg_upnp_controlpoint_parsescservicescpd(service); \
+			} while(0)
+#endif
+
 /****************************************
 * prototype define for static functions
 ****************************************/
@@ -57,6 +66,10 @@ CgUpnpService *cg_upnp_service_new()
 	service->subscriberList = cg_upnp_subscriberlist_new();
 #endif
 	
+#ifdef CG_OPTIMIZED_CP_MODE
+	service->parsed = FALSE;
+#endif
+
 	service->mutex = cg_mutex_new();
 	service->subscriptionSid = cg_string_new();
 	
@@ -64,6 +77,8 @@ CgUpnpService *cg_upnp_service_new()
 	cg_upnp_service_setsubscriptiontimeout(service, 0);
 	
 	cg_upnp_service_setuserdata(service, NULL);
+	
+	
 	return service;
 }
 
@@ -122,11 +137,21 @@ void cg_upnp_service_clear(CgUpnpService *service)
 BOOL cg_upnp_service_isname(CgUpnpService *service, char *name)
 {
 	if (name == NULL)
-			return FALSE;
+		return FALSE;
 	if (0 <= cg_strstr(cg_upnp_service_getservicetype(service), name))
+	{
+#ifdef CG_OPTIMIZED_CP_MODE
+		cg_upnp_service_parseifnotparsed(service);
+#endif
 		return TRUE;
+	}
 	if (0  <= cg_strstr(cg_upnp_service_getserviceid(service), name))
+	{
+#ifdef CG_OPTIMIZED_CP_MODE
+		cg_upnp_service_parseifnotparsed(service);
+#endif
 		return TRUE;
+	}
 	return FALSE;
 }
 
@@ -140,29 +165,42 @@ BOOL cg_upnp_service_parsedescription(CgUpnpService *service, char *desciption, 
 	BOOL xmlParseSuccess;
 	CgXmlNode *scpdNode;
 	
+	cg_upnp_service_lock(service);
 	cg_upnp_service_clear(service);
 
+#ifdef CG_OPTIMIZED_CP_MODE
+	service->parsed = FALSE;
+#endif	
 	service->scpdNodeList = cg_xml_nodelist_new();
 
 	xmlParser = cg_xml_parser_new();
 	xmlParseSuccess = cg_xml_parse(xmlParser, service->scpdNodeList, desciption, descriptionLen);
 	cg_xml_parser_delete(xmlParser);
 	if (xmlParseSuccess == FALSE)
+	{
+		cg_upnp_service_unlock(service);
 		return FALSE;
-
+	}
+	
 	if (cg_xml_nodelist_size(service->scpdNodeList) <= 0) {
 		cg_upnp_service_clear(service);
+		cg_upnp_service_unlock(service);
 		return FALSE;
 	}
 
 	scpdNode = cg_upnp_service_getscpdnode(service);
 	if (scpdNode == NULL) {
 		cg_upnp_service_clear(service);
+		cg_upnp_service_unlock(service);
 		return FALSE;
 	}
 		
 	cg_upnp_service_initchildnodes(service);
 
+#ifdef CG_OPTIMIZED_CP_MODE
+	service->parsed = TRUE;
+#endif
+	cg_upnp_service_unlock(service);
 	return TRUE;
 }
 
@@ -405,6 +443,9 @@ CgUpnpAction *cg_upnp_service_getactionbyname(CgUpnpService *service, char *name
 	if (cg_strlen(name) <= 0)
 		return NULL;
 			
+#ifdef CG_OPTIMIZED_CP_MODE
+	cg_upnp_service_parseifnotparsed(service);
+#endif
 	actionList = cg_upnp_service_getactionlist(service);
 	for (action=cg_upnp_actionlist_gets(actionList); action != NULL; action = cg_upnp_action_next(action)) {
 		if (cg_upnp_action_isname(action, name) == TRUE)
@@ -465,6 +506,9 @@ CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *servi
 	if (cg_strlen(name) <= 0)
 		return NULL;
 			
+#ifdef CG_OPTIMIZED_CP_MODE
+	cg_upnp_service_parseifnotparsed(service);
+#endif
 	stateTable = cg_upnp_service_getservicestatetable(service);
 	for (stateVar=cg_upnp_servicestatetable_gets(stateTable); stateVar != NULL; stateVar = cg_upnp_statevariable_next(stateVar)) {
 		if (cg_upnp_statevariable_isname(stateVar, name) == TRUE)
@@ -500,6 +544,30 @@ void cg_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIA
 	stateTable = cg_upnp_service_getservicestatetable(service);
 	for (stateVar=cg_upnp_servicestatetable_gets(stateTable); stateVar != NULL; stateVar = cg_upnp_statevariable_next(stateVar)) 
 		cg_upnp_statevariable_setlistener(stateVar, queryListener);
+}
+
+CgUpnpActionList *cg_upnp_service_getactionlist(CgUpnpService *service)
+{
+	cg_upnp_service_parseifnotparsed(service);
+	return service->actionList;
+}
+
+CgUpnpAction *cg_upnp_service_getactions(CgUpnpService *service)
+{
+	cg_upnp_service_parseifnotparsed(service);
+	return cg_upnp_actionlist_gets(service->actionList);
+}
+
+CgUpnpServiceStateTable *cg_upnp_service_getservicestatetable(CgUpnpService *service)
+{
+	cg_upnp_service_parseifnotparsed(service);
+	return service->serviceStateTable;
+}
+
+CgUpnpStateVariable *cg_upnp_service_getstatevariables(CgUpnpService *service)
+{
+	cg_upnp_service_parseifnotparsed(service);
+	return cg_upnp_servicestatetable_gets(service->serviceStateTable);
 }
 
 /****************************************

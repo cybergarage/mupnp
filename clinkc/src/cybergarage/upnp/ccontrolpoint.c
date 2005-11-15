@@ -53,10 +53,10 @@ CgUpnpControlPoint *cg_upnp_controlpoint_new()
 	ctrlPoint->ssdpResServerList = cg_upnp_ssdpresponse_serverlist_new();
 	ctrlPoint->httpServerList = cg_http_serverlist_new();
 	ctrlPoint->httpEventURI = cg_string_new();
+	ctrlPoint->eventListeners = cg_upnp_eventlistenerlist_new();
 
 	cg_upnp_controlpoint_setssdplistener(ctrlPoint, NULL);
 	cg_upnp_controlpoint_setssdpresponselistener(ctrlPoint, NULL);
-	cg_upnp_controlpoint_seteventlistener(ctrlPoint, NULL);
 	cg_upnp_controlpoint_sethttplistener(ctrlPoint, NULL);
 
 	cg_upnp_controlpoint_setssdpresponseport(ctrlPoint, CG_UPNP_CONTROLPOINT_SSDP_RESPONSE_DEFAULT_PORT);
@@ -82,6 +82,7 @@ void cg_upnp_controlpoint_delete(CgUpnpControlPoint *ctrlPoint)
 	cg_upnp_ssdpresponse_serverlist_delete(ctrlPoint->ssdpResServerList);
 	cg_http_serverlist_delete(ctrlPoint->httpServerList);
 	cg_string_delete(ctrlPoint->httpEventURI);
+	cg_upnp_eventlistenerlist_delete(ctrlPoint->eventListeners);
 	
 	free(ctrlPoint);
 }
@@ -137,16 +138,17 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyname(CgUpnpControlPoint *ctrlPoint
 }
 
 /****************************************
-* cg_upnp_device_parsedescriptionurl
+* cg_upnp_controlpoint_parsescservicescpd
 ****************************************/
 
-static BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service, CgUpnpSSDPPacket *ssdpPkt)
+BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service)
 {
 	CgNetURL *scpdURL;
 	CgUpnpDevice *rootDev;
 	CgNetURL *locationURL;
 	BOOL scpdParseSuccess;
-		
+	char *location;
+	
 	if (cg_strlen(cg_upnp_service_getscpdurl(service)) <= 0)
 		return FALSE;
 		
@@ -179,12 +181,13 @@ static BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service, CgUp
 	}
 	
 	/**** Parse using Location and SCPDURL ****/
-	if (cg_strlen(cg_upnp_ssdp_packet_getlocation(ssdpPkt)) <= 0) {
+	location = cg_upnp_device_getlocationfromssdppacket(rootDev);
+	if (cg_strlen(location) <= 0) {
 		cg_net_url_delete(scpdURL);
 		return FALSE;
 	}
 	locationURL = cg_net_url_new();
-	cg_net_url_set(locationURL, cg_upnp_ssdp_packet_getlocation(ssdpPkt));
+	cg_net_url_set(locationURL, location);
 	cg_net_url_setpath(locationURL, cg_net_url_getpath(scpdURL));
 	cg_net_url_setquery(locationURL, cg_net_url_getquery(scpdURL));
 	scpdParseSuccess = cg_upnp_service_parsedescriptionurl(service, locationURL);
@@ -204,7 +207,7 @@ static BOOL cg_upnp_controlpoint_parseservicesfordevice(CgUpnpDevice *dev, CgUpn
 	CgUpnpDevice *childDev;
 	
 	for (service=cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) {
-		if (cg_upnp_controlpoint_parsescservicescpd(service, ssdpPkt) == FALSE) {
+		if (cg_upnp_controlpoint_parsescservicescpd(service) == FALSE) {
 			return FALSE;
 		}
 	}
@@ -244,13 +247,15 @@ static CgUpnpDevice *cg_upnp_controlpoint_createdevicefromssdkpacket(CgUpnpSSDPP
 		return NULL;
 	}
 
+	cg_upnp_device_setssdppacket(dev, ssdpPkt);
+
+#ifndef CG_OPTIMIZED_CP_MODE
 	if (cg_upnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == FALSE)
 	{
 		cg_upnp_device_delete(dev);
 		return NULL;
 	}
-	
-	cg_upnp_device_setssdppacket(dev, ssdpPkt);
+#endif
 	
 	return dev;
 }
@@ -264,9 +269,6 @@ static void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlP
 	char *usn;
 	char udn[CG_UPNP_UDN_LEN_MAX];
 	CgUpnpDevice *dev = NULL;
-	
-	if (cg_upnp_ssdp_packet_isrootdevice(ssdpPkt) == FALSE)
-		return;
 	
 	usn = cg_upnp_ssdp_packet_getusn(ssdpPkt);
 	cg_upnp_usn_getudn(usn, udn, sizeof(udn));
@@ -391,8 +393,10 @@ BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint)
 		return FALSE;
 
 	/**** search root devices ****/
+#ifndef CG_OPTIMIZED_CP_MODE
 	cg_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
-
+#endif
+	
 /*	
 	////////////////////////////////////////
 	// Disposer
@@ -509,8 +513,7 @@ static void cg_upnp_controlpoint_ssdpresponselistner(CgUpnpSSDPPacket *ssdpPkt)
 	if (ctrlPoint == NULL)
 		return;
 
-	if (cg_upnp_ssdp_packet_isrootdevice(ssdpPkt) == TRUE)
-		cg_upnp_controlpoint_adddevicebyssdppacket(ctrlPoint, ssdpPkt);
+	cg_upnp_controlpoint_adddevicebyssdppacket(ctrlPoint, ssdpPkt);
 				
 	listener = cg_upnp_controlpoint_getssdpresponselistener(ctrlPoint);
 	if (listener != NULL)

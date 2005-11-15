@@ -69,7 +69,7 @@ AM_CONDITIONAL(HAVE_LIBTOOL, test $with_libtool = yes)
 ##############################
 AC_ARG_WITH(timings, [  --with-timings	Show timings in debug-info],,)
 if [ test $with_timings = yes ]; then
-  CFLAGS="$CFLAGS -DSHOW_TIMINGS"
+  CFLAGS="$CFLAGS -DCG_SHOW_TIMINGS"
 fi
 
 ##############################
@@ -108,6 +108,19 @@ if [ test $USE_LIBXML2 = yes ]; then
 		AC_MSG_ERROR(CyberLink needs libxml2 $LIBXML2_VERSION later)
 	fi
 fi
+
+##############################
+# Checks for fast mode.
+##############################
+
+AC_ARG_ENABLE(optimized-cp,
+	[  --enable-optimized-cp	enable optimized control point mode [default=no]],
+	[
+		if test $enableval = yes; then
+			CFLAGS="$CFLAGS -DCG_OPTIMIZED_CP_MODE"
+		fi
+	],
+)
 
 ##############################
 # Checks for Expat libraries.

@@ -73,6 +73,7 @@ clinkc_source = \
 	../../src/cybergarage/upnp/control/cquery_ctrl.c \
 	../../src/cybergarage/upnp/control/cquery_request.c \
 	../../src/cybergarage/upnp/control/cquery_response.c \
+	../../src/cybergarage/upnp/event/ceventlistener_list.c \
 	../../src/cybergarage/upnp/event/cnotify_request.c \
 	../../src/cybergarage/upnp/event/cproperty.c \
 	../../src/cybergarage/upnp/event/cproperty_list.c \
