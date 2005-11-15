@@ -62,6 +62,7 @@ typedef struct _CgUpnpService {
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 	CgUpnpSubscriberList *subscriberList;
 #endif
+	BOOL parsed;
 	/**** Execution Data ****/
 	CgString *subscriptionSid;
 	long subscriptionTimeout;
@@ -90,6 +91,7 @@ BOOL cg_upnp_service_isname(CgUpnpService *service, char *name);
 BOOL cg_upnp_service_parsedescription(CgUpnpService *service, char *desciption, int descriptionLen);
 BOOL cg_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url);
 char *cg_upnp_service_getdescription(CgUpnpService *service, CgString *descStr);
+#define cg_upnp_service_isparsed(service) (service->parsed)
 
 /**** serviceType ****/
 #define cg_upnp_service_setservicetype(service, value) cg_xml_node_setchildnode(cg_upnp_service_getservicenode(service), CG_UPNP_SERVICE_TYPE, value)
@@ -113,14 +115,14 @@ char *cg_upnp_service_getdescription(CgUpnpService *service, CgString *descStr);
 #define cg_upnp_service_geteventsuburl(service) cg_xml_node_getchildnodevalue(cg_upnp_service_getservicenode(service), CG_UPNP_SERVICE_EVENT_SUB_URL)
 
 /**** Action ****/
-#define cg_upnp_service_getactionlist(service) (service->actionList)
-#define cg_upnp_service_getactions(service) cg_upnp_actionlist_gets(service->actionList)
+CgUpnpActionList *cg_upnp_service_getactionlist(CgUpnpService *service);
+CgUpnpAction *cg_upnp_service_getactions(CgUpnpService *service);
 CgUpnpAction *cg_upnp_service_getactionbyname(CgUpnpService *service, char *name);
 #define cg_upnp_service_hasactionbyname(service, name) ((cg_upnp_service_getactionbyname(service,name) != NULL) ? TRUE : FALSE)
 
 /**** ServiceStateTable ****/
-#define cg_upnp_service_getservicestatetable(service) (service->serviceStateTable)
-#define cg_upnp_service_getstatevariables(service) cg_upnp_servicestatetable_gets(service->serviceStateTable)
+CgUpnpServiceStateTable *cg_upnp_service_getservicestatetable(CgUpnpService *service);
+CgUpnpStateVariable *cg_upnp_service_getstatevariables(CgUpnpService *service);
 CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *service, char *name);
 #define cg_upnp_service_hasstatevariablebyname(service, name) ((cg_upnp_service_getstatevariablebyname(service,name) != NULL) ? TRUE : FALSE)
 

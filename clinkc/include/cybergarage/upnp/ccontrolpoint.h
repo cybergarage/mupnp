@@ -54,7 +54,7 @@ typedef struct _CgUpnpControlPoint {
 	CG_HTTP_LISTENER httpListener;
 	CG_UPNP_SSDP_LISTNER ssdpListener;
 	CG_UPNP_SSDP_RESPONSE_LISTNER ssdpResListener;
-	CG_UPNP_EVENT_LISTENER eventListener;
+	CgUpnpEventListenerList* eventListeners;
 	int ssdpResPort;
 	CgString *httpEventURI;
 	int httpEventPort;
@@ -84,8 +84,17 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyname(CgUpnpControlPoint *ctrlPoint
 #define cg_upnp_controlpoint_setssdpresponselistener(ctrlPoint, func) (ctrlPoint->ssdpResListener = func)
 #define cg_upnp_controlpoint_getssdpresponselistener(ctrlPoint) (ctrlPoint->ssdpResListener)
 
-#define cg_upnp_controlpoint_seteventlistener(ctrlPoint, func) (ctrlPoint->eventListener = func)
-#define cg_upnp_controlpoint_geteventlistener(ctrlPoint) (ctrlPoint->eventListener)
+#define cg_upnp_controlpoint_addeventlistener(ctrlPoint, listener) (cg_upnp_eventlistenerlist_add(ctrlPoint->eventListeners, listener))
+#define cg_upnp_controlpoint_removeeventlistener(ctrlPoint, listener) (cg_upnp_eventlistenerlist_remove(ctrlPoint->eventListeners, listener))
+#define cg_upnp_controlpoint_seteventlistener(ctrlPoint, evlistener) \
+	do {\
+		if (evlistener == NULL) \                       
+			cg_upnp_eventlistenerlist_remove(ctrlPoint->eventListeners, ctrlPoint->eventListeners->next->listener); \
+		else \
+			cg_upnp_eventlistenerlist_add(ctrlPoint->eventListeners, evlistener); \
+	} while(0)
+#define cg_upnp_controlpoint_geteventlistener(ctrlPoint) (ctrlPoint->eventListeners->next->listener)
+#define cg_upnp_controlpoint_geteventlisteners(ctrlPoint) (ctrlPoint->eventListeners)
 
 BOOL cg_upnp_controlpoint_lock(CgUpnpControlPoint *ctrlPoint);
 BOOL cg_upnp_controlpoint_unlock(CgUpnpControlPoint *ctrlPoint);
@@ -110,6 +119,8 @@ void cg_upnp_controlpoint_httprequestrecieved(CgHttpRequest *httpReq);
 /**** User Data****/
 #define cg_upnp_controlpoint_setuserdata(ctrlPoint, value) (ctrlPoint->userData = value)
 #define cg_upnp_controlpoint_getuserdata(dev) (ctrlPoint->userData)
+
+BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service);
 
 /****************************************
 * Function (Subscription)

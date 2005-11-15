@@ -20,6 +20,7 @@
 
 #include <cybergarage/http/chttp.h>
 #include <cybergarage/util/cstring.h>
+#include <cybergarage/util/clist.h>
 #include <cybergarage/upnp/event/cproperty.h>
 #include <cybergarage/upnp/cservice.h>
 
@@ -52,6 +53,17 @@ typedef CgHttpResponse CgUpnpSubscriptionResponse;
 
 typedef void (*CG_UPNP_EVENT_LISTENER)(CgUpnpProperty *);
 
+typedef struct _CgUpnpEventListenerList {
+	/** Used by cg_list_* functions to indicate start of list */
+	BOOL headFlag;
+	/** Used by cg_list_* functions to point to the previous item in list */
+	struct _CgUpnpEventListenerList *prev;
+	/** Used by cg_list_* functions to point to the next item in list */
+	struct _CgUpnpEventListenerList *next;
+ 
+	CG_UPNP_EVENT_LISTENER listener;
+} CgUpnpEventListenerList;
+ 
 /****************************************
 * Function
 ****************************************/
@@ -123,6 +135,74 @@ void cg_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *subR
 /**** Timeout ****/
 void cg_upnp_event_subscription_response_settimeout(CgUpnpSubscriptionResponse *subRes, long value);
 #define cg_upnp_event_subscription_response_gettimeout(subRes) cg_upnp_event_subscription_gettimeout(cg_http_packet_getheadervalue(((CgHttpPacket*)subRes), CG_HTTP_TIMEOUT))
+
+/****************************************
+* Function (Eventlistener list)
+****************************************/
+ 
+/**
+* Create a new event listener list
+*
+*/
+CgUpnpEventListenerList *cg_upnp_eventlistenerlist_new();
+ 
+/**
+* Delete a event listener list.
+*
+* \param eventListenerList The event listener list to delete
+*
+*/
+void cg_upnp_eventlistenerlist_delete(CgUpnpEventListenerList *eventListenerList);
+ 
+/**
+* Clear the contents of a event listener list.
+*
+* \param eventListenerList The device list to clear
+*
+*/
+#define cg_upnp_eventlistenerlist_clear(eventListenerList) cg_list_clear((CgList *)eventListenerList, (CG_LIST_DESTRUCTORFUNC)free)
+ 
+/**
+* Get the size of the device list
+*
+* \param eventListenerList The device list
+*
+*/
+#define cg_upnp_eventlistenerlist_size(eventListenerList) cg_list_size((CgList *)eventListenerList)
+ 
+/**
+* \todo Correct description
+*
+* \param eventListenerList The event listenerlist list
+*
+*/
+#define cg_upnp_eventlistenerlist_gets(eventListenerList) (CgUpnpEventListenerList*)cg_list_next((CgList *)eventListenerList)
+#define cg_upnp_eventlistenerlist_next(eventListenerList) (CgUpnpEventListenerList*)cg_list_next((CgList *)eventListenerList)
+ 
+/**
+* Remove a listener from the event listener list
+*
+* \param eventListenerList The event listener list
+* \param listener The listener to remove
+*
+*/
+void cg_upnp_eventlistenerlist_remove(CgUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener);
+ 
+/**
+* Add a listener to the event listener list
+*
+* \param eventListenerList The event listener list
+* \param listener The listener to add
+*
+*/
+void cg_upnp_eventlistenerlist_add(CgUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener);
+ 
+/**
+* Call all event listeners in the list with the given data.
+*
+*/
+void cg_upnp_eventlistenerlist_notify(CgUpnpEventListenerList* eventListenerList, CgUpnpProperty *property);
+
 
 #ifdef  __cplusplus
 }

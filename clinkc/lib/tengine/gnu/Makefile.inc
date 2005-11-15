@@ -95,6 +95,7 @@ CLINKCUPNP = \
 	$(CLINKCSRCROOT)/upnp/control/cquery_ctrl.c \
 	$(CLINKCSRCROOT)/upnp/control/cquery_request.c \
 	$(CLINKCSRCROOT)/upnp/control/cquery_response.c \
+	$(CLINKCSRCROOT)/upnp/event/ceventlistener_list.c \
 	$(CLINKCSRCROOT)/upnp/event/cnotify_request.c \
 	$(CLINKCSRCROOT)/upnp/event/cproperty.c \
 	$(CLINKCSRCROOT)/upnp/event/cproperty_list.c \

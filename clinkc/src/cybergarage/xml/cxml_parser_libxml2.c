@@ -18,7 +18,7 @@
 *
 *       10/31/05
 *               - Added performance measurement functionality under
-*                 SHOW_TIMINGS macro (not enabled by default)
+*                 CG_SHOW_TIMINGS macro (not enabled by default)
 *
 ******************************************************************/
 
@@ -41,7 +41,7 @@
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 
-#ifdef SHOW_TIMINGS
+#ifdef CG_SHOW_TIMINGS
 #include <sys/time.h>
 #include <time.h>
 
@@ -146,7 +146,7 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 	xmlDocPtr doc;
 	xmlNodePtr cur;
 	BOOL parseSuccess;
-#ifdef SHOW_TIMINGS
+#ifdef CG_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
 	
 	gettimeofday(&start_time, NULL);
@@ -170,7 +170,7 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 	// Now all data is copied to CyberLink, release the original DOM object tree
 	xmlFreeDoc(doc);
 
-#ifdef SHOW_TIMINGS
+#ifdef CG_SHOW_TIMINGS
 	gettimeofday(&end_time, NULL);
 	timersub(&end_time, &start_time, &elapsed_time);
 	printf("Parsing XML completed. Elapsed time: "

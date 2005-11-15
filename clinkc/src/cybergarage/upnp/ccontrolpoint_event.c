@@ -103,8 +103,12 @@ BOOL cg_upnp_controlpoint_subscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService
 	if (rootDev == NULL)
 		return FALSE;
 
+#ifdef CG_OPTIMIZED_CP_MODE
+	if (cg_upnp_service_isparsed(service) == FALSE)
+				cg_upnp_controlpoint_parsescservicescpd(service); 
+#endif
+	
 	cg_upnp_service_lock(service);
-
 	roodDevIfAddress = cg_upnp_device_getinterfaceaddressfromssdppacket(rootDev);
 
 	subReq = cg_upnp_event_subscription_request_new();
@@ -120,9 +124,8 @@ BOOL cg_upnp_controlpoint_subscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService
 		cg_upnp_service_clearsubscriptionsid(service);
 
 	cg_upnp_event_subscription_request_delete(subReq);
-
 	cg_upnp_service_unlock(service);
-
+	
 	return isSuccess;
 }
 

@@ -22,6 +22,8 @@ clinkc_header = \
 	cybergarage/upnp/cargument.h \
 	cybergarage/upnp/ccontrolpoint.h \
 	cybergarage/upnp/cdevice.h \
+	cybergarage/upnp/cicon.h \
+	cybergarage/upnp/cservice.h \
 	cybergarage/upnp/cstatevariable.h \
 	cybergarage/upnp/cupnp.h \
 	cybergarage/upnp/cupnp_function.h \

@@ -1,3 +1,11 @@
+2005-11-15  Aapo Mäkelä <aapo.makela@nokia.com>
+	* Added eventlistener_list, which enables to have multiple event 
+	  listeners registered for a control point.
+	* Added optional "optimized-cp-mode", in which service 
+	  descriptions are loaded only when they are required.
+	* Added locking to service parsing process.
+	* Some minor fixes to configuration files and macro naming
+
 2005-11-11  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_longlong2str() and cg_str2longlong().
 	* Added cg_http_packet_setheaderlonglong() and cg_http_packet_getheaderlonglong().

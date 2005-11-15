@@ -32,11 +32,11 @@ void cg_upnp_controlpoint_httprequestrecieved(CgHttpRequest *httpReq)
 	CgUpnpNotifyRequest *notifyReq;
 	CgUpnpPropertyList *propList;
 	CgUpnpProperty *prop;
-	CG_UPNP_EVENT_LISTENER eventListener;
+	CgUpnpEventListenerList *eventListeners;
 	
 	ctrlPoint = (CgUpnpControlPoint *)cg_http_request_getuserdata(httpReq);
 		
-	eventListener = cg_upnp_controlpoint_geteventlistener(ctrlPoint);
+	eventListeners = cg_upnp_controlpoint_geteventlisteners(ctrlPoint);
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 	if (cg_http_request_isnotiryrequest(httpReq) == TRUE) {	
@@ -45,8 +45,7 @@ void cg_upnp_controlpoint_httprequestrecieved(CgHttpRequest *httpReq)
 	
 		propList = cg_upnp_event_notify_request_getpropertylist(notifyReq); 
 		for (prop=cg_upnp_propertylist_gets(propList); prop != NULL; prop = cg_upnp_property_next(prop)) {
-			if (eventListener != NULL)
-				eventListener(prop);
+			cg_upnp_eventlistenerlist_notify(eventListeners, prop);
 		}	
 		
 		cg_upnp_event_notify_request_delete(notifyReq);
