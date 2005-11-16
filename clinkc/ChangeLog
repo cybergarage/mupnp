@@ -1,3 +1,8 @@
+2005-11-16  Aapo Mäkelä <aapo.makela@nokia.com>
+	* Modified posix threads to be JOINABLE instead of DETATCHED in 
+	  order to make threading more robust. Replaced detatch (in 
+	  thread stopping) with join.
+
 2005-11-15  Aapo Mäkelä <aapo.makela@nokia.com>
 	* Added eventlistener_list, which enables to have multiple event 
 	  listeners registered for a control point.

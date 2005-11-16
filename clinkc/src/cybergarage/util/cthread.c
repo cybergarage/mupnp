@@ -170,7 +170,7 @@ BOOL cg_thread_start(CgThread *thread)
 #else
 	pthread_attr_t thread_attr;
 	pthread_attr_init(&thread_attr);
-	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED);
+	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE);
 	if (pthread_create(&thread->pThread, &thread_attr, PosixThreadProc, thread) != 0) {
 		thread->runnableFlag = FALSE;
 		pthread_attr_destroy(&thread_attr);
@@ -205,7 +205,7 @@ BOOL cg_thread_stop(CgThread *thread)
 		b_ter_tsk(thread->taskID);
 #else
 		pthread_cancel(thread->pThread);
-		pthread_detach(thread->pThread);
+		pthread_join(thread->pThread, NULL);
 #endif
 	}
 	return TRUE;
