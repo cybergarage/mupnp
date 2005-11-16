@@ -2,6 +2,9 @@
 	* Modified posix threads to be JOINABLE instead of DETATCHED in 
 	  order to make threading more robust. Replaced detatch (in 
 	  thread stopping) with join.
+	* Added libcurl support by providing --enable-libcurl configure flag
+	* Changed libxml2 parser to use SAX implementation instead of DOM
+	  (approx. 50-100% speed increase)
 
 2005-11-15  Aapo Mäkelä <aapo.makela@nokia.com>
 	* Added eventlistener_list, which enables to have multiple event 

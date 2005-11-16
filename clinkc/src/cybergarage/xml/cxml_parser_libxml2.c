@@ -48,93 +48,78 @@
 extern long int cg_total_elapsed_time;
 #endif
 
-/****************************************
-* cg_libxml2_parse
-****************************************/
 
-BOOL cg_libxml2_parse(CgXmlNodeList *nodeList, xmlDocPtr doc, xmlNodePtr cur, int depth)
+static void cg_libxml2_characters(void *user_data,
+				  const xmlChar *ch,
+				  int len);
+static void cg_libxml2_start_element(void *user_data,
+				     const xmlChar *name,
+				     const xmlChar **attrs);
+static void cg_libxml2_end_element(void *user_data,
+				   const xmlChar *name);			     
+
+typedef struct _CgLibxml2Data {
+	CgXmlNode *rootNode;
+	CgXmlNode *currNode;
+} CgLibxml2Data;
+
+static xmlSAXHandler cg_libxml2_handler =
 {
+	.startElement = cg_libxml2_start_element,
+	.endElement = cg_libxml2_end_element,
+	.characters = cg_libxml2_characters
+};
+	
+
+static void cg_libxml2_start_element(void *user_data,
+				     const xmlChar *name,
+				     const xmlChar **attrs)
+{
+	CgLibxml2Data *libxml2Data;
 	CgXmlNode *node;
-	xmlChar *key;
-	xmlAttrPtr prop;
-	xmlChar *attrValue;
-	xmlNodePtr child;
-	CgString *nameStr;
-	CgString *nsStr;
+	int n;
 
-	/**** This should never happen... ****/
-	if ( cur == NULL )
-		return FALSE;
+	libxml2Data = (CgLibxml2Data *)user_data;
 
-	/**** Recursion depth > 10. Are you sure this is OK!?" ****/
-	if ( depth > 12 )
-		return FALSE;
+	node = cg_xml_node_new();
+	cg_xml_node_setname(node, (char *)name);
 
-	/**** We are only interested in XML_ELEMENT_NODEs.
-	       Note, that the resulting Node tree will only contain them... ****/
-
-	if ( cur->type == XML_ELEMENT_NODE ) {
-
-		node = cg_xml_node_new();
-		cg_xml_nodelist_add(nodeList, node);
-
-		/**** Set name and value for the new node. ****/
-		nameStr = cg_string_new();
-		if ( cur->ns && cur->ns->prefix ) {
-		  // Add the namespace prefix to the element name
-		  cg_string_addvalue( nameStr, (char*) cur->ns->prefix );
-		  cg_string_addvalue( nameStr, ":" );
-		}
-		cg_string_addvalue( nameStr, (char*) cur->name );
-
-		cg_xml_node_setname( node, cg_string_getvalue( nameStr ) );
-		cg_string_delete( nameStr );
-
-		key = NULL;
-		if ( cur->xmlChildrenNode ) {
-			key = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-		}
-
-		if ( key ) {
-		  cg_xml_node_setvalue(node, key);
-		  xmlFree( key );
-		}
-
-
-		/**** Get attributes (if any) and copy to newNode ****/
-		prop = cur->properties;
-		while (prop) {
-			attrValue = xmlNodeListGetString(doc, prop->xmlChildrenNode, 1);
-			cg_xml_node_setattribute(node, (char *)prop->name, attrValue);
-			xmlFree(attrValue);
-			prop = prop->next;
-		}
-
-		/**** Also add namespace declarations to the attribute list ****/
-		xmlNsPtr nsDef = cur->nsDef;
-		while ( nsDef ) {
-		  nsStr = cg_string_new();
-		  cg_string_addvalue( nsStr, "xmlns" );
-		  if ( nsDef->prefix ) {
-		    cg_string_addvalue( nsStr, ":" );
-		    cg_string_addvalue( nsStr, (char *) nsDef->prefix );
-		  }
-		  cg_xml_node_setattribute( node, cg_string_getvalue( nsStr ), (char *) nsDef->href );
-		  cg_string_delete( nsStr );
-		  nsDef = nsDef->next;
-		}
-
-		/**** Then convert (recursively) all the children of the current node ****/
-		xmlNodePtr child = cur->xmlChildrenNode;
-		while (child != NULL) {
-			if (cg_libxml2_parse(cg_xml_node_getchildnodelist(node), doc, child, depth + 1) == FALSE)
-				return FALSE;
-			child = child->next;
-		}
-
+	if (attrs != NULL)
+	{
+		for (n = 0; attrs[n]; n += 2)
+			cg_xml_node_setattribute(node, (char *)attrs[n], (char *)attrs[n+1]);
 	}
 
-	return TRUE;
+	if (libxml2Data->rootNode != NULL) {
+		if (libxml2Data->currNode != NULL)
+			cg_xml_node_addchildnode(libxml2Data->currNode, node);
+		else
+			cg_xml_node_addchildnode(libxml2Data->rootNode, node);
+	}
+	else
+		libxml2Data->rootNode = node;
+
+	libxml2Data->currNode = node;
+}
+
+static void cg_libxml2_end_element(void *user_data,
+				   const xmlChar *name)
+{
+	CgLibxml2Data *libxml2Data = (CgLibxml2Data *)user_data;
+	if (libxml2Data->currNode != NULL)
+		libxml2Data->currNode = cg_xml_node_getparentnode(libxml2Data->currNode);
+}
+
+static void cg_libxml2_characters(void *user_data,
+				  const xmlChar *ch,
+				  int len)
+{
+	CgLibxml2Data *libxml2Data;
+
+	libxml2Data = (CgLibxml2Data *)user_data;
+
+	if (libxml2Data->currNode != NULL)
+		cg_xml_node_naddvalue(libxml2Data->currNode, (char *)ch, len);
 }
 
 /****************************************
@@ -143,33 +128,26 @@ BOOL cg_libxml2_parse(CgXmlNodeList *nodeList, xmlDocPtr doc, xmlNodePtr cur, in
 
 BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int len)
 {
-	xmlDocPtr doc;
-	xmlNodePtr cur;
-	BOOL parseSuccess;
+	CgLibxml2Data libxml2Data;
 #ifdef CG_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
 	
 	gettimeofday(&start_time, NULL);
 #endif	
 	
-	// First, parse the XML memory buffer ito a DOM object
-	doc = xmlParseMemory( data, len );
-	if ( doc == NULL )
-		return FALSE;
-
-	// Then get a pointer to the root node
-	cur = xmlDocGetRootElement( doc );
-	if (cur == NULL) {
-		xmlFreeDoc(doc);
+	libxml2Data.rootNode = NULL;
+	libxml2Data.currNode = NULL;
+	
+	if (xmlSAXUserParseMemory(&cg_libxml2_handler, &libxml2Data, data, len) < 0)
+	{
+		if (libxml2Data.rootNode != NULL)
+			cg_xml_node_delete(libxml2Data.rootNode);
+		
 		return FALSE;
 	}
-
-	// Then convert the libxml2 type node tree into CyberLink XML node tree
-	parseSuccess = cg_libxml2_parse(nodeList, doc, cur, 0);
-
-	// Now all data is copied to CyberLink, release the original DOM object tree
-	xmlFreeDoc(doc);
-
+	
+	cg_xml_nodelist_add(nodeList, libxml2Data.rootNode);
+	
 #ifdef CG_SHOW_TIMINGS
 	gettimeofday(&end_time, NULL);
 	timersub(&end_time, &start_time, &elapsed_time);
@@ -180,7 +158,7 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 				 (elapsed_time.tv_usec);
 	printf("Total elapsed time: %ld msec\n", cg_total_elapsed_time / 1000);
 #endif	
-	return parseSuccess;
+	return TRUE;
 }
 
 /****************************************
