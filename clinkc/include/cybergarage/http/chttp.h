@@ -107,6 +107,9 @@ extern "C" {
 #define CG_HTTP_CALLBACK "CALLBACK"
 #define CG_HTTP_TIMEOUT "TIMEOUT"
 
+/**** CURL connection timeout: 5 seconds ****/
+#define CG_HTTP_CURL_CONNECTTIMEOUT 5
+
 /****************************************
 * Data Type
 ****************************************/
