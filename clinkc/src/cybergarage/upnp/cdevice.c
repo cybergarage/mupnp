@@ -20,6 +20,9 @@
 *		  advertisement and byebye messages
 *		- Added EXT handling to postsearchresponse
 *
+*	11/17/05
+*		- Fixed many wrong variable names in for loops (dev => childDev)
+*
 ******************************************************************/
 
 #include <cybergarage/upnp/cdevice.h>
@@ -379,7 +382,7 @@ CgUpnpDevice *cg_upnp_device_getdevicebydescriptionuri(CgUpnpDevice *dev, char *
 	if (cg_strlen(url) <= 0)
 		return NULL;
 			
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
 		if (cg_upnp_device_isdescriptionuri(dev, url) == TRUE)
 			return dev;
 		moreChildDev = cg_upnp_device_getdevicebydescriptionuri(childDev, url);
@@ -542,7 +545,7 @@ BOOL cg_upnp_device_announcefrom(CgUpnpDevice *dev, char *bindAddr)
 	
 	/**** child deveices ****/
 	devList = cg_upnp_device_getdevicelist(dev);
-	for (childDev = cg_upnp_devicelist_gets(devList); childDev != NULL; childDev = cg_upnp_device_next(dev))
+	for (childDev = cg_upnp_devicelist_gets(devList); childDev != NULL; childDev = cg_upnp_device_next(childDev))
 		cg_upnp_device_announcefrom(childDev, bindAddr);
 		
 	return sentResult;
@@ -622,7 +625,7 @@ BOOL cg_upnp_device_byebyefrom(CgUpnpDevice *dev, char *bindAddr)
 		cg_upnp_service_byebyefrom(service, bindAddr);
 	
 	devList = cg_upnp_device_getdevicelist(dev);
-	for (childDev = cg_upnp_devicelist_gets(devList); childDev != NULL; childDev = cg_upnp_device_next(dev))
+	for (childDev = cg_upnp_devicelist_gets(devList); childDev != NULL; childDev = cg_upnp_device_next(childDev))
 		cg_upnp_device_byebyefrom(childDev, bindAddr);
 
 	return sentResult;
@@ -830,7 +833,7 @@ CgUpnpService *cg_upnp_device_getservicebyname(CgUpnpDevice *dev, char *name)
 			return service;
 	}
 		
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
 		service = cg_upnp_device_getservicebyname(childDev, name);
 		if (service != NULL)
 			return service;
@@ -856,7 +859,7 @@ CgUpnpService *cg_upnp_device_getservicebyscpdurl(CgUpnpDevice *dev, char *url)
 			return service;
 	}
 		
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
 		service = cg_upnp_device_getservicebyscpdurl(childDev, url);
 		if (service != NULL)
 			return service;
@@ -882,7 +885,7 @@ CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, char *ur
 			return service;
 	}
 		
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
 		service = cg_upnp_device_getservicebycontrolurl(childDev, url);
 		if (service != NULL)
 			return service;
@@ -908,7 +911,7 @@ CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, char *sid)
 			return service;
 	}
 		
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
 		service = cg_upnp_device_getservicebysid(childDev, sid);
 		if (service != NULL)
 			return service;
@@ -929,7 +932,7 @@ void cg_upnp_device_setactionlistener(CgUpnpDevice *dev, CG_UPNP_ACTION_LISTNER 
 	for (service=cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service))
 		cg_upnp_service_setactionlistener(service, actionListner);
 		
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev))
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev))
 		cg_upnp_device_setactionlistener(childDev, actionListner);
 }
 
@@ -945,7 +948,7 @@ void cg_upnp_device_setquerylistener(CgUpnpDevice *dev, CG_UPNP_STATEVARIABLE_LI
 	for (service=cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service))
 		cg_upnp_service_setquerylistener(service, queryListner);
 		
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev))
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev))
 		cg_upnp_device_setquerylistener(childDev, queryListner);
 }
 
@@ -966,7 +969,7 @@ CgUpnpService *cg_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, char *u
 			return service;
 	}
 		
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
 		service = cg_upnp_device_getservicebyeventsuburl(childDev, url);
 		if (service != NULL)
 			return service;
@@ -1000,7 +1003,7 @@ CgUpnpAction *cg_upnp_device_getactionbyname(CgUpnpDevice *dev, char *name)
 			return action;
 	}
 		
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
 		action = cg_upnp_device_getactionbyname(childDev, name);
 		if (action != NULL)
 			return action;
@@ -1034,7 +1037,7 @@ CgUpnpStateVariable *cg_upnp_device_getstatevariablebyname(CgUpnpDevice *dev, ch
 			return statVar;
 	}
 		
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(dev)) {
+	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
 		statVar = cg_upnp_device_getstatevariablebyname(childDev, name);
 		if (statVar != NULL)
 			return statVar;

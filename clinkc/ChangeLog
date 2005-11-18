@@ -1,3 +1,8 @@
+2005-11-18  Aapo Mäkelä <aapo.makela@nokia.com>
+	* Fixed many variable names (dev => childDev) in 
+	  cg_upnp_device_* functions.
+	* Changed libxml2 parser to unescape XML default entities
+
 2005-11-16  Aapo Mäkelä <aapo.makela@nokia.com>
 	* Modified posix threads to be JOINABLE instead of DETATCHED in 
 	  order to make threading more robust. Replaced detatch (in 
