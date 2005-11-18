@@ -1,17 +1,20 @@
-2005-11-18  Aapo M‰kel‰ <aapo.makela@nokia.com>
+2005-11-18  Satoshi Konno <skonno@cybergarage.org>
+	* Added some logging functions such as cg_debug_setoutputtype() and cg_debug_message().
+
+2005-11-18  Aapo M‰kelÅE<aapo.makela@nokia.com>
 	* Fixed many variable names (dev => childDev) in 
 	  cg_upnp_device_* functions.
 	* Changed libxml2 parser to unescape XML default entities
 	* Fixed to compile without optimized CP mode.
 
-2005-11-16  Aapo M‰kel‰ <aapo.makela@nokia.com>
+2005-11-16  Aapo M‰kelÅE<aapo.makela@nokia.com>
 	* Modified posix threads to be JOINABLE instead of DETATCHED in 
 	  order to make threading more robust. Replaced detatch (in 
 	  thread stopping) with join.
 	* Changed libxml2 parser to use SAX implementation instead of DOM
 	  (approx. 50-100% speed increase)
 
-2005-11-15  Aapo M‰kel‰ <aapo.makela@nokia.com>
+2005-11-15  Aapo M‰kelÅE<aapo.makela@nokia.com>
 	* Added eventlistener_list, which enables to have multiple event 
 	  listeners registered for a control point.
 	* Added optional "optimized-cp-mode", in which service 
@@ -25,11 +28,11 @@
 	* Extended cg_http_packet_setcontentlength() and cg_http_packet_getcontentlength() to 64bit
 	  when the compiler is supported C99 or the platform is WIN32.
 
-2005-11-10  Aapo M‰kel‰ <aapo.makela@nokia.com>
+2005-11-10  Aapo M‰kelÅE<aapo.makela@nokia.com>
 	* Fixed cg_upnp_device_getdevicebyname() not to loop forever
 	* Changed cg_upnp_controlpoint_createdevicefromssdppacket to use cg_upnp_controlpoint_getdevicebyname() again
 
-2005-11-09  Aapo M‰kel‰ <aapo.makela@nokia.com>
+2005-11-09  Aapo M‰kelÅE<aapo.makela@nokia.com>
 	* Fix to use both path and query parts of URI in HTTP request URI
 	* Added fixing of broken event and control URLs
 	* Changed cg_upnp_controlpoint_createdevicefromssdppacket to not to call cg_upnp_getdevicebyname (which jams to infinite loop sometimes)
@@ -37,7 +40,7 @@
 2005-11-03  Heikki Junnila <ext-heikki.junnila@nokia.com>
 	* Updated configure and make scripts to use libcurl
 
-2005-10-31  Heikki Junnila for Aapo M‰kel‰, Visa Smolander and Iain Simpson
+2005-10-31  Heikki Junnila for Aapo M‰kelÅE Visa Smolander and Iain Simpson
 	* Removed all automatically generated files (Makefile.in, config/*, autom4te.cache/*, configure, etc...)
 	* Changed "<" to "<=" in cg_upnp_control_isqueryrequest()
 	* cg_http_packet_sethost(): "port" was an excess parameter for s(n)printf when port <= 0. Removed the parameter.
