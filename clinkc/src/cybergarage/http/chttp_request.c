@@ -301,8 +301,18 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	/**** useragent ****/
 	curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
 
+	/**** Prohibit curl from using signals ****/
+	curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
+	
+	/**** Set the connection timeout so we don't wait forever ****/
+	curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 
+			       CG_HTTP_CURL_CONNECTTIMEOUT);
+
 	/* Get the XML document with CURL */
 	res = curl_easy_perform(curl);
+	if (res != CURLE_OK)
+		fprintf(stderr, "curl_easy_perform: %s\n",
+			curl_easy_strerror(res));
 
 	/* Set the content length here, when we really know it */
 	cg_http_response_setcontentlength(httpRes, cg_string_length(httpRes->content));
