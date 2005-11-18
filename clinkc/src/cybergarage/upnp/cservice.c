@@ -548,25 +548,33 @@ void cg_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIA
 
 CgUpnpActionList *cg_upnp_service_getactionlist(CgUpnpService *service)
 {
+#ifdef CG_OPTIMIZED_CP_MODE
 	cg_upnp_service_parseifnotparsed(service);
+#endif
 	return service->actionList;
 }
 
 CgUpnpAction *cg_upnp_service_getactions(CgUpnpService *service)
 {
+#ifdef CG_OPTIMIZED_CP_MODE
 	cg_upnp_service_parseifnotparsed(service);
+#endif
 	return cg_upnp_actionlist_gets(service->actionList);
 }
 
 CgUpnpServiceStateTable *cg_upnp_service_getservicestatetable(CgUpnpService *service)
 {
+#ifdef CG_OPTIMIZED_CP_MODE
 	cg_upnp_service_parseifnotparsed(service);
+#endif
 	return service->serviceStateTable;
 }
 
 CgUpnpStateVariable *cg_upnp_service_getstatevariables(CgUpnpService *service)
 {
+#ifdef CG_OPTIMIZED_CP_MODE
 	cg_upnp_service_parseifnotparsed(service);
+#endif
 	return cg_upnp_servicestatetable_gets(service->serviceStateTable);
 }
 
