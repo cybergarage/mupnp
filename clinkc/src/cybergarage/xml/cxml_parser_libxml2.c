@@ -20,6 +20,9 @@
 *               - Added performance measurement functionality under
 *                 CG_SHOW_TIMINGS macro (not enabled by default)
 *
+*	11/18/05
+*		- Fixed to use SAX parser and parse predefined XML entities
+*
 ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
@@ -49,6 +52,8 @@ extern long int cg_total_elapsed_time;
 #endif
 
 
+static xmlEntityPtr cg_libxml2_get_entity(void *user_data, 
+					  const xmlChar *name);
 static void cg_libxml2_characters(void *user_data,
 				  const xmlChar *ch,
 				  int len);
@@ -67,6 +72,7 @@ static xmlSAXHandler cg_libxml2_handler =
 {
 	.startElement = cg_libxml2_start_element,
 	.endElement = cg_libxml2_end_element,
+	.getEntity = cg_libxml2_get_entity,
 	.characters = cg_libxml2_characters
 };
 	
@@ -120,6 +126,11 @@ static void cg_libxml2_characters(void *user_data,
 
 	if (libxml2Data->currNode != NULL)
 		cg_xml_node_naddvalue(libxml2Data->currNode, (char *)ch, len);
+}
+
+static xmlEntityPtr cg_libxml2_get_entity(void *user_data, const xmlChar *name) 
+{
+	return xmlGetPredefinedEntity(name);
 }
 
 /****************************************
