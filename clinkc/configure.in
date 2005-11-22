@@ -100,8 +100,8 @@ if [ test $USE_LIBXML2 = yes ]; then
 	AC_CHECK_PROG(XML2_CONFIG, xml2-config, yes, no)
 	if [ test $XML2_CONFIG = yes ]; then
 		AC_DEFINE([CG_XMLPARSER_LIBXML2],1,[LIBXML2])
-		XML_CFLAGS=`xml2-config --cflags`
-		XML_LIBS=`xml2-config --libs`
+		XML_CFLAGS=`pkg-config libxml-2.0 --cflags`
+		XML_LIBS=`pkg-config libxml-2.0 --libs`
 		AC_SUBST(XML_CFLAGS)
 		AC_SUBST(XML_LIBS)
 	else

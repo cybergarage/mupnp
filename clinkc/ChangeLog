@@ -1,3 +1,10 @@
+2005-11-22  Heikki Junnila <ext-heikki.junnila@nokia.com>
+	* Changed XML_LIBS and XML_CFLAGS in configure.in to use
+	  'pkg-config libxml-2.0' instead of xml2-config. This requires
+	  (at least in maemo) that PKG_CONFIG_PATH environment variable
+	  points to a directory containing the "pkgconfig" directory.
+	  PKG_CONFIG_PATH=/usr/lib should work in most cases.
+
 2005-11-18  Heikki Junnila <ext-heikki.junnila@nokia.com>
 	* Fixed an indefinite freezing problem with curl_easy_perform 
           (which can be caused by, for example, an unreachable proxy server
