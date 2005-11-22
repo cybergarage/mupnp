@@ -1,3 +1,11 @@
+clinkc (1.0-5) unstable; urgency=low
+
+  * Built new release for testing. Release includes patches created between
+    09-Nov-2005 and 18-Nov-2005, see ChangeLog.
+  * 
+
+ -- Heikki Junnila <hjunnila@localhost.localdomain>  Tue, 22 Nov 2005 10:02:39 +0200
+
 clinkc (1.0-4) unstable; urgency=low
 
   * Added libcurl switch to configure scripts
