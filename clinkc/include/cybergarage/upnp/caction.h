@@ -48,8 +48,6 @@ typedef struct _CgUpnpAction {
 	void *parentService;
 	CgXmlNode *actionNode;
 	CgUpnpArgumentList *argumentList;
-	CgUpnpArgumentList *argumentInList;
-	CgUpnpArgumentList *argumentOutList;
 	/**** Execution Data ****/
 	BOOL (*listener)(struct _CgUpnpAction *);
 	CgUpnpStatus *upnpStatus;

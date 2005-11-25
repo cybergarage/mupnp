@@ -1,3 +1,8 @@
+2005-11-25  Heikki Junnila <ext-heikki.junnila@nokia.com>
+        * Removed argumentInList and argumentOutList from caction.[h|c]
+          because they were not used anywhere thus hogging unnecessary
+          memory.
+
 2005-11-22  Heikki Junnila <ext-heikki.junnila@nokia.com>
 	* Changed XML_LIBS and XML_CFLAGS in configure.in to use
 	  'pkg-config libxml-2.0' instead of xml2-config. This requires

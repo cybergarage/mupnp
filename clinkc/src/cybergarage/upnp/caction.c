@@ -35,8 +35,6 @@ CgUpnpAction *cg_upnp_action_new()
 	action->actionNode = NULL;
 
 	action->argumentList = cg_upnp_argumentlist_new();
-	action->argumentInList = cg_upnp_argumentlist_new();
-	action->argumentOutList = cg_upnp_argumentlist_new();
 	
 	action->upnpStatus = cg_upnp_status_new();
 	action->listener = NULL;
@@ -52,8 +50,6 @@ CgUpnpAction *cg_upnp_action_new()
 void cg_upnp_action_delete(CgUpnpAction *action)
 {
 	cg_upnp_argumentlist_delete(action->argumentList);
-	cg_upnp_argumentlist_delete(action->argumentInList);
-	cg_upnp_argumentlist_delete(action->argumentOutList);
 	
 	cg_upnp_status_delete(action->upnpStatus);
 	
@@ -104,8 +100,6 @@ static void cg_upnp_action_initargumentlist(CgUpnpAction *action)
 	CgUpnpArgument *arg;
 	
 	cg_upnp_argumentlist_clear(action->argumentList);
-	cg_upnp_argumentlist_clear(action->argumentInList);
-	cg_upnp_argumentlist_clear(action->argumentOutList);
 
 	actionNode = cg_upnp_action_getactionnode(action);
 	argumentListNode = cg_xml_node_getchildnode(actionNode, CG_UPNP_ARGUMENTLIST_ELEM_NAME);
@@ -121,18 +115,6 @@ static void cg_upnp_action_initargumentlist(CgUpnpAction *action)
 		arg = cg_upnp_argument_new();
 		cg_upnp_argument_setargumentnode(arg, childNode);
 		cg_upnp_argumentlist_add(action->argumentList, arg);
-		
-		if (cg_upnp_argument_isindirection(arg) == TRUE) { 
-			arg = cg_upnp_argument_new();
-			cg_upnp_argument_setargumentnode(arg, childNode);
-			cg_upnp_argumentlist_add(action->argumentInList, arg);
-		}
-		
-		if (cg_upnp_argument_isoutdirection(arg) == TRUE) { 
-			arg = cg_upnp_argument_new();
-			cg_upnp_argument_setargumentnode(arg, childNode);
-			cg_upnp_argumentlist_add(action->argumentOutList, arg);
-		}
 	} 
 }
 
