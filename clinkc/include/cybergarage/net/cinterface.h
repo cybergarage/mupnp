@@ -54,6 +54,7 @@ typedef struct _CgNetworkInterface {
 
 CgNetworkInterface *cg_net_interface_new();
 void cg_net_interface_delete(CgNetworkInterface *netIf);
+CgNetworkInterface* cg_net_interface_getany();
 
 #define cg_net_interface_next(netIf) (CgNetworkInterface *)cg_list_next((CgList *)netIf)
 

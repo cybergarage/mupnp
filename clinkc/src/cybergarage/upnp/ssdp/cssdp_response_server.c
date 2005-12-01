@@ -186,6 +186,8 @@ BOOL cg_upnp_ssdpresponse_server_post(CgUpnpSSDPResponseServer *server, CgUpnpSS
 		
 	ssdpMsg = cg_string_new();
 	cg_upnp_ssdprequest_tostring(ssdpReq, ssdpMsg);
+	cg_socket_setmulticastttl(httpuSock, 
+				  CG_UPNP_SSDP_MULTICAST_DEFAULT_TTL);
 	cg_socket_sendto(httpuSock, ssdpAddr, CG_UPNP_SSDP_PORT, cg_string_getvalue(ssdpMsg), cg_string_length(ssdpMsg));
 	cg_string_delete(ssdpMsg);
 	

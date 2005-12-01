@@ -254,6 +254,9 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	char *uri, *method;
 	char url[CG_NET_URI_MAXLEN];
 	long retcode;
+#ifdef CG_SHOW_TIMINGS
+	struct timeval start_time, end_time, elapsed_time;
+#endif		
 
 	httpRes = httpReq->httpRes;
 
@@ -308,6 +311,11 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 
 			       CG_HTTP_CURL_CONNECTTIMEOUT);
 
+#ifdef CG_SHOW_TIMINGS
+	printf("\nRequest: %s%s%s\n", method, CG_HTTP_SP, url);
+	gettimeofday(&start_time, NULL);
+#endif
+	
 	/* Get the XML document with CURL */
 	res = curl_easy_perform(curl);
 	if (res != CURLE_OK)
@@ -322,6 +330,15 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	curl_easy_getinfo (curl, CURLINFO_HTTP_CODE, &retcode);
 	cg_http_response_setstatuscode(httpRes, retcode);
 
+#ifdef CG_SHOW_TIMINGS	
+	gettimeofday(&end_time, NULL);
+	timersub(&end_time, &start_time, &elapsed_time);
+	printf("Getting HTTP-response completed. Elapsed time: "
+	       "%ld msec\n", ((elapsed_time.tv_sec*1000) + 
+			      (elapsed_time.tv_usec/1000)));
+	cg_total_elapsed_time += (elapsed_time.tv_sec*1000000)+
+				 (elapsed_time.tv_usec);
+#endif
 	curl_easy_cleanup(curl);
 
 	return httpReq->httpRes;

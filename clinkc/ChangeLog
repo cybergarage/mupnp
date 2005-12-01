@@ -1,3 +1,11 @@
+2005-12-01  Aapo Makela <aapo.makela@nokia.com>
+	* Added show timings statistics also to libcurl routine
+	* Fixed to have Multicast TTL as specified in UPnP DA 1.0.1
+	  specification (Multicast TTL 4).
+	* Added CG_NET_USE_ANYADDR to use INADDR_ANY as network 
+	  interface instead of using one socket for each interface 
+	  excplicitly.
+
 2005-11-25  Heikki Junnila <ext-heikki.junnila@nokia.com>
         * Removed argumentInList and argumentOutList from caction.[h|c]
           because they were not used anywhere thus hogging unnecessary

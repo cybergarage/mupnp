@@ -814,6 +814,29 @@ BOOL cg_socket_setreuseaddress(CgSocket *sock, BOOL flag)
 }
 
 /****************************************
+* cg_socket_setmulticastttl
+****************************************/
+
+BOOL cg_socket_setmulticastttl(CgSocket *sock, int ttl)
+{
+	int sockOptRet;
+#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+	sockOptRet = so_setsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_TTL, (B *)&ttl, sizeof(ttl));
+#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+	int optval = (flag == TRUE) ? 1 : 0;
+	sockOptRet = ka_setsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_TTL, (const char *)&ttl, sizeof(ttl));
+#elif defined (ITRON)
+	/**** Not Implemented for NORTi ***/
+	sockOptRet = -1;
+#elif defined (WIN32)
+	sockOptRet = setsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_TTL, (const char *)&ttl, sizeof(ttl));
+#else
+	sockOptRet = setsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_TTL, (const char *)&ttl, sizeof(ttl));
+#endif
+	return (sockOptRet == 0) ? TRUE : FALSE;
+}
+
+/****************************************
 * cg_socket_joingroup
 ****************************************/
 

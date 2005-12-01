@@ -56,7 +56,12 @@ BOOL cg_http_serverlist_open(CgHttpServerList *httpServerList, int port)
 	char *bindAddr;
 	
 	netIfList = cg_net_interfacelist_new();
+#ifndef CG_NET_USE_ANYADDR
 	cg_net_gethostinterfaces(netIfList);
+#else
+	netIf = cg_net_interface_getany();
+	cg_net_interfacelist_add(netIfList, netIf);
+#endif
 	for (netIf = cg_net_interfacelist_gets(netIfList); netIf; netIf = cg_net_interface_next(netIf)) {
 		bindAddr = cg_net_interface_getaddress(netIf);
 		if (cg_strlen(bindAddr) <= 0)

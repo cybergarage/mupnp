@@ -46,6 +46,20 @@ void cg_net_interface_delete(CgNetworkInterface *netIf)
 }
 
 /****************************************
+* cg_net_interface_getany
+****************************************/
+
+CgNetworkInterface *cg_net_interface_getany()
+{
+	CgNetworkInterface *netIf = cg_net_interface_new();
+	/* It would be more approriate to use INADDR_ANY, but this will do */
+	cg_net_interface_setname(netIf, "INADDR_ANY");
+	cg_net_interface_setaddress(netIf, "0.0.0.0");
+	
+	return netIf;
+}
+
+/****************************************
 * cg_net_interface_setname
 ****************************************/
 
