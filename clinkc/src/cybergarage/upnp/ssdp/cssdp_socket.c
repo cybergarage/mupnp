@@ -32,6 +32,8 @@ static BOOL cg_upnp_ssdp_socket_notify(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPReq
 	
 	ssdpMsg = cg_string_new();
 	cg_upnp_ssdprequest_tostring(ssdpReq, ssdpMsg);
+	cg_socket_setmulticastttl(ssdpSock, 
+				  CG_UPNP_SSDP_MULTICAST_DEFAULT_TTL);
 	sentLen = cg_socket_sendto(ssdpSock, ssdpAddr, CG_UPNP_SSDP_PORT, cg_string_getvalue(ssdpMsg), cg_string_length(ssdpMsg));
 	cg_string_delete(ssdpMsg);
 	

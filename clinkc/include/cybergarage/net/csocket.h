@@ -152,6 +152,7 @@ BOOL cg_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr);
 ****************************************/
 
 BOOL cg_socket_setreuseaddress(CgSocket *socket, BOOL flag);
+BOOL cg_socket_setmulticastttl(CgSocket *sock,  int ttl);
 
 /****************************************
 * Function (DatagramPacket)
