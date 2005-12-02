@@ -45,7 +45,7 @@ typedef struct _CgNetURI CgNetURL;
 
 #define cg_net_url_set(urip, value) cg_net_uri_set(urip, value)
 
-#define cg_net_url_seturi(urip, value) cg_string_setvalue(urip->urip, value)
+#define cg_net_url_seturi(urip, value) cg_string_setvalue(urip->uri, value)
 #define cg_net_url_setprotocol(urip, value) cg_string_setvalue(urip->protocol, value)
 #define cg_net_url_setuser(urip, value) cg_string_setvalue(urip->user, value)
 #define cg_net_url_setpassword(urip, value) cg_string_setvalue(urip->password, value)
