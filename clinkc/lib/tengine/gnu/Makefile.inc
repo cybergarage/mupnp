@@ -43,6 +43,7 @@ CLINKCHTTP = \
 	$(CLINKCSRCROOT)/http/chttp_header.c \
 	$(CLINKCSRCROOT)/http/chttp_header_list.c \
 	$(CLINKCSRCROOT)/http/chttp_packet.c \
+	$(CLINKCSRCROOT)/http/chttp_persistent_connection.c \	
 	$(CLINKCSRCROOT)/http/chttp_request.c \
 	$(CLINKCSRCROOT)/http/chttp_response.c \
 	$(CLINKCSRCROOT)/http/chttp_server.c \

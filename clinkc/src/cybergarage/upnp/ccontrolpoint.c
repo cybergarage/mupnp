@@ -45,7 +45,10 @@ static void cg_upnp_controlpoint_ssdpresponselistner(CgUpnpSSDPPacket *ssdpPkt);
 CgUpnpControlPoint *cg_upnp_controlpoint_new()
 {
 	CgUpnpControlPoint *ctrlPoint = (CgUpnpControlPoint *)malloc(sizeof(CgUpnpControlPoint));
-	
+
+#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS	
+	cg_http_persistentconnection_init();
+#endif
 	ctrlPoint->mutex = cg_mutex_new();
 	ctrlPoint->deviceRootNodeList = cg_xml_nodelist_new();
 	ctrlPoint->deviceList = cg_upnp_devicelist_new();
@@ -82,8 +85,11 @@ void cg_upnp_controlpoint_delete(CgUpnpControlPoint *ctrlPoint)
 	cg_upnp_ssdpresponse_serverlist_delete(ctrlPoint->ssdpResServerList);
 	cg_http_serverlist_delete(ctrlPoint->httpServerList);
 	cg_string_delete(ctrlPoint->httpEventURI);
-	cg_upnp_eventlistenerlist_delete(ctrlPoint->eventListeners);
-	
+	cg_upnp_eventlistenerlist_delete(ctrlPoint->eventListeners);	
+
+#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS	
+	cg_http_persistentconnection_clear();
+#endif
 	free(ctrlPoint);
 }
 
@@ -336,7 +342,7 @@ BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, char *target)
 	cg_upnp_ssdprequest_setmethod(ssdpReq, CG_HTTP_MSEARCH);
 	cg_upnp_ssdprequest_setst(ssdpReq, target);
 	cg_upnp_ssdprequest_setmx(ssdpReq, cg_upnp_controlpoint_getssdpsearchmx(ctrlPoint));
-	cg_upnp_ssdprequest_setman(ssdpReq, "\"" CG_UPNP_MAN_DISCOVER "\"");
+	cg_upnp_ssdprequest_setman(ssdpReq, CG_UPNP_MAN_DISCOVER);
 	
 	ssdpResServerList = cg_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
 	cg_upnp_ssdpresponse_serverlist_post(ssdpResServerList, ssdpReq);

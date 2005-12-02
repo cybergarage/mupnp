@@ -464,6 +464,24 @@ void cg_http_serverlist_setuserdata(CgHttpServerList *httpServerList, void *valu
 
 char *cg_http_getdate(CgSysTime sysTime, char *buf, int bufSize);
 
+/****************************************
+* Persistent connection cache
+****************************************/
+
+/** Initialize persistent connection cache. Can be called many times */
+BOOL cg_http_persistentconnection_init(void);
+/** Clear persistent connection cache and free all memory */
+void cg_http_persistentconnection_clear(void);
+/** Lock persistent connection cache. Required for getting, putting and using
+    persistent connection from cache */
+void cg_http_persistentconnection_lock(void);
+/** Unlock persistent connection cache. */
+void cg_http_persistentconnection_unlock(void);
+/** Get persistent connection from cache */
+void *cg_http_persistentconnection_get(char *host, int port);
+/** Put connection to persistent connection cache */
+BOOL cg_http_persistentconnection_put(char *host, int port, void *data);
+
 #ifdef  __cplusplus
 }
 #endif

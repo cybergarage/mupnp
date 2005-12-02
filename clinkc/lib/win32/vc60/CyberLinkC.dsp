@@ -193,6 +193,10 @@ SOURCE=..\..\..\src\cybergarage\http\chttp_packet.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\src\cybergarage\http\chttp_persistent_connection.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\src\cybergarage\http\chttp_request.c
 # End Source File
 # Begin Source File
