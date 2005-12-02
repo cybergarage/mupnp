@@ -1,3 +1,7 @@
+2005-12-02  Heikki Junnila <ext-heikki.junnila@nokia.com>
+	* Fixed a typo in curl.h and curi.h that was looking for a member
+	  declared in "urip" from struct CgNetURL, while it should be "uri"
+
 2005-12-01  Aapo Makela <aapo.makela@nokia.com>
 	* Added show timings statistics also to libcurl routine
 	* Fixed to have Multicast TTL as specified in UPnP DA 1.0.1

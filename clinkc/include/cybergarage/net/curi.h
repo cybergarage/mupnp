@@ -73,7 +73,7 @@ void cg_net_uri_clear(CgNetURI *uri);
 
 void cg_net_uri_set(CgNetURI *uri, char *value);
 
-#define cg_net_uri_seturi(urip, value) cg_string_setvalue(urip->urip, value)
+#define cg_net_uri_seturi(urip, value) cg_string_setvalue(urip->uri, value)
 #define cg_net_uri_setprotocol(urip, value) cg_string_setvalue(urip->protocol, value)
 #define cg_net_uri_setuser(urip, value) cg_string_setvalue(urip->user, value)
 #define cg_net_uri_setpassword(urip, value) cg_string_setvalue(urip->password, value)
@@ -94,7 +94,7 @@ void cg_net_uri_set(CgNetURI *uri, char *value);
 #define cg_net_uri_getfragment(urip) cg_string_getvalue(urip->fragment)
 char *cg_net_uri_getrequest(CgNetURI *uri);
 
-#define cg_net_uri_hasuri(urip) ((0 < cg_string_length(urip->urip)) ? TRUE : FALSE)
+#define cg_net_uri_hasuri(urip) ((0 < cg_string_length(urip->uri)) ? TRUE : FALSE)
 #define cg_net_uri_hasprotocol(urip) ((0 < cg_string_length(urip->protocol)) ? TRUE : FALSE)
 #define cg_net_uri_hasuser(urip) ((0 < cg_string_length(urip->user)) ? TRUE : FALSE)
 #define cg_net_uri_haspassword(urip) ((0 < cg_string_length(urip->password)) ? TRUE : FALSE)
