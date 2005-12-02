@@ -51,7 +51,11 @@ CgHttpRequest *cg_http_request_new()
 	httpReq->httpRes = cg_http_response_new();
 	httpReq->postURL = cg_net_url_new();
 	
+#ifdef CG_HTTP_CURL
+	cg_http_request_setversion(httpReq, CG_HTTP_VER11);
+#else
 	cg_http_request_setversion(httpReq, CG_HTTP_VER10);
+#endif
 	cg_http_request_setsocket(httpReq, NULL);
 	cg_http_request_setuserdata(httpReq, NULL);
 	
@@ -173,15 +177,16 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	char *method, *uri, *version;
 #ifdef CG_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
+	gettimeofday(&start_time, NULL);
 #endif		
 	cg_http_response_clear(httpReq->httpRes);
-	
+
 	sock = cg_socket_stream_new();
 	if (cg_socket_connect(sock, ipaddr, port) == FALSE) {
 		cg_socket_delete(sock);
 		return httpReq->httpRes;		
 	}
-
+	
 	cg_http_request_sethost(httpReq, ipaddr, port);
 
 	method = cg_http_request_getmethod(httpReq);
@@ -196,7 +201,6 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	
 #ifdef CG_SHOW_TIMINGS	
 	printf("\nRequest: %s%s%s:%d%s%s%s\n", method, CG_HTTP_SP, ipaddr, port, uri, CG_HTTP_SP, version);
-	gettimeofday(&start_time, NULL);
 #endif
 	/**** send first line ****/
 	cg_socket_write(sock, method, cg_strlen(method));
@@ -246,6 +250,7 @@ static size_t cg_http_request_post_callback(void *ptr, size_t size, size_t nmemb
 CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int port)
 {
 	CgHttpResponse *httpRes;
+	BOOL newCurl = FALSE;
 	CURL *curl;
 	CgHttpHeader *reqHeader;
 	struct curl_slist *curlHeaderList; 
@@ -256,6 +261,7 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	long retcode;
 #ifdef CG_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
+	gettimeofday(&start_time, NULL);
 #endif		
 
 	httpRes = httpReq->httpRes;
@@ -264,10 +270,23 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	 * overwrite it, but it is appended to the end */
 	cg_string_clear(httpRes->content);
 
-	curl = curl_easy_init();
+	cg_http_persistentconnection_lock();	
+#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS
+	curl = (CURL*)cg_http_persistentconnection_get(ipaddr, port);
+	
 	if (curl == NULL)
-		return httpReq->httpRes;		
-
+	{
+#endif	
+		curl = curl_easy_init();
+		if (curl == NULL)
+		{
+			cg_http_persistentconnection_unlock();
+			return httpReq->httpRes;		
+		}
+#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS
+		newCurl = TRUE;
+	}
+#endif	
 	method = cg_http_request_getmethod(httpReq);
 	uri = cg_http_request_geturi(httpReq);	
 
@@ -313,7 +332,6 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 
 #ifdef CG_SHOW_TIMINGS
 	printf("\nRequest: %s%s%s\n", method, CG_HTTP_SP, url);
-	gettimeofday(&start_time, NULL);
 #endif
 	
 	/* Get the XML document with CURL */
@@ -339,8 +357,17 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	cg_total_elapsed_time += (elapsed_time.tv_sec*1000000)+
 				 (elapsed_time.tv_usec);
 #endif
-	curl_easy_cleanup(curl);
 
+#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS
+	if (newCurl)
+	{
+		cg_http_persistentconnection_put(ipaddr, port, curl);
+	}
+#else
+	curl_easy_cleanup(curl);
+#endif
+	cg_http_persistentconnection_unlock();
+	
 	return httpReq->httpRes;
 }
 

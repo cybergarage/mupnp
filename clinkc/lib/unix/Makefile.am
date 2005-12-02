@@ -34,6 +34,7 @@ clinkc_source = \
 	../../src/cybergarage/http/chttp_header.c \
 	../../src/cybergarage/http/chttp_header_list.c \
 	../../src/cybergarage/http/chttp_packet.c \
+	../../src/cybergarage/http/chttp_persistent_connection.c \
 	../../src/cybergarage/http/chttp_request.c \
 	../../src/cybergarage/http/chttp_response.c \
 	../../src/cybergarage/http/chttp_server.c \

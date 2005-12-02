@@ -1,3 +1,10 @@
+2005-12-02  Aapo Makela <aapo.makela@nokia.com>
+	* Added CG_HTTP_USE_PERSISTENT_CONNECTIONS define to have 
+	  persistent HTTP-connections support with libcurl (if server 
+	  supports it).
+	* Fixed MAN header set bug in Control Point (double quotes for 
+	  discover)
+
 2005-12-02  Heikki Junnila <ext-heikki.junnila@nokia.com>
 	* Fixed a typo in curl.h and curi.h that was looking for a member
 	  declared in "urip" from struct CgNetURL, while it should be "uri"
