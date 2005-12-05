@@ -21,8 +21,6 @@
 *		- Changed cg_socket_tosockaddrinfo() not to use the AI_NUMERICHOST option.
 ******************************************************************/
 
-cg_socket_tosockaddrinfo
-
 #include <cybergarage/net/csocket.h>
 #include <cybergarage/net/cinterface.h>
 #include <cybergarage/util/ctime.h>
