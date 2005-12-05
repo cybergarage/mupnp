@@ -88,7 +88,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyname(CgUpnpControlPoint *ctrlPoint
 #define cg_upnp_controlpoint_removeeventlistener(ctrlPoint, listener) (cg_upnp_eventlistenerlist_remove(ctrlPoint->eventListeners, listener))
 #define cg_upnp_controlpoint_seteventlistener(ctrlPoint, evlistener) \
 	do {\
-		if (evlistener == NULL) \                       
+		if (evlistener == NULL) \
 			cg_upnp_eventlistenerlist_remove(ctrlPoint->eventListeners, ctrlPoint->eventListeners->next->listener); \
 		else \
 			cg_upnp_eventlistenerlist_add(ctrlPoint->eventListeners, evlistener); \
