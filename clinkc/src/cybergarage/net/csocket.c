@@ -13,12 +13,15 @@
 *	08/16/05
 *		- Thanks for Theo Beisch <theo.beisch@gmx.de>
 *		- Changed cg_socket_startup() for WindowsCE platform.
-*
 *	10/31/05
 *		- cg_socket_getrawtype and cg_socket_getprototype:
 *		  changed sock->type to socket->type to use the macro parameter
 *		  correctly.
+*	12/05/05
+*		- Changed cg_socket_tosockaddrinfo() not to use the AI_NUMERICHOST option.
 ******************************************************************/
+
+cg_socket_tosockaddrinfo
 
 #include <cybergarage/net/csocket.h>
 #include <cybergarage/net/cinterface.h>
@@ -1020,7 +1023,7 @@ BOOL cg_socket_tosockaddrinfo(int sockType, char *addr, int port, struct addrinf
 
 	memset(&hints, 0, sizeof(struct addrinfo));
 	hints.ai_socktype = sockType;
-	hints.ai_flags= AI_NUMERICHOST/* | AI_PASSIVE*/;
+	hints.ai_flags= 0; /*AI_NUMERICHOST | AI_PASSIVE*/;
 	sprintf(portStr, "%d", port);
 	if (ka_getaddrinfo(addr, portStr, &hints, addrInfo) != 0)
 		return FALSE;
@@ -1039,7 +1042,7 @@ BOOL cg_socket_tosockaddrinfo(int sockType, char *addr, int port, struct addrinf
 
 	memset(&hints, 0, sizeof(struct addrinfo));
 	hints.ai_socktype = sockType;
-	hints.ai_flags= AI_NUMERICHOST | AI_PASSIVE;
+	hints.ai_flags= /*AI_NUMERICHOST | */AI_PASSIVE;
 	sprintf(portStr, "%d", port);
 	if (getaddrinfo(addr, portStr, &hints, addrInfo) != 0)
 		return FALSE;
