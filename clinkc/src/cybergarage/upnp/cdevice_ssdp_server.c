@@ -14,6 +14,9 @@
 *	10/31/05
 *		- Corrected response to MSearch message for all ST
 *		  (search target) types.
+*	12/07/05
+*		- No longer responds if MX header is empty
+*		  or non-integer.
 *
 ******************************************************************/
 
@@ -66,8 +69,16 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 	/****************************************
 	 * check MX header, return if incorrect
 	 ***************************************/
-	if (cg_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_MX) == NULL)
+	char *mxvalue = cg_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_MX);
+	if (mxvalue == NULL || strlen(mxvalue)==0)
+		/* return if the MX value does not exist or is empty */
 		return;
+	/* check if MX value is not an integer */
+	for (n=0; n<strlen(mxvalue); n++) {
+		if (isdigit(mxvalue[n]) == 0)
+			/* MX value contains a non-digit so is invalid */
+			return;
+	}
 
 	/****************************************
 	 * check ST header and if empty return
