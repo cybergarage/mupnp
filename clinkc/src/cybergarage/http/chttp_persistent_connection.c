@@ -126,7 +126,7 @@ void cg_http_persistentconnection_delete(CgHttpPersistentConnection *node)
 
        /* Terminate and delete connection according libcurl usage */
 #if !defined(CG_HTTP_CURL)
-       cg_socket_close(CgSocket *)node->cacheData);
+       cg_socket_close((CgSocket *)node->cacheData);
        cg_socket_delete((CgSocket *)node->cacheData);
 #else
        curl_easy_cleanup((CURL *)node->cacheData);
