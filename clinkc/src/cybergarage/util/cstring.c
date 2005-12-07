@@ -142,7 +142,8 @@ int cg_string_length(CgString *str)
 {
 	if (str->value == NULL)
 		return 0;
-	return strlen(str->value);
+
+	return str->valueSize;
 }
 
 /****************************************
@@ -160,29 +161,36 @@ char *cg_string_addvalue(CgString *str, char *value)
 
 char *cg_string_naddvalue(CgString *str, char *value, int valueLen)
 {
-	BOOL isMemSizeZero;
-
-	if (value == NULL)
+	if (str == NULL || value == NULL || valueLen <= 0)
+	{
+		/* Invalid parameters */
 		return NULL;
-		
-	str->valueSize += valueLen;
-	
-	if ((str->valueSize + 1) < str->memSize) {
-		strncat(str->value, value, valueLen);	
-		return cg_string_getvalue(str);
 	}
 
-	isMemSizeZero = (str->memSize == 0) ? TRUE : FALSE;
-	
-	while (str->memSize < (str->valueSize + 1))
-		str->memSize += CG_STRING_MEMORY_ALLOCATION_UNIT;
-	str->value = realloc(str->value, str->memSize * sizeof(char));
-	
-	if (isMemSizeZero == TRUE)
-		str->value[0] = '\0';
+	if ((str->valueSize + valueLen + 1) < str->memSize)
+	{
+		/* Existing memory is adequate for the new data as well */
 		
-	strncat(str->value, value, valueLen);	
+		/* memcpy works better with non-zero-terminated data
+		   than strncpy */
+		memcpy(str->value + str->valueSize, value, valueLen);
+	}
+	else
+	{
+		/* Need to allocate memory for the new data */
+		str->memSize = str->valueSize + valueLen + 1;
+		str->value = realloc(str->value, str->memSize * sizeof(char));
+		
+		/* memcpy works better with non-zero-terminated data
+		   than strncpy */
+		memcpy(str->value + str->valueSize, value, valueLen);
+	}
+
+	str->valueSize += valueLen;
 	
+	/* In case this is a string, append a termination character */
+	str->value[str->valueSize] = '\0';
+
 	return cg_string_getvalue(str);
 }
 

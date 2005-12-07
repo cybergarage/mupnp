@@ -1,3 +1,9 @@
+2005-12-07  Heikki Junnila <ext-heikki.junnila@nokia.com>
+	* Two changes to support char data that is not zero-terminated:
+	  1. Changed cg_string_length() to return str->valueSize instead
+	     of strlen(str->value).
+	  2. Changed cg_string_naddvalue() to use memcpy instead of strncat.
+
 2005-12-07  Iain simpson <iain.simpson@nokia.com>
 	* Added MX header validity checking so device will no longer respond
 	  to an M-SEARCH request if it is empty or a non-integer.
