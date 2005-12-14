@@ -1,3 +1,9 @@
+2005-12-14  Aapo Makela <aapo.makela@nokia.com>
+	* Made starting the control point more robus (tries many server ports)
+	  Fixes bug 1353803.
+	* Fixed memory leak when failing ssdp response serverlist open
+	* Fixed http server list open to fail, if opening a port fails
+
 2005-12-07  Heikki Junnila <ext-heikki.junnila@nokia.com>
 	* Two changes to support char data that is not zero-terminated:
 	  1. Changed cg_string_length() to return str->valueSize instead
