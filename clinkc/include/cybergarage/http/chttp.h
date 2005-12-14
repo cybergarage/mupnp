@@ -225,7 +225,7 @@ int cg_http_packet_getheadersize(CgHttpPacket *httpPkt);
 
 #if defined(__USE_ISOC99)
 void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, long long value);
-long long cg_http_packet_getheaderlonglongCgHttpPacket *httpPkt, char* name);
+long long cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name);
 #elif defined(WIN32)
 void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, __int64 value);
 __int64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name);
