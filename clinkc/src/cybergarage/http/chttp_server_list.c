@@ -10,6 +10,8 @@
 *
 *	01/25/05
 *		- first revision
+*	12/14/05
+*		- fixed to fail if opening assigned port fails
 *
 ******************************************************************/
 
@@ -67,9 +69,13 @@ BOOL cg_http_serverlist_open(CgHttpServerList *httpServerList, int port)
 		if (cg_strlen(bindAddr) <= 0)
 			continue;
 		httpServer = cg_http_server_new();
+
 		if (cg_http_server_open(httpServer, port, bindAddr) == FALSE) {
 			cg_http_server_delete(httpServer);
-			continue;
+			cg_http_serverlist_clear(httpServerList);
+			cg_net_interfacelist_delete(netIfList);
+
+			return FALSE;
 		}
 		cg_http_serverlist_add(httpServerList, httpServer);
 	}

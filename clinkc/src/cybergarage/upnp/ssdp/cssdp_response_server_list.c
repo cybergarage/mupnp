@@ -14,6 +14,9 @@
 *	10/31/05
 *		- Changed "continue;" to "return FALSE;" in serverlist_open
 *		  to indicate that port allocation was unsuccessful
+*	12/14/05
+*		- Fixed memory leak situation, which was introduced by 
+*		  the previous patch
 *
 ******************************************************************/
 
@@ -79,7 +82,10 @@ BOOL cg_upnp_ssdpresponse_serverlist_open(CgUpnpSSDPResponseServerList *ssdpServ
 		ssdpServer = cg_upnp_ssdpresponse_server_new();
 		if (cg_upnp_ssdpresponse_server_open(ssdpServer, bindPort, bindAddr) == FALSE) {
 			cg_upnp_ssdpresponse_server_delete(ssdpServer);
-			return FALSE; /* continue; */
+			cg_upnp_ssdpresponse_serverlist_clear(ssdpServerList);
+			cg_net_interfacelist_delete(netIfList);
+
+			return FALSE;
 		}
 		cg_upnp_ssdpresponse_serverlist_add(ssdpServerList, ssdpServer);
 	}

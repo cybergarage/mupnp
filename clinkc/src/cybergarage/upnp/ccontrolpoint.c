@@ -18,6 +18,8 @@
 *		- Added cg_upnp_controlpoint_setuserdata() and cg_upnp_controlpoint_getuserdatga().
 *	10/31/05
 *		- Fixed severe bug in getting child devices
+*	12/14/05
+*		- Fixed to be more robust on opening servers
 *
 ******************************************************************/
 
@@ -370,8 +372,11 @@ BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint)
 	/**** HTTP Server ****/
 	httpEventPort = cg_upnp_controlpoint_geteventport(ctrlPoint);
 	httpServerList = cg_upnp_controlpoint_gethttpserverlist(ctrlPoint);
-	if (cg_http_serverlist_open(httpServerList, httpEventPort) == FALSE)
-		return FALSE;
+	/* Opening HTTP server may fail, so try many ports */
+	while(cg_http_serverlist_open(httpServerList, httpEventPort) == FALSE) {
+		cg_upnp_controlpoint_seteventport(ctrlPoint, httpEventPort + 1);
+		httpEventPort = cg_upnp_controlpoint_geteventport(ctrlPoint);
+	}
 	cg_http_serverlist_setuserdata(httpServerList, ctrlPoint);
 	httpListener = cg_upnp_controlpoint_gethttplistener(ctrlPoint);
 	if (httpListener == NULL)
@@ -391,8 +396,12 @@ BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint)
 	/**** SSDP Response Server ****/
 	ssdpResPort = cg_upnp_controlpoint_getssdpresponseport(ctrlPoint);
 	ssdpResServerList = cg_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
-	if (cg_upnp_ssdpresponse_serverlist_open(ssdpResServerList, ssdpResPort) == FALSE)
-		return FALSE;
+	/* Opening SSDP response server may fail, so try many ports */
+	while(cg_upnp_ssdpresponse_serverlist_open(ssdpResServerList, ssdpResPort) == FALSE) {
+		cg_upnp_controlpoint_setssdpresponseport(ctrlPoint, ssdpResPort + 1);
+		ssdpResPort = cg_upnp_controlpoint_getssdpresponseport(ctrlPoint);
+	}
+
 	cg_upnp_ssdpresponse_serverlist_setlistener(ssdpResServerList, cg_upnp_controlpoint_ssdpresponselistner);
 	cg_upnp_ssdpresponse_serverlist_setuserdata(ssdpResServerList, ctrlPoint);
 	if (cg_upnp_ssdpresponse_serverlist_start(ssdpResServerList) == FALSE)
