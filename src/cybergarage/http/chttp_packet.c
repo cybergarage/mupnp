@@ -64,9 +64,9 @@ CgHttpPacket *cg_http_packet_new()
 		cg_http_packet_init(httpPkt);
 	}
 
-	return httpPkt;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return httpPkt;
 }
 
 /****************************************
