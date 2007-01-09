@@ -232,7 +232,6 @@ char *cg_string_addvalue(CgString *str, char *value)
 	cg_log_debug_l5("Leaving...\n");
 
 	return cg_string_naddvalue(str, value, cg_strlen(value));
-
 }
 
 /****************************************

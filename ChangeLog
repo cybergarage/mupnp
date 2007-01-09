@@ -1,3 +1,6 @@
+2007-01-09  Satoshi Konno <skonno@cybergarage.org>
+	* Fixed cg_string_setvalue() to set the corrent length.
+
 2006-12-06  Satoshi Konno <skonno@cybergarage.org>
 	* v2.0
 
