@@ -42,9 +42,9 @@ CgString *cg_string_new()
 		str->valueSize = 0;
 	}
 
-	return str;
-
 	cg_log_debug_l5("Leaving...\n");
+
+	return str;
 }
 
 /****************************************
@@ -181,9 +181,9 @@ char *cg_string_getvalue(CgString *str)
 	if (str == NULL)
 		return NULL;
 
-	return str->value;
-
 	cg_log_debug_l5("Leaving...\n");
+
+	return str->value;
 }
 
 /****************************************
@@ -197,9 +197,9 @@ int cg_string_getmemorysize(CgString *str)
 	if (str == NULL)
 		return 0;
 
-	return str->memSize;
-
 	cg_log_debug_l5("Leaving...\n");
+
+	return str->memSize;
 }
 
 /****************************************
@@ -216,9 +216,9 @@ int cg_string_length(CgString *str)
 	if (str->value == NULL)
 		return 0;
 
-	return str->valueSize;
-
 	cg_log_debug_l5("Leaving...\n");
+
+	return str->valueSize;
 }
 
 /****************************************
@@ -229,9 +229,10 @@ char *cg_string_addvalue(CgString *str, char *value)
 {
 	cg_log_debug_l5("Entering...\n");
 
+	cg_log_debug_l5("Leaving...\n");
+
 	return cg_string_naddvalue(str, value, cg_strlen(value));
 
-	cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -261,9 +262,9 @@ char *cg_string_naddvalue(CgString *str, char *value, int valueLen)
 	/* In case this is a string, append a termination character */
 	str->value[str->valueSize] = '\0';
 
-	return cg_string_getvalue(str);
-
 	cg_log_debug_l5("Leaving...\n");
+
+	return cg_string_getvalue(str);
 }
 
 /****************************************
@@ -295,9 +296,10 @@ char *cg_string_naddrepvalue(CgString *str, char *value, int valueLen, int repea
 
 	for (n = 0; n < repeatCnt; n++)
 		cg_string_naddvalue(str, value, valueLen);
-	return cg_string_getvalue(str);
 
 	cg_log_debug_l5("Leaving...\n");
+
+	return cg_string_getvalue(str);
 }
 
 /****************************************
@@ -355,7 +357,7 @@ char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], int fromS
 
 	cg_string_delete(repValue);
 		
-	return cg_string_getvalue(str);
-
 	cg_log_debug_l5("Leaving...\n");
+
+	return cg_string_getvalue(str);
 }
