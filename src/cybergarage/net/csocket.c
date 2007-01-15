@@ -56,7 +56,10 @@
 #include <cybergarage/util/clog.h>
 
 #include <string.h>
+
+#if !defined(WINCE)
 #include <errno.h>
+#endif
 
 #if (defined(WIN32) || defined(__CYGWIN__)) && !defined (ITRON)
 #include <winsock2.h>
@@ -174,7 +177,6 @@ void cg_socket_startup()
 #if defined DEBUG
 		printf("######## WINSOCK startup error %d\n", err);
 #endif // DEBUG
-		return FALSE;
 	} 
 
 #if defined DEBUG_MEM
@@ -1333,8 +1335,10 @@ BOOL cg_socket_tosockaddrinfo(int sockType, char *addr, int port, struct addrinf
 	sprintf(portStr, "%d", port);
 	cg_log_debug("Address: %s, port: %s\n", addr, portStr);
 	if ( (errorn = getaddrinfo(addr, portStr, &hints, addrInfo)) != 0) {
+#if !defined(WINCE)
 		cg_log_debug_s("ERROR: %s\n", gai_strerror(errorn));
 		cg_log_debug_s("SERROR: %s\n", strerror(errno));
+#endif
 		return FALSE;
 	}
 	if (isBindAddr == TRUE)

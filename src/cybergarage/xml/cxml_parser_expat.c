@@ -50,6 +50,7 @@
 #endif
 
 #include <expat.h>
+
 #if defined DEBUG_XML
 static int indent = 0;
 #endif

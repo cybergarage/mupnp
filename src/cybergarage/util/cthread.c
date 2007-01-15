@@ -28,7 +28,10 @@
 *		- added some debug configurations
 ******************************************************************/
 
+#if !defined (WIN32) && !defined(WINCE)
 #include <signal.h>
+#endif
+
 #include <cybergarage/util/cthread.h>
 #include <cybergarage/util/ctime.h>
 #include <cybergarage/util/clog.h>

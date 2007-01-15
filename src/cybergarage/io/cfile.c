@@ -34,9 +34,12 @@
 #elif defined (_WIN32_WCE)
 #include <windows.h>
 
+#if (_WIN32_WCE < 0x501)
 #include <sys\types.h> //from PortSDK
+#endif
 
 struct stat {
+
         _dev_t st_dev;
         _ino_t st_ino;
         unsigned short st_mode;

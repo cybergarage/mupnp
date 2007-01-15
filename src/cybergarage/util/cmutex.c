@@ -20,7 +20,10 @@
 
 #include <cybergarage/util/cmutex.h>
 #include <cybergarage/util/clog.h>
+
+#if !defined(WINCE)
 #include <errno.h>
+#endif
 
 /****************************************
 * cg_mutex_new
