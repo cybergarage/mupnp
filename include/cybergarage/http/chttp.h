@@ -201,6 +201,7 @@ typedef struct _CgHttpResponse {
 	int statusCode;
 	CgString *reasonPhrase;
 	void *userData;
+	int timeout;
 } CgHttpResponse;
 
 typedef struct _CgHttpRequest {
@@ -214,6 +215,7 @@ typedef struct _CgHttpRequest {
 	CgSocket *sock;
 	CgNetURL *postURL;
 	void *userData;
+	int timeout;
 } CgHttpRequest;
 
 typedef void (*CG_HTTP_LISTENER)(CgHttpRequest *);
@@ -227,6 +229,7 @@ typedef struct _CgHttpServer {
 	CgThread *clientThreads;
 	CG_HTTP_LISTENER listener;
 	void *userData;
+	int timeout;
 } CgHttpServer, CgHttpServerList;
 
 /****************************************
@@ -439,6 +442,10 @@ void cg_http_request_copy(CgHttpRequest *destHttpReq, CgHttpRequest *srcHttpReq)
 /**** Print ****/
 void cg_http_request_print(CgHttpRequest *httpReq);
 
+/**** Timeout ****/
+#define cg_http_request_settimeout(httpReq,value) (httpReq->timeout = value)
+#define cg_http_request_gettimeout(httpReq) (httpReq->timeout)
+
 /****************************************
 * Function (Response)
 ****************************************/
@@ -502,6 +509,10 @@ void cg_http_response_copy(CgHttpResponse *destHttpRes, CgHttpResponse *srcHttpR
 /**** Print ****/
 void cg_http_response_print(CgHttpResponse *httpRes);
 
+/**** Timeout ****/
+#define cg_http_response_settimeout(httpRes,value) (httpRes->timeout = value)
+#define cg_http_response_gettimeout(httpRes) (httpRes->timeout)
+
 /****************************************
 * Function (Server)
 ****************************************/
@@ -523,6 +534,10 @@ void cg_http_server_setlistener(CgHttpServer *httpServer, CG_HTTP_LISTENER liste
 #define cg_http_server_getuserdata(httpServer) (httpServer->userData)
 
 char *cg_http_getservername(char *buf, int bufSize);
+
+/**** Timeout ****/
+#define cg_http_server_settimeout(httpRes,value) (httpServer->timeout = value)
+#define cg_http_server_gettimeout(httpRes) (httpServer->timeout)
 
 /****************************************
 * Function (Server List)
