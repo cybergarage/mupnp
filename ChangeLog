@@ -1,3 +1,8 @@
+2007-01-13  Satoshi Konno <skonno@cybergarage.org>
+	* Added cg_http_request_settimeout() and cg_http_request_gettimeout().
+	* Added cg_http_response_settimeout() and cg_http_response_gettimeout().
+	* Added cg_http_server_settimeout() and cg_http_server_gettimeout().
+
 2006-12-06  Satoshi Konno <skonno@cybergarage.org>
 	* v2.0
 
