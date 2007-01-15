@@ -43,6 +43,8 @@ CgHttpResponse *cg_http_response_new()
 		cg_http_response_setversion(httpRes, CG_HTTP_VER11);
 		cg_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_BAD_REQUEST);
 		cg_http_response_setuserdata(httpRes, NULL);
+
+		cg_http_response_settimeout(httpRes, CG_HTTP_CONN_TIMEOUT);
 	}
 	
 	return httpRes;

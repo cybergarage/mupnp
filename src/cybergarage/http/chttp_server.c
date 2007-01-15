@@ -60,11 +60,13 @@ CgHttpServer *cg_http_server_new()
 		httpServer->clientThreads = NULL;
 
 		cg_http_server_setuserdata(httpServer, NULL);
+
+		cg_http_server_settimeout(httpServer, CG_HTTP_SERVER_READ_TIMEOUT);
 	}
 		
-	return httpServer;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return httpServer;
 }
 
 /****************************************
@@ -261,7 +263,7 @@ static void cg_http_server_thread(CgThread *thread)
 			cg_socket_delete(clientSock);
 			break;
 		}
-		cg_socket_settimeout(clientSock, CG_HTTP_SERVER_READ_TIMEOUT);
+		cg_socket_settimeout(clientSock, cg_http_server_gettimeout(httpServer));
 		clientData = cg_http_server_clientdata_new(httpServer, clientSock);
 		httpClientThread = cg_thread_new();
 		cg_thread_setaction(httpClientThread, cg_http_server_clientthread);

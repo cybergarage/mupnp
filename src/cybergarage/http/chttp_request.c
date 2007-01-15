@@ -75,6 +75,8 @@ CgHttpRequest *cg_http_request_new()
 
 		cg_http_request_setsocket(httpReq, NULL);
 		cg_http_request_setuserdata(httpReq, NULL);
+
+		cg_http_request_settimeout(httpReq, CG_HTTP_CONN_TIMEOUT);
 	}
 	
 	return httpReq;
@@ -290,7 +292,7 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	cg_http_request_print(httpReq);
 
 	sock = cg_socket_stream_new();
-	cg_socket_settimeout(sock, CG_HTTP_CONN_TIMEOUT);
+	cg_socket_settimeout(sock, cg_http_request_gettimeout(httpReq));
 	if (cg_socket_connect(sock, ipaddr, port) == FALSE) {
 		cg_socket_delete(sock);
 		return httpReq->httpRes;		
