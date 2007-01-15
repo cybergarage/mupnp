@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="CyberLinkC"
 	ProjectGUID="{6C60350B-92C5-4E5A-BF63-73933B535C01}"
+	RootNamespace="CyberLinkC"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -900,6 +901,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\include\cybergarage\util\clist.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\cybergarage\util\clog.h"
 				>
 			</File>
 			<File
