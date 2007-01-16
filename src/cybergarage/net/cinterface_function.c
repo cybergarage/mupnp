@@ -204,7 +204,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	return cg_net_interfacelist_size(netIfList);
 }
 
-#elif defined WINCE
+#elif defined(WINCE)
 
 /****************************************
 * cg_net_gethostinterfaces (WINCE)

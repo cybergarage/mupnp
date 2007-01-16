@@ -506,6 +506,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\cybergarage\util\ccond.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\cybergarage\upnp\control\ccontrol_function.c"
 				>
 			</File>
@@ -623,6 +627,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\cybergarage\util\clist.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\cybergarage\util\clog.c"
 				>
 			</File>
 			<File

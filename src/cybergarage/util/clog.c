@@ -25,6 +25,7 @@
 #include <stdlib.h>
 
 #include <cybergarage/util/clog.h>
+#include <cybergarage/util/cstring.h>
 
 #if defined(WIN32)
 #define snprintf _snprintf
@@ -150,7 +151,7 @@ int cg_log_add_target(char *target, int mask)
 	/* Adding new target into single linked list */
 	temp->next=descriptor_list;
 	temp->apply_mask = mask;
-	temp->name = strdup(target);
+	temp->name = cg_strdup(target);
 	temp->fd = r_target;
 	descriptor_list = temp;
 
@@ -188,7 +189,7 @@ void cg_log_set_separator(char *s)
 {
 	if (separator != NULL) free(separator);
 
-	separator = strdup(s);
+	separator = cg_strdup(s);
 }
 
 /**

@@ -27,6 +27,35 @@
 #include <cybergarage/util/clog.h>
 
 /****************************************
+* time
+****************************************/
+
+#if defined(WINCE)
+
+time_t time( time_t *inTT )
+{ 
+	SYSTEMTIME sysTimeStruct; 
+	FILETIME fTime; 
+	ULARGE_INTEGER int64time; 
+	time_t locTT = 0; 
+  
+	if ( inTT == NULL )
+		inTT = &locTT; 
+  
+	GetSystemTime( &sysTimeStruct ); 
+	if ( SystemTimeToFileTime( &sysTimeStruct, &fTime ) ) { 
+		memcpy( &int64time, &fTime, sizeof( FILETIME ) ); 
+		int64time.QuadPart -= 0x19db1ded53e8000; 
+		int64time.QuadPart /= 10000000; 
+		*inTT = int64time.QuadPart; 
+	} 
+  
+	return *inTT; 
+} 
+
+#endif
+
+/****************************************
 * cg_http_getservername()
 ****************************************/
 
@@ -91,6 +120,8 @@ char *cg_http_getdate(CgSysTime sysTime, char *buf, int bufSize)
 #if defined(HAVE_GMTIME_R)
 	struct tm gmTimeBuf;
 	struct tm *gmTime = &gmTimeBuf;
+#elif defined(WINCE)
+	SYSTEMTIME systemTime;
 #else
 	struct tm *gmTime;
 #endif
@@ -99,10 +130,13 @@ char *cg_http_getdate(CgSysTime sysTime, char *buf, int bufSize)
 
 #if defined(HAVE_GMTIME_R)
 	gmtime_r(&sysTime, &gmTimeBuf);
+#elif defined(WINCE)
+	GetSystemTime(&systemTime);
 #else
 	gmTime = gmtime(&sysTime);
 #endif
 
+#if !defined(WINCE)
 #if defined(HAVE_SNPRINTF)
 	snprintf(buf, bufSize,
 #else
@@ -116,10 +150,21 @@ char *cg_http_getdate(CgSysTime sysTime, char *buf, int bufSize)
 		gmTime->tm_hour,
 		gmTime->tm_min,
 		gmTime->tm_sec);
-
-	return buf;
+#else
+	sprintf(buf,
+		"%s, %02d %s %04d %02d:%02d:%02d GMT",
+		to_week_string(systemTime.wDayOfWeek),
+		systemTime.wDay,
+		to_month_string(systemTime.wMonth-1),
+		systemTime.wYear,
+		systemTime.wHour,
+		systemTime.wMinute,
+		systemTime.wSecond);
+#endif
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return buf;
 }
 
 #endif
