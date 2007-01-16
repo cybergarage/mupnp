@@ -5,7 +5,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "upnpdump", "upnpdump.vcproj
 		{D550D099-9F69-4F30-864C-504D02F72774} = {D550D099-9F69-4F30-864C-504D02F72774}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CyberLinkC", "..\..\..\..\lib\win32\vsnet\CyberLinkC.vcproj", "{D550D099-9F69-4F30-864C-504D02F72774}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CyberLinkC", "..\..\..\..\lib\win32\vs2005\CyberLinkC.vcproj", "{D550D099-9F69-4F30-864C-504D02F72774}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
