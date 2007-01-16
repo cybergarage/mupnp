@@ -323,7 +323,7 @@ BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineB
 BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
 
 /**** Content-Length ****/
-#if defined(__USE_ISOC99) || (defined(WIN32) & !defined(_WIN32_WCE))
+#if defined(__USE_ISOC99) || (defined(WIN32) & !defined(WINCE))
 #define cg_http_packet_setcontentlength(httpPkt,value) cg_http_packet_setheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH,value)
 #define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH)
 #else

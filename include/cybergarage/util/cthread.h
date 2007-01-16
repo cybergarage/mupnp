@@ -58,6 +58,11 @@ extern "C" {
  * Define
  ****************************************/
 
+#if defined (WINCE)
+#define CG_THREAD_SHUTDOWN_ATTEMPTS 10
+#define CG_THREAD_MIN_SLEEP 1000
+#endif
+
 /****************************************
  * Data Type
  ****************************************/
@@ -75,12 +80,12 @@ typedef struct _CgThread {
 		
 	/** Indicates whether this thread is ready to run */
 	BOOL runnableFlag;
-#if defined _WIN32_WCE
+#if defined WINCE
 	/** serves as look ahead to have the thread manage its own delete(thread) on exit */
 	BOOL isRunning;
 	BOOL deletePending;
 	CgSysTime sleep;
-#endif //_WIN32_WCE
+#endif //WINCE
 
 #if defined DEBUG
 	char friendlyName[32];
@@ -194,7 +199,7 @@ void cg_thread_setuserdata(CgThread *thread, void *data);
  */
 void *cg_thread_getuserdata(CgThread *thread);
 
-#if defined (_WIN32_WCE)
+#if defined (WINCE)
 void cg_thread_sleep(CgThread *thread); 
 void cg_thread_exit(DWORD exitCode);
 #if defined DEBUG_MEM

@@ -47,6 +47,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
+				AdditionalIncludeDirectories="../../../include; C:\lib\expat\Source\lib"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
@@ -121,6 +122,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
+				AdditionalIncludeDirectories="../../../include; C:\lib\expat\Source\lib"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
@@ -195,7 +197,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../include"
+				AdditionalIncludeDirectories="../../../include; C:\lib\expat\Source\lib"
 				PreprocessorDefinitions="_DEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;DEBUG;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				MinimalRebuild="true"
 				RuntimeLibrary="1"
@@ -270,6 +272,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="2"
+				AdditionalIncludeDirectories="../../../include; C:\lib\expat\Source\lib"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -343,6 +346,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="2"
+				AdditionalIncludeDirectories="../../../include; C:\lib\expat\Source\lib"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -416,7 +420,7 @@
 				Name="VCCLCompilerTool"
 				ExecutionBucket="7"
 				Optimization="2"
-				AdditionalIncludeDirectories="../../../include"
+				AdditionalIncludeDirectories="../../../include; C:\lib\expat\Source\lib"
 				PreprocessorDefinitions="NDEBUG;_WIN32_WCE=$(CEVER);UNDER_CE;$(PLATFORMDEFINES);WINCE;_LIB;$(ARCHFAM);$(_ARCHFAM_);_UNICODE;UNICODE"
 				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
@@ -494,18 +498,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\callowedvalue.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\callowedvalue_list.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\callowedvaluerange.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\cybergarage\upnp\cargument.c"
 				>
 			</File>
@@ -522,10 +514,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\ccontrolpoint_disposer.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\cybergarage\upnp\ccontrolpoint_event.c"
 				>
 			</File>
@@ -534,15 +522,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\ccontrolpoint_resubscriber.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\cybergarage\net\cdatagram_packet.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\cybergarage\util\cdebug.c"
 				>
 			</File>
 			<File

@@ -77,7 +77,7 @@ BOOL IsInterfaceAddressInitialized = FALSE;
 * (WINCE follows below)
 ****************************************/
 
-#if ((defined(WIN32) && !defined (_WIN32_WCE))|| defined(__CYGWIN__)) && !defined(ITRON)
+#if ((defined(WIN32) && !defined (WINCE))|| defined(__CYGWIN__)) && !defined(ITRON)
 
 #pragma message ("******** WIN32 && !WINCE selected!")
 int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
@@ -204,7 +204,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	return cg_net_interfacelist_size(netIfList);
 }
 
-#elif defined _WIN32_WCE
+#elif defined WINCE
 
 /****************************************
 * cg_net_gethostinterfaces (WINCE)

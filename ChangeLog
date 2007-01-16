@@ -1,3 +1,7 @@
+2007-01-16  Satoshi Konno <skonno@cybergarage.org>
+	* Fixed to compile normally for WindowsCE platforms using Visual Studio 2005 and Windows Mobile 5.0 Pocket PC SDK.
+	* Changed WindowsCE flags from _WIN32_WCE to WINCE.
+
 2007-01-13  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_http_request_settimeout() and cg_http_request_gettimeout().
 	* Added cg_http_response_settimeout() and cg_http_response_gettimeout().

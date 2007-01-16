@@ -28,16 +28,17 @@
 
 #include <stdio.h>
 
-#if defined(WIN32) && !defined(_WIN32_WCE)
+#if defined(WIN32) && !defined(WINCE)
 #include <windows.h>
 #include <sys/stat.h>
-#elif defined (_WIN32_WCE)
+#elif defined (WINCE)
 #include <windows.h>
 
 #if (_WIN32_WCE < 0x501)
 #include <sys\types.h> //from PortSDK
 #endif
 
+/*
 struct stat {
 
         _dev_t st_dev;
@@ -52,6 +53,7 @@ struct stat {
         time_t st_mtime;
         time_t st_ctime;
         };
+*/
 
 #elif defined(BTRON) || defined(ITRON) || defined(TENGINE)
 #include <fcntl.h>
@@ -140,11 +142,13 @@ char *cg_file_getname(CgFile *file)
 long cg_file_getlastmodified(CgFile *file)
 {
 	char *fileName;
+#if !defined (WINCE)
 	struct stat buf ;
+#endif
 
 	cg_log_debug_l4("Entering...\n");
 
-#if defined (_WIN32_WCE)
+#if !defined (WINCE)
 	buf.st_mtime = 0;
 #endif
 
@@ -153,8 +157,9 @@ long cg_file_getlastmodified(CgFile *file)
 	if(u_stat(fileName, &buf ) == -1)
 		return 0;
 	return buf.st_mtime;
-#elif defined (_WIN32_WCE)
-#pragma message ("WIN32_WCE - support for file I/O not provided by CSTL - fixmelater")
+#elif defined (WINCE)
+	#pragma message ("Not Implemented yet")
+	#pragma message ("WINCE - support for file I/O not provided by CSTL - fixmelater")
 	return 0;
 #else
 	if(stat(fileName, &buf ) == -1)
@@ -172,24 +177,30 @@ long cg_file_getlastmodified(CgFile *file)
 long cg_file_getlength(CgFile *file)
 {
 	char *fileName;
+#if !defined (WINCE)
 	struct stat buf ;
-	
+#endif
+
 	cg_log_debug_l4("Entering...\n");
 
 	fileName = cg_file_getname(file);
 #if defined(BTRON) || defined(ITRON) || defined(TENGINE) 
 	if(u_stat(fileName, &buf ) == -1)
 		return 0;
-#elif defined (_WIN32_WCE)
-#pragma message ("WIN32_WCE - support for file I/O not provided by CSTL - fixmelater")
+#elif defined (WINCE)
+	#pragma message ("Not Implemented yet")
+	#pragma message ("WIN32_WCE - support for file I/O not provided by CSTL - fixmelater")
 	return 0;
 #else
 	if(stat(fileName, &buf ) == -1)
 		return 0;
 #endif
-	return buf.st_size;
-
+	
 	cg_log_debug_l4("Leaving...\n");
+
+#if !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && !defined (WINCE)
+	return buf.st_size;
+#endif
 }
 
 /****************************************
@@ -238,7 +249,7 @@ BOOL cg_file_remove(CgFile *file)
 	cg_log_debug_l4("Entering...\n");
 
 	fileName = cg_file_getname(file);
-#if defined(_WIN32_WCE)
+#if defined(WINCE)
 	#pragma message("############################## FIXMELATER cfile.c - Verify File removal (untested on CE)")
 	removeSuccess = DeleteFile((void*)fileName);
 #else

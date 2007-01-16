@@ -21,10 +21,10 @@
 #include <cybergarage/util/ctime.h>
 #include <cybergarage/util/clog.h>
 
-#if defined(WIN32) && !defined(ITRON) && !defined (_WIN32_WCE)
+#if defined(WIN32) && !defined(ITRON) && !defined (WINCE)
 #include <windows.h>
 #include <time.h>
-#elif defined(WIN32) && defined (_WIN32_WCE)
+#elif defined(WIN32) && defined (WINCE)
 #include <windows.h>
 #include <time.h>
 //#include <altcecrt.h>

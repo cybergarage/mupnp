@@ -170,8 +170,8 @@ void cg_socket_startup()
 
 	err = WSAStartup(MAKEWORD(2, 2), &wsaData);
 
-#if defined (_WIN32_WCE)
-	//Theo Beisch unfriendly exit, at least for _WIN32_WCE
+#if defined (WINCE)
+	//Theo Beisch unfriendly exit, at least for WINCE
 	if (err) {
 		//startup error
 #if defined DEBUG
@@ -183,7 +183,7 @@ void cg_socket_startup()
 	memdiags_probe("WINSOCK STARTED");
 #endif
 
-#endif // _WIN32_WCE
+#endif // WINCE
 #elif defined(ITRON) && defined(NORTiAPI)
 		tcp_ini();
 #elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
@@ -339,11 +339,11 @@ BOOL cg_socket_close(CgSocket *sock)
 		return TRUE;
 
 #if (defined(WIN32) || defined(__CYGWIN__)) && !defined(ITRON)
-	#if !defined(_WIN32_WCE)
+	#if !defined(WINCE)
 	WSAAsyncSelect(sock->id, NULL, 0, FD_CLOSE);
 	#endif
 	shutdown(sock->id, SD_BOTH );
-#if defined _WIN32_WCE
+#if defined WINCE
 	{
 		int nRet = 1;
 		char achDiscard[256];
@@ -1346,8 +1346,10 @@ BOOL cg_socket_tosockaddrinfo(int sockType, char *addr, int port, struct addrinf
 	hints.ai_family = (*addrInfo)->ai_family;
 	freeaddrinfo(*addrInfo);
 	if ((errorn = getaddrinfo(NULL, portStr, &hints, addrInfo)) != 0) {
+#if !defined(WINCE)
 		cg_log_debug_s("ERROR: %s\n", gai_strerror(errorn));
 		cg_log_debug_s("SERROR: %s\n", strerror(errno));
+#endif
 		return FALSE;
 	}
 	return TRUE;
