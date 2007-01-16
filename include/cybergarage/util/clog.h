@@ -72,7 +72,7 @@ int cg_log_clear_targets();
 /* Standard error handling */
 #if defined(__USE_ISOC99)
 #define cg_log_error(format, ...) cg_log_print(SEV_ERROR, __FILE__,  __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(WINCE)
 void cg_log_error(const char *format, ...);
 #else
 #define cg_log_error(format...) cg_log_print(SEV_ERROR, __FILE__,  __LINE__, __PRETTY_FUNCTION__, format)
@@ -80,7 +80,7 @@ void cg_log_error(const char *format, ...);
 
 #if defined(__USE_ISOC99)
 #define cg_log_warning(format, ...) cg_log_print(SEV_WARNING, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(WINCE)
 void cg_log_warning(const char *format, ...);
 #else
 #define cg_log_warning(format...) cg_log_print(SEV_WARNING, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
@@ -88,7 +88,7 @@ void cg_log_warning(const char *format, ...);
 
 #if defined(__USE_ISOC99)
 #define cg_log_info(format, ...) cg_log_print(SEV_INFO, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(WINCE)
 void cg_log_info(const char *format, ...);
 #else
 #define cg_log_info(format...) cg_log_print(SEV_INFO, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
@@ -114,7 +114,7 @@ void cg_log_debug_l5(const char *format, ...);
 #	define cg_log_debug(format, ...)
 #	define cg_log_debug_l4(format, ...)
 #	define cg_log_debug_l5(format, ...)
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(WINCE)
 void cg_log_debug(const char *format, ...);
 void cg_log_debug_l4(const char *format, ...);
 void cg_log_debug_l5(const char *format, ...);
@@ -137,7 +137,7 @@ void cg_log_debug_s(const char *format, ...);
 #else
 #if defined(__USE_ISOC99)
 #	define cg_log_debug_s(format, ...)
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(WINCE)
 void cg_log_debug_s(const char *format, ...);
 #else
 #	define cg_log_debug_s(format...)
@@ -156,7 +156,7 @@ void cg_log_debug_a(const char *format, ...);
 #else
 #if defined(__USE_ISOC99)
 #	define cg_log_debug_a(format, ...)
-#elif defined(WIN32)
+#elif defined(WIN32) || defined(WINCE)
 void cg_log_debug_a(const char *format, ...);
 #else
 #	define cg_log_debug_a(format...)
