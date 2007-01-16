@@ -50,7 +50,7 @@ static pthread_once_t cg_thread_mykeycreated = PTHREAD_ONCE_INIT;
 * Thread Function
 ****************************************/
 
-#if defined(WIN32) && !defined (_WIN32_WCE) && !defined(ITRON)
+#if defined(WIN32) && !defined (WINCE) && !defined(ITRON)
 static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 {
 	CgThread *thread;
@@ -63,13 +63,7 @@ static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 	
 	return 0;
 }
-#elif defined(_WIN32_WCE)
-static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
-{
-	CgThread *thread = (CgThread *)lpParam;
-
-}
-#elif defined(_WIN32_WCE)
+#elif defined(WINCE)
 static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 {
 	CgThread *thread = (CgThread *)lpParam;
@@ -222,7 +216,7 @@ CgThread *cg_thread_new()
 		thread->userData = NULL;
 	}
 
-#if defined (_WIN32_WCE)
+#if defined (WINCE)
 	thread->hThread = NULL;
 	//WINCE trial result: default sleep value to keep system load down
 	thread->sleep = CG_THREAD_MIN_SLEEP;
@@ -231,7 +225,7 @@ CgThread *cg_thread_new()
 #if defined DEBUG
 	strcpy(thread->friendlyName,"-");
 #endif //DEBUG
-#endif //_WIN32_WCE
+#endif //WINCE
 	return thread;
 
 	cg_log_debug_l4("Leaving...\n");
@@ -243,7 +237,7 @@ CgThread *cg_thread_new()
 
 BOOL cg_thread_delete(CgThread *thread)
 {
-#if defined _WIN32_WCE
+#if defined WINCE
 	BOOL stop = FALSE;
 
 	cg_log_debug_l4("Entering...\n");
@@ -275,8 +269,8 @@ BOOL cg_thread_delete(CgThread *thread)
 	cg_log_debug_l4("Leaving...\n");
 
 	return FALSE;
-} //_WIN32_WCE
-#else //all except _WIN32_WCE
+} //WINCE
+#else //all except WINCE
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -290,8 +284,8 @@ BOOL cg_thread_delete(CgThread *thread)
 	cg_log_debug_l4("Leaving...\n");
 
 	return TRUE;
-#endif
 }
+#endif
 
 /****************************************
 * cg_thread_start
@@ -304,9 +298,9 @@ BOOL cg_thread_start(CgThread *thread)
 	/**** Thanks for Visa Smolander (09/11/2005) ****/
 	thread->runnableFlag = TRUE;
 
-#if defined(WIN32) && !defined(_WIN32_WCE) && !defined(ITRON)
+#if defined(WIN32) && !defined(WINCE) && !defined(ITRON)
 	thread->hThread = CreateThread(NULL, 0, Win32ThreadProc, (LPVOID)thread, 0, &thread->threadID);
-#elif defined (_WIN32_WCE)
+#elif defined (WINCE)
 	{
 
 	SECURITY_ATTRIBUTES saAttr;
@@ -384,6 +378,12 @@ BOOL cg_thread_stop(CgThread *thread)
 
 BOOL cg_thread_stop_with_cond(CgThread *thread, CgCond *cond)
 {
+#if defined (WINCE)
+	int i, j;
+	BOOL result;
+	DWORD dwExitCode;
+#endif
+
 	cg_log_debug_l4("Entering...\n");
 
 	cg_log_debug_s("Stopping thread %p\n", thread);
@@ -393,44 +393,43 @@ BOOL cg_thread_stop_with_cond(CgThread *thread, CgCond *cond)
 		if (cond != NULL) {
 			cg_cond_signal(cond);
 		}
-#if defined(WIN32) && !defined (_WIN32_WCE) && !defined(ITRON)
+#if defined(WIN32) && !defined (WINCE) && !defined(ITRON)
 		TerminateThread(thread->hThread, 0);
 		WaitForSingleObject(thread->hThread, INFINITE);
 		//tb: this will create a deadlock if the thread is on a blocking socket
-#elif defined (_WIN32_WCE)
-	// Theo Beisch: while the above code apparently works under WIN32 (NT/XP) 
-	// TerminateThread as brute force is not recommended by M$
-	// (see API) and actually crashes WCE
-	// WINCE provides no safe means of terminating a thread, 
-	// so we can only mark the cg_thread (context) for later deletion and 
-	// do the delete(thread) cleanup on return of the Win32ThreadProc.
-	// Accordingly we simulate the OK exit here as a "look ahead" (what a hack ;-) )
-	for (i=0; i<CG_THREAD_SHUTDOWN_ATTEMPTS; ++i){
-		printf("# thread stop mainloop %X %s %d. try\n",thread,thread->friendlyName,i+1);
-		j=0;
-		if (result = GetExitCodeThread(thread->hThread,&dwExitCode)) {
-			if (dwExitCode != STILL_ACTIVE) {
+#elif defined (WINCE)
+		// Theo Beisch: while the above code apparently works under WIN32 (NT/XP) 
+		// TerminateThread as brute force is not recommended by M$
+		// (see API) and actually crashes WCE
+		// WINCE provides no safe means of terminating a thread, 
+		// so we can only mark the cg_thread (context) for later deletion and 
+		// do the delete(thread) cleanup on return of the Win32ThreadProc.
+		// Accordingly we simulate the OK exit here as a "look ahead" (what a hack ;-) )
+		for (i=0; i<CG_THREAD_SHUTDOWN_ATTEMPTS; ++i){
+			printf("# thread stop mainloop %X %s %d. try\n",thread,thread->friendlyName,i+1);
+			j=0;
+			if (result = GetExitCodeThread(thread->hThread,&dwExitCode)) {
+				if (dwExitCode != STILL_ACTIVE) {
 #if defined (DEBUG)
-				printf("Thread %X %s ended graceful: xCode=%d\n",thread,thread->friendlyName,dwExitCode);
+					printf("Thread %X %s ended graceful: xCode=%d\n",thread,thread->friendlyName,dwExitCode);
 #endif
-				return TRUE;
-			} 
+					return TRUE;
+				} 
+			}
+			cg_wait(CG_THREAD_MIN_SLEEP);
 		}
-		cg_wait(CG_THREAD_MIN_SLEEP);
-	}
-	// ok - if everything up to here failed
+		// ok - if everything up to here failed
 #if defined DEBUG
-	if (dwExitCode){
-		printf ("Thread %X - %s has not yet terminated - exit code %x \n",thread,thread->friendlyName,dwExitCode);
-	}
+		if (dwExitCode){
+			printf ("Thread %X - %s has not yet terminated - exit code %x \n",thread,thread->friendlyName,dwExitCode);
+		}
 #endif
 
-	if (dwExitCode) return FALSE;
+		if (dwExitCode)
+			return FALSE;
 
-	return TRUE;
-	}
-	if (thread->isRunning==FALSE) return TRUE;
-//end _WIN32_WCE
+		return TRUE;
+		//end WINCE
 #elif defined(BTRON)
 		ter_tsk(thread->taskID);
 #elif defined(ITRON)
@@ -450,9 +449,10 @@ BOOL cg_thread_stop_with_cond(CgThread *thread, CgCond *cond)
 
 #endif
 	}
-	return TRUE;
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -462,7 +462,7 @@ BOOL cg_thread_stop_with_cond(CgThread *thread, CgCond *cond)
 // Added this to improve external thread control 
 // by having a finer timer tick granularity
 
-#if defined (_WIN32_WCE)
+#if defined (WINCE)
 void cg_thread_sleep(CgThread *thread) {
 	CgSysTime until;
 #if defined DEBUG_MEM
@@ -481,7 +481,7 @@ void cg_thread_sleep(CgThread *thread) {
 // Theo Beisch
 // to be called from the thread's loop only
 
-#if defined (_WIN32_WCE)
+#if defined (WINCE)
 VOID cg_thread_exit(DWORD exitCode) {
 	ExitThread(exitCode);	
 }

@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#if defined(_WIN32_WCE) && !defined(WIN32)
+#if defined(WINCE) && !defined(WIN32)
 #define WIN32 1
 #endif
 

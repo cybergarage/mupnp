@@ -34,7 +34,7 @@
 
 #include <ctype.h>
 
-#if defined (_WIN32_WCE)
+#if defined (WINCE)
 //Theo Beisch - needed for _i64toa_s support - 
 // strangely just with the VS2005 ce environment 
 // evc4 is only happy without :-(
@@ -447,7 +447,7 @@ char *cg_longlong2str(long long value, char *buf, int bufSize)
 
 }
 
-#elif (defined(WIN32) && !defined(_WIN32_WCE))
+#elif (defined(WIN32) && !defined(WINCE))
 char *cg_longlong2str(__int64 value, char *buf, int bufSize)
 {
 	cg_log_debug_l5("Entering...\n");
@@ -455,7 +455,7 @@ char *cg_longlong2str(__int64 value, char *buf, int bufSize)
 	return _i64toa(value, buf, 10);
 
 }
-#elif (defined (WIN32) && defined (_WIN32_WCE))
+#elif (defined (WIN32) && defined (WINCE))
 //theo beisch CE supports only safe version of _i64toa
 char *cg_longlong2str(__int64 value, char *buf, int bufSize)
 {

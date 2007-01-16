@@ -47,7 +47,7 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 	char *devUDN, *devType;
 	char ssdpMsg[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
 	char deviceUSN[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
-#if defined _WIN32_WCE
+#if defined WINCE
 	size_t n;
 #else
 	int n;
