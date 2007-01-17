@@ -790,6 +790,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\cybergarage\util\ctime_wince.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\cybergarage\upnp\cupnp_function.c"
 				>
 			</File>

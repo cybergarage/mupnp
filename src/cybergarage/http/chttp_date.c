@@ -27,35 +27,6 @@
 #include <cybergarage/util/clog.h>
 
 /****************************************
-* time
-****************************************/
-
-#if defined(WINCE)
-
-time_t time( time_t *inTT )
-{ 
-	SYSTEMTIME sysTimeStruct; 
-	FILETIME fTime; 
-	ULARGE_INTEGER int64time; 
-	time_t locTT = 0; 
-  
-	if ( inTT == NULL )
-		inTT = &locTT; 
-  
-	GetSystemTime( &sysTimeStruct ); 
-	if ( SystemTimeToFileTime( &sysTimeStruct, &fTime ) ) { 
-		memcpy( &int64time, &fTime, sizeof( FILETIME ) ); 
-		int64time.QuadPart -= 0x19db1ded53e8000; 
-		int64time.QuadPart /= 10000000; 
-		*inTT = int64time.QuadPart; 
-	} 
-  
-	return *inTT; 
-} 
-
-#endif
-
-/****************************************
 * cg_http_getservername()
 ****************************************/
 
