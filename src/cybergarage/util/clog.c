@@ -220,8 +220,17 @@ void cg_log_print(int severity, const char *file, int line_n, const char *functi
 	timestamp = time(NULL);
 	timestamp_human_readable = localtime(&timestamp);
 	
+#if !defined(WIN32)
 	strftime(t_ptr, MAX_LOG_STRING, "%c", timestamp_human_readable);
-
+#else
+	snprintf(log_line, MAX_LOG_STRING, "%d-%d-%d %d:%d %d", 
+		timestamp_human_readable->tm_year + 1900,
+		timestamp_human_readable->tm_mon + 1,
+		timestamp_human_readable->tm_mday,
+		timestamp_human_readable->tm_hour,
+		timestamp_human_readable->tm_min,
+		timestamp_human_readable->tm_sec);
+#endif
 	/* Creating the full log prefix */
 	prefix_length = snprintf(log_line, MAX_LOG_STRING, "%s%s%s%s%s%s%d%s%s%s ", 
 			t_ptr, 
