@@ -67,6 +67,8 @@ typedef struct _CgFile {
 CgFile *cg_file_new();
 void cg_file_delete(CgFile *file);
 
+#define cg_file_next(file) (CgFile *)cg_list_next((CgList *)file)
+
 void cg_file_setname(CgFile *file, char *name);
 char *cg_file_getname(CgFile *file);
 long cg_file_getlength(CgFile *file);
