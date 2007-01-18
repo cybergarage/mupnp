@@ -22,6 +22,7 @@
 #define _CG_IO_CFILE_H_
 
 #include <cybergarage/typedef.h>
+#include <cybergarage/util/clist.h>
 #include <cybergarage/util/cstring.h>
 
 #ifdef  __cplusplus
@@ -51,10 +52,13 @@ extern "C" {
 ****************************************/
 
 typedef struct _CgFile {
+	BOOL headFlag;
+	struct _CgFile *prev;
+	struct _CgFile *next;
 	CgString *name;
 	CgString *path;
 	char *content;
-} CgFile;
+} CgFile, CgFileList;
 
 /****************************************
 * Function
@@ -80,6 +84,63 @@ char *cg_file_getpath(CgFile *file);
 
 BOOL cg_file_load(CgFile *file);
 BOOL cg_file_save(CgFile *file);
+
+int cg_file_listfiles(CgFile *file, CgFileList *fileList);
+
+/****************************************
+* Function (File List)
+****************************************/
+
+/**
+ * Create a new file list
+ *
+ * \return File list
+ */
+CgFileList *cg_filelist_new();
+
+/**
+ * Destroy a file list
+ *
+ * \param fileList The file list in question
+ */
+void cg_filelist_delete(CgFileList *fileList);
+
+/**
+ * Clear the contents of a file list
+ *
+ * \param fileList File list in question
+ */
+#define cg_filelist_clear(fileList) cg_list_clear((CgList *)fileList, (CG_LIST_DESTRUCTORFUNC)cg_file_delete)
+
+/**
+ * Get the size of a file list
+ *
+ * \param fileList The file list in question
+ */
+#define cg_filelist_size(fileList) cg_list_size((CgList *)fileList)
+
+/**
+ * Get the first actual item from a file list to use as an iterator
+ *
+ * \param fileList The file list in question
+ */
+#define cg_filelist_gets(fileList) (CgFile *)cg_list_next((CgList *)fileList)
+
+/**
+ * Add a file into a file list
+ *
+ * \param fileList The file list in question
+ * \param file The file to add to the list
+ */
+#define cg_filelist_add(fileList, file) cg_list_add((CgList *)fileList, (CgList *)file)
+
+/**
+ * Remove a file from file list
+ *
+ * \param fileList The file list in question
+ * \param file The file to be removed 
+ */
+#define cg_filelist_remove(file) cg_list_remove((CgList *)file)
 
 #ifdef  __cplusplus
 }

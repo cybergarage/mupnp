@@ -204,6 +204,7 @@ void cg_log_set_separator(char *s)
 void cg_log_print(int severity, const char *file, int line_n, const char *function, const char *format, ...)
 {
 	va_list list;
+
 	char log_line[MAX_LOG_STRING], *l_ptr, t_ptr[MAX_LOG_STRING];
 	int prefix_length = -1;
 	struct fd_list *temp = NULL;
