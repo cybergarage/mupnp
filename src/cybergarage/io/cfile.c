@@ -82,6 +82,7 @@ CgFile *cg_file_new()
 
 	if ( NULL != file )
 	{
+		cg_list_node_init((CgList *)file);
 		file->name = cg_string_new();
 		file->path = cg_string_new();
 		file->content = NULL;
@@ -99,6 +100,8 @@ CgFile *cg_file_new()
 void cg_file_delete(CgFile *file)
 {
 	cg_log_debug_l4("Entering...\n");
+
+	cg_list_remove((CgList *)file);
 
 	cg_string_delete(file->name);
 	cg_string_delete(file->path);
@@ -489,4 +492,98 @@ BOOL cg_file_save(CgFile *file)
 	return TRUE;
 
 	cg_log_debug_l4("Leaving...\n");
+}
+
+/****************************************
+* cg_file_listfiles
+****************************************/
+
+int cg_file_listfiles(CgFile *file, CgFileList *fileList)
+{
+	char *dir;
+	char *fileName;
+	CgString *fullPathStr;
+	CgFile *childFile;
+#if defined(WIN32)
+	CgString *findDirStr;
+	#if defined(UNICODE)
+	TCHAR wCharBuf[MAX_PATH];
+	char mCharBuf[MAX_PATH];
+	#endif
+	WIN32_FIND_DATA fd;
+	HANDLE hFind;
+#else
+	struct dirent **fileList;
+	int n;
+#endif
+
+	dir = cg_file_getname(file);
+	if (cg_strlen(dir) <= 0)
+		return 0;
+
+#if defined(WIN32)
+	findDirStr = cg_string_new();
+	cg_string_addvalue(findDirStr, dir);
+	cg_string_addvalue(findDirStr, "\\*.*");
+	#if defined(UNICODE)
+	MultiByteToWideChar(CP_UTF8, 0, cg_string_getvalue(findDirStr), -1, wCharBuf, (MAX_PATH-1));
+	hFind = FindFirstFile(wCharBuf, &fd);
+	#else
+	hFind = FindFirstFile(cg_string_getvalue(findDirStr), &fd);
+	#endif
+	if (hFind != INVALID_HANDLE_VALUE) {
+		do{
+			#if defined(UNICODE)
+			WideCharToMultiByte(CP_ACP, 0, fd.cFileName, -1, mCharBuf, (MAX_PATH-1), NULL, NULL);
+			fileName = cg_strdup(mCharBuf);
+			#else
+			fileName = cg_strdup(fd.cFileName);
+			#endif
+			if (!cg_streq(".", fileName) && !cg_streq("..", fileName)) {
+				fullPathStr = cg_string_new();
+				cg_string_addvalue(fullPathStr, dir);
+				cg_string_addvalue(fullPathStr, "\\");
+				cg_string_addvalue(fullPathStr, fileName);
+//				conType = (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ? CG_UPNP_MEDIA_CONTENT_CONTAINER : CG_UPNP_MEDIA_CONTENT_ITEM;
+#else
+	n = scandir(dir, &fileList, 0, alphasort);
+	if (0 <= n) {
+		while(n--) {
+			if (!cg_streq(".", fileList[n]->d_name) && !cg_streq("..", fileList[n]->d_name)) {
+				fileName = cg_strdup(fileList[n]->d_name);
+				fullPathStr = cg_string_new();
+				cg_string_addvalue(fullPathStr, dir);
+				cg_string_addvalue(fullPathStr, "/");
+				cg_string_addvalue(fullPathStr, fileList[n]->d_name);
+//				if(stat(cg_string_getvalue(fullPathStr), &fileStat) != -1)
+//				conType = ((fileStat.st_mode & S_IFMT)==S_IFDIR) ? CG_UPNP_MEDIA_CONTENT_CONTAINER : CG_UPNP_MEDIA_CONTENT_ITEM;
+#endif
+				/* file */
+				childFile = cg_file_new();
+				if (!childFile)
+					continue;
+
+				/* title */
+				cg_file_setname(childFile, fileName);
+
+				cg_filelist_add(fileList, childFile);
+
+				free(fileName);
+				cg_string_delete(fullPathStr);
+				
+#if defined(WIN32)
+			}
+		} while(FindNextFile(hFind,&fd) != FALSE);
+		FindClose(hFind);
+	}
+	cg_string_delete(findDirStr);
+#else
+			}
+			free(fileList[n]);
+		}
+		free(fileList);
+	}
+#endif
+
+	return cg_filelist_size(fileList);
 }

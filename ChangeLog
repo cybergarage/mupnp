@@ -1,3 +1,7 @@
+2007-01-18  Satoshi Konno <skonno@cybergarage.org>
+	* Added cg_filelist_*().
+	* Added cg_file_listfiles().
+
 2007-01-17  Satoshi Konno <skonno@cybergarage.org>
 	* Fixed to compile normally for WindowsCE platforms using Visual Studio 2005 and Windows Mobile 5.0 Pocket PC SDK.
 	* Changed WindowsCE flags from _WIN32_WCE to WINCE.
