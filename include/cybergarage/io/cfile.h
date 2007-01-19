@@ -29,6 +29,8 @@
 extern "C" {
 #endif
 
+#if defined(USE_CFILE)
+
 /****************************************
 * Define
 ****************************************/
@@ -143,6 +145,8 @@ void cg_filelist_delete(CgFileList *fileList);
  * \param file The file to be removed 
  */
 #define cg_filelist_remove(file) cg_list_remove((CgList *)file)
+
+#endif
 
 #ifdef  __cplusplus
 }

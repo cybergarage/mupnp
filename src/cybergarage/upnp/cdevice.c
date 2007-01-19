@@ -318,7 +318,7 @@ BOOL cg_upnp_device_parsedescriptionurl(CgUpnpDevice *dev, CgNetURL *url)
 * cg_upnp_device_loaddescriptionfile
 ****************************************/
 
-#if !defined(TENGINE) && !defined(ITRON) && !defined(BTRON)
+#if defined(USE_CFILE)
 
 BOOL cg_upnp_device_loaddescriptionfile(CgUpnpDevice *dev, char *fileName)
 {
