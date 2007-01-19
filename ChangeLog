@@ -1,4 +1,7 @@
-2007-01-18  Satoshi Konno <skonno@cybergarage.org>
+2007-01-19  Satoshi Konno <skonno@cybergarage.org>
+	* Added USE_CFILE define and --enable-cfile option to disable the file functions as default.
+	* Disabled cg_file*() as default.
+	* Disabled cg_upnp_device_loaddescriptionfile() as default.
 	* Added cg_filelist_*().
 	* Added cg_file_listfiles().
 
