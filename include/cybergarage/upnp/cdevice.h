@@ -311,7 +311,8 @@ BOOL cg_upnp_device_parsedescription(CgUpnpDevice *dev, char *desciption, int de
  */
 BOOL cg_upnp_device_parsedescriptionurl(CgUpnpDevice *dev, CgNetURL *url);
 
-#if !defined(TENGINE) && !defined(ITRON) && !defined(BTRON)
+
+#if defined(USE_CFILE)
 /**
  * Load and parse the device description from an XML file.
  * Not available for T-Engine, ITron and BTron platforms.

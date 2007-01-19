@@ -20,7 +20,9 @@
 #include <cybergarage/upnp/cupnp.h>
 
 #include "clock_device.h"
+#include "kb_util.h"
 
+#include <ctype.h>
 #if defined(TENGINE)
 #if defined(PROCESS_BASE) /* Process based */
 #include <basic.h>
@@ -48,6 +50,7 @@ BOOL InitApp( int cacheControl )
 	clockDev = upnp_clock_device_new();
         cg_upnp_device_setleasetime( clockDev, cacheControl );
 	cg_upnp_device_start(clockDev);
+	return TRUE;
 }
 
 void ExitApp()

@@ -291,6 +291,20 @@ AC_ARG_ENABLE(anyaddr,
 )	
 
 ##############################
+# Checks for fast mode.
+##############################
+
+AC_ARG_ENABLE(cfile,
+        AS_HELP_STRING([--enable-cfile],
+                        [enable file functions (default = no)]),
+        [
+                if test $enableval = yes; then
+                        CFLAGS="$CFLAGS -DUSE_CFILE"
+                fi
+        ],
+)
+
+##############################
 # Checks for Expat libraries.
 ##############################
 

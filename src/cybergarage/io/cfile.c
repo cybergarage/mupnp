@@ -19,6 +19,8 @@
 *		- WINCE support (still untested)
 ******************************************************************/
 
+#if defined(USE_CFILE)
+
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
 #endif
@@ -513,7 +515,7 @@ int cg_file_listfiles(CgFile *file, CgFileList *fileList)
 	WIN32_FIND_DATA fd;
 	HANDLE hFind;
 #else
-	struct dirent **fileList;
+	struct dirent **dirFileList;
 	int n;
 #endif
 
@@ -546,15 +548,15 @@ int cg_file_listfiles(CgFile *file, CgFileList *fileList)
 				cg_string_addvalue(fullPathStr, fileName);
 //				conType = (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ? CG_UPNP_MEDIA_CONTENT_CONTAINER : CG_UPNP_MEDIA_CONTENT_ITEM;
 #else
-	n = scandir(dir, &fileList, 0, alphasort);
+	n = scandir(dir, &dirFileList, 0, alphasort);
 	if (0 <= n) {
 		while(n--) {
-			if (!cg_streq(".", fileList[n]->d_name) && !cg_streq("..", fileList[n]->d_name)) {
-				fileName = cg_strdup(fileList[n]->d_name);
+			if (!cg_streq(".", dirFileList[n]->d_name) && !cg_streq("..", dirFileList[n]->d_name)) {
+				fileName = cg_strdup(dirFileList[n]->d_name);
 				fullPathStr = cg_string_new();
 				cg_string_addvalue(fullPathStr, dir);
 				cg_string_addvalue(fullPathStr, "/");
-				cg_string_addvalue(fullPathStr, fileList[n]->d_name);
+				cg_string_addvalue(fullPathStr, dirFileList[n]->d_name);
 //				if(stat(cg_string_getvalue(fullPathStr), &fileStat) != -1)
 //				conType = ((fileStat.st_mode & S_IFMT)==S_IFDIR) ? CG_UPNP_MEDIA_CONTENT_CONTAINER : CG_UPNP_MEDIA_CONTENT_ITEM;
 #endif
@@ -579,11 +581,14 @@ int cg_file_listfiles(CgFile *file, CgFileList *fileList)
 	cg_string_delete(findDirStr);
 #else
 			}
-			free(fileList[n]);
+			free(dirFileList[n]);
 		}
-		free(fileList);
+		free(dirFileList);
 	}
 #endif
 
 	return cg_filelist_size(fileList);
 }
+
+#endif
+

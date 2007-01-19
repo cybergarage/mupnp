@@ -18,6 +18,8 @@
 *
 ******************************************************************/
 
+#if defined(USE_CFILE)
+
 #include <cybergarage/io/cfile.h>
 #include <cybergarage/util/clog.h>
 
@@ -59,4 +61,6 @@ void cg_filelist_delete(CgFileList *fileList)
 
 	cg_log_debug_l4("Leaving...\n");
 }
+
+#endif
 

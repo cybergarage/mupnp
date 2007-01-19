@@ -12,6 +12,7 @@ INCLUDES = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_
 
 clinkc_source = \
 	../../src/cybergarage/io/cfile.c \
+	../../src/cybergarage/io/cfile_list.c \
 	../../src/cybergarage/util/clist.c \
 	../../src/cybergarage/util/cmutex.c \
 	../../src/cybergarage/util/ccond.c \
