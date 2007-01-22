@@ -18,9 +18,10 @@
 *
 ******************************************************************/
 
+#include <cybergarage/io/cfile.h>
+
 #if defined(USE_CFILE)
 
-#include <cybergarage/io/cfile.h>
 #include <cybergarage/util/clog.h>
 
 /****************************************

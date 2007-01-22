@@ -19,15 +19,11 @@
 *		- WINCE support (still untested)
 ******************************************************************/
 
+#include <cybergarage/io/cfile.h>
+
 #if defined(USE_CFILE)
 
-#ifdef HAVE_CONFIG_H
-#  include "config.h"
-#endif
-
-#include <cybergarage/io/cfile.h>
 #include <cybergarage/util/clog.h>
-
 #include <stdio.h>
 
 #if defined(WIN32) && !defined(WINCE)
@@ -36,11 +32,11 @@
 #elif defined (WINCE)
 #include <windows.h>
 
+/*
 #if (_WIN32_WCE < 0x501)
 #include <sys\types.h> //from PortSDK
 #endif
 
-/*
 struct stat {
 
         _dev_t st_dev;
