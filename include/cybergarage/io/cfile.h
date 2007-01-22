@@ -21,12 +21,20 @@
 #ifndef _CG_IO_CFILE_H_
 #define _CG_IO_CFILE_H_
 
+#ifdef HAVE_CONFIG_H
+#  include "config.h"
+#endif
+
 #include <cybergarage/typedef.h>
 #include <cybergarage/util/clist.h>
 #include <cybergarage/util/cstring.h>
 
 #ifdef  __cplusplus
 extern "C" {
+#endif
+
+#if defined(WIN32) || defined(WINCE)
+#define USE_CFILE 1
 #endif
 
 #if defined(USE_CFILE)
