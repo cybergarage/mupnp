@@ -20,6 +20,8 @@
 *		- Changed cg_net_gethostinterfaces() not to bind the MAC address interface on QNX platform.
 *	02/13/06 Theo Beisch
 *		- added WINCE support
+*	01/30/07
+*		- Fixed to compile normally on the release mode for Windows Mobile.
 *
 ******************************************************************/
 
@@ -234,9 +236,9 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		pAdapterInfo = (IP_ADAPTER_INFO *) malloc (ulOutBufLen);
 	}
 
-#if defined DEBUG
 	if ((dwRetVal = GetAdaptersInfo( pAdapterInfo, &ulOutBufLen)) == NO_ERROR) {
 		for (pAdapter = pAdapterInfo, nOfInterfaces = 0; pAdapter; ++nOfInterfaces) {
+#if defined(DEBUG)
 			printf("IF Name:%s\n", pAdapter->AdapterName);
 			printf("IF Desc:%s\n", pAdapter->Description);
 			printf("IF Addr:%ld\n", pAdapter->Address);
@@ -277,8 +279,10 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 			}
 			pAdapter=pAdapter->Next;
 		}
+#if defined(DEBUG)
 		printf("* %d Adapters found\n",nOfInterfaces);
 		printf("  %d usable\n",cg_net_interfacelist_size(netIfList));
+#endif
 	} 
 	free(pAdapterInfo);
 
