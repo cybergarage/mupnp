@@ -79,7 +79,9 @@ static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 #endif
 
 	if (thread->action != NULL) {
+#if defined DEBUG
 		printf ("#real Thr=%X hNd=%X lpP=%X %s start\n",thread,thread->hThread,lpParam , thread->friendlyName);
+#endif
 		thread->action(thread);
 	}
 #if defined DEBUG
@@ -406,7 +408,9 @@ BOOL cg_thread_stop_with_cond(CgThread *thread, CgCond *cond)
 		// do the delete(thread) cleanup on return of the Win32ThreadProc.
 		// Accordingly we simulate the OK exit here as a "look ahead" (what a hack ;-) )
 		for (i=0; i<CG_THREAD_SHUTDOWN_ATTEMPTS; ++i){
+#if defined (DEBUG)
 			printf("# thread stop mainloop %X %s %d. try\n",thread,thread->friendlyName,i+1);
+#endif
 			j=0;
 			if (result = GetExitCodeThread(thread->hThread,&dwExitCode)) {
 				if (dwExitCode != STILL_ACTIVE) {
