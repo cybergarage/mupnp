@@ -1,3 +1,6 @@
+2007-01-30  Satoshi Konno <skonno@cybergarage.org>
+	* Fixed to compile normally on the release mode for Windows Mobile.
+	
 2007-01-19  Satoshi Konno <skonno@cybergarage.org>
 	* Added USE_CFILE define and --enable-cfile option to disable the file functions as default.
 	* Disabled cg_file*() as default.
