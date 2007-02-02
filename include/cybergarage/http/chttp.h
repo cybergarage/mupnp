@@ -66,7 +66,11 @@ extern "C" {
 #define CG_HTTP_VER10 "HTTP/1.0"
 #define CG_HTTP_VER11 "HTTP/1.1"
 
+#if !defined(CG_HTTP_CURL)
+#define CG_HTTP_USERAGENT "libclinkc-agent/1.0 (Cyberlink for C)"
+#else
 #define CG_HTTP_USERAGENT "libcurl-agent/1.0 (Cyberlink for C)"
+#endif
 
 #define CG_HTTP_DEFAULT_PORT 80
 
