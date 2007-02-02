@@ -169,7 +169,7 @@ char *cg_http_response_getreasonphrase(CgHttpResponse *httpRes)
 * cg_http_response_read
 ****************************************/
 
-BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock)
+BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock, BOOL onlyHeader)
 {
 	char lineBuf[CG_HTTP_READLINE_BUFSIZE];
 	CgStringTokenizer *strTok;
@@ -196,11 +196,11 @@ BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock)
 	}
 	cg_string_tokenizer_delete(strTok);
 
-	cg_http_packet_read((CgHttpPacket *)httpRes, sock, lineBuf, sizeof(lineBuf));
+	cg_http_packet_read((CgHttpPacket *)httpRes, sock, onlyHeader, lineBuf, sizeof(lineBuf));
 	
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************

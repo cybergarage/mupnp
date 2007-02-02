@@ -1,3 +1,7 @@
+2007-02-01  Satoshi Konno <skonno@cybergarage.org>
+	* Fixed cg_http_request_post() not to hung up when the request method is HEAD.
+	* Added a onlyHeader parameter to cg_http_response_read() and cg_http_response_packet().
+
 2007-01-30  Satoshi Konno <skonno@cybergarage.org>
 	* Fixed to compile normally on the release mode for Windows Mobile.
 	

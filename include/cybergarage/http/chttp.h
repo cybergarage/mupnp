@@ -320,7 +320,7 @@ __int64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name);
 void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock);
 void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
 BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
-BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
+BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader, char *lineBuf, int lineBufSize);
 
 /**** Content-Length ****/
 #if defined(__USE_ISOC99) || (defined(WIN32) & !defined(WINCE))
@@ -459,7 +459,7 @@ void cg_http_response_setreasonphrase(CgHttpResponse *httpRes, char *value);
 char *cg_http_response_getreasonphrase(CgHttpResponse *httpRes);
 void cg_http_response_setstatuscode(CgHttpResponse *httpRes, int code);
 int cg_http_response_getstatuscode(CgHttpResponse *httpRes);
-BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock);
+BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock, BOOL onlyHeader);
 
 /*#define cg_http_response_issuccessful(httpRes) ((cg_http_response_getstatuscode(httpRes) == CG_HTTP_STATUS_OK) ? TRUE : FALSE)*/
 #define cg_http_response_issuccessful(httpRes) (cg_http_response_getstatuscode(httpRes) >= 200 && cg_http_response_getstatuscode(httpRes) < 300 )
