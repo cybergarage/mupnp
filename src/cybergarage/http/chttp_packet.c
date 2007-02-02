@@ -31,6 +31,9 @@
 *		- Added cg_http_packet_setheaderlonglong() and cg_http_packet_getheaderlonglong().
 *		- Extended cg_http_packet_setcontentlength() and cg_http_packet_getcontentlength() to 64bit
 *		  when the compiler is supported C99 or the platform is WIN32.
+*	02/01/07
+*		- Fixed cg_http_request_post() not to hung up when the request method is HEAD.
+*		- Added a onlyHeader parameter to cg_http_response_read() and cg_http_response_packet().
 *
 ******************************************************************/
 
@@ -524,16 +527,16 @@ BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineB
 		}
 	}
 
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
 * cg_http_packet_read
 ****************************************/
 
-BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize)
+BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader, char *lineBuf, int lineBufSize)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -541,6 +544,9 @@ BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, i
 	cg_http_packet_read_headers(httpPkt, sock, lineBuf, lineBufSize);
 	
 	cg_log_debug_l4("Leaving...\n");
+
+	if (onlyHeader)
+		return TRUE;
 
 	return cg_http_packet_read_body(httpPkt, sock, lineBuf, lineBufSize);
 }

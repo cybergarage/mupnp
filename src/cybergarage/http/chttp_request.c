@@ -22,6 +22,10 @@
 *	19-Jan-06 Aapo Makela
 *		- Fixed to convert absolute URLs to relative
 *		- Fixed evil crash bug, when receiving malformed HTTP request
+*	02/01/07
+*		- Fixed cg_http_request_post() not to hung up when the request method is HEAD.
+*		- Added a onlyHeader parameter to cg_http_response_read() and cg_http_response_packet().
+*
 ******************************************************************/
 
 #include <cybergarage/util/clist.h>
@@ -325,7 +329,7 @@ cg_log_debug_s("\nRequest: %s%s%s:%d%s%s%s\n", method, CG_HTTP_SP, ipaddr, port,
 	cg_http_packet_post((CgHttpPacket *)httpReq, sock);
 	
 	/**** read response ****/
-	cg_http_response_read(httpReq->httpRes, sock);
+	cg_http_response_read(httpReq->httpRes, sock, cg_http_request_isheadrequest(httpReq));
 
 #ifdef CG_SHOW_TIMINGS	
 	gettimeofday(&end_time, NULL);
