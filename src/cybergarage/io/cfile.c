@@ -86,9 +86,9 @@ CgFile *cg_file_new()
 		file->content = NULL;
 	}
 
-	return file;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return file;
 }
 
 /****************************************

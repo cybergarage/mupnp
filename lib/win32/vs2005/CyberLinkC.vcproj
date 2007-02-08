@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="CyberLinkC"
 	ProjectGUID="{D550D099-9F69-4F30-864C-504D02F72774}"
+	RootNamespace="CyberLinkC"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -229,6 +230,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\cybergarage\io\cfile.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\cybergarage\io\cfile_list.c"
 				>
 			</File>
 			<File
