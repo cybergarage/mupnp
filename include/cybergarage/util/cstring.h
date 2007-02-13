@@ -124,17 +124,17 @@ char *cg_longlong2str(long long value, char *buf, int bufSize);
 char *cg_longlong2str(__int64 value, char *buf, int bufSize);
 #endif
 
-#define cg_str2int(value) atoi(value)
-#define cg_str2long(value) atol(value)
-#define cg_strhex2long(value) strtol(value, NULL, 16)
-#define cg_strhex2ulong(value) strtoul(value, NULL, 16)
+#define cg_str2int(value) (value ? atoi(value) : 0)
+#define cg_str2long(value) (value ? atol(value) : 0)
+#define cg_strhex2long(value) (value ? strtol(value, NULL, 16) : 0)
+#define cg_strhex2ulong(value) (value ? strtoul(value, NULL, 16) : 0)
 
 #if defined(__USE_ISOC99)
-#define cg_str2longlong(value) atoll(value)
-#define cg_strhex2longlong(value) strtoll(value, NULL, 16)
-#define cg_strhex2ulonglong(value) strtoull(value, NULL, 16)
+#define cg_str2longlong(value) (value ? atoll(value) : 0)
+#define cg_strhex2longlong(value) (value ? strtoll(value, NULL, 16) : 0)
+#define cg_strhex2ulonglong(value) (value ? strtoull(value, NULL, 16) : 0)
 #elif defined(WIN32)
-#define cg_str2longlong(value) _atoi64(value)
+#define cg_str2longlong(value) (value ? _atoi64(value) : 0)
 #endif
 
 /****************************************
