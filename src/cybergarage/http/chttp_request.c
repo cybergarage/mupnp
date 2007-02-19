@@ -83,9 +83,9 @@ CgHttpRequest *cg_http_request_new()
 		cg_http_request_settimeout(httpReq, CG_HTTP_CONN_TIMEOUT);
 	}
 	
-	return httpReq;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return httpReq;
 }
 
 /****************************************
@@ -201,9 +201,9 @@ char *cg_http_request_getmethod(CgHttpRequest *httpReq)
 {
 	cg_log_debug_l4("Entering...\n");
 
-	return cg_string_getvalue(httpReq->method);
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return cg_string_getvalue(httpReq->method);
 }
 
 /****************************************
@@ -214,9 +214,9 @@ char *cg_http_request_getversion(CgHttpRequest *httpReq)
 {
 	cg_log_debug_l4("Entering...\n");
 
-	return cg_string_getvalue(httpReq->version);
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return cg_string_getvalue(httpReq->version);
 }
 
 /****************************************
@@ -227,9 +227,9 @@ char *cg_http_request_getuseragent(CgHttpRequest *httpReq)
 {
 	cg_log_debug_l4("Entering...\n");
 
-	return cg_string_getvalue(httpReq->userAgent);
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return cg_string_getvalue(httpReq->userAgent);
 }
 /****************************************
 * cg_http_request_geturi
@@ -239,9 +239,9 @@ char *cg_http_request_geturi(CgHttpRequest *httpReq)
 {
 	cg_log_debug_l4("Entering...\n");
 
-	return cg_string_getvalue(httpReq->uri);
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return cg_string_getvalue(httpReq->uri);
 }
 
 /****************************************
@@ -265,9 +265,9 @@ CgSocket *cg_http_request_getsocket(CgHttpRequest *httpReq)
 {
 	cg_log_debug_l4("Entering...\n");
 
-	return httpReq->sock;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return httpReq->sock;
 }
 
 /****************************************
@@ -343,9 +343,9 @@ cg_log_debug_s("Getting HTTP-response completed. Elapsed time: "
 	cg_socket_close(sock);
 	cg_socket_delete(sock);	
 	
-  return httpReq->httpRes;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return httpReq->httpRes;
 }
 
 #endif
@@ -773,9 +773,9 @@ BOOL cg_http_request_read(CgHttpRequest *httpReq, CgSocket *sock)
 	    cg_http_packet_hasheader((CgHttpPacket *)httpReq, CG_HTTP_TRANSFER_ENCODING))
 		cg_http_packet_read_body((CgHttpPacket *)httpReq, sock, lineBuf, sizeof(lineBuf));
 	
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -822,9 +822,9 @@ BOOL cg_http_request_postresponse(CgHttpRequest *httpReq, CgHttpResponse *httpRe
 	/**** send header and content ****/
 	cg_http_packet_post((CgHttpPacket *)httpRes, sock);
 	
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -844,9 +844,9 @@ BOOL cg_http_request_poststatuscode(CgHttpRequest *httpReq, int httpStatCode)
 	postRet = cg_http_request_postresponse(httpReq, httpRes);
 	cg_http_response_delete(httpRes);
 
-	return postRet;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return postRet;
 }
 
 /****************************************
