@@ -295,7 +295,7 @@ void cg_http_packet_sethost(CgHttpPacket *httpPkt, char *addr, int port)
 	host = malloc(sizeof(char) * hostMaxLen);
 
 #if defined(HAVE_SNPRINTF)
-	if (0 < port) {
+	if (0 < port && port != CG_HTTP_DEFAULT_PORT) {
 		if (cg_net_isipv6address(addr) == TRUE)
 			snprintf(host, hostMaxLen, "[%s]:%d", addr, port);
 		else
@@ -308,7 +308,7 @@ void cg_http_packet_sethost(CgHttpPacket *httpPkt, char *addr, int port)
 			snprintf(host, hostMaxLen, "%s", addr);
 	}
 #else	
-	if (0 < port) {
+	if (0 < port && port != CG_HTTP_DEFAULT_PORT) {
 		if (cg_net_isipv6address(addr) == TRUE)
 			sprintf(host, "[%s]:%d", addr, port);
 		else
