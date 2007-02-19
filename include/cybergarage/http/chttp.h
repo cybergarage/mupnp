@@ -67,9 +67,9 @@ extern "C" {
 #define CG_HTTP_VER11 "HTTP/1.1"
 
 #if !defined(CG_HTTP_CURL)
-#define CG_HTTP_USERAGENT "libclinkc-agent/1.0 (Cyberlink for C)"
+#define CG_HTTP_USERAGENT_DEFAULT "CyberGarage HTTP/1.0"
 #else
-#define CG_HTTP_USERAGENT "libcurl-agent/1.0 (Cyberlink for C)"
+#define CG_HTTP_USERAGENT_DEFAULT "libcurl-agent/1.0 (Cyberlink for C)"
 #endif
 
 #define CG_HTTP_DEFAULT_PORT 80
@@ -105,6 +105,7 @@ extern "C" {
 #define CG_HTTP_RANGE "Range"
 #define CG_HTTP_TRANSFER_ENCODING "Transfer-Encoding"
 	#define CG_HTTP_CHUNKED "Chunked"
+#define CG_HTTP_USERAGENT "User-Agent"
 
 /**** SOAP Extention ****/
 #define CG_HTTP_SOAP_ACTION "SOAPACTION"

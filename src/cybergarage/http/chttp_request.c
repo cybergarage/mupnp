@@ -25,6 +25,9 @@
 *	02/01/07
 *		- Fixed cg_http_request_post() not to hung up when the request method is HEAD.
 *		- Added a onlyHeader parameter to cg_http_response_read() and cg_http_response_packet().
+*	02/19/17
+*		-  Changed cg_http_request_post() to add a user agent, CyberGarage HTTP/1.0, as default.
+*		- Changed CG_HTTP_USERAGENT to CG_HTTP_USERAGENT_DEFAULT to add CG_HTTP_USERAGENT as the normal header define.
 *
 ******************************************************************/
 
@@ -75,7 +78,7 @@ CgHttpRequest *cg_http_request_new()
 		httpReq->postURL = cg_net_url_new();
 		
 		cg_http_request_setversion(httpReq, CG_HTTP_VER11);
-		cg_http_request_setuseragent(httpReq, CG_HTTP_USERAGENT);
+		cg_http_request_setuseragent(httpReq, CG_HTTP_USERAGENT_DEFAULT);
 
 		cg_http_request_setsocket(httpReq, NULL);
 		cg_http_request_setuserdata(httpReq, NULL);
@@ -303,9 +306,10 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	}
 	
 	cg_http_request_sethost(httpReq, ipaddr, port);
+	cg_http_packet_setheadervalue((CgHttpPacket*)httpReq, CG_HTTP_USERAGENT, cg_http_request_getuseragent(httpReq))
 
 	method = cg_http_request_getmethod(httpReq);
-	uri = cg_http_request_geturi(httpReq);	
+	uri = cg_http_request_geturi(httpReq);
 	version = cg_http_request_getversion(httpReq);
 
 	if (method == NULL || uri == NULL || version == NULL) {

@@ -1,3 +1,7 @@
+2007-02-19  Satoshi Konno <skonno@cybergarage.org>
+	* Changed cg_http_request_post() to add a user agent, CyberGarage HTTP/1.0, as default.
+	* Changed CG_HTTP_USERAGENT to CG_HTTP_USERAGENT_DEFAULT to add CG_HTTP_USERAGENT as the normal header define.
+
 2007-02-13  Satoshi Konno <skonno@cybergarage.org>
 	* Fixed cg_str2*() to return 0 when the parameter is null.
 
