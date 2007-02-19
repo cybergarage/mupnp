@@ -306,7 +306,7 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	}
 	
 	cg_http_request_sethost(httpReq, ipaddr, port);
-	cg_http_packet_setheadervalue((CgHttpPacket*)httpReq, CG_HTTP_USERAGENT, cg_http_request_getuseragent(httpReq))
+	cg_http_packet_setheadervalue((CgHttpPacket*)httpReq, CG_HTTP_USERAGENT, cg_http_request_getuseragent(httpReq));
 
 	method = cg_http_request_getmethod(httpReq);
 	uri = cg_http_request_geturi(httpReq);
