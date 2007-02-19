@@ -67,7 +67,7 @@ extern "C" {
 #define CG_HTTP_VER11 "HTTP/1.1"
 
 #if !defined(CG_HTTP_CURL)
-#define CG_HTTP_USERAGENT_DEFAULT "CyberGarage HTTP/1.0"
+#define CG_HTTP_USERAGENT_DEFAULT "CyberGarage-HTTP/1.0"
 #else
 #define CG_HTTP_USERAGENT_DEFAULT "libcurl-agent/1.0 (Cyberlink for C)"
 #endif
