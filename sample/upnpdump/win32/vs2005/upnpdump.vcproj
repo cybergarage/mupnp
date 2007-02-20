@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="upnpdump"
 	ProjectGUID="{43F876F0-AEB9-4F77-A3B7-E2171F6C2295}"
+	RootNamespace="upnpdump"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -20,6 +21,7 @@
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			UseOfMFC="2"
 			CharacterSet="2"
 			>
 			<Tool
@@ -44,7 +46,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -61,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libexpat.lib ws2_32.lib"
+				AdditionalDependencies="libexpat.lib ws2_32.lib user32.lib gdi32.lib"
 				OutputFile="$(OutDir)/upnpdump.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
@@ -100,6 +102,7 @@
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			UseOfMFC="2"
 			CharacterSet="2"
 			>
 			<Tool
@@ -121,7 +124,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="../../../../include; ../../../common"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -138,7 +141,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libexpat.lib ws2_32.lib"
+				AdditionalDependencies="libexpat.lib ws2_32.lib user32.lib gdi32.lib"
 				OutputFile="$(OutDir)/upnpdump.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
