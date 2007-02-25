@@ -93,6 +93,7 @@ CgXmlAttribute *cg_xml_attribute_new();
 void cg_xml_attribute_delete(CgXmlAttribute *attr);
 
 #define cg_xml_attribute_next(attr) (CgXmlAttribute *)cg_list_next((CgList *)attr)
+#define cg_xml_attribute_remove(attr) cg_list_remove((CgList *)attr)
 
 void cg_xml_attribute_setname(CgXmlAttribute *attr, char *name);
 char *cg_xml_attribute_getname(CgXmlAttribute *attr);
@@ -163,6 +164,7 @@ CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, char *name, ch
 #define cg_xml_node_addattribute(node, attr) cg_xml_attributelist_add(node->attrList,attr)
 #define cg_xml_node_setattribute(node, name, value) cg_xml_attributelist_set(node->attrList,name,value)
 #define cg_xml_node_getattributevalue(node, name) cg_xml_attributelist_getvalue(node->attrList, name)
+void cg_xml_node_removeattribute(CgXmlNode *node, char *name);
 
 #define cg_xml_node_setnamespace(node, ns, value) cg_xml_node_setattribute(node, "xmlns:" ns , value)
 

@@ -224,7 +224,25 @@ char *cg_xml_node_getchildnodevalue(CgXmlNode *node, char *name)
 }
 
 /****************************************
-* cg_xml_node_tostring
+* cg_xml_node_removeattribute
+****************************************/
+
+void cg_xml_node_removeattribute(CgXmlNode *node, char *name)
+{
+	CgXmlAttribute *attr;
+
+	if (!node || !name)
+		return;
+
+	attr = cg_xml_node_getattribute(node, name);
+	if (!attr)
+		return;
+
+	cg_xml_attribute_remove(attr);
+}
+
+/****************************************
+* cg_xml_node_attribute_tostring
 ****************************************/
 
 static char *cg_xml_node_attribute_tostring(CgXmlNode *node, CgString *str)
@@ -255,6 +273,10 @@ static char *cg_xml_node_attribute_tostring(CgXmlNode *node, CgString *str)
 
 	cg_log_debug_l4("Leaving...\n");
 }
+
+/****************************************
+* cg_xml_node_tostring_indent
+****************************************/
 
 static char *cg_xml_node_tostring_indent(CgXmlNode *node, int indentLevel, BOOL withChildNode, CgString *str)
 {
@@ -316,6 +338,10 @@ static char *cg_xml_node_tostring_indent(CgXmlNode *node, int indentLevel, BOOL 
 
 	cg_log_debug_l4("Leaving...\n");
 }
+
+/****************************************
+* cg_xml_node_tostring
+****************************************/
 
 char *cg_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str)
 {
