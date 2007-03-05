@@ -87,8 +87,8 @@ void cg_string_setvalue(CgString *str, char *value)
 {
 	cg_log_debug_l5("Entering...\n");
 
-        if (str == NULL)
-                return;
+	if (str == NULL)
+		return;
 
 	cg_string_clear(str);
 	if (value != NULL)
@@ -147,7 +147,8 @@ void cg_string_setnvalue(CgString *str, char *value, int len)
 			return;
 		}
 
-		strncpy(str->value, value, len);
+		/* memcpy works better with non-zero-terminated data than strncpy */
+		memcpy(str->value, value, len);
 		str->value[len] = '\0';
 	}
 
@@ -158,13 +159,13 @@ void cg_string_setnvalue(CgString *str, char *value, int len)
 * cg_string_setpointervalue
 ****************************************/
 
-void cg_string_setpointervalue(CgString *str, char *value)
+void cg_string_setpointervalue(CgString *str, char *value, int len)
 {
 	cg_log_debug_l5("Entering...\n");
 
 	cg_string_clear(str);
 	str->value = value;
-	str->valueSize = cg_strlen(value);
+	str->valueSize = len;
 	str->memSize = str->valueSize + 1;
 
 	cg_log_debug_l5("Leaving...\n");
@@ -252,8 +253,7 @@ char *cg_string_naddvalue(CgString *str, char *value, int valueLen)
 	str->memSize = str->valueSize + valueLen + 1;
 	str->value = realloc(str->value, str->memSize * sizeof(char));
 	
-	/* memcpy works better with non-zero-terminated data
-	   than strncpy */
+	/* memcpy works better with non-zero-terminated data than strncpy */
 	memcpy(str->value + str->valueSize, value, valueLen);
 
 	str->valueSize += valueLen;

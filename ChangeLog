@@ -1,3 +1,9 @@
+2007-03-05  Satoshi Konno <skonno@cybergarage.org>
+	* Changed cg_string_setnvalue() to use memcpy instead of strncpy().
+	* Added a parameter of the string length for cg_string_setpointervalue() and to set a binary data.
+	* Added a parameter of the string length for the following functions too. 
+	  cg_http_packet_setcontentpointer(), cg_http_request_setcontentpointer() and cg_http_response_setcontentpointer().
+
 2007-02-25  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_xml_attribute_remove().
 
