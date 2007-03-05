@@ -342,7 +342,7 @@ char *cg_file_getpath(CgFile *file)
 		
 		cg_strncpy(path, fileName, sepIdx);
 		path[sepIdx]='\0';
-		cg_string_setpointervalue(file->path, path);
+		cg_string_setpointervalue(file->path, path, cg_strlen(path));
 	}
 	
 	return cg_string_getvalue(file->path);

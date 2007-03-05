@@ -496,7 +496,7 @@ BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineB
 		if (readLen <= 0)
 			return TRUE;
 		content[readLen] = '\0';
-		cg_http_packet_setcontentpointer(httpPkt, content);
+		cg_http_packet_setcontentpointer(httpPkt, content, readLen);
 	}
 	else if (cg_http_packet_getheadervalue(httpPkt, 
 					CG_HTTP_CONTENT_LENGTH) == NULL)

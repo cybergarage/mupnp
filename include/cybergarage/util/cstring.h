@@ -80,7 +80,7 @@ void cg_string_setvalue(CgString *str, char *value);
 void cg_string_setintvalue(CgString *str, int value);
 void cg_string_setlongvalue(CgString *str, long value);
 void cg_string_setnvalue(CgString *str, char *value, int len);
-void cg_string_setpointervalue(CgString *str, char *value);
+void cg_string_setpointervalue(CgString *str, char *value, int len);
 char *cg_string_getvalue(CgString *str);
 int cg_string_length(CgString *str);
 
