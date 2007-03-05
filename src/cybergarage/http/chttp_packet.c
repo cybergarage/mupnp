@@ -454,9 +454,9 @@ long cg_http_packet_read_chunk(CgHttpPacket *httpPkt, CgSocket *sock, char *line
 		cg_socket_readline(sock, lineBuf, lineBufSize);
 	}
 	
-	return readLen;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return readLen;
 }
 
 /****************************************
