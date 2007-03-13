@@ -1,3 +1,10 @@
+2007-03-11  Satoshi Konno <skonno@cybergarage.org>
+	* Added support of OpenSSL to socket functions in csocket.c.
+	* Added CG_USE_OPENSSL define and --enable-openssl option to disable the SSL functions as default.
+	* Added cg_https_request_post().
+	* Changed a compiler flag about file functions from USE_CFILE to CG_USE_CFILE.
+	* Added a framework of CppUnit.
+
 2007-03-05  Satoshi Konno <skonno@cybergarage.org>
 	* Changed cg_string_setnvalue() to use memcpy instead of strncpy().
 	* Added a parameter of the string length for cg_string_setpointervalue() and to set a binary data.

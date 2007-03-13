@@ -294,7 +294,7 @@ BOOL cg_upnp_device_parsedescriptionurl(CgUpnpDevice *dev, CgNetURL *url)
 	cg_http_request_seturi(httpReq, request);
 	cg_http_request_setcontentlength(httpReq, 0);
 	httpRes = cg_http_request_post(httpReq, host, port);
-	
+
 	/*statusCode = cg_http_response_getstatuscode(httpRes);
           if (statusCode != CG_HTTP_STATUS_OK) {*/
 	if ( !cg_http_response_issuccessful(httpRes)) {
@@ -318,7 +318,7 @@ BOOL cg_upnp_device_parsedescriptionurl(CgUpnpDevice *dev, CgNetURL *url)
 * cg_upnp_device_loaddescriptionfile
 ****************************************/
 
-#if defined(USE_CFILE)
+#if defined(CG_USE_CFILE)
 
 BOOL cg_upnp_device_loaddescriptionfile(CgUpnpDevice *dev, char *fileName)
 {

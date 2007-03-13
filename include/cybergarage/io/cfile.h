@@ -34,10 +34,10 @@ extern "C" {
 #endif
 
 #if defined(WIN32) || defined(WINCE)
-#define USE_CFILE 1
+#define CG_USE_CFILE 1
 #endif
 
-#if defined(USE_CFILE)
+#if defined(CG_USE_CFILE)
 
 /****************************************
 * Define

@@ -27,6 +27,10 @@
 #include <cybergarage/typedef.h>
 #include <cybergarage/util/cstring.h>
 
+#if defined(CG_USE_OPENSSL)
+#include <openssl/ssl.h>
+#endif
+
 #ifdef  __cplusplus
 extern "C" {
 #endif
@@ -37,8 +41,8 @@ extern "C" {
 
 #define CG_NET_SOCKET_NONE 0
 
-#define CG_NET_SOCKET_STREAM 1
-#define CG_NET_SOCKET_DGRAM 2
+#define CG_NET_SOCKET_STREAM 0x01
+#define CG_NET_SOCKET_DGRAM 0x02
 
 #define CG_NET_SOCKET_CLIENT 1
 #define CG_NET_SOCKET_SERVER 2
@@ -94,6 +98,10 @@ typedef struct _CgSocket {
 	UH *sendWinBuf;
 	UH *recvWinBuf;
 #endif
+#if defined(CG_USE_OPENSSL)
+	SSL_CTX* ctx;
+	SSL* ssl;
+#endif
 } CgSocket, CgSocketList;
 
 typedef struct _CgDatagramPacket {
@@ -121,8 +129,8 @@ void cg_socket_setid(CgSocket *socket, SOCKET value);
 
 #define cg_socket_settype(socket, value) (socket->type = value)
 #define cg_socket_gettype(socket) (socket->type)
-#define cg_socket_issocketstream(socket) ((socket->type == CG_NET_SOCKET_STREAM) ? TRUE : FALSE)
-#define cg_socket_isdatagramstream(socket) ((socket->type == CG_NET_SOCKET_DGRAM) ? TRUE : FALSE)
+#define cg_socket_issocketstream(socket) ((socket->type & CG_NET_SOCKET_STREAM) ? TRUE : FALSE)
+#define cg_socket_isdatagramstream(socket) ((socket->type & CG_NET_SOCKET_DGRAM) ? TRUE : FALSE)
 
 #define cg_socket_setdirection(socket, value) (socket->direction = value)
 #define cg_socket_getdirection(socket) (socket->direction)
@@ -186,6 +194,16 @@ void cg_socket_datagram_packet_delete(CgDatagramPacket *dgmPkt);
 #define cg_socket_datagram_packet_getremoteport(dgmPkt) (dgmPkt->remotePort)
 
 void cg_socket_datagram_packet_copy(CgDatagramPacket *dstDgmPkt, CgDatagramPacket *srcDgmPkt);
+
+/****************************************
+* Function (SSLSocket)
+****************************************/
+
+#if defined(CG_USE_OPENSSL)
+#define CG_NET_SOCKET_SSL 0x0100
+#define cg_socket_ssl_new() cg_socket_new(CG_NET_SOCKET_STREAM | CG_NET_SOCKET_SSL)
+#define cg_socket_isssl(socket) ((socket->type & CG_NET_SOCKET_SSL) ? TRUE : FALSE)
+#endif
 
 /****************************************
 * Function (SocketList)

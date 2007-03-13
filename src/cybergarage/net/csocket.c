@@ -46,6 +46,10 @@
 *	    than having a CP/Device race into this with multiple
 *		concurrent socket startups - the only truly self contained
 *		solution would need a named mutex or alike to protect the counter
+*	03/11/07
+*		- Added support of OpenSSL to socket functions in csocket.c.
+*		- Added CG_USE_OPENSSL define and --enable-openssl option to  disable the SSL functions as default.
+*
 ******************************************************************/
 
 #include <cybergarage/net/csocket.h>
@@ -198,6 +202,10 @@ void cg_socket_startup()
 #if defined(CG_NET_USE_SOCKET_LIST)
 		socketList = cg_socketlist_new();
 #endif	
+
+#if defined(CG_USE_OPENSSL)
+		SSL_library_init(); 
+#endif
 	}
 	socketCnt++;
 
@@ -265,11 +273,16 @@ CgSocket *cg_socket_new(int type)
 		sock->sendWinBuf = NULL;
 		sock->recvWinBuf = NULL;
 #endif
+
+#if defined(CG_USE_OPENSSL)
+		sock->ctx = NULL;
+		sock->ssl = NULL;
+#endif
 	}
 
-	return sock;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return sock;
 }
 
 /****************************************
@@ -287,9 +300,10 @@ int cg_socket_delete(CgSocket *sock)
 #endif
 	free(sock);
 	cg_socket_cleanup();
-	return 0;
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return 0;
 }
 
 /****************************************
@@ -300,13 +314,13 @@ BOOL cg_socket_isbound(CgSocket *sock)
 {
 	cg_log_debug_l4("Entering...\n");
 
+	cg_log_debug_l4("Leaving...\n");
+
 #if defined(WIN32) && !defined(__CYGWIN__) && !defined(__MINGW32__) && !defined(ITRON)
 	return (sock->id != INVALID_SOCKET) ? TRUE: FALSE;
 #else
 	return (0 < sock->id) ? TRUE : FALSE;
 #endif
-
-	cg_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
@@ -337,6 +351,20 @@ BOOL cg_socket_close(CgSocket *sock)
 
 	if (cg_socket_isbound(sock) == FALSE)
 		return TRUE;
+
+#if defined(CG_USE_OPENSSL)
+	if (cg_socket_isssl(sock) == TRUE) {
+		if (sock->ctx) {
+			SSL_shutdown(sock->ssl); 
+			SSL_free(sock->ssl);
+			sock->ssl = NULL;
+		}
+		if (sock->ctx) {
+			SSL_CTX_free(sock->ctx);
+			sock->ctx = NULL;
+		}
+	}
+#endif
 
 #if (defined(WIN32) || defined(__CYGWIN__)) && !defined(ITRON)
 	#if !defined(WINCE)
@@ -669,6 +697,21 @@ BOOL cg_socket_connect(CgSocket *sock, char *addr, int port)
 
 	cg_socket_setdirection(sock, CG_NET_SOCKET_CLIENT);
 
+#if defined(CG_USE_OPENSSL)
+	if (cg_socket_isssl(sock) == TRUE) {
+		sock->ctx = SSL_CTX_new( SSLv23_client_method());
+		sock->ssl = SSL_new(sock->ctx);
+		if (SSL_set_fd(sock->ssl, cg_socket_getid(sock)) == 0) {
+			cg_socket_close(sock);
+			return FALSE;
+		}
+		if (SSL_connect(sock->ssl) < 1) {
+			cg_socket_close(sock);
+			return FALSE;
+		}
+	}
+#endif
+
 	cg_log_debug_l4("Leaving...\n");
 
 	return (ret == 0) ? TRUE : FALSE;
@@ -681,6 +724,11 @@ BOOL cg_socket_connect(CgSocket *sock, char *addr, int port)
 int cg_socket_read(CgSocket *sock, char *buffer, int bufferLen)
 {
 	int recvLen;
+
+#if defined(CG_USE_OPENSSL)
+	if (cg_socket_isssl(sock) == FALSE) {
+#endif
+
 #if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
 	recvLen = so_recv(sock->id, buffer, bufferLen, 0);
 #elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
@@ -689,6 +737,13 @@ int cg_socket_read(CgSocket *sock, char *buffer, int bufferLen)
 	recvLen = tcp_rcv_dat(sock->id, buffer, bufferLen, TMO_FEVR);
 #else
 	recvLen = recv(sock->id, buffer, bufferLen, 0);
+#endif
+
+#if defined(CG_USE_OPENSSL)
+	}
+	else {
+		recvLen = SSL_read(sock->ssl, buffer, bufferLen);
+	}
 #endif
 
 	cg_log_debug_l4("Entering...\n");
@@ -713,6 +768,7 @@ cg_log_debug_s("r %d : %s\n", recvLen, (0 <= recvLen) ? buffer : "");
 
 int cg_socket_write(CgSocket *sock, char *cmd, int cmdLen)
 {
+	int nSent;
 	int nTotalSent = 0;
 	int cmdPos = 0;
 	int retryCnt = 0;
@@ -723,15 +779,27 @@ int cg_socket_write(CgSocket *sock, char *cmd, int cmdLen)
 		return 0;
 
 	do {
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
-		WERR nSent = so_send(sock->id, (B*)(cmd + cmdPos), cmdLen, 0);
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
-		int nSent = ka_send(sock->id, (B*)(cmd + cmdPos), cmdLen, 0);
-#elif defined(ITRON)
-		int nSent = tcp_snd_dat(sock->id, cmd + cmdPos, cmdLen, TMO_FEVR);
-#else
-		int nSent = send(sock->id, cmd + cmdPos, cmdLen, 0);
+#if defined(CG_USE_OPENSSL)
+		if (cg_socket_isssl(sock) == FALSE) {
 #endif
+
+#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+		nSent = so_send(sock->id, (B*)(cmd + cmdPos), cmdLen, 0);
+#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+		nSent = ka_send(sock->id, (B*)(cmd + cmdPos), cmdLen, 0);
+#elif defined(ITRON)
+		nSent = tcp_snd_dat(sock->id, cmd + cmdPos, cmdLen, TMO_FEVR);
+#else
+		nSent = send(sock->id, cmd + cmdPos, cmdLen, 0);
+#endif
+
+#if defined(CG_USE_OPENSSL)
+		}
+		else {
+			nSent = SSL_write(sock->ssl, cmd + cmdPos, cmdLen);
+		}
+#endif
+
 		/* Try to re-send in case sending has failed */
 		if (nSent <= 0)
 		{

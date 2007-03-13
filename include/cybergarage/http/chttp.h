@@ -73,6 +73,7 @@ extern "C" {
 #endif
 
 #define CG_HTTP_DEFAULT_PORT 80
+#define CG_HTTS_DEFAULT_PORT 443
 
 #define CG_HTTP_STATUS_CONTINUE 100
 #define CG_HTTP_STATUS_OK 200
@@ -376,6 +377,9 @@ char *cg_http_request_geturi(CgHttpRequest *httpReq);
 void cg_http_request_setsocket(CgHttpRequest *httpReq, CgSocket *sock);
 CgSocket *cg_http_request_getsocket(CgHttpRequest *httpReq);
 CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int port);
+#if defined(CG_USE_OPENSSL)
+CgHttpResponse *cg_https_request_post(CgHttpRequest *httpReq, char *ipaddr, int port);
+#endif
 BOOL cg_http_request_read(CgHttpRequest *httpReq, CgSocket *sock);
 BOOL cg_http_request_postresponse(CgHttpRequest *httpReq, CgHttpResponse *httpRes);
 BOOL cg_http_request_poststatuscode(CgHttpRequest *httpReq, int httpStatCode);
