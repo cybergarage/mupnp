@@ -25,9 +25,11 @@
 *	02/01/07
 *		- Fixed cg_http_request_post() not to hung up when the request method is HEAD.
 *		- Added a onlyHeader parameter to cg_http_response_read() and cg_http_response_packet().
-*	02/19/17
+*	02/19/07
 *		-  Changed cg_http_request_post() to add a user agent, CyberGarage HTTP/1.0, as default.
-*		- Changed CG_HTTP_USERAGENT to CG_HTTP_USERAGENT_DEFAULT to add CG_HTTP_USERAGENT as the normal header define.
+*		-  Changed CG_HTTP_USERAGENT to CG_HTTP_USERAGENT_DEFAULT to add CG_HTTP_USERAGENT as the normal header define.
+*	03/11/07
+*		-  Added a secure parameter to cg_http_request_post() when the compiler flag, CG_USE_OPENSSL,is enabled.
 *
 ******************************************************************/
 
@@ -279,7 +281,7 @@ CgSocket *cg_http_request_getsocket(CgHttpRequest *httpReq)
 
 #if !defined(CG_HTTP_CURL)
 
-CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int port)
+CgHttpResponse *cg_http_request_post_main(CgHttpRequest *httpReq, char *ipaddr, int port, BOOL isSecure)
 {
 	CgSocket *sock;
 	char *method, *uri, *version;
@@ -298,7 +300,15 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	cg_log_debug_s("(HTTP) Posting:\n");
 	cg_http_request_print(httpReq);
 
+#if defined(CG_USE_OPENSSL)
+	if (isSecure == FALSE)
+		sock = cg_socket_stream_new();
+	else
+		sock = cg_socket_ssl_new();
+#else
 	sock = cg_socket_stream_new();
+#endif
+
 	cg_socket_settimeout(sock, cg_http_request_gettimeout(httpReq));
 	if (cg_socket_connect(sock, ipaddr, port) == FALSE) {
 		cg_socket_delete(sock);
@@ -351,6 +361,18 @@ cg_log_debug_s("Getting HTTP-response completed. Elapsed time: "
 
 	return httpReq->httpRes;
 }
+
+CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int port)
+{
+	return cg_http_request_post_main(httpReq, ipaddr, port, FALSE);
+}
+
+#if defined(CG_USE_OPENSSL)
+CgHttpResponse *cg_https_request_post(CgHttpRequest *httpReq, char *ipaddr, int port)
+{
+	return cg_http_request_post_main(httpReq, ipaddr, port, TRUE);
+}
+#endif
 
 #endif
 

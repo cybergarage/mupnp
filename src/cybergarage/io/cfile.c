@@ -21,7 +21,7 @@
 
 #include <cybergarage/io/cfile.h>
 
-#if defined(USE_CFILE)
+#if defined(CG_USE_CFILE)
 
 #include <cybergarage/util/clog.h>
 #include <stdio.h>
