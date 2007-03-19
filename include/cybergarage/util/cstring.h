@@ -119,8 +119,7 @@ char *cg_strncpy(char *str1, char *str2, size_t cnt);
 char *cg_strncat(char *str1, char *str2, size_t cnt);
 
 #if defined(CG_USE_INT64)
-char *cg_longlong2str(
-					  CgInt64 value, char *buf, int bufSize);
+char *cg_longlong2str(CgInt64 value, char *buf, int bufSize);
 #endif
 
 #define cg_str2int(value) (value ? atoi(value) : 0)
