@@ -34,6 +34,10 @@
 *	02/01/07
 *		- Fixed cg_http_request_post() not to hung up when the request method is HEAD.
 *		- Added a onlyHeader parameter to cg_http_response_read() and cg_http_response_packet().
+*	03/18/07
+*		- Changed the following functions to use CgInt64.
+*		  cg_http_packet_setheaderlonglong()
+*		  cg_http_packet_getheaderlonglong()
 *
 ******************************************************************/
 
@@ -175,37 +179,13 @@ void cg_http_packet_setheaderlong(CgHttpPacket *httpPkt, char* name, long value)
 * cg_http_packet_setheaderlonglong
 ****************************************/
 
-#if defined(__USE_ISOC99)
-void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, long long value)
-{
-	cg_log_debug_l4("Entering...\n");
-
-	char svalue[CG_STRING_LONGLONG_BUFLEN];
-	cg_http_packet_setheadervalue(httpPkt, name, cg_longlong2str(value, svalue, sizeof(svalue)));
-
-	cg_log_debug_l4("Leaving...\n");
-}
-#elif defined(WIN32)
-void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, __int64 value)
+#if defined(CG_USE_INT64)
+void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, CgInt64 value)
 {
 	char svalue[CG_STRING_LONGLONG_BUFLEN];
-
-	cg_log_debug_l4("Entering...\n");
-
 	cg_http_packet_setheadervalue(httpPkt, name, cg_longlong2str(value, svalue, sizeof(svalue)));
-
-	cg_log_debug_l4("Leaving...\n");
-}
-#else
-void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, long long value)
-{
-	cg_log_debug_l4("Entering...\n");
-
-
-	cg_log_debug_l4("Leaving...\n");
 }
 #endif
-
 
 /****************************************
 * cg_http_packet_getheadervalue
@@ -213,11 +193,7 @@ void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, long lo
 
 char *cg_http_packet_getheadervalue(CgHttpPacket *httpPkt, char* name)
 {
-	cg_log_debug_l4("Entering...\n");
-	cg_log_debug_l4("Leaving...\n");
-
 	return cg_http_headerlist_getvalue(httpPkt->headerList, name);
-
 }
 
 /****************************************
@@ -258,12 +234,8 @@ long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, char* name)
 * cg_http_packet_getheaderlonglong
 ****************************************/
 
-#if defined(__USE_ISOC99) || defined(WIN32)
-#if defined(__USE_ISOC99)
-long long cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name)
-#elif defined(WIN32)
-__int64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name)
-#endif
+#if defined(CG_USE_INT64)
+CgInt64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name)
 {
 	char *value;
 
@@ -338,7 +310,7 @@ void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock)
 	CgHttpHeader *header;
 	char *name, *value;
 	char *content;
-	long contentLen;
+	CgInt64 contentLen;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -466,7 +438,7 @@ long cg_http_packet_read_chunk(CgHttpPacket *httpPkt, CgSocket *sock, char *line
 BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize)
 {
 	long readLen;
-	long conLen;
+	int conLen;
 	char *content;
 	char readBuf[READBUF_LENGTH + 1];
 	int tries = 0;

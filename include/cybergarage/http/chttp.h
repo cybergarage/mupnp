@@ -309,12 +309,9 @@ int cg_http_packet_getheaderinteger(CgHttpPacket *httpPkt, char* name);
 long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, char* name);
 int cg_http_packet_getheadersize(CgHttpPacket *httpPkt);
 
-#if defined(__USE_ISOC99)
-void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, long long value);
-long long cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name);
-#elif defined(WIN32)
-void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, __int64 value);
-__int64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name);
+#if defined(CG_USE_INT64)
+void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, CgInt64 value);
+CgInt64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name);
 #endif
 
 #define cg_http_packet_setcontent(httpPkt, value) cg_string_setvalue(httpPkt->content, value)
@@ -330,7 +327,7 @@ BOOL cg_http_packet_read_body(
 BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader, char *lineBuf, int lineBufSize);
 
 /**** Content-Length ****/
-#if defined(__USE_ISOC99) || (defined(WIN32) & !defined(WINCE))
+#if defined(CG_USE_INT64)
 #define cg_http_packet_setcontentlength(httpPkt,value) cg_http_packet_setheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH,value)
 #define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH)
 #else
