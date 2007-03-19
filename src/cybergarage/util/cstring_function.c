@@ -21,6 +21,10 @@
 *	03/20/06 Theo Beisch
 *		- WINCE support
 *		- added cg_strtrimwhite() - trims all whitespace, not just ' '
+*	03/18/07
+*		- Changed the following functions to use CgInt64.
+*		  cg_longlong2str()
+*
 ******************************************************************/
 
 #include <cybergarage/util/cstring.h>
@@ -435,29 +439,22 @@ char *cg_long2str(long value, char *buf, int bufSize)
 ****************************************/
 
 #if defined(__USE_ISOC99)
-char *cg_longlong2str(long long value, char *buf, int bufSize)
+char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
 {
-	cg_log_debug_l5("Entering...\n");
-
 #if defined(HAVE_SNPRINTF)
 	snprintf(buf, bufSize, "%lld", value);
 #else
 	sprintf(buf, "%lld", value);
 #endif
-
 }
-
 #elif (defined(WIN32) && !defined(WINCE))
-char *cg_longlong2str(__int64 value, char *buf, int bufSize)
+char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
 {
-	cg_log_debug_l5("Entering...\n");
-
 	return _i64toa(value, buf, 10);
-
 }
 #elif (defined (WIN32) && defined (WINCE))
 //theo beisch CE supports only safe version of _i64toa
-char *cg_longlong2str(__int64 value, char *buf, int bufSize)
+char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
 {
 	_i64toa_s(value, buf, bufSize, 10);
 	return buf;

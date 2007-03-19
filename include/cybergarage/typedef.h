@@ -13,6 +13,8 @@
 *	08/16/05
 *		- Thanks for Theo Beisch <theo.beisch@gmx.de>
 *		- Added support for WindowsCE platform.
+*	03/18/07
+*		- Added CgInt64 to <typedef.h>
 *
 ******************************************************************/
 
@@ -21,6 +23,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 
 #if defined(WINCE) && !defined(WIN32)
 #define WIN32 1
@@ -57,6 +60,17 @@ typedef int BOOL;
 
 #if !defined(FALSE)
 #define FALSE (0)
+#endif
+
+#if defined(__USE_ISOC99)
+typedef long long CgInt64;
+#define CG_USE_INT64 1
+#elif (defined(WIN32) || defined(WINCE))
+typedef __int64 CgInt64;
+#define CG_USE_INT64 1
+#else
+typedef long CgInt64;
+#undef CG_USE_INT64
 #endif
 
 #ifdef  __cplusplus
