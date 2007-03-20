@@ -118,9 +118,14 @@ char *cg_net_uri_getupnpbasepath(CgNetURI *locationURL);
 #define cg_net_uri_isabsolutepath(uripath) (( *uripath == '/' ) ? TRUE : FALSE )
 #define cg_net_uri_isrelative(urip) ((cg_net_uri_hasprotocol(urip) == TRUE) ? FALSE : TRUE)
 
+BOOL cg_net_uri_isreservedchar(char c);
+BOOL cg_net_uri_isunreservedchar(char c);
+BOOL cg_net_uri_isescapechar(char c);
+BOOL cg_net_uri_isalphanumchar(char c);
+
 BOOL cg_net_uri_isescapedstring(char *buf, int bufSize);
-char *cg_net_uri_escapestring(char *buf, int bufSize);
-char *cg_net_uri_unescapestring(char *buf, int bufSize);
+char *cg_net_uri_escapestring(char *buf, int bufSize, CgString *retBuf);
+char *cg_net_uri_unescapestring(char *buf, int bufSize, CgString *retBuf);
 BOOL cg_net_uri_isequivalent(char *url, char *relative_url);
 
 #ifdef  __cplusplus

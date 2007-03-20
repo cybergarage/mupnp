@@ -1,3 +1,16 @@
+2007-03-20  Satoshi Konno <skonno@cybergarage.org>
+	* Added a parameter, CgString, to return the result safety and the implementation without curl for the following functions.
+	  cg_net_uri_unescapestring() and cg_net_uri_escapestring().
+	* Added a define, CG_USE_NET_URI_ESCAPESTRING_SKIP,in cg_net_uri_escapestring() and disabled the function not to skip only the first path.
+	* Changed cg_upnp_device_httprequestrecieved() using the new cg_net_uri_unescapestring().
+	* Added the following functions.
+	  cg_net_uri_isreservedchar()
+	  cg_net_uri_isunreservedchar()
+	  cg_net_uri_isescapechar()
+	  cg_net_uri_isalphanumchar()
+	* Fixed cg_net_uri_escapestring() to use curl_escape() instead of curl_unescape().
+	* Fixed cg_net_uri_unescapestring() to use curl_unescape() instead of curl_escape().
+
 2007-03-18  Satoshi Konno <skonno@cybergarage.org>
 	* Added CgInt64 to <typedef.h>
 	* Changed the following functions to use CgInt64.
