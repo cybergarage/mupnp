@@ -366,7 +366,7 @@ char *cg_net_uri_escapestring(char *buf, int bufSize, CgString *retBuf)
 
 	for (n=0; n<bufSize; n++) {
 		c = (unsigned char)buf[n];
-		if (cg_net_uri_isalphanumchar(c)) {
+		if (!cg_net_uri_isalphanumchar(c)) {
 #if defined(HAVE_SNPRINTF)
 			snprintf(hexChar, sizeof(hexChar), "%%%02X", c);
 #else
