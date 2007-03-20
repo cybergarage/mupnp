@@ -60,6 +60,7 @@ static void cg_upnp_device_unsubscriptionrecieved(CgUpnpService *service, CgUpnp
 void cg_upnp_device_httprequestrecieved(CgHttpRequest *httpReq)
 {
 	CgUpnpDevice *dev;
+	CgString *unescapedUrl;
 	char *url;
 	
 	cg_log_debug_l4("Entering...\n");
@@ -68,8 +69,12 @@ void cg_upnp_device_httprequestrecieved(CgHttpRequest *httpReq)
 	
 	/* Unescape URI */
 	url = cg_http_request_geturi(httpReq);
-	if (cg_strlen(url) > 0) {
-		cg_net_uri_unescapestring(url, 0);
+	if (0 < cg_strlen(url)) {
+		unescapedUrl = cg_string_new();
+		cg_net_uri_unescapestring(url, 0, unescapedUrl);
+		if (0 < cg_string_length(unescapedUrl))
+			cg_http_request_seturi(httpReq, cg_string_getvalue(unescapedUrl));
+		cg_string_delete(unescapedUrl);
 	}
 	
 	if (cg_http_request_isgetrequest(httpReq) == TRUE ||

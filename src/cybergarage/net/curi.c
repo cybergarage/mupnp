@@ -67,9 +67,9 @@ CgNetURI *cg_net_uri_new()
 		cg_string_setvalue(uri->path, CG_NET_URI_DEFAULT_PATH);
 	}
 		
-	return uri;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return uri;
 }
 
 /****************************************
@@ -240,6 +240,9 @@ void cg_net_uri_set(CgNetURI *uri, char *value)
 	cg_log_debug_l4("Leaving...\n");
 }
 
+/****************************************
+* cg_net_uri_getrequest
+****************************************/
 
 char *cg_net_uri_getrequest(CgNetURI *uri)
 {
@@ -256,11 +259,14 @@ char *cg_net_uri_getrequest(CgNetURI *uri)
 	cg_string_addvalue(uri->request, CG_NET_URI_QUESTION_DELIM);
 	cg_string_addvalue(uri->request, cg_net_uri_getquery(uri));
 	
-	return cg_string_getvalue(uri->request);
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return cg_string_getvalue(uri->request);
 }
 
+/****************************************
+* cg_net_uri_isequivalent
+****************************************/
 
 BOOL cg_net_uri_isequivalent(char *url, char *relative_url)
 {
@@ -277,6 +283,10 @@ BOOL cg_net_uri_isequivalent(char *url, char *relative_url)
 	cg_net_uri_delete(u);
 	return ret;
 }
+
+/****************************************
+* cg_net_uri_isescapedstring
+****************************************/
 
 BOOL cg_net_uri_isescapedstring(char *buf, int bufSize)
 {
@@ -304,120 +314,138 @@ BOOL cg_net_uri_isescapedstring(char *buf, int bufSize)
 	     (buf[idx+2] >= 'A' && buf[idx+2] <= 'F')))
 		return TRUE;
 	
-	return FALSE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return FALSE;
 }
 
+/****************************************
+* cg_net_uri_unescapestring
+****************************************/
 
-char *cg_net_uri_unescapestring(char *buf, int bufSize)
+char *cg_net_uri_escapestring(char *buf, int bufSize, CgString *retBuf)
 {
-	char *tmp = NULL;
-	
+#if defined(CG_HTTP_CURL)
+	char *tmp;
+#else
+	int n;
+	unsigned char c;
+	char hexChar[4];
+#endif
+
 	cg_log_debug_l4("Entering...\n");
 
+	if (!retBuf)
+		return NULL;
+
 #if defined(CG_HTTP_CURL)
-	tmp = (bufSize < 1)?curl_unescape(buf, 0):curl_unescape(buf, bufSize);
+	tmp = (bufSize < 1)?curl_escape(buf, 0):curl_escape(buf, bufSize);
 	if (tmp == NULL)
 	{
 		cg_log_debug_s("Memory allocation problem!\n");
 		return NULL;
 	}
+	cg_string_addvalue(retBuf, tmp);
+	curl_free(tmp);
 #else
-    /* #warning This code is not ready / fully implemented! */
-	/* TODO: non-CURL implementation */
+	if (bufSize < 1)
+		bufSize = cg_strlen(buf) + 1;
 
-	/* Check if URI is already escaped */
-	if (cg_net_uri_isescapedstring(buf, bufSize) == FALSE) 
-		return buf;
-	
-	if (bufSize < 1) bufSize = cg_strlen(buf) + 1;
-
-	tmp = cg_strdup(buf);
-#endif
-	
-	/* Print unescaped string back to buffer */
+	for (n=0; n<bufSize; n++) {
+		c = (unsigned char)buf[n];
+		if (cg_net_uri_isalphanumchar(c)) {
 #if defined(HAVE_SNPRINTF)
-	snprintf(buf, bufSize,
+			snprintf(hexChar, sizeof(hexChar), "%%%02X", c);
 #else
-	sprintf(buf,
+			sprintf(hexChar, "%%%02X", c);
 #endif
-		"%s",
-		tmp);
-	
-	/* Free tmp string */
-	if (tmp != NULL) 
-	{
-#if defined(CG_HTTP_CURL)
-		curl_free(tmp);
-#else
-		free(tmp);
-#endif
+			cg_string_naddvalue(retBuf, hexChar, 3);
+		}
+		else
+			cg_string_naddvalue(retBuf, buf+n, 1);
 	}
-	
-	return buf;
 
+#endif
+	
 	cg_log_debug_l4("Leaving...\n");
+
+	return cg_string_getvalue(retBuf);
 }
 
+/****************************************
+* cg_net_uri_escapestring
+****************************************/
 
-char *cg_net_uri_escapestring(char *buf, int bufSize)
+char *cg_net_uri_unescapestring(char *buf, int bufSize, CgString *retBuf)
 {
-	char *tmp = NULL;
+#if defined(CG_HTTP_CURL)
+	char *tmp;
+#else
+	int n;
+	char hexStr[3];
+	long hex;
+	unsigned char c;
+#endif
 	int idx = 0, tmpIdx = 0;
 	
 	cg_log_debug_l4("Entering...\n");
+
+	if (!retBuf)
+		return NULL;
 
 	/* Check if URI is already escaped */
 	if (cg_net_uri_isescapedstring(buf + idx, bufSize) == TRUE) 
 		return buf;
 	
 	/* We can safely assume that the non-path part is already escaped */
+#if defined(CG_USE_NET_URI_ESCAPESTRING_SKIP)
 	idx = cg_strstr(buf, CG_NET_URI_PROTOCOL_DELIM);
 	if (idx > 0)
 	{
 		idx = idx + cg_strlen(CG_NET_URI_PROTOCOL_DELIM);
 		tmpIdx = cg_strstr(buf + idx, CG_NET_URI_SLASH_DELIM);
-		if (tmpIdx > 0) idx += tmpIdx + cg_strlen(CG_NET_URI_SLASH_DELIM);
+		if (tmpIdx > 0)
+			idx += tmpIdx + cg_strlen(CG_NET_URI_SLASH_DELIM);
 	} else {
 		idx = 0;
 	}
-		
-	if (bufSize < 1) bufSize = cg_strlen(buf) + 1;	
-	
-#if defined(CG_HTTP_CURL)
-	tmp = curl_escape(buf + idx, 0);
-	if (tmp == NULL) return buf;
-#else
-	/* TODO: non-CURL implementation */
-	tmp = cg_strdup(buf + idx);
 #endif
-	
-cg_log_debug_s("%s ==> %s\n", buf + idx, tmp);
-	
-	/* Print escaped string back to buffer */
-#if defined(HAVE_SNPRINTF)
-	snprintf(buf + idx, bufSize - idx,
-#else
-	sprintf(buf + idx,
-#endif
-		"%s",
-		tmp);
-	
-	/* Free tmp string */
-	if (tmp != NULL) 
-	{
-#if defined(CG_HTTP_CURL)
-		curl_free(tmp);
-#else
-		free(tmp);
-#endif
-	}
-	
-	return buf;
 
+	if (bufSize < 1)
+		bufSize = cg_strlen(buf) + 1;	
+	
+#if defined(CG_HTTP_CURL)
+	tmp = curl_unescape(buf + idx, 0);
+	if (tmp == NULL)
+		return NULL;
+	cg_string_addvalue(retBuf, tmp);
+	cg_log_debug_s("%s ==> %s\n", buf + idx, tmp);
+	curl_free(tmp);
+#else
+	for (n=0; n<bufSize;) {
+		c = (unsigned char)buf[n];
+		if (buf[n] == '%' && cg_net_uri_isalphanumchar(buf[n+1]) && cg_net_uri_isalphanumchar(buf[n+2])) {
+			hexStr[0] = buf[n+1];
+			hexStr[1] = buf[n+2];
+			hexStr[2] = '\0';
+			hex = strtol(hexStr, NULL, 16);
+			c = (unsigned char)hex;
+			n += 3;
+		}
+		else
+			n++;
+		cg_string_naddvalue(retBuf, &c, 1);
+	}
+#endif
+	
 	cg_log_debug_l4("Leaving...\n");
+
+	return cg_string_getvalue(retBuf);
 }
+
+/****************************************
+* cg_net_uri_getupnpbasepath
+****************************************/
 
 char *cg_net_uri_getupnpbasepath(CgNetURI *locationURL)
 {
@@ -448,4 +476,56 @@ char *cg_net_uri_getupnpbasepath(CgNetURI *locationURL)
 	cg_log_debug_s("url string after mangling: %s\n", path);
 
         return path;
+}
+
+/****************************************
+* cg_net_uri_isreservedchar
+****************************************/
+
+BOOL cg_net_uri_isreservedchar(char c)
+{
+	if (c == ';' || c ==  '/' || c == '?' || c == ':' || c == '@' || c ==  '&' || c ==  '=' || c ==  '+' || c == '$' || c ==  ',')
+		return TRUE;
+	return FALSE;
+}
+
+/****************************************
+* cg_net_uri_isalphanumchar
+****************************************/
+
+BOOL cg_net_uri_isalphanumchar(char c)
+{
+	if ('a' <= c && c <= 'z')
+		return TRUE;
+	if ('A' <= c && c <= 'Z')
+		return TRUE;
+	if ('0' <= c && c <= '9')
+		return TRUE;
+	return FALSE;
+}
+
+/****************************************
+* cg_net_uri_isunreservedchar
+****************************************/
+
+BOOL cg_net_uri_isunreservedchar(char c)
+{
+	if (cg_net_uri_isalphanumchar(c))
+		return TRUE;
+	if (c == '-' || c == '_' || c == '.' || c == '!' || c == '~' || c == '*' || c == '^\'' || c == '(' || c == ')')
+		return TRUE;
+	return FALSE;
+}
+
+/****************************************
+* cg_net_uri_isescapedchar
+****************************************/
+
+BOOL cg_net_uri_isescapechar(char c)
+{
+	if (cg_net_uri_isreservedchar(c))
+		return FALSE;
+	if (cg_net_uri_isunreservedchar(c))
+		return FALSE;
+	return TRUE;
 }
