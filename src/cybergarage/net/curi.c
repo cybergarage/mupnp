@@ -15,7 +15,7 @@
 *
 *	03/09/05
 *		- first revision
-*	08/16/25
+*	08/16/05
 *		- Thanks for Theo Beisch <theo.beisch@gmx.de>
 *		- Change cg_net_uri_new() to set "/" as the default path.
 *		- Changed cg_net_uri_set() to check a ":" and "@" in the password.
@@ -27,8 +27,21 @@
 *	10/31/05
 *		- cg_net_uri_set: Accepts URI (as a path), which doesn't have
 *		  a slash.
-*	16-Jan-06 Aapo Makela
+*	01/16/07 Aapo Makela
 *		- Added URI escaping and unescaping functions
+*	03/20/07
+*		- Added a parameter, CgString, to return the result safety and the implementation without curl for the following functions.
+*		  cg_net_uri_unescapestring() and cg_net_uri_escapestring().
+*		- Added a define, CG_USE_NET_URI_ESCAPESTRING_SKIP,in cg_net_uri_escapestring() and disabled the function not to skip only the first path.
+*		-Changed cg_upnp_device_httprequestrecieved() using the new cg_net_uri_unescapestring().
+*		- Added the following functions.
+*		  cg_net_uri_isreservedchar()
+*		  cg_net_uri_isunreservedchar()
+*		  cg_net_uri_isescapechar()
+*		  cg_net_uri_isalphanumchar()
+*		- Fixed cg_net_uri_escapestring() to use curl_escape() instead of curl_unescape().
+*		- Fixed cg_net_uri_unescapestring() to use curl_unescape() instead of curl_escape().
+*
 ******************************************************************/
 
 #include <cybergarage/net/curi.h>
