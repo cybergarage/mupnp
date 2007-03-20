@@ -48,8 +48,8 @@ extern "C" {
 #define CG_NET_URI_SHARP_DELIM "#"
 #define CG_NET_URI_QUESTION_DELIM "?"
 #define CG_NET_URI_ESCAPING_CHAR "%"
-#define CG_NET_URI_QUESTION_AMP "&"
-#define CG_NET_URI_QUESTION_EQ "="
+#define CG_NET_URI_AMP_DELIM "&"
+#define CG_NET_URI_EQ_DELIM "="
 
 #define CG_NET_URI_PROTOCOL_HTTP "http"
 #define CG_NET_URI_PROTOCOL_FTP "ftp"
