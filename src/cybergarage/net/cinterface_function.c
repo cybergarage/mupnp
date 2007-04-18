@@ -22,6 +22,8 @@
 *		- added WINCE support
 *	01/30/07
 *		- Fixed to compile normally on the release mode for Windows Mobile.
+*	04/18/07
+*		- Fixed UNIX version of cg_net_gethostinterfaces()
 *
 ******************************************************************/
 
@@ -335,10 +337,10 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		if (i->ifa_flags & IFF_LOOPBACK)
 			continue;
 
-		if (getnameinfo(i->ifa_addr, sizeof(struct sockaddr), addr, NI_MAXHOST, NULL, 0, NI_NUMERICHOST) == 0) 
+		if (getnameinfo(i->ifa_addr, sizeof(struct sockaddr), addr, NI_MAXHOST, NULL, 0, NI_NUMERICHOST) != 0) 
 			continue;
 
-		if (getnameinfo(i->ifa_netmask, sizeof(struct sockaddr), netmask, NI_MAXHOST, NULL, 0, NI_NUMERICHOST) == 0) 
+		if (getnameinfo(i->ifa_netmask, sizeof(struct sockaddr), netmask, NI_MAXHOST, NULL, 0, NI_NUMERICHOST) != 0) 
 			continue;
 
 		ifname = i->ifa_name;
@@ -346,7 +348,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		netIf = cg_net_interface_new();
 		cg_net_interface_setname(netIf, ifname);
 		cg_net_interface_setaddress(netIf, addr);
-		cg_net_interface_setnetmask(netIf, addr);
+		cg_net_interface_setnetmask(netIf, netmask);
 		cg_net_interfacelist_add(netIfList, netIf);
 	}
 	freeifaddrs(ifaddr);
