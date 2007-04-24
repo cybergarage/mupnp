@@ -26,6 +26,9 @@
 *	10/31/05
 *		- cg_upnp_event_subscription_request_setservice:
 *		  changed eventSubURLStr[1] to [0]
+*
+*	04/24/07 Aapo Makela
+*		- Do not set host in subscription request (it is handled automatically when sending request)
 ******************************************************************/
 
 #include <cybergarage/upnp/event/cevent.h>
@@ -105,7 +108,7 @@ static void cg_upnp_event_subscription_request_setservice(CgUpnpSubscriptionRequ
 * cg_upnp_event_subscription_request_setnewsubscription
 ****************************************/
 
-void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *callback, long timeout, char *remoteAddress)
+void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *callback, long timeout)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -114,10 +117,6 @@ void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionReq
 	cg_upnp_event_subscription_request_setcallback(subReq, callback);
 	cg_upnp_event_subscription_request_setnt(subReq, CG_UPNP_NT_EVENT);
 	cg_upnp_event_subscription_request_settimeout(subReq, timeout);
-	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	cg_log_debug_s("Setting host field (%s)\n", remoteAddress);
-	cg_upnp_event_subscription_request_sethost(subReq, remoteAddress);
-
 	cg_log_debug_l4("Leaving...\n");
 }
 
@@ -125,7 +124,7 @@ void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionReq
 * cg_upnp_event_subscription_request_setrenewsubscription
 ****************************************/
 
-void cg_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *uuid, long timeout, char *remoteAddress)
+void cg_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *uuid, long timeout)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -133,9 +132,6 @@ void cg_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionR
 	cg_upnp_event_subscription_request_setservice(subReq, service);
 	cg_upnp_event_subscription_request_setsid(subReq, uuid);
 	cg_upnp_event_subscription_request_settimeout(subReq, timeout);
-	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	cg_upnp_event_subscription_request_sethost(subReq, remoteAddress);
-
 	cg_log_debug_l4("Leaving...\n");
 }
 
@@ -143,16 +139,13 @@ void cg_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionR
 * cg_upnp_event_subscription_request_setunsubscription
 ****************************************/
 
-void cg_upnp_event_subscription_request_setunsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *remoteAddress)
+void cg_upnp_event_subscription_request_setunsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service)
 {
 	cg_log_debug_l4("Entering...\n");
 
 	cg_http_request_setmethod(subReq, CG_HTTP_UNSUBSCRIBE);
 	cg_upnp_event_subscription_request_setservice(subReq, service);
 	cg_upnp_event_subscription_request_setsid(subReq, cg_upnp_service_getsubscriptionsid(service));
-	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	cg_upnp_event_subscription_request_sethost(subReq, remoteAddress);
-
 	cg_log_debug_l4("Leaving...\n");
 }
 

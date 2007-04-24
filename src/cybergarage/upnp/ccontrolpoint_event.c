@@ -24,6 +24,8 @@
 *		- Changed cg_upnp_controlpoint_geteventsubcallbackurl() to add < and > around callbackurl per UPnP def.
 *	17-Jan-06 Aapo Makela
 *		- Added expiration handler thread
+*	04/24/07 Aapo Makela
+*		- Do not set host in subscription request (it is handled automatically when sending request)
 ******************************************************************/
 
 #include <cybergarage/upnp/cupnp_limit.h>
@@ -216,7 +218,6 @@ void cg_upnp_controlpoint_expirationhandler(CgThread *thread)
 BOOL cg_upnp_controlpoint_resubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service, long timeout)
 {
 	CgUpnpDevice *rootDev;
-	char *roodDevIfAddress;
 	CgUpnpSubscriptionRequest *subReq;
 	CgUpnpSubscriptionResponse *subRes;
 	BOOL isSuccess;
@@ -230,11 +231,9 @@ BOOL cg_upnp_controlpoint_resubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpServi
 	if (rootDev == NULL)
 		return FALSE;
 
-	roodDevIfAddress = cg_upnp_device_getinterfaceaddressfromssdppacket(rootDev);
-
 	subReq = cg_upnp_event_subscription_request_new();
 	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	cg_upnp_event_subscription_request_setrenewsubscription(subReq, service, cg_upnp_service_getsubscriptionsid(service), timeout, roodDevIfAddress);
+	cg_upnp_event_subscription_request_setrenewsubscription(subReq, service, cg_upnp_service_getsubscriptionsid(service), timeout);
 	subRes = cg_upnp_event_subscription_request_post(subReq);
 	isSuccess = cg_upnp_event_subscription_response_issuccessful(subRes);
 	if (isSuccess == TRUE) {
@@ -286,7 +285,7 @@ BOOL cg_upnp_controlpoint_subscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService
 
 	subReq = cg_upnp_event_subscription_request_new();
 	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	cg_upnp_event_subscription_request_setnewsubscription(subReq, service, cg_upnp_controlpoint_geteventsubcallbackurl(ctrlPoint, roodDevIfAddress, eventSubURL, sizeof(eventSubURL)), timeout, roodDevIfAddress);
+	cg_upnp_event_subscription_request_setnewsubscription(subReq, service, cg_upnp_controlpoint_geteventsubcallbackurl(ctrlPoint, roodDevIfAddress, eventSubURL, sizeof(eventSubURL)), timeout);
 	/* Set the event key to zero before any events are received */
 	cg_upnp_service_seteventkey(service, 0);
 	subRes = cg_upnp_event_subscription_request_post(subReq);
@@ -320,7 +319,6 @@ BOOL cg_upnp_controlpoint_subscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService
 BOOL cg_upnp_controlpoint_unsubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service)
 {
 	CgUpnpDevice *rootDev;
-	char *roodDevIfAddress;
 	CgUpnpSubscriptionRequest *subReq;
 	CgUpnpSubscriptionResponse *subRes;
 	BOOL isSuccess;
@@ -331,10 +329,9 @@ BOOL cg_upnp_controlpoint_unsubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpServi
 	if (rootDev == NULL)
 		return FALSE;
 
-	roodDevIfAddress = cg_upnp_device_getinterfaceaddressfromssdppacket(rootDev);
 	subReq = cg_upnp_event_subscription_request_new();
 	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	cg_upnp_event_subscription_request_setunsubscription(subReq, service, roodDevIfAddress);
+	cg_upnp_event_subscription_request_setunsubscription(subReq, service);
 	subRes = cg_upnp_event_subscription_request_post(subReq);
 	isSuccess = cg_upnp_event_subscription_response_issuccessful(subRes);
 	
