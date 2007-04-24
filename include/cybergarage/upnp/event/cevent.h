@@ -335,9 +335,8 @@ void cg_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest *su
  * @param service Service to be subscribed
  * @param callback URL to be called when service state changes
  * @param timeout Subscription timeout
- * @param remoteAddress HTTP Host: header content
  */
-void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *callback, long timeout, char *remoteAddress);
+void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *callback, long timeout);
 
 /**
  * (Re)initializes subscription request to be renewal request
@@ -346,18 +345,16 @@ void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionReq
  * @param service Service to be subscribed
  * @param uuid Devices unique identification string
  * @param timeout Subscription timeout
- * @param remoteAddress HTTP Host: header content
  */
-void cg_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *uuid, long timeout, char *remoteAddress);
+void cg_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *uuid, long timeout);
 
 /**
  * (Re)initializes subscription request to be unsubscription request
  *
  * @param subReq Subscription request
  * @param service Service where to be unsubscribed
- * @param remoteAddress HTTP Host: header content
  */
-void cg_upnp_event_subscription_request_setunsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *remoteAddress);
+void cg_upnp_event_subscription_request_setunsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service);
 
 /**** Host ****/
 
