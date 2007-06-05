@@ -1,20 +1,20 @@
 /******************************************************************
 *
-*	CyberGarage for C
+* CyberGarage for C
 *
-*	Copyright (C) Satoshi Konno 2005
+* Copyright (C) Satoshi Konno 2005
 *
-*	File: typedef.h
+* File: typedef.h
 *
-*	Revision:
+* Revision:
 *
-*	01/17/05
-*		- first revision
-*	08/16/05
-*		- Thanks for Theo Beisch <theo.beisch@gmx.de>
-*		- Added support for WindowsCE platform.
-*	03/18/07
-*		- Added CgInt64 to <typedef.h>
+* 01/17/05
+*  - first revision
+* 08/16/05
+*  - Thanks for Theo Beisch <theo.beisch@gmx.de>
+*  - Added support for WindowsCE platform.
+* 03/18/07
+*  - Added CgInt64 to <typedef.h>
 *
 ******************************************************************/
 
@@ -63,7 +63,7 @@ typedef int BOOL;
 #endif
 
 #if defined(__USE_ISOC99)
-typedef long long CgInt64;
+typedef long long int CgInt64;
 #define CG_USE_INT64 1
 #elif (defined(WIN32) || defined(WINCE))
 typedef __int64 CgInt64;

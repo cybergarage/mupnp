@@ -57,6 +57,13 @@ AC_PROG_LIBTOOL
 AC_PROG_RANLIB
 AC_LANG_CPLUSPLUS
 
+##############################
+# Checks for ISOC99
+##############################
+
+AC_MSG_CHECKING([whether $CC supports ISOC99])
+AC_TRY_COMPILE([],[typedef long long int CgInt64;], [CFLAGS="$CFLAGS -D__USE_ISOC99"], [])
+
 #############################################################################
 # Checks for CYGWIN an MinGW
 #############################################################################

@@ -1,24 +1,24 @@
 /******************************************************************
 *
-*	CyberUtil for C
+* CyberUtil for C
 *
-*	Copyright (C) Satoshi Konno 2005
+* Copyright (C) Satoshi Konno 2005
 *
 *       Copyright (C) 2006 Nokia Corporation. All rights reserved.
 *
 *       This is licensed under BSD-style license with patent exclusion,
 *       see file COPYING.
 *
-*	File: cstring.h
+* File: cstring.h
 *
-*	Revision:
+* Revision:
 *
-*	01/25/05
-*		- first revision
-*	03/01/06 Theo Beisch
-*		- introduced LONGLONG macro
-*		- added cg_strtrimwhite() to trim all 
-*		  leading and trailing non-printable chars
+* 01/25/05
+*  - first revision
+* 03/01/06 Theo Beisch
+*  - introduced LONGLONG macro
+*  - added cg_strtrimwhite() to trim all 
+*    leading and trailing non-printable chars
 *
 ******************************************************************/
 
@@ -37,7 +37,7 @@ extern "C" {
 ****************************************/
 
 #define CG_STRING_MEMORY_ALLOCATION_UNIT 64
-	
+ 
 /* UINT_MAX : 4294967295U */
 #define CG_STRING_INTEGER_BUFLEN 16 
  
