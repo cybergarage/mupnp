@@ -1,40 +1,38 @@
 /******************************************************************
 *
-*	CyberUtil for C
+* CyberUtil for C
 *
-*	Copyright (C) Satoshi Konno 2005
+* Copyright (C) Satoshi Konno 2005
 *
 *       Copyright (C) 2006 Nokia Corporation. All rights reserved.
 *
 *       This is licensed under BSD-style license with patent exclusion,
 *       see file COPYING.
 *
-*	File: cstring_function.c
+* File: cstring_function.c
 *
-*	Revision:
+* Revision:
 *
-*	01/25/05
-*		- first revision
-*	11/11/053qeds
-*		- Added cg_longlong2str() and cg_str2longlong().
+* 01/25/05
+*  - first revision
+* 11/11/05
+*  - Added cg_longlong2str() and cg_str2longlong().
 *
-*	03/20/06 Theo Beisch
-*		- WINCE support
-*		- added cg_strtrimwhite() - trims all whitespace, not just ' '
-*	03/18/07
-*		- Changed the following functions to use CgInt64.
-*		  cg_longlong2str()
+* 03/20/06 Theo Beisch
+*  - WINCE support
+*  - added cg_strtrimwhite() - trims all whitespace, not just ' '
+* 03/18/07
+*  - Changed the following functions to use CgInt64.
+*    cg_longlong2str()
 *
 ******************************************************************/
-
-#include <cybergarage/util/cstring.h>
-#include <cybergarage/util/clog.h>
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
 
 #include <cybergarage/util/cstring.h>
+#include <cybergarage/util/clog.h>
 
 #include <ctype.h>
 
@@ -56,24 +54,24 @@
 char *cg_strdup(char *str)
 {
 #if !defined(HAVE_STRDUP)
-	char *cpStrBuf;
+ char *cpStrBuf;
 #endif
 
-	cg_log_debug_l5("Entering...\n");
+ cg_log_debug_l5("Entering...\n");
 
     if (str == NULL)
            return NULL;
 
 #if defined(HAVE_STRDUP)
-	return strdup(str);
+ return strdup(str);
 #else
-	cpStrBuf = (char *)malloc(strlen(str)+1);
-	if ( NULL != cpStrBuf )
-		strcpy(cpStrBuf, str);
-	return cpStrBuf;
+ cpStrBuf = (char *)malloc(strlen(str)+1);
+ if ( NULL != cpStrBuf )
+  strcpy(cpStrBuf, str);
+ return cpStrBuf;
 #endif
 
-	cg_log_debug_l5("Leaving...\n");
+ cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -82,11 +80,11 @@ char *cg_strdup(char *str)
 
 int cg_strlen(char *str)
 {
-	cg_log_debug_l5("Entering...\n");
+ cg_log_debug_l5("Entering...\n");
 
-	return (str == NULL) ? 0 : strlen(str);
+ return (str == NULL) ? 0 : strlen(str);
 
-	cg_log_debug_l5("Leaving...\n");
+ cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -95,11 +93,11 @@ int cg_strlen(char *str)
 
 char *cg_strcpy(char *dest, char *src)
 {
-	cg_log_debug_l5("Entering...\n");
+ cg_log_debug_l5("Entering...\n");
 
-	return strcpy(dest, src);
+ return strcpy(dest, src);
 
-	cg_log_debug_l5("Leaving...\n");
+ cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -108,11 +106,11 @@ char *cg_strcpy(char *dest, char *src)
 
 char *cg_strcat(char *dest, char *src)
 {
-	cg_log_debug_l5("Entering...\n");
+ cg_log_debug_l5("Entering...\n");
 
-	return strcat(dest, src);
+ return strcat(dest, src);
 
-	cg_log_debug_l5("Leaving...\n");
+ cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -121,15 +119,15 @@ char *cg_strcat(char *dest, char *src)
 
 int cg_strcmp(char *str1, char *str2)
 {
-	cg_log_debug_l5("Entering...\n");
+ cg_log_debug_l5("Entering...\n");
 
-	if (str1 == NULL)
-		return -1;
-	if (str2 == NULL)
-		return 1;
-	return strcmp(str1, str2);
+ if (str1 == NULL)
+  return -1;
+ if (str2 == NULL)
+  return 1;
+ return strcmp(str1, str2);
 
-	cg_log_debug_l5("Leaving...\n");
+ cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -138,16 +136,16 @@ int cg_strcmp(char *str1, char *str2)
 
 int cg_strncmp(char *str1, char *str2, int nchars)
 {
-	cg_log_debug_l5("Entering...\n");
+ cg_log_debug_l5("Entering...\n");
 
-	if (str1 == NULL)
+ if (str1 == NULL)
                 return -1;
         if (str2 == NULL)
                 return 1;
 
-	return strncmp(str1, str2, nchars);
+ return strncmp(str1, str2, nchars);
 
-	cg_log_debug_l5("Leaving...\n");
+ cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -156,7 +154,7 @@ int cg_strncmp(char *str1, char *str2, int nchars)
 
 int cg_strcasecmp(char *str1, char *str2)
 {
-	cg_log_debug_l5("Entering...\n");
+ cg_log_debug_l5("Entering...\n");
 
 	if (str1 == NULL || str2 == NULL) return -1;
 #if !defined(WIN32)
@@ -393,9 +391,9 @@ char *cg_strncat(char *str1, char *str2, size_t cnt)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	return cg_strncpy(&str1[cg_strlen(str1)], str2, cnt);
+ return cg_strncpy(&str1[cg_strlen(str1)], str2, cnt);
 
-	cg_log_debug_l5("Leaving...\n");
+ cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -404,16 +402,16 @@ char *cg_strncat(char *str1, char *str2, size_t cnt)
 
 char *cg_int2str(int value, char *buf, int bufSize)
 {
-	cg_log_debug_l5("Entering...\n");
+ cg_log_debug_l5("Entering...\n");
 
 #if defined(HAVE_SNPRINTF)
-	snprintf(buf, bufSize, "%d", value);
+ snprintf(buf, bufSize, "%d", value);
 #else
-	sprintf(buf, "%d", value);
+ sprintf(buf, "%d", value);
 #endif
-	return buf;
+ return buf;
 
-	cg_log_debug_l5("Leaving...\n");
+ cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -422,16 +420,16 @@ char *cg_int2str(int value, char *buf, int bufSize)
 
 char *cg_long2str(long value, char *buf, int bufSize)
 {
-	cg_log_debug_l5("Entering...\n");
+ cg_log_debug_l5("Entering...\n");
 
 #if defined(HAVE_SNPRINTF)
-	snprintf(buf, bufSize, "%ld", value);
+ snprintf(buf, bufSize, "%ld", value);
 #else
-	sprintf(buf, "%ld", value);
+ sprintf(buf, "%ld", value);
 #endif
-	return buf;
+ return buf;
 
-	cg_log_debug_l5("Leaving...\n");
+ cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -442,21 +440,21 @@ char *cg_long2str(long value, char *buf, int bufSize)
 char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
 {
 #if defined(HAVE_SNPRINTF)
-	snprintf(buf, bufSize, "%lld", value);
+ snprintf(buf, bufSize, "%lld", value);
 #else
-	sprintf(buf, "%lld", value);
+ sprintf(buf, "%lld", value);
 #endif
 }
 #elif (defined(WIN32) && !defined(WINCE))
 char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
 {
-	return _i64toa(value, buf, 10);
+ return _i64toa(value, buf, 10);
 }
 #elif (defined (WIN32) && defined (WINCE))
 //theo beisch CE supports only safe version of _i64toa
 char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
 {
-	_i64toa_s(value, buf, bufSize, 10);
-	return buf;
+ _i64toa_s(value, buf, bufSize, 10);
+ return buf;
 }
 #endif
