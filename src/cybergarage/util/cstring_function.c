@@ -443,6 +443,7 @@ char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
 #else
  sprintf(buf, "%lld", value);
 #endif
+ return buf;
 }
 #elif (defined(WIN32) && !defined(WINCE))
 char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
