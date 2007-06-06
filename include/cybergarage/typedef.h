@@ -65,6 +65,9 @@ typedef int BOOL;
 #if defined(__USE_ISOC99)
 typedef long long int CgInt64;
 #define CG_USE_INT64 1
+#elif defined(HAVE_LONGLONG)
+typedef long long CgInt64;
+#define CG_USE_INT64 1
 #elif (defined(WIN32) || defined(WINCE))
 typedef __int64 CgInt64;
 #define CG_USE_INT64 1

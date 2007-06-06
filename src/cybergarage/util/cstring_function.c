@@ -17,7 +17,6 @@
 *  - first revision
 * 11/11/05
 *  - Added cg_longlong2str() and cg_str2longlong().
-*
 * 03/20/06 Theo Beisch
 *  - WINCE support
 *  - added cg_strtrimwhite() - trims all whitespace, not just ' '
@@ -436,7 +435,7 @@ char *cg_long2str(long value, char *buf, int bufSize)
 * cg_longlong2str
 ****************************************/
 
-#if defined(__USE_ISOC99)
+#if defined(__USE_ISOC99) || defined(HAVE_LONGLONG)
 char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
 {
 #if defined(HAVE_SNPRINTF)

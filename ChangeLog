@@ -1,6 +1,7 @@
 2007-06-06  Satoshi Konno <skonno@cybergarage.org>
- * Added checking 64 bit support to the configure.in.
-
+ * Added checking 64 bit support, long long, to the configure.in for GCC.
+ * Fixed to compile cg_str2longlong() and cg_longlong2str() using GCC.
+ 
 2007-03-20  Satoshi Konno <skonno@cybergarage.org>
  * Added a parameter, CgString, to return the result safety and the implementation without curl for the following functions.
    cg_net_uri_unescapestring() and cg_net_uri_escapestring().
