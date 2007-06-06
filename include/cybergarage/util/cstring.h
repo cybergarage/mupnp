@@ -128,7 +128,7 @@ char *cg_longlong2str(CgInt64 value, char *buf, int bufSize);
 #define cg_strhex2ulong(value) (value ? strtoul(value, NULL, 16) : 0)
 
 #if defined(CG_USE_INT64)
-#if defined(__USE_ISOC99)
+#if defined(__USE_ISOC99) || defined(HAVE_LONGLONG)
 #define cg_str2longlong(value) (value ? atoll(value) : 0)
 #define cg_strhex2longlong(value) (value ? strtoll(value, NULL, 16) : 0)
 #define cg_strhex2ulonglong(value) (value ? strtoull(value, NULL, 16) : 0)

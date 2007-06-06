@@ -58,11 +58,19 @@ AC_PROG_RANLIB
 AC_LANG_CPLUSPLUS
 
 ##############################
-# Checks for ISOC99
+# Checks for Long Long
 ##############################
 
-AC_MSG_CHECKING([whether $CC supports ISOC99])
-AC_TRY_COMPILE([],[typedef long long int CgInt64;], [CFLAGS="$CFLAGS -D__USE_ISOC99"], [])
+AC_MSG_CHECKING([whether $CC supports long long])
+AC_TRY_COMPILE([
+#include <stdlib.h>
+typedef long long CgInt64;
+],
+[],
+[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_LONGLONG],1,[LONGLONG])],
+[AC_MSG_RESULT(no)]
+)
 
 #############################################################################
 # Checks for CYGWIN an MinGW
