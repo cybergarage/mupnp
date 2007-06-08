@@ -144,8 +144,10 @@ static void XMLCALL cg_expat_element_end(void *userData, const char *el)
 static void XMLCALL cg_expat_character_data(void *userData, const XML_Char *s, int len)
 {
 	CgExpatData *expatData;
+#if defined XML_IGNORE_WHITESPACE
 	int i;
-	
+#endif
+
 	cg_log_debug_l4("Entering...\n");
 
 	//	printf("%8x XML data len=%-3d now=%d %s d[0]0x%x\n",userData, len, cg_strlen(out->value), out->value, (char)(out->value[0]));
