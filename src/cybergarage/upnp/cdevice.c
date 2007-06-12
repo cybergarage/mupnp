@@ -44,6 +44,10 @@
 *		  from the root device, to the embededd sub-devices, because
 *		  all embedded devices advertisements goes with wrong Location
 *		  path.
+*	06/13/07 Fabrice Fontaine Orange
+*		- Fixed compilation issue when using DCG_UPNP_NOUSE_CONTROLPOINT flag in cg_upnp_device_updatefromssdppacket().
+*		- Fixed a memory leak in cg_upnp_device_getservicebycontrolurl().
+*
 ******************************************************************/
 
 #include <cybergarage/upnp/cdevice.h>
@@ -410,6 +414,10 @@ BOOL cg_upnp_device_updatefromssdppacket(CgUpnpDevice* dev,
 		
 		cg_net_url_delete(url);
 		
+/* ADD Fabrice Fontaine Orange 16/04/2007 */
+/* Bug correction : Solving compilation issue when using DCG_UPNP_NOUSE_CONTROLPOINT flag */
+#ifndef CG_UPNP_NOUSE_CONTROLPOINT
+/* ADD END Fabrice Fontaine Orange 16/04/2007 */
 #ifndef CG_OPTIMIZED_CP_MODE
 		if (cg_upnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == FALSE)
 		{
@@ -417,6 +425,9 @@ BOOL cg_upnp_device_updatefromssdppacket(CgUpnpDevice* dev,
 			return FALSE;
 		}
 #endif
+/* ADD Fabrice Fontaine Orange 16/04/2007 */
+#endif
+/* ADD END Fabrice Fontaine Orange 16/04/2007 */
 	}
 
 	cg_log_debug_l4("Leaving...\n");
@@ -1810,7 +1821,8 @@ CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, char *ur
 {
 	CgUpnpService *service;
 	CgUpnpDevice *childDev;
-	
+	CgNetURL* service_url;
+
 	cg_log_debug_l4("Entering...\n");
 
 	if (cg_strlen(url) <= 0)
@@ -1818,8 +1830,20 @@ CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, char *ur
 			
 	for (service=cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) {
 		cg_log_debug_s("<%s> == <%s> ?\n", url, cg_net_url_getrequest(cg_upnp_service_getcontrolurl(service)));
-		if (cg_strstr(cg_net_url_getrequest(cg_upnp_service_getcontrolurl(service)), url) != -1)
+		/* MODIFICATION Fabrice Fontaine Orange 23/04/07
+		if (cg_strstr(cg_net_url_getrequest(cg_upnp_service_getcontrolurl(service)), url) != -1)*/
+		/* Memory leak correction : cg_upnp_service_getcontrolurl return a malloc */
+		/* structure, this structure must be freed after use */
+		service_url=cg_upnp_service_getcontrolurl(service);
+		if (cg_strstr(cg_net_url_getrequest(service_url), url) != -1)
+		{
+			cg_net_url_delete(service_url);
+		/* MODIFICATION END Fabrice Fontaine Orange 23/04/07 */
 			return service;
+		/* ADD Fabrice Fontaine Orange 23/04/07 */
+		}
+		cg_net_url_delete(service_url);
+		/* ADD END Fabrice Fontaine Orange 23/04/07 */	
 	}
 		
 	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {

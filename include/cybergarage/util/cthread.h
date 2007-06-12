@@ -20,11 +20,14 @@
 *		- Modified the thread struct to use the cg_list concept
 *	02/13/06 Theo Beisch
 *		- added WINCE support
-*	03/20/2003 Theo Beisch
+*	03/20/06 Theo Beisch
 *		- added thread->deletePending and thread->selfDelete (WINCE only)
 *		  so that a thread can delete its own cg_thread context when truly
 *		  finished (as cg_thread_stop is not reliable under WINCE)
 *		- added cg_threadlist_remove
+*	06/13/07 Fabrice Fontaine Orange
+*		- Bug correction : Variable used to wait for thread termination by sleeping instead of joining.
+*
 ******************************************************************/
 
 #ifndef _CG_UTIL_CTHREAD_H_
@@ -61,6 +64,12 @@ extern "C" {
 #if defined (WINCE)
 #define CG_THREAD_SHUTDOWN_ATTEMPTS 10
 #define CG_THREAD_MIN_SLEEP 1000
+/* ADD Fabrice Fontaine Orange 24/04/2007 */
+/* Bug correction : Variable used to wait for thread termination by sleeping */
+/* instead of joining */
+#else
+#define CG_THREAD_MIN_SLEEP 1
+/* ADD END Fabrice Fontaine Orange 24/04/2007 */ 
 #endif
 
 /****************************************

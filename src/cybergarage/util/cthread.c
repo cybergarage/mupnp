@@ -26,6 +26,13 @@
 *		- added 'self delete' for thread on real exit
 *		  (WINCE thread termination does not work reliably)
 *		- added some debug configurations
+*	06/13/07 Fabrice Fontaine Orange
+*		- Fixed cg_thread_start(). Threads used to answer UPnP requests are created
+*		   in joinable state but the main thread doesn't call pthread_join on them.
+*		   So, they are kept alive until the end of the program. By creating them
+*		   in detached state, they are correctly clean up.
+*		- Fixed cg_thread_stop_with_cond() to wait one second for thread termination instead of using pthread_join(). 
+*
 ******************************************************************/
 
 #if !defined (WIN32) && !defined(WINCE)
@@ -355,7 +362,19 @@ BOOL cg_thread_start(CgThread *thread)
 #else
 	pthread_attr_t thread_attr;
 	pthread_attr_init(&thread_attr);
-	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE);
+	/* MODIFICATION Fabrice Fontaine Orange 24/04/2007
+	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE); */
+	/* Bug correction : Threads used to answer UPnP requests are created */
+	/* in joinable state but the main thread doesn't call pthread_join on them. */
+	/* So, they are kept alive until the end of the program. By creating them */
+	/* in detached state, they are correctly clean up */
+	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED);
+#ifdef STACK_SIZE
+	/* Optimization : not we can set STACK_SIZE attribute at compilation time */
+	/* to specify thread stack size */
+    pthread_attr_setstacksize (&thread_attr,STACK_SIZE);
+#endif
+	/* MODIFICATION END Fabrice Fontaine Orange 24/04/2007 */
 	if (pthread_create(&thread->pThread, &thread_attr, PosixThreadProc, thread) != 0) {
 		thread->runnableFlag = FALSE;
 		pthread_attr_destroy(&thread_attr);
@@ -447,10 +466,13 @@ BOOL cg_thread_stop_with_cond(CgThread *thread, CgCond *cond)
 #else
 		cg_log_debug_s("Killing thread %p\n", thread);
 		pthread_kill(thread->pThread, SIGQUIT);
+		/* MODIFICATION Fabrice Fontaine Orange 24/04/2007
 		cg_log_debug_s("Thread %p signalled, joining.\n", thread);
 		pthread_join(thread->pThread, NULL);
-		cg_log_debug_s("Thread %p joined.\n", thread);
-
+		cg_log_debug_s("Thread %p joined.\n", thread); */
+		/* Now we wait one second for thread termination instead of using pthread_join */
+		sleep(CG_THREAD_MIN_SLEEP);
+		/* MODIFICATION END Fabrice Fontaine Orange 24/04/2007 */
 #endif
 	}
 
