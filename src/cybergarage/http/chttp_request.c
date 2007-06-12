@@ -30,6 +30,8 @@
 *		-  Changed CG_HTTP_USERAGENT to CG_HTTP_USERAGENT_DEFAULT to add CG_HTTP_USERAGENT as the normal header define.
 *	03/11/07
 *		-  Added a secure parameter to cg_http_request_post() when the compiler flag, CG_USE_OPENSSL,is enabled.
+*	06/13/07 Fabrice Fontaine Orange
+*		- Fixed a memory leak in cg_http_request_delete().
 *
 ******************************************************************/
 
@@ -105,6 +107,10 @@ void cg_http_request_delete(CgHttpRequest *httpReq)
 	cg_string_delete(httpReq->method);
 	cg_string_delete(httpReq->version);
 	cg_string_delete(httpReq->uri);
+	/* ADD Fabrice Fontaine Orange 23/04/2007 */
+	/* Memory leak correction */
+	cg_string_delete(httpReq->userAgent);
+	/* ADD END Fabrice Fontaine Orange 23/04/2007 */
 	cg_http_response_delete(httpReq->httpRes);
 	cg_net_url_delete(httpReq->postURL);
 	

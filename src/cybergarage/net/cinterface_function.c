@@ -360,7 +360,11 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 
 #elif !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
 
+/* DELETE Fabrice Fontaine Orange 16/04/2007
+// Deleting this line, so CyberLink for C stack can be used on target without getifaddrs
+// function (like on uclibc)
 #error This implementation lacks the interface id and cannot be currently used.
+DELETE END Fabrice Fontaine Orange 16/04/2007 */
 
 static const char *PATH_PROC_NET_DEV = "/proc/net/dev";
 
@@ -662,3 +666,4 @@ char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 }
 
 #endif
+

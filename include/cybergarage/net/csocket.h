@@ -151,7 +151,7 @@ BOOL cg_socket_bind(CgSocket *sock, int bindPort, char *bindAddr, BOOL bindFlag,
 BOOL cg_socket_accept(CgSocket *sock, CgSocket *clientSock);
 BOOL cg_socket_connect(CgSocket *sock, char *addr, int port);
 int cg_socket_read(CgSocket *sock, char *buffer, int bufferLen);
-int cg_socket_write(CgSocket *sock, char *data, int dataLen);
+int cg_socket_write(CgSocket *sock, char *buffer, int bufferLen);
 int cg_socket_readline(CgSocket *sock, char *buffer, int bufferLen);
 long cg_socket_skip(CgSocket *sock, long skipLen);
 
