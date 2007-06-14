@@ -1,3 +1,13 @@
+2007-06-13  Fabrice Fontaine Orange <ffontaine.ext@orange-ftgroup.com>
+	* Fixed a memory leak in cg_http_request_delete().
+	* Fixed compilation issue when using DCG_UPNP_NOUSE_CONTROLPOINT flag in cg_upnp_device_updatefromssdppacket().
+	* Fixed a memory leak in cg_upnp_device_getservicebycontrolurl().
+	* Fixed cg_thread_start(). Threads used to answer UPnP requests are created
+	  in joinable state but the main thread doesn't call pthread_join on them.
+	  So, they are kept alive until the end of the program. By creating them
+	  in detached state, they are correctly clean up.
+	* Fixed cg_thread_stop_with_cond() to wait one second for thread termination instead of using pthread_join(). 
+
 2007-06-06  Satoshi Konno <skonno@cybergarage.org>
  * Added checking 64 bit support, long long, to the configure.in for GCC.
  * Fixed to compile cg_str2longlong() and cg_longlong2str() using GCC.
