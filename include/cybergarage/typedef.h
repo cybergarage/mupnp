@@ -26,7 +26,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #if defined(WINCE) && !defined(WIN32)
 #define WIN32 1
 #endif
