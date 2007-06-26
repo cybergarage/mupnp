@@ -15,6 +15,8 @@
 *  - Added support for WindowsCE platform.
 * 03/18/07
 *  - Added CgInt64 to <typedef.h>
+* 06/24/07
+*  - Added CgByte to <typedef.h>
 *
 ******************************************************************/
 
@@ -61,6 +63,8 @@ typedef int BOOL;
 #if !defined(FALSE)
 #define FALSE (0)
 #endif
+
+typedef unsigned char CgByte;
 
 #if defined(__USE_ISOC99)
 typedef long long int CgInt64;

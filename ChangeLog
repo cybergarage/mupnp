@@ -1,3 +1,6 @@
+2007-06-26  Satoshi Konno <skonno@cybergarage.org>
+	* Added CgByte to <typedef.h>
+
 2007-06-13  Fabrice Fontaine Orange <ffontaine.ext@orange-ftgroup.com>
 	* Fixed a memory leak in cg_http_request_delete().
 	* Fixed compilation issue when using DCG_UPNP_NOUSE_CONTROLPOINT flag in cg_upnp_device_updatefromssdppacket().
