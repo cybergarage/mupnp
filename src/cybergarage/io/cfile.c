@@ -17,6 +17,14 @@
 *		- first revision
 *	03/19/06 Theo Beisch
 *		- WINCE support (still untested)
+*	07/18/07
+*		- Added the following functions.
+*		  cg_file_open()
+*		  cg_file_close()
+*		  cg_file_write()
+*		  cg_file_read()
+*		  cg_file_seek() 
+*
 ******************************************************************/
 
 #include <cybergarage/io/cfile.h>
@@ -84,6 +92,7 @@ CgFile *cg_file_new()
 		file->name = cg_string_new();
 		file->path = cg_string_new();
 		file->content = NULL;
+		file->fp = NULL;
 	}
 
 	cg_log_debug_l4("Leaving...\n");
@@ -586,5 +595,101 @@ int cg_file_listfiles(CgFile *file, CgFileList *fileList)
 	return cg_filelist_size(fileList);
 }
 
-#endif
+/****************************************
+* cg_file_listfiles
+****************************************/
 
+BOOL cg_file_open(CgFile *file, int mode)
+{
+	char *filename;
+	char *stdioMode;
+
+	filename = cg_file_getname(file);
+	if (cg_strlen(filename) <= 0)
+		return FALSE;
+
+	stdioMode = "";
+	if (mode & CG_FILE_OPEN_WRITE) {
+		if (mode & CG_FILE_OPEN_CREATE)
+			stdioMode = "w+b";
+		else
+			stdioMode = "r+b";
+	}
+	else if (mode & CG_FILE_OPEN_READ)
+		stdioMode = "rb";
+
+	file->fp = fopen(filename, stdioMode);
+	
+	return (file->fp) ? TRUE : FALSE;
+}
+
+/****************************************
+* cg_file_listfiles
+****************************************/
+
+BOOL cg_file_close(CgFile *file, int flag)
+{
+	if (!file->fp)
+		return FALSE;
+
+	if (fclose(file->fp) == 0) {
+		file->fp = NULL;
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
+/****************************************
+* cg_file_listfiles
+****************************************/
+
+BOOL cg_file_write(CgFile *file, CgByte *buf, int bufLen)
+{
+	if (!file->fp)
+		return FALSE;
+
+	return (fwrite(buf, 1, bufLen, file->fp) == bufLen) ? TRUE : FALSE;
+}
+
+/****************************************
+* cg_file_listfiles
+****************************************/
+
+BOOL cg_file_read(CgFile *file, CgByte *buf, int bufLen)
+{
+	if (!file->fp)
+		return FALSE;
+
+	return (fread(buf, 1, bufLen, file->fp) == bufLen) ? TRUE : FALSE;
+}
+
+/****************************************
+* cg_file_listfiles
+****************************************/
+
+BOOL cg_file_seek(CgFile *file, CgInt64 offset, int whence)
+{
+	int stdioWhence;
+
+	if (!file->fp)
+		return FALSE;
+
+	switch (whence) {
+	case CG_FILE_SEEK_SET:
+		stdioWhence = SEEK_SET;
+		break;
+	case CG_FILE_SEEK_CUR:
+		stdioWhence = SEEK_CUR;
+		break;
+	case CG_FILE_SEEK_END:
+		stdioWhence = SEEK_END;
+		break;
+	default:
+		stdioWhence = 0;
+	}
+
+	return (fseek(file->fp, (long)offset, stdioWhence) == 0) ? TRUE : FALSE;
+}
+
+#endif

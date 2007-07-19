@@ -1,3 +1,11 @@
+2007-07-18  Satoshi Konno <skonno@cybergarage.org>
+	* Added the following functions to support more raw functions.
+	  cg_file_open()
+	  cg_file_close()
+	  cg_file_write()
+	  cg_file_read()
+	  cg_file_seek() 
+
 2007-06-26  Satoshi Konno <skonno@cybergarage.org>
 	* Added CgByte to <typedef.h>
 
