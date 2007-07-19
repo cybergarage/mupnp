@@ -29,6 +29,8 @@
 #include <cybergarage/util/clist.h>
 #include <cybergarage/util/cstring.h>
 
+#include <stdio.h>
+
 #ifdef  __cplusplus
 extern "C" {
 #endif
@@ -57,6 +59,14 @@ extern "C" {
 	
 #define CG_FILE_READ_CHUNK_SIZE 1024
 
+#define CG_FILE_OPEN_READ		0x01
+#define CG_FILE_OPEN_WRITE		0x02
+#define CG_FILE_OPEN_CREATE	0x04
+
+#define CG_FILE_SEEK_SET			0x01
+#define CG_FILE_SEEK_CUR			0x02
+#define CG_FILE_SEEK_END			0x04
+
 /****************************************
 * Data Type
 ****************************************/
@@ -68,6 +78,7 @@ typedef struct _CgFile {
 	CgString *name;
 	CgString *path;
 	char *content;
+	FILE	*fp;
 } CgFile, CgFileList;
 
 /****************************************
@@ -98,6 +109,13 @@ BOOL cg_file_load(CgFile *file);
 BOOL cg_file_save(CgFile *file);
 
 int cg_file_listfiles(CgFile *file, CgFileList *fileList);
+
+/* Raw Functions */
+BOOL cg_file_open(CgFile *file, int flag);
+BOOL cg_file_close(CgFile *file, int flag);
+BOOL cg_file_write(CgFile *file, CgByte *buf, int bufLen);
+BOOL cg_file_read(CgFile *file, CgByte *buf, int bufLen);
+BOOL cg_file_seek(CgFile *file, CgInt64, int whence); 
 
 /****************************************
 * Function (File List)
