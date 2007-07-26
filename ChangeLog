@@ -1,3 +1,7 @@
+2007-07-25  Satoshi Konno <skonno@cybergarage.org>
+	* Added the following macros to <cfile.h>
+	  cg_file_isseparatorchar() and cg_file_ispathseparatorchar()
+
 2007-07-18  Satoshi Konno <skonno@cybergarage.org>
 	* Added the following functions to support more raw functions.
 	  cg_file_open()
@@ -20,52 +24,52 @@
 	* Fixed cg_thread_stop_with_cond() to wait one second for thread termination instead of using pthread_join(). 
 
 2007-06-06  Satoshi Konno <skonno@cybergarage.org>
- * Added checking 64 bit support, long long, to the configure.in for GCC.
- * Fixed to compile cg_str2longlong() and cg_longlong2str() using GCC.
- * Fixed cg_longlong2str() to return the buffer using GCC or ISOC99.
+	* Added checking 64 bit support, long long, to the configure.in for GCC.
+	* Fixed to compile cg_str2longlong() and cg_longlong2str() using GCC.
+	* Fixed cg_longlong2str() to return the buffer using GCC or ISOC99.
  
 2007-03-20  Satoshi Konno <skonno@cybergarage.org>
- * Added a parameter, CgString, to return the result safety and the implementation without curl for the following functions.
-   cg_net_uri_unescapestring() and cg_net_uri_escapestring().
- * Added a define, CG_USE_NET_URI_ESCAPESTRING_SKIP,in cg_net_uri_escapestring() and disabled the function not to skip only the first path.
- * Changed cg_upnp_device_httprequestrecieved() using the new cg_net_uri_unescapestring().
- * Added the following functions.
-   cg_net_uri_isreservedchar()
-   cg_net_uri_isunreservedchar()
-   cg_net_uri_isescapechar()
-   cg_net_uri_isalphanumchar()
- * Fixed cg_net_uri_escapestring() to use curl_escape() instead of curl_unescape().
- * Fixed cg_net_uri_unescapestring() to use curl_unescape() instead of curl_escape().
+	* Added a parameter, CgString, to return the result safety and the implementation without curl for the following functions.
+	  cg_net_uri_unescapestring() and cg_net_uri_escapestring().
+	* Added a define, CG_USE_NET_URI_ESCAPESTRING_SKIP,in cg_net_uri_escapestring() and disabled the function not to skip only the first path.
+	* Changed cg_upnp_device_httprequestrecieved() using the new cg_net_uri_unescapestring().
+	* Added the following functions.
+	  cg_net_uri_isreservedchar()
+	  cg_net_uri_isunreservedchar()
+	  cg_net_uri_isescapechar()
+	  cg_net_uri_isalphanumchar()
+	* Fixed cg_net_uri_escapestring() to use curl_escape() instead of curl_unescape().
+	* Fixed cg_net_uri_unescapestring() to use curl_unescape() instead of curl_escape().
 
 2007-03-18  Satoshi Konno <skonno@cybergarage.org>
- * Added CgInt64 to <typedef.h>
- * Changed the following functions to use CgInt64.
-   cg_longlong2str()
-   cg_http_packet_setheaderlonglong()
-   cg_http_packet_getheaderlonglong()
- * Disable CG_USE_OPENSSL for Visual Studio projects as default.
+	* Added CgInt64 to <typedef.h>
+	* Changed the following functions to use CgInt64.
+	  cg_longlong2str()
+	  cg_http_packet_setheaderlonglong()
+	  cg_http_packet_getheaderlonglong()
+	* Disable CG_USE_OPENSSL for Visual Studio projects as default.
 
 2007-03-11  Satoshi Konno <skonno@cybergarage.org>
- * Added support of OpenSSL to socket functions in csocket.c.
- * Added CG_USE_OPENSSL define and --enable-openssl option to disable the SSL functions as default.
- * Added cg_https_request_post().
- * Changed a compiler flag about file functions from USE_CFILE to CG_USE_CFILE.
- * Added a framework of CppUnit.
+	* Added support of OpenSSL to socket functions in csocket.c.
+	* Added CG_USE_OPENSSL define and --enable-openssl option to disable the SSL functions as default.
+	* Added cg_https_request_post().
+	* Changed a compiler flag about file functions from USE_CFILE to CG_USE_CFILE.
+	* Added a framework of CppUnit.
 
 2007-03-05  Satoshi Konno <skonno@cybergarage.org>
- * Changed cg_string_setnvalue() to use memcpy instead of strncpy().
- * Added a parameter of the string length for cg_string_setpointervalue() and to set a binary data.
- * Added a parameter of the string length for the following functions too. 
-   cg_http_packet_setcontentpointer(), cg_http_request_setcontentpointer() and cg_http_response_setcontentpointer().
- * Fixed cg_http_packet_read_body() to set the correct content length if the response has a field of the content length.
+	* Changed cg_string_setnvalue() to use memcpy instead of strncpy().
+	* Added a parameter of the string length for cg_string_setpointervalue() and to set a binary data.
+	* Added a parameter of the string length for the following functions too. 
+	  cg_http_packet_setcontentpointer(), cg_http_request_setcontentpointer() and cg_http_response_setcontentpointer().
+	* Fixed cg_http_packet_read_body() to set the correct content length if the response has a field of the content length.
  
 2007-02-25  Satoshi Konno <skonno@cybergarage.org>
- * Added cg_xml_attribute_remove().
+	* Added cg_xml_attribute_remove().
 
 2007-02-19  Satoshi Konno <skonno@cybergarage.org>
- * Changed cg_http_request_post() to add a user agent, CyberGarage-HTTP/1.0, as default.
- * Changed CG_HTTP_USERAGENT to CG_HTTP_USERAGENT_DEFAULT to add CG_HTTP_USERAGENT as the normal header define.
- * Changed cg_http_packet_sethost() not to add the port string for lighttpd when the port number is 80.
+	* Changed cg_http_request_post() to add a user agent, CyberGarage-HTTP/1.0, as default.
+	* Changed CG_HTTP_USERAGENT to CG_HTTP_USERAGENT_DEFAULT to add CG_HTTP_USERAGENT as the normal header define.
+	* Changed cg_http_packet_sethost() not to add the port string for lighttpd when the port number is 80.
 
 2007-02-13  Satoshi Konno <skonno@cybergarage.org>
 	* Fixed cg_str2*() to return 0 when the parameter is null.
@@ -1368,45 +1372,45 @@
 
 2005-11-09  Aapo M�kel�E<aapo.makela@nokia.com>
 	* Fix to use both path and query parts of URI in HTTP request URI
- * Added fixing of broken event and control URLs
- * Changed cg_upnp_controlpoint_createdevicefromssdppacket to not to call cg_upnp_getdevicebyname (which jams to infinite loop sometimes)
+	* Added fixing of broken event and control URLs
+	* Changed cg_upnp_controlpoint_createdevicefromssdppacket to not to call cg_upnp_getdevicebyname (which jams to infinite loop sometimes)
 
 2005-11-03  Heikki Junnila <ext-heikki.junnila@nokia.com>
- * Updated configure and make scripts to use libcurl
+	* Updated configure and make scripts to use libcurl
 
 2005-10-31  Heikki Junnila for Aapo M�kel�E Visa Smolander and Iain Simpson
- * Removed all automatically generated files (Makefile.in, config/*, autom4te.cache/*, configure, etc...)
- * Changed "<" to "<=" in cg_upnp_control_isqueryrequest()
- * cg_http_packet_sethost(): "port" was an excess parameter for s(n)printf when port <= 0. Removed the parameter.
- * cg_net_getmodifierhosturl set the tag begin mark "<" before port while it must come before "http://"
- * cg_socket_getrawtype and cg_socket_getprototype: changed sock->type to socket->type to use the macro parameter correctly.
- * cg_upnp_device_getdevicebyname: Changed dev to childDev in for-loop
- * cg_upnp_action_post: If action post was unsuccessful, put the error message to the action response
- * cg_upnp_control_action_request_createactionnode: Don't include output args in request
- * cg_upnp_event_subscription_request_setservice: changed eventSubURLStr[1] to [0]
- * PosixThreadProc: Added a signal handler to block all signals to posix threads
- * cg_net_uri_set: Accepts URI (as a path), which doesn't have a slash.
- * cg_upnp_device_byebyefrom & _announcefrom: Added missing advertisement and byebye messages
- * cg_upnp_ssdpresponse_setext and cg_upnp_ssdpresponse_setserver added to cssdp.h
- * Added comments to some headers (cdevice.h and util/*)
- * Added performance measurement functionality for XML parsers under SHOW_TIMINGS macro (not enabled by default)
- * cg_upnp_device_ssdpmessagereceived: Corrected response to MSearch message for all ST (search target) types.
- * upnpdump.c: Added some M-SEARCH sending actions
- * clock_device.c: Removed :schemas: from clock service description
- * Added libtool support to configure.in
- * Added debian package creation support to configure.in and Makefile.am
- * cg_upnp_ssdpresponse_serverlist_open returns FALSE immediately if port opening fails
- * Fixed a memory leak problem in the http client thread.
+	* Removed all automatically generated files (Makefile.in, config/*, autom4te.cache/*, configure, etc...)
+	* Changed "<" to "<=" in cg_upnp_control_isqueryrequest()
+	* cg_http_packet_sethost(): "port" was an excess parameter for s(n)printf when port <= 0. Removed the parameter.
+	* cg_net_getmodifierhosturl set the tag begin mark "<" before port while it must come before "http://"
+	* cg_socket_getrawtype and cg_socket_getprototype: changed sock->type to socket->type to use the macro parameter correctly.
+	* cg_upnp_device_getdevicebyname: Changed dev to childDev in for-loop
+	* cg_upnp_action_post: If action post was unsuccessful, put the error message to the action response
+	* cg_upnp_control_action_request_createactionnode: Don't include output args in request
+	* cg_upnp_event_subscription_request_setservice: changed eventSubURLStr[1] to [0]
+	* PosixThreadProc: Added a signal handler to block all signals to posix threads
+	* cg_net_uri_set: Accepts URI (as a path), which doesn't have a slash.
+	* cg_upnp_device_byebyefrom & _announcefrom: Added missing advertisement and byebye messages
+	* cg_upnp_ssdpresponse_setext and cg_upnp_ssdpresponse_setserver added to cssdp.h
+	* Added comments to some headers (cdevice.h and util/*)
+	* Added performance measurement functionality for XML parsers under SHOW_TIMINGS macro (not enabled by default)
+	* cg_upnp_device_ssdpmessagereceived: Corrected response to MSearch message for all ST (search target) types.
+	* upnpdump.c: Added some M-SEARCH sending actions
+	* clock_device.c: Removed :schemas: from clock service description
+	* Added libtool support to configure.in
+	* Added debian package creation support to configure.in and Makefile.am
+	* cg_upnp_ssdpresponse_serverlist_open returns FALSE immediately if port opening fails
+	* Fixed a memory leak problem in the http client thread.
 
 2005-10-13  Satoshi Konno <skonno@cybergarage.org>
 
- * v1.1
- * Added cg_upnp_controlpoint_setuserdata() and cg_upnp_controlpoint_getuserdatga().
- * Fixed some bugs to parser the name spaces using libxml2.
- * Changed the configure to run 'make install' normally.
- * Changed cg_thread_start() to sedt the flag at first.
- * Fixed cg_upnp_control_soap_response_createfaultresponsenode() to set the namespace attribute in the response <UPnPError> node.
+	* v1.1
+	* Added cg_upnp_controlpoint_setuserdata() and cg_upnp_controlpoint_getuserdatga().
+	* Fixed some bugs to parser the name spaces using libxml2.
+	* Changed the configure to run 'make install' normally.
+	* Changed cg_thread_start() to sedt the flag at first.
+	* Fixed cg_upnp_control_soap_response_createfaultresponsenode() to set the namespace attribute in the response <UPnPError> node.
 
 2005-08-25 Satoshi Konno <skonno@cybergarage.org>
 
-        * The first release.
+	* The first release.

@@ -110,6 +110,9 @@ BOOL cg_file_save(CgFile *file);
 
 int cg_file_listfiles(CgFile *file, CgFileList *fileList);
 
+#define cg_file_isseparatorchar(c) ((CG_FILE_SEPARATOR_CHAR == c) ? TRUE : FALSE)
+#define cg_file_ispathseparatorchar(c) ((CG_FILE_PATH_SEPARATOR_CHAR == c) ? TRUE : FALSE)
+
 /* Raw Functions */
 BOOL cg_file_open(CgFile *file, int flag);
 BOOL cg_file_close(CgFile *file, int flag);
