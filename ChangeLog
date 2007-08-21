@@ -1,6 +1,12 @@
+2007-08-19  Satoshi Konno <skonno@cybergarage.org>
+	* Added the following functions into <cfile.h>
+	  cg_file_setpath()
+	  cg_file_setfilename()
+
 2007-07-25  Satoshi Konno <skonno@cybergarage.org>
-	* Added the following macros to <cfile.h>
-	  cg_file_isseparatorchar() and cg_file_ispathseparatorchar()
+	* Added the following macros into <cfile.h>
+	  cg_file_isseparatorchar()
+	  cg_file_ispathseparatorchar()
 
 2007-07-18  Satoshi Konno <skonno@cybergarage.org>
 	* Added the following functions to support more raw functions.

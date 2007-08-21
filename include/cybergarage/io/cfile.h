@@ -91,6 +91,10 @@ void cg_file_delete(CgFile *file);
 #define cg_file_next(file) (CgFile *)cg_list_next((CgList *)file)
 
 void cg_file_setname(CgFile *file, char *name);
+
+#define cg_file_setpath(file, value) cg_file_setname(file, value)
+void cg_file_setfilename(CgFile *file, char *value);
+
 char *cg_file_getname(CgFile *file);
 long cg_file_getlength(CgFile *file);
 
