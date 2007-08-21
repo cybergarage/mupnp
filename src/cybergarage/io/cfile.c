@@ -23,7 +23,11 @@
 *		  cg_file_close()
 *		  cg_file_write()
 *		  cg_file_read()
-*		  cg_file_seek() 
+*		  cg_file_seek() ]
+*  08/19/07
+*		- Added the following functions.
+*		  cg_file_setpath()
+*		  cg_file_setfilename()
 *
 ******************************************************************/
 
@@ -690,6 +694,36 @@ BOOL cg_file_seek(CgFile *file, CgInt64 offset, int whence)
 	}
 
 	return (fseek(file->fp, (long)offset, stdioWhence) == 0) ? TRUE : FALSE;
+}
+
+/****************************************
+* cg_file_setfilename
+****************************************/
+
+void cg_file_setfilename(CgFile *file, char *name)
+{
+	int nameLen;
+	char *pathName;
+	int pathNameLen;
+	int sepIdx;
+
+	nameLen = cg_strlen(name);
+	if (nameLen <= 0)
+		return;
+
+	pathName = cg_file_getname(file);
+	pathNameLen = cg_strlen(pathName); 
+	if (pathNameLen <= 0) {
+		cg_file_setname(file, name);
+		return;
+	}
+
+	if (pathName[pathNameLen-1] != CG_FILE_SEPARATOR_CHAR) {
+		if (name[nameLen-1] != CG_FILE_SEPARATOR_CHAR)
+			cg_string_addvalue(file->name, CG_FILE_SEPARATOR);
+	}
+
+	cg_string_addvalue(file->name, name);
 }
 
 #endif
