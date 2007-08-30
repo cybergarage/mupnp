@@ -94,6 +94,7 @@ void cg_file_setname(CgFile *file, char *name);
 
 #define cg_file_setpath(file, value) cg_file_setname(file, value)
 void cg_file_setfilename(CgFile *file, char *value);
+#define cg_file_addfilename(file, value) cg_file_setfilename(file, value)
 
 char *cg_file_getname(CgFile *file);
 long cg_file_getlength(CgFile *file);
