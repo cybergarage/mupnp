@@ -120,7 +120,7 @@ int cg_file_listfiles(CgFile *file, CgFileList *fileList);
 
 /* Raw Functions */
 BOOL cg_file_open(CgFile *file, int flag);
-BOOL cg_file_close(CgFile *file, int flag);
+BOOL cg_file_close(CgFile *file);
 BOOL cg_file_write(CgFile *file, CgByte *buf, int bufLen);
 BOOL cg_file_read(CgFile *file, CgByte *buf, int bufLen);
 BOOL cg_file_seek(CgFile *file, CgInt64, int whence); 
