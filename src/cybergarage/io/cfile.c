@@ -631,7 +631,7 @@ BOOL cg_file_open(CgFile *file, int mode)
 * cg_file_listfiles
 ****************************************/
 
-BOOL cg_file_close(CgFile *file, int flag)
+BOOL cg_file_close(CgFile *file)
 {
 	if (!file->fp)
 		return FALSE;
