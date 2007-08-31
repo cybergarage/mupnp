@@ -1,3 +1,6 @@
+2007-08-30  Satoshi Konno <skonno@cybergarage.org>
+	* Removed the patent exclusion clause fromt the license based on BSD.
+
 2007-08-19  Satoshi Konno <skonno@cybergarage.org>
 	* Added the following functions into <cfile.h>
 	  cg_file_setpath()
