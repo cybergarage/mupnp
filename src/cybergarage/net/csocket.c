@@ -68,6 +68,10 @@
 #if (defined(WIN32) || defined(__CYGWIN__)) && !defined (ITRON)
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#if defined(CG_USE_OPENSSL)
+#pragma comment(lib, "libeay32MD.lib")
+#pragma comment(lib, "ssleay32MD.lib")
+#endif
 #else
 #if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
 #include <typedef.h>

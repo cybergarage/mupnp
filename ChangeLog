@@ -1,5 +1,12 @@
+2007-09-12  Satoshi Konno <skonno@cybergarage.org>
+	* Added the following functions to get MAC address.
+	* cg_net_interface_setmacaddress(), cg_net_interface_getmacaddress()
+	* Changed cg_net_gethostinterfaces() to get the MAC address using GetAdaptersInfo() as default on Windows platform.
+	* Changed cg_net_gethostinterfaces() to get the MAC address using getifaddrs() on UNIX platform.
+	*   Note : Other platforms might not support to get this functions yet. 
+
 2007-08-30  Satoshi Konno <skonno@cybergarage.org>
-	* Removed the patent exclusion clause fromt the license based on BSD.
+	* Removed the patent exclusion clause from the license based on BSD.
 
 2007-08-19  Satoshi Konno <skonno@cybergarage.org>
 	* Added the following functions into <cfile.h>

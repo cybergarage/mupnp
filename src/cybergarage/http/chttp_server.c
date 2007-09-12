@@ -18,9 +18,9 @@
 *	10/30/05
 *		- Thanks for Makela Aapo <aapo.makela@nokia.com>
 *		- Fixed a memory leak problem in the http client thread.
-*	
 *	16-Jan-06 Aapo Makela
 *		- Changed to do a better keepalive check
+*	
 ******************************************************************/
 
 #ifdef HAVE_CONFIG_H

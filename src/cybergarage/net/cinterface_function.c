@@ -24,6 +24,12 @@
 *		- Fixed to compile normally on the release mode for Windows Mobile.
 *	04/18/07
 *		- Fixed UNIX version of cg_net_gethostinterfaces()
+*	09/12/07
+*		- Added the following functions to get MAC address.
+*		  cg_net_interface_setmacaddress(), cg_net_interface_getmacaddress()
+*		- Changed cg_net_gethostinterfaces() to get the MAC address using GetAdaptersInfo() as default on Windows platform.
+*		- Changed cg_net_gethostinterfaces() to get the MAC address using getifaddrs() on UNIX platform.
+*		   Note : Other platforms might not support to get this functions yet. 
 *
 ******************************************************************/
 
@@ -37,6 +43,10 @@
 #endif
 
 #include <stdio.h>
+
+#if defined(WIN32)
+#define CG_USE_WIN32_GETADAPTERSINFO 1
+#endif
 
 #if (defined(WIN32) || defined(__CYGWIN__)) && !defined(ITRON) && !defined(_W32_WCE)
 	#include <Iptypes.h>
@@ -84,9 +94,10 @@ BOOL IsInterfaceAddressInitialized = FALSE;
 #if ((defined(WIN32) && !defined (WINCE))|| defined(__CYGWIN__)) && !defined(ITRON)
 
 #pragma message ("******** WIN32 && !WINCE selected!")
+
 int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 {
-#if !defined(CG_USE_WIN32_GETHOSTADDRESSES)
+#if !defined(CG_USE_WIN32_GETHOSTADDRESSES) && !defined(CG_USE_WIN32_GETADAPTERSINFO)
 	CgNetworkInterface *netIf;
 	SOCKET sd;
 	int nNumInterfaces;
@@ -136,7 +147,48 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		cg_net_interfacelist_add(netIfList, netIf);
 	}
 
-#else
+#elif defined(CG_USE_WIN32_GETADAPTERSINFO)
+	#pragma comment(lib, "Iphlpapi.lib")
+
+	CgNetworkInterface *netIf;
+	PIP_ADAPTER_INFO  pAdapterInfo=NULL, pAdapter=NULL;
+	ULONG            ulOutBufLen;
+	DWORD            dwRetVal;
+	DWORD			nOfInterfaces;
+	int i =0;
+
+	cg_socket_startup();
+	cg_net_interfacelist_clear(netIfList);
+
+	ulOutBufLen = sizeof(IP_ADAPTER_INFO);
+	pAdapterInfo = (IP_ADAPTER_INFO *) malloc (ulOutBufLen);
+	if (GetAdaptersInfo( pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) {
+		free(pAdapterInfo);
+		pAdapterInfo = (IP_ADAPTER_INFO *) malloc (ulOutBufLen);
+	}
+
+	if ((dwRetVal = GetAdaptersInfo( pAdapterInfo, &ulOutBufLen)) == NO_ERROR) {
+		for (pAdapter = pAdapterInfo, nOfInterfaces = 0; pAdapter; ++nOfInterfaces) {
+
+			if (pAdapter->Type==MIB_IF_TYPE_ETHERNET) {
+				// List will not contain loopback
+				// IFF_UP check not required, ce only returns UP interfaces here 
+				//host = inet_ntoa(pAdapter->Address);
+				netIf = cg_net_interface_new();
+				cg_net_interface_setaddress(netIf, pAdapter->IpAddressList.IpAddress.String);
+				if (pAdapter->AddressLength  == CG_NET_MACADDR_SIZE)
+					cg_net_interface_setmacaddress(netIf, pAdapter->Address);
+				cg_net_interfacelist_add(netIfList, netIf);
+
+			}
+			pAdapter=pAdapter->Next;
+		}
+	} 
+	free(pAdapterInfo);
+
+#elif defined(CG_USE_WIN32_GETHOSTADDRESSES)
+	#pragma comment(lib, "Iphlpapi.lib")
+
 	IP_ADAPTER_ADDRESSES *pAdapterAddresses, *ai;
 	DWORD ifFlags;
 	ULONG outBufLen;
@@ -190,6 +242,8 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 						ifIdx = cg_net_getipv6scopeid(addr);
 					netIf = cg_net_interface_new();
 					cg_net_interface_setaddress(netIf, addr);
+					if (ai->PhysicalAddressLength  == CG_NET_MACADDR_SIZE)
+						cg_net_interface_setmacaddress(netIf, ai->PhysicalAddress);
 					cg_net_interface_setindex(netIf, ifIdx);
 					cg_net_interfacelist_add(netIfList, netIf);
 				//}
@@ -276,6 +330,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 				//host = inet_ntoa(pAdapter->Address);
 				netIf = cg_net_interface_new();
 				cg_net_interface_setaddress(netIf, pAdapter->IpAddressList.IpAddress.String);
+				cg_net_interface_setmacaddress(netIf, pAdapter->IpAddressList.Address.String);
 				cg_net_interfacelist_add(netIfList, netIf);
 
 			}
@@ -315,7 +370,8 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	char addr[NI_MAXHOST+1];
 	char netmask[NI_MAXHOST+1];
 	char *ifname;
-	
+	struct sockaddr_dl dladdr;
+
 	cg_log_debug_l4("Entering...\n");
 
 	cg_net_interfacelist_clear(netIfList);
@@ -349,6 +405,9 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		cg_net_interface_setname(netIf, ifname);
 		cg_net_interface_setaddress(netIf, addr);
 		cg_net_interface_setnetmask(netIf, netmask);
+		dladdr = (struct sockaddr_dl *)(ifa->ifa_addr);
+		if (dladdr->sdl_nlen == CG_NET_MACADDR_SIZE)
+			cg_net_interface_setmacaddress(netIf,  LLADDR(dladdr)); 
 		cg_net_interfacelist_add(netIfList, netIf);
 	}
 	freeifaddrs(ifaddr);

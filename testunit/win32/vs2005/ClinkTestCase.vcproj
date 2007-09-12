@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib cppunitd.lib libeay32MD.lib ssleay32MD.lib"
+				AdditionalDependencies="wsock32.lib cppunitd.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -136,7 +136,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib cppunitd.lib libeay32MD.lib ssleay32MD.lib"
+				AdditionalDependencies="wsock32.lib cppunitd.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
