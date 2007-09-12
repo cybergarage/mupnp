@@ -17,6 +17,9 @@
 *		- first revision
 *	02/09/05
 *		- Added cg_net_interface_setnetmask() and cg_net_interface_getnetmask().
+*	09/12/07
+*		- Added the following functions to get MAC address.
+*		  cg_net_interface_setmacaddress(), cg_net_interface_getmacaddress()
 *
 ******************************************************************/
 
@@ -45,6 +48,8 @@ CgNetworkInterface *cg_net_interface_new()
 		netIf->name = cg_string_new();
 		netIf->ipaddr = cg_string_new();
 		netIf->netmask = cg_string_new();
+		cg_net_interface_setindex(netIf, 0);
+		memset(netIf->macaddr, 0, CG_NET_MACADDR_SIZE);
 	}
 	
 	cg_log_debug_l4("Leaving...\n");

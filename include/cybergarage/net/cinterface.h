@@ -17,6 +17,12 @@
 *		- first revision
 *	03/23/06 Theo Beisch
 *		- added localhost constants
+*	09/12/07
+*		- Added the following functions to get MAC address.
+*		  cg_net_interface_setmacaddress(), cg_net_interface_getmacaddress()
+*		- Changed cg_net_gethostinterfaces() to get the MAC address using GetAdaptersInfo() as default on Windows platform.
+*		- Changed cg_net_gethostinterfaces() to get the MAC address using getifaddrs() on UNIX platform.
+*		   Note : Other platforms might not support to get this functions yet. 
 *
 ******************************************************************/
 
@@ -46,6 +52,7 @@ extern "C" {
 
 #define CG_NET_IPV4_LOOPBACK "127.0.0.1"
 #define CG_NET_IPV6_LOOPBACK "fixmelater"
+#define CG_NET_MACADDR_SIZE 6
 
 #if defined(BTRON) || defined(TENGINE)
 #define CG_NET_DEFAULT_IFNAME "Neta"
@@ -62,6 +69,8 @@ typedef struct _CgNetworkInterface {
 	CgString *name;
 	CgString *ipaddr;
 	CgString *netmask;
+	CgByte macaddr[CG_NET_MACADDR_SIZE];
+	int index;
 } CgNetworkInterface, CgNetworkInterfaceList;
 
 /****************************************
@@ -82,6 +91,13 @@ char *cg_net_interface_getaddress(CgNetworkInterface *netIf);
 void cg_net_interface_setnetmask(CgNetworkInterface *netIf, char *ipaddr);
 char *cg_net_interface_getnetmask(CgNetworkInterface *netIf);
 char *cg_net_selectaddr(struct sockaddr *remoteaddr);
+
+#define cg_net_interface_setmacaddress(netIf, value) memcpy(netIf->macaddr, value, CG_NET_MACADDR_SIZE)
+#define cg_net_interface_getmacaddress(netIf, buf) memcpy(buf, netIf->macaddr, CG_NET_MACADDR_SIZE)
+
+#define cg_net_interface_setindex(netIf, value) (netIf->index = value)
+#define cg_net_interface_getindex(netIf, buf) (netIf->index)
+
 /**
  * Compares two interfaces based on IP-address.
  */
