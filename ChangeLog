@@ -1,8 +1,9 @@
-2007-09-12  Satoshi Konno <skonno@cybergarage.org>
+2007-09-13  Satoshi Konno <skonno@cybergarage.org>
 	* Added the following functions to get MAC address.
 	* cg_net_interface_setmacaddress(), cg_net_interface_getmacaddress()
 	* Changed cg_net_gethostinterfaces() to get the MAC address using GetAdaptersInfo() as default on Windows platform.
-	* Changed cg_net_gethostinterfaces() to get the MAC address using getifaddrs() on UNIX platform.
+	* Changed cg_net_gethostinterfaces() to get the MAC address using ioctl() on Linux platform.
+	* Changed cg_net_gethostinterfaces() to get the MAC address using getifaddrs() on other UNIX platform.
 	*   Note : Other platforms might not support to get this functions yet. 
 
 2007-08-30  Satoshi Konno <skonno@cybergarage.org>
