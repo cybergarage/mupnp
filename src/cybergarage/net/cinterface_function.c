@@ -68,6 +68,10 @@
 #else
 	#if defined(HAVE_IFADDRS_H)
 		#include <ifaddrs.h>
+		#if defined(HAVE_SIOCGIFHWADDR)
+			#include <sys/ioctl.h>
+			#include <net/if.h>
+		#endif
 	#else
 		#include <sys/ioctl.h>
 	#endif
@@ -75,7 +79,7 @@
 	#include <net/if.h>
 	#include <sys/socket.h>
 	#include <netinet/in.h>
-        #include <arpa/inet.h>
+	#include <arpa/inet.h>
 #endif
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
@@ -371,7 +375,13 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	char addr[NI_MAXHOST+1];
 	char netmask[NI_MAXHOST+1];
 	char *ifname;
+	struct ifaddrs *i;
+#if defined(HAVE_SOCKADDR_DL)
 	struct sockaddr_dl *dladdr;
+#elif defined(HAVE_SIOCGIFHWADDR)
+	int sock;
+	struct ifreq ifr;
+#endif
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -383,7 +393,6 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		return 0;
 	}
 	
-	struct ifaddrs *i;
 	for (i = ifaddr; i != NULL; i = i->ifa_next) {
 
 		// Thanks for Tobias.Gansen (01/15/06)
@@ -406,8 +415,15 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		cg_net_interface_setname(netIf, ifname);
 		cg_net_interface_setaddress(netIf, addr);
 		cg_net_interface_setnetmask(netIf, netmask);
+#if defined(HAVE_SOCKADDR_DL)
 		dladdr = (struct sockaddr_dl *)(i->ifa_addr);
-		//cg_net_interface_setmacaddress(netIf, LLADDR(dladdr)); 
+		cg_net_interface_setmacaddress(netIf, LLADDR(dladdr)); 
+#elif defined(HAVE_SIOCGIFHWADDR)
+		sock = socket(AF_INET, SOCK_DGRAM, 0);
+		strncpy(ifr.ifr_name, ifname, IFNAMSIZ-1);
+		ifr.ifr_addr.sa_family = AF_INET;
+		ioctl(sock, SIOCGIFHWADDR, &ifr);  
+#endif
 		cg_net_interfacelist_add(netIfList, netIf);
 	}
 	freeifaddrs(ifaddr);
