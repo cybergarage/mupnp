@@ -43,6 +43,7 @@
 #endif
 
 #include <stdio.h>
+#include <string.h>
 
 #if defined(WIN32)
 #define CG_USE_WIN32_GETADAPTERSINFO 1
@@ -370,7 +371,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	char addr[NI_MAXHOST+1];
 	char netmask[NI_MAXHOST+1];
 	char *ifname;
-	struct sockaddr_dl dladdr;
+	struct sockaddr_dl *dladdr;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -405,9 +406,8 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		cg_net_interface_setname(netIf, ifname);
 		cg_net_interface_setaddress(netIf, addr);
 		cg_net_interface_setnetmask(netIf, netmask);
-		dladdr = (struct sockaddr_dl *)(ifa->ifa_addr);
-		if (dladdr->sdl_nlen == CG_NET_MACADDR_SIZE)
-			cg_net_interface_setmacaddress(netIf,  LLADDR(dladdr)); 
+		dladdr = (struct sockaddr_dl *)(i->ifa_addr);
+		//cg_net_interface_setmacaddress(netIf, LLADDR(dladdr)); 
 		cg_net_interfacelist_add(netIfList, netIf);
 	}
 	freeifaddrs(ifaddr);
