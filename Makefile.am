@@ -1,4 +1,5 @@
 SUBDIRS = include lib sample 
+#SUBDIRS = include lib sample testunit
 
 devdocsdir = $(datadir)/doc/clinkc-dev
 docsdir = $(datadir)/doc/clinkc0
