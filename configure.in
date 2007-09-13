@@ -409,6 +409,7 @@ AC_CHECK_FUNCS([inet_ntoa])
 AC_CHECK_HEADERS([ifaddrs.h])
 AC_CHECK_FUNCS([getifaddrs])
 
+##### socklen_t ####
 AC_MSG_CHECKING(for socklen_t)
 AC_TRY_COMPILE([
 #include <sys/types.h>
@@ -418,6 +419,55 @@ socklen_t foosocket;
 [],
 [AC_MSG_RESULT(yes)
 AC_DEFINE([HAVE_SOCKLEN_T],1,[SOCKLEN_T])],
+[AC_MSG_RESULT(no)]
+)
+
+##### SIOCGIFHWADDR ####
+AC_MSG_CHECKING(for SIOCGIFHWADDR)
+AC_TRY_COMPILE([
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
+void func()
+{
+  int sock;
+  struct ifreq ifr;
+  sock = socket(AF_INET, SOCK_DGRAM, 0);
+  strncpy(ifr.ifr_name, "eth0", IFNAMSIZ-1);
+  ifr.ifr_addr.sa_family = AF_INET;
+  ioctl(sock, SIOCGIFHWADDR, &ifr);  
+}
+],
+[],
+[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_SIOCGIFHWADDR],1,[SIOCGIFHWADDR])],
+[AC_MSG_RESULT(no)]
+)
+
+##### sockaddr_dl ####
+AC_MSG_CHECKING(for sockaddr_dl)
+AC_TRY_COMPILE([
+#include <sys/types.h>
+#include <sys/socket.h>
+void func()
+{
+  struct ifaddrs *ifaddr;
+  struct ifaddrs *i;
+  struct sockaddr_dl *dl;
+  unsigned char *macaddr;
+  getifaddrs(&ifaddr);
+  dl = (struct sockaddr_dl *)(ifaddr->ifa_addr);
+  LLADDR(dl);
+  freeifaddrs(ifaddr);
+}
+],
+[],
+[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_SOCKADDR_DL],1,[SOCKADDR_DL])],
 [AC_MSG_RESULT(no)]
 )
 
