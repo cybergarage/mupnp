@@ -423,6 +423,8 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		strncpy(ifr.ifr_name, ifname, IFNAMSIZ-1);
 		ifr.ifr_addr.sa_family = AF_INET;
 		ioctl(sock, SIOCGIFHWADDR, &ifr);  
+		cg_net_interface_setmacaddress(netIf, ifr.ifr_hwaddr.sa_data);
+		close(sock);
 #endif
 		cg_net_interfacelist_add(netIfList, netIf);
 	}
