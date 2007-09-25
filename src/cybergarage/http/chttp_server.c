@@ -109,9 +109,10 @@ BOOL cg_http_server_open(CgHttpServer *httpServer, int bindPort, char *bindAddr)
 		httpServer->sock = NULL;
 		return FALSE;
 	}
-	return TRUE;
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -130,9 +131,9 @@ BOOL cg_http_server_close(CgHttpServer *httpServer)
 		httpServer->sock = NULL;
 	}
 	
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -158,9 +159,9 @@ static CgHttpServerClientData *cg_http_server_clientdata_new(CgHttpServer *httpS
 		clientData->clientSock = clientSock;
 	}
 
-	return clientData;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return clientData;
 }
 
 static void cg_http_server_clientdata_delete(CgHttpServerClientData *clientData)
@@ -307,9 +308,9 @@ BOOL cg_http_server_start(CgHttpServer *httpServer)
 		return FALSE;
 	}
 
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -331,9 +332,10 @@ BOOL cg_http_server_stop(CgHttpServer *httpServer)
 		cg_threadlist_delete(httpServer->clientThreads);
 		httpServer->clientThreads = NULL;
 	}
-	return TRUE;
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
