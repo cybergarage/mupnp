@@ -44,11 +44,12 @@ CgHttpServerList *cg_http_serverlist_new()
 		httpServerList->acceptThread = NULL;
 		httpServerList->listener = NULL;
 		httpServerList->userData = NULL;
+		httpServerList->mutex = NULL;
 	}
 	
-	return httpServerList;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return httpServerList;
 }
 
 /****************************************

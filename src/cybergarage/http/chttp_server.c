@@ -62,6 +62,9 @@ CgHttpServer *cg_http_server_new()
 		cg_http_server_setuserdata(httpServer, NULL);
 
 		cg_http_server_settimeout(httpServer, CG_HTTP_SERVER_READ_TIMEOUT);
+
+		/* Mutex */
+		httpServer->mutex = cg_mutex_new();
 	}
 		
 	cg_log_debug_l4("Leaving...\n");
@@ -80,6 +83,9 @@ void cg_http_server_delete(CgHttpServer *httpServer)
 	cg_http_server_stop(httpServer);
 	cg_http_server_close(httpServer);
 	
+	if (httpServer->mutex)
+		cg_mutex_delete(httpServer->mutex);
+
 	cg_list_remove((CgList *)httpServer);
 	
 	free(httpServer);
@@ -235,7 +241,13 @@ static void cg_http_server_clientthread(CgThread *thread)
 	cg_http_server_clientdata_delete(clientData);
 	cg_thread_setuserdata(thread, NULL);
 
+	cg_http_server_lock(httpServer);
+	cg_thread_remove(thread);
+	cg_http_server_unlock(httpServer);
+
 	cg_log_debug_l4("Leaving...\n");
+
+	cg_thread_delete(thread);
 }
 
 /****************************************
@@ -271,7 +283,9 @@ static void cg_http_server_thread(CgThread *thread)
 		cg_thread_setuserdata(httpClientThread, clientData);
 		
 		/**** Thanks for Makela Aapo (10/31/05) ****/
+		cg_http_server_lock(httpServer);
 		cg_threadlist_add(httpServer->clientThreads, httpClientThread);
+		cg_http_server_unlock(httpServer);
 		
 		cg_thread_start(httpClientThread);		
 	}

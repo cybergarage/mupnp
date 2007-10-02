@@ -38,6 +38,7 @@
 #include <cybergarage/util/clist.h>
 #include <cybergarage/util/cthread.h>
 #include <cybergarage/util/ctime.h>
+#include <cybergarage/util/cmutex.h>
 #include <cybergarage/net/csocket.h>
 #include <cybergarage/net/curl.h>
 
@@ -48,6 +49,7 @@ extern "C" {
 /****************************************
 * Define
 ****************************************/
+
 
 #define CG_HTTP_READLINE_BUFSIZE 512
 #define CG_HTTP_SEVERNAME_MAXLEN 64
@@ -236,6 +238,7 @@ typedef struct _CgHttpServer {
 	CG_HTTP_LISTENER listener;
 	void *userData;
 	int timeout;
+	CgMutex *mutex;
 } CgHttpServer, CgHttpServerList;
 
 /****************************************
@@ -543,8 +546,12 @@ void cg_http_server_setlistener(CgHttpServer *httpServer, CG_HTTP_LISTENER liste
 char *cg_http_getservername(char *buf, int bufSize);
 
 /**** Timeout ****/
-#define cg_http_server_settimeout(httpRes,value) (httpServer->timeout = value)
-#define cg_http_server_gettimeout(httpRes) (httpServer->timeout)
+#define cg_http_server_settimeout(httpServer,value) (httpServer->timeout = value)
+#define cg_http_server_gettimeout(httpServer) (httpServer->timeout)
+
+/**** Mutex ****/
+#define cg_http_server_lock(httpServer) cg_mutex_lock(httpServer->mutex)
+#define cg_http_server_unlock(httpServer) cg_mutex_unlock(httpServer->mutex)
 
 /****************************************
 * Function (Server List)

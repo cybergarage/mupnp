@@ -1,3 +1,8 @@
+2007-10-02  Satoshi Konno <skonno@cybergarage.org>
+	* Changed cg_thread_() to return FALSE when the specified object is null.
+	* Added cg_http_server_lock() and cg_http_server_unlock().
+	* Fixed cg_http_server_clientthread() to remove the thread from the thread list.
+
 2007-09-13  Satoshi Konno <skonno@cybergarage.org>
 	* Added the following functions to get MAC address.
 	* cg_net_interface_setmacaddress(), cg_net_interface_getmacaddress()
