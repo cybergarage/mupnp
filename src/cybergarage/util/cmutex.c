@@ -64,9 +64,9 @@ CgMutex *cg_mutex_new()
 #endif
 	}
 
-	return mutex;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return mutex;
 }
 
 /****************************************
@@ -75,6 +75,9 @@ CgMutex *cg_mutex_new()
 
 BOOL cg_mutex_delete(CgMutex *mutex)
 {
+	if (!mutex)
+		return FALSE;
+
 	cg_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
@@ -91,9 +94,10 @@ BOOL cg_mutex_delete(CgMutex *mutex)
 	pthread_mutex_destroy(&mutex->mutexID);
 #endif
 	free(mutex);
-	return TRUE;
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -117,10 +121,14 @@ BOOL cg_mutex_lock_trace(	const char *file,
 				const char *function,
 				CgMutex *mutex)
 {
-	pthread_t thid = pthread_self();
+	pthread_t thid;
 	int found;
 	CgLockInfo *temp;
 
+	if (!mutex)
+		return FALSE;
+
+	thid = pthread_self();
 	pthread_mutex_lock(&tlt_mutex);
 
 	found = 0;
@@ -224,10 +232,14 @@ BOOL cg_mutex_unlock_trace(	const char *file,
 				const char *function,
 				CgMutex *mutex)
 {
-        pthread_t thid = pthread_self();
+        pthread_t thid;
         int found;
         CgLockInfo *temp, *ptemp;
 
+		if (!mutex)
+			return FALSE;
+
+        thid = pthread_self();
         pthread_mutex_lock(&tlt_mutex);
 
         found = 0;
@@ -287,6 +299,9 @@ BOOL cg_mutex_unlock_trace(	const char *file,
 #else
 BOOL cg_mutex_lock(CgMutex *mutex)
 {
+	if (!mutex)
+		return FALSE;
+
 	cg_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
@@ -314,6 +329,9 @@ BOOL cg_mutex_lock(CgMutex *mutex)
 
 BOOL cg_mutex_unlock(CgMutex *mutex)
 {
+	if (!mutex)
+		return FALSE;
+
 	cg_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
