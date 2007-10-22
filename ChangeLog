@@ -1,3 +1,12 @@
+2007-10-22  Aapo Makela <aapo.makela@nokia.com>
+	* Added deb-target to Makefile.am to build Debian packages
+	* Fixed copyright notices in source files to match the copyright defined in COPYING
+	* Added NULL check to cg_strtrimwhite()
+	* Added NULL checks and fixed memory leaks in cg_net_selectaddr() and cg_net_gethostinterfaces()
+	* Disabled "Expect" HTTP header because it causes IOP issues with some UPnP implementations.
+	* Added NULL check to cg_xml_node_getchildnode() macro
+	* Fixed Debian specific files and added debug package building
+
 2007-10-02  Satoshi Konno <skonno@cybergarage.org>
 	* Changed cg_thread_() to return FALSE when the specified object is null.
 	* Added cg_http_server_lock() and cg_http_server_unlock().

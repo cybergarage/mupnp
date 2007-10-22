@@ -526,6 +526,4 @@ sample/clock/Makefile
 sample/clock/unix/Makefile
 sample/upnpdump/Makefile
 sample/upnpdump/unix/Makefile
-testunit/Makefile
-testunit/unix/Makefile
 ])

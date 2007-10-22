@@ -7,14 +7,12 @@ docsdir = $(datadir)/doc/clinkc0
 EXTRA_DIST = debian/changelog \
 	debian/clinkc0.install \
 	debian/clinkc-dev.install \
-	debian/clinkc-tests.install \
-	debian/clinkcmaemo0.install \
-	debian/clinkcmaemo-tests.install \
 	debian/compat \
 	debian/control \
 	debian/copyright \
 	debian/rules \
-	debian/docs
+	debian/docs \
+	include/cybergarage/upnp/cupnp.h.in
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = clinkc.pc
@@ -32,3 +30,10 @@ nobase_devdocs_DATA = \
 
 doxygen/html/*:
 	cd $(srcdir) && doxygen Doxyfile
+
+deb: dist
+	-mkdir $(top_builddir)/debian-build
+	-cp $(top_builddir)/../$(PACKAGE)*.orig.tar.gz $(top_builddir)/debian-build/
+	cd $(top_builddir)/debian-build && tar zxf ../$(top_builddir)/$(PACKAGE)-$(VERSION).tar.gz
+	cd $(top_builddir)/debian-build/$(PACKAGE)-$(VERSION) && dpkg-buildpackage -rfakeroot -sa -D
+	-rm -rf $(top_builddir)/debian-build/$(PACKAGE)-$(VERSION)

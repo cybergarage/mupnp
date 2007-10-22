@@ -4,9 +4,9 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
-*       This is licensed under BSD-style license with patent exclusion,
+*       This is licensed under BSD-style license,
 *       see file COPYING.
 *
 *	File: cxml.h
@@ -15,6 +15,8 @@
 *
 *	02/07/05
 *		- first revision
+*	10/22/07 Aapo Makela
+*		- Added NULL check to cg_xml_node_getchildnode() macro
 *
 ******************************************************************/
 
@@ -152,7 +154,7 @@ char *cg_xml_node_getchildnodevalue(CgXmlNode *node, char *name);
 #define cg_xml_node_setuserdatadestructor(node, func) (node->userDataDestructorFunc = func)
 
 #define cg_xml_node_getchildnodes(node) cg_xml_nodelist_gets(node->nodeList)
-#define cg_xml_node_getchildnode(node,name) cg_xml_nodelist_get(node->nodeList,name)
+#define cg_xml_node_getchildnode(node,name) ((node != NULL) ? cg_xml_nodelist_get(node->nodeList,name) : NULL)
 #define cg_xml_node_haschildnodes(node) ((cg_xml_node_getchildnodes(node) != NULL) ? TRUE : FALSE) 
 
 /* Get childnode with some specific namespace prefix, or ignore namespace prefix.

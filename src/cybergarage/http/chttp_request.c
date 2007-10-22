@@ -4,9 +4,9 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
-*       This is licensed under BSD-style license with patent exclusion,
+*       This is licensed under BSD-style license,
 *       see file COPYING.
 *
 *	File: chttp_request.c
@@ -32,6 +32,8 @@
 *		-  Added a secure parameter to cg_http_request_post() when the compiler flag, CG_USE_OPENSSL,is enabled.
 *	06/13/07 Fabrice Fontaine Orange
 *		- Fixed a memory leak in cg_http_request_delete().
+*	10/22/07 Aapo Makela
+*		- Disable Expect header because it causes IOP issues.
 *
 ******************************************************************/
 
@@ -642,6 +644,8 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 		curlHeaderList = curl_slist_append(curlHeaderList, cg_string_getvalue(headerStr));
 	}
 	cg_string_delete(headerStr);
+	/* Disable Expect header because it causes IOP issues */
+	curlHeaderList = curl_slist_append(curlHeaderList, "Expect:");
 	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, curlHeaderList);
 
 	/**** content ****/

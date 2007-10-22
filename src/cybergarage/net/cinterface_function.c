@@ -4,9 +4,9 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
-*       This is licensed under BSD-style license with patent exclusion,
+*       This is licensed under BSD-style license,
 *       see file COPYING.
 *
 *	File: cinterface_function.cpp
@@ -30,6 +30,8 @@
 *		- Changed cg_net_gethostinterfaces() to get the MAC address using GetAdaptersInfo() as default on Windows platform.
 *		- Changed cg_net_gethostinterfaces() to get the MAC address using getifaddrs() on UNIX platform.
 *		   Note : Other platforms might not support to get this functions yet. 
+*	10/22/07 Aapo Makela
+*		- Added NULL checks and fixed memory leaks in cg_net_selectaddr() and cg_net_gethostinterfaces()
 *
 ******************************************************************/
 
@@ -395,6 +397,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	
 	for (i = ifaddr; i != NULL; i = i->ifa_next) {
 
+		if(i->ifa_addr == NULL || i->ifa_netmask == NULL) continue;
 		// Thanks for Tobias.Gansen (01/15/06)
 		if(i->ifa_addr->sa_family != AF_INET)
 			continue;
@@ -689,6 +692,8 @@ char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 
 	for ( ifaddr = ifaddrs; NULL != ifaddr; ifaddr = ifaddr->ifa_next )
 	{
+		if (ifaddr->ifa_addr == NULL)
+			continue;
 		if (!(ifaddr->ifa_flags & IFF_UP))
 			continue;
 		if (ifaddr->ifa_flags & IFF_LOOPBACK)
@@ -732,10 +737,16 @@ char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 	freeifaddrs(ifaddrs);
 
 	if ( NULL != address_candidate )
+	{
+		if ( NULL != auto_ip_address_candidate ) free(auto_ip_address_candidate);
 		return address_candidate;
+	}
 
 	if ( NULL != auto_ip_address_candidate )
+	{
+		if ( NULL != address_candidate ) free(address_candidate);
 		return auto_ip_address_candidate;
+	}
 
 	/* Starting to feel desperate and returning local address.*/
 

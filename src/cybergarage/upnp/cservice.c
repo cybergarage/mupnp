@@ -4,9 +4,9 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
-*       This is licensed under BSD-style license with patent exclusion,
+*       This is licensed under BSD-style license,
 *       see file COPYING.
 *
 *	File: cservice.c
@@ -35,6 +35,8 @@
 *		- Removed cg_upnp_service_isname() and _getname() because
 *		  according to UPnP specs, services have only types, not names
 *
+*	22-Oct-07 Aapo Makela
+*		- Fixed memory leak (free location_str in cg_upnp_service_mangleurl())
 ******************************************************************/
 
 #include <cybergarage/upnp/cservice.h>
@@ -1189,7 +1191,7 @@ CgUpnpSubscriber *cg_upnp_service_getsubscriberbysid(CgUpnpService *service, cha
 static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 {
 	char *gen_url_str = cg_xml_node_getchildnodevalue(cg_upnp_service_getservicenode(service), type);
-	char *location_str;
+	char *location_str = NULL;
 	CgNetURL *genURL = cg_net_url_new();
 	CgUpnpDevice *rootDev;
 
@@ -1258,7 +1260,10 @@ static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 
 	location_str = cg_net_url_getupnpbasepath(genURL);
 
-        cg_net_url_setpath(genURL, location_str);
+	if (location_str) {
+		cg_net_url_setpath(genURL, location_str);
+		free(location_str); location_str = NULL;
+	}
 
 	{
 		CgNetURL *temp = cg_net_url_new();
@@ -1275,8 +1280,6 @@ static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 
 		cg_net_url_delete(temp);
 	}
-
-	free(location_str);
 
 	cg_log_debug_s("Mangled URL: %s\n", cg_net_url_getrequest(genURL));
 
