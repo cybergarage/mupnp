@@ -4,9 +4,9 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
-*       This is licensed under BSD-style license with patent exclusion,
+*       This is licensed under BSD-style license,
 *       see file COPYING.
 *
 *	File: csubscriber_list.c
@@ -17,6 +17,8 @@
 *		- first revision
 *	04/03/06
 *		- added search for SID 
+*	10/22/07 Aapo Makela
+*		- Fixed search for SID
 *	
 ******************************************************************/
 
@@ -78,7 +80,7 @@ CgUpnpSubscriber *cg_upnp_subscriberlist_get(CgUpnpSubscriberList *subscriberLis
 	
 	uuidIdx = cg_strstr(sid, CG_UPNP_ST_UUID_DEVICE);
 	if (0 <= uuidIdx)
-		sid += cg_strlen(CG_UPNP_ST_UUID_DEVICE) + 1;
+		sid += (uuidIdx + cg_strlen(CG_UPNP_ST_UUID_DEVICE) + 1);
 
 	for (sub = cg_upnp_subscriberlist_gets(subscriberList); sub != NULL; sub = cg_upnp_subscriber_next(sub)) {
 		if (cg_streq(sid, cg_upnp_subscriber_getsid(sub)) == TRUE)

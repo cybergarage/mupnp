@@ -31,15 +31,15 @@ Description: CyberLink for C UPnP library
  This package contains the dynamically loadable library needed by 
  applications which use CyberLinkC for C.
 
-Package: clinkc-tests
+Package: clinkc0-dbg
 Section: libs
 Architecture: any
-Depends: clinkc0
-Description: Test applications for CyberLink for C UPnP library
+Depends: clinkc0 (= ${Source-Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: CyberLink for C UPnP library
  CyberLink for C is a toolkit for creating UPnP devices and control points. 
  Main features are automatic discovery, search, expiration handling and 
  different controlling methods for UPnP control points and advertizing and 
  eventing for UPnP devices.
  .
- This package contains a set of programs that can be used to test CyberLink 
- for C UPnP library and other programs that are using it.
+ This package contains the debug symbols for the actual library.
+

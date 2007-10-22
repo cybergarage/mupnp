@@ -4,9 +4,9 @@
 *
 * Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
-*       This is licensed under BSD-style license with patent exclusion,
+*       This is licensed under BSD-style license,
 *       see file COPYING.
 *
 * File: cstring_function.c
@@ -23,6 +23,8 @@
 * 03/18/07
 *  - Changed the following functions to use CgInt64.
 *    cg_longlong2str()
+* 10/22/07 Aapo Makela
+*  - Added NULL check to cg_strtrimwhite()
 *
 ******************************************************************/
 
@@ -280,6 +282,7 @@ char *cg_strtrimwhite(char *str)
 {
 	int strLen, i;
 	strLen = cg_strlen(str);
+	if (strLen == 0) return str;
 	for (i=(strLen-1); 0<=i; i--) {
 		if (isspace(str[i])) {
 			strLen--;

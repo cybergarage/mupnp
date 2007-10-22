@@ -6,7 +6,7 @@
 *
 *       Copyright (C) 2006 Nokia Corporation. All rights reserved.
 *
-*       This is licensed under BSD-style license with patent exclusion,
+*       This is licensed under BSD-style license,
 *       see file COPYING.
 *
 *	File: cssdp.h
