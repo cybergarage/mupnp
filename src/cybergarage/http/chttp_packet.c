@@ -38,6 +38,8 @@
 *		- Changed the following functions to use CgInt64.
 *		  cg_http_packet_setheaderlonglong()
 *		  cg_http_packet_getheaderlonglong()
+*	11/16\07  Satoshi Konno <skonno@cybergarage.org>
+*		- Fixed cg_http_packet_read_body()not to lost data when the response packet is huge.
 *
 ******************************************************************/
 
@@ -462,7 +464,9 @@ BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineB
 		while (readLen < conLen && tries < 20)
 		{
 			readLen += cg_socket_read(sock, (content+readLen), (conLen-readLen));
-			tries++;
+			/* Fixed to increment the counter only when cg_socket_read() doesn't read data */
+			if (readLen <= 0)
+				tries++;
 		}
 		
 		if (readLen <= 0)

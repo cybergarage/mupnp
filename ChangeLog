@@ -1,3 +1,6 @@
+2007-11-16  Satoshi Konno <skonno@cybergarage.org>
+	* Fixed cg_http_packet_read_body()not to lost data when the response packet is huge.
+
 2007-10-22  Aapo Makela <aapo.makela@nokia.com>
 	* Added deb-target to Makefile.am to build Debian packages
 	* Fixed copyright notices in source files to match the copyright defined in COPYING
