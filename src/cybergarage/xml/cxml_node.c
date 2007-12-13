@@ -4,7 +4,7 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
 *       This is licensed under BSD-style license,
 *       see file COPYING.
@@ -15,6 +15,8 @@
 *
 *	02/07/05
 *		- first revision
+*	12/13/07 Aapo Makela
+*		- Fixes to work in out-of-memory situations
 *
 ******************************************************************/
 
@@ -255,18 +257,27 @@ static char *cg_xml_node_attribute_tostring(CgXmlNode *node, CgString *str)
 	cg_log_debug_l4("Entering...\n");
 
 	valueStr = cg_string_new();
+	if (valueStr == NULL) return NULL;
+
 	for (attr = cg_xml_node_getattributes(node); attr != NULL; attr = cg_xml_attribute_next(attr)) {
 		name = cg_xml_attribute_getname(attr);
 		value = cg_xml_attribute_getvalue(attr);
 		
 		cg_string_setvalue(valueStr, value);
 		cg_xml_escapechars(valueStr);
-		
-		cg_string_addvalue(str, " ");
-		cg_string_addvalue(str, name);
-		cg_string_addvalue(str, "=\"");
-		cg_string_addvalue(str, cg_string_getvalue(valueStr));
-		cg_string_addvalue(str, "\"");
+
+		/* All the following functions return NULL only when memory 
+		   allocation fails, so we can check them all */
+		if (!cg_string_naddvalue(str, " ", 1) || 
+		    !cg_string_addvalue(str, name) ||
+		    !cg_string_naddvalue(str, "=\"", 2) ||
+		    !cg_string_addvalue(str, cg_string_getvalue(valueStr)) ||
+		    !cg_string_naddvalue(str, "\"", 1))
+		{
+			/* Memory allocation failed */
+			cg_string_delete(valueStr);
+			return NULL;
+		}
 	}
 	cg_string_delete(valueStr);
 	return cg_string_getvalue(str);
@@ -292,48 +303,59 @@ static char *cg_xml_node_tostring_indent(CgXmlNode *node, int indentLevel, BOOL 
 
 	if (cg_xml_node_haschildnodes(node) == FALSE || withChildNode == FALSE) {
 		cg_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
-		cg_string_addvalue(str, "<");
-		cg_string_addvalue(str, name);
+		if (!cg_string_naddvalue(str, "<", 1) ||
+		    !cg_string_addvalue(str, name) ||
+		    !cg_xml_node_attribute_tostring(node, str))
+			/* Memory allocation failed */
+			return NULL;
 		
-		cg_xml_node_attribute_tostring(node, str);
-		/*
-		if (cg_strlen(value) <= 0) {
-			cg_string_addvalue(str, " />");
-			return cg_string_getvalue(str);
-		}
-		*/
 		valueStr = cg_string_new();
+		if (!valueStr)
+			/* Memory allocation failed */
+			return NULL;
+		
 		cg_string_setvalue(valueStr, value);
 		cg_xml_escapechars(valueStr);
-	
-		cg_string_addvalue(str, ">");
-		cg_string_addvalue(str, cg_string_getvalue(valueStr));
-		cg_string_addvalue(str, "</");
-		cg_string_addvalue(str, name);
-		cg_string_addvalue(str, ">");
-		cg_string_addvalue(str, "\n");
-		
+
+		if (!cg_string_naddvalue(str, ">", 1) ||
+		    !cg_string_addvalue(str, cg_string_getvalue(valueStr)) ||
+		    !cg_string_naddvalue(str, "</", 2) ||
+		    !cg_string_addvalue(str, name) ||
+		    !cg_string_naddvalue(str, ">", 1) ||
+		    !cg_string_addvalue(str, "\n"))
+		{
+			/* Memory allocation failed */
+			cg_string_delete(valueStr);
+			return NULL;
+		}
+
 		cg_string_delete(valueStr);
 		
 		return cg_string_getvalue(str);
 	}
 
 	cg_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
-	cg_string_addvalue(str, "<");
-	cg_string_addvalue(str, name);
-	cg_xml_node_attribute_tostring(node, str);
-	cg_string_addvalue(str, ">");
-	cg_string_addvalue(str, "\n");
+	if (!cg_string_naddvalue(str, "<", 1) ||
+	    !cg_string_addvalue(str, name) ||
+	    !cg_xml_node_attribute_tostring(node, str) ||
+	    !cg_string_naddvalue(str, ">", 1) ||
+	    !cg_string_addvalue(str, "\n"))
+		/* Memory allocation failed */
+		return NULL;
 
 	for (childNode = cg_xml_node_getchildnodes(node); childNode != NULL; childNode = cg_xml_node_next(childNode))
-		cg_xml_node_tostring_indent(childNode, indentLevel+1, TRUE, str);
+		if (!cg_xml_node_tostring_indent(childNode, indentLevel+1, TRUE, str))
+			/* Memory allocation failed */
+			return NULL;
 
 	cg_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
-	cg_string_addvalue(str, "</");
-	cg_string_addvalue(str, name);
-	cg_string_addvalue(str, ">");
-	cg_string_addvalue(str, "\n");
-	
+	if (!cg_string_naddvalue(str, "</", 2) ||
+	    !cg_string_addvalue(str, name) ||
+	    !cg_string_naddvalue(str, ">", 1) ||
+	    !cg_string_addvalue(str, "\n"))
+		/* Memory allocation failed */
+		return NULL;
+
 	return cg_string_getvalue(str);
 
 	cg_log_debug_l4("Leaving...\n");

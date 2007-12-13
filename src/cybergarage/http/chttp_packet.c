@@ -4,7 +4,7 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
 *       This is licensed under BSD-style license,
 *       see file COPYING.
@@ -40,6 +40,8 @@
 *		  cg_http_packet_getheaderlonglong()
 *	11/16\07  Satoshi Konno <skonno@cybergarage.org>
 *		- Fixed cg_http_packet_read_body()not to lost data when the response packet is huge.
+*	12/13/07  Aapo makela <aapo.makela@nokia.com>
+*		- Fix to cg_http_packet_sethost() not to crash in out-of-memory situation
 *
 ******************************************************************/
 
@@ -267,6 +269,10 @@ void cg_http_packet_sethost(CgHttpPacket *httpPkt, char *addr, int port)
 
 	hostMaxLen = cg_strlen(addr) + CG_NET_IPV6_ADDRSTRING_MAXSIZE + CG_STRING_INTEGER_BUFLEN;
 	host = malloc(sizeof(char) * hostMaxLen);
+
+	if (host == NULL)
+		/* Memory allocation failure */
+		return;
 
 #if defined(HAVE_SNPRINTF)
 	if (0 < port && port != CG_HTTP_DEFAULT_PORT) {

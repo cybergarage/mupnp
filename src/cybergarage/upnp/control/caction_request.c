@@ -4,7 +4,7 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
 *       This is licensed under BSD-style license,
 *       see file COPYING.
@@ -18,10 +18,12 @@
 *	10/31/05
 *		- Thanks for Smolander Visa <visa.smolander@nokia.com>
 *		- Changed cg_upnp_control_action_request_createactionnode() to use the namespace.
-*
 *	10/31/05
 *		- Fixed not to include output-args in action request
 *		- Fixed some namespace stuff during merge
+*	12/13/07 Aapo Makela
+*		- Fixes to work in out-of-memory situations
+*
 ******************************************************************/
 
 #include <cybergarage/upnp/control/ccontrol.h>

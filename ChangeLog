@@ -1,3 +1,8 @@
+2007-12-13  Aapo Makela <aapo.makela@nokia.com>
+	* Multiple patches to fix crashes in out-of-memory situations
+	* Implemented more efficient reallocation policy in CgString
+	* Added proper control point locking in control point HTTP server
+
 2007-11-16  Satoshi Konno <skonno@cybergarage.org>
 	* Fixed cg_http_packet_read_body()not to lost data when the response packet is huge.
 

@@ -34,6 +34,8 @@
 *		- Fixed a memory leak in cg_http_request_delete().
 *	10/22/07 Aapo Makela
 *		- Disable Expect header because it causes IOP issues.
+*	12/13/07 Aapo Makela
+*		- Fixes to work in out-of-memory situations
 *
 ******************************************************************/
 
@@ -637,11 +639,10 @@ CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int p
 	curlHeaderList = NULL;
 	headerStr = cg_string_new();
 	for (reqHeader = cg_http_request_getheaders(httpReq); reqHeader; reqHeader = cg_http_header_next(reqHeader)) {
-		cg_string_clear(headerStr);
-		cg_string_addvalue(headerStr, cg_http_header_getname(reqHeader));
-		cg_string_addvalue(headerStr, CG_HTTP_COLON CG_HTTP_SP);
-		cg_string_addvalue(headerStr, cg_http_header_getvalue(reqHeader));
-		curlHeaderList = curl_slist_append(curlHeaderList, cg_string_getvalue(headerStr));
+		cg_string_setvalue(headerStr, cg_http_header_getname(reqHeader));
+		if (cg_string_addvalue(headerStr, CG_HTTP_COLON CG_HTTP_SP) &&
+		    cg_string_addvalue(headerStr, cg_http_header_getvalue(reqHeader)))
+			curlHeaderList = curl_slist_append(curlHeaderList, cg_string_getvalue(headerStr));
 	}
 	cg_string_delete(headerStr);
 	/* Disable Expect header because it causes IOP issues */

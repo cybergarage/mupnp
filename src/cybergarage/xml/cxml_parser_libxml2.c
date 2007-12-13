@@ -4,7 +4,7 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
 *       This is licensed under BSD-style license,
 *       see file COPYING.
@@ -20,13 +20,13 @@
 *       09/07/05
 *               - Thanks for  Smolander Visa <visa.smolander@nokia.com>
 *               - Fixed some bugs to parser name spaces.
-*
 *       10/31/05
 *               - Added performance measurement functionality under
 *                 CG_SHOW_TIMINGS macro (not enabled by default)
-*
 *	11/18/05
 *		- Fixed to use SAX parser and parse predefined XML entities
+*	12/13/07 Aapo Makela
+*		- Fixes to work in out-of-memory situations
 *
 ******************************************************************/
 
@@ -129,6 +129,13 @@ static void cg_libxml2_start_element(void *user_data,
 	libxml2Data = (CgLibxml2Data *)user_data;
 
 	node = cg_xml_node_new();
+	if (node == NULL)
+	{
+		/* Memory allocation failed */
+		libxml2Data->currNode = NULL;
+		return;
+	}
+
 	cg_xml_node_setname(node, (char *)name);
 
 	if (attrs != NULL)

@@ -4,7 +4,7 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
 *       This is licensed under BSD-style license,
 *       see file COPYING.
@@ -15,9 +15,10 @@
 *
 *	07/07/05
 *		- first revision
-*
-*	15-Jan-06 Aapo Makela
+*	01/15/06 Aapo Makela
 *		- Modified to resubscribe, if event is missed
+*	12/13/07 Aapo Makela
+*		- Added proper locking for the control point
 *
 ******************************************************************/
 
@@ -49,12 +50,13 @@ void cg_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq)
 	long timeout = 0;
 	CgUpnpDevice *dev = NULL;
 	CgUpnpService *service = NULL;
+	int notifyListeners = 0;
 	
 	cg_log_debug_l4("Entering...\n");
 
 	ctrlPoint = (CgUpnpControlPoint *)cg_http_request_getuserdata(httpReq);
-		
-	eventListeners = cg_upnp_controlpoint_geteventlisteners(ctrlPoint);
+
+	cg_upnp_controlpoint_lock(ctrlPoint);
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 	if (cg_http_request_isnotifyrequest(httpReq) == TRUE) {	
@@ -83,7 +85,6 @@ void cg_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq)
 				timeout = cg_upnp_service_getsubscriptiontimeout(service);
 				cg_upnp_controlpoint_unsubscribe(ctrlPoint, service);
 				cg_upnp_controlpoint_subscribe(ctrlPoint, service, timeout);
-				
 			} else {
 				/* Wrap seq, so that assertion is true next time */
 				if (seq == CG_UPNP_EVENT_MAX_SEQ) seq = 0;
@@ -91,6 +92,7 @@ void cg_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq)
 				/* Set event key */
 				cg_upnp_service_seteventkey(service, seq);
 				
+				notifyListeners = 1;
 				propList = cg_upnp_event_notify_request_getpropertylist(notifyReq); 
 				for (prop=cg_upnp_propertylist_gets(propList); 
 				     prop != NULL; 
@@ -98,13 +100,23 @@ void cg_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq)
 				{
 					/* Update the service's state table from the event */
 					cg_upnp_controlpoint_updatestatetablefromproperty(service, prop);
-					
-					/* Notify listeners */
-					cg_upnp_eventlistenerlist_notify(eventListeners, prop);
-				}	
+				}
 			}
 		}
-		
+		eventListeners = cg_upnp_controlpoint_geteventlisteners(ctrlPoint);
+		cg_upnp_controlpoint_unlock(ctrlPoint);
+
+		if (notifyListeners && propList != NULL) 
+		{
+			/* Notify listeners out of control point lock */
+			for (prop=cg_upnp_propertylist_gets(propList); 
+			     prop != NULL; 
+			     prop = cg_upnp_property_next(prop)) 
+			{
+				cg_upnp_eventlistenerlist_notify(eventListeners, prop);
+			}
+		}
+
 		cg_upnp_event_notify_request_delete(notifyReq);
 		cg_http_request_postokrequest(httpReq);
 		
@@ -112,6 +124,7 @@ void cg_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq)
 	}
 #endif
 	
+	cg_upnp_controlpoint_unlock(ctrlPoint);
 	cg_http_request_postbadrequest(httpReq);
 
 	cg_log_debug_l4("Leaving...\n");

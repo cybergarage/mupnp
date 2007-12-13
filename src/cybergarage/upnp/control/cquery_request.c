@@ -43,9 +43,23 @@ CgUpnpQueryRequest *cg_upnp_control_query_request_new()
 	if ( NULL != queryReq )
 	{	
 		queryReq->soapReq = cg_soap_request_new();
+		if (queryReq->soapReq == NULL) 
+		{
+			/* Memory allocation failed */
+			free(queryReq);
+			return NULL;
+		}
+
 		queryReq->isSoapReqCreated = TRUE;
 		
 		queryReq->queryRes = cg_upnp_control_query_response_new();
+		if (queryReq->queryRes == NULL)
+		{
+			/* Memory allocation failed */
+			cg_soap_request_delete(queryReq->soapReq);
+			free(queryReq);
+			return NULL;
+		}
 	}
 		
 	return queryReq;
