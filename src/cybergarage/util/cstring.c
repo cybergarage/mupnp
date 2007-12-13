@@ -4,7 +4,7 @@
 *
 *	Copyright (C) Satoshi Konno 2005
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
 *
 *       This is licensed under BSD-style license,
 *       see file COPYING.
@@ -15,6 +15,9 @@
 *
 *	01/25/05
 *		- first revision
+*	12/13/07 Aapo Makela
+*		- Changed memory reallocation policy to more efficient
+*		- Fix crashes in out-of-memory situations
 *
 ******************************************************************/
 
@@ -22,6 +25,10 @@
 #include <cybergarage/util/clog.h>
 
 #include <string.h>
+
+/* Define amount of extra characters allocated on each realloc, with this we
+   can avoid many small subsequent reallocs, which takes lots of time */
+#define CG_STRING_REALLOC_EXTRA		16
 
 /****************************************
 * cg_string_new
@@ -90,7 +97,6 @@ void cg_string_setvalue(CgString *str, char *value)
 	if (str == NULL)
 		return;
 
-	cg_string_clear(str);
 	if (value != NULL)
 		cg_string_setnvalue(str, value, cg_strlen(value));
 
@@ -242,18 +248,37 @@ char *cg_string_addvalue(CgString *str, char *value)
 char *cg_string_naddvalue(CgString *str, char *value, int valueLen)
 {
 	cg_log_debug_l5("Entering...\n");
+	char *newValue = NULL;
+	int newMemSize = 0;
 
-	if (str == NULL || value == NULL || valueLen <= 0)
+	if (str == NULL) return NULL;
+
+	if (value == NULL || valueLen <= 0)
 	{
-		/* Invalid parameters */
-		return NULL;
+		/* Empty string, nothing to add */
+		return cg_string_getvalue(str);
 	}
 
-	/* Need to allocate memory for the new data */
-	str->memSize = str->valueSize + valueLen + 1;
-	str->value = realloc(str->value, str->memSize * sizeof(char));
-	
-	/* memcpy works better with non-zero-terminated data than strncpy */
+	/* Check, if we need to allocate memory for the new data */
+	newMemSize = str->valueSize + valueLen + 1;
+	if (newMemSize > str->memSize || str->value == NULL)
+	{
+		/* realloc also some extra in order to avoid multiple reallocs */
+		newMemSize += CG_STRING_REALLOC_EXTRA;
+		newValue = realloc(str->value, newMemSize * sizeof(char));
+
+		if (newValue == NULL)
+		{
+			/* Memory allocation failed, bail out */
+			return NULL;
+		}
+
+		str->memSize = newMemSize;
+		str->value = newValue;
+	}
+
+	/* memcpy works better with non-zero-terminated data
+	   than strncpy */
 	memcpy(str->value + str->valueSize, value, valueLen);
 
 	str->valueSize += valueLen;
