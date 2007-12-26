@@ -247,9 +247,10 @@ char *cg_string_addvalue(CgString *str, char *value)
 
 char *cg_string_naddvalue(CgString *str, char *value, int valueLen)
 {
-	cg_log_debug_l5("Entering...\n");
 	char *newValue = NULL;
 	int newMemSize = 0;
+
+	cg_log_debug_l5("Entering...\n");
 
 	if (str == NULL) return NULL;
 

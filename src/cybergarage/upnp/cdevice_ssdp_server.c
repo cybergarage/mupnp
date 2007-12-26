@@ -148,7 +148,7 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 		if (cg_streq(ssdpST, devUDN) == TRUE)
 			cg_upnp_device_postsearchresponse(dev, ssdpPkt, devUDN, devUDN);
 	}
-	else if (cg_upnp_st_isurndevice(ssdpST)  == TRUE) {
+	else if (cg_upnp_st_isurn(ssdpST)  == TRUE) {
 		devType = cg_upnp_device_getdevicetype(dev);
 		if (cg_streq(ssdpST, devType) == TRUE) {
 			cg_upnp_device_getnotifydevicetypeusn(dev, deviceUSN, sizeof(deviceUSN));

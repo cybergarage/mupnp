@@ -173,10 +173,8 @@ BOOL cg_upnp_subscriber_isexpired(CgUpnpSubscriber *sub)
  * @param statVar The evented state variable
  * @return TRUE if succesful; otherwise FALSE
  */
-BOOL cg_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statVar)
+static BOOL cg_upnp_subscriber_notifymain(CgUpnpSubscriber *sub, CgUpnpService *service, CgUpnpStateVariable *statVar)
 {
-	char *varName;
-	char *varValue;
 	char *host;
 	int port;
 	CgUpnpNotifyRequest *notifyReq;
@@ -185,14 +183,11 @@ BOOL cg_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statV
 	
 	cg_log_debug_l4("Entering...\n");
 
-	varName = cg_upnp_statevariable_getname(statVar);
-	varValue = cg_upnp_statevariable_getvalue(statVar);
-
 	host = cg_upnp_subscriber_getdeliveryhost(sub);
 	port = cg_upnp_subscriber_getdeliveryport(sub);
 
 	notifyReq = cg_upnp_event_notify_request_new();
-	cg_upnp_event_notify_request_setpropertysetnode(notifyReq, sub, statVar);
+	cg_upnp_event_notify_request_setpropertysetnode(notifyReq, sub, service, statVar);
 	notifyRes = cg_upnp_event_notify_request_post(notifyReq, host, port);
 	notifySuccess = cg_upnp_event_notify_response_issuccessful(notifyRes);
 	cg_upnp_event_notify_request_delete(notifyReq);
@@ -205,6 +200,30 @@ BOOL cg_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statV
 	cg_log_debug_l4("Leaving...\n");
 
 	return TRUE;
+}
+
+/**
+ * Post a notification to an event subscriber. This is called in a device.
+ *
+ * @param sub The event subscriber
+ * @param statVar The evented state variable
+ * @return TRUE if succesful; otherwise FALSE
+ */
+BOOL cg_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statVar)
+{
+	return cg_upnp_subscriber_notifymain(sub, NULL, statVar);
+}
+
+/**
+ * Post a notification to an event subscriber. This is called in a device.
+ *
+ * @param sub The event subscriber
+ * @param service The evented service
+ * @return TRUE if succesful; otherwise FALSE
+ */
+BOOL cg_upnp_subscriber_notifyall(CgUpnpSubscriber *sub, CgUpnpService *service)
+{
+	return cg_upnp_subscriber_notifymain(sub, service, NULL);
 }
 
 /****************************************

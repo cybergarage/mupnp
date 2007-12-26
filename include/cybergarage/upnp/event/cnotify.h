@@ -211,7 +211,7 @@ void cg_upnp_event_notify_request_setsid(CgUpnpNotifyRequest *soapReq, char *sid
 /** 
  * \todo Check what this does exactly...
  */
-BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notifyReq, CgUpnpSubscriber *sub, CgUpnpStateVariable *statVar);
+BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notifyReq, CgUpnpSubscriber *sub, /* CgUpnpService */void *service, CgUpnpStateVariable *statVar);
 
 /****************************************
 * Function (Response)

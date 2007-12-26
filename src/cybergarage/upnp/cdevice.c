@@ -1829,20 +1829,22 @@ CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, char *ur
 		return NULL;
 			
 	for (service=cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) {
-		cg_log_debug_s("<%s> == <%s> ?\n", url, cg_net_url_getrequest(cg_upnp_service_getcontrolurl(service)));
+		/* cg_log_debug_s("<%s> == <%s> ?\n", url, cg_net_url_getrequest(cg_upnp_service_getcontrolurl(service))); */
 		/* MODIFICATION Fabrice Fontaine Orange 23/04/07
 		if (cg_strstr(cg_net_url_getrequest(cg_upnp_service_getcontrolurl(service)), url) != -1)*/
 		/* Memory leak correction : cg_upnp_service_getcontrolurl return a malloc */
 		/* structure, this structure must be freed after use */
 		service_url=cg_upnp_service_getcontrolurl(service);
-		if (cg_strstr(cg_net_url_getrequest(service_url), url) != -1)
-		{
+		if (service_url) {
+			if (cg_strstr(cg_net_url_getrequest(service_url), url) != -1)
+			{
+				cg_net_url_delete(service_url);
+			/* MODIFICATION END Fabrice Fontaine Orange 23/04/07 */
+				return service;
+			/* ADD Fabrice Fontaine Orange 23/04/07 */
+			}
 			cg_net_url_delete(service_url);
-		/* MODIFICATION END Fabrice Fontaine Orange 23/04/07 */
-			return service;
-		/* ADD Fabrice Fontaine Orange 23/04/07 */
 		}
-		cg_net_url_delete(service_url);
 		/* ADD END Fabrice Fontaine Orange 23/04/07 */	
 	}
 		
