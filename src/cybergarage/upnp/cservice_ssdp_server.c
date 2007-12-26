@@ -50,7 +50,7 @@ void cg_upnp_service_ssdpmessagereceived(CgUpnpService *service, CgUpnpSSDPPacke
 	if (cg_upnp_st_isalldevice(ssdpST) == TRUE) {
 			cg_upnp_device_postsearchresponse(dev, ssdpPkt, serviceNT, serviceUSN);
 	}
-	else if (cg_upnp_st_isurnservice(ssdpST)  == TRUE) {
+	else if (cg_upnp_st_isurn(ssdpST)  == TRUE) {
 		serviceType = cg_upnp_service_getservicetype(service);
 		if (cg_streq(ssdpST, serviceType) == TRUE)
 			cg_upnp_device_postsearchresponse(dev, ssdpPkt, serviceType, serviceUSN);

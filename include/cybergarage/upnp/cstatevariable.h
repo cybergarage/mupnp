@@ -294,9 +294,17 @@ void cg_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar, Cg
  * Set state variable value
  *
  * @param statVar State variable
- * @param data New value associated with this state variable
+ * @param data New value associated with this state variable, and the value is send to other devices which subscribe the service.
  */
 void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, char *data);
+
+/**
+ * Set state variable value
+ *
+ * @param statVar State variable
+ * @param data New value associated with this state variable
+ */
+void cg_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, char *data);
 
 /**
  * Get value associated with this state variable

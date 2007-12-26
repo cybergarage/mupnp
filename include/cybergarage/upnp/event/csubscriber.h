@@ -250,6 +250,15 @@ BOOL cg_upnp_subscriber_isexpired(CgUpnpSubscriber *sub);
  */
 BOOL cg_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statVar);
 
+/**
+ * Post a notification to an event subscriber. This is called in a device.
+ *
+ * @param sub The event subscriber
+ * @param service The evented service
+ * @return TRUE if succesful; otherwise FALSE
+ */
+BOOL cg_upnp_subscriber_notifyall(CgUpnpSubscriber *sub, void *service);
+
 /****************************************
 * Function (SubscriberList)
 ****************************************/

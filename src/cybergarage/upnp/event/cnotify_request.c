@@ -36,7 +36,7 @@
 * Static Function Prototype
 ****************************************/
 
-static CgXmlNode *cg_upnp_event_notify_request_createpropertysetnode(CgUpnpStateVariable *statVar);
+static CgXmlNode *cg_upnp_event_notify_request_createpropertysetnode(CgUpnpService* service, CgUpnpStateVariable *statVar);
 
 #define cg_upnp_event_notify_request_getpropertylistonly(notifyReq) ((CgUpnpPropertyList *)cg_soap_request_getuserdata(notifyReq))
 
@@ -56,9 +56,9 @@ CgUpnpNotifyRequest *cg_upnp_event_notify_request_new()
 	propList = cg_upnp_propertylist_new();
 	cg_upnp_event_notify_request_setpropertylist(notifyReq, propList);
 
-	return notifyReq;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return notifyReq;
 }
 
 /****************************************
@@ -116,7 +116,7 @@ void cg_upnp_event_notify_request_setsid(CgUpnpNotifyRequest *soapReq, char *sid
 * cg_upnp_event_notify_request_setpropertysetnode
 ****************************************/
 
-BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notifyReq, CgUpnpSubscriber *sub, CgUpnpStateVariable *statVar)
+BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notifyReq, CgUpnpSubscriber *sub, CgUpnpService* service, CgUpnpStateVariable *statVar)
 {
 	CgHttpRequest *httpReq;	
 	CgXmlNode *propSetNode;
@@ -133,20 +133,20 @@ BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notify
 	cg_upnp_event_notify_request_setsid(notifyReq, cg_upnp_subscriber_getsid(sub));
 	cg_upnp_event_notify_request_setseq(notifyReq, cg_upnp_subscriber_getnotifycount(sub));
 
-	propSetNode = cg_upnp_event_notify_request_createpropertysetnode(statVar);
+	propSetNode = cg_upnp_event_notify_request_createpropertysetnode(service, statVar);
 	cg_soap_request_setcontent(notifyReq, propSetNode);
 	cg_xml_node_delete(propSetNode);
 
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
 * cg_upnp_event_notify_request_createpropertysetnode
 ****************************************/
 
-static CgXmlNode *cg_upnp_event_notify_request_createpropertysetnode(CgUpnpStateVariable *statVar)
+static CgXmlNode *cg_upnp_event_notify_request_createpropertysetnode(CgUpnpService* service, CgUpnpStateVariable *statVar)
 {
 	CgXmlNode *propSetNode;
 	CgXmlNode *propNode;
@@ -158,18 +158,44 @@ static CgXmlNode *cg_upnp_event_notify_request_createpropertysetnode(CgUpnpState
 	cg_xml_node_setname(propSetNode, CG_UPNP_NOTIFY_XMLNS CG_SOAP_DELIM CG_UPNP_NOTIFY_PROPERTYSET);
 	cg_xml_node_setnamespace(propSetNode, CG_UPNP_NOTIFY_XMLNS, CG_UPNP_SUBSCRIPTION_XMLNS);
 	
-	propNode = cg_xml_node_new();
-	cg_xml_node_setname(propNode, CG_UPNP_NOTIFY_XMLNS CG_SOAP_DELIM CG_UPNP_NOTIFY_PROPERTY);
-	cg_xml_node_addchildnode(propSetNode, propNode);
-	
-	varNode = cg_xml_node_new();
-	cg_xml_node_setname(varNode, cg_upnp_statevariable_getname(statVar));
-	cg_xml_node_setvalue(varNode, cg_upnp_statevariable_getvalue(statVar));
-	cg_xml_node_addchildnode(propNode, varNode);
-	
-	return propSetNode;
+	if (service) {
+		for (statVar = cg_upnp_service_getstatevariables(service); statVar != NULL; statVar = cg_upnp_statevariable_next(statVar)) {
+			if (!cg_upnp_statevariable_issendevents(statVar))
+				continue;
+			propNode = cg_xml_node_new();
+			if (!propNode)
+				continue;
+			cg_xml_node_setname(propNode, CG_UPNP_NOTIFY_XMLNS CG_SOAP_DELIM CG_UPNP_NOTIFY_PROPERTY);
+			cg_xml_node_addchildnode(propSetNode, propNode);
+			varNode = cg_xml_node_new();
+			if (!varNode) {
+				cg_xml_node_delete(propNode);
+				continue;
+			}
+			cg_xml_node_setname(varNode, cg_upnp_statevariable_getname(statVar));
+			cg_xml_node_setvalue(varNode, cg_upnp_statevariable_getvalue(statVar));
+			cg_xml_node_addchildnode(propNode, varNode);
+		}
+	}
+	else if (statVar) {
+		propNode = cg_xml_node_new();
+		if (propNode) {
+			cg_xml_node_setname(propNode, CG_UPNP_NOTIFY_XMLNS CG_SOAP_DELIM CG_UPNP_NOTIFY_PROPERTY);
+			cg_xml_node_addchildnode(propSetNode, propNode);
+			varNode = cg_xml_node_new();
+			if (varNode) {
+				cg_xml_node_setname(varNode, cg_upnp_statevariable_getname(statVar));
+				cg_xml_node_setvalue(varNode, cg_upnp_statevariable_getvalue(statVar));
+				cg_xml_node_addchildnode(propNode, varNode);
+			}
+			else
+				cg_xml_node_delete(propNode);
+		}
+	}
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return propSetNode;
 }
 
 /****************************************
@@ -195,9 +221,9 @@ CgXmlNode *cg_upnp_event_notify_request_getvariablenode(CgUpnpNotifyRequest *nof
 	if (cg_xml_node_haschildnodes(propNode) == FALSE)
 		return NULL;
 
-	return cg_xml_node_getchildnodes(propNode);		
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return cg_xml_node_getchildnodes(propNode);		
 }
 
 /****************************************
@@ -226,9 +252,9 @@ static CgUpnpProperty *cg_upnp_property_createfromnode(CgXmlNode *varNode)
 	cg_upnp_property_setname(prop, varName);
 	cg_upnp_property_setvalue(prop, varValue);
 	
-	return prop;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return prop;
 }
 
 /****************************************
@@ -265,9 +291,9 @@ CgUpnpPropertyList *cg_upnp_event_notify_request_getpropertylist(CgUpnpNotifyReq
 		cg_upnp_propertylist_add(propList, prop);
 	}
 	
-	return propList;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return propList;
 }
 
 /****************************************

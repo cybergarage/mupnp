@@ -28,10 +28,10 @@
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* cg_upnp_service_notify
+* cg_upnp_service_notifymain
 ****************************************/
 
-BOOL cg_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar)
+static BOOL cg_upnp_service_notifymain(CgUpnpService *service, CgUpnpStateVariable *statVar)
 {
 	CgUpnpSubscriber *sub;
 	CgUpnpSubscriber **subArray;
@@ -71,12 +71,11 @@ BOOL cg_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar
 	subArrayCnt = cg_upnp_service_getnsubscribers(service);
 	subArray = (CgUpnpSubscriber **)malloc(sizeof(CgUpnpSubscriber *) * subArrayCnt);
 
-        if ( NULL == subArray )
-        {
-                cg_log_debug_s("Memory allocation problem!\n");
+	if ( NULL == subArray ) {
+		cg_log_debug_s("Memory allocation problem!\n");
 		cg_upnp_service_unlock(service);
-                return FALSE;
-        }
+		return FALSE;
+	}
 
 	sub = cg_upnp_service_getsubscribers(service);
 	for (n=0; n<subArrayCnt; n++) {
@@ -87,38 +86,69 @@ BOOL cg_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar
 		sub = subArray[n];
 		if (sub == NULL)
 			continue;
-		if (cg_upnp_subscriber_notify(sub, statVar) == FALSE) {
-			/**** remove invalid the subscriber but don't remove in NMPR specification ****/
-			cg_upnp_service_removesubscriber(service, sub);
+		if (statVar) {
+			if (cg_upnp_subscriber_notify(sub, statVar) == FALSE) {
+				/**** remove invalid the subscriber but don't remove in NMPR specification ****/
+				cg_upnp_service_removesubscriber(service, sub);
+			}
+		}
+		else {
+			if (cg_upnp_subscriber_notifyall(sub, service) == FALSE) {
+				/**** remove invalid the subscriber but don't remove in NMPR specification ****/
+				cg_upnp_service_removesubscriber(service, sub);
+			}
 		}
 	}
 	free(subArray);
 	
 	cg_upnp_service_unlock(service);
 
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
+}
+
+/****************************************
+* cg_upnp_service_notify
+****************************************/
+
+BOOL cg_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar)
+{
+	return cg_upnp_service_notifymain(service, statVar);
 }
 
 /****************************************
 * cg_upnp_service_notifyall
 ****************************************/
 
-BOOL cg_upnp_service_notifyallstatevariables(CgUpnpService *service)
+BOOL cg_upnp_service_notifyallbracket(CgUpnpService *service)
+{
+	return cg_upnp_service_notifymain(service, NULL);
+}
+
+/****************************************
+* cg_upnp_service_notifyall
+****************************************/
+
+BOOL cg_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket)
 {
 	CgUpnpStateVariable *statVar;
 	
 	cg_log_debug_l4("Entering...\n");
 
-	for (statVar = cg_upnp_service_getstatevariables(service); statVar != NULL; statVar = cg_upnp_statevariable_next(statVar)) {
-		if (cg_upnp_statevariable_issendevents(statVar) == TRUE)
-			cg_upnp_service_notify(service, statVar);
+	if (doBracket) {
+		cg_upnp_service_notifyallbracket(service);
+	}
+	else {
+		for (statVar = cg_upnp_service_getstatevariables(service); statVar != NULL; statVar = cg_upnp_statevariable_next(statVar)) {
+			if (cg_upnp_statevariable_issendevents(statVar) == TRUE)
+				cg_upnp_service_notify(service, statVar);
+		}
 	}
 
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************

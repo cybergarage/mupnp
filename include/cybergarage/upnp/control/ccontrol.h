@@ -91,6 +91,11 @@ extern "C" {
  */
 #define CG_UPNP_ST_UUID_DEVICE "uuid"
 
+	/**
+ * Definition for URN device
+ */
+#define CG_UPNP_ST_URN "urn"
+
 /**
  * Definition for URN device
  */
@@ -655,6 +660,15 @@ char *cg_upnp_control_query_response_getreturnvalue(CgUpnpQueryResponse *queryRe
  * @return True if string is from uuid device, false otherwise
  */
 #define cg_upnp_st_isuuiddevice(str) ((0 <= cg_strstr(str, CG_UPNP_ST_UUID_DEVICE)) ? TRUE : FALSE)
+
+/**
+ * Check if string is from urn
+ *
+ * @param str String to be checked
+ *
+ * @return True if string is from urn, false otherwise
+ */
+#define cg_upnp_st_isurn(str) ((0 <= cg_strstr(str, CG_UPNP_ST_URN)) ? TRUE : FALSE)
 
 /**
  * Check if string is from urn device

@@ -1,3 +1,12 @@
+2007-12-24  Satoshi Konno <skonno@cybergarage.org>
+	* Added CG_UPNP_ST_URN and cg_upnp_st_isurn() to <ccontrol.h>.
+	* Changed cg_upnp_device_ssdpmessagereceived() using cg_upnp_st_isurn() instead of cg_upnp_st_isurndevice() to find non standard UPnP devices.
+	* Changed cg_upnp_service_ssdpmessagereceived() using cg_upnp_st_isurn() instead of cg_upnp_st_isurnservice() to find non standard UPnP devices.
+	* Fixed cg_upnp_device_getservicebycontrolurl() to abort when the service_url is null.
+	* Fixed cg_string_naddvalue() to comipler using other compilers normally.
+	* Added cg_upnp_statevariable_setvaluewithoutnotify() not to send the updated value for other devices which subscribe the service of the state variable.
+	* Deprecated cg_upnp_service_notifyallstatevariables(). Use cg_upnp_service_notifyall which can send the events individually or collectively.
+
 2007-12-13  Aapo Makela <aapo.makela@nokia.com>
 	* Multiple patches to fix crashes in out-of-memory situations
 	* Implemented more efficient reallocation policy in CgString

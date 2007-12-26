@@ -592,7 +592,15 @@ BOOL cg_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar
  *
  * @param service The service in question
  */
-BOOL cg_upnp_service_notifyallstatevariables(CgUpnpService *service);
+BOOL cg_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket );
+
+/**
+ * Send a notification message to all of the service's subscribers
+ *
+ * @param service The service in question
+ * @deprecated Use cg_upnp_service_notifyall().
+ */
+#define cg_upnp_service_notifyallstatevariables(service) cg_upnp_service_notifyall(service, FALSE);
 
 /****************************************************************************
  * Mutex

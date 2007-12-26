@@ -85,10 +85,10 @@ void cg_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar, Cg
 }
 
 /****************************************
-* cg_upnp_statevariable_setvalue
+* cg_upnp_statevariable_setvaluewithnotify
 ****************************************/
 
-void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, char *data)
+static void cg_upnp_statevariable_setvaluewithnotify(CgUpnpStateVariable *statVar, char *data, BOOL doNotify)
 {
 	CgUpnpService *service;
 
@@ -98,15 +98,43 @@ void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, char *data)
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 	/**** notify event ****/
-	if (cg_upnp_statevariable_issendevents(statVar) == FALSE)
-		return;
+	if (doNotify) {
+		if (cg_upnp_statevariable_issendevents(statVar) == FALSE)
+			return;
 
-	service = cg_upnp_statevariable_getservice(statVar);
-	if (service == NULL)
-		return;
+		service = cg_upnp_statevariable_getservice(statVar);
+		if (service == NULL)
+			return;
 
-	cg_upnp_service_notify(service, statVar);
+		cg_upnp_service_notify(service, statVar);
+	}
 #endif
+
+	cg_log_debug_l4("Leaving...\n");
+}
+
+/****************************************
+* cg_upnp_statevariable_setvalue
+****************************************/
+
+void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, char *data)
+{
+	cg_log_debug_l4("Entering...\n");
+
+	cg_upnp_statevariable_setvaluewithnotify(statVar, data, TRUE);
+
+	cg_log_debug_l4("Leaving...\n");
+}
+
+/****************************************
+* cg_upnp_statevariable_setvaluewithoutnotify
+****************************************/
+
+void cg_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, char *data)
+{
+	cg_log_debug_l4("Entering...\n");
+
+	cg_upnp_statevariable_setvaluewithnotify(statVar, data, FALSE);
 
 	cg_log_debug_l4("Leaving...\n");
 }
