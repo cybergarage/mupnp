@@ -488,7 +488,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 			continue;
 		if (ioctl(s, SIOCGIFADDR, &req) < 0)
 			continue;
-		strncpy(ifaddr, inet_ntoa(((struct sockaddr_in*)&req.ifr_addr)->sin_addr), sizeof(struct ifaddr)-1);
+		strncpy(ifaddr, inet_ntoa(((struct sockaddr_in*)&req.ifr_addr)->sin_addr), sizeof(ifaddr)-1);
 		netIf = cg_net_interface_new();
 		cg_net_interface_setname(netIf, ifname);
 		cg_net_interface_setaddress(netIf, ifaddr);

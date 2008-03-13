@@ -39,6 +39,9 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
+/* IP_PKTINFO */
+#undef HAVE_IP_PKTINFO
+
 /* Define to 1 if you have the `expat' library (-lexpat). */
 #undef HAVE_LIBEXPAT
 

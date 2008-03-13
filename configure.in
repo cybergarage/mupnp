@@ -25,7 +25,13 @@
 #
 #	02/06/06 Mikael Saarenp <ext-mikael.saarenpaa@nokia.com>
 #		- Added debug options
+#
+#	03/17/08
+#		- Added to check IP_PKTINFO
+#
 #############################################################################
+
+IP_PKTINFO
 
 AC_INIT(include/cybergarage/typedef.h)
 AC_CONFIG_AUX_DIR(config)
@@ -468,6 +474,23 @@ void func()
 [],
 [AC_MSG_RESULT(yes)
 AC_DEFINE([HAVE_SOCKADDR_DL],1,[SOCKADDR_DL])],
+[AC_MSG_RESULT(no)]
+)
+
+##### IP_PKTINFO ####
+AC_MSG_CHECKING(for IP_PKTINFO)
+AC_TRY_COMPILE([
+#include <sys/types.h>
+#include <sys/socket.h>
+void func()
+{
+  int on=1;
+  setsockopt(0, IPPROTO_IP, IP_PKTINFO,  &on, sizeof(on));
+}
+],
+[],
+[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_IP_PKTINFO],1,[IP_PKTINFO])],
 [AC_MSG_RESULT(no)]
 )
 

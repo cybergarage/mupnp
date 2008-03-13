@@ -15,7 +15,6 @@
 *
 *	02/01/05
 *		- first revision
-*
 *	12-Jan-06 Heikki Junnila
 *		- Added API comments
 *	01/12/06 Theo Beisch
@@ -25,6 +24,8 @@
 *		- subscriber renew does not reset notifyCount
 *		- subscriber clear does reset notifyCount
 *		- expiry check is by [s] (removed *1000 factor)
+*	03/13/08
+*		- Changed cg_upnp_subscriber_notifyall() using void parameter instead of CgService not to conflict the prototype defines.
 *
 ******************************************************************/
 
@@ -221,9 +222,9 @@ BOOL cg_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statV
  * @param service The evented service
  * @return TRUE if succesful; otherwise FALSE
  */
-BOOL cg_upnp_subscriber_notifyall(CgUpnpSubscriber *sub, CgUpnpService *service)
+BOOL cg_upnp_subscriber_notifyall(CgUpnpSubscriber *sub, /* CgUpnpService */ void *service)
 {
-	return cg_upnp_subscriber_notifymain(sub, service, NULL);
+	return cg_upnp_subscriber_notifymain(sub, (CgUpnpService *)service, NULL);
 }
 
 /****************************************

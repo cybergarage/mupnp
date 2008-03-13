@@ -1,3 +1,10 @@
+2008-03-17  Satoshi Konno <skonno@cybergarage.org>
+	* Added to check IP_PKTINFO into configure.in.
+	* Changed the following functions using void parameter instead of CgService not to conflict the prototype defines.
+	   cg_upnp_event_notify_request_setpropertysetnode() and cg_upnp_subscriber_notifyall() using GCC v4.0.
+	* Fixed cg_socket_setid() to disable the IPPROTO_IP option using XCode 3.0.
+	* Fixed other errors using XCode 3.0.
+
 2007-12-24  Satoshi Konno <skonno@cybergarage.org>
 	* Added CG_UPNP_ST_URN and cg_upnp_st_isurn() to <ccontrol.h>.
 	* Changed cg_upnp_device_ssdpmessagereceived() using cg_upnp_st_isurn() instead of cg_upnp_st_isurndevice() to find non standard UPnP devices.

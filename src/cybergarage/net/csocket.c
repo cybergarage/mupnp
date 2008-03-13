@@ -49,6 +49,8 @@
 *	03/11/07
 *		- Added support of OpenSSL to socket functions in csocket.c.
 *		- Added CG_USE_OPENSSL define and --enable-openssl option to  disable the SSL functions as default.
+*	03/13/07
+*		- Fixed cg_socket_setid() to disable the IPPROTO_IP option using XCode on MacOSX.
 *
 ******************************************************************/
 
@@ -339,8 +341,10 @@ void cg_socket_setid(CgSocket *socket, SOCKET value)
 
 	socket->id=value;
 
+#if defined(WIN32) || defined(HAVE_IP_PKTINFO)
 	if ( CG_NET_SOCKET_DGRAM == cg_socket_gettype(socket) ) 
 		setsockopt(socket->id, IPPROTO_IP, IP_PKTINFO,  &on, sizeof(on));
+#endif
 
 	cg_log_debug_l4("Leaving...\n");
 }
