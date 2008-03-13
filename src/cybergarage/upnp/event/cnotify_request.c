@@ -15,6 +15,8 @@
 *
 *	07/07/05
 *		- first revision
+*	03/13/08
+*		- Changed cg_upnp_event_notify_request_setpropertysetnode() using void parameter instead of CgService not to conflict the prototype defines.
 *
 ******************************************************************/
 
@@ -115,14 +117,16 @@ void cg_upnp_event_notify_request_setsid(CgUpnpNotifyRequest *soapReq, char *sid
 /****************************************
 * cg_upnp_event_notify_request_setpropertysetnode
 ****************************************/
-
-BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notifyReq, CgUpnpSubscriber *sub, CgUpnpService* service, CgUpnpStateVariable *statVar)
+BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notifyReq, CgUpnpSubscriber *sub, /* CgUpnpService */void *pservice, CgUpnpStateVariable *statVar)
 {
 	CgHttpRequest *httpReq;	
 	CgXmlNode *propSetNode;
-
+	CgUpnpService* service;
+	
 	cg_log_debug_l4("Entering...\n");
 
+	service = (CgUpnpService *)pservice;
+	
 	httpReq = cg_soap_request_gethttprequest(notifyReq);
 
 	cg_http_request_setmethod(httpReq, CG_HTTP_NOTIFY);

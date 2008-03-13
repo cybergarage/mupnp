@@ -47,12 +47,6 @@
 /* Private function prototypes */
 static void sig_handler(int sign);
 
-/* Key used to store self reference in (p)thread global storage */
-#if defined(HAVE_PTHREAD_H)
-static pthread_key_t cg_thread_self_ref;
-static pthread_once_t cg_thread_mykeycreated = PTHREAD_ONCE_INIT;
-#endif
-
 /****************************************
 * Thread Function
 ****************************************/
@@ -158,6 +152,10 @@ static VOID TEngineProcessBasedTaskProc(W param)
 	cg_log_debug_l4("Leaving...\n");
 }
 #else
+
+/* Key used to store self reference in (p)thread global storage */
+static pthread_key_t cg_thread_self_ref;
+static pthread_once_t cg_thread_mykeycreated = PTHREAD_ONCE_INIT;
 
 static void cg_thread_createkey()
 {
