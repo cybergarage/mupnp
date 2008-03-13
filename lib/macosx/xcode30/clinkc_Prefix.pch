@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'clinkc' target in the 'clinkc' project.
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
