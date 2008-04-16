@@ -1,4 +1,5 @@
 2008-03-17  Satoshi Konno <skonno@cybergarage.org>
+	* Changed not to define BOOL type using XCode.
 	* Added to check IP_PKTINFO into configure.in.
 	* Changed the following functions using void parameter instead of CgService not to conflict the prototype defines.
 	   cg_upnp_event_notify_request_setpropertysetnode() and cg_upnp_subscriber_notifyall() using GCC v4.0.
