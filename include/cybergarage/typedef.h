@@ -17,6 +17,8 @@
 *  - Added CgInt64 to <typedef.h>
 * 06/24/07
 *  - Added CgByte to <typedef.h>
+* 03/18/08
+*  - Changed not to define BOOL type using XCode.
 *
 ******************************************************************/
 
@@ -51,7 +53,7 @@ extern "C" {
 * Data Type
 ****************************************/
 
-#if !defined(BOOL) && !defined(BTRON) && !defined(TENGINE)
+#if !defined(BOOL) && !defined(BTRON) && !defined(TENGINE) && !defined(_OBJC_OBJC_H_)
 typedef int BOOL;
 #endif
 
