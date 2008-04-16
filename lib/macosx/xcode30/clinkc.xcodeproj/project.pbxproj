@@ -135,6 +135,8 @@
 		21A908980D89A0FF00828A81 /* cthread.h in Headers */ = {isa = PBXBuildFile; fileRef = 21A908730D89A0FF00828A81 /* cthread.h */; };
 		21A908990D89A0FF00828A81 /* ctime.h in Headers */ = {isa = PBXBuildFile; fileRef = 21A908740D89A0FF00828A81 /* ctime.h */; };
 		21A9089A0D89A0FF00828A81 /* cxml.h in Headers */ = {isa = PBXBuildFile; fileRef = 21A908760D89A0FF00828A81 /* cxml.h */; };
+		21F525520D89B51400E4ED6D /* ControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 21F525500D89B51300E4ED6D /* ControlPoint.h */; };
+		21F525530D89B51400E4ED6D /* ControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 21F525510D89B51400E4ED6D /* ControlPoint.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -272,6 +274,8 @@
 		21A908730D89A0FF00828A81 /* cthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cthread.h; sourceTree = "<group>"; };
 		21A908740D89A0FF00828A81 /* ctime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ctime.h; sourceTree = "<group>"; };
 		21A908760D89A0FF00828A81 /* cxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxml.h; sourceTree = "<group>"; };
+		21F525500D89B51300E4ED6D /* ControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControlPoint.h; sourceTree = "<group>"; };
+		21F525510D89B51400E4ED6D /* ControlPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControlPoint.m; sourceTree = "<group>"; };
 		32DBCF5E0370ADEE00C91783 /* clinkc_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clinkc_Prefix.pch; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* clinkc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = clinkc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -333,6 +337,7 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				21F5254E0D89B51300E4ED6D /* CyberGarage */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -675,6 +680,24 @@
 			path = xml;
 			sourceTree = "<group>";
 		};
+		21F5254E0D89B51300E4ED6D /* CyberGarage */ = {
+			isa = PBXGroup;
+			children = (
+				21F5254F0D89B51300E4ED6D /* UPnP */,
+			);
+			name = CyberGarage;
+			path = ../../../wrapper/objc/CyberGarage;
+			sourceTree = SOURCE_ROOT;
+		};
+		21F5254F0D89B51300E4ED6D /* UPnP */ = {
+			isa = PBXGroup;
+			children = (
+				21F525500D89B51300E4ED6D /* ControlPoint.h */,
+				21F525510D89B51400E4ED6D /* ControlPoint.m */,
+			);
+			path = UPnP;
+			sourceTree = "<group>";
+		};
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -725,6 +748,7 @@
 				21A908980D89A0FF00828A81 /* cthread.h in Headers */,
 				21A908990D89A0FF00828A81 /* ctime.h in Headers */,
 				21A9089A0D89A0FF00828A81 /* cxml.h in Headers */,
+				21F525520D89B51400E4ED6D /* ControlPoint.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,6 +901,7 @@
 				21A908430D89A0D700828A81 /* cxml_parser.c in Sources */,
 				21A908440D89A0D700828A81 /* cxml_parser_expat.c in Sources */,
 				21A908450D89A0D700828A81 /* cxml_parser_libxml2.c in Sources */,
+				21F525530D89B51400E4ED6D /* ControlPoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
