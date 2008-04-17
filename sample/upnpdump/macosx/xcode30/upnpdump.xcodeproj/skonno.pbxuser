@@ -39,6 +39,9 @@
 		activeBuildConfigurationName = Release;
 		activeExecutable = 21BC77840DB63D2700EDC2F6 /* upnpdump */;
 		activeTarget = 8D1107260486CEB800E47090 /* upnpdump */;
+		addToTargets = (
+			8D1107260486CEB800E47090 /* upnpdump */,
+		);
 		codeSenseManager = 21BC77930DB63D3900EDC2F6 /* Code sense */;
 		executables = (
 			21BC77840DB63D2700EDC2F6 /* upnpdump */,
@@ -66,8 +69,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 230047135;
-			PBXWorkspaceStateSaveDate = 230047135;
+			PBXPerProjectTemplateStateSaveDate = 230047221;
+			PBXWorkspaceStateSaveDate = 230047221;
 		};
 		sourceControlManager = 21BC77920DB63D3900EDC2F6 /* Source Control */;
 		userBuildSettings = {
