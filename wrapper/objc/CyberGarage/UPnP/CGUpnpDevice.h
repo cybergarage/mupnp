@@ -1,5 +1,5 @@
 //
-//  ControlPoint.h
+//  CGUpnpDevice.h
 //  clinkc
 //
 //  Created by Satoshi Konno on 08/03/14.
@@ -10,9 +10,11 @@
 
 #include <cybergarage/upnp/cdevice.h>
 
-@interface CGDevice : NSObject {
-	CgUpnpDevice *cgDev;
-
+@interface CGUpnpDevice : NSObject 
+{
+	CgUpnpDevice *_object;
 }
-
+- (CgUpnpDevice *)object;
+- (void)setObject:(CgUpnpDevice *)object;
+- (NSString *)friendlyName;
 @end

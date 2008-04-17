@@ -1,5 +1,5 @@
 //
-//  ControlPoint.h
+//  CGUpnpControlPoint.h
 //  clinkc
 //
 //  Created by Satoshi Konno on 08/03/14.
@@ -10,9 +10,10 @@
 
 #include <cybergarage/upnp/ccontrolpoint.h>
 
-@interface CGControlPoint : NSObject {
-	CgUpnpControlPoint *cgCtrlPoint;
-
+@interface CGUpnpControlPoint : NSObject 
+{
+	CgUpnpControlPoint *_object;
 }
-
+- (CgUpnpControlPoint *)object;
+- (NSArray *)getDeviceArray;
 @end
