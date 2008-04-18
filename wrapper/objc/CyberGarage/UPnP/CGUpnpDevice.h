@@ -1,6 +1,6 @@
 //
 //  CGUpnpDevice.h
-//  clinkc
+//  CyberLink for C
 //
 //  Created by Satoshi Konno on 08/03/14.
 //  Copyright 2008 Satoshi Konno. All rights reserved.
@@ -12,9 +12,9 @@
 
 @interface CGUpnpDevice : NSObject 
 {
-	CgUpnpDevice *_object;
+	CgUpnpDevice *_cObject;
 }
-- (CgUpnpDevice *)object;
-- (void)setObject:(CgUpnpDevice *)object;
+- (CgUpnpDevice *)cObject;
+- (void)setCObject:(CgUpnpDevice *)object;
 - (NSString *)friendlyName;
 @end

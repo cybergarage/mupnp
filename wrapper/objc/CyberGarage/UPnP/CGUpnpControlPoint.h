@@ -1,6 +1,6 @@
 //
 //  CGUpnpControlPoint.h
-//  clinkc
+//  CyberLink for C
 //
 //  Created by Satoshi Konno on 08/03/14.
 //  Copyright 2008 Satoshi Konno. All rights reserved.
@@ -12,8 +12,10 @@
 
 @interface CGUpnpControlPoint : NSObject 
 {
-	CgUpnpControlPoint *_object;
+	CgUpnpControlPoint *_cObject;
 }
-- (CgUpnpControlPoint *)object;
+- (CgUpnpControlPoint *)cObject;
+- (void)search;
+- (void)searchWithST:(NSString)aST;
 - (NSArray *)getDeviceArray;
 @end
