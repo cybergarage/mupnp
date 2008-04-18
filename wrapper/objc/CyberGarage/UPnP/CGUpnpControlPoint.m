@@ -1,6 +1,6 @@
 //
 //  CGUpnpControlPoint.m
-//  clinkc
+//  CyberLink for C
 //
 //  Created by Satoshi Konno on 08/03/14.
 //  Copyright 2008 Satoshi Konno. All rights reserved.
@@ -12,36 +12,50 @@
 
 - (id) init
 {
-	_object = cg_upnp_controlpoint_new();
-	if (_object)
+	_cObject = cg_upnp_controlpoint_new();
+	if (_cObject)
 		self = nil;
 	return self;
 }
 
 - (void) finalize
 {
-	if (_object)
-		cg_upnp_controlpoint_delete(_object);
+	if (_cObject)
+		cg_upnp_controlpoint_delete(_cObject);
 	[super finalize];
 }
 
-- (CgUpnpControlPoint *)object
+- (CgUpnpControlPoint *)cObject
 {
-	return _object;
+	return _cObject;
+}
+
+- (void)search
+{
+	if (_cObject)
+		return;
+	cg_upnp_controlpoint_search(_cObject, CG_UPNP_NT_ROOTDEVICE);
+}
+
+- (void)searchWithST:(NSString)aST
+{
+	if (_cObject)
+		return;
+	cg_upnp_controlpoint_search(_cObject, [aST UTF8String]);
 }
 
 - (NSArray *)getDeviceArray
 {
-	if (!_object)
+	if (!_cObject)
 		return [NSArray array];
-	int devNum = cg_upnp_controlpoint_getndevices(_object);
-	CgUpnpDevice **devCArray = (CgUpnpDevice **)malloc(sizeof(CgUpnpDevice*) *devNum);
+	int devNum = cg_upnp_controlpoint_getndevices(_cObject);
+	NSMutableArray devArray = [NSMutableArray array];
 	int n;
-	for (n=0; n<devNum; n++)
-		devCArray[n] = cg_upnp_controlpoint_getdevice(n);
-	
-	NSArray *devArray = [NSArray arrayWithObjects:devCArray count:devNum];
-	free(devCArray);
+	for (n=0; n<devNum; n++) {
+		CGUpnpDevice *dev = [CGUpnpDevice init];
+		[dev setCObject:cg_upnp_controlpoint_getdevice(n)];
+		[devArray addObject:dev];
+	}
 	return devArray;
 }
 
