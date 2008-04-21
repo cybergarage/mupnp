@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import "CGUpnpDevice.h"
+#import <CyberGarage/UPnP/CGUpnpDevice.h>
 
 @implementation CGUpnpDevice
 
@@ -25,7 +25,7 @@
 	return _cObject;
 }
 
-- (void)setObject:(CgUpnpDevice *)object
+- (void)setCObject:(CgUpnpDevice *)object
 {
 	_cObject = object;
 }
