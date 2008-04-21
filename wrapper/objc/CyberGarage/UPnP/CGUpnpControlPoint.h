@@ -16,6 +16,6 @@
 }
 - (CgUpnpControlPoint *)cObject;
 - (void)search;
-- (void)searchWithST:(NSString)aST;
+- (void)searchWithST:(NSString *)aST;
 - (NSArray *)getDeviceArray;
 @end

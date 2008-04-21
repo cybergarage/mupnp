@@ -6,14 +6,17 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import "CGUpnpControlPoint.h"
+#import <CyberGarage/UPnP/CGUpnpControlPoint.h>
+#import <CyberGarage/UPnP/CGUpnpDevice.h>
+
+#include <cybergarage/upnp/control/ccontrol.h>
 
 @implementation CGUpnpControlPoint
 
 - (id) init
 {
 	_cObject = cg_upnp_controlpoint_new();
-	if (_cObject)
+	if (!_cObject)
 		self = nil;
 	return self;
 }
@@ -32,12 +35,12 @@
 
 - (void)search
 {
-	if (_cObject)
+	if (!_cObject)
 		return;
 	cg_upnp_controlpoint_search(_cObject, CG_UPNP_NT_ROOTDEVICE);
 }
 
-- (void)searchWithST:(NSString)aST
+- (void)searchWithST:(NSString *)aST
 {
 	if (_cObject)
 		return;
@@ -49,11 +52,11 @@
 	if (!_cObject)
 		return [NSArray array];
 	int devNum = cg_upnp_controlpoint_getndevices(_cObject);
-	NSMutableArray devArray = [NSMutableArray array];
+	NSMutableArray *devArray = [NSMutableArray array];
 	int n;
 	for (n=0; n<devNum; n++) {
 		CGUpnpDevice *dev = [CGUpnpDevice init];
-		[dev setCObject:cg_upnp_controlpoint_getdevice(n)];
+		[dev setCObject:cg_upnp_controlpoint_getdevice(_cObject, n)];
 		[devArray addObject:dev];
 	}
 	return devArray;
