@@ -37,6 +37,9 @@
 *		- Added cg_upnp_device_getservicebysid
 *		- changed leasetime and timer to type CgSysTime
 *		- added cg_upnp_device_waitforlock (nonblocking) 
+*	22-Apr-2008 
+*		- Added cg_upnp_devicelist_get() to get a device by the index.
+*
 ******************************************************************/
 
 #ifndef _CG_UPNP_CDEVICE_H_
@@ -1195,6 +1198,15 @@ void cg_upnp_devicelist_delete(CgUpnpDeviceList *devList);
  *
  */
 #define cg_upnp_devicelist_gets(devList) (CgUpnpDevice *)cg_list_next((CgList *)devList)
+
+/**
+ * Get an device from the device list by the index
+ *
+ * \param devList The device list
+ * \param index The index of the device to get
+ *
+ */
+#define cg_upnp_devicelist_get(devList, index) (CgUpnpDevice *)cg_list_get((CgList *)devList, index)
 
 /**
  * Add a device to the device list

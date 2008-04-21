@@ -26,6 +26,9 @@
 *		  and device disposer
 *		- added cg_upnp_controlpoint_getservicebysid
 *		- added cg_upnp_controlpoint_waitforlock 
+*	22-Apr-2008 
+*		- Added cg_upnp_controlpoint_getdevice() to get a device by the index.
+*
 ******************************************************************/
 
 #ifndef _CG_UPNP_CCONTROLPOINT_H_
@@ -649,6 +652,15 @@ BOOL cg_upnp_controlpoint_unsubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDe
  * @return The number of devices in the control point's device list
  */
 #define cg_upnp_controlpoint_getndevices(ctrlPoint) cg_upnp_devicelist_size(ctrlPoint->deviceList)
+
+/**
+ * Get the head of the control point's list of devices (use for iteration)
+ * 
+ * @param ctrlPoint The control point in use
+ * @param index The index of the device to get
+ * @return The specified device
+ */
+#define cg_upnp_controlpoint_getdevice(ctrlPoint, index) cg_upnp_devicelist_get(ctrlPoint->deviceList, index)
 
 /**
  * Add a device to the control point's list of devices. Do not call this from
