@@ -8,7 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-#include <cybergarage/upnp/ccontrolpoint.h>
+#if !defined(CgUpnpControlPoint)
+typedef void CgUpnpControlPoint;
+#endif
 
 @interface CGUpnpControlPoint : NSObject 
 {

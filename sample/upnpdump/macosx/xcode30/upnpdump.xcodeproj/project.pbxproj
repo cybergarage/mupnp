@@ -7,11 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		21259B660DBFCF7E003546C2 /* CyberLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21259B650DBFCF7E003546C2 /* CyberLink.framework */; };
 		8DD76F9A0486AA7600D96B5E /* upnpdump.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* upnpdump.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* upnpdump.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* upnpdump.1 */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		218296440DC2333C00382920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 218296400DC2333C00382920 /* clinkc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216 /* CyberLink.framework */;
+			remoteInfo = CyberLink.framework;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8DD76F9E0486AA7600D96B5E /* CopyFiles */ = {
@@ -29,7 +38,7 @@
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* upnpdump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = upnpdump.m; sourceTree = "<group>"; };
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		21259B650DBFCF7E003546C2 /* CyberLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CyberLink.framework; path = ../../../../lib/macosx/xcode30/build/Debug/CyberLink.framework; sourceTree = SOURCE_ROOT; };
+		218296400DC2333C00382920 /* clinkc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = clinkc.xcodeproj; path = ../../../../lib/macosx/xcode30/clinkc.xcodeproj; sourceTree = SOURCE_ROOT; };
 		32A70AAB03705E1F00C91783 /* upnpdump_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = upnpdump_Prefix.pch; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* upnpdump */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = upnpdump; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859EA3029092ED04C91782 /* upnpdump.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = upnpdump.1; sourceTree = "<group>"; };
@@ -41,7 +50,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */,
-				21259B660DBFCF7E003546C2 /* CyberLink.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +79,7 @@
 		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				21259B650DBFCF7E003546C2 /* CyberLink.framework */,
+				218296400DC2333C00382920 /* clinkc.xcodeproj */,
 				08FB779EFE84155DC02AAC07 /* Foundation.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -81,6 +89,14 @@
 			isa = PBXGroup;
 			children = (
 				8DD76FA10486AA7600D96B5E /* upnpdump */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		218296410DC2333C00382920 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				218296450DC2333C00382920 /* CyberLink.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,12 +140,28 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 08FB7794FE84155DC02AAC07 /* upnpdump */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 218296410DC2333C00382920 /* Products */;
+					ProjectRef = 218296400DC2333C00382920 /* clinkc.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8DD76F960486AA7600D96B5E /* upnpdump */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		218296450DC2333C00382920 /* CyberLink.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CyberLink.framework;
+			remoteRef = 218296440DC2333C00382920 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DD76F990486AA7600D96B5E /* Sources */ = {
