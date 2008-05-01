@@ -1,7 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <CyberGarage/UPnP/CGUpnpControlPoint.h>
 
-int main (int argc, const char * argv[]) {
+int main (int argc, const char * argv[])
+{
 /*
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
 
@@ -9,7 +10,7 @@ int main (int argc, const char * argv[]) {
     NSLog(@"Hello, World!");
     [pool drain];
 */
-	CGUpnpControlPoint *ctrlPoint = [CGUpnpControlPoint init];
+	CGUpnpControlPoint *ctrlPoint = [[CGUpnpControlPoint alloc] init];
 	[ctrlPoint search];
 	NSArray *devArray = [ctrlPoint getDeviceArray];
 	int i;

@@ -8,7 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-#include <cybergarage/upnp/cdevice.h>
+#if !defined(CgUpnpDevice)
+typedef void CgUpnpDevice;
+#endif
 
 @interface CGUpnpDevice : NSObject 
 {

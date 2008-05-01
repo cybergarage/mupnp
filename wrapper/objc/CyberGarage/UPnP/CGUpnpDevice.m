@@ -6,6 +6,8 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#include <cybergarage/upnp/cdevice.h>
+
 #import <CyberGarage/UPnP/CGUpnpDevice.h>
 
 @implementation CGUpnpDevice
