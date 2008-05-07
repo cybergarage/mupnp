@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#if !defined(CgUpnpControlPoint)
+#if !defined(_CG_UPNP_CCONTROLPOINT_H_)
 typedef void CgUpnpControlPoint;
 #endif
 
