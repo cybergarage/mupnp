@@ -12,6 +12,7 @@ int main (int argc, const char * argv[])
 */
 	CGUpnpControlPoint *ctrlPoint = [[CGUpnpControlPoint alloc] init];
 	[ctrlPoint search];
+	sleep(5);
 	NSArray *devArray = [ctrlPoint getDeviceArray];
 	int i;
 	for (i=0; i < [devArray count]; i++) {

@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#if !defined(CgUpnpDevice)
+#if !defined(_CG_UPNP_CDEVICE_H_)
 typedef void CgUpnpDevice;
 #endif
 
