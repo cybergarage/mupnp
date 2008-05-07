@@ -14,7 +14,7 @@
 
 @implementation CGUpnpControlPoint
 
-- (id) init
+- (id)init
 {
 	_cObject = cg_upnp_controlpoint_new();
 	if (!_cObject)
@@ -22,7 +22,7 @@
 	return self;
 }
 
-- (void) finalize
+- (void)finalize
 {
 	if (_cObject)
 		cg_upnp_controlpoint_delete(_cObject);
@@ -45,7 +45,7 @@
 {
 	if (_cObject)
 		return;
-	cg_upnp_controlpoint_search(_cObject, [aST UTF8String]);
+	cg_upnp_controlpoint_search(_cObject, (char *)[aST UTF8String]);
 }
 
 - (NSArray *)getDeviceArray
