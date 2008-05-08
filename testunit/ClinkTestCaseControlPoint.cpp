@@ -19,6 +19,19 @@ void ClinkTestCase::testControlPoint()
 
 	cg_sleep(cg_upnp_controlpoint_getssdpsearchmx(testCp) * 1000);
 
+	int devCnt = cg_upnp_controlpoint_getndevices(testCp);
+	CPPUNIT_ASSERT(0 < devCnt);
+
+	BOOL testDevFound = FALSE;
+	for (int n=0; n<devCnt; n++) {
+		CgUpnpDevice *dev = cg_upnp_controlpoint_getdevice(testCp, n);
+		if (strcmp(cg_upnp_device_getdevicetype(dev), TEST_DEVICE_DEVICE_TYPE) == 0) {
+			testDevFound = TRUE;
+			break;
+		}
+	}
+	CPPUNIT_ASSERT(testDevFound);
+
 	CPPUNIT_ASSERT(cg_upnp_controlpoint_stop(testCp));
 	cg_upnp_controlpoint_delete(testCp);
 
