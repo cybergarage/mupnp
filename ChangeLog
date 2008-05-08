@@ -1,9 +1,12 @@
+2008-05-08  Satoshi Konno <skonno@cybergarage.org>
+	* Changed typedef.h about BOOL type using Objective-C for XCode.
+
 2008-04-22  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_controlpoint_getdevice() to get a device by the index.
 	* Added cg_upnp_devicelist_get() to get a device by the index.
 
 2008-03-17  Satoshi Konno <skonno@cybergarage.org>
-	* Changed not to define BOOL type using XCode.
+	* Changed not to define BOOL type using Objective-C for XCode.
 	* Added to check IP_PKTINFO into configure.in.
 	* Changed the following functions using void parameter instead of CgService not to conflict the prototype defines.
 	   cg_upnp_event_notify_request_setpropertysetnode() and cg_upnp_subscriber_notifyall() using GCC v4.0.
