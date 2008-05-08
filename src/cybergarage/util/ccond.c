@@ -15,6 +15,8 @@
 *
 *	16-Jan-06
 *		- first revision
+*	09-May-08
+*		- Changed cg_cond_signal() using SetEvent() instead of WaitForSingleObject for WIN32 platform.
 *
 ******************************************************************/
 
@@ -143,7 +145,8 @@ BOOL cg_cond_signal(CgCond *cond)
 #if defined(WIN32) && !defined(ITRON)
 	/* TODO: Add implementation */
 	/* success = (SignalObjectAndWait(cond->condID, NULL, INFINITE, FALSE) != WAIT_FAILED); */
-	success = (WaitForSingleObject(cond->condID, INFINITE) != WAIT_FAILED);
+	/* success = (WaitForSingleObject(cond->condID, INFINITE) != WAIT_FAILED); */
+	success = SetEvent(cond->condID);
 #elif defined(BTRON)
 	/* TODO: Add implementation */
 #elif defined(ITRON)
