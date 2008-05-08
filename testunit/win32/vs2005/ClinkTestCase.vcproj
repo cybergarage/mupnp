@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib cppunitd.lib"
+				AdditionalDependencies="wsock32.lib cppunitd.lib libexpat.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -136,7 +136,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="wsock32.lib cppunitd.lib"
+				AdditionalDependencies="wsock32.lib cppunitd.lib libexpat.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -183,11 +183,27 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\ClinkTestCase.h"
+				RelativePath="..\..\ClinkTestCaseControlPoint.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\ClinkTestCaseDevice.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\ClinkTestCaseHttp.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\ClinkTestCaseNetwork.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\cppunitmain.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\TestDevice.c"
 				>
 			</File>
 		</Filter>
@@ -196,6 +212,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\ClinkTestCase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\TestDevice.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="リソース ファイル"

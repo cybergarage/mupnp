@@ -3,10 +3,17 @@ noinst_PROGRAMS = clinkctestunit
 INCLUDES = -I$(top_srcdir)/include -I../
 
 noinst_HEADERS = \
-	../ClinkTestCase.h
+	../ClinkTestCase.h \
+	../TestDevice.h
 
 clinkctestunit_SOURCES = \
 	../ClinkTestCase.cpp \
+	../ClinkTestCaseControlPoint.cpp \
+	../ClinkTestCaseDevice.cpp \
+	../ClinkTestCaseHttp.cpp \
+	../ClinkTestCaseNetwork.cpp \
+	../ClinkTestCase.cpp \
+	../TestDevice.c \
 	../cppunitmain.cpp
 
 if HAVE_LIBTOOL

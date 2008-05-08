@@ -53,18 +53,22 @@ extern "C" {
 * Data Type
 ****************************************/
 
-#if !defined(BOOL) && !defined(BTRON) && !defined(TENGINE) && !defined(_OBJC_OBJC_H_)
+#if !defined(BOOL) && !defined(BTRON) && !defined(TENGINE) && !defined(__OBJC__)
 typedef int BOOL;
 #endif
 
+#if defined(__OBJC__)
+#define TRUE YES
+#define FALSE NO
+#else
 #if !defined(TRUE)
 #define TRUE (1)
 #endif
-
 #if !defined(FALSE)
 #define FALSE (0)
 #endif
-
+#endif
+	
 typedef unsigned char CgByte;
 
 #if defined(__USE_ISOC99)
