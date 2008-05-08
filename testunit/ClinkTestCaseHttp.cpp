@@ -1,14 +1,12 @@
 #include "ClinkTestCase.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION(ClinkTestCase);
-
 #include <cybergarage/http/chttp.h>
 
 ////////////////////////////////////////
 // testHttpServer
 ////////////////////////////////////////
 
-#define CLINK_TESTCASE_HTTP_PORT 8192
+#define CLINK_TESTCASE_HTTP_PORT 38192
 #define CLINK_TESTCASE_HTTP_PAGE "<HTML><BODY>Hello World</BODY></HTML>"
 #define CLINK_TESTCASE_HTTP_URL "/index.html"
 #define CLINK_TESTCASE_HTTP_LOOP 100

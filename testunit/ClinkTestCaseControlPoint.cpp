@@ -1,6 +1,6 @@
 #include "ClinkTestCase.h"
 
-#include <cybergarage/upnp/ccontrolpoint.h>
+#include "TestDevice.h"
 
 ////////////////////////////////////////
 // testDevice
@@ -8,19 +8,20 @@
 
 void ClinkTestCase::testControlPoint()
 {
-	CgByte nullMacAddr[CG_NET_MACADDR_SIZE];
-	CgByte macAddr[CG_NET_MACADDR_SIZE];
-	memset(nullMacAddr, 0, CG_NET_MACADDR_SIZE);
+	CgUpnpDevice *testDev = upnp_test_device_new();
+	CPPUNIT_ASSERT(testDev);
+	CPPUNIT_ASSERT(cg_upnp_device_start(testDev));
 
-	CgNetworkInterfaceList *netIfList = cg_net_interfacelist_new();
-	CPPUNIT_ASSERT(netIfList);
-	CPPUNIT_ASSERT(0 < cg_net_gethostinterfaces(netIfList));
-	for (CgNetworkInterface *netIf=cg_net_interfacelist_gets(netIfList); netIf; netIf=cg_net_interface_next(netIf)) {
-		CPPUNIT_ASSERT(0 < cg_strlen(cg_net_interface_getaddress(netIf)));
-		cg_net_interface_getmacaddress(netIf, macAddr);
-		CPPUNIT_ASSERT(memcmp(macAddr, nullMacAddr, CG_NET_MACADDR_SIZE) != 0);
-		//CPPUNIT_ASSERT(0 < cg_strlen(cg_net_interface_getname(netIf)));
-		//CPPUNIT_ASSERT(0 < cg_strlen(cg_net_interface_getnetmask(netIf)));
-	}
-	cg_net_interfacelist_delete(netIfList);
+	CgUpnpControlPoint *testCp = cg_upnp_controlpoint_new();
+	CPPUNIT_ASSERT(testCp);
+	CPPUNIT_ASSERT(cg_upnp_controlpoint_start(testCp));
+	CPPUNIT_ASSERT(cg_upnp_controlpoint_search(testCp, CG_UPNP_ST_ROOT_DEVICE));
+
+	cg_sleep(cg_upnp_controlpoint_getssdpsearchmx(testCp) * 1000);
+
+	CPPUNIT_ASSERT(cg_upnp_controlpoint_stop(testCp));
+	cg_upnp_controlpoint_delete(testCp);
+
+	CPPUNIT_ASSERT(cg_upnp_device_stop(testDev));
+	cg_upnp_device_delete(testDev);
 }

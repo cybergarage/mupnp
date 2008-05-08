@@ -43,16 +43,16 @@ char *TEST_DEVICE_DESCRIPTION =
 " 		<minor>0</minor>\n"
 " 	</specVersion>\n"
 " 	<device>\n"
-" 		<deviceType>urn:schemas-upnp-org:device:clock:1</deviceType>\n"
-" 		<friendlyName>CyberGarage Clock Device</friendlyName>\n"
+" 		<deviceType>" TEST_DEVICE_DEVICE_TYPE "</deviceType>\n"
+" 		<friendlyName>" TEST_DEVICE_FREINDLYNAME "</friendlyName>\n"
 " 		<manufacturer>CyberGarage</manufacturer>\n"
 " 		<manufacturerURL>http://www.cybergarage.org</manufacturerURL>\n"
-" 		<modelDescription>CyberUPnP Clock Device</modelDescription>\n"
-" 		<modelName>Clock</modelName>\n"
+" 		<modelDescription>CyberUPnP Power Device</modelDescription>\n"
+" 		<modelName>Power Device</modelName>\n"
 " 		<modelNumber>1.0</modelNumber>\n"
 " 		<modelURL>http://www.cybergarage.org</modelURL>\n"
 " 		<serialNumber>1234567890</serialNumber>\n"
-" 		<UDN>uuid:cybergarageClockDevice</UDN>\n"
+" 		<UDN>uuid:1234567890</UDN>\n"
 " 		<UPC>123456789012</UPC>\n"
 " 		<iconList>\n"
 " 			<icon>\n"
@@ -65,7 +65,7 @@ char *TEST_DEVICE_DESCRIPTION =
 " 		</iconList>\n"
 " 		<serviceList>\n"
 " 			<service>\n"
-" 				<serviceType>urn:schemas-upnp-org:service:SwitchPower:1</serviceType>\n"
+" 				<serviceType>" TEST_DEVICE_SERVICE_TYPE "</serviceType>\n"
 " 				<serviceId>urn:upnp-org:serviceId:SwitchPower.1</serviceId>\n"
 " 			</service>\n"
 " 		</serviceList>\n"
@@ -73,7 +73,7 @@ char *TEST_DEVICE_DESCRIPTION =
 "	</device>\n"
 "</root>\n";
 
-char *CLOCK_SERVICE_DESCRIPTION =
+char *TEST_SERVICE_DESCRIPTION =
 "<?xml version=\"1.0\"?>\n"
 "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\" >\n"
 " 	<specVersion>\n"
@@ -272,7 +272,7 @@ void upnp_test_device_httprequestrecieved(CgHttpRequest *httpReq)
 CgUpnpDevice *upnp_test_device_new()
 {
 	CgUpnpDevice *testDev;
-	CgUpnpService *timeService;
+	CgUpnpService *testService;
 	 
 	testDev = cg_upnp_device_new();
 	
@@ -281,13 +281,13 @@ CgUpnpDevice *upnp_test_device_new()
 		return NULL;
 	}
 
-	timeService = cg_upnp_device_getservicebyexacttype(testDev, "urn:schemas-upnp-org:service:timer:1");
-	if (timeService == NULL) {
+	testService = cg_upnp_device_getservicebyexacttype(testDev, TEST_DEVICE_SERVICE_TYPE);
+	if (testService == NULL) {
 		cg_upnp_device_delete(testDev);
 		return NULL;
 	}
 	
-	if (cg_upnp_service_parsedescription(timeService, CLOCK_SERVICE_DESCRIPTION, strlen(CLOCK_SERVICE_DESCRIPTION)) == FALSE) {
+	if (cg_upnp_service_parsedescription(testService, TEST_SERVICE_DESCRIPTION, strlen(TEST_SERVICE_DESCRIPTION)) == FALSE) {
 		cg_upnp_device_delete(testDev);
 		return NULL;
 	}
@@ -298,32 +298,3 @@ CgUpnpDevice *upnp_test_device_new()
 
 	return testDev;
 }
-
-/****************************************
-* upnp_test_device_update
-****************************************/
-
-void upnp_test_device_update(CgUpnpDevice *testDev)
-{
-	CgSysTime currTime;
-	CgUpnpService *timeService;
-	CgUpnpStateVariable *timeState;
-/*
-	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
-	
-	timeService = cg_upnp_device_getservicebyexacttype(testDev, "urn:schemas-upnp-org:service:timer:1");
-	if (timeService == NULL)
-		return;
-
-	timeState = cg_upnp_service_getstatevariablebyname(timeService, "Time");
-	if (timeState == NULL)
-		return;
-	
-	currTime = cg_getcurrentsystemtime();
-	GetSystemTimeString(currTime, sysTimeStr);
-	cg_upnp_statevariable_setvalue(timeState, sysTimeStr);
-	
-	printf("%s\n", sysTimeStr);
-*/
-}
-

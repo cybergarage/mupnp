@@ -1,5 +1,6 @@
-2008-05-08  Satoshi Konno <skonno@cybergarage.org>
+2008-05-09  Satoshi Konno <skonno@cybergarage.org>
 	* Changed typedef.h about BOOL type using Objective-C for XCode.
+	* Changed cg_cond_signal() using SetEvent() instead of WaitForSingleObject for WIN32 platform.
 
 2008-04-22  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_controlpoint_getdevice() to get a device by the index.

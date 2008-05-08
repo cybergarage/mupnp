@@ -1,6 +1,6 @@
 #include "ClinkTestCase.h"
 
-#include <cybergarage/upnp/cdevice.h>
+#include "TestDevice.h"
 
 ////////////////////////////////////////
 // testDevice
@@ -8,19 +8,8 @@
 
 void ClinkTestCase::testDevice()
 {
-	CgByte nullMacAddr[CG_NET_MACADDR_SIZE];
-	CgByte macAddr[CG_NET_MACADDR_SIZE];
-	memset(nullMacAddr, 0, CG_NET_MACADDR_SIZE);
-
-	CgNetworkInterfaceList *netIfList = cg_net_interfacelist_new();
-	CPPUNIT_ASSERT(netIfList);
-	CPPUNIT_ASSERT(0 < cg_net_gethostinterfaces(netIfList));
-	for (CgNetworkInterface *netIf=cg_net_interfacelist_gets(netIfList); netIf; netIf=cg_net_interface_next(netIf)) {
-		CPPUNIT_ASSERT(0 < cg_strlen(cg_net_interface_getaddress(netIf)));
-		cg_net_interface_getmacaddress(netIf, macAddr);
-		CPPUNIT_ASSERT(memcmp(macAddr, nullMacAddr, CG_NET_MACADDR_SIZE) != 0);
-		//CPPUNIT_ASSERT(0 < cg_strlen(cg_net_interface_getname(netIf)));
-		//CPPUNIT_ASSERT(0 < cg_strlen(cg_net_interface_getnetmask(netIf)));
-	}
-	cg_net_interfacelist_delete(netIfList);
+	CgUpnpDevice *testDev = upnp_test_device_new();
+	CPPUNIT_ASSERT(testDev);
+	CPPUNIT_ASSERT(strcmp(cg_upnp_device_getfriendlyname(testDev), TEST_DEVICE_FREINDLYNAME) == 0);
+	cg_upnp_device_delete(testDev);
 }

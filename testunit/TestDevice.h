@@ -21,12 +21,15 @@
 extern "C" {
 #endif
 
+#define TEST_DEVICE_DEVICE_TYPE "urn:schemas-upnp-org:device:BinaryLight:1"
+#define TEST_DEVICE_SERVICE_TYPE "urn:schemas-upnp-org:service:SwitchPower:1"
+#define TEST_DEVICE_FREINDLYNAME "CyberGarage Power Device"
+
 /****************************************
 * Function
 ****************************************/
 
 CgUpnpDevice *upnp_test_device_new();
-void upnp_test_device_update(CgUpnpDevice *dev);
 
 #ifdef  __cplusplus
 }
