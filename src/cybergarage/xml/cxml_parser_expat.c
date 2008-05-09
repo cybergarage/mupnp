@@ -19,9 +19,13 @@
 *	10/31/05
 *		- Added performance measurement functionality under
 *		  CG_SHOW_TIMINGS macro (not enabled by default)
+*
 *	03/30/06 Theo Beisch
 *		- ignore whitespace character data (in search of memory...)
 *		- added DEBUG_XML configurations
+*	05/09/08
+*		-  Fixed cg_xml_parse() not to abort when the data is null or the length less than zero.
+*
 ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
@@ -180,6 +184,9 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 #ifdef CG_SHOW_TIMINGS
 	gettimeofday(&start_time, NULL);
 #endif	
+
+	if (!data || len <= 0)
+		return FALSE;
 
 	p = XML_ParserCreate(NULL);
 	if (!p)
