@@ -1,6 +1,6 @@
 2008-05-09  Satoshi Konno <skonno@cybergarage.org>
 	* Changed typedef.h about BOOL type using Objective-C for XCode.
-	* Changed cg_cond_signal() using SetEvent() instead of WaitForSingleObject for WIN32 platform.
+	* Changed cg_cond_signal() using SetEvent() instead of WaitForSingleObject() for WIN32 platform.
 	* Fixed cg_xml_parse() not to abort when the data is null or the length less than zero.
 
 2008-04-22  Satoshi Konno <skonno@cybergarage.org>
