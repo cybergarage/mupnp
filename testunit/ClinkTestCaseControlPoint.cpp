@@ -17,7 +17,7 @@ void ClinkTestCase::testControlPoint()
 	CPPUNIT_ASSERT(cg_upnp_controlpoint_start(testCp));
 	CPPUNIT_ASSERT(cg_upnp_controlpoint_search(testCp, CG_UPNP_ST_ROOT_DEVICE));
 
-	cg_sleep(cg_upnp_controlpoint_getssdpsearchmx(testCp) * 1000);
+	cg_sleep(cg_upnp_controlpoint_getssdpsearchmx(testCp) * 1000 * 2);
 
 	int devCnt = cg_upnp_controlpoint_getndevices(testCp);
 	CPPUNIT_ASSERT(0 < devCnt);
