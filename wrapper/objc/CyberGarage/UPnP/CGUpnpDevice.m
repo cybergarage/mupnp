@@ -15,7 +15,7 @@
 - (id) init
 {
 	if ((self = [super init]) == nil)
-		retunr nil;
+		return nil;
 	return self;
 }
 

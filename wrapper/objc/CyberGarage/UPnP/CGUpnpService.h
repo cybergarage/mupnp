@@ -12,7 +12,7 @@
 typedef void CgUpnpService;
 #endif
 
-@interface CGUpnpDevice : NSObject 
+@interface CGUpnpService : NSObject 
 {
 	CgUpnpService *_cObject;
 }

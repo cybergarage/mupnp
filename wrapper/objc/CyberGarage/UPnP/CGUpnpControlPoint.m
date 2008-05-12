@@ -17,7 +17,7 @@
 - (id)init
 {
 	if ((self = [super init]) == nil)
-		retunr nil;
+		return nil;
 	_cObject = cg_upnp_controlpoint_new();
 	if (_cObject) {
 		if (![self start])

@@ -49,7 +49,7 @@ CgNetworkInterface *cg_net_interface_new()
 		netIf->ipaddr = cg_string_new();
 		netIf->netmask = cg_string_new();
 		cg_net_interface_setindex(netIf, 0);
-		memset(netIf->macaddr, 0, CG_NET_MACADDR_SIZE);
+		memset(netIf->macaddr, 0, (size_t)CG_NET_MACADDR_SIZE);
 	}
 	
 	cg_log_debug_l4("Leaving...\n");

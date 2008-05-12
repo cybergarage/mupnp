@@ -15,7 +15,7 @@
 - (id) init
 {
 	if ((self = [super init]) == nil)
-		retunr nil;
+		return nil;
 	return self;
 }
 
@@ -24,12 +24,12 @@
 	[super finalize];
 }
 
-- (CGUpnpService *)cObject
+- (CgUpnpService *)cObject
 {
 	return _cObject;
 }
 
-- (void)setCObject:(CGUpnpService *)object
+- (void)setCObject:(CgUpnpService *)object
 {
 	_cObject = object;
 }
