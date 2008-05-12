@@ -16,8 +16,14 @@
 
 - (id)init
 {
+	if ((self = [super init]) == nil)
+		retunr nil;
 	_cObject = cg_upnp_controlpoint_new();
-	if (!_cObject)
+	if (_cObject) {
+		if (![self start])
+			self = nil;
+	}
+	else
 		self = nil;
 	return self;
 }
@@ -34,11 +40,25 @@
 	return _cObject;
 }
 
+- (BOOL)start
+{
+	if (!_cObject)
+		return NO;
+	return cg_upnp_controlpoint_start(_cObject);
+}
+
+- (BOOL)stop
+{
+	if (!_cObject)
+		return NO;
+	return cg_upnp_controlpoint_stop(_cObject);
+}
+
 - (void)search
 {
 	if (!_cObject)
 		return;
-	cg_upnp_controlpoint_search(_cObject, CG_UPNP_NT_ROOTDEVICE);
+	[self searchWithST:[[NSString alloc] initWithUTF8String:CG_UPNP_NT_ROOTDEVICE]];
 }
 
 - (void)searchWithST:(NSString *)aST
@@ -46,6 +66,9 @@
 	if (_cObject)
 		return;
 	cg_upnp_controlpoint_search(_cObject, (char *)[aST UTF8String]);
+	int mx = cg_upnp_controlpoint_getssdpsearchmx(_cObject);
+	if (0 < mx)
+		cg_sleep(mx * 1000);
 }
 
 - (NSArray *)getDeviceArray
@@ -56,7 +79,7 @@
 	NSMutableArray *devArray = [NSMutableArray array];
 	int n;
 	for (n=0; n<devNum; n++) {
-		CGUpnpDevice *dev = [CGUpnpDevice init];
+		CGUpnpDevice *dev = [[CGUpnpDevice alloc] init];
 		[dev setCObject:cg_upnp_controlpoint_getdevice(_cObject, n)];
 		[devArray addObject:dev];
 	}

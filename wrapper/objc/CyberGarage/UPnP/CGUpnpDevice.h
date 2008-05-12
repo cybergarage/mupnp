@@ -19,4 +19,5 @@ typedef void CgUpnpDevice;
 - (CgUpnpDevice *)cObject;
 - (void)setCObject:(CgUpnpDevice *)object;
 - (NSString *)friendlyName;
+- (NSString *)deviceType;
 @end
