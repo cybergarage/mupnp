@@ -57,14 +57,18 @@ extern "C" {
 typedef int BOOL;
 #endif
 
+#if !defined(TRUE)
 #if defined(__OBJC__)
 #define TRUE YES
-#define FALSE NO
 #else
-#if !defined(TRUE)
 #define TRUE (1)
 #endif
+#endif
+
 #if !defined(FALSE)
+#if defined(__OBJC__)
+#define FALSE NO
+#else
 #define FALSE (0)
 #endif
 #endif
