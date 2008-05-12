@@ -17,6 +17,8 @@ typedef void CgUpnpControlPoint;
 	CgUpnpControlPoint *_cObject;
 }
 - (CgUpnpControlPoint *)cObject;
+- (BOOL)start;
+- (BOOL)stop;
 - (void)search;
 - (void)searchWithST:(NSString *)aST;
 - (NSArray *)getDeviceArray;

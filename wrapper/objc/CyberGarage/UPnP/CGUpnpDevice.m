@@ -14,6 +14,8 @@
 
 - (id) init
 {
+	if ((self = [super init]) == nil)
+		retunr nil;
 	return self;
 }
 
@@ -36,7 +38,14 @@
 {
 	if (!_cObject)
 		return nil;
-	return [NSString stringWithCString:cg_upnp_device_getfriendlyname(_cObject)];
+	return [[NSString alloc] initWithUTF8String:cg_upnp_device_getfriendlyname(_cObject)];
+}
+
+- (NSString *)deviceType
+{
+	if (!_cObject)
+		return nil;
+	return [[NSString alloc] initWithUTF8String:cg_upnp_device_getdevicetype(_cObject)];
 }
 
 @end
