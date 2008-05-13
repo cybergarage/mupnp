@@ -14,9 +14,9 @@ typedef void CgUpnpControlPoint;
 
 @interface CGUpnpControlPoint : NSObject 
 {
-	CgUpnpControlPoint *_cObject;
+	CgUpnpControlPoint *cObject;
 }
-@property(readonly) CgUpnpControlPoint *_cObject;
+@property(readonly) CgUpnpControlPoint *cObject;
 - (CgUpnpControlPoint *)cObject;
 - (BOOL)start;
 - (BOOL)stop;

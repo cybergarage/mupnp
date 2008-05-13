@@ -14,12 +14,14 @@
 
 @implementation CGUpnpControlPoint
 
+@synthesize cObject;
+
 - (id)init
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	_cObject = cg_upnp_controlpoint_new();
-	if (_cObject) {
+	cObject = cg_upnp_controlpoint_new();
+	if (cObject) {
 		if (![self start])
 			self = nil;
 	}
@@ -30,54 +32,53 @@
 
 - (void)finalize
 {
-	if (_cObject)
-		cg_upnp_controlpoint_delete(_cObject);
+	if (cObject)
+		cg_upnp_controlpoint_delete(cObject);
 	[super finalize];
 }
 
 - (BOOL)start
 {
-	if (!_cObject)
+	if (!cObject)
 		return NO;
-	return cg_upnp_controlpoint_start(_cObject);
+	return cg_upnp_controlpoint_start(cObject);
 }
 
 - (BOOL)stop
 {
-	if (!_cObject)
+	if (!cObject)
 		return NO;
-	return cg_upnp_controlpoint_stop(_cObject);
+	return cg_upnp_controlpoint_stop(cObject);
 }
 
 - (void)search
 {
-	if (!_cObject)
-		return;
 	[self searchWithST:[[NSString alloc] initWithUTF8String:CG_UPNP_NT_ROOTDEVICE]];
 }
 
 - (void)searchWithST:(NSString *)aST
 {
-	if (_cObject)
+	if (cObject)
 		return;
-	cg_upnp_controlpoint_search(_cObject, (char *)[aST UTF8String]);
-	int mx = cg_upnp_controlpoint_getssdpsearchmx(_cObject);
+	cg_upnp_controlpoint_search(cObject, (char *)[aST UTF8String]);
+	int mx = cg_upnp_controlpoint_getssdpsearchmx(cObject);
 	if (0 < mx)
 		cg_sleep(mx * 1000);
 }
 
 - (NSArray *)getDeviceArray
 {
-	if (!_cObject)
+	if (!cObject)
 		return [NSArray array];
-	int devNum = cg_upnp_controlpoint_getndevices(_cObject);
+	int devNum = cg_upnp_controlpoint_getndevices(cObject);
 	NSMutableArray *devArray = [NSMutableArray array];
 	int n;
 	for (n=0; n<devNum; n++) {
-		CGUpnpDevice *dev = [[CGUpnpDevice alloc] initWithCObject:cg_upnp_controlpoint_getdevice(_cObject, n)];
+		CGUpnpDevice *dev = [[CGUpnpDevice alloc] initWithCObject:cg_upnp_controlpoint_getdevice(cObject, n)];
 		[devArray addObject:dev];
 	}
 	return devArray;
+	
 }
 
 @end

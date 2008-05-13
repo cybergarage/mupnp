@@ -12,14 +12,16 @@
 typedef void CgUpnpDevice;
 #endif
 
+@class CGUpnpService;
+
 @interface CGUpnpDevice : NSObject 
 {
-	CgUpnpDevice *_cObject;
+	CgUpnpDevice *cObject;
 }
-@property(readonly) CgUpnpDevice *_cObject;
-- (id) initWithCObject(CgUpnpDevice *cobj);
+@property(readonly) CgUpnpDevice *cObject;
+- (id) initWithCObject:(CgUpnpDevice *)cobj;
 - (NSString *)friendlyName;
 - (NSString *)deviceType;
-- CGUpnpService *getServiceByID:(NSString *)id;
-- CGUpnpService *getServiceByType:(NSString *)type;
+- (CGUpnpService *)getServiceByID:(NSString *)serviceId;
+- (CGUpnpService *)getServiceByType:(NSString *)serviceType;
 @end
