@@ -66,19 +66,17 @@
 		cg_sleep(mx * 1000);
 }
 
-- (NSArray *)getDeviceArray
+- (NSArray *)devices
 {
 	if (!cObject)
 		return [NSArray array];
-	int devNum = cg_upnp_controlpoint_getndevices(cObject);
 	NSMutableArray *devArray = [NSMutableArray array];
-	int n;
-	for (n=0; n<devNum; n++) {
-		CGUpnpDevice *dev = [[CGUpnpDevice alloc] initWithCObject:cg_upnp_controlpoint_getdevice(cObject, n)];
-		[devArray addObject:dev];
+	CgUpnpDevice *cDevice;
+	for (cDevice = cg_upnp_controlpoint_getdevices(cObject); cDevice; cDevice = cg_upnp_device_next(cDevice)) {
+		CGUpnpDevice *device = [[CGUpnpDevice alloc] initWithCObject:cDevice];
+		[devArray addObject:device];
 	}
 	return devArray;
-	
 }
 
 @end

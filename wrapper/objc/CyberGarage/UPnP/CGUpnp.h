@@ -8,3 +8,5 @@
 
 #import <CyberGarage/UPnP/CGUpnpControlPoint.h>
 #import <CyberGarage/UPnP/CGUpnpDevice.h>
+#import <CyberGarage/UPnP/CGUpnpService.h>
+

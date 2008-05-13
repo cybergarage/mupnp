@@ -49,6 +49,19 @@
 	return [[NSString alloc] initWithUTF8String:cg_upnp_device_getdevicetype(cObject)];
 }
 
+- (NSArray *)services
+{
+	if (!cObject)
+		return [NSArray array];
+	NSMutableArray *serviceArray = [NSMutableArray array];
+	CgUpnpService *cService;
+	for (cService = cg_upnp_device_getservices(cObject); cService; cService = cg_upnp_service_next(cService)) {
+		CGUpnpService *service = [[CGUpnpService alloc] initWithCObject:cService];
+		[serviceArray addObject:service];
+	}
+	return serviceArray;
+}
+
 - (CGUpnpService *)getServiceByID:(NSString *)serviceId
 {
 	if (!cObject)

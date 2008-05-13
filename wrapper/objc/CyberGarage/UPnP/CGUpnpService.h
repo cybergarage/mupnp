@@ -18,5 +18,6 @@ typedef void CgUpnpService;
 }
 @property(readwrite) CgUpnpService *cObject;
 - (id) initWithCObject:(CgUpnpService *)cobj;
+- (NSString *)serviceId;
 - (NSString *)serviceType;
 @end
