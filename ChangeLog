@@ -6,7 +6,7 @@
 
 2008-04-22  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_controlpoint_getdevice() to get a device by the index.
-	* Added cg_upnp_devicelist_get() to get a device by the index.
+	* Added cg_upnp_device_getnservices() and cg_upnp_device_getservice() to get a device by the index.
 
 2008-03-17  Satoshi Konno <skonno@cybergarage.org>
 	* Changed not to define BOOL type using Objective-C for XCode.

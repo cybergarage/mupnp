@@ -38,7 +38,7 @@
 *		- changed leasetime and timer to type CgSysTime
 *		- added cg_upnp_device_waitforlock (nonblocking) 
 *	22-Apr-2008 
-*		- Added cg_upnp_devicelist_get() to get a device by the index.
+*		- Added cg_upnp_device_getnservices() and cg_upnp_device_getservice() to get a device by the index.
 *
 ******************************************************************/
 
@@ -1001,6 +1001,14 @@ CgUpnpDevice *cg_upnp_device_getdevicebydescriptionuri(CgUpnpDevice *dev, char *
 #define cg_upnp_device_getservicelist(dev) (dev->serviceList)
 
 /**
+ * Get the number of services known by the device
+ * 
+ * \param dev Device in question
+ * @return The number of devices in the control point's device list
+ */
+#define cg_upnp_device_getnservices(dev) cg_upnp_servicelist_size(dev->serviceList)
+
+/**
  * Get a service from <idx> from the device
  *
  * \param dev Device in question
@@ -1009,6 +1017,7 @@ CgUpnpDevice *cg_upnp_device_getdevicebydescriptionuri(CgUpnpDevice *dev, char *
  */
 //Theo Beisch : added missing (CgList*) cast
 #define cg_upnp_device_getservice(dev,idx) ((CgUpnpService *)cg_list_get((CgList *)dev->serviceList,idx))
+
 /**
  * \todo Correct explanation...
  *
