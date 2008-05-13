@@ -35,11 +35,6 @@
 	[super finalize];
 }
 
-- (CgUpnpControlPoint *)cObject
-{
-	return _cObject;
-}
-
 - (BOOL)start
 {
 	if (!_cObject)
@@ -79,8 +74,7 @@
 	NSMutableArray *devArray = [NSMutableArray array];
 	int n;
 	for (n=0; n<devNum; n++) {
-		CGUpnpDevice *dev = [[CGUpnpDevice alloc] init];
-		[dev setCObject:cg_upnp_controlpoint_getdevice(_cObject, n)];
+		CGUpnpDevice *dev = [[CGUpnpDevice alloc] initWithCObject:cg_upnp_controlpoint_getdevice(_cObject, n)];
 		[devArray addObject:dev];
 	}
 	return devArray;

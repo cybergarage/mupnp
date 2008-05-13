@@ -16,6 +16,7 @@ typedef void CgUpnpControlPoint;
 {
 	CgUpnpControlPoint *_cObject;
 }
+@property(readonly) CgUpnpControlPoint *_cObject;
 - (CgUpnpControlPoint *)cObject;
 - (BOOL)start;
 - (BOOL)stop;
