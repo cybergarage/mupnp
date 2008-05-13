@@ -12,11 +12,13 @@
 
 @implementation CGUpnpService
 
-- (id) initWithCObject(CGUpnpService *cobj)
+@synthesize cObject;
+
+- (id) initWithCObject:(CgUpnpService *)cobj
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	_cObject = cobj;
+	cObject = cobj;
 	return self;
 }
 
@@ -33,9 +35,9 @@
 
 - (NSString *)serviceType
 {
-	if (!_cObject)
+	if (!cObject)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cg_upnp_service_getservicetype(_cObject)];
+	return [[NSString alloc] initWithUTF8String:cg_upnp_service_getservicetype(cObject)];
 }
 
 @end

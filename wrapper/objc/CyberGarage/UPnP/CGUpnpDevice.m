@@ -7,16 +7,20 @@
 //
 
 #include <cybergarage/upnp/cdevice.h>
+#include <cybergarage/upnp/cservice.h>
 
 #import <CyberGarage/UPnP/CGUpnpDevice.h>
+#import <CyberGarage/UPnP/CGUpnpService.h>
 
 @implementation CGUpnpDevice
 
-- (id) initWithCObject(CgUpnpDevice *cobj)
+@synthesize cObject;
+
+- (id) initWithCObject:(CgUpnpDevice *)cobj
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	_cObject = cobj;
+	cObject = cobj;
 	return self;
 }
 
@@ -33,33 +37,33 @@
 
 - (NSString *)friendlyName
 {
-	if (!_cObject)
+	if (!cObject)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cg_upnp_device_getfriendlyname(_cObject)];
+	return [[NSString alloc] initWithUTF8String:cg_upnp_device_getfriendlyname(cObject)];
 }
 
 - (NSString *)deviceType
 {
-	if (!_cObject)
+	if (!cObject)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cg_upnp_device_getdevicetype(_cObject)];
+	return [[NSString alloc] initWithUTF8String:cg_upnp_device_getdevicetype(cObject)];
 }
 
-- CGUpnpService *getServiceByID:(NSString *)type
+- (CGUpnpService *)getServiceByID:(NSString *)serviceId
 {
-	if (!_cObject)
+	if (!cObject)
 		return nil;
-	CgUpnpService *foundService = cg_upnp_device_getservicebyserviceid(_cObject, [type UTF8String]);
+	CgUpnpService *foundService = cg_upnp_device_getservicebyserviceid(cObject, (char *)[serviceId UTF8String]);
 	if (!foundService)
 		return nil;
 	return [[CGUpnpService alloc] initWithCObject:foundService];
 }
 
-- CGUpnpService *getServiceByType:(NSString *)type;
+- (CGUpnpService *)getServiceByType:(NSString *)serviceType;
 {
-	if (!_cObject)
+	if (!cObject)
 		return nil;
-	CgUpnpService *foundService = cg_upnp_device_getservicebytype(_cObject, [type UTF8String]);
+	CgUpnpService *foundService = cg_upnp_device_getservicebytype(cObject, (char *)[serviceType UTF8String]);
 	if (!foundService)
 		return nil;
 	return [[CGUpnpService alloc] initWithCObject:foundService];

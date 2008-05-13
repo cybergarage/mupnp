@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21814C100DD9CB1800FFFF36 /* CGUpnpActionResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 21814C0C0DD9CB1800FFFF36 /* CGUpnpActionResponse.h */; };
+		21814C110DD9CB1800FFFF36 /* CGUpnpActionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 21814C0D0DD9CB1800FFFF36 /* CGUpnpActionResponse.m */; };
+		21814C120DD9CB1800FFFF36 /* CGUpnpQueryResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 21814C0E0DD9CB1800FFFF36 /* CGUpnpQueryResponse.h */; };
+		21814C130DD9CB1800FFFF36 /* CGUpnpQueryResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 21814C0F0DD9CB1800FFFF36 /* CGUpnpQueryResponse.m */; };
 		21820DF90DB7B5BF0074203B /* CGUpnpControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 21820DF50DB7B5BF0074203B /* CGUpnpControlPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		21820DFA0DB7B5BF0074203B /* CGUpnpControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 21820DF60DB7B5BF0074203B /* CGUpnpControlPoint.m */; };
 		21820DFB0DB7B5BF0074203B /* CGUpnpDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 21820DF70DB7B5BF0074203B /* CGUpnpDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -151,6 +155,10 @@
 		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		21814C0C0DD9CB1800FFFF36 /* CGUpnpActionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpActionResponse.h; sourceTree = "<group>"; };
+		21814C0D0DD9CB1800FFFF36 /* CGUpnpActionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpActionResponse.m; sourceTree = "<group>"; };
+		21814C0E0DD9CB1800FFFF36 /* CGUpnpQueryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpQueryResponse.h; sourceTree = "<group>"; };
+		21814C0F0DD9CB1800FFFF36 /* CGUpnpQueryResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpQueryResponse.m; sourceTree = "<group>"; };
 		21820DF50DB7B5BF0074203B /* CGUpnpControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpControlPoint.h; sourceTree = "<group>"; };
 		21820DF60DB7B5BF0074203B /* CGUpnpControlPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpControlPoint.m; sourceTree = "<group>"; };
 		21820DF70DB7B5BF0074203B /* CGUpnpDevice.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = CGUpnpDevice.h; sourceTree = "<group>"; };
@@ -382,6 +390,10 @@
 		21820DDC0DB7A9750074203B /* UPnP */ = {
 			isa = PBXGroup;
 			children = (
+				21814C0C0DD9CB1800FFFF36 /* CGUpnpActionResponse.h */,
+				21814C0D0DD9CB1800FFFF36 /* CGUpnpActionResponse.m */,
+				21814C0E0DD9CB1800FFFF36 /* CGUpnpQueryResponse.h */,
+				21814C0F0DD9CB1800FFFF36 /* CGUpnpQueryResponse.m */,
 				21B521390DD88B45008F63FD /* CGUpnpService.h */,
 				21B5213A0DD88B45008F63FD /* CGUpnpService.m */,
 				21DE6CBB0DD21914000B5BEB /* CGUpnp.h */,
@@ -767,6 +779,8 @@
 				21820DFB0DB7B5BF0074203B /* CGUpnpDevice.h in Headers */,
 				21DE6CBC0DD21914000B5BEB /* CGUpnp.h in Headers */,
 				21B5213B0DD88B45008F63FD /* CGUpnpService.h in Headers */,
+				21814C100DD9CB1800FFFF36 /* CGUpnpActionResponse.h in Headers */,
+				21814C120DD9CB1800FFFF36 /* CGUpnpQueryResponse.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -922,6 +936,8 @@
 				21820DFA0DB7B5BF0074203B /* CGUpnpControlPoint.m in Sources */,
 				21820DFC0DB7B5BF0074203B /* CGUpnpDevice.m in Sources */,
 				21B5213C0DD88B45008F63FD /* CGUpnpService.m in Sources */,
+				21814C110DD9CB1800FFFF36 /* CGUpnpActionResponse.m in Sources */,
+				21814C130DD9CB1800FFFF36 /* CGUpnpQueryResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
