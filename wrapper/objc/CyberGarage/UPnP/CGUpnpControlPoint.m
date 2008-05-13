@@ -58,7 +58,7 @@
 
 - (void)searchWithST:(NSString *)aST
 {
-	if (cObject)
+	if (!cObject)
 		return;
 	cg_upnp_controlpoint_search(cObject, (char *)[aST UTF8String]);
 	int mx = cg_upnp_controlpoint_getssdpsearchmx(cObject);
