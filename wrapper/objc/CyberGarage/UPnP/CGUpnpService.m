@@ -8,30 +8,27 @@
 
 #include <cybergarage/upnp/cservice.h>
 
-#import <CyberGarage/UPnP/CGUpnpService.h>
+#import <CyberGarage/UPnP/CGUpnpService.h>s
 
 @implementation CGUpnpService
 
-- (id) init
+- (id) initWithCObject(CGUpnpService *cobj)
 {
 	if ((self = [super init]) == nil)
 		return nil;
+	_cObject = cobj;
+	return self;
+}
+
+- (id) init
+{
+	[self initWithCObject:NULL];
 	return self;
 }
 
 - (void) finalize
 {
 	[super finalize];
-}
-
-- (CgUpnpService *)cObject
-{
-	return _cObject;
-}
-
-- (void)setCObject:(CgUpnpService *)object
-{
-	_cObject = object;
 }
 
 - (NSString *)serviceType

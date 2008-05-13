@@ -16,8 +16,10 @@ typedef void CgUpnpDevice;
 {
 	CgUpnpDevice *_cObject;
 }
-- (CgUpnpDevice *)cObject;
-- (void)setCObject:(CgUpnpDevice *)object;
+@property(readonly) CgUpnpDevice *_cObject;
+- (id) initWithCObject(CgUpnpDevice *cobj);
 - (NSString *)friendlyName;
 - (NSString *)deviceType;
+- CGUpnpService *getServiceByID:(NSString *)id;
+- CGUpnpService *getServiceByType:(NSString *)type;
 @end
