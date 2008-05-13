@@ -32,6 +32,8 @@
 *		   Note : Other platforms might not support to get this functions yet. 
 *	10/22/07 Aapo Makela
 *		- Added NULL checks and fixed memory leaks in cg_net_selectaddr() and cg_net_gethostinterfaces()
+*	05/14/18
+*		- Added support for MacOSX
 *
 ******************************************************************/
 
@@ -49,6 +51,10 @@
 
 #if defined(WIN32)
 #define CG_USE_WIN32_GETADAPTERSINFO 1
+#endif
+
+#if defined(__APPLE_CC__)
+#define HAVE_IFADDRS_H 1
 #endif
 
 #if (defined(WIN32) || defined(__CYGWIN__)) && !defined(ITRON) && !defined(_W32_WCE)
@@ -368,7 +374,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 * cg_net_gethostinterfaces (UNIX)
 ****************************************/
 
-#if defined(HAVE_IFADDRS_H)
+#if defined(HAVE_IFADDRS_H) 
 
 int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 {
