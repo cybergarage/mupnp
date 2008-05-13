@@ -33,6 +33,13 @@
 	[super finalize];
 }
 
+- (NSString *)serviceId
+{
+	if (!cObject)
+		return nil;
+	return [[NSString alloc] initWithUTF8String:cg_upnp_service_getserviceid(cObject)];
+}
+
 - (NSString *)serviceType
 {
 	if (!cObject)

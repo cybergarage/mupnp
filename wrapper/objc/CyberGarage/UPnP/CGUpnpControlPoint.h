@@ -22,5 +22,5 @@ typedef void CgUpnpControlPoint;
 - (BOOL)stop;
 - (void)search;
 - (void)searchWithST:(NSString *)aST;
-- (NSArray *)getDeviceArray;
+- (NSArray *)devices;
 @end

@@ -22,6 +22,7 @@ typedef void CgUpnpDevice;
 - (id) initWithCObject:(CgUpnpDevice *)cobj;
 - (NSString *)friendlyName;
 - (NSString *)deviceType;
+- (NSArray *)services;
 - (CGUpnpService *)getServiceByID:(NSString *)serviceId;
 - (CGUpnpService *)getServiceByType:(NSString *)serviceType;
 @end
