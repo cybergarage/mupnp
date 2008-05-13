@@ -33,7 +33,7 @@
 *	10/22/07 Aapo Makela
 *		- Added NULL checks and fixed memory leaks in cg_net_selectaddr() and cg_net_gethostinterfaces()
 *	05/14/18
-*		- Added support for MacOSX
+*		- Enabled cg_net_gethostinterfaces() for MacOSX using __APPLE_CC_ macro.
 *
 ******************************************************************/
 
