@@ -104,6 +104,7 @@
 		21814DD20DD9F25800FFFF36 /* CGUpnpDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 21814DCB0DD9F25800FFFF36 /* CGUpnpDevice.m */; };
 		21814DD30DD9F25800FFFF36 /* CGUpnpQueryResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 21814DCD0DD9F25800FFFF36 /* CGUpnpQueryResponse.m */; };
 		21814DD40DD9F25800FFFF36 /* CGUpnpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 21814DCF0DD9F25800FFFF36 /* CGUpnpService.m */; };
+		21822E670DDB2ABF009B32CD /* CGUpnpAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 21822E660DDB2ABF009B32CD /* CGUpnpAction.m */; };
 		8DD76F9A0486AA7600D96B5E /* upnpdump.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* upnpdump.m */; settings = {ATTRIBUTES = (); }; };
 		8DD76F9C0486AA7600D96B5E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08FB779EFE84155DC02AAC07 /* Foundation.framework */; };
 		8DD76F9F0486AA7600D96B5E /* upnpdump.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859EA3029092ED04C91782 /* upnpdump.1 */; };
@@ -264,6 +265,8 @@
 		21814DCD0DD9F25800FFFF36 /* CGUpnpQueryResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpQueryResponse.m; sourceTree = "<group>"; };
 		21814DCE0DD9F25800FFFF36 /* CGUpnpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpService.h; sourceTree = "<group>"; };
 		21814DCF0DD9F25800FFFF36 /* CGUpnpService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpService.m; sourceTree = "<group>"; };
+		21822E650DDB2ABF009B32CD /* CGUpnpAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAction.h; sourceTree = "<group>"; };
+		21822E660DDB2ABF009B32CD /* CGUpnpAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAction.m; sourceTree = "<group>"; };
 		32A70AAB03705E1F00C91783 /* upnpdump_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = upnpdump_Prefix.pch; sourceTree = "<group>"; };
 		8DD76FA10486AA7600D96B5E /* upnpdump */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = upnpdump; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859EA3029092ED04C91782 /* upnpdump.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = upnpdump.1; sourceTree = "<group>"; };
@@ -671,6 +674,8 @@
 				21814DCD0DD9F25800FFFF36 /* CGUpnpQueryResponse.m */,
 				21814DCE0DD9F25800FFFF36 /* CGUpnpService.h */,
 				21814DCF0DD9F25800FFFF36 /* CGUpnpService.m */,
+				21822E650DDB2ABF009B32CD /* CGUpnpAction.h */,
+				21822E660DDB2ABF009B32CD /* CGUpnpAction.m */,
 			);
 			path = UPnP;
 			sourceTree = "<group>";
@@ -824,6 +829,7 @@
 				21814DD20DD9F25800FFFF36 /* CGUpnpDevice.m in Sources */,
 				21814DD30DD9F25800FFFF36 /* CGUpnpQueryResponse.m in Sources */,
 				21814DD40DD9F25800FFFF36 /* CGUpnpService.m in Sources */,
+				21822E670DDB2ABF009B32CD /* CGUpnpAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

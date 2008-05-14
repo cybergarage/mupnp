@@ -19,4 +19,5 @@ typedef void CgUpnpAction;
 @property(readonly) CgUpnpAction *cObject;
 - (id) initWithCObject:(CgUpnpAction *)cobj;
 - (NSString *)name;
+- (NSDictionary *)arguments;
 @end
