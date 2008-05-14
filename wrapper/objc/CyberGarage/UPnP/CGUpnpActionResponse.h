@@ -14,7 +14,10 @@ typedef void CGUpnpActionResponse;
 
 @interface CGUpnpActionResponse : NSObject 
 {
+	NSDictionary *arguments;
 	int statusCode;
 }
+@property(readonly) NSDictionary *arguments;
 @property(readonly) int statusCode;
+- (id) initWithResult:(NSDictionary *)arguments statusCode:(int) statusCode;
 @end

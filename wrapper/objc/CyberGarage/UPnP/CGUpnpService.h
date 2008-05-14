@@ -16,8 +16,10 @@ typedef void CgUpnpService;
 {
 	CgUpnpService *cObject;
 }
-@property(readwrite) CgUpnpService *cObject;
+@property(readonly) CgUpnpService *cObject;
 - (id) initWithCObject:(CgUpnpService *)cobj;
 - (NSString *)serviceId;
 - (NSString *)serviceType;
+- (NSArray *)actions;
+- (NSArray *)stateVariables;
 @end

@@ -12,11 +12,23 @@
 
 @implementation CGUpnpQueryResponse
 
-- (id) init
+@synthesize value;
+@synthesize statusCode;
+
+- (id) initWithResult:(NSString *)value statusCode:(int) statusCode
 {
 	if ((self = [super init]) == nil)
 		return nil;
+
+	self->value = value;
+	self->statusCode = statusCode;
+
 	return self;
+}
+
+- (id) init
+{
+	return [self initWithResult:nil statusCode:0];
 }
 
 - (void) finalize
