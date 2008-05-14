@@ -50,18 +50,27 @@ void PrintDeviceInfo(CgUpnpDevice *dev, int indent)
 void PrintDevice(CGUpnpDevice *dev) 
 {
 	static int devNum = 0;
+	int serviceNum = 0;
+	int actionNum = 0;
+	int statVarNum = 0;
 	
-	NSLog(@"[%d] %@", devNum, [dev friendlyName]);
+	NSLog(@"[%d] %@", ++devNum, [dev friendlyName]);
 	NSLog(@"  %@", [dev deviceType]);
 
-	int serviceNum = 0;
 	NSArray *serviceArray = [dev services];
 	for (CGUpnpService *service in serviceArray) {
-		NSLog(@"    [%d] %@", serviceNum, [service serviceType]);
-		serviceNum++;
+		NSLog(@"    service[%d] = %@", ++serviceNum, [service serviceType]);
+
+		NSArray *actionArray = [service actions];
+		actionNum = 0;
+		for (CGUpnpService *action in actionArray)
+			NSLog(@"      action[%d] = %@", ++actionNum, [action name]);
+
+		NSArray *statVarArray = [service stateVariables];
+		statVarNum = 0;
+		for (CGUpnpService *statVar in statVarArray)
+			NSLog(@"      stateVariable[%d] = %@", ++statVarNum, [statVar name]);
 	}
-	
-	devNum++;
 }
 
 int main (int argc, const char * argv[])

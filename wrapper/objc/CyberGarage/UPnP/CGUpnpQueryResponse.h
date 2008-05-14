@@ -14,7 +14,10 @@ typedef void CGUpnpQueryResponse;
 
 @interface CGUpnpQueryResponse : NSObject 
 {
+	NSString *value;
 	int	statusCode;
 }
+@property(readonly) NSString *value;
 @property(readonly) int statusCode;
+- (id) initWithResult:(NSString *)value statusCode:(int) statusCode;
 @end
