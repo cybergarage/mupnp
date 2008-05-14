@@ -10,18 +10,18 @@
 
 #import <CyberGarage/UPnP/CGUpnpActionResponse.h>
 
+@implementation CGUpnpActionResponse
+
 @synthesize arguments;
 @synthesize statusCode;
 
-@implementation CGUpnpActionResponse
-
-- (id) initWithResult:(NSDictionary *)arguments statusCode:(int) statusCode;
+- (id) initWithResult:(NSDictionary *)args statusCode:(int) statCode;
 {
 	if ((self = [super init]) == nil)
 		return nil;
 
-	self->arguments = arguments;
-	self->statusCode = statusCode;
+	arguments = args;
+	statusCode = statCode;
 
 	return self;
 }

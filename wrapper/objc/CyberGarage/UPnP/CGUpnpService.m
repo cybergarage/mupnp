@@ -9,6 +9,7 @@
 #include <cybergarage/upnp/cservice.h>
 
 #import <CyberGarage/UPnP/CGUpnpService.h>
+#import <CyberGarage/UPnP/CGUpnpAction.h>
 
 @implementation CGUpnpService
 
@@ -54,23 +55,24 @@
 	NSMutableArray *actionArray = [NSMutableArray array];
 	CgUpnpAction *caction;
 	for (caction = cg_upnp_service_getactions(cObject); caction; caction = cg_upnp_action_next(caction)) {
-		CGUpnpaction *action = [[CGUpnpaction alloc] initWithCObject:caction];
+		CGUpnpAction *action = [[CGUpnpAction alloc] initWithCObject:caction];
 		[actionArray addObject:action];
 	}
 	return actionArray;
 }
 
-- (NSArray *)stateVariables
+- (NSDictionary *)stateVariables
 {
 	if (!cObject)
 		return [NSArray array];
-	NSMutableArray *statVarArray = [NSMutableArray array];
+	NSMutableDictionary *statVarDir = [NSMutableDictionary dictionary];
 	CgUpnpStateVariable *cstatVar;
 	for (cstatVar = cg_upnp_service_getstatevariables(cObject); cstatVar; cstatVar = cg_upnp_statevariable_next(cstatVar)) {
-		CGUpnpstatVar *statVar = [[CGUpnpstatVar alloc] initWithCObject:cstatVar];
-		[statVarArray addObject:statVar];
+		char *name = cg_upnp_statevariable_getname(cstatVar);
+		char *value = cg_upnp_statevariable_getvalue(cstatVar);
+		[statVarDir setObject:[[NSString alloc] initWithUTF8String:(value ? value : "")] forKey:[[NSString alloc] initWithUTF8String:name]];
 	}
-	return statVarArray;
+	return statVarDir;
 }
 
 @end

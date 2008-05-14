@@ -40,4 +40,18 @@
 	return [[NSString alloc] initWithUTF8String:cg_upnp_action_getname(cObject)];
 }
 
+- (NSDictionary *)arguments
+{
+	if (!cObject)
+		return [NSArray array];
+	NSMutableDictionary *argDir = [NSMutableDictionary dictionary];
+	CgUpnpArgument *carg;
+	for (carg = cg_upnp_action_getarguments(cObject); carg; carg = cg_upnp_argument_next(carg)) {
+		char *name = cg_upnp_argument_getname(carg);
+		char *value = cg_upnp_argument_getvalue(carg);
+		[argDir setObject:[[NSString alloc] initWithUTF8String:(value ? value : "")] forKey:[[NSString alloc] initWithUTF8String:name]];
+	}
+	return argDir;
+}
+
 @end

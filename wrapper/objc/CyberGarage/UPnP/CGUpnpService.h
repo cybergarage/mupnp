@@ -21,5 +21,5 @@ typedef void CgUpnpService;
 - (NSString *)serviceId;
 - (NSString *)serviceType;
 - (NSArray *)actions;
-- (NSArray *)stateVariables;
+- (NSDictionary *)stateVariables;
 @end
