@@ -53,7 +53,7 @@
 #define CG_USE_WIN32_GETADAPTERSINFO 1
 #endif
 
-#if defined(__APPLE_CC__) || !defined(HAVE_IFADDRS_H)
+#if defined(__APPLE_CC__) && !defined(HAVE_IFADDRS_H)
 #define HAVE_IFADDRS_H 1
 #endif
 
