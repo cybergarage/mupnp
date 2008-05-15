@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="upnpdump"
+	Name="upnpavdump"
 	ProjectGUID="{43F876F0-AEB9-4F77-A3B7-E2171F6C2295}"
-	RootNamespace="upnpdump"
+	RootNamespace="upnpavdump"
 	Keyword="Win32Proj"
 	>
 	<Platforms>
@@ -64,10 +64,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpat.lib ws2_32.lib user32.lib gdi32.lib"
-				OutputFile="$(OutDir)/upnpdump.exe"
+				OutputFile="$(OutDir)/upnpavdump.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile="$(OutDir)/upnpdump.pdb"
+				ProgramDatabaseFile="$(OutDir)/upnpavdump.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -142,7 +142,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpat.lib ws2_32.lib user32.lib gdi32.lib"
-				OutputFile="$(OutDir)/upnpdump.exe"
+				OutputFile="$(OutDir)/upnpavdump.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -185,7 +185,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\upnpdump.c"
+				RelativePath="..\..\upnpavdump.c"
 				>
 			</File>
 		</Filter>
