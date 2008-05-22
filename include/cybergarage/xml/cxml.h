@@ -116,7 +116,10 @@ void cg_xml_nodelist_delete(CgXmlNodeList *nodeList);
 #define cg_xml_nodelist_gets(nodeList) (CgXmlNode *)cg_list_next((CgList *)(nodeList))
 #define cg_xml_nodelist_add(nodeList, node) cg_list_add((CgList *)(nodeList), (CgList *)(node))
 
-CgXmlNode *cg_xml_nodelist_get(CgXmlNodeList *nodeList, char *name);
+/* Deprecated : Use cg_xml_nodelist_getbyname */
+#define cg_xml_nodelist_get(nodeList, name) cg_xml_nodelist_getbyname(nodeList, name)
+CgXmlNode *cg_xml_nodelist_getbyname(CgXmlNodeList *nodeList, char *name);
+CgXmlNode *cg_xml_nodelist_getbyxpath(CgXmlNodeList *nodeList, char *xpath);
 
 /****************************************
 * Function (Node)
@@ -154,8 +157,11 @@ char *cg_xml_node_getchildnodevalue(CgXmlNode *node, char *name);
 #define cg_xml_node_setuserdatadestructor(node, func) (node->userDataDestructorFunc = func)
 
 #define cg_xml_node_getchildnodes(node) cg_xml_nodelist_gets(node->nodeList)
-#define cg_xml_node_getchildnode(node,name) ((node != NULL) ? cg_xml_nodelist_get(node->nodeList,name) : NULL)
 #define cg_xml_node_haschildnodes(node) ((cg_xml_node_getchildnodes(node) != NULL) ? TRUE : FALSE) 
+/* Deprecated : Use cg_xml_node_getchildnodebyname */
+#define cg_xml_node_getchildnode(node,name) ((node != NULL) ? cg_xml_nodelist_getbyname(node->nodeList,name) : NULL)
+#define cg_xml_node_getchildnodebyname(node,name) ((node != NULL) ? cg_xml_nodelist_getbyname(node->nodeList,name) : NULL)
+#define cg_xml_node_getchildnodebyxpath(node,xpath) ((node != NULL) ? cg_xml_nodelist_getbyxpath(node->nodeList,xpath) : NULL)
 
 /* Get childnode with some specific namespace prefix, or ignore namespace prefix.
    If ns is NULL, name string must match completely */

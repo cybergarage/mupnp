@@ -17,6 +17,11 @@
 *		- first revision
 *	12/13/07 Aapo Makela
 *		- Fixes to work in out-of-memory situations
+*	05/22/08
+*		- Added cg_xml_nodelist_getbyname() instead of cg_xml_nodelist_get().
+*		- Added cg_xml_node_getchildnodebyname() instead of cg_xml_node_getchildnode().
+*		- Added cg_xml_nodelist_getbyxpath() and cg_xml_node_getchildnodebyxpath() to get a node simply.
+*		- Deprecated cg_xml_nodelist_get() and cg_xml_node_getchildnode().*
 *
 ******************************************************************/
 
