@@ -1,8 +1,8 @@
-2008-05-22  Satoshi Konno <skonno@cybergarage.org>
+2008-05-24  Satoshi Konno <skonno@cybergarage.org>
+	* Added a sample, upnpavdump, to parser content lists of UPnP/AV. 
 	* Added cg_xml_nodelist_getbyname() instead of cg_xml_nodelist_get().
 	* Added cg_xml_node_getchildnodebyname() instead of cg_xml_node_getchildnode().
-	* Added cg_xml_nodelist_getbyxpath() and cg_xml_node_getchildnodebyxpath() to get a node simply.
-	* Deprecated cg_xml_nodelist_get() and cg_xml_node_getchildnode().*
+	* Deprecated cg_xml_nodelist_get() and cg_xml_node_getchildnode().
 
 2008-05-14  Satoshi Konno <skonno@cybergarage.org>
 	* Changed typedef.h about BOOL type using Objective-C for XCode.

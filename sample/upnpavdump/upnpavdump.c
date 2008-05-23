@@ -2,21 +2,13 @@
 *
 *	CyberLink for C
 *
-*	Copyright (C) Satoshi Konno 2005
+*	Copyright (C) Satoshi Konno 2008
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: upnpdump.c
+*	File: upnpavdump.c
 *
 *	Revision:
-*       05/11/05
+*       08/05/24
 *               - first release.
-*
-*	10/31/05
-*		- Added some M-SEARCH sending actions
 *
 ************************************************************/
 
@@ -37,6 +29,11 @@ void PrintContentDirectory(CgUpnpAction *browseAction, int indent, char *objectI
 	char *resultXml;
 	CgXmlParser *xmlParser;
 	CgXmlNodeList *rootNode;
+	CgXmlNode *didlNode;
+	CgXmlNode *cnode;
+	char *id;
+	char *title;
+	char *url;
 
 	for (n=0; n<indent && n<(sizeof(indentStr)-1); n++)
 		indentStr[n] = ' ';
@@ -56,13 +53,36 @@ void PrintContentDirectory(CgUpnpAction *browseAction, int indent, char *objectI
 	if (cg_strlen(resultXml) <= 0)
 		return;
 
+	//printf("%s\n", resultXml);
+
 	rootNode = cg_xml_nodelist_new();
 	xmlParser = cg_xml_parser_new();
 	if (cg_xml_parse(xmlParser, rootNode, resultXml, cg_strlen(resultXml))) {
+		didlNode = cg_xml_nodelist_getbyname(rootNode, "DIDL-Lite");
+		if (didlNode) {
+			for (cnode=cg_xml_node_getchildnodes(didlNode); cnode; cnode=cg_xml_node_next(cnode)) {
+				id = cg_xml_node_getattributevalue(cnode, "id");
+				title = cg_xml_node_getchildnodevalue(cnode, "dc:title");
+				if (cg_xml_node_isname(cnode, "container")) {
+					printf(" %s[%s]%s\n", 
+						indentStr, 
+						id, 
+						((0 < cg_strlen(title)) ? title : ""));
+					PrintContentDirectory(browseAction, (indent+1), id);
+				}
+				else {
+					url = cg_xml_node_getchildnodevalue(cnode, "res");
+					printf(" %s[%s]%s (%s)\n", 
+						indentStr, 
+						id, 
+						((0 < cg_strlen(title)) ? title : ""),
+						((0 < cg_strlen(url)) ? url: ""));
+				}
+			}
+		}
 	}
 	cg_xml_nodelist_delete(rootNode);
 	cg_xml_parser_delete(xmlParser);
-
 }
 
 void PrintDMSInfo(CgUpnpDevice *dev, int dmsNum)
@@ -91,8 +111,6 @@ void PrintDMSInfos(CgUpnpControlPoint *ctrlPoint)
 	CgUpnpDevice *dev;
 	int dmsNum;
 		
-	printf("Device Num = %d\n", cg_upnp_controlpoint_getndevices(ctrlPoint));
-	
 	dmsNum = 0;
 	for (dev = cg_upnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = cg_upnp_device_next(dev)) {
 		if (cg_upnp_device_isdevicetype(dev, UPNPAVDUMP_DMS_DEVICETYPE))
