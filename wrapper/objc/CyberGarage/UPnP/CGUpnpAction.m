@@ -6,8 +6,8 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/caction.h>
-
 #import <CyberGarage/UPnP/CGUpnpAction.h>
 
 @implementation CGUpnpAction

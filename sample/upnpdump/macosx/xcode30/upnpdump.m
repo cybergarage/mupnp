@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #import <CyberGarage/UPnP/CGUpnp.h>
-#include <stdio.h>
 
 void PrintDevice(CGUpnpDevice *dev) 
 {
