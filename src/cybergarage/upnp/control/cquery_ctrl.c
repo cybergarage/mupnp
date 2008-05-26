@@ -61,9 +61,9 @@ BOOL cg_upnp_statevariable_performlistner(CgUpnpStateVariable *statVar, CgUpnpQu
 
 	cg_upnp_control_query_response_delete(queryRes);
 	
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -87,9 +87,9 @@ BOOL cg_upnp_statevariable_post(CgUpnpStateVariable *statVar)
 	
 	cg_upnp_control_query_request_delete(queryReq);
 	
-	return querySuccess;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return querySuccess;
 }
 
 /****************************************
