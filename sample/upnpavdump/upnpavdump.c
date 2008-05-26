@@ -53,8 +53,6 @@ void PrintContentDirectory(CgUpnpAction *browseAction, int indent, char *objectI
 	if (cg_strlen(resultXml) <= 0)
 		return;
 
-	//printf("%s\n", resultXml);
-
 	rootNode = cg_xml_nodelist_new();
 	xmlParser = cg_xml_parser_new();
 	if (cg_xml_parse(xmlParser, rootNode, resultXml, cg_strlen(resultXml))) {
@@ -89,7 +87,9 @@ void PrintDMSInfo(CgUpnpDevice *dev, int dmsNum)
 {
 	CgUpnpService *conDirService;
 	CgUpnpAction *browseAction;
-	
+	CgUpnpStateVariable *searchCap;
+	CgUpnpStateVariable *sorpCap;
+
 	if (!cg_upnp_device_isdevicetype(dev, UPNPAVDUMP_DMS_DEVICETYPE))
 		return;
 	
@@ -98,6 +98,18 @@ void PrintDMSInfo(CgUpnpDevice *dev, int dmsNum)
 	conDirService = cg_upnp_device_getservicebytype(dev, UPNPAVDUMP_DMS_CONTENTDIR_SERVICETYPE);
 	if (!conDirService)
 		return;
+
+	searchCap = cg_upnp_service_getstatevariablebyname(conDirService, "SearchCapabilities");
+	if (searchCap) {
+		if (cg_upnp_statevariable_post(searchCap))
+			printf(" SearchCapabilities = %s\n", cg_upnp_statevariable_getvalue(searchCap));
+	}
+
+	sorpCap = cg_upnp_service_getstatevariablebyname(conDirService, "SortCapabilities");
+	if (sorpCap) {
+		if (cg_upnp_statevariable_post(sorpCap))
+			printf(" SortCapabilities = %s\n", cg_upnp_statevariable_getvalue(sorpCap));
+	}
 
 	browseAction = cg_upnp_service_getactionbyname(conDirService, UPNPAVDUMP_DMS_BROWSE_ACTIONNAME);
 	if (!browseAction)
@@ -116,6 +128,9 @@ void PrintDMSInfos(CgUpnpControlPoint *ctrlPoint)
 		if (cg_upnp_device_isdevicetype(dev, UPNPAVDUMP_DMS_DEVICETYPE))
 			PrintDMSInfo(dev, ++dmsNum);
 	}
+
+	if (dmsNum <= 0)
+		printf("Media Server is not found !!\n");
 }
 
 /////////////////////////////////////////////////////////////////////////////////
