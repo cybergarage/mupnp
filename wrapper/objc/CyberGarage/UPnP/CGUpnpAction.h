@@ -20,8 +20,8 @@ typedef void CgUpnpAction;
 - (id)initWithCObject:(CgUpnpAction *)cobj;
 - (NSString *)name;
 - (NSDictionary *)arguments;
-- (BOOL)setArgumentValue:(NSString *)value forName:(NSString *name);
-- (NSString *)argumentValueforName:(NSString *name);
+- (BOOL)setArgumentValue:(NSString *)value forName:(NSString *)name;
+- (NSString *)argumentValueforName:(NSString *)name;
 - (BOOL)post;
-- (BOOL)postWithArguments:(NSDictionary *);
+- (BOOL)postWithArguments:(NSDictionary *)arguments;
 @end

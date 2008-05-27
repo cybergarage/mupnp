@@ -54,19 +54,28 @@
 	return argDir;
 }
 
-- (void)setArgumentValue:(NSString *)value forName:(NSString *name)
+- (BOOL)setArgumentValue:(NSString *)value forName:(NSString *)name
 {
+	CgUpnpArgument *cArg;
 	if (!cObject)
 		return NO;
-	cg_upnp_action_setargumentvaluebyname(cObject, (char *)[name UTF8String], (char *)[value UTF8String]);
+	cArg = cg_upnp_action_getargumentbyname(cObject, (char *)[name UTF8String]);
+	if (!cArg)
+		return NO;
+	cg_upnp_argument_setvalue(cArg, (char *)[value UTF8String]);
+	return YES;
 }
 
-- (NSString *)argumentValueforName:(NSString *name)
+- (NSString *)argumentValueforName:(NSString *)name
 {
 	char *cValue;
+	CgUpnpArgument *cArg;
 	if (!cObject)
 		return nil;
-	cValue = cg_upnp_action_getargumentvaluebyname(cObject, (char *)[name UTF8String]);
+	cArg = cg_upnp_action_getargumentbyname(cObject, (char *)[name UTF8String]);
+	if (!cArg)
+		return nil;
+	cValue = cg_upnp_argument_getvalue(cArg);
 	if (cg_strlen(cValue) <= 0)
 		return nil;
 	return [[NSString alloc] initWithUTF8String:cValue];
@@ -77,9 +86,14 @@
 	return NO;
 }
 
-- (BOOL)postWithArguments:(NSDictionary *)
+- (BOOL)postWithArguments:(NSDictionary *)arguments
 {
-	return NO;
+	NSString *name;
+	for (name in arguments) {
+		NSString *value =  [arguments valueForKey:name];
+		[self setArgumentValue:value forName:name];
+	}
+	return [self post];
 }
 
 @end
