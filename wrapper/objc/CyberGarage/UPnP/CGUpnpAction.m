@@ -54,4 +54,32 @@
 	return argDir;
 }
 
+- (void)setArgumentValue:(NSString *)value forName:(NSString *name)
+{
+	if (!cObject)
+		return NO;
+	cg_upnp_action_setargumentvaluebyname(cObject, (char *)[name UTF8String], (char *)[value UTF8String]);
+}
+
+- (NSString *)argumentValueforName:(NSString *name)
+{
+	char *cValue;
+	if (!cObject)
+		return nil;
+	cValue = cg_upnp_action_getargumentvaluebyname(cObject, (char *)[name UTF8String]);
+	if (cg_strlen(cValue) <= 0)
+		return nil;
+	return [[NSString alloc] initWithUTF8String:cValue];
+}
+
+- (BOOL)post
+{
+	return NO;
+}
+
+- (BOOL)postWithArguments:(NSDictionary *)
+{
+	return NO;
+}
+
 @end
