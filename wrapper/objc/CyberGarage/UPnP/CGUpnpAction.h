@@ -17,7 +17,11 @@ typedef void CgUpnpAction;
 	CgUpnpAction *cObject;
 }
 @property(readonly) CgUpnpAction *cObject;
-- (id) initWithCObject:(CgUpnpAction *)cobj;
+- (id)initWithCObject:(CgUpnpAction *)cobj;
 - (NSString *)name;
 - (NSDictionary *)arguments;
+- (BOOL)setArgumentValue:(NSString *)value forName:(NSString *name);
+- (NSString *)argumentValueforName:(NSString *name);
+- (BOOL)post;
+- (BOOL)postWithArguments:(NSDictionary *);
 @end
