@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		217E40740DEDD3B4009F54B4 /* CGUpnpStateVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 217E40730DEDD3B4009F54B4 /* CGUpnpStateVariable.m */; };
 		21814D620DD9F21700FFFF36 /* chttp.c in Sources */ = {isa = PBXBuildFile; fileRef = 21814CFD0DD9F21700FFFF36 /* chttp.c */; };
 		21814D630DD9F21700FFFF36 /* chttp_date.c in Sources */ = {isa = PBXBuildFile; fileRef = 21814CFE0DD9F21700FFFF36 /* chttp_date.c */; };
 		21814D640DD9F21700FFFF36 /* chttp_header.c in Sources */ = {isa = PBXBuildFile; fileRef = 21814CFF0DD9F21700FFFF36 /* chttp_header.c */; };
@@ -99,10 +100,8 @@
 		21814DBB0DD9F21700FFFF36 /* cxml_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 21814D5F0DD9F21700FFFF36 /* cxml_parser.c */; };
 		21814DBC0DD9F21700FFFF36 /* cxml_parser_expat.c in Sources */ = {isa = PBXBuildFile; fileRef = 21814D600DD9F21700FFFF36 /* cxml_parser_expat.c */; };
 		21814DBD0DD9F21700FFFF36 /* cxml_parser_libxml2.c in Sources */ = {isa = PBXBuildFile; fileRef = 21814D610DD9F21700FFFF36 /* cxml_parser_libxml2.c */; };
-		21814DD00DD9F25800FFFF36 /* CGUpnpActionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 21814DC70DD9F25800FFFF36 /* CGUpnpActionResponse.m */; };
 		21814DD10DD9F25800FFFF36 /* CGUpnpControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 21814DC90DD9F25800FFFF36 /* CGUpnpControlPoint.m */; };
 		21814DD20DD9F25800FFFF36 /* CGUpnpDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 21814DCB0DD9F25800FFFF36 /* CGUpnpDevice.m */; };
-		21814DD30DD9F25800FFFF36 /* CGUpnpQueryResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 21814DCD0DD9F25800FFFF36 /* CGUpnpQueryResponse.m */; };
 		21814DD40DD9F25800FFFF36 /* CGUpnpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 21814DCF0DD9F25800FFFF36 /* CGUpnpService.m */; };
 		21822E670DDB2ABF009B32CD /* CGUpnpAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 21822E660DDB2ABF009B32CD /* CGUpnpAction.m */; };
 		8DD76F9A0486AA7600D96B5E /* upnpdump.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* upnpdump.m */; settings = {ATTRIBUTES = (); }; };
@@ -126,6 +125,8 @@
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* upnpdump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = upnpdump.m; sourceTree = "<group>"; };
 		08FB779EFE84155DC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		217E40720DEDD3B4009F54B4 /* CGUpnpStateVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpStateVariable.h; sourceTree = "<group>"; };
+		217E40730DEDD3B4009F54B4 /* CGUpnpStateVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpStateVariable.m; sourceTree = "<group>"; };
 		21814CCC0DD9F1F600FFFF36 /* chttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chttp.h; sourceTree = "<group>"; };
 		21814CCE0DD9F1F600FFFF36 /* cfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cfile.h; sourceTree = "<group>"; };
 		21814CD00DD9F1F600FFFF36 /* cinterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cinterface.h; sourceTree = "<group>"; };
@@ -255,14 +256,10 @@
 		21814D600DD9F21700FFFF36 /* cxml_parser_expat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cxml_parser_expat.c; sourceTree = "<group>"; };
 		21814D610DD9F21700FFFF36 /* cxml_parser_libxml2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cxml_parser_libxml2.c; sourceTree = "<group>"; };
 		21814DC50DD9F25800FFFF36 /* CGUpnp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnp.h; sourceTree = "<group>"; };
-		21814DC60DD9F25800FFFF36 /* CGUpnpActionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpActionResponse.h; sourceTree = "<group>"; };
-		21814DC70DD9F25800FFFF36 /* CGUpnpActionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpActionResponse.m; sourceTree = "<group>"; };
 		21814DC80DD9F25800FFFF36 /* CGUpnpControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpControlPoint.h; sourceTree = "<group>"; };
 		21814DC90DD9F25800FFFF36 /* CGUpnpControlPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpControlPoint.m; sourceTree = "<group>"; };
 		21814DCA0DD9F25800FFFF36 /* CGUpnpDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpDevice.h; sourceTree = "<group>"; };
 		21814DCB0DD9F25800FFFF36 /* CGUpnpDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpDevice.m; sourceTree = "<group>"; };
-		21814DCC0DD9F25800FFFF36 /* CGUpnpQueryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpQueryResponse.h; sourceTree = "<group>"; };
-		21814DCD0DD9F25800FFFF36 /* CGUpnpQueryResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpQueryResponse.m; sourceTree = "<group>"; };
 		21814DCE0DD9F25800FFFF36 /* CGUpnpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpService.h; sourceTree = "<group>"; };
 		21814DCF0DD9F25800FFFF36 /* CGUpnpService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpService.m; sourceTree = "<group>"; };
 		21822E650DDB2ABF009B32CD /* CGUpnpAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAction.h; sourceTree = "<group>"; };
@@ -663,15 +660,13 @@
 		21814DC40DD9F25800FFFF36 /* UPnP */ = {
 			isa = PBXGroup;
 			children = (
+				217E40720DEDD3B4009F54B4 /* CGUpnpStateVariable.h */,
+				217E40730DEDD3B4009F54B4 /* CGUpnpStateVariable.m */,
 				21814DC50DD9F25800FFFF36 /* CGUpnp.h */,
-				21814DC60DD9F25800FFFF36 /* CGUpnpActionResponse.h */,
-				21814DC70DD9F25800FFFF36 /* CGUpnpActionResponse.m */,
 				21814DC80DD9F25800FFFF36 /* CGUpnpControlPoint.h */,
 				21814DC90DD9F25800FFFF36 /* CGUpnpControlPoint.m */,
 				21814DCA0DD9F25800FFFF36 /* CGUpnpDevice.h */,
 				21814DCB0DD9F25800FFFF36 /* CGUpnpDevice.m */,
-				21814DCC0DD9F25800FFFF36 /* CGUpnpQueryResponse.h */,
-				21814DCD0DD9F25800FFFF36 /* CGUpnpQueryResponse.m */,
 				21814DCE0DD9F25800FFFF36 /* CGUpnpService.h */,
 				21814DCF0DD9F25800FFFF36 /* CGUpnpService.m */,
 				21822E650DDB2ABF009B32CD /* CGUpnpAction.h */,
@@ -824,12 +819,11 @@
 				21814DBB0DD9F21700FFFF36 /* cxml_parser.c in Sources */,
 				21814DBC0DD9F21700FFFF36 /* cxml_parser_expat.c in Sources */,
 				21814DBD0DD9F21700FFFF36 /* cxml_parser_libxml2.c in Sources */,
-				21814DD00DD9F25800FFFF36 /* CGUpnpActionResponse.m in Sources */,
 				21814DD10DD9F25800FFFF36 /* CGUpnpControlPoint.m in Sources */,
 				21814DD20DD9F25800FFFF36 /* CGUpnpDevice.m in Sources */,
-				21814DD30DD9F25800FFFF36 /* CGUpnpQueryResponse.m in Sources */,
 				21814DD40DD9F25800FFFF36 /* CGUpnpService.m in Sources */,
 				21822E670DDB2ABF009B32CD /* CGUpnpAction.m in Sources */,
+				217E40740DEDD3B4009F54B4 /* CGUpnpStateVariable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
