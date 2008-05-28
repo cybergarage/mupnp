@@ -59,6 +59,6 @@
 	if (!cObject)
 		return 0;
 	return cg_upnp_statevariable_getstatuscode(cObject);
-}1
+}
 
 @end

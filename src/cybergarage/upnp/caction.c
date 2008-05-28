@@ -54,9 +54,9 @@ CgUpnpAction *cg_upnp_action_new()
 		cg_upnp_action_setuserdata(action, NULL);
 	}
 
-	return action;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return action;
 }
 
 /****************************************

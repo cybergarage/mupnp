@@ -78,7 +78,7 @@
 {
 	if (!cObject)
 		return nil;
-	CgUpnpAction *cAction = cg_upnp_service_getactionbyname([name UTF8String]);
+	CgUpnpAction *cAction = cg_upnp_service_getactionbyname(cObject, (char *)[name UTF8String]);
 	if (!cAction)
 		return nil;
 	return [[CGUpnpAction alloc] initWithCObject:cAction];
@@ -88,7 +88,7 @@
 {
 	if (!cObject)
 		return nil;
-	CgUpnpStateVariable *cStatVar = cg_upnp_service_getstatevariablebyname([name UTF8String]);
+	CgUpnpStateVariable *cStatVar = cg_upnp_service_getstatevariablebyname(cObject, (char *)[name UTF8String]);
 	if (!cStatVar)
 		return nil;
 	return [[CGUpnpStateVariable alloc] initWithCObject:cStatVar];

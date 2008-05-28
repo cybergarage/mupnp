@@ -12,6 +12,9 @@
 typedef void CgUpnpService;
 #endif
 
+@class CGUpnpAction;
+@class CGUpnpStateVariable;
+
 @interface CGUpnpService : NSObject 
 {
 	CgUpnpService *cObject;

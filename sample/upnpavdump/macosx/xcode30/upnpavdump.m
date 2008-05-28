@@ -1,76 +1,59 @@
 #import <Foundation/Foundation.h>
 #import <CyberGarage/UPnP/CGUpnp.h>
 
-void PrintContentDirectory(CgUpnpAction *browseAction, int indent, char *objectId)
+void PrintContentDirectory(CGUpnpAction *browseAction, int indent, NSString *objectId)
 {
 	int n;
-	char indentStr[128];
-	char *resultXml;
-	CgXmlParser *xmlParser;
-	CgXmlNodeList *rootNode;
-	CgXmlNode *didlNode;
-	CgXmlNode *cnode;
-	char *id;
-	char *title;
-	char *url;
-
-	for (n=0; n<indent && n<(sizeof(indentStr)-1); n++)
-		indentStr[n] = ' ';
-	indentStr[n] = '\0';
-
-	cg_upnp_action_setargumentvaluebyname(browseAction, "ObjectID", objectId);
-	cg_upnp_action_setargumentvaluebyname(browseAction, "BrowseFlag", "BrowseDirectChildren");
-	cg_upnp_action_setargumentvaluebyname(browseAction, "Filter", "*");
-	cg_upnp_action_setargumentvaluebyname(browseAction, "StartingIndex", "0");
-	cg_upnp_action_setargumentvaluebyname(browseAction, "RequestedCount", "0");
-	cg_upnp_action_setargumentvaluebyname(browseAction, "SortCriteria", "");
 	
-	if (!cg_upnp_action_post(browseAction))
+	[browseAction setArgumentValue:objectId forName:@"ObjectID"];
+	[browseAction setArgumentValue:@"BrowseDirectChildren" forName:@"BrowseFlag"];
+	[browseAction setArgumentValue:@"*" forName:@"Filter"];
+	[browseAction setArgumentValue:@"0" forName:@"StartingIndex"];
+	[browseAction setArgumentValue:@"0" forName:@"RequestedCount"];
+	[browseAction setArgumentValue:@"" forName:@"SortCriteria"];
+	
+	if (![browseAction post])
 		return;
-
-	resultXml = cg_upnp_action_getargumentvaluebyname(browseAction, "Result");
-	if (cg_strlen(resultXml) <= 0)
+	
+	NSMutableString *indentStr = [NSMutableString string];
+	for (n=0; n<indent; n++)
+		[indentStr appendString:@"  "];
+		
+	NSString *resultStr = [browseAction argumentValueforName:@"Result"];
+	//NSLog(@"%@", resultStr);
+	
+	NSError *xmlErr;
+	NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithXMLString:resultStr options:0 error:&xmlErr];
+	if (!xmlDoc)
 		return;
-
-	rootNode = cg_xml_nodelist_new();
-	xmlParser = cg_xml_parser_new();
-	if (cg_xml_parse(xmlParser, rootNode, resultXml, cg_strlen(resultXml))) {
-		didlNode = cg_xml_nodelist_getbyname(rootNode, "DIDL-Lite");
-		if (didlNode) {
-			for (cnode=cg_xml_node_getchildnodes(didlNode); cnode; cnode=cg_xml_node_next(cnode)) {
-				id = cg_xml_node_getattributevalue(cnode, "id");
-				title = cg_xml_node_getchildnodevalue(cnode, "dc:title");
-				if (cg_xml_node_isname(cnode, "container")) {
-					printf(" %s[%s]%s\n", 
-						indentStr, 
-						id, 
-						((0 < cg_strlen(title)) ? title : ""));
-					PrintContentDirectory(browseAction, (indent+1), id);
-				}
-				else {
-					url = cg_xml_node_getchildnodevalue(cnode, "res");
-					printf(" %s[%s]%s (%s)\n", 
-						indentStr, 
-						id, 
-						((0 < cg_strlen(title)) ? title : ""),
-						((0 < cg_strlen(url)) ? url: ""));
-				}
+	NSArray *contentArray = [xmlDoc nodesForXPath:@"/DIDL-Lite/*" error:&xmlErr];
+	for (NSXMLNode *contentNode in contentArray) {
+		NSString *objId = [[contentNode attributeForName:@"id"] stringValue];
+		NSArray *titleArray = [contentNode elementsForName:@"dc:title"];
+		NSString *title = @"";
+		for (NSXMLNode *titleNode in titleArray) {
+			title = [titleNode stringValue];
+			break;
+		}
+		if ([[contentNode name] isEqualToString:@"container"]) {
+			NSLog(@"%@  [%@] %@", indentStr, objId, title);
+			PrintContentDirectory(browseAction, (indent+1), objId);
+		}
+		else {
+			NSArray *resArray = [contentNode elementsForName:@"res"];
+			NSString *url = @"";
+			for (NSXMLNode *resNode in resArray) {
+				url = [resNode stringValue];
+				break;
 			}
+			NSLog(@"%@  [%@] %@ (%@)", indentStr, objId, title, url);
 		}
 	}
-	cg_xml_nodelist_delete(rootNode);
-	cg_xml_parser_delete(xmlParser);
 }
 
 void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum) 
 {
-	int serviceNum = 0;
-	int actionNum = 0;
-	int argNum = 0;
-	int statVarNum = 0;
-	
-	NSLog(@"[%d] %@", ++dmsNum, [dev friendlyName]);
-	NSLog(@"  deviceType = %@", [dev deviceType]);
+	NSLog(@"[%d] %@", dmsNum, [dev friendlyName]);
 
 	CGUpnpService *conDirService = [dev getServiceByType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
@@ -79,20 +62,20 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 	CGUpnpStateVariable *searchCap = [conDirService getStateVariableByName:@"SearchCapabilities"];
 	if (searchCap) {
 		if ([searchCap query])
-			NSLog(@" SearchCapabilities = %@\n", [searchCap value]);
+			NSLog(@"  SearchCapabilities = %@\n", [searchCap value]);
 	}
 
 	CGUpnpStateVariable *sorpCap = [conDirService getStateVariableByName:@"SortCapabilities"];
 	if (sorpCap) {
 		if ([sorpCap query])
-			NSLog(@" SortCapabilities = %@\n", [sorpCap value]);
+			NSLog(@"  SortCapabilities = %@\n", [sorpCap value]);
 	}
 
-	CGUpnpAction *browseAction = cg_upnp_service_getactionbyname(conDirService, UPNPAVDUMP_DMS_BROWSE_ACTIONNAME);
+	CGUpnpAction *browseAction = [conDirService getActionByName:@"Browse"];
 	if (!browseAction)
 		return;
 
-	PrintContentDirectory(browseAction, 0, "0");
+	PrintContentDirectory(browseAction, 0, @"0");
 }
 
 int main (int argc, const char * argv[])

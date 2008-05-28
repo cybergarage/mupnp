@@ -43,9 +43,9 @@ CgUpnpArgument *cg_upnp_argument_new()
 		arg->value = cg_string_new();
 	}
 	
-	return arg;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return arg;
 }
 
 /****************************************
@@ -60,7 +60,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *arg)
 	
 	cg_string_delete(arg->value);
 	
-	free(arg);
-
 	cg_log_debug_l4("Leaving...\n");
+
+	free(arg);
 }
