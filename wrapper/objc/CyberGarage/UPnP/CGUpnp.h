@@ -10,4 +10,4 @@
 #import <CyberGarage/UPnP/CGUpnpDevice.h>
 #import <CyberGarage/UPnP/CGUpnpService.h>
 #import <CyberGarage/UPnP/CGUpnpAction.h>
-
+#import <CyberGarage/UPnP/CGUpnpStateVariable.h>

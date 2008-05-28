@@ -100,10 +100,8 @@
 		2119363A0DEB6D6700211027 /* cxml_parser_expat.c in Sources */ = {isa = PBXBuildFile; fileRef = 211935DE0DEB6D6700211027 /* cxml_parser_expat.c */; };
 		2119363B0DEB6D6700211027 /* cxml_parser_libxml2.c in Sources */ = {isa = PBXBuildFile; fileRef = 211935DF0DEB6D6700211027 /* cxml_parser_libxml2.c */; };
 		2119365E0DEB6F7C00211027 /* CGUpnpAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 211936530DEB6F7C00211027 /* CGUpnpAction.m */; };
-		2119365F0DEB6F7C00211027 /* CGUpnpActionResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 211936550DEB6F7C00211027 /* CGUpnpActionResponse.m */; };
 		211936600DEB6F7C00211027 /* CGUpnpControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 211936570DEB6F7C00211027 /* CGUpnpControlPoint.m */; };
 		211936610DEB6F7C00211027 /* CGUpnpDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 211936590DEB6F7C00211027 /* CGUpnpDevice.m */; };
-		211936620DEB6F7C00211027 /* CGUpnpQueryResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2119365B0DEB6F7C00211027 /* CGUpnpQueryResponse.m */; };
 		211936630DEB6F7C00211027 /* CGUpnpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2119365D0DEB6F7C00211027 /* CGUpnpService.m */; };
 		217E3F500DEDA6F7009F54B4 /* CGUpnpStateVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 217E3F4F0DEDA6F7009F54B4 /* CGUpnpStateVariable.m */; };
 		21C648100DE31FA60028FCF9 /* upnpavdump.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C6480F0DE31FA60028FCF9 /* upnpavdump.m */; };
@@ -256,18 +254,14 @@
 		211936510DEB6F7C00211027 /* CGUpnp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnp.h; sourceTree = "<group>"; };
 		211936520DEB6F7C00211027 /* CGUpnpAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAction.h; sourceTree = "<group>"; };
 		211936530DEB6F7C00211027 /* CGUpnpAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAction.m; sourceTree = "<group>"; };
-		211936540DEB6F7C00211027 /* CGUpnpActionResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpActionResponse.h; sourceTree = "<group>"; };
-		211936550DEB6F7C00211027 /* CGUpnpActionResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpActionResponse.m; sourceTree = "<group>"; };
 		211936560DEB6F7C00211027 /* CGUpnpControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpControlPoint.h; sourceTree = "<group>"; };
 		211936570DEB6F7C00211027 /* CGUpnpControlPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpControlPoint.m; sourceTree = "<group>"; };
 		211936580DEB6F7C00211027 /* CGUpnpDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpDevice.h; sourceTree = "<group>"; };
 		211936590DEB6F7C00211027 /* CGUpnpDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpDevice.m; sourceTree = "<group>"; };
-		2119365A0DEB6F7C00211027 /* CGUpnpQueryResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpQueryResponse.h; sourceTree = "<group>"; };
-		2119365B0DEB6F7C00211027 /* CGUpnpQueryResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpQueryResponse.m; sourceTree = "<group>"; };
 		2119365C0DEB6F7C00211027 /* CGUpnpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpService.h; sourceTree = "<group>"; };
 		2119365D0DEB6F7C00211027 /* CGUpnpService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpService.m; sourceTree = "<group>"; };
-		217E3F4E0DEDA6F7009F54B4 /* CGUpnpStateVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpStateVariable.h; path = UPnP/CGUpnpStateVariable.h; sourceTree = "<group>"; };
-		217E3F4F0DEDA6F7009F54B4 /* CGUpnpStateVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpStateVariable.m; path = UPnP/CGUpnpStateVariable.m; sourceTree = "<group>"; };
+		217E3F4E0DEDA6F7009F54B4 /* CGUpnpStateVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpStateVariable.h; sourceTree = "<group>"; };
+		217E3F4F0DEDA6F7009F54B4 /* CGUpnpStateVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpStateVariable.m; sourceTree = "<group>"; };
 		21C6480F0DE31FA60028FCF9 /* upnpavdump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = upnpavdump.m; sourceTree = "<group>"; };
 		21C648A70DE322890028FCF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8DD76F7E0486A8DE00D96B5E /* upnpavdump */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = upnpavdump; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -655,8 +649,6 @@
 		2119364F0DEB6F7C00211027 /* CyberGarage */ = {
 			isa = PBXGroup;
 			children = (
-				217E3F4E0DEDA6F7009F54B4 /* CGUpnpStateVariable.h */,
-				217E3F4F0DEDA6F7009F54B4 /* CGUpnpStateVariable.m */,
 				211936500DEB6F7C00211027 /* UPnP */,
 			);
 			name = CyberGarage;
@@ -666,17 +658,15 @@
 		211936500DEB6F7C00211027 /* UPnP */ = {
 			isa = PBXGroup;
 			children = (
+				217E3F4E0DEDA6F7009F54B4 /* CGUpnpStateVariable.h */,
+				217E3F4F0DEDA6F7009F54B4 /* CGUpnpStateVariable.m */,
 				211936510DEB6F7C00211027 /* CGUpnp.h */,
 				211936520DEB6F7C00211027 /* CGUpnpAction.h */,
 				211936530DEB6F7C00211027 /* CGUpnpAction.m */,
-				211936540DEB6F7C00211027 /* CGUpnpActionResponse.h */,
-				211936550DEB6F7C00211027 /* CGUpnpActionResponse.m */,
 				211936560DEB6F7C00211027 /* CGUpnpControlPoint.h */,
 				211936570DEB6F7C00211027 /* CGUpnpControlPoint.m */,
 				211936580DEB6F7C00211027 /* CGUpnpDevice.h */,
 				211936590DEB6F7C00211027 /* CGUpnpDevice.m */,
-				2119365A0DEB6F7C00211027 /* CGUpnpQueryResponse.h */,
-				2119365B0DEB6F7C00211027 /* CGUpnpQueryResponse.m */,
 				2119365C0DEB6F7C00211027 /* CGUpnpService.h */,
 				2119365D0DEB6F7C00211027 /* CGUpnpService.m */,
 			);
@@ -828,10 +818,8 @@
 				2119363A0DEB6D6700211027 /* cxml_parser_expat.c in Sources */,
 				2119363B0DEB6D6700211027 /* cxml_parser_libxml2.c in Sources */,
 				2119365E0DEB6F7C00211027 /* CGUpnpAction.m in Sources */,
-				2119365F0DEB6F7C00211027 /* CGUpnpActionResponse.m in Sources */,
 				211936600DEB6F7C00211027 /* CGUpnpControlPoint.m in Sources */,
 				211936610DEB6F7C00211027 /* CGUpnpDevice.m in Sources */,
-				211936620DEB6F7C00211027 /* CGUpnpQueryResponse.m in Sources */,
 				211936630DEB6F7C00211027 /* CGUpnpService.m in Sources */,
 				217E3F500DEDA6F7009F54B4 /* CGUpnpStateVariable.m in Sources */,
 			);
