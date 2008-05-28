@@ -57,6 +57,7 @@
 - (BOOL)setArgumentValue:(NSString *)value forName:(NSString *)name
 {
 	CgUpnpArgument *cArg;
+
 	if (!cObject)
 		return NO;
 	cArg = cg_upnp_action_getargumentbyname(cObject, (char *)[name UTF8String]);
@@ -70,6 +71,7 @@
 {
 	char *cValue;
 	CgUpnpArgument *cArg;
+
 	if (!cObject)
 		return nil;
 	cArg = cg_upnp_action_getargumentbyname(cObject, (char *)[name UTF8String]);
@@ -83,17 +85,27 @@
 
 - (BOOL)post
 {
-	return NO;
+	if (!cObject)
+		return NO;
+	return cg_upnp_action_post(cObject);
 }
 
 - (BOOL)postWithArguments:(NSDictionary *)arguments
 {
 	NSString *name;
+
 	for (name in arguments) {
-		NSString *value =  [arguments valueForKey:name];
+		NSString *value = [arguments valueForKey:name];
 		[self setArgumentValue:value forName:name];
 	}
 	return [self post];
+}
+
+- (int)statusCode
+{
+	if (!cObject)
+		return 0;
+	return cg_upnp_action_getstatuscode(cObject);
 }
 
 @end
