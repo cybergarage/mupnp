@@ -49,6 +49,11 @@
 	return [[NSString alloc] initWithUTF8String:cg_upnp_device_getdevicetype(cObject)];
 }
 
+- (BOOL)isDeviceType(NSString *type)
+{
+	return [type isEqualToString:[self] deviceType];
+}
+
 - (NSArray *)services
 {
 	if (!cObject)

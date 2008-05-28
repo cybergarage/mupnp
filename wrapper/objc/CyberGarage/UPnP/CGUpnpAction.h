@@ -24,4 +24,5 @@ typedef void CgUpnpAction;
 - (NSString *)argumentValueforName:(NSString *)name;
 - (BOOL)post;
 - (BOOL)postWithArguments:(NSDictionary *)arguments;
+- (int)statusCode;
 @end

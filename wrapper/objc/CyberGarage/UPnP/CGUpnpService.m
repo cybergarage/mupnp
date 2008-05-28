@@ -53,26 +53,45 @@
 	if (!cObject)
 		return [NSArray array];
 	NSMutableArray *actionArray = [NSMutableArray array];
-	CgUpnpAction *caction;
-	for (caction = cg_upnp_service_getactions(cObject); caction; caction = cg_upnp_action_next(caction)) {
-		CGUpnpAction *action = [[CGUpnpAction alloc] initWithCObject:caction];
+	CgUpnpAction *cAction;
+	for (cAction = cg_upnp_service_getactions(cObject); cAction; cAction = cg_upnp_action_next(cAction)) {
+		CGUpnpAction *action = [[CGUpnpAction alloc] initWithCObject:cAction];
 		[actionArray addObject:action];
 	}
 	return actionArray;
 }
 
-- (NSDictionary *)stateVariables
+- (NSArray *)stateVariables
 {
 	if (!cObject)
 		return [NSArray array];
-	NSMutableDictionary *statVarDir = [NSMutableDictionary dictionary];
-	CgUpnpStateVariable *cstatVar;
-	for (cstatVar = cg_upnp_service_getstatevariables(cObject); cstatVar; cstatVar = cg_upnp_statevariable_next(cstatVar)) {
-		char *name = cg_upnp_statevariable_getname(cstatVar);
-		char *value = cg_upnp_statevariable_getvalue(cstatVar);
-		[statVarDir setObject:[[NSString alloc] initWithUTF8String:(value ? value : "")] forKey:[[NSString alloc] initWithUTF8String:name]];
+	NSMutableArray *statVarArray = [NSMutableArray array];
+	CgUpnpStateVariable *cStatVar;
+	for (cStatVar = cg_upnp_service_getstatevariables(cObject); cStatVar; cStatVar = cg_upnp_statevariable_next(cStatVar)) {
+		CGUpnpStateVariable *statVar = [[CGUpnpStateVariable alloc] initWithCObject:cStatVar];
+		[statVarArray addObject:statVar];
 	}
-	return statVarDir;
+	return statVarArray;
+}
+
+- (CGUpnpAction *)getActionByName:(NSString *)name
+{
+	if (!cObject)
+		return nil;
+	CgUpnpAction *cAction = cg_upnp_service_getactionbyname([name UTF8String]);
+	if (!cAction)
+		return nil;
+	return [[CGUpnpAction alloc] initWithCObject:cAction];
+}
+
+- (CGUpnpStateVariable *)getStateVariableByName:(NSString *)name
+{
+	if (!cObject)
+		return nil;
+	CgUpnpStateVariable *cStatVar = cg_upnp_service_getstatevariablebyname([name UTF8String]);
+	if (!cStatVar)
+		return nil;
+	return [[CGUpnpStateVariable alloc] initWithCObject:cStatVar];
 }
 
 @end
