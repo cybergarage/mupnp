@@ -3,7 +3,8 @@
 	* Added cg_xml_nodelist_getbyname() instead of cg_xml_nodelist_get().
 	* Added cg_xml_node_getchildnodebyname() instead of cg_xml_node_getchildnode().
 	* Deprecated cg_xml_nodelist_get() and cg_xml_node_getchildnode().
-
+	* Added support to include <expat/expat.h>.
+	
 2008-05-14  Satoshi Konno <skonno@cybergarage.org>
 	* Changed typedef.h about BOOL type using Objective-C for XCode.
 	* Changed cg_cond_signal() using SetEvent() instead of WaitForSingleObject() for WIN32 platform.
