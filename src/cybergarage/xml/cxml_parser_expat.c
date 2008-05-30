@@ -55,7 +55,7 @@
 #define XMLCALL
 #endif
 
-#defined (HAVE_EXPAT_EXPAT_H)
+#if defined(HAVE_EXPAT_EXPAT_H)
 #include <expat/expat.h>
 #else
 #include <expat.h>
