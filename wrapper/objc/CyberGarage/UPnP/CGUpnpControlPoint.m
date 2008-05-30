@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/ccontrolpoint.h>
 #include <cybergarage/upnp/control/ccontrol.h>
-#import <CyberGarage/UPnP/CGUpnpControlPoint.h>
-#import <CyberGarage/UPnP/CGUpnpDevice.h>
+#import <CGUpnpControlPoint.h>
+#import <CGUpnpDevice.h>
 
 @implementation CGUpnpControlPoint
 

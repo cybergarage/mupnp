@@ -1,5 +1,13 @@
+//
+//  upnpdump.c
+//  CyberLink for C
+//
+//  Created by Satoshi Konno on 08/05/12.
+//  Copyright 2008 Satoshi Konno. All rights reserved.
+//
+
 #import <Foundation/Foundation.h>
-#import <CyberGarage/UPnP/CGUpnp.h>
+#import <CyberLink/UPnP.h>
 
 void PrintDevice(CGUpnpDevice *dev) 
 {
@@ -27,10 +35,10 @@ void PrintDevice(CGUpnpDevice *dev)
 			}
 		}
 
-		NSDictionary *statVarDir = [service stateVariables];
+		NSArray *statVarArray = [service stateVariables];
 		statVarNum = 0;
-		for (NSString *name in statVarDir) {
-			//NSLog(@"      [%d] stateVariable = %@", ++statVarNum, name);
+		for (CGUpnpStateVariable *statVar in statVarArray) {
+			//NSLog(@"      [%d] stateVariable = %@", ++statVarNum, [statVar name]);
 		}
 	}
 }

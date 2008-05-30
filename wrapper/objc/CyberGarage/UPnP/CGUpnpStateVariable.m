@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/cstatevariable.h>
-#import <CyberGarage/UPnP/CGUpnpStateVariable.h>
+#import <CGUpnpStateVariable.h>
 
 @implementation CGUpnpStateVariable
 

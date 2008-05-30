@@ -9,8 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/cdevice.h>
 #include <cybergarage/upnp/cservice.h>
-#import <CyberGarage/UPnP/CGUpnpDevice.h>
-#import <CyberGarage/UPnP/CGUpnpService.h>
+#import <CGUpnpDevice.h>
+#import <CGUpnpService.h>
 
 @implementation CGUpnpDevice
 

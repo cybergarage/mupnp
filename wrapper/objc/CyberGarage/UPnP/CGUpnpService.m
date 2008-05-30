@@ -8,8 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/cservice.h>
-#import <CyberGarage/UPnP/CGUpnpService.h>
-#import <CyberGarage/UPnP/CGUpnpAction.h>
+#import <CGUpnpService.h>
+#import <CGUpnpAction.h>
 
 @implementation CGUpnpService
 
