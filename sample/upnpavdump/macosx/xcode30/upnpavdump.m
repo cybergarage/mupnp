@@ -1,5 +1,13 @@
+//
+//  upnpavdump.c
+//  CyberLink for C
+//
+//  Created by Satoshi Konno on 08/05/12.
+//  Copyright 2008 Satoshi Konno. All rights reserved.
+//
+
 #import <Foundation/Foundation.h>
-#import <CyberGarage/UPnP/CGUpnp.h>
+#import <CyberLink/UPnP.h>
 
 void PrintContentDirectory(CGUpnpAction *browseAction, int indent, NSString *objectId)
 {

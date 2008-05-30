@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/caction.h>
-#import <CyberGarage/UPnP/CGUpnpAction.h>
+#import <CGUpnpAction.h>
 
 @implementation CGUpnpAction
 
