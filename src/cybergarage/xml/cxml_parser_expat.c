@@ -25,6 +25,8 @@
 *		- added DEBUG_XML configurations
 *	05/09/08
 *		-  Fixed cg_xml_parse() not to abort when the data is null or the length less than zero.
+*	08/05/30
+*		-  Added support to include <expat/expat.h>
 *
 ******************************************************************/
 
@@ -53,7 +55,11 @@
 #define XMLCALL
 #endif
 
+#defined (HAVE_EXPAT_EXPAT_H)
+#include <expat/expat.h>
+#else
 #include <expat.h>
+#endif
 
 #if defined DEBUG_XML
 static int indent = 0;
