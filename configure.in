@@ -552,4 +552,6 @@ sample/upnpdump/Makefile
 sample/upnpdump/unix/Makefile
 sample/upnpavdump/Makefile
 sample/upnpavdump/unix/Makefile
+sample/upnpigddump/Makefile
+sample/upnpigddump/unix/Makefile
 ])

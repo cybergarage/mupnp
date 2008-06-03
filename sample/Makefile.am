@@ -1,1 +1,1 @@
-SUBDIRS = clock upnpdump upnpavdump
+SUBDIRS = clock upnpdump upnpavdump upnpigddump
