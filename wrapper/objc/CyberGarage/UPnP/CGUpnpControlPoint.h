@@ -22,22 +22,32 @@ typedef void CgUpnpControlPoint;
  * Activate the control point. Starts listening for SSDP messages etc.
  * You must call this function before you can actually use a control point.
  *
- * @param ctrlPoint The control point to start
- *
  * @return TRUE if successful; otherwise FALSE
  *
  */
 - (BOOL)start;
 - (BOOL)stop;
 /**
- * Do an M-SEARCH to look for all devices using ssdp:all in the network.
+ * Send a M-SEARCH request to find for the all UPnP devices of UPnP in the network.
+ * The method waits for the specified MX time. Use setSsdpSearchMX() to change the time.
+ * The method is same as searchWithST() when the ST parameter is "ssdp:all".
  */
 - (void)search;
 /**
- * Do an M-SEARCH to look for devices in the network.
+ * Send a M-SEARCH request to find for the specified UPnP devices by a ST parameter in the network.
+ * The method waits for the specified MX time. Use setSsdpSearchMX() to change the time.
  *
  * @param aST The Search Target parameter (ex. "ssdp:all")
  */
 - (void)searchWithST:(NSString *)aST;
+/**
+ * Set a MX-parameter used for SSDP searches i.e. Set the time to wait 
+ * (in seconds) for device responses to an M-SEARCH
+ *
+ * @param ctrlPoint The control point in question
+ * @param value MX; Time to wait
+ */
+- (void)setSsdpSearchMX:(int)mx;
+- (int)ssdpSearchMX;
 - (NSArray *)devices;
 @end
