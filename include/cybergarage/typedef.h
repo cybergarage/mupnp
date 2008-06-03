@@ -75,7 +75,7 @@ typedef int BOOL;
 	
 typedef unsigned char CgByte;
 
-#if defined(__USE_ISOC99)
+#if defined(__USE_ISOC99) || defined(__GCC__)
 typedef long long int CgInt64;
 #define CG_USE_INT64 1
 #elif defined(HAVE_LONGLONG)
