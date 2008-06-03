@@ -102,7 +102,7 @@ int main (int argc, const char * argv[])
 	}
 
 	if (dmsNum <= 0)
-		printf("Media Server is not found !!\n");
+		NSLog("@Media Server is not found !!\n");
 
 	[pool drain];
 	return 0;
