@@ -15,6 +15,12 @@ typedef void CgUpnpService;
 @class CGUpnpAction;
 @class CGUpnpStateVariable;
 
+/**
+ * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
+ * program using Objective-C directly on MacOSX.
+ * Currently, the only basic methods are wrapped to control UPnP devices.
+ */
+
 @interface CGUpnpService : NSObject 
 {
 	CgUpnpService *cObject;
