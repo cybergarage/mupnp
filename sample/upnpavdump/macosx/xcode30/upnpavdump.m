@@ -27,7 +27,7 @@ void PrintContentDirectory(CGUpnpAction *browseAction, int indent, NSString *obj
 	for (n=0; n<indent; n++)
 		[indentStr appendString:@"  "];
 		
-	NSString *resultStr = [browseAction argumentValueforName:@"Result"];
+	NSString *resultStr = [browseAction argumentValueForName:@"Result"];
 	//NSLog(@"%@", resultStr);
 	
 	NSError *xmlErr;
@@ -63,23 +63,23 @@ void PrintDmsInfo(CGUpnpDevice *dev, int dmsNum)
 {
 	NSLog(@"[%d] %@", dmsNum, [dev friendlyName]);
 
-	CGUpnpService *conDirService = [dev getServiceByType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
+	CGUpnpService *conDirService = [dev getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
 		return;
 
-	CGUpnpStateVariable *searchCap = [conDirService getStateVariableByName:@"SearchCapabilities"];
+	CGUpnpStateVariable *searchCap = [conDirService getStateVariableForName:@"SearchCapabilities"];
 	if (searchCap) {
 		if ([searchCap query])
 			NSLog(@"  SearchCapabilities = %@\n", [searchCap value]);
 	}
 
-	CGUpnpStateVariable *sorpCap = [conDirService getStateVariableByName:@"SortCapabilities"];
+	CGUpnpStateVariable *sorpCap = [conDirService getStateVariableForName:@"SortCapabilities"];
 	if (sorpCap) {
 		if ([sorpCap query])
 			NSLog(@"  SortCapabilities = %@\n", [sorpCap value]);
 	}
 
-	CGUpnpAction *browseAction = [conDirService getActionByName:@"Browse"];
+	CGUpnpAction *browseAction = [conDirService getActionForName:@"Browse"];
 	if (!browseAction)
 		return;
 
@@ -102,7 +102,7 @@ int main (int argc, const char * argv[])
 	}
 
 	if (dmsNum <= 0)
-		NSLog("@Media Server is not found !!\n");
+		NSLog(@"Media Server is not found !!\n");
 
 	[pool drain];
 	return 0;

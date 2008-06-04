@@ -74,7 +74,7 @@
 	return statVarArray;
 }
 
-- (CGUpnpAction *)getActionByName:(NSString *)name
+- (CGUpnpAction *)getActionForName:(NSString *)name
 {
 	if (!cObject)
 		return nil;
@@ -84,7 +84,7 @@
 	return [[CGUpnpAction alloc] initWithCObject:cAction];
 }
 
-- (CGUpnpStateVariable *)getStateVariableByName:(NSString *)name
+- (CGUpnpStateVariable *)getStateVariableForName:(NSString *)name
 {
 	if (!cObject)
 		return nil;

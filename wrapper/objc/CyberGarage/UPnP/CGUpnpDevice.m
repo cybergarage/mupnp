@@ -67,7 +67,7 @@
 	return serviceArray;
 }
 
-- (CGUpnpService *)getServiceByID:(NSString *)serviceId
+- (CGUpnpService *)getServiceForID:(NSString *)serviceId
 {
 	if (!cObject)
 		return nil;
@@ -77,7 +77,7 @@
 	return [[CGUpnpService alloc] initWithCObject:foundService];
 }
 
-- (CGUpnpService *)getServiceByType:(NSString *)serviceType;
+- (CGUpnpService *)getServiceForType:(NSString *)serviceType;
 {
 	if (!cObject)
 		return nil;

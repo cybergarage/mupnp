@@ -13,26 +13,26 @@ void PrintIGDInfo(CGUpnpDevice *dev, int igdNum)
 {
 	NSLog(@"[%d] %@", igdNum, [dev friendlyName]);
 
-	CGUpnpService *ipConService = [dev getServiceByType:@"urn:schemas-upnp-org:service:WANIPConnection:1"];
+	CGUpnpService *ipConService = [dev getServiceForType:@"urn:schemas-upnp-org:service:WANIPConnection:1"];
 	if (ipConService) {
-		CGUpnpAction *extIpAddrAction = [ipConService getActionByName:@"GetExternalIPAddress"];
+		CGUpnpAction *extIpAddrAction = [ipConService getActionForName:@"GetExternalIPAddress"];
 		if (extIpAddrAction) {
 			if ([extIpAddrAction post])
-				NSLog(@"  GetExternalIPAddress = %@", [extIpAddrAction argumentValueforName:@"NewExternalIPAddress"]);
+				NSLog(@"  GetExternalIPAddress = %@", [extIpAddrAction argumentValueForName:@"NewExternalIPAddress"]);
 		}
 	}
 
-	CGUpnpService *wanComIfCfgService = [dev getServiceByType:@"urn:schemas-upnp-org:service:WANCommonInterfaceConfig:1"];
+	CGUpnpService *wanComIfCfgService = [dev getServiceForType:@"urn:schemas-upnp-org:service:WANCommonInterfaceConfig:1"];
 	if (wanComIfCfgService) {
-		CGUpnpAction *totalBytesSentAction = [wanComIfCfgService getActionByName:@"GetTotalBytesSent"];
+		CGUpnpAction *totalBytesSentAction = [wanComIfCfgService getActionForName:@"GetTotalBytesSent"];
 		if (totalBytesSentAction) {
 			if ([totalBytesSentAction post])
-				NSLog(@"  GetTotalBytesSent = %@", [totalBytesSentAction argumentValueforName:@"NewTotalBytesSent"]);
+				NSLog(@"  GetTotalBytesSent = %@", [totalBytesSentAction argumentValueForName:@"NewTotalBytesSent"]);
 		}
-		CGUpnpAction *totalBytesRecvAction = [wanComIfCfgService getActionByName:@"GetTotalBytesReceived"];
+		CGUpnpAction *totalBytesRecvAction = [wanComIfCfgService getActionForName:@"GetTotalBytesReceived"];
 		if (totalBytesRecvAction) {
 			if ([totalBytesRecvAction post])
-				NSLog(@"  GetTotalBytesReceived = %@", [totalBytesRecvAction argumentValueforName:@"NewTotalBytesReceived"]);
+				NSLog(@"  GetTotalBytesReceived = %@", [totalBytesRecvAction argumentValueForName:@"NewTotalBytesReceived"]);
 		}
 	}
 	
