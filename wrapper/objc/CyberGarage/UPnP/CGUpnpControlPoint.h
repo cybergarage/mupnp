@@ -12,6 +12,11 @@
 typedef void CgUpnpControlPoint;
 #endif
 
+/**
+ * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
+ * program using Objective-C directly on MacOSX.
+ * Currently, the only basic methods are wrapped to control UPnP devices.
+ */
 @interface CGUpnpControlPoint : NSObject 
 {
 	CgUpnpControlPoint *cObject;
@@ -19,35 +24,52 @@ typedef void CgUpnpControlPoint;
 @property(readonly) CgUpnpControlPoint *cObject;
 - (CgUpnpControlPoint *)cObject;
 /**
- * Activate the control point. Starts listening for SSDP messages etc.
- * You must call this function before you can actually use a control point.
+ * Activate some background threads of the control point such as SSDP and 
+ * HTTP servers to listen messages and events of UPnP. You must call this 
+ * method before you can actually use a control point.
  *
  * @return TRUE if successful; otherwise FALSE
  *
  */
 - (BOOL)start;
+/**
+ * Stop some background threads of the control point such as SSDP and 
+ * HTTP servers to listen messages and events of UPnP. 
+ *
+ * @return TRUE if successful; otherwise FALSE
+ *
+ */
 - (BOOL)stop;
 /**
  * Send a M-SEARCH request to find for the all UPnP devices of UPnP in the network.
- * The method waits for the specified MX time. Use setSsdpSearchMX() to change the time.
+ * The method waits for the specified MX time. Use setSsdpSearchMX:(int)aMX to change the time.
  * The method is same as searchWithST() when the ST parameter is "ssdp:all".
  */
 - (void)search;
 /**
  * Send a M-SEARCH request to find for the specified UPnP devices by a ST parameter in the network.
- * The method waits for the specified MX time. Use setSsdpSearchMX() to change the time.
+ * The method waits for the specified MX time. Use setSsdpSearchMX:(int)aMX to change the time.
  *
  * @param aST The Search Target parameter (ex. "ssdp:all")
  */
 - (void)searchWithST:(NSString *)aST;
 /**
- * Set a MX-parameter used for SSDP searches i.e. Set the time to wait 
- * (in seconds) for device responses to an M-SEARCH
+ * Set a MX parameter used for SSDP searches in seconds.
+ * The parameter is used to wait for M-SEARCH responses in search() and searchWithST:(NSString *)aST.
  *
- * @param ctrlPoint The control point in question
- * @param value MX; Time to wait
+ * @param aMX Time to wait
  */
-- (void)setSsdpSearchMX:(int)mx;
+- (void)setSsdpSearchMX:(int)aMX;
+/**
+ * Get a MX parameter used for SSDP searches in seconds.
+ * The parameter is used to wait for M-SEARCH responses in search() and searchWithST:(NSString *)aST.
+ *
+ * @return aMX Time to wait
+ */
 - (int)ssdpSearchMX;
+/**
+ * Get all UPnP devices which the control point found as a NSArray object. The array has the devices as instances of CGUpnpDevice.
+ * @return devices The objects of CGUpnpDevice in a NSArray.
+ */
 - (NSArray *)devices;
 @end
