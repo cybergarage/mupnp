@@ -52,7 +52,7 @@ typedef void CgUpnpDevice;
 /**
  * Get a service in the device by the specified service ID.
  *
- * @param name A ID string of the service.
+ * @param serviceId A service ID string of the service.
  *
  * @return The CGUpnpService if the specified service is found; otherwise nil.
  */
@@ -60,7 +60,7 @@ typedef void CgUpnpDevice;
 /**
  * Get a service in the device by the specified service type.
  *
- * @param name A type string of the service.
+ * @param serviceType A service type string of the service.
  *
  * @return The CGUpnpService if the specified service is found; otherwise nil.
  */
