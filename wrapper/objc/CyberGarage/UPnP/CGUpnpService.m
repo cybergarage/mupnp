@@ -8,8 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/cservice.h>
+#include <cybergarage/upnp/caction.h>
+#include <cybergarage/upnp/cstatevariable.h>
 #import <CGUpnpService.h>
 #import <CGUpnpAction.h>
+#import <CGUpnpStateVariable.h>
 
 @implementation CGUpnpService
 
@@ -55,7 +58,7 @@
 	NSMutableArray *actionArray = [NSMutableArray array];
 	CgUpnpAction *cAction;
 	for (cAction = cg_upnp_service_getactions(cObject); cAction; cAction = cg_upnp_action_next(cAction)) {
-		CGUpnpAction *action = [[CGUpnpAction alloc] initWithCObject:cAction];
+		CGUpnpAction *action = [[CGUpnpAction alloc] initWithCObject:(void *)cAction];
 		[actionArray addObject:action];
 	}
 	return actionArray;
@@ -68,7 +71,7 @@
 	NSMutableArray *statVarArray = [NSMutableArray array];
 	CgUpnpStateVariable *cStatVar;
 	for (cStatVar = cg_upnp_service_getstatevariables(cObject); cStatVar; cStatVar = cg_upnp_statevariable_next(cStatVar)) {
-		CGUpnpStateVariable *statVar = [[CGUpnpStateVariable alloc] initWithCObject:cStatVar];
+		CGUpnpStateVariable *statVar = [[CGUpnpStateVariable alloc] initWithCObject:(void *)cStatVar];
 		[statVarArray addObject:statVar];
 	}
 	return statVarArray;
@@ -81,7 +84,7 @@
 	CgUpnpAction *cAction = cg_upnp_service_getactionbyname(cObject, (char *)[name UTF8String]);
 	if (!cAction)
 		return nil;
-	return [[CGUpnpAction alloc] initWithCObject:cAction];
+	return [[CGUpnpAction alloc] initWithCObject:(void *)cAction];
 }
 
 - (CGUpnpStateVariable *)getStateVariableForName:(NSString *)name
@@ -91,7 +94,7 @@
 	CgUpnpStateVariable *cStatVar = cg_upnp_service_getstatevariablebyname(cObject, (char *)[name UTF8String]);
 	if (!cStatVar)
 		return nil;
-	return [[CGUpnpStateVariable alloc] initWithCObject:cStatVar];
+	return [[CGUpnpStateVariable alloc] initWithCObject:(void *)cStatVar];
 }
 
 @end
