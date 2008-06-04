@@ -67,7 +67,7 @@
 	return YES;
 }
 
-- (NSString *)argumentValueforName:(NSString *)name
+- (NSString *)argumentValueForName:(NSString *)name
 {
 	char *cValue;
 	CgUpnpArgument *cArg;

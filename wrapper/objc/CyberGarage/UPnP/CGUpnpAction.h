@@ -47,7 +47,7 @@ typedef void CgUpnpAction;
  * @param name The name of the argument to look for
  * @return The target value if successfull; otherwise NULL
  */
-- (NSString *)argumentValueforName:(NSString *)name;
+- (NSString *)argumentValueForName:(NSString *)name;
 /**
  * Send action
  *
