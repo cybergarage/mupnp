@@ -14,7 +14,7 @@ typedef void CgUpnpControlPoint;
 
 /**
  * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
- * program using Objective-C directly on MacOSX.
+ * program using only Objective-C directly on MacOSX.
  * Currently, the only basic methods are wrapped to control UPnP devices.
  */
 @interface CGUpnpControlPoint : NSObject 
@@ -64,12 +64,12 @@ typedef void CgUpnpControlPoint;
  * Get a MX parameter used for SSDP searches in seconds.
  * The parameter is used to wait for M-SEARCH responses in search() and searchWithST:(NSString *)aST.
  *
- * @return aMX Time to wait
+ * @return Time to wait
  */
 - (int)ssdpSearchMX;
 /**
  * Get all UPnP devices which the control point found as a NSArray object. The array has the devices as instances of CGUpnpDevice.
- * @return devices The objects of CGUpnpDevice in a NSArray.
+ * @return NSArray of CGUpnpDevice.
  */
 - (NSArray *)devices;
 @end

@@ -12,14 +12,37 @@
 typedef void CgUpnpStateVariable;
 #endif
 
+/**
+ * The CGUpnpStateVariable class is a wrapper class for CgUpnpStateVariable of CyberLink for C.
+ */
 @interface CGUpnpStateVariable : NSObject 
 {
 	CgUpnpStateVariable *cObject;
 }
 @property(readonly) CgUpnpStateVariable *cObject;
 - (id)initWithCObject:(CgUpnpStateVariable *)cobj;
+/**
+ * Get the name of the state variable.
+ * 
+ * @return The name.
+ */
 - (NSString *)name;
+/**
+ * Get the value of the state variable.
+ * 
+ * @return The value.
+ */
 - (NSString *)value;
+/**
+ * Send query
+ *
+ * @return YES if successfull; otherwise NO
+ */
 - (BOOL)query;
+/**
+ * Get a states code of the last query. 
+ *
+ * @return The status code
+ */
 - (int)statusCode;
 @end

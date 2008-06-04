@@ -193,12 +193,13 @@ char *cg_upnp_action_getargumentvaluebyname(CgUpnpAction *action, char *name)
 * cg_upnp_action_setargumentvaluebyname
 ****************************************/
 
-void cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, char *name, char *value)
+BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, char *name, char *value)
 {
 	CgUpnpArgument *arg;
 
 	arg = cg_upnp_action_getargumentbyname(action, name);
 	if (!arg)
-		return;
+		return FALSE;
 	cg_upnp_argument_setvalue(arg, value);
+	return TRUE;
 }

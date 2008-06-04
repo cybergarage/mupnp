@@ -203,8 +203,24 @@ CgUpnpArgument *cg_upnp_action_getargumentbyname(CgUpnpAction *action, char *nam
  */
 #define cg_upnp_action_hasargumentbyname(action,name) ((cg_upnp_action_getargumentbyname(action,name) != NULL) ? TRUE : FALSE)
 
+/**
+ * Get a value of the specified argument from the action by the argument's name directly.
+ *
+ * @param action The action in question
+ * @param name The name of the argument to look for
+ * @return char* if successfull; otherwise NULL
+ */
 char *cg_upnp_action_getargumentvaluebyname(CgUpnpAction *action, char *name);
-void cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, char *name, char *value);
+
+/**
+ * Set a value of the specified argument from the action by the argument's name directly.
+ *
+ * @param action The action in question
+ * @param name The name of the argument to look for
+ * @param value The value to set
+ * @return TRUE if successfull; otherwise NO
+ */
+BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, char *name, char *value);
 
 /****************************************************************************
  * Function (Action - Execution Data)

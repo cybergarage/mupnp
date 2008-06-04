@@ -16,21 +16,52 @@ typedef void CgUpnpService;
 @class CGUpnpStateVariable;
 
 /**
- * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
- * program using Objective-C directly on MacOSX.
- * Currently, the only basic methods are wrapped to control UPnP devices.
+ * The CGUpnpService class is a wrapper class for CgUpnpService of CyberLink for C.
  */
-
 @interface CGUpnpService : NSObject 
 {
 	CgUpnpService *cObject;
 }
 @property(readonly) CgUpnpService *cObject;
 - (id) initWithCObject:(CgUpnpService *)cobj;
+/**
+ * Get the service ID of the service.
+ * 
+ * @return The service ID.
+ */
 - (NSString *)serviceId;
+/**
+ * Get the service type of the service.
+ * 
+ * @return The service type.
+ */
 - (NSString *)serviceType;
+/**
+ * Get all actions in the service as a NSArray object. The array has the actions as instances of CGUpnpAction.
+ *
+ * @return NSArray of CGUpnpAction.
+ */
 - (NSArray *)actions;
+/**
+ * Get all state variables in the service as a NSArray object. The array has the state variables as instances of CGUpnpStateVariable.
+ *
+ * @return NSArray of CGUpnpStateVariable.
+ */
 - (NSArray *)stateVariables;
-- (CGUpnpAction *)getActionByName:(NSString *)name;
-- (CGUpnpStateVariable *)getStateVariableByName:(NSString *)name;
+/**
+ * Get a action in the service by the specified name.
+ *
+ * @param name A name string of the action.
+ *
+ * @return The CGUpnpAction if the specified action is found; otherwise nil.
+ */
+- (CGUpnpAction *)getActionForName:(NSString *)name;
+/**
+ * Get a state variables in the service by the specified name.
+ *
+ * @param name A name string of the state variable.
+ *
+ * @return The CGUpnpStateVariable if the specified state variable is found; otherwise nil.
+ */
+- (CGUpnpStateVariable *)getStateVariableForName:(NSString *)name;
 @end
