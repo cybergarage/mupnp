@@ -61,7 +61,7 @@
 	NSMutableArray *serviceArray = [NSMutableArray array];
 	CgUpnpService *cService;
 	for (cService = cg_upnp_device_getservices(cObject); cService; cService = cg_upnp_service_next(cService)) {
-		CGUpnpService *service = [[CGUpnpService alloc] initWithCObject:cService];
+		CGUpnpService *service = [[CGUpnpService alloc] initWithCObject:(void *)cService];
 		[serviceArray addObject:service];
 	}
 	return serviceArray;
@@ -74,7 +74,7 @@
 	CgUpnpService *foundService = cg_upnp_device_getservicebyserviceid(cObject, (char *)[serviceId UTF8String]);
 	if (!foundService)
 		return nil;
-	return [[CGUpnpService alloc] initWithCObject:foundService];
+	return [[CGUpnpService alloc] initWithCObject:(void *)foundService];
 }
 
 - (CGUpnpService *)getServiceForType:(NSString *)serviceType;
@@ -84,7 +84,7 @@
 	CgUpnpService *foundService = cg_upnp_device_getservicebytype(cObject, (char *)[serviceType UTF8String]);
 	if (!foundService)
 		return nil;
-	return [[CGUpnpService alloc] initWithCObject:foundService];
+	return [[CGUpnpService alloc] initWithCObject:(void *)foundService];
 }
 
 @end

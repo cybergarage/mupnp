@@ -335,7 +335,9 @@ BOOL cg_socket_isbound(CgSocket *sock)
 
 void cg_socket_setid(CgSocket *socket, SOCKET value)
 {
+#if defined(WIN32) || defined(HAVE_IP_PKTINFO)
 	int on=1;
+#endif
 
 	cg_log_debug_l4("Entering...\n");
 

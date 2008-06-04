@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		214464E60DF05F9A00A23CBB /* CyberLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 214464E50DF05F9A00A23CBB /* CyberLink.framework */; };
+		2180975C0DF7433B00451D30 /* CyberLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2180975B0DF7433B00451D30 /* CyberLink.framework */; };
 		21C648100DE31FA60028FCF9 /* upnpavdump.m in Sources */ = {isa = PBXBuildFile; fileRef = 21C6480F0DE31FA60028FCF9 /* upnpavdump.m */; };
 		21C648A80DE322890028FCF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C648A70DE322890028FCF9 /* Foundation.framework */; };
 		8DD76F7C0486A8DE00D96B5E /* upnpavdump.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E970290921104C91782 /* upnpavdump.1 */; };
@@ -27,7 +27,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		214464E50DF05F9A00A23CBB /* CyberLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CyberLink.framework; path = ../../../../lib/macosx/xcode30/build/Release/CyberLink.framework; sourceTree = SOURCE_ROOT; };
+		2180975B0DF7433B00451D30 /* CyberLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CyberLink.framework; path = ../../../../lib/macosx/xcode30/build/Release/CyberLink.framework; sourceTree = SOURCE_ROOT; };
 		21C6480F0DE31FA60028FCF9 /* upnpavdump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = upnpavdump.m; sourceTree = "<group>"; };
 		21C648A70DE322890028FCF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8DD76F7E0486A8DE00D96B5E /* upnpavdump */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = upnpavdump; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,7 +40,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21C648A80DE322890028FCF9 /* Foundation.framework in Frameworks */,
-				214464E60DF05F9A00A23CBB /* CyberLink.framework in Frameworks */,
+				2180975C0DF7433B00451D30 /* CyberLink.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +69,7 @@
 		08FB779DFE84155DC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				214464E50DF05F9A00A23CBB /* CyberLink.framework */,
+				2180975B0DF7433B00451D30 /* CyberLink.framework */,
 				21C648A70DE322890028FCF9 /* Foundation.framework */,
 			);
 			name = "External Frameworks and Libraries";
