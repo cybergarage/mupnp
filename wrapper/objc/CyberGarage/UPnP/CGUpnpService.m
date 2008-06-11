@@ -23,6 +23,7 @@
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cobj;
+	cg_upnp_service_setuserdata(cObject, self);
 	return self;
 }
 
@@ -35,6 +36,13 @@
 - (void) finalize
 {
 	[super finalize];
+}
+
+- (BOOL) parseXMLDescription:(NSString *)xmlDesc;
+{
+	if (!cObject)
+		return NO;
+	return cg_upnp_service_parsedescription(cObject, (char *)[xmlDesc UTF8String], [xmlDesc length]);
 }
 
 - (NSString *)serviceId

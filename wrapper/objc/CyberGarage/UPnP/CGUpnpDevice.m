@@ -16,18 +16,46 @@
 
 @synthesize cObject;
 
+- (id) init
+{
+	if ((self = [super init]) == nil)
+		return nil;
+	cObject = cg_upnp_device_new();
+	if (!cObject)
+		return nil;
+	cg_upnp_device_setuserdata(cObject, self);
+	return self;
+}
+
 - (id) initWithCObject:(CgUpnpDevice *)cobj
 {
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cobj;
+	cg_upnp_device_setuserdata(cObject, self);
 	return self;
 }
 
-- (id) init
+- (id) initWithXMLDescription:(NSString *)xmlDesc
 {
-	[self initWithCObject:NULL];
+	if ((self = [super init]) == nil)
+		return nil;
+	cObject = cg_upnp_device_new();
+	if (!cObject)
+		return nil;
+	if (![self parseXMLDescription:xmlDesc]) {
+		cg_upnp_device_delete(cObject);
+		return nil;
+	}
+	cg_upnp_device_setuserdata(cObject, self);
 	return self;
+}
+
+- (BOOL) parseXMLDescription:(NSString *)xmlDesc;
+{
+	if (!cObject)
+		return NO;
+	return cg_upnp_device_parsedescription(cObject, (char *)[xmlDesc UTF8String], [xmlDesc length]);
 }
 
 - (void) finalize
