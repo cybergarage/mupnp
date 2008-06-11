@@ -23,7 +23,18 @@ typedef void CgUpnpService;
 	CgUpnpService *cObject;
 }
 @property(readonly) CgUpnpService *cObject;
+/**
+ * Create a new UPnP service with the C instance.
+ * 
+ * @return New instance if successfull; otherwise nil.
+ */
 - (id) initWithCObject:(CgUpnpService *)cobj;
+/**
+ * Parse the specified XML description.
+ * 
+ * @return YES if successfull; otherwise nui.
+ */
+- (BOOL) parseXMLDescription:(NSString *)xmlDesc;
 /**
  * Get the service ID of the service.
  * 

@@ -22,7 +22,30 @@ typedef void CgUpnpDevice;
 	CgUpnpDevice *cObject;
 }
 @property(readonly) CgUpnpDevice *cObject;
+/**
+ * Create a new UPnP device.
+ * 
+ * @return New instance if successfull; otherwise nil.
+ */
+- (id) init;
+/**
+ * Create a new UPnP device with the C instance.
+ * 
+ * @return New instance if successfull; otherwise nil.
+ */
 - (id) initWithCObject:(CgUpnpDevice *)cobj;
+/**
+ * Create a new UPnP device with the XML descriptioin.
+ * 
+ * @return New instance if successfull; otherwise nil.
+ */
+- (id) initWithXMLDescription:(NSString *)xmlDesc;
+/**
+ * Parse the specified XML description.
+ * 
+ * @return YES if successfull; otherwise nui.
+ */
+- (BOOL) parseXMLDescription:(NSString *)xmlDesc;
 /**
  * Get the friendly name of the device.
  * 

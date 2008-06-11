@@ -19,6 +19,7 @@
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cobj;
+	cg_upnp_action_setuserdata(cObject, self);
 	return self;
 }
 
