@@ -10,6 +10,22 @@
 #include <cybergarage/upnp/caction.h>
 #import <CGUpnpAction.h>
 
+static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
+{
+	if (!cAction)
+		return FALSE;
+	CGUpnpAction *objcAction = (CGUpnpAction *)cg_upnp_action_getuserdata(cAction);
+	if (!objcAction)
+		return FALSE;
+	SEL actionReceived = @selector(actionReceived);		
+	if (!actionReceived)
+		return FALSE;
+	if (![objcAction respondsToSelector: actionReceived])
+		return FALSE;
+        [objcAction performSelector:actionReceived];
+	return TRUE;
+}
+
 @implementation CGUpnpAction
 
 @synthesize cObject;
@@ -20,6 +36,7 @@
 		return nil;
 	cObject = cobj;
 	cg_upnp_action_setuserdata(cObject, self);
+	cg_upnp_action_setlistener(cObject, CGUpnpActionListener);
 	return self;
 }
 
