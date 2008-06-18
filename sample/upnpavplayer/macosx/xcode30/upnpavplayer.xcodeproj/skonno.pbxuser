@@ -7,12 +7,13 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
 		debuggerPlugin = GDBDebugging;
 		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
 		enableDebugStr = 1;
 		environmentEntries = (
 		);
@@ -34,11 +35,22 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
+	21889DAB0E097C2E005858AB /* ContentListController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 228}";
+			sepNavWindowFrame = "{{15, 82}, {1031, 791}}";
+		};
+	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeArchitecture = ppc;
 		activeBuildConfigurationName = Release;
 		activeExecutable = 21889D7F0E096830005858AB /* upnpavplayer */;
 		activeTarget = 8D1107260486CEB800E47090 /* upnpavplayer */;
+		addToTargets = (
+			8D1107260486CEB800E47090 /* upnpavplayer */,
+		);
 		codeSenseManager = 21889D8E0E096839005858AB /* Code sense */;
 		executables = (
 			21889D7F0E096830005858AB /* upnpavplayer */,
@@ -49,9 +61,9 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					243,
+					479,
 					20,
-					48.16259765625,
+					48,
 					43,
 					43,
 					20,
@@ -66,8 +78,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 235497520;
-			PBXWorkspaceStateSaveDate = 235497520;
+			PBXPerProjectTemplateStateSaveDate = 235497954;
+			PBXWorkspaceStateSaveDate = 235497954;
 		};
 		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
 		userBuildSettings = {
