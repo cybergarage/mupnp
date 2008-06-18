@@ -1,0 +1,82 @@
+// !$*UTF8*$!
+{
+	21889D7F0E096830005858AB /* upnpavplayer */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = upnpavplayer;
+		sourceDirectories = (
+		);
+	};
+	21889D8D0E096839005858AB /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+	};
+	21889D8E0E096839005858AB /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeArchitecture = ppc;
+		activeBuildConfigurationName = Release;
+		activeExecutable = 21889D7F0E096830005858AB /* upnpavplayer */;
+		activeTarget = 8D1107260486CEB800E47090 /* upnpavplayer */;
+		codeSenseManager = 21889D8E0E096839005858AB /* Code sense */;
+		executables = (
+			21889D7F0E096830005858AB /* upnpavplayer */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					243,
+					20,
+					48.16259765625,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 235497520;
+			PBXWorkspaceStateSaveDate = 235497520;
+		};
+		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	8D1107260486CEB800E47090 /* upnpavplayer */ = {
+		activeExec = 0;
+		executables = (
+			21889D7F0E096830005858AB /* upnpavplayer */,
+		);
+	};
+}
