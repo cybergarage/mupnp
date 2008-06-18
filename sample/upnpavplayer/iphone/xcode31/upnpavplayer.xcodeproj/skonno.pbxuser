@@ -6,6 +6,32 @@
 			21CD19970E093ED90081BD96 /* upnpavplayer */,
 		);
 	};
+	2104D72A0E093FF5009625AE /* cxml_parser_libxml2.c */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1142, 6076}}";
+			sepNavSelRange = "{1357, 0}";
+			sepNavVisRange = "{643, 867}";
+			sepNavWindowFrame = "{{38, 111}, {1153, 891}}";
+		};
+	};
+	2104D7940E0941F7009625AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: libxml/parser.h: No such file or directory";
+		fRef = 2104D72A0E093FF5009625AE /* cxml_parser_libxml2.c */;
+		rLen = 1;
+		rLoc = 49;
+		rType = 1;
+	};
+	2104D7950E0941F7009625AE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2104D72A0E093FF5009625AE /* cxml_parser_libxml2.c */;
+		name = "cxml_parser_libxml2.c: 50";
+		rLen = 27;
+		rLoc = 1358;
+		rType = 0;
+		vrLen = 931;
+		vrLoc = 626;
+	};
 	21CD19970E093ED90081BD96 /* upnpavplayer */ = {
 		isa = PBXExecutable;
 		activeArgIndices = (
@@ -13,12 +39,13 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 1;
+		breakpointsEnabled = 0;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
 		debuggerPlugin = GDBDebugging;
 		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
 		enableDebugStr = 1;
 		environmentEntries = (
 		);
@@ -44,6 +71,9 @@
 		activeBuildConfigurationName = Debug;
 		activeExecutable = 21CD19970E093ED90081BD96 /* upnpavplayer */;
 		activeTarget = 1D6058900D05DD3D006BFB54 /* upnpavplayer */;
+		addToTargets = (
+			1D6058900D05DD3D006BFB54 /* upnpavplayer */,
+		);
 		codeSenseManager = 21CD19A40E093EDF0081BD96 /* Code sense */;
 		executables = (
 			21CD19970E093ED90081BD96 /* upnpavplayer */,
@@ -54,9 +84,9 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					341,
+					545,
 					20,
-					48.16259765625,
+					48,
 					43,
 					43,
 					20,
@@ -71,8 +101,12 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 235486937;
-			PBXWorkspaceStateSaveDate = 235486937;
+			PBXPerProjectTemplateStateSaveDate = 235487177;
+			PBXWorkspaceStateSaveDate = 235487177;
+		};
+		perUserProjectItems = {
+			2104D7940E0941F7009625AE /* PBXTextBookmark */ = 2104D7940E0941F7009625AE /* PBXTextBookmark */;
+			2104D7950E0941F7009625AE /* PBXTextBookmark */ = 2104D7950E0941F7009625AE /* PBXTextBookmark */;
 		};
 		sourceControlManager = 21CD19A30E093EDF0081BD96 /* Source Control */;
 		userBuildSettings = {
