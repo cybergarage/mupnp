@@ -2,9 +2,12 @@
 
 #import <CyberLink/UPnP.h>
 
-@interface DLNAController : NSObject {
-CGUpnpControlPoint *dmc;
+#import <CGUpnpAvController.h>
 
+@interface DLNAController : NSObject {
+CGUpnpAvController *dmc;
 }
 - (IBAction)searchDMS:(id)sender;
+- (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column;
+- (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column;
 @end

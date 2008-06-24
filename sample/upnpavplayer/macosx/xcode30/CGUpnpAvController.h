@@ -26,5 +26,5 @@
  * @return TRUE if successful; otherwise FALSE
  *
  */
-- (NSArray *)browse:(NSString *)objectId;
+- (NSArray *)browse:(CGUpnpDevice *)device objectId:(NSString *)objectId;
 @end

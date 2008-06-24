@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		212208A20E11490B005A11CB /* CGUpnpAvController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212208A10E11490B005A11CB /* CGUpnpAvController.m */; };
 		2170A71F0E1056CE00BFDD01 /* DLNAController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */; };
 		21889D9F0E096A1B005858AB /* CyberLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21889D9E0E096A1B005858AB /* CyberLink.framework */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
@@ -19,6 +20,8 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		212208A00E11490B005A11CB /* CGUpnpAvController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvController.h; sourceTree = "<group>"; };
+		212208A10E11490B005A11CB /* CGUpnpAvController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvController.m; sourceTree = "<group>"; };
 		2170A71D0E1056CE00BFDD01 /* DLNAController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNAController.h; sourceTree = "<group>"; };
 		2170A71E0E1056CE00BFDD01 /* DLNAController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNAController.m; sourceTree = "<group>"; };
 		21889D9E0E096A1B005858AB /* CyberLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CyberLink.framework; path = ../../../../lib/macosx/xcode30/build/Release/CyberLink.framework; sourceTree = SOURCE_ROOT; };
@@ -47,6 +50,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				212208A00E11490B005A11CB /* CGUpnpAvController.h */,
+				212208A10E11490B005A11CB /* CGUpnpAvController.m */,
 				2170A71D0E1056CE00BFDD01 /* DLNAController.h */,
 				2170A71E0E1056CE00BFDD01 /* DLNAController.m */,
 			);
@@ -177,6 +182,7 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				2170A71F0E1056CE00BFDD01 /* DLNAController.m in Sources */,
+				212208A20E11490B005A11CB /* CGUpnpAvController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

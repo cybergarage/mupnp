@@ -1,9 +1,49 @@
 // !$*UTF8*$!
 {
+	212208A00E11490B005A11CB /* CGUpnpAvController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{760, 74}";
+			sepNavVisRange = "{0, 839}";
+			sepNavWindowFrame = "{{694, 87}, {1031, 791}}";
+		};
+	};
+	212208A10E11490B005A11CB /* CGUpnpAvController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 1290}}";
+			sepNavSelRange = "{1398, 0}";
+			sepNavVisRange = "{957, 1301}";
+			sepNavWindowFrame = "{{410, 35}, {1031, 791}}";
+		};
+	};
+	212208AB0E114967005A11CB /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 212208A00E11490B005A11CB /* CGUpnpAvController.h */;
+	};
+	212208C10E11656D005A11CB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 212208A00E11490B005A11CB /* CGUpnpAvController.h */;
+		name = "CGUpnpAvController.h: 29";
+		rLen = 74;
+		rLoc = 760;
+		rType = 0;
+		vrLen = 839;
+		vrLoc = 0;
+	};
+	212208C20E11656D005A11CB /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2170A71D0E1056CE00BFDD01 /* DLNAController.h */;
+		name = "DLNAController.h: 9";
+		rLen = 0;
+		rLoc = 172;
+		rType = 0;
+		vrLen = 159;
+		vrLoc = 0;
+	};
 	2170A71D0E1056CE00BFDD01 /* DLNAController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{116, 0}";
+			sepNavSelRange = "{140, 0}";
 			sepNavVisRange = "{0, 159}";
 			sepNavWindowFrame = "{{15, 82}, {1031, 791}}";
 		};
@@ -12,24 +52,16 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
 			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 206}";
+			sepNavVisRange = "{0, 106}";
 			sepNavWindowFrame = "{{15, 82}, {1031, 791}}";
 		};
 	};
-	2179735E0E1134E5005FC51F /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		comments = "error: syntax error before 'CGUPnPControlPoint'";
-		fRef = 2170A71D0E1056CE00BFDD01 /* DLNAController.h */;
-		rLen = 1;
-		rLoc = 5;
-		rType = 1;
-	};
-	2179735F0E1134E5005FC51F /* PBXTextBookmark */ = {
+	2179738D0E1148AB005FC51F /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 2170A71D0E1056CE00BFDD01 /* DLNAController.h */;
-		name = "DLNAController.h: 6";
-		rLen = 25;
-		rLoc = 92;
+		name = "DLNAController.h: 9";
+		rLen = 0;
+		rLoc = 172;
 		rType = 0;
 		vrLen = 159;
 		vrLoc = 0;
@@ -104,12 +136,14 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 236006189;
-			PBXWorkspaceStateSaveDate = 236006189;
+			PBXPerProjectTemplateStateSaveDate = 236021165;
+			PBXWorkspaceStateSaveDate = 236021165;
 		};
 		perUserProjectItems = {
-			2179735E0E1134E5005FC51F /* PBXTextBookmark */ = 2179735E0E1134E5005FC51F /* PBXTextBookmark */;
-			2179735F0E1134E5005FC51F /* PBXTextBookmark */ = 2179735F0E1134E5005FC51F /* PBXTextBookmark */;
+			212208AB0E114967005A11CB = 212208AB0E114967005A11CB /* PBXBookmark */;
+			212208C10E11656D005A11CB = 212208C10E11656D005A11CB /* PBXTextBookmark */;
+			212208C20E11656D005A11CB = 212208C20E11656D005A11CB /* PBXTextBookmark */;
+			2179738D0E1148AB005FC51F = 2179738D0E1148AB005FC51F /* PBXTextBookmark */;
 		};
 		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
 		userBuildSettings = {

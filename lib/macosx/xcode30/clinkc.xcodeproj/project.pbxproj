@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		214464990DF056D900A23CBB /* UPnP.h in Headers */ = {isa = PBXBuildFile; fileRef = 214464980DF056D900A23CBB /* UPnP.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		217973740E114081005FC51F /* CGUpnpAvController.h in Headers */ = {isa = PBXBuildFile; fileRef = 217973720E114081005FC51F /* CGUpnpAvController.h */; };
-		217973750E114081005FC51F /* CGUpnpAvController.m in Sources */ = {isa = PBXBuildFile; fileRef = 217973730E114081005FC51F /* CGUpnpAvController.m */; };
 		217E408D0DEDD429009F54B4 /* CGUpnpAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 217E40890DEDD429009F54B4 /* CGUpnpAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		217E408E0DEDD429009F54B4 /* CGUpnpAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 217E408A0DEDD429009F54B4 /* CGUpnpAction.m */; };
 		217E408F0DEDD429009F54B4 /* CGUpnpStateVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 217E408B0DEDD429009F54B4 /* CGUpnpStateVariable.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -159,8 +157,6 @@
 		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		213267690DEDDAE300FC887C /* CyberLink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CyberLink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		214464980DF056D900A23CBB /* UPnP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnP.h; sourceTree = "<group>"; };
-		217973720E114081005FC51F /* CGUpnpAvController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvController.h; sourceTree = "<group>"; };
-		217973730E114081005FC51F /* CGUpnpAvController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvController.m; sourceTree = "<group>"; };
 		217E40890DEDD429009F54B4 /* CGUpnpAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAction.h; sourceTree = "<group>"; };
 		217E408A0DEDD429009F54B4 /* CGUpnpAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAction.m; sourceTree = "<group>"; };
 		217E408B0DEDD429009F54B4 /* CGUpnpStateVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpStateVariable.h; sourceTree = "<group>"; };
@@ -394,8 +390,6 @@
 		21820DDC0DB7A9750074203B /* UPnP */ = {
 			isa = PBXGroup;
 			children = (
-				217973720E114081005FC51F /* CGUpnpAvController.h */,
-				217973730E114081005FC51F /* CGUpnpAvController.m */,
 				214464980DF056D900A23CBB /* UPnP.h */,
 				217E40890DEDD429009F54B4 /* CGUpnpAction.h */,
 				217E408A0DEDD429009F54B4 /* CGUpnpAction.m */,
@@ -787,7 +781,6 @@
 				217E408D0DEDD429009F54B4 /* CGUpnpAction.h in Headers */,
 				217E408F0DEDD429009F54B4 /* CGUpnpStateVariable.h in Headers */,
 				214464990DF056D900A23CBB /* UPnP.h in Headers */,
-				217973740E114081005FC51F /* CGUpnpAvController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -945,7 +938,6 @@
 				21B5213C0DD88B45008F63FD /* CGUpnpService.m in Sources */,
 				217E408E0DEDD429009F54B4 /* CGUpnpAction.m in Sources */,
 				217E40900DEDD429009F54B4 /* CGUpnpStateVariable.m in Sources */,
-				217973750E114081005FC51F /* CGUpnpAvController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
