@@ -3,10 +3,36 @@
 	2170A71D0E1056CE00BFDD01 /* DLNAController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 214}";
+			sepNavSelRange = "{116, 0}";
+			sepNavVisRange = "{0, 159}";
 			sepNavWindowFrame = "{{15, 82}, {1031, 791}}";
 		};
+	};
+	2170A71E0E1056CE00BFDD01 /* DLNAController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 206}";
+			sepNavWindowFrame = "{{15, 82}, {1031, 791}}";
+		};
+	};
+	2179735E0E1134E5005FC51F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: syntax error before 'CGUPnPControlPoint'";
+		fRef = 2170A71D0E1056CE00BFDD01 /* DLNAController.h */;
+		rLen = 1;
+		rLoc = 5;
+		rType = 1;
+	};
+	2179735F0E1134E5005FC51F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 2170A71D0E1056CE00BFDD01 /* DLNAController.h */;
+		name = "DLNAController.h: 6";
+		rLen = 25;
+		rLoc = 92;
+		rType = 0;
+		vrLen = 159;
+		vrLoc = 0;
 	};
 	21889D7F0E096830005858AB /* upnpavplayer */ = {
 		isa = PBXExecutable;
@@ -78,8 +104,12 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 235950326;
-			PBXWorkspaceStateSaveDate = 235950326;
+			PBXPerProjectTemplateStateSaveDate = 236006189;
+			PBXWorkspaceStateSaveDate = 236006189;
+		};
+		perUserProjectItems = {
+			2179735E0E1134E5005FC51F /* PBXTextBookmark */ = 2179735E0E1134E5005FC51F /* PBXTextBookmark */;
+			2179735F0E1134E5005FC51F /* PBXTextBookmark */ = 2179735F0E1134E5005FC51F /* PBXTextBookmark */;
 		};
 		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
 		userBuildSettings = {
