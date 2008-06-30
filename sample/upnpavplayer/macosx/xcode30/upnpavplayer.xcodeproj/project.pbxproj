@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		212208A20E11490B005A11CB /* CGUpnpAvController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212208A10E11490B005A11CB /* CGUpnpAvController.m */; };
+		216998040E19965C003B7C04 /* CGUpnpAvContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 216997FF0E19965C003B7C04 /* CGUpnpAvContainer.m */; };
+		216998050E19965C003B7C04 /* CGUpnpAvItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 216998010E19965C003B7C04 /* CGUpnpAvItem.m */; };
+		216998060E19965C003B7C04 /* CGUpnpAvObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 216998030E19965C003B7C04 /* CGUpnpAvObject.m */; };
 		2170A71F0E1056CE00BFDD01 /* DLNAController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */; };
 		21889D9F0E096A1B005858AB /* CyberLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21889D9E0E096A1B005858AB /* CyberLink.framework */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
@@ -22,6 +25,12 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		212208A00E11490B005A11CB /* CGUpnpAvController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvController.h; sourceTree = "<group>"; };
 		212208A10E11490B005A11CB /* CGUpnpAvController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvController.m; sourceTree = "<group>"; };
+		216997FE0E19965C003B7C04 /* CGUpnpAvContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvContainer.h; sourceTree = "<group>"; };
+		216997FF0E19965C003B7C04 /* CGUpnpAvContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvContainer.m; sourceTree = "<group>"; };
+		216998000E19965C003B7C04 /* CGUpnpAvItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvItem.h; sourceTree = "<group>"; };
+		216998010E19965C003B7C04 /* CGUpnpAvItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvItem.m; sourceTree = "<group>"; };
+		216998020E19965C003B7C04 /* CGUpnpAvObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvObject.h; sourceTree = "<group>"; };
+		216998030E19965C003B7C04 /* CGUpnpAvObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvObject.m; sourceTree = "<group>"; };
 		2170A71D0E1056CE00BFDD01 /* DLNAController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNAController.h; sourceTree = "<group>"; };
 		2170A71E0E1056CE00BFDD01 /* DLNAController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNAController.m; sourceTree = "<group>"; };
 		21889D9E0E096A1B005858AB /* CyberLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CyberLink.framework; path = ../../../../lib/macosx/xcode30/build/Release/CyberLink.framework; sourceTree = SOURCE_ROOT; };
@@ -50,6 +59,12 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				216997FE0E19965C003B7C04 /* CGUpnpAvContainer.h */,
+				216997FF0E19965C003B7C04 /* CGUpnpAvContainer.m */,
+				216998000E19965C003B7C04 /* CGUpnpAvItem.h */,
+				216998010E19965C003B7C04 /* CGUpnpAvItem.m */,
+				216998020E19965C003B7C04 /* CGUpnpAvObject.h */,
+				216998030E19965C003B7C04 /* CGUpnpAvObject.m */,
 				212208A00E11490B005A11CB /* CGUpnpAvController.h */,
 				212208A10E11490B005A11CB /* CGUpnpAvController.m */,
 				2170A71D0E1056CE00BFDD01 /* DLNAController.h */,
@@ -183,6 +198,9 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				2170A71F0E1056CE00BFDD01 /* DLNAController.m in Sources */,
 				212208A20E11490B005A11CB /* CGUpnpAvController.m in Sources */,
+				216998040E19965C003B7C04 /* CGUpnpAvContainer.m in Sources */,
+				216998050E19965C003B7C04 /* CGUpnpAvItem.m in Sources */,
+				216998060E19965C003B7C04 /* CGUpnpAvObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
