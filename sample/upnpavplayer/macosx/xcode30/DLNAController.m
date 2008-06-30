@@ -27,6 +27,10 @@
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
 {
+	if (column == 0)
+		return 2;
+	NSString *path = [sender pathToColumn:column];
+	NSLog(@"%@", path);
 	return 1;
 }
 

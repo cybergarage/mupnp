@@ -10,61 +10,90 @@
 	};
 	212208A10E11490B005A11CB /* CGUpnpAvController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {972, 1290}}";
-			sepNavSelRange = "{1398, 0}";
-			sepNavVisRange = "{957, 1301}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 1350}}";
+			sepNavSelRange = "{304, 0}";
+			sepNavVisRange = "{48, 1145}";
 			sepNavWindowFrame = "{{410, 35}, {1031, 791}}";
 		};
 	};
-	212208AB0E114967005A11CB /* PBXBookmark */ = {
-		isa = PBXBookmark;
-		fRef = 212208A00E11490B005A11CB /* CGUpnpAvController.h */;
+	216997FE0E19965C003B7C04 /* CGUpnpAvContainer.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{321, 0}";
+			sepNavVisRange = "{0, 349}";
+			sepNavWindowFrame = "{{38, 61}, {1031, 791}}";
+		};
 	};
-	212208C10E11656D005A11CB /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 212208A00E11490B005A11CB /* CGUpnpAvController.h */;
-		name = "CGUpnpAvController.h: 29";
-		rLen = 74;
-		rLoc = 760;
-		rType = 0;
-		vrLen = 839;
-		vrLoc = 0;
+	216997FF0E19965C003B7C04 /* CGUpnpAvContainer.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{215, 0}";
+			sepNavVisRange = "{0, 386}";
+			sepNavWindowFrame = "{{61, 40}, {1031, 791}}";
+		};
 	};
-	212208C20E11656D005A11CB /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 2170A71D0E1056CE00BFDD01 /* DLNAController.h */;
-		name = "DLNAController.h: 9";
-		rLen = 0;
-		rLoc = 172;
-		rType = 0;
-		vrLen = 159;
-		vrLoc = 0;
+	216998000E19965C003B7C04 /* CGUpnpAvItem.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{0, 339}";
+			sepNavVisRange = "{0, 339}";
+			sepNavWindowFrame = "{{415, 79}, {1031, 791}}";
+		};
+	};
+	216998010E19965C003B7C04 /* CGUpnpAvItem.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{204, 0}";
+			sepNavVisRange = "{0, 331}";
+			sepNavWindowFrame = "{{197, 19}, {1031, 791}}";
+		};
+	};
+	216998020E19965C003B7C04 /* CGUpnpAvObject.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{314, 8}";
+			sepNavVisRange = "{0, 426}";
+			sepNavWindowFrame = "{{17, -178}, {1031, 791}}";
+		};
+	};
+	216998030E19965C003B7C04 /* CGUpnpAvObject.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{0, 377}";
+			sepNavVisRange = "{0, 377}";
+			sepNavWindowFrame = "{{38, 61}, {1031, 791}}";
+		};
+	};
+	216998110E1997E0003B7C04 /* CGUpnpAvObject.h:20 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 216998020E19965C003B7C04 /* CGUpnpAvObject.h */;
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 20;
+		modificationTime = 236558304.158065;
+		state = 1;
 	};
 	2170A71D0E1056CE00BFDD01 /* DLNAController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{140, 0}";
-			sepNavVisRange = "{0, 159}";
-			sepNavWindowFrame = "{{15, 82}, {1031, 791}}";
+			sepNavSelRange = "{207, 9}";
+			sepNavVisRange = "{0, 379}";
+			sepNavWindowFrame = "{{662, 75}, {1031, 791}}";
 		};
 	};
 	2170A71E0E1056CE00BFDD01 /* DLNAController.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 106}";
-			sepNavWindowFrame = "{{15, 82}, {1031, 791}}";
+			sepNavSelRange = "{70, 0}";
+			sepNavVisRange = "{0, 676}";
+			sepNavWindowFrame = "{{169, 42}, {1031, 791}}";
 		};
-	};
-	2179738D0E1148AB005FC51F /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 2170A71D0E1056CE00BFDD01 /* DLNAController.h */;
-		name = "DLNAController.h: 9";
-		rLen = 0;
-		rLoc = 172;
-		rType = 0;
-		vrLen = 159;
-		vrLoc = 0;
 	};
 	21889D7F0E096830005858AB /* upnpavplayer */ = {
 		isa = PBXExecutable;
@@ -73,7 +102,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 0;
+		breakpointsEnabled = 1;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -87,8 +116,12 @@
 		executableUserSymbolLevel = 0;
 		libgmallocEnabled = 0;
 		name = upnpavplayer;
+		savedGlobals = {
+		};
 		sourceDirectories = (
 		);
+		variableFormatDictionary = {
+		};
 	};
 	21889D8D0E096839005858AB /* Source Control */ = {
 		isa = PBXSourceControlManager;
@@ -101,6 +134,40 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
+	21E2E2D20E198CB2004B9F9E /* DLNAController.m:34 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */;
+		functionName = "-browser:numberOfRowsInColumn:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 34;
+		location = upnpavplayer;
+		modificationTime = 236555622.400049;
+		state = 2;
+	};
+	21E2E2E80E198D1D004B9F9E /* DLNAController.m:33 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */;
+		functionName = "-browser:numberOfRowsInColumn:";
+		hitCount = 2;
+		ignoreCount = 0;
+		lineNumber = 33;
+		location = upnpavplayer;
+		modificationTime = 236555690.182535;
+		state = 1;
+	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
 		activeArchitecture = ppc;
 		activeBuildConfigurationName = Release;
@@ -108,6 +175,11 @@
 		activeTarget = 8D1107260486CEB800E47090 /* upnpavplayer */;
 		addToTargets = (
 			8D1107260486CEB800E47090 /* upnpavplayer */,
+		);
+		breakpoints = (
+			21E2E2D20E198CB2004B9F9E /* DLNAController.m:34 */,
+			21E2E2E80E198D1D004B9F9E /* DLNAController.m:33 */,
+			216998110E1997E0003B7C04 /* CGUpnpAvObject.h:20 */,
 		);
 		codeSenseManager = 21889D8E0E096839005858AB /* Code sense */;
 		executables = (
@@ -136,14 +208,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 236021165;
-			PBXWorkspaceStateSaveDate = 236021165;
-		};
-		perUserProjectItems = {
-			212208AB0E114967005A11CB = 212208AB0E114967005A11CB /* PBXBookmark */;
-			212208C10E11656D005A11CB = 212208C10E11656D005A11CB /* PBXTextBookmark */;
-			212208C20E11656D005A11CB = 212208C20E11656D005A11CB /* PBXTextBookmark */;
-			2179738D0E1148AB005FC51F = 2179738D0E1148AB005FC51F /* PBXTextBookmark */;
+			PBXPerProjectTemplateStateSaveDate = 236556824;
+			PBXWorkspaceStateSaveDate = 236556824;
 		};
 		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
 		userBuildSettings = {
