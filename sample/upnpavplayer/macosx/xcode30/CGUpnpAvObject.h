@@ -15,7 +15,10 @@
 {
 	NSString *objectId;
 	NSString *title;
+	NSString *upnpClass;
 }
-@property(readonly) NSString *objectId;
-@property(readonly) NSString *title;
+@property(readwrite, copy) NSString *objectId;
+@property(readwrite, copy) NSString *title;
+@property(readwrite, copy) NSString *upnpClass;
 @end
+

@@ -1,18 +1,16 @@
 //
-//  CGUpnpAvObject.m
+//  CGUpnpAvResource.m
 //  CyberLink for C
 //
-//  Created by Satoshi Konno on 08/07/01.
+//  Created by Satoshi Konno on 08/07/02.
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <CGUpnpAvObject.h>
+#import <CGUpnpAvResource.h>
 
-@implementation CGUpnpAvObject
+@implementation CGUpnpAvResource
 
-@synthesize objectId;
-@synthesize title;
-@synthesize upnpClass;
+@synthesize url;
 
 - (id) init
 {
