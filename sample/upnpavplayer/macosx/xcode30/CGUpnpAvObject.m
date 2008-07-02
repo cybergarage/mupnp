@@ -7,6 +7,8 @@
 //
 
 #import <CGUpnpAvObject.h>
+#import <CGUpnpAvContainer.h>
+#import <CGUpnpAvItem.h>
 
 @implementation CGUpnpAvObject
 
@@ -31,12 +33,22 @@
 	[super finalize];
 }
 
+- (BOOL)isContainer
+{
+	return [self isKindOfClass:[CGUpnpAvContainer class]];
+}
+
+- (BOOL)isItem
+{
+	return [self isKindOfClass:[CGUpnpAvItem class]];
+}
+
 - (CGUpnpAvObject *)ancestorObject
 {
-	ancestorObject = self;
-	while ([ancestorObject parentObject] != nil)
-		ancestorObject = [ancestorObject parentObject];
-	return ancestorObject;
+	CGUpnpAvObject *ancestorObj = self;
+	while ([ancestorObj parentObject] != nil)
+		ancestorObj = [ancestorObj parentObject];
+	return ancestorObj;
 }
 
 @end

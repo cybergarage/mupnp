@@ -17,12 +17,30 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
+	childArray = [[NSMutableArray alloc] init];
+	[childArray retain];
 	return self;
 }
 
 - (void) finalize
 {
+	[childArray release];
 	[super finalize];
+}
+
+- (void)addChildObject:(CGUpnpAvObject *)obj
+{
+	[childArray addObject:obj];
+}
+
+- (void)removeChildObject:(CGUpnpAvObject *)obj
+{
+	[childArray removeObject:obj];
+}
+
+- (NSArray *)children
+{
+	return childArray;
 }
 
 @end
