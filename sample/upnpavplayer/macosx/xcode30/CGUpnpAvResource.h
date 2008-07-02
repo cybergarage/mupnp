@@ -14,7 +14,9 @@
 @interface CGUpnpAvResource : NSObject 
 {
 	NSString *url;
+	long size;
 }
 @property(readwrite, copy) NSString *url;
+@property(readwrite, copy) long size;
 @end
 

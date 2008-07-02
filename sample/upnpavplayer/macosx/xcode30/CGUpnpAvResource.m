@@ -11,6 +11,7 @@
 @implementation CGUpnpAvResource
 
 @synthesize url;
+@synthesize size;
 
 - (id) init
 {
@@ -25,3 +26,4 @@
 }
 
 @end
+

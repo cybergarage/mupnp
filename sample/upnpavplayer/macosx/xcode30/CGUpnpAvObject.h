@@ -16,9 +16,12 @@
 	NSString *objectId;
 	NSString *title;
 	NSString *upnpClass;
+	CGUpnpAvObject *parentObject;
 }
 @property(readwrite, copy) NSString *objectId;
 @property(readwrite, copy) NSString *title;
 @property(readwrite, copy) NSString *upnpClass;
+@property(readwrite, copy) CGUpnpAvObject *parentObject;
+- (CGUpnpAvObject *)ancestorObject;
 @end
 
