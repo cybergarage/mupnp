@@ -17,6 +17,6 @@
 	long size;
 }
 @property(readwrite, copy) NSString *url;
-@property(readwrite, copy) long size;
+@property(readwrite) long size;
 @end
 

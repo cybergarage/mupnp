@@ -22,6 +22,8 @@
 @property(readwrite, copy) NSString *title;
 @property(readwrite, copy) NSString *upnpClass;
 @property(readwrite, copy) CGUpnpAvObject *parentObject;
+- (BOOL)isContainer;
+- (BOOL)isItem;
 - (CGUpnpAvObject *)ancestorObject;
 @end
 

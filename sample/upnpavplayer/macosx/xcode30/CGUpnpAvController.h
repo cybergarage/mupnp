@@ -17,6 +17,7 @@
  */
 @interface CGUpnpAvController : CGUpnpControlPoint 
 {
+	NSMutableArray *dmsArray;
 }
 /**
  * Activate some background threads of the control point such as SSDP and 
@@ -27,4 +28,5 @@
  *
  */
 - (NSArray *)browse:(CGUpnpDevice *)device objectId:(NSString *)objectId;
+- (NSArray *)servers;
 @end

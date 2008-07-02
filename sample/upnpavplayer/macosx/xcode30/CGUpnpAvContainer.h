@@ -10,10 +10,14 @@
 #import <CGUpnpAvObject.h>
 
 /**
- * The CGUpnpAction class is a wrapper class for CgUpnpAction of CyberLink for C.
+ * The CGUpnpAvContainer class is a container of UPnP/AV container.
  */
 @interface CGUpnpAvContainer : CGUpnpAvObject 
 {
+	NSMutableArray *childArray;
 }
+- (void)addChildObject:(CGUpnpAvObject *)obj;
+- (void)removeChildObject:(CGUpnpAvObject *)obj;
+- (NSArray *)children;
 @end
 
