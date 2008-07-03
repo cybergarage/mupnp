@@ -89,6 +89,13 @@
 	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getdevicetype(cObject)] autorelease];
 }
 
+- (NSString *)udn
+{
+	if (!cObject)
+		return nil;
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getudn(cObject)] autorelease];
+}
+
 - (BOOL)isDeviceType:(NSString *)type
 {
 	return [type isEqualToString:[self deviceType]];
