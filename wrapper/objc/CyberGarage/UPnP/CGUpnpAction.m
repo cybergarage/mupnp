@@ -46,6 +46,11 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 	return self;
 }
 
+- (void) dealloc
+{
+	[super dealloc];
+}
+
 - (void) finalize
 {
 	[super finalize];
@@ -55,14 +60,14 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 {
 	if (!cObject)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cg_upnp_action_getname(cObject)];
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_action_getname(cObject)] autorelease];
 }
 
 - (NSDictionary *)arguments
 {
 	if (!cObject)
-		return [NSArray array];
-	NSMutableDictionary *argDir = [NSMutableDictionary dictionary];
+		return [[NSDictionary dictionary] autorelease];
+	NSMutableDictionary *argDir = [[NSMutableDictionary dictionary] autorelease];
 	CgUpnpArgument *carg;
 	for (carg = cg_upnp_action_getarguments(cObject); carg; carg = cg_upnp_argument_next(carg)) {
 		char *name = cg_upnp_argument_getname(carg);
@@ -98,7 +103,7 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 	cValue = cg_upnp_argument_getvalue(cArg);
 	if (cg_strlen(cValue) <= 0)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cValue];
+	return [[[NSString alloc] initWithUTF8String:cValue] autorelease];
 }
 
 - (BOOL)post
