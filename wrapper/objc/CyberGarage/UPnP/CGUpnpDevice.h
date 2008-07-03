@@ -60,6 +60,12 @@ typedef void CgUpnpDevice;
  */
 - (NSString *)deviceType;
 /**
+ * Get the UDN of the device.
+ * 
+ * @return UDN of the specified device.
+ */
+- (NSString *)udn;
+/**
  * Check whether the device type is the specified type.
  *
  * @param type A type string of the device.
