@@ -29,6 +29,11 @@
 	return self;
 }
 
+- (void) dealloc
+{
+	[super dealloc];
+}
+
 - (void) finalize
 {
 	[super finalize];
@@ -38,14 +43,14 @@
 {
 	if (!cObject)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cg_upnp_statevariable_getname(cObject)];
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_statevariable_getname(cObject)] autorelease];
 }
 
 - (NSString *)value
 {
 	if (!cObject)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cg_upnp_statevariable_getvalue(cObject)];
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_statevariable_getvalue(cObject)] autorelease];
 }
 
 - (BOOL)query

@@ -20,6 +20,7 @@ typedef void CgUpnpDevice;
 @interface CGUpnpDevice : NSObject 
 {
 	CgUpnpDevice *cObject;
+	BOOL isCObjectCreated;
 }
 @property(readonly) CgUpnpDevice *cObject;
 /**

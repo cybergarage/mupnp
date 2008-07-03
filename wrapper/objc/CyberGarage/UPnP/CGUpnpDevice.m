@@ -21,6 +21,7 @@
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cg_upnp_device_new();
+	isCObjectCreated = YES;
 	if (!cObject)
 		return nil;
 	cg_upnp_device_setuserdata(cObject, self);
@@ -32,6 +33,7 @@
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cobj;
+	isCObjectCreated = NO;
 	cg_upnp_device_setuserdata(cObject, self);
 	return self;
 }
@@ -41,6 +43,7 @@
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cg_upnp_device_new();
+	isCObjectCreated = YES;
 	if (!cObject)
 		return nil;
 	if (![self parseXMLDescription:xmlDesc]) {
@@ -58,8 +61,17 @@
 	return cg_upnp_device_parsedescription(cObject, (char *)[xmlDesc UTF8String], [xmlDesc length]);
 }
 
+- (void) dealloc
+{
+	if (isCObjectCreated && cObject)
+		cg_upnp_device_delete(cObject);
+	[super dealloc];
+}
+
 - (void) finalize
 {
+	if (isCObjectCreated && cObject)
+		cg_upnp_device_delete(cObject);
 	[super finalize];
 }
 
@@ -67,14 +79,14 @@
 {
 	if (!cObject)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cg_upnp_device_getfriendlyname(cObject)];
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getfriendlyname(cObject)] autorelease];
 }
 
 - (NSString *)deviceType
 {
 	if (!cObject)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cg_upnp_device_getdevicetype(cObject)];
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getdevicetype(cObject)] autorelease];
 }
 
 - (BOOL)isDeviceType:(NSString *)type
@@ -85,8 +97,8 @@
 - (NSArray *)services
 {
 	if (!cObject)
-		return [NSArray array];
-	NSMutableArray *serviceArray = [NSMutableArray array];
+		return [[NSArray array] autorelease];
+	NSMutableArray *serviceArray = [[NSMutableArray array] autorelease];
 	CgUpnpService *cService;
 	for (cService = cg_upnp_device_getservices(cObject); cService; cService = cg_upnp_service_next(cService)) {
 		CGUpnpService *service = [[CGUpnpService alloc] initWithCObject:(void *)cService];
@@ -102,7 +114,7 @@
 	CgUpnpService *foundService = cg_upnp_device_getservicebyserviceid(cObject, (char *)[serviceId UTF8String]);
 	if (!foundService)
 		return nil;
-	return [[CGUpnpService alloc] initWithCObject:(void *)foundService];
+	return [[[CGUpnpService alloc] initWithCObject:(void *)foundService] autorelease];
 }
 
 - (CGUpnpService *)getServiceForType:(NSString *)serviceType;
@@ -112,7 +124,7 @@
 	CgUpnpService *foundService = cg_upnp_device_getservicebytype(cObject, (char *)[serviceType UTF8String]);
 	if (!foundService)
 		return nil;
-	return [[CGUpnpService alloc] initWithCObject:(void *)foundService];
+	return [[[CGUpnpService alloc] initWithCObject:(void *)foundService] autorelease];
 }
 
 @end

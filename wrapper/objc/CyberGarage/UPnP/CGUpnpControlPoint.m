@@ -30,6 +30,13 @@
 	return self;
 }
 
+- (void)dealloc
+{
+	if (cObject)
+		cg_upnp_controlpoint_delete(cObject);
+	[super dealloc];
+}
+
 - (void)finalize
 {
 	if (cObject)
@@ -84,7 +91,7 @@
 {
 	if (!cObject)
 		return [NSArray array];
-	NSMutableArray *devArray = [NSMutableArray array];
+	NSMutableArray *devArray = [[NSMutableArray array] autorelease];
 	CgUpnpDevice *cDevice;
 	for (cDevice = cg_upnp_controlpoint_getdevices(cObject); cDevice; cDevice = cg_upnp_device_next(cDevice)) {
 		CGUpnpDevice *device = [[CGUpnpDevice alloc] initWithCObject:cDevice];
