@@ -104,8 +104,8 @@
 - (NSArray *)services
 {
 	if (!cObject)
-		return [[NSArray array] autorelease];
-	NSMutableArray *serviceArray = [[NSMutableArray array] autorelease];
+		return [[[NSArray alloc] init] autorelease];
+	NSMutableArray *serviceArray = [[[NSMutableArray alloc] init] autorelease];
 	CgUpnpService *cService;
 	for (cService = cg_upnp_device_getservices(cObject); cService; cService = cg_upnp_service_next(cService)) {
 		CGUpnpService *service = [[CGUpnpService alloc] initWithCObject:(void *)cService];

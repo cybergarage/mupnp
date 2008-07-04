@@ -14,8 +14,15 @@
 	return self;
 }
 
+- (void)dealloc
+{
+	[dmc release];
+	[super dealloc];
+}
+
 - (void)finalize
 {
+	[dmc release];
 	[super finalize];
 }
 

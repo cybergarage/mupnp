@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-//#import <CGUpnpControlPoint.h>
 #import <CyberLink/UPnP.h>
 #import <CGUpnpAvServer.h>
 
@@ -16,12 +15,26 @@
 
 @synthesize contentDirectory;
 
-- (id)init
+- (id) init
 {
 	if ((self = [super init]) == nil)
 		return nil;
 	contentDirectory = [[CGUpnpAvContentDirectory alloc] init];
 	return self;
+}
+
+- (id) initWithCObject:(CgUpnpDevice *)cobj
+{
+	if ((self = [super initWithCObject:cobj]) == nil)
+		return nil;
+	contentDirectory = [[CGUpnpAvContentDirectory alloc] init];
+	return self;
+}
+
+- (void)dealloc
+{
+	[contentDirectory release];
+	[super dealloc];
 }
 
 - (void)finalize

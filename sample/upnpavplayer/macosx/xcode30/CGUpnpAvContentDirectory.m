@@ -18,6 +18,12 @@
 	return self;
 }
 
+- (void)dealloc
+{
+	[rootContainer release];
+	[super dealloc];
+}
+
 - (void)finalize
 {
 	[rootContainer release];

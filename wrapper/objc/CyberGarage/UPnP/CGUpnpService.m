@@ -67,8 +67,8 @@
 - (NSArray *)actions
 {
 	if (!cObject)
-		return [NSArray array];
-	NSMutableArray *actionArray = [NSMutableArray array];
+		return [[[NSArray alloc] init] autorelease];
+	NSMutableArray *actionArray = [[[NSMutableArray alloc] init] autorelease];
 	CgUpnpAction *cAction;
 	for (cAction = cg_upnp_service_getactions(cObject); cAction; cAction = cg_upnp_action_next(cAction)) {
 		CGUpnpAction *action = [[CGUpnpAction alloc] initWithCObject:(void *)cAction];
@@ -80,8 +80,8 @@
 - (NSArray *)stateVariables
 {
 	if (!cObject)
-		return [NSArray array];
-	NSMutableArray *statVarArray = [NSMutableArray array];
+		return [[[NSArray alloc] init] autorelease];
+	NSMutableArray *statVarArray = [[[NSMutableArray alloc] init] autorelease];
 	CgUpnpStateVariable *cStatVar;
 	for (cStatVar = cg_upnp_service_getstatevariables(cObject); cStatVar; cStatVar = cg_upnp_statevariable_next(cStatVar)) {
 		CGUpnpStateVariable *statVar = [[CGUpnpStateVariable alloc] initWithCObject:(void *)cStatVar];
