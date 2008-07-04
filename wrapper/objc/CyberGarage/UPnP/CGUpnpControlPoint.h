@@ -12,6 +12,8 @@
 typedef void CgUpnpControlPoint;
 #endif
 
+@class CGUpnpDevice;
+
 /**
  * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
  * program using only Objective-C directly on MacOSX.
@@ -72,4 +74,9 @@ typedef void CgUpnpControlPoint;
  * @return NSArray of CGUpnpDevice.
  */
 - (NSArray *)devices;
+/**
+ * Get a specified UPnP devices by the UDN.
+ * @return CGUpnpDevice when the specified device is found, otherwise nil.
+ */
+- (CGUpnpDevice *)deviceForUDN:(NSString *)udn;
 @end

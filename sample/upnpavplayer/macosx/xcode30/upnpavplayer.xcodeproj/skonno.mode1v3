@@ -302,7 +302,7 @@
 							<real>246</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>464 64 926 630 0 0 1440 878 </string>
+						<string>50 241 926 630 0 0 1440 878 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -339,7 +339,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {658, 0}}</string>
 								<key>RubberWindowFrame</key>
-								<string>464 64 926 630 0 0 1440 878 </string>
+								<string>50 241 926 630 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -361,7 +361,7 @@
 								<key>Frame</key>
 								<string>{{0, 5}, {658, 584}}</string>
 								<key>RubberWindowFrame</key>
-								<string>464 64 926 630 0 0 1440 878 </string>
+								<string>50 241 926 630 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -385,9 +385,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>219F56360E1D46380038AA36</string>
+				<string>218345B00E1EECB500055E23</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>219F56370E1D46380038AA36</string>
+				<string>218345B10E1EECB500055E23</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -522,12 +522,13 @@
 	<key>WindowOrderList</key>
 	<array>
 		<string>21889DB20E0982B4005858AB</string>
-		<string>219F56390E1D46380038AA36</string>
-		<string>219F563A0E1D46380038AA36</string>
+		<string>218345B30E1EECB500055E23</string>
 		<string>/Users/skonno/src/clinkc/sample/upnpavplayer/macosx/xcode30/upnpavplayer.xcodeproj</string>
+		<string>218345B40E1EECB500055E23</string>
+		<string>218345B50E1EECB500055E23</string>
 	</array>
 	<key>WindowString</key>
-	<string>464 64 926 630 0 0 1440 878 </string>
+	<string>50 241 926 630 0 0 1440 878 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -543,12 +544,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>CGUpnpAvController.h</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -604,7 +607,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>21889DB20E0982B4005858AB</string>
-				<string>219F56380E1D46380038AA36</string>
+				<string>218345B20E1EECB500055E23</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -615,7 +618,7 @@
 			<key>WindowToolGUID</key>
 			<string>21889DB20E0982B4005858AB</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

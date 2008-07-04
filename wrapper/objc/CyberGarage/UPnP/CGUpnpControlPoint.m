@@ -94,10 +94,22 @@
 	NSMutableArray *devArray = [[[NSMutableArray alloc] init] autorelease];
 	CgUpnpDevice *cDevice;
 	for (cDevice = cg_upnp_controlpoint_getdevices(cObject); cDevice; cDevice = cg_upnp_device_next(cDevice)) {
-		CGUpnpDevice *device = [[CGUpnpDevice alloc] initWithCObject:cDevice];
+		CGUpnpDevice *device = [[[CGUpnpDevice alloc] initWithCObject:cDevice] autorelease];
 		[devArray addObject:device];
 	}
 	return devArray;
+}
+
+- (CGUpnpDevice *)deviceForUDN:(NSString *)udn
+{
+	if (!cObject)
+		return nil;
+	CgUpnpDevice *cDevice;
+	for (cDevice = cg_upnp_controlpoint_getdevices(cObject); cDevice; cDevice = cg_upnp_device_next(cDevice)) {
+		if (cg_strcmp(cg_upnp_device_getudn(cDevice), (char *)[udn UTF8String]) == 0) 
+			return [[[CGUpnpDevice alloc] initWithCObject:cDevice] autorelease];
+	}
+	return nil;
 }
 
 @end

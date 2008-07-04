@@ -68,11 +68,19 @@ typedef void CgUpnpDevice;
 /**
  * Check whether the device type is the specified type.
  *
- * @param type A type string of the device.
+ * @param aType A type string of the device.
  * 
  * @return YES if the specified type is same as the device type; otherwise NO.
  */
-- (BOOL)isDeviceType:(NSString *)type;
+- (BOOL)isDeviceType:(NSString *)aType;
+/**
+ * Check whether the device's UDN is the specified UDN.
+ *
+ * @param aUDN A UDN string of the device.
+ * 
+ * @return YES if the specified UDN is same as the device' UDN; otherwise NO.
+ */
+- (BOOL)isUDN:(NSString *)aUDN;
 /**
  * Get all services in the device as a NSArray object. The array has the services as instances of CGUpnpService.
  *

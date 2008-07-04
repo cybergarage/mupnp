@@ -8,9 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-//#import <CGUpnpControlPoint.h>
 #import <CyberLink/UPnP.h>
 #import <CGUpnpAvController.h>
+#import <CGUpnpAvServer.h>
 
 @implementation CGUpnpAvController
 
@@ -18,20 +18,47 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	serverArray = [[NSMutableArray alloc] init];
 	return self;
 }
 
 - (void)dealloc
 {
-	[serverArray release];
 	[super dealloc];
 }
 
 - (void)finalize
 {
-	[serverArray release];
 	[super finalize];
+}
+
+- (NSArray *)servers;
+{
+	NSArray *devices = [self devices];
+	NSMutableArray *serverArray = [[[NSMutableArray alloc] init] autorelease];
+
+	for (CGUpnpDevice *dev in devices) {
+		if (![dev isDeviceType:@""])
+			continue;
+		CgUpnpDevice *cDevice = [dev cObject];
+		if (!cDevice)
+			continue;
+		void *devData = cg_upnp_device_getuserdata(cDevice);
+		CGUpnpAvServer *server = nil;
+		if (!devData) {
+			server = [[[CGUpnpAvServer alloc] initWithCObject:cDevice] autorelease];
+		}
+		else 
+			server = (CGUpnpAvServer *)devData;
+		[serverArray addObject:server];
+	}
+	return serverArray;
+}
+
+- (CGUpnpAvServer *)serverForUDN:(NSString *)udn
+{
+	if (udn == nil)
+		return nil;
+	return nil;
 }
 
 - (NSArray *)browse:(CGUpnpDevice *)device objectId:(NSString *)objectId;
