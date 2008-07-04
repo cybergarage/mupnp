@@ -71,7 +71,7 @@
 	NSMutableArray *actionArray = [[[NSMutableArray alloc] init] autorelease];
 	CgUpnpAction *cAction;
 	for (cAction = cg_upnp_service_getactions(cObject); cAction; cAction = cg_upnp_action_next(cAction)) {
-		CGUpnpAction *action = [[CGUpnpAction alloc] initWithCObject:(void *)cAction];
+		CGUpnpAction *action = [[[CGUpnpAction alloc] initWithCObject:(void *)cAction] autorelease];
 		[actionArray addObject:action];
 	}
 	return actionArray;
@@ -84,7 +84,7 @@
 	NSMutableArray *statVarArray = [[[NSMutableArray alloc] init] autorelease];
 	CgUpnpStateVariable *cStatVar;
 	for (cStatVar = cg_upnp_service_getstatevariables(cObject); cStatVar; cStatVar = cg_upnp_statevariable_next(cStatVar)) {
-		CGUpnpStateVariable *statVar = [[CGUpnpStateVariable alloc] initWithCObject:(void *)cStatVar];
+		CGUpnpStateVariable *statVar = [[[CGUpnpStateVariable alloc] initWithCObject:(void *)cStatVar] autorelease];
 		[statVarArray addObject:statVar];
 	}
 	return statVarArray;
@@ -97,7 +97,7 @@
 	CgUpnpAction *cAction = cg_upnp_service_getactionbyname(cObject, (char *)[name UTF8String]);
 	if (!cAction)
 		return nil;
-	return [[CGUpnpAction alloc] initWithCObject:(void *)cAction];
+	return [[[CGUpnpAction alloc] initWithCObject:(void *)cAction] autorelease];
 }
 
 - (CGUpnpStateVariable *)getStateVariableForName:(NSString *)name
@@ -107,7 +107,7 @@
 	CgUpnpStateVariable *cStatVar = cg_upnp_service_getstatevariablebyname(cObject, (char *)[name UTF8String]);
 	if (!cStatVar)
 		return nil;
-	return [[CGUpnpStateVariable alloc] initWithCObject:(void *)cStatVar];
+	return [[[CGUpnpStateVariable alloc] initWithCObject:(void *)cStatVar] autorelease];
 }
 
 @end

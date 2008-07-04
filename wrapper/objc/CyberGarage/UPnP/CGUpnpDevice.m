@@ -96,9 +96,14 @@
 	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getudn(cObject)] autorelease];
 }
 
-- (BOOL)isDeviceType:(NSString *)type
+- (BOOL)isDeviceType:(NSString *)aType
 {
-	return [type isEqualToString:[self deviceType]];
+	return [aType isEqualToString:[self deviceType]];
+}
+
+- (BOOL)isUDN:(NSString *)aUDN
+{
+	return [aUDN isEqualToString:[self udn]];
 }
 
 - (NSArray *)services
@@ -108,7 +113,7 @@
 	NSMutableArray *serviceArray = [[[NSMutableArray alloc] init] autorelease];
 	CgUpnpService *cService;
 	for (cService = cg_upnp_device_getservices(cObject); cService; cService = cg_upnp_service_next(cService)) {
-		CGUpnpService *service = [[CGUpnpService alloc] initWithCObject:(void *)cService];
+		CGUpnpService *service = [[[CGUpnpService alloc] initWithCObject:(void *)cService] autorelease];
 		[serviceArray addObject:service];
 	}
 	return serviceArray;
@@ -124,7 +129,7 @@
 	return [[[CGUpnpService alloc] initWithCObject:(void *)foundService] autorelease];
 }
 
-- (CGUpnpService *)getServiceForType:(NSString *)serviceType;
+- (CGUpnpService *)getServiceForType:(NSString *)serviceType
 {
 	if (!cObject)
 		return nil;

@@ -3,16 +3,16 @@
 	212208A00E11490B005A11CB /* CGUpnpAvController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{860, 0}";
-			sepNavVisRange = "{0, 888}";
+			sepNavSelRange = "{515, 0}";
+			sepNavVisRange = "{0, 934}";
 			sepNavWindowFrame = "{{147, 44}, {1031, 791}}";
 		};
 	};
 	212208A10E11490B005A11CB /* CGUpnpAvController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {972, 1350}}";
-			sepNavSelRange = "{304, 0}";
-			sepNavVisRange = "{48, 1145}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 2076}}";
+			sepNavSelRange = "{872, 0}";
+			sepNavVisRange = "{455, 924}";
 			sepNavWindowFrame = "{{226, -311}, {1031, 791}}";
 		};
 	};
@@ -27,7 +27,7 @@
 	216997FF0E19965C003B7C04 /* CGUpnpAvContainer.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 705}}";
-			sepNavSelRange = "{26, 0}";
+			sepNavSelRange = "{402, 0}";
 			sepNavVisRange = "{0, 682}";
 			sepNavWindowFrame = "{{61, 40}, {1031, 791}}";
 		};
@@ -153,8 +153,8 @@
 	218EC2CE0E1C241300E349BA /* CGUpnpAvServer.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{0, 0}";
-			sepNavVisRange = "{0, 435}";
+			sepNavSelRange = "{658, 15}";
+			sepNavVisRange = "{0, 765}";
 		};
 	};
 	218EC2CF0E1C241300E349BA /* CGUpnpAvServer.m */ = {
@@ -238,8 +238,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 236784350;
-			PBXWorkspaceStateSaveDate = 236784350;
+			PBXPerProjectTemplateStateSaveDate = 236872483;
+			PBXWorkspaceStateSaveDate = 236872483;
 		};
 		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
 		userBuildSettings = {

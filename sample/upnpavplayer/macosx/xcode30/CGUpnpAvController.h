@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class CGUpnpControlPoint;
+@class CGUpnpAvServer;
 
 /**
  * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
@@ -17,7 +18,6 @@
  */
 @interface CGUpnpAvController : CGUpnpControlPoint 
 {
-	NSMutableArray *serverArray;
 }
 /**
  * Activate some background threads of the control point such as SSDP and 
@@ -27,6 +27,7 @@
  * @return TRUE if successful; otherwise FALSE
  *
  */
-- (NSArray *)browse:(CGUpnpDevice *)device objectId:(NSString *)objectId;
 - (NSArray *)servers;
+- (CGUpnpAvServer *)serverForUDN:(NSString *)udn;
+- (NSArray *)browse:(CGUpnpDevice *)device objectId:(NSString *)objectId;
 @end
