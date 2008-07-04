@@ -8,14 +8,30 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import <CyberLink/UPnP.h>
+
 #import <CGUpnpAvContentDirectory.h>
+
+@class CGUpnpDevice;
 
 /**
  * The CGUpnpAvServer class is a UPnP/AV media server class.
  */
-@interface CGUpnpAvServer : NSObject
+@interface CGUpnpAvServer : CGUpnpDevice
 {
 	CGUpnpAvContentDirectory *contentDirectory;
 }
+/**
+ * Create a new UPnP/AV server.
+ * 
+ * @return New instance if successfull; otherwise nil.
+ */
+- (id) init;
+/**
+ * Create a new UPnP/AV server with the C instance.
+ * 
+ * @return New instance if successfull; otherwise nil.
+ */
+- (id) initWithCObject:(CgUpnpDevice *)cobj;
 @property(readonly) CGUpnpAvContentDirectory *contentDirectory;
 @end

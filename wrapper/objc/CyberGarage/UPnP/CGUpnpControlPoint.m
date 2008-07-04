@@ -90,8 +90,8 @@
 - (NSArray *)devices
 {
 	if (!cObject)
-		return [NSArray array];
-	NSMutableArray *devArray = [[NSMutableArray array] autorelease];
+		return [[[NSArray alloc] init] autorelease];
+	NSMutableArray *devArray = [[[NSMutableArray alloc] init] autorelease];
 	CgUpnpDevice *cDevice;
 	for (cDevice = cg_upnp_controlpoint_getdevices(cObject); cDevice; cDevice = cg_upnp_device_next(cDevice)) {
 		CGUpnpDevice *device = [[CGUpnpDevice alloc] initWithCObject:cDevice];

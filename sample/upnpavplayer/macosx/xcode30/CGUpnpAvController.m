@@ -18,11 +18,19 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
+	serverArray = [[NSMutableArray alloc] init];
 	return self;
+}
+
+- (void)dealloc
+{
+	[serverArray release];
+	[super dealloc];
 }
 
 - (void)finalize
 {
+	[serverArray release];
 	[super finalize];
 }
 

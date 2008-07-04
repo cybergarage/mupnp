@@ -18,8 +18,13 @@
 	if ((self = [super init]) == nil)
 		return nil;
 	childArray = [[NSMutableArray alloc] init];
-	[childArray retain];
 	return self;
+}
+
+- (void)dealloc
+{
+	[childArray release];
+	[super dealloc];
 }
 
 - (void) finalize

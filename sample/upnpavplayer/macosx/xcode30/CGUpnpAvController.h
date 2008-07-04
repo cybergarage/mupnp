@@ -17,7 +17,7 @@
  */
 @interface CGUpnpAvController : CGUpnpControlPoint 
 {
-	NSMutableArray *dmsArray;
+	NSMutableArray *serverArray;
 }
 /**
  * Activate some background threads of the control point such as SSDP and 
