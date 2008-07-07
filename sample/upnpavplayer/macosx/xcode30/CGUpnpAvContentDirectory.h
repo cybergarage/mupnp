@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import <CGUpnpAvContainer.h>
+#import <CGUpnpAvItem.h>
 
 /**
  * The CGUpnpAvContentDirectory class has UPnP/AV objects of a media servers.

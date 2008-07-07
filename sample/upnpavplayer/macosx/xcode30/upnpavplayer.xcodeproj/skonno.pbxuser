@@ -3,16 +3,16 @@
 	212208A00E11490B005A11CB /* CGUpnpAvController.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{515, 0}";
-			sepNavVisRange = "{0, 934}";
+			sepNavSelRange = "{855, 76}";
+			sepNavVisRange = "{0, 936}";
 			sepNavWindowFrame = "{{147, 44}, {1031, 791}}";
 		};
 	};
 	212208A10E11490B005A11CB /* CGUpnpAvController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {972, 2076}}";
-			sepNavSelRange = "{872, 0}";
-			sepNavVisRange = "{455, 924}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 1843}}";
+			sepNavSelRange = "{1138, 1829}";
+			sepNavVisRange = "{1672, 1301}";
 			sepNavWindowFrame = "{{226, -311}, {1031, 791}}";
 		};
 	};
@@ -134,9 +134,23 @@
 		isa = PBXCodeSenseManager;
 		indexTemplatePath = "";
 	};
+	218EC2CA0E1C241300E349BA /* CGUpnpAvContentDirectory.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{234, 0}";
+			sepNavVisRange = "{0, 482}";
+		};
+	};
+	218EC2CB0E1C241300E349BA /* CGUpnpAvContentDirectory.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 705}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 774}";
+		};
+	};
 	218EC2CC0E1C241300E349BA /* CGUpnpAvResource.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {838, 345}}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
 			sepNavSelRange = "{411, 5}";
 			sepNavVisRange = "{0, 417}";
 			sepNavWindowFrame = "{{306, 83}, {1031, 791}}";
@@ -153,15 +167,15 @@
 	218EC2CE0E1C241300E349BA /* CGUpnpAvServer.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{658, 15}";
-			sepNavVisRange = "{0, 765}";
+			sepNavSelRange = "{780, 0}";
+			sepNavVisRange = "{0, 808}";
 		};
 	};
 	218EC2CF0E1C241300E349BA /* CGUpnpAvServer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{538, 0}";
-			sepNavVisRange = "{0, 539}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 1701}}";
+			sepNavSelRange = "{2625, 0}";
+			sepNavVisRange = "{1450, 1216}";
 		};
 	};
 	21E2E2D20E198CB2004B9F9E /* DLNAController.m:34 */ = {
@@ -238,8 +252,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 236872483;
-			PBXWorkspaceStateSaveDate = 236872483;
+			PBXPerProjectTemplateStateSaveDate = 237132874;
+			PBXWorkspaceStateSaveDate = 237132874;
 		};
 		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
 		userBuildSettings = {

@@ -61,7 +61,7 @@
 	return nil;
 }
 
-- (NSArray *)browse:(CGUpnpDevice *)device objectId:(NSString *)objectId;
+- (NSArray *)browse:(CGUpnpAvServer *)device objectId:(NSString *)objectId;
 {
 	CGUpnpService *conDirService = [device getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
