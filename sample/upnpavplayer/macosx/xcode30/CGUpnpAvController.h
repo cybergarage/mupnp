@@ -29,5 +29,5 @@
  */
 - (NSArray *)servers;
 - (CGUpnpAvServer *)serverForUDN:(NSString *)udn;
-- (NSArray *)browse:(CGUpnpDevice *)device objectId:(NSString *)objectId;
+- (NSArray *)browse:(CGUpnpAvServer *)device objectId:(NSString *)objectId;
 @end

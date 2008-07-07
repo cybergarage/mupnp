@@ -21,6 +21,7 @@
 {
 	CGUpnpAvContentDirectory *contentDirectory;
 }
+@property(readonly) CGUpnpAvContentDirectory *contentDirectory;
 /**
  * Create a new UPnP/AV server.
  * 
@@ -33,5 +34,6 @@
  * @return New instance if successfull; otherwise nil.
  */
 - (id) initWithCObject:(CgUpnpDevice *)cobj;
-@property(readonly) CGUpnpAvContentDirectory *contentDirectory;
+- (NSArray *)browse:(NSString *)objectId;
+
 @end
