@@ -63,7 +63,7 @@
 
 - (NSArray *)browse:(CGUpnpAvServer *)server objectId:(NSString *)objectId;
 {
-	return [server browse:objectid];
+	return [server browse:objectId];
 }
 
 @end

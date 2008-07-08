@@ -70,6 +70,8 @@
 	if (!xmlDoc)
 		return nil;
 
+	NSMutableArray *avObjArray = [[[NSMutableArray alloc] init] autorelease];
+	
 	NSArray *contentArray = [xmlDoc nodesForXPath:@"/DIDL-Lite/*" error:&xmlErr];
 	for (NSXMLNode *contentNode in contentArray) {
 		NSString *objId = [[contentNode attributeForName:@"id"] stringValue];
@@ -89,18 +91,20 @@
 		else {
 			CGUpnpAvItem *avItem = [[[CGUpnpAvItem alloc] init] autorelease];
 			NSArray *resArray = [contentNode elementsForName:@"res"];
-			NSString *url = @"";
 			for (NSXMLNode *resNode in resArray) {
-				url = [resNode stringValue];
-				break;
+				NSString *url = [resNode stringValue];
+				CGUpnpAvResource *avRes = [[[CGUpnpAvResource alloc] init] autorelease];
+				[avRes setUrl:url];
+				[avItem addResource:avRes];
 			}
 			avObj = avItem;
 		}
 		if (avObj == nil)
 			continue;
+		[avObjArray addObject:avObj];
 	}
 
-	return nil;
+	return avObjArray;
 }
 
 @end

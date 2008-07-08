@@ -8,11 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import <CGUpnpAvObject.h>
+#import <CGUpnpAvResource.h>
 
 /**
  * The CGUpnpAction class is a wrapper class for CgUpnpAction of CyberLink for C.
  */
 @interface CGUpnpAvItem : CGUpnpAvObject 
 {
+	NSMutableArray *resourceArray;
 }
+- (void)addResource:(CGUpnpAvResource *)res;
+- (void)removeResource:(CGUpnpAvResource *)res;
+- (NSArray *)resources;
 @end

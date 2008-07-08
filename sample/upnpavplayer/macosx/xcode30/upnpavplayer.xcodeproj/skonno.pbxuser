@@ -10,16 +10,16 @@
 	};
 	212208A10E11490B005A11CB /* CGUpnpAvController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {972, 1843}}";
-			sepNavSelRange = "{1138, 1829}";
-			sepNavVisRange = "{1672, 1301}";
+			sepNavIntBoundsRect = "{{0, 0}, {838, 1080}}";
+			sepNavSelRange = "{1247, 0}";
+			sepNavVisRange = "{806, 446}";
 			sepNavWindowFrame = "{{226, -311}, {1031, 791}}";
 		};
 	};
 	216997FE0E19965C003B7C04 /* CGUpnpAvContainer.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{454, 23}";
+			sepNavSelRange = "{359, 95}";
 			sepNavVisRange = "{0, 483}";
 			sepNavWindowFrame = "{{755, 76}, {1031, 791}}";
 		};
@@ -35,16 +35,16 @@
 	216998000E19965C003B7C04 /* CGUpnpAvItem.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{339, 0}";
-			sepNavVisRange = "{0, 339}";
+			sepNavSelRange = "{392, 93}";
+			sepNavVisRange = "{0, 514}";
 			sepNavWindowFrame = "{{415, 79}, {1031, 791}}";
 		};
 	};
 	216998010E19965C003B7C04 /* CGUpnpAvItem.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{204, 0}";
-			sepNavVisRange = "{0, 331}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 750}}";
+			sepNavSelRange = "{718, 0}";
+			sepNavVisRange = "{89, 629}";
 			sepNavWindowFrame = "{{197, 19}, {1031, 791}}";
 		};
 	};
@@ -173,9 +173,9 @@
 	};
 	218EC2CF0E1C241300E349BA /* CGUpnpAvServer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {972, 1701}}";
-			sepNavSelRange = "{2625, 0}";
-			sepNavVisRange = "{1450, 1216}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 1817}}";
+			sepNavSelRange = "{199, 0}";
+			sepNavVisRange = "{0, 759}";
 		};
 	};
 	21E2E2D20E198CB2004B9F9E /* DLNAController.m:34 */ = {
@@ -252,8 +252,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 237132874;
-			PBXWorkspaceStateSaveDate = 237132874;
+			PBXPerProjectTemplateStateSaveDate = 237230892;
+			PBXWorkspaceStateSaveDate = 237230892;
 		};
 		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
 		userBuildSettings = {
