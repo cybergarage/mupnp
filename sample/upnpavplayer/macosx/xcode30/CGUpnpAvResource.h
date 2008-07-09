@@ -13,10 +13,17 @@
  */
 @interface CGUpnpAvResource : NSObject 
 {
+	NSString *mimeType;
 	NSString *url;
 	long size;
+	/* DLNA parameter */
+	NSString *dlnaOrgPN;
+	NSString *dlnaOrgOP;
 }
+@property(readwrite, copy) NSString *mimeType;
 @property(readwrite, copy) NSString *url;
 @property(readwrite) long size;
+@property(readwrite, copy) NSString *dlnaOrgPN;
+@property(readwrite, copy) NSString *dlnaOrgOP;
 @end
 
