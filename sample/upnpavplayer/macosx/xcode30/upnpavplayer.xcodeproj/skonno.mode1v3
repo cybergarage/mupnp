@@ -385,9 +385,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>21CDD3C20E24324900A4C182</string>
+				<string>218637000E24EB3E00FCB68E</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>21CDD3C30E24324900A4C182</string>
+				<string>218637010E24EB3E00FCB68E</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -523,8 +523,6 @@
 	<array>
 		<string>21889DB20E0982B4005858AB</string>
 		<string>/Users/skonno/src/clinkc/sample/upnpavplayer/macosx/xcode30/upnpavplayer.xcodeproj</string>
-		<string>21CDD3C50E24324900A4C182</string>
-		<string>21CDD3C60E24324900A4C182</string>
 	</array>
 	<key>WindowString</key>
 	<string>50 241 926 630 0 0 1440 878 </string>
@@ -604,7 +602,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>21889DB20E0982B4005858AB</string>
-				<string>21CDD3C40E24324900A4C182</string>
+				<string>218637020E24EB3E00FCB68E</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
