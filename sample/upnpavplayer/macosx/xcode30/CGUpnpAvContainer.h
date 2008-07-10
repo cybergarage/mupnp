@@ -19,5 +19,7 @@
 - (void)addChildObject:(CGUpnpAvObject *)obj;
 - (void)removeChildObject:(CGUpnpAvObject *)obj;
 - (NSArray *)children;
+- (CGUpnpAvObject *)childforTitle:(NSString *)title;
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath;
 @end
 
