@@ -139,4 +139,18 @@
 	return [[[CGUpnpService alloc] initWithCObject:(void *)foundService] autorelease];
 }
 
+- (void)setUserData:(void *)aUserData
+{
+	if (!cObject)
+		return;
+	cg_upnp_device_setuserdata(cObject, aUserData);
+}
+
+- (void *)userData
+{
+	if (!cObject)
+		return NULL;
+	return cg_upnp_device_getuserdata(cObject);
+}
+
 @end

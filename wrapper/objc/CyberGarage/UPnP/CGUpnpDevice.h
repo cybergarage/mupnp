@@ -103,4 +103,18 @@ typedef void CgUpnpDevice;
  * @return The CGUpnpService if the specified service is found; otherwise nil.
  */
 - (CGUpnpService *)getServiceForType:(NSString *)serviceType;
+/**
+ * Set a user data.
+ *
+ * @param aUserData A user data to set.
+ *
+ * @return The CGUpnpService if the specified service is found; otherwise nil.
+ */
+- (void)setUserData:(void *)aUserData;
+/**
+ * Get a stored user data.
+ *
+ * @return A stored user data.
+ */
+- (void *)userData;
 @end

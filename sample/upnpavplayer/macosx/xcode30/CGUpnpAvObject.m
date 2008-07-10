@@ -6,30 +6,27 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#import <CGXmlNode.h>
 #import <CGUpnpAvObject.h>
 #import <CGUpnpAvContainer.h>
 #import <CGUpnpAvItem.h>
+#import <CGUpnpAvConstants.h>
 
 @implementation CGUpnpAvObject
 
 @synthesize xmlNode;
-@synthesize parent;
 
 - (id)init
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	NSXMLNode *aXmlNode = [[NSXMLNode alloc] init];
-	[self initWithXMLNode:aXmlNode];
-	[aXmlNode release];
 	return self;
 }
 
-- (id)initWithXMLNode:NSXMLNode *aXmlNode
+- (id)initWithXMLNode:(NSXMLElement *)aXmlNode
 {
-	if ((self = [super init]) == nil)
+	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
 		return nil;
-	[self setXmlNode:aXmlNode];
 	return self;
 }
 
@@ -53,31 +50,25 @@
 	return [self isKindOfClass:[CGUpnpAvItem class]];
 }
 
-- (CGUpnpAvObject *)ancestorObject
+- (void)setParent:(CGUpnpAvObject *)aParent
+{
+	if (parent != aParent) {
+		[parent release];
+		parent = [aParent retain];
+	}		
+}
+
+- (CGUpnpAvObject *)parent
+{
+	return parent;
+}
+
+- (CGUpnpAvObject *)ancestor
 {
 	CGUpnpAvObject *ancestorObj = self;
-	while ([ancestorObj parentObject] != nil)
-		ancestorObj = [ancestorObj parentObject];
+	while ([ancestorObj parent] != nil)
+		ancestorObj = [ancestorObj parent];
 	return ancestorObj;
-}
-
-- (NSString *)attributeValueForName:(NSString *)name
-{
-	NSString *attrValue = [aXmlNode attributeForName:name] stringValue];
-	[[attrValue retain] autorelease];
-	return attrValue;
-}
-
-- (NSString *)elementValueForName:(NSString *)name
-{
-	NSArray *elemArray = [contentNode elementsForName:name];
-	NSString *elemValue = @"";
-	for (NSXMLNode *xmlNode in elemArray) {
-		elemValue = [xmlNode stringValue];
-		[[elemValue retain] autorelease];
-		break;
-	}
-	return elemValue;
 }
 
 - (NSString *)objectId
@@ -93,6 +84,21 @@
 - (NSString *)upnpClass;
 {
 	return [self elementValueForName:CG_UPNPAV_OBJECT_UPNPCLASS];
+}
+
+- (BOOL)isObjectId:(NSString *)aObjectId
+{
+	return [aObjectId isEqualToString:[self objectId]];
+}
+
+- (BOOL)isTitle:(NSString *)aTitle
+{
+	return [aTitle isEqualToString:[self title]];
+}
+
+- (BOOL)isUpnpClass:(NSString *)aUpnpClass
+{
+	return [aUpnpClass isEqualToString:[self upnpClass]];
 }
 
 @end

@@ -16,6 +16,8 @@
 {
 	NSMutableArray *childArray;
 }
+- (id)init;
+- (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 - (void)addChildObject:(CGUpnpAvObject *)obj;
 - (void)removeChildObject:(CGUpnpAvObject *)obj;
 - (NSArray *)children;

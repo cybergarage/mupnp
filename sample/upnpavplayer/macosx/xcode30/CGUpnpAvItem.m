@@ -11,9 +11,17 @@
 
 @implementation CGUpnpAvItem
 
-- (id) init
+- (id)init
 {
 	if ((self = [super init]) == nil)
+		return nil;
+	resourceArray = [[NSMutableArray alloc] init];
+	return self;
+}
+
+- (id)initWithXMLNode:(NSXMLElement *)aXmlNode
+{
+	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
 		return nil;
 	resourceArray = [[NSMutableArray alloc] init];
 	return self;

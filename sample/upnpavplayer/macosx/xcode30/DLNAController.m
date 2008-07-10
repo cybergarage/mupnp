@@ -34,8 +34,14 @@
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
 {
-	if (column == 0)
-		return 2;
+	if (column == 0) {
+		NSArray *serverArray = [dmc servers];
+		if ([serverArray count] <= 0) {
+			[dmc search];
+			serverArray = [dmc servers];
+		}
+		return [serverArray count];
+	}
 	NSString *path = [sender pathToColumn:column];
 	NSLog(@"%@", path);
 	return 1;
@@ -43,6 +49,14 @@
 
 - (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column
 {
+	if (column == 0) {
+		NSArray *serverArray = [dmc servers];
+		if (row < [serverArray count]) {
+			CGUpnpAvServer *server = [serverArray objectAtIndex:row];
+			[cell setTitle:[server friendlyName]];
+			[cell setLeaf:NO];
+		}
+	}
 	[cell setTitle:@"test"];
 	[cell setLeaf:NO];
 }

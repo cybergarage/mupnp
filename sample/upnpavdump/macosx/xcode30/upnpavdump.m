@@ -35,7 +35,7 @@ void PrintContentDirectory(CGUpnpAction *browseAction, int indent, NSString *obj
 	if (!xmlDoc)
 		return;
 	NSArray *contentArray = [xmlDoc nodesForXPath:@"/DIDL-Lite/*" error:&xmlErr];
-	for (NSXMLNode *contentNode in contentArray) {
+	for (NSXMLElement *contentNode in contentArray) {
 		NSString *objId = [[contentNode attributeForName:@"id"] stringValue];
 		NSArray *titleArray = [contentNode elementsForName:@"dc:title"];
 		NSString *title = @"";

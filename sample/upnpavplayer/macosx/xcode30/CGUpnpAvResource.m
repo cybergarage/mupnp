@@ -7,15 +7,20 @@
 //
 
 #import <CGUpnpAvResource.h>
+#import <CGUpnpAvConstants.h>
 
 @implementation CGUpnpAvResource
 
-@synthesize url;
-@synthesize size;
-
-- (id) init
+- (id)init
 {
 	if ((self = [super init]) == nil)
+		return nil;
+	return self;
+}
+
+- (id)initWithXMLNode:(NSXMLElement *)aXmlNode
+{
+	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
 		return nil;
 	return self;
 }
@@ -28,6 +33,26 @@
 - (void) finalize
 {
 	[super finalize];
+}
+
+- (NSString *)url
+{
+	return [self stringValue];
+}
+
+- (long long)size
+{
+	return [[self attributeValueForName:CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE] longLongValue];
+}
+
+- (NSString *)dlnaOrgPN
+{
+	return [self attributeValueForName:CG_UPNPAV_RESOURCE_DLNAPN];
+}
+
+- (NSString *)dlnaOrgOP
+{
+	return [self attributeValueForName:CG_UPNPAV_RESOURCE_DLNAOP];
 }
 
 @end

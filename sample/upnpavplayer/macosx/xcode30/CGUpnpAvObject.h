@@ -8,28 +8,27 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import <CGXmlNode.h>
+
 /**
  * The CGUpnpAction class is a wrapper class for CgUpnpAction of CyberLink for C.
  */
-@interface CGUpnpAvObject : NSObject 
+@interface CGUpnpAvObject : CGXmlNode 
 {
-	NSXMLNode *xmlNode;
 	CGUpnpAvObject *parent;
 }
-@property(readwrite, copy) NSXMLNode *xmlNode;
-@property(readwrite) CGUpnpAvObject *parent;
 - (id)init;
-- (id)initWithXMLNode:NSXMLNode *aXmlNode;
-- (NSString *)attributeForName:(NSString *)name;
-- (NSString *)elementsForName:(NSString *)name;
+- (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 - (BOOL)isContainer;
 - (BOOL)isItem;
-- (CGUpnpAvObject *)ancestorObject;
+- (void)setParent:(CGUpnpAvObject *)aParent;
+- (CGUpnpAvObject *)parent;
+- (CGUpnpAvObject *)ancestor;
 - (NSString *)objectId;
 - (NSString *)title;
 - (NSString *)upnpClass;
-- (BOOL)isObjectId;
-- (BOOL)isTitle;
-- (BOOL)isUpnpClass;
+- (BOOL)isObjectId:(NSString *)aObjectId;
+- (BOOL)isTitle:(NSString *)aTitle;
+- (BOOL)isUpnpClass:(NSString *)aUpnpClass;
 @end
 
