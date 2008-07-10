@@ -10,12 +10,19 @@
 
 @implementation CGUpnpAvContainer
 
-@synthesize objectId;
-@synthesize title;
+@synthesize xmlNode;
 
 - (id)init
 {
 	if ((self = [super init]) == nil)
+		return nil;
+	childArray = [[NSMutableArray alloc] init];
+	return self;
+}
+
+- (id)initWithXMLNode:(NSXMLElement *)aXmlNode
+{
+	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
 		return nil;
 	childArray = [[NSMutableArray alloc] init];
 	return self;
@@ -66,7 +73,7 @@
 		return nil;
 	NSString *rootPath = [titleArray objectAtIndex:0];
 	BOOL isAbsolutePath = [rootPath isEqualToString:@"/"];
-	CGUpnpAvObject *lastObject = isAbsolutePath ? [self ancestorObject] : self;
+	CGUpnpAvObject *lastObject = isAbsolutePath ? [self ancestor] : self;
 	int pathIndex = 0;
 	for (NSString *title in titleArray) {
 		pathIndex++;

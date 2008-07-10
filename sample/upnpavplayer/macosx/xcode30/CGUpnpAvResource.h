@@ -8,22 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import <CGXmlNode.h>
+
 /**
  * The CGUpnpAction class is a wrapper class for CgUpnpAction of CyberLink for C.
  */
-@interface CGUpnpAvResource : NSObject 
+@interface CGUpnpAvResource : CGXmlNode 
 {
-	NSString *mimeType;
-	NSString *url;
-	long size;
-	/* DLNA parameter */
-	NSString *dlnaOrgPN;
-	NSString *dlnaOrgOP;
 }
-@property(readwrite, copy) NSString *mimeType;
-@property(readwrite, copy) NSString *url;
-@property(readwrite) long size;
-@property(readwrite, copy) NSString *dlnaOrgPN;
-@property(readwrite, copy) NSString *dlnaOrgOP;
+- (id)init;
+- (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
+//- (NSString *)mimeType;
+- (NSString *)url;
+- (long long)size;
+- (NSString *)dlnaOrgPN;
+- (NSString *)dlnaOrgOP;
 @end
 

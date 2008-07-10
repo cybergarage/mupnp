@@ -17,6 +17,8 @@
 {
 	NSMutableArray *resourceArray;
 }
+- (id)init;
+- (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 - (void)addResource:(CGUpnpAvResource *)res;
 - (void)removeResource:(CGUpnpAvResource *)res;
 - (NSArray *)resources;

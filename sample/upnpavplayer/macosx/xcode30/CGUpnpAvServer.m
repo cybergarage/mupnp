@@ -73,7 +73,7 @@
 	NSMutableArray *avObjArray = [[[NSMutableArray alloc] init] autorelease];
 	
 	NSArray *contentArray = [xmlDoc nodesForXPath:@"/DIDL-Lite/*" error:&xmlErr];
-	for (NSXMLNode *contentNode in contentArray) {
+	for (NSXMLElement *contentNode in contentArray) {
 		NSString *objId = [[contentNode attributeForName:@"id"] stringValue];
 		NSArray *titleArray = [contentNode elementsForName:@"dc:title"];
 		NSString *title = @"";
@@ -85,16 +85,14 @@
 			continue;
 		CGUpnpAvObject *avObj = nil;
 		if ([[contentNode name] isEqualToString:@"container"]) {
-			CGUpnpAvContainer *avCon = [[[CGUpnpAvContainer alloc] init] autorelease];
+			CGUpnpAvContainer *avCon = [[[CGUpnpAvContainer alloc] initWithXMLNode:contentNode] autorelease];
 			avObj = avCon;
 		}
 		else {
-			CGUpnpAvItem *avItem = [[[CGUpnpAvItem alloc] init] autorelease];
+			CGUpnpAvItem *avItem = [[[CGUpnpAvItem alloc] initWithXMLNode:contentNode] autorelease];
 			NSArray *resArray = [contentNode elementsForName:@"res"];
-			for (NSXMLNode *resNode in resArray) {
-				NSString *url = [resNode stringValue];
-				CGUpnpAvResource *avRes = [[[CGUpnpAvResource alloc] init] autorelease];
-				[avRes setUrl:url];
+			for (NSXMLElement *resNode in resArray) {
+				CGUpnpAvResource *avRes = [[[CGUpnpAvResource alloc] initWithXMLNode:resNode] autorelease];
 				[avItem addResource:avRes];
 			}
 			avObj = avItem;
