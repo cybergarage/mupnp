@@ -13,17 +13,23 @@
  */
 @interface CGUpnpAvObject : NSObject 
 {
-	NSString *objectId;
-	NSString *title;
-	NSString *upnpClass;
-	CGUpnpAvObject *parentObject;
+	NSXMLNode *xmlNode;
+	CGUpnpAvObject *parent;
 }
-@property(readwrite, copy) NSString *objectId;
-@property(readwrite, copy) NSString *title;
-@property(readwrite, copy) NSString *upnpClass;
-@property(readwrite, copy) CGUpnpAvObject *parentObject;
+@property(readwrite, copy) NSXMLNode *xmlNode;
+@property(readwrite) CGUpnpAvObject *parent;
+- (id)init;
+- (id)initWithXMLNode:NSXMLNode *aXmlNode;
+- (NSString *)attributeForName:(NSString *)name;
+- (NSString *)elementsForName:(NSString *)name;
 - (BOOL)isContainer;
 - (BOOL)isItem;
 - (CGUpnpAvObject *)ancestorObject;
+- (NSString *)objectId;
+- (NSString *)title;
+- (NSString *)upnpClass;
+- (BOOL)isObjectId;
+- (BOOL)isTitle;
+- (BOOL)isUpnpClass;
 @end
 

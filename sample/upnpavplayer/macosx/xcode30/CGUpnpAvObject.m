@@ -12,19 +12,24 @@
 
 @implementation CGUpnpAvObject
 
-@synthesize objectId;
-@synthesize title;
-@synthesize upnpClass;
-@synthesize parentObject;
+@synthesize xmlNode;
+@synthesize parent;
 
-- (id) init
+- (id)init
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	[self setObjectId:nil];
-	[self setTitle:nil];
-	[self setUpnpClass:nil];
-	[self setParentObject:nil];
+	NSXMLNode *aXmlNode = [[NSXMLNode alloc] init];
+	[self initWithXMLNode:aXmlNode];
+	[aXmlNode release];
+	return self;
+}
+
+- (id)initWithXMLNode:NSXMLNode *aXmlNode
+{
+	if ((self = [super init]) == nil)
+		return nil;
+	[self setXmlNode:aXmlNode];
 	return self;
 }
 
@@ -56,4 +61,39 @@
 	return ancestorObj;
 }
 
+- (NSString *)attributeValueForName:(NSString *)name
+{
+	NSString *attrValue = [aXmlNode attributeForName:name] stringValue];
+	[[attrValue retain] autorelease];
+	return attrValue;
+}
+
+- (NSString *)elementValueForName:(NSString *)name
+{
+	NSArray *elemArray = [contentNode elementsForName:name];
+	NSString *elemValue = @"";
+	for (NSXMLNode *xmlNode in elemArray) {
+		elemValue = [xmlNode stringValue];
+		[[elemValue retain] autorelease];
+		break;
+	}
+	return elemValue;
+}
+
+- (NSString *)objectId
+{
+	return [self attributeValueForName:CG_UPNPAV_OBJECT_ID];
+}
+
+- (NSString *)title;
+{
+	return [self elementValueForName:CG_UPNPAV_OBJECT_TITLE];
+}
+
+- (NSString *)upnpClass;
+{
+	return [self elementValueForName:CG_UPNPAV_OBJECT_UPNPCLASS];
+}
+
 @end
+
