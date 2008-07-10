@@ -13,6 +13,7 @@
 		216998060E19965C003B7C04 /* CGUpnpAvObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 216998030E19965C003B7C04 /* CGUpnpAvObject.m */; };
 		2170A71F0E1056CE00BFDD01 /* DLNAController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */; };
 		21860BD70E264A5A00FDBD18 /* CGXmlNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 21860BD60E264A5A00FDBD18 /* CGXmlNode.m */; };
+		21860CDE0E2689AE00FDBD18 /* CGUpnpAvContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21860CDD0E2689AE00FDBD18 /* CGUpnpAvContentManager.m */; };
 		21889D9F0E096A1B005858AB /* CyberLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21889D9E0E096A1B005858AB /* CyberLink.framework */; };
 		218EC2D00E1C241300E349BA /* CGUpnpAvContentDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 218EC2CB0E1C241300E349BA /* CGUpnpAvContentDirectory.m */; };
 		218EC2D10E1C241300E349BA /* CGUpnpAvResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 218EC2CD0E1C241300E349BA /* CGUpnpAvResource.m */; };
@@ -40,6 +41,8 @@
 		21860B9A0E263B0E00FDBD18 /* CGUpnpAvConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvConstants.h; sourceTree = "<group>"; };
 		21860BD50E264A5A00FDBD18 /* CGXmlNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXmlNode.h; sourceTree = "<group>"; };
 		21860BD60E264A5A00FDBD18 /* CGXmlNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXmlNode.m; sourceTree = "<group>"; };
+		21860CDC0E2689AE00FDBD18 /* CGUpnpAvContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvContentManager.h; sourceTree = "<group>"; };
+		21860CDD0E2689AE00FDBD18 /* CGUpnpAvContentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvContentManager.m; sourceTree = "<group>"; };
 		21889D9E0E096A1B005858AB /* CyberLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CyberLink.framework; path = ../../../../lib/macosx/xcode30/build/Release/CyberLink.framework; sourceTree = SOURCE_ROOT; };
 		218EC2CA0E1C241300E349BA /* CGUpnpAvContentDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvContentDirectory.h; sourceTree = "<group>"; };
 		218EC2CB0E1C241300E349BA /* CGUpnpAvContentDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvContentDirectory.m; sourceTree = "<group>"; };
@@ -91,6 +94,8 @@
 				212208A10E11490B005A11CB /* CGUpnpAvController.m */,
 				2170A71D0E1056CE00BFDD01 /* DLNAController.h */,
 				2170A71E0E1056CE00BFDD01 /* DLNAController.m */,
+				21860CDC0E2689AE00FDBD18 /* CGUpnpAvContentManager.h */,
+				21860CDD0E2689AE00FDBD18 /* CGUpnpAvContentManager.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -227,6 +232,7 @@
 				218EC2D10E1C241300E349BA /* CGUpnpAvResource.m in Sources */,
 				218EC2D20E1C241300E349BA /* CGUpnpAvServer.m in Sources */,
 				21860BD70E264A5A00FDBD18 /* CGXmlNode.m in Sources */,
+				21860CDE0E2689AE00FDBD18 /* CGUpnpAvContentManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
