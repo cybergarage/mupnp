@@ -43,6 +43,7 @@
 		return [serverArray count];
 	}
 	NSString *path = [sender pathToColumn:column];
+	//CGUpnpAvObject *avObj = [dmc objectForTitlePath:path];
 	NSLog(@"%@", path);
 	return 1;
 }

@@ -280,8 +280,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>27</integer>
-									<integer>24</integer>
+									<integer>12</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -522,6 +522,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>21860CF60E268F4100FDBD18</string>
 		<string>21860CA60E26740300FDBD18</string>
 		<string>21860CA70E26740300FDBD18</string>
 		<string>21860CA80E26740300FDBD18</string>
@@ -529,7 +530,7 @@
 		<string>21889DB20E0982B4005858AB</string>
 		<string>21860CA90E26740300FDBD18</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>21860CAA0E26740300FDBD18</string>
+		<string>21860CF70E268F4100FDBD18</string>
 		<string>/Users/skonno/src/clinkc/sample/upnpavplayer/macosx/xcode30/upnpavplayer.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

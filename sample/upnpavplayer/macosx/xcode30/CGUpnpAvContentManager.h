@@ -1,5 +1,5 @@
 //
-//  CGUpnpAvContentDirectory.h
+//  CGUpnpAvContentManager.h
 //  CyberLink for C
 //
 //  Created by Satoshi Konno on 08/07/02.
@@ -8,15 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import <CGUpnpAvContentManager.h>
+#import <CGUpnpAvContainer.h>
+#import <CGUpnpAvItem.h>
 
 /**
  * The CGUpnpAvContentDirectory class has UPnP/AV objects of a media servers.
  *
  */
-@interface CGUpnpAvContentDirectory : NSObject
+@interface CGUpnpAvContentManager : NSObject
 {
-	CGUpnpAvContentManager *contentMgr;
+	CGUpnpAvContainer *rootContainer;
 }
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath;
 @end

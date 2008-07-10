@@ -81,10 +81,21 @@
 			if (isAbsolutePath)
 				continue;
 		}
-		if (title == nil)
-			continue;
+		CGUpnpAvObject *foundObj = nil;
+		if ([lastObject isContainer]) {
+			CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)lastObject;
+			for (CGUpnpAvObject *childObj in [avCon children]) {
+				if ([childObj isTitle:title]) {
+					foundObj = childObj;
+					break;
+				}
+			}
+		}
+		if (foundObj == nil)
+			return nil;
+		lastObject = foundObj;
 	}
-	[lastObject retain];
+	[[lastObject retain] autorelease];
 	return lastObject;
 }
 
