@@ -11,6 +11,7 @@
 #import <CyberLink/UPnP.h>
 #import <CGUpnpAvController.h>
 #import <CGUpnpAvServer.h>
+#import <CGUpnpAvConstants.h>
 
 @implementation CGUpnpAvController
 
@@ -37,7 +38,7 @@
 	NSMutableArray *serverArray = [[[NSMutableArray alloc] init] autorelease];
 
 	for (CGUpnpDevice *dev in devices) {
-		if (![dev isDeviceType:@""])
+		if (![dev isDeviceType:CG_UPNPAV_DEVICE_TYPE])
 			continue;
 		CGUpnpAvServer *server = nil;
 		void *devData = [dev userData];
@@ -68,3 +69,4 @@
 }
 
 @end
+

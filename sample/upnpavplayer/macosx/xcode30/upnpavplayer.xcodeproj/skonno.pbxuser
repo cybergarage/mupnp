@@ -10,11 +10,45 @@
 	};
 	212208A10E11490B005A11CB /* CGUpnpAvController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {653, 1050}}";
-			sepNavSelRange = "{482, 0}";
-			sepNavVisRange = "{455, 455}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 1095}}";
+			sepNavSelRange = "{1199, 0}";
+			sepNavVisRange = "{405, 873}";
 			sepNavWindowFrame = "{{226, -311}, {1031, 791}}";
 		};
+	};
+	215939DE0E2B9DB300906299 /* DLNAController.m:33 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */;
+		functionName = "-searchDMS:";
+		hitCount = 1;
+		ignoreCount = 0;
+		lineNumber = 33;
+		location = upnpavplayer;
+		modificationTime = 237759068.713115;
+		state = 2;
+	};
+	215939E10E2B9DF700906299 /* DLNAController.m:36 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */;
+		functionName = "-searchDMS:";
+		hitCount = 1;
+		ignoreCount = 0;
+		lineNumber = 36;
+		location = upnpavplayer;
+		modificationTime = 237759074.603355;
+		state = 2;
 	};
 	216997FE0E19965C003B7C04 /* CGUpnpAvContainer.h */ = {
 		uiCtxt = {
@@ -76,8 +110,8 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 20;
-		modificationTime = 237403209.553298;
-		state = 1;
+		modificationTime = 237759033.300874;
+		state = 0;
 	};
 	2170A71D0E1056CE00BFDD01 /* DLNAController.h */ = {
 		uiCtxt = {
@@ -89,17 +123,17 @@
 	};
 	2170A71E0E1056CE00BFDD01 /* DLNAController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {653, 1125}}";
-			sepNavSelRange = "{491, 0}";
-			sepNavVisRange = "{284, 298}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 1118}}";
+			sepNavSelRange = "{791, 0}";
+			sepNavVisRange = "{267, 947}";
 			sepNavWindowFrame = "{{169, 42}, {1031, 791}}";
 		};
 	};
 	21860B9A0E263B0E00FDBD18 /* CGUpnpAvConstants.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{1131, 25}";
-			sepNavVisRange = "{0, 1213}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 1815}}";
+			sepNavSelRange = "{271, 21}";
+			sepNavVisRange = "{0, 1662}";
 		};
 	};
 	21860BD50E264A5A00FDBD18 /* CGXmlNode.h */ = {
@@ -116,7 +150,7 @@
 			sepNavVisRange = "{143, 803}";
 		};
 	};
-	21860CAC0E26741B00FDBD18 /* DLNAController.m:38 */ = {
+	21860CAC0E26741B00FDBD18 /* DLNAController.m:39 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -128,9 +162,9 @@
 		functionName = "-browser:numberOfRowsInColumn:";
 		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 38;
+		lineNumber = 39;
 		location = upnpavplayer;
-		modificationTime = 237403139.944081;
+		modificationTime = 237759041.506735;
 		state = 1;
 	};
 	21860CAE0E26742800FDBD18 /* DLNAController.m:32 */ = {
@@ -143,14 +177,14 @@
 		delayBeforeContinue = 0;
 		fileReference = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */;
 		functionName = "-searchDMS:";
-		hitCount = 1;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 32;
 		location = upnpavplayer;
-		modificationTime = 237403179.82001;
-		state = 1;
+		modificationTime = 237759032.154894;
+		state = 2;
 	};
-	21860CB20E2674EB00FDBD18 /* DLNAController.m:43 */ = {
+	21860CB20E2674EB00FDBD18 /* DLNAController.m:44 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -162,12 +196,12 @@
 		functionName = "-browser:numberOfRowsInColumn:";
 		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 43;
+		lineNumber = 44;
 		location = upnpavplayer;
-		modificationTime = 237403165.029936;
-		state = 1;
+		modificationTime = 237759051.70365;
+		state = 2;
 	};
-	21860CB60E26763E00FDBD18 /* DLNAController.m:54 */ = {
+	21860CB60E26763E00FDBD18 /* DLNAController.m:55 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -179,9 +213,9 @@
 		functionName = "-browser:willDisplayCell:atRow:column:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 54;
+		lineNumber = 55;
 		location = upnpavplayer;
-		modificationTime = 237401773.072127;
+		modificationTime = 237759032.15509;
 		state = 1;
 	};
 	21860CDC0E2689AE00FDBD18 /* CGUpnpAvContentManager.h */ = {
@@ -205,7 +239,7 @@
 		argumentStrings = (
 		);
 		autoAttachOnCrash = 1;
-		breakpointsEnabled = 0;
+		breakpointsEnabled = 1;
 		configStateDict = {
 		};
 		customDataFormattersEnabled = 1;
@@ -270,18 +304,35 @@
 	218EC2CE0E1C241300E349BA /* CGUpnpAvServer.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{780, 0}";
+			sepNavSelRange = "{710, 0}";
 			sepNavVisRange = "{0, 808}";
 		};
 	};
 	218EC2CF0E1C241300E349BA /* CGUpnpAvServer.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {838, 1395}}";
-			sepNavSelRange = "{2663, 96}";
-			sepNavVisRange = "{2166, 722}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 1635}}";
+			sepNavSelRange = "{802, 0}";
+			sepNavVisRange = "{737, 1596}";
 		};
 	};
-	21E2E2D20E198CB2004B9F9E /* DLNAController.m:34 */ = {
+	21E2E2D20E198CB2004B9F9E /* DLNAController.m:35 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */;
+		functionName = "-browser:numberOfRowsInColumn:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 35;
+		location = upnpavplayer;
+		modificationTime = 237759032.154242;
+		state = 2;
+	};
+	21E2E2E80E198D1D004B9F9E /* DLNAController.m:34 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -295,24 +346,7 @@
 		ignoreCount = 0;
 		lineNumber = 34;
 		location = upnpavplayer;
-		modificationTime = 237401773.07119;
-		state = 2;
-	};
-	21E2E2E80E198D1D004B9F9E /* DLNAController.m:33 */ = {
-		isa = PBXFileBreakpoint;
-		actions = (
-		);
-		breakpointStyle = 0;
-		continueAfterActions = 0;
-		countType = 0;
-		delayBeforeContinue = 0;
-		fileReference = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */;
-		functionName = "-browser:numberOfRowsInColumn:";
-		hitCount = 0;
-		ignoreCount = 0;
-		lineNumber = 33;
-		location = upnpavplayer;
-		modificationTime = 237401773.07154;
+		modificationTime = 237759032.154566;
 		state = 2;
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
@@ -324,13 +358,15 @@
 			8D1107260486CEB800E47090 /* upnpavplayer */,
 		);
 		breakpoints = (
-			21E2E2D20E198CB2004B9F9E /* DLNAController.m:34 */,
-			21E2E2E80E198D1D004B9F9E /* DLNAController.m:33 */,
+			21E2E2D20E198CB2004B9F9E /* DLNAController.m:35 */,
+			21E2E2E80E198D1D004B9F9E /* DLNAController.m:34 */,
 			216998110E1997E0003B7C04 /* CGUpnpAvObject.h:20 */,
-			21860CAC0E26741B00FDBD18 /* DLNAController.m:38 */,
+			21860CAC0E26741B00FDBD18 /* DLNAController.m:39 */,
 			21860CAE0E26742800FDBD18 /* DLNAController.m:32 */,
-			21860CB20E2674EB00FDBD18 /* DLNAController.m:43 */,
-			21860CB60E26763E00FDBD18 /* DLNAController.m:54 */,
+			21860CB20E2674EB00FDBD18 /* DLNAController.m:44 */,
+			21860CB60E26763E00FDBD18 /* DLNAController.m:55 */,
+			215939DE0E2B9DB300906299 /* DLNAController.m:33 */,
+			215939E10E2B9DF700906299 /* DLNAController.m:36 */,
 		);
 		codeSenseManager = 21889D8E0E096839005858AB /* Code sense */;
 		executables = (
@@ -359,8 +395,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 237398415;
-			PBXWorkspaceStateSaveDate = 237398415;
+			PBXPerProjectTemplateStateSaveDate = 237738688;
+			PBXWorkspaceStateSaveDate = 237738688;
 		};
 		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
 		userBuildSettings = {
