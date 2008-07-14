@@ -30,6 +30,10 @@
 {
 	if (dmc)
 		[dmc search];
+	NSWindow *mainWin = [NSApp mainWindow];
+	if (mainWin == nil)
+		return;
+	[mainWin update];
 }
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
@@ -43,7 +47,7 @@
 		return [serverArray count];
 	}
 	NSString *path = [sender pathToColumn:column];
-	//CGUpnpAvObject *avObj = [dmc objectForTitlePath:path];
+	CGUpnpAvObject *avObj = [dmc objectForTitlePath:path];
 	NSLog(@"%@", path);
 	return 1;
 }
