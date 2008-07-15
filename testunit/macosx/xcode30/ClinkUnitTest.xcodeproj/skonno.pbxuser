@@ -17,29 +17,59 @@
 	21896E740E2CE23F002B951A /* ClinkUnitTest.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{245, 0}";
-			sepNavVisRange = "{0, 251}";
+			sepNavSelRange = "{105, 11}";
+			sepNavVisRange = "{0, 233}";
 		};
 	};
 	21896E750E2CE23F002B951A /* ClinkUnitTest.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
-			sepNavSelRange = "{199, 19}";
-			sepNavVisRange = "{0, 228}";
+			sepNavSelRange = "{59, 13}";
+			sepNavVisRange = "{0, 424}";
 		};
 	};
 	21896EC20E2CE4D6002B951A /* CGUpnpAvController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {788, 555}}";
-			sepNavSelRange = "{250, 0}";
-			sepNavVisRange = "{152, 600}";
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{516, 18}";
+			sepNavVisRange = "{0, 1126}";
 		};
 	};
 	21896EC30E2CE4D6002B951A /* CGUpnpAvController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {788, 1465}}";
-			sepNavSelRange = "{1569, 0}";
-			sepNavVisRange = "{1337, 389}";
+			sepNavIntBoundsRect = "{{0, 0}, {788, 1260}}";
+			sepNavSelRange = "{1499, 0}";
+			sepNavVisRange = "{1337, 425}";
+		};
+	};
+	2189705B0E2D565E002B951A /* ClinkUnitTest.m:28 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 21896E750E2CE23F002B951A /* ClinkUnitTest.m */;
+		functionName = "-testControlPoint";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 28;
+		modificationTime = 237852254.465487;
+		state = 1;
+	};
+	2189707C0E2D5A96002B951A /* ClinkAVUnitTest.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{74, 0}";
+			sepNavVisRange = "{0, 239}";
+		};
+	};
+	2189707D0E2D5A96002B951A /* ClinkAVUnitTest.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {972, 663}}";
+			sepNavSelRange = "{74, 0}";
+			sepNavVisRange = "{0, 213}";
 		};
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
@@ -48,6 +78,9 @@
 		activeTarget = 21896E650E2CE164002B951A /* ClinkUnitTest */;
 		addToTargets = (
 			21896E650E2CE164002B951A /* ClinkUnitTest */,
+		);
+		breakpoints = (
+			2189705B0E2D565E002B951A /* ClinkUnitTest.m:28 */,
 		);
 		codeSenseManager = 21896E4F0E2CE0D6002B951A /* Code sense */;
 		perUserDictionary = {

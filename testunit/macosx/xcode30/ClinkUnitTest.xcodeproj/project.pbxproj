@@ -23,6 +23,7 @@
 		218970540E2CE718002B951A /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97324FDCFA39411CA2CEA /* AppKit.framework */; };
 		218970550E2CE718002B951A /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13E42FB307B3F0F600E4EEF1 /* CoreData.framework */; };
 		218970560E2CE718002B951A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29B97325FDCFA39411CA2CEA /* Foundation.framework */; };
+		2189707E0E2D5A96002B951A /* ClinkAVUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2189707D0E2D5A96002B951A /* ClinkAVUnitTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,8 @@
 		21896ECB0E2CE4D6002B951A /* CGUpnpAvServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvServer.m; path = ../../../sample/upnpavplayer/macosx/xcode30/CGUpnpAvServer.m; sourceTree = SOURCE_ROOT; };
 		21896ECC0E2CE4D6002B951A /* CGXmlNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGXmlNode.h; path = ../../../sample/upnpavplayer/macosx/xcode30/CGXmlNode.h; sourceTree = SOURCE_ROOT; };
 		21896ECD0E2CE4D6002B951A /* CGXmlNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGXmlNode.m; path = ../../../sample/upnpavplayer/macosx/xcode30/CGXmlNode.m; sourceTree = SOURCE_ROOT; };
+		2189707C0E2D5A96002B951A /* ClinkAVUnitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClinkAVUnitTest.h; sourceTree = "<group>"; };
+		2189707D0E2D5A96002B951A /* ClinkAVUnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClinkAVUnitTest.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -84,6 +87,8 @@
 			children = (
 				21896E740E2CE23F002B951A /* ClinkUnitTest.h */,
 				21896E750E2CE23F002B951A /* ClinkUnitTest.m */,
+				2189707C0E2D5A96002B951A /* ClinkAVUnitTest.h */,
+				2189707D0E2D5A96002B951A /* ClinkAVUnitTest.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 				21896ED40E2CE4D6002B951A /* CGUpnpAvResource.m in Sources */,
 				21896ED50E2CE4D6002B951A /* CGUpnpAvServer.m in Sources */,
 				21896ED60E2CE4D6002B951A /* CGXmlNode.m in Sources */,
+				2189707E0E2D5A96002B951A /* ClinkAVUnitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
