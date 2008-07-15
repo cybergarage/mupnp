@@ -10,6 +10,7 @@
 
 @class CGUpnpControlPoint;
 @class CGUpnpAvServer;
+@class CGUpnpAvObject;
 
 /**
  * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 

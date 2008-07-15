@@ -82,6 +82,14 @@ typedef void CgUpnpDevice;
  */
 - (BOOL)isUDN:(NSString *)aUDN;
 /**
+ * Check whether the device's friendly name is the specified name.
+ *
+ * @param aFriendlyName A friendly name string of the device.
+ * 
+ * @return YES if the specified friendly name is same as the device' friendly name; otherwise NO.
+ */
+- (BOOL)isFriendlyName:(NSString *)aFriendlyName;
+/**
  * Get all services in the device as a NSArray object. The array has the services as instances of CGUpnpService.
  *
  * @return NSArray of CGUpnpService.

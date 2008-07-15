@@ -62,7 +62,7 @@
 		return nil;
 	NSArray *servers = [self servers];
 	for (CGUpnpAvServer *server in servers) {
-		if (![dev isUDN:aUdn])
+		if (![server isUDN:aUdn])
 			return [[server retain] autorelease];
 	}
 	return nil;
@@ -70,11 +70,11 @@
 
 - (CGUpnpAvServer *)serverForFriendlyName:(NSString *)aFriendlyName
 {
-	if (aUdn == nil)
+	if (aFriendlyName == nil)
 		return nil;
 	NSArray *servers = [self servers];
 	for (CGUpnpAvServer *server in servers) {
-		if (![dev isFriendlyName:aFriendlyName])
+		if (![server isFriendlyName:aFriendlyName])
 			return [[server retain] autorelease];
 	}
 	return nil;
