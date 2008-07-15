@@ -278,7 +278,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>30</integer>
+									<integer>7</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -385,9 +386,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>21896EA60E2CE447002B951A</string>
+				<string>216DA5750E2D5F2A004121E5</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>21896EA70E2CE447002B951A</string>
+				<string>216DA5760E2D5F2A004121E5</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -521,7 +522,14 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>216DA57B0E2D5F3C004121E5</string>
+		<string>216DA5770E2D5F2A004121E5</string>
+		<string>216DA5780E2D5F2A004121E5</string>
+		<string>216DA5790E2D5F2A004121E5</string>
+		<string>1C78EAAD065D492600B07095</string>
+		<string>21889DB20E0982B4005858AB</string>
 		<string>/Users/skonno/src/clinkc/sample/upnpavplayer/macosx/xcode30/upnpavplayer.xcodeproj</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 	</array>
 	<key>WindowString</key>
 	<string>148 177 926 630 0 0 1440 878 </string>
@@ -601,7 +609,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>21889DB20E0982B4005858AB</string>
-				<string>215939D20E2B9D8500906299</string>
+				<string>216DA56D0E2D5F0C004121E5</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -721,13 +729,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>215939D30E2B9D8500906299</string>
+				<string>216DA56E0E2D5F0C004121E5</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>215939D40E2B9D8500906299</string>
-				<string>215939D50E2B9D8500906299</string>
-				<string>215939D60E2B9D8500906299</string>
-				<string>215939D70E2B9D8500906299</string>
-				<string>215939D80E2B9D8500906299</string>
+				<string>216DA56F0E2D5F0C004121E5</string>
+				<string>216DA5700E2D5F0C004121E5</string>
+				<string>216DA5710E2D5F0C004121E5</string>
+				<string>216DA5720E2D5F0C004121E5</string>
+				<string>216DA5730E2D5F0C004121E5</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -736,7 +744,7 @@
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
@@ -889,7 +897,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>215939D90E2B9D8500906299</string>
+				<string>216DA5740E2D5F0C004121E5</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
