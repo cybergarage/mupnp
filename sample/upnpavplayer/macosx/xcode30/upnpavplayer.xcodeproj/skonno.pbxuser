@@ -26,11 +26,11 @@
 		delayBeforeContinue = 0;
 		fileReference = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */;
 		functionName = "-searchDMS:";
-		hitCount = 1;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 33;
 		location = upnpavplayer;
-		modificationTime = 237759068.713115;
+		modificationTime = 237854490.848167;
 		state = 2;
 	};
 	215939E10E2B9DF700906299 /* DLNAController.m:36 */ = {
@@ -43,11 +43,11 @@
 		delayBeforeContinue = 0;
 		fileReference = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */;
 		functionName = "-searchDMS:";
-		hitCount = 1;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 36;
 		location = upnpavplayer;
-		modificationTime = 237759074.603355;
+		modificationTime = 237854490.848177;
 		state = 2;
 	};
 	216997FE0E19965C003B7C04 /* CGUpnpAvContainer.h */ = {
@@ -110,7 +110,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 20;
-		modificationTime = 237759033.3008739;
+		modificationTime = 237854491.899885;
 		state = 0;
 	};
 	2170A71D0E1056CE00BFDD01 /* DLNAController.h */ = {
@@ -123,9 +123,9 @@
 	};
 	2170A71E0E1056CE00BFDD01 /* DLNAController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {972, 1118}}";
-			sepNavSelRange = "{791, 0}";
-			sepNavVisRange = "{267, 947}";
+			sepNavIntBoundsRect = "{{0, 0}, {789, 1072}}";
+			sepNavSelRange = "{562, 0}";
+			sepNavVisRange = "{360, 436}";
 			sepNavWindowFrame = "{{169, 42}, {1031, 791}}";
 		};
 	};
@@ -164,7 +164,7 @@
 		ignoreCount = 0;
 		lineNumber = 39;
 		location = upnpavplayer;
-		modificationTime = 237759041.506735;
+		modificationTime = 237854508.30443;
 		state = 1;
 	};
 	21860CAE0E26742800FDBD18 /* DLNAController.m:32 */ = {
@@ -181,7 +181,7 @@
 		ignoreCount = 0;
 		lineNumber = 32;
 		location = upnpavplayer;
-		modificationTime = 237759032.154894;
+		modificationTime = 237854490.848132;
 		state = 2;
 	};
 	21860CB20E2674EB00FDBD18 /* DLNAController.m:44 */ = {
@@ -194,11 +194,11 @@
 		delayBeforeContinue = 0;
 		fileReference = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */;
 		functionName = "-browser:numberOfRowsInColumn:";
-		hitCount = 1;
+		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 44;
 		location = upnpavplayer;
-		modificationTime = 237759051.70365;
+		modificationTime = 237854490.848145;
 		state = 2;
 	};
 	21860CB60E26763E00FDBD18 /* DLNAController.m:55 */ = {
@@ -215,7 +215,7 @@
 		ignoreCount = 0;
 		lineNumber = 55;
 		location = upnpavplayer;
-		modificationTime = 237759032.15509;
+		modificationTime = 237854490.848156;
 		state = 1;
 	};
 	21860CDC0E2689AE00FDBD18 /* CGUpnpAvContentManager.h */ = {
@@ -329,7 +329,7 @@
 		ignoreCount = 0;
 		lineNumber = 35;
 		location = upnpavplayer;
-		modificationTime = 237759032.154242;
+		modificationTime = 237854490.847991;
 		state = 2;
 	};
 	21E2E2E80E198D1D004B9F9E /* DLNAController.m:34 */ = {
@@ -346,7 +346,7 @@
 		ignoreCount = 0;
 		lineNumber = 34;
 		location = upnpavplayer;
-		modificationTime = 237759032.154566;
+		modificationTime = 237854490.848072;
 		state = 2;
 	};
 	29B97313FDCFA39411CA2CEA /* Project object */ = {
@@ -395,8 +395,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 237823030;
-			PBXWorkspaceStateSaveDate = 237823030;
+			PBXPerProjectTemplateStateSaveDate = 237854129;
+			PBXWorkspaceStateSaveDate = 237854129;
 		};
 		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
 		userBuildSettings = {
