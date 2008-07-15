@@ -1,14 +1,16 @@
 //
-//  ClinkUnitTest.h
+//  ClinkAVUnitTest.h
 //  ClinkUnitTest
 //
-//  Created by Satoshi Konno on 08/07/15.
+//  Created by Satoshi Konno on 08/07/16.
 //  Copyright 2008 CyberGarage. All rights reserved.
 //
 
 #import <SenTestingKit/SenTestingKit.h>
 
 
-@interface ClinkUnitTest : SenTestCase {
+@interface ClinkAVUnitTest : SenTestCase {
+
 }
+
 @end
