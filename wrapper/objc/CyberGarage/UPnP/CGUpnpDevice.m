@@ -106,6 +106,11 @@
 	return [aUDN isEqualToString:[self udn]];
 }
 
+- (BOOL)isFriendlyName:(NSString *)aFriendlyName
+{
+	return [aFriendlyName isEqualToString:[self friendlyName]];
+}
+
 - (NSArray *)services
 {
 	if (!cObject)

@@ -110,7 +110,7 @@
 		hitCount = 0;
 		ignoreCount = 0;
 		lineNumber = 20;
-		modificationTime = 237759033.300874;
+		modificationTime = 237759033.3008739;
 		state = 0;
 	};
 	2170A71D0E1056CE00BFDD01 /* DLNAController.h */ = {
@@ -395,8 +395,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 237738688;
-			PBXWorkspaceStateSaveDate = 237738688;
+			PBXPerProjectTemplateStateSaveDate = 237823030;
+			PBXWorkspaceStateSaveDate = 237823030;
 		};
 		sourceControlManager = 21889D8D0E096839005858AB /* Source Control */;
 		userBuildSettings = {
