@@ -105,4 +105,9 @@
 	return avObjArray;
 }
 
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath
+{
+	return [contentDirectory objectForTitlePath:titlePath];
+}
+
 @end

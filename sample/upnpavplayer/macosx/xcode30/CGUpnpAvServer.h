@@ -13,6 +13,7 @@
 #import <CGUpnpAvContentDirectory.h>
 
 @class CGUpnpDevice;
+@class CGUpnpAvObject;
 
 /**
  * The CGUpnpAvServer class is a UPnP/AV media server class.
@@ -35,5 +36,5 @@
  */
 - (id) initWithCObject:(CgUpnpDevice *)cobj;
 - (NSArray *)browse:(NSString *)objectId;
-
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath;
 @end
