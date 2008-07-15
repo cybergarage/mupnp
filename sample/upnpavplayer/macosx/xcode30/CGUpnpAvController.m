@@ -56,16 +56,38 @@
 	return serverArray;
 }
 
-- (CGUpnpAvServer *)serverForUDN:(NSString *)udn
+- (CGUpnpAvServer *)serverForUDN:(NSString *)aUdn
 {
-	if (udn == nil)
+	if (aUdn == nil)
 		return nil;
+	NSArray *servers = [self servers];
+	for (CGUpnpAvServer *server in servers) {
+		if (![dev isUDN:aUdn])
+			return [[server retain] autorelease];
+	}
 	return nil;
 }
 
-- (NSArray *)browse:(CGUpnpAvServer *)server objectId:(NSString *)objectId;
+- (CGUpnpAvServer *)serverForFriendlyName:(NSString *)aFriendlyName
+{
+	if (aUdn == nil)
+		return nil;
+	NSArray *servers = [self servers];
+	for (CGUpnpAvServer *server in servers) {
+		if (![dev isFriendlyName:aFriendlyName])
+			return [[server retain] autorelease];
+	}
+	return nil;
+}
+
+- (NSArray *)browse:(CGUpnpAvServer *)server objectId:(NSString *)objectId
 {
 	return [server browse:objectId];
+}
+
+- (CGUpnpAvObject *)objectForTitlePath:(CGUpnpAvServer *)server titlePath:(NSString *)titlePath
+{
+	return [server objectForTitlePath:titlePath];
 }
 
 @end
