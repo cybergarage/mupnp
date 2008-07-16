@@ -70,9 +70,8 @@
 {
 	NSArray *titleArray = [titlePath pathComponents];
 	if ([titleArray count] <= 0)
-		return nil;
-	NSString *rootPath = [titleArray objectAtIndex:0];
-	BOOL isAbsolutePath = [rootPath isEqualToString:@"/"];
+		return self;
+	BOOL isAbsolutePath = [titlePath isAbsolutePath];
 	CGUpnpAvObject *lastObject = isAbsolutePath ? [self ancestor] : self;
 	int pathIndex = 0;
 	for (NSString *title in titleArray) {

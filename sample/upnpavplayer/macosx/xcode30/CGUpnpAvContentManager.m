@@ -14,25 +14,25 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	rootContainer = [[CGUpnpAvContainer alloc] init];
+	rootObj = [[CGUpnpAvRoot alloc] init];
 	return self;
 }
 
 - (void)dealloc
 {
-	[rootContainer release];
+	[rootObj release];
 	[super dealloc];
 }
 
 - (void)finalize
 {
-	[rootContainer release];
+	[rootObj release];
 	[super finalize];
 }
 
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath
 {
-	return [rootContainer objectForTitlePath:titlePath];
+	return [rootObj objectForTitlePath:titlePath];
 }
 
 @end

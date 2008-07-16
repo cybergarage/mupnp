@@ -38,7 +38,7 @@
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
 {
-	if (column == 0) {
+	if (colums == 0) {
 		NSArray *serverArray = [dmc servers];
 		if ([serverArray count] <= 0) {
 			[dmc search];
@@ -46,10 +46,12 @@
 		}
 		return [serverArray count];
 	}
+
 	NSString *path = [sender pathToColumn:column];
-	CGUpnpAvObject *avObj = [dmc objectForTitlePath:path];
-	NSLog(@"%@", path);
-	return 1;
+	NSArray *avObjs = [avSrv browseWithTitlePath:path];
+	if (avObjs == nil)
+		return 0;
+	return [avObjs count];
 }
 
 - (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column

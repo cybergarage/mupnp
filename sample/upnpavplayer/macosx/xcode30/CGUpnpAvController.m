@@ -80,14 +80,46 @@
 	return nil;
 }
 
-- (NSArray *)browse:(CGUpnpAvServer *)server objectId:(NSString *)objectId
+- (NSArray *)browse:(CGUpnpAvServer *)server objectId:(NSString *)aObjectId
 {
-	return [server browse:objectId];
+	return [server browse:aObjectId];
 }
 
-- (CGUpnpAvObject *)objectForTitlePath:(CGUpnpAvServer *)server titlePath:(NSString *)titlePath
+- (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath
 {
-	return [server objectForTitlePath:titlePath];
+	/* Get Media Server */
+	NSArray *srvAndObjPathArray = [aServerAndTitlePath pathComponents];
+	if ([srvAndObjPathArray count] <= 0)
+		return nil;
+	NSString *avSrvName = srvAndObjPathArray[0];
+	CGUpnpAvServer *avSrv = [dmc serverForFriendlyName:avSrvName];
+	if (avSrv == nil)
+		return nil;
+
+	NSMutableArray *titlePathArray = [[NSMutableArray alloc] arrayWithArray:srvAndObjPathArray];
+	[titlePathArray removeObjectAtIndex:0];
+	NSString *titlePath = [NSString pathWithComponents:titlePathArray];
+	CGUpnpAvObject *avObj [avSrv objectForTitlePath:titlePathArray];
+	[titlePath release];
+	if (avObj == nil)
+		return nil;
+	return [avSrv browse:[avObj objectId]];
+}
+
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aServerAndTitlePath
+{
+	/* Get Media Server */
+	NSArray *srvAndObjPathArray = [aServerAndTitlePath pathComponents];
+	if ([srvAndObjPathArray count] <= 0)
+		return nil;
+	NSString *avSrvName = srvAndObjPathArray[0];
+	CGUpnpAvServer *avSrv = [dmc serverForFriendlyName:avSrvName];
+	if (avSrv == nil)
+		return nil;
+
+	NSMutableArray *titlePathArray = [[NSMutableArray alloc] arrayWithArray:srvAndObjPathArray];
+	[titlePathArray removeObjectAtIndex:0];
+	NSString *titlePath = [NSString pathWithComponents:titlePathArray];
 }
 
 @end

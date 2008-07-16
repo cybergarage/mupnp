@@ -2,8 +2,8 @@
 //  main.m
 //  ClinkUnitTest
 //
-//  Created by ?? ? on 08/07/15.
-//  Copyright __MyCompanyName__ 2008. All rights reserved.
+//  Created by Satoshi Konno on 08/07/15.
+//  Copyright CyberGarage 2008. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

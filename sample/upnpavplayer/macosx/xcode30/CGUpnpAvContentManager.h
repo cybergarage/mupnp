@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import <CGUpnpAvContainer.h>
-#import <CGUpnpAvItem.h>
+#import <CGUpnpAvRoot.h>
 
 /**
  * The CGUpnpAvContentDirectory class has UPnP/AV objects of a media servers.
@@ -17,7 +17,7 @@
  */
 @interface CGUpnpAvContentManager : NSObject
 {
-	CGUpnpAvContainer *rootContainer;
+	CGUpnpAvRoot *rootObj;
 }
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath;
 @end
