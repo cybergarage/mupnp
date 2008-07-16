@@ -85,10 +85,10 @@
 	NSArray *srvAndObjPathArray = [aPath pathComponents];
 	if ([srvAndObjPathArray count] <= 0)
 		return nil;
-	if (aPath.isAbsolutePath && ([srvAndObjPathArray count] <= 1))
+	if ([aPath isAbsolutePath] && ([srvAndObjPathArray count] <= 1))
 		return nil;
-	NSString *avSrvName = aPath.isAbsolutePath ? srvAndObjPathArray[1] : srvAndObjPathArray[0];
-	return [dmc serverForFriendlyName:avSrvName];
+	NSString *avSrvName = [aPath isAbsolutePath] ? [srvAndObjPathArray objectAtIndex:1] : [srvAndObjPathArray objectAtIndex:0];
+	return [self serverForFriendlyName:avSrvName];
 }
 
 - (NSArray *)browse:(CGUpnpAvServer *)server objectId:(NSString *)aObjectId
@@ -115,13 +115,13 @@
 	if (avSrv == nil)
 		return nil;
 
-	NSMutableArray *titlePathArray = [[NSMutableArray alloc] arrayWithArray:srvAndObjPathArray];
+	NSMutableArray *titlePathArray = [[NSMutableArray alloc] arrayWithArray:[aServerAndTitlePath pathComponents]];
 	[titlePathArray removeObjectAtIndex:0];
 	if (aServerAndTitlePath.isAbsolutePath)
 		[titlePathArray removeObjectAtIndex:0];
 
 	NSString *titlePath = [NSString pathWithComponents:titlePathArray];
-	CGUpnpAvObject *avObj = [[[avSrv objectForTitlePath:titlePathArray] retain] autorelease];
+	CGUpnpAvObject *avObj = [[[avSrv objectForTitlePath:titlePath] retain] autorelease];
 	[titlePath release];
 	return avObj;
 }

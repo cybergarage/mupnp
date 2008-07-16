@@ -1,5 +1,8 @@
 #import "DLNAController.h"
 
+#import "CGUpnpAvObject.h"
+#import "CGUpnpAvContainer.h"
+
 @implementation DLNAController
 
 - (id)init
@@ -37,8 +40,8 @@
 }
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
-{
-	if (colums == 0) {
+{		
+	if (column == 0) {
 		NSArray *serverArray = [dmc servers];
 		if ([serverArray count] <= 0) {
 			[dmc search];
@@ -48,7 +51,7 @@
 	}
 
 	NSString *path = [sender pathToColumn:column];
-	NSArray *avObjs = [avSrv browseWithTitlePath:path];
+	NSArray *avObjs = [dmc browseWithTitlePath:path];
 	if (avObjs == nil)
 		return 0;
 	return [avObjs count];
@@ -69,7 +72,7 @@
 	CGUpnpAvObject *avObj = [dmc objectForTitlePath:path];
 	if (avObj == nil)
 		return;
-	if (!avObj.isContainer)
+	if (![avObj isContainer])
 		return;
 	CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
 	for (CGUpnpAvObject *childObj in [avCon children]) {
