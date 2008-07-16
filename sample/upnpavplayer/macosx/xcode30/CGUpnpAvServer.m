@@ -10,6 +10,7 @@
 
 #import <CyberLink/UPnP.h>
 #import <CGUpnpAvServer.h>
+#import <CGUpnpAvItem.h>
 
 @implementation CGUpnpAvServer
 
