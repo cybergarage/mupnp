@@ -64,8 +64,21 @@
 			[cell setLeaf:NO];
 		}
 	}
-	[cell setTitle:@"test"];
-	[cell setLeaf:NO];
+
+	NSString *path = [sender pathToColumn:column];
+	CGUpnpAvObject *avObj = [dmc objectForTitlePath:path];
+	if (avObj == nil)
+		return;
+	if (!avObj.isContainer)
+		return;
+	CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
+	for (CGUpnpAvObject *childObj in [avCon children]) {
+		[cell setTitle:[childObj title]];
+		if (childObj.isContainer)
+			[cell setLeaf:NO];
+		else if (childObj.isItem)
+			[cell setLeaf:YES];
+	}
 }
 
 @end
