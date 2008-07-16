@@ -31,6 +31,7 @@
 - (NSArray *)servers;
 - (CGUpnpAvServer *)serverForUDN:(NSString *)aUdn;
 - (CGUpnpAvServer *)serverForFriendlyName:(NSString *)aFriendlyName;
+- (CGUpnpAvServer *)serverForPath:(NSString *)aPath;
 - (NSArray *)browse:(CGUpnpAvServer *)server objectId:(NSString *)aObjectId;
 - (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aServerAndTitlePath;

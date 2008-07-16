@@ -80,6 +80,17 @@
 	return nil;
 }
 
+- (CGUpnpAvServer *)serverForPath:(NSString *)aPath;
+{
+	NSArray *srvAndObjPathArray = [aPath pathComponents];
+	if ([srvAndObjPathArray count] <= 0)
+		return nil;
+	if (aPath.isAbsolutePath && ([srvAndObjPathArray count] <= 1))
+		return nil;
+	NSString *avSrvName = aPath.isAbsolutePath ? srvAndObjPathArray[1] : srvAndObjPathArray[0];
+	return [dmc serverForFriendlyName:avSrvName];
+}
+
 - (NSArray *)browse:(CGUpnpAvServer *)server objectId:(NSString *)aObjectId
 {
 	return [server browse:aObjectId];
@@ -87,39 +98,32 @@
 
 - (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath
 {
-	/* Get Media Server */
-	NSArray *srvAndObjPathArray = [aServerAndTitlePath pathComponents];
-	if ([srvAndObjPathArray count] <= 0)
-		return nil;
-	NSString *avSrvName = srvAndObjPathArray[0];
-	CGUpnpAvServer *avSrv = [dmc serverForFriendlyName:avSrvName];
+	CGUpnpAvServer *avSrv = [self serverForPath:aServerAndTitlePath];
 	if (avSrv == nil)
 		return nil;
 
-	NSMutableArray *titlePathArray = [[NSMutableArray alloc] arrayWithArray:srvAndObjPathArray];
-	[titlePathArray removeObjectAtIndex:0];
-	NSString *titlePath = [NSString pathWithComponents:titlePathArray];
-	CGUpnpAvObject *avObj [avSrv objectForTitlePath:titlePathArray];
-	[titlePath release];
+	CGUpnpAvObject *avObj = [self objectForTitlePath:aServerAndTitlePath];
 	if (avObj == nil)
 		return nil;
+
 	return [avSrv browse:[avObj objectId]];
 }
 
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aServerAndTitlePath
 {
-	/* Get Media Server */
-	NSArray *srvAndObjPathArray = [aServerAndTitlePath pathComponents];
-	if ([srvAndObjPathArray count] <= 0)
-		return nil;
-	NSString *avSrvName = srvAndObjPathArray[0];
-	CGUpnpAvServer *avSrv = [dmc serverForFriendlyName:avSrvName];
+	CGUpnpAvServer *avSrv = [self serverForPath:aServerAndTitlePath];
 	if (avSrv == nil)
 		return nil;
 
 	NSMutableArray *titlePathArray = [[NSMutableArray alloc] arrayWithArray:srvAndObjPathArray];
 	[titlePathArray removeObjectAtIndex:0];
+	if (aServerAndTitlePath.isAbsolutePath)
+		[titlePathArray removeObjectAtIndex:0];
+
 	NSString *titlePath = [NSString pathWithComponents:titlePathArray];
+	CGUpnpAvObject *avObj = [[[avSrv objectForTitlePath:titlePathArray] retain] autorelease];
+	[titlePath release];
+	return avObj;
 }
 
 @end
