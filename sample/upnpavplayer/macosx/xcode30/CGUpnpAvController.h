@@ -8,7 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class CGUpnpControlPoint;
+#import <CyberLink/UPnP.h>
+
 @class CGUpnpAvServer;
 @class CGUpnpAvObject;
 

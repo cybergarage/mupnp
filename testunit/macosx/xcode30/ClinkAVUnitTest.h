@@ -8,6 +8,7 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
+#import <CGUpnpAvController.h>
 
 @interface ClinkAVUnitTest : SenTestCase {
 
