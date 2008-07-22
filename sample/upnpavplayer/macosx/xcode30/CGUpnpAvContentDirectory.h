@@ -18,6 +18,7 @@
 {
 	CGUpnpAvContentManager *contentMgr;
 }
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath;
+- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end
 

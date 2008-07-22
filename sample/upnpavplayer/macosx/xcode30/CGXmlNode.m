@@ -40,16 +40,16 @@
 	[super finalize];
 }
 
-- (NSString *)attributeValueForName:(NSString *)name
+- (NSString *)attributeValueForName:(NSString *)aName
 {
-	NSString *attrValue = [[xmlNode attributeForName:name] stringValue];
+	NSString *attrValue = [[xmlNode attributeForName:aName] stringValue];
 	[[attrValue retain] autorelease];
 	return attrValue;
 }
 
-- (NSString *)elementValueForName:(NSString *)name
+- (NSString *)elementValueForName:(NSString *)aName
 {
-	NSArray *elemArray = [xmlNode elementsForName:name];
+	NSArray *elemArray = [xmlNode elementsForName:aName];
 	NSString *elemValue = @"";
 	for (NSXMLElement *elemNode in elemArray) {
 		elemValue = [elemNode stringValue];
@@ -62,6 +62,18 @@
 - (NSString *)stringValue
 {
 	return [xmlNode stringValue];
+}
+
+- (void)setStringValue:(NSString *)aValue
+{
+	[xmlNode setStringValue:aValue];
+}
+
+- (void)setAttributeWithName:(NSString *)aName stringValue:(NSString *)aValue
+{
+	[xmlNode removeAttributeForName:aName];
+	NSXMLNode *attrNode = [NSXMLNode attributeWithName:aName stringValue:aValue];
+	[xmlNode addAttribute:attrNode];
 }
 
 @end

@@ -30,6 +30,11 @@
 	[super finalize];
 }
 
+- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
+{
+	return [rootObj objectForId:aObjectId];
+}
+
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath
 {
 	return [rootObj objectForTitlePath:titlePath];

@@ -12,7 +12,7 @@
 /**
  * The CGUpnpAvContainer class is a container of UPnP/AV container.
  */
-@interface CGUpnpAvContainer : CGUpnpAvObject 
+@interface CGUpnpAvContainer : CGUpnpAvObject
 {
 	NSMutableArray *childArray;
 }
@@ -21,7 +21,9 @@
 - (void)addChildObject:(CGUpnpAvObject *)obj;
 - (void)removeChildObject:(CGUpnpAvObject *)obj;
 - (NSArray *)children;
-- (CGUpnpAvObject *)childforTitle:(NSString *)title;
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath;
+- (CGUpnpAvObject *)childforId:(NSString *)aObjectId;
+- (CGUpnpAvObject *)childforTitle:(NSString *)aTitle;
+- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end
 

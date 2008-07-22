@@ -1,3 +1,5 @@
+
+
 //
 //  ClinkUnitTest.m
 //  ClinkUnitTest
@@ -7,28 +9,36 @@
 //
 
 #import "ClinkUnitTest.h"
-#import <CyberLink/UPnP.h>
 
 @implementation ClinkUnitTest
 
 - (void) setUp
 {
+	cp = [[CGUpnpControlPoint alloc] init];
 }
  
 - (void) tearDown
 {
+	[cp release];
+}
+
+- (void) testSearch
+{
+	[cp search];
+	NSArray *devices = [cp devices];
+	STAssertTrue(0 < [devices count], @"0 < [devices count]");
 }
 
 - (void) testControlPoint
 {
-/*
-	CGUpnpControlPoint *cp = [[CGUpnpControlPoint alloc] init];
-	STAssertNotNil(cp, nil);
-	[cp search];
 	NSArray *devices = [cp devices];
-	STAssertTrue(0 < [devices count], @"0 < [devices count]");
-	[cp release];
-*/
+	for (CGUpnpDevice *dev in devices) {
+		STAssertNotNil(dev, nil);
+		CGUpnpDevice *foundDev; 
+		foundDev = [cp deviceForUDN:[dev udn]]; 
+		STAssertNotNil(foundDev, nil);
+		STAssertTrue(dev == foundDev, @"dev == foundDev");
+	}
 }
 
 @end
