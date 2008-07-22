@@ -57,21 +57,50 @@
 	return childArray;
 }
 
-- (CGUpnpAvObject *)childforTitle:(NSString *)title
+- (CGUpnpAvObject *)childforId:(NSString *)aObjectId;
 {
 	for (CGUpnpAvObject *avObj in [self children]) {
-		if ([avObj isTitle:title])
+		if ([avObj isObjectId:aObjectId])
 			return avObj;
 	}
 	return nil;
 }
 
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath
+- (CGUpnpAvObject *)childforTitle:(NSString *)aTitle
 {
-	NSArray *titleArray = [titlePath pathComponents];
+	for (CGUpnpAvObject *avObj in [self children]) {
+		if ([avObj isTitle:aTitle])
+			return avObj;
+	}
+	return nil;
+}
+
+- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
+{
+	if ([self isObjectId:aObjectId])
+		return self;
+
+	CGUpnpAvObject *foundAvObj = [self childforId:aObjectId];
+	if (foundAvObj != nil)
+		return foundAvObj;
+
+	for (CGUpnpAvObject *avObj in [self children]) {
+		if (![avObj isContainer])
+			continue;
+		CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
+		foundAvObj = [avCon childforId:aObjectId];
+		if (foundAvObj != nil)
+			return foundAvObj;
+	}
+	return nil;
+}
+
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath
+{
+	NSArray *titleArray = [aTitlePath pathComponents];
 	if ([titleArray count] <= 0)
 		return self;
-	BOOL isAbsolutePath = [titlePath isAbsolutePath];
+	BOOL isAbsolutePath = [aTitlePath isAbsolutePath];
 	CGUpnpAvObject *lastObject = isAbsolutePath ? [self ancestor] : self;
 	int pathIndex = 0;
 	for (NSString *title in titleArray) {

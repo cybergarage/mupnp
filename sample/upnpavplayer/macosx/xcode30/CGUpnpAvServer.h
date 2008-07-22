@@ -35,6 +35,7 @@
  * @return New instance if successfull; otherwise nil.
  */
 - (id) initWithCObject:(CgUpnpDevice *)cobj;
-- (NSArray *)browse:(NSString *)objectId;
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath;
+- (NSArray *)browse:(NSString *)aObjectId;
+- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end

@@ -19,6 +19,7 @@
 {
 	CGUpnpAvRoot *rootObj;
 }
+- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath;
 @end
 

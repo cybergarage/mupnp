@@ -30,9 +30,14 @@
 	[super finalize];
 }
 
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath
+- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
 {
-	return [contentMgr objectForTitlePath:titlePath];
+	return [contentMgr objectForId:aObjectId];
+}
+
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath
+{
+	return [contentMgr objectForTitlePath:aTitlePath];
 }
 
 @end

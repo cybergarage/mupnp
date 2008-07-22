@@ -14,6 +14,7 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
+	[self setObjectId:CG_UPNPAV_OBJECT_ROOT_ID];
 	return self;
 }
 

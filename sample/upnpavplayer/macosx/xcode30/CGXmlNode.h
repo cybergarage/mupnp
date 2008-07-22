@@ -18,8 +18,10 @@
 @property(readwrite, copy) NSXMLNode *xmlNode;
 - (id)init;
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
-- (NSString *)attributeValueForName:(NSString *)name;
-- (NSString *)elementValueForName:(NSString *)name;
+- (NSString *)attributeValueForName:(NSString *)aName;
+- (NSString *)elementValueForName:(NSString *)aName;
 - (NSString *)stringValue;
+- (void)setStringValue:(NSString *)aValue;
+- (void)setAttributeWithName:(NSString *)aName stringValue:(NSString *)aValue;
 @end
 

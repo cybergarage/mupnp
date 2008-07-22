@@ -7,8 +7,9 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-
+#import <CyberLink/UPnP.h>
 
 @interface ClinkUnitTest : SenTestCase {
+	CGUpnpControlPoint *cp;
 }
 @end

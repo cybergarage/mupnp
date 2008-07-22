@@ -44,7 +44,7 @@
 	[super finalize];
 }
 
-- (NSArray *)browse:(NSString *)objectId;
+- (NSArray *)browse:(NSString *)aObjectId;
 {
 	CGUpnpService *conDirService = [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
@@ -54,7 +54,7 @@
 	if (!browseAction)
 		return nil;
 
-	[browseAction setArgumentValue:objectId forName:@"ObjectID"];
+	[browseAction setArgumentValue:aObjectId forName:@"ObjectID"];
 	[browseAction setArgumentValue:@"BrowseDirectChildren" forName:@"BrowseFlag"];
 	[browseAction setArgumentValue:@"*" forName:@"Filter"];
 	[browseAction setArgumentValue:@"0" forName:@"StartingIndex"];
@@ -106,9 +106,14 @@
 	return avObjArray;
 }
 
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath
+- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
 {
-	return [contentDirectory objectForTitlePath:titlePath];
+	return [contentDirectory objectForId:aObjectId];
+}
+
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath
+{
+	return [contentDirectory objectForTitlePath:aTitlePath];
 }
 
 @end
