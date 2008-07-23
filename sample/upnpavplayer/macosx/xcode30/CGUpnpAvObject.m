@@ -86,6 +86,21 @@
 	return [self elementValueForName:CG_UPNPAV_OBJECT_UPNPCLASS];
 }
 
+- (void)setObjectId:(NSString *)aValue
+{
+	[self setAttributeWithName:CG_UPNPAV_OBJECT_ID stringValue:aValue];
+}
+
+- (void)setTitle:(NSString *)aValue;
+{
+	[self setAttributeWithName:CG_UPNPAV_OBJECT_TITLE stringValue:aValue];
+}
+
+- (void)setUpnpClass:(NSString *)aValue;
+{
+	[self setAttributeWithName:CG_UPNPAV_OBJECT_UPNPCLASS stringValue:aValue];
+}
+
 - (BOOL)isObjectId:(NSString *)aObjectId
 {
 	return [aObjectId isEqualToString:[self objectId]];

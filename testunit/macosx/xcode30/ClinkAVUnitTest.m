@@ -48,6 +48,14 @@
 	[xmlNode release];
 }
 
+- (void) testObjectNode
+{
+	CGUpnpAvRoot *rootNode = [[CGUpnpAvRoot alloc] init];
+	NSString *objId = [rootNode objectId];
+	STAssertTrue([objId isEqualToString:@"0"], @"[objId isEqualToString:@"0"]");
+	[rootNode release];
+}
+
 - (void) testServers
 {
 	NSArray *servers = [dmc servers];

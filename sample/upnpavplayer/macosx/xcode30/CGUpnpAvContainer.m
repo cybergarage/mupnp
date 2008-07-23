@@ -40,16 +40,31 @@
 	[super finalize];
 }
 
-- (void)addChildObject:(CGUpnpAvObject *)obj
+- (void)addChild:(CGUpnpAvObject *)obj
 {
 	[childArray addObject:obj];
 	[obj setParent:self];
 }
 
-- (void)removeChildObject:(CGUpnpAvObject *)obj
+- (void)addChildren:(NSArray *)objArray;
+{
+	for (CGUpnpAvObject *obj in objArray) {
+		[childArray addObject:obj];
+		[obj setParent:self];
+	}
+}
+
+- (void)removeChild:(CGUpnpAvObject *)obj
 {
 	[childArray removeObject:obj];
 	[obj setParent:nil];
+}
+
+- (void)removeAllChildren
+{
+	for (CGUpnpAvObject *obj in [self children])
+		[obj setParent:nil];
+	[childArray removeAllObjects];
 }
 
 - (NSArray *)children

@@ -18,8 +18,10 @@
 }
 - (id)init;
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
-- (void)addChildObject:(CGUpnpAvObject *)obj;
-- (void)removeChildObject:(CGUpnpAvObject *)obj;
+- (void)addChild:(CGUpnpAvObject *)obj;
+- (void)addChildren:(NSArray *)objArray;
+- (void)removeChild:(CGUpnpAvObject *)obj;
+- (void)removeAllChildren;
 - (NSArray *)children;
 - (CGUpnpAvObject *)childforId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)childforTitle:(NSString *)aTitle;

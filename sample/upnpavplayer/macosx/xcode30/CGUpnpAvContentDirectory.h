@@ -18,6 +18,7 @@
 {
 	CGUpnpAvContentManager *contentMgr;
 }
+- (NSArray *)browse:(NSString *)aObjectId;
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end
