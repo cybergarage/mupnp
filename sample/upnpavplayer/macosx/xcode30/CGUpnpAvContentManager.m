@@ -11,7 +11,7 @@
 @implementation CGUpnpAvContentManager
 
 - (id)init
-{
+{ 
 	if ((self = [super init]) == nil)
 		return nil;
 	rootObj = [[CGUpnpAvRoot alloc] init];
@@ -35,9 +35,9 @@
 	return [rootObj objectForId:aObjectId];
 }
 
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath
 {
-	return [rootObj objectForTitlePath:titlePath];
+	return [rootObj objectForTitlePath:aTitlePath];
 }
 
 @end

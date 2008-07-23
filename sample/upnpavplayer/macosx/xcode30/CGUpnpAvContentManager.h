@@ -20,6 +20,6 @@
 	CGUpnpAvRoot *rootObj;
 }
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)titlePath;
+- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end
 

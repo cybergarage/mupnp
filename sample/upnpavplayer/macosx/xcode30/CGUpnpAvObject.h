@@ -27,6 +27,9 @@
 - (NSString *)objectId;
 - (NSString *)title;
 - (NSString *)upnpClass;
+- (void)setObjectId:(NSString *)aValue;
+- (void)setTitle:(NSString *)aValue;
+- (void)setUpnpClass:(NSString *)aValue;
 - (BOOL)isObjectId:(NSString *)aObjectId;
 - (BOOL)isTitle:(NSString *)aTitle;
 - (BOOL)isUpnpClass:(NSString *)aUpnpClass;
