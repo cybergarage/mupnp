@@ -12,6 +12,8 @@
 #import <CGUpnpAvController.h>
 #import <CGUpnpAvServer.h>
 #import <CGUpnpAvConstants.h>
+#import <CGXmlNode.h>
+#import <CGUpnpAvObject.h>
 
 @implementation CGUpnpAvController
 

@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import <CGUpnpAvContentManager.h>
+@class CGUpnpAvContentManager;
 
 /**
  * The CGUpnpAvContentDirectory class has UPnP/AV objects of a media servers.
@@ -18,8 +18,7 @@
 {
 	CGUpnpAvContentManager *contentMgr;
 }
-- (NSArray *)browse:(NSString *)aObjectId;
-- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
+- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end
 

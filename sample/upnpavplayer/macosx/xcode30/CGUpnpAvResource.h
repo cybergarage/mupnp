@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import <CGXmlNode.h>
+@class CGXmlNode;
 
 /**
  * The CGUpnpAction class is a wrapper class for CgUpnpAction of CyberLink for C.

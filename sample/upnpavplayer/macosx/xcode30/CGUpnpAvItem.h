@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <CGUpnpAvObject.h>
-#import <CGUpnpAvResource.h>
+
+@class CGUpnpAvObject;
+@class CGUpnpAvResource;
 
 /**
  * The CGUpnpAction class is a wrapper class for CgUpnpAction of CyberLink for C.

@@ -10,9 +10,7 @@
 
 #import <CyberLink/UPnP.h>
 
-#import <CGUpnpAvContentDirectory.h>
-
-@class CGUpnpDevice;
+@class CGUpnpAvContentDirectory;
 @class CGUpnpAvObject;
 
 /**
