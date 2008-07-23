@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <CGUpnpAvObject.h>
+
+@class CGUpnpAvObject;
 
 /**
  * The CGUpnpAvContainer class is a container of UPnP/AV container.
@@ -25,7 +26,7 @@
 - (NSArray *)children;
 - (CGUpnpAvObject *)childforId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)childforTitle:(NSString *)aTitle;
-- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
+- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end
 

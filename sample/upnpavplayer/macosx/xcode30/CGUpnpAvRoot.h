@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <CGUpnpAvContainer.h>
+
+@class CGUpnpAvContainer;
 
 /**
  * The CGUpnpAvRoot class is a root container of UPnP/AV.

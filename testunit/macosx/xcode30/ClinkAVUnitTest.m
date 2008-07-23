@@ -12,7 +12,7 @@
 
 - (void) setUp
 {
-	dmc = [[CGUpnpdmctroller alloc] init];
+	dmc = [[CGUpnpAvController alloc] init];
 	[dmc search];
 }
  
@@ -41,7 +41,7 @@
 	NSString *attrValue = [xmlNode attributeValueForName:CLINKAVUNITTEST_TESTXMLNODE_ATTRIBUTE_NAME];
 	STAssertTrue(((attrValue == nil) || ([attrValue length] <= 0)), @"(attrValue == nil) || ([attrValue length] <= 0)");
 	[xmlNode setAttributeWithName:CLINKAVUNITTEST_TESTXMLNODE_ATTRIBUTE_NAME stringValue:CLINKAVUNITTEST_TESTXMLNODE_ATTRIBUTE_VALUE];
-	NSString *attrValue = [xmlNode attributeValueForName:CLINKAVUNITTEST_TESTXMLNODE_ATTRIBUTE_NAME];
+	attrValue = [xmlNode attributeValueForName:CLINKAVUNITTEST_TESTXMLNODE_ATTRIBUTE_NAME];
 	STAssertTrue(0 < [attrValue length], @"0 < [attrValue length]");
 	STAssertTrue([attrValue isEqualToString:CLINKAVUNITTEST_TESTXMLNODE_ATTRIBUTE_VALUE], @"[attrValue isEqualToString:CLINKAVUNITTEST_TESTXMLNODE_ATTRIBUTE_VALUE]");
 
@@ -52,7 +52,7 @@
 {
 	CGUpnpAvRoot *rootNode = [[CGUpnpAvRoot alloc] init];
 	NSString *objId = [rootNode objectId];
-	STAssertTrue([objId isEqualToString:@"0"], @"[objId isEqualToString:@"0"]");
+	STAssertTrue([objId isEqualToString:@"0"], @"[objId isEqualToString:@0]");
 	[rootNode release];
 }
 

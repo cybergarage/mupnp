@@ -21,7 +21,6 @@
 		2197F43D0E30D7C9002D5DE0 /* CGUpnpAvRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2197F42F0E30D7C9002D5DE0 /* CGUpnpAvRoot.m */; };
 		2197F43E0E30D7C9002D5DE0 /* CGUpnpAvServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2197F4310E30D7C9002D5DE0 /* CGUpnpAvServer.m */; };
 		2197F43F0E30D7C9002D5DE0 /* CGXmlNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2197F4330E30D7C9002D5DE0 /* CGXmlNode.m */; };
-		2197F4400E30D7C9002D5DE0 /* DLNAController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2197F4350E30D7C9002D5DE0 /* DLNAController.m */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -50,6 +49,7 @@
 		217266D60E30D4560055F575 /* ClinkUnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClinkUnitTest.m; sourceTree = "<group>"; };
 		217266DB0E30D4790055F575 /* CyberLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CyberLink.framework; sourceTree = "<group>"; };
 		217266DC0E30D4790055F575 /* CyberLink.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = CyberLink.framework.dSYM; sourceTree = "<group>"; };
+		218669C60E37D02E00934908 /* UPnPAV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPnPAV.h; path = ../../../sample/upnpavplayer/macosx/xcode30/UPnPAV.h; sourceTree = SOURCE_ROOT; };
 		2197F41F0E30D7C9002D5DE0 /* CGUpnpAvConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvConstants.h; path = ../../../sample/upnpavplayer/macosx/xcode30/CGUpnpAvConstants.h; sourceTree = SOURCE_ROOT; };
 		2197F4200E30D7C9002D5DE0 /* CGUpnpAvContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvContainer.h; path = ../../../sample/upnpavplayer/macosx/xcode30/CGUpnpAvContainer.h; sourceTree = SOURCE_ROOT; };
 		2197F4210E30D7C9002D5DE0 /* CGUpnpAvContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvContainer.m; path = ../../../sample/upnpavplayer/macosx/xcode30/CGUpnpAvContainer.m; sourceTree = SOURCE_ROOT; };
@@ -71,8 +71,6 @@
 		2197F4310E30D7C9002D5DE0 /* CGUpnpAvServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvServer.m; path = ../../../sample/upnpavplayer/macosx/xcode30/CGUpnpAvServer.m; sourceTree = SOURCE_ROOT; };
 		2197F4320E30D7C9002D5DE0 /* CGXmlNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGXmlNode.h; path = ../../../sample/upnpavplayer/macosx/xcode30/CGXmlNode.h; sourceTree = SOURCE_ROOT; };
 		2197F4330E30D7C9002D5DE0 /* CGXmlNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGXmlNode.m; path = ../../../sample/upnpavplayer/macosx/xcode30/CGXmlNode.m; sourceTree = SOURCE_ROOT; };
-		2197F4340E30D7C9002D5DE0 /* DLNAController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DLNAController.h; path = ../../../sample/upnpavplayer/macosx/xcode30/DLNAController.h; sourceTree = SOURCE_ROOT; };
-		2197F4350E30D7C9002D5DE0 /* DLNAController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DLNAController.m; path = ../../../sample/upnpavplayer/macosx/xcode30/DLNAController.m; sourceTree = SOURCE_ROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -153,6 +151,7 @@
 		2197F4430E30D7DC002D5DE0 /* ClinkAV */ = {
 			isa = PBXGroup;
 			children = (
+				218669C60E37D02E00934908 /* UPnPAV.h */,
 				2197F41F0E30D7C9002D5DE0 /* CGUpnpAvConstants.h */,
 				2197F4200E30D7C9002D5DE0 /* CGUpnpAvContainer.h */,
 				2197F4210E30D7C9002D5DE0 /* CGUpnpAvContainer.m */,
@@ -174,8 +173,6 @@
 				2197F4310E30D7C9002D5DE0 /* CGUpnpAvServer.m */,
 				2197F4320E30D7C9002D5DE0 /* CGXmlNode.h */,
 				2197F4330E30D7C9002D5DE0 /* CGXmlNode.m */,
-				2197F4340E30D7C9002D5DE0 /* DLNAController.h */,
-				2197F4350E30D7C9002D5DE0 /* DLNAController.m */,
 			);
 			name = ClinkAV;
 			sourceTree = "<group>";
@@ -334,7 +331,6 @@
 				2197F43D0E30D7C9002D5DE0 /* CGUpnpAvRoot.m in Sources */,
 				2197F43E0E30D7C9002D5DE0 /* CGUpnpAvServer.m in Sources */,
 				2197F43F0E30D7C9002D5DE0 /* CGXmlNode.m in Sources */,
-				2197F4400E30D7C9002D5DE0 /* DLNAController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

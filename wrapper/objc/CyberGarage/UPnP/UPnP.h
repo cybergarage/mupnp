@@ -1,5 +1,5 @@
 //
-//  CGUpnp.h
+//  UPnP.h
 //  CyberLink for C
 //
 //  Created by Satoshi Konno on 08/05/08.

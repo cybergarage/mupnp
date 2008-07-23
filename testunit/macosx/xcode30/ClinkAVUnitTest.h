@@ -7,10 +7,10 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-#import <CGUpnpAvController.h>
+#import <UPnPAV.h>
 
 @interface ClinkAVUnitTest : SenTestCase {
-	CGUpnpdmctroller *dmc;
+	CGUpnpAvController *dmc;
 }
 
 @end

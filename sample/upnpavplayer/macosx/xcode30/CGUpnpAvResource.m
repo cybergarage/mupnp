@@ -6,6 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#import <CGXmlNode.h>
 #import <CGUpnpAvResource.h>
 #import <CGUpnpAvConstants.h>
 
