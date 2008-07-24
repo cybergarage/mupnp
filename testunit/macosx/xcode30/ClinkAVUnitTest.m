@@ -60,7 +60,7 @@
 {
 	NSArray *servers = [dmc servers];
 	NSLog(@"[servers count] = %d", [servers count]);
-	STAssertTrue(0 < [servers count], @"0 < [devices count]");
+	STAssertTrue(0 < [servers count], @"0 < [servers count]");
 	NSLog(@"[servers objectAtIndex:0] = %@", [servers objectAtIndex:0]);
 	int firstServerCnt = [servers count];
 	CGUpnpAvServer *firstServer = [servers objectAtIndex:0];
@@ -80,6 +80,41 @@
 	STAssertTrue([servers count] == firstServerCnt, @"0 < [devices count]");
 	NSLog(@"[servers objectAtIndex:0] = %@", [servers objectAtIndex:0]);
 	STAssertTrue([servers objectAtIndex:0] == firstServer, @"[servers objectAtIndex:0] == firstServer");
+}
+
+- (void) testBrowse
+{
+	NSArray *servers = [dmc servers];
+	STAssertTrue(0 < [servers count], @"0 < [servers count]");
+	CGUpnpAvServer *firstServer = [servers objectAtIndex:0];
+
+	NSArray *firstBrowseSet = [firstServer browse:@"0"];
+	STAssertTrue(0 < [firstBrowseSet count], @"0 < [firstBrowseSet count]");
+
+	/* [CGUpnpAvServer objectForId] */
+	CGUpnpAvObject *rootObj [firstServer objectForId:@"0"];
+	NSArray *rootObjChildren = [rootObj children];
+	STAssertTrue([firstBrowseSet count] == [rootObjChildren count], @"[firstBrowseSet count] == [rootObjChildren count]");
+	for (int n=0; n<[firstBrowseSet count]; n++) {
+		CGUpnpAvObject *firstSetObj = [firstBrowseSet bjectAtIndex:n];
+		CGUpnpAvObject *rootChildObj = [rootObjChildren objectAtIndex:n];
+		NSLog(@"[%d] firstSetObj:%@ == rootChildObj:%@", n, firstSetObj, rootChildObj);
+		STAssertTrue([firstSetObj isEqual:rootChildObj], @"[firstSetObj isEqual:rootChildObj]");
+	}
+
+	/* [CGUpnpAvController objectForTitlePath] */
+	NSMutableArray *pathArray = [NSMutableArray array];
+	[pathArray addObject:@"/"];
+	[pathArray addObject:[firstServer friendlyName]];
+	[pathArray addObject:@"0"];
+	rootObjChildren = [dmc objectForTitlePath:[NSString pathWithComponents:pathArray]];
+	STAssertTrue([firstBrowseSet count] == [rootObjChildren count], @"[firstBrowseSet count] == [rootObjChildren count]");
+	for (int n=0; n<[firstBrowseSet count]; n++) {
+		CGUpnpAvObject *firstSetObj = [firstBrowseSet bjectAtIndex:n];
+		CGUpnpAvObject *rootChildObj = [rootObjChildren objectAtIndex:n];
+		NSLog(@"[%d] firstSetObj:%@ == rootChildObj:%@", n, firstSetObj, rootChildObj);
+		STAssertTrue([firstSetObj isEqual:rootChildObj], @"[firstSetObj isEqual:rootChildObj]");
+	}
 }
 
 @end
