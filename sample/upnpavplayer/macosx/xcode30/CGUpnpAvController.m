@@ -97,11 +97,6 @@
 	return [self serverForFriendlyName:avSrvName];
 }
 
-- (NSArray *)browse:(CGUpnpAvServer *)server objectId:(NSString *)aObjectId
-{
-	return [server browse:aObjectId];
-}
-
 - (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath
 {
 	CGUpnpAvServer *avSrv = [self serverForPath:aServerAndTitlePath];

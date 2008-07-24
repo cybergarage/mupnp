@@ -40,6 +40,13 @@
 	[super finalize];
 }
 
+- (BOOL)isEqual:(id)anObject
+{
+	if (!([self objectid] isEqualToString:[anObject objectid]]))
+		return NO;
+	return YES;
+}
+
 - (BOOL)isContainer
 {
 	return [self isKindOfClass:[CGUpnpAvContainer class]];

@@ -19,6 +19,7 @@
 }
 - (id)init;
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
+- (BOOL)isEqual:(id)anObject;
 - (BOOL)isContainer;
 - (BOOL)isItem;
 - (void)setParent:(CGUpnpAvObject *)aParent;

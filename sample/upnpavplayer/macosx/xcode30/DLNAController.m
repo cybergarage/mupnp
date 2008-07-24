@@ -54,7 +54,9 @@
 	NSArray *avObjs = [dmc browseWithTitlePath:path];
 	if (avObjs == nil)
 		return 0;
-	return [avObjs count];
+	if (![avObjs isContainer})
+		return 0;
+	return [[avObjs children] count];
 }
 
 - (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column
