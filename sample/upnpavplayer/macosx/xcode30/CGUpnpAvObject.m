@@ -42,7 +42,13 @@
 
 - (BOOL)isEqual:(id)anObject
 {
-	if (!([self objectid] isEqualToString:[anObject objectid]]))
+	if (![anObject isKindOfClass:[CGUpnpAvContainer class]])
+		return NO;
+	CGUpnpAvObject *avObj = (CGUpnpAvObject *)anObject;
+	NSString *selfObjectId = [self objectId];
+	if (selfObjectId == nil)
+		return NO;
+	if (!([selfObjectId isEqualToString:[avObj objectId]]))
 		return NO;
 	return YES;
 }
