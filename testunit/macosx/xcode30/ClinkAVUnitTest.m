@@ -92,11 +92,14 @@
 	STAssertTrue(0 < [firstBrowseSet count], @"0 < [firstBrowseSet count]");
 
 	/* [CGUpnpAvServer objectForId] */
-	CGUpnpAvObject *rootObj [firstServer objectForId:@"0"];
-	NSArray *rootObjChildren = [rootObj children];
+	CGUpnpAvObject *rootObj = [firstServer objectForId:@"0"];
+	STAssertTrue([rootObj isContainer], @"[rootObj isContainer]");
+	CGUpnpAvContainer *rootCon = (CGUpnpAvContainer *)rootObj;
+	NSArray *rootObjChildren = [rootCon children];
 	STAssertTrue([firstBrowseSet count] == [rootObjChildren count], @"[firstBrowseSet count] == [rootObjChildren count]");
-	for (int n=0; n<[firstBrowseSet count]; n++) {
-		CGUpnpAvObject *firstSetObj = [firstBrowseSet bjectAtIndex:n];
+	int n;
+	for (n=0; n<[firstBrowseSet count]; n++) {
+		CGUpnpAvObject *firstSetObj = [firstBrowseSet objectAtIndex:n];
 		CGUpnpAvObject *rootChildObj = [rootObjChildren objectAtIndex:n];
 		NSLog(@"[%d] firstSetObj:%@ == rootChildObj:%@", n, firstSetObj, rootChildObj);
 		STAssertTrue([firstSetObj isEqual:rootChildObj], @"[firstSetObj isEqual:rootChildObj]");
@@ -107,10 +110,14 @@
 	[pathArray addObject:@"/"];
 	[pathArray addObject:[firstServer friendlyName]];
 	[pathArray addObject:@"0"];
-	rootObjChildren = [dmc objectForTitlePath:[NSString pathWithComponents:pathArray]];
+	NSString *pathStr = [NSString pathWithComponents:pathArray];
+	rootObj = [dmc objectForTitlePath:pathStr];
+	STAssertTrue([rootObj isContainer], @"[rootObj isContainer]");
+	rootCon = (CGUpnpAvContainer *)rootObj;
+	rootObjChildren = [rootCon children];
 	STAssertTrue([firstBrowseSet count] == [rootObjChildren count], @"[firstBrowseSet count] == [rootObjChildren count]");
-	for (int n=0; n<[firstBrowseSet count]; n++) {
-		CGUpnpAvObject *firstSetObj = [firstBrowseSet bjectAtIndex:n];
+	for (n=0; n<[firstBrowseSet count]; n++) {
+		CGUpnpAvObject *firstSetObj = [firstBrowseSet objectAtIndex:n];
 		CGUpnpAvObject *rootChildObj = [rootObjChildren objectAtIndex:n];
 		NSLog(@"[%d] firstSetObj:%@ == rootChildObj:%@", n, firstSetObj, rootChildObj);
 		STAssertTrue([firstSetObj isEqual:rootChildObj], @"[firstSetObj isEqual:rootChildObj]");
