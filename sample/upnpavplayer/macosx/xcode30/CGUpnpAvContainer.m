@@ -6,6 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#import <CGXml.h>
 #import <CGXmlNode.h>
 #import <CGUpnpAvObject.h>
 #import <CGUpnpAvContainer.h>
@@ -121,6 +122,7 @@
 	CGUpnpAvObject *lastObject = isAbsolutePath ? [self ancestor] : self;
 	int pathIndex = 0;
 	for (NSString *title in titleArray) {
+		title = [CGXml unescapestring:title];
 		pathIndex++;
 		if (pathIndex == 1) {
 			if (isAbsolutePath)
