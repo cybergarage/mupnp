@@ -120,9 +120,9 @@
 	if (parentObj != nil && [parentObj isContainer]) {
 		CGUpnpAvContainer *parentCon = (CGUpnpAvContainer *)parentObj;
 		[parentCon removeAllChildren];
-		[parentCon addChildren:contentArray];
+		[parentCon addChildren:avObjArray];
 	}
-
+	
 	return avObjArray;
 }
 

@@ -12,6 +12,7 @@
 #import <CGUpnpAvController.h>
 #import <CGUpnpAvServer.h>
 #import <CGUpnpAvConstants.h>
+#import <CGXml.h>
 #import <CGXmlNode.h>
 #import <CGUpnpAvObject.h>
 
@@ -94,6 +95,7 @@
 	if ([aPath isAbsolutePath] && ([srvAndObjPathArray count] <= 1))
 		return nil;
 	NSString *avSrvName = [aPath isAbsolutePath] ? [srvAndObjPathArray objectAtIndex:1] : [srvAndObjPathArray objectAtIndex:0];
+	avSrvName = [CGXml unescapestring:avSrvName];
 	return [self serverForFriendlyName:avSrvName];
 }
 
@@ -116,14 +118,13 @@
 	if (avSrv == nil)
 		return nil;
 
-	NSMutableArray *titlePathArray = [[NSMutableArray alloc] arrayWithArray:[aServerAndTitlePath pathComponents]];
+	NSMutableArray *titlePathArray = [NSMutableArray arrayWithArray:[aServerAndTitlePath pathComponents]];
 	[titlePathArray removeObjectAtIndex:0];
 	if (aServerAndTitlePath.isAbsolutePath)
 		[titlePathArray removeObjectAtIndex:0];
 
 	NSString *titlePath = [NSString pathWithComponents:titlePathArray];
 	CGUpnpAvObject *avObj = [[[avSrv objectForTitlePath:titlePath] retain] autorelease];
-	[titlePath release];
 	return avObj;
 }
 

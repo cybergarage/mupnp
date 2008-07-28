@@ -66,7 +66,8 @@
 - (void)setParent:(CGUpnpAvObject *)aParent
 {
 	if (parent != aParent) {
-		[parent release];
+		if (parent != nil)
+			[parent release];
 		parent = [aParent retain];
 	}		
 }

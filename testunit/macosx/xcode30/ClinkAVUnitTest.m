@@ -108,10 +108,12 @@
 	/* [CGUpnpAvController objectForTitlePath] */
 	NSMutableArray *pathArray = [NSMutableArray array];
 	[pathArray addObject:@"/"];
-	[pathArray addObject:[firstServer friendlyName]];
-	[pathArray addObject:@"0"];
+	[pathArray addObject:[CGXml escapestring:[firstServer friendlyName]]];
 	NSString *pathStr = [NSString pathWithComponents:pathArray];
+	NSLog(@"pathStr = %@", pathStr);
 	rootObj = [dmc objectForTitlePath:pathStr];
+	NSLog(@"rootObj = %@", rootObj);
+	STAssertNotNil(rootObj, @"rootObj != nil");
 	STAssertTrue([rootObj isContainer], @"[rootObj isContainer]");
 	rootCon = (CGUpnpAvContainer *)rootObj;
 	rootObjChildren = [rootCon children];

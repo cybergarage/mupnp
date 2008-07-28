@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		216DE00A0E3E2BE600675A5D /* CGXml.m in Sources */ = {isa = PBXBuildFile; fileRef = 216DE0090E3E2BE600675A5D /* CGXml.m */; };
 		217266D20E30D4440055F575 /* ClinkAVUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 217266D10E30D4440055F575 /* ClinkAVUnitTest.m */; };
 		217266D70E30D4560055F575 /* ClinkUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 217266D60E30D4560055F575 /* ClinkUnitTest.m */; };
 		217266DD0E30D4790055F575 /* CyberLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 217266DB0E30D4790055F575 /* CyberLink.framework */; };
@@ -41,6 +42,8 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		216DE0080E3E2BE600675A5D /* CGXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGXml.h; path = ../../../sample/upnpavplayer/macosx/xcode30/CGXml.h; sourceTree = SOURCE_ROOT; };
+		216DE0090E3E2BE600675A5D /* CGXml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGXml.m; path = ../../../sample/upnpavplayer/macosx/xcode30/CGXml.m; sourceTree = SOURCE_ROOT; };
 		217266BD0E30D3620055F575 /* ClinkTestUnitBundle.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ClinkTestUnitBundle.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		217266BE0E30D3620055F575 /* ClinkTestUnitBundle-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ClinkTestUnitBundle-Info.plist"; sourceTree = "<group>"; };
 		217266D00E30D4440055F575 /* ClinkAVUnitTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClinkAVUnitTest.h; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 		2197F4430E30D7DC002D5DE0 /* ClinkAV */ = {
 			isa = PBXGroup;
 			children = (
+				216DE0080E3E2BE600675A5D /* CGXml.h */,
+				216DE0090E3E2BE600675A5D /* CGXml.m */,
 				218669C60E37D02E00934908 /* UPnPAV.h */,
 				2197F41F0E30D7C9002D5DE0 /* CGUpnpAvConstants.h */,
 				2197F4200E30D7C9002D5DE0 /* CGUpnpAvContainer.h */,
@@ -331,6 +336,7 @@
 				2197F43D0E30D7C9002D5DE0 /* CGUpnpAvRoot.m in Sources */,
 				2197F43E0E30D7C9002D5DE0 /* CGUpnpAvServer.m in Sources */,
 				2197F43F0E30D7C9002D5DE0 /* CGXmlNode.m in Sources */,
+				216DE00A0E3E2BE600675A5D /* CGXml.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
