@@ -33,6 +33,8 @@
  * @return New instance if successfull; otherwise nil.
  */
 - (id) initWithCObject:(CgUpnpDevice *)cobj;
+- (void)setUserObject:(id)aUserObj;
+- (id)userObject;
 - (NSArray *)browse:(NSString *)aObjectId;
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;

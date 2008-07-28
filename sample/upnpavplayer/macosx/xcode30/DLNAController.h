@@ -1,8 +1,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import <CyberLink/UPnP.h>
-
-#import <CGUpnpAvController.h>
+#import <UPnPAV.h>
 
 @interface DLNAController : NSObject {
 CGUpnpAvController *dmc;

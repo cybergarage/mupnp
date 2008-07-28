@@ -43,14 +43,14 @@
 	for (CGUpnpDevice *dev in devices) {
 		if (![dev isDeviceType:CG_UPNPAV_DEVICE_TYPE])
 			continue;
-		CGUpnpAvServer *server = nil;
+		CGUpnpAvServer *server = nil;		
 		void *devData = [dev userData];
 		if (!devData) {
 			CgUpnpDevice *cDevice = [dev cObject];
 			if (!cDevice)
 				continue;
 			server = [[[CGUpnpAvServer alloc] initWithCObject:cDevice] autorelease];
-			[server setUserData:server];
+			[server setUserObject:server];
 		}
 		else 
 			server = (CGUpnpAvServer *)devData;
