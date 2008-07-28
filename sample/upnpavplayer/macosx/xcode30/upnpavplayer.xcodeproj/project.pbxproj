@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		212208A20E11490B005A11CB /* CGUpnpAvController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212208A10E11490B005A11CB /* CGUpnpAvController.m */; };
+		21502F500E3E3FC500DBD490 /* CGXml.m in Sources */ = {isa = PBXBuildFile; fileRef = 21502F4F0E3E3FC500DBD490 /* CGXml.m */; };
 		216998040E19965C003B7C04 /* CGUpnpAvContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 216997FF0E19965C003B7C04 /* CGUpnpAvContainer.m */; };
 		216998050E19965C003B7C04 /* CGUpnpAvItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 216998010E19965C003B7C04 /* CGUpnpAvItem.m */; };
 		216998060E19965C003B7C04 /* CGUpnpAvObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 216998030E19965C003B7C04 /* CGUpnpAvObject.m */; };
@@ -31,6 +32,9 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		212208A00E11490B005A11CB /* CGUpnpAvController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvController.h; sourceTree = "<group>"; };
 		212208A10E11490B005A11CB /* CGUpnpAvController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvController.m; sourceTree = "<group>"; };
+		21502F4E0E3E3FC500DBD490 /* CGXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXml.h; sourceTree = "<group>"; };
+		21502F4F0E3E3FC500DBD490 /* CGXml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXml.m; sourceTree = "<group>"; };
+		21502F530E3E3FD000DBD490 /* UPnPAV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPAV.h; sourceTree = "<group>"; };
 		216997FE0E19965C003B7C04 /* CGUpnpAvContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvContainer.h; sourceTree = "<group>"; };
 		216997FF0E19965C003B7C04 /* CGUpnpAvContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvContainer.m; sourceTree = "<group>"; };
 		216998000E19965C003B7C04 /* CGUpnpAvItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvItem.h; sourceTree = "<group>"; };
@@ -79,6 +83,9 @@
 			isa = PBXGroup;
 			children = (
 				2186FD860E2E4DD000DB132A /* CGUpnpAvRoot.h */,
+				21502F530E3E3FD000DBD490 /* UPnPAV.h */,
+				21502F4E0E3E3FC500DBD490 /* CGXml.h */,
+				21502F4F0E3E3FC500DBD490 /* CGXml.m */,
 				2186FD870E2E4DD000DB132A /* CGUpnpAvRoot.m */,
 				21860BD50E264A5A00FDBD18 /* CGXmlNode.h */,
 				21860BD60E264A5A00FDBD18 /* CGXmlNode.m */,
@@ -239,6 +246,7 @@
 				21860BD70E264A5A00FDBD18 /* CGXmlNode.m in Sources */,
 				21860CDE0E2689AE00FDBD18 /* CGUpnpAvContentManager.m in Sources */,
 				2186FD880E2E4DD000DB132A /* CGUpnpAvRoot.m in Sources */,
+				21502F500E3E3FC500DBD490 /* CGXml.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

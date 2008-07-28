@@ -1,8 +1,5 @@
 #import "DLNAController.h"
 
-#import "CGUpnpAvObject.h"
-#import "CGUpnpAvContainer.h"
-
 @implementation DLNAController
 
 - (id)init
@@ -54,9 +51,7 @@
 	NSArray *avObjs = [dmc browseWithTitlePath:path];
 	if (avObjs == nil)
 		return 0;
-	if (![avObjs isContainer})
-		return 0;
-	return [[avObjs children] count];
+	return [avObjs count];
 }
 
 - (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column

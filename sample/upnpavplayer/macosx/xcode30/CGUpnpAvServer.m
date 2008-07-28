@@ -34,14 +34,38 @@
 	return self;
 }
 
+- (void)setUserObject:(id)aUserObj;
+{
+	id userObj = [self userObject];
+	if (userObj != aUserObj) {
+		[userObj release];
+		[userObj retain];
+		[self setUserData:userObj];
+	}
+}
+
+- (id)userObject
+{
+	void *userData = [self userData];
+	if (!userData)
+		return nil;
+	return (id)userData;
+}
+
 - (void)dealloc
 {
+	id userObj = [self userObject];
+	if (userObj)
+		[userObj release];
 	[contentDirectory release];
 	[super dealloc];
 }
 
 - (void)finalize
 {
+	id userObj = [self userObject];
+	if (userObj)
+		[userObj release];
 	[contentDirectory release];
 	[super finalize];
 }
