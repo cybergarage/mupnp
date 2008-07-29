@@ -75,6 +75,11 @@
 	return childArray;
 }
 
+- (CGUpnpAvObject *)childAtIndex:(NSUInteger)index
+{
+	return [childArray objectAtIndex:index];
+}
+
 - (CGUpnpAvObject *)childforId:(NSString *)aObjectId;
 {
 	for (CGUpnpAvObject *avObj in [self children]) {

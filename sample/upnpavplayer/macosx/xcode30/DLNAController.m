@@ -47,7 +47,17 @@
 		return [serverArray count];
 	}
 
-	NSString *path = [sender pathToColumn:column];
+	[sender setPathSeparator:@"¥t"];
+	NSString *pathToColum = [sender pathToColumn:column];
+	NSArray *pathArray = [pathToColum componentsSeparatedByString:@"¥t"];
+	NSMutableString *path = [NSMutableString string];
+	for (NSString *pathStr in pathArray) {
+		if ([pathStr isEqualToString:@"¥t"] || [pathStr length] <= 0)
+			continue;
+		[path appendString:@"/"];
+		[path appendString:[CGXml escapestring:pathStr]];
+	}
+	
 	NSArray *avObjs = [dmc browseWithTitlePath:path];
 	if (avObjs == nil)
 		return 0;
@@ -65,20 +75,33 @@
 		}
 	}
 
-	NSString *path = [sender pathToColumn:column];
+	[sender setPathSeparator:@"¥t"];
+	NSString *pathToColum = [sender pathToColumn:column];
+	NSArray *pathArray = [pathToColum componentsSeparatedByString:@"¥t"];
+	NSMutableString *path = [NSMutableString string];
+	for (NSString *pathStr in pathArray) {
+		if ([pathStr isEqualToString:@"¥t"] || [pathStr length] <= 0)
+			continue;
+		[path appendString:@"/"];
+		[path appendString:[CGXml escapestring:pathStr]];
+	}
+	
 	CGUpnpAvObject *avObj = [dmc objectForTitlePath:path];
 	if (avObj == nil)
 		return;
 	if (![avObj isContainer])
 		return;
 	CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
-	for (CGUpnpAvObject *childObj in [avCon children]) {
-		[cell setTitle:[childObj title]];
-		if (childObj.isContainer)
-			[cell setLeaf:NO];
-		else if (childObj.isItem)
-			[cell setLeaf:YES];
+	CGUpnpAvObject *childObj = [avCon childAtIndex:row];
+	if (childObj == nil) {
+		[cell setLeaf:YES];
+		return;
 	}
+	[cell setTitle:[childObj title]];
+	if (childObj.isContainer)
+		[cell setLeaf:NO];
+	else if (childObj.isItem)
+		[cell setLeaf:YES];
 }
 
 @end
