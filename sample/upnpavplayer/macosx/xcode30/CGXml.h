@@ -12,6 +12,7 @@
 {
 }
 + (NSString *)escapestring:(NSString *)aString;
++ (NSString *)escapestringFromIndex:(NSString *)aString index:(NSUInteger)anIndex;
 + (NSString *)unescapestring:(NSString *)aString;
 @end
 

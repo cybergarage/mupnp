@@ -94,8 +94,7 @@
 		return nil;
 	if ([aPath isAbsolutePath] && ([srvAndObjPathArray count] <= 1))
 		return nil;
-	NSString *avSrvName = [aPath isAbsolutePath] ? [srvAndObjPathArray objectAtIndex:1] : [srvAndObjPathArray objectAtIndex:0];
-	avSrvName = [CGXml unescapestring:avSrvName];
+	NSString *avSrvName = [CGXml unescapestring:[aPath isAbsolutePath] ? [srvAndObjPathArray objectAtIndex:1] : [srvAndObjPathArray objectAtIndex:0]];
 	return [self serverForFriendlyName:avSrvName];
 }
 
@@ -105,10 +104,14 @@
 	if (avSrv == nil)
 		return nil;
 
+	NSLog(@"browseWithTitlePath : avSrv = %@", avSrv);
+	
 	CGUpnpAvObject *avObj = [self objectForTitlePath:aServerAndTitlePath];
 	if (avObj == nil)
 		return nil;
 
+	NSLog(@"browseWithTitlePath : avObj = %@", avObj);
+	
 	return [avSrv browse:[avObj objectId]];
 }
 
@@ -118,6 +121,8 @@
 	if (avSrv == nil)
 		return nil;
 
+	NSLog(@"objectForTitlePath : avSrv = %@", avSrv);
+
 	NSMutableArray *titlePathArray = [NSMutableArray arrayWithArray:[aServerAndTitlePath pathComponents]];
 	[titlePathArray removeObjectAtIndex:0];
 	if (aServerAndTitlePath.isAbsolutePath)
@@ -125,6 +130,9 @@
 
 	NSString *titlePath = [NSString pathWithComponents:titlePathArray];
 	CGUpnpAvObject *avObj = [[[avSrv objectForTitlePath:titlePath] retain] autorelease];
+	
+	NSLog(@"objectForTitlePath : avObj = %@", avObj);
+
 	return avObj;
 }
 

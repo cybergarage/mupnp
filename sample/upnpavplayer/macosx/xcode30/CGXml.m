@@ -15,6 +15,11 @@
 	return [[aString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
 }
 
++ (NSString *)escapestringFromIndex:(NSString *)aString index:(NSUInteger)anIndex
+{
+	return [[[aString substringFromIndex:anIndex] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+}
+
 + (NSString *)unescapestring:(NSString *)aString;
 {
 	return [aString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

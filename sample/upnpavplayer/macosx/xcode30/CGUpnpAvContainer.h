@@ -24,6 +24,7 @@
 - (void)removeChild:(CGUpnpAvObject *)obj;
 - (void)removeAllChildren;
 - (NSArray *)children;
+- (CGUpnpAvObject *)childAtIndex:(NSUInteger)index;
 - (CGUpnpAvObject *)childforId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)childforTitle:(NSString *)aTitle;
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;

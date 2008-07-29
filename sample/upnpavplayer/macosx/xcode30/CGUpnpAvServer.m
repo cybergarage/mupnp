@@ -39,8 +39,8 @@
 	id userObj = [self userObject];
 	if (userObj != aUserObj) {
 		[userObj release];
-		[userObj retain];
-		[self setUserData:userObj];
+		[aUserObj retain];
+		[self setUserData:aUserObj];
 	}
 }
 
@@ -111,15 +111,6 @@
 	
 	NSArray *contentArray = [xmlDoc nodesForXPath:@"/DIDL-Lite/*" error:&xmlErr];
 	for (NSXMLElement *contentNode in contentArray) {
-		NSString *objId = [[contentNode attributeForName:@"id"] stringValue];
-		NSArray *titleArray = [contentNode elementsForName:@"dc:title"];
-		NSString *title = @"";
-		for (NSXMLNode *titleNode in titleArray) {
-			title = [titleNode stringValue];
-			break;
-		}
-		if ([objId length] <= 0 || [title length] <= 0)
-			continue;
 		CGUpnpAvObject *avObj = nil;
 		if ([[contentNode name] isEqualToString:@"container"]) {
 			CGUpnpAvContainer *avCon = [[[CGUpnpAvContainer alloc] initWithXMLNode:contentNode] autorelease];
