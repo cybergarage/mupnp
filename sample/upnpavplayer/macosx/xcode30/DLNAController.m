@@ -26,6 +26,21 @@
 	[super finalize];
 }
 
++(NSMutableString *)pathToColum:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
+{
+	[sender setPathSeparator:@"¥t"];
+	NSString *pathToColum = [sender pathToColumn:column];
+	NSArray *pathArray = [pathToColum componentsSeparatedByString:@"¥t"];
+	NSMutableString *path = [NSMutableString string];
+	for (NSString *pathStr in pathArray) {
+		if ([pathStr isEqualToString:@"¥t"] || [pathStr length] <= 0)
+			continue;
+		[path appendString:@"/"];
+		[path appendString:[CGXml escapestring:pathStr]];
+	}
+	return path;
+}
+
 - (IBAction)searchDMS:(id)sender 
 {
 	if (dmc)
@@ -34,6 +49,10 @@
 	if (mainWin == nil)
 		return;
 	[mainWin update];
+}
+
+- (IBAction)itemSelected:(id)sender
+{
 }
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
@@ -47,20 +66,15 @@
 		return [serverArray count];
 	}
 
-	[sender setPathSeparator:@"¥t"];
-	NSString *pathToColum = [sender pathToColumn:column];
-	NSArray *pathArray = [pathToColum componentsSeparatedByString:@"¥t"];
-	NSMutableString *path = [NSMutableString string];
-	for (NSString *pathStr in pathArray) {
-		if ([pathStr isEqualToString:@"¥t"] || [pathStr length] <= 0)
-			continue;
-		[path appendString:@"/"];
-		[path appendString:[CGXml escapestring:pathStr]];
-	}
-	
+	NSString *path = [DLNAController pathToColum:sender numberOfRowsInColumn:column];
+
+	//[NSCursor closedHandCursor];
 	NSArray *avObjs = [dmc browseWithTitlePath:path];
+	//[NSCursor arrowCursor];
+	
 	if (avObjs == nil)
 		return 0;
+		
 	return [avObjs count];
 }
 
@@ -75,16 +89,7 @@
 		}
 	}
 
-	[sender setPathSeparator:@"¥t"];
-	NSString *pathToColum = [sender pathToColumn:column];
-	NSArray *pathArray = [pathToColum componentsSeparatedByString:@"¥t"];
-	NSMutableString *path = [NSMutableString string];
-	for (NSString *pathStr in pathArray) {
-		if ([pathStr isEqualToString:@"¥t"] || [pathStr length] <= 0)
-			continue;
-		[path appendString:@"/"];
-		[path appendString:[CGXml escapestring:pathStr]];
-	}
+	NSString *path = [DLNAController pathToColum:sender numberOfRowsInColumn:column];
 	
 	CGUpnpAvObject *avObj = [dmc objectForTitlePath:path];
 	if (avObj == nil)
@@ -103,5 +108,17 @@
 	else if (childObj.isItem)
 		[cell setLeaf:YES];
 }
+
+/*
+- (BOOL)browser:(NSBrowser *)sender selectCellWithString:(NSString *)title inColumn:(NSInteger)column
+{
+	NSMutableString *path = [DLNAController pathToColum:sender numberOfRowsInColumn:column];
+
+	[path appendString:@"/"];
+	[path appendString:[CGXml escapestring:title]];
+	
+	return YES;
+}
+*/
 
 @end
