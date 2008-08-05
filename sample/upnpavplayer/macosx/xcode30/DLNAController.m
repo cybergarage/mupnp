@@ -48,11 +48,34 @@
 	NSWindow *mainWin = [NSApp mainWindow];
 	if (mainWin == nil)
 		return;
-	[mainWin update];
+	//[mainWin update];
+	//[browser displayColumn:0];
 }
 
 - (IBAction)itemSelected:(id)sender
 {
+}
+
+- (IBAction)doClick:(id)sender
+{
+	NSBrowser *browser = sender;
+	NSMutableString *path = [DLNAController pathToColum:browser numberOfRowsInColumn:[browser selectedColumn]];
+	NSCell *selectedCell = [browser selectedCellInColumn:[browser selectedColumn]];
+	
+	[path appendString:@"/"];
+	[path appendString:[CGXml escapestring:[selectedCell title]]];
+}
+
+- (BOOL)browser:(NSBrowser *)sender selectRow:(NSInteger)row inColumn:(NSInteger)column
+{
+	NSBrowser *browser = sender;
+	NSMutableString *path = [DLNAController pathToColum:browser numberOfRowsInColumn:column];
+	NSCell *selectedCell = [browser selectedCellInColumn:column];
+	
+	[path appendString:@"/"];
+	[path appendString:[CGXml escapestring:[selectedCell title]]];
+	
+	return YES;
 }
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
