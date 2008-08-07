@@ -26,10 +26,35 @@
 	[super finalize];
 }
 
-+(NSMutableString *)pathToColum:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
+- (void)awakeFromNib 
 {
-	[sender setPathSeparator:@"¥t"];
-	NSString *pathToColum = [sender pathToColumn:column];
+    // Make the browser user our custom browser cell.
+    //[fsBrowser setCellClass: [FSBrowserCell class]];
+
+    // Tell the browser to send us messages when it is clicked.
+	[dmcBrowser setTarget:self];
+	[dmcBrowser setAction:@selector(doClick:)];
+	[dmcBrowser setDoubleAction:@selector(doDoubleClick:)];
+
+	/*
+    // Configure the number of visible columns (default max visible columns is 1).
+    [fsBrowser setMaxVisibleColumns:MAX_VISIBLE_COLUMNS];
+    [fsBrowser setMinColumnWidth:NSWidth([fsBrowser bounds])/(CGFloat)MAX_VISIBLE_COLUMNS];
+
+    // Drag and drop support
+    [fsBrowser registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+    [fsBrowser setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
+    [fsBrowser setDraggingSourceOperationMask:NSDragOperationEvery forLocal:NO];
+    
+    // Prime the browser with an initial load of data.
+    [self reloadData:nil];
+	*/
+}
+
++(NSMutableString *)pathToColum:(NSBrowser *)browser numberOfRowsInColumn:(NSInteger)column
+{
+	[browser setPathSeparator:@"¥t"];
+	NSString *pathToColum = [browser pathToColumn:column];
 	NSArray *pathArray = [pathToColum componentsSeparatedByString:@"¥t"];
 	NSMutableString *path = [NSMutableString string];
 	for (NSString *pathStr in pathArray) {
@@ -38,6 +63,25 @@
 		[path appendString:@"/"];
 		[path appendString:[CGXml escapestring:pathStr]];
 	}
+	return path;
+}
+
++(NSMutableString *)selectedPath:(NSBrowser *)browser
+{
+	return [DLNAController pathToColum:browser numberOfRowsInColumn:[browser selectedColumn]];
+}
+
++(NSBrowserCell *)selectedCell:(NSBrowser *)browser
+{
+	return [browser selectedCellInColumn:[browser selectedColumn]];
+}
+
++(NSMutableString *)selectedItemPath:(NSBrowser *)browser
+{
+	NSMutableString *path = [DLNAController selectedPath:browser];
+	NSCell *selectedCell = [DLNAController selectedCell:browser];	
+	[path appendString:@"/"];
+	[path appendString:[CGXml escapestring:[selectedCell title]]];
 	return path;
 }
 
@@ -58,24 +102,39 @@
 
 - (IBAction)doClick:(id)sender
 {
-	NSBrowser *browser = sender;
-	NSMutableString *path = [DLNAController pathToColum:browser numberOfRowsInColumn:[browser selectedColumn]];
-	NSCell *selectedCell = [browser selectedCellInColumn:[browser selectedColumn]];
+	NSBrowserCell *selectedCell = [DLNAController selectedCell:sender];
+	if (![selectedCell isLeaf])
+		return;
 	
-	[path appendString:@"/"];
-	[path appendString:[CGXml escapestring:[selectedCell title]]];
+	NSString *selectedItemPath = [DLNAController selectedItemPath:sender];
 }
 
-- (BOOL)browser:(NSBrowser *)sender selectRow:(NSInteger)row inColumn:(NSInteger)column
+- (IBAction)doDoubleClick:(id)sender
 {
-	NSBrowser *browser = sender;
-	NSMutableString *path = [DLNAController pathToColum:browser numberOfRowsInColumn:column];
-	NSCell *selectedCell = [browser selectedCellInColumn:column];
+	NSBrowserCell *selectedCell = [DLNAController selectedCell:sender];
+	if (![selectedCell isLeaf])
+		return;
 	
-	[path appendString:@"/"];
-	[path appendString:[CGXml escapestring:[selectedCell title]]];
-	
-	return YES;
+	NSString *selectedItemPath = [DLNAController selectedItemPath:sender];
+  // Set up a videoView by hand. You can also do that in the nib file
+  // videoView = [[VLCVideoView alloc] initWithFrame:[[window contentView] bounds]];
+	NSWindow *mainWin = [NSApp mainWindow];
+	NSURL *imgUrl = [NSURL URLWithString:@"http://certification.dlna.org//prodimages/RDA1_RF.jpg"];
+	NSImage *img = [[NSImage alloc] initWithContentsOfURL:imgUrl];
+	NSImageView *imgView = [[NSImageView alloc] initWithFrame:[[mainWin contentView] bounds]];
+	[imgView setImage:img];
+	//[[mainWin contentView] addSubview:imgView];
+	[mainWin setContentView:imgView];
+
+/*
+   [videoView setAutoresizingMask: NSViewHeightSizable|NSViewWidthSizable];
+  
+   // Init the player object
+   player = [[VLCMediaPlayer alloc] initWithVideoView:videoView];
+ 
+   [player setMedia:[VLCMedia mediaWithPath:@"/to/my/movie"]];
+   [player play];	
+   */
 }
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
