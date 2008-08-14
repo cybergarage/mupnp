@@ -1,6 +1,10 @@
 #import "DLNAController.h"
+#import "DLNAImageView.h"
 
 @implementation DLNAController
+
+@synthesize imageView;
+@synthesize browserView;
 
 - (id)init
 {
@@ -109,6 +113,15 @@
 	NSString *selectedItemPath = [DLNAController selectedItemPath:sender];
 }
 
+- (IBAction)doClickImage:(id)sender
+{
+	NSBrowserCell *selectedCell = [DLNAController selectedCell:sender];
+	if (![selectedCell isLeaf])
+		return;
+	
+	NSString *selectedItemPath = [DLNAController selectedItemPath:sender];
+}
+
 - (IBAction)doDoubleClick:(id)sender
 {
 	NSBrowserCell *selectedCell = [DLNAController selectedCell:sender];
@@ -116,14 +129,19 @@
 		return;
 	
 	NSString *selectedItemPath = [DLNAController selectedItemPath:sender];
+
   // Set up a videoView by hand. You can also do that in the nib file
   // videoView = [[VLCVideoView alloc] initWithFrame:[[window contentView] bounds]];
 	NSWindow *mainWin = [NSApp mainWindow];
+	[self setBrowserView:[mainWin contentView]];
+	
 	NSURL *imgUrl = [NSURL URLWithString:@"http://certification.dlna.org//prodimages/RDA1_RF.jpg"];
 	NSImage *img = [[NSImage alloc] initWithContentsOfURL:imgUrl];
-	NSImageView *imgView = [[NSImageView alloc] initWithFrame:[[mainWin contentView] bounds]];
+	DLNAImageView *imgView = [[DLNAImageView alloc] initWithFrame:[[mainWin contentView] bounds]];
+	[imgView setController:self];
 	[imgView setImage:img];
-	//[[mainWin contentView] addSubview:imgView];
+	[imgView setTarget:self];
+	[imgView setAction:@selector(doClickImage:)];
 	[mainWin setContentView:imgView];
 
 /*
