@@ -53,6 +53,11 @@
     // Prime the browser with an initial load of data.
     [self reloadData:nil];
 	*/
+	[thumbnailView setImageScaling:NSScaleToFit];
+	NSURL *imgUrl = [NSURL URLWithString:@"http://certification.dlna.org//prodimages/RDA1_RF.jpg"];
+	NSImage *img = [[NSImage alloc] initWithContentsOfURL:imgUrl];
+	[thumbnailView setImage:img];
+	[img release];	
 }
 
 +(NSMutableString *)pathToColum:(NSBrowser *)browser numberOfRowsInColumn:(NSInteger)column
@@ -98,6 +103,7 @@
 		return;
 	//[mainWin update];
 	//[browser displayColumn:0];
+	[dmcBrowser reloadColumn:0];
 }
 
 - (IBAction)itemSelected:(id)sender
@@ -209,16 +215,38 @@
 		[cell setLeaf:YES];
 }
 
-/*
-- (BOOL)browser:(NSBrowser *)sender selectCellWithString:(NSString *)title inColumn:(NSInteger)column
+- (int)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-	NSMutableString *path = [DLNAController pathToColum:sender numberOfRowsInColumn:column];
-
-	[path appendString:@"/"];
-	[path appendString:[CGXml escapestring:title]];
-	
-	return YES;
+	return 1;
 }
-*/
+
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
+{
+	return @"Sample";
+}
+
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar 
+{
+	return [ NSArray arrayWithObjects:
+                 @"Search", 
+                 nil ]; 
+} 
+
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar 
+{ 
+	return [ NSArray arrayWithObjects:
+                 @"Search", 
+                 nil ]; 
+} 
+
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag
+{
+	NSToolbarItem *searchItem = [[NSToolbarItem alloc] initWithItemIdentifier:@"Search"];
+	[searchItem setLabel:@"Search"];
+	[searchItem setEnabled:YES];
+	[searchItem setTarget:self];
+	[searchItem setAction:@selector(searchDMS:)];
+	return searchItem;
+}
 
 @end
