@@ -7,6 +7,9 @@
 
 @interface DLNAController : NSObject {
 IBOutlet NSBrowser *dmcBrowser;
+IBOutlet NSImageView *thumbnailView;
+IBOutlet NSTableView *infomationView;
+IBOutlet NSToolbar *mainToolbar;
 CGUpnpAvController *dmc;
 DLNAImageView *imageView;
 NSView *browserView;
@@ -24,4 +27,11 @@ NSView *browserView;
 - (IBAction)doClickImage:(id)sender;
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column;
 - (void)browser:(NSBrowser *)sender willDisplayCell:(id)cell atRow:(NSInteger)row column:(NSInteger)column;
+- (int)numberOfRowsInTableView:(NSTableView *)aTableView;
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex;
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar;
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar;
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag;
 @end
+
+
