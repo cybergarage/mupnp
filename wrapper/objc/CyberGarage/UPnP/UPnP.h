@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#if defined(__MACOSX__)
+#if !defined(CG_NOUSE_CLINKC_FRAMEWORK)
 #import <CyberLink/CGUpnpControlPoint.h>
 #import <CyberLink/CGUpnpDevice.h>
 #import <CyberLink/CGUpnpService.h>

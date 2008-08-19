@@ -9,7 +9,7 @@
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
 
-#if defined(__APPLE_CC__)
+#if !defined(CG_NOUSE_CLINKC_FRAMEWORK)
 #import <CyberLink/UPnP.h>
 #else
 #import <UPnP.h>
