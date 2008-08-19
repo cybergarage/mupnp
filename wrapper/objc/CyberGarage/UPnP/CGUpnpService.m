@@ -6,13 +6,12 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/cservice.h>
 #include <cybergarage/upnp/caction.h>
 #include <cybergarage/upnp/cstatevariable.h>
-#import <CGUpnpService.h>
-#import <CGUpnpAction.h>
-#import <CGUpnpStateVariable.h>
+#import "CGUpnpService.h"
+#import "CGUpnpAction.h"
+#import "CGUpnpStateVariable.h"
 
 @implementation CGUpnpService
 
