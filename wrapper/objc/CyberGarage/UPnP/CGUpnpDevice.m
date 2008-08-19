@@ -6,11 +6,10 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/cdevice.h>
 #include <cybergarage/upnp/cservice.h>
-#import <CGUpnpDevice.h>
-#import <CGUpnpService.h>
+#import "CGUpnpDevice.h"
+#import "CGUpnpService.h"
 
 @implementation CGUpnpDevice
 

@@ -6,9 +6,8 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/cstatevariable.h>
-#import <CGUpnpStateVariable.h>
+#import "CGUpnpStateVariable.h"
 
 @implementation CGUpnpStateVariable
 

@@ -6,11 +6,10 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/ccontrolpoint.h>
 #include <cybergarage/upnp/control/ccontrol.h>
-#import <CGUpnpControlPoint.h>
-#import <CGUpnpDevice.h>
+#import "CGUpnpControlPoint.h"
+#import "CGUpnpDevice.h"
 
 @implementation CGUpnpControlPoint
 

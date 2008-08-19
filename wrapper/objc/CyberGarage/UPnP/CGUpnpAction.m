@@ -6,9 +6,8 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
 #include <cybergarage/upnp/caction.h>
-#import <CGUpnpAction.h>
+#import "CGUpnpAction.h"
 
 static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 {
