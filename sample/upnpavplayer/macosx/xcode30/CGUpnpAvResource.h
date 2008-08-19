@@ -18,10 +18,11 @@
 }
 - (id)init;
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
-//- (NSString *)mimeType;
 - (NSString *)url;
 - (long long)size;
-- (NSString *)dlnaOrgPN;
-- (NSString *)dlnaOrgOP;
+- (NSString *)mimeType;
+- (NSString *)dlnaOrgPn;
+- (NSString *)dlnaOrgOp;
+- (NSString *)dlnaOrgFlags;
 @end
 

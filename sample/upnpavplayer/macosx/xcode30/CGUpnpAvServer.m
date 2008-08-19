@@ -101,44 +101,7 @@
 		return nil;
 	
 	NSString *resultStr = [browseAction argumentValueForName:@"Result"];
-	
-	NSError *xmlErr;
-	NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithXMLString:resultStr options:0 error:&xmlErr];
-	if (!xmlDoc)
-		return nil;
-
-	NSMutableArray *avObjArray = [[[NSMutableArray alloc] init] autorelease];
-	
-	NSArray *contentArray = [xmlDoc nodesForXPath:@"/DIDL-Lite/*" error:&xmlErr];
-	for (NSXMLElement *contentNode in contentArray) {
-		CGUpnpAvObject *avObj = nil;
-		if ([[contentNode name] isEqualToString:@"container"]) {
-			CGUpnpAvContainer *avCon = [[[CGUpnpAvContainer alloc] initWithXMLNode:contentNode] autorelease];
-			avObj = avCon;
-		}
-		else {
-			CGUpnpAvItem *avItem = [[[CGUpnpAvItem alloc] initWithXMLNode:contentNode] autorelease];
-			NSArray *resArray = [contentNode elementsForName:@"res"];
-			for (NSXMLElement *resNode in resArray) {
-				CGUpnpAvResource *avRes = [[[CGUpnpAvResource alloc] initWithXMLNode:resNode] autorelease];
-				[avItem addResource:avRes];
-			}
-			avObj = avItem;
-		}
-		if (avObj == nil)
-			continue;
-		[avObjArray addObject:avObj];
-	}
-
-	/* Update Content Manager */
-	CGUpnpAvObject *parentObj = [self objectForId:aObjectId];
-	if (parentObj != nil && [parentObj isContainer]) {
-		CGUpnpAvContainer *parentCon = (CGUpnpAvContainer *)parentObj;
-		[parentCon removeAllChildren];
-		[parentCon addChildren:avObjArray];
-	}
-	
-	return avObjArray;
+	return [CGUpnpAvObject arrayWithXMLString:resultStr];
 }
 
 @end

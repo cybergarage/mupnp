@@ -46,12 +46,22 @@
 	return [[self attributeValueForName:CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE] longLongValue];
 }
 
-- (NSString *)dlnaOrgPN
+- (NSString *)mimeType
 {
 	return [self attributeValueForName:CG_UPNPAV_RESOURCE_DLNAPN];
 }
 
-- (NSString *)dlnaOrgOP
+- (NSString *)dlnaOrgPn
+{
+	return [self attributeValueForName:CG_UPNPAV_RESOURCE_DLNAPN];
+}
+
+- (NSString *)dlnaOrgOp
+{
+	return [self attributeValueForName:CG_UPNPAV_RESOURCE_DLNAOP];
+}
+
+- (NSString *)dlnaOrgFlags
 {
 	return [self attributeValueForName:CG_UPNPAV_RESOURCE_DLNAOP];
 }

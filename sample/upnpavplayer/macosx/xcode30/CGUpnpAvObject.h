@@ -11,12 +11,13 @@
 @class CGXmlNode;
 
 /**
- * The CGUpnpAction class is a wrapper class for CgUpnpAction of CyberLink for C.
+ * The CGUpnpAvObject class is a wrapper class for CgUpnpAvObject of CyberLink for C.
  */
 @interface CGUpnpAvObject : CGXmlNode 
 {
 	CGUpnpAvObject *parent;
 }
++ (NSArray *)arrayWithXMLString:(NSString *)aXmlString;
 - (id)init;
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 - (BOOL)isEqual:(id)anObject;
