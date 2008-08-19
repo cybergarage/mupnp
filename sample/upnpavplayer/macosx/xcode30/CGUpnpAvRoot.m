@@ -6,11 +6,11 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <CGUpnpAvConstants.h>
-#import <CGXmlNode.h>
-#import <CGUpnpAvObject.h>
-#import <CGUpnpAvContainer.h>
-#import <CGUpnpAvRoot.h>
+#import "CGUpnpAvConstants.h"
+#import "CGXmlNode.h"
+#import "CGUpnpAvObject.h"
+#import "CGUpnpAvContainer.h"
+#import "CGUpnpAvRoot.h"
 
 @implementation CGUpnpAvRoot
 

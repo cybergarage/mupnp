@@ -6,9 +6,17 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#if defined(__MACOSX__)
 #import <Cocoa/Cocoa.h>
+#else
+#import <UIKit/UIKit.h>
+#endif
 
+#if defined(__MACOSX__)
 #import <CyberLink/UPnP.h>
+#else
+#import <UPnP.h>
+#endif
 
 @class CGUpnpAvContentDirectory;
 @class CGUpnpAvObject;

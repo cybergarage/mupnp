@@ -6,8 +6,16 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#if defined(__MACOSX__)
 #import <CyberLink/CGUpnpControlPoint.h>
 #import <CyberLink/CGUpnpDevice.h>
 #import <CyberLink/CGUpnpService.h>
 #import <CyberLink/CGUpnpAction.h>
 #import <CyberLink/CGUpnpStateVariable.h>
+#else
+#import <CGUpnpControlPoint.h>
+#import <CGUpnpDevice.h>
+#import <CGUpnpService.h>
+#import <CGUpnpAction.h>
+#import <CGUpnpStateVariable.h>
+#endif

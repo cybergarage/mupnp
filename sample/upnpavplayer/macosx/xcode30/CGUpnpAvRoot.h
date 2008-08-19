@@ -6,7 +6,11 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#if defined(__MACOSX__)
 #import <Cocoa/Cocoa.h>
+#else
+#import <UIKit/UIKit.h>
+#endif
 
 @class CGUpnpAvContainer;
 

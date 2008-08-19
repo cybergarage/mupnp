@@ -6,15 +6,12 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
-#import <CyberLink/UPnP.h>
-#import <CGUpnpAvController.h>
-#import <CGUpnpAvServer.h>
-#import <CGUpnpAvConstants.h>
-#import <CGXml.h>
-#import <CGXmlNode.h>
-#import <CGUpnpAvObject.h>
+#import "CGUpnpAvController.h"
+#import "CGUpnpAvServer.h"
+#import "CGUpnpAvConstants.h"
+#import "CGXml.h"
+#import "CGXmlNode.h"
+#import "CGUpnpAvObject.h"
 
 @implementation CGUpnpAvController
 

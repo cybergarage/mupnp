@@ -6,13 +6,13 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <CGXmlNode.h>
-#import <CGUpnpAvObject.h>
-#import <CGUpnpAvContainer.h>
-#import <CGUpnpAvItem.h>
-#import <CGUpnpAvResource.h>
-#import <CGUpnpAvContentDirectory.h>
-#import <CGUpnpAvServer.h>
+#import "CGXmlNode.h"
+#import "CGUpnpAvObject.h"
+#import "CGUpnpAvContainer.h"
+#import "CGUpnpAvItem.h"
+#import "CGUpnpAvResource.h"
+#import "CGUpnpAvContentDirectory.h"
+#import "CGUpnpAvServer.h"
 
 @implementation CGUpnpAvServer
 
@@ -101,7 +101,17 @@
 		return nil;
 	
 	NSString *resultStr = [browseAction argumentValueForName:@"Result"];
-	return [CGUpnpAvObject arrayWithXMLString:resultStr];
+	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
+	
+	/* Update Content Manager */
+	CGUpnpAvObject *parentObj = [self objectForId:aObjectId];
+	if (parentObj != nil && [parentObj isContainer]) {
+		CGUpnpAvContainer *parentCon = (CGUpnpAvContainer *)parentObj;
+		[parentCon removeAllChildren];
+		[parentCon addChildren:avObjArray];
+	}
+	
+	return avObjArray;	
 }
 
 @end
