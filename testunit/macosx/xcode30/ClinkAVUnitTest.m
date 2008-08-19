@@ -56,6 +56,66 @@
 	[rootNode release];
 }
 
+- (void) testItem
+{
+	NSString *CLINKAVUNITTEST_BROWSEDIRECTCHILDREN_DATA =
+	@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+	@"<DIDL-Lite xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\" xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\">"
+	@"	<item id=\"6\" parentID=\"3\" restricted=\"false\">"
+	@"		<dc:title>Chloe Dancer</dc:title>"
+	@"		<dc:creator>Mother Love Bone</dc:creator>"
+	@"		<upnp:class>object.item.audioItem.musicTrack</upnp:class>"
+	@"		<res protocolInfo=\"http-get:*:audio/x-ms-wma:DLNA.ORG_PN=MPEG_PS_NTSC;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=AD500000000000000000000000000000\" size=\"200000\">http://10.0.0.1/getcontent.asp?id=6</res>"
+	@"	</item>"
+	@"	<item id=\"8\" parentID=\"3\" restricted=\"false\">"
+	@"		<dc:title>Drown</dc:title>"
+	@"		<dc:creator>Smashing Pumpkins</dc:creator>"
+	@"		<upnp:class>object.item.audioItem.musicTrack</upnp:class>"
+	@"		<res protocolInfo=\"http-get:*:audio/mpeg:*\" size=\"140000\">http://10.0.0.1/getcontent.asp?id=8</res>"
+	@"	</item>"
+	@"	<item id=\"7\" parentID=\"3\" restricted=\"false\">"
+	@"		<dc:title>State Of Love And Trust</dc:title>"
+	@"		<dc:creator>Pearl Jam</dc:creator>"
+	@"		<upnp:class>object.item.audioItem.musicTrack</upnp:class>"
+	@"		<res protocolInfo=\"http-get:*:audio/x-ms-wma:*\" size=\"70000\">http://10.0.0.1/getcontent.asp?id=7</res>"
+	@"	</item>"
+	@"</DIDL-Lite>";
+
+	NSArray *avObjArray = [CGUpnpAvObject arrayWithXMLString:CLINKAVUNITTEST_BROWSEDIRECTCHILDREN_DATA];
+
+	CGUpnpAvItem *avItem;
+	NSString *title;
+	NSString *objectId;
+	NSArray *avResArray;
+	CGUpnpAvResource *avRes;
+	NSString *url;
+	NSString *mimeType;
+	NSString *dlnaOrgPn;
+	NSString *dlnaOrgOp;
+	NSString *dlnaOrgFlags;
+
+	avItem = [avObjArray objectAtIndex:0];
+	objectid = [avItem objectId];
+	STAssertTrue([objectId isEqualToString:@"6"]);
+	title = [avItem title];
+	STAssertTrue([title isEqualToString:@"Chloe Dancer"]);
+	avResArray = [avItem resources];
+	STAssertTrue(0 < [avItem count]);
+	avRes = [avResArray objectAtIndex:0];
+	url = [avRes url];
+	STAssertTrue([url isEqualToString:@"http://10.0.0.1/getcontent.asp?id=6"]);
+	mimeType = [avRes mimeType];
+	STAssertTrue([mimeType isEqualToString:@"audio/x-ms-wma"]);
+	dlnaOrgPn = [avRes dlnaOrgPn];
+	STAssertTrue([dlnaOrgPn isEqualToString:@"MPEG_PS_NTSC"]);
+	dlnaOrgOp = [avRes dlnaOrgOp];
+	STAssertTrue([dlnaOrgOp isEqualToString:@"01"]);
+	dlnaOrgFlags = [avRes dlnaOrgFlags];
+	STAssertTrue([dlnaOrgFlags isEqualToString:@"AD500000000000000000000000000000"]);
+
+	[avObjArray release];
+}
+
 - (void) testServers
 {
 	NSArray *servers = [dmc servers];
