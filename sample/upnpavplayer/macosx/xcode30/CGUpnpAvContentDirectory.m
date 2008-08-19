@@ -6,12 +6,10 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <CyberLink/UPnP.h>
-
-#import <CGUpnpAvContentManager.h>
-#import <CGUpnpAvContentDirectory.h>
-#import <CGXmlNode.h>
-#import <CGUpnpAvObject.h>
+#import "CGUpnpAvContentManager.h"
+#import "CGUpnpAvContentDirectory.h"
+#import "CGXmlNode.h"
+#import "CGUpnpAvObject.h"
 
 @implementation CGUpnpAvContentDirectory
 

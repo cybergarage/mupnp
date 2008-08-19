@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <CGXml.h>
+#import "CGXml.h"
 
 @implementation CGXml
 
