@@ -6,11 +6,8 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#if defined(__MACOSX__)
-#import <Cocoa/Cocoa.h>
-#else
-#import <UIKit/UIKit.h>
-#endif
+#import <Foundation/NSString.h>
+#import <Foundation/NSDictionary.h>
 
 #if !defined(_CG_UPNP_CACTION_H_)
 typedef void CgUpnpAction;

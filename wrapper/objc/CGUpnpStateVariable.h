@@ -6,11 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#if defined(__MACOSX__)
-#import <Cocoa/Cocoa.h>
-#else
-#import <UIKit/UIKit.h>
-#endif
+#import <Foundation/NSString.h>
 
 #if !defined(_CG_UPNP_CSTATEVARIABLE_H_)
 typedef void CgUpnpStateVariable;
