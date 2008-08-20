@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		212208A20E11490B005A11CB /* CGUpnpAvController.m in Sources */ = {isa = PBXBuildFile; fileRef = 212208A10E11490B005A11CB /* CGUpnpAvController.m */; };
-		21502F500E3E3FC500DBD490 /* CGXml.m in Sources */ = {isa = PBXBuildFile; fileRef = 21502F4F0E3E3FC500DBD490 /* CGXml.m */; };
-		216998040E19965C003B7C04 /* CGUpnpAvContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 216997FF0E19965C003B7C04 /* CGUpnpAvContainer.m */; };
-		216998050E19965C003B7C04 /* CGUpnpAvItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 216998010E19965C003B7C04 /* CGUpnpAvItem.m */; };
-		216998060E19965C003B7C04 /* CGUpnpAvObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 216998030E19965C003B7C04 /* CGUpnpAvObject.m */; };
 		2170A71F0E1056CE00BFDD01 /* DLNAController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */; };
+		21735AEF0E5C5AF3009FB816 /* CGUpnpAvContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735AD90E5C5AF3009FB816 /* CGUpnpAvContainer.m */; };
+		21735AF00E5C5AF4009FB816 /* CGUpnpAvContentDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735ADB0E5C5AF3009FB816 /* CGUpnpAvContentDirectory.m */; };
+		21735AF10E5C5AF4009FB816 /* CGUpnpAvContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735ADD0E5C5AF3009FB816 /* CGUpnpAvContentManager.m */; };
+		21735AF20E5C5AF4009FB816 /* CGUpnpAvController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735ADF0E5C5AF3009FB816 /* CGUpnpAvController.m */; };
+		21735AF30E5C5AF4009FB816 /* CGUpnpAvItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735AE10E5C5AF3009FB816 /* CGUpnpAvItem.m */; };
+		21735AF40E5C5AF4009FB816 /* CGUpnpAvObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735AE30E5C5AF3009FB816 /* CGUpnpAvObject.m */; };
+		21735AF50E5C5AF4009FB816 /* CGUpnpAvResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735AE50E5C5AF3009FB816 /* CGUpnpAvResource.m */; };
+		21735AF60E5C5AF4009FB816 /* CGUpnpAvRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735AE70E5C5AF3009FB816 /* CGUpnpAvRoot.m */; };
+		21735AF70E5C5AF4009FB816 /* CGUpnpAvServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735AE90E5C5AF3009FB816 /* CGUpnpAvServer.m */; };
+		21735AF80E5C5AF4009FB816 /* CGXml.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735AEB0E5C5AF3009FB816 /* CGXml.m */; };
+		21735AF90E5C5AF4009FB816 /* CGXmlNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 21735AED0E5C5AF3009FB816 /* CGXmlNode.m */; };
 		2179A5D10E5481E000AD736C /* DLNAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2179A5D00E5481E000AD736C /* DLNAImageView.m */; };
-		21860BD70E264A5A00FDBD18 /* CGXmlNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 21860BD60E264A5A00FDBD18 /* CGXmlNode.m */; };
-		21860CDE0E2689AE00FDBD18 /* CGUpnpAvContentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 21860CDD0E2689AE00FDBD18 /* CGUpnpAvContentManager.m */; };
-		2186FD880E2E4DD000DB132A /* CGUpnpAvRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2186FD870E2E4DD000DB132A /* CGUpnpAvRoot.m */; };
 		21889D9F0E096A1B005858AB /* CyberLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21889D9E0E096A1B005858AB /* CyberLink.framework */; };
-		218EC2D00E1C241300E349BA /* CGUpnpAvContentDirectory.m in Sources */ = {isa = PBXBuildFile; fileRef = 218EC2CB0E1C241300E349BA /* CGUpnpAvContentDirectory.m */; };
-		218EC2D10E1C241300E349BA /* CGUpnpAvResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 218EC2CD0E1C241300E349BA /* CGUpnpAvResource.m */; };
-		218EC2D20E1C241300E349BA /* CGUpnpAvServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 218EC2CF0E1C241300E349BA /* CGUpnpAvServer.m */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -31,35 +31,35 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		212208A00E11490B005A11CB /* CGUpnpAvController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvController.h; sourceTree = "<group>"; };
-		212208A10E11490B005A11CB /* CGUpnpAvController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvController.m; sourceTree = "<group>"; };
-		21502F4E0E3E3FC500DBD490 /* CGXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXml.h; sourceTree = "<group>"; };
-		21502F4F0E3E3FC500DBD490 /* CGXml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXml.m; sourceTree = "<group>"; };
-		21502F530E3E3FD000DBD490 /* UPnPAV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPAV.h; sourceTree = "<group>"; };
-		216997FE0E19965C003B7C04 /* CGUpnpAvContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvContainer.h; sourceTree = "<group>"; };
-		216997FF0E19965C003B7C04 /* CGUpnpAvContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvContainer.m; sourceTree = "<group>"; };
-		216998000E19965C003B7C04 /* CGUpnpAvItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvItem.h; sourceTree = "<group>"; };
-		216998010E19965C003B7C04 /* CGUpnpAvItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvItem.m; sourceTree = "<group>"; };
-		216998020E19965C003B7C04 /* CGUpnpAvObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvObject.h; sourceTree = "<group>"; };
-		216998030E19965C003B7C04 /* CGUpnpAvObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvObject.m; sourceTree = "<group>"; };
 		2170A71D0E1056CE00BFDD01 /* DLNAController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNAController.h; sourceTree = "<group>"; };
 		2170A71E0E1056CE00BFDD01 /* DLNAController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNAController.m; sourceTree = "<group>"; };
+		21735AD70E5C5AF3009FB816 /* CGUpnpAvConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvConstants.h; path = ../../../../wrapper/objc/CGUpnpAvConstants.h; sourceTree = SOURCE_ROOT; };
+		21735AD80E5C5AF3009FB816 /* CGUpnpAvContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvContainer.h; path = ../../../../wrapper/objc/CGUpnpAvContainer.h; sourceTree = SOURCE_ROOT; };
+		21735AD90E5C5AF3009FB816 /* CGUpnpAvContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvContainer.m; path = ../../../../wrapper/objc/CGUpnpAvContainer.m; sourceTree = SOURCE_ROOT; };
+		21735ADA0E5C5AF3009FB816 /* CGUpnpAvContentDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvContentDirectory.h; path = ../../../../wrapper/objc/CGUpnpAvContentDirectory.h; sourceTree = SOURCE_ROOT; };
+		21735ADB0E5C5AF3009FB816 /* CGUpnpAvContentDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvContentDirectory.m; path = ../../../../wrapper/objc/CGUpnpAvContentDirectory.m; sourceTree = SOURCE_ROOT; };
+		21735ADC0E5C5AF3009FB816 /* CGUpnpAvContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvContentManager.h; path = ../../../../wrapper/objc/CGUpnpAvContentManager.h; sourceTree = SOURCE_ROOT; };
+		21735ADD0E5C5AF3009FB816 /* CGUpnpAvContentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvContentManager.m; path = ../../../../wrapper/objc/CGUpnpAvContentManager.m; sourceTree = SOURCE_ROOT; };
+		21735ADE0E5C5AF3009FB816 /* CGUpnpAvController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvController.h; path = ../../../../wrapper/objc/CGUpnpAvController.h; sourceTree = SOURCE_ROOT; };
+		21735ADF0E5C5AF3009FB816 /* CGUpnpAvController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvController.m; path = ../../../../wrapper/objc/CGUpnpAvController.m; sourceTree = SOURCE_ROOT; };
+		21735AE00E5C5AF3009FB816 /* CGUpnpAvItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvItem.h; path = ../../../../wrapper/objc/CGUpnpAvItem.h; sourceTree = SOURCE_ROOT; };
+		21735AE10E5C5AF3009FB816 /* CGUpnpAvItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvItem.m; path = ../../../../wrapper/objc/CGUpnpAvItem.m; sourceTree = SOURCE_ROOT; };
+		21735AE20E5C5AF3009FB816 /* CGUpnpAvObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvObject.h; path = ../../../../wrapper/objc/CGUpnpAvObject.h; sourceTree = SOURCE_ROOT; };
+		21735AE30E5C5AF3009FB816 /* CGUpnpAvObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvObject.m; path = ../../../../wrapper/objc/CGUpnpAvObject.m; sourceTree = SOURCE_ROOT; };
+		21735AE40E5C5AF3009FB816 /* CGUpnpAvResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvResource.h; path = ../../../../wrapper/objc/CGUpnpAvResource.h; sourceTree = SOURCE_ROOT; };
+		21735AE50E5C5AF3009FB816 /* CGUpnpAvResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvResource.m; path = ../../../../wrapper/objc/CGUpnpAvResource.m; sourceTree = SOURCE_ROOT; };
+		21735AE60E5C5AF3009FB816 /* CGUpnpAvRoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvRoot.h; path = ../../../../wrapper/objc/CGUpnpAvRoot.h; sourceTree = SOURCE_ROOT; };
+		21735AE70E5C5AF3009FB816 /* CGUpnpAvRoot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvRoot.m; path = ../../../../wrapper/objc/CGUpnpAvRoot.m; sourceTree = SOURCE_ROOT; };
+		21735AE80E5C5AF3009FB816 /* CGUpnpAvServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAvServer.h; path = ../../../../wrapper/objc/CGUpnpAvServer.h; sourceTree = SOURCE_ROOT; };
+		21735AE90E5C5AF3009FB816 /* CGUpnpAvServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAvServer.m; path = ../../../../wrapper/objc/CGUpnpAvServer.m; sourceTree = SOURCE_ROOT; };
+		21735AEA0E5C5AF3009FB816 /* CGXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGXml.h; path = ../../../../wrapper/objc/CGXml.h; sourceTree = SOURCE_ROOT; };
+		21735AEB0E5C5AF3009FB816 /* CGXml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGXml.m; path = ../../../../wrapper/objc/CGXml.m; sourceTree = SOURCE_ROOT; };
+		21735AEC0E5C5AF3009FB816 /* CGXmlNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGXmlNode.h; path = ../../../../wrapper/objc/CGXmlNode.h; sourceTree = SOURCE_ROOT; };
+		21735AED0E5C5AF3009FB816 /* CGXmlNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGXmlNode.m; path = ../../../../wrapper/objc/CGXmlNode.m; sourceTree = SOURCE_ROOT; };
+		21735AEE0E5C5AF3009FB816 /* UPnPAV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPnPAV.h; path = ../../../../wrapper/objc/UPnPAV.h; sourceTree = SOURCE_ROOT; };
 		2179A5CF0E5481E000AD736C /* DLNAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNAImageView.h; sourceTree = "<group>"; };
 		2179A5D00E5481E000AD736C /* DLNAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNAImageView.m; sourceTree = "<group>"; };
-		21860B9A0E263B0E00FDBD18 /* CGUpnpAvConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvConstants.h; sourceTree = "<group>"; };
-		21860BD50E264A5A00FDBD18 /* CGXmlNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXmlNode.h; sourceTree = "<group>"; };
-		21860BD60E264A5A00FDBD18 /* CGXmlNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXmlNode.m; sourceTree = "<group>"; };
-		21860CDC0E2689AE00FDBD18 /* CGUpnpAvContentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvContentManager.h; sourceTree = "<group>"; };
-		21860CDD0E2689AE00FDBD18 /* CGUpnpAvContentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvContentManager.m; sourceTree = "<group>"; };
-		2186FD860E2E4DD000DB132A /* CGUpnpAvRoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvRoot.h; sourceTree = "<group>"; };
-		2186FD870E2E4DD000DB132A /* CGUpnpAvRoot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvRoot.m; sourceTree = "<group>"; };
 		21889D9E0E096A1B005858AB /* CyberLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CyberLink.framework; path = ../../../../lib/macosx/xcode30/build/Release/CyberLink.framework; sourceTree = SOURCE_ROOT; };
-		218EC2CA0E1C241300E349BA /* CGUpnpAvContentDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvContentDirectory.h; sourceTree = "<group>"; };
-		218EC2CB0E1C241300E349BA /* CGUpnpAvContentDirectory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvContentDirectory.m; sourceTree = "<group>"; };
-		218EC2CC0E1C241300E349BA /* CGUpnpAvResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvResource.h; sourceTree = "<group>"; };
-		218EC2CD0E1C241300E349BA /* CGUpnpAvResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvResource.m; sourceTree = "<group>"; };
-		218EC2CE0E1C241300E349BA /* CGUpnpAvServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvServer.h; sourceTree = "<group>"; };
-		218EC2CF0E1C241300E349BA /* CGUpnpAvServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvServer.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -87,32 +87,8 @@
 			children = (
 				2179A5CF0E5481E000AD736C /* DLNAImageView.h */,
 				2179A5D00E5481E000AD736C /* DLNAImageView.m */,
-				2186FD860E2E4DD000DB132A /* CGUpnpAvRoot.h */,
-				21502F530E3E3FD000DBD490 /* UPnPAV.h */,
-				21502F4E0E3E3FC500DBD490 /* CGXml.h */,
-				21502F4F0E3E3FC500DBD490 /* CGXml.m */,
-				2186FD870E2E4DD000DB132A /* CGUpnpAvRoot.m */,
-				21860BD50E264A5A00FDBD18 /* CGXmlNode.h */,
-				21860BD60E264A5A00FDBD18 /* CGXmlNode.m */,
-				21860B9A0E263B0E00FDBD18 /* CGUpnpAvConstants.h */,
-				218EC2CA0E1C241300E349BA /* CGUpnpAvContentDirectory.h */,
-				218EC2CB0E1C241300E349BA /* CGUpnpAvContentDirectory.m */,
-				218EC2CC0E1C241300E349BA /* CGUpnpAvResource.h */,
-				218EC2CD0E1C241300E349BA /* CGUpnpAvResource.m */,
-				218EC2CE0E1C241300E349BA /* CGUpnpAvServer.h */,
-				218EC2CF0E1C241300E349BA /* CGUpnpAvServer.m */,
-				216997FE0E19965C003B7C04 /* CGUpnpAvContainer.h */,
-				216997FF0E19965C003B7C04 /* CGUpnpAvContainer.m */,
-				216998000E19965C003B7C04 /* CGUpnpAvItem.h */,
-				216998010E19965C003B7C04 /* CGUpnpAvItem.m */,
-				216998020E19965C003B7C04 /* CGUpnpAvObject.h */,
-				216998030E19965C003B7C04 /* CGUpnpAvObject.m */,
-				212208A00E11490B005A11CB /* CGUpnpAvController.h */,
-				212208A10E11490B005A11CB /* CGUpnpAvController.m */,
 				2170A71D0E1056CE00BFDD01 /* DLNAController.h */,
 				2170A71E0E1056CE00BFDD01 /* DLNAController.m */,
-				21860CDC0E2689AE00FDBD18 /* CGUpnpAvContentManager.h */,
-				21860CDD0E2689AE00FDBD18 /* CGUpnpAvContentManager.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -144,9 +120,41 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		21735AD40E5C5AB6009FB816 /* CyberLinkAV */ = {
+			isa = PBXGroup;
+			children = (
+				21735AD70E5C5AF3009FB816 /* CGUpnpAvConstants.h */,
+				21735AD80E5C5AF3009FB816 /* CGUpnpAvContainer.h */,
+				21735AD90E5C5AF3009FB816 /* CGUpnpAvContainer.m */,
+				21735ADA0E5C5AF3009FB816 /* CGUpnpAvContentDirectory.h */,
+				21735ADB0E5C5AF3009FB816 /* CGUpnpAvContentDirectory.m */,
+				21735ADC0E5C5AF3009FB816 /* CGUpnpAvContentManager.h */,
+				21735ADD0E5C5AF3009FB816 /* CGUpnpAvContentManager.m */,
+				21735ADE0E5C5AF3009FB816 /* CGUpnpAvController.h */,
+				21735ADF0E5C5AF3009FB816 /* CGUpnpAvController.m */,
+				21735AE00E5C5AF3009FB816 /* CGUpnpAvItem.h */,
+				21735AE10E5C5AF3009FB816 /* CGUpnpAvItem.m */,
+				21735AE20E5C5AF3009FB816 /* CGUpnpAvObject.h */,
+				21735AE30E5C5AF3009FB816 /* CGUpnpAvObject.m */,
+				21735AE40E5C5AF3009FB816 /* CGUpnpAvResource.h */,
+				21735AE50E5C5AF3009FB816 /* CGUpnpAvResource.m */,
+				21735AE60E5C5AF3009FB816 /* CGUpnpAvRoot.h */,
+				21735AE70E5C5AF3009FB816 /* CGUpnpAvRoot.m */,
+				21735AE80E5C5AF3009FB816 /* CGUpnpAvServer.h */,
+				21735AE90E5C5AF3009FB816 /* CGUpnpAvServer.m */,
+				21735AEA0E5C5AF3009FB816 /* CGXml.h */,
+				21735AEB0E5C5AF3009FB816 /* CGXml.m */,
+				21735AEC0E5C5AF3009FB816 /* CGXmlNode.h */,
+				21735AED0E5C5AF3009FB816 /* CGXmlNode.m */,
+				21735AEE0E5C5AF3009FB816 /* UPnPAV.h */,
+			);
+			name = CyberLinkAV;
+			sourceTree = "<group>";
+		};
 		29B97314FDCFA39411CA2CEA /* upnpavplayer */ = {
 			isa = PBXGroup;
 			children = (
+				21735AD40E5C5AB6009FB816 /* CyberLinkAV */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -241,18 +249,18 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				2170A71F0E1056CE00BFDD01 /* DLNAController.m in Sources */,
-				212208A20E11490B005A11CB /* CGUpnpAvController.m in Sources */,
-				216998040E19965C003B7C04 /* CGUpnpAvContainer.m in Sources */,
-				216998050E19965C003B7C04 /* CGUpnpAvItem.m in Sources */,
-				216998060E19965C003B7C04 /* CGUpnpAvObject.m in Sources */,
-				218EC2D00E1C241300E349BA /* CGUpnpAvContentDirectory.m in Sources */,
-				218EC2D10E1C241300E349BA /* CGUpnpAvResource.m in Sources */,
-				218EC2D20E1C241300E349BA /* CGUpnpAvServer.m in Sources */,
-				21860BD70E264A5A00FDBD18 /* CGXmlNode.m in Sources */,
-				21860CDE0E2689AE00FDBD18 /* CGUpnpAvContentManager.m in Sources */,
-				2186FD880E2E4DD000DB132A /* CGUpnpAvRoot.m in Sources */,
-				21502F500E3E3FC500DBD490 /* CGXml.m in Sources */,
 				2179A5D10E5481E000AD736C /* DLNAImageView.m in Sources */,
+				21735AEF0E5C5AF3009FB816 /* CGUpnpAvContainer.m in Sources */,
+				21735AF00E5C5AF4009FB816 /* CGUpnpAvContentDirectory.m in Sources */,
+				21735AF10E5C5AF4009FB816 /* CGUpnpAvContentManager.m in Sources */,
+				21735AF20E5C5AF4009FB816 /* CGUpnpAvController.m in Sources */,
+				21735AF30E5C5AF4009FB816 /* CGUpnpAvItem.m in Sources */,
+				21735AF40E5C5AF4009FB816 /* CGUpnpAvObject.m in Sources */,
+				21735AF50E5C5AF4009FB816 /* CGUpnpAvResource.m in Sources */,
+				21735AF60E5C5AF4009FB816 /* CGUpnpAvRoot.m in Sources */,
+				21735AF70E5C5AF4009FB816 /* CGUpnpAvServer.m in Sources */,
+				21735AF80E5C5AF4009FB816 /* CGXml.m in Sources */,
+				21735AF90E5C5AF4009FB816 /* CGXmlNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
