@@ -40,4 +40,5 @@
 - (CGUpnpAvServer *)serverForPath:(NSString *)aPath;
 - (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aServerAndTitlePath;
+- (CGUpnpAvObject *)objectForIndexPath:(NSIndexPath *)aServerAndTitleIndexPath;
 @end

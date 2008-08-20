@@ -17,6 +17,7 @@
 
 @class CGUpnpAvContentDirectory;
 @class CGUpnpAvObject;
+@class CGUpnpAvContainer;
 
 /**
  * The CGUpnpAvServer class is a UPnP/AV media server class.
@@ -41,6 +42,7 @@
 - (void)setUserObject:(id)aUserObj;
 - (id)userObject;
 - (NSArray *)browse:(NSString *)aObjectId;
+- (CGUpnpAvContainer *)rootObject;
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end

@@ -34,6 +34,11 @@
 	[super finalize];
 }
 
+- (CGUpnpAvContainer *)rootObject
+{
+	return rootObj;
+}
+
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
 {
 	return [rootObj objectForId:aObjectId];

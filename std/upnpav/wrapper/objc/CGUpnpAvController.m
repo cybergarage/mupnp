@@ -126,11 +126,49 @@
 		[titlePathArray removeObjectAtIndex:0];
 
 	NSString *titlePath = [NSString pathWithComponents:titlePathArray];
-	CGUpnpAvObject *avObj = [[[avSrv objectForTitlePath:titlePath] retain] autorelease];
+	CGUpnpAvObject *avObj = [avSrv objectForTitlePath:titlePath];
 	
 	NSLog(@"objectForTitlePath : avObj = %@", avObj);
 
-	return avObj;
+	return [[avObj retain] autorelease];
+}
+
+- (CGUpnpAvObject *)objectForIndexPath:(NSIndexPath *)aServerAndTitleIndexPath
+{
+	int idxCnt = [aServerAndTitleIndexPath length];
+	if (idxCnt < 3)
+		return nil;
+	
+	NSArray *servers = [self servers];
+	int serverNum = [aServerAndTitleIndexPath indexAtPosition:1];
+	if ([servers count] <= serverNum)
+		return nil;
+	
+	CGUpnpAvServer *avSrv = [servers objectAtIndex:serverNum];
+	if (!avSrv)
+		return nil;
+	
+	CGUpnpAvContainer*rootObj = [avSrv rootObject];
+	if (!rootObj)
+		return nil;
+
+	CGUpnpAvObject *avObj = [rootObj childAtIndex:[aServerAndTitleIndexPath indexAtPosition:2]];
+
+	if (!avObj)
+		return nil;
+	
+	for (int n=3; n<idxCnt; n++) {
+		if ([avObj isItem])
+			return nil;
+		CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
+		avObj = [avCon childAtIndex:[aServerAndTitleIndexPath indexAtPosition:n]];
+		if (!avObj)
+			return nil;
+	}
+	
+	NSLog(@"objectForTitleIndexPath : avObj = %@", avObj);
+
+	return [[avObj retain] autorelease];
 }
 
 @end
