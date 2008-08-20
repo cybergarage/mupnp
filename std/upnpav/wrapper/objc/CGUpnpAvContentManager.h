@@ -10,6 +10,7 @@
 
 @class CGUpnpAvRoot;
 @class CGUpnpAvObject;
+@class CGUpnpAvContainer;
 
 /**
  * The CGUpnpAvContentDirectory class has UPnP/AV objects of a media servers.
@@ -19,6 +20,7 @@
 {
 	CGUpnpAvRoot *rootObj;
 }
+- (CGUpnpAvContainer *)rootObject;
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end

@@ -70,6 +70,11 @@
 	[super finalize];
 }
 
+- (CGUpnpAvContainer *)rootObject
+{
+	return [contentDirectory rootObject];
+}
+
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
 {
 	return [contentDirectory objectForId:aObjectId];

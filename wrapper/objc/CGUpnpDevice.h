@@ -113,6 +113,12 @@ typedef void CgUpnpDevice;
  */
 - (CGUpnpService *)getServiceForType:(NSString *)serviceType;
 /**
+ * Get all icons in the device as a NSArray object. The array has the services as instances of CGUpnpIconIcon.
+ *
+ * @return NSArray of CGUpnpIcon.
+ */
+- (NSArray *)icons;
+/**
  * Set a user data.
  *
  * @param aUserData A user data to set.

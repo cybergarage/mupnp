@@ -33,6 +33,11 @@
 	[super finalize];
 }
 
+- (CGUpnpAvContainer *)rootObject
+{
+	return[contentMgr rootObject];
+}
+
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
 {
 	return [contentMgr objectForId:aObjectId];
