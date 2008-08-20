@@ -1,0 +1,64 @@
+#############################################################################
+#
+#	CyberLink for C
+#
+#	Copyright (C) Satoshi Konno 2005
+#
+#	11/04/05
+#		- first release.
+#
+#############################################################################
+
+AC_INIT(include/cybergarage/upnp/media/cmediaserver.h)
+AC_CONFIG_AUX_DIR(config)
+
+AM_INIT_AUTOMAKE(clinkcav, 1.0)
+AM_CONFIG_HEADER(config.h)
+
+##############################
+# Checks for programs.
+##############################
+
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_AWK
+AC_PROG_LIBTOOL
+AC_PROG_RANLIB
+AC_LANG_CPLUSPLUS
+
+#############################################################################
+# Checks for CYGWIN an MinGW
+#############################################################################
+
+#AC_CYGWIN
+#if [ test $CYGWIN = yes || test $MINGW = yes ]; then
+  #AC_LIBTOOL_WIN32_DLL
+  #AM_DISABLE_STATIC
+  AC_CHECK_LIB([ws2_32],[main])
+  #AC_CHECK_LIB([iphlpapi],[main])
+#fi
+
+#############################################################################
+# Check whether libtool should be used
+#############################################################################
+AC_ARG_WITH(libtool,
+	AS_HELP_STRING([--with-libtool],
+		       [use libtool to build the library (default = yes)]),
+		       [with_libtool=no],
+		       [with_libtool=yes])
+AM_CONDITIONAL(HAVE_LIBTOOL, test $with_libtool = yes)
+
+##############################
+# Makefiles
+##############################
+
+AC_OUTPUT([
+Makefile
+include/Makefile
+lib/Makefile
+lib/unix/Makefile
+sample/Makefile
+sample/dms/Makefile
+sample/dms/filesystem/Makefile
+sample/dms/filesystem/unix/Makefile
+])

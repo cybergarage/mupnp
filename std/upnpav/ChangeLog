@@ -1,0 +1,30 @@
+2007-05-26	Satoshi Konno <skonno@cybergarage.org>
+	* Release v1.2
+	* Added installer projects for the WIN32 samples.
+	
+2007-05-08  Satoshi Konno <skonno@cybergarage.org>
+	* Added the following functions to set attributes of DLNA.
+	  cg_upnp_media_resource_setdlnaattribute()
+	  cg_upnp_media_resource_getdlnaattribute()
+	  cg_upnp_media_resource_getdlnapnfrommimetype()
+	* Updated cg_upnp_dms_filesys_updatecontentlist() to set the attributes of DLNA.
+	* Updated cg_upnp_dms_youtube_updaterootcontentlist() to set the attributes of DLNA.
+	* Added <dlna:X_DLNADOC> to the device description as default.
+	* Changed the device description to set a static UDN as default.
+	
+2007-02-25  Satoshi Konno <skonno@cybergarage.org>
+	* Changed cg_upnp_media_resource_setsize() not to set the attribute when the specified value less than zero.
+	
+2007-02-13  Satoshi Konno <skonno@cybergarage.org>
+	* Release v1.1
+	* Fixed to the query actions normally such as SystemUpdateID and SearchCapabilities.
+	* Fixed to update SystemUpdateID normally.
+
+2007-01-31  Satoshi Konno <skonno@cybergarage.org>
+	* Added a sample of DMS on Windows Mobile.
+
+2007-01-13  Satoshi Konno <skonno@cybergarage.org>
+	* Added a sample of DMS using Youtube on Windowss.
+
+2005-10-13 Satoshi Konno <skonno@cybergarage.org>
+    * The first release.
