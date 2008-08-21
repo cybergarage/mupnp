@@ -8,8 +8,11 @@
 
 #include <cybergarage/upnp/cdevice.h>
 #include <cybergarage/upnp/cservice.h>
+#include <cybergarage/upnp/cicon.h>
+
 #import "CGUpnpDevice.h"
 #import "CGUpnpService.h"
+#import "CGUpnpIcon.h"
 
 @implementation CGUpnpDevice
 
@@ -138,6 +141,19 @@
 	if (!foundService)
 		return nil;
 	return [[[CGUpnpService alloc] initWithCObject:(void *)foundService] autorelease];
+}
+
+- (NSArray *)icons
+{
+	if (!cObject)
+		return [[[NSArray alloc] init] autorelease];
+	NSMutableArray *iconArray = [[[NSMutableArray alloc] init] autorelease];
+	CgUpnpIcon *cIcon;
+	for (cService = cg_upnp_device_getservices(cObject); cService; cService = cg_upnp_service_next(cService)) {
+		CGUpnpIcon *icon = [[[CGUpnpIcon alloc] initWithCObject:(void *)cIcon] autorelease];
+		[iconArray addObject:icon];
+	}
+	return iconArray;
 }
 
 - (void)setUserData:(void *)aUserData

@@ -1,0 +1,75 @@
+//
+//  CGUpnpIcon.m
+//  CyberLink for C
+//
+//  Created by Satoshi Konno on 08/05/12.
+//  Copyright 2008 Satoshi Konno. All rights reserved.
+//
+
+#include <cybergarage/upnp/cicon.h>
+#import "CGUpnpIcon.h"
+
+@implementation CGUpnpIcon
+
+@synthesize cObject;
+
+- (id) initWithCObject:(CGUpnpIcon *)cobj
+{
+	if ((self = [super init]) == nil)
+		return nil;
+	cObject = cobj;
+	return self;
+}
+
+- (id) init
+{
+	[self initWithCObject:NULL];
+	return self;
+}
+
+- (void) dealloc
+{
+	[super dealloc];
+}
+
+- (void) finalize
+{
+	[super finalize];
+}
+
+- (NSString *)url
+{
+	if (!cObject)
+		return nil;
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_icon_geturl(cObject)] autorelease];
+}
+
+- (NSString *)mimeType
+{
+	if (!cObject)
+		return nil;
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_icon_getmimetype(cObject)] autorelease];
+}
+
+- (NSInteger)width
+{
+	if (!cObject)
+		return nil;
+	return cg_upnp_icon_getwidth(cObject);
+}
+
+- (NSInteger)height
+{
+	if (!cObject)
+		return nil;
+	return cg_upnp_icon_getheight(cObject);
+}
+
+- (NSInteger)depth
+{
+	if (!cObject)
+		return nil;
+	return cg_upnp_icon_getdepth(cObject);
+}
+
+@end
