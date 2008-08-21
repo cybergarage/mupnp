@@ -29,6 +29,7 @@
 
 #include <cybergarage/net/cinterface.h>
 #include <cybergarage/util/clog.h>
+#include <string.h>
 
 /****************************************
 * cg_net_interface_new
