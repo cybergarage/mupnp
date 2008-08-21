@@ -136,7 +136,7 @@ void cg_upnp_icon_delete(CgUpnpIcon *dev);
  * Get icon width
  * 
  */
-#define cg_upnp_icon_getwidth(icon) cg_xml_node_getchildnodevalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_WIDTH)
+#define cg_upnp_icon_getwidth(icon) cg_xml_node_getchildnodeintvalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_WIDTH)
 
 /*****************************************************************************
  * height 
@@ -154,7 +154,7 @@ void cg_upnp_icon_delete(CgUpnpIcon *dev);
  * Get icon height
  * 
  */
-#define cg_upnp_icon_getheight(icon) cg_xml_node_getchildnodevalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_HEIGHT)
+#define cg_upnp_icon_getheight(icon) cg_xml_node_getchildnodeintvalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_HEIGHT)
 
 /*****************************************************************************
  * Colour Depth 
@@ -172,7 +172,7 @@ void cg_upnp_icon_delete(CgUpnpIcon *dev);
  * Get icon's colour depth
  * 
  */
-#define cg_upnp_icon_getdepth(icon) cg_xml_node_getchildnodevalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_DEPTH)
+#define cg_upnp_icon_getdepth(icon) cg_xml_node_getchildnodeintvalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_DEPTH)
 
 /*****************************************************************************
  * URL

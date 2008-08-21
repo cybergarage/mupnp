@@ -142,6 +142,8 @@ void cg_xml_node_delete(CgXmlNode *node);
 #define cg_xml_node_addvalue(node, nodevalue) cg_string_addvalue(node->value, nodevalue)
 #define cg_xml_node_naddvalue(node, nodevalue, len) cg_string_naddvalue(node->value, nodevalue, len)
 #define cg_xml_node_getvalue(node) cg_string_getvalue(node->value)
+#define cg_xml_node_getintvalue(node) cg_string_getintvalue(node->value)
+#define cg_xml_node_getlongvalue(node) cg_string_getlongvalue(node->value)
 
 #define cg_xml_node_setparentnode(node, pnode) (node->parentNode = pnode)
 #define cg_xml_node_getparentnode(node) (node->parentNode)
@@ -151,7 +153,9 @@ CgXmlNode *cg_xml_node_getrootnode(CgXmlNode *node);
 void cg_xml_node_addchildnode(CgXmlNode *node, CgXmlNode *cnode);
 void cg_xml_node_setchildnode(CgXmlNode *node, char *name, char *value);
 char *cg_xml_node_getchildnodevalue(CgXmlNode *node, char *name);
-
+#define cg_xml_node_getchildnodeintvalue(node, name) cg_str2int(cg_xml_node_getchildnodevalue(node, name))
+#define cg_xml_node_getchildnodelongvalue(node, name) cg_str2long(cg_xml_node_getchildnodevalue(node, name))
+	
 #define cg_xml_node_setuserdata(node, data) (node->userData = data)
 #define cg_xml_node_getuserdata(node) (node->userData)
 #define cg_xml_node_setuserdatadestructor(node, func) (node->userDataDestructorFunc = func)
