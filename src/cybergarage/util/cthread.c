@@ -233,9 +233,9 @@ CgThread *cg_thread_new()
 	strcpy(thread->friendlyName,"-");
 #endif //DEBUG
 #endif //WINCE
-	return thread;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return thread;
 }
 
 /****************************************
@@ -380,10 +380,10 @@ BOOL cg_thread_start(CgThread *thread)
 	}
 	pthread_attr_destroy(&thread_attr);
 #endif
-
-	return TRUE;
-
+	
 	cg_log_debug_l4("Leaving...\n");
+	
+	return TRUE;
 }
 
 /****************************************
@@ -469,7 +469,7 @@ BOOL cg_thread_stop_with_cond(CgThread *thread, CgCond *cond)
 		pthread_join(thread->pThread, NULL);
 		cg_log_debug_s("Thread %p joined.\n", thread); */
 		/* Now we wait one second for thread termination instead of using pthread_join */
-		sleep(CG_THREAD_MIN_SLEEP);
+		cg_sleep(CG_THREAD_MIN_SLEEP);
 		/* MODIFICATION END Fabrice Fontaine Orange 24/04/2007 */
 #endif
 	}
