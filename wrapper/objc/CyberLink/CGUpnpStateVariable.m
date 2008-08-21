@@ -59,7 +59,7 @@
 	return cg_upnp_statevariable_post(cObject);
 }
 
-- (int)statusCode
+- (NSInteger)statusCode
 {
 	if (!cObject)
 		return 0;

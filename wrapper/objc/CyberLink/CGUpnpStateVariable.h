@@ -44,5 +44,5 @@ typedef void CgUpnpStateVariable;
  *
  * @return The status code
  */
-- (int)statusCode;
+- (NSInteger)statusCode;
 @end

@@ -72,18 +72,18 @@
 		cg_sleep(mx * 1000);
 }
 
-- (int)ssdpSearchMX
+- (NSInteger)ssdpSearchMX
 {
 	if (!cObject)
 		return 0;
 	return cg_upnp_controlpoint_getssdpsearchmx(cObject);
 }
 
-- (void)setSsdpSearchMX:(int)mx;
+- (void)setSsdpSearchMX:(NSInteger)mx;
 {
 	if (!cObject)
 		return;
-	cg_upnp_controlpoint_setssdpsearchmx(cObject, mx);
+	cg_upnp_controlpoint_setssdpsearchmx(cObject, (int)mx);
 }
 
 - (NSArray *)devices
