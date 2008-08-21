@@ -123,7 +123,7 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 	return [self post];
 }
 
-- (int)statusCode
+- (NSInteger)statusCode
 {
 	if (!cObject)
 		return 0;

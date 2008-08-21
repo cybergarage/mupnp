@@ -45,13 +45,13 @@ typedef void CgUpnpControlPoint;
 - (BOOL)stop;
 /**
  * Send a M-SEARCH request to find for the all UPnP devices of UPnP in the network.
- * The method waits for the specified MX time. Use setSsdpSearchMX:(int)aMX to change the time.
+ * The method waits for the specified MX time. Use setSsdpSearchMX:(NSInteger)aMX to change the time.
  * The method is same as searchWithST() when the ST parameter is "ssdp:all".
  */
 - (void)search;
 /**
  * Send a M-SEARCH request to find for the specified UPnP devices by a ST parameter in the network.
- * The method waits for the specified MX time. Use setSsdpSearchMX:(int)aMX to change the time.
+ * The method waits for the specified MX time. Use setSsdpSearchMX:(NSInteger)aMX to change the time.
  *
  * @param aST The Search Target parameter (ex. "ssdp:all")
  */
@@ -62,14 +62,14 @@ typedef void CgUpnpControlPoint;
  *
  * @param aMX Time to wait
  */
-- (void)setSsdpSearchMX:(int)aMX;
+- (void)setSsdpSearchMX:(NSInteger)aMX;
 /**
  * Get a MX parameter used for SSDP searches in seconds.
  * The parameter is used to wait for M-SEARCH responses in search() and searchWithST:(NSString *)aST.
  *
  * @return Time to wait
  */
-- (int)ssdpSearchMX;
+- (NSInteger)ssdpSearchMX;
 /**
  * Get all UPnP devices which the control point found as a NSArray object. The array has the devices as instances of CGUpnpDevice.
  * @return NSArray of CGUpnpDevice.

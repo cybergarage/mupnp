@@ -68,5 +68,5 @@ typedef void CgUpnpAction;
  *
  * @return The status code
  */
-- (int)statusCode;
+- (NSInteger)statusCode;
 @end
