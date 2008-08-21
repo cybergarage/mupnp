@@ -21,7 +21,13 @@
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 - (NSString *)url;
 - (long long)size;
-- (NSString *)mimeType;
+- (NSAtring *)protocolInfo;
+- (NSString *)protocolInfoAtIndex:(NSUInteger)anIndex;
+- (NSString *)protocol
+- (NSString *)network
+- (NSString *)contentFormat
+- (NSString *)additionalInfo
+- (NSString *)additionalInfoForKey:(NSString*)aKey;
 - (NSString *)dlnaOrgPn;
 - (NSString *)dlnaOrgOp;
 - (NSString *)dlnaOrgFlags;
