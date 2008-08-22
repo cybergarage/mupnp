@@ -13,7 +13,7 @@
 
 @synthesize cObject;
 
-- (id) initWithCObject:(CGUpnpIcon *)cobj
+- (id) initWithCObject:(CgUpnpIcon *)cobj
 {
 	if ((self = [super init]) == nil)
 		return nil;
@@ -54,21 +54,21 @@
 - (NSInteger)width
 {
 	if (!cObject)
-		return nil;
+		return 0;
 	return cg_upnp_icon_getwidth(cObject);
 }
 
 - (NSInteger)height
 {
 	if (!cObject)
-		return nil;
+		return 0;
 	return cg_upnp_icon_getheight(cObject);
 }
 
 - (NSInteger)depth
 {
 	if (!cObject)
-		return nil;
+		return 0;
 	return cg_upnp_icon_getdepth(cObject);
 }
 

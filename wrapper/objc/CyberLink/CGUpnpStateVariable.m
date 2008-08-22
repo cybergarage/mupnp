@@ -7,6 +7,7 @@
 //
 
 #include <cybergarage/upnp/cstatevariable.h>
+#include <cybergarage/upnp/control/ccontrol.h>
 #import "CGUpnpStateVariable.h"
 
 @implementation CGUpnpStateVariable

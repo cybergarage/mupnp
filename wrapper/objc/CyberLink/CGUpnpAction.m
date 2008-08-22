@@ -7,6 +7,7 @@
 //
 
 #include <cybergarage/upnp/caction.h>
+#include <cybergarage/upnp/control/ccontrol.h>
 #import "CGUpnpAction.h"
 
 static BOOL CGUpnpActionListener(CgUpnpAction *cAction)

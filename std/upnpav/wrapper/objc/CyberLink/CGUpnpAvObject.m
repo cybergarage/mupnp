@@ -11,6 +11,7 @@
 #import "CGUpnpAvContainer.h"
 #import "CGUpnpAvItem.h"
 #import "CGUpnpAvConstants.h"
+#import "CGUpnpAvResource.h"
 
 @implementation CGUpnpAvObject
 
