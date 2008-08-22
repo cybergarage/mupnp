@@ -149,7 +149,7 @@
 		return [[[NSArray alloc] init] autorelease];
 	NSMutableArray *iconArray = [[[NSMutableArray alloc] init] autorelease];
 	CgUpnpIcon *cIcon;
-	for (cService = cg_upnp_device_getservices(cObject); cService; cService = cg_upnp_service_next(cService)) {
+	for (cIcon = cg_upnp_device_geticons(cObject); cIcon; cIcon = cg_upnp_icon_next(cIcon)) {
 		CGUpnpIcon *icon = [[[CGUpnpIcon alloc] initWithCObject:(void *)cIcon] autorelease];
 		[iconArray addObject:icon];
 	}

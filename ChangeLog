@@ -1,3 +1,17 @@
+2008-08-21  Satoshi Konno <skonno@cybergarage.org>
+	* Fixed some warnings using GCC v4.0.1.
+	* Added the following macros.
+	  cg_string_getintvalue()
+	  cg_string_getlongvalue()
+	  cg_xml_node_getintvalue()
+	  cg_xml_node_getlongvalue()
+	  cg_xml_node_getchildnodeintvalue()
+	  cg_xml_node_getchildnodelongvalue()
+	* Changed the following functions to return an integer value instead of a string.
+	  cg_upnp_icon_getwidth()
+	  cg_upnp_icon_getheight()
+	  cg_upnp_icon_getdepth()
+	
 2008-06-06  Satoshi Konno <skonno@cybergarage.org>
 	* v2.2.
 

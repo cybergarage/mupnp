@@ -27,16 +27,19 @@
 	if ((self = [super init]) == nil)
 		return nil;
 	[self setXmlNode:aXmlNode];
+	[xmlNode retain];
 	return self;
 }
 
 - (void)dealloc
 {
+	[xmlNode release];
 	[super dealloc];
 }
 
 - (void) finalize
 {
+	[xmlNode release];
 	[super finalize];
 }
 

@@ -68,7 +68,7 @@ extern "C" {
 /* Bug correction : Variable used to wait for thread termination by sleeping */
 /* instead of joining */
 #else
-#define CG_THREAD_MIN_SLEEP 1
+#define CG_THREAD_MIN_SLEEP 1000
 /* ADD END Fabrice Fontaine Orange 24/04/2007 */ 
 #endif
 

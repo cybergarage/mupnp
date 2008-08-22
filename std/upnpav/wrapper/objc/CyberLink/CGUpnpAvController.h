@@ -9,11 +9,7 @@
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
 
-#if !defined(CG_NOUSE_CLINKC_FRAMEWORK)
 #import <CyberLink/UPnP.h>
-#else
-#import <UPnP.h>
-#endif
 
 @class CGUpnpAvServer;
 @class CGUpnpAvObject;
@@ -38,7 +34,9 @@
 - (CGUpnpAvServer *)serverForUDN:(NSString *)aUdn;
 - (CGUpnpAvServer *)serverForFriendlyName:(NSString *)aFriendlyName;
 - (CGUpnpAvServer *)serverForPath:(NSString *)aPath;
-- (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath;
+- (CGUpnpAvServer *)serverForIndexPath:(NSIndexPath *)aIndexPath;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aServerAndTitlePath;
 - (CGUpnpAvObject *)objectForIndexPath:(NSIndexPath *)aServerAndTitleIndexPath;
+- (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath;
+- (NSArray *)browseWithIndexPath:(NSIndexPath *)aServerAndTitleIndexPath;
 @end

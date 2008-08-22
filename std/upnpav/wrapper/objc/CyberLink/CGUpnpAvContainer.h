@@ -25,10 +25,10 @@
 - (void)removeChild:(CGUpnpAvObject *)obj;
 - (void)removeAllChildren;
 - (NSArray *)children;
-- (CGUpnpAvObject *)childAtIndex:(NSUInteger)index;
-- (CGUpnpAvObject *)childforId:(NSString *)aObjectId;
+- (CGUpnpAvObject *)childAtIndex:(NSUInteger)anIndex;
+- (CGUpnpAvObject *)childforId:(NSString *)anObjectId;
 - (CGUpnpAvObject *)childforTitle:(NSString *)aTitle;
-- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
+- (CGUpnpAvObject *)objectForId:(NSString *)anObjectId;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end
 

@@ -12,6 +12,7 @@
 #import "CGXml.h"
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
+#import "CGUpnpAvContainer.h"
 
 @implementation CGUpnpAvController
 
@@ -72,12 +73,10 @@
 
 - (CGUpnpAvServer *)serverForFriendlyName:(NSString *)aFriendlyName
 {
-	NSLog(@"aFriendlyName = %@", aFriendlyName);
 	if (aFriendlyName == nil)
 		return nil;
 	NSArray *servers = [self servers];
 	for (CGUpnpAvServer *server in servers) {
-		NSLog(@"%@ = %@", [server friendlyName], aFriendlyName);
 		if ([server isFriendlyName:aFriendlyName])
 			return [[server retain] autorelease];
 	}
@@ -95,21 +94,18 @@
 	return [self serverForFriendlyName:avSrvName];
 }
 
-- (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath
+- (CGUpnpAvServer *)serverForIndexPath:(NSIndexPath *)aIndexPath
 {
-	CGUpnpAvServer *avSrv = [self serverForPath:aServerAndTitlePath];
-	if (avSrv == nil)
+	int idxCnt = [aIndexPath length];
+	if (idxCnt < 1)
 		return nil;
-
-	NSLog(@"browseWithTitlePath : avSrv = %@", avSrv);
 	
-	CGUpnpAvObject *avObj = [self objectForTitlePath:aServerAndTitlePath];
-	if (avObj == nil)
+	NSArray *servers = [self servers];
+	int serverNum = [aIndexPath indexAtPosition:0];
+	if ([servers count] <= serverNum)
 		return nil;
-
-	NSLog(@"browseWithTitlePath : avObj = %@", avObj);
 	
-	return [avSrv browse:[avObj objectId]];
+	return [servers objectAtIndex:serverNum];
 }
 
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aServerAndTitlePath
@@ -117,8 +113,6 @@
 	CGUpnpAvServer *avSrv = [self serverForPath:aServerAndTitlePath];
 	if (avSrv == nil)
 		return nil;
-
-	NSLog(@"objectForTitlePath : avSrv = %@", avSrv);
 
 	NSMutableArray *titlePathArray = [NSMutableArray arrayWithArray:[aServerAndTitlePath pathComponents]];
 	[titlePathArray removeObjectAtIndex:0];
@@ -128,23 +122,12 @@
 	NSString *titlePath = [NSString pathWithComponents:titlePathArray];
 	CGUpnpAvObject *avObj = [avSrv objectForTitlePath:titlePath];
 	
-	NSLog(@"objectForTitlePath : avObj = %@", avObj);
-
 	return [[avObj retain] autorelease];
 }
 
 - (CGUpnpAvObject *)objectForIndexPath:(NSIndexPath *)aServerAndTitleIndexPath
 {
-	int idxCnt = [aServerAndTitleIndexPath length];
-	if (idxCnt < 3)
-		return nil;
-	
-	NSArray *servers = [self servers];
-	int serverNum = [aServerAndTitleIndexPath indexAtPosition:1];
-	if ([servers count] <= serverNum)
-		return nil;
-	
-	CGUpnpAvServer *avSrv = [servers objectAtIndex:serverNum];
+	CGUpnpAvServer *avSrv = [self serverForIndexPath:aServerAndTitleIndexPath];
 	if (!avSrv)
 		return nil;
 	
@@ -152,12 +135,15 @@
 	if (!rootObj)
 		return nil;
 
-	CGUpnpAvObject *avObj = [rootObj childAtIndex:[aServerAndTitleIndexPath indexAtPosition:2]];
-
+	int idxCnt = [aServerAndTitleIndexPath length];
+	if (idxCnt < 2)
+		return rootObj;
+	
+	CGUpnpAvObject *avObj = [rootObj childAtIndex:[aServerAndTitleIndexPath indexAtPosition:1]];
 	if (!avObj)
 		return nil;
-	
-	for (int n=3; n<idxCnt; n++) {
+
+	for (int n=2; n<idxCnt; n++) {
 		if ([avObj isItem])
 			return nil;
 		CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
@@ -166,9 +152,33 @@
 			return nil;
 	}
 	
-	NSLog(@"objectForTitleIndexPath : avObj = %@", avObj);
-
 	return [[avObj retain] autorelease];
+}
+
+- (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath
+{
+	CGUpnpAvServer *avSrv = [self serverForPath:aServerAndTitlePath];
+	if (avSrv == nil)
+		return nil;
+	
+	CGUpnpAvObject *avObj = [self objectForTitlePath:aServerAndTitlePath];
+	if (avObj == nil)
+		return nil;
+	
+	return [avSrv browse:[avObj objectId]];
+}
+
+- (NSArray *)browseWithIndexPath:(NSIndexPath *)aServerAndTitleIndexPath
+{
+	CGUpnpAvServer *avSrv = [self serverForIndexPath:aServerAndTitleIndexPath];
+	if (avSrv == nil)
+		return nil;
+	
+	CGUpnpAvObject *avObj = [self objectForIndexPath:aServerAndTitleIndexPath];
+	if (avObj == nil)
+		return nil;
+
+	return [avSrv browse:[avObj objectId]];
 }
 
 @end

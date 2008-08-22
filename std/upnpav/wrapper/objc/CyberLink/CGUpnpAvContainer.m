@@ -33,12 +33,14 @@
 
 - (void)dealloc
 {
+	[self removeAllChildren];
 	[childArray release];
 	[super dealloc];
 }
 
 - (void) finalize
 {
+	[self removeAllChildren];
 	[childArray release];
 	[super finalize];
 }
@@ -52,6 +54,7 @@
 - (void)addChildren:(NSArray *)objArray;
 {
 	for (CGUpnpAvObject *obj in objArray) {
+		[obj retain];
 		[childArray addObject:obj];
 		[obj setParent:self];
 	}
@@ -65,8 +68,10 @@
 
 - (void)removeAllChildren
 {
-	for (CGUpnpAvObject *obj in [self children])
+	for (CGUpnpAvObject *obj in [self children]) {
 		[obj setParent:nil];
+		//[obj release];
+	}
 	[childArray removeAllObjects];
 }
 
@@ -75,15 +80,17 @@
 	return childArray;
 }
 
-- (CGUpnpAvObject *)childAtIndex:(NSUInteger)index
+- (CGUpnpAvObject *)childAtIndex:(NSUInteger)anIndex
 {
-	return [childArray objectAtIndex:index];
+	if ([childArray count] <= anIndex)
+		return nil;
+	return [childArray objectAtIndex:anIndex];
 }
 
-- (CGUpnpAvObject *)childforId:(NSString *)aObjectId;
+- (CGUpnpAvObject *)childforId:(NSString *)anObjectId;
 {
 	for (CGUpnpAvObject *avObj in [self children]) {
-		if ([avObj isObjectId:aObjectId])
+		if ([avObj isObjectId:anObjectId])
 			return avObj;
 	}
 	return nil;
@@ -98,12 +105,12 @@
 	return nil;
 }
 
-- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
+- (CGUpnpAvObject *)objectForId:(NSString *)anObjectId
 {
-	if ([self isObjectId:aObjectId])
+	if ([self isObjectId:anObjectId])
 		return self;
 
-	CGUpnpAvObject *foundAvObj = [self childforId:aObjectId];
+	CGUpnpAvObject *foundAvObj = [self childforId:anObjectId];
 	if (foundAvObj != nil)
 		return foundAvObj;
 
@@ -111,7 +118,7 @@
 		if (![avObj isContainer])
 			continue;
 		CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
-		foundAvObj = [avCon childforId:aObjectId];
+		foundAvObj = [avCon childforId:anObjectId];
 		if (foundAvObj != nil)
 			return foundAvObj;
 	}
