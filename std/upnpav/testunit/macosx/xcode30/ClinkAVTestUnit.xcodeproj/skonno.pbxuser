@@ -1,0 +1,107 @@
+// !$*UTF8*$!
+{
+	219D2D550E5FE4DD00740B26 /* ClinkAVTestUnit */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 1;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = ClinkAVTestUnit;
+		sourceDirectories = (
+		);
+	};
+	219D2D630E5FE4E300740B26 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+	};
+	219D2D640E5FE4E300740B26 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	21D7379D0E5FE64F00FDC838 /* ClinkAVTestUnitBundle */ = {
+		activeExec = 0;
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeArchitecture = ppc;
+		activeBuildConfigurationName = Release;
+		activeExecutable = 219D2D550E5FE4DD00740B26 /* ClinkAVTestUnit */;
+		activeTarget = 8D1107260486CEB800E47090 /* ClinkAVTestUnit */;
+		codeSenseManager = 219D2D640E5FE4E300740B26 /* Code sense */;
+		executables = (
+			219D2D550E5FE4DD00740B26 /* ClinkAVTestUnit */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					243,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					203,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 241165852;
+			PBXWorkspaceStateSaveDate = 241165852;
+		};
+		sourceControlManager = 219D2D630E5FE4E300740B26 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	8D1107260486CEB800E47090 /* ClinkAVTestUnit */ = {
+		activeExec = 0;
+		executables = (
+			219D2D550E5FE4DD00740B26 /* ClinkAVTestUnit */,
+		);
+	};
+}

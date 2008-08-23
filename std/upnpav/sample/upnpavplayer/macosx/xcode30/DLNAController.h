@@ -1,7 +1,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import <CyberLink/UPnP.h>
-#import <UPnPAV.h>
+#import <CyberLink/UPnPAV.h>
 
 @class DLNAImageView;
 
