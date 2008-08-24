@@ -299,14 +299,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		217266DA0E30D4790055F575 /* Release */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Release;
-			path = ../../../lib/macosx/xcode30/build/Release;
-			sourceTree = SOURCE_ROOT;
-		};
 		21D737C00E5FE86F00FDC838 /* ClinkC */ = {
 			isa = PBXGroup;
 			children = (
@@ -529,7 +521,6 @@
 			children = (
 				21D7388A0E5FE8BC00FDC838 /* Clink */,
 				21D737C00E5FE86F00FDC838 /* ClinkC */,
-				217266DA0E30D4790055F575 /* Release */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
