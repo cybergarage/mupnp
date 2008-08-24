@@ -143,7 +143,8 @@
 	if (!avObj)
 		return nil;
 
-	for (int n=2; n<idxCnt; n++) {
+	int n;
+	for (n=2; n<idxCnt; n++) {
 		if ([avObj isItem])
 			return nil;
 		CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
