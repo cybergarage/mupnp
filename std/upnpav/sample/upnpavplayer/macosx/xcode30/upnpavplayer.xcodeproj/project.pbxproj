@@ -18,9 +18,9 @@
 		216469740E5FEBD90056DA88 /* CGUpnpAvServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 216469660E5FEBD90056DA88 /* CGUpnpAvServer.m */; };
 		216469750E5FEBD90056DA88 /* CGXml.m in Sources */ = {isa = PBXBuildFile; fileRef = 216469680E5FEBD90056DA88 /* CGXml.m */; };
 		216469760E5FEBD90056DA88 /* CGXmlNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2164696A0E5FEBD90056DA88 /* CGXmlNode.m */; };
-		216469890E5FECE30056DA88 /* CyberLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 216469880E5FECE30056DA88 /* CyberLink.framework */; };
 		2170A71F0E1056CE00BFDD01 /* DLNAController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2170A71E0E1056CE00BFDD01 /* DLNAController.m */; };
 		2179A5D10E5481E000AD736C /* DLNAImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2179A5D00E5481E000AD736C /* DLNAImageView.m */; };
+		21B7D9460E61537700AC5AC0 /* CyberLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B7D9450E61537700AC5AC0 /* CyberLink.framework */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -55,11 +55,11 @@
 		216469690E5FEBD90056DA88 /* CGXmlNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXmlNode.h; sourceTree = "<group>"; };
 		2164696A0E5FEBD90056DA88 /* CGXmlNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXmlNode.m; sourceTree = "<group>"; };
 		2164696B0E5FEBD90056DA88 /* UPnPAV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPAV.h; sourceTree = "<group>"; };
-		216469880E5FECE30056DA88 /* CyberLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CyberLink.framework; path = ../../../../../../lib/macosx/xcode30/build/Release/CyberLink.framework; sourceTree = SOURCE_ROOT; };
 		2170A71D0E1056CE00BFDD01 /* DLNAController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNAController.h; sourceTree = "<group>"; };
 		2170A71E0E1056CE00BFDD01 /* DLNAController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNAController.m; sourceTree = "<group>"; };
 		2179A5CF0E5481E000AD736C /* DLNAImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLNAImageView.h; sourceTree = "<group>"; };
 		2179A5D00E5481E000AD736C /* DLNAImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLNAImageView.m; sourceTree = "<group>"; };
+		21B7D9450E61537700AC5AC0 /* CyberLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CyberLink.framework; path = ../../../../../../lib/macosx/xcode30/build/Release/CyberLink.framework; sourceTree = SOURCE_ROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -75,7 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				216469890E5FECE30056DA88 /* CyberLink.framework in Frameworks */,
+				21B7D9460E61537700AC5AC0 /* CyberLink.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,7 +104,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				216469880E5FECE30056DA88 /* CyberLink.framework */,
+				21B7D9450E61537700AC5AC0 /* CyberLink.framework */,
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
@@ -342,7 +342,7 @@
 			buildSettings = {
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../../../../../wrapper/objc;
+				HEADER_SEARCH_PATHS = ../../../../wrapper/objc;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
@@ -357,7 +357,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../../../../../wrapper/objc;
+				HEADER_SEARCH_PATHS = ../../../../wrapper/objc;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
