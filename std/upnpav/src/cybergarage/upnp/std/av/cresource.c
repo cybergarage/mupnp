@@ -12,8 +12,8 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/media/cresource.h>
-#include <cybergarage/upnp/media/ccontent.h>
+#include <cybergarage/upnp/std/av/cresource.h>
+#include <cybergarage/upnp/std/av/ccontent.h>
 #include <cybergarage/util/cstring.h>
 
 /****************************************

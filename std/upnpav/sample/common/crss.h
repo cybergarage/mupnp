@@ -20,7 +20,7 @@
 extern "C" {
 #endif
 
-#include <cybergarage/upnp/media/ccontent.h>
+#include <cybergarage/upnp/std/av/ccontent.h>
 
 CgUpnpMediaContent *cg_http_getrsscontents(char *rssURL);
 

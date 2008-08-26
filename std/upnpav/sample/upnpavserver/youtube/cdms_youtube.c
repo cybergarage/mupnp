@@ -12,7 +12,7 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/media/cmediaserver.h>
+#include <cybergarage/upnp/std/av/cmediaserver.h>
 #include <cybergarage/net/cinterface.h>
 
 #include "cdms_youtube.h"

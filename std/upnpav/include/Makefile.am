@@ -3,11 +3,11 @@
 ########################################
 
 clinkcav_header = \
-	cybergarage/upnp/media/ccontent.h \
-	cybergarage/upnp/media/cdidl.h \
-	cybergarage/upnp/media/cmd5.h \
-	cybergarage/upnp/media/cmediaserver.h \
-	cybergarage/upnp/media/cresource.h
+	cybergarage/upnp/std/av/ccontent.h \
+	cybergarage/upnp/std/av/cdidl.h \
+	cybergarage/upnp/std/av/cmd5.h \
+	cybergarage/upnp/std/av/cmediaserver.h \
+	cybergarage/upnp/std/av/cresource.h
 
 ########################################
 # Library

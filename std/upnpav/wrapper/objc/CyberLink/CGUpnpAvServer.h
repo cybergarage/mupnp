@@ -19,12 +19,17 @@
 @class CGUpnpAvObject;
 @class CGUpnpAvContainer;
 
+#if !defined(_CG_CLINKC_MEDIASERVER_H_)
+typedef void CgUpnpMediaServer;
+#endif
+
 /**
  * The CGUpnpAvServer class is a UPnP/AV media server class.
  */
 @interface CGUpnpAvServer : CGUpnpDevice
 {
 	CGUpnpAvContentDirectory *contentDirectory;
+	CgUpnpMediaServer *cObject;
 }
 @property(readonly) CGUpnpAvContentDirectory *contentDirectory;
 /**

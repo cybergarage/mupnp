@@ -12,5 +12,5 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/media/ccontent.h>
+#include <cybergarage/upnp/std/av/ccontent.h>
 

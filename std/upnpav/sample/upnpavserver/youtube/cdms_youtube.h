@@ -16,7 +16,7 @@
 #ifndef _CG_UPNPAV_YOUTUBE_H_
 #define _CG_UPNPAV_YOUTUBE_H_
 
-#include <cybergarage/upnp/media/cmediaserver.h>
+#include <cybergarage/upnp/std/av/cmediaserver.h>
 
 #ifdef  __cplusplus
 extern "C" {

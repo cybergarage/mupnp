@@ -12,7 +12,7 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/media/cdidl.h>
+#include <cybergarage/upnp/std/av/cdidl.h>
 
 /****************************************
 * Constants

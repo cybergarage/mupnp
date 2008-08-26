@@ -18,8 +18,8 @@
 #include <cybergarage/http/chttp.h>
 #include <cybergarage/xml/cxml.h>
 
-#include <cybergarage/upnp/media/ccontent.h>
-#include <cybergarage/upnp/media/cmd5.h>
+#include <cybergarage/upnp/std/av/ccontent.h>
+#include <cybergarage/upnp/std/av/cmd5.h>
 
 /************************************************************
 * cg_http_getrestresponse

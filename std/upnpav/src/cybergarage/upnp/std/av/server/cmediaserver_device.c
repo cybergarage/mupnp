@@ -16,7 +16,7 @@
 #  include "config.h"
 #endif
 
-#include <cybergarage/upnp/media/cmediaserver.h>
+#include <cybergarage/upnp/std/av/cmediaserver.h>
 
 /****************************************
 * Device Description
