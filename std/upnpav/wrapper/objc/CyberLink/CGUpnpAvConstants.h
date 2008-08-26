@@ -10,8 +10,20 @@
 * Constants (Media Server)
 ****************************************/
 
-#define CG_UPNPAV_DEVICE_TYPE @"urn:schemas-upnp-org:device:MediaServer:1"
+#define CG_UPNPAV_MEDIASERVER_DEVICE_TYPE @"urn:schemas-upnp-org:device:MediaServer:1"
 #define CG_UPNPAV_DEFAULT_HTTP_PORT 38520
+
+/****************************************
+ * Constants (Media Renderer)
+ ****************************************/
+
+#define CG_UPNPAV_MEDIARENDERER_DEVICE_TYPE @"urn:schemas-upnp-org:device:MediaRenderer:1"
+
+#define CG_UPNPAV_AVTRNSPORT_SERVICE_TYPE @"urn:schemas-upnp-org:service:AVTransport:1"
+
+#define CG_UPNPAV_AVTRNSPORT_BROWSE @"SetAVTransportURI"
+#define CG_UPNPAV_AVTRNSPORT_STOP @"Stop"
+#define CG_UPNPAV_AVTRNSPORT_PLAY @"Play"
 
 /****************************************
 * Constants (Content Directory)

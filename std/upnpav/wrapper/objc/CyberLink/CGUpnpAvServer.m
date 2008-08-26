@@ -6,6 +6,8 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#include <cybergarage/upnp/std/av/cmediaserver.h>
+
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
 #import "CGUpnpAvContainer.h"
@@ -16,8 +18,6 @@
 
 @implementation CGUpnpAvServer
 
-<cybergarage/upnp/std/av/>
-
 @synthesize contentDirectory;
 
 - (id) init
@@ -25,7 +25,7 @@
 	if ((self = [super init]) == nil)
 		return nil;
 
-	cObject = cg_upnp_dms_new();
+	cdmsObject = cg_upnp_dms_new();
 	contentDirectory = nil;
 
 	return self;
@@ -35,7 +35,7 @@
 {
 	if ((self = [super initWithCObject:cobj]) == nil)
 		return nil;
-	cObject = NULL;
+	cdmsObject = NULL;
 	contentDirectory = [[CGUpnpAvContentDirectory alloc] init];
 	return self;
 }
@@ -63,8 +63,8 @@
 	id userObj = [self userObject];
 	if (userObj)
 		[userObj release];
-	if (cObject)
-		cg_upnp_dms_delete(delete);
+	if (cdmsObject)
+		cg_upnp_dms_delete(cdmsObject);
 	[contentDirectory release];
 	[super dealloc];
 }
@@ -74,8 +74,8 @@
 	id userObj = [self userObject];
 	if (userObj)
 		[userObj release];
-	if (cObject)
-		cg_upnp_dms_delete(delete);
+	if (cdmsObject)
+		cg_upnp_dms_delete(cdmsObject);
 	[contentDirectory release];
 	[super finalize];
 }

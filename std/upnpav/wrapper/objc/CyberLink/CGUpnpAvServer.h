@@ -9,11 +9,7 @@
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
 
-#if !defined(CG_NOUSE_CLINKC_FRAMEWORK)
 #import <CyberLink/UPnP.h>
-#else
-#import <UPnP.h>
-#endif
 
 @class CGUpnpAvContentDirectory;
 @class CGUpnpAvObject;
@@ -29,7 +25,7 @@ typedef void CgUpnpMediaServer;
 @interface CGUpnpAvServer : CGUpnpDevice
 {
 	CGUpnpAvContentDirectory *contentDirectory;
-	CgUpnpMediaServer *cObject;
+	CgUpnpMediaServer *cdmsObject;
 }
 @property(readonly) CGUpnpAvContentDirectory *contentDirectory;
 /**

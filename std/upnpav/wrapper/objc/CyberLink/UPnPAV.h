@@ -13,5 +13,7 @@
 #import <CyberLink/CGUpnpAvRoot.h>
 #import <CyberLink/CGUpnpAvContainer.h>
 #import <CyberLink/CGUpnpAvItem.h>
+#import <CyberLink/CGUpnpAvResource.h>
 #import <CyberLink/CGUpnpAvServer.h>
 #import <CyberLink/CGUpnpAvController.h>
+#import <CyberLink/CGUpnpAvRenderer.h>
