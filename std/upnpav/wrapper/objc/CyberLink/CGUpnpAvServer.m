@@ -16,6 +16,8 @@
 
 @implementation CGUpnpAvServer
 
+<cybergarage/upnp/std/av/>
+
 @synthesize contentDirectory;
 
 - (id) init

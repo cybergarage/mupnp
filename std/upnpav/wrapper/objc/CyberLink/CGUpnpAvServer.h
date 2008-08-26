@@ -32,7 +32,7 @@
  * 
  * @return New instance if successfull; otherwise nil.
  */
-- (id) init;
+- (id)init;
 /**
  * Create a new UPnP/AV server with the C instance.
  * 
