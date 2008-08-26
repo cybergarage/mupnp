@@ -13,6 +13,7 @@
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
 #import "CGUpnpAvContainer.h"
+#import "CGUpnpAvRenderer.h"
 
 @implementation CGUpnpAvController
 
@@ -33,13 +34,17 @@
 	[super finalize];
 }
 
+////////////////////////////////////////////////////////////
+// Media Server
+////////////////////////////////////////////////////////////
+
 - (NSArray *)servers;
 {
 	NSArray *devices = [self devices];
 	NSMutableArray *serverArray = [[[NSMutableArray alloc] init] autorelease];
 
 	for (CGUpnpDevice *dev in devices) {
-		if (![dev isDeviceType:CG_UPNPAV_DEVICE_TYPE])
+		if (![dev isDeviceType:CG_UPNPAV_MEDIASERVER_DEVICE_TYPE])
 			continue;
 		CGUpnpAvServer *server = nil;		
 		void *devData = [dev userData];
@@ -180,6 +185,41 @@
 		return nil;
 
 	return [avSrv browse:[avObj objectId]];
+}
+
+////////////////////////////////////////////////////////////
+// Media Renderer
+////////////////////////////////////////////////////////////
+
+- (NSArray *)renderers;
+{
+	NSArray *devices = [self devices];
+	NSMutableArray *rendererrArray = [[[NSMutableArray alloc] init] autorelease];
+	
+	for (CGUpnpDevice *dev in devices) {
+		if (![dev isDeviceType:CG_UPNPAV_MEDIARENDERER_DEVICE_TYPE])
+			continue;
+		CgUpnpDevice *cDevice = [dev cObject];
+		if (!cDevice)
+			continue;
+		CGUpnpAvRenderer *renderer = [[[CGUpnpAvRenderer alloc] initWithCObject:cDevice] autorelease];
+		if (renderer == nil)
+			continue;
+		[rendererrArray addObject:renderer];
+	}
+	return rendererrArray;
+}
+
+- (CGUpnpAvRenderer *)rendererForUDN:(NSString *)aUdn
+{
+	if (aUdn == nil)
+		return nil;
+	NSArray *renderers = [self renderers];
+	for (CGUpnpAvRenderer *renderer in renderers) {
+		if ([renderer isUDN:aUdn])
+			return [[renderer retain] autorelease];
+	}
+	return nil;
 }
 
 @end

@@ -13,6 +13,7 @@
 
 @class CGUpnpAvServer;
 @class CGUpnpAvObject;
+@class CGUpnpAvRenderer;
 
 /**
  * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
@@ -39,4 +40,8 @@
 - (CGUpnpAvObject *)objectForIndexPath:(NSIndexPath *)aServerAndTitleIndexPath;
 - (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath;
 - (NSArray *)browseWithIndexPath:(NSIndexPath *)aServerAndTitleIndexPath;
+
+- (NSArray *)renderers;
+- (CGUpnpAvRenderer *)rendererForUDN:(NSString *)aUdn;
+
 @end
