@@ -151,43 +151,43 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\media\server\cconnectionmgr_service.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\server\cconnectionmgr_service.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\media\ccontent.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\ccontent.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\media\ccontent_list.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\ccontent_list.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\media\server\ccontentdir_service.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\server\ccontentdir_service.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\media\cdidl.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\cdidl.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\media\cmd5.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\cmd5.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\media\server\cmediaserver_device.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\server\cmediaserver_device.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\media\cresource.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\cresource.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\media\cresource_data.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\cresource_data.c"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\media\cresource_list.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\cresource_list.c"
 				>
 			</File>
 		</Filter>
@@ -197,23 +197,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\include\cybergarage\upnp\media\ccontent.h"
+				RelativePath="..\..\..\include\cybergarage\upnp\std\av\ccontent.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\cybergarage\upnp\media\cdidl.h"
+				RelativePath="..\..\..\include\cybergarage\upnp\std\av\cdidl.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\cybergarage\upnp\media\cmd5.h"
+				RelativePath="..\..\..\include\cybergarage\upnp\std\av\cmd5.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\cybergarage\upnp\media\cmediaserver.h"
+				RelativePath="..\..\..\include\cybergarage\upnp\std\av\cmediaserver.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\include\cybergarage\upnp\media\cresource.h"
+				RelativePath="..\..\..\include\cybergarage\upnp\std\av\cresource.h"
 				>
 			</File>
 		</Filter>

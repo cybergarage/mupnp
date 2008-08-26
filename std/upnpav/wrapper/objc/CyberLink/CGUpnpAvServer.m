@@ -24,7 +24,10 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	contentDirectory = [[CGUpnpAvContentDirectory alloc] init];
+
+	cObject = cg_upnp_dms_new();
+	contentDirectory = nil;
+
 	return self;
 }
 
@@ -32,6 +35,7 @@
 {
 	if ((self = [super initWithCObject:cobj]) == nil)
 		return nil;
+	cObject = NULL;
 	contentDirectory = [[CGUpnpAvContentDirectory alloc] init];
 	return self;
 }
@@ -59,6 +63,8 @@
 	id userObj = [self userObject];
 	if (userObj)
 		[userObj release];
+	if (cObject)
+		cg_upnp_dms_delete(delete);
 	[contentDirectory release];
 	[super dealloc];
 }
@@ -68,6 +74,8 @@
 	id userObj = [self userObject];
 	if (userObj)
 		[userObj release];
+	if (cObject)
+		cg_upnp_dms_delete(delete);
 	[contentDirectory release];
 	[super finalize];
 }

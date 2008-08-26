@@ -15,7 +15,7 @@
 #ifndef _CG_CLINKC_MEDIASERVER_FILESYS_H_
 #define _CG_CLINKC_MEDIASERVER_FILESYS_H_
 
-#include <cybergarage/upnp/media/cmediaserver.h>
+#include <cybergarage/upnp/std/av/cmediaserver.h>
 
 #ifdef  __cplusplus
 extern "C" {

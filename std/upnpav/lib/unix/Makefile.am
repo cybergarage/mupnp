@@ -11,15 +11,15 @@ INCLUDES = -I$(top_srcdir)/include
 ########################################
 
 clinkcav_source = \
-	../../src/cybergarage/upnp/media/ccontent.c \
-	../../src/cybergarage/upnp/media/ccontent_list.c \
-	../../src/cybergarage/upnp/media/cdidl.c \
-	../../src/cybergarage/upnp/media/cmd5.c \
-	../../src/cybergarage/upnp/media/cresource.c \
-	../../src/cybergarage/upnp/media/cresource_list.c \
-	../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c \
-	../../src/cybergarage/upnp/media/server/ccontentdir_service.c \
-	../../src/cybergarage/upnp/media/server/cmediaserver_device.c
+	../../src/cybergarage/upnp/std/av/ccontent.c \
+	../../src/cybergarage/upnp/std/av/ccontent_list.c \
+	../../src/cybergarage/upnp/std/av/cdidl.c \
+	../../src/cybergarage/upnp/std/av/cmd5.c \
+	../../src/cybergarage/upnp/std/av/cresource.c \
+	../../src/cybergarage/upnp/std/av/cresource_list.c \
+	../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c \
+	../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c \
+	../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c
 
 ########################################
 # Library

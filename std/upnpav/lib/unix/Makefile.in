@@ -64,15 +64,15 @@ ARFLAGS = cru
 libclinkcav_a_AR = $(AR) $(ARFLAGS)
 libclinkcav_a_DEPENDENCIES =
 am__libclinkcav_a_SOURCES_DIST =  \
-	../../src/cybergarage/upnp/media/ccontent.c \
-	../../src/cybergarage/upnp/media/ccontent_list.c \
-	../../src/cybergarage/upnp/media/cdidl.c \
-	../../src/cybergarage/upnp/media/cmd5.c \
-	../../src/cybergarage/upnp/media/cresource.c \
-	../../src/cybergarage/upnp/media/cresource_list.c \
-	../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c \
-	../../src/cybergarage/upnp/media/server/ccontentdir_service.c \
-	../../src/cybergarage/upnp/media/server/cmediaserver_device.c
+	../../src/cybergarage/upnp/std/av/ccontent.c \
+	../../src/cybergarage/upnp/std/av/ccontent_list.c \
+	../../src/cybergarage/upnp/std/av/cdidl.c \
+	../../src/cybergarage/upnp/std/av/cmd5.c \
+	../../src/cybergarage/upnp/std/av/cresource.c \
+	../../src/cybergarage/upnp/std/av/cresource_list.c \
+	../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c \
+	../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c \
+	../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c
 am__objects_1 = libclinkcav_a-ccontent.$(OBJEXT) \
 	libclinkcav_a-ccontent_list.$(OBJEXT) \
 	libclinkcav_a-cdidl.$(OBJEXT) libclinkcav_a-cmd5.$(OBJEXT) \
@@ -87,15 +87,15 @@ libLTLIBRARIES_INSTALL = $(INSTALL)
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libclinkcav_la_DEPENDENCIES =
 am__libclinkcav_la_SOURCES_DIST =  \
-	../../src/cybergarage/upnp/media/ccontent.c \
-	../../src/cybergarage/upnp/media/ccontent_list.c \
-	../../src/cybergarage/upnp/media/cdidl.c \
-	../../src/cybergarage/upnp/media/cmd5.c \
-	../../src/cybergarage/upnp/media/cresource.c \
-	../../src/cybergarage/upnp/media/cresource_list.c \
-	../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c \
-	../../src/cybergarage/upnp/media/server/ccontentdir_service.c \
-	../../src/cybergarage/upnp/media/server/cmediaserver_device.c
+	../../src/cybergarage/upnp/std/av/ccontent.c \
+	../../src/cybergarage/upnp/std/av/ccontent_list.c \
+	../../src/cybergarage/upnp/std/av/cdidl.c \
+	../../src/cybergarage/upnp/std/av/cmd5.c \
+	../../src/cybergarage/upnp/std/av/cresource.c \
+	../../src/cybergarage/upnp/std/av/cresource_list.c \
+	../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c \
+	../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c \
+	../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c
 am__objects_2 = ccontent.lo ccontent_list.lo cdidl.lo cmd5.lo \
 	cresource.lo cresource_list.lo cconnectionmgr_service.lo \
 	ccontentdir_service.lo cmediaserver_device.lo
@@ -227,15 +227,15 @@ INCLUDES = -I$(top_srcdir)/include
 # Sources
 ########################################
 clinkcav_source = \
-	../../src/cybergarage/upnp/media/ccontent.c \
-	../../src/cybergarage/upnp/media/ccontent_list.c \
-	../../src/cybergarage/upnp/media/cdidl.c \
-	../../src/cybergarage/upnp/media/cmd5.c \
-	../../src/cybergarage/upnp/media/cresource.c \
-	../../src/cybergarage/upnp/media/cresource_list.c \
-	../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c \
-	../../src/cybergarage/upnp/media/server/ccontentdir_service.c \
-	../../src/cybergarage/upnp/media/server/cmediaserver_device.c
+	../../src/cybergarage/upnp/std/av/ccontent.c \
+	../../src/cybergarage/upnp/std/av/ccontent_list.c \
+	../../src/cybergarage/upnp/std/av/cdidl.c \
+	../../src/cybergarage/upnp/std/av/cmd5.c \
+	../../src/cybergarage/upnp/std/av/cresource.c \
+	../../src/cybergarage/upnp/std/av/cresource_list.c \
+	../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c \
+	../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c \
+	../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c
 
 
 ########################################
@@ -397,194 +397,194 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
 
-libclinkcav_a-ccontent.o: ../../src/cybergarage/upnp/media/ccontent.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontent.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontent.Tpo" -c -o libclinkcav_a-ccontent.o `test -f '../../src/cybergarage/upnp/media/ccontent.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/ccontent.c; \
+libclinkcav_a-ccontent.o: ../../src/cybergarage/upnp/std/av/ccontent.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontent.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontent.Tpo" -c -o libclinkcav_a-ccontent.o `test -f '../../src/cybergarage/upnp/std/av/ccontent.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/ccontent.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-ccontent.Tpo" "$(DEPDIR)/libclinkcav_a-ccontent.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-ccontent.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/ccontent.c' object='libclinkcav_a-ccontent.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/ccontent.c' object='libclinkcav_a-ccontent.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontent.o `test -f '../../src/cybergarage/upnp/media/ccontent.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/ccontent.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontent.o `test -f '../../src/cybergarage/upnp/std/av/ccontent.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/ccontent.c
 
-libclinkcav_a-ccontent.obj: ../../src/cybergarage/upnp/media/ccontent.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontent.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontent.Tpo" -c -o libclinkcav_a-ccontent.obj `if test -f '../../src/cybergarage/upnp/media/ccontent.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/ccontent.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/ccontent.c'; fi`; \
+libclinkcav_a-ccontent.obj: ../../src/cybergarage/upnp/std/av/ccontent.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontent.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontent.Tpo" -c -o libclinkcav_a-ccontent.obj `if test -f '../../src/cybergarage/upnp/std/av/ccontent.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/ccontent.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/ccontent.c'; fi`; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-ccontent.Tpo" "$(DEPDIR)/libclinkcav_a-ccontent.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-ccontent.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/ccontent.c' object='libclinkcav_a-ccontent.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/ccontent.c' object='libclinkcav_a-ccontent.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontent.obj `if test -f '../../src/cybergarage/upnp/media/ccontent.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/ccontent.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/ccontent.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontent.obj `if test -f '../../src/cybergarage/upnp/std/av/ccontent.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/ccontent.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/ccontent.c'; fi`
 
-libclinkcav_a-ccontent_list.o: ../../src/cybergarage/upnp/media/ccontent_list.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontent_list.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontent_list.Tpo" -c -o libclinkcav_a-ccontent_list.o `test -f '../../src/cybergarage/upnp/media/ccontent_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/ccontent_list.c; \
+libclinkcav_a-ccontent_list.o: ../../src/cybergarage/upnp/std/av/ccontent_list.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontent_list.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontent_list.Tpo" -c -o libclinkcav_a-ccontent_list.o `test -f '../../src/cybergarage/upnp/std/av/ccontent_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/ccontent_list.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-ccontent_list.Tpo" "$(DEPDIR)/libclinkcav_a-ccontent_list.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-ccontent_list.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/ccontent_list.c' object='libclinkcav_a-ccontent_list.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/ccontent_list.c' object='libclinkcav_a-ccontent_list.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontent_list.o `test -f '../../src/cybergarage/upnp/media/ccontent_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/ccontent_list.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontent_list.o `test -f '../../src/cybergarage/upnp/std/av/ccontent_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/ccontent_list.c
 
-libclinkcav_a-ccontent_list.obj: ../../src/cybergarage/upnp/media/ccontent_list.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontent_list.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontent_list.Tpo" -c -o libclinkcav_a-ccontent_list.obj `if test -f '../../src/cybergarage/upnp/media/ccontent_list.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/ccontent_list.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/ccontent_list.c'; fi`; \
+libclinkcav_a-ccontent_list.obj: ../../src/cybergarage/upnp/std/av/ccontent_list.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontent_list.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontent_list.Tpo" -c -o libclinkcav_a-ccontent_list.obj `if test -f '../../src/cybergarage/upnp/std/av/ccontent_list.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/ccontent_list.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/ccontent_list.c'; fi`; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-ccontent_list.Tpo" "$(DEPDIR)/libclinkcav_a-ccontent_list.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-ccontent_list.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/ccontent_list.c' object='libclinkcav_a-ccontent_list.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/ccontent_list.c' object='libclinkcav_a-ccontent_list.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontent_list.obj `if test -f '../../src/cybergarage/upnp/media/ccontent_list.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/ccontent_list.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/ccontent_list.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontent_list.obj `if test -f '../../src/cybergarage/upnp/std/av/ccontent_list.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/ccontent_list.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/ccontent_list.c'; fi`
 
-libclinkcav_a-cdidl.o: ../../src/cybergarage/upnp/media/cdidl.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cdidl.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cdidl.Tpo" -c -o libclinkcav_a-cdidl.o `test -f '../../src/cybergarage/upnp/media/cdidl.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cdidl.c; \
+libclinkcav_a-cdidl.o: ../../src/cybergarage/upnp/std/av/cdidl.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cdidl.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cdidl.Tpo" -c -o libclinkcav_a-cdidl.o `test -f '../../src/cybergarage/upnp/std/av/cdidl.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cdidl.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cdidl.Tpo" "$(DEPDIR)/libclinkcav_a-cdidl.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cdidl.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cdidl.c' object='libclinkcav_a-cdidl.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cdidl.c' object='libclinkcav_a-cdidl.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cdidl.o `test -f '../../src/cybergarage/upnp/media/cdidl.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cdidl.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cdidl.o `test -f '../../src/cybergarage/upnp/std/av/cdidl.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cdidl.c
 
-libclinkcav_a-cdidl.obj: ../../src/cybergarage/upnp/media/cdidl.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cdidl.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cdidl.Tpo" -c -o libclinkcav_a-cdidl.obj `if test -f '../../src/cybergarage/upnp/media/cdidl.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/cdidl.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/cdidl.c'; fi`; \
+libclinkcav_a-cdidl.obj: ../../src/cybergarage/upnp/std/av/cdidl.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cdidl.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cdidl.Tpo" -c -o libclinkcav_a-cdidl.obj `if test -f '../../src/cybergarage/upnp/std/av/cdidl.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/cdidl.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/cdidl.c'; fi`; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cdidl.Tpo" "$(DEPDIR)/libclinkcav_a-cdidl.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cdidl.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cdidl.c' object='libclinkcav_a-cdidl.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cdidl.c' object='libclinkcav_a-cdidl.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cdidl.obj `if test -f '../../src/cybergarage/upnp/media/cdidl.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/cdidl.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/cdidl.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cdidl.obj `if test -f '../../src/cybergarage/upnp/std/av/cdidl.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/cdidl.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/cdidl.c'; fi`
 
-libclinkcav_a-cmd5.o: ../../src/cybergarage/upnp/media/cmd5.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cmd5.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cmd5.Tpo" -c -o libclinkcav_a-cmd5.o `test -f '../../src/cybergarage/upnp/media/cmd5.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cmd5.c; \
+libclinkcav_a-cmd5.o: ../../src/cybergarage/upnp/std/av/cmd5.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cmd5.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cmd5.Tpo" -c -o libclinkcav_a-cmd5.o `test -f '../../src/cybergarage/upnp/std/av/cmd5.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cmd5.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cmd5.Tpo" "$(DEPDIR)/libclinkcav_a-cmd5.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cmd5.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cmd5.c' object='libclinkcav_a-cmd5.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cmd5.c' object='libclinkcav_a-cmd5.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cmd5.o `test -f '../../src/cybergarage/upnp/media/cmd5.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cmd5.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cmd5.o `test -f '../../src/cybergarage/upnp/std/av/cmd5.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cmd5.c
 
-libclinkcav_a-cmd5.obj: ../../src/cybergarage/upnp/media/cmd5.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cmd5.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cmd5.Tpo" -c -o libclinkcav_a-cmd5.obj `if test -f '../../src/cybergarage/upnp/media/cmd5.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/cmd5.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/cmd5.c'; fi`; \
+libclinkcav_a-cmd5.obj: ../../src/cybergarage/upnp/std/av/cmd5.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cmd5.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cmd5.Tpo" -c -o libclinkcav_a-cmd5.obj `if test -f '../../src/cybergarage/upnp/std/av/cmd5.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/cmd5.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/cmd5.c'; fi`; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cmd5.Tpo" "$(DEPDIR)/libclinkcav_a-cmd5.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cmd5.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cmd5.c' object='libclinkcav_a-cmd5.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cmd5.c' object='libclinkcav_a-cmd5.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cmd5.obj `if test -f '../../src/cybergarage/upnp/media/cmd5.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/cmd5.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/cmd5.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cmd5.obj `if test -f '../../src/cybergarage/upnp/std/av/cmd5.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/cmd5.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/cmd5.c'; fi`
 
-libclinkcav_a-cresource.o: ../../src/cybergarage/upnp/media/cresource.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cresource.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cresource.Tpo" -c -o libclinkcav_a-cresource.o `test -f '../../src/cybergarage/upnp/media/cresource.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cresource.c; \
+libclinkcav_a-cresource.o: ../../src/cybergarage/upnp/std/av/cresource.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cresource.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cresource.Tpo" -c -o libclinkcav_a-cresource.o `test -f '../../src/cybergarage/upnp/std/av/cresource.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cresource.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cresource.Tpo" "$(DEPDIR)/libclinkcav_a-cresource.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cresource.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cresource.c' object='libclinkcav_a-cresource.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cresource.c' object='libclinkcav_a-cresource.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cresource.o `test -f '../../src/cybergarage/upnp/media/cresource.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cresource.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cresource.o `test -f '../../src/cybergarage/upnp/std/av/cresource.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cresource.c
 
-libclinkcav_a-cresource.obj: ../../src/cybergarage/upnp/media/cresource.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cresource.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cresource.Tpo" -c -o libclinkcav_a-cresource.obj `if test -f '../../src/cybergarage/upnp/media/cresource.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/cresource.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/cresource.c'; fi`; \
+libclinkcav_a-cresource.obj: ../../src/cybergarage/upnp/std/av/cresource.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cresource.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cresource.Tpo" -c -o libclinkcav_a-cresource.obj `if test -f '../../src/cybergarage/upnp/std/av/cresource.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/cresource.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/cresource.c'; fi`; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cresource.Tpo" "$(DEPDIR)/libclinkcav_a-cresource.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cresource.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cresource.c' object='libclinkcav_a-cresource.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cresource.c' object='libclinkcav_a-cresource.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cresource.obj `if test -f '../../src/cybergarage/upnp/media/cresource.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/cresource.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/cresource.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cresource.obj `if test -f '../../src/cybergarage/upnp/std/av/cresource.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/cresource.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/cresource.c'; fi`
 
-libclinkcav_a-cresource_list.o: ../../src/cybergarage/upnp/media/cresource_list.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cresource_list.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cresource_list.Tpo" -c -o libclinkcav_a-cresource_list.o `test -f '../../src/cybergarage/upnp/media/cresource_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cresource_list.c; \
+libclinkcav_a-cresource_list.o: ../../src/cybergarage/upnp/std/av/cresource_list.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cresource_list.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cresource_list.Tpo" -c -o libclinkcav_a-cresource_list.o `test -f '../../src/cybergarage/upnp/std/av/cresource_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cresource_list.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cresource_list.Tpo" "$(DEPDIR)/libclinkcav_a-cresource_list.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cresource_list.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cresource_list.c' object='libclinkcav_a-cresource_list.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cresource_list.c' object='libclinkcav_a-cresource_list.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cresource_list.o `test -f '../../src/cybergarage/upnp/media/cresource_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cresource_list.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cresource_list.o `test -f '../../src/cybergarage/upnp/std/av/cresource_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cresource_list.c
 
-libclinkcav_a-cresource_list.obj: ../../src/cybergarage/upnp/media/cresource_list.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cresource_list.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cresource_list.Tpo" -c -o libclinkcav_a-cresource_list.obj `if test -f '../../src/cybergarage/upnp/media/cresource_list.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/cresource_list.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/cresource_list.c'; fi`; \
+libclinkcav_a-cresource_list.obj: ../../src/cybergarage/upnp/std/av/cresource_list.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cresource_list.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cresource_list.Tpo" -c -o libclinkcav_a-cresource_list.obj `if test -f '../../src/cybergarage/upnp/std/av/cresource_list.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/cresource_list.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/cresource_list.c'; fi`; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cresource_list.Tpo" "$(DEPDIR)/libclinkcav_a-cresource_list.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cresource_list.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cresource_list.c' object='libclinkcav_a-cresource_list.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cresource_list.c' object='libclinkcav_a-cresource_list.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cresource_list.obj `if test -f '../../src/cybergarage/upnp/media/cresource_list.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/cresource_list.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/cresource_list.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cresource_list.obj `if test -f '../../src/cybergarage/upnp/std/av/cresource_list.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/cresource_list.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/cresource_list.c'; fi`
 
-libclinkcav_a-cconnectionmgr_service.o: ../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cconnectionmgr_service.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cconnectionmgr_service.Tpo" -c -o libclinkcav_a-cconnectionmgr_service.o `test -f '../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c; \
+libclinkcav_a-cconnectionmgr_service.o: ../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cconnectionmgr_service.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cconnectionmgr_service.Tpo" -c -o libclinkcav_a-cconnectionmgr_service.o `test -f '../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cconnectionmgr_service.Tpo" "$(DEPDIR)/libclinkcav_a-cconnectionmgr_service.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cconnectionmgr_service.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c' object='libclinkcav_a-cconnectionmgr_service.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c' object='libclinkcav_a-cconnectionmgr_service.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cconnectionmgr_service.o `test -f '../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cconnectionmgr_service.o `test -f '../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c
 
-libclinkcav_a-cconnectionmgr_service.obj: ../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cconnectionmgr_service.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cconnectionmgr_service.Tpo" -c -o libclinkcav_a-cconnectionmgr_service.obj `if test -f '../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c'; fi`; \
+libclinkcav_a-cconnectionmgr_service.obj: ../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cconnectionmgr_service.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cconnectionmgr_service.Tpo" -c -o libclinkcav_a-cconnectionmgr_service.obj `if test -f '../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c'; fi`; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cconnectionmgr_service.Tpo" "$(DEPDIR)/libclinkcav_a-cconnectionmgr_service.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cconnectionmgr_service.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c' object='libclinkcav_a-cconnectionmgr_service.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c' object='libclinkcav_a-cconnectionmgr_service.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cconnectionmgr_service.obj `if test -f '../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cconnectionmgr_service.obj `if test -f '../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c'; fi`
 
-libclinkcav_a-ccontentdir_service.o: ../../src/cybergarage/upnp/media/server/ccontentdir_service.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontentdir_service.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontentdir_service.Tpo" -c -o libclinkcav_a-ccontentdir_service.o `test -f '../../src/cybergarage/upnp/media/server/ccontentdir_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/ccontentdir_service.c; \
+libclinkcav_a-ccontentdir_service.o: ../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontentdir_service.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontentdir_service.Tpo" -c -o libclinkcav_a-ccontentdir_service.o `test -f '../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-ccontentdir_service.Tpo" "$(DEPDIR)/libclinkcav_a-ccontentdir_service.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-ccontentdir_service.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/server/ccontentdir_service.c' object='libclinkcav_a-ccontentdir_service.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c' object='libclinkcav_a-ccontentdir_service.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontentdir_service.o `test -f '../../src/cybergarage/upnp/media/server/ccontentdir_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/ccontentdir_service.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontentdir_service.o `test -f '../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c
 
-libclinkcav_a-ccontentdir_service.obj: ../../src/cybergarage/upnp/media/server/ccontentdir_service.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontentdir_service.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontentdir_service.Tpo" -c -o libclinkcav_a-ccontentdir_service.obj `if test -f '../../src/cybergarage/upnp/media/server/ccontentdir_service.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/server/ccontentdir_service.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/server/ccontentdir_service.c'; fi`; \
+libclinkcav_a-ccontentdir_service.obj: ../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-ccontentdir_service.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-ccontentdir_service.Tpo" -c -o libclinkcav_a-ccontentdir_service.obj `if test -f '../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c'; fi`; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-ccontentdir_service.Tpo" "$(DEPDIR)/libclinkcav_a-ccontentdir_service.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-ccontentdir_service.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/server/ccontentdir_service.c' object='libclinkcav_a-ccontentdir_service.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c' object='libclinkcav_a-ccontentdir_service.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontentdir_service.obj `if test -f '../../src/cybergarage/upnp/media/server/ccontentdir_service.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/server/ccontentdir_service.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/server/ccontentdir_service.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-ccontentdir_service.obj `if test -f '../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c'; fi`
 
-libclinkcav_a-cmediaserver_device.o: ../../src/cybergarage/upnp/media/server/cmediaserver_device.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cmediaserver_device.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cmediaserver_device.Tpo" -c -o libclinkcav_a-cmediaserver_device.o `test -f '../../src/cybergarage/upnp/media/server/cmediaserver_device.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/cmediaserver_device.c; \
+libclinkcav_a-cmediaserver_device.o: ../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cmediaserver_device.o -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cmediaserver_device.Tpo" -c -o libclinkcav_a-cmediaserver_device.o `test -f '../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cmediaserver_device.Tpo" "$(DEPDIR)/libclinkcav_a-cmediaserver_device.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cmediaserver_device.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/server/cmediaserver_device.c' object='libclinkcav_a-cmediaserver_device.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c' object='libclinkcav_a-cmediaserver_device.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cmediaserver_device.o `test -f '../../src/cybergarage/upnp/media/server/cmediaserver_device.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/cmediaserver_device.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cmediaserver_device.o `test -f '../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c
 
-libclinkcav_a-cmediaserver_device.obj: ../../src/cybergarage/upnp/media/server/cmediaserver_device.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cmediaserver_device.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cmediaserver_device.Tpo" -c -o libclinkcav_a-cmediaserver_device.obj `if test -f '../../src/cybergarage/upnp/media/server/cmediaserver_device.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/server/cmediaserver_device.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/server/cmediaserver_device.c'; fi`; \
+libclinkcav_a-cmediaserver_device.obj: ../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -MT libclinkcav_a-cmediaserver_device.obj -MD -MP -MF "$(DEPDIR)/libclinkcav_a-cmediaserver_device.Tpo" -c -o libclinkcav_a-cmediaserver_device.obj `if test -f '../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c'; fi`; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libclinkcav_a-cmediaserver_device.Tpo" "$(DEPDIR)/libclinkcav_a-cmediaserver_device.Po"; else rm -f "$(DEPDIR)/libclinkcav_a-cmediaserver_device.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/server/cmediaserver_device.c' object='libclinkcav_a-cmediaserver_device.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c' object='libclinkcav_a-cmediaserver_device.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cmediaserver_device.obj `if test -f '../../src/cybergarage/upnp/media/server/cmediaserver_device.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/media/server/cmediaserver_device.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/media/server/cmediaserver_device.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libclinkcav_a_CFLAGS) $(CFLAGS) -c -o libclinkcav_a-cmediaserver_device.obj `if test -f '../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c'; then $(CYGPATH_W) '../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c'; else $(CYGPATH_W) '$(srcdir)/../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c'; fi`
 
-ccontent.lo: ../../src/cybergarage/upnp/media/ccontent.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ccontent.lo -MD -MP -MF "$(DEPDIR)/ccontent.Tpo" -c -o ccontent.lo `test -f '../../src/cybergarage/upnp/media/ccontent.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/ccontent.c; \
+ccontent.lo: ../../src/cybergarage/upnp/std/av/ccontent.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ccontent.lo -MD -MP -MF "$(DEPDIR)/ccontent.Tpo" -c -o ccontent.lo `test -f '../../src/cybergarage/upnp/std/av/ccontent.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/ccontent.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/ccontent.Tpo" "$(DEPDIR)/ccontent.Plo"; else rm -f "$(DEPDIR)/ccontent.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/ccontent.c' object='ccontent.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/ccontent.c' object='ccontent.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ccontent.lo `test -f '../../src/cybergarage/upnp/media/ccontent.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/ccontent.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ccontent.lo `test -f '../../src/cybergarage/upnp/std/av/ccontent.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/ccontent.c
 
-ccontent_list.lo: ../../src/cybergarage/upnp/media/ccontent_list.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ccontent_list.lo -MD -MP -MF "$(DEPDIR)/ccontent_list.Tpo" -c -o ccontent_list.lo `test -f '../../src/cybergarage/upnp/media/ccontent_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/ccontent_list.c; \
+ccontent_list.lo: ../../src/cybergarage/upnp/std/av/ccontent_list.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ccontent_list.lo -MD -MP -MF "$(DEPDIR)/ccontent_list.Tpo" -c -o ccontent_list.lo `test -f '../../src/cybergarage/upnp/std/av/ccontent_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/ccontent_list.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/ccontent_list.Tpo" "$(DEPDIR)/ccontent_list.Plo"; else rm -f "$(DEPDIR)/ccontent_list.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/ccontent_list.c' object='ccontent_list.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/ccontent_list.c' object='ccontent_list.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ccontent_list.lo `test -f '../../src/cybergarage/upnp/media/ccontent_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/ccontent_list.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ccontent_list.lo `test -f '../../src/cybergarage/upnp/std/av/ccontent_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/ccontent_list.c
 
-cdidl.lo: ../../src/cybergarage/upnp/media/cdidl.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cdidl.lo -MD -MP -MF "$(DEPDIR)/cdidl.Tpo" -c -o cdidl.lo `test -f '../../src/cybergarage/upnp/media/cdidl.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cdidl.c; \
+cdidl.lo: ../../src/cybergarage/upnp/std/av/cdidl.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cdidl.lo -MD -MP -MF "$(DEPDIR)/cdidl.Tpo" -c -o cdidl.lo `test -f '../../src/cybergarage/upnp/std/av/cdidl.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cdidl.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/cdidl.Tpo" "$(DEPDIR)/cdidl.Plo"; else rm -f "$(DEPDIR)/cdidl.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cdidl.c' object='cdidl.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cdidl.c' object='cdidl.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cdidl.lo `test -f '../../src/cybergarage/upnp/media/cdidl.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cdidl.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cdidl.lo `test -f '../../src/cybergarage/upnp/std/av/cdidl.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cdidl.c
 
-cmd5.lo: ../../src/cybergarage/upnp/media/cmd5.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cmd5.lo -MD -MP -MF "$(DEPDIR)/cmd5.Tpo" -c -o cmd5.lo `test -f '../../src/cybergarage/upnp/media/cmd5.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cmd5.c; \
+cmd5.lo: ../../src/cybergarage/upnp/std/av/cmd5.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cmd5.lo -MD -MP -MF "$(DEPDIR)/cmd5.Tpo" -c -o cmd5.lo `test -f '../../src/cybergarage/upnp/std/av/cmd5.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cmd5.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/cmd5.Tpo" "$(DEPDIR)/cmd5.Plo"; else rm -f "$(DEPDIR)/cmd5.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cmd5.c' object='cmd5.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cmd5.c' object='cmd5.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cmd5.lo `test -f '../../src/cybergarage/upnp/media/cmd5.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cmd5.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cmd5.lo `test -f '../../src/cybergarage/upnp/std/av/cmd5.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cmd5.c
 
-cresource.lo: ../../src/cybergarage/upnp/media/cresource.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cresource.lo -MD -MP -MF "$(DEPDIR)/cresource.Tpo" -c -o cresource.lo `test -f '../../src/cybergarage/upnp/media/cresource.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cresource.c; \
+cresource.lo: ../../src/cybergarage/upnp/std/av/cresource.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cresource.lo -MD -MP -MF "$(DEPDIR)/cresource.Tpo" -c -o cresource.lo `test -f '../../src/cybergarage/upnp/std/av/cresource.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cresource.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/cresource.Tpo" "$(DEPDIR)/cresource.Plo"; else rm -f "$(DEPDIR)/cresource.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cresource.c' object='cresource.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cresource.c' object='cresource.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cresource.lo `test -f '../../src/cybergarage/upnp/media/cresource.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cresource.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cresource.lo `test -f '../../src/cybergarage/upnp/std/av/cresource.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cresource.c
 
-cresource_list.lo: ../../src/cybergarage/upnp/media/cresource_list.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cresource_list.lo -MD -MP -MF "$(DEPDIR)/cresource_list.Tpo" -c -o cresource_list.lo `test -f '../../src/cybergarage/upnp/media/cresource_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cresource_list.c; \
+cresource_list.lo: ../../src/cybergarage/upnp/std/av/cresource_list.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cresource_list.lo -MD -MP -MF "$(DEPDIR)/cresource_list.Tpo" -c -o cresource_list.lo `test -f '../../src/cybergarage/upnp/std/av/cresource_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cresource_list.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/cresource_list.Tpo" "$(DEPDIR)/cresource_list.Plo"; else rm -f "$(DEPDIR)/cresource_list.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/cresource_list.c' object='cresource_list.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/cresource_list.c' object='cresource_list.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cresource_list.lo `test -f '../../src/cybergarage/upnp/media/cresource_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/cresource_list.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cresource_list.lo `test -f '../../src/cybergarage/upnp/std/av/cresource_list.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/cresource_list.c
 
-cconnectionmgr_service.lo: ../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cconnectionmgr_service.lo -MD -MP -MF "$(DEPDIR)/cconnectionmgr_service.Tpo" -c -o cconnectionmgr_service.lo `test -f '../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c; \
+cconnectionmgr_service.lo: ../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cconnectionmgr_service.lo -MD -MP -MF "$(DEPDIR)/cconnectionmgr_service.Tpo" -c -o cconnectionmgr_service.lo `test -f '../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/cconnectionmgr_service.Tpo" "$(DEPDIR)/cconnectionmgr_service.Plo"; else rm -f "$(DEPDIR)/cconnectionmgr_service.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c' object='cconnectionmgr_service.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c' object='cconnectionmgr_service.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cconnectionmgr_service.lo `test -f '../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/cconnectionmgr_service.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cconnectionmgr_service.lo `test -f '../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c
 
-ccontentdir_service.lo: ../../src/cybergarage/upnp/media/server/ccontentdir_service.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ccontentdir_service.lo -MD -MP -MF "$(DEPDIR)/ccontentdir_service.Tpo" -c -o ccontentdir_service.lo `test -f '../../src/cybergarage/upnp/media/server/ccontentdir_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/ccontentdir_service.c; \
+ccontentdir_service.lo: ../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT ccontentdir_service.lo -MD -MP -MF "$(DEPDIR)/ccontentdir_service.Tpo" -c -o ccontentdir_service.lo `test -f '../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/ccontentdir_service.Tpo" "$(DEPDIR)/ccontentdir_service.Plo"; else rm -f "$(DEPDIR)/ccontentdir_service.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/server/ccontentdir_service.c' object='ccontentdir_service.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c' object='ccontentdir_service.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ccontentdir_service.lo `test -f '../../src/cybergarage/upnp/media/server/ccontentdir_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/ccontentdir_service.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o ccontentdir_service.lo `test -f '../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c
 
-cmediaserver_device.lo: ../../src/cybergarage/upnp/media/server/cmediaserver_device.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cmediaserver_device.lo -MD -MP -MF "$(DEPDIR)/cmediaserver_device.Tpo" -c -o cmediaserver_device.lo `test -f '../../src/cybergarage/upnp/media/server/cmediaserver_device.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/cmediaserver_device.c; \
+cmediaserver_device.lo: ../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT cmediaserver_device.lo -MD -MP -MF "$(DEPDIR)/cmediaserver_device.Tpo" -c -o cmediaserver_device.lo `test -f '../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c; \
 @am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/cmediaserver_device.Tpo" "$(DEPDIR)/cmediaserver_device.Plo"; else rm -f "$(DEPDIR)/cmediaserver_device.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/media/server/cmediaserver_device.c' object='cmediaserver_device.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c' object='cmediaserver_device.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cmediaserver_device.lo `test -f '../../src/cybergarage/upnp/media/server/cmediaserver_device.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/media/server/cmediaserver_device.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --mode=compile --tag=CC $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o cmediaserver_device.lo `test -f '../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c' || echo '$(srcdir)/'`../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c
 
 mostlyclean-libtool:
 	-rm -f *.lo

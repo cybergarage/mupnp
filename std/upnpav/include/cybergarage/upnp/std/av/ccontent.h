@@ -15,7 +15,7 @@
 #ifndef _CG_CLINKC_MEDIA_CONTENT_H_
 #define _CG_CLINKC_MEDIA_CONTENT_H_
 
-#include <cybergarage/upnp/media/cresource.h>
+#include <cybergarage/upnp/std/av/cresource.h>
 
 #ifdef __cplusplus
 extern "C" {

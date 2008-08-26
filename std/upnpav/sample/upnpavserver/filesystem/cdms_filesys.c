@@ -13,7 +13,7 @@
 ************************************************************/
 
 #include "cdms_filesys.h"
-#include <cybergarage/upnp/media/cmediaserver.h>
+#include <cybergarage/upnp/std/av/cmediaserver.h>
 #include <cybergarage/net/cinterface.h>
 
 #include <stdio.h>
