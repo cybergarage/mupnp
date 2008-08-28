@@ -95,6 +95,20 @@
 	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getudn(cObject)] autorelease];
 }
 
+-(void)setFriendlyName:(NSString *)aName
+{
+	if (!cObject)
+		return;
+	cg_upnp_device_setfriendlyname(cObject, (char *)[aName UTF8String]);
+}
+
+-(void)setUdn:(NSString *)aUdn
+{
+	if (!cObject)
+		return;
+	cg_upnp_device_setudn(cObject, (char *)[aUdn UTF8String]);
+}
+
 - (BOOL)isDeviceType:(NSString *)aType
 {
 	return [aType isEqualToString:[self deviceType]];

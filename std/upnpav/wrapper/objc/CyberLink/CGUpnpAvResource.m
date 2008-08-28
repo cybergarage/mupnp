@@ -43,12 +43,12 @@
 
 - (long long)size
 {
-	return [[self attributeValueForName:CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE] longLongValue];
+	return [[self attributeValueForName:@"size"] longLongValue];
 }
 
 - (NSString *)protocolInfo
 {
-	return [self attributeValueForName:CG_UPNPAV_CONNECTIONMANAGER_PROTOCOL_INFO];
+	return [self attributeValueForName:@"protocolInfo"];
 }
 
 - (NSString *)protocolInfoAtIndex:(NSUInteger)anIndex
@@ -102,17 +102,17 @@
 
 - (NSString *)dlnaOrgPn
 {
-	return [self additionalInfoForKey:CG_UPNPAV_RESOURCE_DLNAORG_PN];
+	return [self additionalInfoForKey:@"DLNA.ORG_PN"];
 }
 
 - (NSString *)dlnaOrgOp
 {
-	return [self additionalInfoForKey:CG_UPNPAV_RESOURCE_DLNAORG_OP];
+	return [self additionalInfoForKey:@"DLNA.ORG_OP"];
 }
 
 - (NSString *)dlnaOrgFlags
 {
-	return [self additionalInfoForKey:CG_UPNPAV_RESOURCE_DLNAORG_FLAGS];
+	return [self additionalInfoForKey:@"DLNA.ORG_FLAGS"];
 }
 
 @end
