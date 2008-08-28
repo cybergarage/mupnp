@@ -25,7 +25,7 @@ typedef void CgUpnpMediaServer;
 @interface CGUpnpAvServer : CGUpnpDevice
 {
 	CGUpnpAvContentDirectory *contentDirectory;
-	CgUpnpMediaServer *cdmsObject;
+	CgUpnpMediaServer *cAvObject;
 }
 @property(readonly) CGUpnpAvContentDirectory *contentDirectory;
 /**
@@ -46,4 +46,6 @@ typedef void CgUpnpMediaServer;
 - (CGUpnpAvContainer *)rootObject;
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
+- (BOOL)start;
+- (BOOL)stop;
 @end

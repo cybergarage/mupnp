@@ -95,23 +95,23 @@
 	NSString *dlnaOrgFlags;
 
 	avItem = [avObjArray objectAtIndex:0];
-	objectid = [avItem objectId];
-	STAssertTrue([objectId isEqualToString:@"6"]);
+	objectId = [avItem objectId];
+	STAssertTrue([objectId isEqualToString:@"6"], @"");
 	title = [avItem title];
-	STAssertTrue([title isEqualToString:@"Chloe Dancer"]);
+	STAssertTrue([title isEqualToString:@"Chloe Dancer"], @"");
 	avResArray = [avItem resources];
-	STAssertTrue(0 < [avItem count]);
+	STAssertTrue(0 < [avResArray count], @"");
 	avRes = [avResArray objectAtIndex:0];
 	url = [avRes url];
-	STAssertTrue([url isEqualToString:@"http://10.0.0.1/getcontent.asp?id=6"]);
-	mimeType = [avRes mimeType];
-	STAssertTrue([mimeType isEqualToString:@"audio/x-ms-wma"]);
+	STAssertTrue([url isEqualToString:@"http://10.0.0.1/getcontent.asp?id=6"], @"");
+	mimeType = [avRes contentFormat];
+	STAssertTrue([mimeType isEqualToString:@"audio/x-ms-wma"], @"");
 	dlnaOrgPn = [avRes dlnaOrgPn];
-	STAssertTrue([dlnaOrgPn isEqualToString:@"MPEG_PS_NTSC"]);
+	STAssertTrue([dlnaOrgPn isEqualToString:@"MPEG_PS_NTSC"], @"");
 	dlnaOrgOp = [avRes dlnaOrgOp];
-	STAssertTrue([dlnaOrgOp isEqualToString:@"01"]);
+	STAssertTrue([dlnaOrgOp isEqualToString:@"01"], @"");
 	dlnaOrgFlags = [avRes dlnaOrgFlags];
-	STAssertTrue([dlnaOrgFlags isEqualToString:@"AD500000000000000000000000000000"]);
+	STAssertTrue([dlnaOrgFlags isEqualToString:@"AD500000000000000000000000000000"], @"");
 
 	[avObjArray release];
 }

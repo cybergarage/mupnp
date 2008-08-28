@@ -25,7 +25,7 @@
 	if ((self = [super init]) == nil)
 		return nil;
 
-	cdmsObject = cg_upnp_dms_new();
+	cAvObject = cg_upnp_dms_new();
 	contentDirectory = nil;
 
 	return self;
@@ -35,7 +35,7 @@
 {
 	if ((self = [super initWithCObject:cobj]) == nil)
 		return nil;
-	cdmsObject = NULL;
+	cAvObject = NULL;
 	contentDirectory = [[CGUpnpAvContentDirectory alloc] init];
 	return self;
 }
@@ -63,8 +63,8 @@
 	id userObj = [self userObject];
 	if (userObj)
 		[userObj release];
-	if (cdmsObject)
-		cg_upnp_dms_delete(cdmsObject);
+	if (cAvObject)
+		cg_upnp_dms_delete(cAvObject);
 	[contentDirectory release];
 	[super dealloc];
 }
@@ -74,8 +74,8 @@
 	id userObj = [self userObject];
 	if (userObj)
 		[userObj release];
-	if (cdmsObject)
-		cg_upnp_dms_delete(cdmsObject);
+	if (cAvObject)
+		cg_upnp_dms_delete(cAvObject);
 	[contentDirectory release];
 	[super finalize];
 }
@@ -127,6 +127,20 @@
 	}
 	
 	return avObjArray;	
+}
+
+- (BOOL)start
+{
+	if (!cAvObject)
+		return NO;
+	return cg_upnp_dms_start(cAvObject);
+}
+
+- (BOOL)stop
+{
+	if (!cAvObject)
+		return NO;
+	return cg_upnp_dms_stop(cAvObject);
 }
 
 @end

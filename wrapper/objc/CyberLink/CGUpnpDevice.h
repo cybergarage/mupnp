@@ -67,6 +67,18 @@ typedef void CgUpnpDevice;
  */
 - (NSString *)udn;
 /**
+ * Set a friendly name of the device.
+ * 
+ * @param a friendly name to set.
+ */
+-(void)setFriendlyName:(NSString *)aName;
+/**
+ * Set a udn of the device.
+ * 
+ * @param a udn to set.
+ */
+-(void)setUdn:(NSString *)aUdn;
+/**
  * Check whether the device type is the specified type.
  *
  * @param aType A type string of the device.
