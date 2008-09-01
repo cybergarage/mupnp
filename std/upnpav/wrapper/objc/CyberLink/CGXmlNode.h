@@ -15,7 +15,7 @@
 {
 	NSXMLElement *xmlNode;
 }
-@property(readwrite, copy) NSXMLNode *xmlNode;
+@property(readwrite, copy) NSXMLElement *xmlNode;
 - (id)init;
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 - (NSString *)attributeValueForName:(NSString *)aName;
