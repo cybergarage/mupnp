@@ -6,6 +6,8 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#include <cybergarage/xml/cxml.h>
+
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
 #import "CGUpnpAvContainer.h"
@@ -15,10 +17,9 @@
 
 @implementation CGUpnpAvObject
 
-@synthesize xmlNode;
-
 + (NSArray *)arrayWithXMLString:(NSString *)aXmlString
 {
+#if  !defined(TARGET_OS_IPHONE)
 	NSError *xmlErr;
 	NSXMLDocument *xmlDoc = [[NSXMLDocument alloc] initWithXMLString:aXmlString options:0 error:&xmlErr];
 	if (!xmlDoc)
@@ -33,7 +34,7 @@
 			CGUpnpAvContainer *avCon = [[[CGUpnpAvContainer alloc] initWithXMLNode:contentNode] autorelease];
 			avObj = avCon;
 		}
-		else {
+		else if ([[contentNode name] isEqualToString:@"item"]) {
 			CGUpnpAvItem *avItem = [[[CGUpnpAvItem alloc] initWithXMLNode:contentNode] autorelease];
 			NSArray *resArray = [contentNode elementsForName:@"res"];
 			for (NSXMLElement *resNode in resArray) {
@@ -48,7 +49,52 @@
 		[avObj release];
 	}
 	[xmlDoc release];
-
+#else
+	char *resultXml;
+	CgXmlParser *xmlParser;
+	CgXmlNodeList *rootNode;
+	CgXmlNode *didlNode;
+	CgXmlNode *cnode;
+	CgXmlNode *rnode;
+	
+	resultXml = (char *)[aXmlString UTF8String];
+	if (cg_strlen(resultXml) <= 0)
+		return nil;
+	
+	NSMutableArray *avObjArray = [[[NSMutableArray alloc] init] autorelease];
+	
+	rootNode = cg_xml_nodelist_new();
+	xmlParser = cg_xml_parser_new();
+	if (cg_xml_parse(xmlParser, rootNode, resultXml, cg_strlen(resultXml))) {
+		didlNode = cg_xml_nodelist_getbyname(rootNode, "DIDL-Lite");
+		if (didlNode) {
+			for (cnode=cg_xml_node_getchildnodes(didlNode); cnode; cnode=cg_xml_node_next(cnode)) {
+				CGUpnpAvObject *avObj = nil;
+				if (cg_xml_node_isname(cnode, "container")) {
+					CGUpnpAvContainer *avCon = [[[CGUpnpAvContainer alloc] initWithXMLNode:cnode] autorelease];
+					avObj = avCon;
+				}
+				else if (cg_xml_node_isname(cnode, "item")) {
+					CGUpnpAvItem *avItem = [[[CGUpnpAvItem alloc] initWithXMLNode:cnode] autorelease];
+					for (rnode=cg_xml_node_getchildnodes(cnode); rnode; rnode=cg_xml_node_next(rnode)) {
+						if (cg_xml_node_isname(rnode, "res")) {
+							CGUpnpAvResource *avRes = [[[CGUpnpAvResource alloc] initWithXMLNode:rnode] autorelease];
+							[avItem addResource:avRes];
+						}
+					}
+					avObj = avItem;
+				}
+				if (avObj == nil)
+					continue;
+				[avObjArray addObject:avObj];
+				[avObj release];
+			}
+		}
+	}
+	cg_xml_nodelist_delete(rootNode);
+	cg_xml_parser_delete(xmlParser);
+#endif
+	
 	return avObjArray;
 }
 
@@ -59,7 +105,11 @@
 	return self;
 }
 
+#if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode
+#else
+- (id)initWithXMLNode:(CgXmlNode *)aXmlNode
+#endif
 {
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
 		return nil;

@@ -19,7 +19,11 @@
 	return self;
 }
 
+#if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode
+#else
+- (id)initWithXMLNode:(CgXmlNode *)aXmlNode
+#endif
 {
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
 		return nil;

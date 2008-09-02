@@ -6,10 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <Foundation/NSArray.h>
-#import <Foundation/NSXMLElement.h>
-
-@class CGUpnpAvObject;
+#import <CyberLink/CGUpnpAvObject.h>
 
 /**
  * The CGUpnpAvContainer class is a container of UPnP/AV container.
@@ -19,7 +16,11 @@
 	NSMutableArray *childArray;
 }
 - (id)init;
+#if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
+#else
+- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
+#endif
 - (void)addChild:(CGUpnpAvObject *)obj;
 - (void)addChildren:(NSArray *)objArray;
 - (void)removeChild:(CGUpnpAvObject *)obj;

@@ -182,6 +182,8 @@ void cg_xml_node_removeattribute(CgXmlNode *node, char *name);
 
 char *cg_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str);
 
+void cg_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode);
+
 /****************************************
 * Function (Parser)
 ****************************************/
