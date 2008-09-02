@@ -1,5 +1,6 @@
 2008-09-03  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_xml_node_copy().
+	* Enabled libxml2 as default using TARGET_OS_IPHONE macro on iPhone and iPhone-Simulator.
 
 2008-08-21  Satoshi Konno <skonno@cybergarage.org>
 	* Fixed some warnings using GCC v4.0.1.
