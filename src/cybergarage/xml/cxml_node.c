@@ -53,9 +53,9 @@ CgXmlNode *cg_xml_node_new()
 		node->userDataDestructorFunc = NULL;
 	}
 
-	return node;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return node;
 }
 
 /****************************************
@@ -95,9 +95,10 @@ CgXmlNode *cg_xml_node_getrootnode(CgXmlNode *node)
 		 rootNode = parentNode;
 		 parentNode = cg_xml_node_getparentnode(rootNode);
 	}
-	return rootNode;
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return rootNode;
 }
 
 /****************************************
@@ -249,6 +250,36 @@ void cg_xml_node_removeattribute(CgXmlNode *node, char *name)
 }
 
 /****************************************
+ * cg_xml_node_copy
+ ****************************************/
+
+void cg_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode)
+{
+	CgXmlAttribute *attr;
+	CgXmlNode *dstChildNode;
+	CgXmlNode *srcChildNode;
+	
+	cg_log_debug_l4("Entering...\n");
+	
+	if (!dstNode || !srcNode)
+		return;
+
+	cg_xml_node_setname(dstNode, cg_xml_node_getname(srcNode));
+	cg_xml_node_setvalue(dstNode, cg_xml_node_getvalue(srcNode));
+	
+	for (attr = cg_xml_node_getattributes(srcNode); attr != NULL; attr = cg_xml_attribute_next(attr))
+		cg_xml_node_setattribute(dstNode, cg_xml_attribute_getname(attr), cg_xml_attribute_getvalue(attr));
+	
+	for (srcChildNode = cg_xml_node_getchildnodes(srcNode); srcChildNode != NULL; srcChildNode = cg_xml_node_next(srcChildNode)) {
+		dstChildNode = cg_xml_node_new();
+		cg_xml_node_copy(dstChildNode, srcChildNode);
+		cg_xml_node_addchildnode(dstNode, dstChildNode);
+	}
+	
+	 cg_log_debug_l4("Leaving...\n");
+}
+
+/****************************************
 * cg_xml_node_attribute_tostring
 ****************************************/
 
@@ -285,9 +316,10 @@ static char *cg_xml_node_attribute_tostring(CgXmlNode *node, CgString *str)
 		}
 	}
 	cg_string_delete(valueStr);
-	return cg_string_getvalue(str);
-
+	
 	cg_log_debug_l4("Leaving...\n");
+
+	return cg_string_getvalue(str);
 }
 
 /****************************************
@@ -361,9 +393,9 @@ static char *cg_xml_node_tostring_indent(CgXmlNode *node, int indentLevel, BOOL 
 		/* Memory allocation failed */
 		return NULL;
 
-	return cg_string_getvalue(str);
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return cg_string_getvalue(str);
 }
 
 /****************************************
@@ -378,3 +410,4 @@ char *cg_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str)
 
 	cg_log_debug_l4("Leaving...\n");
 }
+

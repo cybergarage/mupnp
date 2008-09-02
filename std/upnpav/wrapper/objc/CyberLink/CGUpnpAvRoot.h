@@ -6,9 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <Foundation/NSXMLElement.h>
-
-@class CGUpnpAvContainer;
+#import <CyberLink/CGUpnpAvContainer.h>
 
 /**
  * The CGUpnpAvRoot class is a root container of UPnP/AV.
@@ -17,6 +15,10 @@
 {
 }
 - (id)init;
+#if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
+#else
+- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
+#endif
 @end
 

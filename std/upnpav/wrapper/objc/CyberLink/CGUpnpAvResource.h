@@ -6,11 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <Foundation/NSArray.h>
-#import <Foundation/NSString.h>
-#import <Foundation/NSXMLElement.h>
-
-@class CGXmlNode;
+#import <CyberLink/CGXmlNode.h>
 
 /**
  * The CGUpnpAvResource class is a wrapper class for CgUpnpAction of CyberLink for C.
@@ -19,7 +15,11 @@
 {
 }
 - (id)init;
+#if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
+#else
+- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
+#endif
 - (NSString *)url;
 - (long long)size;
 - (NSString *)protocolInfo;
