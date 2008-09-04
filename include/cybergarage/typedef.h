@@ -41,6 +41,10 @@
 #include <kernel.h>
 #endif
 
+#if defined(__GNUC__) && ( defined(__APPLE_CPP__) || defined(__APPLE_CC__) )
+#include <TargetConditionals.h>
+#endif
+	
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
 #endif
