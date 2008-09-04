@@ -19,6 +19,8 @@
 *  - Added CgByte to <typedef.h>
 * 03/18/08
 *  - Changed not to define BOOL type using XCode.
+* 09/03/08
+*  - Changed to include <TargetConditionals.h> in <typedef.h> on XCode as default.
 *
 ******************************************************************/
 

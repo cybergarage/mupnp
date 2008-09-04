@@ -1,5 +1,5 @@
 2008-09-03  Satoshi Konno <skonno@cybergarage.org>
-	* Changed to include <TargetConditionals.h> on XCode as default.
+	* Changed to include <TargetConditionals.h> in <typedef.h> on XCode as default.
 	* Enabled SO_REUSEPORT in cg_socket_setreuseaddress() on MacOSX and iPhone platforms.
 	* Disabled signal in cg_thread_stop_with_cond() on MacOSX and iPhone platforms.
 	* Enabled libxml2 as default using TARGET_OS_IPHONE macro on iPhone and iPhone-Simulator.
