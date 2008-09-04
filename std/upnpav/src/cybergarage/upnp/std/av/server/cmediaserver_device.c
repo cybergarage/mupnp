@@ -37,7 +37,7 @@ static char *CG_UPNP_DMS_DEVICE_DESCRIPTION =
 "      <modelDescription>CyberGarage</modelDescription>\n"
 "      <modelName>Cyber Garage Media Server</modelName>\n"
 "      <modelNumber>1.0</modelNumber>\n"
-"      <UDN>BA2E90A0-3669-401a-B249-F85196ADFC44</UDN>\n"
+"      <UDN>uuid:BA2E90A0-3669-401a-B249-F85196ADFC44</UDN>\n"
 "      <modelURL>http://www.cybergarage.org</modelURL>\n"
 "      <dlna:X_DLNADOC xmlns:dlna=\"urn:schemas-dlna-org:device-1-0\">DMS-1.00</dlna:X_DLNADOC>\n"
 "      <serviceList>\n"
