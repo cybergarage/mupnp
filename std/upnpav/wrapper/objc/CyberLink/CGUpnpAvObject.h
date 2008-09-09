@@ -31,6 +31,8 @@
 - (NSString *)objectId;
 - (NSString *)title;
 - (NSString *)upnpClass;
+- (NSString *)date;
+- (NSString *)albumArtURI;
 - (void)setObjectId:(NSString *)aValue;
 - (void)setTitle:(NSString *)aValue;
 - (void)setUpnpClass:(NSString *)aValue;
