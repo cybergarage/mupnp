@@ -67,6 +67,12 @@ typedef void CgUpnpDevice;
  */
 - (NSString *)udn;
 /**
+ * Return a manufacture.
+ *
+ * @return Manufacture of the device.
+ */
+- (NSString *)manufacturer;
+/**
  * Set a friendly name of the device.
  * 
  * @param a friendly name to set.
@@ -144,4 +150,10 @@ typedef void CgUpnpDevice;
  * @return A stored user data.
  */
 - (void *)userData;
+/**
+ * Return a IP address.
+ *
+ * @return IP address of the device.
+ */
+- (NSString *)ipaddress;
 @end

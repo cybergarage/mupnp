@@ -107,10 +107,10 @@ extern "C" {
 #define CG_UPNP_DEVICE_FRIENDLY_NAME "friendlyName"
 
 /** Definition for device manufacturer XML element name */
-#define CG_UPNP_DEVICE_MANUFACTURE "manufacture"
+#define CG_UPNP_DEVICE_MANUFACTURER "manufacturer"
 
 /** Definition for manufacturer URL XML element name */
-#define CG_UPNP_DEVICE_MANUFACTURE_URL "manufactureURL"
+#define CG_UPNP_DEVICE_MANUFACTURER_URL "manufacturerURL"
 
 /** Definition for device model description XML element name */
 #define CG_UPNP_DEVICE_MODEL_DESCRIPTION "modelDescription"
@@ -467,7 +467,7 @@ char* cg_upnp_devicetype_getversion(char* deviceType);
  * \param value The manufacturer's name
  *
  */
-#define cg_upnp_device_setmanufacture(dev, value) cg_xml_node_setchildnode(cg_upnp_device_getdevicenode(dev), CG_UPNP_DEVICE_MANUFACTURE, value)
+#define cg_upnp_device_setmanufacturer(dev, value) cg_xml_node_setchildnode(cg_upnp_device_getdevicenode(dev), CG_UPNP_DEVICE_MANUFACTURER, value)
 
 /**
  * Get the device's manufacturer.
@@ -476,7 +476,7 @@ char* cg_upnp_devicetype_getversion(char* deviceType);
  *
  * \return value The manufacturer's name
  */
-#define cg_upnp_device_getmanufacture(dev) cg_xml_node_getchildnodevalue(cg_upnp_device_getdevicenode(dev), CG_UPNP_DEVICE_MANUFACTURE)
+#define cg_upnp_device_getmanufacturer(dev) cg_xml_node_getchildnodevalue(cg_upnp_device_getdevicenode(dev), CG_UPNP_DEVICE_MANUFACTURER)
 
 /*****************************************************************************
  * Manufacturer URL
@@ -489,7 +489,7 @@ char* cg_upnp_devicetype_getversion(char* deviceType);
  * \param value The manufacturer URL
  *
  */
-#define cg_upnp_device_setmanufactureurl(dev, value) cg_xml_node_setchildnode(cg_upnp_device_getdevicenode(dev), CG_UPNP_DEVICE_MANUFACTURE_URL, value)
+#define cg_upnp_device_setmanufacturerurl(dev, value) cg_xml_node_setchildnode(cg_upnp_device_getdevicenode(dev), CG_UPNP_DEVICE_MANUFACTURER_URL, value)
 
 /**
  * Get the device's manufacturer URL
@@ -498,7 +498,7 @@ char* cg_upnp_devicetype_getversion(char* deviceType);
  *
  * \return The manufacturer URL
  */
-#define cg_upnp_device_getmanufactureurl(dev) cg_xml_node_getchildnodevalue(cg_upnp_device_getdevicenode(dev), CG_UPNP_DEVICE_MANUFACTURE_URL)
+#define cg_upnp_device_getmanufacturerurl(dev) cg_xml_node_getchildnodevalue(cg_upnp_device_getdevicenode(dev), CG_UPNP_DEVICE_MANUFACTURER_URL)
 
 /*****************************************************************************
  * Model Description

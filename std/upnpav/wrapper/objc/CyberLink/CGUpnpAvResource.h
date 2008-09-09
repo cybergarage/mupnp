@@ -32,5 +32,6 @@
 - (NSString *)dlnaOrgPn;
 - (NSString *)dlnaOrgOp;
 - (NSString *)dlnaOrgFlags;
+- (BOOL)isThumbnail;
 @end
 

@@ -64,12 +64,9 @@
 {
 	NSString *tbUrl = [self albumArtURI];
 	if (tbUrl && 0 < [tbUrl length])
-		return [[tbUrl retail] autorelease];
+		return [[tbUrl retain] autorelease];
 	for (CGUpnpAvResource *res in [self resources]) {
-		NSString *dlnaOrgPn = [res dlnaOrgPn];
-		if (!dlnaOrgPn)
-			continue;
-		if ([dlnaOrgPn hasSuffix:@"_TN"])
+		if ([res isThumbnail])
 			return [[[res url] retain] autorelease];
 	}
 	return nil;

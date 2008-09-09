@@ -95,6 +95,13 @@
 	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getudn(cObject)] autorelease];
 }
 
+- (NSString *)manufacturer
+{
+	if (!cObject)
+		return nil;
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getmanufacturer(cObject)] autorelease];
+}
+
 -(void)setFriendlyName:(NSString *)aName
 {
 	if (!cObject)
@@ -182,6 +189,24 @@
 	if (!cObject)
 		return NULL;
 	return cg_upnp_device_getuserdata(cObject);
+}
+
+- (NSString *)ipaddress
+{
+	if (!cObject)
+		return nil;
+	
+	NSString *ipaddr = nil;
+	
+	char *location_str = cg_upnp_device_getlocationfromssdppacket(cObject);	
+	if (0 < cg_strlen(location_str)) {
+		CgNetURL *url = cg_net_url_new();
+		cg_net_url_set(url, location_str);
+		ipaddr = [[[NSString alloc] initWithUTF8String:cg_net_url_gethost(url)] autorelease];
+		cg_net_url_delete(url);
+	}
+	
+	return ipaddr;
 }
 
 @end
