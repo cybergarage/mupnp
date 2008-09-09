@@ -1200,7 +1200,7 @@ BOOL cg_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr)
 	joinSuccess = TRUE;
 	
 	ka_inet_pton( AF_INET, mcastAddr, &(ipmr.imr_multiaddr) );
-    memcpy(&ipmr.imr_interface, &ifInetAddr, sizeof(struct in_addr));
+	memcpy(&ipmr.imr_interface, &ifInetAddr, sizeof(struct in_addr));
 	sockOptRetCode = ka_setsockopt(sock->id, IP_PROTOIP, IPO_ADD_MEMBERSHIP, (char *)&ipmr, sizeof(ipmr));
 
 	if (sockOptRetCode != 0)

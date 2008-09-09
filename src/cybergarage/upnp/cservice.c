@@ -107,9 +107,9 @@ CgUpnpService *cg_upnp_service_new()
 		cg_upnp_service_setuserdata(service, NULL);
 	}	
 	
-	return service;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return service;
 }
 
 /****************************************
@@ -262,9 +262,10 @@ BOOL cg_upnp_service_parsedescription(CgUpnpService *service, char *desciption, 
 	service->parsed = TRUE;
 #endif
 	cg_upnp_service_unlock(service);
-	return TRUE;
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -316,9 +317,9 @@ BOOL cg_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url)
 
 	cg_http_request_delete(httpReq);
 	
-	return parseSuccess;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return parseSuccess;
 }
 
 /****************************************
@@ -338,9 +339,9 @@ char *cg_upnp_service_getdescription(CgUpnpService *service, CgString *descStr)
 		cg_xml_node_tostring(scpdNode, TRUE, descStr);
 	}
 	
-	return cg_string_getvalue(descStr);
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return cg_string_getvalue(descStr);
 }
 
 /****************************************
@@ -398,9 +399,9 @@ char* cg_upnp_servicetype_getidentifier(char* serviceType)
 		part = NULL;
         }
 
-        return part;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return part;
 }
 
 /** 
@@ -467,10 +468,9 @@ char* cg_upnp_servicetype_geturn(char* serviceType)
 		part = NULL;
         }
 
-        return part;
-
-
 	cg_log_debug_l4("Leaving...\n");
+        
+	return part;
 }
 
 /** 
@@ -545,9 +545,9 @@ char* cg_upnp_servicetype_getservice(char* serviceType)
 		part = NULL;
         }
 
-        return part;
-
 	cg_log_debug_l4("Leaving...\n");
+        
+	return part;
 }
 
 /** 
@@ -622,9 +622,9 @@ char* cg_upnp_servicetype_gettype(char* serviceType)
 		part = NULL;
         }
 
-        return part;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return part;
 }
 
 /** 
@@ -687,9 +687,9 @@ char* cg_upnp_servicetype_getschematype(char* serviceType)
 		part = NULL;
         }
 
-        return part;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+        return part;
 }
 
 /** 
@@ -763,9 +763,9 @@ char* cg_upnp_servicetype_getversion(char* serviceType)
                 part = NULL;
         }
 
-        return part;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+        return part;
 }
 
 /****************************************
@@ -780,9 +780,10 @@ char *cg_upnp_service_getnotifyservicetypent(CgUpnpService *service, char *buf, 
 
 	cg_strncpy(buf, cg_upnp_service_getservicetype(service), bufSize);
 	buf[bufSize-1]='\0';
-	return buf;
-
+	
 	cg_log_debug_l4("Leaving...\n");
+	
+	return buf;
 }
 
 char *cg_upnp_service_getnotifyservicetypeusn(CgUpnpService *service, char *buf, int bufSize)
@@ -797,9 +798,10 @@ char *cg_upnp_service_getnotifyservicetypeusn(CgUpnpService *service, char *buf,
 #else
 	sprintf(buf, "%s::%s", cg_upnp_device_getudn(dev), cg_upnp_service_getservicetype(service));
 #endif
-	return buf;
-
+	
 	cg_log_debug_l4("Leaving...\n");
+	
+	return buf;
 }
 
 BOOL cg_upnp_service_announcefrom(CgUpnpService *service, char *bindAddr)
@@ -952,9 +954,9 @@ CgUpnpAction *cg_upnp_service_getactionbyname(CgUpnpService *service, char *name
 			return action;
 	}
 	
-	return NULL;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return NULL;
 }
 
 /****************************************
@@ -1024,9 +1026,9 @@ CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *servi
 			return stateVar;
 	}
 	
-	return NULL;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return NULL;
 }
 
 /****************************************

@@ -119,5 +119,16 @@
 	return [self additionalInfoForKey:@"DLNA.ORG_FLAGS"];
 }
 
+- (BOOL)isThumbnail
+{
+	NSString *dlnaOrgPn = [self dlnaOrgPn];
+	if (!dlnaOrgPn)
+		return NO;
+	if ([dlnaOrgPn hasSuffix:@"_TN"])
+		return YES;
+	return NO;
+}
+
+
 @end
 
