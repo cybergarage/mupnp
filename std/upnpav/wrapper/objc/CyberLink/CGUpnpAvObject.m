@@ -186,6 +186,16 @@
 	return [self elementValueForName:CG_UPNPAV_OBJECT_UPNPCLASS];
 }
 
+- (NSString *)date;
+{
+	return [self elementValueForName:CG_UPNPAV_OBJECT_DATE];
+}
+
+- (NSString *)albumArtURI;
+{
+	return [self elementValueForName:CG_UPNPAV_OBJECT_ALBUMARTURI];
+}
+
 - (void)setObjectId:(NSString *)aValue
 {
 	[self setAttributeWithName:CG_UPNPAV_OBJECT_ID stringValue:aValue];

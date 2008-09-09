@@ -25,4 +25,5 @@
 - (void)addResource:(CGUpnpAvResource *)res;
 - (void)removeResource:(CGUpnpAvResource *)res;
 - (NSArray *)resources;
+- (NSString *)thumbnailUrl;
 @end
