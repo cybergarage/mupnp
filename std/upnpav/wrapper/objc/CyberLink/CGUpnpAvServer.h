@@ -28,6 +28,7 @@ typedef void CgUpnpMediaServer;
 	CgUpnpMediaServer *cAvObject;
 }
 @property(readonly) CGUpnpAvContentDirectory *contentDirectory;
+@property(readonly) CgUpnpMediaServer *cAvObject;
 /**
  * Create a new UPnP/AV server.
  * 

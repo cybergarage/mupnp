@@ -19,6 +19,7 @@
 @implementation CGUpnpAvServer
 
 @synthesize contentDirectory;
+@synthesize cAvObject;
 
 - (id) init
 {
