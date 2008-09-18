@@ -1,1 +1,1 @@
-SUBDIRS = dms
+SUBDIRS = upnpavserver
