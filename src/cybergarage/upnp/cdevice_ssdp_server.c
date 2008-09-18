@@ -54,11 +54,12 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 #endif
 	CgUpnpService *service;
 	CgUpnpDevice *childDev;
-	char *mxvalue;
+	char *ssdpMXString;
+	int ssdpMX;
 
 	cg_log_debug_l4("Entering...\n");
 
-	mxvalue = cg_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_MX);
+	ssdpMXString = cg_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_MX);
 	ssdpST = cg_upnp_ssdp_packet_getst(ssdpPkt);
 
 	/* Check if this ssdp packet has already been checked + filtered */
@@ -95,12 +96,12 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 		/****************************************
 		 * check MX header, return if incorrect
 		 ***************************************/
-		if (mxvalue == NULL || cg_strlen(mxvalue)==0)
+		if (ssdpMXString == NULL || cg_strlen(ssdpMXString)==0)
 			/* return if the MX value does not exist or is empty */
 			return;
 		/* check if MX value is not an integer */
-		for (n=0; n<strlen(mxvalue); n++) {
-			if (isdigit(mxvalue[n]) == 0)
+		for (n=0; n<strlen(ssdpMXString); n++) {
+			if (isdigit(ssdpMXString[n]) == 0)
 				/* MX value contains a non-digit so is invalid */
 				return;
 		}
@@ -116,8 +117,9 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 		if ( filter_duplicate_m_search(ssdpPkt) )
 			return;
 
-		cg_log_debug("Sleeping for a while... (MX:%d)\n", cg_upnp_ssdp_packet_getmx(ssdpPkt));
-		cg_waitrandom(1000*cg_upnp_ssdp_packet_getmx(ssdpPkt));
+		ssdpMX = cg_upnp_ssdp_packet_getmx(ssdpPkt);
+		cg_log_debug("Sleeping for a while... (MX:%d)\n", ssdpMX);
+		cg_waitrandom((ssdpMX*1000)/4);
 	}
 
 	isRootDev = cg_upnp_device_isrootdevice(dev);
@@ -256,10 +258,10 @@ static int simple_string_hash(char *str, int table_size)
 	
 	cg_log_debug("Calculating hash from string |%s|, table size: %d\n", str, table_size);
 
-        /* Sum up all the characters in the string */
-        for( ; *str; str++) sum += *str;
-
-        return sum % table_size;
+	/* Sum up all the characters in the string */
+	for( ; *str; str++) sum += *str;
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return sum % table_size;
 }
