@@ -399,7 +399,7 @@ char *cg_net_uri_unescapestring(char *buf, int bufSize, CgString *retBuf)
 	long hex;
 	unsigned char c;
 #endif
-	int idx = 0
+	int idx = 0;
 #if defined(CG_USE_NET_URI_ESCAPESTRING_SKIP)
 	int tmpIdx = 0;
 #endif
