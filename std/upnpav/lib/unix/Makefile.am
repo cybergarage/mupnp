@@ -17,6 +17,7 @@ clinkcav_source = \
 	../../src/cybergarage/upnp/std/av/cmd5.c \
 	../../src/cybergarage/upnp/std/av/cresource.c \
 	../../src/cybergarage/upnp/std/av/cresource_list.c \
+	../../src/cybergarage/upnp/std/av/cresource_data.c \
 	../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c \
 	../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c \
 	../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c

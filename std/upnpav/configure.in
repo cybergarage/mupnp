@@ -58,7 +58,7 @@ include/Makefile
 lib/Makefile
 lib/unix/Makefile
 sample/Makefile
-sample/dms/Makefile
-sample/dms/filesystem/Makefile
-sample/dms/filesystem/unix/Makefile
+sample/upnpavserver/Makefile
+sample/upnpavserver/filesystem/Makefile
+sample/upnpavserver/filesystem/unix/Makefile
 ])
