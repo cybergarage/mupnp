@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 	cg_upnp_dms_filesys_start(dms);
 
 #if !defined(WIN32) || defined(__CYGWIN__)
-	kbinit();
+	cg_kb_init();
 #endif
 
 	PrintKeyMessage();
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 	} while(key != 'X');
 
 #if !defined(WIN32) || defined(__CYGWIN__)
-	kbexit();
+	cg_kb_exit();
 #endif
 
 	cg_upnp_dms_filesys_stop(dms);
