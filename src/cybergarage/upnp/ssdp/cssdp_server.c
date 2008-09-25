@@ -45,9 +45,9 @@ CgUpnpSSDPServer *cg_upnp_ssdp_server_new()
 		cg_upnp_ssdp_server_setuserdata(server, NULL);
 	}
 	
-	return server;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return server;
 }
 
 /****************************************
@@ -91,9 +91,9 @@ BOOL cg_upnp_ssdp_server_open(CgUpnpSSDPServer *server, char *bindAddr)
 		return FALSE;
 	}
 	
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -112,9 +112,8 @@ BOOL cg_upnp_ssdp_server_close(CgUpnpSSDPServer *server)
 		server->httpmuSock = NULL;
 	}
 	
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+	return TRUE;
 }
 
 /****************************************

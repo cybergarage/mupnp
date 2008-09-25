@@ -627,7 +627,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 * cg_net_selectaddr
 ****************************************/
 
-#if !defined(HAVE_IFADDRS_H)
+#if !defined(HAVE_IFADDRS_H) || defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR)
 char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 {
 	CgNetworkInterfaceList *netIfList;
@@ -706,7 +706,7 @@ char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 			continue;
 		if (ifaddr->ifa_flags & IFF_POINTOPOINT) 
 			continue;
-
+		
 		laddr = ntohl(((struct sockaddr_in *)ifaddr->ifa_addr)->sin_addr.s_addr);
 		if ( NULL != (struct sockaddr_in *)ifaddr->ifa_netmask )
 			lmask = ntohl(((struct sockaddr_in *)ifaddr->ifa_netmask)->sin_addr.s_addr);

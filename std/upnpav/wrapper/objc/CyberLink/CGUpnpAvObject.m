@@ -7,6 +7,7 @@
 //
 
 #include <cybergarage/xml/cxml.h>
+#include <cybergarage/upnp/std/av/ccontent.h>
 
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
@@ -112,6 +113,13 @@
 #endif
 {
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
+		return nil;
+	return self;
+}
+
+- (id)initWithMediaContent:(CgUpnpMediaContent *)aMediaContent
+{
+	if ((self = [super initWithXMLNode:aMediaContent]) == nil)
 		return nil;
 	return self;
 }

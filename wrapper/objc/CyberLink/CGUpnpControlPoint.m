@@ -69,7 +69,7 @@
 	cg_upnp_controlpoint_search(cObject, (char *)[aST UTF8String]);
 	int mx = cg_upnp_controlpoint_getssdpsearchmx(cObject);
 	if (0 < mx)
-		cg_sleep((mx * 1000) + 500);
+		cg_sleep((mx * 1000));
 }
 
 - (NSInteger)ssdpSearchMX
