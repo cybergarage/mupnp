@@ -1,4 +1,4 @@
-2008-09-18 Satoshi Konno <skonno@cybergarage.org>
+2008-09-26 Satoshi Konno <skonno@cybergarage.org>
 	* Fixed the following methods correctly
 	  cg_upnp_device_setmanufacture() -> cg_upnp_device_setmanufacturer()
 	  cg_upnp_device_getmanufacture() -> cg_upnp_device_getmanufacturer()
@@ -11,6 +11,7 @@
 	* Enabled libxml2 as default using TARGET_OS_IPHONE macro on iPhone and iPhone-Simulator.
 	* Added cg_xml_node_copy().
 	* Changed cg_upnp_device_ssdpmessagereceived() to return the response more shortly.
+	* Fixed cg_net_selectaddr() to get a correct address  on iPhone and iPhone-Simulator.
 
 2008-08-21  Satoshi Konno <skonno@cybergarage.org>
 	* Fixed some warnings using GCC v4.0.1.

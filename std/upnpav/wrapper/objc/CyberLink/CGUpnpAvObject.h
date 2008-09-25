@@ -8,6 +8,10 @@
 
 #import <CyberLink/CGXmlNode.h>
 
+#if  !defined(_CG_CLINKC_MEDIA_CONTENT_H_)
+typedef void CgUpnpMediaContent;
+#endif
+
 /**
  * The CGUpnpAvObject class is a wrapper class for CgUpnpAvObject of CyberLink for C.
  */
@@ -22,6 +26,7 @@
 #else
 - (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
 #endif
+- (id)initWithMediaContent:(CgUpnpMediaContent *)aMediaContent;
 - (BOOL)isEqual:(id)anObject;
 - (BOOL)isContainer;
 - (BOOL)isItem;
