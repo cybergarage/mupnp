@@ -140,6 +140,12 @@ void cg_upnp_dms_delete(CgUpnpMediaServer *dms);
 #define cg_upnp_dms_lock(dms) cg_mutex_lock(dms->mutex)
 #define cg_upnp_dms_unlock(dms) cg_mutex_unlock(dms->mutex)
 
+#define cg_upnp_dms_setfriendlyname(dms, value) cg_upnp_device_setfriendlyname(dms->dev, value)
+#define cg_upnp_dms_getfriendlyname(dms) cg_upnp_device_getfriendlyname(dms->dev)
+
+#define cg_upnp_dms_setudn(dms, value) cg_upnp_device_setudn(dms->dev, value)
+#define cg_upnp_dms_getudn(dms) cg_upnp_device_getudn(dms->dev)
+
 CgUpnpMediaContent *cg_upnp_dms_findcontentbytitle(CgUpnpMediaServer *dms, char *name);
 CgUpnpMediaContent *cg_upnp_dms_findcontentbyid(CgUpnpMediaServer *dms, char *objectID);
 

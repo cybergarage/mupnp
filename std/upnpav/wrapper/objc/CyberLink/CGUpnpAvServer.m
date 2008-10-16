@@ -27,6 +27,8 @@
 		return nil;
 
 	cAvObject = cg_upnp_dms_new();
+	[self setCObject:cg_upnp_dms_getdevice(cAvObject)];
+	
 	contentDirectory = nil;
 
 	return self;
@@ -36,8 +38,10 @@
 {
 	if ((self = [super initWithCObject:cobj]) == nil)
 		return nil;
+	
 	cAvObject = NULL;
 	contentDirectory = [[CGUpnpAvContentDirectory alloc] init];
+	
 	return self;
 }
 
