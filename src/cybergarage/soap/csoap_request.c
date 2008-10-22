@@ -49,9 +49,9 @@ CgSoapRequest *cg_soap_request_new()
 		cg_soap_request_setuserdata(soapReq, NULL);
 	}
 
-	return soapReq;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return soapReq;
 }
 
 /****************************************
@@ -172,9 +172,9 @@ CgXmlNode *cg_soap_request_getbodynode(CgSoapRequest *soapReq)
                 free(name);
         }
 
-	return bodyNode;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return bodyNode;
 }
 
 /****************************************
@@ -199,9 +199,9 @@ BOOL cg_soap_request_sethttprequest(CgSoapRequest *soapReq, CgHttpRequest *httpR
 	if (content == NULL || contentLen <=0)
 		return FALSE;
 
-	return cg_soap_request_parsemessage(soapReq, content, contentLen);
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return cg_soap_request_parsemessage(soapReq, content, contentLen);
 }
 
 /****************************************
@@ -222,9 +222,9 @@ BOOL cg_soap_request_parsemessage(CgSoapRequest *soapReq, char *msg, int msgLen)
 	parseRet = cg_xml_parse(xmlParser, soapReq->rootNodeList, msg, msgLen);
 	cg_xml_parser_delete(xmlParser);
 
-	return parseRet;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return parseRet;
 }
 
 /****************************************
@@ -278,9 +278,9 @@ CgSoapResponse *cg_soap_request_post(CgSoapRequest *soapReq, char *ipaddr, int p
 	cg_xml_parse(xmlParser, soapReq->soapRes->rootNodeList, content, contentLen);
 	cg_xml_parser_delete(xmlParser);
 
-	return soapReq->soapRes;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return soapReq->soapRes;
 }
 
 /****************************************
