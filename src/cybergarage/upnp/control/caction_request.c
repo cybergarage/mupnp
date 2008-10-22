@@ -56,9 +56,9 @@ CgUpnpActionRequest *cg_upnp_control_action_request_new()
 		actionReq->argList = cg_upnp_argumentlist_new();
 	}
 	
-	return actionReq;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return actionReq;
 }
 
 /****************************************
@@ -186,9 +186,9 @@ char *cg_upnp_control_action_request_getactionname(CgUpnpActionRequest *actionRe
 	if (urnDelimIdx < 0)
 		return "";
 		
-	return (name + urnDelimIdx + 1);
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return (name + urnDelimIdx + 1);
 }
 
 /****************************************
@@ -225,9 +225,9 @@ CgXmlNode *cg_upnp_control_action_request_createactionnode(CgUpnpAction *action)
 		cg_xml_node_addchildnode(actionNode, argNode);
 	}
 	
-	return actionNode;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return actionNode;
 }
 
 /****************************************
@@ -295,9 +295,9 @@ CgUpnpActionResponse *cg_upnp_control_action_request_post(CgUpnpActionRequest *a
 		cg_net_url_gethost(postURL),
 		cg_net_url_getport(postURL));
 	
-	return actionRes;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return actionRes;
 }
 
 /****************************************
