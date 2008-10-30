@@ -16,6 +16,8 @@
 
 #if  !defined(TARGET_OS_IPHONE)
 
+@synthesize xmlNode;
+
 - (id)init
 {
 	if ((self = [super init]) == nil)
@@ -83,7 +85,9 @@
 	[xmlNode addAttribute:attrNode];
 }
 
-#else // !defined(TARGET_OS_IPHONE)
+#else // defined(TARGET_OS_IPHONE)
+
+@synthesize cXmlNode:
 
 - (id)init
 {

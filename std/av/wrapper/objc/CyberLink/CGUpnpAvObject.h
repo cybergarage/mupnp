@@ -25,8 +25,8 @@ typedef void CgUpnpMediaContent;
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 #else
 - (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
-#endif
 - (id)initWithMediaContent:(CgUpnpMediaContent *)aMediaContent;
+#endif
 - (BOOL)isEqual:(id)anObject;
 - (BOOL)isContainer;
 - (BOOL)isItem;

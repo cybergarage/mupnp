@@ -117,12 +117,14 @@
 	return self;
 }
 
+#if defined(TARGET_OS_IPHONE)
 - (id)initWithMediaContent:(CgUpnpMediaContent *)aMediaContent
 {
 	if ((self = [super initWithXMLNode:aMediaContent]) == nil)
 		return nil;
 	return self;
 }
+#endif
 
 - (void)dealloc
 {
