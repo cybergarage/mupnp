@@ -23,7 +23,7 @@ typedef void CgUpnpDevice;
 	CgUpnpDevice *cObject;
 	BOOL isCObjectCreated;
 }
-@property(readonly) CgUpnpDevice *cObject;
+@property(readwrite) CgUpnpDevice *cObject;
 /**
  * Create a new UPnP device.
  * 

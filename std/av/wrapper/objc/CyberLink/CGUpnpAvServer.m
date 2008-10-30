@@ -100,9 +100,14 @@
 	return [contentDirectory objectForTitlePath:aTitlePath];
 }
 
+- (CGUpnpService *)contentDirectoryService
+{
+	return [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
+}
+
 - (NSArray *)browse:(NSString *)aObjectId;
 {
-	CGUpnpService *conDirService = [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
+	CGUpnpService *conDirService = [self contentDirectoryService];
 	if (!conDirService)
 		return nil;
 
@@ -132,6 +137,36 @@
 	}
 	
 	return avObjArray;	
+}
+
+- (NSString *)searchCapabilities;
+{
+	CGUpnpService *conDirService = [self contentDirectoryService];
+	if (!conDirService)
+		return nil;
+	
+	CGUpnpStateVariable *searchCap = [conDirService getStateVariableForName:@"SearchCapabilities"];
+	if (searchCap) {
+		if ([searchCap query])
+			return [[[searchCap value] retain] autorelease];
+	}
+	
+	return nil;
+}
+
+- (NSString *)sortCapabilities;
+{
+	CGUpnpService *conDirService = [self contentDirectoryService];
+	if (!conDirService)
+		return nil;
+	
+	CGUpnpStateVariable *sorpCap = [conDirService getStateVariableForName:@"SortCapabilities"];
+	if (sorpCap) {
+		if ([sorpCap query])
+			return [[[sorpCap value] retain] autorelease];
+	}
+	
+	return nil;
 }
 
 - (BOOL)start

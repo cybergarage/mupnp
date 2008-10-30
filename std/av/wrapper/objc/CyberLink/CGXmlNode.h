@@ -6,10 +6,14 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#if defined(TARGET_OS_IPHONE)
 #import <Foundation/NSString.h>
 #import <Foundation/NSArray.h>
+#else
+#import <Foundation/Foundation.h>
+#endif
 
-#if  defined(TARGET_OS_IPHONE) && !defined(_CG_XML_CXML_H_)
+#if defined(TARGET_OS_IPHONE) && !defined(_CG_XML_CXML_H_)
 typedef void CgXmlNode;
 #endif
 
@@ -24,6 +28,11 @@ typedef void CgXmlNode;
 	CgXmlNode *cXmlNode;
 #endif
 }
+#if  !defined(TARGET_OS_IPHONE)
+@property(retain) NSXMLElement *xmlNode;
+#else
+@property(readonly) CgXmlNode *cXmlNode;
+#endif
 - (id)init;
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
