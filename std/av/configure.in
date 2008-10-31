@@ -16,6 +16,13 @@ AM_INIT_AUTOMAKE(clinkcav, 1.0)
 AM_CONFIG_HEADER(config.h)
 
 ##############################
+# Constants
+##############################
+
+# CyberLink version.
+CLINKC_VERSION=1.7
+
+##############################
 # Checks for programs.
 ##############################
 
@@ -41,12 +48,20 @@ AC_LANG_CPLUSPLUS
 #############################################################################
 # Check whether libtool should be used
 #############################################################################
+
 AC_ARG_WITH(libtool,
 	AS_HELP_STRING([--with-libtool],
 		       [use libtool to build the library (default = yes)]),
 		       [with_libtool=no],
 		       [with_libtool=yes])
 AM_CONDITIONAL(HAVE_LIBTOOL, test $with_libtool = yes)
+
+##############################
+# Checks for CyberLink
+##############################
+
+AC_CHECK_HEADERS([cybergarage/cupnp.h])
+AC_CHECK_LIB([clinkc],[cg_upnp_controlpoint_new],,[AC_MSG_ERROR(CyberLink/AV needs CyberLink >= $CLINKC_VERSION)])
 
 ##############################
 # Makefiles
