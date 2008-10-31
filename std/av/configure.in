@@ -12,7 +12,7 @@
 AC_INIT(include/cybergarage/upnp/std/av/cmediaserver.h)
 AC_CONFIG_AUX_DIR(config)
 
-AM_INIT_AUTOMAKE(clinkcav, 1.0)
+AM_INIT_AUTOMAKE(clinkcav, 2.3)
 AM_CONFIG_HEADER(config.h)
 
 ##############################

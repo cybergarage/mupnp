@@ -36,7 +36,7 @@ IP_PKTINFO
 AC_INIT(include/cybergarage/typedef.h)
 AC_CONFIG_AUX_DIR(config)
 
-AM_INIT_AUTOMAKE(clinkc, 2.0-0)
+AM_INIT_AUTOMAKE(clinkc, 2.3)
 AM_CONFIG_HEADER(config.h)
 
 ##############################

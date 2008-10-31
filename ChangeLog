@@ -1,3 +1,18 @@
+2008-10-31  Satoshi Konno <skonno@cybergarage.org>
+	* v2.3
+	* Added UPnP/AV package in std/av as a sample implementation.
+	* Added the following classes of Objective-C for MacOSX and iPhone
+	  CGUpnpAvContainer
+	  CGUpnpAvContentDirectory
+	  CGUpnpAvContentManager
+	  CGUpnpAvController
+	  CGUpnpAvItem
+	  CGUpnpAvObject
+	  CGUpnpAvRenderer
+	  CGUpnpAvResource
+	  CGUpnpAvRoot
+	  CGUpnpAvServer
+
 2008-09-26 Satoshi Konno <skonno@cybergarage.org>
 	* Fixed the following methods correctly
 	  cg_upnp_device_setmanufacture() -> cg_upnp_device_setmanufacturer()
