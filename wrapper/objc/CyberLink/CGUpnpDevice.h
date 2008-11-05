@@ -137,6 +137,18 @@ typedef void CgUpnpDevice;
  */
 - (NSArray *)icons;
 /**
+ * Start the device.
+ *
+ * @return YES if the device is started normally, otherwise NO.
+ */
+- (BOOL)start;
+/**
+ * Start the device.
+ *
+ * @return YES if the device is started normally, otherwise NO.
+ */
+- (BOOL)stop;
+/**
  * Set a user data.
  *
  * @param aUserData A user data to set.

@@ -177,6 +177,20 @@
 	return iconArray;
 }
 
+-(BOOL)start
+{
+	if (!cObject)
+		return NO;
+	return cg_upnp_device_start(cObject);
+}
+
+-(BOOL)stop
+{
+	if (!cObject)
+		return NO;
+	return cg_upnp_device_stop(cObject);
+}
+
 - (void)setUserData:(void *)aUserData
 {
 	if (!cObject)

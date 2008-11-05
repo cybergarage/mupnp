@@ -139,7 +139,8 @@ float cg_random()
 		srand(cg_getcurrentsystemtime());
 		seedDone = TRUE;
 	}
-	return (float)rand() / (float)RAND_MAX;
-
+	
 	cg_log_debug_l4("Leaving...\n");
+	
+	return (float)rand() / (float)RAND_MAX;
 }

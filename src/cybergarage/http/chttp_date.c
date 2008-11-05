@@ -27,7 +27,7 @@
 #include <cybergarage/util/clog.h>
 
 /****************************************
-* cg_http_getservername()
+* to_month_string()
 ****************************************/
 
 static char MONTH_STRING[][4] = {
@@ -55,7 +55,7 @@ static char *to_month_string(int value)
 }
 
 /****************************************
-* cg_http_getservername()
+* to_week_string()
 ****************************************/
 
 static char WEEK_STRING[][4] = {
