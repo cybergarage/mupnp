@@ -72,11 +72,11 @@
 			for (cnode=cg_xml_node_getchildnodes(didlNode); cnode; cnode=cg_xml_node_next(cnode)) {
 				CGUpnpAvObject *avObj = nil;
 				if (cg_xml_node_isname(cnode, "container")) {
-					CGUpnpAvContainer *avCon = [[[CGUpnpAvContainer alloc] initWithXMLNode:cnode] autorelease];
+					CGUpnpAvContainer *avCon = [[CGUpnpAvContainer alloc] initWithXMLNode:cnode];
 					avObj = avCon;
 				}
 				else if (cg_xml_node_isname(cnode, "item")) {
-					CGUpnpAvItem *avItem = [[[CGUpnpAvItem alloc] initWithXMLNode:cnode] autorelease];
+					CGUpnpAvItem *avItem = [[CGUpnpAvItem alloc] initWithXMLNode:cnode];
 					for (rnode=cg_xml_node_getchildnodes(cnode); rnode; rnode=cg_xml_node_next(rnode)) {
 						if (cg_xml_node_isname(rnode, "res")) {
 							CGUpnpAvResource *avRes = [[[CGUpnpAvResource alloc] initWithXMLNode:rnode] autorelease];
@@ -117,14 +117,12 @@
 	return self;
 }
 
-#if defined(TARGET_OS_IPHONE)
 - (id)initWithMediaContent:(CgUpnpMediaContent *)aMediaContent
 {
 	if ((self = [super initWithXMLNode:aMediaContent]) == nil)
 		return nil;
 	return self;
 }
-#endif
 
 - (void)dealloc
 {

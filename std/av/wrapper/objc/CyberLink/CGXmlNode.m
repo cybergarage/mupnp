@@ -87,7 +87,7 @@
 
 #else // defined(TARGET_OS_IPHONE)
 
-@synthesize cXmlNode:
+@synthesize cXmlNode;
 
 - (id)init
 {

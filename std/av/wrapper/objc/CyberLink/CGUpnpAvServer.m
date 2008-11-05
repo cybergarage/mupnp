@@ -100,32 +100,27 @@
 	return [contentDirectory objectForTitlePath:aTitlePath];
 }
 
-- (CGUpnpService *)contentDirectoryService
-{
-	return [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
-}
-
 - (NSArray *)browse:(NSString *)aObjectId;
 {
-	CGUpnpService *conDirService = [self contentDirectoryService];
+	CGUpnpService *conDirService = [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
 		return nil;
 
-	CGUpnpAction *browseAction = [conDirService getActionForName:@"Browse"];
-	if (!browseAction)
+	CGUpnpAction *action = [conDirService getActionForName:@"Browse"];
+	if (!action)
 		return nil;
 
-	[browseAction setArgumentValue:aObjectId forName:@"ObjectID"];
-	[browseAction setArgumentValue:@"BrowseDirectChildren" forName:@"BrowseFlag"];
-	[browseAction setArgumentValue:@"*" forName:@"Filter"];
-	[browseAction setArgumentValue:@"0" forName:@"StartingIndex"];
-	[browseAction setArgumentValue:@"0" forName:@"RequestedCount"];
-	[browseAction setArgumentValue:@"" forName:@"SortCriteria"];
+	[action setArgumentValue:aObjectId forName:@"ObjectID"];
+	[action setArgumentValue:@"BrowseDirectChildren" forName:@"BrowseFlag"];
+	[action setArgumentValue:@"*" forName:@"Filter"];
+	[action setArgumentValue:@"0" forName:@"StartingIndex"];
+	[action setArgumentValue:@"0" forName:@"RequestedCount"];
+	[action setArgumentValue:@"" forName:@"SortCriteria"];
 	
-	if (![browseAction post])
+	if (![action post])
 		return nil;
 	
-	NSString *resultStr = [browseAction argumentValueForName:@"Result"];
+	NSString *resultStr = [action argumentValueForName:@"Result"];
 	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
 	
 	/* Update Content Manager */
@@ -139,34 +134,30 @@
 	return avObjArray;	
 }
 
-- (NSString *)searchCapabilities;
+- (NSArray *)search:(NSString *)aSearchCriteria;
 {
-	CGUpnpService *conDirService = [self contentDirectoryService];
+	CGUpnpService *conDirService = [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
 		return nil;
 	
-	CGUpnpStateVariable *searchCap = [conDirService getStateVariableForName:@"SearchCapabilities"];
-	if (searchCap) {
-		if ([searchCap query])
-			return [[[searchCap value] retain] autorelease];
-	}
-	
-	return nil;
-}
-
-- (NSString *)sortCapabilities;
-{
-	CGUpnpService *conDirService = [self contentDirectoryService];
-	if (!conDirService)
+	CGUpnpAction *action = [conDirService getActionForName:@"Search"];
+	if (!action)
 		return nil;
 	
-	CGUpnpStateVariable *sorpCap = [conDirService getStateVariableForName:@"SortCapabilities"];
-	if (sorpCap) {
-		if ([sorpCap query])
-			return [[[sorpCap value] retain] autorelease];
-	}
+	[action setArgumentValue:@"0" forName:@"ContainerID"];
+	[action setArgumentValue:aSearchCriteria forName:@"SearchCriteria"];
+	[action setArgumentValue:@"*" forName:@"Filter"];
+	[action setArgumentValue:@"0" forName:@"StartingIndex"];
+	[action setArgumentValue:@"0" forName:@"RequestedCount"];
+	[action setArgumentValue:@"" forName:@"SortCriteria"];
 	
-	return nil;
+	if (![action post])
+		return nil;
+	
+	NSString *resultStr = [action argumentValueForName:@"Result"];
+	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
+	
+	return avObjArray;	
 }
 
 - (BOOL)start
