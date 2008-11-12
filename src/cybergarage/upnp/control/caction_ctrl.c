@@ -87,9 +87,9 @@ BOOL cg_upnp_action_performlistner(CgUpnpAction *action, CgUpnpActionRequest *ac
 
 	cg_upnp_control_action_response_delete(actionRes);
 	
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************
@@ -122,9 +122,9 @@ BOOL cg_upnp_action_post(CgUpnpAction *action)
 
 	cg_upnp_control_action_request_delete(actionReq);
 	
-	return actionSuccess;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return actionSuccess;
 }
 
 /****************************************
