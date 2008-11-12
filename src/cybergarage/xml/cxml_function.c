@@ -30,8 +30,8 @@
 
 char *cg_xml_escapechars(CgString *str)
 {
-	char *fromChars[5];
-	char *toChars[5];
+	char *fromChars[4];
+	char *toChars[4];
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -46,10 +46,10 @@ char *cg_xml_escapechars(CgString *str)
 	toChars[2] = "&lt;";
 	toChars[3] = "&quot;";
 	toChars[4] = "&apos;";
+		
+	cg_log_debug_l4("Leaving...\n");
 	
 	return cg_string_replace(str, fromChars, toChars, (sizeof(fromChars)/sizeof(fromChars[0])));
-
-	cg_log_debug_l4("Leaving...\n");
 }
 
 char *cg_xml_unescapechars(CgString *str)
@@ -71,9 +71,9 @@ char *cg_xml_unescapechars(CgString *str)
 	toChars[3] = "\"";
 	toChars[4] = "'";
 	
-	return cg_string_replace(str, fromChars, toChars, (sizeof(fromChars)/sizeof(fromChars[0])));
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return cg_string_replace(str, fromChars, toChars, (sizeof(fromChars)/sizeof(fromChars[0])));
 }
 
 
