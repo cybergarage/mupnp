@@ -1,3 +1,6 @@
+2008-11-18  Satoshi Konno <skonno@cybergarage.org>
+	* Changed cg_http_request_post_main() to write the first line at a time because SIGPIPE occurred on some HTTP server such as Flickr.
+
 2008-10-31  Satoshi Konno <skonno@cybergarage.org>
 	* v2.3
 	* Added UPnP/AV package in std/av as a sample implementation.

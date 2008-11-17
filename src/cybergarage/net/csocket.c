@@ -201,7 +201,7 @@ void cg_socket_startup()
 #endif
 
 #if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
-		// Thanks for Brent Hills (10/26/04)
+	// Thanks for Brent Hills (10/26/04)
     	signal(SIGPIPE,SIG_IGN);
 #endif
 

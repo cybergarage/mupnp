@@ -36,6 +36,8 @@
 *		- Disable Expect header because it causes IOP issues.
 *	12/13/07 Aapo Makela
 *		- Fixes to work in out-of-memory situations
+*	11/18/08
+*		- Changed cg_http_request_post_main() to write the first line at a time because SIGPIPE occurred on some HTTP server such as Flickr.
 *
 ******************************************************************/
 
@@ -180,8 +182,6 @@ void cg_http_request_setuseragent(CgHttpRequest *httpReq, char *value)
 	cg_log_debug_l4("Leaving...\n");
 }
 
-
-
 /****************************************
 * cg_http_request_setuseragent
 ****************************************/
@@ -298,7 +298,8 @@ CgHttpResponse *cg_http_request_post_main(CgHttpRequest *httpReq, char *ipaddr, 
 #ifdef CG_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
 #endif		
-
+	CgString *firstLine;
+	
 	cg_log_debug_l4("Entering...\n");
 
 #ifdef CG_SHOW_TIMINGS
@@ -342,12 +343,15 @@ CgHttpResponse *cg_http_request_post_main(CgHttpRequest *httpReq, char *ipaddr, 
 cg_log_debug_s("\nRequest: %s%s%s:%d%s%s%s\n", method, CG_HTTP_SP, ipaddr, port, uri, CG_HTTP_SP, version);
 #endif
 	/**** send first line ****/
-	cg_socket_write(sock, method, cg_strlen(method));
-	cg_socket_write(sock, CG_HTTP_SP, sizeof(CG_HTTP_SP)-1);
-	cg_socket_write(sock, uri, cg_strlen(uri));
-	cg_socket_write(sock, CG_HTTP_SP, sizeof(CG_HTTP_SP)-1);
-	cg_socket_write(sock, version, cg_strlen(version));
-	cg_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
+	firstLine = cg_string_new();
+	cg_string_addvalue(firstLine, method);
+	cg_string_addvalue(firstLine, CG_HTTP_SP);
+	cg_string_addvalue(firstLine, uri);
+	cg_string_addvalue(firstLine, CG_HTTP_SP);
+	cg_string_addvalue(firstLine, version);
+	cg_string_addvalue(firstLine, CG_HTTP_CRLF);
+	cg_socket_write(sock, cg_string_getvalue(firstLine), cg_string_length(firstLine));
+	cg_string_delete(firstLine);
 	
 	/**** send header and content ****/
 	cg_http_packet_post((CgHttpPacket *)httpReq, sock);
