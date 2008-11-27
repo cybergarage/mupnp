@@ -19,8 +19,10 @@ typedef void CgUpnpIcon;
 @interface CGUpnpIcon : NSObject
 {
 	CgUpnpIcon *cObject;
+	NSString *resourceName;
 }
 @property(readonly) CgUpnpIcon *cObject;
+@property(readonly) NSString *resourceName;
 - (id)initWithCObject:(CgUpnpIcon *)cobj;
 /**
  * Get the url of the icon.
@@ -46,4 +48,5 @@ typedef void CgUpnpIcon;
  * @return The depth.
  */
 - (NSInteger)depth;
+- (void)setResourceName:(NSString *) aResourceName;
 @end
