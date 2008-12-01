@@ -100,7 +100,7 @@
 	return [contentDirectory objectForTitlePath:aTitlePath];
 }
 
-- (NSArray *)browse:(NSString *)aObjectId;
+- (NSArray *)browse:(NSString *)aObjectId withRequestedCount:(NSUInteger) aRequestedCount
 {
 	CGUpnpService *conDirService = [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
@@ -114,11 +114,21 @@
 	[action setArgumentValue:@"BrowseDirectChildren" forName:@"BrowseFlag"];
 	[action setArgumentValue:@"*" forName:@"Filter"];
 	[action setArgumentValue:@"0" forName:@"StartingIndex"];
-	[action setArgumentValue:@"" forName:@"RequestedCount"];
+	[action setArgumentValue:[NSString stringWithFormat:@"%d", aRequestedCount] forName:@"RequestedCount"];
 	[action setArgumentValue:@"" forName:@"SortCriteria"];
 	
 	if (![action post])
 		return nil;
+
+	if (aRequestedCount == 0) {
+		NSInteger numberReturened = [[action argumentValueForName:@"NumberReturened"] integerValue];
+		NSInteger totalMaches = [[action argumentValueForName:@"TotalMaches"] integerValue];
+		if ((numberReturened == 0) && (0 < totalMaches)) {
+			[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMaches] forName:@"RequestedCount"];
+			if (![action post])
+				return nil;
+		}
+	}
 	
 	NSString *resultStr = [action argumentValueForName:@"Result"];
 	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
@@ -132,6 +142,11 @@
 	}
 	
 	return avObjArray;	
+}
+
+- (NSArray *)browse:(NSString *)aObjectId;
+{
+	return [self browse:aObjectId withRequestedCount:@"0"];
 }
 
 - (NSArray *)search:(NSString *)aSearchCriteria;

@@ -44,6 +44,7 @@ typedef void CgUpnpMediaServer;
 - (void)setUserObject:(id)aUserObj;
 - (id)userObject;
 - (NSArray *)browse:(NSString *)aObjectId;
+- (NSArray *)browse:(NSString *)aObjectId withRequestedCount:(NSUInteger) aRequestedCount;
 - (NSArray *)search:(NSString *)aSearchCriteria;
 - (CGUpnpAvContainer *)rootObject;
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
