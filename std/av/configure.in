@@ -25,7 +25,7 @@ CLINKC_VERSION=1.7
 ##############################
 # Checks for programs.
 ##############################
-
+cdms_filesyscdms_filesys
 AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_AWK

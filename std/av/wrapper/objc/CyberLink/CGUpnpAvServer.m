@@ -114,7 +114,7 @@
 	[action setArgumentValue:@"BrowseDirectChildren" forName:@"BrowseFlag"];
 	[action setArgumentValue:@"*" forName:@"Filter"];
 	[action setArgumentValue:@"0" forName:@"StartingIndex"];
-	[action setArgumentValue:@"0" forName:@"RequestedCount"];
+	[action setArgumentValue:@"" forName:@"RequestedCount"];
 	[action setArgumentValue:@"" forName:@"SortCriteria"];
 	
 	if (![action post])
