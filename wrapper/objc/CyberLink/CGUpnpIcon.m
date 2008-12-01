@@ -12,7 +12,9 @@
 @implementation CGUpnpIcon
 
 @synthesize cObject;
+#if defined(TARGET_OS_IPHONE)
 @synthesize resourceName;
+#endif
 
 - (id) initWithCObject:(CgUpnpIcon *)cobj
 {
@@ -73,10 +75,12 @@
 	return cg_upnp_icon_getdepth(cObject);
 }
 
+#if defined(TARGET_OS_IPHONE)
 - (void)setResourceName:(NSString *) aResourceName
 {
 	UIImage *image = [UIImage imageNamed:aResourceName];
 	CGSize imageSize = CGSizeMake(CGImageGetWidth([image CGImage]), CGImageGetHeight([image CGImage]));
 }
+#endif
 
 @end
