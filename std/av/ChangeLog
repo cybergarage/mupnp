@@ -1,8 +1,26 @@
-2007-05-26	Satoshi Konno <skonno@cybergarage.org>
-	* Release v1.2
+2008-12-01  Satoshi Konno <skonno@cybergarage.org>
+	* Fixed CGUpnpAvServer::browse() to set the RequestedCount parameter correctly when the specified parameter is zero and the NumberReturned parameter is less than the TotalMaches parameter for XMBC.
+
+2008-10-31  Satoshi Konno <skonno@cybergarage.org>
+	* v2.3
+	* Added UPnP/AV package in std/av of CyberLink for C as a sample implementation.
+	* Added the following classes of Objective-C for MacOSX and iPhone
+	  CGUpnpAvContainer
+	  CGUpnpAvContentDirectory
+	  CGUpnpAvContentManager
+	  CGUpnpAvController
+	  CGUpnpAvItem
+	  CGUpnpAvObject
+	  CGUpnpAvRenderer
+	  CGUpnpAvResource
+	  CGUpnpAvRoot
+	  CGUpnpAvServer
+
+2007-05-26 Satoshi Konno <skonno@cybergarage.org>
+	* v1.2
 	* Added installer projects for the WIN32 samples.
-	
-2007-05-08  Satoshi Konno <skonno@cybergarage.org>
+
+2007-05-08 Satoshi Konno <skonno@cybergarage.org>
 	* Added the following functions to set attributes of DLNA.
 	  cg_upnp_media_resource_setdlnaattribute()
 	  cg_upnp_media_resource_getdlnaattribute()
@@ -11,16 +29,16 @@
 	* Updated cg_upnp_dms_youtube_updaterootcontentlist() to set the attributes of DLNA.
 	* Added <dlna:X_DLNADOC> to the device description as default.
 	* Changed the device description to set a static UDN as default.
-	
-2007-02-25  Satoshi Konno <skonno@cybergarage.org>
+
+2007-02-25 Satoshi Konno <skonno@cybergarage.org>
 	* Changed cg_upnp_media_resource_setsize() not to set the attribute when the specified value less than zero.
-	
-2007-02-13  Satoshi Konno <skonno@cybergarage.org>
+
+2007-02-13 Satoshi Konno <skonno@cybergarage.org>
 	* Release v1.1
 	* Fixed to the query actions normally such as SystemUpdateID and SearchCapabilities.
 	* Fixed to update SystemUpdateID normally.
 
-2007-01-31  Satoshi Konno <skonno@cybergarage.org>
+2007-01-31 Satoshi Konno <skonno@cybergarage.org>
 	* Added a sample of DMS on Windows Mobile.
 
 2007-01-13  Satoshi Konno <skonno@cybergarage.org>
