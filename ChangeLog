@@ -1,23 +1,9 @@
-2008-12-01  Satoshi Konno <skonno@cybergarage.org>
-	* Fixed CGUpnpAvServer::browse() to set the RequestedCount parameter correctly when the specified parameter is zero and the NumberReturned parameter is less than the TotalMaches parameter for XMBC.
-
 2008-11-18  Satoshi Konno <skonno@cybergarage.org>
 	* Changed cg_http_request_post_main() to write the first line at a time because SIGPIPE occurred on some HTTP server such as Flickr.
 
 2008-10-31  Satoshi Konno <skonno@cybergarage.org>
 	* v2.3
 	* Added UPnP/AV package in std/av as a sample implementation.
-	* Added the following classes of Objective-C for MacOSX and iPhone
-	  CGUpnpAvContainer
-	  CGUpnpAvContentDirectory
-	  CGUpnpAvContentManager
-	  CGUpnpAvController
-	  CGUpnpAvItem
-	  CGUpnpAvObject
-	  CGUpnpAvRenderer
-	  CGUpnpAvResource
-	  CGUpnpAvRoot
-	  CGUpnpAvServer
 
 2008-09-26 Satoshi Konno <skonno@cybergarage.org>
 	* Fixed the following methods correctly
