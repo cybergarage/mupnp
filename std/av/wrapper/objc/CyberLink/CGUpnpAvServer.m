@@ -154,7 +154,7 @@
 
 - (NSArray *)browse:(NSString *)aObjectId;
 {
-	return [self browse:aObjectId withRequestedCount:@"0"];
+	return [self browse:aObjectId withRequestedCount:0];
 }
 
 - (NSArray *)search:(NSString *)aSearchCriteria;
