@@ -131,8 +131,8 @@
 	if (aRequestedCount == 0) {
 		NSInteger numberReturned = [[action argumentValueForName:@"NumberReturned"] integerValue];
 		NSInteger totalMatches = [[action argumentValueForName:@"TotalMatches"] integerValue];
-		if ((numberReturened == 0) && (0 < totalMaches)) {
-			[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMaches] forName:@"RequestedCount"];
+		if ((numberReturned == 0) && (0 < totalMatches)) {
+			[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMatches] forName:@"RequestedCount"];
 			if (![action post])
 				return nil;
 		}
