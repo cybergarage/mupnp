@@ -120,9 +120,17 @@
 	if (![action post])
 		return nil;
 
+	/*
+	 * ContentDirectory:1 Service Template Version 1.01
+	 * 2.7.4.2. Argument Descriptions
+	 *  RequestedCount ui4 Requested number of entries under the object specified by ObjectID. 
+	 *  RequestedCount =0 indicates request all entries.
+	 * Added to set the RequestedCount parameter using the NumberReturned result when the specified parameter is zero and
+	 * the NumberReturned parameter is less than the TotalMatches parameter for XMBC.
+	*/
 	if (aRequestedCount == 0) {
-		NSInteger numberReturened = [[action argumentValueForName:@"NumberReturened"] integerValue];
-		NSInteger totalMaches = [[action argumentValueForName:@"TotalMaches"] integerValue];
+		NSInteger numberReturned = [[action argumentValueForName:@"NumberReturned"] integerValue];
+		NSInteger totalMatches = [[action argumentValueForName:@"TotalMatches"] integerValue];
 		if ((numberReturened == 0) && (0 < totalMaches)) {
 			[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMaches] forName:@"RequestedCount"];
 			if (![action post])
