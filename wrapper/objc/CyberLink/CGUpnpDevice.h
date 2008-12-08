@@ -73,6 +73,12 @@ typedef void CgUpnpDevice;
  */
 - (NSString *)manufacturer;
 /**
+ * Return a urlBase
+ *
+ * @return URLBase of the device.
+ */
+- (NSString *)urlBase;
+/**
  * Set a friendly name of the device.
  * 
  * @param aName Friendly name to set.

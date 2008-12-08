@@ -102,6 +102,13 @@
 	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getmanufacturer(cObject)] autorelease];
 }
 
+- (NSString *)urlBase
+{
+	if (!cObject)
+		return nil;
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_geturlbase(cObject)] autorelease];
+}
+
 -(void)setFriendlyName:(NSString *)aName
 {
 	if (!cObject)

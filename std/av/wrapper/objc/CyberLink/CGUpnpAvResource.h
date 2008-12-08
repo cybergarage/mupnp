@@ -33,5 +33,8 @@
 - (NSString *)dlnaOrgOp;
 - (NSString *)dlnaOrgFlags;
 - (BOOL)isThumbnail;
+- (BOOL)isSmallImage;
+- (BOOL)isMediumImage;
+- (BOOL)isLargeImage;
 @end
 
