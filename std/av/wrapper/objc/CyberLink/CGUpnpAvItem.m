@@ -60,6 +60,55 @@
 	return resourceArray;
 }
 
+- (CGUpnpAvResource *)smallImageResource
+{
+	for (CGUpnpAvResource *res in [self resources]) {
+		if ([res isSmallImage])
+			return [[res retain] autorelease];
+	}
+	return nil;
+}
+
+- (CGUpnpAvResource *)mediumImageResource
+{
+	for (CGUpnpAvResource *res in [self resources]) {
+		if ([res isMediumImage])
+			return [[res retain] autorelease];
+	}
+	return nil;
+}
+
+- (CGUpnpAvResource *)largeImageResource
+{
+	for (CGUpnpAvResource *res in [self resources]) {
+		if ([res isLargeImage])
+			return [[res retain] autorelease];
+	}
+	return nil;
+}
+
+- (CGUpnpAvResource *)lowestImageResource
+{
+	CGUpnpAvResource *imgRes = nil;
+	imgRes = [self smallImageResource];
+	if (imgRes == nil) {
+		imgRes = [self mediumImageResource];
+		if (imgRes == nil) {
+			imgRes = [self largeImageResource];
+			if (imgRes == nil) {
+				for (CGUpnpAvResource *res in [self resources]) {
+					if (![res isThumbnail]) {
+						imgRes = res;
+						break;
+					}
+				}
+			}
+		}
+	
+	}
+	return [[imgRes retain] autorelease];
+}
+
 - (NSString *)thumbnailUrl
 {
 	NSString *tbUrl = [self albumArtURI];
@@ -70,6 +119,26 @@
 			return [[[res url] retain] autorelease];
 	}
 	return nil;
+}
+
+- (NSString *)smallImageUrl
+{
+	return [[[[self smallImageResource] url] retain] autorelease];
+}
+
+- (NSString *)mediumImageUrl
+{
+	return [[[[self mediumImageResource] url] retain] autorelease];
+}
+
+- (NSString *)largeImageUrl
+{
+	return [[[[self largeImageResource] url] retain] autorelease];
+}
+
+- (NSString *)lowestImageUrl
+{
+	return [[[[self lowestImageResource] url] retain] autorelease];
 }
 
 @end

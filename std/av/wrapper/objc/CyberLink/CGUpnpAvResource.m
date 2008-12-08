@@ -129,6 +129,35 @@
 	return NO;
 }
 
+- (BOOL)isSmallImage
+{
+	NSString *dlnaOrgPn = [self dlnaOrgPn];
+	if (!dlnaOrgPn)
+		return NO;
+	if ([dlnaOrgPn hasSuffix:@"_SM"])
+		return YES;
+	return NO;
+}
+
+- (BOOL)isMediumImage
+{
+	NSString *dlnaOrgPn = [self dlnaOrgPn];
+	if (!dlnaOrgPn)
+		return NO;
+	if ([dlnaOrgPn hasSuffix:@"_MED"])
+		return YES;
+	return NO;
+}
+
+- (BOOL)isLargeImage
+{
+	NSString *dlnaOrgPn = [self dlnaOrgPn];
+	if (!dlnaOrgPn)
+		return NO;
+	if ([dlnaOrgPn hasSuffix:@"_LRG"])
+		return YES;
+	return NO;
+}
 
 @end
 

@@ -1,6 +1,18 @@
-2008-12-01  Satoshi Konno <skonno@cybergarage.org>
+2008-12-04  Satoshi Konno <skonno@cybergarage.org>
 	* Fixed CGUpnpAvServer::browse() to set the RequestedCount parameter correctly when the specified parameter is zero and the NumberReturned parameter is less than the TotalMaches parameter for XMBC.
-
+	* Addded the following methods
+	  CGUpnpAvResource::isSmallImage
+	  CGUpnpAvResource::isMediumImage
+	  CGUpnpAvResource::isLargeImage
+	  CGUpnpAvItem::smallImageResource;
+	  CGUpnpAvItem::mediumImageResource;
+	  CGUpnpAvItem::largeImageResource;
+	  CGUpnpAvItem::lowestImageResource;
+	  CGUpnpAvItem::smallImageUrl;
+	  CGUpnpAvItem::mediumImageUrl;
+	  CGUpnpAvItem::largeImageUrl;
+	  CGUpnpAvItem::lowestImageUrl;
+	  
 2008-10-31  Satoshi Konno <skonno@cybergarage.org>
 	* v2.3
 	* Added UPnP/AV package in std/av of CyberLink for C as a sample implementation.
