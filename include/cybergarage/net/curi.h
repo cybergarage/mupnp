@@ -78,9 +78,12 @@ typedef struct _CgNetURI {
 CgNetURI *cg_net_uri_new();
 void cg_net_uri_delete(CgNetURI *uri);
 void cg_net_uri_clear(CgNetURI *uri);
+void cg_net_uri_setvalue(CgNetURI *uri, char *value);
+void cg_net_uri_rebuild(CgNetURI *uri);
+char *cg_net_uri_getvalue(CgNetURI *uri);
 
-void cg_net_uri_set(CgNetURI *uri, char *value);
-
+#define cg_net_uri_set(urip, value) cg_net_uri_setvalue(urip, value)
+	
 #define cg_net_uri_seturi(urip, value) cg_string_setvalue(urip->uri, value)
 #define cg_net_uri_setprotocol(urip, value) cg_string_setvalue(urip->protocol, value)
 #define cg_net_uri_setuser(urip, value) cg_string_setvalue(urip->user, value)
@@ -100,6 +103,7 @@ void cg_net_uri_set(CgNetURI *uri, char *value);
 #define cg_net_uri_getpath(urip) cg_string_getvalue(urip->path)
 #define cg_net_uri_getquery(urip) cg_string_getvalue(urip->query)
 #define cg_net_uri_getfragment(urip) cg_string_getvalue(urip->fragment)
+
 char *cg_net_uri_getrequest(CgNetURI *uri);
 char *cg_net_uri_getupnpbasepath(CgNetURI *locationURL);
 

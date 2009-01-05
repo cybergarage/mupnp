@@ -6,6 +6,9 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#include <cybergarage/upnp/ssdp/cssdp.h>
+#include <cybergarage/upnp/std/av/cmediaserver.h>
+
 #import "CGUpnpAvController.h"
 #import "CGUpnpAvServer.h"
 #import "CGUpnpAvConstants.h"
@@ -220,6 +223,18 @@
 			return [[renderer retain] autorelease];
 	}
 	return nil;
+}
+
+////////////////////////////////////////////////////////////
+// Search
+////////////////////////////////////////////////////////////
+
+- (void)search
+{
+	//[super search];
+	[super setSsdpSearchMX:1];
+	cg_upnp_ssdp_setannouncecount(4);
+	[super searchWithST:[NSString stringWithUTF8String:CG_UPNP_DMS_DEVICE_TYPE]];
 }
 
 @end

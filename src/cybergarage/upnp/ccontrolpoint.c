@@ -541,9 +541,7 @@ BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service)
 
 	scpdURL = cg_upnp_service_getscpdurl(service); 
 
-
 	if ( NULL != scpdURL ) {
-
 		cg_log_debug_s("SCPD URL: %s\n", cg_net_url_getrequest(scpdURL));
 		scpdParseSuccess = cg_upnp_service_parsedescriptionurl(service, scpdURL);
 	}

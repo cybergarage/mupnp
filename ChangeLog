@@ -1,5 +1,15 @@
+2008-01-05  Satoshi Konno <skonno@cybergarage.org>
+	* Added cg_net_uri_rebuild() and cg_net_url_rebuild().
+	* Fixed cg_upnp_service_mangleurl() to return correct url using cg_net_uri_rebuild() when a device has URLBase and the service's URL is relative.
+	
 2008-12-08  Satoshi Konno <skonno@cybergarage.org>
-	* Addded CGUpnpDevice:urlBase().
+	* Added cg_upnp_device_getsmallesticon().
+	* Added cg_upnp_device_getabsoluteiconurl().
+	* Added cg_net_uri_setvalue() and cg_net_uri_getvalue().
+	* Deprecated cg_net_uri_set().
+	* Added CGUpnpDevice:urlBase().
+	* Added CGUpnpDevice:smallestIcon().
+	* Added CGUpnpDevice:absoluteIconUrl().
 	
 2008-11-18  Satoshi Konno <skonno@cybergarage.org>
 	* Changed cg_http_request_post_main() to write the first line at a time because SIGPIPE occurred on some HTTP server such as Flickr.

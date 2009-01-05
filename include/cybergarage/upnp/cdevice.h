@@ -1139,6 +1139,26 @@ CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, char *sid);
  */
 #define cg_upnp_device_geticons(dev) ((CgUpnpIcon *)cg_list_gets((CgList *)dev->iconList))
 
+/**
+* Get a smallest icon
+*
+* \param dev Device in question
+*
+* \return A smallest icon.
+*/
+CgUpnpIcon *cg_upnp_device_getsmallesticon(CgUpnpDevice *dev);
+	
+/**
+ * Get an icon by its index from the device's list of icons
+ *
+ * \param dev Device in question
+ * \param icon Icon in question
+ * \param buf Buffer to return the full icon's url
+ *
+ * \return TRUE if the absolute url is created, otherwise FALSE.
+ */
+BOOL cg_upnp_device_getabsoluteiconurl(CgUpnpDevice *dev, CgUpnpIcon *icon, CgString *buf);
+
 /*****************************************************************************
  * Embedded Action
  *****************************************************************************/

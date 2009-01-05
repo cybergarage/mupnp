@@ -41,6 +41,8 @@
 *		  cg_net_uri_isalphanumchar()
 *		- Fixed cg_net_uri_escapestring() to use curl_escape() instead of curl_unescape().
 *		- Fixed cg_net_uri_unescapestring() to use curl_unescape() instead of curl_escape().
+*	05-Jan-08  Satoshi Konno <skonno@cybergarage.org>
+*		- Added cg_net_uri_rebuild() and cg_net_url_rebuild().
 *
 ******************************************************************/
 
@@ -138,7 +140,7 @@ void cg_net_uri_clear(CgNetURI *uri)
 * cg_net_uri_set
 ****************************************/
 
-void cg_net_uri_set(CgNetURI *uri, char *value)
+void cg_net_uri_setvalue(CgNetURI *uri, char *value)
 {
 	char *protocol;
 	int uriLen;
@@ -251,6 +253,45 @@ void cg_net_uri_set(CgNetURI *uri, char *value)
 	}
 
 	cg_log_debug_l4("Leaving...\n");
+}
+
+/****************************************
+ * cg_net_uri_rebuild
+ ****************************************/
+
+void cg_net_uri_rebuild(CgNetURI *uri)
+{
+	cg_log_debug_l4("Entering...\n");
+	char portStr[32];
+	char *path;
+	
+	cg_string_setvalue(uri->uri, cg_net_uri_getprotocol(uri));
+	cg_string_addvalue(uri->uri, CG_NET_URI_PROTOCOL_DELIM);
+	cg_string_addvalue(uri->uri, cg_net_uri_gethost(uri));
+	cg_string_addvalue(uri->uri, CG_NET_URI_COLON_DELIM);
+	cg_string_addvalue(uri->uri, cg_int2str(cg_net_uri_getport(uri), portStr, sizeof(portStr)));
+	if (0 < cg_strlen(cg_net_uri_getpath(uri))) {
+		path = cg_net_uri_getpath(uri);
+		if (path[0] != '/')
+			cg_string_addvalue(uri->uri, CG_NET_URI_SLASH_DELIM);
+		cg_string_addvalue(uri->uri, cg_net_uri_getpath(uri));
+		if (0 < cg_strlen(cg_net_uri_getquery(uri))) {
+			cg_string_addvalue(uri->uri, CG_NET_URI_QUESTION_DELIM);
+			cg_string_addvalue(uri->uri, cg_net_uri_getquery(uri));
+		}
+	}
+	
+	cg_log_debug_l4("Leaving...\n");
+}
+
+/****************************************
+ * cg_net_uri_getvalue
+ ****************************************/
+
+char *cg_net_uri_getvalue(CgNetURI *uri)
+{
+	cg_net_uri_rebuild(uri);
+	return cg_string_getvalue(uri->uri);
 }
 
 /****************************************

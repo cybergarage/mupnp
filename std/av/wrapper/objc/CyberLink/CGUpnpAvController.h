@@ -44,4 +44,6 @@
 - (NSArray *)renderers;
 - (CGUpnpAvRenderer *)rendererForUDN:(NSString *)aUdn;
 
+- (void)search;
+
 @end
