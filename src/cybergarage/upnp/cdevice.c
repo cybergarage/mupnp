@@ -47,6 +47,8 @@
 *	06/13/07 Fabrice Fontaine Orange
 *		- Fixed compilation issue when using DCG_UPNP_NOUSE_CONTROLPOINT flag in cg_upnp_device_updatefromssdppacket().
 *		- Fixed a memory leak in cg_upnp_device_getservicebycontrolurl().
+*	12/08/08
+ *		- Added cg_upnp_device_getabsoluteiconurl().
 *
 ******************************************************************/
 
@@ -1964,6 +1966,67 @@ CgUpnpService *cg_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, char *u
 	cg_log_debug_l4("Leaving...\n");
 
 	return NULL;
+}
+
+/****************************************
+ * cg_upnp_device_getabsoluteiconurl
+ ****************************************/
+
+CgUpnpIcon *cg_upnp_device_getsmallesticon(CgUpnpDevice *dev)
+{
+	CgUpnpIcon *icon;
+	CgUpnpIcon *smallestIcon;
+	
+	smallestIcon = NULL;
+	for (icon = cg_upnp_device_geticons(dev); icon; icon = cg_upnp_icon_next(icon)) {
+		if (!smallestIcon) {
+			smallestIcon = icon;
+			continue;
+		}
+		if (cg_upnp_icon_getwidth(icon) < cg_upnp_icon_getwidth(smallestIcon))
+			smallestIcon = icon;			
+	}
+	
+	return smallestIcon;
+}
+
+/****************************************
+ * cg_upnp_device_getabsoluteiconurl
+ ****************************************/
+
+BOOL cg_upnp_device_getabsoluteiconurl(CgUpnpDevice *dev, CgUpnpIcon *icon, CgString *buf)
+{
+	CgNetURI *uri;
+	CgNetURI *ssdpUri;
+	CgUpnpDevice *rootDev;
+	char *ssdplocation;
+	
+	uri = cg_net_uri_new();
+
+	cg_net_uri_set(uri, cg_upnp_icon_geturl(icon));
+	if (cg_net_uri_isabsolute(uri)) {
+		cg_string_setvalue(buf, cg_net_uri_geturi(uri));
+		cg_net_uri_delete(uri);
+		return TRUE;
+	}
+	
+	rootDev = cg_upnp_device_getrootdevice(dev);
+	if (rootDev) {
+		ssdplocation = cg_upnp_device_getlocationfromssdppacket(rootDev);
+		ssdpUri = cg_net_uri_new();
+		if (0 < cg_strlen(ssdplocation)) {
+			cg_net_uri_set(uri, ssdplocation);
+			cg_net_uri_setpath(uri, cg_upnp_icon_geturl(icon));
+			cg_string_setvalue(buf, cg_net_uri_getvalue(uri));
+			cg_net_uri_delete(uri);
+			return TRUE;
+		}
+		cg_net_uri_delete(ssdpUri);
+	}
+	
+	cg_net_uri_delete(uri);
+
+	return FALSE;
 }
 
 /****************************************

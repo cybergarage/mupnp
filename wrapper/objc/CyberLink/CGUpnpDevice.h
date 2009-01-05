@@ -14,6 +14,7 @@ typedef void CgUpnpDevice;
 #endif
 
 @class CGUpnpService;
+@class CGUpnpIcon;
 
 /**
  * The CGUpnpDevice class is a wrapper class for CgUpnpDevice of CyberLink for C.
@@ -174,4 +175,18 @@ typedef void CgUpnpDevice;
  * @return IP address of the device.
  */
 - (NSString *)ipaddress;
+/**
+ * Return a most smallest icon.
+ *
+ * @return Smallest Icon.
+ */
+- (CGUpnpIcon *)smallestIcon;
+/**
+ * Return a absolute url of the specified icon.
+ *
+ * @param anIcon Icon.
+ *
+ * @return Absolute url of the specified icon.
+ */
+- (NSString *)absoluteIconUrl:(CGUpnpIcon *)anIcon;
 @end

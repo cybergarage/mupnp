@@ -230,4 +230,28 @@
 	return ipaddr;
 }
 
+- (CGUpnpIcon *)smallestIcon
+{
+	if (!cObject)
+		return nil;
+	CgUpnpIcon *cIcon = cg_upnp_device_getsmallesticon(cObject);
+	if (!cIcon)
+		return nil;
+	return [[[CGUpnpIcon alloc] initWithCObject:(void *)cIcon] autorelease];
+}
+
+- (NSString *)absoluteIconUrl:(CGUpnpIcon *)anIcon
+{
+	if (!cObject)
+		return nil;
+	CgString *url = cg_string_new();
+	if (!cg_upnp_device_getabsoluteiconurl(cObject, [anIcon cObject], url)) {
+		cg_string_delete(url);
+		return nil;
+	}
+	NSString *urlStr = [NSString stringWithUTF8String:cg_string_getvalue(url)];
+	cg_string_delete(url);
+	return urlStr;
+}
+
 @end

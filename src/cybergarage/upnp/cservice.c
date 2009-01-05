@@ -37,7 +37,10 @@
 *
 *	22-Oct-07 Aapo Makela
 *		- Fixed memory leak (free location_str in cg_upnp_service_mangleurl())
-******************************************************************/
+*
+ *	05-Jan-08  Satoshi Konno <skonno@cybergarage.org>
+ *		- Fixed cg_upnp_service_mangleurl() to return correct url using cg_net_uri_rebuild() when a device has URLBase and the service's URL is relative.
+ ******************************************************************/
 
 #include <cybergarage/upnp/cservice.h>
 
@@ -205,7 +208,8 @@ CgNetURL *cg_upnp_service_getcontrolurl(CgUpnpService *service)
 /**
  * Get the service's SCPD (service description) URL
  *
- * @param service The service in question                                                                 * @return CgNetURL Pointer to URL/URI structure
+ * @param service The service in question                                                                 
+ * @return CgNetURL Pointer to URL/URI structure
  */
 CgNetURL *cg_upnp_service_getscpdurl(CgUpnpService *service)
 {
@@ -1227,6 +1231,7 @@ static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 			else {
 				cg_net_url_addpath(genURL, cg_net_url_getpath(temp));
 				cg_net_url_setquery(genURL, cg_net_url_getquery(temp));
+				cg_net_url_rebuild(genURL);
 			}
 
 			cg_net_url_delete(temp);
