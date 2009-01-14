@@ -1,7 +1,8 @@
-2008-01-05  Satoshi Konno <skonno@cybergarage.org>
+2008-01-15  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_net_uri_rebuild() and cg_net_url_rebuild().
 	* Fixed cg_upnp_service_mangleurl() to return correct url using cg_net_uri_rebuild() when a device has URLBase and the service's URL is relative.
-	
+	* Changed cg_upnp_controlpoint_parsescservicescpd() to read the service description internally because the some illegal devices, such as MediaLink, don't return the specified service description.
+
 2008-12-08  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_device_getsmallesticon().
 	* Added cg_upnp_device_getabsoluteiconurl().

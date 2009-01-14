@@ -54,6 +54,15 @@
 #if !defined(CG_UPNP_NOUSE_CONTROLPOINT)
 
 /****************************************
+ * static function defines
+ ****************************************/
+
+#if defined(CG_UPNP_USE_STDDCP)
+char *cg_upnp_service_getstddcp(CgUpnpService *service);
+BOOL cg_upnp_service_hasstddcp(CgUpnpService *service);
+#endif
+
+/****************************************
 * static function defines
 ****************************************/
 
@@ -541,17 +550,22 @@ BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service)
 
 	scpdURL = cg_upnp_service_getscpdurl(service); 
 
-	if ( NULL != scpdURL ) {
-		cg_log_debug_s("SCPD URL: %s\n", cg_net_url_getrequest(scpdURL));
-		scpdParseSuccess = cg_upnp_service_parsedescriptionurl(service, scpdURL);
-	}
-	else
+	if ( NULL == scpdURL )		
 		return FALSE;
-
-	if (scpdParseSuccess == TRUE) {
-		cg_net_url_delete(scpdURL);
+	
+	cg_log_debug_s("SCPD URL: %s\n", cg_net_url_getrequest(scpdURL));
+	scpdParseSuccess = cg_upnp_service_parsedescriptionurl(service, scpdURL);
+	
+	cg_net_url_delete(scpdURL);
+	if (scpdParseSuccess == TRUE)
 		return TRUE;
+
+#if defined(CG_UPNP_USE_STDDCP)
+	if (cg_upnp_service_hasstddcp(service)) {
+		char *stdDCP = cg_upnp_service_getstddcp(service);
+		scpdParseSuccess = cg_upnp_service_parsedescription(service, stdDCP, cg_strlen(stdDCP));
 	}
+#endif
 
 	cg_log_debug_l4("Leaving...\n");
 
