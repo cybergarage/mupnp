@@ -159,5 +159,30 @@
 	return NO;
 }
 
+- (BOOL)isImage
+{
+	NSString *mimeType = [self contentFormat];
+	return [mimeType hasPrefix:@"image"];
+}
+
+- (BOOL)isMovie
+{
+	NSString *mimeType = [self contentFormat];
+	if ([mimeType hasPrefix:@"movie"])
+		return YES;
+	return [mimeType hasPrefix:@"video"];
+}
+
+- (BOOL)isVideo
+{
+	return [self isMovie];
+}
+
+- (BOOL)isAudio
+{
+	NSString *mimeType = [self contentFormat];
+	return [mimeType hasPrefix:@"audio"];
+}
+
 @end
 

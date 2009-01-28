@@ -36,5 +36,9 @@
 - (BOOL)isSmallImage;
 - (BOOL)isMediumImage;
 - (BOOL)isLargeImage;
+- (BOOL)isImage;
+- (BOOL)isMovie;
+- (BOOL)isVideo;
+- (BOOL)isAudio;
 @end
 
