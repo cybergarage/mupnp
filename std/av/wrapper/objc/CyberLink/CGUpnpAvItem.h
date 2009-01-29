@@ -34,4 +34,12 @@
 - (NSString *)mediumImageUrl;
 - (NSString *)largeImageUrl;
 - (NSString *)lowestImageUrl;
+- (CGUpnpAvResource *)movieResource;
+- (CGUpnpAvResource *)videoResource;
+- (CGUpnpAvResource *)audioResource;
+- (CGUpnpAvResource *)imageResource;
+-(BOOL)hasMovieResource;
+-(BOOL)hasVideoResource;
+-(BOOL)hasAudioResource;
+-(BOOL)hasImageResource;
 @end

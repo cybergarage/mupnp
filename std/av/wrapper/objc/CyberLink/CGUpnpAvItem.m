@@ -141,4 +141,58 @@
 	return [[[[self lowestImageResource] url] retain] autorelease];
 }
 
+- (CGUpnpAvResource *)movieResource
+{
+	for (CGUpnpAvResource *res in [self resources]) {
+		if ([res isMovie])
+			return res;
+	}
+	return nil;
+}
+
+- (CGUpnpAvResource *)videoResource
+{
+	return [self movieResource];
+}
+
+- (CGUpnpAvResource *)audioResource
+{
+	for (CGUpnpAvResource *res in [self resources]) {
+		if ([res isAudio])
+			return res;
+	}
+	return nil;
+}
+
+- (CGUpnpAvResource *)imageResource
+{
+	return [self lowestImageResource];
+}
+
+-(BOOL)hasMovieResource
+{
+	if ([self movieResource] != nil)
+		return YES;
+	return NO;
+}
+
+-(BOOL)hasVideoResource
+{
+	return [self hasMovieResource];
+}
+
+-(BOOL)hasAudioResource
+{
+	if ([self audioResource] != nil)
+		return YES;
+	return NO;
+}
+
+-(BOOL)hasImageResource
+{
+	if ([self imageResource] != nil)
+		return YES;
+	return NO;
+}
+
 @end
