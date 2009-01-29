@@ -3,6 +3,8 @@
 	* Fixed cg_upnp_service_mangleurl() to return correct url using cg_net_uri_rebuild() when a device has URLBase and the service's URL is relative.
 	* Changed cg_upnp_controlpoint_parsescservicescpd() to read the service description internally because the some illegal devices, such as MediaLink, don't return the specified service description.
 	* Added CGUpnpAvResource:isImage(), isMovie() and is Audio().
+	* Added CGUpnpAvResource:hasImageResource(), hasMovieResource() and is hasAudioResource().
+	* Added CGUpnpAvResource:imageResource(), movieResource() and is audioResource().
 
 2008-12-08  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_device_getsmallesticon().
