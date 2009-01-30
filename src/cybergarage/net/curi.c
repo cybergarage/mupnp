@@ -261,10 +261,11 @@ void cg_net_uri_setvalue(CgNetURI *uri, char *value)
 
 void cg_net_uri_rebuild(CgNetURI *uri)
 {
-	cg_log_debug_l4("Entering...\n");
 	char portStr[32];
 	char *path;
 	
+	cg_log_debug_l4("Entering...\n");
+
 	cg_string_setvalue(uri->uri, cg_net_uri_getprotocol(uri));
 	cg_string_addvalue(uri->uri, CG_NET_URI_PROTOCOL_DELIM);
 	cg_string_addvalue(uri->uri, cg_net_uri_gethost(uri));
