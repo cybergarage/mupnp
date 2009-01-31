@@ -109,6 +109,28 @@
 	return [[imgRes retain] autorelease];
 }
 
+- (CGUpnpAvResource *)highestImageResource
+{
+	CGUpnpAvResource *imgRes = nil;
+	imgRes = [self largeImageResource];
+	if (imgRes == nil) {
+		imgRes = [self mediumImageResource];
+		if (imgRes == nil) {
+			imgRes = [self smallImageResource];
+			if (imgRes == nil) {
+				for (CGUpnpAvResource *res in [self resources]) {
+					if (![res isThumbnail]) {
+						imgRes = res;
+						break;
+					}
+				}
+			}
+		}
+		
+	}
+	return [[imgRes retain] autorelease];
+}
+
 - (NSString *)thumbnailUrl
 {
 	NSString *tbUrl = [self albumArtURI];
@@ -139,6 +161,11 @@
 - (NSString *)lowestImageUrl
 {
 	return [[[[self lowestImageResource] url] retain] autorelease];
+}
+
+- (NSString *)highestImageUrl
+{
+	return [[[[self highestImageResource] url] retain] autorelease];
 }
 
 - (CGUpnpAvResource *)movieResource

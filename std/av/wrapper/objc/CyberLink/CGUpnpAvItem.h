@@ -29,11 +29,13 @@
 - (CGUpnpAvResource *)mediumImageResource;
 - (CGUpnpAvResource *)largeImageResource;
 - (CGUpnpAvResource *)lowestImageResource;
+- (CGUpnpAvResource *)highestImageResource;
 - (NSString *)thumbnailUrl;
 - (NSString *)smallImageUrl;
 - (NSString *)mediumImageUrl;
 - (NSString *)largeImageUrl;
 - (NSString *)lowestImageUrl;
+- (NSString *)highestImageUrl;
 - (CGUpnpAvResource *)movieResource;
 - (CGUpnpAvResource *)videoResource;
 - (CGUpnpAvResource *)audioResource;
