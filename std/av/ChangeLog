@@ -1,3 +1,11 @@
+2008-04-15  Satoshi Konno <skonno@cybergarage.org>
+	* Added CGUpnpAvServer:browseMetadata(), browseDirectChildren().
+
+2008-01-29  Satoshi Konno <skonno@cybergarage.org>
+	* Added CGUpnpAvResource:isImage(), isMovie() and is Audio().
+	* Added CGUpnpAvResource:hasImageResource(), hasMovieResource() and is hasAudioResource().
+	* Added CGUpnpAvResource:imageResource(), movieResource() and is audioResource().
+	
 2008-12-04  Satoshi Konno <skonno@cybergarage.org>
 	* Fixed CGUpnpAvServer::browse() to set the RequestedCount parameter correctly when the specified parameter is zero and the NumberReturned parameter is less than the TotalMaches parameter for XMBC.
 	* Addded the following methods

@@ -38,8 +38,8 @@
 - (CGUpnpAvServer *)serverForIndexPath:(NSIndexPath *)aIndexPath;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aServerAndTitlePath;
 - (CGUpnpAvObject *)objectForIndexPath:(NSIndexPath *)aServerAndTitleIndexPath;
-- (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath;
-- (NSArray *)browseWithIndexPath:(NSIndexPath *)aServerAndTitleIndexPath;
+- (NSArray *)browseDirectChildrenWithTitlePath:(NSString *)aServerAndTitlePath;
+- (NSArray *)browseDirectChildrenWithIndexPath:(NSIndexPath *)aServerAndTitleIndexPath;
 
 - (NSArray *)renderers;
 - (CGUpnpAvRenderer *)rendererForUDN:(NSString *)aUdn;
