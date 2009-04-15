@@ -100,7 +100,7 @@
 	return [contentDirectory objectForTitlePath:aTitlePath];
 }
 
-- (NSArray *)browse:(NSString *)aObjectId withRequestedCount:(NSUInteger) aRequestedCount
+- (NSArray *)browse:(NSString *)aObjectId browseFlag:(NSString *)aBrowseFlag withRequestedCount:(NSUInteger) aRequestedCount
 {
 	CGUpnpService *conDirService = [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
@@ -111,7 +111,7 @@
 		return nil;
 
 	[action setArgumentValue:aObjectId forName:@"ObjectID"];
-	[action setArgumentValue:@"BrowseDirectChildren" forName:@"BrowseFlag"];
+	[action setArgumentValue:aBrowseFlag forName:@"BrowseFlag"];
 	[action setArgumentValue:@"*" forName:@"Filter"];
 	[action setArgumentValue:@"0" forName:@"StartingIndex"];
 	[action setArgumentValue:[NSString stringWithFormat:@"%d", aRequestedCount] forName:@"RequestedCount"];
@@ -152,9 +152,29 @@
 	return avObjArray;	
 }
 
-- (NSArray *)browse:(NSString *)aObjectId;
+- (NSArray *)browse:(NSString *)aObjectId browseFlag:(NSString *)aBrowseFlag 
 {
-	return [self browse:aObjectId withRequestedCount:0];
+	return [self browse:aObjectId browseFlag:aBrowseFlag withRequestedCount:0];
+}
+
+- (NSArray *)browseMetadata:(NSString *)aObjectId
+{
+	return [self browseMetadata:aObjectId withRequestedCount:0];
+}
+
+- (NSArray *)browseMetadata:(NSString *)aObjectId withRequestedCount:(NSUInteger) aRequestedCount
+{
+	return [self browse:aObjectId browseFlag:@"BrowseMetadata" withRequestedCount:0];
+}
+
+- (NSArray *)browseDirectChildren:(NSString *)aObjectId
+{
+	return [self browseDirectChildren:aObjectId withRequestedCount:0];
+}
+
+- (NSArray *)browseDirectChildren:(NSString *)aObjectId withRequestedCount:(NSUInteger) aRequestedCount
+{
+	return [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:0];
 }
 
 - (NSArray *)search:(NSString *)aSearchCriteria;

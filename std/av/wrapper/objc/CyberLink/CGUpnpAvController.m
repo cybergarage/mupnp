@@ -164,7 +164,7 @@
 	return [[avObj retain] autorelease];
 }
 
-- (NSArray *)browseWithTitlePath:(NSString *)aServerAndTitlePath
+- (NSArray *)browseDirectChildrenWithTitlePath:(NSString *)aServerAndTitlePath
 {
 	CGUpnpAvServer *avSrv = [self serverForPath:aServerAndTitlePath];
 	if (avSrv == nil)
@@ -174,10 +174,10 @@
 	if (avObj == nil)
 		return nil;
 	
-	return [avSrv browse:[avObj objectId]];
+	return [avSrv browseDirectChildren:[avObj objectId]];
 }
 
-- (NSArray *)browseWithIndexPath:(NSIndexPath *)aServerAndTitleIndexPath
+- (NSArray *)browseDirectChildrenWithIndexPath:(NSIndexPath *)aServerAndTitleIndexPath
 {
 	CGUpnpAvServer *avSrv = [self serverForIndexPath:aServerAndTitleIndexPath];
 	if (avSrv == nil)
@@ -187,7 +187,7 @@
 	if (avObj == nil)
 		return nil;
 
-	return [avSrv browse:[avObj objectId]];
+	return [avSrv browseDirectChildren:[avObj objectId]];
 }
 
 ////////////////////////////////////////////////////////////

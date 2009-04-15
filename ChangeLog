@@ -1,3 +1,6 @@
+2008-04-15  Satoshi Konno <skonno@cybergarage.org>
+	* Added CGUpnpAvServer:browseMetadata(), browseDirectChildren().
+
 2008-01-29  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_net_uri_rebuild() and cg_net_url_rebuild().
 	* Fixed cg_upnp_service_mangleurl() to return correct url using cg_net_uri_rebuild() when a device has URLBase and the service's URL is relative.
