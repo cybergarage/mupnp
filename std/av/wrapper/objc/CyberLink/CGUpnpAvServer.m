@@ -163,7 +163,7 @@
 	if ([avObjs count] <= 0)
 		return nil;
 	id avObj = [avObjs objectAtIndex:0];
-	if ([avObj isKindOfClass:[CGUpnpAvObject class]])
+	if (![avObj isKindOfClass:[CGUpnpAvObject class]])
 		return nil;
 	return (CGUpnpAvObject *)avObj;		
 }
