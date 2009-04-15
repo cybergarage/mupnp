@@ -157,14 +157,15 @@
 	return [self browse:aObjectId browseFlag:aBrowseFlag withRequestedCount:0];
 }
 
-- (NSArray *)browseMetadata:(NSString *)aObjectId
+- (CGUpnpAvObject *)browseMetadata:(NSString *)aObjectId
 {
-	return [self browseMetadata:aObjectId withRequestedCount:0];
-}
-
-- (NSArray *)browseMetadata:(NSString *)aObjectId withRequestedCount:(NSUInteger) aRequestedCount
-{
-	return [self browse:aObjectId browseFlag:@"BrowseMetadata" withRequestedCount:0];
+	NSArray *avObjs = [self browse:aObjectId browseFlag:@"BrowseMetadata" withRequestedCount:0];
+	if ([avObjs count] <= 0)
+		return nil;
+	id avObj = [avObjs objectAtIndex:0];
+	if ([avObj isKindOfClass:[CGUpnpAvObject class]])
+		return nil;
+	return (CGUpnpAvObject *)avObj;		
 }
 
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId
