@@ -222,4 +222,30 @@
 	return NO;
 }
 
+-(BOOL)isMovieClass
+{
+	if ([[self upnpClass] rangeOfString:@"movie"].location != NSNotFound || [[self upnpClass] rangeOfString:@"video"].location != NSNotFound)
+		return YES;
+	return NO;
+}
+
+-(BOOL)isVideoClass
+{
+	return [self isMovieClass];
+}
+
+-(BOOL)isAudioClass
+{
+	if ([[self upnpClass] rangeOfString:@"audio"].location != NSNotFound || [[self upnpClass] rangeOfString:@"music"].location != NSNotFound)
+		return YES;
+	return NO;
+}
+
+-(BOOL)isImageClass
+{
+	if ([[self upnpClass] rangeOfString:@"image"].location != NSNotFound || [[self upnpClass] rangeOfString:@"photo"].location != NSNotFound)
+		return YES;
+	return NO;
+}
+
 @end

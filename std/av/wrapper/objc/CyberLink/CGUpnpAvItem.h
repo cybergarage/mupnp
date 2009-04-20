@@ -44,4 +44,8 @@
 -(BOOL)hasVideoResource;
 -(BOOL)hasAudioResource;
 -(BOOL)hasImageResource;
+-(BOOL)isMovieClass;
+-(BOOL)isVideoClass;
+-(BOOL)isAudioClass;
+-(BOOL)isImageClass;
 @end
