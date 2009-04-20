@@ -1,5 +1,5 @@
 2008-04-20  Satoshi Konno <skonno@cybergarage.org>
-	* Added CGUpnpAvItem:isMovieClass(), isVideoClass(), isAudioClass() and isImageClass.
+	* Added CGUpnpAvItem:isMovieClass(), isVideoClass(), isAudioClass() and isImageClass().
 
 2008-04-15  Satoshi Konno <skonno@cybergarage.org>
 	* Added CGUpnpAvServer:browseMetadata() and browseDirectChildren().
