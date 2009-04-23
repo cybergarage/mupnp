@@ -79,9 +79,9 @@ char *cg_upnp_getservername(char *buf, int bufSize)
 	if (bufSize <= 0)
 		return buf;
 #if defined(HAVE_SNPRINTF)
-	snprintf((buf+nameLen), bufSize, " UPnP/%s %s/%s", CG_UPNP_VER, CG_CLINK_NAME, CG_CLINK_VER);
+	snprintf((buf+nameLen), bufSize, " %s/%s UPnP/%s DLNADOC/%s", CG_CLINK_NAME, CG_CLINK_VER, CG_UPNP_VER, CG_DLNA_VER);
 #else
-	sprintf((buf+nameLen), " UPnP/%s %s/%s", CG_UPNP_VER, CG_CLINK_NAME, CG_CLINK_VER);
+	sprintf((buf+nameLen), " %s/%s UPnP/%s DLNADOC/%s", CG_CLINK_NAME, CG_CLINK_VER, CG_UPNP_VER, CG_DLNA_VER);
 #endif
 	
 	return buf;

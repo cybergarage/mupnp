@@ -1,7 +1,6 @@
-2008-04-20  Satoshi Konno <skonno@cybergarage.org>
+2008-04-23  Satoshi Konno <skonno@cybergarage.org>
+	* Added DLNA-CP-version in the USER-AGENT HTTP header value as default.
 	* Added CGUpnpAvItem:isMovieClass(), isVideoClass(), isAudioClass() and isImageClass().
-
-2008-04-15  Satoshi Konno <skonno@cybergarage.org>
 	* Added CGUpnpAvServer:browseMetadata() and browseDirectChildren().
 
 2008-01-29  Satoshi Konno <skonno@cybergarage.org>
