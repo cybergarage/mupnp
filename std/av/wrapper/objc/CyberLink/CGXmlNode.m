@@ -14,6 +14,8 @@
 
 @implementation CGXmlNode
 
+@synthesize userInfo;
+
 #if  !defined(TARGET_OS_IPHONE)
 
 @synthesize xmlNode;

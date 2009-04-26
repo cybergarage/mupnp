@@ -27,12 +27,14 @@ typedef void CgXmlNode;
 #else
 	CgXmlNode *cXmlNode;
 #endif
+	id	userInfo;
 }
 #if  !defined(TARGET_OS_IPHONE)
 @property(retain) NSXMLElement *xmlNode;
 #else
 @property(readonly) CgXmlNode *cXmlNode;
 #endif
+@property(retain) id userInfo;
 - (id)init;
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
