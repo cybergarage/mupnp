@@ -233,7 +233,7 @@
 {
 	//[super search];
 	[super setSsdpSearchMX:1];
-	cg_upnp_ssdp_setannouncecount(4);
+	cg_upnp_ssdp_setannouncecount(2);
 	[super searchWithST:[NSString stringWithUTF8String:CG_UPNP_DMS_DEVICE_TYPE]];
 }
 
