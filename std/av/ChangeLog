@@ -1,10 +1,13 @@
-2008-04-20  Satoshi Konno <skonno@cybergarage.org>
+2009-05-18  Satoshi Konno <skonno@cybergarage.org>
+	* Added cg_upnp_dms_condir_getsystemupdateid() and cg_upnp_dms_condir_setsystemupdateid().
+
+2009-04-20  Satoshi Konno <skonno@cybergarage.org>
 	* Added CGUpnpAvItem:isMovieClass(), isVideoClass(), isAudioClass() and isImageClass().
 
-2008-04-15  Satoshi Konno <skonno@cybergarage.org>
+2009-04-15  Satoshi Konno <skonno@cybergarage.org>
 	* Added CGUpnpAvServer:browseMetadata(), browseDirectChildren().
 
-2008-01-29  Satoshi Konno <skonno@cybergarage.org>
+2009-01-29  Satoshi Konno <skonno@cybergarage.org>
 	* Added CGUpnpAvResource:isImage(), isMovie() and is Audio().
 	* Added CGUpnpAvResource:hasImageResource(), hasMovieResource() and is hasAudioResource().
 	* Added CGUpnpAvResource:imageResource(), movieResource() and is audioResource().
