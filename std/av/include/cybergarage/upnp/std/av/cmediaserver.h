@@ -169,7 +169,7 @@ BOOL cg_upnp_dms_conmgr_init(CgUpnpMediaServer *dms);
 BOOL cg_upnp_dms_condir_init(CgUpnpMediaServer *dms);
 
 void cg_upnp_dms_condir_setsystemupdateid(CgUpnpMediaServer *dms, int id);
-int cg_upnp_dms_condir_getsystemupdateid(int id);
+int cg_upnp_dms_condir_getsystemupdateid(CgUpnpMediaServer *dms);
 void cg_upnp_dms_condir_updatesystemupdateid(CgUpnpMediaServer *dms);
 
 #ifdef  __cplusplus

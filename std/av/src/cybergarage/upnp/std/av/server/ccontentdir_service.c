@@ -450,27 +450,6 @@ void cg_upnp_dms_condir_setsystemupdateid(CgUpnpMediaServer *dms, int id)
 * cg_upnp_dms_condir_getsystemupdateid
 ****************************************/
 
-int cg_upnp_dms_condir_getsystemupdateid(int id)
-{
-	CgUpnpDevice *dev;
-	CgUpnpStateVariable *var;
-	char intBuf[CG_STRING_INTEGER_BUFLEN];
-
-	dev = cg_upnp_dms_getdevice(dms);
-	if (!dev)
-		return;
-
-	var = cg_upnp_device_getstatevariablebyname(dev, CG_UPNP_DMS_CONTENTDIRECTORY_SYSTEM_UPDATE_ID);
-	if (!var)
-		return;
-
-	return cg_str2int(cg_upnp_statevariable_getvalue(var)));
-}
-
-/****************************************
-* cg_upnp_dms_condir_getsystemupdateid
-****************************************/
-
 int cg_upnp_dms_condir_getsystemupdateid(CgUpnpMediaServer *dms)
 {
 	CgUpnpDevice *dev;
