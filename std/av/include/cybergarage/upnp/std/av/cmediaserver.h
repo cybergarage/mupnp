@@ -162,10 +162,15 @@ CgUpnpMediaContent *cg_upnp_dms_findcontentbyid(CgUpnpMediaServer *dms, char *ob
 #define cg_upnp_dms_getuserdata(dms) (dms->userData)
 
 /****************************************
-* Private Functions
+* Connection Manager
 ****************************************/
 
 BOOL cg_upnp_dms_conmgr_init(CgUpnpMediaServer *dms);
+
+/****************************************
+* Content Directory
+****************************************/
+
 BOOL cg_upnp_dms_condir_init(CgUpnpMediaServer *dms);
 
 void cg_upnp_dms_condir_setsystemupdateid(CgUpnpMediaServer *dms, int id);
