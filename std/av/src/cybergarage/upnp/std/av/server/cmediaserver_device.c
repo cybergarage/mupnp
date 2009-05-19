@@ -141,7 +141,7 @@ void cg_upnp_dms_device_httprequestrecieved(CgHttpRequest *httpReq)
 {
 	CgUpnpMediaServer *dms;
 	CgUpnpDevice *dev;
-	CG_HTTP_LISTENER userHttpListener;
+	CG_UPNPAV_HTTP_LISTENER userHttpListener;
 
 	dev = (CgUpnpDevice *)cg_http_request_getuserdata(httpReq);
 	if (!dev) {

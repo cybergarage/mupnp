@@ -236,5 +236,6 @@ cg_log_debug_s("%s %d %s\n",
 
 	cg_http_packet_print((CgHttpPacket *)httpRes);
 #endif
+	
 	cg_log_debug_l4("Leaving...\n");
 }
