@@ -24,6 +24,10 @@
 extern "C" {
 #endif
 
+typedef BOOL (*CG_UPNPAV_HTTP_LISTENER)(CgHttpRequest *);
+typedef BOOL (*CG_UPNPAV_ACTION_LISTNER)(CgUpnpAction *);
+typedef BOOL (*CG_UPNPAV_STATEVARIABLE_LISTNER)(CgUpnpStateVariable *);
+
 /****************************************
 * Struct
 ****************************************/
@@ -33,9 +37,9 @@ CgMutex *mutex;
 CgUpnpDevice *dev;
 CgUpnpMediaContent *rootContent;
 int systemUpdateID;
-CG_HTTP_LISTENER httplistener;
-CG_UPNP_ACTION_LISTNER actionListner;
-CG_UPNP_STATEVARIABLE_LISTNER queryListner;
+CG_UPNPAV_HTTP_LISTENER httplistener;
+CG_UPNPAV_ACTION_LISTNER actionListner;
+CG_UPNPAV_STATEVARIABLE_LISTNER queryListner;
 void *userData;
 } CgUpnpMediaServer;
 

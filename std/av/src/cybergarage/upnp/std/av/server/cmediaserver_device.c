@@ -157,8 +157,8 @@ void cg_upnp_dms_device_httprequestrecieved(CgHttpRequest *httpReq)
 
 	userHttpListener = cg_upnp_dms_gethttplistener(dms);
 	if (userHttpListener) {
-		userHttpListener(httpReq);
-		return;
+		if (userHttpListener(httpReq))
+			return;
 	}
 
 	cg_upnp_device_httprequestrecieved(httpReq);
