@@ -110,7 +110,8 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 {
 	if (!cObject)
 		return NO;
-	return cg_upnp_action_post(cObject);
+	BOOL ret = cg_upnp_action_post(cObject);
+	return ret;
 }
 
 - (BOOL)postWithArguments:(NSDictionary *)arguments
