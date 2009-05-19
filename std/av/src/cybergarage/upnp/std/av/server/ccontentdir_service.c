@@ -677,7 +677,7 @@ BOOL cg_upnp_dms_condir_actionreceived(CgUpnpAction *action)
 }
 
 /****************************************
-* cg_upnp_dms_condir_actionreceived
+* cg_upnp_dms_condir_queryreceived
 ****************************************/
 
 
