@@ -63,7 +63,7 @@ void cg_string_delete(CgString *str)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (NULL != str)
+	if (NULL != str) {
 		cg_string_clear(str);
 		free(str);
 	}
@@ -79,7 +79,7 @@ void cg_string_clear(CgString *str)
 {
 	cg_log_debug_l5("Entering...\n");
 	
-	if (NULL != str)
+	if (NULL != str) {
 		if (str->value != NULL) {
 			free(str->value);
 			str->value = NULL;
@@ -145,7 +145,7 @@ void cg_string_setnvalue(CgString *str, char *value, int len)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (NULL != str)
+	if (NULL != str) {
 		cg_string_clear(str);
 		if (value != NULL) {
 			str->valueSize = len;
