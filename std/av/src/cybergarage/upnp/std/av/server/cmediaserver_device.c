@@ -102,7 +102,7 @@ BOOL cg_upnp_dms_actionreceived(CgUpnpAction *action)
 	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNP_DMS_CONNECTIONMANAGER_SERVICE_TYPE))
 		return cg_upnp_dms_conmgr_actionreceived(action);
 
-	return userActionListener(action);
+	return FALSE;
 }
 
 /****************************************
@@ -160,7 +160,7 @@ void cg_upnp_dms_device_httprequestrecieved(CgHttpRequest *httpReq)
 		if (userHttpListener(httpReq))
 			return;
 	}
-
+	
 	cg_upnp_device_httprequestrecieved(httpReq);
 }
 
