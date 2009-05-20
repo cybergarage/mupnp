@@ -114,6 +114,7 @@ BOOL cg_upnp_dms_queryreceived(CgUpnpStateVariable *statVar)
 	CgUpnpDevice *dev;
 	CgUpnpService *service;
 	CgUpnpMediaServer *dms;
+	CG_UPNPAV_STATEVARIABLE_LISTNER userQueryListener;
 
 	service = cg_upnp_statevariable_getservice(statVar);
 	if (!service)
@@ -127,6 +128,12 @@ BOOL cg_upnp_dms_queryreceived(CgUpnpStateVariable *statVar)
 	if (!dms)
 		return FALSE;
 
+	userQueryListener = cg_upnp_dms_getquerylistener(dms);
+	if (userQueryListener) {
+		if (userQueryListener(statVar))
+			return TRUE;
+	}
+	
 	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNP_DMS_CONTENTDIRECTORY_SERVICE_TYPE))
 		return cg_upnp_dms_condir_queryreceived(statVar);
 
