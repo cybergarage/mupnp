@@ -588,6 +588,8 @@ static BOOL cg_upnp_dms_condir_browsedirectchildren(CgUpnpMediaServer *dms, CgUp
 	resultStr = cg_string_new();
 	cg_upnp_media_didl_node_tostring(didlNode, resultStr);
 
+	printf("%s", cg_string_getvalue(resultStr));
+	
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_RESULT, cg_string_getvalue(resultStr));
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_NUMBER_RETURNED, cg_int2str(numberReturned, intBuf, sizeof(intBuf)));
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_TOTAL_MACHES, cg_int2str(totalMachesCnt, intBuf, sizeof(intBuf)));

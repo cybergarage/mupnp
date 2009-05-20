@@ -18,6 +18,8 @@
 *	12/13/07 Aapo Makela
 *		- Changed memory reallocation policy to more efficient
 *		- Fix crashes in out-of-memory situations
+*	05/20/09
+*		- Improved cg_string_*() not to abort when the string object is null.
 *
 ******************************************************************/
 
@@ -42,8 +44,7 @@ CgString *cg_string_new()
 
 	str = (CgString *)malloc(sizeof(CgString));
 
-	if ( NULL != str )
-	{
+	if (NULL != str) {
 		str->value = NULL;
 		str->memSize = 0;
 		str->valueSize = 0;
@@ -62,9 +63,11 @@ void cg_string_delete(CgString *str)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	cg_string_clear(str);
-	free(str);
-
+	if (NULL != str)
+		cg_string_clear(str);
+		free(str);
+	}
+	
 	cg_log_debug_l5("Leaving...\n");
 }
 
@@ -75,12 +78,14 @@ void cg_string_delete(CgString *str)
 void cg_string_clear(CgString *str)
 {
 	cg_log_debug_l5("Entering...\n");
-
-	if (str->value != NULL) {
-		free(str->value);
-		str->value = NULL;
-		str->memSize = 0;
-		str->valueSize = 0;
+	
+	if (NULL != str)
+		if (str->value != NULL) {
+			free(str->value);
+			str->value = NULL;
+			str->memSize = 0;
+			str->valueSize = 0;
+		}
 	}
 
 	cg_log_debug_l5("Leaving...\n");
@@ -94,12 +99,11 @@ void cg_string_setvalue(CgString *str, char *value)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (str == NULL)
-		return;
-
-	if (value != NULL)
-		cg_string_setnvalue(str, value, cg_strlen(value));
-
+	if (NULL != str) {
+		if (value != NULL)
+			cg_string_setnvalue(str, value, cg_strlen(value));
+	}
+	
 	cg_log_debug_l5("Leaving...\n");
 }
 
@@ -141,21 +145,22 @@ void cg_string_setnvalue(CgString *str, char *value, int len)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	cg_string_clear(str);
-	if (value != NULL) {
-		str->valueSize = len;
-		str->memSize = str->valueSize + 1;
-		str->value = (char *)malloc(str->memSize * sizeof(char));
+	if (NULL != str)
+		cg_string_clear(str);
+		if (value != NULL) {
+			str->valueSize = len;
+			str->memSize = str->valueSize + 1;
+			str->value = (char *)malloc(str->memSize * sizeof(char));
 
-		if ( NULL == str->value )
-		{
-			cg_log_debug_s("Memory allocation failure!\n");
-			return;
+			if ( NULL == str->value ) {
+				cg_log_debug_s("Memory allocation failure!\n");
+				return;
+			}
+
+			/* memcpy works better with non-zero-terminated data than strncpy */
+			memcpy(str->value, value, len);
+			str->value[len] = '\0';
 		}
-
-		/* memcpy works better with non-zero-terminated data than strncpy */
-		memcpy(str->value, value, len);
-		str->value[len] = '\0';
 	}
 
 	cg_log_debug_l5("Leaving...\n");
@@ -169,11 +174,13 @@ void cg_string_setpointervalue(CgString *str, char *value, int len)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	cg_string_clear(str);
-	str->value = value;
-	str->valueSize = len;
-	str->memSize = str->valueSize + 1;
-
+	if (NULL != str) {
+		cg_string_clear(str);
+		str->value = value;
+		str->valueSize = len;
+		str->memSize = str->valueSize + 1;
+	}
+	
 	cg_log_debug_l5("Leaving...\n");
 }
 
@@ -185,12 +192,9 @@ char *cg_string_getvalue(CgString *str)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (str == NULL)
-		return NULL;
-
 	cg_log_debug_l5("Leaving...\n");
 
-	return str->value;
+	return (NULL != str) ? str->value : NULL;
 }
 
 /****************************************
@@ -201,7 +205,7 @@ int cg_string_getmemorysize(CgString *str)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (str == NULL)
+	if (NULL == str)
 		return 0;
 
 	cg_log_debug_l5("Leaving...\n");
@@ -217,7 +221,7 @@ int cg_string_length(CgString *str)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (str == NULL)
+	if (NULL == str)
 		return 0;
 
 	if (str->value == NULL)
@@ -252,7 +256,8 @@ char *cg_string_naddvalue(CgString *str, char *value, int valueLen)
 
 	cg_log_debug_l5("Entering...\n");
 
-	if (str == NULL) return NULL;
+	if (NULL == str)
+		return NULL;
 
 	if (value == NULL || valueLen <= 0)
 	{
@@ -343,6 +348,9 @@ char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], int fromS
 
 	cg_log_debug_l5("Entering...\n");
 
+	if (NULL == str )
+		return NULL;
+	
 	repValue = cg_string_new();
 	
 	fromStrLen = (int *)malloc(sizeof(int) * fromStrCnt);

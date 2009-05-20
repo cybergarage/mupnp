@@ -69,7 +69,7 @@ void cg_upnp_media_content_copy(CgUpnpMediaContent *destContent, CgUpnpMediaCont
 			for (attr=cg_xml_node_getattributes(srcNode); attr; attr=cg_xml_attribute_next(attr))
 				cg_xml_node_setattribute(destNode, cg_xml_attribute_getname(attr), cg_xml_attribute_getvalue(attr));
 		}
-		cg_upnp_media_content_addchildcontent(destContent, destNode);
+		cg_xml_node_addchildnode(destContent, destNode);
 	}
 }
 
