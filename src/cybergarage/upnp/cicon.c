@@ -36,9 +36,9 @@ CgUpnpIcon *cg_upnp_icon_new()
 	if  ( NULL != dev )
 		cg_list_node_init((CgList *)dev);
 
-	return dev;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return dev;
 }
 
 /****************************************
