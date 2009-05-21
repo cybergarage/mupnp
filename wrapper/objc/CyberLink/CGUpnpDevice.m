@@ -240,6 +240,16 @@
 	return [[[CGUpnpIcon alloc] initWithCObject:(void *)cIcon] autorelease];
 }
 
+- (CGUpnpIcon *)smallestIconWithMimeType:(NSString *)mimeType;
+{
+	if (!cObject)
+		return nil;
+	CgUpnpIcon *cIcon = cg_upnp_device_getsmallesticonbymimetype(cObject, (char *)[mimeType UTF8String]);
+	if (!cIcon)
+		return nil;
+	return [[[CGUpnpIcon alloc] initWithCObject:(void *)cIcon] autorelease];
+}
+
 - (NSString *)absoluteIconUrl:(CGUpnpIcon *)anIcon
 {
 	if (!cObject)
