@@ -43,6 +43,8 @@ extern "C" {
 #define CG_UPNP_MEDIA_MIMETYPE_MPEG "video/mpeg"
 #define CG_UPNP_MEDIA_MIMETYPE_MP3 "audio/mpeg"
 
+#define CG_UPNP_MEDIA_UPNPCLASS_CONTAINER "object.container"
+#define CG_UPNP_MEDIA_UPNPCLASS_ITEM "object.item"
 #define CG_UPNP_MEDIA_UPNPCLASS_PHOTO "object.item.imageItem.photo"
 #define CG_UPNP_MEDIA_UPNPCLASS_MOVIE "object.item.videoItem.movie"
 #define CG_UPNP_MEDIA_UPNPCLASS_MUSIC "object.item.audioItem.musicTrack"

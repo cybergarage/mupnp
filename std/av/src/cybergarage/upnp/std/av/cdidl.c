@@ -25,6 +25,8 @@
 #define CG_UPNP_DMS_DIDL_XMLNS_DC_URL "http://purl.org/dc/elements/1.1/"
 #define CG_UPNP_DMS_DIDL_XMLNS_UPNP "xmlns:upnp"
 #define CG_UPNP_DMS_DIDL_XMLNS_UPNP_URL "urn:schemas-upnp-org:metadata-1-0/upnp/"
+#define CG_UPNP_DMS_DIDL_XMLNS_DLNA "xmlns:dlna"
+#define CG_UPNP_DMS_DIDL_XMLNS_DLNA_URL "urn:schemas-dlna-org:metadata-1-0/"
 
 /****************************************
 * cg_upnp_media_didl_node_new
@@ -40,6 +42,7 @@ CgXmlNode *cg_upnp_media_didl_node_new()
 	cg_xml_node_setattribute(node, CG_UPNP_DMS_DIDL_XMLNS, CG_UPNP_DMS_DIDL_XMLNS_URL);
 	cg_xml_node_setattribute(node, CG_UPNP_DMS_DIDL_XMLNS_DC, CG_UPNP_DMS_DIDL_XMLNS_DC_URL);
 	cg_xml_node_setattribute(node, CG_UPNP_DMS_DIDL_XMLNS_UPNP, CG_UPNP_DMS_DIDL_XMLNS_UPNP_URL);
+	cg_xml_node_setattribute(node, CG_UPNP_DMS_DIDL_XMLNS_DLNA, CG_UPNP_DMS_DIDL_XMLNS_DLNA_URL);
 
 	return node;
 }

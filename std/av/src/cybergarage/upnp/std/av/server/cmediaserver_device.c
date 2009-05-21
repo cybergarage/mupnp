@@ -24,7 +24,7 @@
 
 static char *CG_UPNP_DMS_DEVICE_DESCRIPTION = 
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
-"<root xmlns=\"urn:schemas-upnp-org:device-1-0\">\n"
+"<root xmlns=\"urn:schemas-upnp-org:device-1-0\" xmlns:dlna=\"urn:schemas-dlna-org:device-1-0\">\n"
 "   <specVersion>\n"
 "      <major>1</major>\n"
 "      <minor>0</minor>\n"
