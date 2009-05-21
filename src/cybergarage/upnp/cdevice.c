@@ -1969,16 +1969,20 @@ CgUpnpService *cg_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, char *u
 }
 
 /****************************************
- * cg_upnp_device_getabsoluteiconurl
+ * cg_upnp_device_getsmallesticonbymimetype
  ****************************************/
 
-CgUpnpIcon *cg_upnp_device_getsmallesticon(CgUpnpDevice *dev)
+CgUpnpIcon *cg_upnp_device_getsmallesticonbymimetype(CgUpnpDevice *dev, char *mimeType)
 {
 	CgUpnpIcon *icon;
 	CgUpnpIcon *smallestIcon;
 	
 	smallestIcon = NULL;
 	for (icon = cg_upnp_device_geticons(dev); icon; icon = cg_upnp_icon_next(icon)) {
+		if (0 < cg_strlen(mimeType)) {
+			if (!cg_streq(cg_upnp_icon_getmimetype(icon), mimeType))
+				continue;
+		}
 		if (!smallestIcon) {
 			smallestIcon = icon;
 			continue;
@@ -1990,6 +1994,15 @@ CgUpnpIcon *cg_upnp_device_getsmallesticon(CgUpnpDevice *dev)
 	return smallestIcon;
 }
 
+/****************************************
+* cg_upnp_device_getsmallesticon
+****************************************/
+				
+CgUpnpIcon *cg_upnp_device_getsmallesticon(CgUpnpDevice *dev)
+{
+	return cg_upnp_device_getsmallesticonbymimetype(dev, "");
+}
+				
 /****************************************
  * cg_upnp_device_getabsoluteiconurl
  ****************************************/
