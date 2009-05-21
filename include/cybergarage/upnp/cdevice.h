@@ -1147,7 +1147,17 @@ CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, char *sid);
 * \return A smallest icon.
 */
 CgUpnpIcon *cg_upnp_device_getsmallesticon(CgUpnpDevice *dev);
-	
+
+/**
+ * Get a smallest icon of a specified mime type
+ *
+ * \param dev Device in question
+ * \param mimeType Mime type to get
+ *
+ * \return A smallest icon.
+*/
+CgUpnpIcon *cg_upnp_device_getsmallesticonbymimetype(CgUpnpDevice *dev, char *mimeType);
+
 /**
  * Get an icon by its index from the device's list of icons
  *

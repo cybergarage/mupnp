@@ -182,6 +182,12 @@ typedef void CgUpnpDevice;
  */
 - (CGUpnpIcon *)smallestIcon;
 /**
+ * Return a most smallest icon with a specified mime type.
+ *
+ * @return Smallest Icon.
+ */
+- (CGUpnpIcon *)smallestIconWithMimeType:(NSString *)mimeType;
+/**
  * Return a absolute url of the specified icon.
  *
  * @param anIcon Icon.
