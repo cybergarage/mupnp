@@ -24,7 +24,19 @@
 
 void cg_upnp_media_content_settype(CgUpnpMediaContent *con, int type)
 {
-	cg_xml_node_setname(con, (type == CG_UPNP_MEDIA_CONTENT_ITEM) ? CG_UPNP_MEDIA_CONTENT_ITEM_STRING : CG_UPNP_MEDIA_CONTENT_CONTAINER_STRING);
+	switch (type) {
+	case CG_UPNP_MEDIA_CONTENT_CONTAINER:
+		{
+			cg_xml_node_setname(con, CG_UPNP_MEDIA_CONTENT_CONTAINER_STRING);
+			cg_upnp_media_content_setupnpclass(con, CG_UPNP_MEDIA_UPNPCLASS_CONTAINER);
+		}
+		break;
+	case CG_UPNP_MEDIA_CONTENT_ITEM:
+		{
+			cg_xml_node_setname(con, CG_UPNP_MEDIA_CONTENT_ITEM_STRING);
+		}
+		break;
+	}
 }
 
 /****************************************
