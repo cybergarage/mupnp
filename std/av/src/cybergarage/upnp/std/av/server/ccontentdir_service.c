@@ -486,6 +486,7 @@ static BOOL cg_upnp_dms_condir_browsemetadata(CgUpnpMediaServer *dms, CgUpnpActi
 	CgXmlNode *didlNode;
 	CgString *resultStr;
 	char intBuf[CG_STRING_INTEGER_BUFLEN];
+	CgUpnpMediaContent *copyContent;
 	
 	objectID = cg_upnp_action_getargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_OBJECT_ID);
 	if (cg_strlen(objectID) <= 0)
@@ -497,7 +498,10 @@ static BOOL cg_upnp_dms_condir_browsemetadata(CgUpnpMediaServer *dms, CgUpnpActi
 
 	didlNode = cg_upnp_media_didl_node_new();
 	cg_upnp_media_contentlist_add(didlNode, objectContent);
-
+	copyContent = cg_upnp_media_content_new();
+	cg_upnp_media_content_copy(copyContent, objectContent);
+	cg_xml_node_addchildnode(didlNode, copyContent);
+	
 	resultStr = cg_string_new();
 	cg_upnp_media_didl_node_tostring(didlNode, resultStr);
 
