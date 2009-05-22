@@ -2157,3 +2157,41 @@ static void cg_upnp_device_initiconlist(CgUpnpDevice *dev)
 
 	cg_log_debug_l4("Leaving...\n");
 }
+
+/****************************************
+ * cg_upnp_device_addicon
+ ****************************************/
+
+BOOL cg_upnp_device_addicon(CgUpnpDevice *dev, CgUpnpIcon *icon)
+{
+	CgXmlNode *devNode;
+	CgXmlNode *iconListNode;
+	CgXmlNode *iconNode;
+	CgXmlNode *copyIconNode;
+	CgUpnpIcon *copyIcon;
+
+	iconNode = cg_upnp_icon_geticonnode(icon);
+	if (iconNode == NULL)
+		return FALSE;
+	
+	devNode = cg_upnp_device_getdevicenode(dev);
+	if (devNode == NULL)
+		return FALSE;
+
+	iconListNode = cg_xml_node_getchildnode(devNode, CG_UPNP_ICONLIST_ELEM_NAME);
+	if (iconListNode == NULL) {
+		iconListNode = cg_xml_node_new();
+		cg_xml_node_setname(iconListNode, CG_UPNP_ICONLIST_ELEM_NAME);
+		cg_xml_node_addchildnode(devNode, iconListNode);
+	}
+	
+	copyIconNode = cg_xml_node_new();
+	cg_xml_node_copy(copyIconNode, iconNode);
+	cg_xml_node_addchildnode(iconListNode, copyIconNode);
+	
+	copyIcon = cg_upnp_icon_new();
+	cg_upnp_icon_seticonnode(copyIcon, copyIconNode);
+	cg_upnp_iconlist_add(dev->iconList, copyIcon);
+	
+	return TRUE;
+}
