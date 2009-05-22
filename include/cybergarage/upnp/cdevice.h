@@ -1169,6 +1169,15 @@ CgUpnpIcon *cg_upnp_device_getsmallesticonbymimetype(CgUpnpDevice *dev, char *mi
  */
 BOOL cg_upnp_device_getabsoluteiconurl(CgUpnpDevice *dev, CgUpnpIcon *icon, CgString *buf);
 
+/**
+* Get a smallest icon
+ *
+ * \param dev Device in question
+ * \param icon Icon to add
+ *
+ */
+BOOL cg_upnp_device_addicon(CgUpnpDevice *dev, CgUpnpIcon *icon);
+	
 /*****************************************************************************
  * Embedded Action
  *****************************************************************************/

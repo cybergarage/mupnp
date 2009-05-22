@@ -40,6 +40,7 @@ extern "C" {
 #define CG_UPNP_MEDIA_ROOT_CONTENT_PARENTID "-1"
 
 #define CG_UPNP_MEDIA_MIMETYPE_JPEG "image/jpeg"
+#define CG_UPNP_MEDIA_MIMETYPE_PNG "image/png"
 #define CG_UPNP_MEDIA_MIMETYPE_MPEG "video/mpeg"
 #define CG_UPNP_MEDIA_MIMETYPE_MP3 "audio/mpeg"
 

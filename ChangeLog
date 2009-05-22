@@ -1,6 +1,7 @@
 2009-05-20  Satoshi Konno <skonno@cybergarage.org>
 	* Improved cg_string_*() not to abort when the string object is null.
 	* Added cg_upnp_device_getsmallesticonbymimetype().
+	* Added cg_upnp_device_addicon().
 
 2009-04-23  Satoshi Konno <skonno@cybergarage.org>
 	* Added DLNA-CP-version in the USER-AGENT HTTP header value as default.
