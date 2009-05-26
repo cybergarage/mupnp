@@ -38,7 +38,7 @@ extern "C" {
 #define CG_UPNP_ICON_ELEM_NAME "icon"
 #define CG_UPNP_ICONLIST_ELEM_NAME "iconList"
 
-#define CG_UPNP_ICON_MIME_TYPE "mimeType"
+#define CG_UPNP_ICON_MIME_TYPE "mimetype"
 #define CG_UPNP_ICON_WIDTH "width"
 #define CG_UPNP_ICON_HEIGHT "height"
 #define CG_UPNP_ICON_DEPTH "depth"
