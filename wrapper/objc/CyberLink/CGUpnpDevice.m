@@ -26,6 +26,7 @@
 	isCObjectCreated = YES;
 	if (!cObject)
 		return nil;
+	cg_upnp_device_setuserdata(cObject, self);
 	return self;
 }
 
@@ -35,6 +36,7 @@
 		return nil;
 	cObject = cobj;
 	isCObjectCreated = NO;
+	cg_upnp_device_setuserdata(cObject, self);
 	return self;
 }
 
@@ -50,6 +52,7 @@
 		cg_upnp_device_delete(cObject);
 		return nil;
 	}
+	cg_upnp_device_setuserdata(cObject, self);
 	return self;
 }
 
