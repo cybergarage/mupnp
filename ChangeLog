@@ -1,20 +1,16 @@
 2009-05-20  Satoshi Konno <skonno@cybergarage.org>
-	* Improved cg_string_*() not to abort when the string object is null.
+	* Improved cg_string_*() not to abort when the specified string object is NULL.
 	* Added cg_upnp_device_getsmallesticonbymimetype().
 	* Added cg_upnp_device_addicon().
+	* Added CGUpnpDevice:setDeviceType().
 
 2009-04-23  Satoshi Konno <skonno@cybergarage.org>
 	* Added DLNA-CP-version in the USER-AGENT HTTP header value as default.
-	* Added CGUpnpAvItem:isMovieClass(), isVideoClass(), isAudioClass() and isImageClass().
-	* Added CGUpnpAvServer:browseMetadata() and browseDirectChildren().
 
 2009-01-29  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_net_uri_rebuild() and cg_net_url_rebuild().
 	* Fixed cg_upnp_service_mangleurl() to return correct url using cg_net_uri_rebuild() when a device has URLBase and the service's URL is relative.
 	* Changed cg_upnp_controlpoint_parsescservicescpd() to read the service description internally because the some illegal devices, such as MediaLink, don't return the specified service description.
-	* Added CGUpnpAvResource:isImage(), isMovie() and is Audio().
-	* Added CGUpnpAvResource:hasImageResource(), hasMovieResource() and is hasAudioResource().
-	* Added CGUpnpAvResource:imageResource(), movieResource() and is audioResource().
 
 2008-12-08  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_device_getsmallesticon().
