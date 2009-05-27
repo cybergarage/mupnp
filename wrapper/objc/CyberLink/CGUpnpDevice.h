@@ -80,6 +80,12 @@ typedef void CgUpnpDevice;
  */
 - (NSString *)urlBase;
 /**
+ * Set a device type of the device.
+ * 
+ * @param aType Device type to set.
+ */
+-(void)setDeviceType:(NSString *)aType;
+/**
  * Set a friendly name of the device.
  * 
  * @param aName Friendly name to set.

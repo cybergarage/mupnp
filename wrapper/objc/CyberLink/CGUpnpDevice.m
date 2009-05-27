@@ -109,6 +109,13 @@
 	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_geturlbase(cObject)] autorelease];
 }
 
+-(void)setDeviceType:(NSString *)aType
+{
+	if (!cObject)
+		return;
+	cg_upnp_device_setdevicetype(cObject, (char *)[aType UTF8String]);
+}
+
 -(void)setFriendlyName:(NSString *)aName
 {
 	if (!cObject)
