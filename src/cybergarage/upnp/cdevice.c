@@ -1556,24 +1556,39 @@ BOOL cg_upnp_device_stop(CgUpnpDevice *dev)
 {
 	cg_log_debug_l4("Entering...\n");
 
-	/**** Advertiser ****/
-	cg_upnp_device_advertiser_stop(dev);	
-
-	cg_upnp_device_byebye(dev);
+	if (cg_upnp_device_isrunning(dev))
+		cg_upnp_device_byebye(dev);
 	
-	/**** HTTP Server ****/
-	cg_http_serverlist_stop(dev->httpServerList);
-	cg_http_serverlist_close(dev->httpServerList);
-	cg_http_serverlist_clear(dev->httpServerList);
+	/**** Advertiser ****/
+	if (cg_upnp_device_advertiser_isrunning(dev))
+		cg_upnp_device_advertiser_stop(dev);	
 
+	/**** HTTP Server ****/
+	if (0 < cg_http_headerlist_size(dev->httpServerList)) {
+		cg_http_serverlist_stop(dev->httpServerList);
+		cg_http_serverlist_close(dev->httpServerList);
+		cg_http_serverlist_clear(dev->httpServerList);
+	}
+	
 	/**** SSDP Server ****/
-	cg_upnp_ssdp_serverlist_stop(dev->ssdpServerList);
-	cg_upnp_ssdp_serverlist_close(dev->ssdpServerList);
-	cg_upnp_ssdp_serverlist_clear(dev->ssdpServerList);
+	if (0 < cg_upnp_ssdp_serverlist_size(dev->ssdpServerList)) {
+		cg_upnp_ssdp_serverlist_stop(dev->ssdpServerList);
+		cg_upnp_ssdp_serverlist_close(dev->ssdpServerList);
+		cg_upnp_ssdp_serverlist_clear(dev->ssdpServerList);
+	}
 	
 	cg_log_debug_l4("Leaving...\n");
 
 	return TRUE;
+}
+
+/****************************************
+ * cg_upnp_device_isrunning
+ ****************************************/
+
+BOOL cg_upnp_device_isrunning(CgUpnpDevice *dev)
+{
+	return cg_upnp_device_advertiser_isrunning(dev);
 }
 
 /****************************************

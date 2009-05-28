@@ -737,6 +737,13 @@ BOOL cg_upnp_device_start(CgUpnpDevice *dev);
  */
 BOOL cg_upnp_device_stop(CgUpnpDevice *dev);
 
+/**
+ * Check if the device] has been started
+ *
+ * \param dev Device that is being advertised
+ */
+BOOL cg_upnp_device_isrunning(CgUpnpDevice *dev);
+	
 /*****************************************************************************
  * URL
  *****************************************************************************/
@@ -1485,6 +1492,13 @@ BOOL cg_upnp_device_advertiser_start(CgUpnpDevice *dev);
  */
 BOOL cg_upnp_device_advertiser_stop(CgUpnpDevice *dev);
 
+/**
+ * Check if the advertiser has been started
+ *
+ * \param dev Device that is being advertised
+ */
+BOOL cg_upnp_device_advertiser_isrunning(CgUpnpDevice *dev);
+	
 /**
  * Get the advertiser thread from the device
  *

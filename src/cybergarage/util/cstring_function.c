@@ -380,9 +380,11 @@ char *cg_strncpy(char *str1, char *str2, size_t cnt)
 	cg_log_debug_l5("Entering...\n");
 
 	strncpy(str1, str2, cnt);
-	return str1;
-
+	str1[cnt] = '\0';
+	
 	cg_log_debug_l5("Leaving...\n");
+
+	return str1;
 }
 
 /****************************************

@@ -110,15 +110,35 @@ BOOL cg_upnp_device_advertiser_start(CgUpnpDevice *dev)
  */
 BOOL cg_upnp_device_advertiser_stop(CgUpnpDevice *dev)
 {
-  CgThread *advertiser;
+	CgThread *advertiser;
   
 	cg_log_debug_l4("Entering...\n");
 
-  /* Get the advertiser thread from the device struct */
-  advertiser = cg_upnp_device_getadvertiserthead(dev);
+	/* Get the advertiser thread from the device struct */
+	advertiser = cg_upnp_device_getadvertiserthead(dev);
   
 	//Theo Beisch 
 	if (advertiser != NULL)
  		return cg_thread_stop(advertiser);
+	return FALSE;
+}
+
+/**
+ * cg_upnp_device_advertiser_isrunning
+ *
+ * Check if the advertiser has been started
+ *
+ * \param dev Device that is being advertised
+ */
+BOOL cg_upnp_device_advertiser_isrunning(CgUpnpDevice *dev)
+{
+	CgThread *advertiser;
+	
+	cg_log_debug_l4("Entering...\n");
+	
+	advertiser = cg_upnp_device_getadvertiserthead(dev);
+	if (advertiser != NULL)
+ 		return cg_thread_isrunnable(advertiser);
+
 	return FALSE;
 }

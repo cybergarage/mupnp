@@ -333,8 +333,7 @@ void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock)
 		value = cg_http_header_getvalue(header);
 		if (value != NULL)
 			cg_socket_write(sock, value, cg_strlen(value));
-		cg_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1
-		);
+		cg_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
 	}
 	cg_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
 	
