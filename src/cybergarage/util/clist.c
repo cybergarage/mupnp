@@ -33,7 +33,7 @@ void cg_list_header_init(CgList *list)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (list == NULL)
+	if (NULL == list)
 		return;
 
 	list->headFlag = TRUE;			
@@ -50,7 +50,7 @@ void cg_list_node_init(CgList *list)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (list == NULL)
+	if (NULL == list)
 		return;
 
 	list->headFlag = FALSE;			
@@ -70,16 +70,16 @@ int cg_list_size(CgList *headList)
 	
 	cg_log_debug_l5("Entering...\n");
 
-	if (headList == NULL)
+	if (NULL == headList)
 		return 0;
 
 	listCnt = 0;
 	for (list = cg_list_next(headList); list != NULL; list = cg_list_next(list))
 		listCnt++;
 	
-	return listCnt;
-
 	cg_log_debug_l5("Leaving...\n");
+	
+	return listCnt;
 }
 
 /****************************************
@@ -93,19 +93,19 @@ CgList *cg_list_get(CgList *headList, int index)
 	
 	cg_log_debug_l5("Entering...\n");
 
-	if (headList == NULL)
+	if (NULL == headList)
 		return NULL;
 
 	list = cg_list_next(headList);
 	for (n=0; n<index; n++) {
-		if (list == NULL)
+		if (NULL == list)
 			break;
 		list = cg_list_next(list);
 	}
 		
-	return list;
-
 	cg_log_debug_l5("Leaving...\n");
+	
+	return list;
 }
 
 /****************************************
@@ -118,7 +118,7 @@ CgList *list)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (prevList == NULL || list == NULL)
+	if ((NULL == prevList) || (NULL == list))
 		return;
 
 	list->prev = prevList;
@@ -139,7 +139,7 @@ CgList *list)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (headList == NULL || list == NULL)
+	if ((NULL == headList) || (NULL == list))
 		return;
 
 	cg_list_insert(headList->prev, list);
@@ -155,9 +155,12 @@ void cg_list_remove(CgList *list)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (list == NULL)
+	if (NULL == list)
 		return;
 
+	if ((NULL == list->prev) || (NULL == list->next))
+		return;
+	
 	list->prev->next = list->next;
 	list->next->prev = list->prev;
 	list->prev = list->next = list;
@@ -174,14 +177,18 @@ CgList *list)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (list == NULL)
+	if (NULL == list)
 		return NULL;
 
+	if (NULL == list->prev)
+		return NULL;
+	
 	if (list->prev->headFlag)
 		list = list->prev;
-	return list->prev;
 
 	cg_log_debug_l5("Leaving...\n");
+
+	return list->prev;
 }
 
 /****************************************
@@ -193,14 +200,18 @@ CgList *list)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (list == NULL)
+	if (NULL == list)
 		return NULL;
 
+	if (NULL == list->prev)
+		return NULL;
+	
 	if (list->prev->headFlag == TRUE)
 		return NULL;
-	return list->prev;
-
+	
 	cg_log_debug_l5("Leaving...\n");
+
+	return list->prev;
 }
 
 /****************************************
@@ -212,14 +223,18 @@ CgList *list)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (list == NULL)
+	if (NULL == list)
 		return NULL;
 
+	if (NULL == list->next)
+		return NULL;
+	
 	if (list->next->headFlag == TRUE)
 		list = list->next;
-	return list->next;
 
 	cg_log_debug_l5("Leaving...\n");
+	
+	return list->next;
 }
 
 /****************************************
@@ -231,14 +246,18 @@ CgList *list)
 {
 	cg_log_debug_l5("Entering...\n");
 
-	if (list == NULL)
+	if (NULL == list)
 		return NULL;
 
+	if (NULL == list->next)
+		return NULL;
+	
 	if (list->next->headFlag == TRUE)
 		return NULL;
-	return list->next;
 
 	cg_log_debug_l5("Leaving...\n");
+
+	return list->next;
 }
 
 /****************************************
@@ -251,7 +270,7 @@ void cg_list_clear(CgList *headList, CG_LIST_DESTRUCTORFUNC destructorFunc)
 
 	cg_log_debug_l5("Entering...\n");
 
-	if (headList == NULL)
+	if (NULL == headList)
 		return;
 
 	list = cg_list_next(headList);
