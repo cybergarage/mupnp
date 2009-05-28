@@ -516,6 +516,10 @@ BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock, BOOL onlyHea
 #define cg_http_response_setdate(httpRes,value) cg_http_packet_setheadervalue((CgHttpPacket*)httpRes,CG_HTTP_DATE,value)
 #define cg_http_response_getdate(httpRes) cg_http_packet_getheadervalue((CgHttpPacket*)httpRes,CG_HTTP_DATE)
 
+/**** Transfer-Encoding ****/
+#define cg_http_response_settransferencoding(httpReq, value) cg_http_packet_settransferencoding((CgHttpPacket*)httpReq, value)
+#define cg_http_response_gettransferencoding(httpReq) cg_http_packet_gettransferencoding((CgHttpPacket*)httpReq)
+	
 /**** Copy ****/
 void cg_http_response_copy(CgHttpResponse *destHttpRes, CgHttpResponse *srcHttpRes);
 
