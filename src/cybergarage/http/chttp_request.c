@@ -906,6 +906,8 @@ BOOL cg_http_request_postchunkedsize(CgHttpRequest *httpReq, int dataLen)
 	sprintf(chunkedChar, "%x%s", dataLen, CG_HTTP_CRLF);
 #endif
 	cg_socket_write(sock, chunkedChar, cg_strlen(chunkedChar));
+
+	printf("%s", chunkedChar);
 	
 	return TRUE;
 }
@@ -921,6 +923,21 @@ BOOL cg_http_request_postchunkeddata(CgHttpRequest *httpReq, void *data, int dat
 	cg_http_request_postchunkedsize(httpReq, dataLen);
 	sock = cg_http_request_getsocket(httpReq);
 	cg_socket_write(sock, data, dataLen);
+	cg_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
+	
+	return TRUE;
+}
+
+/****************************************
+ * cg_http_request_postlastchunk
+ ****************************************/
+
+BOOL cg_http_request_postlastchunk(CgHttpRequest *httpReq)
+{
+	CgSocket *sock;
+	
+	cg_http_request_postchunkedsize(httpReq, 0);
+	sock = cg_http_request_getsocket(httpReq);
 	cg_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
 	
 	return TRUE;
