@@ -891,6 +891,42 @@ BOOL cg_http_request_poststatuscode(CgHttpRequest *httpReq, int httpStatCode)
 }
 
 /****************************************
+* cg_http_request_postchunkedsize
+****************************************/
+
+BOOL cg_http_request_postchunkedsize(CgHttpRequest *httpReq, int dataLen)
+{
+	CgSocket *sock;
+	char chunkedChar[CG_STRING_LONG_BUFLEN+2];
+
+	sock = cg_http_request_getsocket(httpReq);
+#if defined(HAVE_SNPRINTF)
+	snprintf(chunkedChar, sizeof(chunkedChar), "%x%s", dataLen, CG_HTTP_CRLF);
+#else
+	sprintf(chunkedChar, "%x%s", dataLen, CG_HTTP_CRLF);
+#endif
+	cg_socket_write(sock, chunkedChar, cg_strlen(chunkedChar));
+	
+	return TRUE;
+}
+
+/****************************************
+* cg_http_request_postchunkedsize
+****************************************/
+
+BOOL cg_http_request_postchunkeddata(CgHttpRequest *httpReq, void *data, int dataLen);
+{
+	CgSocket *sock;
+
+	cg_http_request_postchunkedsize(httpReq, dataLen);
+	sock = cg_http_request_getsocket(httpReq);
+	cg_socket_write(sock, data, dataLen);
+	cg_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
+	
+	return TRUE;
+}
+
+/****************************************
 * cg_http_response_copy
 ****************************************/
 
