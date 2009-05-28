@@ -1,4 +1,4 @@
-2009-05-20  Satoshi Konno <skonno@cybergarage.org>
+2009-05-28  Satoshi Konno <skonno@cybergarage.org>
 	* Improved cg_string_*() and cg_list_*() not to abort when the specified string object is NULL.
 	* Added cg_upnp_device_getsmallesticonbymimetype().
 	* Added cg_upnp_device_addicon().
