@@ -385,6 +385,7 @@ BOOL cg_http_request_postresponse(CgHttpRequest *httpReq, CgHttpResponse *httpRe
 BOOL cg_http_request_poststatuscode(CgHttpRequest *httpReq, int httpStatCode);
 BOOL cg_http_request_postchunkeddata(CgHttpRequest *httpReq, void *data, int dataLen);
 BOOL cg_http_request_postchunkedsize(CgHttpRequest *httpReq, int dataLen);
+BOOL cg_http_request_postlastchunk(CgHttpRequest *httpReq);
 
 #define cg_http_request_postokrequest(httpReq) cg_http_request_poststatuscode(httpReq, CG_HTTP_STATUS_OK)
 #define cg_http_request_postbadrequest(httpReq) cg_http_request_poststatuscode(httpReq, CG_HTTP_STATUS_BAD_REQUEST)
