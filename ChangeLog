@@ -3,6 +3,7 @@
 	* Added cg_upnp_device_getsmallesticonbymimetype().
 	* Added cg_upnp_device_addicon().
 	* Added CGUpnpDevice:setDeviceType().
+	* Added cg_http_request_postchunkeddata() and cg_http_request_postchunkedsize().
 
 2009-04-23  Satoshi Konno <skonno@cybergarage.org>
 	* Added DLNA-CP-version in the USER-AGENT HTTP header value as default.
