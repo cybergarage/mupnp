@@ -376,6 +376,7 @@ void cg_http_request_seturi(CgHttpRequest *httpReq, char *uri);
 char *cg_http_request_geturi(CgHttpRequest *httpReq);
 void cg_http_request_setsocket(CgHttpRequest *httpReq, CgSocket *sock);
 CgSocket *cg_http_request_getsocket(CgHttpRequest *httpReq);
+#define cg_http_request_closesocket(httpReq) cg_socket_close(cg_http_request_getsocket(httpReq))
 CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int port);
 #if defined(CG_USE_OPENSSL)
 CgHttpResponse *cg_https_request_post(CgHttpRequest *httpReq, char *ipaddr, int port);
