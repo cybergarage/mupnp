@@ -4,6 +4,7 @@
 	* Added cg_upnp_device_getsmallesticonbymimetype().
 	* Added cg_upnp_device_addicon().
 	* Added CGUpnpDevice:setDeviceType().
+	* Added cg_http_request_postdata().
 	* Added cg_http_request_postchunkeddata() and cg_http_request_postlastchunk().
 	* Added cg_http_request_closesocket().
 	* Added cg_upnp_device_isrunning().

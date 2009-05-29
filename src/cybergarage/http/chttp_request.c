@@ -913,7 +913,7 @@ BOOL cg_http_request_postchunkedsize(CgHttpRequest *httpReq, int dataLen)
 }
 
 /****************************************
-* cg_http_request_postchunkedsize
+* cg_http_request_postchunkeddata
 ****************************************/
 
 BOOL cg_http_request_postchunkeddata(CgHttpRequest *httpReq, void *data, int dataLen)
