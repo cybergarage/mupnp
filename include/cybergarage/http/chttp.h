@@ -388,7 +388,6 @@ BOOL cg_http_request_postdata(CgHttpRequest *httpReq, void *data, int dataLen);
 BOOL cg_http_request_postchunkedsize(CgHttpRequest *httpReq, int dataLen);
 BOOL cg_http_request_postchunkeddata(CgHttpRequest *httpReq, void *data, int dataLen);
 BOOL cg_http_request_postlastchunk(CgHttpRequest *httpReq);
-#define cg_http_request_postdata(httpReq, data, dataLen) cg_socket_write(cg_http_request_getsocket(httpReq), data, dataLen)
 #define cg_http_request_poststring(httpReq, data) cg_http_request_postdata(httpReq, data, cg_strlen(data))
 #define cg_http_request_postchunkedstring(httpReq, data) cg_http_request_postchunkeddata(httpReq, data, cg_strlen(data))
 

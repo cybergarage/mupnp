@@ -891,6 +891,20 @@ BOOL cg_http_request_poststatuscode(CgHttpRequest *httpReq, int httpStatCode)
 }
 
 /****************************************
+ * cg_http_request_postdata
+ ****************************************/
+
+BOOL cg_http_request_postdata(CgHttpRequest *httpReq, void *data, int dataLen)
+{
+	if (dataLen <= 0)
+		return TRUE;
+	
+	cg_socket_write(cg_http_request_getsocket(httpReq), data, dataLen);
+	
+	return TRUE;
+}
+
+/****************************************
 * cg_http_request_postchunkedsize
 ****************************************/
 
@@ -920,6 +934,9 @@ BOOL cg_http_request_postchunkeddata(CgHttpRequest *httpReq, void *data, int dat
 {
 	CgSocket *sock;
 
+	if (dataLen <= 0)
+		return TRUE;
+	
 	cg_http_request_postchunkedsize(httpReq, dataLen);
 	sock = cg_http_request_getsocket(httpReq);
 	cg_socket_write(sock, data, dataLen);
