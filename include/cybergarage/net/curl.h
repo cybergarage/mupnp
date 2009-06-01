@@ -97,6 +97,8 @@ typedef struct _CgNetURI CgNetURL;
 char *cg_net_gethosturl(char *host, int port, char *uri, char *buf, int bufSize);
 char *cg_net_getmodifierhosturl(char *host, int port, char *uri, char *buf, int bufSize, char *begin, char *end);
 
+#define cg_net_url_getquerydictionary(urip) cg_net_uri_getquerydictionary(urip);
+
 #ifdef  __cplusplus
 }
 #endif

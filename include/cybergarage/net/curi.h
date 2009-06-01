@@ -24,6 +24,7 @@
 #include <cybergarage/typedef.h>
 
 #include <cybergarage/util/cstring.h>
+#include <cybergarage/util/cdictionary.h>
 
 #ifdef  __cplusplus
 extern "C" {
@@ -69,6 +70,7 @@ typedef struct _CgNetURI {
 	CgString *query;
 	CgString *fragment;
 	CgString *request;
+	CgDictionary *queryDictionary;
 } CgNetURI;
 
 /****************************************
@@ -133,6 +135,8 @@ BOOL cg_net_uri_isescapedstring(char *buf, int bufSize);
 char *cg_net_uri_escapestring(char *buf, int bufSize, CgString *retBuf);
 char *cg_net_uri_unescapestring(char *buf, int bufSize, CgString *retBuf);
 BOOL cg_net_uri_isequivalent(char *url, char *relative_url);
+
+CgDictionary *cg_net_uri_getquerydictionary(CgNetURI *uri);
 
 #ifdef  __cplusplus
 }

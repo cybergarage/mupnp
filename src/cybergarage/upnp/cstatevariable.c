@@ -48,9 +48,9 @@ CgUpnpStateVariable *cg_upnp_statevariable_new()
 		cg_upnp_statevariable_setuserdata(statVar, NULL);
 	}
 	
-	return statVar;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return statVar;
 }
 
 /****************************************
