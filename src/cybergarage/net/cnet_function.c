@@ -78,7 +78,7 @@ int cg_net_getipv6scopeid(char *addr)
 {
 	int addrLen;
 	int perIdx;
-	char scopeIDBuf[8];
+	char scopeIDBuf[8+1];
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -88,10 +88,13 @@ int cg_net_getipv6scopeid(char *addr)
 	perIdx = cg_strchr(addr, "%", 1);
 	if (perIdx < 0)
 		return 0;
-	cg_strncpy(scopeIDBuf, (addr+perIdx+1), sizeof(scopeIDBuf));
+	cg_strncpy(scopeIDBuf, (addr+perIdx+1), sizeof(scopeIDBuf)-1);
+	scopeIDBuf[sizeof(scopeIDBuf)-1] = '\0';
+	
+	cg_log_debug_l4("Leaving...\n");
+	
 	return atoi(scopeIDBuf);
 
-	cg_log_debug_l4("Leaving...\n");
 }
 
 /*

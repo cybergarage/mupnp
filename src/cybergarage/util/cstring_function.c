@@ -380,7 +380,6 @@ char *cg_strncpy(char *str1, char *str2, size_t cnt)
 	cg_log_debug_l5("Entering...\n");
 
 	strncpy(str1, str2, cnt);
-	str1[cnt-1] = '\0';
 	
 	cg_log_debug_l5("Leaving...\n");
 
@@ -397,9 +396,9 @@ char *cg_strncat(char *str1, char *str2, size_t cnt)
 	cg_log_debug_l5("Entering...\n");
 
 	str1Len = cg_strlen(str1);
-	return cg_strncpy((str1 + str1Len), str2, cnt - str1Len);
+	return cg_strncpy((str1 + str1Len), str2, cnt);
 
- cg_log_debug_l5("Leaving...\n");
+	cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
