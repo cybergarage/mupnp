@@ -393,9 +393,11 @@ char *cg_strncpy(char *str1, char *str2, size_t cnt)
 
 char *cg_strncat(char *str1, char *str2, size_t cnt)
 {
+	int str1Len;
 	cg_log_debug_l5("Entering...\n");
 
- return cg_strncpy(&str1[cg_strlen(str1)], str2, cnt);
+	str1Len = cg_strlen(str1);
+	return cg_strncpy((str1 + str1Len), str2, cnt - str1Len);
 
  cg_log_debug_l5("Leaving...\n");
 }

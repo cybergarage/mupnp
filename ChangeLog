@@ -1,7 +1,9 @@
 2009-06-01  Satoshi Konno <skonno@cybergarage.org>
-	* Fixed a buffer overrun error of cg_xml_escapechars().
 	* Added cg_dictionary_*();
 	* Added cg_net_uri_getquerydictionary().
+	* Fixed a buffer overrun of cg_xml_escapechars().
+	* Fixed cg_strncat() not to over the specified buffer size.
+	* Changed cg_strncpy() to terminate `\0' character as default.
 	
 2009-05-28  Satoshi Konno <skonno@cybergarage.org>
 	* Changed cg_upnp_device_stop() not to send a byebye message when the device isn't running.
