@@ -49,7 +49,7 @@ typedef struct _CgDictionary {
 	struct _CgDictionary *next;
 	CgString *key;
 	CgString *value;
-} CgDictionary, CgDictionaryList;
+} CgDictionaryElement, CgDictionary;
 
 /****************************************
 * Function
@@ -58,30 +58,14 @@ typedef struct _CgDictionary {
 /**
  * Create a new dictionary
  */
-CgDictionary *cg_dictionary_new();
+CgDictionaryElement *cg_dictionary_element_new();
 
 /**
  * Destroy a dictionary.
  *
  * \param dictionary Dictionary to destroy
  */
-BOOL cg_dictionary_delete(CgDictionary *dictionary);
-
-
-/**
- * Set the user data pointer
- *
- * \param dictionary Dictionary struct
- * \param data Pointer to user data
- */
-void cg_dictionary_setuserdata(CgDictionary *dictionary, void *data);
-
-/**
- * Get the user data pointer
- *
- * \param dictionary Dictionary from which to get the pointer
- */
-void *cg_dictionary_getuserdata(CgDictionary *dictionary);
+BOOL cg_dictionary_element_delete(CgDictionaryElement *dictionary);
 
 /**
  * Set a key
@@ -89,13 +73,13 @@ void *cg_dictionary_getuserdata(CgDictionary *dictionary);
  * \param dictionary Dictionary struct
  * \param name String to set 
  */
-#define cg_dictionary_setkey(dictionary, name) cg_string_setvalue(dictionary->key, name)
+#define cg_dictionary_element_setkey(dictionary, name) cg_string_setvalue(dictionary->key, name)
 /**
  * Get a key
  *
  * \param dictionary Dictionary struct
  */
-#define cg_dictionary_getkey(dictionary) cg_string_getvalue(dictionary->key)
+#define cg_dictionary_element_getkey(dictionary) cg_string_getvalue(dictionary->key)
 
 /**
  * Set a value
@@ -103,16 +87,16 @@ void *cg_dictionary_getuserdata(CgDictionary *dictionary);
  * \param dictionary Dictionary struct
  * \param value String to set
  */
-#define cg_dictionary_setvalue(dictionary, val) cg_string_setvalue(dictionary->key, val)
+#define cg_dictionary_element_setvalue(dictionary, val) cg_string_setvalue(dictionary->key, val)
 /**
  * Get a value
  *
  * \param dictionary Dictionary struct
  */
-#define cg_dictionary_getvalue(dictionary) cg_string_getvalue(dictionary->key)
+#define cg_dictionary_element_getvalue(dictionary) cg_string_getvalue(dictionary->key)
 
-#define cg_dictionary_next(dictionary) (CgDictionary *)cg_list_next((CgList *)dictionary)
-#define cg_dictionary_remove(dictionary) cg_list_remove((CgList *)dictionary)
+#define cg_dictionary_element_next(dictionary) (CgDictionaryElement *)cg_list_next((CgList *)dictionary)
+#define cg_dictionary_element_remove(dictionary) cg_list_remove((CgList *)dictionary)
 
 /****************************************
 * Function (Dictionary List)
@@ -123,35 +107,35 @@ void *cg_dictionary_getuserdata(CgDictionary *dictionary);
  *
  * \return Dictionary list
  */
-CgDictionaryList *cg_dictionarylist_new();
+CgDictionary *cg_dictionary_new();
 
 /**
  * Destroy a dictionary list
  *
  * \param dictionaryList The dictionary list in question
  */
-void cg_dictionarylist_delete(CgDictionaryList *dictionaryList);
+void cg_dictionary_delete(CgDictionary *dictionaryList);
 
 /**
  * Clear the contents of a dictionary list
  *
  * \param dictionaryList Dictionary list in question
  */
-#define cg_dictionarylist_clear(dictionaryList) cg_list_clear((CgList *)dictionaryList, (CG_LIST_DESTRUCTORFUNC)cg_dictionary_delete)
+#define cg_dictionary_clear(dictionaryList) cg_list_clear((CgList *)dictionaryList, (CG_LIST_DESTRUCTORFUNC)cg_dictionary_element_delete)
 
 /**
  * Get the size of a dictionary list
  *
  * \param dictionaryList The dictionary list in question
  */
-#define cg_dictionarylist_size(dictionaryList) cg_list_size((CgList *)dictionaryList)
+#define cg_dictionary_size(dictionaryList) cg_list_size((CgList *)dictionaryList)
 
 /**
  * Get the first actual item from a dictionary list to use as an iterator
  *
  * \param dictionaryList The dictionary list in question
  */
-#define cg_dictionarylist_gets(dictionaryList) (CgDictionary *)cg_list_next((CgList *)dictionaryList)
+#define cg_dictionary_gets(dictionaryList) (CgDictionaryElement *)cg_list_next((CgList *)dictionaryList)
 
 /**
  * Add a dictionary into a dictionary list
@@ -159,7 +143,7 @@ void cg_dictionarylist_delete(CgDictionaryList *dictionaryList);
  * \param dictionaryList The dictionary list in question
  * \param dictionary The dictionary to add to the list
  */
-#define cg_dictionarylist_add(dictionaryList, dictionary) cg_list_add((CgList *)dictionaryList, (CgList *)dictionary)
+#define cg_dictionary_add(dictionaryList, dictionary) cg_list_add((CgList *)dictionaryList, (CgList *)dictionary)
 
 /**
  * Remove a dictionary from dictionary list
@@ -167,7 +151,7 @@ void cg_dictionarylist_delete(CgDictionaryList *dictionaryList);
  * \param dictionaryList The dictionary list in question
  * \param dictionary The dictionary to be removed 
  */
-#define cg_dictionarylist_remove(dictionary) cg_list_remove((CgList *)dictionary)
+#define cg_dictionary_remove(dictionary) cg_list_remove((CgList *)dictionary)
 
 #ifdef  __cplusplus
 
