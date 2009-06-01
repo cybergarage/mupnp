@@ -1,15 +1,15 @@
 /******************************************************************
 *
-*	CyberUtil for C
+*	CyberNet for C
 *
-*	Copyright (C) Satoshi Konno 2005
+*	Copyright (C) Nokia Corporation 2005
 *
 *       Copyright (C) 2006 Nokia Corporation. All rights reserved.
 *
 *       This is licensed under BSD-style license,
 *       see file COPYING.
 *
-*	File: cdictionary.cpp
+*	File: cdictionary_list.c
 *
 *	Revision:
 *
@@ -22,40 +22,40 @@
 #include <cybergarage/util/clog.h>
 
 /****************************************
-* cg_dictionary_new
+* cg_dictionarylist_new
 ****************************************/
 
-CgDictionary *cg_dictionary_new()
+CgDictionaryList *cg_dictionarylist_new()
 {
-	CgDictionary *dictionary;
+	CgDictionaryList *dictionaryList;
 
 	cg_log_debug_l4("Entering...\n");
 
-	dictionary = (CgDictionary *)malloc(sizeof(CgDictionary));
+	dictionaryList = (CgDictionaryList *)malloc(sizeof(CgDictionaryList));
 
-	cg_log_debug_s("Creating dictionary data into %p\n", dictionary);
-
-	if ( NULL != dictionary )
+	if ( NULL != dictionaryList )
 	{
-		cg_list_node_init((CgList *)dictionary);
-		dictionary->key = cg_string_new();
-		dictionary->value = cg_string_new();
+		cg_list_header_init((CgList *)dictionaryList);
+		dictionaryList->key = NULL;
+		dictionaryList->value = NULL;
 	}
 
-	return dictionary;
+	cg_log_debug_l4("Leaving...\n");
+
+	return dictionaryList;
 }
 
 /****************************************
-* cg_dictionary_delete
+* cg_dictionarylist_delete
 ****************************************/
 
-BOOL cg_dictionary_delete(CgDictionary *dictionary)
+void cg_dictionarylist_delete(CgDictionaryList *dictionaryList)
 {
-	if (dictionary->key)
-		cg_string_delete(dictionary->key);
-	if (dictionary->value)
-		cg_string_delete(dictionary->value);
-	free(dictionary);
+	cg_log_debug_l4("Entering...\n");
 
-	return TRUE;
+	cg_dictionarylist_clear(dictionaryList);
+	free(dictionaryList);
+
+	cg_log_debug_l4("Leaving...\n");
 }
+
