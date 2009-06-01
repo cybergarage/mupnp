@@ -816,7 +816,7 @@ BOOL cg_upnp_service_announcefrom(CgUpnpService *service, char *bindAddr)
 	CgUpnpDevice *dev;
 	CgUpnpSSDPRequest *ssdpReq;
 	CgUpnpSSDPSocket *ssdpSock;
-	BOOL sentResult;
+	BOOL sentResult = TRUE;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -835,7 +835,7 @@ BOOL cg_upnp_service_announcefrom(CgUpnpService *service, char *bindAddr)
 	sentResult = cg_upnp_ssdp_socket_notifyfrom(ssdpSock, ssdpReq, bindAddr);
 	cg_wait(20);
 	cg_upnp_ssdp_socket_delete(ssdpSock);
-	
+
 	cg_upnp_ssdprequest_delete(ssdpReq);
 	
 	cg_log_debug_l4("Leaving...\n");

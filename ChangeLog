@@ -1,4 +1,5 @@
 2009-06-01  Satoshi Konno <skonno@cybergarage.org>
+	* Fixed a buffer overrun error of cg_xml_escapechars().
 	* Added cg_dictionary_*();
 	* Added cg_net_uri_getquerydictionary().
 	

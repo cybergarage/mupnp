@@ -66,7 +66,7 @@ CgNetURI *cg_net_uri_new()
 
 	uri = (CgNetURI *)malloc(sizeof(CgNetURI));
 
-	if  NULL != uri)
+	if  (NULL != uri)
 	{
 		uri->uri = cg_string_new();
 		uri->protocol = cg_string_new();

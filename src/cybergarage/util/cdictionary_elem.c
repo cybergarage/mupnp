@@ -27,41 +27,41 @@
 
 CgDictionaryElement *cg_dictionary_element_new()
 {
-	CgDictionaryElement *dictionaryElem;
+	CgDictionaryElement *dirElem;
 
 	cg_log_debug_l4("Entering...\n");
 
-	dictionaryElem = (CgDictionaryElement *)malloc(sizeof(CgDictionaryElement));
+	dirElem = (CgDictionaryElement *)malloc(sizeof(CgDictionaryElement));
 
-	cg_log_debug_s("Creating dictionaryElem data into %p\n", dictionaryElem);
+	cg_log_debug_s("Creating dirElem data into %p\n", dirElem);
 
-	if ( NULL != dictionaryElem )
+	if ( NULL != dirElem )
 	{
-		cg_list_node_init((CgList *)dictionaryElem);
-		dictionaryElem->key = cg_string_new();
-		dictionaryElem->value = cg_string_new();
+		cg_list_node_init((CgList *)dirElem);
+		dirElem->key = cg_string_new();
+		dirElem->value = cg_string_new();
 	}
 
 	cg_log_debug_l4("Leaving...\n");
 
-	return dictionaryElem;
+	return dirElem;
 }
 
 /****************************************
 * cg_dictionary_element_delete
 ****************************************/
 
-BOOL cg_dictionary_element_delete(CgDictionaryElement *dictionaryElem)
+BOOL cg_dictionary_element_delete(CgDictionaryElement *dirElem)
 {
 	cg_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)dictionaryElem);
+	cg_list_remove((CgList *)dirElem);
 
-	if (dictionaryElem->key)
-		cg_string_delete(dictionaryElem->key);
-	if (dictionaryElem->value)
-		cg_string_delete(dictionaryElem->value);
-	free(dictionaryElem);
+	if (dirElem->key)
+		cg_string_delete(dirElem->key);
+	if (dirElem->value)
+		cg_string_delete(dirElem->value);
+	free(dirElem);
 
 	cg_log_debug_l4("Leaving...\n");
 
