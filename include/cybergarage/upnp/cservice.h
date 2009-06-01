@@ -572,7 +572,6 @@ CgUpnpSubscriber *cg_upnp_service_getsubscriberbysid(CgUpnpService *service, cha
  ****************************************************************************/
 
 char *cg_upnp_service_getnotifyservicetypent(CgUpnpService *service, char *buf, int bufSize);
-
 char *cg_upnp_service_getnotifyservicetypeusn(CgUpnpService *service, char *buf, int bufSize);
 
 /****************************************************************************
