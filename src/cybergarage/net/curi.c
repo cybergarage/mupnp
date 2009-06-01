@@ -49,6 +49,7 @@
 #include <cybergarage/net/curi.h>
 #include <cybergarage/util/cstring.h>
 #include <cybergarage/util/clog.h>
+
 #if defined(CG_HTTP_CURL)
 #include <curl/curl.h>
 #endif
@@ -65,7 +66,7 @@ CgNetURI *cg_net_uri_new()
 
 	uri = (CgNetURI *)malloc(sizeof(CgNetURI));
 
-	if ( NULL != uri )
+	if  NULL != uri)
 	{
 		uri->uri = cg_string_new();
 		uri->protocol = cg_string_new();
@@ -77,6 +78,7 @@ CgNetURI *cg_net_uri_new()
 		uri->query = cg_string_new();
 		uri->fragment = cg_string_new();
 		uri->request = NULL;
+		uri->queryDictionary = NULL;
 		
 		/**** Thanks for Theo Beisch (2005/08/25) ****/
 		cg_string_setvalue(uri->path, CG_NET_URI_DEFAULT_PATH);
@@ -103,8 +105,12 @@ void cg_net_uri_delete(CgNetURI *uri)
 	cg_string_delete(uri->path);
 	cg_string_delete(uri->query);
 	cg_string_delete(uri->fragment);
-	if (uri->request != NULL) cg_string_delete(uri->request);
-	
+
+	if (uri->request != NULL)
+		cg_string_delete(uri->request);
+	if (uri->queryDictionary != NULL)
+		cg_dictionary_delete(uri->queryDictionary);
+
 	free(uri);
 
 	cg_log_debug_l4("Leaving...\n");
@@ -586,4 +592,16 @@ BOOL cg_net_uri_isescapechar(char c)
 	if (cg_net_uri_isunreservedchar(c))
 		return FALSE;
 	return TRUE;
+}
+
+/****************************************
+* cg_net_uri_getquerydictionary
+****************************************/
+
+CgDictionary *cg_net_uri_getquerydictionary(CgNetURI *uri)
+{
+	if (NULL == uri->queryDictionary)
+		uri->queryDictionary = cg_dictionary_new();
+
+	return uri->queryDictionary;
 }

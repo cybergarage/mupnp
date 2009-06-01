@@ -42,6 +42,8 @@ CgDictionaryElement *cg_dictionary_element_new()
 		dictionaryElem->value = cg_string_new();
 	}
 
+	cg_log_debug_l4("Leaving...\n");
+
 	return dictionaryElem;
 }
 
@@ -51,11 +53,17 @@ CgDictionaryElement *cg_dictionary_element_new()
 
 BOOL cg_dictionary_element_delete(CgDictionaryElement *dictionaryElem)
 {
+	cg_log_debug_l4("Entering...\n");
+
+	cg_list_remove((CgList *)dictionaryElem);
+
 	if (dictionaryElem->key)
 		cg_string_delete(dictionaryElem->key);
 	if (dictionaryElem->value)
 		cg_string_delete(dictionaryElem->value);
 	free(dictionaryElem);
+
+	cg_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
