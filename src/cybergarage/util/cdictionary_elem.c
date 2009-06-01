@@ -9,7 +9,7 @@
 *       This is licensed under BSD-style license,
 *       see file COPYING.
 *
-*	File: cdictionary.cpp
+*	File: cdictionary_elem.c
 *
 *	Revision:
 *
@@ -22,40 +22,40 @@
 #include <cybergarage/util/clog.h>
 
 /****************************************
-* cg_dictionary_new
+* cg_dictionary_element_new
 ****************************************/
 
-CgDictionary *cg_dictionary_new()
+CgDictionaryElement *cg_dictionary_element_new()
 {
-	CgDictionary *dictionary;
+	CgDictionaryElement *dictionaryElem;
 
 	cg_log_debug_l4("Entering...\n");
 
-	dictionary = (CgDictionary *)malloc(sizeof(CgDictionary));
+	dictionaryElem = (CgDictionaryElement *)malloc(sizeof(CgDictionaryElement));
 
-	cg_log_debug_s("Creating dictionary data into %p\n", dictionary);
+	cg_log_debug_s("Creating dictionaryElem data into %p\n", dictionaryElem);
 
-	if ( NULL != dictionary )
+	if ( NULL != dictionaryElem )
 	{
-		cg_list_node_init((CgList *)dictionary);
-		dictionary->key = cg_string_new();
-		dictionary->value = cg_string_new();
+		cg_list_node_init((CgList *)dictionaryElem);
+		dictionaryElem->key = cg_string_new();
+		dictionaryElem->value = cg_string_new();
 	}
 
-	return dictionary;
+	return dictionaryElem;
 }
 
 /****************************************
-* cg_dictionary_delete
+* cg_dictionary_element_delete
 ****************************************/
 
-BOOL cg_dictionary_delete(CgDictionary *dictionary)
+BOOL cg_dictionary_element_delete(CgDictionaryElement *dictionaryElem)
 {
-	if (dictionary->key)
-		cg_string_delete(dictionary->key);
-	if (dictionary->value)
-		cg_string_delete(dictionary->value);
-	free(dictionary);
+	if (dictionaryElem->key)
+		cg_string_delete(dictionaryElem->key);
+	if (dictionaryElem->value)
+		cg_string_delete(dictionaryElem->value);
+	free(dictionaryElem);
 
 	return TRUE;
 }

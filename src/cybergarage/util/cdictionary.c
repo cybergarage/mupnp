@@ -9,7 +9,7 @@
 *       This is licensed under BSD-style license,
 *       see file COPYING.
 *
-*	File: cdictionary_list.c
+*	File: cdictionary.c
 *
 *	Revision:
 *
@@ -22,16 +22,16 @@
 #include <cybergarage/util/clog.h>
 
 /****************************************
-* cg_dictionarylist_new
+* cg_dictionary_new
 ****************************************/
 
-CgDictionaryList *cg_dictionarylist_new()
+CgDictionary *cg_dictionary_new()
 {
-	CgDictionaryList *dictionaryList;
+	CgDictionary *dictionaryList;
 
 	cg_log_debug_l4("Entering...\n");
 
-	dictionaryList = (CgDictionaryList *)malloc(sizeof(CgDictionaryList));
+	dictionaryList = (CgDictionary *)malloc(sizeof(CgDictionary));
 
 	if ( NULL != dictionaryList )
 	{
@@ -46,14 +46,14 @@ CgDictionaryList *cg_dictionarylist_new()
 }
 
 /****************************************
-* cg_dictionarylist_delete
+* cg_dictionary_delete
 ****************************************/
 
-void cg_dictionarylist_delete(CgDictionaryList *dictionaryList)
+void cg_dictionary_delete(CgDictionary *dictionaryList)
 {
 	cg_log_debug_l4("Entering...\n");
 
-	cg_dictionarylist_clear(dictionaryList);
+	cg_dictionary_clear(dictionaryList);
 	free(dictionaryList);
 
 	cg_log_debug_l4("Leaving...\n");
