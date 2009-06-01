@@ -183,8 +183,8 @@ static void cg_http_server_clientthread(CgThread *thread)
 {
 	CgHttpServerClientData *clientData;
 	CgHttpServer *httpServer;
-	void *httpServerUserData;
 	CgSocket *clientSock;
+	void *httpServerUserData;
 	CgHttpRequest *httpReq;
 	char *version = NULL;
 	
@@ -192,8 +192,8 @@ static void cg_http_server_clientthread(CgThread *thread)
 
 	clientData = (CgHttpServerClientData *)cg_thread_getuserdata(thread);
 	httpServer = clientData->httpServer;
-	httpServerUserData = cg_http_server_getuserdata(httpServer);
 	clientSock = clientData->clientSock;
+	httpServerUserData = cg_http_server_getuserdata(httpServer);
 	
 	httpReq = cg_http_request_new();
 	cg_http_request_setsocket(httpReq, clientSock);
