@@ -191,11 +191,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\ClinkTestCaseDictionary.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\ClinkTestCaseHttp.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\ClinkTestCaseNetwork.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\ClinkTestCaseURI.cpp"
 				>
 			</File>
 			<File

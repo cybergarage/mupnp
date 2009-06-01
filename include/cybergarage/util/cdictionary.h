@@ -87,13 +87,13 @@ BOOL cg_dictionary_element_delete(CgDictionaryElement *dirElem);
  * \param dirElem Dictionary struct
  * \param value String to set
  */
-#define cg_dictionary_element_setvalue(dirElem, val) cg_string_setvalue(dirElem->key, val)
+#define cg_dictionary_element_setvalue(dirElem, val) cg_string_setvalue(dirElem->value, val)
 /**
  * Get a value
  *
  * \param dirElem Dictionary struct
  */
-#define cg_dictionary_element_getvalue(dirElem) cg_string_getvalue(dirElem->key)
+#define cg_dictionary_element_getvalue(dirElem) cg_string_getvalue(dirElem->value)
 
 #define cg_dictionary_element_next(dirElem) (CgDictionaryElement *)cg_list_next((CgList *)dirElem)
 #define cg_dictionary_element_remove(dirElem) cg_list_remove((CgList *)dirElem)

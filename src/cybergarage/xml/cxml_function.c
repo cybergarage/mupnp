@@ -30,8 +30,8 @@
 
 char *cg_xml_escapechars(CgString *str)
 {
-	char *fromChars[4];
-	char *toChars[4];
+	char *fromChars[5];
+	char *toChars[5];
 	
 	cg_log_debug_l4("Entering...\n");
 

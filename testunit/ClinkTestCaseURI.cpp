@@ -1,0 +1,11 @@
+#include "ClinkTestCase.h"
+
+#include <cybergarage/net/curi.h>
+
+////////////////////////////////////////
+// testNetworkInterface
+////////////////////////////////////////
+
+void ClinkTestCase::testURI()
+{
+}
