@@ -4,7 +4,6 @@
 	* Fixed a buffer overrun of cg_xml_escapechars().
 	
 2009-05-28  Satoshi Konno <skonno@cybergarage.org>
-	* Changed cg_upnp_device_stop() not to send a byebye message when the device isn't running.
 	* Improved cg_string_*() and cg_list_*() not to abort when the specified string object is NULL.
 	* Added cg_upnp_device_getsmallesticonbymimetype().
 	* Added cg_upnp_device_addicon().

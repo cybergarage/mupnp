@@ -1556,8 +1556,7 @@ BOOL cg_upnp_device_stop(CgUpnpDevice *dev)
 {
 	cg_log_debug_l4("Entering...\n");
 
-	if (cg_upnp_device_isrunning(dev))
-		cg_upnp_device_byebye(dev);
+	cg_upnp_device_byebye(dev);
 	
 	/**** Advertiser ****/
 	if (cg_upnp_device_advertiser_isrunning(dev))
