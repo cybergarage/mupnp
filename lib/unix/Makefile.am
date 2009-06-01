@@ -16,6 +16,8 @@ clinkc_source = \
 	../../src/cybergarage/util/clist.c \
 	../../src/cybergarage/util/cmutex.c \
 	../../src/cybergarage/util/ccond.c \
+	../../src/cybergarage/util/cdictionary.c \
+	../../src/cybergarage/util/cdictionary_list.c \
 	../../src/cybergarage/util/cstring.c \
 	../../src/cybergarage/util/cstring_tokenizer.c \
 	../../src/cybergarage/util/cstring_function.c \

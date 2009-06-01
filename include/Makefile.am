@@ -8,6 +8,7 @@ clinkc_header = \
 	cybergarage/util/clist.h \
 	cybergarage/util/cmutex.h \
 	cybergarage/util/ccond.h \
+	cybergarage/util/cdictionary.h \
 	cybergarage/util/cstring.h \
 	cybergarage/util/cthread.h \
 	cybergarage/util/ctime.h \
