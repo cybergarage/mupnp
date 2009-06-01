@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="shift_jis"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
@@ -222,6 +222,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\cybergarage\upnp\cdevice_ssdp_server.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\cybergarage\util\cdictionary.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\cybergarage\util\cdictionary_list.c"
 				>
 			</File>
 			<File
@@ -544,6 +552,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\include\cybergarage\upnp\cdevice.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\cybergarage\util\cdictionary.h"
 				>
 			</File>
 			<File
