@@ -59,7 +59,7 @@
 			[server setUserObject:server];
 		}
 		else 
-			server = (CGUpnpAvServer *)devData;
+			server = (CGUpnpAvServer *)((id)devData);
 		if (server == nil)
 			continue;
 		[serverArray addObject:server];
@@ -232,8 +232,8 @@
 - (void)search
 {
 	//[super search];
-	[super setSsdpSearchMX:1];
 	cg_upnp_ssdp_setannouncecount(2);
+	[super setSsdpSearchMX:1];
 	[super searchWithST:[NSString stringWithUTF8String:CG_UPNP_DMS_DEVICE_TYPE]];
 }
 

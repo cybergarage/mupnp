@@ -142,6 +142,9 @@ CgList *list)
 	if ((NULL == headList) || (NULL == list))
 		return;
 
+	if (NULL == headList->prev)
+		return;
+	
 	cg_list_insert(headList->prev, list);
 
 	cg_log_debug_l5("Leaving...\n");

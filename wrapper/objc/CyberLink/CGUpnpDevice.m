@@ -26,7 +26,6 @@
 	isCObjectCreated = YES;
 	if (!cObject)
 		return nil;
-	cg_upnp_device_setuserdata(cObject, self);
 	return self;
 }
 
@@ -36,7 +35,6 @@
 		return nil;
 	cObject = cobj;
 	isCObjectCreated = NO;
-	cg_upnp_device_setuserdata(cObject, self);
 	return self;
 }
 
@@ -206,6 +204,19 @@
 	if (!cObject)
 		return NO;
 	return cg_upnp_device_stop(cObject);
+}
+
+/**
+ * Announce the device.
+ *
+ * @return YES if the device is started normally, otherwise NO.
+ */
+- (BOOL)announce;
+{
+	if (!cObject)
+		return NO;
+	cg_upnp_device_announce(cObject);
+	return TRUE;
 }
 
 - (void)setUserData:(void *)aUserData
