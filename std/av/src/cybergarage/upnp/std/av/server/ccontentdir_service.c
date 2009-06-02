@@ -215,6 +215,7 @@ static char *CG_UPNP_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION =
 "             </argument>\n"
 "          </argumentList>\n"
 "       </action>\n"
+/*
 "       <action>\n"
 "          <name>Search</name>\n"
 "          <argumentList>\n"
@@ -270,6 +271,7 @@ static char *CG_UPNP_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION =
 "             </argument>\n"
 "          </argumentList>\n"
 "       </action>\n"
+*/
 "       <action>\n"
 "          <name>GetSortCapabilities</name>\n"
 "          <argumentList>\n"

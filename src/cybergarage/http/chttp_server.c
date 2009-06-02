@@ -276,6 +276,7 @@ static void cg_http_server_thread(CgThread *thread)
 			cg_socket_delete(clientSock);
 			break;
 		}
+		
 		cg_socket_settimeout(clientSock, cg_http_server_gettimeout(httpServer));
 		clientData = cg_http_server_clientdata_new(httpServer, clientSock);
 		httpClientThread = cg_thread_new();

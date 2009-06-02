@@ -2,6 +2,7 @@
 	* Added cg_dictionary_*();
 	* Added cg_net_uri_getquerydictionary().
 	* Fixed a buffer overrun of cg_xml_escapechars().
+	* Changed cg_socket_setid() not to raise SIGPIPE on iPhone.
 	
 2009-05-28  Satoshi Konno <skonno@cybergarage.org>
 	* Improved cg_string_*() and cg_list_*() not to abort when the specified string object is NULL.

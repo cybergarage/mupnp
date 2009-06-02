@@ -234,7 +234,7 @@ void cg_socket_cleanup()
 
 #if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) 
 	// Thanks for Brent Hills (10/26/04)
-    signal(SIGPIPE,SIG_DFL);
+	signal(SIGPIPE,SIG_DFL);
 #endif
 
 #if defined(CG_NET_USE_SOCKET_LIST)
@@ -335,9 +335,7 @@ BOOL cg_socket_isbound(CgSocket *sock)
 
 void cg_socket_setid(CgSocket *socket, SOCKET value)
 {
-#if defined(WIN32) || defined(HAVE_IP_PKTINFO)
 	int on=1;
-#endif
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -348,6 +346,10 @@ void cg_socket_setid(CgSocket *socket, SOCKET value)
 		setsockopt(socket->id, IPPROTO_IP, IP_PKTINFO,  &on, sizeof(on));
 #endif
 
+#if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) 
+	setsockopt(socket->id, SOL_SOCKET, SO_NOSIGPIPE,  &on, sizeof(on));
+#endif
+	
 	cg_log_debug_l4("Leaving...\n");
 }
 
