@@ -125,21 +125,30 @@ char *cg_upnp_media_resource_getdlnapnfrommimetype(CgUpnpMediaResource *res, cha
 {
 	char *mimeType;
 	char *dlnaPn;
+	char *dlnaOrg;
 
 	dlnaPn = "*";
+	dlnaFlag = "00000000000000000000000000000000";
+	
 	mimeType = cg_upnp_media_resource_getmimetype(res);
 
-	if (cg_strcaseeq(mimeType, CG_UPNP_MEDIA_MIMETYPE_JPEG))
+	if (cg_strcaseeq(mimeType, CG_UPNP_MEDIA_MIMETYPE_JPEG)) {
 		dlnaPn = CG_UPNP_MEDIA_DLNA_PN_JPEG_LRG;
-	else if (cg_strcaseeq(mimeType, CG_UPNP_MEDIA_MIMETYPE_MPEG))
+		dlnaFlag = "00200000000000000000000000000000";
+	}
+	else if (cg_strcaseeq(mimeType, CG_UPNP_MEDIA_MIMETYPE_MPEG)) {
 		dlnaPn = CG_UPNP_MEDIA_DLNA_PN_MPEG_PS_NTSC;
-	else if (cg_strcaseeq(mimeType, CG_UPNP_MEDIA_MIMETYPE_MP3))
+		dlnaFlag = "00000000000000000000000000000000";
+	}
+	else if (cg_strcaseeq(mimeType, CG_UPNP_MEDIA_MIMETYPE_MP3)) {
 		dlnaPn = CG_UPNP_MEDIA_DLNA_PN_MP3;
+		dlnaFlag = "00000000000000000000000000000000";
+	}
 
 #if defined(WIN32)
-		_snprintf(dlnaAttr, dlnaAttrSize-1, "DLNA.ORG_PN=%s;DLNA.ORG_OP=00;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=00100000000000000000000000000000", dlnaPn);
+		_snprintf(dlnaAttr, dlnaAttrSize-1, "DLNA.ORG_PN=%s;DLNA.ORG_OP=00;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=%s", dlnaPn, dlnaFlag);
 #else
-		snprintf(dlnaAttr, dlnaAttrSize-1, "DLNA.ORG_PN=%s;DLNA.ORG_OP=00;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=00100000000000000000000000000000", dlnaPn);
+		snprintf(dlnaAttr, dlnaAttrSize-1, "DLNA.ORG_PN=%s;DLNA.ORG_OP=00;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=%s", dlnaPn, dlnaFlag);
 #endif
 
 	return dlnaAttr;
