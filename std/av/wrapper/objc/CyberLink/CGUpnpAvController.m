@@ -235,6 +235,7 @@
 	cg_upnp_ssdp_setannouncecount(2);
 	[super setSsdpSearchMX:1];
 	[super searchWithST:[NSString stringWithUTF8String:CG_UPNP_DMS_DEVICE_TYPE]];
+	[super searchWithST:[NSString stringWithUTF8String:[CG_UPNPAV_MEDIARENDERER_DEVICE_TYPE UTF8String]]];
 }
 
 @end
