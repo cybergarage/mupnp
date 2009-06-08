@@ -131,10 +131,17 @@
 	if (aRequestedCount == 0) {
 		NSInteger numberReturned = [[action argumentValueForName:@"NumberReturned"] integerValue];
 		NSInteger totalMatches = [[action argumentValueForName:@"TotalMatches"] integerValue];
-		if ((numberReturned == 0) && (0 < totalMatches)) {
-			[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMatches] forName:@"RequestedCount"];
-			if (![action post])
-				return nil;
+		if (numberReturned == 0) {
+			if (0 < totalMatches) {
+				[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMatches] forName:@"RequestedCount"];
+				if (![action post])
+					return nil;
+			}
+			else {
+				[action setArgumentValue:@"9999" forName:@"RequestedCount"];
+				if (![action post])
+					return nil;
+			}
 		}
 	}
 	
