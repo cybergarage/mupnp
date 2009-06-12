@@ -165,6 +165,10 @@ BOOL cg_upnp_dms_conmgr_actionreceived(CgUpnpAction *action)
 	CgUpnpMediaServer *dms;
 	CgUpnpDevice *dev;
 	char *actionName;
+	CgUpnpArgument *arg;
+	CgString *protocolInfos;
+	char protoInfoBuf[CG_UPNP_MEDIA_PROTOCOLINFO_MAXLEN];
+	int n, protocolInfoCnt;
 
 	actionName = cg_upnp_action_getname(action);
 	if (cg_strlen(actionName) <= 0)
@@ -178,7 +182,23 @@ BOOL cg_upnp_dms_conmgr_actionreceived(CgUpnpAction *action)
 	if (!dms)
 		return FALSE;
 
-	/* Not Implemented */
+	/* GetProtocolInfo*/
+	if (cg_streq(actionName, CG_UPNP_DMS_CONNECTIONMANAGER_GET_PROTOCOL_INFO)) {
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNP_DMS_CONNECTIONMANAGER_SOURCE);
+		if (!arg)
+			return FALSE;
+		protocolInfos = cg_string_new();
+		protocolInfoCnt = cg_upnp_media_resource_getnprotocolinfos();
+		for (n=0; n<protocolInfoCnt; n++) {
+			if (0 < cg_string_length(protocolInfos))
+				cg_string_addvalue(protocolInfos, ",");
+			cg_upnp_media_resource_getprotocolinfo(n, protoInfoBuf, sizeof(protoInfoBuf)-1);
+			cg_string_addvalue(protocolInfos, protoInfoBuf);
+		}
+		cg_upnp_argument_setvalue(arg, cg_string_getvalue(protocolInfos));
+		cg_string_delete(protocolInfos);
+		return TRUE;
+	}
 
 	return FALSE;
 }

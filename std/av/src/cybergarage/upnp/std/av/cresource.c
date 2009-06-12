@@ -74,17 +74,17 @@ void cg_upnp_media_resource_updateattributes(CgUpnpMediaResource *res)
 	CgUpnpMediaResourceData *nodeData;
 	CgString *resAttr;
 	char *mimeType;
-	char *dlnaPn;
+	char *dlnaAttr;
 
 	nodeData = (CgUpnpMediaResourceData *)cg_xml_node_getuserdata(res);
 	mimeType = (0 < cg_string_length(nodeData->mimeType)) ? cg_string_getvalue(nodeData->mimeType) : "*/*";
-	dlnaPn = (0 < cg_string_length(nodeData->dlnaAttr)) ? cg_string_getvalue(nodeData->dlnaAttr) : "*";
+	dlnaAttr = (0 < cg_string_length(nodeData->dlnaAttr)) ? cg_string_getvalue(nodeData->dlnaAttr) : "*";
 
 	resAttr = cg_string_new();
 	cg_string_addvalue(resAttr, "http-get:*:");
 	cg_string_addvalue(resAttr, mimeType);
 	cg_string_addvalue(resAttr, ":");
-	cg_string_addvalue(resAttr, dlnaPn);
+	cg_string_addvalue(resAttr, dlnaAttr);
 	cg_xml_node_setattribute(res, CG_UPNP_MEDIA_RESOURCE_PROTOCOLINFO, cg_string_getvalue(resAttr));
 	cg_string_delete(resAttr);
 }
@@ -118,40 +118,98 @@ void cg_upnp_media_resource_setdlnaattribute(CgUpnpMediaResource *res, char *att
 }
 
 /****************************************
-* cg_upnp_media_resource_getdlnapnfrommimetype
+* cg_upnp_media_resource_getnprotocolinfos
 ****************************************/
 
-char *cg_upnp_media_resource_getdlnapnfrommimetype(CgUpnpMediaResource *res, char *dlnaAttr, int dlnaAttrSize)
+static char CG_UPNP_AV_SUPPORTED_MIMETYPES[][CG_UPNP_MEDIA_PROTOCOLINFO_MAXLEN] = {
+CG_UPNP_MEDIA_MIMETYPE_JPEG,
+CG_UPNP_MEDIA_MIMETYPE_MPEG,
+CG_UPNP_MEDIA_MIMETYPE_MP3,
+};
+
+int cg_upnp_media_resource_getnprotocolinfos()
 {
-	char *mimeType;
-	char *dlnaPn;
-	char *dlnaOrg;
+	return 3; /*sizeof(CG_UPNP_AV_SUPPORTED_MIMETYPES/sizeof(CG_UPNP_AV_SUPPORTED_MIMETYPES[0][0]))*/;
+}
 
-	dlnaPn = "*";
-	dlnaOrg = "00000000000000000000000000000000";
+/****************************************
+* cg_upnp_media_resource_getdlnaattributesbymimetype
+****************************************/
+
+char *cg_upnp_media_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaAttr, int dlnaAttrSize)
+{
+	char *dlnaOrgOp;
+	char *dlnaOrgCi;
+	char *dlnaOrgPn;
+	char *dlnaOrgFlags;
+
+	dlnaOrgOp = "00";
+	dlnaOrgCi = "1";
+	dlnaOrgPn = "*";
+	dlnaOrgFlags = "00000000000000000000000000000000";
 	
-	mimeType = cg_upnp_media_resource_getmimetype(res);
-
 	if (cg_strcaseeq(mimeType, CG_UPNP_MEDIA_MIMETYPE_JPEG)) {
-		dlnaPn = CG_UPNP_MEDIA_DLNA_PN_JPEG_LRG;
-		dlnaOrg = "00200000000000000000000000000000";
+		dlnaOrgPn = CG_UPNP_MEDIA_DLNA_PN_JPEG_LRG;
+		dlnaOrgFlags = "00200000000000000000000000000000";
+		dlnaOrgCi = "0";
+		dlnaOrgOp = "00";
 	}
 	else if (cg_strcaseeq(mimeType, CG_UPNP_MEDIA_MIMETYPE_MPEG)) {
-		dlnaPn = CG_UPNP_MEDIA_DLNA_PN_MPEG_PS_NTSC;
-		dlnaOrg = "00000000000000000000000000000000";
+		dlnaOrgPn = CG_UPNP_MEDIA_DLNA_PN_MPEG_PS_NTSC;
+		dlnaOrgFlags = "00200000000000000000000000000000";
+		dlnaOrgCi = "0";
+		dlnaOrgOp = "01";
 	}
 	else if (cg_strcaseeq(mimeType, CG_UPNP_MEDIA_MIMETYPE_MP3)) {
-		dlnaPn = CG_UPNP_MEDIA_DLNA_PN_MP3;
-		dlnaOrg = "00000000000000000000000000000000";
+		dlnaOrgPn = CG_UPNP_MEDIA_DLNA_PN_MP3;
+		dlnaOrgFlags = "00200000000000000000000000000000";
+		dlnaOrgCi = "0";
+		dlnaOrgOp = "01";
 	}
 
 #if defined(WIN32)
-		_snprintf(dlnaAttr, dlnaAttrSize-1, "DLNA.ORG_PN=%s;DLNA.ORG_OP=00;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=%s", dlnaPn, dlnaOrg);
+	_snprintf(dlnaAttr, dlnaAttrSize-1,
 #else
-		snprintf(dlnaAttr, dlnaAttrSize-1, "DLNA.ORG_PN=%s;DLNA.ORG_OP=00;DLNA.ORG_CI=0;DLNA.ORG_FLAGS=%s", dlnaPn, dlnaOrg);
+	snprintf(dlnaAttr, dlnaAttrSize-1,
 #endif
+		"DLNA.ORG_PN=%s;DLNA.ORG_OP=%s;DLNA.ORG_CI=%s;DLNA.ORG_FLAGS=%s", 
+			dlnaOrgPn,
+			dlnaOrgOp,
+			dlnaOrgCi,
+			dlnaOrgFlags);
 
 	return dlnaAttr;
+}
+
+/****************************************
+* cg_upnp_media_resource_getdlnaattributes
+****************************************/
+
+char *cg_upnp_media_resource_getdlnaattributes(CgUpnpMediaResource *res, char *dlnaAttr, int dlnaAttrSize)
+{
+	return cg_upnp_media_resource_getdlnaattributesbymimetype(cg_upnp_media_resource_getmimetype(res), dlnaAttr, dlnaAttrSize);
+}
+
+/****************************************
+* cg_upnp_media_resource_getprotocolinfo
+****************************************/
+
+char *cg_upnp_media_resource_getprotocolinfo(int n, char *protoInfoBuf, int protoInfoBufSize)
+{
+	char dlnaAttr[CG_UPNP_MEDIA_DLNAATTR_MAXLEN];
+
+#if defined(WIN32)
+	_snprintf(
+#else
+	snprintf(
+#endif
+		protoInfoBuf,
+		protoInfoBufSize-1,
+		"http-get:*:%s:%s",
+		CG_UPNP_AV_SUPPORTED_MIMETYPES[n],
+		cg_upnp_media_resource_getdlnaattributesbymimetype(CG_UPNP_AV_SUPPORTED_MIMETYPES[n], dlnaAttr, sizeof(dlnaAttr)));
+
+	return protoInfoBuf;
 }
 
 /****************************************
