@@ -70,14 +70,14 @@ void cg_upnp_media_resource_setsize(CgUpnpMediaResource *res, long value);
 #define cg_upnp_media_resource_geturl(res) cg_xml_node_getvalue(res)
 #define cg_upnp_media_resource_getsize(res) cg_str2long(cg_xml_node_getattributevalue(res, CG_UPNP_MEDIA_RESOURCE_PROTOCOLINFO_SIZE))
 
-char *cg_upnp_media_resource_getdlnapnfrommimetype(CgUpnpMediaResource *res, char *dlnaAttr, int dlnaAttrSize);
-
 CgUpnpMediaResourceData *cg_upnp_media_resource_data_new();
 void cg_upnp_media_resource_data_delete(CgUpnpMediaResourceData *resData);
 void cg_upnp_media_resource_data_copy(CgUpnpMediaResourceData *destResData, CgUpnpMediaResourceData *srcResData);
 
 int cg_upnp_media_resource_getnprotocolinfos();
 char *cg_upnp_media_resource_getprotocolinfo(int n, char *protoInfoBuf, int protoInfoBufSize);
+char *cg_upnp_media_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaAttr, int dlnaAttrSize);
+char *cg_upnp_media_resource_getdlnaattributes(CgUpnpMediaResource *res, char *dlnaAttr, int dlnaAttrSize);
 
 #ifdef __cplusplus
 }
