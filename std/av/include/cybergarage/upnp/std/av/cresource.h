@@ -76,6 +76,9 @@ CgUpnpMediaResourceData *cg_upnp_media_resource_data_new();
 void cg_upnp_media_resource_data_delete(CgUpnpMediaResourceData *resData);
 void cg_upnp_media_resource_data_copy(CgUpnpMediaResourceData *destResData, CgUpnpMediaResourceData *srcResData);
 
+int cg_upnp_media_resource_getnprotocolinfos();
+char *cg_upnp_media_resource_getprotocolinfo(int n, char *protoInfoBuf, int protoInfoBufSize);
+
 #ifdef __cplusplus
 }
 #endif
