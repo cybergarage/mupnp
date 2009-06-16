@@ -16,6 +16,7 @@
 #define _CG_CLINKC_MEDIASERVER_H_
 
 #include <cybergarage/upnp/cupnp.h>
+#include <cybergarage/upnp/cupnpav.h>
 #include <cybergarage/upnp/std/av/cdidl.h>
 #include <cybergarage/upnp/std/av/ccontent.h>
 #include <cybergarage/upnp/std/av/cmd5.h>
@@ -23,10 +24,6 @@
 #ifdef  __cplusplus
 extern "C" {
 #endif
-
-typedef BOOL (*CG_UPNPAV_HTTP_LISTENER)(CgHttpRequest *);
-typedef BOOL (*CG_UPNPAV_ACTION_LISTNER)(CgUpnpAction *);
-typedef BOOL (*CG_UPNPAV_STATEVARIABLE_LISTNER)(CgUpnpStateVariable *);
 
 /****************************************
 * Struct
