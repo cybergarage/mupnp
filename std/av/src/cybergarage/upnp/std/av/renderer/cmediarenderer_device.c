@@ -42,11 +42,11 @@ static char *CG_UPNPAV_DMR_DEVICE_DESCRIPTION =
 "      <dlna:X_DLNADOC xmlns:dlna=\"urn:schemas-dlna-org:device-1-0\">DMR-1.00</dlna:X_DLNADOC>\n"
 "      <serviceList>\n"
 "         <service>\n"
-"            <serviceType>urn:schemas-upnp-org:service:ContentDirectory:1</serviceType>\n"
-"            <serviceId>urn:upnp-org:serviceId:urn:schemas-upnp-org:service:ContentDirectory</serviceId>\n"
-"            <SCPDURL>/service/ContentDirectory1.xml</SCPDURL>\n"
-"            <controlURL>/service/ContentDirectory_control</controlURL>\n"
-"            <eventSubURL>/service/ContentDirectory_event</eventSubURL>\n"
+"            <serviceType>urn:schemas-upnp-org:service:RenderingControl:1</serviceType>\n"
+"            <serviceId>urn:upnp-org:serviceId:urn:schemas-upnp-org:service:RenderingControl</serviceId>\n"
+"            <SCPDURL>/service/RenderingControl1.xml</SCPDURL>\n"
+"            <controlURL>/service/RenderingControl_control</controlURL>\n"
+"            <eventSubURL>/service/RenderingControl_event</eventSubURL>\n"
 "         </service>\n"
 "         <service>\n"
 "            <serviceType>urn:schemas-upnp-org:service:ConnectionManager:1</serviceType>\n"
@@ -54,6 +54,13 @@ static char *CG_UPNPAV_DMR_DEVICE_DESCRIPTION =
 "            <SCPDURL>/service/ConnectionManager1.xml</SCPDURL>\n"
 "            <controlURL>/service/ConnectionManager_control</controlURL>\n"
 "            <eventSubURL>/service/ConnectionManager_event</eventSubURL>\n"
+"         </service>\n"
+"         <service>\n"
+"            <serviceType>urn:schemas-upnp-org:service:AVTransport:1</serviceType>\n"
+"            <serviceId>urn:upnp-org:serviceId:urn:schemas-upnp-org:service:AVTransport</serviceId>\n"
+"            <SCPDURL>/service/AVTransport1.xml</SCPDURL>\n"
+"            <controlURL>/service/AVTransport_control</controlURL>\n"
+"            <eventSubURL>/service/AVTransport_event</eventSubURL>\n"
 "         </service>\n"
 "      </serviceList>\n"
 "   </device>\n"
@@ -63,9 +70,17 @@ static char *CG_UPNPAV_DMR_DEVICE_DESCRIPTION =
 * Functions
 ****************************************/
 
-BOOL cg_upnpav_dmr_condir_actionreceived(CgUpnpAction *action);
+BOOL cg_upnpav_dmr_conmgr_init(CgUpnpMediaRenderer *dmr);
+BOOL cg_upnpav_dmr_avtransport_init(CgUpnpMediaRenderer *dmr);
+BOOL cg_upnpav_dmr_renderingctrl_init(CgUpnpMediaRenderer *dmr);
+
 BOOL cg_upnpav_dmr_conmgr_actionreceived(CgUpnpAction *action);
-BOOL cg_upnpav_dmr_condir_queryreceived(CgUpnpStateVariable *var);
+BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action);
+BOOL cg_upnpav_dmr_renderingctrl_actionreceived(CgUpnpAction *action);
+
+BOOL cg_upnpav_dmr_conmgr_queryreceived(CgUpnpStateVariable *statVar);
+BOOL cg_upnpav_dmr_avtransport_queryreceived(CgUpnpStateVariable *statVar);
+BOOL cg_upnpav_dmr_renderingctrl_queryreceived(CgUpnpStateVariable *statVar);
 
 /****************************************
 * cg_upnpav_dmr_actionreceived
@@ -78,15 +93,15 @@ BOOL cg_upnpav_dmr_actionreceived(CgUpnpAction *action)
 	CgUpnpMediaRenderer *dmr;
 	CG_UPNPAV_ACTION_LISTNER userActionListener;
 
-	service = cg_upnpav_action_getservice(action);
+	service = cg_upnp_action_getservice(action);
 	if (!service)
 		return FALSE;
 
-	dev = (CgUpnpDevice *)cg_upnpav_service_getdevice(service);
+	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(service);
 	if (!dev) 
 		return FALSE;
 
-	dmr = (CgUpnpMediaRenderer *)cg_upnpav_device_getuserdata(dev);
+	dmr = (CgUpnpMediaRenderer *)cg_upnp_device_getuserdata(dev);
 	if (!dmr)
 		return FALSE;
 
@@ -96,10 +111,13 @@ BOOL cg_upnpav_dmr_actionreceived(CgUpnpAction *action)
 			return TRUE;
 	}
 
-	if (cg_streq(cg_upnpav_service_getservicetype(service), CG_UPNPAV_DMR_CONTENTDIRECTORY_SERVICE_TYPE))
-		return cg_upnpav_dmr_condir_actionreceived(action);
+	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE))
+		return cg_upnpav_dmr_avtransport_actionreceived(action);
 
-	if (cg_streq(cg_upnpav_service_getservicetype(service), CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE))
+	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_TYPE))
+		return cg_upnpav_dmr_renderingctrl_actionreceived(action);
+
+	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE))
 		return cg_upnpav_dmr_conmgr_actionreceived(action);
 
 	return FALSE;
@@ -116,15 +134,15 @@ BOOL cg_upnpav_dmr_queryreceived(CgUpnpStateVariable *statVar)
 	CgUpnpMediaRenderer *dmr;
 	CG_UPNPAV_STATEVARIABLE_LISTNER userQueryListener;
 
-	service = cg_upnpav_statevariable_getservice(statVar);
+	service = cg_upnp_statevariable_getservice(statVar);
 	if (!service)
 		return FALSE;
 
-	dev = (CgUpnpDevice *)cg_upnpav_service_getdevice(service);
+	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(service);
 	if (!dev) 
 		return FALSE;
 
-	dmr = (CgUpnpMediaRenderer *)cg_upnpav_device_getuserdata(dev);
+	dmr = (CgUpnpMediaRenderer *)cg_upnp_device_getuserdata(dev);
 	if (!dmr)
 		return FALSE;
 
@@ -134,8 +152,14 @@ BOOL cg_upnpav_dmr_queryreceived(CgUpnpStateVariable *statVar)
 			return TRUE;
 	}
 	
-	if (cg_streq(cg_upnpav_service_getservicetype(service), CG_UPNPAV_DMR_CONTENTDIRECTORY_SERVICE_TYPE))
-		return cg_upnpav_dmr_condir_queryreceived(statVar);
+	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE))
+		return cg_upnpav_dmr_avtransport_queryreceived(statVar);
+
+	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_TYPE))
+		return cg_upnpav_dmr_renderingctrl_queryreceived(statVar);
+
+	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE))
+		return cg_upnpav_dmr_conmgr_queryreceived(statVar);
 
 	return FALSE;
 }
@@ -152,13 +176,13 @@ void cg_upnpav_dmr_device_httprequestrecieved(CgHttpRequest *httpReq)
 
 	dev = (CgUpnpDevice *)cg_http_request_getuserdata(httpReq);
 	if (!dev) {
-		cg_upnpav_device_httprequestrecieved(httpReq);
+		cg_upnp_device_httprequestrecieved(httpReq);
 		return;
 	}
 
-	dmr = (CgUpnpMediaRenderer *)cg_upnpav_device_getuserdata(dev);
+	dmr = (CgUpnpMediaRenderer *)cg_upnp_device_getuserdata(dev);
 	if (!dmr) {
-		cg_upnpav_device_httprequestrecieved(httpReq);
+		cg_upnp_device_httprequestrecieved(httpReq);
 		return;
 	}
 
@@ -168,7 +192,7 @@ void cg_upnpav_dmr_device_httprequestrecieved(CgHttpRequest *httpReq)
 			return;
 	}
 	
-	cg_upnpav_device_httprequestrecieved(httpReq);
+	cg_upnp_device_httprequestrecieved(httpReq);
 }
 
 /****************************************
@@ -181,37 +205,33 @@ CgUpnpMediaRenderer *cg_upnpav_dmr_new()
 	
 	dmr = (CgUpnpMediaRenderer *)malloc(sizeof(CgUpnpMediaRenderer));
 
-	dmr->dev = cg_upnpav_device_new();
+	dmr->dev = cg_upnp_device_new();
 	if (!dmr->dev) {
 		free(dmr);
 		return NULL;
 	}
 
-	if (cg_upnpav_device_parsedescription(dmr->dev, CG_UPNPAV_DMR_DEVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMR_DEVICE_DESCRIPTION)) == FALSE) {
-		cg_upnpav_device_delete(dmr->dev);
+	if (cg_upnp_device_parsedescription(dmr->dev, CG_UPNPAV_DMR_DEVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMR_DEVICE_DESCRIPTION)) == FALSE) {
+		cg_upnp_device_delete(dmr->dev);
 		free(dmr);
 		return NULL;
 	}
 
 	if (cg_upnpav_dmr_conmgr_init(dmr) == FALSE) {
-		cg_upnpav_device_delete(dmr->dev);
+		cg_upnp_device_delete(dmr->dev);
 		free(dmr);
 		return NULL;
 	}
 
-	if (cg_upnpav_dmr_condir_init(dmr) == FALSE) {
-		cg_upnpav_device_delete(dmr->dev);
+	if (cg_upnpav_dmr_avtransport_init(dmr) == FALSE) {
+		cg_upnp_device_delete(dmr->dev);
 		free(dmr);
 		return NULL;
 	}
 
-	dmr->rootContent = cg_upnpav_media_content_new();
-	cg_upnpav_media_content_settype(dmr->rootContent, CG_UPNPAV_MEDIA_CONTENT_CONTAINER);
-	cg_upnpav_media_content_setid(dmr->rootContent, CG_UPNPAV_MEDIA_ROOT_CONTENT_ID);
-	cg_upnpav_media_content_setparentid(dmr->rootContent, CG_UPNPAV_MEDIA_ROOT_CONTENT_PARENTID);
-
-	if (!dmr->rootContent) {
-		cg_upnpav_dmr_delete(dmr);
+	if (cg_upnpav_dmr_renderingctrl_init(dmr) == FALSE) {
+		cg_upnp_device_delete(dmr->dev);
+		free(dmr);
 		return NULL;
 	}
 
@@ -221,15 +241,15 @@ CgUpnpMediaRenderer *cg_upnpav_dmr_new()
 		return NULL;
 	}
 
-	cg_upnpav_device_setactionlistener(dmr->dev, cg_upnpav_dmr_actionreceived);
-	cg_upnpav_device_setquerylistener(dmr->dev, cg_upnpav_dmr_queryreceived);
-	cg_upnpav_device_sethttplistener(dmr->dev, cg_upnpav_dmr_device_httprequestrecieved);
+	cg_upnp_device_setactionlistener(dmr->dev, cg_upnpav_dmr_actionreceived);
+	cg_upnp_device_setquerylistener(dmr->dev, cg_upnpav_dmr_queryreceived);
+	cg_upnp_device_sethttplistener(dmr->dev, cg_upnpav_dmr_device_httprequestrecieved);
 
 	cg_upnpav_dmr_setactionlistener(dmr, NULL);
 	cg_upnpav_dmr_setquerylistener(dmr, NULL);
 	cg_upnpav_dmr_sethttplistener(dmr, NULL);
 
-	cg_upnpav_device_setuserdata(dmr->dev, dmr);
+	cg_upnp_device_setuserdata(dmr->dev, dmr);
 	
 	return dmr;
 }
@@ -243,13 +263,10 @@ void cg_upnpav_dmr_delete(CgUpnpMediaRenderer *dmr)
 	if (dmr == NULL)
 		return;
 
-	if (dmr->rootContent)
-		cg_upnpav_media_content_delete(dmr->rootContent);
-
 	if (dmr->mutex)
 		cg_mutex_delete(dmr->mutex);
 
-	cg_upnpav_device_delete(dmr->dev);
+	cg_upnp_device_delete(dmr->dev);
 
 	free(dmr);
 }
