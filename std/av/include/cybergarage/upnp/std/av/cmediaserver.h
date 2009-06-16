@@ -16,7 +16,7 @@
 #define _CG_CLINKC_MEDIASERVER_H_
 
 #include <cybergarage/upnp/cupnp.h>
-#include <cybergarage/upnp/cupnpav.h>
+#include <cybergarage/upnp/std/av/cupnpav.h>
 #include <cybergarage/upnp/std/av/cdidl.h>
 #include <cybergarage/upnp/std/av/ccontent.h>
 #include <cybergarage/upnp/std/av/cmd5.h>

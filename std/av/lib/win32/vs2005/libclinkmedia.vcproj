@@ -151,6 +151,32 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\renderer\cavtransport_service.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\renderer\cconnectionmgr_service.c"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\..\src\cybergarage\upnp\std\av\server\cconnectionmgr_service.c"
 				>
 			</File>
@@ -175,7 +201,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\renderer\cmediarenderer_device.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\cybergarage\upnp\std\av\server\cmediaserver_device.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\renderer\crenderingcontrol_service.c"
 				>
 			</File>
 			<File
@@ -209,11 +243,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\include\cybergarage\upnp\std\av\cmediarenderer.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\include\cybergarage\upnp\std\av\cmediaserver.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\include\cybergarage\upnp\std\av\cresource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\include\cybergarage\upnp\std\av\cupnpav.h"
 				>
 			</File>
 		</Filter>
