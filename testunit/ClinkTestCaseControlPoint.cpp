@@ -31,7 +31,6 @@ void ClinkTestCase::testControlPoint()
 	}
 	CPPUNIT_ASSERT(testDevFound);
 
-
 	CPPUNIT_ASSERT(cg_upnp_device_stop(testDev));
 	cg_upnp_device_delete(testDev);
 

@@ -113,7 +113,6 @@ typedef struct _CgStringTokenizer {
 	BOOL hasNextTokens;
 } CgStringTokenizer;
 	
-	
 /****************************************
 * Function (StringTokenizer)
 ****************************************/
