@@ -254,7 +254,7 @@ void cg_net_uri_setvalue(CgNetURI *uri, char *value)
 		cg_string_setnvalue(uri->path, value+currIdx,  questionIdx);
 		queryLen = uriLen-(currIdx+questionIdx+1);
 		if (0 < sharpIdx)
-			queryLen -= uriLen - (currIdx+sharpIdx+1);
+			queryLen -= uriLen - (currIdx+sharpIdx);
 		cg_string_setnvalue(uri->query, value+currIdx+questionIdx+1,  queryLen);
 	}
 
@@ -600,8 +600,40 @@ BOOL cg_net_uri_isescapechar(char c)
 
 CgDictionary *cg_net_uri_getquerydictionary(CgNetURI *uri)
 {
+	char *query;
+	int queryOffset;
+	int eqIdx, ampIdx;
+	CgString *paramName;
+	CgString *paramValue;
+
 	if (NULL == uri->queryDictionary)
 		uri->queryDictionary = cg_dictionary_new();
+
+	paramName = cg_string_new();
+	paramValue = cg_string_new();
+
+	query = cg_net_uri_getquery(uri);
+	queryOffset = 0;
+
+	eqIdx = cg_strstr(query, "=");
+	while (0 < eqIdx) {
+		ampIdx = cg_strstr(query + queryOffset, "&");
+		if (ampIdx <= 0) {
+			ampIdx = cg_strstr(query + queryOffset, "#");
+			if (ampIdx <= 0)
+				ampIdx = cg_strlen(query + queryOffset);
+		}
+		if (ampIdx <= eqIdx)
+			break;
+		cg_string_setnvalue(paramName, query + queryOffset, eqIdx);
+		cg_string_setnvalue(paramValue, query + queryOffset + eqIdx + 1, (ampIdx - eqIdx -1));
+		cg_dictionary_setvalue(uri->queryDictionary, cg_string_getvalue(paramName), cg_string_getvalue(paramValue));
+		queryOffset += ampIdx + 1;
+		eqIdx = cg_strstr(query + queryOffset, "=");
+	}
+
+	cg_string_delete(paramName);
+	cg_string_delete(paramValue);
 
 	return uri->queryDictionary;
 }
