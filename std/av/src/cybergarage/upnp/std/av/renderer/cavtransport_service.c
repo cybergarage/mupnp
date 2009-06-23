@@ -583,6 +583,15 @@ BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action)
 }
 
 /****************************************
+ * cg_upnpav_dmr_avtransport_queryreceived
+ ****************************************/
+
+BOOL cg_upnpav_dmr_avtransport_queryreceived(CgUpnpStateVariable *statVar)
+{
+	return FALSE;
+}
+
+/****************************************
 * cg_upnpav_dmr_avtransport_init
 ****************************************/
 

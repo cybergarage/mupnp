@@ -773,6 +773,15 @@ BOOL cg_upnpav_dmr_renderingctrl_actionreceived(CgUpnpAction *action)
 }
 
 /****************************************
+ * cg_upnpav_dmr_renderingctrl_actionreceived
+ ****************************************/
+
+BOOL cg_upnpav_dmr_renderingctrl_queryreceived(CgUpnpStateVariable *statVar)
+{
+	return FALSE;
+}
+
+/****************************************
 * cg_upnpav_dmr_renderingctrl_init
 ****************************************/
 

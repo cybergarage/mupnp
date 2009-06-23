@@ -245,6 +245,15 @@ BOOL cg_upnpav_dmr_conmgr_actionreceived(CgUpnpAction *action)
 }
 
 /****************************************
+ * cg_upnpav_dmr_conmgr_queryreceived
+ ****************************************/
+
+BOOL cg_upnpav_dmr_conmgr_queryreceived(CgUpnpStateVariable *statVar)
+{
+	return FALSE;
+}
+
+/****************************************
 * cg_upnpav_dmr_conmgr_init
 ****************************************/
 

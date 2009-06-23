@@ -223,13 +223,13 @@ CgUpnpMediaRenderer *cg_upnpav_dmr_new()
 		return NULL;
 	}
 
-	if (cg_upnpav_dmr_avtransport_init(dmr) == FALSE) {
+	if (cg_upnpav_dmr_renderingctrl_init(dmr) == FALSE) {
 		cg_upnp_device_delete(dmr->dev);
 		free(dmr);
 		return NULL;
 	}
-
-	if (cg_upnpav_dmr_renderingctrl_init(dmr) == FALSE) {
+	
+	if (cg_upnpav_dmr_avtransport_init(dmr) == FALSE) {
 		cg_upnp_device_delete(dmr->dev);
 		free(dmr);
 		return NULL;
