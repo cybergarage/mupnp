@@ -12,10 +12,24 @@
 
 @implementation CGUpnpAvRenderer
 
+- (id)init
+{
+	if ((self = [super init]) == nil)
+		return nil;
+
+	cAvObject = cg_upnpav_dmr_new();
+	[self setCObject:cg_upnpav_dmr_getdevice(cAvObject)];
+	
+	return self;
+}
+
 - (id) initWithCObject:(CgUpnpDevice *)cobj
 {
 	if ((self = [super initWithCObject:cobj]) == nil)
 		return nil;
+
+	cAvObject = NULL;
+
 	return self;
 }
 
@@ -75,5 +89,21 @@
 	
 	return YES;
 }
+
+/*
+- (BOOL)start
+{
+	if (!cAvObject)
+		return NO;
+	return cg_upnp_dms_start(cAvObject);
+}
+
+- (BOOL)stop
+{
+	if (!cAvObject)
+		return NO;
+	return cg_upnp_dms_stop(cAvObject);
+}
+*/
 
 @end

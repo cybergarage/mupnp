@@ -11,18 +11,24 @@
 
 #import <CyberLink/UPnP.h>
 
-@class CGUpnpAvContentDirectory;
-@class CGUpnpAvObject;
-@class CGUpnpAvContainer;
+#if !defined(_CG_CLINKC_AV_MEDIARENDERER_H_)
+typedef void CgUpnpMediaRenderer;
+#endif
 
 /**
  * The CGUpnpAvRenderer class is a UPnP/AV media server class.
  */
 @interface CGUpnpAvRenderer : CGUpnpDevice
 {
+	CgUpnpMediaRenderer *cAvObject;
 }
-- (id) initWithCObject:(CgUpnpDevice *)cobj;
+- (id)init;
+- (id)initWithCObject:(CgUpnpDevice *)cobj;
 - (BOOL)setAVTransportURI:(NSString *)aURI;
 - (BOOL)play;
 - (BOOL)stop;
+/*
+- (BOOL)start
+- (BOOL)stop
+*/
 @end
