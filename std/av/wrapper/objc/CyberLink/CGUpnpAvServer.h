@@ -40,7 +40,7 @@ typedef void CgUpnpMediaServer;
  * 
  * @return New instance if successfull; otherwise nil.
  */
-- (id) initWithCObject:(CgUpnpDevice *)cobj;
+- (id)initWithCObject:(CgUpnpDevice *)cobj;
 - (void)setUserObject:(id)aUserObj;
 - (id)userObject;
 - (NSArray *)browse:(NSString *)aObjectId browseFlag:(NSString *)aBrowseFlag;
