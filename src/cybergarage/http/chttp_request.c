@@ -921,8 +921,6 @@ BOOL cg_http_request_postchunkedsize(CgHttpRequest *httpReq, int dataLen)
 #endif
 	cg_socket_write(sock, chunkedChar, cg_strlen(chunkedChar));
 
-	printf("%s", chunkedChar);
-	
 	return TRUE;
 }
 
