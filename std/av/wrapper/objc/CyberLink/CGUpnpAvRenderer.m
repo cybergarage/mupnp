@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/cdevice.h>
+#include <cybergarage/upnp/std/av/cmediarenderer.h>
 
 #import "CGUpnpAvRenderer.h"
 

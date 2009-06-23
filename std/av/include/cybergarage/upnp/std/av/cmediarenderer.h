@@ -61,7 +61,7 @@ void *userData;
 * Constants (AVTransport)
 ****************************************/
 
-#define CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE "urn:schemas-upnp-org:service:AVTransport<:1"
+#define CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE "urn:schemas-upnp-org:service:AVTransport:1"
 
 /****************************************
 * Public Functions
