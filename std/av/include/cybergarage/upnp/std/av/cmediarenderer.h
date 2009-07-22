@@ -47,9 +47,8 @@ void *userData;
 ****************************************/
 
 #define CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_TYPE "urn:schemas-upnp-org:service:RenderingControl:1"
-#define CG_UPNPAV_DMR_CONTENTDIRECTORY_BROWSE "Browse"
-#define CG_UPNPAV_DMR_CONTENTDIRECTORY_GET_SEARCH_CAPABILITIES "GetSearchCapabilities"
-#define CG_UPNPAV_DMR_CONTENTDIRECTORY_SEARCH_CAPS "SearchCaps"
+#define CG_UPNPAV_DMR_RENDERINGCONTROL_GETVOLUME "GetVolume"
+#define CG_UPNPAV_DMR_RENDERINGCONTROL_GETMUTE "GetMute"
 
 /****************************************
 * Constants (Connection Manager)
@@ -57,11 +56,20 @@ void *userData;
 
 #define CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE "urn:schemas-upnp-org:service:ConnectionManager:1"
 
+#define CG_UPNPAV_DMR_CONNECTIONMANAGER_HTTP_GET "http-get"
+	
+#define CG_UPNPAV_DMR_CONNECTIONMANAGER_GET_PROTOCOL_INFO "GetProtocolInfo"
+#define CG_UPNPAV_DMR_CONNECTIONMANAGER_SOURCE "Source"
+#define CG_UPNPAV_DMR_CONNECTIONMANAGER_SINK "Sink"
+	
 /****************************************
 * Constants (AVTransport)
 ****************************************/
 
 #define CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE "urn:schemas-upnp-org:service:AVTransport:1"
+
+#define CG_UPNPAV_DMR_AVTRANSPORT_GETTRANSPORTINFO "GetTransportInfo"
+#define CG_UPNPAV_DMR_AVTRANSPORT_STOP "Stop"
 
 /****************************************
 * Public Functions
