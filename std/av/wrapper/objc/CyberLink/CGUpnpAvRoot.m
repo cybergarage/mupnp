@@ -6,6 +6,8 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#import <cybergarage/upnp/std/av/cupnpav.h>
+
 #import "CGUpnpAvConstants.h"
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
@@ -18,7 +20,7 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	[self setObjectId:CG_UPNPAV_OBJECT_ROOT_ID];
+	[self setObjectId:@CG_UPNPAV_OBJECT_ROOT_ID];
 	return self;
 }
 

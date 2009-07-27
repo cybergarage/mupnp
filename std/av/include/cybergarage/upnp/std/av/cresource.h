@@ -74,8 +74,6 @@ CgUpnpAvResourceData *cg_upnpav_resource_data_new();
 void cg_upnpav_resource_data_delete(CgUpnpAvResourceData *resData);
 void cg_upnpav_resource_data_copy(CgUpnpAvResourceData *destResData, CgUpnpAvResourceData *srcResData);
 
-int cg_upnpav_resource_getnprotocolinfos();
-char *cg_upnpav_resource_getprotocolinfo(int n, char *protoInfoBuf, int protoInfoBufSize);
 char *cg_upnpav_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaAttr, int dlnaAttrSize);
 char *cg_upnpav_resource_getdlnaattributes(CgUpnpAvResource *res, char *dlnaAttr, int dlnaAttrSize);
 

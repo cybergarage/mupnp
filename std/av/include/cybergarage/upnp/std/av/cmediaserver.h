@@ -12,8 +12,8 @@
 *
 ************************************************************/
 
-#ifndef _CG_CLINKCAVSERVER_H_
-#define _CG_CLINKCAVSERVER_H_
+#ifndef _CG_CLINKCAV_SERVER_H_
+#define _CG_CLINKCAV_SERVER_H_
 
 #include <cybergarage/upnp/cupnp.h>
 #include <cybergarage/upnp/std/av/cupnpav.h>

@@ -26,8 +26,8 @@
 	if ((self = [super init]) == nil)
 		return nil;
 
-	cAvObject = cg_upnp_dms_new();
-	[self setCObject:cg_upnp_dms_getdevice(cAvObject)];
+	cAvObject = cg_upnpav_dms_new();
+	[self setCObject:cg_upnpav_dms_getdevice(cAvObject)];
 	
 	contentDirectory = nil;
 
@@ -69,7 +69,7 @@
 	if (userObj)
 		[userObj release];
 	if (cAvObject)
-		cg_upnp_dms_delete(cAvObject);
+		cg_upnpav_dms_delete(cAvObject);
 	[contentDirectory release];
 	[super dealloc];
 }
@@ -80,7 +80,7 @@
 	if (userObj)
 		[userObj release];
 	if (cAvObject)
-		cg_upnp_dms_delete(cAvObject);
+		cg_upnpav_dms_delete(cAvObject);
 	[contentDirectory release];
 	[super finalize];
 }
@@ -215,14 +215,14 @@
 {
 	if (!cAvObject)
 		return NO;
-	return cg_upnp_dms_start(cAvObject);
+	return cg_upnpav_dms_start(cAvObject);
 }
 
 - (BOOL)stop
 {
 	if (!cAvObject)
 		return NO;
-	return cg_upnp_dms_stop(cAvObject);
+	return cg_upnpav_dms_stop(cAvObject);
 }
 
 @end

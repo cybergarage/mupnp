@@ -47,7 +47,7 @@
 	NSMutableArray *serverArray = [[[NSMutableArray alloc] init] autorelease];
 
 	for (CGUpnpDevice *dev in devices) {
-		if (![dev isDeviceType:CG_UPNPAV_MEDIASERVER_DEVICE_TYPE])
+		if (![dev isDeviceType:@CG_UPNPAV_DMS_DEVICE_TYPE])
 			continue;
 		CGUpnpAvServer *server = nil;		
 		void *devData = [dev userData];
@@ -200,7 +200,7 @@
 	NSMutableArray *rendererrArray = [[[NSMutableArray alloc] init] autorelease];
 	
 	for (CGUpnpDevice *dev in devices) {
-		if (![dev isDeviceType:CG_UPNPAV_MEDIARENDERER_DEVICE_TYPE])
+		if (![dev isDeviceType:@CG_UPNPAV_DMR_DEVICE_TYPE])
 			continue;
 		CgUpnpDevice *cDevice = [dev cObject];
 		if (!cDevice)
@@ -234,8 +234,8 @@
 	//[super search];
 	cg_upnp_ssdp_setannouncecount(2);
 	[super setSsdpSearchMX:1];
-	[super searchWithST:[NSString stringWithUTF8String:CG_UPNP_DMS_DEVICE_TYPE]];
-	[super searchWithST:[NSString stringWithUTF8String:[CG_UPNPAV_MEDIARENDERER_DEVICE_TYPE UTF8String]]];
+	[super searchWithST:[NSString stringWithUTF8String:CG_UPNPAV_DMS_DEVICE_TYPE]];
+	[super searchWithST:[NSString stringWithUTF8String:CG_UPNPAV_DMR_DEVICE_TYPE]];
 }
 
 @end

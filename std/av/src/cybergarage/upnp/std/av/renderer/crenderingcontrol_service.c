@@ -756,9 +756,6 @@ BOOL cg_upnpav_dmr_renderingctrl_actionreceived(CgUpnpAction *action)
 	CgUpnpDevice *dev;
 	char *actionName;
 	CgUpnpArgument *arg;
-	CgString *protocolInfos;
-	int protocolInfoCnt;
-	int n;
 
 	actionName = cg_upnp_action_getname(action);
 	if (cg_strlen(actionName) <= 0)

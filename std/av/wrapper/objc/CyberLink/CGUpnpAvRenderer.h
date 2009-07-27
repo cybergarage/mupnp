@@ -12,7 +12,7 @@
 #import <CyberLink/UPnP.h>
 
 #if !defined(_CG_CLINKC_AV_MEDIARENDERER_H_)
-typedef void CgUpnpMediaRenderer;
+typedef void CgUpnpAvRenderer;
 #endif
 
 /**
@@ -20,8 +20,9 @@ typedef void CgUpnpMediaRenderer;
  */
 @interface CGUpnpAvRenderer : CGUpnpDevice
 {
-	CgUpnpMediaRenderer *cAvObject;
+	CgUpnpAvRenderer *cAvObject;
 }
+@property(readonly) CgUpnpAvRenderer *cAvObject;
 - (id)init;
 - (id)initWithCObject:(CgUpnpDevice *)cobj;
 - (BOOL)setAVTransportURI:(NSString *)aURI;

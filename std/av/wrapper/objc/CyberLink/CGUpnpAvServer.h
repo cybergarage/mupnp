@@ -15,8 +15,8 @@
 @class CGUpnpAvObject;
 @class CGUpnpAvContainer;
 
-#if !defined(_CG_CLINKC_MEDIASERVER_H_)
-typedef void CgUpnpMediaServer;
+#if !defined(_CG_CLINKCAV_SERVER_H_)
+typedef void CgUpnpAvServer;
 #endif
 
 /**
@@ -25,10 +25,10 @@ typedef void CgUpnpMediaServer;
 @interface CGUpnpAvServer : CGUpnpDevice
 {
 	CGUpnpAvContentDirectory *contentDirectory;
-	CgUpnpMediaServer *cAvObject;
+	CgUpnpAvServer *cAvObject;
 }
 @property(readonly) CGUpnpAvContentDirectory *contentDirectory;
-@property(readonly) CgUpnpMediaServer *cAvObject;
+@property(readonly) CgUpnpAvServer *cAvObject;
 /**
  * Create a new UPnP/AV server.
  * 

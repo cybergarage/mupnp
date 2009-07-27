@@ -12,6 +12,8 @@
 
 @implementation CGUpnpAvRenderer
 
+@synthesize cAvObject;
+
 - (id)init
 {
 	if ((self = [super init]) == nil)
@@ -95,14 +97,14 @@
 {
 	if (!cAvObject)
 		return NO;
-	return cg_upnp_dms_start(cAvObject);
+	return cg_upnpav_dms_start(cAvObject);
 }
 
 - (BOOL)stop
 {
 	if (!cAvObject)
 		return NO;
-	return cg_upnp_dms_stop(cAvObject);
+	return cg_upnpav_dms_stop(cAvObject);
 }
 */
 
