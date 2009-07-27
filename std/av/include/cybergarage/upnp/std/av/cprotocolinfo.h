@@ -34,11 +34,11 @@ extern "C" {
 /**
  * The generic protocolinfo struct
  */
-typedef struct _CgUpnpMediaProtocolInfo {
+typedef struct _CgUpnpAvProtocolInfo {
 	BOOL headFlag;
-	struct _CgUpnpMediaProtocolInfo *prev;
-	struct _CgUpnpMediaProtocolInfo *next;
-} CgUpnpMediaProtocolInfo, CgUpnpMediaProtocolInfoList;
+	struct _CgUpnpAvProtocolInfo *prev;
+	struct _CgUpnpAvProtocolInfo *next;
+} CgUpnpAvProtocolInfo, CgUpnpAvProtocolInfoList;
 
 /****************************************
 * Function (ProtocolInfo)
@@ -47,28 +47,28 @@ typedef struct _CgUpnpMediaProtocolInfo {
 /**
  * Create a new protocolinfo struct
  */
-CgUpnpMediaProtocolInfo *cg_upnp_protocolinfo_new();
+CgUpnpAvProtocolInfo *cg_upnpav_protocolinfo_new();
 
 /**
  * Delete an protocolinfo struct
  *
  * \param dev ProtocolInfo to delete
  */
-void cg_upnp_protocolinfo_delete(CgUpnpMediaProtocolInfo *dev);
+void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *dev);
 
 /**
  * Get the next protocolinfo in list. Use as an iterator.
  * 
  * \param protocolinfo Node in a list of protocolinfos
  */
-#define cg_upnp_protocolinfo_next(protocolinfo) (CgUpnpMediaProtocolInfo *)cg_list_next((CgList *)protocolinfo)
+#define cg_upnpav_protocolinfo_next(protocolinfo) (CgUpnpAvProtocolInfo *)cg_list_next((CgList *)protocolinfo)
 
 /**
  * Check whether the given node is a member of an protocolinfo list
  * 
  * \param node List node
  */
-#define cg_upnp_protocolinfo_isprotocolinfonode(node) cg_xml_node_isname(node, CG_UPNP_ICON_ELEM_NAME)
+#define cg_upnpav_protocolinfo_isprotocolinfonode(node) cg_xml_node_isname(node, CG_UPNP_ICON_ELEM_NAME)
 
 /**
  * Set the XML protocolinfo node to an protocolinfo struct
@@ -76,14 +76,14 @@ void cg_upnp_protocolinfo_delete(CgUpnpMediaProtocolInfo *dev);
  * \param protocolinfo The protocolinfo struct
  * \param node XML node
  */
-#define cg_upnp_protocolinfo_setprotocolinfonode(protocolinfo,node) (protocolinfo->protocolinfoNode = node)
+#define cg_upnpav_protocolinfo_setprotocolinfonode(protocolinfo,node) (protocolinfo->protocolinfoNode = node)
 
 /**
  * Get the XML protocolinfo node from an protocolinfo struct
  * 
  * \param protocolinfo The protocolinfo struct
  */
-#define cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo) (protocolinfo->protocolinfoNode)
+#define cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo) (protocolinfo->protocolinfoNode)
 
 /*****************************************************************************
  * mimeType
@@ -95,13 +95,13 @@ void cg_upnp_protocolinfo_delete(CgUpnpMediaProtocolInfo *dev);
  * \param protocolinfo ProtocolInfo in question
  * \param value MIME type
  */
-#define cg_upnp_protocolinfo_setmimetype(protocolinfo, value) cg_xml_node_setchildnode(cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_MIME_TYPE, value)
+#define cg_upnpav_protocolinfo_setmimetype(protocolinfo, value) cg_xml_node_setchildnode(cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_MIME_TYPE, value)
 
 /**
  * Get the protocolinfo's MIME type
  * 
  */
-#define cg_upnp_protocolinfo_getmimetype(protocolinfo) cg_xml_node_getchildnodevalue(cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_MIME_TYPE)
+#define cg_upnpav_protocolinfo_getmimetype(protocolinfo) cg_xml_node_getchildnodevalue(cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_MIME_TYPE)
 
 /*****************************************************************************
  * width 
@@ -113,13 +113,13 @@ void cg_upnp_protocolinfo_delete(CgUpnpMediaProtocolInfo *dev);
  * \param protocolinfo ProtocolInfo in question
  * \param value ProtocolInfo width
  */
-#define cg_upnp_protocolinfo_setwidth(protocolinfo, value) cg_xml_node_setchildnode(cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_WIDTH, value)
+#define cg_upnpav_protocolinfo_setwidth(protocolinfo, value) cg_xml_node_setchildnode(cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_WIDTH, value)
 
 /**
  * Get protocolinfo width
  * 
  */
-#define cg_upnp_protocolinfo_getwidth(protocolinfo) cg_xml_node_getchildnodeintvalue(cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_WIDTH)
+#define cg_upnpav_protocolinfo_getwidth(protocolinfo) cg_xml_node_getchildnodeintvalue(cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_WIDTH)
 
 /*****************************************************************************
  * height 
@@ -131,13 +131,13 @@ void cg_upnp_protocolinfo_delete(CgUpnpMediaProtocolInfo *dev);
  * \param protocolinfo ProtocolInfo in question
  * \param value ProtocolInfo height
  */
-#define cg_upnp_protocolinfo_setheight(protocolinfo, value) cg_xml_node_setchildnode(cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_HEIGHT, value)
+#define cg_upnpav_protocolinfo_setheight(protocolinfo, value) cg_xml_node_setchildnode(cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_HEIGHT, value)
 
 /**
  * Get protocolinfo height
  * 
  */
-#define cg_upnp_protocolinfo_getheight(protocolinfo) cg_xml_node_getchildnodeintvalue(cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_HEIGHT)
+#define cg_upnpav_protocolinfo_getheight(protocolinfo) cg_xml_node_getchildnodeintvalue(cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_HEIGHT)
 
 /*****************************************************************************
  * Colour Depth 
@@ -149,13 +149,13 @@ void cg_upnp_protocolinfo_delete(CgUpnpMediaProtocolInfo *dev);
  * \param protocolinfo ProtocolInfo in question
  * \param value Colour depth
  */
-#define cg_upnp_protocolinfo_setdepth(protocolinfo, value) cg_xml_node_setchildnode(cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_DEPTH, value)
+#define cg_upnpav_protocolinfo_setdepth(protocolinfo, value) cg_xml_node_setchildnode(cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_DEPTH, value)
 
 /**
  * Get protocolinfo's colour depth
  * 
  */
-#define cg_upnp_protocolinfo_getdepth(protocolinfo) cg_xml_node_getchildnodeintvalue(cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_DEPTH)
+#define cg_upnpav_protocolinfo_getdepth(protocolinfo) cg_xml_node_getchildnodeintvalue(cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_DEPTH)
 
 /*****************************************************************************
  * URL
@@ -167,13 +167,13 @@ void cg_upnp_protocolinfo_delete(CgUpnpMediaProtocolInfo *dev);
  * \param protocolinfo ProtocolInfo in question
  * \param value ProtocolInfo's URL
  */
-#define cg_upnp_protocolinfo_seturl(protocolinfo, value) cg_xml_node_setchildnode(cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_URL, value)
+#define cg_upnpav_protocolinfo_seturl(protocolinfo, value) cg_xml_node_setchildnode(cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_URL, value)
 
 /**
  * Get protocolinfo's URL
  * 
  */
-#define cg_upnp_protocolinfo_geturl(protocolinfo) cg_xml_node_getchildnodevalue(cg_upnp_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_URL)
+#define cg_upnpav_protocolinfo_geturl(protocolinfo) cg_xml_node_getchildnodevalue(cg_upnpav_protocolinfo_getprotocolinfonode(protocolinfo), CG_UPNP_ICON_URL)
 
 /*****************************************************************************
  * Function (ProtocolInfoList)
@@ -183,35 +183,35 @@ void cg_upnp_protocolinfo_delete(CgUpnpMediaProtocolInfo *dev);
  * Create a new list of protocolinfos
  * 
  */
-CgUpnpMediaProtocolInfoList *cg_upnp_protocolinfolist_new();
+CgUpnpAvProtocolInfoList *cg_upnpav_protocolinfolist_new();
 
 /**
  * Delete a list of protocolinfos
  * 
  * \param protocolinfoList List of protocolinfos
  */
-void cg_upnp_protocolinfolist_delete(CgUpnpMediaProtocolInfoList *protocolinfoList);
+void cg_upnpav_protocolinfolist_delete(CgUpnpAvProtocolInfoList *protocolinfoList);
 
 /**
  * Clear the contents of an protocolinfo list
  * 
  * \param protocolinfoList List of protocolinfos
  */
-#define cg_upnp_protocolinfolist_clear(protocolinfoList) cg_list_clear((CgList *)protocolinfoList, (CG_LIST_DESTRUCTORFUNC)cg_upnp_protocolinfo_delete)
+#define cg_upnpav_protocolinfolist_clear(protocolinfoList) cg_list_clear((CgList *)protocolinfoList, (CG_LIST_DESTRUCTORFUNC)cg_upnpav_protocolinfo_delete)
 
 /**
  * Get the size (number of elements) of an protocolinfo list
  * 
  * \param protocolinfoList List of protocolinfos
  */
-#define cg_upnp_protocolinfolist_size(protocolinfoList) cg_list_size((CgList *)protocolinfoList)
+#define cg_upnpav_protocolinfolist_size(protocolinfoList) cg_list_size((CgList *)protocolinfoList)
 
 /**
  * \todo Get the first protocolinfo from the list for iteration
  * 
  * \param protocolinfoList List of protocolinfos
  */
-#define cg_upnp_protocolinfolist_gets(protocolinfoList) (CgUpnpMediaProtocolInfo *)cg_list_next((CgList *)protocolinfoList)
+#define cg_upnpav_protocolinfolist_gets(protocolinfoList) (CgUpnpAvProtocolInfo *)cg_list_next((CgList *)protocolinfoList)
 
 /**
  * Add an protocolinfo to an protocolinfo list
@@ -219,7 +219,7 @@ void cg_upnp_protocolinfolist_delete(CgUpnpMediaProtocolInfoList *protocolinfoLi
  * \param protocolinfoList List of protocolinfos
  * \param protocolinfo ProtocolInfo to add
  */
-#define cg_upnp_protocolinfolist_add(protocolinfoList, protocolinfo) cg_list_add((CgList *)protocolinfoList, (CgList *)protocolinfo)
+#define cg_upnpav_protocolinfolist_add(protocolinfoList, protocolinfo) cg_list_add((CgList *)protocolinfoList, (CgList *)protocolinfo)
 
 #ifdef  __cplusplus
 

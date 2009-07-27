@@ -26,14 +26,14 @@ extern "C" {
 * Struct
 ****************************************/
 
-typedef struct _CgUpnpMediaRenderer {
+typedef struct _CgUpnpAvRenderer {
 CgMutex *mutex;
 CgUpnpDevice *dev;
 CG_UPNPAV_HTTP_LISTENER httplistener;
 CG_UPNPAV_ACTION_LISTNER actionListner;
 CG_UPNPAV_STATEVARIABLE_LISTNER queryListner;
 void *userData;
-} CgUpnpMediaRenderer;
+} CgUpnpAvRenderer;
 
 /****************************************
 * Constants (Media Server)
@@ -75,8 +75,8 @@ void *userData;
 * Public Functions
 ****************************************/
 
-CgUpnpMediaRenderer *cg_upnpav_dmr_new();
-void cg_upnpav_dmr_delete(CgUpnpMediaRenderer *dmr);
+CgUpnpAvRenderer *cg_upnpav_dmr_new();
+void cg_upnpav_dmr_delete(CgUpnpAvRenderer *dmr);
 
 #define cg_upnpav_dmr_getdevice(dmr) (dmr->dev)
 

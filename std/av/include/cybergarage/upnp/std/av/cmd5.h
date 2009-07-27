@@ -12,8 +12,8 @@
 *
 ************************************************************/
 
-#ifndef _CG_CLINKC_MEDIA_MD5_H_
-#define _CG_CLINKC_MEDIA_DIDL_H_
+#ifndef _CG_CLINKCAV_MD5_H_
+#define _CG_CLINKCAV_DIDL_H_
 
 #ifdef __cplusplus
 extern "C" {

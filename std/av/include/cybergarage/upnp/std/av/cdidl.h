@@ -12,8 +12,8 @@
 *
 ************************************************************/
 
-#ifndef _CG_CLINKC_MEDIA_DIDL_H_
-#define _CG_CLINKC_MEDIA_DIDL_H_
+#ifndef _CG_CLINKCAV_DIDL_H_
+#define _CG_CLINKCAV_DIDL_H_
 
 #include <cybergarage/xml/cxml.h>
 
@@ -25,10 +25,10 @@ extern "C" {
 * Function
 ****************************************/
 
-CgXmlNode *cg_upnp_media_didl_node_new();
+CgXmlNode *cg_upnpav_didl_node_new();
 
-#define cg_upnp_media_didl_node_delete(node) cg_xml_node_delete(node)
-#define cg_upnp_media_didl_node_tostring(node, str) cg_xml_node_tostring(node, TRUE, str)
+#define cg_upnpav_didl_node_delete(node) cg_xml_node_delete(node)
+#define cg_upnpav_didl_node_tostring(node, str) cg_xml_node_tostring(node, TRUE, str)
 
 #ifdef __cplusplus
 }

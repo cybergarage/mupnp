@@ -22,16 +22,16 @@
 #include <cybergarage/util/clog.h>
 
 /****************************************
-* cg_upnp_protocolinfo_new
+* cg_upnpav_protocolinfo_new
 ****************************************/
 
-CgUpnpMediaProtocolInfo *cg_upnp_protocolinfo_new()
+CgUpnpAvProtocolInfo *cg_upnpav_protocolinfo_new()
 {
-	CgUpnpMediaProtocolInfo *info;
+	CgUpnpAvProtocolInfo *info;
 
 	cg_log_debug_l4("Entering...\n");
 
-	info = (CgUpnpMediaProtocolInfo *)malloc(sizeof(CgUpnpMediaProtocolInfo));
+	info = (CgUpnpAvProtocolInfo *)malloc(sizeof(CgUpnpAvProtocolInfo));
 
 	if  ( NULL != info )
 		cg_list_node_init((CgList *)info);
@@ -42,10 +42,10 @@ CgUpnpMediaProtocolInfo *cg_upnp_protocolinfo_new()
 }
 
 /****************************************
-* cg_upnp_protocolinfo_delete
+* cg_upnpav_protocolinfo_delete
 ****************************************/
 
-void cg_upnp_protocolinfo_delete(CgUpnpMediaProtocolInfo *info)
+void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *info)
 {
 	cg_log_debug_l4("Entering...\n");
 

@@ -16,14 +16,14 @@
 #include <cybergarage/util/cstring.h>
 
 /****************************************
-* cg_upnp_media_resource_data_new
+* cg_upnpav_resource_data_new
 ****************************************/
 
-CgUpnpMediaResourceData *cg_upnp_media_resource_data_new()
+CgUpnpAvResourceData *cg_upnpav_resource_data_new()
 {
-	CgUpnpMediaResourceData *resData;
+	CgUpnpAvResourceData *resData;
 	
-	resData = (CgUpnpMediaResourceData *)malloc(sizeof(CgUpnpMediaResourceData));
+	resData = (CgUpnpAvResourceData *)malloc(sizeof(CgUpnpAvResourceData));
 	resData->mimeType = cg_string_new();
 	resData->dlnaAttr = cg_string_new();
 
@@ -31,10 +31,10 @@ CgUpnpMediaResourceData *cg_upnp_media_resource_data_new()
 }
 
 /****************************************
-* cg_upnp_media_resource_data_delete
+* cg_upnpav_resource_data_delete
 ****************************************/
 
-void cg_upnp_media_resource_data_delete(CgUpnpMediaResourceData *resData)
+void cg_upnpav_resource_data_delete(CgUpnpAvResourceData *resData)
 {
 	cg_string_delete(resData->mimeType);
 	cg_string_delete(resData->dlnaAttr);
@@ -42,10 +42,10 @@ void cg_upnp_media_resource_data_delete(CgUpnpMediaResourceData *resData)
 }
 
 /****************************************
-* cg_upnp_media_resource_data_copy
+* cg_upnpav_resource_data_copy
 ****************************************/
 
-void cg_upnp_media_resource_data_copy(CgUpnpMediaResourceData *destResData, CgUpnpMediaResourceData *srcResData)
+void cg_upnpav_resource_data_copy(CgUpnpAvResourceData *destResData, CgUpnpAvResourceData *srcResData)
 {
 	cg_string_setvalue(destResData->mimeType, cg_string_getvalue(srcResData->mimeType));
 }
