@@ -230,7 +230,9 @@ CgUpnpAvServer *cg_upnpav_dms_new()
 	cg_upnpav_dms_sethttplistener(dms, NULL);
 
 	cg_upnp_device_setuserdata(dms->dev, dms);
-	
+
+	dms->protocolInfoList = cg_upnpav_protocolinfolist_new();
+
 	return dms;
 }
 
@@ -248,6 +250,9 @@ void cg_upnpav_dms_delete(CgUpnpAvServer *dms)
 
 	if (dms->mutex)
 		cg_mutex_delete(dms->mutex);
+
+	if (dms->protocolInfoList)
+		cg_upnpav_protocolinfolist_delete(dms->protocolInfoList);
 
 	cg_upnp_device_delete(dms->dev);
 

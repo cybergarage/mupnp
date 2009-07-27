@@ -32,6 +32,7 @@ CgUpnpDevice *dev;
 CG_UPNPAV_HTTP_LISTENER httplistener;
 CG_UPNPAV_ACTION_LISTNER actionListner;
 CG_UPNPAV_STATEVARIABLE_LISTNER queryListner;
+CgUpnpAvProtocolInfoList *protocolInfoList;
 void *userData;
 } CgUpnpAvRenderer;
 
@@ -103,6 +104,9 @@ void cg_upnpav_dmr_delete(CgUpnpAvRenderer *dmr);
 
 #define cg_upnpav_dmr_setuserdata(dmr,data) (dmr->userData = data)
 #define cg_upnpav_dmr_getuserdata(dmr) (dmr->userData)
+
+#define cg_upnpav_dmr_addprotocolinfo(dms, info) cg_upnpav_protocolinfolist_add(dms->protocolInfoList, info)
+#define cg_upnpav_dmr_getprotocolinfos(dms) cg_upnpav_protocolinfolist_gets(dms->protocolInfoList)
 
 #ifdef  __cplusplus
 }

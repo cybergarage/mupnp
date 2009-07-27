@@ -27,4 +27,12 @@ typedef BOOL (*CG_UPNPAV_STATEVARIABLE_LISTNER)(CgUpnpStateVariable *);
 }
 #endif
 
+#include <cybergarage/upnp/std/av/cdidl.h>
+#include <cybergarage/upnp/std/av/ccontent.h>
+#include <cybergarage/upnp/std/av/cmd5.h>
+#include <cybergarage/upnp/std/av/cresource.h>
+#include <cybergarage/upnp/std/av/cprotocolinfo.h>
+#include <cybergarage/upnp/std/av/cmediaserver.h>
+#include <cybergarage/upnp/std/av/cmediarenderer.h>
+
 #endif

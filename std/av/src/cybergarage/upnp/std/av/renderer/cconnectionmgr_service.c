@@ -231,9 +231,7 @@ BOOL cg_upnpav_dmr_conmgr_actionreceived(CgUpnpAction *action)
 	char *actionName;
 	CgUpnpArgument *arg;
 	CgString *protocolInfos;
-	int protocolInfoCnt;
-	int n;
-	char protoInfoBuf[CG_UPNPAV_PROTOCOLINFO_MAXLEN];
+	CgUpnpAvProtocolInfo *protocolInfo;
 	
 	actionName = cg_upnp_action_getname(action);
 	if (cg_strlen(actionName) <= 0)
@@ -253,12 +251,10 @@ BOOL cg_upnpav_dmr_conmgr_actionreceived(CgUpnpAction *action)
 		if (!arg)
 			return FALSE;
 		protocolInfos = cg_string_new();
-		protocolInfoCnt = cg_upnpav_resource_getnprotocolinfos();
-		for (n=0; n<protocolInfoCnt; n++) {
+		for (protocolInfo = cg_upnpav_dmr_getprotocolinfos(dmr); protocolInfo; protocolInfo = cg_upnpav_protocolinfo_next(protocolInfo)) {
 			if (0 < cg_string_length(protocolInfos))
 				cg_string_addvalue(protocolInfos, ",");
-			cg_upnpav_resource_getprotocolinfo(n, protoInfoBuf, sizeof(protoInfoBuf)-1);
-			cg_string_addvalue(protocolInfos, protoInfoBuf);
+			cg_string_addvalue(protocolInfos, cg_upnpav_protocolinfo_getstring(protocolInfo));
 		}
 		cg_upnp_argument_setvalue(arg, cg_string_getvalue(protocolInfos));
 		cg_string_delete(protocolInfos);
