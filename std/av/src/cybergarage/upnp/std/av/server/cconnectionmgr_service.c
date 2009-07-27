@@ -22,7 +22,7 @@
 * Service Description (Connection Manager)
 ****************************************/
 
-static char *CG_UPNP_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION = 
+static char *CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION = 
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
 "   <specVersion>\n"
@@ -157,17 +157,17 @@ static char *CG_UPNP_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION =
 " </scpd>\n";
 
 /****************************************
-* cg_upnp_dms_conmgr_actionreceived
+* cg_upnpav_dms_conmgr_actionreceived
 ****************************************/
 
-BOOL cg_upnp_dms_conmgr_actionreceived(CgUpnpAction *action)
+BOOL cg_upnpav_dms_conmgr_actionreceived(CgUpnpAction *action)
 {
-	CgUpnpMediaServer *dms;
+	CgUpnpAvServer *dms;
 	CgUpnpDevice *dev;
 	char *actionName;
 	CgUpnpArgument *arg;
 	CgString *protocolInfos;
-	char protoInfoBuf[CG_UPNP_MEDIA_PROTOCOLINFO_MAXLEN];
+	char protoInfoBuf[CG_UPNPAV_PROTOCOLINFO_MAXLEN];
 	int n, protocolInfoCnt;
 
 	actionName = cg_upnp_action_getname(action);
@@ -178,21 +178,21 @@ BOOL cg_upnp_dms_conmgr_actionreceived(CgUpnpAction *action)
 	if (!dev) 
 		return FALSE;
 
-	dms = (CgUpnpMediaServer *)cg_upnp_device_getuserdata(dev);
+	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
 	if (!dms)
 		return FALSE;
 
 	/* GetProtocolInfo*/
-	if (cg_streq(actionName, CG_UPNP_DMS_CONNECTIONMANAGER_GET_PROTOCOL_INFO)) {
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNP_DMS_CONNECTIONMANAGER_SOURCE);
+	if (cg_streq(actionName, CG_UPNPAV_DMS_CONNECTIONMANAGER_GET_PROTOCOL_INFO)) {
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMS_CONNECTIONMANAGER_SOURCE);
 		if (!arg)
 			return FALSE;
 		protocolInfos = cg_string_new();
-		protocolInfoCnt = cg_upnp_media_resource_getnprotocolinfos();
+		protocolInfoCnt = cg_upnpav_resource_getnprotocolinfos();
 		for (n=0; n<protocolInfoCnt; n++) {
 			if (0 < cg_string_length(protocolInfos))
 				cg_string_addvalue(protocolInfos, ",");
-			cg_upnp_media_resource_getprotocolinfo(n, protoInfoBuf, sizeof(protoInfoBuf)-1);
+			cg_upnpav_resource_getprotocolinfo(n, protoInfoBuf, sizeof(protoInfoBuf)-1);
 			cg_string_addvalue(protocolInfos, protoInfoBuf);
 		}
 		cg_upnp_argument_setvalue(arg, cg_string_getvalue(protocolInfos));
@@ -204,24 +204,24 @@ BOOL cg_upnp_dms_conmgr_actionreceived(CgUpnpAction *action)
 }
 
 /****************************************
-* cg_upnp_dms_conmgr_init
+* cg_upnpav_dms_conmgr_init
 ****************************************/
 
-BOOL cg_upnp_dms_conmgr_init(CgUpnpMediaServer *dms)
+BOOL cg_upnpav_dms_conmgr_init(CgUpnpAvServer *dms)
 {
 	CgUpnpDevice *dev;
 	CgUpnpService *service;
 	CgUpnpAction *action;
 
-	dev = cg_upnp_dms_getdevice(dms);
+	dev = cg_upnpav_dms_getdevice(dms);
 	if (!dev)
 		return FALSE;
 
-	service = cg_upnp_device_getservicebytype(dev, CG_UPNP_DMS_CONNECTIONMANAGER_SERVICE_TYPE);
+	service = cg_upnp_device_getservicebytype(dev, CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_TYPE);
 	if (!service)
 		return FALSE;
 	
-	if (cg_upnp_service_parsedescription(service, CG_UPNP_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION, cg_strlen(CG_UPNP_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION)) == FALSE)
+	if (cg_upnp_service_parsedescription(service, CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION)) == FALSE)
 		return FALSE;
 
 	cg_upnp_service_setuserdata(service, dms);

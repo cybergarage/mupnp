@@ -562,7 +562,7 @@ static char *CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION =
 
 BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action)
 {
-	CgUpnpMediaRenderer *dmr;
+	CgUpnpAvRenderer *dmr;
 	CgUpnpDevice *dev;
 	char *actionName;
 	CgUpnpArgument *arg;
@@ -575,7 +575,7 @@ BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action)
 	if (!dev) 
 		return FALSE;
 
-	dmr = (CgUpnpMediaRenderer *)cg_upnp_device_getuserdata(dev);
+	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
 	if (!dmr)
 		return FALSE;
 
@@ -595,7 +595,7 @@ BOOL cg_upnpav_dmr_avtransport_queryreceived(CgUpnpStateVariable *statVar)
 * cg_upnpav_dmr_avtransport_init
 ****************************************/
 
-BOOL cg_upnpav_dmr_avtransport_init(CgUpnpMediaRenderer *dmr)
+BOOL cg_upnpav_dmr_avtransport_init(CgUpnpAvRenderer *dmr)
 {
 	CgUpnpDevice *dev;
 	CgUpnpService *service;

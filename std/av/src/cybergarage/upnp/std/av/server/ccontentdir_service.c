@@ -22,7 +22,7 @@
 * Service Description (Content Directory)
 ****************************************/
 
-static char *CG_UPNP_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION = 
+static char *CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION = 
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
 "   <specVersion>\n"
@@ -428,20 +428,20 @@ static char *CG_UPNP_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION =
 " </scpd>\n";
 
 /****************************************
-* cg_upnp_dms_condir_setsystemupdateid
+* cg_upnpav_dms_condir_setsystemupdateid
 ****************************************/
 
-void cg_upnp_dms_condir_setsystemupdateid(CgUpnpMediaServer *dms, int id)
+void cg_upnpav_dms_condir_setsystemupdateid(CgUpnpAvServer *dms, int id)
 {
 	CgUpnpDevice *dev;
 	CgUpnpStateVariable *var;
 	char intBuf[CG_STRING_INTEGER_BUFLEN];
 
-	dev = cg_upnp_dms_getdevice(dms);
+	dev = cg_upnpav_dms_getdevice(dms);
 	if (!dev)
 		return;
 
-	var = cg_upnp_device_getstatevariablebyname(dev, CG_UPNP_DMS_CONTENTDIRECTORY_SYSTEM_UPDATE_ID);
+	var = cg_upnp_device_getstatevariablebyname(dev, CG_UPNPAV_DMS_CONTENTDIRECTORY_SYSTEM_UPDATE_ID);
 	if (!var)
 		return;
 
@@ -449,19 +449,19 @@ void cg_upnp_dms_condir_setsystemupdateid(CgUpnpMediaServer *dms, int id)
 }
 
 /****************************************
-* cg_upnp_dms_condir_getsystemupdateid
+* cg_upnpav_dms_condir_getsystemupdateid
 ****************************************/
 
-int cg_upnp_dms_condir_getsystemupdateid(CgUpnpMediaServer *dms)
+int cg_upnpav_dms_condir_getsystemupdateid(CgUpnpAvServer *dms)
 {
 	CgUpnpDevice *dev;
 	CgUpnpStateVariable *var;
 
-	dev = cg_upnp_dms_getdevice(dms);
+	dev = cg_upnpav_dms_getdevice(dms);
 	if (!dev)
 		return 0;
 
-	var = cg_upnp_device_getstatevariablebyname(dev, CG_UPNP_DMS_CONTENTDIRECTORY_SYSTEM_UPDATE_ID);
+	var = cg_upnp_device_getstatevariablebyname(dev, CG_UPNPAV_DMS_CONTENTDIRECTORY_SYSTEM_UPDATE_ID);
 	if (!var)
 		return 0;
 
@@ -469,68 +469,68 @@ int cg_upnp_dms_condir_getsystemupdateid(CgUpnpMediaServer *dms)
 }
 
 /****************************************
-* cg_upnp_dms_condir_updatesystemupdateid
+* cg_upnpav_dms_condir_updatesystemupdateid
 ****************************************/
 
-void cg_upnp_dms_condir_updatesystemupdateid(CgUpnpMediaServer *dms)
+void cg_upnpav_dms_condir_updatesystemupdateid(CgUpnpAvServer *dms)
 {
-	cg_upnp_dms_condir_setsystemupdateid(dms, (cg_upnp_dms_condir_getsystemupdateid(dms) + 1));
+	cg_upnpav_dms_condir_setsystemupdateid(dms, (cg_upnpav_dms_condir_getsystemupdateid(dms) + 1));
 }
 
 /****************************************
-* cg_upnp_dms_condir_browsemetadata
+* cg_upnpav_dms_condir_browsemetadata
 ****************************************/
 
-static BOOL cg_upnp_dms_condir_browsemetadata(CgUpnpMediaServer *dms, CgUpnpAction *action)
+static BOOL cg_upnpav_dms_condir_browsemetadata(CgUpnpAvServer *dms, CgUpnpAction *action)
 {
 	char *objectID;
-	CgUpnpMediaContent *objectContent;
+	CgUpnpAvContent *objectContent;
 	CgXmlNode *didlNode;
 	CgString *resultStr;
 	char intBuf[CG_STRING_INTEGER_BUFLEN];
-	CgUpnpMediaContent *copyContent;
+	CgUpnpAvContent *copyContent;
 	
-	objectID = cg_upnp_action_getargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_OBJECT_ID);
+	objectID = cg_upnp_action_getargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_OBJECT_ID);
 	if (cg_strlen(objectID) <= 0)
 		return FALSE;
 
-	objectContent = cg_upnp_dms_findcontentbyid(dms, objectID);
+	objectContent = cg_upnpav_dms_findcontentbyid(dms, objectID);
 	if (!objectContent)
 		return FALSE;
 
-	didlNode = cg_upnp_media_didl_node_new();
-	cg_upnp_media_contentlist_add(didlNode, objectContent);
-	copyContent = cg_upnp_media_content_new();
-	cg_upnp_media_content_copy(copyContent, objectContent);
+	didlNode = cg_upnpav_didl_node_new();
+	cg_upnpav_contentlist_add(didlNode, objectContent);
+	copyContent = cg_upnpav_content_new();
+	cg_upnpav_content_copy(copyContent, objectContent);
 	cg_xml_node_addchildnode(didlNode, copyContent);
 	
 	resultStr = cg_string_new();
-	cg_upnp_media_didl_node_tostring(didlNode, resultStr);
+	cg_upnpav_didl_node_tostring(didlNode, resultStr);
 
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_RESULT, cg_string_getvalue(resultStr));
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_NUMBER_RETURNED, "1");
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_TOTAL_MACHES, "1");
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID, cg_int2str(cg_upnp_dms_condir_getsystemupdateid(dms), intBuf, sizeof(intBuf)));
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_RESULT, cg_string_getvalue(resultStr));
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_NUMBER_RETURNED, "1");
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_TOTAL_MACHES, "1");
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID, cg_int2str(cg_upnpav_dms_condir_getsystemupdateid(dms), intBuf, sizeof(intBuf)));
 
 	cg_string_delete(resultStr);
 	
-	cg_upnp_media_didl_node_delete(didlNode);
+	cg_upnpav_didl_node_delete(didlNode);
 
 	return TRUE;
 }
 
 /****************************************
-* cg_upnp_dms_condir_browsedirectchildren
+* cg_upnpav_dms_condir_browsedirectchildren
 ****************************************/
 
-static BOOL cg_upnp_dms_condir_browsedirectchildren(CgUpnpMediaServer *dms, CgUpnpAction *action)
+static BOOL cg_upnpav_dms_condir_browsedirectchildren(CgUpnpAvServer *dms, CgUpnpAction *action)
 {
 	char *objectID;
-	CgUpnpMediaContent *objectContent;
-	CgUpnpMediaContent *content;
-	CgUpnpMediaContent *copyContent;
-	CgUpnpMediaContentList *sortedContentList;
-	CgUpnpMediaContent **sortedContentArray;
+	CgUpnpAvContent *objectContent;
+	CgUpnpAvContent *content;
+	CgUpnpAvContent *copyContent;
+	CgUpnpAvContentList *sortedContentList;
+	CgUpnpAvContent **sortedContentArray;
 	int startingIndex;
 	int requestedCount;
 	int numberReturned;
@@ -540,20 +540,20 @@ static BOOL cg_upnp_dms_condir_browsedirectchildren(CgUpnpMediaServer *dms, CgUp
 	CgXmlNode *didlNode;
 	CgString *resultStr;
 
-	objectID = cg_upnp_action_getargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_OBJECT_ID);
+	objectID = cg_upnp_action_getargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_OBJECT_ID);
 	if (cg_strlen(objectID) <= 0)
 		return FALSE;
 
-	objectContent = cg_upnp_dms_findcontentbyid(dms, objectID);
+	objectContent = cg_upnpav_dms_findcontentbyid(dms, objectID);
 	if (!objectContent)
 		return FALSE;
 
 	totalMachesCnt = 0;
-	sortedContentList = cg_upnp_media_contentlist_new();
-	for (content=cg_upnp_media_content_getchildcontents(objectContent); content; content=cg_upnp_media_content_next(content)) {
-		copyContent = cg_upnp_media_content_new();
-		cg_upnp_media_content_copy(copyContent, content);
-		cg_upnp_media_contentlist_add(sortedContentList, copyContent);
+	sortedContentList = cg_upnpav_contentlist_new();
+	for (content=cg_upnpav_content_getchildcontents(objectContent); content; content=cg_upnpav_content_next(content)) {
+		copyContent = cg_upnpav_content_new();
+		cg_upnpav_content_copy(copyContent, content);
+		cg_upnpav_contentlist_add(sortedContentList, copyContent);
 		totalMachesCnt++;
 	}
 
@@ -564,56 +564,56 @@ static BOOL cg_upnp_dms_condir_browsedirectchildren(CgUpnpMediaServer *dms, CgUp
 	ContentNodeList *sortedContentNodeList = sortContentNodeList(&contentNodeList, sortCriteria.c_str(), sortedContentNodeBufList);
 	*/
 
-	startingIndex = cg_str2int(cg_upnp_action_getargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_STARTING_INDEX));
+	startingIndex = cg_str2int(cg_upnp_action_getargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_STARTING_INDEX));
 	if (startingIndex <= 0)
 		startingIndex = 0;
 
-	requestedCount = cg_str2int(cg_upnp_action_getargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_REQUESTED_COUNT));
+	requestedCount = cg_str2int(cg_upnp_action_getargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_REQUESTED_COUNT));
 	if (requestedCount <= 0)
-		requestedCount = cg_upnp_media_contentlist_size(sortedContentList);
+		requestedCount = cg_upnpav_contentlist_size(sortedContentList);
 
 	numberReturned = 0;
 
-	didlNode = cg_upnp_media_didl_node_new();
+	didlNode = cg_upnpav_didl_node_new();
 
-	sortedContentArray = (CgUpnpMediaContent **)malloc(sizeof(CgUpnpMediaContent*) * totalMachesCnt);
+	sortedContentArray = (CgUpnpAvContent **)malloc(sizeof(CgUpnpAvContent*) * totalMachesCnt);
 	n = 0;
-	for (content=cg_upnp_media_contentlist_gets(sortedContentList); content; content=cg_upnp_media_content_next(content)) {
+	for (content=cg_upnpav_contentlist_gets(sortedContentList); content; content=cg_upnpav_content_next(content)) {
 		sortedContentArray[n] = content;
 		n++;
 	}
 
 	for (n=startingIndex; (n<totalMachesCnt && numberReturned<requestedCount); n++) {
 		content = sortedContentArray[n];
-		cg_upnp_media_content_remove(content);
-		cg_upnp_media_content_addchildcontent(didlNode, content);
-		cg_upnp_media_content_setparentid(content, objectID);
+		cg_upnpav_content_remove(content);
+		cg_upnpav_content_addchildcontent(didlNode, content);
+		cg_upnpav_content_setparentid(content, objectID);
 		numberReturned++;
 	}
 
 	resultStr = cg_string_new();
-	cg_upnp_media_didl_node_tostring(didlNode, resultStr);
+	cg_upnpav_didl_node_tostring(didlNode, resultStr);
 
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_RESULT, cg_string_getvalue(resultStr));
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_NUMBER_RETURNED, cg_int2str(numberReturned, intBuf, sizeof(intBuf)));
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_TOTAL_MACHES, cg_int2str(totalMachesCnt, intBuf, sizeof(intBuf)));
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID, cg_int2str(cg_upnp_dms_condir_getsystemupdateid(dms), intBuf, sizeof(intBuf)));
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_RESULT, cg_string_getvalue(resultStr));
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_NUMBER_RETURNED, cg_int2str(numberReturned, intBuf, sizeof(intBuf)));
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_TOTAL_MACHES, cg_int2str(totalMachesCnt, intBuf, sizeof(intBuf)));
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID, cg_int2str(cg_upnpav_dms_condir_getsystemupdateid(dms), intBuf, sizeof(intBuf)));
 
 	cg_string_delete(resultStr);
 	free(sortedContentArray);
-	cg_upnp_media_didl_node_delete(didlNode);
-	cg_upnp_media_contentlist_delete(sortedContentList);
+	cg_upnpav_didl_node_delete(didlNode);
+	cg_upnpav_contentlist_delete(sortedContentList);
 
 	return TRUE;
 }
 
 /****************************************
-* cg_upnp_dms_condir_actionreceived
+* cg_upnpav_dms_condir_actionreceived
 ****************************************/
 
-BOOL cg_upnp_dms_condir_actionreceived(CgUpnpAction *action)
+BOOL cg_upnpav_dms_condir_actionreceived(CgUpnpAction *action)
 {
-	CgUpnpMediaServer *dms;
+	CgUpnpAvServer *dms;
 	CgUpnpDevice *dev;
 	char *actionName;
 	CgUpnpArgument *arg;
@@ -628,33 +628,33 @@ BOOL cg_upnp_dms_condir_actionreceived(CgUpnpAction *action)
 	if (!dev) 
 		return FALSE;
 
-	dms = (CgUpnpMediaServer *)cg_upnp_device_getuserdata(dev);
+	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
 	if (!dms)
 		return FALSE;
 
 	/* Browse */
-	if (cg_streq(actionName, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE))
+	if (cg_streq(actionName, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE))
 	{
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_BROWSE_FLAG);
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_BROWSE_FLAG);
 		if (!arg)
 			return FALSE;
 		argValue = cg_upnp_argument_getvalue(arg);
-		if (cg_streq(argValue, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_BROWSE_METADATA))
-			return cg_upnp_dms_condir_browsemetadata(dms, action);
-		if (cg_streq(argValue, CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_BROWSE_DIRECT_CHILDREN))
-			return cg_upnp_dms_condir_browsedirectchildren(dms, action);
+		if (cg_streq(argValue, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_BROWSE_METADATA))
+			return cg_upnpav_dms_condir_browsemetadata(dms, action);
+		if (cg_streq(argValue, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_BROWSE_DIRECT_CHILDREN))
+			return cg_upnpav_dms_condir_browsedirectchildren(dms, action);
 		return FALSE;
 	}
 
 	/* Search */
-	if (cg_streq(actionName, CG_UPNP_DMS_CONTENTDIRECTORY_SEARCH)) {
+	if (cg_streq(actionName, CG_UPNPAV_DMS_CONTENTDIRECTORY_SEARCH)) {
 		/* Not Implemented */
 		return FALSE;
 	}
 
 	/* Sort Capabilities */
-	if (cg_streq(actionName, CG_UPNP_DMS_CONTENTDIRECTORY_GET_SORT_CAPABILITIES)) {
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_SORT_CAPS);
+	if (cg_streq(actionName, CG_UPNPAV_DMS_CONTENTDIRECTORY_GET_SORT_CAPABILITIES)) {
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_SORT_CAPS);
 		if (!arg)
 			return FALSE;
 		cg_upnp_argument_setvalue(arg, "");
@@ -662,8 +662,8 @@ BOOL cg_upnp_dms_condir_actionreceived(CgUpnpAction *action)
 	}
 
 	/* Search Capabilities */
-	if (cg_streq(actionName, CG_UPNP_DMS_CONTENTDIRECTORY_GET_SEARCH_CAPABILITIES)) {
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_SEARCH_CAPS);
+	if (cg_streq(actionName, CG_UPNPAV_DMS_CONTENTDIRECTORY_GET_SEARCH_CAPABILITIES)) {
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_SEARCH_CAPS);
 		if (!arg)
 			return FALSE;
 		cg_upnp_argument_setvalue(arg, "");
@@ -671,11 +671,11 @@ BOOL cg_upnp_dms_condir_actionreceived(CgUpnpAction *action)
 	}
 
 	/* System Update ID */
-	if (cg_streq(actionName, CG_UPNP_DMS_CONTENTDIRECTORY_GET_SYSTEM_UPDATE_ID)) {
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNP_DMS_CONTENTDIRECTORY_ID);
+	if (cg_streq(actionName, CG_UPNPAV_DMS_CONTENTDIRECTORY_GET_SYSTEM_UPDATE_ID)) {
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_ID);
 		if (!arg)
 			return FALSE;
-		cg_upnp_argument_setvalue(arg, cg_int2str(cg_upnp_dms_condir_getsystemupdateid(dms), intBuf, CG_STRING_INTEGER_BUFLEN));
+		cg_upnp_argument_setvalue(arg, cg_int2str(cg_upnpav_dms_condir_getsystemupdateid(dms), intBuf, CG_STRING_INTEGER_BUFLEN));
 		return TRUE;
 	}
 
@@ -683,13 +683,13 @@ BOOL cg_upnp_dms_condir_actionreceived(CgUpnpAction *action)
 }
 
 /****************************************
-* cg_upnp_dms_condir_queryreceived
+* cg_upnpav_dms_condir_queryreceived
 ****************************************/
 
 
-BOOL cg_upnp_dms_condir_queryreceived(CgUpnpStateVariable *var)
+BOOL cg_upnpav_dms_condir_queryreceived(CgUpnpStateVariable *var)
 {
-	CgUpnpMediaServer *dms;
+	CgUpnpAvServer *dms;
 	CgUpnpDevice *dev;
 	char *varName;
 	char intBuf[CG_STRING_INTEGER_BUFLEN];
@@ -702,25 +702,25 @@ BOOL cg_upnp_dms_condir_queryreceived(CgUpnpStateVariable *var)
 	if (!dev) 
 		return FALSE;
 
-	dms = (CgUpnpMediaServer *)cg_upnp_device_getuserdata(dev);
+	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
 	if (!dms)
 		return FALSE;
 
 	/* Sort Capabilities */
-	if (cg_streq(varName, CG_UPNP_DMS_CONTENTDIRECTORY_SORT_CAPABILITIES)) {
+	if (cg_streq(varName, CG_UPNPAV_DMS_CONTENTDIRECTORY_SORT_CAPABILITIES)) {
 		cg_upnp_statevariable_setvalue(var, "");
 		return TRUE;
 	}
 
 	/* Search Capabilities */
-	if (cg_streq(varName, CG_UPNP_DMS_CONTENTDIRECTORY_SEARCH_CAPABILITIES)) {
+	if (cg_streq(varName, CG_UPNPAV_DMS_CONTENTDIRECTORY_SEARCH_CAPABILITIES)) {
 		cg_upnp_statevariable_setvalue(var, "");
 		return TRUE;
 	}
 
 	/* System Update ID */
-	if (cg_streq(varName, CG_UPNP_DMS_CONTENTDIRECTORY_SYSTEM_UPDATE_ID)) {
-		cg_upnp_statevariable_setvalue(var, cg_int2str(cg_upnp_dms_condir_getsystemupdateid(dms), intBuf, CG_STRING_INTEGER_BUFLEN));
+	if (cg_streq(varName, CG_UPNPAV_DMS_CONTENTDIRECTORY_SYSTEM_UPDATE_ID)) {
+		cg_upnp_statevariable_setvalue(var, cg_int2str(cg_upnpav_dms_condir_getsystemupdateid(dms), intBuf, CG_STRING_INTEGER_BUFLEN));
 		return TRUE;
 	}
 
@@ -728,31 +728,31 @@ BOOL cg_upnp_dms_condir_queryreceived(CgUpnpStateVariable *var)
 }
 
 /****************************************
-* cg_upnp_dms_condir_init
+* cg_upnpav_dms_condir_init
 ****************************************/
 
-BOOL cg_upnp_dms_condir_init(CgUpnpMediaServer *dms)
+BOOL cg_upnpav_dms_condir_init(CgUpnpAvServer *dms)
 {
 	CgUpnpDevice *dev;
 	CgUpnpService *service;
 	CgUpnpAction* action;
 
-	dev = cg_upnp_dms_getdevice(dms);
+	dev = cg_upnpav_dms_getdevice(dms);
 	if (!dev)
 		return FALSE;
 
-	service = cg_upnp_device_getservicebytype(dev, CG_UPNP_DMS_CONTENTDIRECTORY_SERVICE_TYPE);
+	service = cg_upnp_device_getservicebytype(dev, CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_TYPE);
 	if (!service)
 		return FALSE;
 	
-	if (cg_upnp_service_parsedescription(service, CG_UPNP_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION, cg_strlen(CG_UPNP_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION)) == FALSE)
+	if (cg_upnp_service_parsedescription(service, CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION)) == FALSE)
 		return FALSE;
 	
-	cg_upnp_service_setactionlistener(service, cg_upnp_dms_condir_actionreceived);
+	cg_upnp_service_setactionlistener(service, cg_upnpav_dms_condir_actionreceived);
 	for (action=cg_upnp_service_getactions(service); action; action=cg_upnp_action_next(action))
 		cg_upnp_action_setuserdata(action, dms);
 
-	cg_upnp_dms_condir_setsystemupdateid(dms, 1);
+	cg_upnpav_dms_condir_setsystemupdateid(dms, 1);
 	
 
 	return TRUE;

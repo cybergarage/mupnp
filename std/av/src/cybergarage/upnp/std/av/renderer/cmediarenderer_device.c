@@ -70,9 +70,9 @@ static char *CG_UPNPAV_DMR_DEVICE_DESCRIPTION =
 * Functions
 ****************************************/
 
-BOOL cg_upnpav_dmr_conmgr_init(CgUpnpMediaRenderer *dmr);
-BOOL cg_upnpav_dmr_avtransport_init(CgUpnpMediaRenderer *dmr);
-BOOL cg_upnpav_dmr_renderingctrl_init(CgUpnpMediaRenderer *dmr);
+BOOL cg_upnpav_dmr_conmgr_init(CgUpnpAvRenderer *dmr);
+BOOL cg_upnpav_dmr_avtransport_init(CgUpnpAvRenderer *dmr);
+BOOL cg_upnpav_dmr_renderingctrl_init(CgUpnpAvRenderer *dmr);
 
 BOOL cg_upnpav_dmr_conmgr_actionreceived(CgUpnpAction *action);
 BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action);
@@ -90,7 +90,7 @@ BOOL cg_upnpav_dmr_actionreceived(CgUpnpAction *action)
 {
 	CgUpnpDevice *dev;
 	CgUpnpService *service;
-	CgUpnpMediaRenderer *dmr;
+	CgUpnpAvRenderer *dmr;
 	CG_UPNPAV_ACTION_LISTNER userActionListener;
 
 	service = cg_upnp_action_getservice(action);
@@ -101,7 +101,7 @@ BOOL cg_upnpav_dmr_actionreceived(CgUpnpAction *action)
 	if (!dev) 
 		return FALSE;
 
-	dmr = (CgUpnpMediaRenderer *)cg_upnp_device_getuserdata(dev);
+	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
 	if (!dmr)
 		return FALSE;
 
@@ -131,7 +131,7 @@ BOOL cg_upnpav_dmr_queryreceived(CgUpnpStateVariable *statVar)
 {
 	CgUpnpDevice *dev;
 	CgUpnpService *service;
-	CgUpnpMediaRenderer *dmr;
+	CgUpnpAvRenderer *dmr;
 	CG_UPNPAV_STATEVARIABLE_LISTNER userQueryListener;
 
 	service = cg_upnp_statevariable_getservice(statVar);
@@ -142,7 +142,7 @@ BOOL cg_upnpav_dmr_queryreceived(CgUpnpStateVariable *statVar)
 	if (!dev) 
 		return FALSE;
 
-	dmr = (CgUpnpMediaRenderer *)cg_upnp_device_getuserdata(dev);
+	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
 	if (!dmr)
 		return FALSE;
 
@@ -170,7 +170,7 @@ BOOL cg_upnpav_dmr_queryreceived(CgUpnpStateVariable *statVar)
 
 void cg_upnpav_dmr_device_httprequestrecieved(CgHttpRequest *httpReq)
 {
-	CgUpnpMediaRenderer *dmr;
+	CgUpnpAvRenderer *dmr;
 	CgUpnpDevice *dev;
 	CG_UPNPAV_HTTP_LISTENER userHttpListener;
 
@@ -180,7 +180,7 @@ void cg_upnpav_dmr_device_httprequestrecieved(CgHttpRequest *httpReq)
 		return;
 	}
 
-	dmr = (CgUpnpMediaRenderer *)cg_upnp_device_getuserdata(dev);
+	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
 	if (!dmr) {
 		cg_upnp_device_httprequestrecieved(httpReq);
 		return;
@@ -199,11 +199,11 @@ void cg_upnpav_dmr_device_httprequestrecieved(CgHttpRequest *httpReq)
 * cg_upnpav_dmr_new
 ****************************************/
 
-CgUpnpMediaRenderer *cg_upnpav_dmr_new()
+CgUpnpAvRenderer *cg_upnpav_dmr_new()
 {
-	CgUpnpMediaRenderer *dmr;
+	CgUpnpAvRenderer *dmr;
 	
-	dmr = (CgUpnpMediaRenderer *)malloc(sizeof(CgUpnpMediaRenderer));
+	dmr = (CgUpnpAvRenderer *)malloc(sizeof(CgUpnpAvRenderer));
 
 	dmr->dev = cg_upnp_device_new();
 	if (!dmr->dev) {
@@ -258,7 +258,7 @@ CgUpnpMediaRenderer *cg_upnpav_dmr_new()
 * cg_upnpav_dmr_delete
 ****************************************/
 
-void cg_upnpav_dmr_delete(CgUpnpMediaRenderer *dmr)
+void cg_upnpav_dmr_delete(CgUpnpAvRenderer *dmr)
 {
 	if (dmr == NULL)
 		return;

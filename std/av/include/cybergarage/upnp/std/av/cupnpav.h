@@ -12,8 +12,8 @@
 *
 ************************************************************/
 
-#ifndef _CG_CLINKC_CUPNPAV_H_
-#define _CG_CLINKC_CUPNPAV_H_
+#ifndef _CG_CLINKCAV_CUPNPAV_H_
+#define _CG_CLINKCAV_CUPNPAV_H_
 
 #ifdef __cplusplus
 extern "C" {

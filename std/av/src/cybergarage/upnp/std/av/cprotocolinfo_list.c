@@ -25,13 +25,13 @@
 * cg_upnp_protocolinflist_new
 ****************************************/
 
-CgUpnpMediaProtocolInfoList *cg_upnp_protocolinfolist_new()
+CgUpnpAvProtocolInfoList *cg_upnpav_protocolinfolist_new()
 {
-	CgUpnpMediaProtocolInfo *protocolinfoList;
+	CgUpnpAvProtocolInfo *protocolinfoList;
 
 	cg_log_debug_l4("Entering...\n");
 
-	protocolinfoList = (CgUpnpMediaProtocolInfo *)malloc(sizeof(CgUpnpMediaProtocolInfo));
+	protocolinfoList = (CgUpnpAvProtocolInfo *)malloc(sizeof(CgUpnpAvProtocolInfo));
 
 	if ( NULL != protocolinfoList )
 		cg_list_header_init((CgList *)protocolinfoList);
@@ -42,10 +42,10 @@ CgUpnpMediaProtocolInfoList *cg_upnp_protocolinfolist_new()
 }
 
 /****************************************
-* cg_upnp_protocolinfor_delete
+* cg_upnpav_protocolinfor_delete
 ****************************************/
 
-void cg_upnp_protocolinfolist_delete(CgUpnpMediaProtocolInfoList *protocolinfoList)
+void cg_upnpav_protocolinfolist_delete(CgUpnpAvProtocolInfoList *protocolinfoList)
 {
 	cg_log_debug_l4("Entering...\n");
 

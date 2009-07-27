@@ -22,7 +22,7 @@
 * Device Description
 ****************************************/
 
-static char *CG_UPNP_DMS_DEVICE_DESCRIPTION = 
+static char *CG_UPNPAV_DMS_DEVICE_DESCRIPTION = 
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<root xmlns=\"urn:schemas-upnp-org:device-1-0\" xmlns:dlna=\"urn:schemas-dlna-org:device-1-0\">\n"
 "   <specVersion>\n"
@@ -63,19 +63,19 @@ static char *CG_UPNP_DMS_DEVICE_DESCRIPTION =
 * Functions
 ****************************************/
 
-BOOL cg_upnp_dms_condir_actionreceived(CgUpnpAction *action);
-BOOL cg_upnp_dms_conmgr_actionreceived(CgUpnpAction *action);
-BOOL cg_upnp_dms_condir_queryreceived(CgUpnpStateVariable *var);
+BOOL cg_upnpav_dms_condir_actionreceived(CgUpnpAction *action);
+BOOL cg_upnpav_dms_conmgr_actionreceived(CgUpnpAction *action);
+BOOL cg_upnpav_dms_condir_queryreceived(CgUpnpStateVariable *var);
 
 /****************************************
-* cg_upnp_dms_actionreceived
+* cg_upnpav_dms_actionreceived
 ****************************************/
 
-BOOL cg_upnp_dms_actionreceived(CgUpnpAction *action)
+BOOL cg_upnpav_dms_actionreceived(CgUpnpAction *action)
 {
 	CgUpnpDevice *dev;
 	CgUpnpService *service;
-	CgUpnpMediaServer *dms;
+	CgUpnpAvServer *dms;
 	CG_UPNP_ACTION_LISTNER userActionListener;
 
 	service = cg_upnp_action_getservice(action);
@@ -86,34 +86,34 @@ BOOL cg_upnp_dms_actionreceived(CgUpnpAction *action)
 	if (!dev) 
 		return FALSE;
 
-	dms = (CgUpnpMediaServer *)cg_upnp_device_getuserdata(dev);
+	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
 	if (!dms)
 		return FALSE;
 
-	userActionListener = cg_upnp_dms_getactionlistener(dms);
+	userActionListener = cg_upnpav_dms_getactionlistener(dms);
 	if (userActionListener) {
 		if (userActionListener(action))
 			return TRUE;
 	}
 
-	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNP_DMS_CONTENTDIRECTORY_SERVICE_TYPE))
-		return cg_upnp_dms_condir_actionreceived(action);
+	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_TYPE))
+		return cg_upnpav_dms_condir_actionreceived(action);
 
-	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNP_DMS_CONNECTIONMANAGER_SERVICE_TYPE))
-		return cg_upnp_dms_conmgr_actionreceived(action);
+	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_TYPE))
+		return cg_upnpav_dms_conmgr_actionreceived(action);
 
 	return FALSE;
 }
 
 /****************************************
-* cg_upnp_dms_queryreceived
+* cg_upnpav_dms_queryreceived
 ****************************************/
 
-BOOL cg_upnp_dms_queryreceived(CgUpnpStateVariable *statVar)
+BOOL cg_upnpav_dms_queryreceived(CgUpnpStateVariable *statVar)
 {
 	CgUpnpDevice *dev;
 	CgUpnpService *service;
-	CgUpnpMediaServer *dms;
+	CgUpnpAvServer *dms;
 	CG_UPNPAV_STATEVARIABLE_LISTNER userQueryListener;
 
 	service = cg_upnp_statevariable_getservice(statVar);
@@ -124,29 +124,29 @@ BOOL cg_upnp_dms_queryreceived(CgUpnpStateVariable *statVar)
 	if (!dev) 
 		return FALSE;
 
-	dms = (CgUpnpMediaServer *)cg_upnp_device_getuserdata(dev);
+	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
 	if (!dms)
 		return FALSE;
 
-	userQueryListener = cg_upnp_dms_getquerylistener(dms);
+	userQueryListener = cg_upnpav_dms_getquerylistener(dms);
 	if (userQueryListener) {
 		if (userQueryListener(statVar))
 			return TRUE;
 	}
 	
-	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNP_DMS_CONTENTDIRECTORY_SERVICE_TYPE))
-		return cg_upnp_dms_condir_queryreceived(statVar);
+	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_TYPE))
+		return cg_upnpav_dms_condir_queryreceived(statVar);
 
 	return FALSE;
 }
 
 /****************************************
-* cg_upnp_dms_device_httprequestrecieved
+* cg_upnpav_dms_device_httprequestrecieved
 ****************************************/
 
-void cg_upnp_dms_device_httprequestrecieved(CgHttpRequest *httpReq)
+void cg_upnpav_dms_device_httprequestrecieved(CgHttpRequest *httpReq)
 {
-	CgUpnpMediaServer *dms;
+	CgUpnpAvServer *dms;
 	CgUpnpDevice *dev;
 	CG_UPNPAV_HTTP_LISTENER userHttpListener;
 
@@ -156,13 +156,13 @@ void cg_upnp_dms_device_httprequestrecieved(CgHttpRequest *httpReq)
 		return;
 	}
 
-	dms = (CgUpnpMediaServer *)cg_upnp_device_getuserdata(dev);
+	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
 	if (!dms) {
 		cg_upnp_device_httprequestrecieved(httpReq);
 		return;
 	}
 
-	userHttpListener = cg_upnp_dms_gethttplistener(dms);
+	userHttpListener = cg_upnpav_dms_gethttplistener(dms);
 	if (userHttpListener) {
 		if (userHttpListener(httpReq))
 			return;
@@ -172,14 +172,14 @@ void cg_upnp_dms_device_httprequestrecieved(CgHttpRequest *httpReq)
 }
 
 /****************************************
-* cg_upnp_dms_new
+* cg_upnpav_dms_new
 ****************************************/
 
-CgUpnpMediaServer *cg_upnp_dms_new()
+CgUpnpAvServer *cg_upnpav_dms_new()
 {
-	CgUpnpMediaServer *dms;
+	CgUpnpAvServer *dms;
 	
-	dms = (CgUpnpMediaServer *)malloc(sizeof(CgUpnpMediaServer));
+	dms = (CgUpnpAvServer *)malloc(sizeof(CgUpnpAvServer));
 
 	dms->dev = cg_upnp_device_new();
 	if (!dms->dev) {
@@ -187,47 +187,47 @@ CgUpnpMediaServer *cg_upnp_dms_new()
 		return NULL;
 	}
 
-	if (cg_upnp_device_parsedescription(dms->dev, CG_UPNP_DMS_DEVICE_DESCRIPTION, cg_strlen(CG_UPNP_DMS_DEVICE_DESCRIPTION)) == FALSE) {
+	if (cg_upnp_device_parsedescription(dms->dev, CG_UPNPAV_DMS_DEVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMS_DEVICE_DESCRIPTION)) == FALSE) {
 		cg_upnp_device_delete(dms->dev);
 		free(dms);
 		return NULL;
 	}
 
-	if (cg_upnp_dms_conmgr_init(dms) == FALSE) {
+	if (cg_upnpav_dms_conmgr_init(dms) == FALSE) {
 		cg_upnp_device_delete(dms->dev);
 		free(dms);
 		return NULL;
 	}
 
-	if (cg_upnp_dms_condir_init(dms) == FALSE) {
+	if (cg_upnpav_dms_condir_init(dms) == FALSE) {
 		cg_upnp_device_delete(dms->dev);
 		free(dms);
 		return NULL;
 	}
 
-	dms->rootContent = cg_upnp_media_content_new();
-	cg_upnp_media_content_settype(dms->rootContent, CG_UPNP_MEDIA_CONTENT_CONTAINER);
-	cg_upnp_media_content_setid(dms->rootContent, CG_UPNP_MEDIA_ROOT_CONTENT_ID);
-	cg_upnp_media_content_setparentid(dms->rootContent, CG_UPNP_MEDIA_ROOT_CONTENT_PARENTID);
+	dms->rootContent = cg_upnpav_content_new();
+	cg_upnpav_content_settype(dms->rootContent, CG_UPNPAV_CONTENT_CONTAINER);
+	cg_upnpav_content_setid(dms->rootContent, CG_UPNPAV_ROOT_CONTENT_ID);
+	cg_upnpav_content_setparentid(dms->rootContent, CG_UPNPAV_ROOT_CONTENT_PARENTID);
 
 	if (!dms->rootContent) {
-		cg_upnp_dms_delete(dms);
+		cg_upnpav_dms_delete(dms);
 		return NULL;
 	}
 
 	dms->mutex = cg_mutex_new();
 	if (!dms->mutex) {
-		cg_upnp_dms_delete(dms);
+		cg_upnpav_dms_delete(dms);
 		return NULL;
 	}
 
-	cg_upnp_device_setactionlistener(dms->dev, cg_upnp_dms_actionreceived);
-	cg_upnp_device_setquerylistener(dms->dev, cg_upnp_dms_queryreceived);
-	cg_upnp_device_sethttplistener(dms->dev, cg_upnp_dms_device_httprequestrecieved);
+	cg_upnp_device_setactionlistener(dms->dev, cg_upnpav_dms_actionreceived);
+	cg_upnp_device_setquerylistener(dms->dev, cg_upnpav_dms_queryreceived);
+	cg_upnp_device_sethttplistener(dms->dev, cg_upnpav_dms_device_httprequestrecieved);
 
-	cg_upnp_dms_setactionlistener(dms, NULL);
-	cg_upnp_dms_setquerylistener(dms, NULL);
-	cg_upnp_dms_sethttplistener(dms, NULL);
+	cg_upnpav_dms_setactionlistener(dms, NULL);
+	cg_upnpav_dms_setquerylistener(dms, NULL);
+	cg_upnpav_dms_sethttplistener(dms, NULL);
 
 	cg_upnp_device_setuserdata(dms->dev, dms);
 	
@@ -235,16 +235,16 @@ CgUpnpMediaServer *cg_upnp_dms_new()
 }
 
 /****************************************
-* cg_upnp_dms_delete
+* cg_upnpav_dms_delete
 ****************************************/
 
-void cg_upnp_dms_delete(CgUpnpMediaServer *dms)
+void cg_upnpav_dms_delete(CgUpnpAvServer *dms)
 {
 	if (dms == NULL)
 		return;
 
 	if (dms->rootContent)
-		cg_upnp_media_content_delete(dms->rootContent);
+		cg_upnpav_content_delete(dms->rootContent);
 
 	if (dms->mutex)
 		cg_mutex_delete(dms->mutex);
@@ -255,20 +255,20 @@ void cg_upnp_dms_delete(CgUpnpMediaServer *dms)
 }
 
 /****************************************
-* cg_upnp_dms_findcontentbyname
+* cg_upnpav_dms_findcontentbyname
 ****************************************/
 
-CgUpnpMediaContent *cg_upnp_dms_findcontentbytitle(CgUpnpMediaServer *dms, char *title)
+CgUpnpAvContent *cg_upnpav_dms_findcontentbytitle(CgUpnpAvServer *dms, char *title)
 {
-	return cg_upnp_media_content_getbytitle(cg_upnp_dms_getrootcontent(dms), title);
+	return cg_upnpav_content_getbytitle(cg_upnpav_dms_getrootcontent(dms), title);
 }
 
 /****************************************
-* cg_upnp_dms_findcontentbyobjectid
+* cg_upnpav_dms_findcontentbyobjectid
 ****************************************/
 
-CgUpnpMediaContent *cg_upnp_dms_findcontentbyid(CgUpnpMediaServer *dms, char *objID)
+CgUpnpAvContent *cg_upnpav_dms_findcontentbyid(CgUpnpAvServer *dms, char *objID)
 {
-	return cg_upnp_media_content_getbyid(cg_upnp_dms_getrootcontent(dms), objID);
+	return cg_upnpav_content_getbyid(cg_upnpav_dms_getrootcontent(dms), objID);
 }
 
