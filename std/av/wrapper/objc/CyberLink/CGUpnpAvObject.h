@@ -8,8 +8,8 @@
 
 #import <CyberLink/CGXmlNode.h>
 
-#if  !defined(_CG_CLINKC_MEDIA_CONTENT_H_)
-typedef void CgUpnpMediaContent;
+#if  !defined(_CG_CLINKCAV_CONTENT_H_)
+typedef void CgUpnpAvContent;
 #endif
 
 /**
@@ -25,7 +25,7 @@ typedef void CgUpnpMediaContent;
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 #else
 - (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
-- (id)initWithMediaContent:(CgUpnpMediaContent *)aMediaContent;
+- (id)initWithMediaContent:(CgUpnpAvContent *)aMediaContent;
 #endif
 - (BOOL)isEqual:(id)anObject;
 - (BOOL)isContainer;

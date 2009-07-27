@@ -33,6 +33,7 @@ extern "C" {
 ****************************************/
 
 #define CG_UPNPAV_PROTOCOLINFO_MAXSIZE 512
+#define CG_UPNPAV_PROTOCOLINFO_HTTPGET "http-get"
 
 /****************************************
 * Data Type

@@ -7,7 +7,7 @@
 //
 
 #include <cybergarage/xml/cxml.h>
-#include <cybergarage/upnp/std/av/ccontent.h>
+#include <cybergarage/upnp/std/av/cupnpav.h>
 
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
@@ -118,7 +118,7 @@
 }
 
 #if  defined(TARGET_OS_IPHONE)
-- (id)initWithMediaContent:(CgUpnpMediaContent *)aMediaContent
+- (id)initWithMediaContent:(CgUpnpAvContent *)aMediaContent
 {
 	if ((self = [super initWithXMLNode:aMediaContent]) == nil)
 		return nil;
@@ -183,42 +183,42 @@
 
 - (NSString *)objectId
 {
-	return [self attributeValueForName:CG_UPNPAV_OBJECT_ID];
+	return [self attributeValueForName:@CG_UPNPAV_OBJECT_ID];
 }
 
 - (NSString *)title;
 {
-	return [self elementValueForName:CG_UPNPAV_OBJECT_TITLE];
+	return [self elementValueForName:@CG_UPNPAV_OBJECT_TITLE];
 }
 
 - (NSString *)upnpClass;
 {
-	return [self elementValueForName:CG_UPNPAV_OBJECT_UPNPCLASS];
+	return [self elementValueForName:@CG_UPNPAV_OBJECT_UPNPCLASS];
 }
 
 - (NSString *)date;
 {
-	return [self elementValueForName:CG_UPNPAV_OBJECT_DATE];
+	return [self elementValueForName:@CG_UPNPAV_OBJECT_DATE];
 }
 
 - (NSString *)albumArtURI;
 {
-	return [self elementValueForName:CG_UPNPAV_OBJECT_ALBUMARTURI];
+	return [self elementValueForName:@CG_UPNPAV_OBJECT_ALBUMARTURI];
 }
 
 - (void)setObjectId:(NSString *)aValue
 {
-	[self setAttributeWithName:CG_UPNPAV_OBJECT_ID stringValue:aValue];
+	[self setAttributeWithName:@CG_UPNPAV_OBJECT_ID stringValue:aValue];
 }
 
 - (void)setTitle:(NSString *)aValue;
 {
-	[self setAttributeWithName:CG_UPNPAV_OBJECT_TITLE stringValue:aValue];
+	[self setAttributeWithName:@CG_UPNPAV_OBJECT_TITLE stringValue:aValue];
 }
 
 - (void)setUpnpClass:(NSString *)aValue;
 {
-	[self setAttributeWithName:CG_UPNPAV_OBJECT_UPNPCLASS stringValue:aValue];
+	[self setAttributeWithName:@CG_UPNPAV_OBJECT_UPNPCLASS stringValue:aValue];
 }
 
 - (BOOL)isObjectId:(NSString *)aObjectId

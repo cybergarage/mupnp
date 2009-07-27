@@ -118,21 +118,6 @@ void cg_upnpav_resource_setdlnaattribute(CgUpnpAvResource *res, char *attr)
 }
 
 /****************************************
-* cg_upnpav_resource_getnprotocolinfos
-****************************************/
-
-static char CG_UPNP_AV_SUPPORTED_MIMETYPES[][CG_UPNPAV_PROTOCOLINFO_MAXLEN] = {
-CG_UPNPAV_MIMETYPE_JPEG,
-CG_UPNPAV_MIMETYPE_MPEG,
-CG_UPNPAV_MIMETYPE_MP3,
-};
-
-int cg_upnpav_resource_getnprotocolinfos()
-{
-	return 3; /*sizeof(CG_UPNP_AV_SUPPORTED_MIMETYPES/sizeof(CG_UPNP_AV_SUPPORTED_MIMETYPES[0][0]))*/;
-}
-
-/****************************************
 * cg_upnpav_resource_getdlnaattributesbymimetype
 ****************************************/
 
@@ -188,28 +173,6 @@ char *cg_upnpav_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaA
 char *cg_upnpav_resource_getdlnaattributes(CgUpnpAvResource *res, char *dlnaAttr, int dlnaAttrSize)
 {
 	return cg_upnpav_resource_getdlnaattributesbymimetype(cg_upnpav_resource_getmimetype(res), dlnaAttr, dlnaAttrSize);
-}
-
-/****************************************
-* cg_upnpav_resource_getprotocolinfo
-****************************************/
-
-char *cg_upnpav_resource_getprotocolinfo(int n, char *protoInfoBuf, int protoInfoBufSize)
-{
-	char dlnaAttr[CG_UPNPAV_DLNAATTR_MAXLEN];
-
-#if defined(WIN32)
-	_snprintf(
-#else
-	snprintf(
-#endif
-		protoInfoBuf,
-		protoInfoBufSize-1,
-		"http-get:*:%s:%s",
-		CG_UPNP_AV_SUPPORTED_MIMETYPES[n],
-		cg_upnpav_resource_getdlnaattributesbymimetype(CG_UPNP_AV_SUPPORTED_MIMETYPES[n], dlnaAttr, sizeof(dlnaAttr)));
-
-	return protoInfoBuf;
 }
 
 /****************************************
