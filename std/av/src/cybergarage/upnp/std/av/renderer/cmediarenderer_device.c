@@ -251,6 +251,8 @@ CgUpnpAvRenderer *cg_upnpav_dmr_new()
 
 	cg_upnp_device_setuserdata(dmr->dev, dmr);
 	
+	dmr->protocolInfoList = cg_upnpav_protocolinfolist_new();
+
 	return dmr;
 }
 
@@ -265,6 +267,9 @@ void cg_upnpav_dmr_delete(CgUpnpAvRenderer *dmr)
 
 	if (dmr->mutex)
 		cg_mutex_delete(dmr->mutex);
+
+	if (dmr->protocolInfoList)
+		cg_upnpav_protocolinfolist_delete(dmr->protocolInfoList);
 
 	cg_upnp_device_delete(dmr->dev);
 

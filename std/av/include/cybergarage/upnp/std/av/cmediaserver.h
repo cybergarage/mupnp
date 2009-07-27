@@ -17,9 +17,6 @@
 
 #include <cybergarage/upnp/cupnp.h>
 #include <cybergarage/upnp/std/av/cupnpav.h>
-#include <cybergarage/upnp/std/av/cdidl.h>
-#include <cybergarage/upnp/std/av/ccontent.h>
-#include <cybergarage/upnp/std/av/cmd5.h>
 
 #ifdef  __cplusplus
 extern "C" {
@@ -37,6 +34,7 @@ int systemUpdateID;
 CG_UPNPAV_HTTP_LISTENER httplistener;
 CG_UPNPAV_ACTION_LISTNER actionListner;
 CG_UPNPAV_STATEVARIABLE_LISTNER queryListner;
+CgUpnpAvProtocolInfoList *protocolInfoList;
 void *userData;
 } CgUpnpAvServer;
 
@@ -161,6 +159,9 @@ CgUpnpAvContent *cg_upnpav_dms_findcontentbyid(CgUpnpAvServer *dms, char *object
 
 #define cg_upnpav_dms_setuserdata(dms,data) (dms->userData = data)
 #define cg_upnpav_dms_getuserdata(dms) (dms->userData)
+
+#define cg_upnpav_dms_addprotocolinfo(dms, info) cg_upnpav_protocolinfolist_add(dms->protocolInfoList, info)
+#define cg_upnpav_dms_getprotocolinfos(dms) cg_upnpav_protocolinfolist_gets(dms->protocolInfoList)
 
 /****************************************
 * Connection Manager

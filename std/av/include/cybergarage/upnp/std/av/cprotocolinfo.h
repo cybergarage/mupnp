@@ -22,13 +22,11 @@
 #define _CG_CLINKCAV_PROTOCOLINFO_H_
 
 #include <cybergarage/util/cstring.h>
-#include <cybergarage/upnp/cupnp.h>
-#include <cybergarage/upnp/std/av/cupnpav.h>
+#include <cybergarage/util/clist.h>
 
 #ifdef  __cplusplus
 extern "C" {
 #endif
-
 
 /****************************************
 * Constant
