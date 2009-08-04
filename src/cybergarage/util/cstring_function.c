@@ -475,7 +475,7 @@ char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
 * cg_float2str
 ****************************************/
 
-char *cg_float2str(int value, char *buf, float bufSize)
+char *cg_float2str(float value, char *buf, int bufSize)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -494,7 +494,7 @@ char *cg_float2str(int value, char *buf, float bufSize)
 * cg_double2str
 ****************************************/
 
-char *cg_double2str(long value, char *buf, int bufSize)
+char *cg_double2str(double value, char *buf, int bufSize)
 {
  cg_log_debug_l5("Entering...\n");
 
