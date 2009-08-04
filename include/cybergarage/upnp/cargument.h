@@ -239,6 +239,57 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  */
 #define cg_upnp_argument_getvalue(arg) cg_string_getvalue(arg->value)
 
+/**
+ * Set argument value
+ *
+ * @param arg Argument
+ * @param data Argument value
+ */
+#define cg_upnp_argument_setintvalue(arg,data) cg_string_setintvalue(arg->value, data)
+
+/**
+ * Get argument value
+ *
+ * @param arg Argument
+ *
+ * @return Argument value
+ */
+#define cg_upnp_argument_getintvalue(arg) cg_string_getvalue(arg->value)
+
+/**
+ * Set argument value
+ *
+ * @param arg Argument
+ * @param data Argument value
+ */
+#define cg_upnp_argument_setfloatvalue(arg,data) cg_string_setfloatvalue(arg->value, data)
+
+/**
+ * Get argument value
+ *
+ * @param arg Argument
+ *
+ * @return Argument value
+ */
+#define cg_upnp_argument_getfloatvalue(arg) cg_string_getvalue(arg->value)
+
+/**
+ * Set argument value
+ *
+ * @param arg Argument
+ * @param data Argument value
+ */
+#define cg_upnp_argument_setdoublevalue(arg,data) cg_string_setdoublevalue(arg->value, data)
+
+/**
+ * Get argument value
+ *
+ * @param arg Argument
+ *
+ * @return Argument value
+ */
+#define cg_upnp_argument_getdoublevalue(arg) cg_string_getvalue(arg->value)
+
 /****************************************
 * Function (ArgumentList)
 ****************************************/
