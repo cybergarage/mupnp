@@ -769,26 +769,24 @@ BOOL cg_upnpav_dmr_renderingctrl_actionreceived(CgUpnpAction *action)
 	if (!dmr)
 		return FALSE;
 
-	/* GetProtocolInfo*/
-	/*
-	if (cg_streq(actionName, CG_UPNPAV_DMR_CONNECTIONMANAGER_GET_PROTOCOL_INFO)) {
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINK);
+	/* GetMute*/
+	if (cg_streq(actionName, CG_UPNPAV_DMR_RENDERINGCONTROL_GETMUTE)) {
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_RENDERINGCONTROL_CURRENTMUTE);
 		if (!arg)
 			return FALSE;
-		protocolInfos = cg_string_new();
-		protocolInfoCnt = cg_upnpav_resource_getnprotocolinfos();
-		for (n=0; n<protocolInfoCnt; n++) {
-			if (0 < cg_string_length(protocolInfos))
-				cg_string_addvalue(protocolInfos, ",");
-			cg_upnpav_resource_getprotocolinfo(n, protoInfoBuf, sizeof(protoInfoBuf)-1);
-			cg_string_addvalue(protocolInfos, protoInfoBuf);
-		}
-		cg_upnp_argument_setvalue(arg, cg_string_getvalue(protocolInfos));
-		cg_string_delete(protocolInfos);
+		cg_upnp_argument_setvalue(arg, "0");
 		return TRUE;
 	}
-	*/
 
+	/* GetVolume */
+	if (cg_streq(actionName, CG_UPNPAV_DMR_RENDERINGCONTROL_GETVOLUME)) {
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_RENDERINGCONTROL_CURRENTVOLUME);
+		if (!arg)
+			return FALSE;
+		cg_upnp_argument_setvalue(arg, "1");
+		return TRUE;
+	}
+	
 	return FALSE;
 }
 

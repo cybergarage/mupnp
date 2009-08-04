@@ -50,6 +50,10 @@ void *userData;
 #define CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_TYPE "urn:schemas-upnp-org:service:RenderingControl:1"
 #define CG_UPNPAV_DMR_RENDERINGCONTROL_GETVOLUME "GetVolume"
 #define CG_UPNPAV_DMR_RENDERINGCONTROL_GETMUTE "GetMute"
+#define CG_UPNPAV_DMR_RENDERINGCONTROL_CURRENTMUTE "CurrentMute"
+#define CG_UPNPAV_DMR_RENDERINGCONTROL_DESIREDMUTE "DesiredMute"
+#define CG_UPNPAV_DMR_RENDERINGCONTROL_CURRENTVOLUME "CurrentVolume"
+#define CG_UPNPAV_DMR_RENDERINGCONTROL_DESIREDVOLUME"DesiredVolume"
 
 /****************************************
 * Constants (Connection Manager)
