@@ -46,6 +46,9 @@ extern "C" {
 
  /*  ULLONG_MAX : 18446744073709551615ULL */
 #define CG_STRING_LONGLONG_BUFLEN 32
+
+#define CG_STRING_FLOAT_BUFLEN 64
+#define CG_STRING_DOUBLE_BUFLEN 64
 	
 /****************************************
 * Function 
@@ -69,6 +72,8 @@ char *cg_strltrim(char *str, char *delim, int ndelim);
 char *cg_strrtrim(char *str, char *delim, int ndelim);
 char *cg_int2str(int value, char *buf, int bufSize);
 char *cg_long2str(long value, char *buf, int bufSize);
+char *cg_float2str(float value, char *buf, int bufSize);
+char *cg_double2str(double value, char *buf, int bufSize);
 char *cg_strncpy(char *str1, char *str2, size_t cnt);
 char *cg_strncat(char *str1, char *str2, size_t cnt);
 	
@@ -80,6 +85,8 @@ char *cg_longlong2str(CgInt64 value, char *buf, int bufSize);
 #define cg_str2long(value) (value ? atol(value) : 0)
 #define cg_strhex2long(value) (value ? strtol(value, NULL, 16) : 0)
 #define cg_strhex2ulong(value) (value ? strtoul(value, NULL, 16) : 0)
+#define cg_str2float(value) ((float)(value ? atof(value) : 0.0))
+#define cg_str2double(value) (value ? atof(value) : 0.0)
 	
 #if defined(CG_USE_INT64)
 #if defined(__USE_ISOC99) || defined(HAVE_LONGLONG)
@@ -136,12 +143,16 @@ void cg_string_clear(CgString *str);
 void cg_string_setvalue(CgString *str, char *value);
 void cg_string_setintvalue(CgString *str, int value);
 void cg_string_setlongvalue(CgString *str, long value);
+void cg_string_setfloatvalue(CgString *str, float value);
+void cg_string_setdoublevalue(CgString *str, double value);
 void cg_string_setnvalue(CgString *str, char *value, int len);
 void cg_string_setpointervalue(CgString *str, char *value, int len);
 
 char *cg_string_getvalue(CgString *str);
 #define cg_string_getintvalue(str) cg_str2int(cg_string_getvalue(str))
 #define cg_string_getlongvalue(str) cg_str2long(cg_string_getvalue(str))
+#define cg_string_getfloatvalue(str) cg_str2float(cg_string_getvalue(str))
+#define cg_string_getdoublevalue(str) cg_str2double(cg_string_getvalue(str))
 	
 int cg_string_length(CgString *str);
 

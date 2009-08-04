@@ -25,6 +25,8 @@
 *    cg_longlong2str()
 * 10/22/07 Aapo Makela
 *  - Added NULL check to cg_strtrimwhite()
+* 08/04/09
+*  - Added cg_float2str() and cg_double2str().
 *
 ******************************************************************/
 
@@ -396,9 +398,11 @@ char *cg_strncat(char *str1, char *str2, size_t cnt)
 	cg_log_debug_l5("Entering...\n");
 
 	str1Len = cg_strlen(str1);
+	
+	cg_log_debug_l5("Leaving...\n");
+	
 	return cg_strncpy((str1 + str1Len), str2, cnt);
 
-	cg_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -414,9 +418,10 @@ char *cg_int2str(int value, char *buf, int bufSize)
 #else
  sprintf(buf, "%d", value);
 #endif
- return buf;
 
  cg_log_debug_l5("Leaving...\n");
+
+ return buf;
 }
 
 /****************************************
@@ -432,9 +437,10 @@ char *cg_long2str(long value, char *buf, int bufSize)
 #else
  sprintf(buf, "%ld", value);
 #endif
- return buf;
 
  cg_log_debug_l5("Leaving...\n");
+
+ return buf;
 }
 
 /****************************************
@@ -464,3 +470,42 @@ char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
  return buf;
 }
 #endif
+
+/****************************************
+* cg_float2str
+****************************************/
+
+char *cg_float2str(int value, char *buf, float bufSize)
+{
+ cg_log_debug_l5("Entering...\n");
+
+#if defined(HAVE_SNPRINTF)
+ snprintf(buf, bufSize, "%f", value);
+#else
+ sprintf(buf, "%f", value);
+#endif
+
+ cg_log_debug_l5("Leaving...\n");
+
+ return buf;
+}
+
+/****************************************
+* cg_double2str
+****************************************/
+
+char *cg_double2str(long value, char *buf, int bufSize)
+{
+ cg_log_debug_l5("Entering...\n");
+
+#if defined(HAVE_SNPRINTF)
+ snprintf(buf, bufSize, "%lf", value);
+#else
+ sprintf(buf, "%lf", value);
+#endif
+
+ cg_log_debug_l5("Leaving...\n");
+
+ return buf;
+}
+
