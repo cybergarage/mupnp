@@ -53,7 +53,7 @@ void *userData;
 #define CG_UPNPAV_DMR_RENDERINGCONTROL_CURRENTMUTE "CurrentMute"
 #define CG_UPNPAV_DMR_RENDERINGCONTROL_DESIREDMUTE "DesiredMute"
 #define CG_UPNPAV_DMR_RENDERINGCONTROL_CURRENTVOLUME "CurrentVolume"
-#define CG_UPNPAV_DMR_RENDERINGCONTROL_DESIREDVOLUME"DesiredVolume"
+#define CG_UPNPAV_DMR_RENDERINGCONTROL_DESIREDVOLUME "DesiredVolume"
 
 /****************************************
 * Constants (Connection Manager)
