@@ -254,7 +254,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return Argument value
  */
-#define cg_upnp_argument_getintvalue(arg) cg_string_getvalue(arg->value)
+#define cg_upnp_argument_getintvalue(arg) cg_string_getintvalue(arg->value)
 
 /**
  * Set argument value
@@ -271,7 +271,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return Argument value
  */
-#define cg_upnp_argument_getfloatvalue(arg) cg_string_getvalue(arg->value)
+#define cg_upnp_argument_getfloatvalue(arg) cg_string_getfloatvalue(arg->value)
 
 /**
  * Set argument value
@@ -288,7 +288,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return Argument value
  */
-#define cg_upnp_argument_getdoublevalue(arg) cg_string_getvalue(arg->value)
+#define cg_upnp_argument_getdoublevalue(arg) cg_string_getdoublevalue(arg->value)
 
 /****************************************
 * Function (ArgumentList)
