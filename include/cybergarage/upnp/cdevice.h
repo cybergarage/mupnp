@@ -1337,6 +1337,14 @@ void cg_upnp_devicelist_delete(CgUpnpDeviceList *devList);
 #define cg_upnp_device_gethttplistener(dev) (dev->httpListener)
 
 /**
+ * Get the HTTP server list 
+ * 
+ * \param dev The device in question
+ *
+ */
+#define cg_upnp_device_gethttpserverlist(dev) (dev->httpServerList)
+	
+/**
  * Handler function for a received HTTP request. Delegates GET and POST requests
  * to their respective handlers, or treats as a BAD REQUEST, when appropriate.
  * 
@@ -1365,6 +1373,14 @@ void cg_upnp_device_httprequestrecieved(CgHttpRequest *httpReq);
  */
 void cg_upnp_device_ssdplistener(CgUpnpSSDPPacket *ssdpPkt);
 
+/**
+ * Get the SSDP server list 
+ * 
+ * \param dev The device in question
+ *
+ */
+#define cg_upnp_device_getssdpserverlist(dev) (dev->ssdpServerList)
+	
 /**
  * Get the device's Notification Type (NT). For the root device this is "upnp:rootdevice",
  * otherwise the device's UDN (Unique Device Name).

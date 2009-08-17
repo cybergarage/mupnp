@@ -549,6 +549,7 @@ void cg_http_server_setlistener(CgHttpServer *httpServer, CG_HTTP_LISTENER liste
 
 #define cg_http_server_next(httpServer) (CgHttpServer *)cg_list_next((CgList *)httpServer)
 
+#define cg_http_server_getsocket(httpServer) (httpServer->sock)
 #define cg_http_server_isopened(httpServer) ((httpServer->sock != NULL) ? TRUE : FALSE)
 
 #define cg_http_server_setuserdata(httpServer, value) (httpServer->userData = value)
