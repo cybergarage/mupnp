@@ -101,7 +101,7 @@
 }
 
 - (NSArray *)browse:(NSString *)aObjectId browseFlag:(NSString *)aBrowseFlag withRequestedCount:(NSUInteger) aRequestedCount
-{
+{	
 	CGUpnpService *conDirService = [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
 		return nil;
@@ -182,7 +182,14 @@
 
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId withRequestedCount:(NSUInteger) aRequestedCount
 {
-	return [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:0];
+	NSLog(@"browseDirectChildren = %@ (%d)", aObjectId, aRequestedCount);
+	if (aRequestedCount == 0) {
+		CGUpnpAvObject *browseAvObj = [self browseMetadata:aObjectId];
+		if (browseAvObj != nil)
+			aRequestedCount = [browseAvObj childCount];
+		NSLog(@"browseMetadata = %@ (%d)", aObjectId, aRequestedCount);
+	}
+	return [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:aRequestedCount];
 }
 
 - (NSArray *)search:(NSString *)aSearchCriteria;

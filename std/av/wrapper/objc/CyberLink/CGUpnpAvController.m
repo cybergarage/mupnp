@@ -151,6 +151,8 @@
 	if (!avObj)
 		return nil;
 
+	NSLog(@"objectForIndexPath = %@ (%@)", [avObj title], [avObj objectId]);
+	
 	int n;
 	for (n=2; n<idxCnt; n++) {
 		if ([avObj isItem])
