@@ -186,6 +186,11 @@
 	return [self attributeValueForName:@CG_UPNPAV_OBJECT_ID];
 }
 
+- (NSUInteger)childCount;
+{
+	return cg_str2int([[self attributeValueForName:@CG_UPNPAV_OBJECT_ID] UTF8String]);
+}
+
 - (NSString *)title;
 {
 	return [self elementValueForName:@CG_UPNPAV_OBJECT_TITLE];

@@ -34,6 +34,7 @@ typedef void CgUpnpAvContent;
 - (CGUpnpAvObject *)parent;
 - (CGUpnpAvObject *)ancestor;
 - (NSString *)objectId;
+- (NSUInteger)childCount;
 - (NSString *)title;
 - (NSString *)upnpClass;
 - (NSString *)date;
