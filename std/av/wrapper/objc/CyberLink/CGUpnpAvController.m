@@ -143,25 +143,19 @@
 	if (!rootObj)
 		return nil;
 
-	int idxCnt = [aServerAndTitleIndexPath length];
-	if (idxCnt < 2)
-		return rootObj;
-	
-	CGUpnpAvObject *avObj = [rootObj childAtIndex:[aServerAndTitleIndexPath indexAtPosition:1]];
-	if (!avObj)
-		return nil;
-
-	NSLog(@"objectForIndexPath = %@ (%@)", [avObj title], [avObj objectId]);
-	
-	int n;
-	for (n=2; n<idxCnt; n++) {
+	CGUpnpAvObject *avObj = rootObj;
+	int idxPathLength = [aServerAndTitleIndexPath length];
+	for (int n=1; n<idxPathLength; n++) {
 		if ([avObj isItem])
 			return nil;
 		CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
-		avObj = [avCon childAtIndex:[aServerAndTitleIndexPath indexAtPosition:n]];
+		int avObjIdx = [aServerAndTitleIndexPath indexAtPosition:n];
+		avObj = [avCon childAtIndex:avObjIdx];
+		NSLog(@"objectForIndexPath = [%d/%d][%d/%d] %@ (%@)", n, idxPathLength, avObjIdx,  [avCon childCount], [avObj title], [avObj objectId]);
 		if (!avObj)
 			return nil;
 	}
+	
 	
 	return [[avObj retain] autorelease];
 }
