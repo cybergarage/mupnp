@@ -206,6 +206,13 @@
 	return cg_upnp_device_stop(cObject);
 }
 
+-(BOOL)isRunning
+{
+	if (!cObject)
+		return NO;
+	return cg_upnp_device_isrunning(cObject);
+}
+
 /**
  * Announce the device.
  *
