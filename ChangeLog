@@ -1,4 +1,4 @@
-2009-08-17  Satoshi Konno <skonno@cybergarage.org>
+2009-08-27  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_argument_setfloatvalue() and cg_upnp_argument_getfloatvalue().
 	* Added cg_upnp_argument_setdoublevalue() and cg_upnp_argument_getdoublevalue().
 	* Added cg_string_getfloatvalue() and cg_string_getdoublevalue().
@@ -6,7 +6,8 @@
 	* Added cg_str2float() and cg_str2double().
 	* Added cg_upnp_device_gethttpserverlist() and cg_upnp_device_getssdpserverlist().
 	* Added cg_http_server_getsocket().
-	
+	* Added CGUpnpDevice::isRunning().
+
 2009-06-01  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_dictionary_*();
 	* Added cg_net_uri_getquerydictionary().

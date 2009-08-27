@@ -166,6 +166,12 @@ typedef void CgUpnpDevice;
  *
  * @return YES if the device is started normally, otherwise NO.
  */
+- (BOOL)isRunning;
+/**
+ * Announce the device.
+ *
+ * @return YES if the device is started normally, otherwise NO.
+ */
 - (BOOL)announce;
 /**
  * Set a user data.
