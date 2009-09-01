@@ -22,6 +22,10 @@
 *
 ******************************************************************/
 
+#if defined(TARGET_OS_IPHONE)
+#include <uuid/uuid.h>
+#endif
+
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
 #endif
@@ -42,25 +46,37 @@ static BOOL isUpnpNMPRMode = FALSE;
 * cg_upnp_createuuid
 ****************************************/
 
-char *cg_upnp_createuuid(char *uuidBuf)
+char *cg_upnp_createuuid(char *uuidBuf, int uuidBufSize)
 {
+#if defined(TARGET_OS_IPHONE)
+	uuid_t uuid;
+	char uuidStr[CG_UPNP_UUID_MAX_LEN];
+#else
 	time_t time1;
 	time_t time2;
-
+#endif
+	
 	cg_log_debug_l4("Entering...\n");
 
+#if defined(TARGET_OS_IPHONE)
+    uuid_generate(uuid);
+	uuid_unparse_lower(uuid, uuidStr);
+	snprintf(uuidBuf,uuidBufSize, "uuid:%s",uuidStr);
+#else
 	time1 = cg_getcurrentsystemtime();
 	time2 = (time_t)((double)cg_getcurrentsystemtime(NULL) * ((double)rand() / (double)RAND_MAX));
 	/**** Thanks for Makela Aapo (10/30/05) ****/
-	sprintf(uuidBuf, "%s:%04x-%04x-%04x-%04x",
+	snprintf(uuidBuf, uuidBufSize, "%s:%04x-%04x-%04x-%04x",
 		CG_UPNP_UUID_NAME,
 		(int)(time1 & 0xFFFF),
 		(int)(((time1 >> 31) | 0xA000) & 0xFFFF),
 		(int)(time2 & 0xFFFF),
 		(int)(((time2 >> 31) | 0xE000) & 0xFFFF));
-	return uuidBuf;
-
+#endif
+		
 	cg_log_debug_l4("Leaving...\n");
+
+	return uuidBuf;
 }
 
 /****************************************

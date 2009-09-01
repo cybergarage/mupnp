@@ -197,7 +197,8 @@ void cg_socket_startup()
 #elif defined(ITRON) && defined(NORTiAPI)
 		tcp_ini();
 #elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
-		kaInterfaceHandle = ka_tfAddInterface(CG_NET_DEFAULT_IFNAME);
+		kaInterfaceHa
+		ndle = ka_tfAddInterface(CG_NET_DEFAULT_IFNAME);
 #endif
 
 #if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)

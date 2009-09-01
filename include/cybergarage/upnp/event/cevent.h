@@ -34,6 +34,7 @@
 #include <cybergarage/util/clist.h>
 #include <cybergarage/upnp/event/cproperty.h>
 #include <cybergarage/upnp/cservice.h>
+#include <cybergarage/upnp/cupnp_function.h>
 
 #ifdef  __cplusplus
 extern "C" {
@@ -46,7 +47,7 @@ extern "C" {
 /**
  * Definition for SID size
  */
-#define CG_UPNP_SUBSCRIPTION_SID_SIZE (((4+1)*4) + 1)
+#define CG_UPNP_SUBSCRIPTION_SID_SIZE (CG_UPNP_UUID_MAX_LEN + 8)
 
 /**
  * Definition for SID header size
