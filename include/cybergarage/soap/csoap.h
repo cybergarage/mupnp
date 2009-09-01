@@ -128,6 +128,7 @@ CgXmlNode *cg_soap_response_getbodynode(CgSoapResponse *soapRes);
 void cg_soap_response_setcontent(CgSoapResponse *soapRes, CgXmlNode *node);
 #define cg_soap_response_createcontent(soapRes) cg_soap_response_setcontent(soapRes, cg_soap_response_getenvelopenode(soapRes))
 
+#define cg_soap_response_getstatuscode(soapRes) cg_http_response_getstatuscode(soapRes->httpRes)
 #define cg_soap_response_issuccessful(soapRes) cg_http_response_issuccessful(soapRes->httpRes)
 
 /**** User Data ****/

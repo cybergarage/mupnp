@@ -224,6 +224,13 @@ BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notify
  */
 #define cg_upnp_event_notify_response_issuccessful(notifyRes) cg_soap_response_issuccessful(notifyRes)
 
+/**
+ * Get the status code of the specified response
+ *
+ * @param notifyRes Notification response
+ */
+#define cg_upnp_event_notify_response_getstatuscode(notifyRes) cg_soap_response_getstatuscode(notifyRes)
+	
 #ifdef  __cplusplus
 }
 #endif

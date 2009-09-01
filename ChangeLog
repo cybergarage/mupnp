@@ -1,3 +1,7 @@
+2009-09-01  Satoshi Konno <skonno@cybergarage.org>
+	Added cg_soap_response_getstatuscode().
+	Added cg_upnp_event_notify_response_getstatuscode().
+
 2009-08-27  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_argument_setfloatvalue() and cg_upnp_argument_getfloatvalue().
 	* Added cg_upnp_argument_setdoublevalue() and cg_upnp_argument_getdoublevalue().
