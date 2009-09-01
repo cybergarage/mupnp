@@ -39,7 +39,7 @@ static char *CG_UPNPAV_DMS_DEVICE_DESCRIPTION =
 "      <modelNumber>1.0</modelNumber>\n"
 "      <UDN>uuid:BA2E90A0-3669-401a-B249-F85196ADFC44</UDN>\n"
 "      <modelURL>http://www.cybergarage.org</modelURL>\n"
-"      <dlna:X_DLNADOC xmlns:dlna=\"urn:schemas-dlna-org:device-1-0\">DMS-1.00</dlna:X_DLNADOC>\n"
+"      <dlna:X_DLNADOC>DMS-1.00</dlna:X_DLNADOC>\n"
 "      <serviceList>\n"
 "         <service>\n"
 "            <serviceType>urn:schemas-upnp-org:service:ContentDirectory:1</serviceType>\n"
