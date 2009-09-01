@@ -259,7 +259,7 @@ BOOL cg_upnp_device_parsedescription(CgUpnpDevice *dev, char *desciption, int de
 	}
 
 	if (cg_upnp_device_hasudn(dev) == FALSE)
-		cg_upnp_device_setudn(dev, cg_upnp_createuuid(uuidBuf));
+		cg_upnp_device_setudn(dev, cg_upnp_createuuid(uuidBuf, sizeof(uuidBuf)));
 	
 	cg_upnp_device_initchildnodes(dev);
 	

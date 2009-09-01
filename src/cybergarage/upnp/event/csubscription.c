@@ -28,6 +28,7 @@
 
 #include <cybergarage/upnp/event/cevent.h>
 #include <cybergarage/util/clog.h>
+#include <cybergarage/upnp/cupnp_function.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -89,37 +90,10 @@ long cg_upnp_event_subscription_gettimeout(char *headerValue)
 
 char *cg_upnp_event_subscription_createsid(char *buf, int bufSize)
 {
-#if !defined(ITRON)
-	time_t seed1;
-	time_t seed2; 
-#else
-	long seed1;
-	long seed2; 
-#endif
-
 	cg_log_debug_l4("Entering...\n");
-
-#if !defined(ITRON)
-	seed1 = cg_getcurrentsystemtime();
-	seed2 = (time_t)((double)cg_getcurrentsystemtime() * ((double)rand() / (double)RAND_MAX));
-#else
-	seed1 = rand();
-	seed2 = rand();
-#endif
-
-#if defined(HAVE_SNPRINTF)
-	snprintf(buf, bufSize,
-#else
-	sprintf(buf,
-#endif
-		 "%04x-%04x-%04x-%04x", 
-		(int)(seed1 & 0xFFFF), 
-		(int)(((seed1 >> 31) | 0xA000) & 0xFFFF),
-		(int)(seed2 & 0xFFFF), 
-		(int)(((seed2 >> 31) | 0xE000) & 0xFFFF));
-	return buf;
-
+	cg_upnp_createuuid(buf, bufSize);
 	cg_log_debug_l4("Leaving...\n");
+	return buf;	
 }
 
 /****************************************

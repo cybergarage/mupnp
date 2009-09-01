@@ -32,7 +32,7 @@ extern "C" {
 ****************************************/
 
 #define CG_UPNP_UUID_NAME "uuid"
-#define CG_UPNP_UUID_MAX_LEN (5 + ((4+1)*4) + 1)
+#define CG_UPNP_UUID_MAX_LEN 128 /*(5 + ((4+1)*4) + 1)*/
 #define CG_UPNP_SEVERNAME_MAXLEN 64
 
 /****************************************
@@ -49,7 +49,7 @@ extern "C" {
  * \param uuidBuf The UUID created by this function (must not be NULL)
  * \return The UUID created by this function (== \e uuidBuf)
  */
-char *cg_upnp_createuuid(char *uuidBuf);
+char *cg_upnp_createuuid(char *uuidBuf, int uuidBufSize);
 
 /**
  * Get the server name ("OSname/OSversion/UPnP/<version> CyberLinkC/<version>")

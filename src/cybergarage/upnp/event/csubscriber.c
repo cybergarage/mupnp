@@ -191,8 +191,9 @@ static BOOL cg_upnp_subscriber_notifymain(CgUpnpSubscriber *sub, CgUpnpService *
 	cg_upnp_event_notify_request_setpropertysetnode(notifyReq, sub, service, statVar);
 	notifyRes = cg_upnp_event_notify_request_post(notifyReq, host, port);
 	notifySuccess = cg_upnp_event_notify_response_issuccessful(notifyRes);
+
 	cg_upnp_event_notify_request_delete(notifyReq);
-	
+
 	if (notifySuccess == FALSE)
 		return FALSE;
 		
