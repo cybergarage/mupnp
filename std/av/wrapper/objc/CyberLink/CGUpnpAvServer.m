@@ -182,6 +182,7 @@
 
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId withRequestedCount:(NSUInteger) aRequestedCount
 {
+#if defined(CG_CLINKAV_OBJC_USE_BROWSDIRECTMETADATA)
 	NSLog(@"browseDirectChildren = %@ (%d)", aObjectId, aRequestedCount);
 	if (aRequestedCount == 0) {
 		CGUpnpAvObject *browseAvObj = [self browseMetadata:aObjectId];
@@ -189,6 +190,7 @@
 			aRequestedCount = [browseAvObj childCount];
 		NSLog(@"browseMetadata = %@ (%d)", aObjectId, aRequestedCount);
 	}
+#endif
 	return [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:aRequestedCount];
 }
 
