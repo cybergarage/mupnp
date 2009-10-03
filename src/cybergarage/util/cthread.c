@@ -194,9 +194,9 @@ static void *PosixThreadProc(void *param)
 	if (thread->action != NULL) 
 		thread->action(thread);
 	
-	return 0;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return 0;
 }
 #endif
 
