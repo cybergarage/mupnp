@@ -578,7 +578,26 @@ BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action)
 	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
 	if (!dmr)
 		return FALSE;
+	
+	/* GetTransportInfo*/
+	if (cg_streq(actionName, CG_UPNPAV_DMR_AVTRANSPORT_GETTRANSPORTINFO)) {
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATE);
+		if (!arg)
+			return FALSE;
+		cg_upnp_argument_setvalue(arg, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATE_NOMEDIAPRESENT);
 
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS);
+		if (!arg)
+			return FALSE;
+		cg_upnp_argument_setvalue(arg, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS_OK);
+		
+		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTSPEED);
+		if (!arg)
+			return FALSE;
+		cg_upnp_argument_setvalue(arg, "1");
+		return TRUE;
+	}
+	
 	return FALSE;
 }
 

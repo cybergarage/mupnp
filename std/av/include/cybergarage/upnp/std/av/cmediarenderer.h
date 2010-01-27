@@ -68,7 +68,7 @@ void *userData;
 #define CG_UPNPAV_DMR_CONNECTIONMANAGER_GET_PROTOCOL_INFO "GetProtocolInfo"
 #define CG_UPNPAV_DMR_CONNECTIONMANAGER_SOURCE "Source"
 #define CG_UPNPAV_DMR_CONNECTIONMANAGER_SINK "Sink"
-	
+
 /****************************************
 * Constants (AVTransport)
 ****************************************/
@@ -77,6 +77,13 @@ void *userData;
 
 #define CG_UPNPAV_DMR_AVTRANSPORT_GETTRANSPORTINFO "GetTransportInfo"
 #define CG_UPNPAV_DMR_AVTRANSPORT_STOP "Stop"
+
+#define CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATE "CurrentTransportState"
+#define CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS "CurrentTransportStatus"
+#define CG_UPNPAV_DMR_AVTRANSPORT_CURRENTSPEED "CurrentSpeed"
+
+#define CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATE_NOMEDIAPRESENT "NO_MEDIA_PRESENT"
+#define CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS_OK "OK"
 
 /****************************************
 * Public Functions
