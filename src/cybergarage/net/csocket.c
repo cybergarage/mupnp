@@ -805,7 +805,7 @@ int cg_socket_write(CgSocket *sock, char *cmd, int cmdLen)
 #else
 		nSent = send(sock->id, cmd + cmdPos, cmdLen, 0);
 #endif
-
+			
 #if defined(CG_USE_OPENSSL)
 		}
 		else {

@@ -1139,9 +1139,7 @@ BOOL cg_upnp_service_addsubscriber(CgUpnpService *service, CgUpnpSubscriber *sub
 {
 	cg_log_debug_l4("Entering...\n");
 
-	cg_upnp_service_lock(service);
 	cg_upnp_subscriberlist_add(service->subscriberList, sub);
-	cg_upnp_service_unlock(service);
 
 	cg_log_debug_l4("Leaving...\n");
 
@@ -1149,7 +1147,7 @@ BOOL cg_upnp_service_addsubscriber(CgUpnpService *service, CgUpnpSubscriber *sub
 }
 
 /****************************************
-* cg_upnp_service_removesubscriber
+* `
 ****************************************/
 
 BOOL cg_upnp_service_removesubscriber(CgUpnpService *service, CgUpnpSubscriber *sub) 

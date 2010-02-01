@@ -83,6 +83,89 @@ BOOL cg_upnpav_dmr_avtransport_queryreceived(CgUpnpStateVariable *statVar);
 BOOL cg_upnpav_dmr_renderingctrl_queryreceived(CgUpnpStateVariable *statVar);
 
 /****************************************
+ * cg_upnpav_dmr_addprotocolinfo
+ ****************************************/
+
+void cg_upnpav_dmr_addprotocolinfo(CgUpnpAvRenderer *dmr, CgUpnpAvProtocolInfo *info)
+{
+	CgString *protocolInfos;
+	CgUpnpAvProtocolInfo *protocolInfo;
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	cg_upnpav_protocolinfolist_add(dmr->protocolInfoList, info);
+
+	protocolInfos = cg_string_new();
+	for (protocolInfo = cg_upnpav_dmr_getprotocolinfos(dmr); protocolInfo; protocolInfo = cg_upnpav_protocolinfo_next(protocolInfo)) {
+		if (0 < cg_string_length(protocolInfos))
+			cg_string_addvalue(protocolInfos, ",");
+		cg_string_addvalue(protocolInfos, cg_upnpav_protocolinfo_getstring(protocolInfo));
+	}
+
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO);
+	cg_upnp_statevariable_setvalue(stateVar, cg_string_getvalue(protocolInfos));
+
+	cg_string_delete(protocolInfos);
+}
+
+/****************************************
+ * cg_upnpav_dmr_setcurrentconnectionids
+ ****************************************/
+
+void cg_upnpav_dmr_setcurrentconnectionids(CgUpnpAvRenderer *dmr, char *value)
+{
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_CURRENTCONNECTIONIDS);
+	cg_upnp_statevariable_setvalue(stateVar, value);
+}
+
+/****************************************
+ * cg_upnpav_dmr_getcurrentconnectionids
+ ****************************************/
+
+char *cg_upnpav_dmr_getcurrentconnectionids(CgUpnpAvRenderer *dmr)
+{
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_CURRENTCONNECTIONIDS);
+	return cg_upnp_statevariable_getvalue(stateVar);
+}
+
+/****************************************
+ * cg_upnpav_dmr_setlastchange
+ ****************************************/
+
+void cg_upnpav_dmr_setlastchange(CgUpnpAvRenderer *dmr, char *value)
+{
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
+	cg_upnp_statevariable_setvalue(stateVar, value);
+}
+
+/****************************************
+ * cg_upnpav_dmr_getlastchange
+ ****************************************/
+
+char *cg_upnpav_dmr_getlastchange(CgUpnpAvRenderer *dmr)
+{
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
+	return cg_upnp_statevariable_getvalue(stateVar);
+}
+
+/****************************************
 * cg_upnpav_dmr_actionreceived
 ****************************************/
 
@@ -253,6 +336,17 @@ CgUpnpAvRenderer *cg_upnpav_dmr_new()
 	
 	dmr->protocolInfoList = cg_upnpav_protocolinfolist_new();
 
+	cg_upnpav_dmr_setcurrentconnectionids(dmr, "0");
+
+	char *lastChange = "&lt;Event xmlns = &quot;urn:schemas-upnp-org:metadata-1-0/RCS/&quot;&gt;"
+	"&lt;InstanceID val=&quot;0&quot;&gt;"
+	"&lt;Volume val=&quot;100&quot; channel=&quot;RF&quot;/&gt;"
+	"&lt;Volume val=&quot;100&quot; channel=&quot;LF&quot;/&gt;"
+	"&lt;/InstanceID&gt;"
+	"&lt;/Event&gt;";
+	
+	cg_upnpav_dmr_setlastchange(dmr, lastChange);
+	
 	return dmr;
 }
 
