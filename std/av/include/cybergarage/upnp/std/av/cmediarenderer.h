@@ -68,7 +68,10 @@ void *userData;
 #define CG_UPNPAV_DMR_CONNECTIONMANAGER_GET_PROTOCOL_INFO "GetProtocolInfo"
 #define CG_UPNPAV_DMR_CONNECTIONMANAGER_SOURCE "Source"
 #define CG_UPNPAV_DMR_CONNECTIONMANAGER_SINK "Sink"
-
+#define CG_UPNPAV_DMR_CONNECTIONMANAGER_CURRENTCONNECTIONIDS "CurrentConnectionIDs"
+#define CG_UPNPAV_DMR_CONNECTIONMANAGER_SOURCEPROTOCOLINFO "SourceProtocolInfo"
+#define CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO "SinkProtocolInfo"
+	
 /****************************************
 * Constants (AVTransport)
 ****************************************/
@@ -77,6 +80,8 @@ void *userData;
 
 #define CG_UPNPAV_DMR_AVTRANSPORT_GETTRANSPORTINFO "GetTransportInfo"
 #define CG_UPNPAV_DMR_AVTRANSPORT_STOP "Stop"
+
+#define CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE "LastChange"
 
 #define CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATE "CurrentTransportState"
 #define CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS "CurrentTransportStatus"
@@ -119,9 +124,15 @@ void cg_upnpav_dmr_delete(CgUpnpAvRenderer *dmr);
 #define cg_upnpav_dmr_setuserdata(dmr,data) (dmr->userData = data)
 #define cg_upnpav_dmr_getuserdata(dmr) (dmr->userData)
 
-#define cg_upnpav_dmr_addprotocolinfo(dms, info) cg_upnpav_protocolinfolist_add(dms->protocolInfoList, info)
-#define cg_upnpav_dmr_getprotocolinfos(dms) cg_upnpav_protocolinfolist_gets(dms->protocolInfoList)
+void cg_upnpav_dmr_addprotocolinfo(CgUpnpAvRenderer *dmr, CgUpnpAvProtocolInfo *info);
+#define cg_upnpav_dmr_getprotocolinfos(dmr) cg_upnpav_protocolinfolist_gets(dmr->protocolInfoList)
 
+void cg_upnpav_dmr_setcurrentconnectionids(CgUpnpAvRenderer *dmr, char *value);
+char *cg_upnpav_dmr_getcurrentconnectionids(CgUpnpAvRenderer *dmr);
+
+void cg_upnpav_dmr_setlastchange(CgUpnpAvRenderer *dmr, char *value);
+char *cg_upnpav_dmr_getlastchange(CgUpnpAvRenderer *dmr);
+	
 #ifdef  __cplusplus
 }
 #endif

@@ -1,3 +1,6 @@
+2010-01-20  Satoshi Konno <skonno@cybergarage.org>
+	Removed service mutex control from cg_upnp_service_addsubscriber() to avoid deadlock.
+
 2009-09-01  Satoshi Konno <skonno@cybergarage.org>
 	Added cg_soap_response_getstatuscode().
 	Added cg_upnp_event_notify_response_getstatuscode().

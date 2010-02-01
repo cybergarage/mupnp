@@ -36,9 +36,9 @@ CgUpnpServiceStateTable *cg_upnp_servicestatetable_new()
 	if ( NULL != statevariableTable )
 		cg_list_header_init((CgList *)statevariableTable);
 
-	return statevariableTable;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return statevariableTable;
 }
 
 /****************************************

@@ -307,9 +307,9 @@ BOOL cg_upnp_controlpoint_subscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService
 	cg_upnp_event_subscription_request_delete(subReq);
 	cg_upnp_service_unlock(service);
 	
-	return isSuccess;
-
 	cg_log_debug_l4("Leaving...\n");
+	
+	return isSuccess;
 }
 
 /****************************************
