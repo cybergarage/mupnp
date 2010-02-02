@@ -1,6 +1,7 @@
 #!/bin/sh
-rm -rf config
-mkdir config
+if [ ! -d config ]; then
+    mkdir config
+fi
 rm -rf autom4te.cache
 libtoolize --automake --force --copy
 aclocal
