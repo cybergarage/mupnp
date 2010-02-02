@@ -5843,7 +5843,7 @@ fi
 # Makefiles
 ##############################
 
-ac_config_files="$ac_config_files clinkc.pc Makefile include/Makefile lib/Makefile lib/unix/Makefile sample/Makefile sample/clock/Makefile sample/clock/unix/Makefile sample/upnpdump/Makefile sample/upnpdump/unix/Makefile sample/upnpavdump/Makefile sample/upnpavdump/unix/Makefile sample/upnpigddump/Makefile sample/upnpigddump/unix/Makefile"
+ac_config_files="$ac_config_files clinkc.pc Makefile include/Makefile lib/Makefile lib/unix/Makefile testunit/Makefile testunit/unix/Makefile sample/Makefile sample/clock/Makefile sample/clock/unix/Makefile sample/upnpdump/Makefile sample/upnpdump/unix/Makefile sample/upnpavdump/Makefile sample/upnpavdump/unix/Makefile sample/upnpigddump/Makefile sample/upnpigddump/unix/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -6566,6 +6566,8 @@ do
     "include/Makefile") CONFIG_FILES="$CONFIG_FILES include/Makefile" ;;
     "lib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
     "lib/unix/Makefile") CONFIG_FILES="$CONFIG_FILES lib/unix/Makefile" ;;
+    "testunit/Makefile") CONFIG_FILES="$CONFIG_FILES testunit/Makefile" ;;
+    "testunit/unix/Makefile") CONFIG_FILES="$CONFIG_FILES testunit/unix/Makefile" ;;
     "sample/Makefile") CONFIG_FILES="$CONFIG_FILES sample/Makefile" ;;
     "sample/clock/Makefile") CONFIG_FILES="$CONFIG_FILES sample/clock/Makefile" ;;
     "sample/clock/unix/Makefile") CONFIG_FILES="$CONFIG_FILES sample/clock/unix/Makefile" ;;
