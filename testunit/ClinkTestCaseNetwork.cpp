@@ -1,6 +1,8 @@
-#include "ClinkTestCase.h"
+#include <string.h>
 
 #include <cybergarage/net/cinterface.h>
+
+#include "ClinkTestCase.h"
 
 ////////////////////////////////////////
 // testNetworkInterface
