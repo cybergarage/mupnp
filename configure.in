@@ -6,6 +6,7 @@
 #
 #	01/26/04
 #		- first release.
+#
 #	09/11/05
 #		- Thanks for Roland Moser <rmoser@gmx.at>
 #		- Changed the configure to run 'make install' normally.
@@ -29,9 +30,11 @@
 #	03/17/08
 #		- Added to check IP_PKTINFO
 #
+#	02/02/10
+#		- Disabled AC_PROG_LIBTOOL and HAVE_LIBTOOL
+#		- Added support for SO_NOSIGPIPES
+#
 #############################################################################
-
-IP_PKTINFO
 
 AC_INIT(include/cybergarage/typedef.h)
 AC_CONFIG_AUX_DIR(config)
@@ -59,7 +62,7 @@ LIBCURL3_VERSION=7.13.0
 AC_PROG_CC
 AC_PROG_INSTALL
 AC_PROG_AWK
-AC_PROG_LIBTOOL
+#AC_PROG_LIBTOOL
 AC_PROG_RANLIB
 AC_LANG_CPLUSPLUS
 
@@ -492,6 +495,23 @@ void func()
 [],
 [AC_MSG_RESULT(yes)
 AC_DEFINE([HAVE_IP_PKTINFO],1,[IP_PKTINFO])],
+[AC_MSG_RESULT(no)]
+)
+
+##### SO_NOSIGPIPE ####
+AC_MSG_CHECKING(for SO_NOSIGPIPE)
+AC_TRY_COMPILE([
+#include <sys/types.h>
+#include <sys/socket.h>
+void func()
+{
+  int on=1;
+  setsockopt(0, SOL_SOCKET, SO_NOSIGPIPE,  &on, sizeof(on));
+}
+],
+[],
+[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_SO_NOSIGPIPE],1,[SO_NOSIGPIPES])],
 [AC_MSG_RESULT(no)]
 )
 

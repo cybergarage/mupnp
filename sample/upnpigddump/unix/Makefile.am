@@ -11,8 +11,8 @@ upnpigddump_SOURCES = \
 	../upnpigddump.c \
 	../../common/kb_util.c
 
-if HAVE_LIBTOOL
-upnpigddump_LDADD = ../../../lib/unix/libclinkc.la @XML_LIBS@
-else
+#if HAVE_LIBTOOL
+#upnpigddump_LDADD = ../../../lib/unix/libclinkc.la @XML_LIBS@
+#else
 upnpigddump_LDADD = ../../../lib/unix/libclinkc.a @XML_LIBS@
-endif
+#endif

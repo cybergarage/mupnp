@@ -347,7 +347,7 @@ void cg_socket_setid(CgSocket *socket, SOCKET value)
 		setsockopt(socket->id, IPPROTO_IP, IP_PKTINFO,  &on, sizeof(on));
 #endif
 
-#if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) 
+#if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && defined(HAVE_SO_NOSIGPIPE)
 	setsockopt(socket->id, SOL_SOCKET, SO_NOSIGPIPE,  &on, sizeof(on));
 #endif
 	

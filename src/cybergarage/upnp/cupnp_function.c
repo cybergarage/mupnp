@@ -100,9 +100,9 @@ char *cg_upnp_getservername(char *buf, int bufSize)
 	sprintf((buf+nameLen), " %s/%s UPnP/%s DLNADOC/%s", CG_CLINK_NAME, CG_CLINK_VER, CG_UPNP_VER, CG_DLNA_VER);
 #endif
 	
-	return buf;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return buf;
 }
 
 /****************************************

@@ -1,8 +1,8 @@
-if HAVE_LIBTOOL
-lib_LTLIBRARIES = libclinkc.la
-else
+#if HAVE_LIBTOOL
+#lib_LTLIBRARIES = libclinkc.la
+#else
 lib_LIBRARIES = libclinkc.a
-endif
+#endif
 
 INCLUDES = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@
 
@@ -112,13 +112,13 @@ libclinkcincludedir = $(includedir)/cybergarage
 nobase_libclinkcinclude_HEADERS =  \
         $(clinkc_header)
 
-if HAVE_LIBTOOL
-libclinkc_la_SOURCES = \
-        $(clinkc_source)
-libclinkc_la_LIBADD = @HTTP_LIBS@ @XML_LIBS@
-else
+#if HAVE_LIBTOOL
+#libclinkc_la_SOURCES = \
+#        $(clinkc_source)
+#libclinkc_la_LIBADD = @HTTP_LIBS@ @XML_LIBS@
+#else
 libclinkc_a_SOURCES = \
         $(clinkc_source)
 libclinkc_a_CFLAGS = $(AM_CFLAGS)
 libclinkc_a_LIBADD = @HTTP_LIBS@ @XML_LIBS@
-endif
+#endif
