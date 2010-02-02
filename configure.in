@@ -565,6 +565,8 @@ Makefile
 include/Makefile
 lib/Makefile
 lib/unix/Makefile
+testunit/Makefile
+testunit/unix/Makefile
 sample/Makefile
 sample/clock/Makefile
 sample/clock/unix/Makefile
