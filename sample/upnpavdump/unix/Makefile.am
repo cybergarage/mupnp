@@ -11,8 +11,8 @@ upnpavdump_SOURCES = \
 	../upnpavdump.c \
 	../../common/kb_util.c
 
-if HAVE_LIBTOOL
-upnpavdump_LDADD = ../../../lib/unix/libclinkc.la @XML_LIBS@
-else
+#if HAVE_LIBTOOL
+#upnpavdump_LDADD = ../../../lib/unix/libclinkc.la @XML_LIBS@
+#else
 upnpavdump_LDADD = ../../../lib/unix/libclinkc.a @XML_LIBS@
-endif
+#endif
