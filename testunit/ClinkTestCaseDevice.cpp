@@ -1,5 +1,6 @@
-#include "ClinkTestCase.h"
+#include <string.h>
 
+#include "ClinkTestCase.h"
 #include "TestDevice.h"
 
 ////////////////////////////////////////

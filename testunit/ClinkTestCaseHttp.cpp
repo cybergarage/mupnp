@@ -1,6 +1,8 @@
-#include "ClinkTestCase.h"
+#include <string.h>
 
 #include <cybergarage/http/chttp.h>
+
+#include "ClinkTestCase.h"
 
 ////////////////////////////////////////
 // testHttpServer
