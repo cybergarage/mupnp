@@ -189,7 +189,8 @@ void cg_upnp_device_ssdplistener(CgUpnpSSDPPacket *ssdpPkt)
 static int filter_duplicate_m_search(CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgSysTime *timestamps = ssdpPkt->timestamps;
-	int loc, s_length;
+	size_t s_length;
+	int loc;
 	char *id_string, *r_address, *st, port[6];
 	CgSysTime curr_time;
 

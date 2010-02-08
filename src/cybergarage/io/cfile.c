@@ -705,7 +705,6 @@ void cg_file_setfilename(CgFile *file, char *name)
 	int nameLen;
 	char *pathName;
 	int pathNameLen;
-	int sepIdx;
 
 	nameLen = cg_strlen(name);
 	if (nameLen <= 0)
