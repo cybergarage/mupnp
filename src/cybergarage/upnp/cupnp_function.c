@@ -66,12 +66,21 @@ char *cg_upnp_createuuid(char *uuidBuf, int uuidBufSize)
 	time1 = cg_getcurrentsystemtime();
 	time2 = (time_t)((double)cg_getcurrentsystemtime(NULL) * ((double)rand() / (double)RAND_MAX));
 	/**** Thanks for Makela Aapo (10/30/05) ****/
+#if defined(WIN32)
+	sprintf(uuidBuf, "%s:%04x-%04x-%04x-%04x",
+		CG_UPNP_UUID_NAME,
+		(int)(time1 & 0xFFFF),
+		(int)(((time1 >> 31) | 0xA000) & 0xFFFF),
+		(int)(time2 & 0xFFFF),
+		(int)(((time2 >> 31) | 0xE000) & 0xFFFF));
+#else
 	snprintf(uuidBuf, uuidBufSize, "%s:%04x-%04x-%04x-%04x",
 		CG_UPNP_UUID_NAME,
 		(int)(time1 & 0xFFFF),
 		(int)(((time1 >> 31) | 0xA000) & 0xFFFF),
 		(int)(time2 & 0xFFFF),
 		(int)(((time2 >> 31) | 0xE000) & 0xFFFF));
+#endif
 #endif
 		
 	cg_log_debug_l4("Leaving...\n");
