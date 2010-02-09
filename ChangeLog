@@ -1,6 +1,7 @@
 2010-02-09  Satoshi Konno <skonno@cybergarage.org>
 	* Added project files for Visual Studio 2008.
 	* Disabled AC_PROG_LIBTOOL and HAVE_LIBTOOL in confugre.in and Makefile.am.
+	* Disabled libxml2 and libcurl as default in confugre.in.
 	* Added support for SO_NOSIGPIPES.
 	* Fixed some errors to compile normally on Ubuntu 9.10.
 

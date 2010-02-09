@@ -1333,7 +1333,7 @@ Optional Features:
   --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
   --disable-dependency-tracking  speeds up one-time build
   --enable-dependency-tracking   do not reject slow dependency extractors
-  --enable-libxml2        enable Libxml2 support (default = yes)
+  --enable-libxml2        enable Libxml2 support (default = no)
   --enable-compiler-warnings
                           enable compiler warnings (default = yes)
   --enable-clog-debug     enable common clog debug messages (default = no)
@@ -1352,7 +1352,7 @@ Optional Features:
                           (default = yes)
   --enable-cfile          enable file functions (default = no)
   --enable-openssl        enable file functions (default = no)
-  --enable-libcurl        enable Libcurl support (default = yes)
+  --enable-libcurl        enable Libcurl support (default = no)
   --enable-mudflap-debug  enable libmudflap debug (default = no)
 
 Optional Packages:
@@ -4744,7 +4744,7 @@ if test "${enable_libxml2+set}" = set; then :
 
 else
 
-		USE_LIBXML2=yes
+		USE_LIBXML2=no
 
 
 fi
@@ -5107,7 +5107,7 @@ if test "${enable_libcurl+set}" = set; then :
 
 else
 
-		USE_LIBCURL=yes
+		USE_LIBCURL=no
 
 
 fi
