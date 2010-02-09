@@ -4,19 +4,20 @@
 #include "TestDevice.h"
 
 ////////////////////////////////////////
-// testDevice
+// testControlPoint
 ////////////////////////////////////////
 
 void ClinkTestCase::testControlPoint()
 {
-	CgUpnpDevice *testDev = upnp_test_device_new();
-	CPPUNIT_ASSERT(testDev);
-	CPPUNIT_ASSERT(cg_upnp_device_start(testDev));
-
 	CgUpnpControlPoint *testCp = cg_upnp_controlpoint_new();
 	CPPUNIT_ASSERT(testCp);
 	CPPUNIT_ASSERT(cg_upnp_controlpoint_start(testCp));
 	CPPUNIT_ASSERT(cg_upnp_controlpoint_search(testCp, CG_UPNP_ST_ROOT_DEVICE));
+
+	CgUpnpDevice *testDev = upnp_test_device_new();
+	CPPUNIT_ASSERT(testDev);
+	CPPUNIT_ASSERT(cg_upnp_device_start(testDev));
+
 	cg_sleep(cg_upnp_controlpoint_getssdpsearchmx(testCp) * 1000 * 2);
 
 	int devCnt = cg_upnp_controlpoint_getndevices(testCp);
