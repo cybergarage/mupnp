@@ -202,6 +202,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\ClinkTestCaseSubscription.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\ClinkTestCaseURI.cpp"
 				>
 			</File>
