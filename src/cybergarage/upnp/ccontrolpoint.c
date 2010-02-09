@@ -143,9 +143,9 @@ CgUpnpControlPoint *cg_upnp_controlpoint_new()
 		cg_upnp_controlpoint_setuserdata(ctrlPoint, NULL);
 	}
 
-	return ctrlPoint;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return ctrlPoint;
 }
 
 /**
@@ -255,9 +255,9 @@ BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint)
 	if (cg_upnp_ssdpresponse_serverlist_start(ssdpResServerList) == FALSE)
 		return FALSE;
 
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /**
@@ -333,9 +333,9 @@ BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint)
 
 	cg_upnp_controlpoint_unlock(ctrlPoint);
 		
-	return TRUE;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
 /****************************************************************************
@@ -427,9 +427,9 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyexacttype(CgUpnpControlPoint *ctrl
 		}
 	}
 
-	return NULL;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return NULL;
 }
 
 /**
