@@ -7,6 +7,11 @@
 // testDevice
 ////////////////////////////////////////
 
+static void ClinkTestCaseTestSubscription(CgUpnpProperty *)
+{
+	printf("Hello");
+}
+
 void ClinkTestCase::testSubscription()
 {
 	CgUpnpDevice *testDev = upnp_test_device_new();
@@ -17,6 +22,8 @@ void ClinkTestCase::testSubscription()
 	CPPUNIT_ASSERT(testCp);
 	CPPUNIT_ASSERT(cg_upnp_controlpoint_start(testCp));
 	CPPUNIT_ASSERT(cg_upnp_controlpoint_search(testCp, CG_UPNP_ST_ROOT_DEVICE));
+	cg_upnp_controlpoint_addeventlistener(testCp, ClinkTestCaseTestSubscription);
+	
 	cg_sleep(cg_upnp_controlpoint_getssdpsearchmx(testCp) * 1000 * 2);
 
 	int devCnt = cg_upnp_controlpoint_getndevices(testCp);
@@ -33,12 +40,18 @@ void ClinkTestCase::testSubscription()
 	}
 	CPPUNIT_ASSERT(testCpDev != NULL);
 
-	/*
-	CgUpnpService *testCpDevService = cg_upnp_device_getservice(testCpDev, TEST_DEVICE_SERVICE_TYPE);
-	if (cg_upnp_controlpoint_subscribe(testCp, timeService) == TRUE) {
-	}
-	*/
+	CgUpnpService *testCpDevService = cg_upnp_device_getservicebyexacttype(testCpDev, TEST_DEVICE_SERVICE_TYPE);
+	CPPUNIT_ASSERT(testCpDevService != NULL);
+	CPPUNIT_ASSERT(cg_upnp_controlpoint_subscribe(testCp, testCpDevService, 300) );
 
+	CgUpnpService *testDevService = cg_upnp_device_getservicebyexacttype(testDev, TEST_DEVICE_SERVICE_TYPE);
+	CPPUNIT_ASSERT(testDevService != NULL);
+	CgUpnpStateVariable *testDevState = cg_upnp_service_getstatevariablebyname(testDevService, TEST_DEVICE_STATEVARIABLE_STATUS);
+	CPPUNIT_ASSERT(testDevState != NULL);
+	cg_upnp_statevariable_setvalue(testDevState, "1");
+	
+	CPPUNIT_ASSERT(cg_upnp_controlpoint_unsubscribe(testCp, testCpDevService) );
+	
 	CPPUNIT_ASSERT(cg_upnp_device_stop(testDev));
 	cg_upnp_device_delete(testDev);
 

@@ -24,6 +24,7 @@ extern "C" {
 #define TEST_DEVICE_DEVICE_TYPE "urn:schemas-upnp-org:device:BinaryLight:1"
 #define TEST_DEVICE_SERVICE_TYPE "urn:schemas-upnp-org:service:SwitchPower:1"
 #define TEST_DEVICE_FREINDLYNAME "CyberGarage Power Device"
+#define TEST_DEVICE_STATEVARIABLE_STATUS "Status"
 
 /****************************************
 * Function

@@ -92,6 +92,7 @@ char *TEST_SERVICE_DESCRIPTION =
 "    </stateVariable>\n"
 "    <stateVariable>\n"
 "      <name>Status</name>\n"
+"      <sendEventsAttribute>yes</sendEventsAttribute>\n"
 "      <dataType>boolean</dataType>\n"
 "      <defaultValue>0</defaultValue>\n"
 "    </stateVariable>\n"
