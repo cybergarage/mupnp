@@ -33,9 +33,11 @@ void ClinkTestCase::testSubscription()
 	}
 	CPPUNIT_ASSERT(testCpDev != NULL);
 
+	/*
 	CgUpnpService *testCpDevService = cg_upnp_device_getservice(testCpDev, TEST_DEVICE_SERVICE_TYPE);
 	if (cg_upnp_controlpoint_subscribe(testCp, timeService) == TRUE) {
 	}
+	*/
 
 	CPPUNIT_ASSERT(cg_upnp_device_stop(testDev));
 	cg_upnp_device_delete(testDev);
