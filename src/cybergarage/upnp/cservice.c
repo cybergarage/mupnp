@@ -1169,19 +1169,21 @@ BOOL cg_upnp_service_removesubscriber(CgUpnpService *service, CgUpnpSubscriber *
 CgUpnpSubscriber *cg_upnp_service_getsubscriberbysid(CgUpnpService *service, char *sid)
 {
 	CgUpnpSubscriber *sub;
-	int uuidIdx;
+	char *subSid;
 
 	cg_log_debug_l4("Entering...\n");
 
 	if (cg_strlen(sid) <= 0)
 		return NULL;
 	
-	uuidIdx = cg_strstr(sid, CG_UPNP_ST_UUID_DEVICE);
-	if (0 <= uuidIdx)
+	if (0 <= cg_strstr(sid, CG_UPNP_ST_UUID_DEVICE))
 		sid += cg_strlen(CG_UPNP_ST_UUID_DEVICE) + 1;
 
 	for (sub = cg_upnp_service_getsubscribers(service); sub != NULL; sub = cg_upnp_subscriber_next(sub)) {
-		if (cg_streq(sid, cg_upnp_subscriber_getsid(sub)) == TRUE)
+		subSid = cg_upnp_subscriber_getsid(sub);
+		if (0 <= cg_strstr(subSid, CG_UPNP_ST_UUID_DEVICE))
+			subSid += cg_strlen(CG_UPNP_ST_UUID_DEVICE) + 1;
+		if (cg_streq(sid, subSid) == TRUE)
 			return sub;
 	}
 	
