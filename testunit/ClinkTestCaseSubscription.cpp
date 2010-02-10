@@ -22,15 +22,20 @@ void ClinkTestCase::testSubscription()
 	int devCnt = cg_upnp_controlpoint_getndevices(testCp);
 	CPPUNIT_ASSERT(0 < devCnt);
 
-	BOOL testDevFound = FALSE;
+	CgUpnpDevice *testCpDev = NULL;
+	
 	for (int n=0; n<devCnt; n++) {
 		CgUpnpDevice *dev = cg_upnp_controlpoint_getdevice(testCp, n);
 		if (strcmp(cg_upnp_device_getdevicetype(dev), TEST_DEVICE_DEVICE_TYPE) == 0) {
-			testDevFound = TRUE;
+			testCpDev = dev;
 			break;
 		}
 	}
-	CPPUNIT_ASSERT(testDevFound);
+	CPPUNIT_ASSERT(testCpDev != NULL);
+
+	CgUpnpService *testCpDevService = cg_upnp_device_getservice(testCpDev, TEST_DEVICE_SERVICE_TYPE);
+	if (cg_upnp_controlpoint_subscribe(testCp, timeService) == TRUE) {
+	}
 
 	CPPUNIT_ASSERT(cg_upnp_device_stop(testDev));
 	cg_upnp_device_delete(testDev);
