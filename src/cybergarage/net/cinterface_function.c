@@ -50,7 +50,7 @@
 #include <string.h>
 
 #if defined(WIN32)
-#define CG_USE_WIN32_GETADAPTERSINFO 1
+#define CG_USE_WIN32_GETHOSTADDRESSES 1
 #endif
 
 #if defined(__APPLE_CC__) && !defined(HAVE_IFADDRS_H)
@@ -215,7 +215,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	int ifIdx;
 	CgNetworkInterface *netIf;
 
-//cg_socket_startup();
+	cg_socket_startup();
 	cg_net_interfacelist_clear(netIfList);
 
 	outBufLen = 0;
