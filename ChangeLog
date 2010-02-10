@@ -2,9 +2,10 @@
 	* Added project files for Visual Studio 2008.
 	* Disabled AC_PROG_LIBTOOL and HAVE_LIBTOOL in confugre.in and Makefile.am.
 	* Disabled libxml2 and libcurl as default in confugre.in.
-	* Added support for SO_NOSIGPIPES.
+	* Added support for SO_NOSIGPIPES in configure.in.
 	* Fixed some errors to compile normally on Ubuntu 9.10.
 	* Changed CG_USE_WIN32_GETHOSTADDRESSES flag as default for Windows platform.
+	* Fixed cg_upnp_device_unsubscriptionrecieved() to unscribe normally.
 	
 2010-01-20  Satoshi Konno <skonno@cybergarage.org>
 	* Removed service mutex control from cg_upnp_service_addsubscriber() to avoid deadlock.

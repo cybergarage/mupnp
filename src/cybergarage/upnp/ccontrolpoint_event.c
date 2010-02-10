@@ -97,9 +97,9 @@ CgUpnpService *cg_upnp_device_getfirstexpiratedservice(CgUpnpControlPoint *ctrlP
 		if (srv != NULL) found_srv = srv;
 	}
 	
-	return found_srv;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return found_srv;
 }
 
 
@@ -246,9 +246,9 @@ BOOL cg_upnp_controlpoint_resubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpServi
 
 	cg_upnp_event_subscription_request_delete(subReq);
 
-	return isSuccess;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return isSuccess;
 }
 
 /****************************************
@@ -341,9 +341,9 @@ BOOL cg_upnp_controlpoint_unsubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpServi
 	
 	cg_upnp_event_subscription_request_delete(subReq);
 
-	return isSuccess;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return isSuccess;
 }
 
 /****************************************
@@ -370,9 +370,9 @@ BOOL cg_upnp_controlpoint_subscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevi
 			isSuccess = TRUE;
 	}
 
-	return isSuccess;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return isSuccess;
 }
 
 /****************************************
@@ -399,9 +399,9 @@ BOOL cg_upnp_controlpoint_resubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDe
 			isSuccess = TRUE;
 	}
 
-	return isSuccess;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return isSuccess;
 }
 
 /****************************************
@@ -431,9 +431,9 @@ BOOL cg_upnp_controlpoint_unsubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDe
 			isSuccess = FALSE;
 	}
 
-	return isSuccess;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return isSuccess;
 }
 
 /*
