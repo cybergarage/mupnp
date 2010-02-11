@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libclinkmedia", "libclinkmedia.vcproj", "{A357B2E3-04FC-4B7F-AEC5-0EA101EB2D7D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CyberLinkCAV", "CyberLinkCAV.vcproj", "{A357B2E3-04FC-4B7F-AEC5-0EA101EB2D7D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D550D099-9F69-4F30-864C-504D02F72774} = {D550D099-9F69-4F30-864C-504D02F72774}
 	EndProjectSection
