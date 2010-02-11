@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../../include"
+				AdditionalIncludeDirectories="../../../include;../../../../../include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -156,10 +156,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\std\av\server\cconnectionmgr_service.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\cybergarage\upnp\std\av\renderer\cconnectionmgr_service.c"
 				>
 				<FileConfiguration
@@ -180,6 +176,10 @@
 						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\server\cconnectionmgr_service.c"
+				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\cybergarage\upnp\std\av\ccontent.c"

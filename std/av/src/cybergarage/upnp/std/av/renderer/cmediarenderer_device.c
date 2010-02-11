@@ -285,7 +285,8 @@ void cg_upnpav_dmr_device_httprequestrecieved(CgHttpRequest *httpReq)
 CgUpnpAvRenderer *cg_upnpav_dmr_new()
 {
 	CgUpnpAvRenderer *dmr;
-	
+	char *lastChange;
+
 	dmr = (CgUpnpAvRenderer *)malloc(sizeof(CgUpnpAvRenderer));
 
 	dmr->dev = cg_upnp_device_new();
@@ -338,7 +339,7 @@ CgUpnpAvRenderer *cg_upnpav_dmr_new()
 
 	cg_upnpav_dmr_setcurrentconnectionids(dmr, "0");
 
-	char *lastChange = "&lt;Event xmlns = &quot;urn:schemas-upnp-org:metadata-1-0/RCS/&quot;&gt;"
+	lastChange = "&lt;Event xmlns = &quot;urn:schemas-upnp-org:metadata-1-0/RCS/&quot;&gt;"
 	"&lt;InstanceID val=&quot;0&quot;&gt;"
 	"&lt;Volume val=&quot;100&quot; channel=&quot;RF&quot;/&gt;"
 	"&lt;Volume val=&quot;100&quot; channel=&quot;LF&quot;/&gt;"

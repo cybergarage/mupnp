@@ -1,7 +1,8 @@
 #include <string.h>
 
-#include "ClinkTestCase.h"
-#include "TestDevice.h"
+#include <cybergarage/upnp/std/av/cmediarenderer.h>
+
+#include "ClinkAVTestCase.h"
 
 ////////////////////////////////////////
 // testDevice
@@ -11,15 +12,23 @@
 
 static bool ClinkTestCaseTestSubscriptionFlag;
 
+	/*
 static void ClinkTestCaseTestSubscription(CgUpnpProperty *prop)
 {
 //	CPPUNIT_ASSERT(cg_streq(cg_upnp_property_getname(prop), TEST_DEVICE_STATEVARIABLE_STATUS));
 //	CPPUNIT_ASSERT(cg_streq(cg_upnp_property_getvalue(prop), TEST_UPDATE_STATEVARIABLE_VALUE));
 	ClinkTestCaseTestSubscriptionFlag = true;
 }
+	*/
 
-void ClinkTestCase::testSubscription()
+void ClinkAVTestCase::testRenderer()
 {
+	CgUpnpAvRenderer *dmr = cg_upnpav_dmr_new();
+
+	cg_upnpav_dms_start(dmr);
+	cg_upnpav_dms_stop(dmr);
+
+	/*
 	CgUpnpDevice *testDev = upnp_test_device_new();
 	CPPUNIT_ASSERT(testDev);
 	CPPUNIT_ASSERT(cg_upnp_device_start(testDev));
@@ -67,4 +76,5 @@ void ClinkTestCase::testSubscription()
 	cg_upnp_device_delete(testDev);
 	CPPUNIT_ASSERT(cg_upnp_controlpoint_stop(testCp));
 	cg_upnp_controlpoint_delete(testCp);
+	*/
 }
