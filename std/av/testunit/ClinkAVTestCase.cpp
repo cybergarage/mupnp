@@ -1,12 +1,12 @@
-#include "ClinkTestCase.h"
+#include "ClinkAVTestCase.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION(ClinkTestCase);
+CPPUNIT_TEST_SUITE_REGISTRATION(ClinkAVTestCase);
 
 ////////////////////////////////////////
 // setUp
 ////////////////////////////////////////
 
-void ClinkTestCase::setUp()
+void ClinkAVTestCase::setUp()
 {
 }
 
@@ -14,6 +14,6 @@ void ClinkTestCase::setUp()
 // tearDown
 ////////////////////////////////////////
 
-void ClinkTestCase::tearDown()
+void ClinkAVTestCase::tearDown()
 {
 }
