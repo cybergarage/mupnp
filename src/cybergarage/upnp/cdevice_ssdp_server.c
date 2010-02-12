@@ -56,6 +56,7 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 	CgUpnpDevice *childDev;
 	char *ssdpMXString;
 	int ssdpMX;
+	char *ssdpTargetAddr;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -84,7 +85,8 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 		/****************************************
 		 * check HOST header, should always be 239.255.255.250:1900, return if incorrect
 		 ***************************************/
-		if (cg_strcmp(cg_upnp_ssdp_packet_gethost(ssdpPkt), CG_UPNP_SSDP_MULTICAST_ADDRESS) != 0)
+		ssdpTargetAddr = cg_upnp_ssdp_packet_gethost(ssdpPkt);
+		if (cg_strcmp(ssdpTargetAddr, CG_UPNP_SSDP_MULTICAST_ADDRESS) != 0 && !cg_net_isipv6address(ssdpTargetAddr) )
 			return;
 
 		/****************************************

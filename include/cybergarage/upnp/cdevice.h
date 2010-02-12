@@ -641,6 +641,14 @@ char* cg_upnp_devicetype_getversion(char* deviceType);
  */
 #define cg_upnp_device_hasudn(dev) ((0 < cg_strlen(cg_upnp_device_getudn(dev))) ? TRUE : FALSE)
 
+/**
+ * Update new Unique Device Name (UDN)
+ *
+ * \param dev Device in question
+ *
+ */
+void cg_upnp_device_updateudn(CgUpnpDevice *dev);
+
 /*****************************************************************************
  * Universal Product Code (UPC)
  *****************************************************************************/

@@ -901,9 +901,9 @@ long cg_socket_skip(CgSocket *sock, long skipLen)
 		readCnt++;
 	}
 
-	return readCnt;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return readCnt;
 }
 
 /****************************************
@@ -1018,14 +1018,14 @@ int cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt)
 
 	cg_log_debug_l4("Entering...\n");
 
-        if (recvLen <= 0)
-                return 0;
-        recvBuf[recvLen] = '\0';
-        cg_socket_datagram_packet_setdata(dgmPkt, recvBuf);
+	if (recvLen <= 0)
+		return 0;
+	recvBuf[recvLen] = '\0';
+	cg_socket_datagram_packet_setdata(dgmPkt, recvBuf);
 
-        cg_socket_datagram_packet_setlocalport(dgmPkt, cg_socket_getport(sock));
-        cg_socket_datagram_packet_setremoteaddress(dgmPkt, "");
-        cg_socket_datagram_packet_setremoteport(dgmPkt, 0);
+	cg_socket_datagram_packet_setlocalport(dgmPkt, cg_socket_getport(sock));
+	cg_socket_datagram_packet_setremoteaddress(dgmPkt, "");
+	cg_socket_datagram_packet_setremoteport(dgmPkt, 0);
 
 #if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
 	cg_socket_datagram_packet_setlocaladdress(dgmPkt, cg_socket_getaddress(sock));
@@ -1044,9 +1044,9 @@ int cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt)
 #else
 
 	if (getnameinfo((struct sockaddr *)&from, fromLen, remoteAddr, sizeof(remoteAddr), remotePort, sizeof(remotePort), NI_NUMERICHOST | NI_NUMERICSERV) == 0) {
-                cg_socket_datagram_packet_setremoteaddress(dgmPkt, remoteAddr);
-                cg_socket_datagram_packet_setremoteport(dgmPkt, atol(remotePort));
-        }
+		cg_socket_datagram_packet_setremoteaddress(dgmPkt, remoteAddr);
+		cg_socket_datagram_packet_setremoteport(dgmPkt, atol(remotePort));
+	}
 
 	cg_log_debug_s("From pointer %p\n", &from);
 	localAddr = cg_net_selectaddr((struct sockaddr *)&from);

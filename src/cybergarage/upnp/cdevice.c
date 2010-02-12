@@ -1443,6 +1443,7 @@ BOOL cg_upnp_device_postsearchresponse(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdp
 	localAddr = cg_upnp_ssdp_packet_getlocaladdress(ssdpPkt);
 	cg_log_debug_s("Local address: <%s>\n", localAddr);
 	rootDev = cg_upnp_device_getrootdevice(dev);
+
 	cg_upnp_device_getlocationurl(rootDev, localAddr, rootDevLocation, sizeof(rootDevLocation));
 
 	ssdpRes = cg_upnp_ssdpresponse_new();
@@ -2209,3 +2210,15 @@ BOOL cg_upnp_device_addicon(CgUpnpDevice *dev, CgUpnpIcon *icon)
 	
 	return TRUE;
 }
+
+/****************************************
+ * cg_upnp_device_updateudn
+ ****************************************/
+
+void cg_upnp_device_updateudn(CgUpnpDevice *dev)
+{
+	char uuid[CG_UPNP_UUID_MAX_LEN];
+	cg_upnp_createuuid(uuid, sizeof(uuid));
+	cg_upnp_device_setudn(dev, uuid);
+}
+
