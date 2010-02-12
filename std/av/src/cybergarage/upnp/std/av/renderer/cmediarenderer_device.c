@@ -334,7 +334,8 @@ CgUpnpAvRenderer *cg_upnpav_dmr_new()
 	cg_upnpav_dmr_sethttplistener(dmr, NULL);
 
 	cg_upnp_device_setuserdata(dmr->dev, dmr);
-	
+	cg_upnp_device_updateudn(dmr->dev);
+
 	dmr->protocolInfoList = cg_upnpav_protocolinfolist_new();
 
 	cg_upnpav_dmr_setcurrentconnectionids(dmr, "0");

@@ -230,6 +230,7 @@ CgUpnpAvServer *cg_upnpav_dms_new()
 	cg_upnpav_dms_sethttplistener(dms, NULL);
 
 	cg_upnp_device_setuserdata(dms->dev, dms);
+	cg_upnp_device_updateudn(dms->dev);
 
 	dms->protocolInfoList = cg_upnpav_protocolinfolist_new();
 

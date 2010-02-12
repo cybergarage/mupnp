@@ -50,7 +50,7 @@
 #include <string.h>
 
 #if defined(WIN32)
-#define CG_USE_WIN32_GETHOSTADDRESSES 1
+#define CG_USE_WIN32_GETADAPTERSINFO 1
 #endif
 
 #if defined(__APPLE_CC__) && !defined(HAVE_IFADDRS_H)
@@ -168,7 +168,6 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	ULONG            ulOutBufLen;
 	DWORD            dwRetVal;
 	DWORD			nOfInterfaces;
-	int i =0;
 
 	cg_socket_startup();
 	cg_net_interfacelist_clear(netIfList);
@@ -181,20 +180,17 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	}
 
 	if ((dwRetVal = GetAdaptersInfo( pAdapterInfo, &ulOutBufLen)) == NO_ERROR) {
-		for (pAdapter = pAdapterInfo, nOfInterfaces = 0; pAdapter; ++nOfInterfaces) {
-
-			if (pAdapter->Type==MIB_IF_TYPE_ETHERNET) {
-				// List will not contain loopback
-				// IFF_UP check not required, ce only returns UP interfaces here 
-				//host = inet_ntoa(pAdapter->Address);
-				netIf = cg_net_interface_new();
-				cg_net_interface_setaddress(netIf, pAdapter->IpAddressList.IpAddress.String);
-				if (pAdapter->AddressLength  == CG_NET_MACADDR_SIZE)
-					cg_net_interface_setmacaddress(netIf, pAdapter->Address);
-				cg_net_interfacelist_add(netIfList, netIf);
-
-			}
-			pAdapter=pAdapter->Next;
+		for (pAdapter = pAdapterInfo, nOfInterfaces = 0; pAdapter; pAdapter = pAdapter->Next, ++nOfInterfaces) {
+			if (pAdapter->Type == MIB_IF_TYPE_LOOPBACK)
+				continue;
+			if (cg_streq(pAdapter->IpAddressList.IpAddress.String, "0.0.0.0"))
+				continue;
+			netIf = cg_net_interface_new();
+			cg_net_interface_setaddress(netIf, pAdapter->IpAddressList.IpAddress.String);
+			cg_net_interface_setnetmask(netIf, pAdapter->IpAddressList.IpMask.String);
+			if (pAdapter->AddressLength  == CG_NET_MACADDR_SIZE)
+				cg_net_interface_setmacaddress(netIf, pAdapter->Address);
+			cg_net_interfacelist_add(netIfList, netIf);
 		}
 	} 
 	free(pAdapterInfo);

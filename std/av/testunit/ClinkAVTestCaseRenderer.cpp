@@ -26,6 +26,11 @@ void ClinkAVTestCase::testRenderer()
 	CgUpnpAvRenderer *dmr = cg_upnpav_dmr_new();
 
 	cg_upnpav_dms_start(dmr);
+
+	while	(1) {
+		cg_sleep(1000);
+	}
+
 	cg_upnpav_dms_stop(dmr);
 
 	/*
