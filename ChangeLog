@@ -7,6 +7,7 @@
 	* Changed CG_USE_WIN32_GETHOSTADDRESSES flag as default for Windows platform.
 	* Fixed cg_upnp_device_unsubscriptionrecieved() to unscribe normally.
 	* Fixed cg_upnp_device_ssdpmessagereceived() not to ignore IPv6 multicast.
+	* Updated cg_upnp_createuuid() to use naitive functions on Windows and Unix platforms.
 	
 2010-01-20  Satoshi Konno <skonno@cybergarage.org>
 	* Removed service mutex control from cg_upnp_service_addsubscriber() to avoid deadlock.

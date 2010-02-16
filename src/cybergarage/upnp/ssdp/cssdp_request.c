@@ -35,6 +35,7 @@ CgUpnpSSDPRequest *cg_upnp_ssdprequest_new()
 	
 	cg_http_request_seturi(ssdpReq, "*");
 	cg_http_request_setversion(ssdpReq, CG_HTTP_VER11);
+	cg_http_request_setcontentlength(ssdpReq, 0);
 
 	cg_log_debug_l4("Leaving...\n");
 	
