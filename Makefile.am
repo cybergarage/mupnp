@@ -1,5 +1,5 @@
-#SUBDIRS = include lib sample 
-SUBDIRS = include lib sample testunit
+SUBDIRS = include lib sample 
+#SUBDIRS = include lib sample testunit
 
 devdocsdir = $(datadir)/doc/clinkc-dev
 docsdir = $(datadir)/doc/clinkc0
@@ -26,10 +26,16 @@ dist_devdocs_DATA = \
 	Doxyfile
 
 nobase_devdocs_DATA = \
-	doxygen/html/*
+	doxygen/html/* \
+	doxygen-objc/html/*
 
 doxygen/html/*:
 	cd $(srcdir) && doxygen Doxyfile
+# scp -r doxygen skonno,clinkc@frs.sourceforge.net:/home/groups/c/cl/clinkc/htdocs
+
+doxygen-objc/html/*:
+	cd $(srcdir) && doxygen Doxyfile.objc
+# scp -r doxygen-objc skonno,clinkobjc@frs.sourceforge.net:/home/groups/c/cl/clinkobjc/htdocs
 
 deb: dist
 	-mkdir $(top_builddir)/debian-build

@@ -15,6 +15,7 @@ clinkctestunit_SOURCES = \
 	../ClinkTestCaseNetwork.cpp \
 	../ClinkTestCaseURI.cpp \
 	../ClinkTestCaseSubscription.cpp \
+	../ClinkTestCaseStateVariable.cpp \
 	../TestDevice.c \
 	../cppunitmain.cpp
 

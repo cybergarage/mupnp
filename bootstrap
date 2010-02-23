@@ -2,7 +2,9 @@
 if [ ! -d config ]; then
     mkdir config
 fi
-rm -rf autom4te.cache
+if [ ! -d autom4te.cache ]; then
+	rm -rf autom4te.cache/*
+fi
 libtoolize --automake --force --copy
 aclocal
 autoheader

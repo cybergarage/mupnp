@@ -3,7 +3,7 @@
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-PROJECT_NAME           = "CyberLink for MacOSX"
+PROJECT_NAME           = "CyberLink for Objective-C"
 PROJECT_NUMBER         = 
 OUTPUT_DIRECTORY       = ./doxygen-objc
 CREATE_SUBDIRS         = NO
