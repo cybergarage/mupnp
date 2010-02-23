@@ -660,3 +660,31 @@ BOOL cg_upnpav_dmr_avtransport_init(CgUpnpAvRenderer *dmr)
 
 	return TRUE;
 }
+
+/****************************************
+ * cg_upnpav_dmr_setavtransportlastchange
+ ****************************************/
+
+void cg_upnpav_dmr_setavtransportlastchange(CgUpnpAvRenderer *dmr, char *value)
+{
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
+	cg_upnp_statevariable_setvalue(stateVar, value);
+}
+
+/****************************************
+ * cg_upnpav_dmr_getavtransportlastchange
+ ****************************************/
+
+char *cg_upnpav_dmr_getavtransportlastchange(CgUpnpAvRenderer *dmr)
+{
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
+	return cg_upnp_statevariable_getvalue(stateVar);
+}

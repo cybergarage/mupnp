@@ -127,12 +127,21 @@ void cg_upnpav_dmr_delete(CgUpnpAvRenderer *dmr);
 void cg_upnpav_dmr_addprotocolinfo(CgUpnpAvRenderer *dmr, CgUpnpAvProtocolInfo *info);
 #define cg_upnpav_dmr_getprotocolinfos(dmr) cg_upnpav_protocolinfolist_gets(dmr->protocolInfoList)
 
+void cg_upnpav_dmr_setsinkprotocolinfo(CgUpnpAvRenderer *dmr, char *value);
+char *cg_upnpav_dmr_getsinkprotocolinfo(CgUpnpAvRenderer *dmr);
+
+void cg_upnpav_dmr_setsourceprotocolinfo(CgUpnpAvRenderer *dmr, char *value);
+char *cg_upnpav_dmr_getsourceprotocolinfo(CgUpnpAvRenderer *dmr);
+
 void cg_upnpav_dmr_setcurrentconnectionids(CgUpnpAvRenderer *dmr, char *value);
 char *cg_upnpav_dmr_getcurrentconnectionids(CgUpnpAvRenderer *dmr);
 
-void cg_upnpav_dmr_setlastchange(CgUpnpAvRenderer *dmr, char *value);
-char *cg_upnpav_dmr_getlastchange(CgUpnpAvRenderer *dmr);
-	
+void cg_upnpav_dmr_setavtransportlastchange(CgUpnpAvRenderer *dmr, char *value);
+char *cg_upnpav_dmr_getavtransportlastchange(CgUpnpAvRenderer *dmr);
+
+void cg_upnpav_dmr_setrenderingcontrollastchange(CgUpnpAvRenderer *dmr, char *value);
+char *cg_upnpav_dmr_getrenderingcontrollastchange(CgUpnpAvRenderer *dmr);
+
 #ifdef  __cplusplus
 }
 #endif

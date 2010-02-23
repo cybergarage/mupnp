@@ -138,34 +138,6 @@ char *cg_upnpav_dmr_getcurrentconnectionids(CgUpnpAvRenderer *dmr)
 }
 
 /****************************************
- * cg_upnpav_dmr_setlastchange
- ****************************************/
-
-void cg_upnpav_dmr_setlastchange(CgUpnpAvRenderer *dmr, char *value)
-{
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
-	
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
-	cg_upnp_statevariable_setvalue(stateVar, value);
-}
-
-/****************************************
- * cg_upnpav_dmr_getlastchange
- ****************************************/
-
-char *cg_upnpav_dmr_getlastchange(CgUpnpAvRenderer *dmr)
-{
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
-	
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
-	return cg_upnp_statevariable_getvalue(stateVar);
-}
-
-/****************************************
 * cg_upnpav_dmr_actionreceived
 ****************************************/
 
@@ -338,6 +310,9 @@ CgUpnpAvRenderer *cg_upnpav_dmr_new()
 
 	dmr->protocolInfoList = cg_upnpav_protocolinfolist_new();
 
+	cg_upnpav_dmr_setavtransportlastchange(dmr,  "&lt;Event xmlns = &quot;urn:schemas-upnp-org:metadata-1-0/AVT/&quot;/&gt;");
+
+	cg_upnpav_dmr_setsourceprotocolinfo(dmr, "");
 	cg_upnpav_dmr_setcurrentconnectionids(dmr, "0");
 
 	lastChange = "&lt;Event xmlns = &quot;urn:schemas-upnp-org:metadata-1-0/RCS/&quot;&gt;"
@@ -347,7 +322,7 @@ CgUpnpAvRenderer *cg_upnpav_dmr_new()
 	"&lt;/InstanceID&gt;"
 	"&lt;/Event&gt;";
 	
-	cg_upnpav_dmr_setlastchange(dmr, lastChange);
+	cg_upnpav_dmr_setrenderingcontrollastchange(dmr, lastChange);
 	
 	return dmr;
 }

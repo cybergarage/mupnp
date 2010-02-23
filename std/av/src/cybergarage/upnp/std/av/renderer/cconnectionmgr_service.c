@@ -238,3 +238,60 @@ BOOL cg_upnpav_dmr_conmgr_init(CgUpnpAvRenderer *dmr)
 
 	return TRUE;
 }
+
+
+/****************************************
+ * cg_upnpav_dmr_setsinkprotocolinfo
+ ****************************************/
+
+void cg_upnpav_dmr_setsinkprotocolinfo(CgUpnpAvRenderer *dmr, char *value)
+{
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO);
+	cg_upnp_statevariable_setvalue(stateVar, value);
+}
+
+/****************************************
+ * cg_upnpav_dmr_getsinkprotocolinfo
+ ****************************************/
+
+char *cg_upnpav_dmr_getsinkprotocolinfo(CgUpnpAvRenderer *dmr)
+{
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO);
+	return cg_upnp_statevariable_getvalue(stateVar);
+}
+
+/****************************************
+ * cg_upnpav_dmr_setsourceprotocolinfo
+ ****************************************/
+
+void cg_upnpav_dmr_setsourceprotocolinfo(CgUpnpAvRenderer *dmr, char *value)
+{
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SOURCEPROTOCOLINFO);
+	cg_upnp_statevariable_setvalue(stateVar, value);
+}
+
+/****************************************
+ * cg_upnpav_dmr_getsourceprotocolinfo
+ ****************************************/
+
+char *cg_upnpav_dmr_getsourceprotocolinfo(CgUpnpAvRenderer *dmr)
+{
+	CgUpnpService *service;
+	CgUpnpStateVariable *stateVar;
+	
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SOURCEPROTOCOLINFO);
+	return cg_upnp_statevariable_getvalue(stateVar);
+}
