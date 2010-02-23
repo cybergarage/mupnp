@@ -8,7 +8,13 @@
 // testDevice
 ////////////////////////////////////////
 
-#define TEST_UPDATE_STATEVARIABLE_VALUE "4649"
+#define TEST_LASTCHANGE_VALUE \
+	"&lt;Event xmlns = &quot;urn:schemas-upnp-org:metadata-1-0/RCS/&quot;&gt;" \
+	"&lt;InstanceID val=&quot;0&quot;&gt;" \
+	"&lt;Volume val=&quot;100&quot; channel=&quot;RF&quot;/&gt;" \
+	"&lt;Volume val=&quot;100&quot; channel=&quot;LF&quot;/&gt;" \
+	"&lt;/InstanceID&gt;" \
+	"&lt;/Event&gt;" \
 
 static bool ClinkTestCaseTestSubscriptionFlag;
 
@@ -25,13 +31,16 @@ void ClinkAVTestCase::testRenderer()
 {
 	CgUpnpAvRenderer *dmr = cg_upnpav_dmr_new();
 
-	cg_upnpav_dms_start(dmr);
+	cg_upnpav_dmr_start(dmr);
 
-	while	(1) {
+	cg_upnpav_dmr_setlastchange(dmr, TEST_LASTCHANGE_VALUE);
+	CPPUNIT_ASSERT(cg_streq(TEST_LASTCHANGE_VALUE, cg_upnpav_dmr_getlastchange(dmr)));
+
+	while	(0) {
 		cg_sleep(1000);
 	}
 
-	cg_upnpav_dms_stop(dmr);
+	cg_upnpav_dmr_stop(dmr);
 
 	/*
 	CgUpnpDevice *testDev = upnp_test_device_new();

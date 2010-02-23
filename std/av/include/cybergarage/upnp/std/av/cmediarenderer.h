@@ -100,17 +100,17 @@ void cg_upnpav_dmr_delete(CgUpnpAvRenderer *dmr);
 
 #define cg_upnpav_dmr_getdevice(dmr) (dmr->dev)
 
-#define cg_upnpav_dmr_start(dmr) cg_upnpav_device_start(dmr->dev)
-#define cg_upnpav_dmr_stop(dmr) cg_upnpav_device_stop(dmr->dev)
+#define cg_upnpav_dmr_start(dmr) cg_upnp_device_start(dmr->dev)
+#define cg_upnpav_dmr_stop(dmr) cg_upnp_device_stop(dmr->dev)
 
 #define cg_upnpav_dmr_lock(dmr) cg_mutex_lock(dmr->mutex)
 #define cg_upnpav_dmr_unlock(dmr) cg_mutex_unlock(dmr->mutex)
 
-#define cg_upnpav_dmr_setfriendlyname(dmr, value) cg_upnpav_device_setfriendlyname(dmr->dev, value)
-#define cg_upnpav_dmr_getfriendlyname(dmr) cg_upnpav_device_getfriendlyname(dmr->dev)
+#define cg_upnpav_dmr_setfriendlyname(dmr, value) cg_upnp_device_setfriendlyname(dmr->dev, value)
+#define cg_upnpav_dmr_getfriendlyname(dmr) cg_upnp_device_getfriendlyname(dmr->dev)
 
-#define cg_upnpav_dmr_setudn(dmr, value) cg_upnpav_device_setudn(dmr->dev, value)
-#define cg_upnpav_dmr_getudn(dmr) cg_upnpav_device_getudn(dmr->dev)
+#define cg_upnpav_dmr_setudn(dmr, value) cg_upnp_device_setudn(dmr->dev, value)
+#define cg_upnpav_dmr_getudn(dmr) cg_upnp_device_getudn(dmr->dev)
 
 #define cg_upnpav_dmr_sethttplistener(dmr,func) (dmr->httplistener = func)
 #define cg_upnpav_dmr_gethttplistener(dmr) (dmr->httplistener)
