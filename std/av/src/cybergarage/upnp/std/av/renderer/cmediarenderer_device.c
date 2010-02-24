@@ -23,6 +23,7 @@
 ****************************************/
 
 static char *CG_UPNPAV_DMR_DEVICE_DESCRIPTION = 
+#if defined(CG_CLINKCAV_USE_UPNPSTD_XML)
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<root xmlns=\"urn:schemas-upnp-org:device-1-0\" xmlns:dlna=\"urn:schemas-dlna-org:device-1-0\">\n"
 "   <specVersion>\n"
@@ -65,6 +66,49 @@ static char *CG_UPNPAV_DMR_DEVICE_DESCRIPTION =
 "      </serviceList>\n"
 "   </device>\n"
 "</root>\n";
+#else
+" <?xml version="1.0" encoding="utf-8"?> \n"
+" <root xmlns="urn:schemas-upnp-org:device-1-0"> \n"
+"    <specVersion> \n"
+"       <major>1</major> \n"
+"       <minor>0</minor> \n"
+"    </specVersion> \n"
+"    <device> \n"
+"       <deviceType>urn:schemas-upnp-org:device:MediaRenderer:1</deviceType> \n"
+"       <INMPR03>1.0</INMPR03> \n"
+"       <friendlyName>Intel AV Renderer (VGN-A72PS)</friendlyName> \n"
+"       <manufacturer>Intel Corporation</manufacturer> \n"
+"       <manufacturerURL>http://www.intel.com/technology/upnp</manufacturerURL> \n"
+"       <modelDescription>Intel AV Media Renderer device</modelDescription> \n"
+"       <modelName>AV Renderer</modelName> \n"
+"       <modelURL>http://www.intel.com/technology/upnp</modelURL> \n"
+"       <UDN>uuid:5d4949f7-fe35-445a-9831-949f1433bdca</UDN> \n"
+"       <serviceList> \n"
+"          <service> \n"
+"             <serviceType>urn:schemas-upnp-org:service:AVTransport:1</serviceType> \n"
+"             <serviceId>urn:schemas-upnp-org:service:AVTransport</serviceId> \n"
+"             <SCPDURL>_urn:schemas-upnp-org:service:AVTransport_scpd.xml</SCPDURL> \n"
+"             <controlURL>_urn:schemas-upnp-org:service:AVTransport_control</controlURL> \n"
+"             <eventSubURL>_urn:schemas-upnp-org:service:AVTransport_event</eventSubURL> \n"
+"          </service> \n"
+"          <service> \n"
+"             <serviceType>urn:schemas-upnp-org:service:ConnectionManager:1</serviceType> \n"
+"             <serviceId>urn:schemas-upnp-org:service:ConnectionManager</serviceId> \n"
+"             <SCPDURL>_urn:schemas-upnp-org:service:ConnectionManager_scpd.xml</SCPDURL> \n"
+"             <controlURL>_urn:schemas-upnp-org:service:ConnectionManager_control</controlURL> \n"
+"             <eventSubURL>_urn:schemas-upnp-org:service:ConnectionManager_event</eventSubURL> \n"
+"          </service> \n"
+"          <service> \n"
+"             <serviceType>urn:schemas-upnp-org:service:RenderingControl:1</serviceType> \n"
+"             <serviceId>urn:schemas-upnp-org:service:RenderingControl</serviceId> \n"
+"             <SCPDURL>_urn:schemas-upnp-org:service:RenderingControl_scpd.xml</SCPDURL> \n"
+"             <controlURL>_urn:schemas-upnp-org:service:RenderingControl_control</controlURL> \n"
+"             <eventSubURL>_urn:schemas-upnp-org:service:RenderingControl_event</eventSubURL> \n"
+"          </service> \n"
+"       </serviceList> \n"
+"    </device> \n"
+" </root> \n";
+#endif
 
 /****************************************
 * Functions
