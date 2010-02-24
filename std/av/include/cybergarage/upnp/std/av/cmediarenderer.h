@@ -12,8 +12,8 @@
 *
 ************************************************************/
 
-#ifndef _CG_CLINKC_AV_MEDIARENDERER_H_
-#define _CG_CLINKC_AV_MEDIARENDERER_H_
+#ifndef _CG_CLINKCAV_MEDIARENDERER_H_
+#define _CG_CLINKCAV_MEDIARENDERER_H_
 
 #include <cybergarage/upnp/cupnp.h>
 #include <cybergarage/upnp/std/av/cupnpav.h>
@@ -21,6 +21,8 @@
 #ifdef  __cplusplus
 extern "C" {
 #endif
+
+#undef CG_CLINKCAV_USE_UPNPSTD_XML 
 
 /****************************************
 * Struct
