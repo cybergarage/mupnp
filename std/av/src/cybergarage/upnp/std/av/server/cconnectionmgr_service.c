@@ -23,7 +23,7 @@
 ****************************************/
 
 static char *CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION = 
-"<?xml version=\"1.0\"encoding=\"utf-8\"?>\n"
+"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
 "  <specVersion>\n"
 "     <major>1</major>\n"

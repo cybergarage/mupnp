@@ -67,7 +67,7 @@ static char *CG_UPNPAV_DMR_DEVICE_DESCRIPTION =
 " </device>\n"
 "</root>\n";
 #else
-"<?xml version=\"1.0\"encoding=\"utf-8\"?>\n"
+"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<root xmlns=\"urn:schemas-upnp-org:device-1-0\">\n"
 "  <specVersion>\n"
 "     <major>1</major>\n"
