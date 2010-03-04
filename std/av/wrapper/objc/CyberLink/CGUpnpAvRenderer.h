@@ -11,7 +11,7 @@
 
 #import <CyberLink/UPnP.h>
 
-#if !defined(_CG_CLINKC_AV_MEDIARENDERER_H_)
+#if !defined(_CG_CLINKCAV_MEDIARENDERER_H_)
 typedef void CgUpnpAvRenderer;
 #endif
 
