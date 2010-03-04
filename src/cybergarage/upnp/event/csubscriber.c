@@ -192,6 +192,9 @@ static BOOL cg_upnp_subscriber_notifymain(CgUpnpSubscriber *sub, CgUpnpService *
 	notifyRes = cg_upnp_event_notify_request_post(notifyReq, host, port);
 	notifySuccess = cg_upnp_event_notify_response_issuccessful(notifyRes);
 
+	cg_http_request_print(notifyReq->httpReq);
+	cg_http_response_print(notifyRes->httpRes);
+	
 	cg_upnp_event_notify_request_delete(notifyReq);
 
 	if (notifySuccess == FALSE)
