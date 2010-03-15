@@ -547,7 +547,7 @@ static void cg_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpn
 	cg_upnp_event_subscription_request_postresponse(subReq, subRes);
 	cg_upnp_event_subscription_response_delete(subRes);
 
-	cg_upnp_service_notifyall(service, TRUE);
+	cg_upnp_service_createnotifyallthread(service, CG_UPNP_SERVICE_NOTIFY_WAITTIME);
 
 	cg_log_debug_l4("Leaving...\n");
 }

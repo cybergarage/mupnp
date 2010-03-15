@@ -1,3 +1,7 @@
+2010-03-15  Satoshi Konno <skonno@cybergarage.org>
+	* Added cg_upnp_service_createnotifyallthread().
+	* Changed cg_upnp_device_newsubscriptionrecieved() to delay the notify message instead of cg_upnp_service_notifyall().
+	
 2010-02-09  Satoshi Konno <skonno@cybergarage.org>
 	* Added project files for Visual Studio 2008.
 	* Disabled AC_PROG_LIBTOOL and HAVE_LIBTOOL in confugre.in and Makefile.am.

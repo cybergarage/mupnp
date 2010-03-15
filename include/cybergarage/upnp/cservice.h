@@ -74,6 +74,7 @@ extern "C" {
 #define CG_UPNP_SERVICE_CONTROL_URL "controlURL"
 #define CG_UPNP_SERVICE_EVENT_SUB_URL "eventSubURL"
 #define CG_UPNP_SERVICE_EVENT_KEY_INVALID 0
+#define CG_UPNP_SERVICE_NOTIFY_WAITTIME 1000
 
 /****************************************************************************
 * Data Type
@@ -592,6 +593,14 @@ BOOL cg_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar
  * @param service The service in question
  */
 BOOL cg_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket );
+
+/**
+* Create a new thread to send a notification message to all of the service's subscribers
+*
+ * @param service The service in question
+*  @param waitTime The wait time to send
+*/
+void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgSysTime waitTime);
 
 /**
  * Send a notification message to all of the service's subscribers

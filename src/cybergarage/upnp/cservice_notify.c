@@ -152,6 +152,31 @@ BOOL cg_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket)
 }
 
 /****************************************
+ * cg_upnp_service_notifyall
+ ****************************************/
+
+static void cg_upnp_service_notifyall_thread(CgThread *thread)
+{
+	CgUpnpService *service;
+	
+	service = (CgUpnpService *)cg_thread_getuserdata(thread);
+	cg_upnp_service_notifyall(service, TRUE);
+	cg_thread_delete(thread);	
+}
+
+void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgSysTime waitTime)
+{
+	CgThread *thread;
+	
+	thread = cg_thread_new();
+	cg_thread_setaction(thread, cg_upnp_service_notifyall_thread);
+	cg_thread_setuserdata(thread, service);
+	
+	cg_wait(waitTime);
+	cg_thread_start(thread);
+}
+
+/****************************************
 * CG_UPNP_NOUSE_SUBSCRIPTION (End)
 ****************************************/
 
