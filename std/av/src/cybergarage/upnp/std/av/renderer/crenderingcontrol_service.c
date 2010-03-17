@@ -1469,8 +1469,8 @@ void cg_upnpav_dmr_setrenderingcontrollastchange(CgUpnpAvRenderer *dmr, char *va
 	CgUpnpService *service;
 	CgUpnpStateVariable *stateVar;
 	
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
+	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_TYPE);
+	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_RENDERINGCONTROL_LASTCHANGE);
 	cg_upnp_statevariable_setvalue(stateVar, value);
 }
 
