@@ -130,6 +130,7 @@ BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notify
 	httpReq = cg_soap_request_gethttprequest(notifyReq);
 
 	cg_http_request_setmethod(httpReq, CG_HTTP_NOTIFY);
+	cg_http_request_setconnection(httpReq, CG_HTTP_CLOSE);
 	cg_http_request_seturi(httpReq, cg_upnp_subscriber_getdeliverypath(sub));
 	cg_http_request_sethost(httpReq, cg_upnp_subscriber_getdeliveryhost(sub), cg_upnp_subscriber_getdeliveryport(sub));
 	cg_upnp_event_notify_request_setnt(notifyReq, CG_UPNP_NT_EVENT);
