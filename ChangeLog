@@ -2,6 +2,7 @@
 	* Added cg_upnp_service_createnotifyallthread().
 	* Changed cg_upnp_device_newsubscriptionrecieved() to delay the notify message instead of cg_upnp_service_notifyall().
 	* Changed cg_upnp_event_notify_request_setpropertysetnode() to add a connection header.
+	* Changed cg_http_getservername() to use uname() on iPhone platform.
 	
 2010-02-09  Satoshi Konno <skonno@cybergarage.org>
 	* Added project files for Visual Studio 2008.

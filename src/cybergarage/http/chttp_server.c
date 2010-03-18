@@ -32,7 +32,7 @@
 #include <cybergarage/util/clog.h>
 #include <cybergarage/util/cstring.h>
 
-#if defined(HAVE_UNAME)
+#if defined(HAVE_UNAME) || defined(TARGET_OS_MAC) || defined(TARGET_OS_IPHONE)
 #include <sys/utsname.h>
 #endif
 
@@ -398,7 +398,7 @@ char *cg_http_getservername(char *buf, int bufSize)
 	cg_strcpy(buf, "uITRON 4.0");
 #elif defined(TENGINE) 
 	cg_strcpy(buf, "T-Engine 1.0");
-#elif defined(HAVE_UNAME)
+#elif defined(HAVE_UNAME) || defined(TARGET_OS_MAC) || defined(TARGET_OS_IPHONE)
 	struct utsname unameBuf;
 	cg_strcpy(buf, "Platform 1.0");
 	if (uname(&unameBuf) == 0) {
