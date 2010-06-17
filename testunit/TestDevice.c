@@ -73,8 +73,38 @@ char *TEST_DEVICE_DESCRIPTION =
 " 			</service>\n"
 " 		</serviceList>\n"
 " 		<presentationURL>/presentation</presentationURL>\n"
+" 		<deviceList>\n"
+"			<device>\n"
+" 				<deviceType>" TEST_DEVICE_EMBEDDEDDEVICE_TYPE1 "</deviceType>\n"
+"				<serviceList>\n"
+" 					<service>\n"
+" 						<serviceType>" TEST_DEVICE_SERVICE_TYPE "</serviceType>\n"
+" 						<serviceId>urn:upnp-org:serviceId:SwitchPower.1</serviceId>\n"
+" 						<SCPDURL>/service/power/description.xml</SCPDURL>\n"
+"						<controlURL>/service/power/control</controlURL>\n"
+" 						<eventSubURL>/service/power/eventSub</eventSubURL>\n"
+" 					</service>\n"
+" 				</serviceList>\n"
+"			</device>\n"
+"			<device>\n"
+" 				<deviceType>" TEST_DEVICE_EMBEDDEDDEVICE_TYPE2 "</deviceType>\n"
+"				<serviceList>\n"
+" 					<service>\n"
+" 						<serviceType>" TEST_DEVICE_SERVICE_TYPE "</serviceType>\n"
+" 						<serviceId>urn:upnp-org:serviceId:SwitchPower.1</serviceId>\n"
+" 						<SCPDURL>/service/power/description.xml</SCPDURL>\n"
+"						<controlURL>/service/power/control</controlURL>\n"
+" 						<eventSubURL>/service/power/eventSub</eventSubURL>\n"
+" 					</service>\n"
+" 				</serviceList>\n"
+"			</device>\n"
+" 		</deviceList>\n"
 "	</device>\n"
 "</root>\n";
+
+/****************************************
+* Service Device Descriptions
+****************************************/
 
 char *TEST_SERVICE_DESCRIPTION =
 "<?xml version=\"1.0\"?>\n"

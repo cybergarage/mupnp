@@ -22,7 +22,12 @@ extern "C" {
 #endif
 
 #define TEST_DEVICE_DEVICE_TYPE "urn:schemas-upnp-org:device:BinaryLight:1"
+
+#define TEST_DEVICE_EMBEDDEDDEVICE_TYPE1 "urn:schemas-upnp-org:device:EmbeddedsBinaryLight:1"
+#define TEST_DEVICE_EMBEDDEDDEVICE_TYPE2 "urn:schemas-upnp-org:device:EmbeddedsBinaryLight:2"
+
 #define TEST_DEVICE_SERVICE_TYPE "urn:schemas-upnp-org:service:SwitchPower:1"
+
 #define TEST_DEVICE_FREINDLYNAME "CyberGarage Power Device"
 #define TEST_DEVICE_STATEVARIABLE_STATUS "Status"
 

@@ -226,9 +226,10 @@ char *cg_xml_node_getchildnodevalue(CgXmlNode *node, char *name)
 	childNode = cg_xml_node_getchildnode(node, name);
 	if (childNode != NULL)
 		return cg_xml_node_getvalue(childNode);
-	return NULL;
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return NULL;
 }
 
 /****************************************

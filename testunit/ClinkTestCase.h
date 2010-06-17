@@ -7,12 +7,12 @@ class ClinkTestCase : public CPPUNIT_NS::TestFixture
 {
   CPPUNIT_TEST_SUITE( ClinkTestCase );
 
+  CPPUNIT_TEST( testDevice );
   /*
   CPPUNIT_TEST( testDictionary );
   CPPUNIT_TEST( testURI );
   CPPUNIT_TEST( testNetworkInterface );
   CPPUNIT_TEST( testHttpServer );
-  CPPUNIT_TEST( testDevice );
   CPPUNIT_TEST( testControlPoint );
   */
   CPPUNIT_TEST( testSubscription );
