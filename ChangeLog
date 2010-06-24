@@ -1,9 +1,12 @@
+2010-06-24  Satoshi Konno <skonno@cybergarage.org>
+	* Added cg_xml_node_print().
+
 2010-03-17  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_service_createnotifyallthread().
 	* Changed cg_upnp_device_newsubscriptionrecieved() to delay the notify message instead of cg_upnp_service_notifyall().
 	* Changed cg_upnp_event_notify_request_setpropertysetnode() to add a connection header.
 	* Changed cg_http_getservername() to use uname() on iPhone platform.
-	
+
 2010-02-09  Satoshi Konno <skonno@cybergarage.org>
 	* Added project files for Visual Studio 2008.
 	* Disabled AC_PROG_LIBTOOL and HAVE_LIBTOOL in confugre.in and Makefile.am.

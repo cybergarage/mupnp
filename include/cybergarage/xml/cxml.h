@@ -181,6 +181,7 @@ void cg_xml_node_removeattribute(CgXmlNode *node, char *name);
 #define cg_xml_node_setnamespace(node, ns, value) cg_xml_node_setattribute(node, "xmlns:" ns , value)
 
 char *cg_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str);
+void  cg_xml_node_print(CgXmlNode *node);
 
 void cg_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode);
 
