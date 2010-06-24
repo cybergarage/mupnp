@@ -412,3 +412,16 @@ char *cg_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str)
 	cg_log_debug_l4("Leaving...\n");
 }
 
+/****************************************
+ * cg_xml_node_print
+ ****************************************/
+
+void  cg_xml_node_print(CgXmlNode *node)
+{
+	CgString *str = cg_string_new();
+	cg_xml_node_tostring(node, TRUE, str);
+	printf("%s", cg_string_getvalue(str));
+	cg_string_delete(str);
+}
+
+
