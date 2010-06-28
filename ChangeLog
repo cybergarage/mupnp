@@ -1,3 +1,6 @@
+2010-06-28 Christian Zuckschwerdt <Christian@Zuckschwerdt.org>
+	* Fixed CGUpnpAction::arguments() not to release temporary object.
+	
 2010-06-24  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_xml_node_print().
 

@@ -65,9 +65,11 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 
 - (NSDictionary *)arguments
 {
+	// Thanks for Christian Zuckschwerdt (2010/06/28)
 	if (!cObject)
-		return [[NSDictionary dictionary] autorelease];
-	NSMutableDictionary *argDir = [[NSMutableDictionary dictionary] autorelease];
+		return [NSDictionary dictionary];
+	NSMutableDictionary *argDir = [NSMutableDictionary dictionary];
+	
 	CgUpnpArgument *carg;
 	for (carg = cg_upnp_action_getarguments(cObject); carg; carg = cg_upnp_argument_next(carg)) {
 		char *name = cg_upnp_argument_getname(carg);
