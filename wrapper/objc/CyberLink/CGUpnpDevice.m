@@ -107,7 +107,20 @@
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_geturlbase(cObject)] autorelease];
+	const char *cUrlBase = cg_upnp_device_geturlbase(cObject);
+	if (!cUrlBase)
+		return [NSString string];
+	return [[[NSString alloc] initWithUTF8String:cUrlBase] autorelease];
+}
+
+- (NSString *)presentationURL;
+{
+	if (!cObject)
+		return nil;
+	const char *cPresentatilnURL = cg_upnp_device_getpresentationurl(cObject);
+	if (!cPresentatilnURL)
+		return [NSString string];
+	return [[[NSString alloc] initWithUTF8String:cPresentatilnURL] autorelease];
 }
 
 -(void)setDeviceType:(NSString *)aType
