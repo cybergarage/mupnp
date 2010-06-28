@@ -122,6 +122,12 @@ typedef void CgUpnpDevice;
  */
 - (BOOL)isFriendlyName:(NSString *)aFriendlyName;
 /**
+ * Return a presentationURL
+ *
+ * @return presentationURL of the device.
+ */
+- (NSString *)presentationURL;
+/**
  * Get all services in the device as a NSArray object. The array has the services as instances of CGUpnpService.
  *
  * @return NSArray of CGUpnpService.
