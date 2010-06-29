@@ -113,6 +113,26 @@
 	return [[[NSString alloc] initWithUTF8String:cUrlBase] autorelease];
 }
 
+- (NSString *)descriptionURL;
+{
+	if (!cObject)
+		return nil;
+	const char *cDescrUrl = cg_upnp_device_getdescriptionuri(cObject);
+	if (!cDescrUrl)
+		return [NSString string];
+	return [[[NSString alloc] initWithUTF8String:cDescrUrl] autorelease];
+}
+
+- (NSString *)locationURL;
+{
+	if (!cObject)
+		return nil;
+	const char *cLocationUrl = cg_upnp_device_getlocationfromssdppacket(cObject);
+	if (!cLocationUrl)
+		return [NSString string];
+	return [[[NSString alloc] initWithUTF8String:cLocationUrl] autorelease];
+}
+
 - (NSString *)presentationURL;
 {
 	if (!cObject)

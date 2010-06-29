@@ -80,6 +80,18 @@ typedef void CgUpnpDevice;
  */
 - (NSString *)urlBase;
 /**
+ * Return a descrition URL
+ *
+ * @return Descripton URL of the device.
+ */
+- (NSString *)descriptionURL;
+/**
+ * Return a location URL
+ *
+ * @return Location URL of the device.
+ */
+- (NSString *)locationURL;
+/**
  * Set a device type of the device.
  * 
  * @param aType Device type to set.
