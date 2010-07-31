@@ -73,6 +73,21 @@ typedef void CgUpnpDevice;
  * @return Manufacture of the device.
  */
 - (NSString *)manufacturer;
+
+/**
+ * Return a model number.
+ *
+ * @return Model number of the device.
+ */
+- (NSString *)modelNumber;
+
+/**
+ * Return a model name.
+ *
+ * @return Model name of the device.
+ */
+- (NSString *)modelName;
+
 /**
  * Return a urlBase
  *
