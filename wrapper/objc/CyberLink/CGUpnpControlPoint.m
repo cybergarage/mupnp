@@ -59,7 +59,7 @@
 
 - (void)search
 {
-	[self searchWithST:[[NSString alloc] initWithUTF8String:CG_UPNP_NT_ROOTDEVICE]];
+	[self searchWithST:[NSString stringWithUTF8String:CG_UPNP_NT_ROOTDEVICE]];
 }
 
 - (void)searchWithST:(NSString *)aST

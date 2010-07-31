@@ -65,16 +65,18 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 
 - (NSDictionary *)arguments
 {
-	// Thanks for Christian Zuckschwerdt (2010/06/28)
 	if (!cObject)
 		return [NSDictionary dictionary];
 	NSMutableDictionary *argDir = [NSMutableDictionary dictionary];
-	
 	CgUpnpArgument *carg;
 	for (carg = cg_upnp_action_getarguments(cObject); carg; carg = cg_upnp_argument_next(carg)) {
 		char *name = cg_upnp_argument_getname(carg);
 		char *value = cg_upnp_argument_getvalue(carg);
-		[argDir setObject:[[NSString alloc] initWithUTF8String:(value ? value : "")] forKey:[[NSString alloc] initWithUTF8String:name]];
+		NSString *obj = [[NSString alloc] initWithUTF8String:(value ? value : "")];
+		NSString *key = [[NSString alloc] initWithUTF8String:name];
+		[argDir setObject:obj forKey:key];
+		[obj release];
+		[key release];
 	}
 	return argDir;
 }
@@ -105,7 +107,7 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 	cValue = cg_upnp_argument_getvalue(cArg);
 	if (cg_strlen(cValue) <= 0)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cValue] autorelease];
+	return [NSString stringWithUTF8String:cValue];
 }
 
 - (BOOL)post
