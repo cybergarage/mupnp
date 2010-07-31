@@ -282,7 +282,7 @@ void cg_net_uri_rebuild(CgNetURI *uri)
 		if (path[0] != '/')
 			cg_string_addvalue(uri->uri, CG_NET_URI_SLASH_DELIM);
 		cg_string_addvalue(uri->uri, cg_net_uri_getpath(uri));
-		if (0 < cg_strlen(cg_net_uri_getquery(uri))) {
+		if (cg_strchr(cg_net_uri_getpath(uri), "?", 1) == -1 && 0 < cg_strlen(cg_net_uri_getquery(uri))) {
 			cg_string_addvalue(uri->uri, CG_NET_URI_QUESTION_DELIM);
 			cg_string_addvalue(uri->uri, cg_net_uri_getquery(uri));
 		}
@@ -355,8 +355,6 @@ BOOL cg_net_uri_isescapedstring(char *buf, int bufSize)
 
 	cg_log_debug_l4("Entering...\n");
 
-	idx = 0;
-	
 	if (bufSize < 1) bufSize = cg_strlen(buf) + 1;
 	
 	/* We assume that the URI string is escaped, if it has at least one
