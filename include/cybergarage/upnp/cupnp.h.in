@@ -40,6 +40,7 @@
 #define CG_CLINK_VER
 
 #define CG_UPNP_VER "1.0"
+#define CG_DLNA_VER "1.50"
 
 #define CG_UPNP_XML_DECLARATION "<?xml version=\"1.0\"?>"
 
