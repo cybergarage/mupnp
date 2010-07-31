@@ -4,6 +4,8 @@
 	* Fixed several memory leaks in Objective-C wrapper
 	* Proper handling of edge cases in src/cybergarage/upnp/cservice.c and
 	  std/av/src/cybergarage/upnp/std/av/cprotocolinfo.c
+	* Fix crashes caused by attempts to initialize NSString with NULL cstring
+	* Added modelNumber and modelName methods to CGUpnpDevice class
 
 2010-06-28 Christian Zuckschwerdt <Christian@Zuckschwerdt.org>
 	* Fixed CGUpnpAction::arguments() not to release temporary object.
