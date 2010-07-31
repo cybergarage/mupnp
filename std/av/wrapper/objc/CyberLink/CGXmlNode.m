@@ -7,8 +7,9 @@
 //
 
 #if  defined(TARGET_OS_IPHONE)
-#include <cybergarage/xml/cxml.h>
+#import <cybergarage/xml/cxml.h>
 #endif
+#import <cybergarage/util/cstring.h>
 
 #import "CGXmlNode.h"
 
@@ -105,9 +106,11 @@
 		return nil;
 	cXmlNode = cg_xml_node_new();
 	cg_xml_node_copy(cXmlNode, aXmlNode);
+/*
 	CgString *str = cg_string_new();
 	NSLog(@"initWithXMLNode\n%s", cg_xml_node_tostring(cXmlNode, TRUE, str));
 	cg_string_delete(str);
+*/
 	return self;
 }
 
@@ -127,7 +130,12 @@
 {
 	if (!cXmlNode)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_xml_node_getattributevalue(cXmlNode, (char *)[aName UTF8String])] autorelease];
+	const char* attributeValue = cg_xml_node_getattributevalue(cXmlNode, (char *)[aName UTF8String]);
+	if (attributeValue)
+	{
+		return [[[NSString alloc] initWithUTF8String:attributeValue] autorelease];
+	}
+	return nil;
 }
 
 - (NSString *)elementValueForName:(NSString *)aName
@@ -137,14 +145,23 @@
 	CgXmlNode *elemNode = cg_xml_node_getchildnode(cXmlNode, (char *)[aName UTF8String]);
 	if (!elemNode)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:(char *)cg_xml_node_getvalue(elemNode)] autorelease];
+	const char* nodeValue = cg_xml_node_getvalue(elemNode);
+	if (nodeValue)
+	{
+		return [[[NSString alloc] initWithUTF8String:nodeValue] autorelease];
+	}
+	return nil;
 }
-
 - (NSString *)stringValue
 {
 	if (!cXmlNode)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:(char *)cg_xml_node_getvalue(cXmlNode)] autorelease];
+	const char* nodeValue = cg_xml_node_getvalue(cXmlNode);
+	if (nodeValue)
+	{
+		return [[[NSString alloc] initWithUTF8String:nodeValue] autorelease];
+	}
+	return nil;
 }
 
 - (void)setStringValue:(NSString *)aValue

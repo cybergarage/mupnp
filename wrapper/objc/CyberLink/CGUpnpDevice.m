@@ -63,15 +63,19 @@
 
 - (void) dealloc
 {
-	if (isCObjectCreated && cObject)
+	if (isCObjectCreated && cObject) {
 		cg_upnp_device_delete(cObject);
+		cObject = NULL;
+	}
 	[super dealloc];
 }
 
 - (void) finalize
 {
-	if (isCObjectCreated && cObject)
+	if (isCObjectCreated && cObject) {
 		cg_upnp_device_delete(cObject);
+		cObject = NULL;
+	}
 	[super finalize];
 }
 
@@ -79,28 +83,71 @@
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getfriendlyname(cObject)] autorelease];
+	const char* name = cg_upnp_device_getfriendlyname(cObject);
+	if (name) {
+		return [NSString stringWithUTF8String:name];
+	}
+	return nil;
 }
 
 - (NSString *)deviceType
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getdevicetype(cObject)] autorelease];
+	const char* device_type_cstring = cg_upnp_device_getdevicetype(cObject);
+	if (device_type_cstring)
+	{
+		return [NSString stringWithUTF8String:device_type_cstring];
+	}
+	return nil;
 }
 
 - (NSString *)udn
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getudn(cObject)] autorelease];
+	const char* udn_cstring = cg_upnp_device_getudn(cObject);
+	if (udn_cstring)
+	{
+		return [NSString stringWithUTF8String:udn_cstring];
+	}
+	return nil;
 }
 
 - (NSString *)manufacturer
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_upnp_device_getmanufacturer(cObject)] autorelease];
+	const char* manufacturer_cstring = cg_upnp_device_getmanufacturer(cObject);
+	if (manufacturer_cstring)
+	{
+		return [NSString stringWithUTF8String:manufacturer_cstring];
+	}
+	return nil;
+}
+
+- (NSString *)modelNumber
+{
+	if (!cObject)
+		return nil;
+	const char* model_number_cstring = cg_upnp_device_getmodelnumber(cObject);
+	if (model_number_cstring)
+	{
+		return [NSString stringWithUTF8String:model_number_cstring];
+	}
+	return nil;
+}
+
+- (NSString *)modelName
+{
+	if (!cObject)
+		return nil;
+	const char* model_name_cstring = cg_upnp_device_getmodelname(cObject);
+	if (model_name_cstring)
+	{
+		return [NSString stringWithUTF8String:model_name_cstring];
+	}
+	return nil;
 }
 
 - (NSString *)urlBase
