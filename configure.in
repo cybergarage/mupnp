@@ -65,6 +65,7 @@ AC_PROG_AWK
 #AC_PROG_LIBTOOL
 AC_PROG_RANLIB
 AC_LANG_CPLUSPLUS
+AM_PROG_CC_C_O
 
 ##############################
 # Checks for Long Long
@@ -277,7 +278,7 @@ AC_ARG_WITH(thread-lock-trace,
                        [Trace thread locking and fail fast on errors, errors can be found also from /tmp/cg_td_* (default = no)]),
                        [],
                        [with_cp_lock_trace=no])
-if [test $with_thread_lock_trace = yes]; then
+if [test "$with_thread_lock_trace" = yes]; then
         CFLAGS="$CFLAGS -DWITH_THREAD_LOCK_TRACE"
 fi
 
