@@ -53,14 +53,14 @@
 {
 	if (!cObject)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cg_upnp_service_getserviceid(cObject)];
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_service_getserviceid(cObject)] autorelease];
 }
 
 - (NSString *)serviceType
 {
 	if (!cObject)
 		return nil;
-	return [[NSString alloc] initWithUTF8String:cg_upnp_service_getservicetype(cObject)];
+	return [[[NSString alloc] initWithUTF8String:cg_upnp_service_getservicetype(cObject)] autorelease];
 }
 
 - (NSArray *)actions
