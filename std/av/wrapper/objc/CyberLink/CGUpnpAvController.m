@@ -145,7 +145,8 @@
 
 	CGUpnpAvObject *avObj = rootObj;
 	int idxPathLength = [aServerAndTitleIndexPath length];
-	for (int n=1; n<idxPathLength; n++) {
+	int n;
+	for (n=1; n<idxPathLength; n++) {
 		if ([avObj isItem])
 			return nil;
 		CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
