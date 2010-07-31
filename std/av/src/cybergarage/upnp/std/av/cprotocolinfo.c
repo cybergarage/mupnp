@@ -33,20 +33,20 @@ CgUpnpAvProtocolInfo *cg_upnpav_protocolinfo_new()
 
 	info = (CgUpnpAvProtocolInfo *)malloc(sizeof(CgUpnpAvProtocolInfo));
 
-	if  ( NULL != info )
+	if  ( NULL != info ) {
 		cg_list_node_init((CgList *)info);
 
-	info->protocol = cg_string_new();
-	info->network = cg_string_new();
-	info->mimeType = cg_string_new();
-	info->additionalInfo = cg_string_new();
-	info->string = cg_string_new();
+		info->protocol = cg_string_new();
+		info->network = cg_string_new();
+		info->mimeType = cg_string_new();
+		info->additionalInfo = cg_string_new();
+		info->string = cg_string_new();
 
-	cg_upnpav_protocolinfo_setprotocol(info, "*");
-	cg_upnpav_protocolinfo_setnetwork(info, "*");
-	cg_upnpav_protocolinfo_setmimetype(info, "*");
-	cg_upnpav_protocolinfo_setadditionainfo(info, "*");
-
+		cg_upnpav_protocolinfo_setprotocol(info, "*");
+		cg_upnpav_protocolinfo_setnetwork(info, "*");
+		cg_upnpav_protocolinfo_setmimetype(info, "*");
+		cg_upnpav_protocolinfo_setadditionainfo(info, "*");
+    }
 	cg_log_debug_l4("Leaving...\n");
 
 	return info;

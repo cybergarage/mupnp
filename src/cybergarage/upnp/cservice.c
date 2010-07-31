@@ -905,7 +905,7 @@ static void cg_upnp_service_initactionlist(CgUpnpService *service)
 {
 	CgXmlNode *scdpNode;
 	CgXmlNode *actionListNode;
-	CgXmlNode *serviceNode;
+//	CgXmlNode *serviceNode;
 	CgXmlNode *childNode;
 	CgUpnpAction *action;
 	
@@ -921,7 +921,7 @@ static void cg_upnp_service_initactionlist(CgUpnpService *service)
 	if (actionListNode == NULL)
 		return;
 		
-	serviceNode = cg_upnp_service_getservicenode(service);
+	//serviceNode = cg_upnp_service_getservicenode(service);
 	for (childNode = cg_xml_node_getchildnodes(actionListNode); childNode != NULL; childNode = cg_xml_node_next(childNode)) {
 		if (cg_upnp_action_isactionnode(childNode) == FALSE)
 			continue;
@@ -977,7 +977,7 @@ static void cg_upnp_service_initservicestatetable(CgUpnpService *service)
 {
 	CgXmlNode *scdpNode;
 	CgXmlNode *stateTableNode;
-	CgXmlNode *serviceNode;
+//	CgXmlNode *serviceNode;
 	CgXmlNode *childNode;
 	CgUpnpStateVariable *statVar;
 	
@@ -993,7 +993,7 @@ static void cg_upnp_service_initservicestatetable(CgUpnpService *service)
 	if (stateTableNode == NULL)
 		return;
 		
-	serviceNode = cg_upnp_service_getservicenode(service);
+//	serviceNode = cg_upnp_service_getservicenode(service);
 	for (childNode = cg_xml_node_getchildnodes(stateTableNode); childNode != NULL; childNode = cg_xml_node_next(childNode)) {
 		if (cg_upnp_statevariable_isstatevariablenode(childNode) == FALSE)
 			continue;
@@ -1217,8 +1217,8 @@ static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 	/* URL base + absolute/relative path */
 	rootDev = cg_upnp_service_getrootdevice(service);
 
-        if (rootDev != NULL) {
-                if (0 < cg_strlen(cg_upnp_device_geturlbase(rootDev))) {
+	if (rootDev != NULL) {
+		if (0 < cg_strlen(cg_upnp_device_geturlbase(rootDev))) {
 			CgNetURL *temp = cg_net_url_new();
 			cg_net_url_set(temp, gen_url_str);
 
@@ -1238,44 +1238,42 @@ static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 
 			cg_log_debug_s("Mangled URL: %s\n", cg_net_url_getrequest(genURL));
 			return genURL;
-                }
-        }
-
-	/* URL base from location + absolute/relative path */
-        location_str = cg_upnp_device_getlocationfromssdppacket(rootDev);
-	cg_log_debug_s("Location from SSDP packet: %s\n", location_str);
-
-        if (cg_strlen(location_str) <= 0) {
-		cg_log_debug_s("Could not get location string from SSDP packet!\n");
-                return genURL;
+		}
+		/* URL base from location + absolute/relative path */
+		location_str = cg_upnp_device_getlocationfromssdppacket(rootDev);
+		cg_log_debug_s("Location from SSDP packet: %s\n", location_str);
+		
+		if (cg_strlen(location_str) <= 0) {
+			cg_log_debug_s("Could not get location string from SSDP packet!\n");
+			return genURL;
         }
 
         cg_net_url_set(genURL, location_str);
-
-	cg_log_debug_s("URL from location: %s - %d -%s", 
-			cg_net_url_gethost(genURL),
-			cg_net_url_getport(genURL),
-			cg_net_url_getpath(genURL));
+		
+		cg_log_debug_s("URL from location: %s - %d -%s", 
+					   cg_net_url_gethost(genURL),
+					   cg_net_url_getport(genURL),
+					   cg_net_url_getpath(genURL));
 
         /* UPnP spec says that path in location URL with last part removed should be 
-	 * considered as base path when getting service descriptions, if relative
-	 * paths are used in description XML.
+		 * considered as base path when getting service descriptions, if relative
+		 * paths are used in description XML.
          *
          * So we convert location http://192.168.1.1/base/path/description
          * into http://192.168.1.1/base/path/
          */
 
-	location_str = cg_net_url_getupnpbasepath(genURL);
+		location_str = cg_net_url_getupnpbasepath(genURL);
+		
+		if (location_str) {
+			cg_net_url_setpath(genURL, location_str);
+			free(location_str);
+			location_str = NULL;
+		}
 
-	if (location_str) {
-		cg_net_url_setpath(genURL, location_str);
-		free(location_str); location_str = NULL;
-	}
-
-	{
 		CgNetURL *temp = cg_net_url_new();
 		cg_net_url_set(temp, gen_url_str);
-
+		
 		if ( cg_net_url_isabsolutepath(gen_url_str) ) {
 			cg_net_url_setpath(genURL, cg_net_url_getpath(temp));
 			cg_net_url_setquery(genURL, cg_net_url_getquery(temp));
@@ -1284,13 +1282,15 @@ static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 			cg_net_url_addpath(genURL, cg_net_url_getpath(temp));
 			cg_net_url_setquery(genURL, cg_net_url_getquery(temp));
 		}
-
+		
 		cg_net_url_delete(temp);
+
+		cg_log_debug_s("Mangled URL: %s\n", cg_net_url_getrequest(genURL));
+		
+        return genURL;
 	}
 
-	cg_log_debug_s("Mangled URL: %s\n", cg_net_url_getrequest(genURL));
-
-        return genURL;
+	return NULL;
 }
 
 #endif
