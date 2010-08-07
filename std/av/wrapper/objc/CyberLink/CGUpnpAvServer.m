@@ -193,8 +193,8 @@
 		NSLog(@"browseMetadata = %@ (%d)", aObjectId, aRequestedCount);
 	}
 #endif
-	NSArry *resultArray = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:aRequestedCount];
-	if (resultArray != nil && 0 < [resultArray size])
+	NSArray*resultArray = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:aRequestedCount];
+	if (resultArray != nil && 0 < [resultArray count])
 		return resultArray;
 	if (0 < aRequestedCount)
 		return resultArray;
