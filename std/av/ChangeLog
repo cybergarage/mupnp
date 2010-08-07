@@ -1,3 +1,6 @@
+2010-08-07  Satoshi Konno <skonno@cybergarage.org>
+	* Changed CGUpnpAvServer::browseDirectChildren to get contents from non standard UPnP/AV media servers.
+
 2009-05-18  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_dms_condir_getsystemupdateid() and cg_upnp_dms_condir_setsystemupdateid().
 	* Added a XML namespaces and schemas of DLNA into the device desctiption and the DIDL node.

@@ -16,6 +16,8 @@
 #import "CGUpnpAvContentDirectory.h"
 #import "CGUpnpAvServer.h"
 
+#define CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT 9999
+
 @implementation CGUpnpAvServer
 
 @synthesize contentDirectory;
@@ -138,7 +140,7 @@
 					return nil;
 			}
 			else {
-				[action setArgumentValue:@"9999" forName:@"RequestedCount"];
+				[action setArgumentValue:[NSString stringWithFormat:@"%d", CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT] forName:@"RequestedCount"];
 				if (![action post])
 					return nil;
 			}
@@ -191,7 +193,12 @@
 		NSLog(@"browseMetadata = %@ (%d)", aObjectId, aRequestedCount);
 	}
 #endif
-	return [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:aRequestedCount];
+	NSArry *resultArray = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:aRequestedCount];
+	if (resultArray != nil && 0 < [resultArray size])
+		return resultArray;
+	if (0 < aRequestedCount)
+		return resultArray;
+	return [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT];
 }
 
 - (NSArray *)search:(NSString *)aSearchCriteria;
