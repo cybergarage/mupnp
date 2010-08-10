@@ -1196,10 +1196,15 @@ CgUpnpSubscriber *cg_upnp_service_getsubscriberbysid(CgUpnpService *service, cha
 
 static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 {
-	char *gen_url_str = cg_xml_node_getchildnodevalue(cg_upnp_service_getservicenode(service), type);
-	char *location_str = NULL;
-	CgNetURL *genURL = cg_net_url_new();
+	char *gen_url_str;
+	char *location_str;
+	CgNetURL *genURL;
 	CgUpnpDevice *rootDev;
+	CgNetURL *temp;
+
+	gen_url_str = cg_xml_node_getchildnodevalue(cg_upnp_service_getservicenode(service), type);
+	location_str = NULL;
+	genURL = cg_net_url_new();
 
 	if (cg_strlen(gen_url_str) <= 0)
 		return NULL;
@@ -1271,7 +1276,7 @@ static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 			location_str = NULL;
 		}
 
-		CgNetURL *temp = cg_net_url_new();
+		temp = cg_net_url_new();
 		cg_net_url_set(temp, gen_url_str);
 		
 		if ( cg_net_url_isabsolutepath(gen_url_str) ) {

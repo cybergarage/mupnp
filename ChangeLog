@@ -1,3 +1,7 @@
+2010-08-11  Satoshi Konno <skonno@cybergarage.org>
+	* Changed some source codes to compile normally using Visual Studio 2008.
+	* Added some project files for Visual Studio 2008.
+	
 2010-07-31 Roman Shterenzon <romanbsd@yahoo.com>
 	* Fixed autoconf warnings
 	* Don't append the original query to path when it already has a query (fixes WMP11/12 access)
