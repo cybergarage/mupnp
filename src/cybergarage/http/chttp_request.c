@@ -371,6 +371,8 @@ cg_log_debug_s("Getting HTTP-response completed. Elapsed time: "
 	cg_socket_close(sock);
 	cg_socket_delete(sock);	
 	
+	cg_http_response_print(httpReq->httpRes);
+
 	cg_log_debug_l4("Leaving...\n");
 
 	return httpReq->httpRes;
