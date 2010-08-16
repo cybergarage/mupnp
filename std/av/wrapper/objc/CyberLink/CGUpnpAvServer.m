@@ -130,19 +130,28 @@
 	 * Added to set the RequestedCount parameter using the NumberReturned result when the specified parameter is zero and
 	 * the NumberReturned parameter is less than the TotalMatches parameter for XMBC.
 	*/
-	if (aRequestedCount == 0) {
-		NSInteger numberReturned = [[action argumentValueForName:@"NumberReturned"] integerValue];
-		NSInteger totalMatches = [[action argumentValueForName:@"TotalMatches"] integerValue];
-		if (numberReturned == 0) {
-			if (0 < totalMatches) {
-				[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMatches] forName:@"RequestedCount"];
-				if (![action post])
-					return nil;
+	if ([aBrowseFlag isEqualToString:@"BrowseDirectChildren"]) {
+		if (aRequestedCount == 0) {
+			NSInteger numberReturned = [[action argumentValueForName:@"NumberReturned"] integerValue];
+			NSInteger totalMatches = [[action argumentValueForName:@"TotalMatches"] integerValue];
+			if (numberReturned == 0) {
+				if (0 < totalMatches) {
+					[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMatches] forName:@"RequestedCount"];
+					if (![action post])
+						return nil;
+				}
+				else {
+					[action setArgumentValue:[NSString stringWithFormat:@"%d", CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT] forName:@"RequestedCount"];
+					if (![action post])
+						return nil;
+				}
 			}
-			else {
-				[action setArgumentValue:[NSString stringWithFormat:@"%d", CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT] forName:@"RequestedCount"];
-				if (![action post])
-					return nil;
+			else if (0 < numberReturned) {
+				if (numberReturned < totalMatches) {
+					[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMatches] forName:@"RequestedCount"];
+					if (![action post])
+						return nil;
+				}
 			}
 		}
 	}
