@@ -407,6 +407,7 @@ AC_CHECK_LIB([pthread],[main])
 ##############################
 
 AC_CHECK_LIB([uuid],[main])
+AC_CHECK_HEADERS([uuid/uuid.h])
 
 ##############################
 # Checks for typedefs, structures, and compiler characteristics.
