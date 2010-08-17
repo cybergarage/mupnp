@@ -26,7 +26,7 @@
 #  include "config.h"
 #endif
 
-#if defined(HAVE_LIBUUID) || defined(TARGET_OS_IPHONE)
+#if defined(HAVE_UUID_UUID_H) || defined(TARGET_OS_IPHONE)
 #include <uuid/uuid.h>
 #endif
 

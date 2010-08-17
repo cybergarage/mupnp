@@ -5491,6 +5491,18 @@ _ACEOF
 
 fi
 
+for ac_header in uuid/uuid.h
+do :
+  ac_fn_cxx_check_header_mongrel "$LINENO" "uuid/uuid.h" "ac_cv_header_uuid_uuid_h" "$ac_includes_default"
+if test "x$ac_cv_header_uuid_uuid_h" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_UUID_UUID_H 1
+_ACEOF
+
+fi
+
+done
+
 
 ##############################
 # Checks for typedefs, structures, and compiler characteristics.
