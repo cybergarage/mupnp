@@ -76,4 +76,14 @@ typedef void CgUpnpService;
  * @return The CGUpnpStateVariable if the specified state variable is found; otherwise nil.
  */
 - (CGUpnpStateVariable *)getStateVariableForName:(NSString *)name;
+
+/**
+ * Checks whether state variable is implemented
+ *
+ * @param name A name string of the state variable.
+ *
+ * @return YES if implemented
+ */
+- (BOOL)isStateVariableImpemented:(NSString*)name;
+
 @end

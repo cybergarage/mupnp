@@ -53,6 +53,28 @@
 	return [[[NSString alloc] initWithUTF8String:cg_upnp_statevariable_getvalue(cObject)] autorelease];
 }
 
+- (NSArray *)allowedValues
+{
+	if (!cObject)
+		return [[[NSArray alloc] init] autorelease];
+	NSMutableArray *valuesArray = [[[NSMutableArray alloc] init] autorelease];
+	
+	CgUpnpAllowedValue *cAllowedValue;
+	for (cAllowedValue = cg_upnp_statevariable_getallowedvaluelist(cObject); cAllowedValue; cAllowedValue = (CgUpnpAllowedValue*)cg_list_next((CgList*)cAllowedValue)) {
+		NSString *value = [[[NSString alloc] initWithUTF8String:cg_string_getvalue(cAllowedValue->value)] autorelease];
+		[valuesArray addObject:value];
+	}
+	return valuesArray;
+}
+
+- (BOOL)isAllowedValue:(NSString*)value
+{
+	return cg_upnp_statevariable_is_allowed_value(cObject, [value UTF8String]);
+}
+		 
+		 
+	
+
 - (BOOL)query
 {
 	if (!cObject)
