@@ -33,6 +33,24 @@ typedef void CgUpnpStateVariable;
  * @return The value.
  */
 - (NSString *)value;
+
+/**
+ * Get an array of the allowed values for the state variable
+ * 
+ * @return The array.
+ */
+- (NSArray *)allowedValues;
+
+/**
+ * Checks whether value is allowed for this state variable
+ *
+ * @param value to be checked
+ *
+ * @return YES if true
+ */
+- (BOOL)isAllowedValue:(NSString*)value;
+
+
 /**
  * Send query
  *

@@ -70,11 +70,28 @@ extern "C" {
  * Definition for state variable send events element value
  */
 #define CG_UPNP_STATEVARIABLE_SENDEVENTS_NO "no"
+	
+/**
+ * Definition for state variable allowed values list
+ */	
+#define CG_UPNP_STATEVARIABLE_ALLOWEDVALUELIST "allowedValueList"
+
 
 /****************************************
 * Data Type
 ****************************************/
 
+/**
+  * Data type for allowed state variables allowed values table
+  */
+typedef struct _CgUpnpAllowedValuesList {
+	BOOL headFlag;
+	struct _CgUpnpAllowedValuesList *prev;
+	struct _CgUpnpAllowedValuesList *next;
+	CgString *value;
+} CgUpnpAllowedValuesList, CgUpnpAllowedValue;
+
+	
 /**
  * Data type for state variable and state table
  */
@@ -82,6 +99,7 @@ typedef struct _CgUpnpStateVariable {
 	BOOL headFlag;
 	struct _CgUpnpStateVariable *prev;
 	struct _CgUpnpStateVariable *next;
+	CgUpnpAllowedValuesList* allowedValueList;
 	//tb: fixmelater verify type CgUpnpService* ???
 	void *parentService;
 	CgXmlNode *stateVarNode;
@@ -94,8 +112,10 @@ typedef struct _CgUpnpStateVariable {
 	BOOL (*listener)(struct _CgUpnpStateVariable *);
 	CgUpnpStatus *upnpStatus;
 	void *userData;
+	
 } CgUpnpStateVariable, CgUpnpServiceStateTable;
 
+	
 /**
  * Type definition for state variable listener function
  */
@@ -176,7 +196,7 @@ void cg_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar, Cg
  *
  * @return Allowed value list
  */
-#define cg_upnp_statevariable_getallowedvaluelist(statVar) (statVar->allowedValueList)
+CgUpnpAllowedValuesList*  cg_upnp_statevariable_getallowedvaluelist(CgUpnpStateVariable* statVar);
 
 /**
  * Check if state variable has allowed value list
@@ -186,6 +206,22 @@ void cg_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar, Cg
  * @return 0 if it does not have allowed value list integer greater than zero otherwise
  */
 #define cg_upnp_statevariable_hasallowedvaluelist(statVar) cg_upnp_allowedvaluelist_size(statVar->allowedValueList)
+	
+/**
+ * Check if state variable allowes to receive value
+ *
+ * @parap value value to be checked
+ * @param statVar State variable
+ *
+ * @return 0 if it does allowed to receive value
+*/
+int cg_upnp_statevariable_is_allowed_value(CgUpnpStateVariable* statVar, const char* value);
+	
+	
+/**
+ * Create new allowed state variable values list
+ */
+CgUpnpAllowedValuesList* cg_upnp_allowedvaluelist_new();
 
 /**** allowedValueRange ****/
 

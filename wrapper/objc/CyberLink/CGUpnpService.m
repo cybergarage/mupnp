@@ -109,4 +109,16 @@
 	return [[[CGUpnpStateVariable alloc] initWithCObject:(void *)cStatVar] autorelease];
 }
 
+- (BOOL)isStateVariableImpemented:(NSString*)name;
+{
+	CGUpnpStateVariable* stateVariable = [self getStateVariableForName:name];
+	
+	if (stateVariable)
+	{
+		return (![stateVariable isAllowedValue:@"NOT_IMPLEMENTED"]);
+	}
+	
+	return NO;
+}
+
 @end
