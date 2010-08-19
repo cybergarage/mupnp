@@ -2,7 +2,6 @@
 	* Changed some source codes to compile normally using Visual Studio 2008.
 	* Added some project files for Visual Studio 2008.
 	* Changed CGUpnpAvServer:browse:browseFlag:withRequestedCount to support Philips WAC7500 based on TwonkyMedia UPnP SDK/1.1.
-	* Added CGNetworkInterface for Objective-C wrapper.
 
 2010-08-17  Ariel Yaloz <arielyz@hotmail.com>
 	* Added support for getting the list of allowable values for a state variable
