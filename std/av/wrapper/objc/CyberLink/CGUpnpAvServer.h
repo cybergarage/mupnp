@@ -54,4 +54,6 @@ typedef void CgUpnpAvServer;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 - (BOOL)start;
 - (BOOL)stop;
+- (void)lock;
+- (void)unlock;
 @end

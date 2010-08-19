@@ -35,6 +35,7 @@ CG_UPNPAV_HTTP_LISTENER httplistener;
 CG_UPNPAV_ACTION_LISTNER actionListner;
 CG_UPNPAV_STATEVARIABLE_LISTNER queryListner;
 CgUpnpAvProtocolInfoList *protocolInfoList;
+CgNetworkInterfaceList *networkInterfaceList;
 void *userData;
 } CgUpnpAvServer;
 
@@ -168,6 +169,16 @@ CgUpnpAvContent *cg_upnpav_dms_findcontentbyid(CgUpnpAvServer *dms, char *object
 ****************************************/
 
 BOOL cg_upnpav_dms_conmgr_init(CgUpnpAvServer *dms);
+
+/****************************************
+* Network Interface
+****************************************/
+
+#define cg_upnpav_dms_getnetworkinterfaces(dms) cg_net_interfacelist_gets(dms->networkInterfaceList)
+#define cg_upnpav_dms_getnnetworkinterfaces(dms) cg_net_interfacelist_size(dms->networkInterfaceList)
+
+BOOL cg_upnpav_dms_updatenetworkinterfaces(CgUpnpAvServer *dms);
+CgNetworkInterface *cg_upnpav_dms_getnetworkinterface(CgUpnpAvServer *dms);
 
 /****************************************
 * Content Directory
