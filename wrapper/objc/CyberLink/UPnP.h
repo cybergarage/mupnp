@@ -12,4 +12,3 @@
 #import <CyberLink/CGUpnpAction.h>
 #import <CyberLink/CGUpnpStateVariable.h>
 #import <CyberLink/CGUpnpIcon.h>
-#import <CyberLink/CGNetworkInterface.h>
