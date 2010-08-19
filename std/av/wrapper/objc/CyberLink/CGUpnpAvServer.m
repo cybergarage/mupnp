@@ -250,4 +250,18 @@
 	return cg_upnpav_dms_stop(cAvObject);
 }
 
+- (void)lock
+{
+	if (!cAvObject)
+		return;
+	cg_upnpav_dms_lock(cAvObject);
+}
+
+- (void)unlock
+{
+	if (!cAvObject)
+		return;
+	cg_upnpav_dms_unlock(cAvObject);
+}
+
 @end

@@ -221,6 +221,12 @@ CgUpnpAvServer *cg_upnpav_dms_new()
 		return NULL;
 	}
 
+	dms->networkInterfaceList = cg_net_interfacelist_new();
+	if (!dms->networkInterfaceList) {
+		cg_upnpav_dms_delete(dms);
+		return NULL;
+	}
+	
 	cg_upnp_device_setactionlistener(dms->dev, cg_upnpav_dms_actionreceived);
 	cg_upnp_device_setquerylistener(dms->dev, cg_upnpav_dms_queryreceived);
 	cg_upnp_device_sethttplistener(dms->dev, cg_upnpav_dms_device_httprequestrecieved);
@@ -255,9 +261,37 @@ void cg_upnpav_dms_delete(CgUpnpAvServer *dms)
 	if (dms->protocolInfoList)
 		cg_upnpav_protocolinfolist_delete(dms->protocolInfoList);
 
+	if (dms->networkInterfaceList)
+		cg_net_interfacelist_delete(dms->networkInterfaceList);
+	
 	cg_upnp_device_delete(dms->dev);
 
 	free(dms);
+}
+
+/****************************************
+ * cg_upnpav_dms_updatenetworkinterfaces
+ ****************************************/
+
+BOOL cg_upnpav_dms_updatenetworkinterfaces(CgUpnpAvServer *dms)
+{
+	cg_upnpav_dms_lock(dms);
+	cg_net_interfacelist_clear(dms->networkInterfaceList);
+	cg_net_gethostinterfaces(dms->networkInterfaceList);
+	cg_upnpav_dms_unlock(dms);
+	return (0 < cg_net_interfacelist_size(dms->networkInterfaceList)) ? TRUE : FALSE;
+}
+
+/****************************************
+ * cg_upnpav_dms_getnetworkinterface
+ ****************************************/
+
+CgNetworkInterface *cg_upnpav_dms_getnetworkinterface(CgUpnpAvServer *dms)
+{
+	CgNetworkInterface *netIf = cg_upnpav_dms_getnetworkinterfaces(dms);
+	if (netIf)
+		return netIf;
+	return NULL;
 }
 
 /****************************************
