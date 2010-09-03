@@ -16,7 +16,7 @@
 #import "CGUpnpAvContentDirectory.h"
 #import "CGUpnpAvServer.h"
 
-#define CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT 9999
+#define CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT 999
 
 @implementation CGUpnpAvServer
 
@@ -102,26 +102,45 @@
 	return [contentDirectory objectForTitlePath:aTitlePath];
 }
 
-- (NSArray *)browse:(NSString *)aObjectId browseFlag:(NSString *)aBrowseFlag withRequestedCount:(NSUInteger) aRequestedCount
+- (CGUpnpAction *)browseAction
 {	
 	CGUpnpService *conDirService = [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
 		return nil;
+	return [conDirService getActionForName:@"Browse"];
+}
 
-	CGUpnpAction *action = [conDirService getActionForName:@"Browse"];
+- (BOOL)browse:(NSString *)aObjectId browseFlag:(NSString *)aBrowseFlag options:(NSDictionary *)options
+{	
+	CGUpnpAction *action = [self browseAction];
 	if (!action)
-		return nil;
-
+		return NO;
+	
 	[action setArgumentValue:aObjectId forName:@"ObjectID"];
 	[action setArgumentValue:aBrowseFlag forName:@"BrowseFlag"];
 	[action setArgumentValue:@"*" forName:@"Filter"];
 	[action setArgumentValue:@"0" forName:@"StartingIndex"];
-	[action setArgumentValue:[NSString stringWithFormat:@"%d", aRequestedCount] forName:@"RequestedCount"];
+	[action setArgumentValue:@"0" forName:@"RequestedCount"];
 	[action setArgumentValue:@"" forName:@"SortCriteria"];
-	
-	if (![action post])
-		return nil;
 
+	for (NSString *argName in options) {
+		[action setArgumentValue:[options objectForKey:argName] forName:argName];
+	}
+	
+	return [action post];
+}
+
+- (BOOL)browseMetadata:(NSString *)aObjectId
+{
+	return [self browse:aObjectId browseFlag:@"BrowseMetadata" options:nil];
+}
+
+- (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger)aRequestedCount
+{	
+	NSMutableDictionary *browseOptions = [NSMutableDictionary dictionary];
+	[browseOptions setObject:[NSString stringWithFormat:@"%d", aRequestedCount] forKey:@"RequestedCount"];
+	BOOL postResult = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:browseOptions];
+	
 	/*
 	 * ContentDirectory:1 Service Template Version 1.01
 	 * 2.7.4.2. Argument Descriptions
@@ -129,34 +148,45 @@
 	 *  RequestedCount =0 indicates request all entries.
 	 * Added to set the RequestedCount parameter using the NumberReturned result when the specified parameter is zero and
 	 * the NumberReturned parameter is less than the TotalMatches parameter for XMBC.
-	*/
-	if ([aBrowseFlag isEqualToString:@"BrowseDirectChildren"]) {
-		if (aRequestedCount == 0) {
-			NSInteger numberReturned = [[action argumentValueForName:@"NumberReturned"] integerValue];
-			NSInteger totalMatches = [[action argumentValueForName:@"TotalMatches"] integerValue];
-			if (numberReturned == 0) {
-				if (0 < totalMatches) {
-					[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMatches] forName:@"RequestedCount"];
-					if (![action post])
-						return nil;
-				}
-				else {
-					[action setArgumentValue:[NSString stringWithFormat:@"%d", CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT] forName:@"RequestedCount"];
-					if (![action post])
-						return nil;
-				}
+	 */
+	
+	if (postResult) {
+		CGUpnpAction *browseAction = [self browseAction];
+		NSInteger numberReturned = [[browseAction argumentValueForName:@"NumberReturned"] integerValue];
+		NSInteger totalMatches = [[browseAction argumentValueForName:@"TotalMatches"] integerValue];
+		NSLog(@"browseDirectChildren numberReturned = %d", numberReturned);
+		NSLog(@"browseDirectChildren totalMatches = %d", totalMatches);
+		if (numberReturned == 0) {
+			if (0 < totalMatches) {
+				NSMutableDictionary *browseOptions = [NSMutableDictionary dictionary];
+				[browseOptions setObject:[NSString stringWithFormat:@"%d", totalMatches] forKey:@"RequestedCount"];
+				postResult = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:browseOptions];
 			}
-			else if (0 < numberReturned) {
-				if (numberReturned < totalMatches) {
-					[action setArgumentValue:[NSString stringWithFormat:@"%d", totalMatches] forName:@"RequestedCount"];
-					if (![action post])
-						return nil;
-				}
+			else {
+				browseOptions = [NSMutableDictionary dictionary];
+				[browseOptions setObject:[NSString stringWithFormat:@"%d", CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT] forKey:@"RequestedCount"];
+				postResult = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:browseOptions];
+			}
+		}
+		else if (0 < numberReturned) {
+			if (numberReturned < totalMatches) {
+				NSMutableDictionary *browseOptions = [NSMutableDictionary dictionary];
+				[browseOptions setObject:[NSString stringWithFormat:@"%d", totalMatches] forKey:@"RequestedCount"];
+				postResult = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:browseOptions];
 			}
 		}
 	}
+	else {
+		browseOptions = [NSMutableDictionary dictionary];
+		[browseOptions setObject:[NSString stringWithFormat:@"%d", CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT] forKey:@"RequestedCount"];
+		postResult = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:browseOptions];
+	}
 	
-	NSString *resultStr = [action argumentValueForName:@"Result"];
+	if (!postResult)
+		return nil;
+	
+	CGUpnpAction *browseAction = [self browseAction];
+	NSString *resultStr = [browseAction argumentValueForName:@"Result"];
 	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
 	
 	/* Update Content Manager */
@@ -170,44 +200,9 @@
 	return avObjArray;	
 }
 
-- (NSArray *)browse:(NSString *)aObjectId browseFlag:(NSString *)aBrowseFlag 
-{
-	return [self browse:aObjectId browseFlag:aBrowseFlag withRequestedCount:0];
-}
-
-- (CGUpnpAvObject *)browseMetadata:(NSString *)aObjectId
-{
-	NSArray *avObjs = [self browse:aObjectId browseFlag:@"BrowseMetadata" withRequestedCount:0];
-	if ([avObjs count] <= 0)
-		return nil;
-	id avObj = [avObjs objectAtIndex:0];
-	if (![avObj isKindOfClass:[CGUpnpAvObject class]])
-		return nil;
-	return (CGUpnpAvObject *)avObj;		
-}
-
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId
 {
-	return [self browseDirectChildren:aObjectId withRequestedCount:0];
-}
-
-- (NSArray *)browseDirectChildren:(NSString *)aObjectId withRequestedCount:(NSUInteger) aRequestedCount
-{
-#if defined(CG_CLINKAV_OBJC_USE_BROWSDIRECTMETADATA)
-	NSLog(@"browseDirectChildren = %@ (%d)", aObjectId, aRequestedCount);
-	if (aRequestedCount == 0) {
-		CGUpnpAvObject *browseAvObj = [self browseMetadata:aObjectId];
-		if (browseAvObj != nil)
-			aRequestedCount = [browseAvObj childCount];
-		NSLog(@"browseMetadata = %@ (%d)", aObjectId, aRequestedCount);
-	}
-#endif
-	NSArray*resultArray = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:aRequestedCount];
-	if (resultArray != nil && 0 < [resultArray count])
-		return resultArray;
-	if (0 < aRequestedCount)
-		return resultArray;
-	return [self browse:aObjectId browseFlag:@"BrowseDirectChildren" withRequestedCount:CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT];
+	return [self browseDirectChildren:aObjectId requestedCount:0];
 }
 
 - (NSArray *)search:(NSString *)aSearchCriteria;
