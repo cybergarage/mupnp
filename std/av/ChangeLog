@@ -1,3 +1,6 @@
+2010-09-02  Satoshi Konno <skonno@cybergarage.org>
+	* Changed CGUpnpAvServer::browseDirectChildren to get contents from non standard UPnP/AV media servers.
+
 2010-08-20  Satoshi Konno <skonno@cybergarage.org>
 	* Changed CGUpnpAvServer::browseDirectChildren to get contents from non standard UPnP/AV media servers.
 	* Changed CGUpnpAvServer:browse:browseFlag:withRequestedCount to support Philips WAC7500 based on TwonkyMedia UPnP SDK/1.1.
