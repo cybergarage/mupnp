@@ -146,10 +146,18 @@
 	return (CGUpnpAvObject *)[avObjArray objectAtIndex:0];
 }
 
-- (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger)aRequestedCount
+- (int)browseDirectChildrenTotalMatches:(NSString *)aObjectId
+{	
+	if (![self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:[NSArray array]])
+		return 0;
+	return [[[self browseAction] argumentValueForName:@"TotalMatches"] integerValue];
+}
+
+- (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger)aRequestedCount startingIndex:(NSUInteger)aStartingIndex
 {	
 	NSMutableDictionary *browseOptions = [NSMutableDictionary dictionary];
 	[browseOptions setObject:[NSString stringWithFormat:@"%d", aRequestedCount] forKey:@"RequestedCount"];
+	[browseOptions setObject:[NSString stringWithFormat:@"%d", aStartingIndex] forKey:@"StartingIndex"];
 	BOOL postResult = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:browseOptions];
 	
 	/*
@@ -211,9 +219,27 @@
 	return avObjArray;	
 }
 
+- (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger)aRequestedCount
+{
+	return [self browseDirectChildren:aObjectId requestedCount:aRequestedCount startingIndex:0];
+}
+
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId
 {
-	return [self browseDirectChildren:aObjectId requestedCount:0];
+	int totalMatches = [self browseDirectChildrenTotalMatches:aObjectId];
+	
+	if (totalMatches <= 0)
+		return [self browseDirectChildren:aObjectId requestedCount:0];
+	
+	NSMutableArray *avObjArray = [NSMutableArray array];
+	while ([avObjArray count] < totalMatches) {
+		int startingIndex = [avObjArray count];
+		NSArray *avObjs = [self browseDirectChildren:aObjectId requestedCount:0 startingIndex:startingIndex];
+		if (avObjs == nil || [avObjs count] <= 0)
+			break;
+		[avObjArray addObjectsFromArray:avObjs];
+	}
+	return avObjArray;
 }
 
 - (NSArray *)search:(NSString *)aSearchCriteria;
