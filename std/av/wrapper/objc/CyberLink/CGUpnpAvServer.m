@@ -237,7 +237,7 @@
 		NSArray *avObjs = [self browseDirectChildren:aObjectId requestedCount:0 startingIndex:startingIndex];
 		if (avObjs == nil || [avObjs count] <= 0)
 			break;
-		[avObjArray addObjectsFromArray:avObjs];
+		[avObjArray addObjectsFromArray:avObjs]; 
 	}
 	return avObjArray;
 }
