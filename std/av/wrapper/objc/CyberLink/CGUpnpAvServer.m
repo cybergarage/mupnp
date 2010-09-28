@@ -130,9 +130,20 @@
 	return [action post];
 }
 
-- (BOOL)browseMetadata:(NSString *)aObjectId
+- (CGUpnpAvObject *)browseMetadata:(NSString *)aObjectId
 {
-	return [self browse:aObjectId browseFlag:@"BrowseMetadata" options:nil];
+	BOOL postResult = [self browse:aObjectId browseFlag:@"BrowseMetadata" options:nil];
+	if (!postResult)
+		return nil;
+
+	CGUpnpAction *browseAction = [self browseAction];
+	NSString *resultStr = [browseAction argumentValueForName:@"Result"];
+	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
+
+	if ([avObjArray count] <= 0)
+		return nil;
+	
+	return (CGUpnpAvObject *)[avObjArray objectAtIndex:0];
 }
 
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger)aRequestedCount
