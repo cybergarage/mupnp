@@ -172,6 +172,16 @@ BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint);
  */
 BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint);
 
+/**
+* Check if  the control point is activated.
+*
+* @param ctrlPoint The control point to stop
+*
+* @return TRUE if running; otherwise FALSE
+*
+*/
+BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint);
+	
 /****************************************************************************
  * Control Point locking
  ****************************************************************************/

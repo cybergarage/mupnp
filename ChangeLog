@@ -1,8 +1,11 @@
+2010-10-26  Satoshi Konno <skonno@cybergarage.org>
+	* Added cg_upnp_controlpoint_isrunning().
+
 2010-08-20  Satoshi Konno <skonno@cybergarage.org>
 	* Changed some source codes to compile normally using Visual Studio 2008.
 	* Added some project files for Visual Studio 2008.
 	* Added cg_upnpav_dms_updatenetworkinterfaces() and cg_upnpav_dms_getnetworkinterface();
-	
+
 2010-08-17  Ariel Yaloz <arielyz@hotmail.com>
 	* Added support for getting the list of allowable values for a state variable
 	* Added a method for checking whether a state variable is implemented
