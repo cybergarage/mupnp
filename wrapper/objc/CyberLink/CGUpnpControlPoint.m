@@ -57,6 +57,13 @@
 	return cg_upnp_controlpoint_stop(cObject);
 }
 
+-(BOOL)isRunning
+{
+	if (!cObject)
+		return NO;
+	return cg_upnp_controlpoint_isrunning(cObject);
+}
+
 - (void)search
 {
 	[self searchWithST:[NSString stringWithUTF8String:CG_UPNP_NT_ROOTDEVICE]];

@@ -195,7 +195,7 @@ typedef void CgUpnpDevice;
  */
 - (BOOL)stop;
 /**
- * Announce the device.
+ * Check if the controll point is running.
  *
  * @return YES if the device is started normally, otherwise NO.
  */

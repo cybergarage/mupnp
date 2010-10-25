@@ -44,6 +44,12 @@ typedef void CgUpnpControlPoint;
  */
 - (BOOL)stop;
 /**
+ * Check if the controll point is running.
+ *
+ * @return YES if the device is started normally, otherwise NO.
+ */
+- (BOOL)isRunning;
+/**
  * Send a M-SEARCH request to find for the all UPnP devices of UPnP in the network.
  * The method waits for the specified MX time. Use setSsdpSearchMX:(NSInteger)aMX to change the time.
  * The method is same as searchWithST() when the ST parameter is "ssdp:all".

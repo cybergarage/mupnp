@@ -338,6 +338,34 @@ BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint)
 	return TRUE;
 }
 
+/**
+ * Check if  the control point is activated.
+ *
+ * @param ctrlPoint The control point to stop
+ *
+ * @return TRUE if running; otherwise FALSE
+ *
+ */
+BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint);
+/**
+ * Check if  the control point is activated.
+ *
+ * @param ctrlPoint The control point to stop
+ *
+ * @return TRUE if running; otherwise FALSE
+ *
+ */
+BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint)
+{
+	CgHttpServerList *httpServerList;
+	
+	httpServerList = cg_upnp_controlpoint_gethttpserverlist(ctrlPoint);
+	if (cg_http_serverlist_size(httpServerList) == 0)
+		return FALSE;
+	
+	return TRUE;
+}
+
 /****************************************************************************
  * Control Point locking
  ****************************************************************************/
