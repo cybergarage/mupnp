@@ -36,6 +36,7 @@
 - (NSString *)largeImageUrl;
 - (NSString *)lowestImageUrl;
 - (NSString *)highestImageUrl;
+- (CGUpnpAvResource *)resource;
 - (CGUpnpAvResource *)movieResource;
 - (CGUpnpAvResource *)videoResource;
 - (CGUpnpAvResource *)audioResource;

@@ -241,5 +241,34 @@
 	return [aUpnpClass isEqualToString:[self upnpClass]];
 }
 
+- (NSString *)toFileNameString
+{
+	CGUpnpAvObject *avObj = self;
+	
+	NSString *avObjTitle = [avObj title];
+	if ([avObj isContainer])
+		return avObjTitle;
+	
+	CGUpnpAvItem *avItem = (CGUpnpAvItem *)avObj;
+	NSString *fileExtName = @"none";
+	if ([avItem isMovieClass]) {
+		fileExtName = @"mov";
+	} else if ([avItem isAudioClass]) {
+		fileExtName = @"snd";
+	} else if ([avItem isImageClass]) {
+		fileExtName = @"img";
+		/*
+		if ([avItem isJPEG])
+			fileExtName = @"jpg";
+		else if ([avItem isPNG])
+			fileExtName = @"png";
+		else if ([avItem isGIF])
+			fileExtName = @"gif";
+		 */
+	}
+	
+	return [NSString stringWithFormat:@"%@.%@", avObjTitle, fileExtName];
+}
+
 @end
 
