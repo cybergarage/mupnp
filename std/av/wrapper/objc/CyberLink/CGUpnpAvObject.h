@@ -45,5 +45,6 @@ typedef void CgUpnpAvContent;
 - (BOOL)isObjectId:(NSString *)aObjectId;
 - (BOOL)isTitle:(NSString *)aTitle;
 - (BOOL)isUpnpClass:(NSString *)aUpnpClass;
+- (NSString *)toFileNameString;
 @end
 

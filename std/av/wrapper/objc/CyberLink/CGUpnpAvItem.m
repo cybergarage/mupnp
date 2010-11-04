@@ -60,6 +60,17 @@
 	return resourceArray;
 }
 
+- (CGUpnpAvResource *)resource
+{
+	if ([self isImageClass])
+		return [self imageResource];
+	if ([self isAudioClass])
+		return [self audioResource];
+	if ([self isMovieClass])
+		return [self movieResource];
+	return nil;
+}
+
 - (CGUpnpAvResource *)smallImageResource
 {
 	for (CGUpnpAvResource *res in [self resources]) {
