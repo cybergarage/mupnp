@@ -252,11 +252,11 @@
 	CGUpnpAvItem *avItem = (CGUpnpAvItem *)avObj;
 	NSString *fileExtName = @"none";
 	if ([avItem isMovieClass]) {
-		fileExtName = @"mov";
+		fileExtName = CGUPNPAV_OBJECT_MOVIE_FILEEXT;
 	} else if ([avItem isAudioClass]) {
-		fileExtName = @"snd";
+		fileExtName = CGUPNPAV_OBJECT_SOUND_FILEEXT;
 	} else if ([avItem isImageClass]) {
-		fileExtName = @"img";
+		fileExtName = CGUPNPAV_OBJECT_IMAGE_FILEEXT;
 		/*
 		if ([avItem isJPEG])
 			fileExtName = @"jpg";

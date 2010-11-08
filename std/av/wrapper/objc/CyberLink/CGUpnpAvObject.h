@@ -15,6 +15,11 @@ typedef void CgUpnpAvContent;
 /**
  * The CGUpnpAvObject class is a wrapper class for CgUpnpAvObject of CyberLink for C.
  */
+
+#define CGUPNPAV_OBJECT_MOVIE_FILEEXT @"mov"
+#define CGUPNPAV_OBJECT_SOUND_FILEEXT @"snd"
+#define CGUPNPAV_OBJECT_IMAGE_FILEEXT @"img"
+
 @interface CGUpnpAvObject : CGXmlNode 
 {
 	CGUpnpAvObject *parent;
