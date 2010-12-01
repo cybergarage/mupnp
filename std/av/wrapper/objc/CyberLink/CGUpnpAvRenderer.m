@@ -9,6 +9,7 @@
 #include <cybergarage/upnp/std/av/cmediarenderer.h>
 
 #import "CGUpnpAvRenderer.h"
+#import "CGUpnpAVPositionInfo.h"
 
 @implementation CGUpnpAvRenderer
 
@@ -90,6 +91,24 @@
 		return NO;
 	
 	return YES;
+}
+
+- (CGUpnpAVPositionInfo *)getPositionInfo
+{
+	CGUpnpService *avTransService = [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
+	if (!avTransService)
+		return NO;
+	
+	CGUpnpAction *action = [avTransService getActionForName:@"GetPositionInfo"];
+	if (!action)
+		return NO;
+	
+	[action setArgumentValue:@"0" forName:@"InstanceID"];
+	
+	if (![action post])
+		return nil;
+	
+	return [[[CGUpnpAVPositionInfo alloc] initWithAction:action] autorelease];
 }
 
 /*
