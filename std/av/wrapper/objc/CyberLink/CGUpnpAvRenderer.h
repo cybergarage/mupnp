@@ -11,6 +11,8 @@
 
 #import <CyberLink/UPnP.h>
 
+@class CGUpnpAVPositionInfo;
+
 #if !defined(_CG_CLINKCAV_MEDIARENDERER_H_)
 typedef void CgUpnpAvRenderer;
 #endif
@@ -32,4 +34,5 @@ typedef void CgUpnpAvRenderer;
 - (BOOL)start
 - (BOOL)stop
 */
+- (CGUpnpAVPositionInfo *)getPositionInfo;
 @end
