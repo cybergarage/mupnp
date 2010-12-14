@@ -27,6 +27,7 @@
 - (NSString *)protocol;
 - (NSString *)network;
 - (NSString *)contentFormat;
+- (NSString *)extention;
 - (NSString *)additionalInfo;
 - (NSString *)additionalInfoForKey:(NSString*)aKey;
 - (NSString *)dlnaOrgPn;

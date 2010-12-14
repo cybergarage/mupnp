@@ -71,6 +71,14 @@
 	return nil;
 }
 
+- (NSURL *)resourceUrl
+{
+	CGUpnpAvResource *resource = [self resource];
+	if (resource == nil)
+		return nil;
+	return [NSURL URLWithString:[resource url]];
+}
+
 - (CGUpnpAvResource *)smallImageResource
 {
 	for (CGUpnpAvResource *res in [self resources]) {
@@ -257,6 +265,26 @@
 	if ([[self upnpClass] rangeOfString:@"image"].location != NSNotFound || [[self upnpClass] rangeOfString:@"photo"].location != NSNotFound)
 		return YES;
 	return NO;
+}
+
+#pragma mark -
+#pragma mark save
+
+- (BOOL)writeToFile:(NSString *)path
+{
+	CGUpnpAvResource *avResource = [self resource];
+	if (avResource == nil)
+		return NO;
+
+	NSURL *avResourceUrl = [NSURL URLWithString:[avResource url]];
+	if (avResourceUrl == nil)
+		return NO;
+
+	NSData *avResourceData = [NSData dataWithContentsOfURL:avResourceUrl];
+	if (avResourceData == nil)
+		return NO;
+		
+	return [avResourceData writeToFile:path atomically:NO];
 }
 
 @end

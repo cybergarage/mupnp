@@ -184,5 +184,19 @@
 	return [mimeType hasPrefix:@"audio"];
 }
 
-@end
+- (NSString *)extention
+{
+	NSString *mimeType = [self contentFormat];
+	if (mimeType == nil)
+		return nil;
+	NSArray *fileTypes = [mimeType componentsSeparatedByString:@"/"];
+	if ([fileTypes count] <= 0)
+		return nil;
+	NSString *fileType =  [fileTypes objectAtIndex:([fileTypes count] - 1)];
+	NSArray *extentions = [fileType componentsSeparatedByString:@"-"];
+	if ([extentions count] <= 0)
+		return nil;
+	return [extentions objectAtIndex:([extentions count] - 1)];
+}
 
+@end
