@@ -37,16 +37,18 @@
 - (NSString *)lowestImageUrl;
 - (NSString *)highestImageUrl;
 - (CGUpnpAvResource *)resource;
+- (NSURL *)resourceUrl;
 - (CGUpnpAvResource *)movieResource;
 - (CGUpnpAvResource *)videoResource;
 - (CGUpnpAvResource *)audioResource;
 - (CGUpnpAvResource *)imageResource;
--(BOOL)hasMovieResource;
--(BOOL)hasVideoResource;
--(BOOL)hasAudioResource;
--(BOOL)hasImageResource;
--(BOOL)isMovieClass;
--(BOOL)isVideoClass;
--(BOOL)isAudioClass;
--(BOOL)isImageClass;
+- (BOOL)hasMovieResource;
+- (BOOL)hasVideoResource;
+- (BOOL)hasAudioResource;
+- (BOOL)hasImageResource;
+- (BOOL)isMovieClass;
+- (BOOL)isVideoClass;
+- (BOOL)isAudioClass;
+- (BOOL)isImageClass;
+- (BOOL)writeToFile:(NSString *)path;
 @end

@@ -250,6 +250,14 @@
 		return avObjTitle;
 	
 	CGUpnpAvItem *avItem = (CGUpnpAvItem *)avObj;
+	
+	CGUpnpAvResource *avResource = [avItem resource];
+	if (avResource != nil) {
+		NSString *extention = [avResource extention];
+		if (0 < [extention length])
+			return [NSString stringWithFormat:@"%@.%@", avObjTitle, extention];
+	}
+	
 	NSString *fileExtName = @"none";
 	if ([avItem isMovieClass]) {
 		fileExtName = CGUPNPAV_OBJECT_MOVIE_FILEEXT;
@@ -257,14 +265,6 @@
 		fileExtName = CGUPNPAV_OBJECT_SOUND_FILEEXT;
 	} else if ([avItem isImageClass]) {
 		fileExtName = CGUPNPAV_OBJECT_IMAGE_FILEEXT;
-		/*
-		if ([avItem isJPEG])
-			fileExtName = @"jpg";
-		else if ([avItem isPNG])
-			fileExtName = @"png";
-		else if ([avItem isGIF])
-			fileExtName = @"gif";
-		 */
 	}
 	
 	return [NSString stringWithFormat:@"%@.%@", avObjTitle, fileExtName];
