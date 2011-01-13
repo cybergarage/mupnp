@@ -173,8 +173,7 @@
 		CGUpnpAction *browseAction = [self browseAction];
 		NSInteger numberReturned = [[browseAction argumentValueForName:@"NumberReturned"] integerValue];
 		NSInteger totalMatches = [[browseAction argumentValueForName:@"TotalMatches"] integerValue];
-		NSLog(@"browseDirectChildren numberReturned = %d", numberReturned);
-		NSLog(@"browseDirectChildren totalMatches = %d", totalMatches);
+		NSLog(@"browseDirectChildren [%@] numberReturned = %d, totalMatches = %d", aObjectId, numberReturned, totalMatches);
 		if (numberReturned == 0) {
 			if (0 < totalMatches) {
 				NSMutableDictionary *browseOptions = [NSMutableDictionary dictionary];
@@ -266,6 +265,53 @@
 	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
 	
 	return avObjArray;	
+}
+
+- (BOOL)hasAvObject:(NSArray *)avObjs objectId:(NSString *)objectId
+{
+	if (objectId == nil)
+		return NO;
+	
+	for (CGUpnpAvObject *avObj in avObjs) {
+		if ([objectId isEqualToString:[avObj objectId]])
+			return YES;
+	}
+	
+	return NO;
+}
+
+- (void)addAvObjectsFromArray:(NSMutableArray *)toAvObjs newAvObjs:(NSArray *)newAvObjs
+{
+	for (CGUpnpAvObject *avObj in newAvObjs) {
+		if ([self hasAvObject:toAvObjs objectId:[avObj objectId]])
+			 continue;
+		[toAvObjs addObject:avObj];
+	}
+}
+
+- (NSArray *)searchByBrowse:(NSString *)aSearchCriteria objectId:(NSString *)objectId
+{
+	NSMutableArray *avObjs = [NSMutableArray array];
+	
+	NSArray *browseAvObjs = [self browseDirectChildren:objectId];
+	for (CGUpnpAvObject *avObj in browseAvObjs) {
+		if ([avObj isItem]) {
+			[avObjs addObject:avObj];
+			continue;
+		}
+		if ([avObj isContainer] == NO)
+			continue;
+		[self addAvObjectsFromArray:avObjs newAvObjs:[self searchByBrowse:aSearchCriteria objectId:[avObj objectId]]];
+	}
+	
+	return avObjs;
+}
+
+- (NSArray *)searchByBrowse:(NSString *)aSearchCriteria
+{
+	NSMutableArray *avObjs = [NSMutableArray array];
+	[self addAvObjectsFromArray:avObjs newAvObjs:[self searchByBrowse:aSearchCriteria objectId:@"0"]];
+	return avObjs;
 }
 
 - (BOOL)start
