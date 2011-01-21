@@ -36,14 +36,9 @@
 	return self;
 }
 
-- (CGUpnpService *)avTransportService
-{
-	return [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
-}
-
 - (CGUpnpAction *)actionOfTransportServiceForName:(NSString *)serviceName
 {
-	CGUpnpService *avTransService = [self avTransportService];
+	CGUpnpService *avTransService = [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
 	if (!avTransService)
 		return nil;
 	
