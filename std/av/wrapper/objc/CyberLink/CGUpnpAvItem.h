@@ -30,13 +30,17 @@
 - (CGUpnpAvResource *)largeImageResource;
 - (CGUpnpAvResource *)lowestImageResource;
 - (CGUpnpAvResource *)highestImageResource;
+- (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)size;
 - (NSString *)thumbnailUrl;
 - (NSString *)smallImageUrl;
 - (NSString *)mediumImageUrl;
 - (NSString *)largeImageUrl;
 - (NSString *)lowestImageUrl;
 - (NSString *)highestImageUrl;
+- (NSString *)applicableImageUrlBySize:(CGSize)size;
 - (CGUpnpAvResource *)resource;
+- (BOOL)hasRendererResource;
+- (CGUpnpAvResource *)rendererResource;
 - (NSURL *)resourceUrl;
 - (CGUpnpAvResource *)movieResource;
 - (CGUpnpAvResource *)videoResource;

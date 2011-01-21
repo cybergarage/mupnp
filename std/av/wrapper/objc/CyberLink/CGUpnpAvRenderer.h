@@ -10,6 +10,7 @@
 #import <Foundation/NSString.h>
 
 #import <CyberLink/UPnP.h>
+#import <CyberLink/CGUpnpAVPositionInfo.h>
 
 @class CGUpnpAVPositionInfo;
 
@@ -30,9 +31,11 @@ typedef void CgUpnpAvRenderer;
 - (BOOL)setAVTransportURI:(NSString *)aURI;
 - (BOOL)play;
 - (BOOL)stop;
+- (BOOL)pause;
+- (BOOL)seek:(float)absTime;
 /*
 - (BOOL)start
 - (BOOL)stop
 */
-- (CGUpnpAVPositionInfo *)getPositionInfo;
+- (CGUpnpAVPositionInfo *)positionInfo;
 @end

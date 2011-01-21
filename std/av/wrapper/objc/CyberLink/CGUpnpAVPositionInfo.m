@@ -8,6 +8,10 @@
 
 #import "CGUpnpAVPositionInfo.h"
 
+@interface NSString(CGUPnPAV)
+- (float)durationTime;
+@end
+
 @implementation CGUpnpAVPositionInfo
 
 @synthesize upnpAction;
@@ -20,14 +24,57 @@
 	return self;
 }
 
--(NSString *)trackDuration
+-(float)trackDuration
 {
-	return [[self upnpAction] argumentValueForName:@"TrackDuration"];
+	NSString *trackDurationStr = [[self upnpAction] argumentValueForName:@"TrackDuration"];
+	return [trackDurationStr durationTime];
 }
 
--(NSString *)absTime
+-(float)absTime
 {
-	return [[self upnpAction] argumentValueForName:@"AbsTime"];
+	NSString *absTimeStr = [[self upnpAction] argumentValueForName:@"AbsTime"];
+	return [absTimeStr durationTime];
 }
 
+@end
+
+@implementation  NSString(CGUPnPAV)
+/*
+ H+:MM:SS[.F+] or H+:MM:SS[.F0/F1]
+ where :
+ •	H+ means one or more digits to indicate elapsed hours
+ •	MM means exactly 2 digits to indicate minutes (00 to 59)
+ •	SS means exactly 2 digits to indicate seconds (00 to 59)
+ •	[.F+] means optionally a dot followed by one or more digits to indicate fractions of seconds
+ •	[.F0/F1] means optionally a dot followed by a fraction, with F0 and F1 at least one digit long, and F0 < F1
+ */
+- (float)durationTime
+{
+	NSArray *timeStrings = [self componentsSeparatedByString:@":. "];
+	int timeStringsCount = [timeStrings count];
+	if (timeStringsCount <= 3)
+		return 0.0f;
+	float durationTime = 0.0;
+	for (int n=0; n<timeStringsCount; n++) {
+		NSString *timeString = [timeStrings objectAtIndex:n];
+		int timeIntValue = [timeString intValue];
+		switch (n) {
+			case 0: // HH
+				durationTime += timeIntValue * (60 * 60);
+				break;
+			case 1: // MM
+				durationTime += timeIntValue * 60;
+				break;
+			case 2: // SS
+				durationTime += timeIntValue;
+				break;
+			case 3: // .F?
+				durationTime += timeIntValue * 0.1;
+				break;
+			default:
+				break;
+		}
+	}
+	return durationTime;
+}
 @end

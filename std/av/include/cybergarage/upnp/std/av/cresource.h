@@ -29,6 +29,8 @@ extern "C" {
 #define CG_UPNPAV_RESOURCE_NAME "res"
 #define CG_UPNPAV_RESOURCE_PROTOCOLINFO "protocolInfo"
 #define CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE "size"
+#define CG_UPNPAV_RESOURCE_PROTOCOLINFO_DURATION "duration"
+#define CG_UPNPAV_RESOURCE_PROTOCOLINFO_RESOLUTION "resolution"
 
 /****************************************
 * Struct
@@ -69,6 +71,8 @@ void cg_upnpav_resource_setsize(CgUpnpAvResource *res, long value);
 #define cg_upnpav_resource_getdlnaattribute(res) cg_string_getvalue(((CgUpnpAvResourceData *)(cg_xml_node_getuserdata(res)))->dlnaAttr)
 #define cg_upnpav_resource_geturl(res) cg_xml_node_getvalue(res)
 #define cg_upnpav_resource_getsize(res) cg_str2long(cg_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE))
+#define cg_upnpav_resource_getduration(res) cg_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_DURATION)
+#define cg_upnpav_resource_getresolution(res) cg_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_RESOLUTION)
 
 CgUpnpAvResourceData *cg_upnpav_resource_data_new();
 void cg_upnpav_resource_data_delete(CgUpnpAvResourceData *resData);

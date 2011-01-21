@@ -67,7 +67,23 @@
 	if ([self isAudioClass])
 		return [self audioResource];
 	if ([self isMovieClass])
-		return [self movieResource];
+		return [self movieResource];	
+	return nil;
+}
+
+- (BOOL)hasRendererResource;
+{
+	return ([self rendererResource] != nil) ? YES : NO;
+}
+
+- (CGUpnpAvResource *)rendererResource;
+{
+	if ([self isImageClass])
+		return [self highestImageResource];
+	if ([self isAudioClass])
+		return [self audioResource];
+	if ([self isMovieClass])
+		return [self movieResource];	
 	return nil;
 }
 
@@ -150,6 +166,30 @@
 	return [[imgRes retain] autorelease];
 }
 
+- (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize
+{
+	CGUpnpAvResource *applicableResource = nil;
+	for (CGUpnpAvResource *resource in [self resources]) {
+		if ([resource isImage] == NO)
+			continue;
+		if (applicableResource == nil) {
+			applicableResource = resource;
+			continue;
+		}
+		CGSize applicableResourceSize = [applicableResource resolution];
+		CGSize resourceSize = [resource resolution];
+		if (wantedSize.width <=  applicableResourceSize.width) {
+			if (resourceSize.width < applicableResourceSize.width)
+				applicableResource = resource;
+		}
+		else {
+			if (applicableResourceSize.width < resourceSize.width)
+				applicableResource = resource;
+		}
+	}
+	return applicableResource;
+}
+
 - (NSString *)thumbnailUrl
 {
 	NSString *tbUrl = [self albumArtURI];
@@ -185,6 +225,11 @@
 - (NSString *)highestImageUrl
 {
 	return [[[[self highestImageResource] url] retain] autorelease];
+}
+
+- (NSString *)applicableImageUrlBySize:(CGSize)size
+{
+	return [[[[self applicableImageResourceBySize:size] url] retain] autorelease];
 }
 
 - (CGUpnpAvResource *)movieResource

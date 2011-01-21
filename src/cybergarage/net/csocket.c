@@ -336,7 +336,9 @@ BOOL cg_socket_isbound(CgSocket *sock)
 
 void cg_socket_setid(CgSocket *socket, SOCKET value)
 {
+#if defined(WIN32) || defined(HAVE_IP_PKTINFO) || (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && defined(HAVE_SO_NOSIGPIPE)
 	int on=1;
+#endif
 
 	cg_log_debug_l4("Entering...\n");
 
