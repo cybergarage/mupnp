@@ -18,4 +18,5 @@
 -(id)initWithAction:(CGUpnpAction *)aUpnpAction;
 -(float)trackDuration;
 -(float)absTime;
+-(float)relTime;
 @end

@@ -36,6 +36,12 @@
 	return [absTimeStr durationTime];
 }
 
+-(float)relTime
+{
+	NSString *relTimeStr = [[self upnpAction] argumentValueForName:@"RelTime"];
+	return [relTimeStr durationTime];
+}
+
 @end
 
 @implementation  NSString(CGUPnPAV)
@@ -50,10 +56,10 @@
  */
 - (float)durationTime
 {
-	NSArray *timeStrings = [self componentsSeparatedByString:@":. "];
+	NSArray *timeStrings = [self componentsSeparatedByString:@":"];
 	int timeStringsCount = [timeStrings count];
-	if (timeStringsCount <= 3)
-		return 0.0f;
+	if (timeStringsCount < 3)
+		return -1.0f;
 	float durationTime = 0.0;
 	for (int n=0; n<timeStringsCount; n++) {
 		NSString *timeString = [timeStrings objectAtIndex:n];
