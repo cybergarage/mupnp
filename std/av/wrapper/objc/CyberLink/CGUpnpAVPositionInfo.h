@@ -16,6 +16,6 @@
 }
 @property(retain) CGUpnpAction *upnpAction;
 -(id)initWithAction:(CGUpnpAction *)aUpnpAction;
--(NSString *)trackDuration;
--(NSString *)absTime;
+-(float)trackDuration;
+-(float)absTime;
 @end

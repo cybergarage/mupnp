@@ -119,6 +119,19 @@
 	return [self additionalInfoForKey:@"DLNA.ORG_FLAGS"];
 }
 
+- (CGSize)resolution
+{
+	NSString *resolutionString = [self attributeValueForName:@"resolution"];
+	if (resolutionString == nil)
+		return CGSizeMake(0,0);
+	NSArray *resolutions = [resolutionString componentsSeparatedByString:@"x"];
+	if ([resolutions count] < 2)
+		return CGSizeMake(0,0);
+	NSString *widthString = [resolutions objectAtIndex:0];
+	NSString *heightString = [resolutions objectAtIndex:1];
+	return CGSizeMake([widthString intValue], [heightString intValue]);
+}
+
 - (BOOL)isThumbnail
 {
 	NSString *dlnaOrgPn = [self dlnaOrgPn];

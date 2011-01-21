@@ -36,13 +36,23 @@
 	return self;
 }
 
+- (CGUpnpService *)avTransportService
+{
+	return [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
+}
+
+- (CGUpnpAction *)actionOfTransportServiceForName:(NSString *)serviceName
+{
+	CGUpnpService *avTransService = [self avTransportService];
+	if (!avTransService)
+		return nil;
+	
+	return [avTransService getActionForName:serviceName];
+}
+
 - (BOOL)setAVTransportURI:(NSString *)aURL;
 {
-	CGUpnpService *avTransService = [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
-	if (!avTransService)
-		return NO;
-
-	CGUpnpAction *action = [avTransService getActionForName:@"SetAVTransportURI"];
+	CGUpnpAction *action = [self actionOfTransportServiceForName:@"SetAVTransportURI"];
 	if (!action)
 		return NO;
 
@@ -58,11 +68,7 @@
 
 - (BOOL)play;
 {
-	CGUpnpService *avTransService = [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
-	if (!avTransService)
-		return NO;
-	
-	CGUpnpAction *action = [avTransService getActionForName:@"Play"];
+	CGUpnpAction *action = [self actionOfTransportServiceForName:@"Play"];
 	if (!action)
 		return NO;
 	
@@ -77,11 +83,7 @@
 
 - (BOOL)stop;
 {
-	CGUpnpService *avTransService = [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
-	if (!avTransService)
-		return NO;
-	
-	CGUpnpAction *action = [avTransService getActionForName:@"Stop"];
+	CGUpnpAction *action = [self actionOfTransportServiceForName:@"Stop"];
 	if (!action)
 		return NO;
 	
@@ -93,13 +95,40 @@
 	return YES;
 }
 
-- (CGUpnpAVPositionInfo *)getPositionInfo
+- (BOOL)pause
 {
-	CGUpnpService *avTransService = [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
-	if (!avTransService)
+	CGUpnpAction *action = [self actionOfTransportServiceForName:@"Pause"];
+	if (!action)
 		return NO;
 	
-	CGUpnpAction *action = [avTransService getActionForName:@"GetPositionInfo"];
+	[action setArgumentValue:@"0" forName:@"InstanceID"];
+	
+	if (![action post])
+		return NO;
+	
+	return YES;
+}
+
+- (BOOL)seek:(float)absTime
+{
+	CGUpnpAction *action = [self actionOfTransportServiceForName:@"Seek"];
+	if (!action)
+		return NO;
+	
+	[action setArgumentValue:@"0" forName:@"InstanceID"];
+	[action setArgumentValue:@"ABS_TIME" forName:@"Unit"];
+	[action setArgumentValue:[NSString stringWithFormat:@"%f", absTime] forName:@"Target"];
+	
+	if (![action post])
+		return NO;
+	
+	return YES;
+}
+
+
+- (CGUpnpAVPositionInfo *)positionInfo
+{
+	CGUpnpAction *action = [self actionOfTransportServiceForName:@"GetPositionInfo"];
 	if (!action)
 		return NO;
 	

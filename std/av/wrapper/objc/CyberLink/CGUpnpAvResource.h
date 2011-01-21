@@ -33,6 +33,7 @@
 - (NSString *)dlnaOrgPn;
 - (NSString *)dlnaOrgOp;
 - (NSString *)dlnaOrgFlags;
+- (CGSize)resolution;
 - (BOOL)isThumbnail;
 - (BOOL)isSmallImage;
 - (BOOL)isMediumImage;
