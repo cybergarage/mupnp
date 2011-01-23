@@ -20,3 +20,8 @@
 -(float)absTime;
 -(float)relTime;
 @end
+
+@interface NSString(CGUPnPAV)
++(NSString *)stringWithDurationTime:(float)timeValue;
+- (float)durationTime;
+@end

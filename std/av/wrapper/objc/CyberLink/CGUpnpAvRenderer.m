@@ -11,9 +11,20 @@
 #import "CGUpnpAvRenderer.h"
 #import "CGUpnpAVPositionInfo.h"
 
+@interface CGUpnpAvRenderer()
+@property (assign) int currentPlayMode;
+@end
+
+enum {
+	CGUpnpAvRendererPlayModePlay,
+	CGUpnpAvRendererPlayModePause,
+	CGUpnpAvRendererPlayModeStop,
+};
+
 @implementation CGUpnpAvRenderer
 
 @synthesize cAvObject;
+@synthesize currentPlayMode;
 
 - (id)init
 {
@@ -22,6 +33,8 @@
 
 	cAvObject = cg_upnpav_dmr_new();
 	[self setCObject:cg_upnpav_dmr_getdevice(cAvObject)];
+	
+	[self setCurrentPlayMode:CGUpnpAvRendererPlayModeStop];
 	
 	return self;
 }
@@ -73,6 +86,8 @@
 	if (![action post])
 		return NO;
 	
+	[self setCurrentPlayMode:CGUpnpAvRendererPlayModePlay];
+	
 	return YES;
 }
 
@@ -86,6 +101,8 @@
 	
 	if (![action post])
 		return NO;
+	
+	[self setCurrentPlayMode:CGUpnpAvRendererPlayModeStop];
 	
 	return YES;
 }
@@ -101,6 +118,8 @@
 	if (![action post])
 		return NO;
 	
+	[self setCurrentPlayMode:CGUpnpAvRendererPlayModePause];
+	
 	return YES;
 }
 
@@ -112,7 +131,7 @@
 	
 	[action setArgumentValue:@"0" forName:@"InstanceID"];
 	[action setArgumentValue:@"ABS_TIME" forName:@"Unit"];
-	[action setArgumentValue:[NSString stringWithFormat:@"%f", absTime] forName:@"Target"];
+	[action setArgumentValue:[NSString stringWithDurationTime:absTime] forName:@"Target"];
 	
 	if (![action post])
 		return NO;
@@ -120,6 +139,12 @@
 	return YES;
 }
 
+- (BOOL)isPlaying
+{
+	if ([self currentPlayMode] == CGUpnpAvRendererPlayModePlay)
+		return YES;
+	return NO;
+}
 
 - (CGUpnpAVPositionInfo *)positionInfo
 {
