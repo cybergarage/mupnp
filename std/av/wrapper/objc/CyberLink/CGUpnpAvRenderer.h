@@ -33,6 +33,7 @@ typedef void CgUpnpAvRenderer;
 - (BOOL)stop;
 - (BOOL)pause;
 - (BOOL)seek:(float)absTime;
+- (BOOL)isPlaying;
 /*
 - (BOOL)start
 - (BOOL)stop

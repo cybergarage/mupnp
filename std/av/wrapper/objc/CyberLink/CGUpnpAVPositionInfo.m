@@ -8,10 +8,6 @@
 
 #import "CGUpnpAVPositionInfo.h"
 
-@interface NSString(CGUPnPAV)
-- (float)durationTime;
-@end
-
 @implementation CGUpnpAVPositionInfo
 
 @synthesize upnpAction;
@@ -54,6 +50,13 @@
  •	[.F+] means optionally a dot followed by one or more digits to indicate fractions of seconds
  •	[.F0/F1] means optionally a dot followed by a fraction, with F0 and F1 at least one digit long, and F0 < F1
  */
++(NSString *)stringWithDurationTime:(float)timeValue
+{
+	return [NSString stringWithFormat:@"%02d:%02d:%02d", 
+			(int)(timeValue / 3600.0),
+			(int)(fmod(timeValue, 3600.0) / 60.0),
+			(int)fmod(timeValue, 60.0)];
+}
 - (float)durationTime
 {
 	NSArray *timeStrings = [self componentsSeparatedByString:@":"];
