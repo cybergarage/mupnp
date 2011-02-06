@@ -24,6 +24,9 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
+	
+	[self setSsdpSearchMX:1];
+	
 	return self;
 }
 
@@ -228,9 +231,9 @@
 
 - (void)search
 {
-	//[super search];
 	cg_upnp_ssdp_setannouncecount(2);
-	[super setSsdpSearchMX:1];
+	
+	//[super search];
 	[super searchWithST:[NSString stringWithUTF8String:CG_UPNPAV_DMS_DEVICE_TYPE]];
 	[super searchWithST:[NSString stringWithUTF8String:CG_UPNPAV_DMR_DEVICE_TYPE]];
 }
