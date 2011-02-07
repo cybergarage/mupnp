@@ -595,30 +595,26 @@ void cg_http_packet_copy(CgHttpPacket *destHttpPkt, CgHttpPacket *srcHttpPkt)
 
 void cg_http_packet_print(CgHttpPacket *httpPkt)
 {
-#ifdef CLOG_DEBUG_STACK
 	CgHttpHeader *header;
 	char *content;
 	long contentLen;
-#endif
 
 	cg_log_debug_l4("Entering...\n");
 
-#ifdef CLOG_DEBUG_STACK	
 	/**** print headers ****/
 	for (header = cg_http_packet_getheaders(httpPkt); header != NULL; header = cg_http_header_next(header)) {
-	printf("%s: %s\n",
+	cg_log_debug_s("%s: %s\n",
 			cg_http_header_getname(header),
 			cg_http_header_getvalue(header));
 	}
-	printf("\n");
+	cg_log_debug_s("\n");
 	
 	/**** print content ****/
 	content = cg_http_packet_getcontent(httpPkt);
 	contentLen = cg_http_packet_getcontentlength(httpPkt);
 	
 	if (content != NULL && 0 < contentLen)
-		printf("%s\n", content);
-#endif
+		cg_log_debug_s("%s\n", content);
 
 	cg_log_debug_l4("Leaving...\n");
 }

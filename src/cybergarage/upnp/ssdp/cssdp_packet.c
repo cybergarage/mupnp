@@ -220,7 +220,7 @@ void cg_upnp_ssdp_packet_print(CgUpnpSSDPPacket *ssdpPkt)
 	
 	cg_log_debug_l4("Entering...\n");
 
-cg_log_debug_s("ssdp from %s %d\n",
+	cg_log_debug_s("ssdp from %s %d\n",
 		cg_upnp_ssdp_packet_getremoteaddress(ssdpPkt),
 		cg_upnp_ssdp_packet_getremoteport(ssdpPkt));
 		

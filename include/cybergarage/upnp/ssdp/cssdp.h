@@ -160,6 +160,9 @@ int cg_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq);
 /**** toString ****/
 char *cg_upnp_ssdprequest_tostring(CgUpnpSSDPRequest *ssdpReq, CgString *ssdpMsg);
 
+/**** Print ****/
+#define cg_upnp_ssdprequest_print(ssdpReq) cg_http_request_print(ssdpReq)
+
 /****************************************
 * Function (SSDPResponse)
 ****************************************/
@@ -195,6 +198,9 @@ int cg_upnp_ssdpresponse_getleasetime(CgUpnpSSDPResponse *ssdpRes);
 
 /**** toString ****/
 char *cg_upnp_ssdpresponse_tostring(CgUpnpSSDPResponse *ssdpRes, CgString *ssdpMsg);
+
+/**** Print ****/
+#define cg_upnp_ssdpresponse_print(ssdpReq) cg_http_response_print(ssdpReq)
 
 /****************************************
 * Function (SSDPSocket)

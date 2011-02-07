@@ -808,6 +808,7 @@ BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, char *target)
 	cg_upnp_ssdprequest_setman(ssdpReq, CG_UPNP_MAN_DISCOVER);
 	
 	cg_log_debug("Announcing %d times.\n", cg_upnp_ssdp_getannouncecount());
+	cg_upnp_ssdprequest_print(ssdpReq);
 	
 	for (i = 0; i < cg_upnp_ssdp_getannouncecount(); i++)
 	{
