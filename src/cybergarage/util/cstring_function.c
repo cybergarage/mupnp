@@ -60,21 +60,21 @@ char *cg_strdup(char *str)
  char *cpStrBuf;
 #endif
 
- cg_log_debug_l5("Entering...\n");
+	/* cg_log_debug_l5("Entering...\n"); */
 
-    if (str == NULL)
-           return NULL;
+	if (str == NULL)
+		return NULL;
 
 #if defined(HAVE_STRDUP)
- return strdup(str);
+	return strdup(str);
 #else
- cpStrBuf = (char *)malloc(strlen(str)+1);
- if ( NULL != cpStrBuf )
-  strcpy(cpStrBuf, str);
- return cpStrBuf;
+	cpStrBuf = (char *)malloc(strlen(str)+1);
+	if ( NULL != cpStrBuf )
+		strcpy(cpStrBuf, str);
+	return cpStrBuf;
 #endif
 
- cg_log_debug_l5("Leaving...\n");
+	/* cg_log_debug_l5("Leaving...\n"); */
 }
 
 /****************************************

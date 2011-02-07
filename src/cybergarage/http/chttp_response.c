@@ -227,15 +227,13 @@ void cg_http_response_copy(CgHttpResponse *destHttpRes, CgHttpResponse *srcHttpR
 void cg_http_response_print(CgHttpResponse *httpRes)
 {
 	cg_log_debug_l4("Entering...\n");
-#ifdef CLOG_DEBUG_STACK
-
-cg_log_debug_s("%s %d %s\n",
+	
+	cg_log_debug_s("%s %d %s\n",
 		cg_http_response_getversion(httpRes),
 		cg_http_response_getstatuscode(httpRes),
 		cg_http_response_getreasonphrase(httpRes));
 
 	cg_http_packet_print((CgHttpPacket *)httpRes);
-#endif
 	
 	cg_log_debug_l4("Leaving...\n");
 }

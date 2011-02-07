@@ -161,6 +161,8 @@ static void cg_upnp_ssdpresponse_server_thread(CgThread *thread)
 		if (cg_upnp_httpu_socket_recv(server->httpuSock, ssdpPkt) <= 0)
 			break;
 
+		cg_upnp_ssdp_packet_print(ssdpPkt);
+		
 		cg_upnp_ssdpresponse_server_performlistener(server, ssdpPkt);
 		cg_upnp_ssdp_packet_clear(ssdpPkt);
 	}

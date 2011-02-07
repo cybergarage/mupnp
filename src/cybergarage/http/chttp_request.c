@@ -984,13 +984,13 @@ void cg_http_request_copy(CgHttpRequest *destHttpReq, CgHttpRequest *srcHttpReq)
 void cg_http_request_print(CgHttpRequest *httpReq)
 {
 	cg_log_debug_l4("Entering...\n");
-#ifdef CLOG_DEBUG_STACK
-	printf("%s %s %s\n",
+	
+	cg_log_debug_s("%s %s %s\n",
 		cg_http_request_getmethod(httpReq),
 		cg_http_request_geturi(httpReq),
 		cg_http_request_getversion(httpReq));
 
 	cg_http_packet_print((CgHttpPacket *)httpReq);
-#endif
+	
 	cg_log_debug_l4("Leaving...\n");
 }
