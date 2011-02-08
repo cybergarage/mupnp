@@ -171,39 +171,38 @@ void cg_socket_startup()
 
 	if (socketCnt == 0) {
 #if (defined(WIN32) || defined(__CYGWIN__)) && !defined (ITRON)
-	WSADATA wsaData;
-	int err;
+		WSADATA wsaData;
+		int err;
 	
 #if defined DEBUG_MEM
-	memdiags_probe("STARTING WINSOCK");
+		memdiags_probe("STARTING WINSOCK");
 #endif
 
-	err = WSAStartup(MAKEWORD(2, 2), &wsaData);
+		err = WSAStartup(MAKEWORD(2, 2), &wsaData);
 
 #if defined (WINCE)
 	//Theo Beisch unfriendly exit, at least for WINCE
-	if (err) {
-		//startup error
+		if (err) {
+			//startup error
 #if defined DEBUG
-		printf("######## WINSOCK startup error %d\n", err);
+			printf("######## WINSOCK startup error %d\n", err);
 #endif // DEBUG
-	} 
+		} 
 
 #if defined DEBUG_MEM
-	memdiags_probe("WINSOCK STARTED");
+		memdiags_probe("WINSOCK STARTED");
 #endif
 
 #endif // WINCE
 #elif defined(ITRON) && defined(NORTiAPI)
 		tcp_ini();
 #elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
-		kaInterfaceHa
-		ndle = ka_tfAddInterface(CG_NET_DEFAULT_IFNAME);
+		kaInterfaceHandle = ka_tfAddInterface(CG_NET_DEFAULT_IFNAME);
 #endif
 
 #if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
-	// Thanks for Brent Hills (10/26/04)
-    	signal(SIGPIPE,SIG_IGN);
+		// Thanks for Brent Hills (10/26/04)
+		signal(SIGPIPE,SIG_IGN);
 #endif
 
 #if defined(CG_NET_USE_SOCKET_LIST)
@@ -230,12 +229,12 @@ void cg_socket_cleanup()
 	socketCnt--;
 	if (socketCnt <= 0) {
 #if (defined(WIN32) || defined(__CYGWIN__)) && !defined (ITRON)
-			WSACleanup( );
+		WSACleanup( );
 #endif
 
 #if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) 
-	// Thanks for Brent Hills (10/26/04)
-	signal(SIGPIPE,SIG_DFL);
+		// Thanks for Brent Hills (10/26/04)
+		signal(SIGPIPE,SIG_DFL);
 #endif
 
 #if defined(CG_NET_USE_SOCKET_LIST)
