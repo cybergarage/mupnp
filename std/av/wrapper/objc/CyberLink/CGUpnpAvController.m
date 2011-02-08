@@ -231,11 +231,11 @@
 
 - (void)search
 {
-	cg_upnp_ssdp_setannouncecount(2);
-	
 	[super search];
+#if defined(CG_UPNPAVCONTROLLER_SERCH_DEVICETYPES)
 	[super searchWithST:[NSString stringWithUTF8String:CG_UPNPAV_DMS_DEVICE_TYPE]];
 	[super searchWithST:[NSString stringWithUTF8String:CG_UPNPAV_DMR_DEVICE_TYPE]];
+#endif
 }
 
 @end
