@@ -241,13 +241,18 @@
 	return avObjArray;
 }
 
-- (NSArray *)search:(NSString *)aSearchCriteria;
+- (CGUpnpAction *)searchAction
 {
 	CGUpnpService *conDirService = [self getServiceForType:@"urn:schemas-upnp-org:service:ContentDirectory:1"];
 	if (!conDirService)
 		return nil;
 	
-	CGUpnpAction *action = [conDirService getActionForName:@"Search"];
+	return [conDirService getActionForName:@"Search"];
+}
+
+- (NSArray *)search:(NSString *)aSearchCriteria;
+{
+	CGUpnpAction *action = [self searchAction];
 	if (!action)
 		return nil;
 	
