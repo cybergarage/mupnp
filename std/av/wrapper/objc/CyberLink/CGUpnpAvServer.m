@@ -160,6 +160,7 @@
 	[browseOptions setObject:[NSString stringWithFormat:@"%d", aStartingIndex] forKey:@"StartingIndex"];
 	BOOL postResult = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:browseOptions];
 	
+#if defined (CG_UPNPAVSERVER_BROWSEACTION_RETRY_ENABLED)
 	/*
 	 * ContentDirectory:1 Service Template Version 1.01
 	 * 2.7.4.2. Argument Descriptions
@@ -199,6 +200,7 @@
 		[browseOptions setObject:[NSString stringWithFormat:@"%d", CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT] forKey:@"RequestedCount"];
 		postResult = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:browseOptions];
 	}
+#endif
 	
 	if (!postResult)
 		return nil;
@@ -225,8 +227,10 @@
 
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId
 {
+#if !defined (CG_UPNPAVSERVER_BROWSEACTION_CHECK_TOTALMATCHES)
+	return [self browseDirectChildren:aObjectId requestedCount:0];
+#else
 	int totalMatches = [self browseDirectChildrenTotalMatches:aObjectId];
-	
 	if (totalMatches <= 0)
 		return [self browseDirectChildren:aObjectId requestedCount:0];
 	
@@ -239,6 +243,7 @@
 		[avObjArray addObjectsFromArray:avObjs]; 
 	}
 	return avObjArray;
+#endif
 }
 
 - (CGUpnpAction *)searchAction

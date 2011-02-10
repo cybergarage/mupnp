@@ -47,6 +47,7 @@ typedef void CgUpnpAvServer;
 - (CGUpnpAvObject *)browseMetadata:(NSString *)aObjectId;
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId;
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger) aRequestedCount;
+- (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger)aRequestedCount startingIndex:(NSUInteger)aStartingIndex;
 - (CGUpnpAction *)browseAction;
 - (NSArray *)search:(NSString *)aSearchCriteria;
 - (NSArray *)searchByBrowse:(NSString *)aSearchCriteria;
