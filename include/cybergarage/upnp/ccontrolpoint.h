@@ -104,7 +104,6 @@ typedef enum _CgUpnpDeviceStatus
  * @param udn The UDN of the device, that the status update concerns
  * @param status The new status
  */
-typedef void (*CG_UPNP_DEVICE_LISTENER)(char* udn, CgUpnpDeviceStatus status);
 	
 typedef struct _CgUpnpControlPoint {
 	CgMutex *mutex;
@@ -113,7 +112,7 @@ typedef struct _CgUpnpControlPoint {
 	CgUpnpSSDPServerList *ssdpServerList;
 	CgUpnpSSDPResponseServerList *ssdpResServerList;
 	CgHttpServerList *httpServerList;
-	CG_UPNP_DEVICE_LISTENER deviceListener;
+	void (*deviceListener)(struct _CgUpnpControlPoint *, char*, CgUpnpDeviceStatus); /* CG_UPNP_DEVICE_LISTENER */
 	CG_HTTP_LISTENER httpListener;
 	CG_UPNP_SSDP_LISTNER ssdpListener;
 	CG_UPNP_SSDP_RESPONSE_LISTNER ssdpResListener;
@@ -133,6 +132,8 @@ typedef struct _CgUpnpControlPoint {
 	CgNetworkInterfaceList *ifCache;
 } CgUpnpControlPoint;
 
+typedef void (*CG_UPNP_DEVICE_LISTENER)(CgUpnpControlPoint *ctrlPoint, char* udn, CgUpnpDeviceStatus status);
+	
 /****************************************************************************
  * Control Point top-level control
  ****************************************************************************/

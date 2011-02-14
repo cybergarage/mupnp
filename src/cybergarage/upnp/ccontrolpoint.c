@@ -323,7 +323,7 @@ BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint)
 		if (udn != NULL && listener != NULL)
 		{
 			cg_upnp_controlpoint_unlock(ctrlPoint);
-			listener(udn, CgUpnpDeviceStatusRemoved);
+			listener(ctrlPoint, udn, CgUpnpDeviceStatusRemoved);
 			cg_upnp_controlpoint_lock(ctrlPoint);
 		}
 	}
@@ -737,7 +737,7 @@ void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, C
 	
 	if (listener != NULL)
 	{
-		listener(udn, status);
+		listener(ctrlPoint, udn, status);
 	}
 
 	cg_log_debug_l4("Leaving...\n");
@@ -771,7 +771,7 @@ void cg_upnp_controlpoint_removedevicebyssdppacket(CgUpnpControlPoint *ctrlPoint
 	if (listener != NULL)
 	{
 		cg_upnp_controlpoint_unlock(ctrlPoint);
-		listener(udn, CgUpnpDeviceStatusRemoved);
+		listener(ctrlPoint, udn, CgUpnpDeviceStatusRemoved);
 		cg_upnp_controlpoint_lock(ctrlPoint);
 	}
 	
