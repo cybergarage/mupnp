@@ -14,6 +14,13 @@ typedef void CgUpnpControlPoint;
 #endif
 
 @class CGUpnpDevice;
+@class CGUpnpControlPoint;
+
+@protocol CGUpnpControlPointDelegate <NSObject>
+- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceAdded:(CGUpnpDevice *)upnpDevice;
+- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(CGUpnpDevice *)upnpDevice;
+- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceRemoved:(CGUpnpDevice *)upnpDevice;
+@end
 
 /**
  * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
@@ -25,6 +32,7 @@ typedef void CgUpnpControlPoint;
 	CgUpnpControlPoint *cObject;
 }
 @property(readonly) CgUpnpControlPoint *cObject;
+@property(assign) id<CGUpnpControlPointDelegate> delegate;
 - (CgUpnpControlPoint *)cObject;
 /**
  * Activate some background threads of the control point such as SSDP and 
