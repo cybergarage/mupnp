@@ -534,7 +534,7 @@ void cg_upnp_controlpoint_updatestatetablefromproperty(CgUpnpService* service,
  * @param dev The control point in question
  * @return Pointer to user data or NULL
  */
-#define cg_upnp_controlpoint_getuserdata(dev) (ctrlPoint->userData)
+#define cg_upnp_controlpoint_getuserdata(ctrlPoint) (ctrlPoint->userData)
 
 /****************************************************************************
  * Service SCPD

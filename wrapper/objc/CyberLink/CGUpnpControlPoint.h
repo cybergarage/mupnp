@@ -17,9 +17,10 @@ typedef void CgUpnpControlPoint;
 @class CGUpnpControlPoint;
 
 @protocol CGUpnpControlPointDelegate <NSObject>
-- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceAdded:(CGUpnpDevice *)upnpDevice;
-- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(CGUpnpDevice *)upnpDevice;
-- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceRemoved:(CGUpnpDevice *)upnpDevice;
+@optional
+- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceAdded:(NSString *)deviceUdn;
+- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(NSString *)deviceUdn;
+- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceRemoved:(NSString *)deviceUdn;
 @end
 
 /**
