@@ -11,9 +11,12 @@
 #import "CGUpnpControlPoint.h"
 #import "CGUpnpDevice.h"
 
+static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, char* udn, CgUpnpDeviceStatus status);
+
 @implementation CGUpnpControlPoint
 
 @synthesize cObject;
+@synthesize delegate;
 
 - (id)init
 {
@@ -21,6 +24,8 @@
 		return nil;
 	cObject = cg_upnp_controlpoint_new();
 	if (cObject) {
+		cg_upnp_controlpoint_setdevicelistener(cObject, CGUpnpControlPointDeviceListener);
+		cg_upnp_controlpoint_setuserdata(cObject, self);
 		if (![self start])
 			self = nil;
 	}
@@ -122,3 +127,42 @@
 }
 
 @end
+
+static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, char* udn, CgUpnpDeviceStatus status)
+{
+	CGUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_getuserdata(cCtrlPoint);
+	if (ctrlPoint == nil)
+		return;
+	
+	if ([ctrlPoint delegate] == nil)
+		return;
+
+	NSString *deviceUdn = [[NSString alloc ] initWithUTF8String:udn];
+	
+	switch (status) {
+		case CgUpnpDeviceStatusAdded:
+			{
+				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceAdded:)])
+					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceAdded:deviceUdn];
+			}
+			break;
+		case CgUpnpDeviceStatusUpdated:
+			{
+				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceUpdated:)])
+					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceUpdated:deviceUdn];
+			}
+			break;
+		case CgUpnpDeviceStatusRemoved:
+			{
+				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceRemoved:)])
+					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceRemoved:deviceUdn];
+			}
+			break;
+		case CgUpnpDeviceStatusInvalid:
+		default:
+			break;
+	}
+	
+	[deviceUdn release];
+}
+
