@@ -26,6 +26,7 @@
 
 #include <cybergarage/util/clog.h>
 #include <cybergarage/util/cstring.h>
+#include <cybergarage/util/cmutex.h>
 
 #if defined(WIN32)
 #define snprintf _snprintf
@@ -45,6 +46,8 @@ static const char *sev_unknown_s = 	SEV_UNKNOWN_S;
 
 static void  log_init_with_defaults();
 static const char *map_severity(int severity);
+
+static CgMutex *clogMutex = NULL;
 
 struct fd_list
 {
@@ -211,6 +214,10 @@ void cg_log_print(int severity, const char *file, int line_n, const char *functi
 	time_t timestamp;
 	struct tm *timestamp_human_readable;
 	
+	if (!clogMutex)
+		clogMutex = cg_mutex_new();
+	cg_mutex_lock(clogMutex);
+	
 	/* If logger is not initialized, do it now */
 	if (!initialized) log_init_with_defaults();
 
@@ -261,6 +268,8 @@ void cg_log_print(int severity, const char *file, int line_n, const char *functi
 			fputs(log_line, temp->fd);
 		}
 	}
+
+	cg_mutex_unlock(clogMutex);
 }
 
 #if defined(WIN32)

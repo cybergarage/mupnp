@@ -25,6 +25,11 @@
 #include <errno.h>
 #endif
 
+#if !defined(CG_MUTEX_LOG_ENABLED)
+#undef cg_log_debug_l4
+#define cg_log_debug_l4(msg)
+#endif
+
 /****************************************
 * cg_mutex_new
 ****************************************/
@@ -34,7 +39,7 @@ CgMutex *cg_mutex_new()
 	CgMutex *mutex;
 
 	cg_log_debug_l4("Entering...\n");
-
+	
 	mutex = (CgMutex *)malloc(sizeof(CgMutex));
 
 	if ( NULL != mutex )
