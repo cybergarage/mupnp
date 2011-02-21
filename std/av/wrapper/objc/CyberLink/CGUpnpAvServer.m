@@ -22,6 +22,7 @@
 
 @synthesize contentDirectory;
 @synthesize cAvObject;
+@synthesize delegate;
 
 - (id) init
 {
@@ -217,10 +218,10 @@
 		[parentCon addChildren:avObjArray];
 	}
 
-	/* Delegate */
-	if ([[self delegate] respondsToSelector:@selector(upnpAvServer:browseDirectChildren:avObject:)]) {
+	/* CGUpnpAvServerDelegate */
+	if ([[self delegate] respondsToSelector:@selector(upnpAvServer:browse:avObject:)]) {
 		for (CGUpnpAvObject *avObj in avObjArray)
-			[[self delegate] upnpAvServer:self browseDirectChildren:browseAction avObject:avObj];
+			[[self delegate] upnpAvServer:self browse:browseAction avObject:avObj];
 	}
 	
 	return avObjArray;	
@@ -279,6 +280,12 @@
 	
 	NSString *resultStr = [action argumentValueForName:@"Result"];
 	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
+	
+	/* CGUpnpAvServerDelegate */
+	if ([[self delegate] respondsToSelector:@selector(upnpAvServer:search:avObject:)]) {
+		for (CGUpnpAvObject *avObj in avObjArray)
+			[[self delegate] upnpAvServer:self search:action avObject:avObj];
+	}
 	
 	return avObjArray;	
 }
