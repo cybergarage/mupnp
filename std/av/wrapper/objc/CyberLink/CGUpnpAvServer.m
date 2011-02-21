@@ -216,6 +216,12 @@
 		[parentCon removeAllChildren];
 		[parentCon addChildren:avObjArray];
 	}
+
+	/* Delegate */
+	if ([[self delegate] respondsToSelector:@selector(upnpAvServer:browseDirectChildren:avObject:)]) {
+		for (CGUpnpAvObject *avObj in avObjArray)
+			[[self delegate] upnpAvServer:self browseDirectChildren:browseAction avObject:avObj];
+	}
 	
 	return avObjArray;	
 }

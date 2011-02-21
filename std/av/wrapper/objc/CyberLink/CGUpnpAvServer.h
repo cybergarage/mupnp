@@ -14,21 +14,26 @@
 @class CGUpnpAvContentDirectory;
 @class CGUpnpAvObject;
 @class CGUpnpAvContainer;
+@class CGUpnpAvServer;
 
 #if !defined(_CG_CLINKCAV_SERVER_H_)
 typedef void CgUpnpAvServer;
 #endif
+
+@protocol CGUpnpAvServerDelegate <NSObject>
+@optional
+- (void)upnpAvServer:(CGUpnpAvServer *)upnpAvServer browseDirectChildren:(CGUpnpAction *)browseAction avObject:(CGUpnpAvObject *)avObject;
+@end
 
 /**
  * The CGUpnpAvServer class is a UPnP/AV media server class.
  */
 @interface CGUpnpAvServer : CGUpnpDevice
 {
-	CGUpnpAvContentDirectory *contentDirectory;
-	CgUpnpAvServer *cAvObject;
 }
 @property(readonly) CGUpnpAvContentDirectory *contentDirectory;
 @property(readonly) CgUpnpAvServer *cAvObject;
+@property(assign) id<CGUpnpAvServerDelegate> delegate;
 /**
  * Create a new UPnP/AV server.
  * 
