@@ -22,7 +22,8 @@ typedef void CgUpnpAvServer;
 
 @protocol CGUpnpAvServerDelegate <NSObject>
 @optional
-- (void)upnpAvServer:(CGUpnpAvServer *)upnpAvServer browseDirectChildren:(CGUpnpAction *)browseAction avObject:(CGUpnpAvObject *)avObject;
+- (void)upnpAvServer:(CGUpnpAvServer *)upnpAvServer browse:(CGUpnpAction *)browseAction avObject:(CGUpnpAvObject *)avObject;
+- (void)upnpAvServer:(CGUpnpAvServer *)upnpAvServer search:(CGUpnpAction *)searchAction avObject:(CGUpnpAvObject *)avObject;
 @end
 
 /**
