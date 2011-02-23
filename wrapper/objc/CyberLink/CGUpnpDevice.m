@@ -12,20 +12,26 @@
 
 #import "CGUpnpDevice.h"
 #import "CGUpnpService.h"
+#import "CGUpnpAction.h"
 #import "CGUpnpIcon.h"
+
+static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 
 @implementation CGUpnpDevice
 
 @synthesize cObject;
+@synthesize delegate;
 
 - (id) init
 {
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cg_upnp_device_new();
-	isCObjectCreated = YES;
 	if (!cObject)
 		return nil;
+	isCObjectCreated = YES;
+	cg_upnp_device_setuserdata(cObject, self);
+	cg_upnp_device_setactionlistener(cObject, CGUpnpDeviceActionListener);
 	return self;
 }
 
@@ -40,17 +46,14 @@
 
 - (id) initWithXMLDescription:(NSString *)xmlDesc
 {
-	if ((self = [super init]) == nil)
+	if ((self = [self init]) == nil)
 		return nil;
-	cObject = cg_upnp_device_new();
-	isCObjectCreated = YES;
 	if (!cObject)
 		return nil;
 	if (![self parseXMLDescription:xmlDesc]) {
 		cg_upnp_device_delete(cObject);
 		return nil;
 	}
-	cg_upnp_device_setuserdata(cObject, self);
 	return self;
 }
 
@@ -373,3 +376,33 @@
 }
 
 @end
+
+static BOOL CGUpnpDeviceActionListener(CgUpnpAction *cUpnpAction)
+{
+	if (!cUpnpAction)
+		return NO;
+	
+	CgUpnpService *cUpnpService = cg_upnp_action_getservice(cUpnpAction);
+	if (!cUpnpService)
+		return NO;
+	
+	CgUpnpDevice *cUpnpDevice = cg_upnp_service_getdevice(cUpnpService);
+	if (!cUpnpDevice)
+		return NO;
+	
+	CGUpnpDevice *upnpDevice = cg_upnp_device_getuserdata(cUpnpDevice);
+	if (upnpDevice == nil)
+		return NO;
+	
+	if ([[upnpDevice delegate] respondsToSelector:@selector(device:service:actionReceived:)]) {
+		CGUpnpService *upnpService = [[CGUpnpService alloc] initWithCObject:(void *)cUpnpService];
+		CGUpnpAction *upnpAction = [[CGUpnpAction alloc] initWithCObject:(void *)upnpAction];
+		BOOL doActionResult = [[upnpDevice delegate] device:upnpDevice service:upnpService actionReceived:upnpAction];
+		[upnpAction release];
+		[upnpService release];
+		return doActionResult;
+	}
+		
+	return YES;
+}
+

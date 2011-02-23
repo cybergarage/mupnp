@@ -12,6 +12,7 @@
 #import <CyberLink/UPnP.h>
 #import <CyberLink/CGUpnpAVPositionInfo.h>
 
+@class CGUpnpAvRenderer;
 @class CGUpnpAVPositionInfo;
 
 #if !defined(_CG_CLINKCAV_MEDIARENDERER_H_)

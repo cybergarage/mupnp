@@ -1,8 +1,9 @@
-2011-02-14  Satoshi Konno <skonno@cybergarage.org>
+2011-02-23  Satoshi Konno <skonno@cybergarage.org>
 	* Added the control point parameter into CG_UPNP_DEVICE_LISTENER.
 	* Added cg_upnp_ssdprequest_print() and cg_upnp_ssdpresponse_print().
 	* Added some debug messages.
-
+	* Added CGUpnpDeviceDelegate (Objective-C).
+	
 2010-10-26  Satoshi Konno <skonno@cybergarage.org>
 	* Added cg_upnp_controlpoint_isrunning().
 
