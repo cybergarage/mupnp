@@ -13,18 +13,28 @@
 typedef void CgUpnpDevice;
 #endif
 
+@class CGUpnpDevice;
 @class CGUpnpService;
+@class CGUpnpAction;
 @class CGUpnpIcon;
+
+/**
+ * The CGUpnpDevice class is a wrapper class for CgUpnpDevice of CyberLink for C.
+ */
+@protocol CGUpnpDeviceDelegate <NSObject>
+@optional
+- (BOOL)device:(CGUpnpDevice *)device service:(CGUpnpService *)service actionReceived:(CGUpnpAction *)action;
+@end
 
 /**
  * The CGUpnpDevice class is a wrapper class for CgUpnpDevice of CyberLink for C.
  */
 @interface CGUpnpDevice : NSObject 
 {
-	CgUpnpDevice *cObject;
 	BOOL isCObjectCreated;
 }
-@property(readwrite) CgUpnpDevice *cObject;
+@property(assign) CgUpnpDevice *cObject;
+@property(assign) id<CGUpnpDeviceDelegate> delegate;
 /**
  * Create a new UPnP device.
  * 
