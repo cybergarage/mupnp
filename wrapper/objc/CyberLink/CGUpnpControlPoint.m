@@ -159,6 +159,11 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, cha
 			}
 			break;
 		case CgUpnpDeviceStatusInvalid:
+			{
+				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceInvalid:)])
+					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceInvalid:deviceUdn];
+			}
+			break;
 		default:
 			break;
 	}
