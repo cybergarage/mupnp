@@ -197,6 +197,11 @@
 	return [mimeType hasPrefix:@"audio"];
 }
 
+- (NSString *)mimeType
+{
+	return  [self contentFormat];
+}
+
 - (NSString *)extention
 {
 	NSString *mimeType = [self contentFormat];

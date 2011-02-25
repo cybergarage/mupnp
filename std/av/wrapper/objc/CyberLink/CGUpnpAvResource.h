@@ -27,6 +27,7 @@
 - (NSString *)protocol;
 - (NSString *)network;
 - (NSString *)contentFormat;
+- (NSString *)mimeType;
 - (NSString *)extention;
 - (NSString *)additionalInfo;
 - (NSString *)additionalInfoForKey:(NSString*)aKey;

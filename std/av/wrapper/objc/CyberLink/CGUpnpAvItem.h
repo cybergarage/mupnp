@@ -38,6 +38,7 @@
 - (NSString *)lowestImageUrl;
 - (NSString *)highestImageUrl;
 - (NSString *)applicableImageUrlBySize:(CGSize)size;
+- (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize mimeTypes:(NSArray *)mimeTypes;
 - (CGUpnpAvResource *)resource;
 - (BOOL)hasRendererResource;
 - (CGUpnpAvResource *)rendererResource;
