@@ -166,12 +166,24 @@
 	return [[imgRes retain] autorelease];
 }
 
-- (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize
+- (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize mimeTypes:(NSArray *)mimeTypes
 {
 	CGUpnpAvResource *applicableResource = nil;
 	for (CGUpnpAvResource *resource in [self resources]) {
 		if ([resource isImage] == NO)
 			continue;
+		if (0 < [mimeTypes count]) {
+			BOOL isMimeType = NO;
+			NSString *resourceMimeType = [resource mimeType];
+			for (NSString *mimeType in mimeTypes) {
+				if ([mimeType isEqualToString:resourceMimeType]) {
+					isMimeType = YES;
+					continue;
+				}
+			}
+			if (isMimeType == NO)
+				continue;
+		}
 		if (applicableResource == nil) {
 			applicableResource = resource;
 			continue;
@@ -188,6 +200,11 @@
 		}
 	}
 	return applicableResource;
+}
+
+- (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize
+{
+	return [self applicableImageResourceBySize:wantedSize mimeTypes:[NSArray arrayWithObjects:@"image/jpeg", @"image/png", @"image/gif", nil]];
 }
 
 - (NSString *)thumbnailUrl

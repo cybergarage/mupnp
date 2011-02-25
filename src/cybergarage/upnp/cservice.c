@@ -1229,6 +1229,7 @@ static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 
 			cg_net_url_set(genURL, cg_upnp_device_geturlbase(rootDev));
 
+
 			if ( cg_net_url_isabsolutepath(gen_url_str) ) {
 				cg_net_url_setpath(genURL, cg_net_url_getpath(temp));
 				cg_net_url_setquery(genURL, cg_net_url_getquery(temp));
