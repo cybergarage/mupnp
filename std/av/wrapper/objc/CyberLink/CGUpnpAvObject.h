@@ -6,6 +6,10 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#if defined(TARGET_OS_IPHONE)
+#import <UIKit/UIKit.h>
+#endif
+
 #import <CyberLink/CGXmlNode.h>
 
 #if  !defined(_CG_CLINKCAV_CONTENT_H_)
@@ -25,6 +29,9 @@ typedef void CgUpnpAvContent;
 	CGUpnpAvObject *parent;
 }
 @property(retain) id userObject;
+#if defined(TARGET_OS_IPHONE)
+@property(retain) UIImage *thumbnailImage;
+#endif
 + (NSArray *)arrayWithXMLString:(NSString *)aXmlString;
 - (id)init;
 #if  !defined(TARGET_OS_IPHONE)

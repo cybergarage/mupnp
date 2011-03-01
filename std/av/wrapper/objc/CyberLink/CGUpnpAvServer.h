@@ -6,8 +6,12 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#if defined(TARGET_OS_IPHONE)
+#import <UIKit/UIKit.h>
+#else
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
+#endif
 
 #import <CyberLink/UPnP.h>
 
@@ -35,7 +39,12 @@ typedef void CgUpnpAvServer;
 @property(readonly) CGUpnpAvContentDirectory *contentDirectory;
 @property(readonly) CgUpnpAvServer *cAvObject;
 @property(assign) id<CGUpnpAvServerDelegate> delegate;
-/**
+
+#if defined(TARGET_OS_IPHONE)
+@property(retain) UIImage *thumbnailImage;
+#endif
+
+/*
  * Create a new UPnP/AV server.
  * 
  * @return New instance if successfull; otherwise nil.
