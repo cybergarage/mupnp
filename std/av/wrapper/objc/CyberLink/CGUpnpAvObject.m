@@ -18,6 +18,8 @@
 
 @implementation CGUpnpAvObject
 
+@synthesize userObject;
+
 + (NSArray *)arrayWithXMLString:(NSString *)aXmlString
 {
 #if  !defined(TARGET_OS_IPHONE)

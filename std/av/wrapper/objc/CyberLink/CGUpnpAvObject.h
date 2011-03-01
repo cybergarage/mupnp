@@ -24,6 +24,7 @@ typedef void CgUpnpAvContent;
 {
 	CGUpnpAvObject *parent;
 }
+@property(retain) id userObject;
 + (NSArray *)arrayWithXMLString:(NSString *)aXmlString;
 - (id)init;
 #if  !defined(TARGET_OS_IPHONE)
