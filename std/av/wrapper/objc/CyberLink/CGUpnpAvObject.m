@@ -18,6 +18,10 @@
 
 @implementation CGUpnpAvObject
 
+#if defined(TARGET_OS_IPHONE)
+@synthesize thumbnailImage;
+#endif
+
 @synthesize userObject;
 
 + (NSArray *)arrayWithXMLString:(NSString *)aXmlString

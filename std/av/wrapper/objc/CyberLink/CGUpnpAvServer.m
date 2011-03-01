@@ -24,6 +24,10 @@
 @synthesize cAvObject;
 @synthesize delegate;
 
+#if defined(TARGET_OS_IPHONE)
+@synthesize thumbnailImage;
+#endif
+
 - (id) init
 {
 	if ((self = [super init]) == nil)
