@@ -1,3 +1,6 @@
+2011-03-05  Satoshi Konno <skonno@cybergarage.org>
+	* Added cg_upnpav_content_setupnpalbumarturi() and cg_upnpav_content_getupnpalbumarturi().
+
 2011-02-23  Satoshi Konno <skonno@cybergarage.org>
 	* Added the control point parameter into CG_UPNP_DEVICE_LISTENER.
 	* Added cg_upnp_ssdprequest_print() and cg_upnp_ssdpresponse_print().
