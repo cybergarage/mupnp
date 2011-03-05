@@ -35,6 +35,7 @@ extern "C" {
 #define CG_UPNPAV_CONTENT_RESTRICTED "restricted"
 #define CG_UPNPAV_CONTENT_TITLE "dc:title"
 #define CG_UPNPAV_CONTENT_UPNPCLASS "upnp:class"
+#define CG_UPNPAV_CONTENT_UPNPALBUMARTURI "upnp:albumArtURI"
 
 #define CG_UPNPAV_ROOT_CONTENT_ID "0"
 #define CG_UPNPAV_ROOT_CONTENT_PARENTID "-1"
@@ -98,6 +99,9 @@ BOOL cg_upnpav_content_haschildcontents(CgUpnpAvContent *con);
 
 #define cg_upnpav_content_setupnpclass(con, val) cg_xml_node_setchildnode(con, CG_UPNPAV_CONTENT_UPNPCLASS, val)
 #define cg_upnpav_content_getupnpclass(con) cg_xml_node_getchildnodevalue(con, CG_UPNPAV_CONTENT_UPNPCLASS)
+
+#define cg_upnpav_content_setupnpalbumarturi(con, val) cg_xml_node_setchildnode(con, CG_UPNPAV_CONTENT_UPNPALBUMARTURI, val)
+#define cg_upnpav_content_getupnpalbumarturi(con) cg_xml_node_getchildnodevalue(con, CG_UPNPAV_CONTENT_UPNPALBUMARTURI)
 
 void cg_upnpav_content_settype(CgUpnpAvContent *con, int type);
 int cg_upnpav_content_gettype(CgUpnpAvContent *con);
