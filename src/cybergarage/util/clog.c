@@ -214,6 +214,9 @@ void cg_log_print(int severity, const char *file, int line_n, const char *functi
 	time_t timestamp;
 	struct tm *timestamp_human_readable;
 	
+	if (!descriptor_list)
+		return;
+	
 	if (!clogMutex)
 		clogMutex = cg_mutex_new();
 	cg_mutex_lock(clogMutex);
