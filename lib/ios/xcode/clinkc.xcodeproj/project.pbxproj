@@ -275,8 +275,6 @@
 		219B8E3B131FD1D7003F8530 /* cthread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cthread.h; sourceTree = "<group>"; };
 		219B8E3C131FD1D7003F8530 /* ctime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ctime.h; sourceTree = "<group>"; };
 		219B8E3E131FD1D7003F8530 /* cxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cxml.h; sourceTree = "<group>"; };
-		219B8E3F131FD1D7003F8530 /* Makefile.am */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
-		219B8E40131FD1D7003F8530 /* Makefile.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* clinkc_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clinkc_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libclinkc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libclinkc.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -517,8 +515,6 @@
 			isa = PBXGroup;
 			children = (
 				219B8E0F131FD1D7003F8530 /* cybergarage */,
-				219B8E3F131FD1D7003F8530 /* Makefile.am */,
-				219B8E40131FD1D7003F8530 /* Makefile.in */,
 			);
 			name = Headers;
 			path = ../../../include;
