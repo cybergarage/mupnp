@@ -23,6 +23,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		21ADB3B51331A45100ED2800 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21C42078133121EB00F2428B /* clink.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 210AF4171331182E00A2EB09;
+			remoteInfo = clink;
+		};
 		21C4207F133121EC00F2428B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 21C42078133121EB00F2428B /* clink.xcodeproj */;
@@ -146,6 +153,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				21ADB3B61331A45100ED2800 /* PBXTargetDependency */,
 			);
 			name = ClinkCTestUnit;
 			productName = ClinkCTestUnit;
@@ -210,6 +218,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		21ADB3B61331A45100ED2800 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = clink;
+			targetProxy = 21ADB3B51331A45100ED2800 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2152CB951331206B00229C13 /* Debug */ = {
