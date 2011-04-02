@@ -47,8 +47,6 @@ static const char *sev_unknown_s = 	SEV_UNKNOWN_S;
 static void  log_init_with_defaults();
 static const char *map_severity(int severity);
 
-static CgMutex *clogMutex = NULL;
-
 struct fd_list
 {
 	struct fd_list *next;
@@ -60,6 +58,8 @@ struct fd_list
 static struct fd_list *descriptor_list = NULL; /* Contains logging targets (single linked list) */
 static int initialized = 0;
 static char *separator = NULL; /* Log item separator */
+
+static CgMutex *(print_mutex) = NULL;
 
 /* Local helper functions */
 
@@ -213,20 +213,22 @@ void cg_log_print(int severity, const char *file, int line_n, const char *functi
 	struct fd_list *temp = NULL;
 	time_t timestamp;
 	struct tm *timestamp_human_readable;
-	
-	if (!descriptor_list)
+
+	/* If output targets are empty, do return */
+    if (!descriptor_list)
 		return;
-	
-	if (!clogMutex)
-		clogMutex = cg_mutex_new();
-	cg_mutex_lock(clogMutex);
-	
+
 	/* If logger is not initialized, do it now */
 	if (!initialized) log_init_with_defaults();
 
 	/* If separator is not set, do it now */
 	if (NULL == separator) cg_log_set_separator(" : ");
 
+	/* Create a mutex */
+	if (!print_mutex)
+		print_mutex = cg_mutex_new();
+	cg_mutex_lock(print_mutex);
+	
 	/* Create timestamp for the log prefix */
 	timestamp = time(NULL);
 	timestamp_human_readable = localtime(&timestamp);
@@ -272,7 +274,7 @@ void cg_log_print(int severity, const char *file, int line_n, const char *functi
 		}
 	}
 
-	cg_mutex_unlock(clogMutex);
+	cg_mutex_unlock(print_mutex);
 }
 
 #if defined(WIN32)
