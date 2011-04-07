@@ -324,8 +324,10 @@
 	for (CGUpnpAvObject *avObj in browseAvObjs) {
 		if ([avObj isItem]) {
 			[avObjs addObject:avObj];
-			continue;
 		}
+	}
+
+	for (CGUpnpAvObject *avObj in browseAvObjs) {
 		if ([avObj isContainer] == NO)
 			continue;
 		[self addAvObjectsFromArray:avObjs newAvObjs:[self searchByBrowse:aSearchCriteria objectId:[avObj objectId]]];
