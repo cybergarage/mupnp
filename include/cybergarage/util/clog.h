@@ -21,6 +21,10 @@
 #ifndef __CLOG_H
 #define __CLOG_H
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+	
 #define MAX_LOG_STRING 2048
 
 /* Message masks and descriptions */
@@ -161,6 +165,10 @@ void cg_log_debug_a(const char *format, ...);
 #else
 #	define cg_log_debug_a(format...)
 #endif
+#endif
+
+#ifdef  __cplusplus
+} /* extern "C" */
 #endif
 
 #endif /* __CLOG_H */

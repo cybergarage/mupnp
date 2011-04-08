@@ -57,7 +57,9 @@
 #include <cybergarage/net/csocket.h>
 #include <cybergarage/net/cinterface.h>
 #include <cybergarage/util/ctime.h>
+/*
 #include <cybergarage/upnp/ssdp/cssdp.h>
+*/
 
 #include <cybergarage/util/clog.h>
 
@@ -969,7 +971,7 @@ int cg_socket_sendto(CgSocket *sock, char *addr, int port, char *data, int dataL
 		cg_socket_setid(sock, socket(addrInfo->ai_family, addrInfo->ai_socktype, 0));
 	
 	/* Setting multicast time to live in any case to default */
-	cg_socket_setmulticastttl(sock, CG_UPNP_SSDP_MULTICAST_DEFAULT_TTL);
+	cg_socket_setmulticastttl(sock, CG_NET_SOCKET_MULTICAST_DEFAULT_TTL);
 	
 	if (0 <= sock->id)
 		sentLen = sendto(sock->id, data, dataLen, 0, addrInfo->ai_addr, addrInfo->ai_addrlen);

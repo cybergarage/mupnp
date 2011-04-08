@@ -40,10 +40,13 @@
 #include <cybergarage/net/cinterface.h>
 #include <cybergarage/net/csocket.h>
 #include <cybergarage/util/clog.h>
-#include <cybergarage/upnp/ssdp/cssdp.h>
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
+#endif
+
+#ifdef HAVE_UNISTD_H
+#include <unistd.h>
 #endif
 
 #include <stdio.h>
@@ -721,7 +724,7 @@ char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 		}
 
 		/* Checking if we have and auto ip address */
-		if ( ( laddr & lmask ) == CG_AUTO_IP_NET ) {
+		if ( ( laddr & lmask ) == CG_NET_SOCKET_AUTO_IP_NET ) {
 			cg_log_debug_s("Found auto ip address. Selecting it for second address candidate (%u)\n", laddr);
 			if ( NULL != auto_ip_address_candidate ) free(auto_ip_address_candidate);
 			auto_ip_address_candidate = cg_strdup(
