@@ -1,3 +1,6 @@
+2011-05-09 Jorgen Lundman
+    * Fixed cg_upnp_dms_filesys_updatecontentlist() not to abort when the state variable is null.
+
 2010-09-02  Satoshi Konno <skonno@cybergarage.org>
 	* Changed CGUpnpAvServer::browseDirectChildren to get contents from non standard UPnP/AV media servers.
 

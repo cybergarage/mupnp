@@ -465,6 +465,10 @@ int cg_upnpav_dms_condir_getsystemupdateid(CgUpnpAvServer *dms)
 	if (!var)
 		return 0;
 
+    /* Thanks for Jorgen Lundman(2011-05-09) */
+    if (!cg_upnp_statevariable_getvalue(var))
+        return 0;
+    
 	return cg_str2int(cg_upnp_statevariable_getvalue(var));
 }
 
