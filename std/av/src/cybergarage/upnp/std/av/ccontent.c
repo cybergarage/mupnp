@@ -99,6 +99,10 @@ CgUpnpAvContent *cg_upnpav_content_findbyuserfunc(CgUpnpAvContent *con, CG_UPNPA
 	for (childCon=cg_upnpav_content_getchildcontents(con); childCon; childCon=cg_upnpav_content_next(childCon)) {
 		if (userFunc(childCon, userData))
 			return childCon;
+        if (cg_upnpav_content_haschildcontents(childCon))
+            return cg_upnpav_content_findbyuserfunc(childCon,
+                                                    userFunc,
+                                                    userData);
 	}
 
 	return NULL;
