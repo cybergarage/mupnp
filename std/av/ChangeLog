@@ -1,3 +1,6 @@
+2010-06-03  Satoshi Konno <skonno@cybergarage.org>
+    * Fixed cg_upnpav_dms_new() to set a title into the root node.
+
 2011-05-09 Jorgen Lundman
     * Fixed cg_upnp_dms_filesys_updatecontentlist() not to abort when the state variable is null.
 
