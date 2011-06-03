@@ -207,6 +207,7 @@ CgUpnpAvServer *cg_upnpav_dms_new()
 
 	dms->rootContent = cg_upnpav_content_new();
 	cg_upnpav_content_settype(dms->rootContent, CG_UPNPAV_CONTENT_CONTAINER);
+    cg_upnpav_content_settitle(dms->rootContent, CG_UPNPAV_ROOT_CONTENT_TITLE);
 	cg_upnpav_content_setid(dms->rootContent, CG_UPNPAV_ROOT_CONTENT_ID);
 	cg_upnpav_content_setparentid(dms->rootContent, CG_UPNPAV_ROOT_CONTENT_PARENTID);
 
