@@ -53,22 +53,22 @@ void *userData;
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_TYPE "urn:schemas-upnp-org:service:ContentDirectory:1"
 
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE "Browse"
-	
+
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_SEARCH "Search"
 
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_GET_SEARCH_CAPABILITIES "GetSearchCapabilities"
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_SEARCH_CAPS "SearchCaps"
-	
+
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_GET_SORT_CAPABILITIES "GetSortCapabilities"
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_SORT_CAPS "SortCaps"
-	
+
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_GET_SYSTEM_UPDATE_ID "GetSystemUpdateID"
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_ID "Id"
 
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_SYSTEM_UPDATE_ID "SystemUpdateID"
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_SEARCH_CAPABILITIES "SearchCapabilities"
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_SORT_CAPABILITIES "SortCapabilities"
-	
+
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_CONTENT_EXPORT_URI "/ExportContent"
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_CONTENT_IMPORT_URI "/ImportContent"
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_CONTENT_ID "id"
@@ -82,7 +82,7 @@ void *userData;
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_STARTING_INDEX "StartingIndex"
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_REQUESTED_COUNT "RequestedCount"
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_SORT_CRITERIA "SortCriteria"
-	
+
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_BROWSE_METADATA "BrowseMetadata"
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_BROWSE_DIRECT_CHILDREN "BrowseDirectChildren"
 
@@ -98,7 +98,7 @@ void *userData;
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_TYPE "urn:schemas-upnp-org:service:ConnectionManager:1"
 
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_HTTP_GET "http-get"
-	
+
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_GET_PROTOCOL_INFO "GetProtocolInfo"
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_SOURCE "Source"
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_SINK "Sink"
@@ -111,7 +111,7 @@ void *userData;
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_CONNECTION_ID "ConnectionID"
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_AV_TRNSPORT_ID "AVTransportID"
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_RCS_ID "RcsID"
-	
+
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_CONNECTION_COMPLETE "ConnectionComplete"
 
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_GET_CURRENT_CONNECTION_IDS "GetCurrentConnectionIDs"
@@ -123,6 +123,19 @@ void *userData;
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_INPUT "Input"
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_OUTPUT "Output"
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_OK "OK"
+
+/****************************************
+* Constants (Media Receiver, Microsoft)
+****************************************/
+
+#define CG_UPNPAV_DMS_MEDIARECEIVER_SERVICE_TYPE "urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:1"
+#define CG_UPNPAV_DMS_MEDIARECEIVER_REGISTRATION_RESP_MSG "RegistrationRespMsg"
+#define CG_UPNPAV_DMS_MEDIARECEIVER_REGISTER_DEVICE "RegisterDevice"
+#define CG_UPNPAV_DMS_MEDIARECEIVER_IS_AUTHORIZED "IsAuthorized"
+#define CG_UPNPAV_DMS_MEDIARECEIVER_IS_VALIDATED "IsValidated"
+#define CG_UPNPAV_DMS_MEDIARECEIVER_RESULT "Result"
+
+
 
 /****************************************
 * Public Functions
@@ -189,6 +202,13 @@ BOOL cg_upnpav_dms_condir_init(CgUpnpAvServer *dms);
 void cg_upnpav_dms_condir_setsystemupdateid(CgUpnpAvServer *dms, int id);
 int cg_upnpav_dms_condir_getsystemupdateid(CgUpnpAvServer *dms);
 void cg_upnpav_dms_condir_updatesystemupdateid(CgUpnpAvServer *dms);
+
+/****************************************
+* Media Receiveer
+****************************************/
+
+BOOL cg_upnpav_dms_medrec_init(CgUpnpAvServer *dms);
+
 
 #ifdef  __cplusplus
 }

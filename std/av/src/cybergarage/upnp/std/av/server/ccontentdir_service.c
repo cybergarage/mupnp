@@ -22,7 +22,7 @@
 * Service Description (Content Directory)
 ****************************************/
 
-static char *CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION = 
+static char *CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION =
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
 "   <specVersion>\n"
@@ -427,6 +427,101 @@ static char *CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION =
 "    </serviceStateTable>\n"
 " </scpd>\n";
 
+// Descriptor for xbox360 required service
+static char *CG_UPNPAV_DMS_MEDIARECEIVER_SERVICE_DESCRIPTION =
+"<?xml version=\"1.0\" ?>\n"
+"<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
+"    <specVersion>\n"
+"        <major>1</major>\n"
+"        <minor>0</minor>\n"
+"    </specVersion>\n"
+"    <actionList>\n"
+"        <action>\n"
+"            <name>IsAuthorized</name>\n"
+"            <argumentList>\n"
+"                <argument>\n"
+"                    <name>DeviceID</name>\n"
+"                    <direction>in</direction>\n"
+"                    <relatedStateVariable>A_ARG_TYPE_DeviceID</relatedStateVariable>\n"
+"                </argument>\n"
+"                <argument>\n"
+"                    <name>Result</name>\n"
+"                    <direction>out</direction>\n"
+"                    <relatedStateVariable>A_ARG_TYPE_Result</relatedStateVariable>\n"
+"                </argument>\n"
+"            </argumentList>\n"
+"        </action>\n"
+"        <action>\n"
+"            <name>RegisterDevice</name>\n"
+"            <argumentList>\n"
+"                <argument>\n"
+"                    <name>RegistrationReqMsg</name>\n"
+"                    <direction>in</direction>\n"
+"                    <relatedStateVariable>A_ARG_TYPE_RegistrationReqMsg</relatedStateVariable>\n"
+"                </argument>\n"
+"                <argument>\n"
+"                    <name>RegistrationRespMsg</name>\n"
+"                    <direction>out</direction>\n"
+"                    <relatedStateVariable>A_ARG_TYPE_RegistrationRespMsg</relatedStateVariable>\n"
+"                </argument>\n"
+"            </argumentList>\n"
+"        </action>\n"
+"        <action>\n"
+"            <name>IsValidated</name>\n"
+"            <argumentList>\n"
+"                <argument>\n"
+"                    <name>DeviceID</name>\n"
+"                    <direction>in</direction>\n"
+"                    <relatedStateVariable>A_ARG_TYPE_DeviceID</relatedStateVariable>\n"
+"                </argument>\n"
+"                <argument>\n"
+"                    <name>Result</name>\n"
+"                    <direction>out</direction>\n"
+"                    <relatedStateVariable>A_ARG_TYPE_Result</relatedStateVariable>\n"
+"                </argument>\n"
+"            </argumentList>\n"
+"        </action>\n"
+"    </actionList>\n"
+"    <serviceStateTable>\n"
+"        <stateVariable sendEvents=\"no\">\n"
+"            <name>A_ARG_TYPE_DeviceID</name>\n"
+"            <dataType>string</dataType>\n"
+"        </stateVariable>\n"
+"        <stateVariable sendEvents=\"no\">\n"
+"            <name>A_ARG_TYPE_Result</name>\n"
+"            <dataType>int</dataType>\n"
+"        </stateVariable>\n"
+"        <stateVariable sendEvents=\"no\">\n"
+"            <name>A_ARG_TYPE_RegistrationReqMsg</name>\n"
+"            <dataType>bin.base64</dataType>\n"
+"        </stateVariable>\n"
+"        <stateVariable sendEvents=\"no\">\n"
+"            <name>A_ARG_TYPE_RegistrationRespMsg</name>\n"
+"            <dataType>bin.base64</dataType>\n"
+"        </stateVariable>\n"
+"        <stateVariable sendEvents=\"yes\">\n"
+"            <name>AuthorizationGrantedUpdateID</name>\n"
+"            <dataType>ui4</dataType>\n"
+"        </stateVariable>\n"
+"        <stateVariable sendEvents=\"yes\">\n"
+"            <name>AuthorizationDeniedUpdateID</name>\n"
+"            <dataType>ui4</dataType>\n"
+"        </stateVariable>\n"
+"        <stateVariable sendEvents=\"yes\">\n"
+"            <name>ValidationSucceededUpdateID</name>\n"
+"            <dataType>ui4</dataType>\n"
+"        </stateVariable>\n"
+"        <stateVariable sendEvents=\"yes\">\n"
+"            <name>ValidationRevokedUpdateID</name>\n"
+"            <dataType>ui4</dataType>\n"
+"        </stateVariable>\n"
+"    </serviceStateTable>\n"
+"</scpd>\n";
+
+
+
+
+
 /****************************************
 * cg_upnpav_dms_condir_setsystemupdateid
 ****************************************/
@@ -468,7 +563,7 @@ int cg_upnpav_dms_condir_getsystemupdateid(CgUpnpAvServer *dms)
     /* Thanks for Jorgen Lundman(2011-05-09) */
     if (!cg_upnp_statevariable_getvalue(var))
         return 0;
-    
+
 	return cg_str2int(cg_upnp_statevariable_getvalue(var));
 }
 
@@ -493,7 +588,7 @@ static BOOL cg_upnpav_dms_condir_browsemetadata(CgUpnpAvServer *dms, CgUpnpActio
 	CgString *resultStr;
 	char intBuf[CG_STRING_INTEGER_BUFLEN];
 	CgUpnpAvContent *copyContent;
-	
+
 	objectID = cg_upnp_action_getargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_OBJECT_ID);
 	if (cg_strlen(objectID) <= 0)
 		return FALSE;
@@ -502,12 +597,12 @@ static BOOL cg_upnpav_dms_condir_browsemetadata(CgUpnpAvServer *dms, CgUpnpActio
 	if (!objectContent)
 		return FALSE;
 
-	didlNode = cg_upnpav_didl_node_new();
-	cg_upnpav_contentlist_add(didlNode, objectContent);
-	copyContent = cg_upnpav_content_new();
-	cg_upnpav_content_copy(copyContent, objectContent);
+    didlNode = cg_upnpav_didl_node_new();
+    cg_upnpav_contentlist_add(didlNode, objectContent);
+    copyContent = cg_upnpav_content_new();
+    cg_upnpav_content_copy(copyContent, objectContent);
 	cg_xml_node_addchildnode(didlNode, copyContent);
-	
+
 	resultStr = cg_string_new();
 	cg_upnpav_didl_node_tostring(didlNode, resultStr);
 
@@ -517,7 +612,6 @@ static BOOL cg_upnpav_dms_condir_browsemetadata(CgUpnpAvServer *dms, CgUpnpActio
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID, cg_int2str(cg_upnpav_dms_condir_getsystemupdateid(dms), intBuf, sizeof(intBuf)));
 
 	cg_string_delete(resultStr);
-	
 	cg_upnpav_didl_node_delete(didlNode);
 
 	return TRUE;
@@ -561,7 +655,7 @@ static BOOL cg_upnpav_dms_condir_browsedirectchildren(CgUpnpAvServer *dms, CgUpn
 		totalMachesCnt++;
 	}
 
-	/* Not Implemented 
+	/* Not Implemented
 	// Sort Content Node Lists
 	string sortCriteria = action->getSortCriteria();
 	ContentNodeList sortedContentNodeBufList(false);
@@ -629,7 +723,7 @@ BOOL cg_upnpav_dms_condir_actionreceived(CgUpnpAction *action)
 		return FALSE;
 
 	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(cg_upnp_action_getservice(action));
-	if (!dev) 
+	if (!dev)
 		return FALSE;
 
 	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
@@ -703,7 +797,7 @@ BOOL cg_upnpav_dms_condir_queryreceived(CgUpnpStateVariable *var)
 		return FALSE;
 
 	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(cg_upnp_statevariable_getservice(var));
-	if (!dev) 
+	if (!dev)
 		return FALSE;
 
 	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
@@ -748,16 +842,97 @@ BOOL cg_upnpav_dms_condir_init(CgUpnpAvServer *dms)
 	service = cg_upnp_device_getservicebytype(dev, CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_TYPE);
 	if (!service)
 		return FALSE;
-	
+
 	if (cg_upnp_service_parsedescription(service, CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION)) == FALSE)
 		return FALSE;
-	
+
 	cg_upnp_service_setactionlistener(service, cg_upnpav_dms_condir_actionreceived);
 	for (action=cg_upnp_service_getactions(service); action; action=cg_upnp_action_next(action))
 		cg_upnp_action_setuserdata(action, dms);
 
 	cg_upnpav_dms_condir_setsystemupdateid(dms, 1);
-	
+
+
+	return TRUE;
+}
+
+
+
+/****************************************
+* cg_upnpav_dms_medrec_actionreceived
+****************************************/
+// Used for xbox360 support, see README.360
+BOOL cg_upnpav_dms_medrec_actionreceived(CgUpnpAction *action)
+{
+    CgUpnpAvServer *dms;
+    CgUpnpDevice *dev;
+    char *actionName;
+    CgUpnpArgument *arg;
+
+    actionName = cg_upnp_action_getname(action);
+
+    if (cg_strlen(actionName) <= 0)
+        return FALSE;
+
+
+    if (cg_streq(actionName, CG_UPNPAV_DMS_MEDIARECEIVER_IS_AUTHORIZED )) {
+        arg = cg_upnp_action_getargumentbyname(action,
+                                               CG_UPNPAV_DMS_MEDIARECEIVER_RESULT);
+        if (!arg)
+            return FALSE;
+        cg_upnp_argument_setvalue(arg, "1");
+        return TRUE;
+    }
+
+    if (cg_streq(actionName, CG_UPNPAV_DMS_MEDIARECEIVER_IS_VALIDATED)) {
+        arg = cg_upnp_action_getargumentbyname(action,
+                                               CG_UPNPAV_DMS_MEDIARECEIVER_RESULT);
+        if (!arg)
+            return FALSE;
+        cg_upnp_argument_setvalue(arg, "1");
+        return TRUE;
+    }
+
+    if (cg_streq(actionName, CG_UPNPAV_DMS_MEDIARECEIVER_REGISTER_DEVICE)) {
+        arg = cg_upnp_action_getargumentbyname(action,
+                                               CG_UPNPAV_DMS_MEDIARECEIVER_REGISTRATION_RESP_MSG);
+        if (!arg)
+            return FALSE;
+        // Specifications say to return base64 message.
+        cg_upnp_argument_setvalue(arg, "1");
+        return TRUE;
+    }
+
+
+    return TRUE;
+}
+
+
+
+/****************************************
+* cg_upnpav_dms_medrec_init
+****************************************/
+
+BOOL cg_upnpav_dms_medrec_init(CgUpnpAvServer *dms)
+{
+	CgUpnpDevice *dev;
+	CgUpnpService *service;
+	CgUpnpAction* action;
+
+	dev = cg_upnpav_dms_getdevice(dms);
+	if (!dev)
+		return FALSE;
+
+	service = cg_upnp_device_getservicebytype(dev, CG_UPNPAV_DMS_MEDIARECEIVER_SERVICE_TYPE);
+	if (!service)
+		return FALSE;
+
+	if (cg_upnp_service_parsedescription(service, CG_UPNPAV_DMS_MEDIARECEIVER_SERVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMS_MEDIARECEIVER_SERVICE_DESCRIPTION)) == FALSE)
+		return FALSE;
+
+	cg_upnp_service_setactionlistener(service, cg_upnpav_dms_medrec_actionreceived);
+	for (action=cg_upnp_service_getactions(service); action; action=cg_upnp_action_next(action))
+		cg_upnp_action_setuserdata(action, dms);
 
 	return TRUE;
 }

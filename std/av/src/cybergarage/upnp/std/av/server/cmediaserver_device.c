@@ -22,7 +22,7 @@
 * Device Description
 ****************************************/
 
-static char *CG_UPNPAV_DMS_DEVICE_DESCRIPTION = 
+static char *CG_UPNPAV_DMS_DEVICE_DESCRIPTION =
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<root xmlns=\"urn:schemas-upnp-org:device-1-0\" xmlns:dlna=\"urn:schemas-dlna-org:device-1-0\">\n"
 "   <specVersion>\n"
@@ -31,11 +31,11 @@ static char *CG_UPNPAV_DMS_DEVICE_DESCRIPTION =
 "   </specVersion>\n"
 "   <device>\n"
 "      <deviceType>urn:schemas-upnp-org:device:MediaServer:1</deviceType>\n"
-"      <friendlyName>Cyber Garage Media Server</friendlyName>\n"
+"      <friendlyName>Cyber Garage Media Server (MediaServer) : 1</friendlyName>\n"
 "      <manufacturer>Cyber Garage</manufacturer>\n"
 "      <manufacturerURL>http://www.cybergarage.org</manufacturerURL>\n"
 "      <modelDescription>CyberGarage</modelDescription>\n"
-"      <modelName>Cyber Garage Media Server</modelName>\n"
+"      <modelName>Windows Media Connect</modelName>\n"
 "      <modelNumber>1.0</modelNumber>\n"
 "      <UDN>uuid:BA2E90A0-3669-401a-B249-F85196ADFC44</UDN>\n"
 "      <modelURL>http://www.cybergarage.org</modelURL>\n"
@@ -54,6 +54,13 @@ static char *CG_UPNPAV_DMS_DEVICE_DESCRIPTION =
 "            <SCPDURL>/service/ConnectionManager1.xml</SCPDURL>\n"
 "            <controlURL>/service/ConnectionManager_control</controlURL>\n"
 "            <eventSubURL>/service/ConnectionManager_event</eventSubURL>\n"
+"         </service>\n"
+"         <service>\n"
+"            <serviceType>urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:1</serviceType>\n"
+"            <serviceId>urn:microsoft.com:serviceId:X_MS_MediaReceiverRegistrar</serviceId>\n"
+"            <SCPDURL>/service/MediaReceiverRegistrar1.xml</SCPDURL>\n"
+"            <controlURL>/service/MediaReceiverRegistrar_control</controlURL>\n"
+"            <eventSubURL>/service/MediaReceiverRegistrar_event</eventSubURL>\n"
 "         </service>\n"
 "      </serviceList>\n"
 "   </device>\n"
@@ -83,7 +90,7 @@ BOOL cg_upnpav_dms_actionreceived(CgUpnpAction *action)
 		return FALSE;
 
 	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(service);
-	if (!dev) 
+	if (!dev)
 		return FALSE;
 
 	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
@@ -98,6 +105,9 @@ BOOL cg_upnpav_dms_actionreceived(CgUpnpAction *action)
 
 	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_TYPE))
 		return cg_upnpav_dms_condir_actionreceived(action);
+
+	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMS_MEDIARECEIVER_SERVICE_TYPE))
+		return cg_upnpav_dms_medrec_actionreceived(action);
 
 	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_TYPE))
 		return cg_upnpav_dms_conmgr_actionreceived(action);
@@ -121,7 +131,7 @@ BOOL cg_upnpav_dms_queryreceived(CgUpnpStateVariable *statVar)
 		return FALSE;
 
 	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(service);
-	if (!dev) 
+	if (!dev)
 		return FALSE;
 
 	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
@@ -133,7 +143,7 @@ BOOL cg_upnpav_dms_queryreceived(CgUpnpStateVariable *statVar)
 		if (userQueryListener(statVar))
 			return TRUE;
 	}
-	
+
 	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_TYPE))
 		return cg_upnpav_dms_condir_queryreceived(statVar);
 
@@ -167,7 +177,7 @@ void cg_upnpav_dms_device_httprequestrecieved(CgHttpRequest *httpReq)
 		if (userHttpListener(httpReq))
 			return;
 	}
-	
+
 	cg_upnp_device_httprequestrecieved(httpReq);
 }
 
@@ -178,7 +188,7 @@ void cg_upnpav_dms_device_httprequestrecieved(CgHttpRequest *httpReq)
 CgUpnpAvServer *cg_upnpav_dms_new()
 {
 	CgUpnpAvServer *dms;
-	
+
 	dms = (CgUpnpAvServer *)malloc(sizeof(CgUpnpAvServer));
 
 	dms->dev = cg_upnp_device_new();
@@ -200,6 +210,12 @@ CgUpnpAvServer *cg_upnpav_dms_new()
 	}
 
 	if (cg_upnpav_dms_condir_init(dms) == FALSE) {
+		cg_upnp_device_delete(dms->dev);
+		free(dms);
+		return NULL;
+	}
+
+	if (cg_upnpav_dms_medrec_init(dms) == FALSE) {
 		cg_upnp_device_delete(dms->dev);
 		free(dms);
 		return NULL;
@@ -227,7 +243,7 @@ CgUpnpAvServer *cg_upnpav_dms_new()
 		cg_upnpav_dms_delete(dms);
 		return NULL;
 	}
-	
+
 	cg_upnp_device_setactionlistener(dms->dev, cg_upnpav_dms_actionreceived);
 	cg_upnp_device_setquerylistener(dms->dev, cg_upnpav_dms_queryreceived);
 	cg_upnp_device_sethttplistener(dms->dev, cg_upnpav_dms_device_httprequestrecieved);
@@ -264,7 +280,7 @@ void cg_upnpav_dms_delete(CgUpnpAvServer *dms)
 
 	if (dms->networkInterfaceList)
 		cg_net_interfacelist_delete(dms->networkInterfaceList);
-	
+
 	cg_upnp_device_delete(dms->dev);
 
 	free(dms);
