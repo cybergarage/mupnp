@@ -100,9 +100,10 @@ CgUpnpAvContent *cg_upnpav_content_findbyuserfunc(CgUpnpAvContent *con, CG_UPNPA
 		if (userFunc(childCon, userData))
 			return childCon;
         if (cg_upnpav_content_haschildcontents(childCon))
-            return cg_upnpav_content_findbyuserfunc(childCon,
-                                                    userFunc,
-                                                    userData);
+            if (cg_upnpav_content_findbyuserfunc(childCon,
+                                                 userFunc,
+                                                 userData))
+                return TRUE;
 	}
 
 	return NULL;
@@ -147,7 +148,7 @@ CgUpnpAvContent *cg_upnpav_content_getbytitle(CgUpnpAvContent *con, char *title)
 void cg_upnpav_content_addchildcontent(CgUpnpAvContent *con, CgUpnpAvContent *childCon)
 {
 	cg_xml_node_addchildnode(con, childCon);
-	cg_upnpav_content_setparentid(childCon, cg_upnpav_content_getparentid(con));
+	cg_upnpav_content_setparentid(childCon, cg_upnpav_content_getid(con));
 }
 
 /****************************************
