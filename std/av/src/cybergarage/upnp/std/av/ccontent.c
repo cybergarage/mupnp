@@ -91,7 +91,7 @@ void cg_upnpav_content_copy(CgUpnpAvContent *destContent, CgUpnpAvContent *srcCo
 
 CgUpnpAvContent *cg_upnpav_content_findbyuserfunc(CgUpnpAvContent *con, CG_UPNPAV_CONTENT_COMPARE_FUNC userFunc, void *userData)
 {
-	CgUpnpAvContent *childCon;
+	CgUpnpAvContent *childCon, *lower;
 
 	if (userFunc(con, userData))
 		return con;
@@ -100,10 +100,10 @@ CgUpnpAvContent *cg_upnpav_content_findbyuserfunc(CgUpnpAvContent *con, CG_UPNPA
 		if (userFunc(childCon, userData))
 			return childCon;
         if (cg_upnpav_content_haschildcontents(childCon))
-            if (cg_upnpav_content_findbyuserfunc(childCon,
+            if ((lower = cg_upnpav_content_findbyuserfunc(childCon,
                                                  userFunc,
-                                                 userData))
-                return TRUE;
+                                                          userData)))
+                return lower;
 	}
 
 	return NULL;
