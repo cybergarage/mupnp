@@ -864,8 +864,6 @@ BOOL cg_upnpav_dms_condir_init(CgUpnpAvServer *dms)
 // Used for xbox360 support, see README.360
 BOOL cg_upnpav_dms_medrec_actionreceived(CgUpnpAction *action)
 {
-    CgUpnpAvServer *dms;
-    CgUpnpDevice *dev;
     char *actionName;
     CgUpnpArgument *arg;
 

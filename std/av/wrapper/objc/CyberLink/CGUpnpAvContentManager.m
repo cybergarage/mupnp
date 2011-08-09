@@ -28,12 +28,6 @@
 	[super dealloc];
 }
 
-- (void)finalize
-{
-	[rootObj release];
-	[super finalize];
-}
-
 - (CGUpnpAvContainer *)rootObject
 {
 	return rootObj;

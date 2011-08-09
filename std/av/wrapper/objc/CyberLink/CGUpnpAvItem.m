@@ -39,12 +39,6 @@
 	[super dealloc];
 }
 
-- (void) finalize
-{
-	[resourceArray release];
-	[super finalize];
-}
-
 - (void)addResource:(CGUpnpAvResource *)res
 {
 	[resourceArray addObject:res];

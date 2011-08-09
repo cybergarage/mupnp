@@ -20,6 +20,13 @@
 	return self;
 }
 
+- (void) dealloc
+{
+	self.upnpAction = nil;
+    
+	[super dealloc];
+}
+
 -(float)trackDuration
 {
 	NSString *trackDurationStr = [[self upnpAction] argumentValueForName:@"TrackDuration"];
