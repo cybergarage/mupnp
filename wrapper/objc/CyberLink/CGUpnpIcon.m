@@ -26,12 +26,15 @@
 
 - (id) init
 {
-	[self initWithCObject:NULL];
+	if ((self = [self initWithCObject:NULL]) == nil)
+    	return nil;
 	return self;
 }
 
 - (void) dealloc
 {
+	self.resourceName = nil;
+    
 	[super dealloc];
 }
 
