@@ -269,8 +269,9 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 	NSMutableArray *iconArray = [[[NSMutableArray alloc] init] autorelease];
 	CgUpnpIcon *cIcon;
 	for (cIcon = cg_upnp_device_geticons(cObject); cIcon; cIcon = cg_upnp_icon_next(cIcon)) {
-		CGUpnpIcon *icon = [[[CGUpnpIcon alloc] initWithCObject:(void *)cIcon] autorelease];
+		CGUpnpIcon *icon = [[CGUpnpIcon alloc] initWithCObject:(void *)cIcon];
 		[iconArray addObject:icon];
+        [icon release];
 	}
 	return iconArray;
 }
