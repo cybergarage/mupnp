@@ -72,6 +72,7 @@ static char *CG_UPNPAV_DMS_DEVICE_DESCRIPTION =
 
 BOOL cg_upnpav_dms_condir_actionreceived(CgUpnpAction *action);
 BOOL cg_upnpav_dms_conmgr_actionreceived(CgUpnpAction *action);
+BOOL cg_upnpav_dms_medrec_actionreceived(CgUpnpAction *action);
 BOOL cg_upnpav_dms_condir_queryreceived(CgUpnpStateVariable *var);
 
 /****************************************
