@@ -307,6 +307,23 @@
 	return NO;
 }
 
+- (BOOL)hasAvObject:(NSArray *)avObjs avObject:(CGUpnpAvObject *)targetAvObj
+{
+	if (targetAvObj == nil)
+		return NO;
+	
+    NSString *targetAvObjectId = [targetAvObj objectId];
+	if (targetAvObjectId == nil || [targetAvObjectId length] <= 0)
+		return NO;
+    
+	for (CGUpnpAvObject *avObj in avObjs) {
+		if ([targetAvObjectId isEqualToString:[avObj objectId]])
+			return YES;
+	}
+	
+	return NO;
+}
+
 - (void)addAvObjectsFromArray:(NSMutableArray *)toAvObjs newAvObjs:(NSArray *)newAvObjs
 {
 	for (CGUpnpAvObject *avObj in newAvObjs) {
@@ -316,6 +333,7 @@
 	}
 }
 
+#if defined(CGUPNPAV_USE_DEPTHFIRSTSEARCH)
 - (NSArray *)searchByBrowse:(NSString *)aSearchCriteria objectId:(NSString *)objectId
 {
 	NSMutableArray *avObjs = [NSMutableArray array];
@@ -335,6 +353,37 @@
 	
 	return avObjs;
 }
+#else
+- (NSArray *)searchByBrowse:(NSString *)aSearchCriteria objectId:(NSString *)objectId
+{
+	NSMutableArray *avObjs = [NSMutableArray array];
+	NSMutableArray *searchObjectIds = [NSMutableArray array];
+
+	[searchObjectIds addObject:objectId];
+    
+	while (0 < [searchObjectIds count]) {
+    	NSString *searchObjectId = [searchObjectIds objectAtIndex:0];
+		NSArray *childAvObjs = [self browseDirectChildren:searchObjectId];
+        
+        [searchObjectIds removeObjectAtIndex:0];
+        
+		for (CGUpnpAvObject *childAvObj in childAvObjs) {
+			if ([childAvObj isContainer]) {
+				[searchObjectIds addObject:[childAvObj objectId]];
+                continue;
+            }
+			if ([childAvObj isItem]) {
+				//if ([self hasAvObject:avObjs avObject:childAvObj] == NO) {
+					[avObjs addObject:childAvObj];
+                //}
+                continue;
+            }
+        }
+    }
+    
+	return avObjs;
+}
+#endif
 
 - (NSArray *)searchByBrowse:(NSString *)aSearchCriteria
 {

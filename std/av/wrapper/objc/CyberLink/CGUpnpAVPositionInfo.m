@@ -14,7 +14,7 @@
 
 -(id)initWithAction:(CGUpnpAction *)aUpnpAction
 {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		[self setUpnpAction:aUpnpAction];
 	}
 	return self;
