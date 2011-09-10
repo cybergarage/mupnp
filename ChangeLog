@@ -1,3 +1,6 @@
+2011-09-10  Satoshi Konno <skonno@cybergarage.org>
+	* Fixed to compile using XCode4 on MacOSX and iOS normally.
+
 2011-03-09  Satoshi Konno <skonno@cybergarage.org>
 	* Imporved cg_log_print() to return immediately when the output target is nothing.
 	* Added cg_upnpav_content_setupnpalbumarturi() and cg_upnpav_content_getupnpalbumarturi().

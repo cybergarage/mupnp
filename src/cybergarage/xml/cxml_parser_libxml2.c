@@ -34,6 +34,8 @@
 #  include "config.h"
 #endif
 
+#include <cybergarage/typedef.h>
+
 /****************************************
 * Compiler Switch (BEGIN)
 ****************************************/
