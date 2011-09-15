@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21529DFD14226D530099BAB1 /* CGUpnpAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 21529DF114226D530099BAB1 /* CGUpnpAction.h */; };
+		21529DFE14226D530099BAB1 /* CGUpnpAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 21529DF214226D530099BAB1 /* CGUpnpAction.m */; };
+		21529DFF14226D530099BAB1 /* CGUpnpControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 21529DF314226D530099BAB1 /* CGUpnpControlPoint.h */; };
+		21529E0014226D530099BAB1 /* CGUpnpControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 21529DF414226D530099BAB1 /* CGUpnpControlPoint.m */; };
+		21529E0114226D530099BAB1 /* CGUpnpDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 21529DF514226D530099BAB1 /* CGUpnpDevice.h */; };
+		21529E0214226D530099BAB1 /* CGUpnpDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 21529DF614226D530099BAB1 /* CGUpnpDevice.m */; };
+		21529E0314226D530099BAB1 /* CGUpnpIcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 21529DF714226D530099BAB1 /* CGUpnpIcon.h */; };
+		21529E0414226D530099BAB1 /* CGUpnpIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 21529DF814226D530099BAB1 /* CGUpnpIcon.m */; };
+		21529E0514226D530099BAB1 /* CGUpnpService.h in Headers */ = {isa = PBXBuildFile; fileRef = 21529DF914226D530099BAB1 /* CGUpnpService.h */; };
+		21529E0614226D530099BAB1 /* CGUpnpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 21529DFA14226D530099BAB1 /* CGUpnpService.m */; };
+		21529E0714226D530099BAB1 /* CGUpnpStateVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 21529DFB14226D530099BAB1 /* CGUpnpStateVariable.h */; };
+		21529E0814226D530099BAB1 /* CGUpnpStateVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 21529DFC14226D530099BAB1 /* CGUpnpStateVariable.m */; };
 		219B8DAF131FD1BA003F8530 /* chttp.c in Sources */ = {isa = PBXBuildFile; fileRef = 219B8D47131FD1BA003F8530 /* chttp.c */; };
 		219B8DB0131FD1BA003F8530 /* chttp_date.c in Sources */ = {isa = PBXBuildFile; fileRef = 219B8D48131FD1BA003F8530 /* chttp_date.c */; };
 		219B8DB1131FD1BA003F8530 /* chttp_header.c in Sources */ = {isa = PBXBuildFile; fileRef = 219B8D49131FD1BA003F8530 /* chttp_header.c */; };
@@ -143,6 +155,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		21529DF114226D530099BAB1 /* CGUpnpAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpAction.h; path = ../../../wrapper/objc/CyberLink/CGUpnpAction.h; sourceTree = "<group>"; };
+		21529DF214226D530099BAB1 /* CGUpnpAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpAction.m; path = ../../../wrapper/objc/CyberLink/CGUpnpAction.m; sourceTree = "<group>"; };
+		21529DF314226D530099BAB1 /* CGUpnpControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpControlPoint.h; path = ../../../wrapper/objc/CyberLink/CGUpnpControlPoint.h; sourceTree = "<group>"; };
+		21529DF414226D530099BAB1 /* CGUpnpControlPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpControlPoint.m; path = ../../../wrapper/objc/CyberLink/CGUpnpControlPoint.m; sourceTree = "<group>"; };
+		21529DF514226D530099BAB1 /* CGUpnpDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpDevice.h; path = ../../../wrapper/objc/CyberLink/CGUpnpDevice.h; sourceTree = "<group>"; };
+		21529DF614226D530099BAB1 /* CGUpnpDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpDevice.m; path = ../../../wrapper/objc/CyberLink/CGUpnpDevice.m; sourceTree = "<group>"; };
+		21529DF714226D530099BAB1 /* CGUpnpIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpIcon.h; path = ../../../wrapper/objc/CyberLink/CGUpnpIcon.h; sourceTree = "<group>"; };
+		21529DF814226D530099BAB1 /* CGUpnpIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpIcon.m; path = ../../../wrapper/objc/CyberLink/CGUpnpIcon.m; sourceTree = "<group>"; };
+		21529DF914226D530099BAB1 /* CGUpnpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpService.h; path = ../../../wrapper/objc/CyberLink/CGUpnpService.h; sourceTree = "<group>"; };
+		21529DFA14226D530099BAB1 /* CGUpnpService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpService.m; path = ../../../wrapper/objc/CyberLink/CGUpnpService.m; sourceTree = "<group>"; };
+		21529DFB14226D530099BAB1 /* CGUpnpStateVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpStateVariable.h; path = ../../../wrapper/objc/CyberLink/CGUpnpStateVariable.h; sourceTree = "<group>"; };
+		21529DFC14226D530099BAB1 /* CGUpnpStateVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpStateVariable.m; path = ../../../wrapper/objc/CyberLink/CGUpnpStateVariable.m; sourceTree = "<group>"; };
 		219B8D47131FD1BA003F8530 /* chttp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chttp.c; sourceTree = "<group>"; };
 		219B8D48131FD1BA003F8530 /* chttp_date.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chttp_date.c; sourceTree = "<group>"; };
 		219B8D49131FD1BA003F8530 /* chttp_header.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chttp_header.c; sourceTree = "<group>"; };
@@ -303,8 +327,8 @@
 		0867D691FE84028FC02AAC07 /* clinkc */ = {
 			isa = PBXGroup;
 			children = (
-				219B8E0E131FD1D7003F8530 /* Headers */,
-				219B8D44131FD1BA003F8530 /* Sources */,
+				21529DED14226C2D0099BAB1 /* clinkc */,
+				21529DEE14226C570099BAB1 /* clinkobjc */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
@@ -318,6 +342,50 @@
 				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		21529DED14226C2D0099BAB1 /* clinkc */ = {
+			isa = PBXGroup;
+			children = (
+				219B8E0E131FD1D7003F8530 /* Headers */,
+				219B8D44131FD1BA003F8530 /* Sources */,
+			);
+			name = clinkc;
+			sourceTree = "<group>";
+		};
+		21529DEE14226C570099BAB1 /* clinkobjc */ = {
+			isa = PBXGroup;
+			children = (
+				21529DEF14226C6D0099BAB1 /* Headers */,
+				21529DF014226C790099BAB1 /* Sources */,
+			);
+			name = clinkobjc;
+			sourceTree = "<group>";
+		};
+		21529DEF14226C6D0099BAB1 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				21529DF114226D530099BAB1 /* CGUpnpAction.h */,
+				21529DF314226D530099BAB1 /* CGUpnpControlPoint.h */,
+				21529DF514226D530099BAB1 /* CGUpnpDevice.h */,
+				21529DF714226D530099BAB1 /* CGUpnpIcon.h */,
+				21529DF914226D530099BAB1 /* CGUpnpService.h */,
+				21529DFB14226D530099BAB1 /* CGUpnpStateVariable.h */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		21529DF014226C790099BAB1 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				21529DF214226D530099BAB1 /* CGUpnpAction.m */,
+				21529DF414226D530099BAB1 /* CGUpnpControlPoint.m */,
+				21529DF614226D530099BAB1 /* CGUpnpDevice.m */,
+				21529DF814226D530099BAB1 /* CGUpnpIcon.m */,
+				21529DFA14226D530099BAB1 /* CGUpnpService.m */,
+				21529DFC14226D530099BAB1 /* CGUpnpStateVariable.m */,
+			);
+			name = Sources;
 			sourceTree = "<group>";
 		};
 		219B8D44131FD1BA003F8530 /* Sources */ = {
@@ -696,6 +764,12 @@
 				219B8E62131FD1D7003F8530 /* cthread.h in Headers */,
 				219B8E63131FD1D7003F8530 /* ctime.h in Headers */,
 				219B8E64131FD1D7003F8530 /* cxml.h in Headers */,
+				21529DFD14226D530099BAB1 /* CGUpnpAction.h in Headers */,
+				21529DFF14226D530099BAB1 /* CGUpnpControlPoint.h in Headers */,
+				21529E0114226D530099BAB1 /* CGUpnpDevice.h in Headers */,
+				21529E0314226D530099BAB1 /* CGUpnpIcon.h in Headers */,
+				21529E0514226D530099BAB1 /* CGUpnpService.h in Headers */,
+				21529E0714226D530099BAB1 /* CGUpnpStateVariable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -844,6 +918,12 @@
 				219B8E0B131FD1BA003F8530 /* cxml_parser.c in Sources */,
 				219B8E0C131FD1BA003F8530 /* cxml_parser_expat.c in Sources */,
 				219B8E0D131FD1BA003F8530 /* cxml_parser_libxml2.c in Sources */,
+				21529DFE14226D530099BAB1 /* CGUpnpAction.m in Sources */,
+				21529E0014226D530099BAB1 /* CGUpnpControlPoint.m in Sources */,
+				21529E0214226D530099BAB1 /* CGUpnpDevice.m in Sources */,
+				21529E0414226D530099BAB1 /* CGUpnpIcon.m in Sources */,
+				21529E0614226D530099BAB1 /* CGUpnpService.m in Sources */,
+				21529E0814226D530099BAB1 /* CGUpnpStateVariable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -894,7 +974,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 					../../../include,
 				);
-				OTHER_CFLAGS = "-DTARGET_OS_IPHONE";
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
@@ -912,7 +992,7 @@
 					"$(SDKROOT)/usr/include/libxml2",
 					../../../include,
 				);
-				OTHER_CFLAGS = "-DTARGET_OS_IPHONE";
+				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
