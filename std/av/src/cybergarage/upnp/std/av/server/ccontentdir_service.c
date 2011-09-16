@@ -579,7 +579,6 @@ void cg_upnpav_dms_condir_updatesystemupdateid(CgUpnpAvServer *dms)
 /****************************************
 * cg_upnpav_dms_condir_browsemetadata
 ****************************************/
-
 static BOOL cg_upnpav_dms_condir_browsemetadata(CgUpnpAvServer *dms, CgUpnpAction *action)
 {
 	char *objectID;
@@ -598,9 +597,9 @@ static BOOL cg_upnpav_dms_condir_browsemetadata(CgUpnpAvServer *dms, CgUpnpActio
 		return FALSE;
 
     didlNode = cg_upnpav_didl_node_new();
-    cg_upnpav_contentlist_add(didlNode, objectContent);
     copyContent = cg_upnpav_content_new();
     cg_upnpav_content_copy(copyContent, objectContent);
+
 	cg_xml_node_addchildnode(didlNode, copyContent);
 
 	resultStr = cg_string_new();
@@ -610,6 +609,11 @@ static BOOL cg_upnpav_dms_condir_browsemetadata(CgUpnpAvServer *dms, CgUpnpActio
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_NUMBER_RETURNED, "1");
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_TOTAL_MACHES, "1");
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID, cg_int2str(cg_upnpav_dms_condir_getsystemupdateid(dms), intBuf, sizeof(intBuf)));
+
+    /*
+      printf("browsemetadata reply: '%s'\n",
+           cg_string_getvalue(resultStr));
+    */
 
 	cg_string_delete(resultStr);
 	cg_upnpav_didl_node_delete(didlNode);

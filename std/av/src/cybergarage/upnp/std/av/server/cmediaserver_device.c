@@ -35,7 +35,7 @@ static char *CG_UPNPAV_DMS_DEVICE_DESCRIPTION =
 "      <manufacturer>Cyber Garage</manufacturer>\n"
 "      <manufacturerURL>http://www.cybergarage.org</manufacturerURL>\n"
 "      <modelDescription>CyberGarage</modelDescription>\n"
-"      <modelName>Windows Media Connect</modelName>\n"
+"      <modelName>CyberGarage Media Server</modelName>\n"
 "      <modelNumber>1.0</modelNumber>\n"
 "      <UDN>uuid:BA2E90A0-3669-401a-B249-F85196ADFC44</UDN>\n"
 "      <modelURL>http://www.cybergarage.org</modelURL>\n"
