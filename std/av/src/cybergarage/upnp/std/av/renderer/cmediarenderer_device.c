@@ -22,9 +22,9 @@
 * Device Description
 ****************************************/
 
-static char *CG_UPNPAV_DMR_DEVICE_DESCRIPTION = 
-"<?xml version=\"1.0\"encoding=\"utf-8\"?>\n"
-"<root xmlns=\"urn:schemas-upnp-org:device-1-0\"xmlns:dlna=\"urn:schemas-dlna-org:device-1-0\">\n"
+static char *CG_UPNPAV_DMR_DEVICE_DESCRIPTION =
+"<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
+"<root xmlns=\"urn:schemas-upnp-org:device-1-0\" xmlns:dlna=\"urn:schemas-dlna-org:device-1-0\">\n"
 " <specVersion>\n"
 "    <major>1</major>\n"
 "    <minor>0</minor>\n"
@@ -92,7 +92,7 @@ void cg_upnpav_dmr_addprotocolinfo(CgUpnpAvRenderer *dmr, CgUpnpAvProtocolInfo *
 	CgUpnpAvProtocolInfo *protocolInfo;
 	CgUpnpService *service;
 	CgUpnpStateVariable *stateVar;
-	
+
 	cg_upnpav_protocolinfolist_add(dmr->protocolInfoList, info);
 
 	protocolInfos = cg_string_new();
@@ -117,7 +117,7 @@ void cg_upnpav_dmr_setcurrentconnectionids(CgUpnpAvRenderer *dmr, char *value)
 {
 	CgUpnpService *service;
 	CgUpnpStateVariable *stateVar;
-	
+
 	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
 	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_CURRENTCONNECTIONIDS);
 	cg_upnp_statevariable_setvalue(stateVar, value);
@@ -131,7 +131,7 @@ char *cg_upnpav_dmr_getcurrentconnectionids(CgUpnpAvRenderer *dmr)
 {
 	CgUpnpService *service;
 	CgUpnpStateVariable *stateVar;
-	
+
 	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
 	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_CURRENTCONNECTIONIDS);
 	return cg_upnp_statevariable_getvalue(stateVar);
@@ -153,7 +153,7 @@ BOOL cg_upnpav_dmr_actionreceived(CgUpnpAction *action)
 		return FALSE;
 
 	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(service);
-	if (!dev) 
+	if (!dev)
 		return FALSE;
 
 	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
@@ -194,7 +194,7 @@ BOOL cg_upnpav_dmr_queryreceived(CgUpnpStateVariable *statVar)
 		return FALSE;
 
 	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(service);
-	if (!dev) 
+	if (!dev)
 		return FALSE;
 
 	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
@@ -206,7 +206,7 @@ BOOL cg_upnpav_dmr_queryreceived(CgUpnpStateVariable *statVar)
 		if (userQueryListener(statVar))
 			return TRUE;
 	}
-	
+
 	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE))
 		return cg_upnpav_dmr_avtransport_queryreceived(statVar);
 
@@ -246,7 +246,7 @@ void cg_upnpav_dmr_device_httprequestrecieved(CgHttpRequest *httpReq)
 		if (userHttpListener(httpReq))
 			return;
 	}
-	
+
 	cg_upnp_device_httprequestrecieved(httpReq);
 }
 
@@ -284,7 +284,7 @@ CgUpnpAvRenderer *cg_upnpav_dmr_new()
 		free(dmr);
 		return NULL;
 	}
-	
+
 	if (cg_upnpav_dmr_avtransport_init(dmr) == FALSE) {
 		cg_upnp_device_delete(dmr->dev);
 		free(dmr);
@@ -321,9 +321,9 @@ CgUpnpAvRenderer *cg_upnpav_dmr_new()
 	"&lt;Volume val=&quot;100&quot; channel=&quot;LF&quot;/&gt;"
 	"&lt;/InstanceID&gt;"
 	"&lt;/Event&gt;";
-	
+
 	cg_upnpav_dmr_setrenderingcontrollastchange(dmr, lastChange);
-	
+
 	return dmr;
 }
 
