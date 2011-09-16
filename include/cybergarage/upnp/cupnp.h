@@ -37,7 +37,7 @@
 ****************************************/
 
 #define CG_CLINK_NAME "CyberLinkC"
-#define CG_CLINK_VER "2.3"
+#define CG_CLINK_VER "2.4"
 
 #define CG_UPNP_VER "1.0"
 #define CG_DLNA_VER "1.50"
