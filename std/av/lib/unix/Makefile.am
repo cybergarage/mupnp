@@ -10,8 +10,7 @@ INCLUDES = -I$(top_srcdir)/include
 # Sources
 ########################################
 
-clinkcav_source = \
-	../../src/cybergarage/upnp/std/av/ccontent.c \
+clinkcav_source = ../../src/cybergarage/upnp/std/av/ccontent.c \
 	../../src/cybergarage/upnp/std/av/ccontent_list.c \
 	../../src/cybergarage/upnp/std/av/cdidl.c \
 	../../src/cybergarage/upnp/std/av/cmd5.c \
@@ -20,7 +19,13 @@ clinkcav_source = \
 	../../src/cybergarage/upnp/std/av/cresource_data.c \
 	../../src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c \
 	../../src/cybergarage/upnp/std/av/server/ccontentdir_service.c \
-	../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c
+	../../src/cybergarage/upnp/std/av/server/cmediaserver_device.c \
+	../../src/cybergarage/upnp/std/av/cprotocolinfo_list.c \
+	../../src/cybergarage/upnp/std/av/cprotocolinfo.c \
+    ../../src/cybergarage/upnp/std/av/renderer/cavtransport_service.c \
+    ../../src/cybergarage/upnp/std/av/renderer/cmediarenderer_device.c \
+    ../../src/cybergarage/upnp/std/av/renderer/crenderingcontrol_service.c \
+    ../../src/cybergarage/upnp/std/av/renderer/cconnectionmgrr_service.c
 
 ########################################
 # Library

@@ -7,12 +7,15 @@
 #	11/04/05
 #		- first release.
 #
+#   16/09/11 lundman
+#       - tests for libraries required. In particular, expat or xml2.
+#
 #############################################################################
 
 AC_INIT(include/cybergarage/upnp/std/av/cmediaserver.h)
 AC_CONFIG_AUX_DIR(config)
 
-AM_INIT_AUTOMAKE(clinkcav, 2.3)
+AM_INIT_AUTOMAKE(clinkcav, 2.4)
 AM_CONFIG_HEADER(config.h)
 
 ##############################
@@ -20,18 +23,19 @@ AM_CONFIG_HEADER(config.h)
 ##############################
 
 # CyberLink version.
-CLINKC_VERSION=1.7
+CLINKC_VERSION=2.4
 
 ##############################
 # Checks for programs.
 ##############################
 cdms_filesyscdms_filesys
 AC_PROG_CC
+AC_PROG_CXX
+#AC_LANG_CPLUSPLUS
 AC_PROG_INSTALL
 AC_PROG_AWK
 AC_PROG_LIBTOOL
 AC_PROG_RANLIB
-AC_LANG_CPLUSPLUS
 
 #############################################################################
 # Checks for CYGWIN an MinGW
@@ -56,12 +60,27 @@ AC_ARG_WITH(libtool,
 		       [with_libtool=yes])
 AM_CONDITIONAL(HAVE_LIBTOOL, test $with_libtool = yes)
 
+#############################################################################
+# Other libraries
+#############################################################################
+
+# Solaris TCP stack
+AC_SEARCH_LIBS([gethostbyname], [nsl])
+AC_SEARCH_LIBS([socket], [socket inet])
+
+# Separate libuuid
+AC_SEARCH_LIBS([uuid_unparse], [uuid])
+
+AC_HEADER_STDC
+AC_CHECK_HEADERS([arpa/inet.h limits.h netdb.h netinet/in.h stdlib.h string.h sys/param.h sys/socket.h unistd.h sys/ioctl.h sys/filio.h])
+
+
 ##############################
 # Checks for CyberLink
 ##############################
 
 AC_CHECK_HEADERS([cybergarage/cupnp.h])
-AC_CHECK_LIB([clinkc],[cg_upnp_controlpoint_new],,[AC_MSG_ERROR(CyberLink/AV needs CyberLink >= $CLINKC_VERSION)])
+AC_CHECK_LIB([clinkc],[cg_upnp_controlpoint_new],,[AC_MSG_ERROR(CyberLink/AV needs CyberLink >= $CLINKC_VERSION)],[-lpthread -lexpat -lxml2])
 
 ##############################
 # Makefiles
@@ -76,4 +95,6 @@ sample/Makefile
 sample/upnpavserver/Makefile
 sample/upnpavserver/filesystem/Makefile
 sample/upnpavserver/filesystem/unix/Makefile
+sample/upnpavdump/Makefile
+sample/upnpavdump/unix/Makefile
 ])

@@ -156,7 +156,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\cybergarage\upnp\std\av\renderer\cconnectionmgr_service.c"
+				RelativePath="..\..\..\src\cybergarage\upnp\std\av\renderer\cconnectionmgrr_service.c"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
