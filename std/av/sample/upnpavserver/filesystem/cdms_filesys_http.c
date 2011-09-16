@@ -15,7 +15,7 @@
 #include "cdms_filesys.h"
 
 #if !defined(WINCE)
-#include <sys/stat.h> 
+#include <sys/stat.h>
 #endif
 
 #define CG_FILE_READ_CHUNK_SIZE (32*1024)
@@ -25,7 +25,7 @@
 * cg_upnp_dms_filesys_http_listener
 **********************************************************************/
 
-void cg_upnp_dms_filesys_http_listener(CgHttpRequest *httpReq)
+void cg_upnpav_dms_filesys_http_listener(CgHttpRequest *httpReq)
 {
 	CgUpnpMediaServer *dms;
 	CgUpnpDevice *dev;
@@ -69,41 +69,41 @@ void cg_upnp_dms_filesys_http_listener(CgHttpRequest *httpReq)
 		cg_http_request_postbadrequest(httpReq);
 		return;
 	}
-	
-	if (cg_strstr(httpURI, CG_UPNP_MEDIA_FILESYS_RESURL_PATH) < 0) {
+
+	if (cg_strstr(httpURI, CG_UPNPAV_FILESYS_RESURL_PATH) < 0) {
 		cg_upnp_device_httprequestrecieved(httpReq);
 		return;
 	}
 
 	contentMD5Idx = cg_strrchr(httpURI, "/", 1);
-	
+
 	if (contentMD5Idx < 0) {
 		cg_http_request_postbadrequest(httpReq);
 		return;
 	}
-	
-	contentMd5 = httpURI + contentMD5Idx + 1;
-	
-	cg_upnp_dms_lock(dms);
 
-	content = cg_upnp_dms_findcontentbyid(dms, contentMd5);
+	contentMd5 = httpURI + contentMD5Idx + 1;
+
+	cg_upnpav_dms_lock(dms);
+
+	content = cg_upnpav_dms_findcontentbyid(dms, contentMd5);
 	if (content == NULL) {
-		cg_upnp_dms_unlock(dms);
+		cg_upnpav_dms_unlock(dms);
 		cg_http_request_postbadrequest(httpReq);
 		return;
 	}
 
-	pubDir = cg_upnp_dms_filesys_content_getpubicdirectory(content);
-	resource = cg_upnp_media_content_getresources(content);
+	pubDir = cg_upnpav_dms_filesys_content_getpubicdirectory(content);
+	resource = cg_upnpav_content_getresources(content);
 
 	if (!pubDir || !resource) {
-		cg_upnp_dms_unlock(dms);
+		cg_upnpav_dms_unlock(dms);
 		cg_http_request_postbadrequest(httpReq);
 		return;
 	}
 
 	isHeadRequest = cg_http_request_isheadrequest(httpReq);
-	
+
 	httpRes = cg_http_response_new();
 #if defined(CG_USE_CHUNKED_STREAM)
 	cg_http_response_setversion(httpRes, CG_HTTP_VER11);
@@ -111,8 +111,8 @@ void cg_upnp_dms_filesys_http_listener(CgHttpRequest *httpReq)
 	cg_http_response_setversion(httpRes, CG_HTTP_VER10);
 #endif
 	cg_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
-	cg_http_response_setcontenttype(httpRes, cg_upnp_media_resource_getmimetype(resource));
-	
+	cg_http_response_setcontenttype(httpRes, cg_upnpav_resource_getmimetype(resource));
+
 	sock = cg_http_request_getsocket(httpReq);
 
 #if defined(WINCE)
@@ -133,8 +133,8 @@ void cg_upnp_dms_filesys_http_listener(CgHttpRequest *httpReq)
 	fp = fopen(pubDir,"rb");
 	#endif
 	if (fp) {
-		fseek(fp, 0, SEEK_END); 
-		fgetpos(fp, &fileSize); 
+		fseek(fp, 0, SEEK_END);
+		fgetpos(fp, &fileSize);
 		fclose(fp);
 	}
 #endif
@@ -146,7 +146,7 @@ void cg_upnp_dms_filesys_http_listener(CgHttpRequest *httpReq)
 #endif
 	cg_http_request_postresponse(httpReq, httpRes);
 
-	if (0 < fileSize) {		
+	if (0 < fileSize) {
 #if defined(WINCE) && defined(UNICODE)
 		fp = _tfopen(wCharBuf, _T("rb"));
 #else
@@ -168,15 +168,15 @@ void cg_upnp_dms_filesys_http_listener(CgHttpRequest *httpReq)
 			fclose(fp);
 		}
 	}
-	
+
 #if defined(CG_USE_CHUNKED_STREAM)
 	sprintf(chunkedChar, "%x%s", 0, CG_HTTP_CRLF);
 	cg_socket_write(sock, chunkedChar, cg_strlen(chunkedChar));
 #endif
-	
+
 	cg_socket_close(sock);
 	cg_http_response_delete(httpRes);
 
-	cg_upnp_dms_unlock(dms);
+	cg_upnpav_dms_unlock(dms);
 }
 

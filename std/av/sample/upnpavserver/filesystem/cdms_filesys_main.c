@@ -77,16 +77,16 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	dms = cg_upnp_dms_filesys_new();
-	cg_upnp_dms_filesys_setpublicationdirectory(dms, pubDir);
-	cg_upnp_dms_filesys_start(dms);
+	dms = cg_upnpav_dms_filesys_new();
+	cg_upnpav_dms_filesys_setpublicationdirectory(dms, pubDir);
+	cg_upnpav_dms_filesys_start(dms);
 
 #if !defined(WIN32) || defined(__CYGWIN__)
 	cg_kb_init();
 #endif
 
 	PrintKeyMessage();
-	
+
 	do
 	{
 #if defined(WIN32) && !defined(__CYGWIN__)
@@ -107,8 +107,8 @@ int main(int argc, char *argv[])
 	cg_kb_exit();
 #endif
 
-	cg_upnp_dms_filesys_stop(dms);
-	cg_upnp_dms_filesys_delete(dms);
+	cg_upnpav_dms_filesys_stop(dms);
+	cg_upnpav_dms_filesys_delete(dms);
 
 	return 0;
 }

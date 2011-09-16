@@ -3,7 +3,8 @@ noinst_PROGRAMS = cdms_filesys
 INCLUDES = -I$(top_srcdir)/include -I../ -I../../../common
 
 noinst_HEADERS = \
-	../../../common/ckeyboard.h
+	../../../common/ckeyboard.h \
+	../cdms_filesys.h
 
 cdms_filesys_SOURCES = \
 	../../../common/ckeyboard.c \
