@@ -39,19 +39,19 @@ CgUpnpStateVariable *cg_upnp_statevariable_new()
 	if ( NULL != statVar )
 	{
 		cg_list_node_init((CgList *)statVar);
-		
+
 		statVar->parentService = NULL;
 		statVar->stateVarNode = NULL;
-		
+
 		statVar->value = cg_string_new();
 		statVar->upnpStatus = cg_upnp_status_new();
 		statVar->allowedValueList = NULL;
-		
-		
+
+
 		cg_upnp_statevariable_setlistener(statVar, NULL);
 		cg_upnp_statevariable_setuserdata(statVar, NULL);
 	}
-	
+
 	cg_log_debug_l4("Leaving...\n");
 
 	return statVar;
@@ -66,14 +66,14 @@ void cg_upnp_statevariable_delete(CgUpnpStateVariable *statVar)
 	cg_log_debug_l4("Entering...\n");
 
 	cg_list_remove((CgList *)statVar);
-	
+
 	cg_string_delete(statVar->value);
 	cg_upnp_status_delete(statVar->upnpStatus);
 	if (statVar->allowedValueList)
 	{
 		cg_list_remove((CgList *)statVar->allowedValueList);
 	}
-	
+
 	free(statVar);
 
 	cg_log_debug_l4("Leaving...\n");
@@ -154,16 +154,16 @@ void cg_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, c
 CgUpnpAllowedValuesList* cg_upnp_allowedvaluelist_new()
 {
 	CgUpnpAllowedValuesList* allowedValueList = (CgUpnpAllowedValuesList *)malloc(sizeof(CgUpnpAllowedValuesList));
-	
-	
+
+
 	if ( NULL != allowedValueList )
 	{
 		cg_list_header_init((CgList *)allowedValueList);
 		allowedValueList->value = cg_string_new();
 		return allowedValueList;
 	}
-	
-	return NULL;	
+
+	return NULL;
 }
 
 
@@ -175,7 +175,7 @@ CgUpnpAllowedValuesList*  cg_upnp_statevariable_getallowedvaluelist(CgUpnpStateV
 	if (!statVar->allowedValueList)
 	{
 		CgXmlNode* allowedValuesNode = cg_xml_node_getchildnodebyname(cg_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_ALLOWEDVALUELIST);
-		
+
 		if (allowedValuesNode) {
 			CgXmlNode* cnode;
 			for (cnode = cg_xml_node_getchildnodes(allowedValuesNode); cnode; cnode=cg_xml_node_next(cnode)) {
@@ -194,7 +194,7 @@ CgUpnpAllowedValuesList*  cg_upnp_statevariable_getallowedvaluelist(CgUpnpStateV
 					cg_string_setvalue(allowed_value->value, cg_xml_node_getvalue(cnode));
 					cg_list_insert((CgList *)statVar->allowedValueList, (CgList *)allowed_value);
 				}
-			}	
+			}
 		}
 	}
 	return statVar->allowedValueList;
@@ -209,13 +209,13 @@ int cg_upnp_statevariable_is_allowed_value(CgUpnpStateVariable* statVar, const c
 	{
 		cg_upnp_statevariable_getallowedvaluelist(statVar);
 	}
-	
+
 	if (statVar->allowedValueList)
-	{		
+	{
 		CgUpnpAllowedValue *allowedValue;
 		for (allowedValue = (CgUpnpAllowedValue*)cg_list_next((CgList*)statVar->allowedValueList); allowedValue != NULL; allowedValue = (CgUpnpAllowedValue*)cg_list_next((CgList*)allowedValue))
 		{
-			if (strcasecmp(value, cg_string_getvalue(allowedValue->value)) == 0)
+			if (cg_strcasecmp(value, cg_string_getvalue(allowedValue->value)) == 0)
 			{
 				return 1;
 			}

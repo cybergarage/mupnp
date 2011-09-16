@@ -12,6 +12,9 @@
 *		- first revision
 *
 ******************************************************************/
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #if !defined(__MINGW32__)
 #include <stdio.h>
@@ -27,6 +30,14 @@
 
 #if !defined(__MINGW32__)
 static struct termios orgTermAttr;
+#endif
+
+#if defined(HAVE_SYS_IOCTL_H)
+#define BSD_COMP /* Get FIONREAD on Solaris2 */
+#include <sys/ioctl.h>
+#endif
+#if defined(HAVE_SYS_FILIO_H) /* Get FIONREAD on Solaris 2.5 */
+#include <sys/filio.h>
 #endif
 
 #include "kb_util.h"

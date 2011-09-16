@@ -17,7 +17,7 @@
 *		- first revision
 *	10/30/05
 *		- Thanks for Makela Aapo (aapo.makela@nokia.com)
-*		- Changed to cg_upnp_createuuid() create new UUIDs as they are specified in 
+*		- Changed to cg_upnp_createuuid() create new UUIDs as they are specified in
 *		  UPnP DA specification (UUIDs have "uuid:"prefix).
 *
 ******************************************************************/
@@ -38,6 +38,24 @@
 #include <time.h>
 #include <stdlib.h>
 
+// Some systems (Solaris, CentOS?) come with libuuid, but does not feature
+// the uuid_unparse_lower() call.
+#ifndef HAVE_UUID_UNPARSE_LOWER
+// Older versions of libuuid don't have uuid_unparse_lower(),
+// only uuid_unparse()
+void uuid_unparse_lower (uuid_t uu, char *out)
+{
+    int i;
+    uuid_unparse (uu, out);
+    // Characters in out are either 0-9, a-z, '-', or A-Z.  A-Z is mapped to
+    // a-z by bitwise or with 0x20, and the others already have this bit set
+    for (i = 0; i < sizeof(uu); ++i) out[i] |= 0x20;
+}
+#endif
+
+
+
+
 /****************************************
 * Static
 ****************************************/
@@ -55,13 +73,13 @@ char *cg_upnp_createuuid(char *uuidBuf, int uuidBufSize)
 	char uuidStr[CG_UPNP_UUID_MAX_LEN];
 #elif defined(WIN32)
 	#pragma comment(lib, "Rpcrt4.lib")
-	UUID uuid; 
+	UUID uuid;
 	unsigned char* szUuid = NULL;
 #else
 	time_t time1;
 	time_t time2;
 #endif
-	
+
 	cg_log_debug_l4("Entering...\n");
 
 #if defined(HAVE_LIBUUID) || defined(TARGET_OS_IPHONE)
@@ -86,7 +104,7 @@ char *cg_upnp_createuuid(char *uuidBuf, int uuidBufSize)
 		(int)(time2 & 0xFFFF),
 		(int)(((time2 >> 31) | 0xE000) & 0xFFFF));
 #endif
-		
+
 	cg_log_debug_l4("Leaving...\n");
 
 	return uuidBuf;
@@ -99,7 +117,7 @@ char *cg_upnp_createuuid(char *uuidBuf, int uuidBufSize)
 char *cg_upnp_getservername(char *buf, int bufSize)
 {
 	int nameLen;
-	
+
 	cg_log_debug_l4("Entering...\n");
 
 	cg_http_getservername(buf, bufSize);
@@ -112,7 +130,7 @@ char *cg_upnp_getservername(char *buf, int bufSize)
 #else
 	sprintf((buf+nameLen), " %s/%s UPnP/%s DLNADOC/%s", CG_CLINK_NAME, CG_CLINK_VER, CG_UPNP_VER, CG_DLNA_VER);
 #endif
-	
+
 	cg_log_debug_l4("Leaving...\n");
 
 	return buf;

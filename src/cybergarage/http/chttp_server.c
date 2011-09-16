@@ -20,7 +20,7 @@
 *		- Fixed a memory leak problem in the http client thread.
 *	16-Jan-06 Aapo Makela
 *		- Changed to do a better keepalive check
-*	
+*
 ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
@@ -47,11 +47,11 @@ CgHttpServer *cg_http_server_new()
 	cg_log_debug_l4("Entering...\n");
 
 	httpServer = (CgHttpServer *)malloc(sizeof(CgHttpServer));
-	
+
 	if ( NULL != httpServer )
 	{
 		cg_list_node_init((CgList *)httpServer);
-		
+
 		httpServer->sock = NULL;
 		httpServer->acceptThread = NULL;
 		httpServer->listener = NULL;
@@ -66,7 +66,7 @@ CgHttpServer *cg_http_server_new()
 		/* Mutex */
 		httpServer->mutex = cg_mutex_new();
 	}
-		
+
 	cg_log_debug_l4("Leaving...\n");
 
 	return httpServer;
@@ -82,12 +82,12 @@ void cg_http_server_delete(CgHttpServer *httpServer)
 
 	cg_http_server_stop(httpServer);
 	cg_http_server_close(httpServer);
-	
+
 	if (httpServer->mutex)
 		cg_mutex_delete(httpServer->mutex);
 
 	cg_list_remove((CgList *)httpServer);
-	
+
 	free(httpServer);
 
 	cg_log_debug_l4("Leaving...\n");
@@ -103,7 +103,7 @@ BOOL cg_http_server_open(CgHttpServer *httpServer, int bindPort, char *bindAddr)
 
 	if (cg_http_server_isopened(httpServer) == TRUE)
 		return FALSE;
-	
+
 	httpServer->sock = cg_socket_stream_new();
 	if (cg_socket_bind(httpServer->sock, bindPort, bindAddr, TRUE, FALSE) == FALSE) {
 		cg_socket_delete(httpServer->sock);
@@ -130,13 +130,13 @@ BOOL cg_http_server_close(CgHttpServer *httpServer)
 	cg_log_debug_l4("Entering...\n");
 
 	cg_http_server_stop(httpServer);
-	
+
 	if (httpServer->sock != NULL) {
 		cg_socket_close(httpServer->sock);
 		cg_socket_delete(httpServer->sock);
 		httpServer->sock = NULL;
 	}
-	
+
 	cg_log_debug_l4("Leaving...\n");
 
 	return TRUE;
@@ -187,14 +187,14 @@ static void cg_http_server_clientthread(CgThread *thread)
 	void *httpServerUserData;
 	CgHttpRequest *httpReq;
 	char *version = NULL;
-	
+
 	cg_log_debug_l4("Entering...\n");
 
 	clientData = (CgHttpServerClientData *)cg_thread_getuserdata(thread);
 	httpServer = clientData->httpServer;
 	clientSock = clientData->clientSock;
 	httpServerUserData = cg_http_server_getuserdata(httpServer);
-	
+
 	httpReq = cg_http_request_new();
 	cg_http_request_setsocket(httpReq, clientSock);
 
@@ -204,7 +204,7 @@ static void cg_http_server_clientthread(CgThread *thread)
 		version = cg_http_request_getversion(httpReq);
 		if (cg_strcmp(version, CG_HTTP_VER11) == 0)
 		{
-			/* According to HTTP/1.1 spec, we must not tolerate 
+			/* According to HTTP/1.1 spec, we must not tolerate
 			   HTTP/1.1 request without HOST-header */
 			if (cg_http_request_gethost(httpReq) == NULL)
 			{
@@ -212,26 +212,26 @@ static void cg_http_server_clientthread(CgThread *thread)
 				continue;
 			}
 		}
-		
+
 		if (httpServer->listener != NULL) {
-			cg_http_request_setuserdata(httpReq, httpServerUserData);
+            cg_http_request_setuserdata(httpReq, httpServerUserData);
 			httpServer->listener(httpReq);
 		}
-		
+
 		/* Close connection according to HTTP version and headers */
 		if (cg_strcmp(version, CG_HTTP_VER10) == 0)
 		{
 			/* Terminate connection after HTTP/1.0 request */
 			break;
 		}
-		
+
 		/* We are having HTTP/1.1 or better => terminate, if requested */
 		if (cg_http_request_iskeepaliveconnection(httpReq) == FALSE)
 		{
 			break;
 		}
 	}
-	
+
 	cg_log_debug_s("Dropping HTTP client\n");
 	cg_http_request_delete(httpReq);
 
@@ -241,6 +241,7 @@ static void cg_http_server_clientthread(CgThread *thread)
 	cg_http_server_clientdata_delete(clientData);
 	cg_thread_setuserdata(thread, NULL);
 
+    // This code frequently crashes. mutex lock referencing free'd memory.
 	cg_http_server_lock(httpServer);
 	cg_thread_remove(thread);
 	cg_http_server_unlock(httpServer);
@@ -261,14 +262,14 @@ static void cg_http_server_thread(CgThread *thread)
 	CgHttpServerClientData *clientData;
 	CgSocket *serverSock;
 	CgSocket *clientSock;
-			 
+
 	cg_log_debug_l4("Entering...\n");
 
 	httpServer = (CgHttpServer *)cg_thread_getuserdata(thread);
-	
+
 	if (cg_http_server_isopened(httpServer) == FALSE)
 		return;
-		
+
 	serverSock = httpServer->sock;
 	while (cg_thread_isrunnable(thread) == TRUE) {
 		clientSock = cg_socket_stream_new();
@@ -276,19 +277,19 @@ static void cg_http_server_thread(CgThread *thread)
 			cg_socket_delete(clientSock);
 			break;
 		}
-		
+
 		cg_socket_settimeout(clientSock, cg_http_server_gettimeout(httpServer));
 		clientData = cg_http_server_clientdata_new(httpServer, clientSock);
 		httpClientThread = cg_thread_new();
 		cg_thread_setaction(httpClientThread, cg_http_server_clientthread);
 		cg_thread_setuserdata(httpClientThread, clientData);
-		
+
 		/**** Thanks for Makela Aapo (10/31/05) ****/
 		cg_http_server_lock(httpServer);
 		cg_threadlist_add(httpServer->clientThreads, httpClientThread);
 		cg_http_server_unlock(httpServer);
-		
-		cg_thread_start(httpClientThread);		
+
+		cg_thread_start(httpClientThread);
 	}
 
 	cg_log_debug_l4("Leaving...\n");
@@ -304,7 +305,7 @@ BOOL cg_http_server_start(CgHttpServer *httpServer)
 
 	if (httpServer->acceptThread != NULL)
 		return FALSE;
-	
+
 	httpServer->acceptThread = cg_thread_new();
 	cg_thread_setaction(httpServer->acceptThread, cg_http_server_thread);
 	cg_thread_setuserdata(httpServer->acceptThread, httpServer);
@@ -396,7 +397,7 @@ char *cg_http_getservername(char *buf, int bufSize)
 	}
 #elif defined(ITRON)
 	cg_strcpy(buf, "uITRON 4.0");
-#elif defined(TENGINE) 
+#elif defined(TENGINE)
 	cg_strcpy(buf, "T-Engine 1.0");
 #elif defined(HAVE_UNAME) || defined(TARGET_OS_MAC) || defined(TARGET_OS_IPHONE)
 	struct utsname unameBuf;
