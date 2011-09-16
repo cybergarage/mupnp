@@ -40,5 +40,33 @@ CG_UPNPAV_DMS_DEVICE_DESCRIPTION definition in cmediaserver_device.c:15
 Service handler, cg_upnpav_dms_medrec_actionreceived in ccontendir_service.c
 
 
+NOTE:
+Please be aware that the Syabas Networked Media Tank OEM players
+(Popcornhour, HDX etc) enter a special UPNP mode if the ModelName is
+set to "Windows Media Connect" or "Windows Media Player".
+
+This special (4-icon mode) makes some hard-coded assumptions, like
+that of; ROOT "0" will contain "Videos" with ID="2". This means you
+will have to chose between supporting Syabas' NMT players, or
+Microsoft XBox 360. Supporting both will be tricky.
+
+One option could be to handle requests and change ModelName in your 
+http_listener:
+
+        server = cg_http_request_getheadervalue(httpReq, "SERVER");
+        if (server && strcasestr(server,
+                       "xbox")) {
+            cg_upnp_device_setmodelname(dev, "Windows Media Connect");
+        } else {
+            cg_upnp_device_setmodelname(dev, "CyberGarage Media Server");
+        }
+
+        cg_upnp_device_httprequestrecieved(httpReq);
+
+
+Alternatively, if you wish to use "Windows Media Connect" with NMT, you need
+to handle (hard-coded) ID=2, ID=3 etc.
+
+
 
 
