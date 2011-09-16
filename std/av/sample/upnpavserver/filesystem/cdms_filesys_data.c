@@ -15,10 +15,10 @@
 #include "cdms_filesys.h"
 
 /****************************************
-* cg_upnp_dms_filesys_content_data_new
+* cg_upnpav_dms_filesys_content_data_new
 ****************************************/
 
-CgUpnpMediaFileSystemContentData *cg_upnp_dms_filesys_content_data_new()
+CgUpnpMediaFileSystemContentData *cg_upnpav_dms_filesys_content_data_new()
 {
 	CgUpnpMediaFileSystemContentData *data;
 
@@ -29,10 +29,10 @@ CgUpnpMediaFileSystemContentData *cg_upnp_dms_filesys_content_data_new()
 }
 
 /****************************************
-* cg_upnp_dms_filesys_content_data_delete
+* cg_upnpav_dms_filesys_content_data_delete
 ****************************************/
 
-void cg_upnp_dms_filesys_content_data_delete(CgUpnpMediaFileSystemContentData *data)
+void cg_upnpav_dms_filesys_content_data_delete(CgUpnpMediaFileSystemContentData *data)
 {
 	if (!data)
 		return;
@@ -44,44 +44,44 @@ void cg_upnp_dms_filesys_content_data_delete(CgUpnpMediaFileSystemContentData *d
 }
 
 /****************************************
-* cg_upnp_dms_filesys_content_getdata
+* cg_upnpav_dms_filesys_content_getdata
 ****************************************/
 
-CgUpnpMediaFileSystemContentData *cg_upnp_dms_filesys_content_getdata(CgUpnpMediaContent *con)
+CgUpnpMediaFileSystemContentData *cg_upnpav_dms_filesys_content_getdata(CgUpnpMediaContent *con)
 {
 	CgUpnpMediaFileSystemContentData *data;
 
-	data = cg_upnp_media_content_getuserdata(con);
+	data = cg_upnpav_content_getuserdata(con);
 	if (!data) {
-		data = cg_upnp_dms_filesys_content_data_new();
-		cg_upnp_media_content_setuserdata(con, data);
+		data = cg_upnpav_dms_filesys_content_data_new();
+		cg_upnpav_content_setuserdata(con, data);
 	}
 
 	return data;
 }
 
 /****************************************
-* cg_upnp_dms_filesys_content_setpubicdirectory
+* cg_upnpav_dms_filesys_content_setpubicdirectory
 ****************************************/
 
-void cg_upnp_dms_filesys_content_setpubicdirectory(CgUpnpMediaContent *con, char *dir)
+void cg_upnpav_dms_filesys_content_setpubicdirectory(CgUpnpMediaContent *con, char *dir)
 {
 	CgUpnpMediaFileSystemContentData *data;
 
-	data = cg_upnp_dms_filesys_content_getdata(con);
+	data = cg_upnpav_dms_filesys_content_getdata(con);
 	if (data->pubdir)
 		free(data->pubdir);
 	data->pubdir = cg_strdup(dir);
 }
 
 /****************************************
-* cg_upnp_dms_filesys_content_getpubicdirectory
+* cg_upnpav_dms_filesys_content_getpubicdirectory
 ****************************************/
 
-char *cg_upnp_dms_filesys_content_getpubicdirectory(CgUpnpMediaContent *con)
+char *cg_upnpav_dms_filesys_content_getpubicdirectory(CgUpnpMediaContent *con)
 {
 	CgUpnpMediaFileSystemContentData *data;
 
-	data = cg_upnp_dms_filesys_content_getdata(con);
+	data = cg_upnpav_dms_filesys_content_getdata(con);
 	return data->pubdir;
 }
