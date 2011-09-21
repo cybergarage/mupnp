@@ -215,7 +215,7 @@ int cg_upnp_statevariable_is_allowed_value(CgUpnpStateVariable* statVar, const c
 		CgUpnpAllowedValue *allowedValue;
 		for (allowedValue = (CgUpnpAllowedValue*)cg_list_next((CgList*)statVar->allowedValueList); allowedValue != NULL; allowedValue = (CgUpnpAllowedValue*)cg_list_next((CgList*)allowedValue))
 		{
-			if (cg_strcasecmp(value, cg_string_getvalue(allowedValue->value)) == 0)
+			if (cg_strcasecmp((char *)value, cg_string_getvalue(allowedValue->value)) == 0)
 			{
 				return 1;
 			}
