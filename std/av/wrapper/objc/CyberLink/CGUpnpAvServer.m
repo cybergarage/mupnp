@@ -55,8 +55,11 @@
 - (void)setUserObject:(id)aUserObj;
 {
 	id userObj = [self userObject];
-	if (userObj != aUserObj) {
+	if (userObj != nil) {
 		[userObj release];
+		[self setUserData:NULL];
+    }
+	if (aUserObj != nil) {
 		[aUserObj retain];
 		[self setUserData:aUserObj];
 	}
@@ -72,14 +75,17 @@
 
 - (void)dealloc
 {
+    self.contentDirectory = nil;
+    
 	id userObj = [self userObject];
-	if (userObj) {
+	if (userObj != nil) {
 		[userObj release];
 		[self setUserData:NULL];
     }
+    
 	if (cAvObject)
 		cg_upnpav_dms_delete(cAvObject);
-    self.contentDirectory = nil;
+        
 	[super dealloc];
 }
 
