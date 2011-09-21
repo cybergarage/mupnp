@@ -36,7 +36,7 @@
 	cAvObject = cg_upnpav_dms_new();
 	[self setCObject:cg_upnpav_dms_getdevice(cAvObject)];
 	
-	contentDirectory = nil;
+	self.contentDirectory = nil;
 
 	return self;
 }
@@ -47,8 +47,8 @@
 		return nil;
 	
 	cAvObject = NULL;
-	contentDirectory = [[CGUpnpAvContentDirectory alloc] init];
-	
+	self.contentDirectory = [[[CGUpnpAvContentDirectory alloc] init] autorelease];
+    
 	return self;
 }
 
@@ -73,23 +73,14 @@
 - (void)dealloc
 {
 	id userObj = [self userObject];
-	if (userObj)
+	if (userObj) {
 		[userObj release];
+		[self setUserData:NULL];
+    }
 	if (cAvObject)
 		cg_upnpav_dms_delete(cAvObject);
-	[contentDirectory release];
+    self.contentDirectory = nil;
 	[super dealloc];
-}
-
-- (void)finalize
-{
-	id userObj = [self userObject];
-	if (userObj)
-		[userObj release];
-	if (cAvObject)
-		cg_upnpav_dms_delete(cAvObject);
-	[contentDirectory release];
-	[super finalize];
 }
 
 - (CGUpnpAvContainer *)rootObject

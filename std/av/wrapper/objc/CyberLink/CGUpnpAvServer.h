@@ -36,8 +36,8 @@ typedef void CgUpnpAvServer;
 @interface CGUpnpAvServer : CGUpnpDevice
 {
 }
-@property(readonly) CGUpnpAvContentDirectory *contentDirectory;
-@property(readonly) CgUpnpAvServer *cAvObject;
+@property(retain) CGUpnpAvContentDirectory *contentDirectory;
+@property(assign) CgUpnpAvServer *cAvObject;
 @property(assign) id<CGUpnpAvServerDelegate> delegate;
 
 #if defined(TARGET_OS_IPHONE)
