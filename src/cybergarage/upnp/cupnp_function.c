@@ -40,7 +40,7 @@
 
 // Some systems (Solaris, CentOS?) come with libuuid, but does not feature
 // the uuid_unparse_lower() call.
-#ifndef HAVE_UUID_UNPARSE_LOWER
+#if !defined(HAVE_UUID_UNPARSE_LOWER) && !defined(TARGET_OS_IPHONE)
 // Older versions of libuuid don't have uuid_unparse_lower(),
 // only uuid_unparse()
 void uuid_unparse_lower (uuid_t uu, char *out)
@@ -52,9 +52,6 @@ void uuid_unparse_lower (uuid_t uu, char *out)
     for (i = 0; i < sizeof(uu); ++i) out[i] |= 0x20;
 }
 #endif
-
-
-
 
 /****************************************
 * Static
