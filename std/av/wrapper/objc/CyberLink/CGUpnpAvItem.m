@@ -116,82 +116,64 @@
 	return nil;
 }
 
+- (NSArray *)sortedImageResouces
+{
+	NSMutableArray *imageResouces = [NSMutableArray array];
+    
+	for (CGUpnpAvResource *resource in [self resources]) {
+		if ([resource isImage] == NO)
+			continue;
+        [imageResouces addObject:resource];
+	}
+	
+    return [imageResouces sortedArrayUsingSelector:@selector(imageSizeCompare:)];
+}
+
 - (CGUpnpAvResource *)lowestImageResource
 {
-	CGUpnpAvResource *imgRes = nil;
-	imgRes = [self smallImageResource];
-	if (imgRes == nil) {
-		imgRes = [self mediumImageResource];
-		if (imgRes == nil) {
-			imgRes = [self largeImageResource];
-			if (imgRes == nil) {
-				for (CGUpnpAvResource *res in [self resources]) {
-					if (![res isThumbnail]) {
-						imgRes = res;
-						break;
-					}
-				}
-			}
-		}
-	
-	}
-	return [[imgRes retain] autorelease];
+    NSArray *sortedImageResouces = [self sortedImageResouces];
+    
+    if ([sortedImageResouces count] <= 0)
+        return nil;
+    
+    return [sortedImageResouces objectAtIndex:0];
 }
 
 - (CGUpnpAvResource *)highestImageResource
 {
-	CGUpnpAvResource *imgRes = nil;
-	imgRes = [self largeImageResource];
-	if (imgRes == nil) {
-		imgRes = [self mediumImageResource];
-		if (imgRes == nil) {
-			imgRes = [self smallImageResource];
-			if (imgRes == nil) {
-				for (CGUpnpAvResource *res in [self resources]) {
-					if (![res isThumbnail]) {
-						imgRes = res;
-						break;
-					}
-				}
-			}
-		}
-		
-	}
-	return [[imgRes retain] autorelease];
+    NSArray *sortedImageResouces = [self sortedImageResouces];
+    
+    if ([sortedImageResouces count] <= 0)
+        return nil;
+    
+    return [sortedImageResouces objectAtIndex:([sortedImageResouces count] - 1)];
 }
 
 - (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize mimeTypes:(NSArray *)mimeTypes
 {
+	NSMutableArray *imageResouces = [NSMutableArray array];
+	for (CGUpnpAvResource *resource in [self sortedImageResouces]) {
+        NSString *resourceMimeType = [resource mimeType];
+        if (resourceMimeType == nil || [resourceMimeType length] <= 0)
+        	continue;
+        for (NSString *mimeType in mimeTypes) {
+            if ([mimeType isEqualToString:resourceMimeType]) {
+            	[imageResouces addObject:resource];
+                break;
+            }
+        }
+	}
+	
 	CGUpnpAvResource *applicableResource = nil;
-	for (CGUpnpAvResource *resource in [self resources]) {
-		if ([resource isImage] == NO)
-			continue;
-		if (0 < [mimeTypes count]) {
-			BOOL isMimeType = NO;
-			NSString *resourceMimeType = [resource mimeType];
-			for (NSString *mimeType in mimeTypes) {
-				if ([mimeType isEqualToString:resourceMimeType]) {
-					isMimeType = YES;
-					continue;
-				}
-			}
-			if (isMimeType == NO)
-				continue;
-		}
+	for (CGUpnpAvResource *resource in imageResouces) {
 		if (applicableResource == nil) {
 			applicableResource = resource;
 			continue;
 		}
-		CGSize applicableResourceSize = [applicableResource resolution];
 		CGSize resourceSize = [resource resolution];
-		if (wantedSize.width <=  applicableResourceSize.width) {
-			if (resourceSize.width < applicableResourceSize.width)
-				applicableResource = resource;
-		}
-		else {
-			if (applicableResourceSize.width < resourceSize.width)
-				applicableResource = resource;
-		}
+        if (wantedSize.width < resourceSize.width)
+        	break;
+        applicableResource = resource;
 	}
 	return applicableResource;
 }

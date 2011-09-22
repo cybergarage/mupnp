@@ -217,4 +217,18 @@
 	return [extentions objectAtIndex:([extentions count] - 1)];
 }
 
+- (NSComparisonResult)imageSizeCompare:(CGUpnpAvResource *)otherResource
+{
+	CGSize selfResouceSize = [self resolution];
+    CGSize otherResourceSize = [otherResource resolution];
+    
+    if (selfResouceSize.width == otherResourceSize.width) {
+	    if (selfResouceSize.height == otherResourceSize.height)
+        	return NSOrderedSame;
+	    return (selfResouceSize.height < otherResourceSize.height) ? NSOrderedAscending : NSOrderedDescending;
+    }
+    
+    return (selfResouceSize.width < otherResourceSize.width) ? NSOrderedAscending : NSOrderedDescending;
+}
+
 @end
