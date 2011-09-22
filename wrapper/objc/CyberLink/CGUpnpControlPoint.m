@@ -137,6 +137,8 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, cha
 	if ([ctrlPoint delegate] == nil)
 		return;
 
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    
 	NSString *deviceUdn = [[NSString alloc ] initWithUTF8String:udn];
 	
 	switch (status) {
@@ -169,5 +171,7 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, cha
 	}
 	
 	[deviceUdn release];
+    
+    [pool release];
 }
 
