@@ -86,6 +86,7 @@ int main(int argc, char *argv[])
     {
         char *protocols[] = {"*", "video/*", "audio/*", "image/*", NULL};
         int i;
+        CgUpnpAvProtocolInfo *info;
         for (i = 0; protocols[i]; i++) {
             if ((info = cg_upnpav_protocolinfo_new())) {
                 cg_upnpav_protocolinfo_setprotocol(info, "http-get");
