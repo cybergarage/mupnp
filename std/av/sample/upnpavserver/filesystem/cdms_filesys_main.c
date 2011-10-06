@@ -79,6 +79,24 @@ int main(int argc, char *argv[])
 
 	dms = cg_upnpav_dms_filesys_new();
 	cg_upnpav_dms_filesys_setpublicationdirectory(dms, pubDir);
+
+    // Demonstrate how to use CgUpnpAvProtocolInfo to register protocolinfo.
+    // Which is required for some devices to work, like Sony Bravia TV.
+    // (Bravia actually also needs additionalinfo set to "DLNA.ORG_PN=MP3" etc)
+    {
+        char *protocols[] = {"*", "video/*", "audio/*", "image/*", NULL};
+        int i;
+        for (i = 0; protocols[i]; i++) {
+            if ((info = cg_upnpav_protocolinfo_new())) {
+                cg_upnpav_protocolinfo_setprotocol(info, "http-get");
+                cg_upnpav_protocolinfo_setnetwork(info, "*");
+                cg_upnpav_protocolinfo_setmimetype(info, protocols[i]);
+                cg_upnpav_protocolinfo_setadditionalinfo(info, "*");
+                cg_upnpav_dms_addprotocolinfo(dms, info);
+            }
+        }
+    }
+
 	cg_upnpav_dms_filesys_start(dms);
 
 #if !defined(WIN32) || defined(__CYGWIN__)

@@ -70,7 +70,7 @@ void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
 
 /**
  * Get the next protocolinfo in list. Use as an iterator.
- * 
+ *
  * \param protocolinfo Node in a list of protocolinfos
  */
 #define cg_upnpav_protocolinfo_next(protocolinfo) (CgUpnpAvProtocolInfo *)cg_list_next((CgList *)protocolinfo)
@@ -80,7 +80,7 @@ void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
  *****************************************************************************/
 /**
  * Set the protocolinfo's protocol type
- * 
+ *
  * \param protocolinfo ProtocolInfo in question
  * \param value Protocol
  */
@@ -88,7 +88,7 @@ void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
 
 /**
  * Get the protocolinfo's MIME type
- * 
+ *
  */
 #define cg_upnpav_protocolinfo_getprotocol(protocolinfo) cg_string_getvalue(protocolinfo->protocol)
 
@@ -97,7 +97,7 @@ void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
  *****************************************************************************/
 /**
  * Set the protocolinfo's network type
- * 
+ *
  * \param protocolinfo ProtocolInfo in question
  * \param value Network type
  */
@@ -105,7 +105,7 @@ void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
 
 /**
  * Get the protocolinfo's MIME type
- * 
+ *
  */
 #define cg_upnpav_protocolinfo_getnetwork(protocolinfo) cg_string_getvalue(protocolinfo->network)
 
@@ -114,7 +114,7 @@ void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
  *****************************************************************************/
 /**
  * Set the protocolinfo's MIME type
- * 
+ *
  * \param protocolinfo ProtocolInfo in question
  * \param value MIME type
  */
@@ -122,7 +122,7 @@ void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
 
 /**
  * Get the protocolinfo's MIME type
- * 
+ *
  */
 #define cg_upnpav_protocolinfo_getmimetype(protocolinfo) cg_string_getvalue(protocolinfo->mimeType)
 
@@ -131,17 +131,23 @@ void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
  *****************************************************************************/
 /**
  * Set the protocolinfo's additional info type
- * 
+ *
  * \param protocolinfo ProtocolInfo in question
  * \param value Additiona lInfo
  */
-#define cg_upnpav_protocolinfo_setadditionainfo(protocolinfo, value) cg_string_setvalue(protocolinfo->additionalInfo, value)
+#define cg_upnpav_protocolinfo_setadditionalinfo(protocolinfo, value) cg_string_setvalue(protocolinfo->additionalInfo, value)
 
 /**
  * Get the protocolinfo's MIME type
- * 
+ *
  */
+#define cg_upnpav_protocolinfo_getadditionalinfo(protocolinfo) cg_string_getvalue(protocolinfo->additionalInfo)
+
+    /* Due to the typo active in clinkcav-2.3 and 2.4, I leave the old
+     * definitions here, to be backward compatible.  -lundman */
+#define cg_upnpav_protocolinfo_setadditionainfo(protocolinfo, value) cg_string_setvalue(protocolinfo->additionalInfo, value)
 #define cg_upnpav_protocolinfo_getadditionainfo(protocolinfo) cg_string_getvalue(protocolinfo->additionalInfo)
+
 
 /*****************************************************************************
  * String
@@ -149,7 +155,7 @@ void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
 
 /**
  * Get the protocolinfo's string
- * 
+ *
  */
 char *cg_upnpav_protocolinfo_getstring(CgUpnpAvProtocolInfo *protocolinfo);
 
@@ -159,41 +165,41 @@ char *cg_upnpav_protocolinfo_getstring(CgUpnpAvProtocolInfo *protocolinfo);
 
 /**
  * Create a new list of protocolinfos
- * 
+ *
  */
 CgUpnpAvProtocolInfoList *cg_upnpav_protocolinfolist_new();
 
 /**
  * Delete a list of protocolinfos
- * 
+ *
  * \param protocolinfoList List of protocolinfos
  */
 void cg_upnpav_protocolinfolist_delete(CgUpnpAvProtocolInfoList *protocolinfoList);
 
 /**
  * Clear the contents of an protocolinfo list
- * 
+ *
  * \param protocolinfoList List of protocolinfos
  */
 #define cg_upnpav_protocolinfolist_clear(protocolinfoList) cg_list_clear((CgList *)protocolinfoList, (CG_LIST_DESTRUCTORFUNC)cg_upnpav_protocolinfo_delete)
 
 /**
  * Get the size (number of elements) of an protocolinfo list
- * 
+ *
  * \param protocolinfoList List of protocolinfos
  */
 #define cg_upnpav_protocolinfolist_size(protocolinfoList) cg_list_size((CgList *)protocolinfoList)
 
 /**
  * \todo Get the first protocolinfo from the list for iteration
- * 
+ *
  * \param protocolinfoList List of protocolinfos
  */
 #define cg_upnpav_protocolinfolist_gets(protocolinfoList) (CgUpnpAvProtocolInfo *)cg_list_next((CgList *)protocolinfoList)
 
 /**
  * Add an protocolinfo to an protocolinfo list
- * 
+ *
  * \param protocolinfoList List of protocolinfos
  * \param protocolinfo ProtocolInfo to add
  */
