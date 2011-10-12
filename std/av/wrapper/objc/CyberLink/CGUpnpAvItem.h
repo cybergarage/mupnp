@@ -14,8 +14,8 @@
  */
 @interface CGUpnpAvItem : CGUpnpAvObject 
 {
-	NSMutableArray *resourceArray;
 }
+@property(retain) NSMutableArray *resourceArray;
 - (id)init;
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;

@@ -68,7 +68,7 @@
 	if (cg_strlen(resultXml) <= 0)
 		return nil;
 	
-	NSMutableArray *avObjArray = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray *avObjArray = [NSMutableArray array];
 	
 	rootNode = cg_xml_nodelist_new();
 	xmlParser = cg_xml_parser_new();
@@ -78,11 +78,11 @@
 			for (cnode=cg_xml_node_getchildnodes(didlNode); cnode; cnode=cg_xml_node_next(cnode)) {
 				CGUpnpAvObject *avObj = nil;
 				if (cg_xml_node_isname(cnode, "container")) {
-					CGUpnpAvContainer *avCon = [[CGUpnpAvContainer alloc] initWithXMLNode:cnode];
+					CGUpnpAvContainer *avCon = [[[CGUpnpAvContainer alloc] initWithXMLNode:cnode] autorelease];
 					avObj = avCon;
 				}
 				else if (cg_xml_node_isname(cnode, "item")) {
-					CGUpnpAvItem *avItem = [[CGUpnpAvItem alloc] initWithXMLNode:cnode];
+					CGUpnpAvItem *avItem = [[[CGUpnpAvItem alloc] initWithXMLNode:cnode] autorelease];
 					for (rnode=cg_xml_node_getchildnodes(cnode); rnode; rnode=cg_xml_node_next(rnode)) {
 						if (cg_xml_node_isname(rnode, "res")) {
 							CGUpnpAvResource *avRes = [[[CGUpnpAvResource alloc] initWithXMLNode:rnode] autorelease];
@@ -94,7 +94,6 @@
 				if (avObj == nil)
 					continue;
 				[avObjArray addObject:avObj];
-				[avObj release];
 			}
 		}
 	}
@@ -135,11 +134,6 @@
 - (void)dealloc
 {
 	[super dealloc];
-}
-
-- (void) finalize
-{
-	[super finalize];
 }
 
 - (BOOL)isEqual:(id)anObject

@@ -17,7 +17,7 @@
 
 @synthesize userInfo;
 
-#if  !defined(TARGET_OS_IPHONE)
+#if !defined(TARGET_OS_IPHONE)
 
 @synthesize xmlNode;
 
@@ -36,20 +36,15 @@
 	if ((self = [super init]) == nil)
 		return nil;
 	[self setXmlNode:aXmlNode];
-	[xmlNode retain];
 	return self;
 }
 
 - (void)dealloc
 {
-	[xmlNode release];
+	[self setXmlNode:nil];
+    [self setUserInfo:nil];
+    
 	[super dealloc];
-}
-
-- (void) finalize
-{
-	[xmlNode release];
-	[super finalize];
 }
 
 - (NSString *)attributeValueForName:(NSString *)aName
@@ -104,26 +99,20 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
+        
 	cXmlNode = cg_xml_node_new();
 	cg_xml_node_copy(cXmlNode, aXmlNode);
-/*
-	CgString *str = cg_string_new();
-	NSLog(@"initWithXMLNode\n%s", cg_xml_node_tostring(cXmlNode, TRUE, str));
-	cg_string_delete(str);
-*/
+
 	return self;
 }
 
 - (void)dealloc
 {
+    [self setUserInfo:nil];
+    
 	cg_xml_node_delete(cXmlNode);
+    
 	[super dealloc];
-}
-
-- (void) finalize
-{
-	cg_xml_node_delete(cXmlNode);
-	[super finalize];
 }
 
 - (NSString *)attributeValueForName:(NSString *)aName
@@ -133,7 +122,7 @@
 	const char* attributeValue = cg_xml_node_getattributevalue(cXmlNode, (char *)[aName UTF8String]);
 	if (attributeValue)
 	{
-		return [[[NSString alloc] initWithUTF8String:attributeValue] autorelease];
+		return [NSString stringWithUTF8String:attributeValue];
 	}
 	return nil;
 }
@@ -148,7 +137,7 @@
 	const char* nodeValue = cg_xml_node_getvalue(elemNode);
 	if (nodeValue)
 	{
-		return [[[NSString alloc] initWithUTF8String:nodeValue] autorelease];
+		return [NSString stringWithUTF8String:nodeValue];
 	}
 	return nil;
 }
@@ -159,7 +148,7 @@
 	const char* nodeValue = cg_xml_node_getvalue(cXmlNode);
 	if (nodeValue)
 	{
-		return [[[NSString alloc] initWithUTF8String:nodeValue] autorelease];
+		return [NSString stringWithUTF8String:nodeValue];
 	}
 	return nil;
 }

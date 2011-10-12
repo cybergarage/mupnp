@@ -41,13 +41,6 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, char
 	[super dealloc];
 }
 
-- (void)finalize
-{
-	if (cObject)
-		cg_upnp_controlpoint_delete(cObject);
-	[super finalize];
-}
-
 - (BOOL)start
 {
 	if (!cObject)
@@ -139,7 +132,7 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, cha
 
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
-	NSString *deviceUdn = [[NSString alloc ] initWithUTF8String:udn];
+	NSString *deviceUdn = [[NSString alloc] initWithUTF8String:udn];
 	
 	switch (status) {
 		case CgUpnpDeviceStatusAdded:
@@ -172,6 +165,6 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, cha
 	
 	[deviceUdn release];
     
-    [pool release];
+    [pool drain];
 }
 

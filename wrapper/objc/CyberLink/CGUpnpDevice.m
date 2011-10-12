@@ -73,15 +73,6 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 	[super dealloc];
 }
 
-- (void) finalize
-{
-	if (isCObjectCreated && cObject) {
-		cg_upnp_device_delete(cObject);
-		cObject = NULL;
-	}
-	[super finalize];
-}
-
 - (NSString *)friendlyName
 {
 	if (!cObject)

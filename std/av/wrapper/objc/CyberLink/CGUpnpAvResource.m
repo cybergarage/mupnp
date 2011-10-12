@@ -35,11 +35,6 @@
 	[super dealloc];
 }
 
-- (void) finalize
-{
-	[super finalize];
-}
-
 - (NSString *)url
 {
 	return [self stringValue];
