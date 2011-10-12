@@ -28,18 +28,14 @@
 
 - (id) init
 {
-	[self initWithCObject:NULL];
+	if ((self = [self initWithCObject:NULL]) == nil)
+        return nil;
 	return self;
 }
 
 - (void) dealloc
 {
 	[super dealloc];
-}
-
-- (void) finalize
-{
-	[super finalize];
 }
 
 - (BOOL) parseXMLDescription:(NSString *)xmlDesc;

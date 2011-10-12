@@ -40,9 +40,4 @@
 	[super dealloc];
 }
 
-- (void) finalize
-{
-	[super finalize];
-}
-
 @end

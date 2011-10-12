@@ -13,11 +13,13 @@
 
 @implementation CGUpnpAvItem
 
+@synthesize resourceArray;
+
 - (id)init
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	resourceArray = [[NSMutableArray alloc] init];
+	self.resourceArray = [NSMutableArray array];
 	return self;
 }
 
@@ -29,29 +31,29 @@
 {
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
 		return nil;
-	resourceArray = [[NSMutableArray alloc] init];
+	self.resourceArray = [NSMutableArray array];
 	return self;
 }
 
 - (void)dealloc
 {
-	[resourceArray release];
+	self.resourceArray = nil;
 	[super dealloc];
 }
 
 - (void)addResource:(CGUpnpAvResource *)res
 {
-	[resourceArray addObject:res];
+	[[self resourceArray] addObject:res];
 }
 
 - (void)removeResource:(CGUpnpAvResource *)res
 {
-	[resourceArray removeObject:res];
+	[[self resourceArray] removeObject:res];
 }
 
 - (NSArray *)resources
 {
-	return resourceArray;
+	return [self resourceArray];
 }
 
 - (CGUpnpAvResource *)resource

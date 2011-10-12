@@ -27,12 +27,6 @@
 	[super dealloc];
 }
 
-- (void)finalize
-{
-	[contentMgr release];
-	[super finalize];
-}
-
 - (CGUpnpAvContainer *)rootObject
 {
 	return[contentMgr rootObject];

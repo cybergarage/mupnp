@@ -38,11 +38,6 @@
 	[super dealloc];
 }
 
-- (void) finalize
-{
-	[super finalize];
-}
-
 - (NSString *)url
 {
 	if (!cObject)

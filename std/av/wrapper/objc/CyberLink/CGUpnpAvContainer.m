@@ -40,13 +40,6 @@
 	[super dealloc];
 }
 
-- (void) finalize
-{
-	[self removeAllChildren];
-	[childArray release];
-	[super finalize];
-}
-
 - (void)addChild:(CGUpnpAvObject *)obj
 {
 	[childArray addObject:obj];
