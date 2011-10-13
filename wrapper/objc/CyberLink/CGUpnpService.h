@@ -21,9 +21,8 @@ typedef void CgUpnpService;
  */
 @interface CGUpnpService : NSObject 
 {
-	CgUpnpService *cObject;
 }
-@property(readonly) CgUpnpService *cObject;
+@property(assign, readonly) CgUpnpService *cObject;
 /**
  * Create a new UPnP service with the C instance.
  * 

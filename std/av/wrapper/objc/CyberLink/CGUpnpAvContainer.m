@@ -13,11 +13,13 @@
 
 @implementation CGUpnpAvContainer
 
+@synthesize childArray;
+
 - (id)init
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	childArray = [[NSMutableArray alloc] init];
+	self.childArray = [NSMutableArray array];
 	return self;
 }
 
@@ -29,14 +31,14 @@
 {
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
 		return nil;
-	childArray = [[NSMutableArray alloc] init];
+	self.childArray = [NSMutableArray array];
 	return self;
 }
 
 - (void)dealloc
 {
 	[self removeAllChildren];
-	[childArray release];
+    self.childArray = nil;
 	[super dealloc];
 }
 
@@ -49,7 +51,6 @@
 - (void)addChildren:(NSArray *)objArray;
 {
 	for (CGUpnpAvObject *obj in objArray) {
-		[obj retain];
 		[childArray addObject:obj];
 		[obj setParent:self];
 	}
@@ -65,7 +66,6 @@
 {
 	for (CGUpnpAvObject *obj in [self children]) {
 		[obj setParent:nil];
-		//[obj release];
 	}
 	[childArray removeAllObjects];
 }
@@ -149,8 +149,7 @@
 			return nil;
 		lastObject = foundObj;
 	}
-	[[lastObject retain] autorelease];
-	return lastObject;
+	return [[lastObject retain] autorelease];
 }
 
 @end

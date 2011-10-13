@@ -29,9 +29,6 @@ typedef void CgUpnpAvContent;
 }
 @property(retain) CGUpnpAvObject *parent;
 @property(retain) id userObject;
-#if defined(TARGET_OS_IPHONE)
-@property(retain) UIImage *thumbnailImage;
-#endif
 + (NSArray *)arrayWithXMLString:(NSString *)aXmlString;
 - (id)init;
 #if  !defined(TARGET_OS_IPHONE)

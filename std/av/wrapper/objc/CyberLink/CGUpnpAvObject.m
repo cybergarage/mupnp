@@ -18,10 +18,6 @@
 
 @implementation CGUpnpAvObject
 
-#if defined(TARGET_OS_IPHONE)
-@synthesize thumbnailImage;
-#endif
-
 @synthesize parent;
 @synthesize userObject;
 

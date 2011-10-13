@@ -16,8 +16,8 @@
  */
 @interface CGUpnpAvContentDirectory : NSObject
 {
-	CGUpnpAvContentManager *contentMgr;
 }
+@property(retain) CGUpnpAvContentManager *contentMgr;
 - (CGUpnpAvContainer *)rootObject;
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;

@@ -223,8 +223,8 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 - (NSArray *)services
 {
 	if (!cObject)
-		return [[[NSArray alloc] init] autorelease];
-	NSMutableArray *serviceArray = [[[NSMutableArray alloc] init] autorelease];
+		return [NSArray array];
+	NSMutableArray *serviceArray = [NSMutableArray array];
 	CgUpnpService *cService;
 	for (cService = cg_upnp_device_getservices(cObject); cService; cService = cg_upnp_service_next(cService)) {
 		CGUpnpService *service = [[[CGUpnpService alloc] initWithCObject:(void *)cService] autorelease];
@@ -256,8 +256,8 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 - (NSArray *)icons
 {
 	if (!cObject)
-		return [[[NSArray alloc] init] autorelease];
-	NSMutableArray *iconArray = [[[NSMutableArray alloc] init] autorelease];
+		return [NSArray array];
+	NSMutableArray *iconArray =[NSMutableArray array];
 	CgUpnpIcon *cIcon;
 	for (cIcon = cg_upnp_device_geticons(cObject); cIcon; cIcon = cg_upnp_icon_next(cIcon)) {
 		CGUpnpIcon *icon = [[CGUpnpIcon alloc] initWithCObject:(void *)cIcon];

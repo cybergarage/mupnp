@@ -17,9 +17,8 @@ typedef void CgUpnpStateVariable;
  */
 @interface CGUpnpStateVariable : NSObject 
 {
-	CgUpnpStateVariable *cObject;
 }
-@property(readonly) CgUpnpStateVariable *cObject;
+@property(assign, readonly) CgUpnpStateVariable *cObject;
 - (id)initWithCObject:(CgUpnpStateVariable *)cobj;
 /**
  * Get the name of the state variable.
