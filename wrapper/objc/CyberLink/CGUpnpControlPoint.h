@@ -31,9 +31,8 @@ typedef void CgUpnpControlPoint;
  */
 @interface CGUpnpControlPoint : NSObject 
 {
-	CgUpnpControlPoint *cObject;
 }
-@property(readonly) CgUpnpControlPoint *cObject;
+@property(assign, readonly) CgUpnpControlPoint *cObject;
 @property(assign) id<CGUpnpControlPointDelegate> delegate;
 - (CgUpnpControlPoint *)cObject;
 /**

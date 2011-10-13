@@ -97,8 +97,8 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, char
 - (NSArray *)devices
 {
 	if (!cObject)
-		return [[[NSArray alloc] init] autorelease];
-	NSMutableArray *devArray = [[[NSMutableArray alloc] init] autorelease];
+		return [NSArray array];
+	NSMutableArray *devArray = [NSMutableArray array];
 	CgUpnpDevice *cDevice;
 	for (cDevice = cg_upnp_controlpoint_getdevices(cObject); cDevice; cDevice = cg_upnp_device_next(cDevice)) {
 		CGUpnpDevice *device = [[[CGUpnpDevice alloc] initWithCObject:cDevice] autorelease];

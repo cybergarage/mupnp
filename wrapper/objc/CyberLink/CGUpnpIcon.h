@@ -18,12 +18,11 @@ typedef void CgUpnpIcon;
  */
 @interface CGUpnpIcon : NSObject
 {
-	CgUpnpIcon *cObject;
 #if defined(TARGET_OS_IPHONE)
 	NSString *resourceName;
 #endif
 }
-@property(readonly) CgUpnpIcon *cObject;
+@property(assign, readonly) CgUpnpIcon *cObject;
 #if defined(TARGET_OS_IPHONE)
 @property(readonly) NSString *resourceName;
 #endif

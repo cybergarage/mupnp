@@ -18,9 +18,8 @@ typedef void CgUpnpAction;
  */
 @interface CGUpnpAction : NSObject 
 {
-	CgUpnpAction *cObject;
 }
-@property(readonly) CgUpnpAction *cObject;
+@property(assign, readonly) CgUpnpAction *cObject;
 - (id)initWithCObject:(CgUpnpAction *)cobj;
 /**
  * Get the name of the action.

@@ -24,9 +24,8 @@ typedef void CgUpnpAvRenderer;
  */
 @interface CGUpnpAvRenderer : CGUpnpDevice
 {
-	CgUpnpAvRenderer *cAvObject;
 }
-@property(readonly) CgUpnpAvRenderer *cAvObject;
+@property(assign,readonly) CgUpnpAvRenderer *cAvObject;
 - (id)init;
 - (id)initWithCObject:(CgUpnpDevice *)cobj;
 - (BOOL)setAVTransportURI:(NSString *)aURI;

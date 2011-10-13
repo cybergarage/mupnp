@@ -10,36 +10,39 @@
 #import "CGUpnpAvContentDirectory.h"
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
+#import "CGUpnpAvRoot.h"
 
 @implementation CGUpnpAvContentDirectory
+
+@synthesize contentMgr;
 
 - (id)init
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	contentMgr = [[CGUpnpAvContentManager alloc] init];
+	self.contentMgr = [[[CGUpnpAvContentManager alloc] init] autorelease];
 	return self;
 }
 
 - (void)dealloc
 {
-	[contentMgr release];
+    self.contentMgr = nil;
 	[super dealloc];
 }
 
 - (CGUpnpAvContainer *)rootObject
 {
-	return[contentMgr rootObject];
+	return[[self contentMgr] rootObj];
 }
 
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
 {
-	return [contentMgr objectForId:aObjectId];
+	return [[self contentMgr] objectForId:aObjectId];
 }
 
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath
 {
-	return [contentMgr objectForTitlePath:aTitlePath];
+	return [[self contentMgr] objectForTitlePath:aTitlePath];
 }
 
 @end

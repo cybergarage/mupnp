@@ -14,23 +14,20 @@
 
 @implementation CGUpnpAvContentManager
 
+@synthesize rootObj;
+
 - (id)init
 { 
 	if ((self = [super init]) == nil)
 		return nil;
-	rootObj = [[CGUpnpAvRoot alloc] init];
+	self.rootObj = [[[CGUpnpAvRoot alloc] init] autorelease];
 	return self;
 }
 
 - (void)dealloc
 {
-	[rootObj release];
+    self.rootObj = nil;
 	[super dealloc];
-}
-
-- (CGUpnpAvContainer *)rootObject
-{
-	return rootObj;
 }
 
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId

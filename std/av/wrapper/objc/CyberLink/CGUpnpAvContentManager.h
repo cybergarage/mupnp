@@ -18,9 +18,8 @@
  */
 @interface CGUpnpAvContentManager : NSObject
 {
-	CGUpnpAvRoot *rootObj;
 }
-- (CGUpnpAvContainer *)rootObject;
+@property(retain) CGUpnpAvRoot *rootObj;
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
 - (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
 @end
