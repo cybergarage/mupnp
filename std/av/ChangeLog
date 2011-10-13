@@ -1,4 +1,7 @@
-2011-09-007  Satoshi Konno <skonno@cybergarage.org>
+2011-10-13  Satoshi Konno <skonno@cybergarage.org>
+    * Fixed some memory leaks of CGUPnPAVObject.
+    
+2011-09-07  Satoshi Konno <skonno@cybergarage.org>
     * Changed CGUpnpAvServer::searchByBrowse:objectId to search by breadth-first search.
 	* Fixed some warnings on XCode4.
     
