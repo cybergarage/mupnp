@@ -165,7 +165,9 @@ static void cg_upnp_ssdp_server_thread(CgThread *thread)
 	
 	cg_upnp_ssdp_packet_delete(ssdpPkt);
 
-	cg_log_debug_l4("Leaving...\n");
+    cg_log_debug_l4("Leaving...\n");
+
+    cg_thread_delete(thread);	
 }
 
 /****************************************
