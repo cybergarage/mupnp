@@ -22,6 +22,7 @@
 @synthesize thumbnailImage;
 #endif
 
+@synthesize parent;
 @synthesize userObject;
 
 + (NSArray *)arrayWithXMLString:(NSString *)aXmlString
@@ -133,6 +134,8 @@
 
 - (void)dealloc
 {
+    self.parent = nil;
+    self.userInfo = nil;
 	[super dealloc];
 }
 
@@ -157,20 +160,6 @@
 - (BOOL)isItem
 {
 	return [self isKindOfClass:[CGUpnpAvItem class]];
-}
-
-- (void)setParent:(CGUpnpAvObject *)aParent
-{
-	if (parent != aParent) {
-		if (parent != nil)
-			[parent release];
-		parent = [aParent retain];
-	}		
-}
-
-- (CGUpnpAvObject *)parent
-{
-	return parent;
 }
 
 - (CGUpnpAvObject *)ancestor

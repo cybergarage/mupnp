@@ -26,8 +26,8 @@ typedef void CgUpnpAvContent;
 
 @interface CGUpnpAvObject : CGXmlNode 
 {
-	CGUpnpAvObject *parent;
 }
+@property(retain) CGUpnpAvObject *parent;
 @property(retain) id userObject;
 #if defined(TARGET_OS_IPHONE)
 @property(retain) UIImage *thumbnailImage;
