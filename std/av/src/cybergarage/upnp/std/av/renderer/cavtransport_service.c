@@ -22,7 +22,7 @@
 * Service Description (AVTransport)
 ****************************************/
 
-static char *CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION = 
+static char *CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION =
 #if defined(CG_CLINKCAV_USE_UPNPSTD_XML)
 "<?xml version=\"1.0\"encoding=\"utf-8\"?>\n"
 "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
@@ -303,6 +303,26 @@ static char *CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION =
 "              <name>CurrentURIMetaData</name>\n"
 "              <direction>in</direction>\n"
 "              <relatedStateVariable>AVTransportURIMetaData</relatedStateVariable>\n"
+"           </argument>\n"
+"        </argumentList>\n"
+"     </action>\n"
+"     <action>\n"
+"        <name>SetNextAVTransportURI</name>\n"
+"        <argumentList>\n"
+"           <argument>\n"
+"              <name>InstanceID</name>\n"
+"              <direction>in</direction>\n"
+"              <relatedStateVariable>A_ARG_TYPE_InstanceID</relatedStateVariable>\n"
+"           </argument>\n"
+"           <argument>\n"
+"              <name>NextURI</name>\n"
+"              <direction>in</direction>\n"
+"              <relatedStateVariable>NextAVTransportURI</relatedStateVariable>\n"
+"           </argument>\n"
+"           <argument>\n"
+"              <name>NextURIMetaData</name>\n"
+"              <direction>in</direction>\n"
+"              <relatedStateVariable>NextAVTransportURIMetaData</relatedStateVariable>\n"
 "           </argument>\n"
 "        </argumentList>\n"
 "     </action>\n"
@@ -863,6 +883,26 @@ static char *CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION =
 "         </argumentList>\n"
 "      </action>\n"
 "      <action>\n"
+"         <name>SetNextAVTransportURI</name>\n"
+"         <argumentList>\n"
+"            <argument>\n"
+"               <name>InstanceID</name>\n"
+"               <direction>in</direction>\n"
+"               <relatedStateVariable>A_ARG_TYPE_InstanceID</relatedStateVariable>\n"
+"            </argument>\n"
+"            <argument>\n"
+"               <name>NextURI</name>\n"
+"               <direction>in</direction>\n"
+"               <relatedStateVariable>NextAVTransportURI</relatedStateVariable>\n"
+"            </argument>\n"
+"            <argument>\n"
+"               <name>NextURIMetaData</name>\n"
+"               <direction>in</direction>\n"
+"               <relatedStateVariable>NextAVTransportURIMetaData</relatedStateVariable>\n"
+"            </argument>\n"
+"         </argumentList>\n"
+"      </action>\n"
+"      <action>\n"
 "         <name>SetPlayMode</name>\n"
 "         <argumentList>\n"
 "            <argument>\n"
@@ -1153,13 +1193,13 @@ BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action)
 		return FALSE;
 
 	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(cg_upnp_action_getservice(action));
-	if (!dev) 
+	if (!dev)
 		return FALSE;
 
 	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
 	if (!dmr)
 		return FALSE;
-	
+
 	/* GetTransportInfo*/
 	if (cg_streq(actionName, CG_UPNPAV_DMR_AVTRANSPORT_GETTRANSPORTINFO)) {
 		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATE);
@@ -1171,14 +1211,14 @@ BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action)
 		if (!arg)
 			return FALSE;
 		cg_upnp_argument_setvalue(arg, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS_OK);
-		
+
 		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTSPEED);
 		if (!arg)
 			return FALSE;
 		cg_upnp_argument_setvalue(arg, "1");
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
@@ -1208,7 +1248,7 @@ BOOL cg_upnpav_dmr_avtransport_init(CgUpnpAvRenderer *dmr)
 	service = cg_upnp_device_getservicebytype(dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
 	if (!service)
 		return FALSE;
-	
+
 	if (cg_upnp_service_parsedescription(service, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION)) == FALSE)
 		return FALSE;
 
@@ -1227,7 +1267,7 @@ void cg_upnpav_dmr_setavtransportlastchange(CgUpnpAvRenderer *dmr, char *value)
 {
 	CgUpnpService *service;
 	CgUpnpStateVariable *stateVar;
-	
+
 	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
 	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
 	cg_upnp_statevariable_setvalue(stateVar, value);
@@ -1241,7 +1281,7 @@ char *cg_upnpav_dmr_getavtransportlastchange(CgUpnpAvRenderer *dmr)
 {
 	CgUpnpService *service;
 	CgUpnpStateVariable *stateVar;
-	
+
 	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
 	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
 	return cg_upnp_statevariable_getvalue(stateVar);
