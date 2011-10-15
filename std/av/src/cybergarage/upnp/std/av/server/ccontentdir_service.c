@@ -882,7 +882,7 @@ BOOL cg_upnpav_dms_medrec_actionreceived(CgUpnpAction *action)
                                                CG_UPNPAV_DMS_MEDIARECEIVER_RESULT);
         if (!arg)
             return FALSE;
-        cg_upnp_argument_setvalue(arg, "TRUE");
+        cg_upnp_argument_setvalue(arg, "1");
         return TRUE;
     }
 
@@ -891,7 +891,7 @@ BOOL cg_upnpav_dms_medrec_actionreceived(CgUpnpAction *action)
                                                CG_UPNPAV_DMS_MEDIARECEIVER_RESULT);
         if (!arg)
             return FALSE;
-        cg_upnp_argument_setvalue(arg, "TRUE");
+        cg_upnp_argument_setvalue(arg, "1");
         return TRUE;
     }
 
