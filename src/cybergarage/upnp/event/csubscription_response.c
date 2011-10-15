@@ -34,9 +34,14 @@
 
 void cg_upnp_event_subscription_subscriberesponse_setresponse(CgUpnpSubscriptionResponse *subRes, int code)
 {
+    char *server[CG_UPNP_SEVERNAME_MAXLEN];
 	cg_log_debug_l4("Entering...\n");
 
 	cg_http_response_setstatuscode(subRes, code);
+    cg_upnp_getservername(server, sizeof(server));
+    cg_http_packet_setheadervalue(((CgHttpPacket*)subRes),
+                                  CG_HTTP_SERVER,
+                                  server);
 	cg_http_response_setcontentlength(subRes, 0);
 
 	cg_log_debug_l4("Leaving...\n");
@@ -50,7 +55,7 @@ void cg_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *subR
 {
 	CgString *headerSID;
 	int uuidIdx;
-	
+
 	cg_log_debug_l4("Entering...\n");
 
 	headerSID = cg_string_new();
@@ -59,7 +64,7 @@ void cg_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *subR
 	if (uuidIdx < 0)
 		cg_string_addvalue(headerSID, CG_UPNP_ST_UUID_DEVICE ":");
 	cg_string_addvalue(headerSID, sid);
-	
+
 	cg_http_packet_setheadervalue(((CgHttpPacket*)subRes), CG_HTTP_SID, cg_string_getvalue(headerSID));
 
 	cg_string_delete(headerSID);
