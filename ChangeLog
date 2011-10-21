@@ -1,6 +1,3 @@
-2011-10-13 Satoshi Konno <skonno@cybergarage.org>
-    * Fixed cg_upnp_ssdp_server_thread() and cg_upnp_ssdpresponse_server_thread() to delete the thread using cg_thread_delete(). 
-
 2011-09-21 Satoshi Konno <skonno@cybergarage.org>
 	* Fixed cupnp_function.c to compile normally on iOS platforms.
 	* Fixed some memory leaks for Objective-C.
