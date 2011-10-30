@@ -297,7 +297,8 @@
 		return NO;
 	
 	for (CGUpnpAvObject *avObj in avObjs) {
-		if ([objectId isEqualToString:[avObj objectId]])
+        NSString *avObjectId = [avObj objectId];
+		if ([objectId isEqualToString:avObjectId])
 			return YES;
 	}
 	
