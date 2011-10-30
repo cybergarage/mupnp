@@ -119,12 +119,13 @@
 {
 	if (!cXmlNode)
 		return nil;
-	const char* attributeValue = cg_xml_node_getattributevalue(cXmlNode, (char *)[aName UTF8String]);
+        
+    NSString *attributeValueString = nil;
+	const char* attributeName = [aName UTF8String];
+	const char* attributeValue = cg_xml_node_getattributevalue(cXmlNode, (char *)attributeName);
 	if (attributeValue)
-	{
-		return [NSString stringWithUTF8String:attributeValue];
-	}
-	return nil;
+		attributeValueString = [NSString stringWithUTF8String:attributeValue];
+	return [[attributeValueString retain] autorelease];
 }
 
 - (NSString *)elementValueForName:(NSString *)aName
