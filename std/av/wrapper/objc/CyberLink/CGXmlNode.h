@@ -22,17 +22,12 @@ typedef void CgXmlNode;
  */
 @interface CGXmlNode : NSObject 
 {
-#if  !defined(TARGET_OS_IPHONE)
-	NSXMLElement *xmlNode;
-#else
-	CgXmlNode *cXmlNode;
-#endif
 	id	userInfo;
 }
 #if !defined(TARGET_OS_IPHONE)
 @property(retain) NSXMLElement *xmlNode;
 #else
-@property(assign, readonly) CgXmlNode *cXmlNode;
+@property(assign) CgXmlNode *cXmlNode;
 #endif
 @property(retain) id userInfo;
 - (id)init;

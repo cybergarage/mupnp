@@ -91,7 +91,7 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	cXmlNode = cg_xml_node_new();
+	self.cXmlNode = cg_xml_node_new();
 	return self;
 }
 
@@ -100,7 +100,7 @@
 	if ((self = [super init]) == nil)
 		return nil;
         
-	cXmlNode = cg_xml_node_new();
+	self.cXmlNode = cg_xml_node_new();
 	cg_xml_node_copy(cXmlNode, aXmlNode);
 
 	return self;
@@ -108,9 +108,10 @@
 
 - (void)dealloc
 {
-    [self setUserInfo:nil];
+	cg_xml_node_delete([self cXmlNode]);
     
-	cg_xml_node_delete(cXmlNode);
+    [self setUserInfo:nil];
+    [self setCXmlNode:nil];
     
 	[super dealloc];
 }
