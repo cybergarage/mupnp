@@ -76,13 +76,13 @@
 - (void)dealloc
 {
     self.contentDirectory = nil;
-    
+
 	id userObj = [self userObject];
 	if (userObj != nil) {
 		[userObj release];
 		[self setUserData:NULL];
     }
-    
+
 	if (cAvObject)
 		cg_upnpav_dms_delete(cAvObject);
         
@@ -210,7 +210,7 @@
 	CGUpnpAction *browseAction = [self browseAction];
 	NSString *resultStr = [browseAction argumentValueForName:@"Result"];
 	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
-	
+    
 	/* Update Content Manager */
 	CGUpnpAvObject *parentObj = [self objectForId:aObjectId];
 	if (parentObj != nil && [parentObj isContainer]) {
@@ -224,7 +224,7 @@
 		for (CGUpnpAvObject *avObj in avObjArray)
 			[[self delegate] upnpAvServer:self browse:browseAction avObject:avObj];
 	}
-	
+
 	return avObjArray;	
 }
 
@@ -325,8 +325,12 @@
 - (void)addAvObjectsFromArray:(NSMutableArray *)toAvObjs newAvObjs:(NSArray *)newAvObjs
 {
 	for (CGUpnpAvObject *avObj in newAvObjs) {
-		if ([self hasAvObject:toAvObjs objectId:[avObj objectId]])
+        // TODO FIX Memory Leaks
+        /*
+        NSString *objectId = [avObj objectId];
+		if ([self hasAvObject:toAvObjs objectId:objectId])
 			 continue;
+        */
 		[toAvObjs addObject:avObj];
 	}
 }
@@ -371,9 +375,7 @@
                 continue;
             }
 			if ([childAvObj isItem]) {
-				//if ([self hasAvObject:avObjs avObject:childAvObj] == NO) {
-					[avObjs addObject:childAvObj];
-                //}
+                [avObjs addObject:childAvObj];
                 continue;
             }
         }
