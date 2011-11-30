@@ -1,3 +1,7 @@
+2011-12-01
+	* Added a following control point sample for Objective-C on iOS.
+	  sample/upnpbrowser/ios/upnpbrowser.xcodeproj
+
 2011-09-21 Satoshi Konno <skonno@cybergarage.org>
 	* Fixed cupnp_function.c to compile normally on iOS platforms.
 	* Fixed some memory leaks for Objective-C.
