@@ -1,0 +1,406 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		2162BDC611D1262F00764ED8 /* UPnPDeviceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2162BDBF11D1262F00764ED8 /* UPnPDeviceTableViewCell.m */; };
+		2162BDC711D1262F00764ED8 /* UPnPDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2162BDC011D1262F00764ED8 /* UPnPDeviceViewController.m */; };
+		2162BDC811D1262F00764ED8 /* UPnPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2162BDC211D1262F00764ED8 /* UPnPTableViewCell.m */; };
+		21660F5814868194009674B4 /* libclinkc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21660F5714868156009674B4 /* libclinkc.a */; };
+		216DAE0911D2810800F12DA7 /* icon_device.png in Resources */ = {isa = PBXBuildFile; fileRef = 216DAE0711D2810800F12DA7 /* icon_device.png */; };
+		216DAE0A11D2810800F12DA7 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 216DAE0811D2810800F12DA7 /* Icon.png */; };
+		21955DE311D26DD700AC1964 /* UPnPPresentationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 21955DE211D26DD700AC1964 /* UPnPPresentationViewController.m */; };
+		219BBD6511D26C1E00AC0169 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 219BBD6411D26C1E00AC0169 /* iAd.framework */; };
+		21C3511F11D55F0800E054CE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C3511E11D55F0800E054CE /* CFNetwork.framework */; };
+		21C3512411D55F2C00E054CE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21C3512311D55F2C00E054CE /* SystemConfiguration.framework */; };
+		21CF792B148684780060045F /* UPnPBrowserAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 21CF792A148684780060045F /* UPnPBrowserAppDelegate.m */; };
+		21FB403E12A0032700A65FA2 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 21FB403D12A0032700A65FA2 /* Icon@2x.png */; };
+		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
+		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		21660F5614868156009674B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21660F4F14868155009674B4 /* clinkc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = clinkc;
+		};
+		21660F5C148682FA009674B4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 21660F4F14868155009674B4 /* clinkc.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = clinkc;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D6058910D05DD3D006BFB54 /* UPnPBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UPnPBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2162BDBE11D1262F00764ED8 /* UPnPDeviceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPDeviceTableViewCell.h; sourceTree = "<group>"; };
+		2162BDBF11D1262F00764ED8 /* UPnPDeviceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPnPDeviceTableViewCell.m; sourceTree = "<group>"; };
+		2162BDC011D1262F00764ED8 /* UPnPDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPnPDeviceViewController.m; sourceTree = "<group>"; };
+		2162BDC111D1262F00764ED8 /* UPnPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPTableViewCell.h; sourceTree = "<group>"; };
+		2162BDC211D1262F00764ED8 /* UPnPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPnPTableViewCell.m; sourceTree = "<group>"; };
+		2162BDE711D126B900764ED8 /* UPnPDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPDeviceViewController.h; sourceTree = "<group>"; };
+		21660F4F14868155009674B4 /* clinkc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = clinkc.xcodeproj; path = ../../../lib/ios/xcode/clinkc.xcodeproj; sourceTree = "<group>"; };
+		21660F59148681C7009674B4 /* upnpbrowser.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = upnpbrowser.plist; sourceTree = "<group>"; };
+		216DAE0711D2810800F12DA7 /* icon_device.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_device.png; path = Resources/icon_device.png; sourceTree = "<group>"; };
+		216DAE0811D2810800F12DA7 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Resources/Icon.png; sourceTree = "<group>"; };
+		21955DE111D26DD700AC1964 /* UPnPPresentationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPPresentationViewController.h; sourceTree = "<group>"; };
+		21955DE211D26DD700AC1964 /* UPnPPresentationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPnPPresentationViewController.m; sourceTree = "<group>"; };
+		219BBD6411D26C1E00AC0169 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		21C3511E11D55F0800E054CE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		21C3512311D55F2C00E054CE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		21CF7929148684780060045F /* UPnPBrowserAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPBrowserAppDelegate.h; sourceTree = "<group>"; };
+		21CF792A148684780060045F /* UPnPBrowserAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPnPBrowserAppDelegate.m; sourceTree = "<group>"; };
+		21FB403D12A0032700A65FA2 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icon@2x.png"; sourceTree = "<group>"; };
+		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21660F5814868194009674B4 /* libclinkc.a in Frameworks */,
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
+				219BBD6511D26C1E00AC0169 /* iAd.framework in Frameworks */,
+				21C3511F11D55F0800E054CE /* CFNetwork.framework in Frameworks */,
+				21C3512411D55F2C00E054CE /* SystemConfiguration.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				21CF7929148684780060045F /* UPnPBrowserAppDelegate.h */,
+				21CF792A148684780060045F /* UPnPBrowserAppDelegate.m */,
+				21955DE111D26DD700AC1964 /* UPnPPresentationViewController.h */,
+				21955DE211D26DD700AC1964 /* UPnPPresentationViewController.m */,
+				2162BDBE11D1262F00764ED8 /* UPnPDeviceTableViewCell.h */,
+				2162BDBF11D1262F00764ED8 /* UPnPDeviceTableViewCell.m */,
+				2162BDE711D126B900764ED8 /* UPnPDeviceViewController.h */,
+				2162BDC011D1262F00764ED8 /* UPnPDeviceViewController.m */,
+				2162BDC111D1262F00764ED8 /* UPnPTableViewCell.h */,
+				2162BDC211D1262F00764ED8 /* UPnPTableViewCell.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* UPnPBrowser.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		211CBFD011D11DE0001C85A2 /* CyberLink */ = {
+			isa = PBXGroup;
+			children = (
+				21660F4F14868155009674B4 /* clinkc.xcodeproj */,
+			);
+			name = CyberLink;
+			sourceTree = "<group>";
+		};
+		21660F5014868155009674B4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				21660F5714868156009674B4 /* libclinkc.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				211CBFD011D11DE0001C85A2 /* CyberLink */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				21FB403D12A0032700A65FA2 /* Icon@2x.png */,
+				216DAE0711D2810800F12DA7 /* icon_device.png */,
+				216DAE0811D2810800F12DA7 /* Icon.png */,
+				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
+				21660F59148681C7009674B4 /* upnpbrowser.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
+				219BBD6411D26C1E00AC0169 /* iAd.framework */,
+				21C3511E11D55F0800E054CE /* CFNetwork.framework */,
+				21C3512311D55F2C00E054CE /* SystemConfiguration.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* UPnPBrowser */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "UPnPBrowser" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				21660F5D148682FA009674B4 /* PBXTargetDependency */,
+			);
+			name = UPnPBrowser;
+			productName = iHomeBrowser;
+			productReference = 1D6058910D05DD3D006BFB54 /* UPnPBrowser.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "upnpbrowser" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+				en,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 21660F5014868155009674B4 /* Products */;
+					ProjectRef = 21660F4F14868155009674B4 /* clinkc.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* UPnPBrowser */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		21660F5714868156009674B4 /* libclinkc.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libclinkc.a;
+			remoteRef = 21660F5614868156009674B4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
+				216DAE0911D2810800F12DA7 /* icon_device.png in Resources */,
+				216DAE0A11D2810800F12DA7 /* Icon.png in Resources */,
+				21FB403E12A0032700A65FA2 /* Icon@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				2162BDC611D1262F00764ED8 /* UPnPDeviceTableViewCell.m in Sources */,
+				2162BDC711D1262F00764ED8 /* UPnPDeviceViewController.m in Sources */,
+				2162BDC811D1262F00764ED8 /* UPnPTableViewCell.m in Sources */,
+				21955DE311D26DD700AC1964 /* UPnPPresentationViewController.m in Sources */,
+				21CF792B148684780060045F /* UPnPBrowserAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		21660F5D148682FA009674B4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = clinkc;
+			targetProxy = 21660F5C148682FA009674B4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = upnpbrowser.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2",
+					../../../include,
+					../../../wrapper/objc,
+				);
+				INFOPLIST_FILE = upnpbrowser.plist;
+				OTHER_CFLAGS = "-DTARGET_OS_IPHONE";
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = UPnPBrowser;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = upnpbrowser.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2",
+					../../../include,
+					../../../wrapper/objc,
+				);
+				INFOPLIST_FILE = upnpbrowser.plist;
+				OTHER_CFLAGS = "-DTARGET_OS_IPHONE";
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = UPnPBrowser;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		2185FB0A11D960EE0025D473 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Satoshi Konno";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.1;
+			};
+			name = Distribution;
+		};
+		2185FB0B11D960EE0025D473 /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = upnpbrowser.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/include/libxml2",
+					../../../include,
+					../../../wrapper/objc,
+				);
+				INFOPLIST_FILE = upnpbrowser.plist;
+				OTHER_CFLAGS = "-DTARGET_OS_IPHONE";
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = UPnPBrowser;
+				SDKROOT = iphoneos;
+			};
+			name = Distribution;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = iphoneos3.1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "UPnPBrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+				2185FB0B11D960EE0025D473 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "upnpbrowser" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+				2185FB0A11D960EE0025D473 /* Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}
