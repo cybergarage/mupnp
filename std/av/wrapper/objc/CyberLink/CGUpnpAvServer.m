@@ -18,6 +18,8 @@
 
 #define CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT 999
 
+//#define CGUPNPAVSERVER_ENABLED_USEROBJECT_RETAIN 1
+
 @implementation CGUpnpAvServer
 
 @synthesize contentDirectory;
@@ -56,11 +58,15 @@
 {
 	id userObj = [self userObject];
 	if (userObj != nil) {
+#if defined(CGUPNPAVSERVER_ENABLED_USEROBJECT_RETAIN)
 		[userObj release];
+#endif
 		[self setUserData:NULL];
     }
 	if (aUserObj != nil) {
+#if defined(CGUPNPAVSERVER_ENABLED_USEROBJECT_RETAIN)
 		[aUserObj retain];
+#endif
 		[self setUserData:aUserObj];
 	}
 }
@@ -79,7 +85,9 @@
 
 	id userObj = [self userObject];
 	if (userObj != nil) {
+#if defined(CGUPNPAVSERVER_ENABLED_USEROBJECT_RETAIN)
 		[userObj release];
+#endif
 		[self setUserData:NULL];
     }
 
