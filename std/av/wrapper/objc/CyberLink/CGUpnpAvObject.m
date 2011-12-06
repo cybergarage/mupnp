@@ -35,15 +35,16 @@
 	for (NSXMLElement *contentNode in contentArray) {
 		CGUpnpAvObject *avObj = nil;
 		if ([[contentNode name] isEqualToString:@"container"]) {
-			CGUpnpAvContainer *avCon = [[[CGUpnpAvContainer alloc] initWithXMLNode:contentNode] autorelease];
+			CGUpnpAvContainer *avCon = [[CGUpnpAvContainer alloc] initWithXMLNode:contentNode];
 			avObj = avCon;
 		}
 		else if ([[contentNode name] isEqualToString:@"item"]) {
-			CGUpnpAvItem *avItem = [[[CGUpnpAvItem alloc] initWithXMLNode:contentNode] autorelease];
+			CGUpnpAvItem *avItem = [[CGUpnpAvItem alloc] initWithXMLNode:contentNode];
 			NSArray *resArray = [contentNode elementsForName:@"res"];
 			for (NSXMLElement *resNode in resArray) {
-				CGUpnpAvResource *avRes = [[[CGUpnpAvResource alloc] initWithXMLNode:resNode] autorelease];
+				CGUpnpAvResource *avRes = [[CGUpnpAvResource alloc] initWithXMLNode:resNode];
 				[avItem addResource:avRes];
+                [avRes release];
 			}
 			avObj = avItem;
 		}
@@ -75,15 +76,16 @@
 			for (cnode=cg_xml_node_getchildnodes(didlNode); cnode; cnode=cg_xml_node_next(cnode)) {
 				CGUpnpAvObject *avObj = nil;
 				if (cg_xml_node_isname(cnode, "container")) {
-					CGUpnpAvContainer *avCon = [[[CGUpnpAvContainer alloc] initWithXMLNode:cnode] autorelease];
+					CGUpnpAvContainer *avCon = [[CGUpnpAvContainer alloc] initWithXMLNode:cnode];
 					avObj = avCon;
 				}
 				else if (cg_xml_node_isname(cnode, "item")) {
-					CGUpnpAvItem *avItem = [[[CGUpnpAvItem alloc] initWithXMLNode:cnode] autorelease];
+					CGUpnpAvItem *avItem = [[CGUpnpAvItem alloc] initWithXMLNode:cnode];
 					for (rnode=cg_xml_node_getchildnodes(cnode); rnode; rnode=cg_xml_node_next(rnode)) {
 						if (cg_xml_node_isname(rnode, "res")) {
-							CGUpnpAvResource *avRes = [[[CGUpnpAvResource alloc] initWithXMLNode:rnode] autorelease];
+							CGUpnpAvResource *avRes = [[CGUpnpAvResource alloc] initWithXMLNode:rnode];
 							[avItem addResource:avRes];
+                            [avRes release];
 						}
 					}
 					avObj = avItem;
@@ -91,6 +93,7 @@
 				if (avObj == nil)
 					continue;
 				[avObjArray addObject:avObj];
+                [avObj release];
 			}
 		}
 	}
