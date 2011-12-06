@@ -271,6 +271,11 @@
 	return [conDirService getActionForName:@"Search"];
 }
 
+- (BOOL)hasSearchAvObjectDelegate
+{
+	return ([[self delegate] respondsToSelector:@selector(upnpAvServer:search:avObject:)]);
+}
+
 - (NSArray *)search:(NSString *)aSearchCriteria;
 {
 	CGUpnpAction *action = [self searchAction];
@@ -291,7 +296,7 @@
 	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
 	
 	/* CGUpnpAvServerDelegate */
-	if ([[self delegate] respondsToSelector:@selector(upnpAvServer:search:avObject:)]) {
+	if ([self hasSearchAvObjectDelegate]) {
 		for (CGUpnpAvObject *avObj in avObjArray)
 			[[self delegate] upnpAvServer:self search:action avObject:avObj];
 	}
@@ -372,6 +377,9 @@
 	[searchObjectIds addObject:objectId];
     
 	while (0 < [searchObjectIds count]) {
+    
+    	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+        
     	NSString *searchObjectId = [searchObjectIds objectAtIndex:0];
 		NSArray *childAvObjs = [self browseDirectChildren:searchObjectId];
         
@@ -382,11 +390,15 @@
 				[searchObjectIds addObject:[childAvObj objectId]];
                 continue;
             }
-			if ([childAvObj isItem]) {
-                [avObjs addObject:childAvObj];
-                continue;
+            if ([self hasSearchAvObjectDelegate] == NO) {
+                if ([childAvObj isItem]) {
+                    [avObjs addObject:childAvObj];
+                    continue;
+                }
             }
         }
+        
+        [pool drain];
     }
     
 	return avObjs;
