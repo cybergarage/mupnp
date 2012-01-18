@@ -1,4 +1,8 @@
-2011-12-01
+2012-01-16 Satoshi Konno <skonno@cybergarage.org>
+	* Improved cg_upnp_service_get*url() to return the absolute URL more correctly.
+	* Fixed cg_net_uri_setvalue() to parse correctly when the specified path is null.
+
+2011-12-01 Satoshi Konno <skonno@cybergarage.org>
 	* Added a following control point sample for Objective-C on iOS.
 	  sample/upnpbrowser/ios/upnpbrowser.xcodeproj
 

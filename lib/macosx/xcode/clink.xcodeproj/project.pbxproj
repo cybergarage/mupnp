@@ -703,6 +703,9 @@
 /* Begin PBXProject section */
 		210AF40F1331182E00A2EB09 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = 210AF4121331182E00A2EB09 /* Build configuration list for PBXProject "clink" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -868,7 +871,10 @@
 				EXECUTABLE_PREFIX = lib;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				HEADER_SEARCH_PATHS = ../../../include;
+				HEADER_SEARCH_PATHS = (
+					"${SDKROOT}/usr/include/libxml2",
+					../../../include,
+				);
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "-DHAVE_LIBUUID";
 				OTHER_LDFLAGS = "";
@@ -884,7 +890,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EXECUTABLE_PREFIX = lib;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				HEADER_SEARCH_PATHS = ../../../include;
+				HEADER_SEARCH_PATHS = (
+					"${SDKROOT}/usr/include/libxml2",
+					../../../include,
+				);
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_CFLAGS = "-DHAVE_LIBUUID";
 				OTHER_LDFLAGS = "";

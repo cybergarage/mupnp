@@ -93,9 +93,10 @@ char *cg_net_uri_getvalue(CgNetURI *uri);
 #define cg_net_uri_sethost(urip, value) cg_string_setvalue(urip->host, value)
 #define cg_net_uri_setport(urip, value) (urip->port = value)
 #define cg_net_uri_setpath(urip, value) cg_string_setvalue(urip->path, value)
+#define cg_net_uri_addpath(urip, value) cg_string_addvalue(urip->path, value)
 #define cg_net_uri_setquery(urip, value) cg_string_setvalue(urip->query, value)
 #define cg_net_uri_setfragment(urip, value) cg_string_setvalue(urip->fragment, value)
-
+    
 #define cg_net_uri_geturi(urip) cg_string_getvalue(urip->uri)
 #define cg_net_uri_getprotocol(urip) cg_string_getvalue(urip->protocol)
 #define cg_net_uri_getuser(urip) cg_string_getvalue(urip->user)
