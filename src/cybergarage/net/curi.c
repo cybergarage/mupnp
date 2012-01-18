@@ -195,10 +195,14 @@ void cg_net_uri_setvalue(CgNetURI *uri, char *value)
 
 	/*** Host (Port) ****/
 	shashIdx = cg_strstr(value+currIdx, CG_NET_URI_SLASH_DELIM);
-	if (0 < shashIdx)
-		cg_string_setnvalue(uri->host, value+currIdx,  shashIdx);
-	else if (cg_net_uri_isabsolute(uri) == TRUE)
+	if (0 < shashIdx) {
+		cg_string_setnvalue(uri->host, value+currIdx, shashIdx);
+        currIdx += shashIdx;
+    }
+	else if (cg_net_uri_isabsolute(uri) == TRUE) {
 		cg_string_setnvalue(uri->host, value+currIdx, cg_strlen(value) - currIdx);
+        currIdx += cg_strlen(value) - currIdx;
+    }
 	host = cg_net_uri_gethost(uri);
 	colonIdx = cg_strrchr(host, CG_NET_URI_COLON_DELIM, 1);
 	eblacketIdx = cg_strrchr(host, CG_NET_URI_EBLACET_DELIM, 1);
@@ -228,8 +232,6 @@ void cg_net_uri_setvalue(CgNetURI *uri, char *value)
 		if (cg_strcmp(protocol, CG_NET_URI_PROTOCOL_FTP) == 0)
 			uri->port = CG_NET_URI_DEFAULT_FTP_PORT;
 	}
-	
-	if (shashIdx > 0) currIdx += shashIdx;
 	
 	/*
 		Handle relative URL

@@ -60,7 +60,7 @@ typedef struct _CgNetURI CgNetURL;
 #define cg_net_url_sethost(urip, value) cg_string_setvalue(urip->host, value)
 #define cg_net_url_setport(urip, value) (urip->port = value)
 #define cg_net_url_setpath(urip, value) cg_string_setvalue(urip->path, value)
-#define cg_net_url_addpath(urip, value) cg_string_addvalue(urip->path, value)
+#define cg_net_url_addpath(urip, value) cg_net_uri_addpath(urip, value)
 #define cg_net_url_setquery(urip, value) cg_string_setvalue(urip->query, value)
 #define cg_net_url_setfragment(urip, value) cg_string_setvalue(urip->fragment, value)
 
