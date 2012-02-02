@@ -16,6 +16,9 @@
 {
 }
 @property(retain) NSMutableArray *resourceArray;
+#if defined(TARGET_OS_IPHONE)
+@property(retain) UIImage *thumbnailImage;
+#endif
 - (id)init;
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
