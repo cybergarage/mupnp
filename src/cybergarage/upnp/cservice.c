@@ -1204,7 +1204,6 @@ CgNetURL *cg_upnp_service_mangleabsoluteurl(char *serviceURLStr, char *baseURLSt
     
 	absServiceURL = cg_net_url_new();
     
-	cg_log_debug_s("URL string: %s type: %s\n", serviceURLStr, type);
 	cg_net_url_set(absServiceURL, serviceURLStr);
     
 	/* Absolute URL case */
