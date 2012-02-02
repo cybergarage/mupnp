@@ -82,6 +82,9 @@
 - (void)dealloc
 {
     self.contentDirectory = nil;
+#if defined(TARGET_OS_IPHONE)
+    self.thumbnailImage = nil;
+#endif
 
 	id userObj = [self userObject];
 	if (userObj != nil) {

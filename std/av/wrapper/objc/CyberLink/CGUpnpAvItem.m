@@ -15,6 +15,10 @@
 
 @synthesize resourceArray;
 
+#if defined(TARGET_OS_IPHONE)
+@synthesize thumbnailImage;
+#endif
+
 - (id)init
 {
 	if ((self = [super init]) == nil)
@@ -38,6 +42,10 @@
 - (void)dealloc
 {
 	self.resourceArray = nil;
+#if defined(TARGET_OS_IPHONE)
+    self.thumbnailImage = nil;
+#endif
+    
 	[super dealloc];
 }
 
