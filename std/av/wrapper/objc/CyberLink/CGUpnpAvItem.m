@@ -1,5 +1,5 @@
 //
-//  CGUpnpAvObject.m
+//  CGUpnpAvItem.m
 //  CyberLink for C
 //
 //  Created by Satoshi Konno on 08/07/01.
@@ -11,6 +11,13 @@
 #import "CGUpnpAvResource.h"
 #import "CGUpnpAvItem.h"
 
+@interface CGUpnpAvItem()
++ (NSArray *)dlnaStandardImageMimeTypes;
+- (NSArray *)resourcesWithMimeTypes:(NSArray *)mimeTypes;
+- (NSArray *)sortedImageResouces;
+- (NSArray *)sortedImageResoucesWithMimeTypes:(NSArray *)mimeTypes;
+@end
+
 @implementation CGUpnpAvItem
 
 @synthesize resourceArray;
@@ -18,6 +25,11 @@
 #if defined(TARGET_OS_IPHONE)
 @synthesize thumbnailImage;
 #endif
+
++ (NSArray *)dlnaStandardImageMimeTypes
+{
+    return [NSArray arrayWithObjects:@"image/jpeg", @"image/png", @"image/gif", nil];
+}
 
 - (id)init
 {
@@ -64,6 +76,23 @@
 	return [self resourceArray];
 }
 
+- (NSArray *)resourcesWithMimeTypes:(NSArray *)mimeTypes
+{
+	NSMutableArray *imageResouces = [NSMutableArray array];
+	for (CGUpnpAvResource *resource in [self resources]) {
+        NSString *resourceMimeType = [resource mimeType];
+        if (resourceMimeType == nil || [resourceMimeType length] <= 0)
+        	continue;
+        for (NSString *mimeType in mimeTypes) {
+            if ([mimeType isEqualToString:resourceMimeType]) {
+            	[imageResouces addObject:resource];
+                break;
+            }
+        }
+	}
+    return imageResouces;
+}
+
 - (CGUpnpAvResource *)resource
 {
 	if ([self isImageClass])
@@ -99,10 +128,24 @@
 	return [NSURL URLWithString:[resource url]];
 }
 
+- (CGUpnpAvResource *)smallImageResourceWithMimeTypes:(NSArray *)mimeTypes
+{
+	for (CGUpnpAvResource *res in [self resourcesWithMimeTypes:mimeTypes]) {
+		if ([res isSmallImage])
+			return [[res retain] autorelease];
+	}
+	return nil;
+}
+
 - (CGUpnpAvResource *)smallImageResource
 {
-	for (CGUpnpAvResource *res in [self resources]) {
-		if ([res isSmallImage])
+    return [self smallImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
+}
+
+- (CGUpnpAvResource *)mediumImageResourceWithMimeTypes:(NSArray *)mimeTypes
+{
+	for (CGUpnpAvResource *res in [self resourcesWithMimeTypes:mimeTypes]) {
+		if ([res isMediumImage])
 			return [[res retain] autorelease];
 	}
 	return nil;
@@ -110,8 +153,13 @@
 
 - (CGUpnpAvResource *)mediumImageResource
 {
-	for (CGUpnpAvResource *res in [self resources]) {
-		if ([res isMediumImage])
+    return [self mediumImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
+}
+
+- (CGUpnpAvResource *)largeImageResourceWithMimeTypes:(NSArray *)mimeTypes
+{
+	for (CGUpnpAvResource *res in [self resourcesWithMimeTypes:mimeTypes]) {
+		if ([res isLargeImage])
 			return [[res retain] autorelease];
 	}
 	return nil;
@@ -119,11 +167,7 @@
 
 - (CGUpnpAvResource *)largeImageResource
 {
-	for (CGUpnpAvResource *res in [self resources]) {
-		if ([res isLargeImage])
-			return [[res retain] autorelease];
-	}
-	return nil;
+    return [self largeImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
 }
 
 - (NSArray *)sortedImageResouces
@@ -139,27 +183,7 @@
     return [imageResouces sortedArrayUsingSelector:@selector(imageSizeCompare:)];
 }
 
-- (CGUpnpAvResource *)lowestImageResource
-{
-    NSArray *sortedImageResouces = [self sortedImageResouces];
-    
-    if ([sortedImageResouces count] <= 0)
-        return nil;
-    
-    return [sortedImageResouces objectAtIndex:0];
-}
-
-- (CGUpnpAvResource *)highestImageResource
-{
-    NSArray *sortedImageResouces = [self sortedImageResouces];
-    
-    if ([sortedImageResouces count] <= 0)
-        return nil;
-    
-    return [sortedImageResouces objectAtIndex:([sortedImageResouces count] - 1)];
-}
-
-- (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize mimeTypes:(NSArray *)mimeTypes
+- (NSArray *)sortedImageResoucesWithMimeTypes:(NSArray *)mimeTypes
 {
 	NSMutableArray *imageResouces = [NSMutableArray array];
 	for (CGUpnpAvResource *resource in [self sortedImageResouces]) {
@@ -173,6 +197,43 @@
             }
         }
 	}
+    return imageResouces;
+}
+
+- (CGUpnpAvResource *)lowestImageResourceWithMimeTypes:(NSArray *)mimeTypes
+{
+    NSArray *sortedImageResouces = [self sortedImageResoucesWithMimeTypes:mimeTypes];
+    
+    if ([sortedImageResouces count] <= 0)
+        return nil;
+    
+    return [sortedImageResouces objectAtIndex:0];
+}
+
+
+- (CGUpnpAvResource *)lowestImageResource
+{
+    return [self lowestImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
+}
+
+- (CGUpnpAvResource *)highestImageResourceWithMimeTypes:(NSArray *)mimeTypes
+{
+    NSArray *sortedImageResouces = [self sortedImageResoucesWithMimeTypes:mimeTypes];
+    
+    if ([sortedImageResouces count] <= 0)
+        return nil;
+    
+    return [sortedImageResouces objectAtIndex:([sortedImageResouces count] - 1)];
+}
+
+- (CGUpnpAvResource *)highestImageResource
+{
+    return [self highestImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
+}
+
+- (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize mimeTypes:(NSArray *)mimeTypes
+{
+	NSArray *imageResouces = [self sortedImageResoucesWithMimeTypes:mimeTypes];
 	
 	CGUpnpAvResource *applicableResource = nil;
 	for (CGUpnpAvResource *resource in imageResouces) {
@@ -190,7 +251,7 @@
 
 - (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize
 {
-	return [self applicableImageResourceBySize:wantedSize mimeTypes:[NSArray arrayWithObjects:@"image/jpeg", @"image/png", @"image/gif", nil]];
+	return [self applicableImageResourceBySize:wantedSize mimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
 }
 
 - (NSString *)thumbnailUrl
