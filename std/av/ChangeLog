@@ -1,3 +1,7 @@
+2012-02-08  Satoshi Konno <skonno@cybergarage.org>
+    * Changed the following methods in CGUpnpAvItem to return only a DLNA standard image.
+      smallImageResource, mediumImageResource, largeImageResource, lowestImageResource and highestImageResource.
+
 2011-10-13  Satoshi Konno <skonno@cybergarage.org>
     * Fixed some memory leaks of CGUPnPAVObject.
     
