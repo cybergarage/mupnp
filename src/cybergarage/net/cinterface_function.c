@@ -402,7 +402,11 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	
 	for (i = ifaddr; i != NULL; i = i->ifa_next) {
 
-		if(i->ifa_addr == NULL || i->ifa_netmask == NULL) continue;
+        // Thanks for Ricardo Rivldo (04/10/12) 
+        //  - for some reason, vmware and virtualbox \"virtual\" interfaces does not return ifa_addr 
+		if(i->ifa_addr == NULL || i->ifa_netmask == NULL)
+            continue;
+            
 		// Thanks for Tobias.Gansen (01/15/06)
 		if(i->ifa_addr->sa_family != AF_INET)
 			continue;
