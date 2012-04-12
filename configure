@@ -2657,7 +2657,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=clinkc
- VERSION=2.3
+ VERSION=2.4
 
 
 cat >>confdefs.h <<_ACEOF
@@ -4867,7 +4867,7 @@ fi
 done
 
 
-for ac_header in arpa/inet.h limits.h netdb.h netinet/in.h stdlib.h string.h sys/param.h sys/socket.h unistd.h
+for ac_header in arpa/inet.h limits.h netdb.h netinet/in.h stdlib.h string.h sys/param.h sys/socket.h unistd.h sys/ioctl.h sys/filio.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_cxx_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
@@ -6047,11 +6047,137 @@ if  test $USE_MUDFLAP_DEBUG = yes ; then
 	LDFLAGS="$LDFLAGS -lmudflapth"
 fi
 
+for ac_func in uuid_unparse_lower
+do :
+  ac_fn_cxx_check_func "$LINENO" "uuid_unparse_lower" "ac_cv_func_uuid_unparse_lower"
+if test "x$ac_cv_func_uuid_unparse_lower" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_UUID_UNPARSE_LOWER 1
+_ACEOF
+
+fi
+done
+
+
+# Solaris TCP stack
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing gethostbyname" >&5
+$as_echo_n "checking for library containing gethostbyname... " >&6; }
+if test "${ac_cv_search_gethostbyname+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_func_search_save_LIBS=$LIBS
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char gethostbyname ();
+int
+main ()
+{
+return gethostbyname ();
+  ;
+  return 0;
+}
+_ACEOF
+for ac_lib in '' nsl; do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_cxx_try_link "$LINENO"; then :
+  ac_cv_search_gethostbyname=$ac_res
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext
+  if test "${ac_cv_search_gethostbyname+set}" = set; then :
+  break
+fi
+done
+if test "${ac_cv_search_gethostbyname+set}" = set; then :
+
+else
+  ac_cv_search_gethostbyname=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_gethostbyname" >&5
+$as_echo "$ac_cv_search_gethostbyname" >&6; }
+ac_res=$ac_cv_search_gethostbyname
+if test "$ac_res" != no; then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+
+fi
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing socket" >&5
+$as_echo_n "checking for library containing socket... " >&6; }
+if test "${ac_cv_search_socket+set}" = set; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_func_search_save_LIBS=$LIBS
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char socket ();
+int
+main ()
+{
+return socket ();
+  ;
+  return 0;
+}
+_ACEOF
+for ac_lib in '' socket inet; do
+  if test -z "$ac_lib"; then
+    ac_res="none required"
+  else
+    ac_res=-l$ac_lib
+    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+  fi
+  if ac_fn_cxx_try_link "$LINENO"; then :
+  ac_cv_search_socket=$ac_res
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext
+  if test "${ac_cv_search_socket+set}" = set; then :
+  break
+fi
+done
+if test "${ac_cv_search_socket+set}" = set; then :
+
+else
+  ac_cv_search_socket=no
+fi
+rm conftest.$ac_ext
+LIBS=$ac_func_search_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_socket" >&5
+$as_echo "$ac_cv_search_socket" >&6; }
+ac_res=$ac_cv_search_socket
+if test "$ac_res" != no; then :
+  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+
+fi
+
+
 ##############################
 # Makefiles
 ##############################
 
-ac_config_files="$ac_config_files clinkc.pc Makefile include/Makefile lib/Makefile lib/unix/Makefile testunit/Makefile testunit/unix/Makefile sample/Makefile sample/clock/Makefile sample/clock/unix/Makefile sample/upnpdump/Makefile sample/upnpdump/unix/Makefile sample/upnpavdump/Makefile sample/upnpavdump/unix/Makefile sample/upnpigddump/Makefile sample/upnpigddump/unix/Makefile"
+ac_config_files="$ac_config_files clinkc.pc Makefile include/Makefile lib/Makefile lib/unix/Makefile sample/Makefile sample/clock/Makefile sample/clock/unix/Makefile sample/upnpdump/Makefile sample/upnpdump/unix/Makefile sample/upnpavdump/Makefile sample/upnpavdump/unix/Makefile sample/upnpigddump/Makefile sample/upnpigddump/unix/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -6778,8 +6904,6 @@ do
     "include/Makefile") CONFIG_FILES="$CONFIG_FILES include/Makefile" ;;
     "lib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
     "lib/unix/Makefile") CONFIG_FILES="$CONFIG_FILES lib/unix/Makefile" ;;
-    "testunit/Makefile") CONFIG_FILES="$CONFIG_FILES testunit/Makefile" ;;
-    "testunit/unix/Makefile") CONFIG_FILES="$CONFIG_FILES testunit/unix/Makefile" ;;
     "sample/Makefile") CONFIG_FILES="$CONFIG_FILES sample/Makefile" ;;
     "sample/clock/Makefile") CONFIG_FILES="$CONFIG_FILES sample/clock/Makefile" ;;
     "sample/clock/unix/Makefile") CONFIG_FILES="$CONFIG_FILES sample/clock/unix/Makefile" ;;
