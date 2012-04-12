@@ -706,6 +706,7 @@ enable_persistent_connections
 enable_optimized_cp
 enable_anyaddr
 enable_cfile
+enable_openssl
 enable_libcurl
 enable_mudflap_debug
 '
@@ -4438,6 +4439,7 @@ fi
 # Check whether libtool should be used
 #############################################################################
 
+
 # Check whether --with-libtool was given.
 if test "${with_libtool+set}" = set; then :
   withval=$with_libtool;
@@ -5235,9 +5237,9 @@ fi
 # Checks for SSL functions
 ##############################
 
-# Check whether --enable-cfile was given.
-if test "${enable_cfile+set}" = set; then :
-  enableval=$enable_cfile;
+# Check whether --enable-openssl was given.
+if test "${enable_openssl+set}" = set; then :
+  enableval=$enable_openssl;
                 if test $enableval = yes; then
                         CFLAGS="$CFLAGS -DCG_USE_OPENSSL"
                 fi
