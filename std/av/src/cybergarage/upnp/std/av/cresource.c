@@ -139,8 +139,8 @@ char *cg_upnpav_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaA
 		dlnaOrgCi = "0";
 		dlnaOrgOp = "00";
 	}
-	else if (cg_strcaseeq(mimeType, CG_UPNPAV_MIMETYPE_MPEG)) {
-		dlnaOrgPn = CG_UPNPAV_DLNA_PN_MPEG_PS_NTSC;
+	else if (cg_strcaseeq(mimeType, CG_UPNPAV_MIMETYPE_AVC)) {
+		dlnaOrgPn = CG_UPNPAV_DLNA_PN_AVC;
 		dlnaOrgFlags = "00200000000000000000000000000000";
 		dlnaOrgCi = "0";
 		dlnaOrgOp = "01";

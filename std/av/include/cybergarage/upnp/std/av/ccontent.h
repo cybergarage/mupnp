@@ -45,6 +45,7 @@ extern "C" {
 #define CG_UPNPAV_MIMETYPE_PNG "image/png"
 #define CG_UPNPAV_MIMETYPE_MPEG "video/mpeg"
 #define CG_UPNPAV_MIMETYPE_MP3 "audio/mpeg"
+#define CG_UPNPAV_MIMETYPE_AVC "video/mp4"
 
 #define CG_UPNPAV_UPNPCLASS_CONTAINER "object.container"
 #define CG_UPNPAV_UPNPCLASS_ITEM "object.item"
@@ -57,6 +58,7 @@ extern "C" {
 #define CG_UPNPAV_DLNA_PN_JPEG_LRG "JPEG_LRG"
 #define CG_UPNPAV_DLNA_PN_MPEG_PS_NTSC "MPEG_PS_NTSC"
 #define CG_UPNPAV_DLNA_PN_MP3 "MP3"
+#define CG_UPNPAV_DLNA_PN_AVC "AVC_MP4_ BL_CIF30C"
 
 /****************************************
 * Struct
