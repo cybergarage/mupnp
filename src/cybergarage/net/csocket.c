@@ -134,7 +134,7 @@ BOOL cg_socket_tosockaddrin(char *addr, int port, struct sockaddr_in *sockaddr, 
 BOOL cg_socket_tosockaddrinfo(int sockType, char *addr, int port, struct addrinfo **addrInfo, BOOL isBindAddr);
 #endif
 
-#define cg_socket_getrawtype(socket) ((socket->type == CG_NET_SOCKET_STREAM) ? SOCK_STREAM : SOCK_DGRAM)
+#define cg_socket_getrawtype(socket) (((socket->type & CG_NET_SOCKET_STREAM) == CG_NET_SOCKET_STREAM) ? SOCK_STREAM : SOCK_DGRAM)
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
 #define cg_socket_getprototype(socket) ((socket->type == CG_NET_SOCKET_STREAM) ? IPPROTO_TCP : IPPROTO_UDP)
