@@ -15,44 +15,6 @@ if(MSVC)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
 endif(MSVC)
 
-set(CLINKC_HDRS
-  include/cybergarage/http/chttp.h
-  include/cybergarage/io/cfile.h
-  include/cybergarage/net/cinterface.h
-  include/cybergarage/net/csocket.h
-  include/cybergarage/net/curi.h
-  include/cybergarage/net/curl.h
-  include/cybergarage/soap/csoap.h
-  include/cybergarage/typedef.h
-  include/cybergarage/upnp/caction.h
-  include/cybergarage/upnp/cargument.h
-  include/cybergarage/upnp/ccontrolpoint.h
-  include/cybergarage/upnp/cdevice.h
-  include/cybergarage/upnp/cicon.h
-  include/cybergarage/upnp/control/ccontrol.h
-  include/cybergarage/upnp/cservice.h
-  include/cybergarage/upnp/cstatevariable.h
-  include/cybergarage/upnp/cupnp.h
-  include/cybergarage/upnp/cupnp_function.h
-  include/cybergarage/upnp/cupnp_limit.h
-  include/cybergarage/upnp/cupnp_status.h
-  include/cybergarage/upnp/event/cevent.h
-  include/cybergarage/upnp/event/cnotify.h
-  include/cybergarage/upnp/event/cproperty.h
-  include/cybergarage/upnp/event/csubscriber.h
-  include/cybergarage/upnp/event/csubscription.h
-  include/cybergarage/upnp/ssdp/cssdp.h
-  include/cybergarage/upnp/ssdp/cssdp_server.h
-  include/cybergarage/util/ccond.h
-  include/cybergarage/util/cdictionary.h
-  include/cybergarage/util/clist.h
-  include/cybergarage/util/clog.h
-  include/cybergarage/util/cmutex.h
-  include/cybergarage/util/cstring.h
-  include/cybergarage/util/cthread.h
-  include/cybergarage/util/ctime.h
-  include/cybergarage/xml/cxml.h
-  )
 set(CLINKC_SRCS
   src/cybergarage/http/chttp.c
   src/cybergarage/http/chttp_date.c
@@ -172,6 +134,5 @@ target_link_libraries(clinkc ${LIBEXPAT_LIBRARY})
 
 # TODO: add_subdirectory(sample)
 
-# FIXME: Headers subdirectories
-install(FILES ${CLINKC_HDRS} DESTINATION include)
+install(DIRECTORY include/cybergarage/ DESTINATION include/cybergarage)
 install(TARGETS clinkc ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
