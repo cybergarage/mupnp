@@ -2,18 +2,39 @@ cmake_minimum_required(VERSION 2.6)
 
 project(CyberLinkForC)
 
+#
+# Build options
+#
+
 # TODO: Support options
 # option(CG_HTTP_CURL "Enable Libcurl support" OFF)
-# option(CG_HTTP_USE_PERSISTENT_CONNECTIONS "Enable persistent connections support" ON)
-# option(CG_NET_USE_ANYADDR "Enables the usage of IPV4_ADDRANY instead of registering an explicit server for each interface" ON)
-# option(CG_OPTIMIZED_CP_MODE "Enable optimized control point mode" OFF)
-# option(CG_USE_CFILE "Enable file functions" OFF)
-# option(CG_USE_OPENSSL "Enable OpenSSL support" OFF)
 # option(CG_XMLPARSER_LIBXML2 "Enable Libxml2 support" OFF)
+
+option(CG_HTTP_USE_PERSISTENT_CONNECTIONS "Enable persistent connections support" ON)
+option(CG_NET_USE_ANYADDR "Enables the usage of IPV4_ADDRANY instead of registering an explicit server for each interface" ON)
+option(CG_OPTIMIZED_CP_MODE "Enable optimized control point mode" OFF)
+option(CG_USE_CFILE "Enable file functions" OFF)
+option(CG_USE_OPENSSL "Enable OpenSSL support" OFF)
+
+foreach(OPT
+    CG_HTTP_USE_PERSISTENT_CONNECTIONS CG_NET_USE_ANYADDR
+    CG_OPTIMIZED_CP_MODE CG_USE_CFILE CG_USE_OPENSSL)
+  if(${OPT})
+    add_definitions(-D${OPT})
+  endif(${OPT})
+endforeach()
+
+#
+# Compiler related
+#
 
 if(MSVC)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
 endif(MSVC)
+
+#
+# Sources and targets
+#
 
 set(CLINKC_SRCS
   src/cybergarage/http/chttp.c
@@ -114,6 +135,12 @@ set(CLINKC_SRCS
 include_directories(include)
 add_library(clinkc STATIC ${CLINKC_SRCS})
 
+# TODO: add_subdirectory(sample)
+
+#
+# Dependencies
+#
+
 if(NOT WIN32)
   find_library(LIBUUID_LIBRARY uuid)
   find_path(LIBUUID_INCLUDE_DIR uuid/uuid.h)
@@ -132,7 +159,15 @@ find_path(LIBEXPAT_INCLUDE_DIR expat.h PATH_SUFFIXES expat)
 include_directories(${LIBEXPAT_INCLUDE_DIR})
 target_link_libraries(clinkc ${LIBEXPAT_LIBRARY})
 
-# TODO: add_subdirectory(sample)
+if(CG_USE_OPENSSL)
+  find_package(OpenSSL REQUIRED)
+  include_directories(${OPENSSL_INCLUDE_DIR})
+  target_link_libraries(clinkc ${OPENSSL_LIBRARIES})
+endif(CG_USE_OPENSSL)
+
+#
+# Installation
+#
 
 install(DIRECTORY include/cybergarage/ DESTINATION include/cybergarage)
 install(TARGETS clinkc ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
