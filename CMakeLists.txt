@@ -8,17 +8,18 @@ project(CyberLinkForC)
 
 # TODO: Support options
 # option(CG_HTTP_CURL "Enable Libcurl support" OFF)
-# option(CG_XMLPARSER_LIBXML2 "Enable Libxml2 support" OFF)
 
 option(CG_HTTP_USE_PERSISTENT_CONNECTIONS "Enable persistent connections support" ON)
 option(CG_NET_USE_ANYADDR "Enables the usage of IPV4_ADDRANY instead of registering an explicit server for each interface" ON)
 option(CG_OPTIMIZED_CP_MODE "Enable optimized control point mode" OFF)
 option(CG_USE_CFILE "Enable file functions" OFF)
 option(CG_USE_OPENSSL "Enable OpenSSL support" OFF)
+option(CG_XMLPARSER_LIBXML2 "Use Libxml2 instead of Expat for XML parsing" OFF)
 
 foreach(OPT
     CG_HTTP_USE_PERSISTENT_CONNECTIONS CG_NET_USE_ANYADDR
-    CG_OPTIMIZED_CP_MODE CG_USE_CFILE CG_USE_OPENSSL)
+    CG_OPTIMIZED_CP_MODE CG_USE_CFILE CG_USE_OPENSSL
+    CG_XMLPARSER_LIBXML2)
   if(${OPT})
     add_definitions(-D${OPT})
   endif(${OPT})
@@ -154,16 +155,23 @@ if(NOT WIN32)
   target_link_libraries(clinkc ${LIBUUID_LIBRARY})
 endif(NOT WIN32)
 
-find_library(LIBEXPAT_LIBRARY expat)
-find_path(LIBEXPAT_INCLUDE_DIR expat.h PATH_SUFFIXES expat)
-include_directories(${LIBEXPAT_INCLUDE_DIR})
-target_link_libraries(clinkc ${LIBEXPAT_LIBRARY})
-
 if(CG_USE_OPENSSL)
   find_package(OpenSSL REQUIRED)
   include_directories(${OPENSSL_INCLUDE_DIR})
   target_link_libraries(clinkc ${OPENSSL_LIBRARIES})
 endif(CG_USE_OPENSSL)
+
+if(CG_XMLPARSER_LIBXML2)
+  find_package(LibXml2 REQUIRED)
+  add_definitions(${LIBXML2_DEFINITIONS})
+  include_directories(${LIBXML2_INCLUDE_DIR})
+  target_link_libraries(clinkc ${LIBXML2_LIBRARIES})
+else(CG_XMLPARSER_LIBXML2)
+  find_library(LIBEXPAT_LIBRARY expat)
+  find_path(LIBEXPAT_INCLUDE_DIR expat.h PATH_SUFFIXES expat)
+  include_directories(${LIBEXPAT_INCLUDE_DIR})
+  target_link_libraries(clinkc ${LIBEXPAT_LIBRARY})
+endif(CG_XMLPARSER_LIBXML2)
 
 #
 # Installation
