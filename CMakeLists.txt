@@ -7,8 +7,10 @@ project(CyberLinkForC)
 #
 
 option(CG_HTTP_CURL "Enable Libcurl support" OFF)
-option(CG_HTTP_USE_PERSISTENT_CONNECTIONS "Enable persistent connections support" ON)
-option(CG_NET_USE_ANYADDR "Enables the usage of IPV4_ADDRANY instead of registering an explicit server for each interface" ON)
+option(CG_HTTP_USE_PERSISTENT_CONNECTIONS
+  "Enable persistent connections support" ON)
+option(CG_NET_USE_ANYADDR
+  "Enables the usage of IPV4_ADDRANY instead of registering an explicit server for each interface" ON)
 option(CG_OPTIMIZED_CP_MODE "Enable optimized control point mode" OFF)
 option(CG_USE_CFILE "Enable file functions" OFF)
 option(CG_USE_OPENSSL "Enable OpenSSL support" OFF)
@@ -180,5 +182,7 @@ endif(CG_XMLPARSER_LIBXML2)
 # Installation
 #
 
-install(DIRECTORY include/cybergarage/ DESTINATION include/cybergarage)
-install(TARGETS clinkc ARCHIVE DESTINATION lib LIBRARY DESTINATION lib RUNTIME DESTINATION bin)
+install(DIRECTORY include/cybergarage/ DESTINATION include/cybergarage
+  FILES_MATCHING PATTERN "*.h")
+install(TARGETS clinkc ARCHIVE DESTINATION lib LIBRARY DESTINATION lib
+  RUNTIME DESTINATION bin)
