@@ -6,9 +6,7 @@ project(CyberLinkForC)
 # Build options
 #
 
-# TODO: Support options
-# option(CG_HTTP_CURL "Enable Libcurl support" OFF)
-
+option(CG_HTTP_CURL "Enable Libcurl support" OFF)
 option(CG_HTTP_USE_PERSISTENT_CONNECTIONS "Enable persistent connections support" ON)
 option(CG_NET_USE_ANYADDR "Enables the usage of IPV4_ADDRANY instead of registering an explicit server for each interface" ON)
 option(CG_OPTIMIZED_CP_MODE "Enable optimized control point mode" OFF)
@@ -17,9 +15,8 @@ option(CG_USE_OPENSSL "Enable OpenSSL support" OFF)
 option(CG_XMLPARSER_LIBXML2 "Use Libxml2 instead of Expat for XML parsing" OFF)
 
 foreach(OPT
-    CG_HTTP_USE_PERSISTENT_CONNECTIONS CG_NET_USE_ANYADDR
-    CG_OPTIMIZED_CP_MODE CG_USE_CFILE CG_USE_OPENSSL
-    CG_XMLPARSER_LIBXML2)
+    CG_HTTP_CURL CG_HTTP_USE_PERSISTENT_CONNECTIONS CG_NET_USE_ANYADDR
+    CG_OPTIMIZED_CP_MODE CG_USE_CFILE CG_USE_OPENSSL CG_XMLPARSER_LIBXML2)
   if(${OPT})
     add_definitions(-D${OPT})
   endif(${OPT})
@@ -154,6 +151,12 @@ if(NOT WIN32)
   include_directories(${LIBUUID_INCLUDE_DIR})
   target_link_libraries(clinkc ${LIBUUID_LIBRARY})
 endif(NOT WIN32)
+
+if(CG_HTTP_CURL)
+  find_package(CURL REQUIRED)
+  include_directories(${CURL_INCLUDE_DIRS})
+  target_link_libraries(clinkc ${CURL_LIBRARIES})
+endif(CG_HTTP_CURL)
 
 if(CG_USE_OPENSSL)
   find_package(OpenSSL REQUIRED)
