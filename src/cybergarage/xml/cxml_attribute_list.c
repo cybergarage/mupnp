@@ -63,10 +63,10 @@ void cg_xml_attributelist_delete(CgXmlAttributeList *attrList)
 * cg_xml_attributelist_getattribute
 ****************************************/
 
-CgXmlAttribute *cg_xml_attributelist_get(CgXmlAttributeList *attrList, char *name)
+CgXmlAttribute *cg_xml_attributelist_get(CgXmlAttributeList *attrList, const char *name)
 {
 	CgXmlAttribute *attr;
-	char *attrName;
+	const char *attrName;
 		
 	cg_log_debug_l4("Entering...\n");
 
@@ -90,7 +90,7 @@ CgXmlAttribute *cg_xml_attributelist_get(CgXmlAttributeList *attrList, char *nam
 * cg_xml_attributelist_setattribute
 ****************************************/
 
-void cg_xml_attributelist_set(CgXmlAttributeList *attrList, char *name, char *value)
+void cg_xml_attributelist_set(CgXmlAttributeList *attrList, const char *name, const char *value)
 {
 	CgXmlAttribute *attr;
 	
@@ -112,7 +112,7 @@ void cg_xml_attributelist_set(CgXmlAttributeList *attrList, char *name, char *va
 * cg_xml_attributelist_getvalue
 ****************************************/
 
-char *cg_xml_attributelist_getvalue(CgXmlAttributeList *attrList, char *name)
+const char *cg_xml_attributelist_getvalue(CgXmlAttributeList *attrList, const char *name)
 {
 	CgXmlAttribute *attr;
 

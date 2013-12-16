@@ -69,7 +69,7 @@ void cg_xml_nodelist_delete(CgXmlNodeList *nodeList)
 * cg_xml_nodelist_getbyname
 ****************************************/
 
-CgXmlNode *cg_xml_nodelist_getbyname(CgXmlNodeList *nodeList, char *name)
+CgXmlNode *cg_xml_nodelist_getbyname(CgXmlNodeList *nodeList, const char *name)
 {
 	CgXmlNode *node;
 	char *nodeName;
@@ -96,7 +96,7 @@ CgXmlNode *cg_xml_nodelist_getbyname(CgXmlNodeList *nodeList, char *name)
 * cg_xml_nodelist_getbyxpath
 ****************************************/
 
-CgXmlNode *cg_xml_nodelist_getbyxpath(CgXmlNodeList *nodeList, char *name)
+CgXmlNode *cg_xml_nodelist_getbyxpath(CgXmlNodeList *nodeList, const char *name)
 {
 	CgXmlNode *node;
 	char *nodeName;

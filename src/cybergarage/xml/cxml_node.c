@@ -119,7 +119,7 @@ void cg_xml_node_addchildnode(CgXmlNode *node, CgXmlNode *cnode)
 * cg_xml_node_setchildnode
 ****************************************/
 
-void cg_xml_node_setchildnode(CgXmlNode *node, char *name, char *value)
+void cg_xml_node_setchildnode(CgXmlNode *node, const char *name, const char *value)
 {
 	CgXmlNode *childNode;
 
@@ -144,7 +144,7 @@ void cg_xml_node_setchildnode(CgXmlNode *node, char *name, char *value)
 * If ns is NULL, name string must match completely
 *****************************************************************************/
 
-CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, char *name, char *ns, BOOL ignoreNs)
+CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *name, const char *ns, BOOL ignoreNs)
 {
 	char *nameWithPrefix = NULL;
 	size_t nameLen = 0;
@@ -217,7 +217,7 @@ CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, char *name, ch
 * cg_xml_node_getchildnodevalue
 ****************************************/
 
-char *cg_xml_node_getchildnodevalue(CgXmlNode *node, char *name)
+const char *cg_xml_node_getchildnodevalue(CgXmlNode *node, const char *name)
 {
 	CgXmlNode *childNode;
 
@@ -236,7 +236,7 @@ char *cg_xml_node_getchildnodevalue(CgXmlNode *node, char *name)
 * cg_xml_node_removeattribute
 ****************************************/
 
-void cg_xml_node_removeattribute(CgXmlNode *node, char *name)
+void cg_xml_node_removeattribute(CgXmlNode *node, const char *name)
 {
 	CgXmlAttribute *attr;
 
@@ -287,8 +287,8 @@ void cg_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode)
 static char *cg_xml_node_attribute_tostring(CgXmlNode *node, CgString *str)
 {
 	CgXmlAttribute *attr;
-	char *name;
-	char *value;
+	const char *name;
+	const char *value;
 	CgString *valueStr;
 	
 	cg_log_debug_l4("Entering...\n");

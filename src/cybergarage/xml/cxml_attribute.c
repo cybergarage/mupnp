@@ -64,7 +64,7 @@ void cg_xml_attribute_delete(CgXmlAttribute *attr)
 * cg_xml_attribute_setname
 ****************************************/
 
-void cg_xml_attribute_setname(CgXmlAttribute *attr, char *name)
+void cg_xml_attribute_setname(CgXmlAttribute *attr, const char *name)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -77,7 +77,7 @@ void cg_xml_attribute_setname(CgXmlAttribute *attr, char *name)
 * cg_xml_attribute_getname
 ****************************************/
 
-char *cg_xml_attribute_getname(CgXmlAttribute *attr)
+const char *cg_xml_attribute_getname(CgXmlAttribute *attr)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -90,7 +90,7 @@ char *cg_xml_attribute_getname(CgXmlAttribute *attr)
 * cg_xml_attribute_isname
 ****************************************/
 
-BOOL cg_xml_attribute_isname(CgXmlAttribute *attr, char *name)
+BOOL cg_xml_attribute_isname(CgXmlAttribute *attr, const char *name)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -103,7 +103,7 @@ BOOL cg_xml_attribute_isname(CgXmlAttribute *attr, char *name)
 * cg_xml_attribute_setvalue
 ****************************************/
 
-void cg_xml_attribute_setvalue(CgXmlAttribute *attr, char *value)
+void cg_xml_attribute_setvalue(CgXmlAttribute *attr, const char *value)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -116,7 +116,7 @@ void cg_xml_attribute_setvalue(CgXmlAttribute *attr, char *value)
 * cg_xml_attribute_setvalue
 ****************************************/
 
-char *cg_xml_attribute_getvalue(CgXmlAttribute *attr)
+const char *cg_xml_attribute_getvalue(CgXmlAttribute *attr)
 {
 	cg_log_debug_l4("Entering...\n");
 

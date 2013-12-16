@@ -35,13 +35,8 @@ CgStringTokenizer *cg_string_tokenizer_new(const char *value, const char *delim)
 
 	if ( NULL != strToken )
 	{
-#if defined(NOUSE_ZERO_COPY)
 		strToken->value = cg_strdup(value);
 		strToken->delim = cg_strdup(delim);
-#else
-		strToken->value = value;
-		strToken->delim = delim;
-#endif
 		strToken->delimCnt = cg_strlen(strToken->delim);
 		strToken->nextStartPos = 0;
 		strToken->lastPos = cg_strlen(value) - 1;
@@ -63,10 +58,8 @@ void cg_string_tokenizer_delete(CgStringTokenizer *strToken)
 {
 	cg_log_debug_l4("Entering...\n");
 
-#if defined(NOUSE_ZERO_COPY)
 	free(strToken->value);
 	free(strToken->delim);
-#endif
 	free(strToken);
 
 	cg_log_debug_l4("Leaving...\n");
