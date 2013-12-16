@@ -297,7 +297,7 @@ CgSocket *cg_socket_new(int type)
 * cg_socket_delete
 ****************************************/
 
-int cg_socket_delete(CgSocket *sock)
+BOOL cg_socket_delete(CgSocket *sock)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -311,7 +311,7 @@ int cg_socket_delete(CgSocket *sock)
 
 	cg_log_debug_l4("Leaving...\n");
 
-	return 0;
+	return TRUE;
 }
 
 /****************************************
@@ -737,9 +737,9 @@ BOOL cg_socket_connect(CgSocket *sock, char *addr, int port)
 * cg_socket_read
 ****************************************/
 
-int cg_socket_read(CgSocket *sock, char *buffer, int bufferLen)
+ssize_t cg_socket_read(CgSocket *sock, char *buffer, size_t bufferLen)
 {
-	int recvLen;
+	ssize_t recvLen;
 
 #if defined(CG_USE_OPENSSL)
 	if (cg_socket_isssl(sock) == FALSE) {
@@ -767,7 +767,7 @@ int cg_socket_read(CgSocket *sock, char *buffer, int bufferLen)
 #ifdef SOCKET_DEBUG
 	if (0 <= recvLen)
 		buffer[recvLen] = '\0';
-cg_log_debug_s("r %d : %s\n", recvLen, (0 <= recvLen) ? buffer : "");
+  cg_log_debug_s("r %d : %s\n", recvLen, (0 <= recvLen) ? buffer : "");
 #endif
 
 	cg_log_debug_l4("Leaving...\n");
@@ -782,11 +782,11 @@ cg_log_debug_s("r %d : %s\n", recvLen, (0 <= recvLen) ? buffer : "");
 #define CG_NET_SOCKET_SEND_RETRY_CNT 10
 #define CG_NET_SOCKET_SEND_RETRY_WAIT_MSEC 20
 
-int cg_socket_write(CgSocket *sock, char *cmd, int cmdLen)
+size_t cg_socket_write(CgSocket *sock, char *cmd, size_t cmdLen)
 {
-	int nSent;
-	int nTotalSent = 0;
-	int cmdPos = 0;
+	ssize_t nSent;
+	size_t nTotalSent = 0;
+	size_t cmdPos = 0;
 	int retryCnt = 0;
 
 	cg_log_debug_l4("Entering...\n");
@@ -853,10 +853,10 @@ cg_log_debug_s("w %d : %s\n", nTotalSent, ((cmd != NULL) ? cmd : ""));
 * cg_socket_readline
 ****************************************/
 
-int cg_socket_readline(CgSocket *sock, char *buffer, int bufferLen)
+size_t cg_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen)
 {
-	int readCnt;
-	int readLen;
+	size_t readCnt;
+	ssize_t readLen;
 	char c;
 	
 	cg_log_debug_l4("Entering...\n");
@@ -888,10 +888,10 @@ int cg_socket_readline(CgSocket *sock, char *buffer, int bufferLen)
 * cg_socket_skip
 ****************************************/
 
-long cg_socket_skip(CgSocket *sock, long skipLen)
+size_t cg_socket_skip(CgSocket *sock, size_t skipLen)
 {
-	int readCnt;
-	int readLen;
+	size_t readCnt;
+	ssize_t readLen;
 	char c;
 	
 	cg_log_debug_l4("Entering...\n");
@@ -913,7 +913,7 @@ long cg_socket_skip(CgSocket *sock, long skipLen)
 * cg_socket_sendto
 ****************************************/
 
-int cg_socket_sendto(CgSocket *sock, char *addr, int port, char *data, int dataLen)
+size_t cg_socket_sendto(CgSocket *sock, char *addr, int port, char *data, size_t dataLen)
 {
 #if defined(BTRON) || defined(TENGINE)
 	struct sockaddr_in sockaddr;
@@ -923,14 +923,14 @@ int cg_socket_sendto(CgSocket *sock, char *addr, int port, char *data, int dataL
 #else
 	struct addrinfo *addrInfo;
 #endif
-	int sentLen;
+	ssize_t sentLen;
 	BOOL isBoundFlag;
 
 	cg_log_debug_l4("Entering...\n");
 
 	if (data == NULL)
 		return 0;
-	if (dataLen < 0)
+	if (dataLen <= 0)
 		dataLen = cg_strlen(data);
 	if (dataLen <= 0)
 		return 0;
@@ -994,9 +994,9 @@ cg_log_debug_s("sentLen : %d\n", sentLen);
 * cg_socket_recv
 ****************************************/
 
-int cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt)
+ssize_t cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt)
 {
-	int recvLen = 0;
+	ssize_t recvLen = 0;
 	char recvBuf[CG_NET_SOCKET_DGRAM_RECV_BUFSIZE+1];
 	char remoteAddr[CG_NET_SOCKET_MAXHOST];
 	char remotePort[CG_NET_SOCKET_MAXSERV];
@@ -1023,6 +1023,7 @@ int cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt)
 
 	if (recvLen <= 0)
 		return 0;
+
 	recvBuf[recvLen] = '\0';
 	cg_socket_datagram_packet_setdata(dgmPkt, recvBuf);
 
@@ -1048,7 +1049,7 @@ int cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt)
 
 	if (getnameinfo((struct sockaddr *)&from, fromLen, remoteAddr, sizeof(remoteAddr), remotePort, sizeof(remotePort), NI_NUMERICHOST | NI_NUMERICSERV) == 0) {
 		cg_socket_datagram_packet_setremoteaddress(dgmPkt, remoteAddr);
-		cg_socket_datagram_packet_setremoteport(dgmPkt, atol(remotePort));
+		cg_socket_datagram_packet_setremoteport(dgmPkt, cg_str2int(remotePort));
 	}
 
 	cg_log_debug_s("From pointer %p\n", &from);

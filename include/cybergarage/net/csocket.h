@@ -125,7 +125,7 @@ void cg_socket_cleanup();
 CgSocket *cg_socket_new(int type);
 #define cg_socket_stream_new() cg_socket_new(CG_NET_SOCKET_STREAM)
 #define cg_socket_dgram_new() cg_socket_new(CG_NET_SOCKET_DGRAM)
-int cg_socket_delete(CgSocket *socket);
+BOOL cg_socket_delete(CgSocket *socket);
 
 void cg_socket_setid(CgSocket *socket, SOCKET value);
 #define cg_socket_getid(socket) (socket->id)
@@ -153,13 +153,13 @@ BOOL cg_socket_listen(CgSocket *socket);
 BOOL cg_socket_bind(CgSocket *sock, int bindPort, char *bindAddr, BOOL bindFlag, BOOL reuseFlag);
 BOOL cg_socket_accept(CgSocket *sock, CgSocket *clientSock);
 BOOL cg_socket_connect(CgSocket *sock, char *addr, int port);
-int cg_socket_read(CgSocket *sock, char *buffer, int bufferLen);
-int cg_socket_write(CgSocket *sock, char *buffer, int bufferLen);
-int cg_socket_readline(CgSocket *sock, char *buffer, int bufferLen);
-long cg_socket_skip(CgSocket *sock, long skipLen);
+ssize_t cg_socket_read(CgSocket *sock, char *buffer, size_t bufferLen);
+size_t cg_socket_write(CgSocket *sock, char *buffer, size_t bufferLen);
+size_t cg_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen);
+size_t cg_socket_skip(CgSocket *sock, size_t skipLen);
 
-int cg_socket_sendto(CgSocket *sock, char *addr, int port, char *data, int dataeLen);
-int cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt);
+size_t cg_socket_sendto(CgSocket *sock, char *addr, int port, char *data, size_t dataeLen);
+ssize_t cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt);
 
 int cg_socket_getlasterror();
 
