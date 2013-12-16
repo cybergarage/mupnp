@@ -159,7 +159,7 @@ void cg_dictionary_delete(CgDictionary *dir);
  * \param key Name to search.
  * \return Element of the specified key.
  */
-CgDictionaryElement *cg_dictionary_get(CgDictionary *dir, char *key);
+CgDictionaryElement *cg_dictionary_get(CgDictionary *dir, const char *key);
 
 /**
  * Set a new element into a dictionary 
@@ -168,7 +168,7 @@ CgDictionaryElement *cg_dictionary_get(CgDictionary *dir, char *key);
  * \param key Name to set.
  * \param value Value to set.
  */
-void cg_dictionary_setvalue(CgDictionary *dir, char *key, char *value);
+void cg_dictionary_setvalue(CgDictionary *dir, const char *key, const char *value);
 
 /**
  * Get a value of the specified key
@@ -177,7 +177,7 @@ void cg_dictionary_setvalue(CgDictionary *dir, char *key, char *value);
  * \param key Name to search.
  * \return Value of the specified key.
  */
-char *cg_dictionary_getvalue(CgDictionary *dir, char *key);
+const char *cg_dictionary_getvalue(CgDictionary *dir, const char *key);
 
 #ifdef  __cplusplus
 

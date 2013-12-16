@@ -63,7 +63,7 @@ void cg_dictionary_delete(CgDictionary *dictionaryList)
 * cg_dictionary_getelement
 ****************************************/
 
-CgDictionaryElement *cg_dictionary_getelement(CgDictionary *dir, char *key)
+CgDictionaryElement *cg_dictionary_getelement(CgDictionary *dir, const char *key)
 {
 	CgDictionaryElement *dirElem;
 	char *dirElemKey;
@@ -90,7 +90,7 @@ CgDictionaryElement *cg_dictionary_getelement(CgDictionary *dir, char *key)
 * cg_dictionary_setvalue
 ****************************************/
 
-void cg_dictionary_setvalue(CgDictionary *dir, char *key, char *value)
+void cg_dictionary_setvalue(CgDictionary *dir, const char *key, const char *value)
 {
 	CgDictionaryElement *dirElem;
 
@@ -111,7 +111,7 @@ void cg_dictionary_setvalue(CgDictionary *dir, char *key, char *value)
 * cg_dictionary_getvalue
 ****************************************/
 
-char *cg_dictionary_getvalue(CgDictionary *dir, char *key)
+const char *cg_dictionary_getvalue(CgDictionary *dir, const char *key)
 {
 	CgDictionaryElement *dirElem;
 

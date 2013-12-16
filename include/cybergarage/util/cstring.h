@@ -54,18 +54,18 @@ extern "C" {
 * Function 
 ****************************************/
 	
-char *cg_strdup(char *str);
-size_t cg_strlen(char *str);
-char *cg_strcpy(char *dest, char *src);
-char *cg_strcat(char *dest, char *src);
-int cg_strcmp(char *str1, char *str2);
-int cg_strncmp(char *str1, char *str2, int nchars);
-int cg_strcasecmp(char *str1, char *str2);
-BOOL cg_streq(char *str1, char *str2);
-BOOL cg_strcaseeq(char *str1, char *str2);
-ssize_t cg_strchr(char *str, char *chars, int nchars);
-ssize_t cg_strrchr(char *str, char *chars, int nchars);
-ssize_t cg_strstr(char *haystack, char *needle);
+char *cg_strdup(const char *str);
+size_t cg_strlen(const char *str);
+char *cg_strcpy(char *dest, const char *src);
+char *cg_strcat(char *dest, const char *src);
+int cg_strcmp(const char *str1, const char *str2);
+int cg_strncmp(const char *str1, const char *str2, int nchars);
+int cg_strcasecmp(const char *str1, const char *str2);
+BOOL cg_streq(const char *str1, const char *str2);
+BOOL cg_strcaseeq(const char *str1, const char *str2);
+ssize_t cg_strchr(const char *str, const char *chars, size_t nchars);
+ssize_t cg_strrchr(const char *str, const char *chars, size_t nchars);
+ssize_t cg_strstr(const char *haystack, const char *needle);
 char *cg_strtrimwhite(char *str);
 char *cg_strtrim(char *str, char *delim, int ndelim);
 char *cg_strltrim(char *str, char *delim, int ndelim);
@@ -74,8 +74,8 @@ char *cg_int2str(int value, char *buf, int bufSize);
 char *cg_long2str(long value, char *buf, int bufSize);
 char *cg_float2str(float value, char *buf, int bufSize);
 char *cg_double2str(double value, char *buf, int bufSize);
-char *cg_strncpy(char *str1, char *str2, size_t cnt);
-char *cg_strncat(char *str1, char *str2, size_t cnt);
+char *cg_strncpy(char *str1, const char *str2, size_t cnt);
+char *cg_strncat(char *str1, const char *str2, size_t cnt);
 	
 #if defined(CG_USE_INT64)
 char *cg_longlong2str(CgInt64 value, char *buf, int bufSize);
@@ -124,7 +124,7 @@ typedef struct _CgStringTokenizer {
 * Function (StringTokenizer)
 ****************************************/
 	
-CgStringTokenizer *cg_string_tokenizer_new(char *str, char *delim);
+CgStringTokenizer *cg_string_tokenizer_new(const char *str, const char *delim);
 void cg_string_tokenizer_delete(CgStringTokenizer *strToken);
 BOOL cg_string_tokenizer_hasmoretoken(CgStringTokenizer *strToken);
 char *cg_string_tokenizer_nexttoken(CgStringTokenizer *strToken);
@@ -140,12 +140,12 @@ CgString *cg_string_new();
 void cg_string_delete(CgString *str);
 void cg_string_clear(CgString *str);
 
-void cg_string_setvalue(CgString *str, char *value);
+void cg_string_setvalue(CgString *str, const char *value);
 void cg_string_setintvalue(CgString *str, int value);
 void cg_string_setlongvalue(CgString *str, long value);
 void cg_string_setfloatvalue(CgString *str, float value);
 void cg_string_setdoublevalue(CgString *str, double value);
-void cg_string_setnvalue(CgString *str, char *value, size_t len);
+void cg_string_setnvalue(CgString *str, const char *value, size_t len);
 void cg_string_setpointervalue(CgString *str, char *value, size_t len);
 
 char *cg_string_getvalue(CgString *str);
@@ -156,10 +156,10 @@ char *cg_string_getvalue(CgString *str);
 	
 size_t cg_string_length(CgString *str);
 
-char *cg_string_addvalue(CgString *str, char *value);
-char *cg_string_naddvalue(CgString *str, char *value, size_t valueLen);
-char *cg_string_addrepvalue(CgString *str, char *value, size_t repeatCnt);
-char *cg_string_naddrepvalue(CgString *str, char *value, size_t valueLen, size_t repeatCnt);
+char *cg_string_addvalue(CgString *str, const char *value);
+char *cg_string_naddvalue(CgString *str, const char *value, size_t valueLen);
+char *cg_string_addrepvalue(CgString *str, const char *value, size_t repeatCnt);
+char *cg_string_naddrepvalue(CgString *str, const char *value, size_t valueLen, size_t repeatCnt);
 
 char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], size_t fromStrCnt);
 

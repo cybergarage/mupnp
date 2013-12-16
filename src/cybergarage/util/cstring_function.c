@@ -54,7 +54,7 @@
 * cg_strdup
 ****************************************/
 
-char *cg_strdup(char *str)
+char *cg_strdup(const char *str)
 {
 #if !defined(HAVE_STRDUP)
  char *cpStrBuf;
@@ -81,7 +81,7 @@ char *cg_strdup(char *str)
 * cg_strlen
 ****************************************/
 
-size_t cg_strlen(char *str)
+size_t cg_strlen(const char *str)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -94,7 +94,7 @@ size_t cg_strlen(char *str)
 * cg_strcpy
 ****************************************/
 
-char *cg_strcpy(char *dest, char *src)
+char *cg_strcpy(char *dest, const char *src)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -107,7 +107,7 @@ char *cg_strcpy(char *dest, char *src)
 * cg_strcat
 ****************************************/
 
-char *cg_strcat(char *dest, char *src)
+char *cg_strcat(char *dest, const char *src)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -120,7 +120,7 @@ char *cg_strcat(char *dest, char *src)
 * cg_strcmp
 ****************************************/
 
-int cg_strcmp(char *str1, char *str2)
+int cg_strcmp(const char *str1, const char *str2)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -137,7 +137,7 @@ int cg_strcmp(char *str1, char *str2)
 * cg_strncmp
 ****************************************/
 
-int cg_strncmp(char *str1, char *str2, int nchars)
+int cg_strncmp(const char *str1, const char *str2, int nchars)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -155,7 +155,7 @@ int cg_strncmp(char *str1, char *str2, int nchars)
 * cg_strcasecmp
 ****************************************/
 
-int cg_strcasecmp(char *str1, char *str2)
+int cg_strcasecmp(const char *str1, const char *str2)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -177,7 +177,7 @@ int cg_strcasecmp(char *str1, char *str2)
 * cg_streq
 ****************************************/
 
-BOOL cg_streq(char *str1, char *str2)
+BOOL cg_streq(const char *str1, const char *str2)
 {
 	cg_log_debug_l5("Entering...\n");
 
@@ -192,7 +192,7 @@ BOOL cg_streq(char *str1, char *str2)
 * cg_strcaseeq
 ****************************************/
 
-BOOL cg_strcaseeq(char *str1, char *str2)
+BOOL cg_strcaseeq(const char *str1, const char *str2)
 {
 	cg_log_debug_l5("Entering...\n");
 
@@ -207,7 +207,7 @@ BOOL cg_strcaseeq(char *str1, char *str2)
 * cg_strstr
 ****************************************/
 
-ssize_t cg_strstr(char *haystack, char *needle)
+ssize_t cg_strstr(const char *haystack, const char *needle)
 {
 	char *strPos;
 
@@ -227,7 +227,7 @@ ssize_t cg_strstr(char *haystack, char *needle)
 * cg_strchr
 ****************************************/
 
-ssize_t cg_strchr(char *str, char *chars, int nchars)
+ssize_t cg_strchr(const char *str, const char *chars, size_t nchars)
 {
 	size_t strLen;
 	ssize_t i, j;
@@ -254,7 +254,7 @@ ssize_t cg_strchr(char *str, char *chars, int nchars)
 * cg_strrchr
 ****************************************/
 
-ssize_t cg_strrchr(char *str, char *chars, int nchars)
+ssize_t cg_strrchr(const char *str, const char *chars, size_t nchars)
 {
 	size_t strLen;
 	ssize_t i, j;
@@ -380,7 +380,7 @@ char *cg_strrtrim(char *str, char *delim, int ndelim)
 * cg_strncpy
 ****************************************/
 
-char *cg_strncpy(char *str1, char *str2, size_t cnt)
+char *cg_strncpy(char *str1, const char *str2, size_t cnt)
 {
 	cg_log_debug_l5("Entering...\n");
 
@@ -395,7 +395,7 @@ char *cg_strncpy(char *str1, char *str2, size_t cnt)
 * cg_strncat
 ****************************************/
 
-char *cg_strncat(char *str1, char *str2, size_t cnt)
+char *cg_strncat(char *str1, const char *str2, size_t cnt)
 {
 	size_t str1Len;
 	cg_log_debug_l5("Entering...\n");

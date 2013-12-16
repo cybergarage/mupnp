@@ -12,7 +12,7 @@
 void ClinkTestCase::testDictionary()
 {
 	CgDictionary *dir;
-	char *dirVal;
+	const char *dirVal;
 
 	/* Basic Unit Test */
 	dir = cg_dictionary_new();

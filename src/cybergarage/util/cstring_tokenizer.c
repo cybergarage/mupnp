@@ -25,7 +25,7 @@
 * cg_string_tokenizer_new
 ****************************************/
 
-CgStringTokenizer *cg_string_tokenizer_new(char *value, char *delim)
+CgStringTokenizer *cg_string_tokenizer_new(const char *value, const char *delim)
 {
 	CgStringTokenizer *strToken;
 
