@@ -76,8 +76,8 @@ BOOL cg_net_isipv6address(char *addr)
 
 int cg_net_getipv6scopeid(char *addr)
 {
-	int addrLen;
-	int perIdx;
+	size_t addrLen;
+	ssize_t perIdx;
 	char scopeIDBuf[8+1];
 
 	cg_log_debug_l4("Entering...\n");
@@ -94,72 +94,4 @@ int cg_net_getipv6scopeid(char *addr)
 	cg_log_debug_l4("Leaving...\n");
 	
 	return atoi(scopeIDBuf);
-
 }
-
-/*
-////////////////////////////////////////////////
-//	GetHostURL
-////////////////////////////////////////////////
-
-const char *CyberNet::GetHostURL(const char *host, int port, const char *uri, std::string &buf)
-{
-	cg_log_debug_l4("Entering...\n");
-
-	std::string hostStr = host;
-	if (IsIPv6Address(host) == true) {
-		StripIPv6ScopeID(host, hostStr);
-		hostStr = "[";
-		hostStr += hostStr.c_str();
-		hostStr += "]";
-	}
-#ifndef NO_USE_OSTRINGSTREAM
-	std::ostringstream sbuf;
-	sbuf << "http://" << hostStr << ":" << port << uri;
-	buf = sbuf.str();
-#else
-	buf = "http://";
-	buf += hostStr;
-	buf += ":";
-	buf += port;
-	buf += uri;
-#endif
-
-	cg_log_debug_l4("Leaving...\n");
-
-	return buf.c_str();
-}
-
-////////////////////////////////////////////////
-//	GetHostURL
-////////////////////////////////////////////////
-
-static string ifAddress;
-
-void CyberNet::SetHostInterface(const char *ifaddr)
-{
-	cg_log_debug_l4("Entering...\n");
-
-	ifAddress = ifaddr;
-
-	cg_log_debug_l4("Leaving...\n");
-}
-
-const char *CyberNet::GetHostInterface()
-{
-	cg_log_debug_l4("Entering...\n");
-
-	cg_log_debug_l4("Leaving...\n");
-
-	return ifAddress.c_str();
-}
-
-bool CyberNet::HasAssignedHostInterface()
-{
-	cg_log_debug_l4("Entering...\n");
-
-	cg_log_debug_l4("Leaving...\n");
-
-	return (0 < ifAddress.length()) ? true : false;
-}
-*/

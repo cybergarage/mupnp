@@ -91,8 +91,8 @@ BOOL cg_string_tokenizer_hasmoretoken(CgStringTokenizer *strToken)
 
 char *cg_string_tokenizer_nexttoken(CgStringTokenizer *strToken)
 {
-	int tokenCnt;
-	int i, j;
+	size_t tokenCnt;
+	size_t i, j;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -141,7 +141,7 @@ char *cg_string_tokenizer_nexttoken(CgStringTokenizer *strToken)
 
 char *cg_string_tokenizer_nextalltoken(CgStringTokenizer *strToken)
 {
-	int nextTokenLen;
+	size_t nextTokenLen;
 
 	cg_log_debug_l4("Entering...\n");
 

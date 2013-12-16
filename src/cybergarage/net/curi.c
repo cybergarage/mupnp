@@ -149,20 +149,20 @@ void cg_net_uri_clear(CgNetURI *uri)
 void cg_net_uri_setvalue(CgNetURI *uri, char *value)
 {
 	char *protocol;
-	int uriLen;
-	int currIdx;
-	int protoIdx;
-	int atIdx;
-	int colonIdx;
-	int shashIdx;
+	size_t uriLen;
+	size_t currIdx;
+	ssize_t protoIdx;
+	ssize_t atIdx;
+	ssize_t colonIdx;
+	ssize_t shashIdx;
 	char *host;
-	int eblacketIdx;
+	ssize_t eblacketIdx;
 	CgString *hostStr;
 	CgString *portStr;
-	int hostLen;
-	int sharpIdx;
-	int questionIdx;
-	int queryLen;
+	size_t hostLen;
+	ssize_t sharpIdx;
+	ssize_t questionIdx;
+	size_t queryLen;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -351,9 +351,9 @@ BOOL cg_net_uri_isequivalent(char *url, char *relative_url)
 * cg_net_uri_isescapedstring
 ****************************************/
 
-BOOL cg_net_uri_isescapedstring(char *buf, int bufSize)
+BOOL cg_net_uri_isescapedstring(char *buf, size_t bufSize)
 {
-	int idx;
+	ssize_t idx;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -384,7 +384,7 @@ BOOL cg_net_uri_isescapedstring(char *buf, int bufSize)
 * cg_net_uri_unescapestring
 ****************************************/
 
-char *cg_net_uri_escapestring(char *buf, int bufSize, CgString *retBuf)
+char *cg_net_uri_escapestring(char *buf, size_t bufSize, CgString *retBuf)
 {
 #if defined(CG_HTTP_CURL)
 	char *tmp;
@@ -437,7 +437,7 @@ char *cg_net_uri_escapestring(char *buf, int bufSize, CgString *retBuf)
 * cg_net_uri_escapestring
 ****************************************/
 
-char *cg_net_uri_unescapestring(char *buf, int bufSize, CgString *retBuf)
+char *cg_net_uri_unescapestring(char *buf, size_t bufSize, CgString *retBuf)
 {
 #if defined(CG_HTTP_CURL)
 	char *tmp;
@@ -513,10 +513,10 @@ char *cg_net_uri_unescapestring(char *buf, int bufSize, CgString *retBuf)
 
 char *cg_net_uri_getupnpbasepath(CgNetURI *locationURL)
 {
-        char *path, *c;
-        int i;
+  char *path, *c;
+  ssize_t i;
 
-        path = cg_strdup(cg_net_uri_getpath(locationURL));
+  path = cg_strdup(cg_net_uri_getpath(locationURL));
 
 	cg_log_debug_s("Mangling url string: %s\n", path);
         
@@ -601,8 +601,8 @@ BOOL cg_net_uri_isescapechar(char c)
 CgDictionary *cg_net_uri_getquerydictionary(CgNetURI *uri)
 {
 	char *query;
-	int queryOffset;
-	int eqIdx, ampIdx;
+	size_t queryOffset;
+	ssize_t eqIdx, ampIdx;
 	CgString *paramName;
 	CgString *paramValue;
 
