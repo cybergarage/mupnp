@@ -141,7 +141,7 @@ void cg_string_setlongvalue(CgString *str, long value)
 * cg_string_setnvalue
 ****************************************/
 
-void cg_string_setnvalue(CgString *str, char *value, int len)
+void cg_string_setnvalue(CgString *str, char *value, size_t len)
 {
 	cg_log_debug_l5("Entering...\n");
 
@@ -170,7 +170,7 @@ void cg_string_setnvalue(CgString *str, char *value, int len)
 * cg_string_setpointervalue
 ****************************************/
 
-void cg_string_setpointervalue(CgString *str, char *value, int len)
+void cg_string_setpointervalue(CgString *str, char *value, size_t len)
 {
 	cg_log_debug_l5("Entering...\n");
 
@@ -201,7 +201,7 @@ char *cg_string_getvalue(CgString *str)
 * cg_string_getmemorysize
 ****************************************/
 
-int cg_string_getmemorysize(CgString *str)
+size_t cg_string_getmemorysize(CgString *str)
 {
 	cg_log_debug_l5("Entering...\n");
 
@@ -217,7 +217,7 @@ int cg_string_getmemorysize(CgString *str)
 * cg_string_length
 ****************************************/
 
-int cg_string_length(CgString *str)
+size_t cg_string_length(CgString *str)
 {
 	cg_log_debug_l5("Entering...\n");
 
@@ -249,10 +249,10 @@ char *cg_string_addvalue(CgString *str, char *value)
 * cg_string_add
 ****************************************/
 
-char *cg_string_naddvalue(CgString *str, char *value, int valueLen)
+char *cg_string_naddvalue(CgString *str, char *value, size_t valueLen)
 {
 	char *newValue = NULL;
-	int newMemSize = 0;
+	size_t newMemSize = 0;
 
 	cg_log_debug_l5("Entering...\n");
 
@@ -301,7 +301,7 @@ char *cg_string_naddvalue(CgString *str, char *value, int valueLen)
 * cg_string_addrep
 ****************************************/
 
-char *cg_string_addrepvalue(CgString *str, char *value, int repeatCnt)
+char *cg_string_addrepvalue(CgString *str, char *value, size_t repeatCnt)
 {
 	int n;
 	cg_log_debug_l5("Entering...\n");
@@ -318,7 +318,7 @@ char *cg_string_addrepvalue(CgString *str, char *value, int repeatCnt)
 * cg_string_naddrep
 ****************************************/
 
-char *cg_string_naddrepvalue(CgString *str, char *value, int valueLen, int repeatCnt)
+char *cg_string_naddrepvalue(CgString *str, char *value, size_t valueLen, size_t repeatCnt)
 {
 	int n;
 
@@ -336,13 +336,13 @@ char *cg_string_naddrepvalue(CgString *str, char *value, int valueLen, int repea
 * cg_string_replace
 ****************************************/
 
-char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], int fromStrCnt)
+char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], size_t fromStrCnt)
 {
 	char *orgValue = NULL;
-	int orgValueLen = 0;
+	size_t orgValueLen = 0;
 	int n = 0;
 	int copyPos = 0;
-	int *fromStrLen = NULL;
+	size_t *fromStrLen = NULL;
 	CgString *repValue = NULL;
 	BOOL isReplaced = FALSE;
 
@@ -353,7 +353,7 @@ char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], int fromS
 	
 	repValue = cg_string_new();
 	
-	fromStrLen = (int *)malloc(sizeof(int) * fromStrCnt);
+	fromStrLen = (size_t *)malloc(sizeof(size_t) * fromStrCnt);
 
 	if ( NULL == fromStrLen )
 	{

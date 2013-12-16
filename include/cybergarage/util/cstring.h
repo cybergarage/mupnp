@@ -55,7 +55,7 @@ extern "C" {
 ****************************************/
 	
 char *cg_strdup(char *str);
-int cg_strlen(char *str);
+size_t cg_strlen(char *str);
 char *cg_strcpy(char *dest, char *src);
 char *cg_strcat(char *dest, char *src);
 int cg_strcmp(char *str1, char *str2);
@@ -63,9 +63,9 @@ int cg_strncmp(char *str1, char *str2, int nchars);
 int cg_strcasecmp(char *str1, char *str2);
 BOOL cg_streq(char *str1, char *str2);
 BOOL cg_strcaseeq(char *str1, char *str2);
-int cg_strchr(char *str, char *chars, int nchars);
-int cg_strrchr(char *str, char *chars, int nchars);
-int cg_strstr(char *haystack, char *needle);
+ssize_t cg_strchr(char *str, char *chars, int nchars);
+ssize_t cg_strrchr(char *str, char *chars, int nchars);
+ssize_t cg_strstr(char *haystack, char *needle);
 char *cg_strtrimwhite(char *str);
 char *cg_strtrim(char *str, char *delim, int ndelim);
 char *cg_strltrim(char *str, char *delim, int ndelim);
@@ -104,16 +104,16 @@ char *cg_longlong2str(CgInt64 value, char *buf, int bufSize);
 	
 typedef struct _CgString {
 	char *value;
-	int memSize;
-	int valueSize;
+	size_t memSize;
+	size_t valueSize;
 } CgString;
 	
 typedef struct _CgStringTokenizer {
 	char *value;
 	char *delim;
-	int delimCnt;
-	int nextStartPos;
-	int lastPos;
+	size_t delimCnt;
+	size_t nextStartPos;
+	size_t lastPos;
 	char *currToken;
 	char *nextToken;
 	char repToken;
@@ -145,8 +145,8 @@ void cg_string_setintvalue(CgString *str, int value);
 void cg_string_setlongvalue(CgString *str, long value);
 void cg_string_setfloatvalue(CgString *str, float value);
 void cg_string_setdoublevalue(CgString *str, double value);
-void cg_string_setnvalue(CgString *str, char *value, int len);
-void cg_string_setpointervalue(CgString *str, char *value, int len);
+void cg_string_setnvalue(CgString *str, char *value, size_t len);
+void cg_string_setpointervalue(CgString *str, char *value, size_t len);
 
 char *cg_string_getvalue(CgString *str);
 #define cg_string_getintvalue(str) cg_str2int(cg_string_getvalue(str))
@@ -154,16 +154,16 @@ char *cg_string_getvalue(CgString *str);
 #define cg_string_getfloatvalue(str) cg_str2float(cg_string_getvalue(str))
 #define cg_string_getdoublevalue(str) cg_str2double(cg_string_getvalue(str))
 	
-int cg_string_length(CgString *str);
+size_t cg_string_length(CgString *str);
 
 char *cg_string_addvalue(CgString *str, char *value);
-char *cg_string_naddvalue(CgString *str, char *value, int valueLen);
-char *cg_string_addrepvalue(CgString *str, char *value, int repeatCnt);
-char *cg_string_naddrepvalue(CgString *str, char *value, int valueLen, int repeatCnt);
+char *cg_string_naddvalue(CgString *str, char *value, size_t valueLen);
+char *cg_string_addrepvalue(CgString *str, char *value, size_t repeatCnt);
+char *cg_string_naddrepvalue(CgString *str, char *value, size_t valueLen, size_t repeatCnt);
 
-char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], int fromStrCnt);
+char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], size_t fromStrCnt);
 
-int cg_string_getmemorysize(CgString *str);
+size_t cg_string_getmemorysize(CgString *str);
 
 #ifdef  __cplusplus
 }

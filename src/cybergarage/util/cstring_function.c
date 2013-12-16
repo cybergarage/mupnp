@@ -81,7 +81,7 @@ char *cg_strdup(char *str)
 * cg_strlen
 ****************************************/
 
-int cg_strlen(char *str)
+size_t cg_strlen(char *str)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -207,7 +207,7 @@ BOOL cg_strcaseeq(char *str1, char *str2)
 * cg_strstr
 ****************************************/
 
-int cg_strstr(char *haystack, char *needle)
+ssize_t cg_strstr(char *haystack, char *needle)
 {
 	char *strPos;
 
@@ -227,10 +227,10 @@ int cg_strstr(char *haystack, char *needle)
 * cg_strchr
 ****************************************/
 
-int cg_strchr(char *str, char *chars, int nchars)
+ssize_t cg_strchr(char *str, char *chars, int nchars)
 {
-	int strLen;
-	int i, j;
+	size_t strLen;
+	ssize_t i, j;
 	
 	cg_log_debug_l5("Entering...\n");
 
@@ -254,10 +254,10 @@ int cg_strchr(char *str, char *chars, int nchars)
 * cg_strrchr
 ****************************************/
 
-int cg_strrchr(char *str, char *chars, int nchars)
+ssize_t cg_strrchr(char *str, char *chars, int nchars)
 {
-	int strLen;
-	int i, j;
+	size_t strLen;
+	ssize_t i, j;
 	
 	cg_log_debug_l5("Entering...\n");
 
@@ -282,7 +282,8 @@ int cg_strrchr(char *str, char *chars, int nchars)
 
 char *cg_strtrimwhite(char *str)
 {
-	int strLen, i;
+	size_t strLen;
+  ssize_t i;
 	strLen = cg_strlen(str);
 	if (strLen == 0) return str;
 	for (i=(strLen-1); 0<=i; i--) {
@@ -322,7 +323,8 @@ char *cg_strtrim(char *str, char *delim, int ndelim)
 
 char *cg_strltrim(char *str, char *delim, int ndelim)
 {
-	int strLen, i, j;
+	size_t strLen;
+  ssize_t i, j;
 	
 	cg_log_debug_l5("Entering...\n");
 
@@ -350,7 +352,8 @@ char *cg_strltrim(char *str, char *delim, int ndelim)
 
 char *cg_strrtrim(char *str, char *delim, int ndelim)
 {
-	int strLen, i, j;
+	size_t strLen;
+  ssize_t i, j;
 	
 	cg_log_debug_l5("Entering...\n");
 
@@ -394,7 +397,7 @@ char *cg_strncpy(char *str1, char *str2, size_t cnt)
 
 char *cg_strncat(char *str1, char *str2, size_t cnt)
 {
-	int str1Len;
+	size_t str1Len;
 	cg_log_debug_l5("Entering...\n");
 
 	str1Len = cg_strlen(str1);
