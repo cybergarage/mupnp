@@ -4,46 +4,14 @@
 #
 #	Copyright (C) Satoshi Konno 2005
 #
-#	01/26/04
-#		- first release.
-#
-#	09/11/05
-#		- Thanks for Roland Moser <rmoser@gmx.at>
-#		- Changed the configure to run 'make install' normally.
-#
-#	10/31/05
-#		- Added libtool stuff and debian package creation
-#
-#       01/03/06 Heikki Junnila <hjunnila@users.sf.net>
-#		- Added new option for CG_HTTP_SUPPORT_NO_CONTENTLENGTH_REQUEST
-#		- Set defaults: libcurl=yes, libxml2=yes, libtool=yes,
-#				nolength_http=yes
-#		- Changed option descriptions to use AS_HELP_STRING
-#
-#	01/04/06 Heikki Junnila <hjunnila@users.sf.net>
-#		- AC_ARG_WITH's option-if-enabled mustn't be set in
-#		  our case. Otherwise --with-xxxx doesn't work. Fixed.
-#
-#	02/06/06 Mikael Saarenp <ext-mikael.saarenpaa@nokia.com>
-#		- Added debug options
-#
-#	03/17/08
-#		- Added to check IP_PKTINFO
-#
-#	02/02/10
-#		- Disabled AC_PROG_LIBTOOL and HAVE_LIBTOOL
-#		- Added support for SO_NOSIGPIPES
-#   Note that libtool controls if "-fPIC/-DPIC" should be used, and must
-#        be used on Solaris. For now, CFLAGS=-fPIC will work, but a better
-#        solution should be found, if libtool really is not be to used.
-#
 #############################################################################
 
-AC_INIT(include/cybergarage/typedef.h)
 AC_CONFIG_AUX_DIR(config)
-
-AM_INIT_AUTOMAKE(clinkc, 2.4)
 AM_CONFIG_HEADER(config.h)
+
+AC_INIT([clinkc], [2.4.x])
+AC_CONFIG_SRCDIR([include/cybergarage/typedef.h])
+AM_INIT_AUTOMAKE([subdir-objects])
 
 ##############################
 # Constants
@@ -571,6 +539,16 @@ AC_CHECK_FUNCS([uuid_unparse_lower])
 # Solaris TCP stack
 AC_SEARCH_LIBS([gethostbyname], [nsl])
 AC_SEARCH_LIBS([socket], [socket inet])
+
+##############################
+# Testing
+##############################
+
+AC_ARG_ENABLE([tests], AC_HELP_STRING([--enable-tests], [ build tests (default = no) ]), [build_tests="yes"], [])
+AM_CONDITIONAL(BUILD_TEST, test "$build_tests" = "yes")
+if [ test "$build_tests" = yes ]; then
+	AM_PATH_CPPUNIT(1.6.0)
+fi
 
 ##############################
 # Makefiles

@@ -4,7 +4,7 @@
 lib_LIBRARIES = libclinkc.a
 #endif
 
-INCLUDES = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@
 
 ########################################
 # CyberLink

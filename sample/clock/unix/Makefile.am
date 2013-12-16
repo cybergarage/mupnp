@@ -2,7 +2,7 @@ samplesdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)/samples
 
 samples_PROGRAMS = upnpclock
 
-INCLUDES = -I$(top_srcdir)/include -I$(top_builddir)/include -I$(srcdir)/../ -I$(srcdir)/../../common @XML_CFLAGS@ @CLOG_DEBUG_FLAGS@
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include -I$(srcdir)/../ -I$(srcdir)/../../common @XML_CFLAGS@ @CLOG_DEBUG_FLAGS@
 
 noinst_HEADERS = \
 	../clock.h \
