@@ -73,7 +73,7 @@ void cg_upnp_subscriberlist_delete(CgUpnpSubscriberList *subscriberList)
 CgUpnpSubscriber *cg_upnp_subscriberlist_get(CgUpnpSubscriberList *subscriberList, char *sid)
 {
 	CgUpnpSubscriber *sub;
-	int uuidIdx;
+	ssize_t uuidIdx;
 
 	if (cg_strlen(sid) <= 0)
 		return NULL;

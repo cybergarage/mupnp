@@ -66,7 +66,7 @@ char *cg_upnp_event_subscription_totimeoutheaderstring(long time, CgString *buf)
 
 long cg_upnp_event_subscription_gettimeout(char *headerValue)
 {
-	int minusIdx;
+	ssize_t minusIdx;
 	long timeout;
 	 
 	cg_log_debug_l4("Entering...\n");

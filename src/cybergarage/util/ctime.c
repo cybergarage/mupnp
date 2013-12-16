@@ -21,6 +21,8 @@
 #include <cybergarage/util/ctime.h>
 #include <cybergarage/util/clog.h>
 
+#include <limits.h>
+
 #if defined(WIN32) && !defined(ITRON) && !defined (WINCE)
 #include <windows.h>
 #include <time.h>
@@ -64,7 +66,7 @@ void cg_wait(CgSysTime mtime)
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 	b_slp_tsk(mtime);
 #else
-	usleep(mtime*1000);
+	usleep(((useconds_t)(mtime * 1000)));
 #endif
 
 	cg_log_debug_l4("Leaving...\n");
@@ -136,7 +138,7 @@ float cg_random()
 	cg_log_debug_l4("Entering...\n");
 
 	if (seedDone == FALSE) {
-		srand(cg_getcurrentsystemtime());
+		srand((int)(cg_getcurrentsystemtime() % INT_MAX));
 		seedDone = TRUE;
 	}
 	

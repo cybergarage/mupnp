@@ -452,8 +452,8 @@ BOOL cg_upnp_device_updatefromssdppacket(CgUpnpDevice* dev,
 char* cg_upnp_devicetype_getidentifier(char* deviceType)
 {
 	char* part = NULL;
-	int tail = 0;
-	int len = 0;
+	size_t tail = 0;
+	size_t len = 0;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -508,9 +508,9 @@ char* cg_upnp_devicetype_getidentifier(char* deviceType)
 char* cg_upnp_devicetype_geturn(char* deviceType)
 {
 	char* part = NULL;
-	int tail = 0;
-	int head = 0;
-	int len = 0;
+	size_t tail = 0;
+	char head = 0;
+	char len = 0;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -577,10 +577,10 @@ char* cg_upnp_devicetype_geturn(char* deviceType)
 char* cg_upnp_devicetype_getdevice(char* deviceType)
 {
 	char* part = NULL;
-	int tail = 0;
-	int head = 0;
-	int len = 0;
-	int count = 0;
+	size_t tail = 0;
+	size_t head = 0;
+	size_t len = 0;
+	size_t count = 0;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -654,10 +654,10 @@ char* cg_upnp_devicetype_getdevice(char* deviceType)
 char* cg_upnp_devicetype_gettype(char* deviceType)
 {
 	char* part = NULL;
-	int tail = 0;
-	int head = 0;
-	int len = 0;
-	int count = 0;
+	size_t tail = 0;
+	size_t head = 0;
+	size_t len = 0;
+	size_t count = 0;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -732,9 +732,9 @@ char* cg_upnp_devicetype_gettype(char* deviceType)
 char* cg_upnp_devicetype_getschematype(char* deviceType)
 {
 	char* part = NULL;
-	int tail = 0;
-	int len = 0;
-	int count = 0;
+	size_t tail = 0;
+	size_t len = 0;
+	size_t count = 0;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -796,10 +796,10 @@ char* cg_upnp_devicetype_getschematype(char* deviceType)
 char* cg_upnp_devicetype_getversion(char* deviceType)
 {
 	char* part = NULL;
-	int tail = 0;
-	int head = 0;
-	int len = 0;
-	int count = 0;
+	size_t tail = 0;
+	size_t head = 0;
+	size_t len = 0;
+	size_t count = 0;
 
 	cg_log_debug_l4("Entering...\n");
 

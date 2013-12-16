@@ -54,7 +54,7 @@ void cg_upnp_event_subscription_subscriberesponse_setresponse(CgUpnpSubscription
 void cg_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *subRes, char *sid)
 {
 	CgString *headerSID;
-	int uuidIdx;
+	ssize_t uuidIdx;
 
 	cg_log_debug_l4("Entering...\n");
 

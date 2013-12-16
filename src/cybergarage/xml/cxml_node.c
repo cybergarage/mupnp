@@ -147,8 +147,8 @@ void cg_xml_node_setchildnode(CgXmlNode *node, char *name, char *value)
 CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, char *name, char *ns, BOOL ignoreNs)
 {
 	char *nameWithPrefix = NULL;
-	int nameLen = 0;
-	int nameIdx;
+	size_t nameLen = 0;
+	ssize_t nameIdx;
 	CgXmlNode *result = NULL;
 	CgXmlNode *child = NULL;
 	char *nodeName = NULL;

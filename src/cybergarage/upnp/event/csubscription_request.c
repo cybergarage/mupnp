@@ -49,7 +49,7 @@
 void cg_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *subReq, char *sid)
 {
 	CgString *headerSID;
-	int uuidIdx;
+	ssize_t uuidIdx;
 	
 	cg_log_debug_l4("Entering...\n");
 

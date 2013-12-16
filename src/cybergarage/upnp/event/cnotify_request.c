@@ -245,7 +245,7 @@ static CgUpnpProperty *cg_upnp_property_createfromnode(CgXmlNode *varNode)
 	CgUpnpProperty *prop;
 	char *varName;
 	char *varValue;
-	int colonIdx;
+	ssize_t colonIdx;
 
 	cg_log_debug_l4("Entering...\n");
 

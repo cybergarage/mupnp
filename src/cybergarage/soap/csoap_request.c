@@ -104,12 +104,12 @@ CgXmlNode *cg_soap_request_getbodynode(CgSoapRequest *soapReq)
 {
 	CgXmlNode *envNode;
 	CgXmlNode *bodyNode = NULL;
-        CgXmlAttribute *attr;
-        char *name;
-        CgStringTokenizer *tok;
-        char *nsPrefix;
-        int bodyLen;
-        char *body;
+  CgXmlAttribute *attr;
+  char *name;
+  CgStringTokenizer *tok;
+  char *nsPrefix;
+  size_t bodyLen;
+  char *body;
 
 	cg_log_debug_l4("Entering...\n");
 

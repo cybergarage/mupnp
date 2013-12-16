@@ -36,7 +36,7 @@ extern "C" {
 ****************************************/
 
 #if defined(BTRON) || defined(ITRON) 
-typedef long CgSysTime;
+typedef size_t CgSysTime;
 #else
 typedef time_t CgSysTime;
 #endif
