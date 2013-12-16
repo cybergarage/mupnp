@@ -147,7 +147,7 @@ void cg_http_request_clear(CgHttpRequest *httpReq)
 * cg_http_request_setmethod
 ****************************************/
 
-void cg_http_request_setmethod(CgHttpRequest *httpReq, char *value)
+void cg_http_request_setmethod(CgHttpRequest *httpReq, const char *value)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -160,7 +160,7 @@ void cg_http_request_setmethod(CgHttpRequest *httpReq, char *value)
 * cg_http_request_setversion
 ****************************************/
 
-void cg_http_request_setversion(CgHttpRequest *httpReq, char *value)
+void cg_http_request_setversion(CgHttpRequest *httpReq, const char *value)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -173,7 +173,7 @@ void cg_http_request_setversion(CgHttpRequest *httpReq, char *value)
 * cg_http_request_setuseragent
 ****************************************/
 
-void cg_http_request_setuseragent(CgHttpRequest *httpReq, char *value)
+void cg_http_request_setuseragent(CgHttpRequest *httpReq, const char *value)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -186,7 +186,7 @@ void cg_http_request_setuseragent(CgHttpRequest *httpReq, char *value)
 * cg_http_request_setuseragent
 ****************************************/
 
-void cg_http_request_addtouseragent(CgHttpRequest *httpReq, char *value)
+void cg_http_request_addtouseragent(CgHttpRequest *httpReq, const char *value)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -199,7 +199,7 @@ void cg_http_request_addtouseragent(CgHttpRequest *httpReq, char *value)
 * cg_http_request_seturi
 ****************************************/
 
-void cg_http_request_seturi(CgHttpRequest *httpReq, char *value)
+void cg_http_request_seturi(CgHttpRequest *httpReq, const char *value)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -291,7 +291,7 @@ CgSocket *cg_http_request_getsocket(CgHttpRequest *httpReq)
 
 #if !defined(CG_HTTP_CURL)
 
-CgHttpResponse *cg_http_request_post_main(CgHttpRequest *httpReq, char *ipaddr, int port, BOOL isSecure)
+CgHttpResponse *cg_http_request_post_main(CgHttpRequest *httpReq, const char *ipaddr, int port, BOOL isSecure)
 {
 	CgSocket *sock;
 	char *method, *uri, *version;
@@ -378,13 +378,13 @@ cg_log_debug_s("Getting HTTP-response completed. Elapsed time: "
 	return httpReq->httpRes;
 }
 
-CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int port)
+CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, const char *ipaddr, int port)
 {
 	return cg_http_request_post_main(httpReq, ipaddr, port, FALSE);
 }
 
 #if defined(CG_USE_OPENSSL)
-CgHttpResponse *cg_https_request_post(CgHttpRequest *httpReq, char *ipaddr, int port)
+CgHttpResponse *cg_https_request_post(CgHttpRequest *httpReq, const char *ipaddr, int port)
 {
 	return cg_http_request_post_main(httpReq, ipaddr, port, TRUE);
 }
@@ -757,7 +757,7 @@ BOOL cg_http_request_read(CgHttpRequest *httpReq, CgSocket *sock)
 {
 	char lineBuf[CG_HTTP_READLINE_BUFSIZE];
 	CgStringTokenizer *strTok;
-	int readLen;
+	size_t readLen;
 	CgNetURI *uri = NULL;
 	BOOL failed = FALSE;
 	

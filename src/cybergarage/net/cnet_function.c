@@ -57,7 +57,7 @@ BOOL cg_net_isuseaddress(char *addr)
 //	cg_net_getipv6address
 ////////////////////////////////////////////////
 
-BOOL cg_net_isipv6address(char *addr)
+BOOL cg_net_isipv6address(const char *addr)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -74,7 +74,7 @@ BOOL cg_net_isipv6address(char *addr)
 //	cg_net_getipv6address
 ////////////////////////////////////////////////
 
-int cg_net_getipv6scopeid(char *addr)
+int cg_net_getipv6scopeid(const char *addr)
 {
 	size_t addrLen;
 	ssize_t perIdx;

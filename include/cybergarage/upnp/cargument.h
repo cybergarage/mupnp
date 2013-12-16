@@ -343,7 +343,7 @@ void cg_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList);
  *
  * @return Argument
  */
-CgUpnpArgument *cg_upnp_argumentlist_get(CgUpnpArgumentList *argumentList, char *name);
+CgUpnpArgument *cg_upnp_argumentlist_get(CgUpnpArgumentList *argumentList, const char *name);
 
 /**
  * Set argument values by using source argument list. If there is an argument with the 

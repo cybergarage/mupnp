@@ -150,15 +150,15 @@ BOOL cg_socket_close(CgSocket *socket);
 
 BOOL cg_socket_listen(CgSocket *socket);
 
-BOOL cg_socket_bind(CgSocket *sock, int bindPort, char *bindAddr, BOOL bindFlag, BOOL reuseFlag);
+BOOL cg_socket_bind(CgSocket *sock, int bindPort, const char *bindAddr, BOOL bindFlag, BOOL reuseFlag);
 BOOL cg_socket_accept(CgSocket *sock, CgSocket *clientSock);
-BOOL cg_socket_connect(CgSocket *sock, char *addr, int port);
+BOOL cg_socket_connect(CgSocket *sock, const char *addr, int port);
 ssize_t cg_socket_read(CgSocket *sock, char *buffer, size_t bufferLen);
-size_t cg_socket_write(CgSocket *sock, char *buffer, size_t bufferLen);
+size_t cg_socket_write(CgSocket *sock, const char *buffer, size_t bufferLen);
 size_t cg_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen);
 size_t cg_socket_skip(CgSocket *sock, size_t skipLen);
 
-size_t cg_socket_sendto(CgSocket *sock, char *addr, int port, char *data, size_t dataeLen);
+size_t cg_socket_sendto(CgSocket *sock, const char *addr, int port, const char *data, size_t dataeLen);
 ssize_t cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt);
 
 int cg_socket_getlasterror();

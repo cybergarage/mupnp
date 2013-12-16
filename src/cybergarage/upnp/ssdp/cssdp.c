@@ -84,7 +84,7 @@ int cg_upnp_ssdp_getannouncecount()
 
 int cg_upnp_ssdp_getleasetime(char *cacheCnt)
 {
-	int eqIdx;
+	ssize_t eqIdx;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -102,9 +102,9 @@ int cg_upnp_ssdp_getleasetime(char *cacheCnt)
 * cg_upnp_ssdp_gethostaddress
 ****************************************/
 
-char *cg_upnp_ssdp_gethostaddress(char *ifAddr)
+const char *cg_upnp_ssdp_gethostaddress(const char *ifAddr)
 {
-	char *ssdpAddr = CG_UPNP_SSDP_ADDRESS;
+	const char *ssdpAddr = CG_UPNP_SSDP_ADDRESS;
 
 	cg_log_debug_l4("Entering...\n");
 

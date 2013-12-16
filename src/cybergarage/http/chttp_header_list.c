@@ -63,10 +63,10 @@ void cg_http_headerlist_delete(CgHttpHeaderList *headerList)
 * cg_http_headerlist_getheader
 ****************************************/
 
-CgHttpHeader *cg_http_headerlist_get(CgHttpHeaderList *headerList, char *name)
+CgHttpHeader *cg_http_headerlist_get(CgHttpHeaderList *headerList, const char *name)
 {
 	CgHttpHeader *header;
-	char *headerName;
+	const char *headerName;
 		
 	cg_log_debug_l4("Entering...\n");
 
@@ -90,7 +90,7 @@ CgHttpHeader *cg_http_headerlist_get(CgHttpHeaderList *headerList, char *name)
 * cg_http_headerlist_setheader
 ****************************************/
 
-void cg_http_headerlist_set(CgHttpHeaderList *headerList, char *name, char *value)
+void cg_http_headerlist_set(CgHttpHeaderList *headerList, const char *name, const char *value)
 {
 	CgHttpHeader *header;
 	
@@ -112,7 +112,7 @@ void cg_http_headerlist_set(CgHttpHeaderList *headerList, char *name, char *valu
 * cg_http_headerlist_setheader
 ****************************************/
 
-char *cg_http_headerlist_getvalue(CgHttpHeaderList *headerList, char *name)
+const char *cg_http_headerlist_getvalue(CgHttpHeaderList *headerList, const char *name)
 {
 	CgHttpHeader *header;
 	

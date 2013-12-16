@@ -132,7 +132,7 @@ void ClinkTestCase::testURIParameter()
 void ClinkTestCase::testURIAdd()
 {
 	CgNetURI *uri;
-    char *uriStr;
+  const char *uriStr;
     
     uri = cg_net_uri_new();
     cg_net_uri_setvalue(uri, CLINK_TESTCASE_NET_URI_ADD_BASEPATH "/");

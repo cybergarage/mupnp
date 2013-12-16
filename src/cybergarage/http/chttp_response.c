@@ -89,7 +89,7 @@ void cg_http_response_clear(CgHttpResponse *httpRes)
 * cg_http_response_setversion
 ****************************************/
 
-void cg_http_response_setversion(CgHttpResponse *httpRes, char *value)
+void cg_http_response_setversion(CgHttpResponse *httpRes, const char *value)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -143,7 +143,7 @@ int cg_http_response_getstatuscode(CgHttpResponse *httpRes)
 * cg_http_response_setreasonphrase
 ****************************************/
 
-void cg_http_response_setreasonphrase(CgHttpResponse *httpRes, char *value)
+void cg_http_response_setreasonphrase(CgHttpResponse *httpRes, const char *value)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -174,7 +174,7 @@ BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock, BOOL onlyHea
 	char lineBuf[CG_HTTP_READLINE_BUFSIZE];
 	CgStringTokenizer *strTok;
 	char *token;
-	int readLen;
+	size_t readLen;
 	
 	cg_log_debug_l4("Entering...\n");
 

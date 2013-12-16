@@ -146,7 +146,7 @@ void cg_net_uri_clear(CgNetURI *uri)
 * cg_net_uri_set
 ****************************************/
 
-void cg_net_uri_setvalue(CgNetURI *uri, char *value)
+void cg_net_uri_setvalue(CgNetURI *uri, const char *value)
 {
 	char *protocol;
 	size_t uriLen;
@@ -297,7 +297,7 @@ void cg_net_uri_rebuild(CgNetURI *uri)
  * cg_net_uri_getvalue
  ****************************************/
 
-char *cg_net_uri_getvalue(CgNetURI *uri)
+const char *cg_net_uri_getvalue(CgNetURI *uri)
 {
 	cg_net_uri_rebuild(uri);
 	return cg_string_getvalue(uri->uri);
@@ -331,7 +331,7 @@ char *cg_net_uri_getrequest(CgNetURI *uri)
 * cg_net_uri_isequivalent
 ****************************************/
 
-BOOL cg_net_uri_isequivalent(char *url, char *relative_url)
+BOOL cg_net_uri_isequivalent(const char *url, const char *relative_url)
 {
 	CgNetURI *u;
 	char *path;

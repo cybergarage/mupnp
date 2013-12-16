@@ -80,9 +80,9 @@ typedef struct _CgNetURI {
 CgNetURI *cg_net_uri_new();
 void cg_net_uri_delete(CgNetURI *uri);
 void cg_net_uri_clear(CgNetURI *uri);
-void cg_net_uri_setvalue(CgNetURI *uri, char *value);
+void cg_net_uri_setvalue(CgNetURI *uri, const char *value);
 void cg_net_uri_rebuild(CgNetURI *uri);
-char *cg_net_uri_getvalue(CgNetURI *uri);
+const char *cg_net_uri_getvalue(CgNetURI *uri);
 
 #define cg_net_uri_set(urip, value) cg_net_uri_setvalue(urip, value)
 	
@@ -135,7 +135,7 @@ BOOL cg_net_uri_isalphanumchar(char c);
 BOOL cg_net_uri_isescapedstring(char *buf, size_t bufSize);
 char *cg_net_uri_escapestring(char *buf, size_t bufSize, CgString *retBuf);
 char *cg_net_uri_unescapestring(char *buf, size_t bufSize, CgString *retBuf);
-BOOL cg_net_uri_isequivalent(char *url, char *relative_url);
+BOOL cg_net_uri_isequivalent(const char *url, const char *relative_url);
 
 CgDictionary *cg_net_uri_getquerydictionary(CgNetURI *uri);
 

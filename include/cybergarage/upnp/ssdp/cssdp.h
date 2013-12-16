@@ -100,7 +100,7 @@ int cg_upnp_ssdp_getannouncecount();
 
 int cg_upnp_ssdp_getleasetime(char *cacheCont);
 
-char *cg_upnp_ssdp_gethostaddress(char *ifAddr);
+const char *cg_upnp_ssdp_gethostaddress(const char *ifAddr);
 
 /****************************************
 * Function (SSDPRequest)
@@ -210,8 +210,8 @@ char *cg_upnp_ssdpresponse_tostring(CgUpnpSSDPResponse *ssdpRes, CgString *ssdpM
 #define cg_upnp_ssdp_socket_delete(socket) cg_socket_delete(socket)
 #define cg_upnp_ssdp_socket_close(socket) cg_socket_close(socket)
 
-BOOL cg_upnp_ssdp_socket_notifyfrom(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPRequest *ssdpReq, char *bindAddr);
-BOOL cg_upnp_ssdp_socket_postresponse(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPResponse *ssdpReq, char *host, int port);
+BOOL cg_upnp_ssdp_socket_notifyfrom(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPRequest *ssdpReq, const char *bindAddr);
+BOOL cg_upnp_ssdp_socket_postresponse(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPResponse *ssdpReq, const char *host, int port);
 
 #ifdef  __cplusplus
 }

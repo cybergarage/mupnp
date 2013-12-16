@@ -59,10 +59,10 @@ void cg_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList)
 * cg_upnp_argumentlist_get
 ****************************************/
 
-CgUpnpArgument *cg_upnp_argumentlist_get(CgUpnpArgumentList *argList, char *name)
+CgUpnpArgument *cg_upnp_argumentlist_get(CgUpnpArgumentList *argList, const char *name)
 {
 	CgUpnpArgument *arg;
-	char *argName;
+	const char *argName;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -90,7 +90,7 @@ void cg_upnp_argumentlist_set(CgUpnpArgumentList *argList, CgUpnpArgumentList *s
 {
 	CgUpnpArgument *arg;
 	CgUpnpArgument *srcArg;
-	char *srcArgName;
+	const char *srcArgName;
 	
 	cg_log_debug_l4("Entering...\n");
 

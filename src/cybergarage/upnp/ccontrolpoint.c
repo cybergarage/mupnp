@@ -274,7 +274,7 @@ BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint)
 	CgUpnpSSDPServerList *ssdpServerList;
 	CgUpnpSSDPResponseServerList *ssdpResServerList;
 	CgHttpServerList *httpServerList;
-	char *udn = NULL;
+	const char *udn = NULL;
 	CG_UPNP_DEVICE_LISTENER listener = cg_upnp_controlpoint_getdevicelistener(ctrlPoint);
 	
 	cg_log_debug_l4("Entering...\n");
@@ -633,7 +633,7 @@ BOOL cg_upnp_controlpoint_parseservicesfordevice(CgUpnpDevice *dev, CgUpnpSSDPPa
 
 static CgUpnpDevice *cg_upnp_controlpoint_createdevicefromssdkpacket(CgUpnpSSDPPacket *ssdpPkt)
 {
-	char *location;
+	const char *location;
 	CgNetURL *url;
 	CgUpnpDevice *dev;
 	BOOL parseSuccess;

@@ -66,7 +66,7 @@ void cg_http_header_delete(CgHttpHeader *header)
 * cg_http_header_setname
 ****************************************/
 
-void cg_http_header_setname(CgHttpHeader *header, char *name)
+void cg_http_header_setname(CgHttpHeader *header, const char *name)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -79,7 +79,7 @@ void cg_http_header_setname(CgHttpHeader *header, char *name)
 * cg_http_header_getname
 ****************************************/
 
-char *cg_http_header_getname(CgHttpHeader *header)
+const char *cg_http_header_getname(CgHttpHeader *header)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -92,7 +92,7 @@ char *cg_http_header_getname(CgHttpHeader *header)
 * cg_http_header_setvalue
 ****************************************/
 
-void cg_http_header_setvalue(CgHttpHeader *header, char *value)
+void cg_http_header_setvalue(CgHttpHeader *header, const char *value)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -105,7 +105,7 @@ void cg_http_header_setvalue(CgHttpHeader *header, char *value)
 * cg_http_header_getvalue
 ****************************************/
 
-char *cg_http_header_getvalue(CgHttpHeader *header)
+const char *cg_http_header_getvalue(CgHttpHeader *header)
 {
 	cg_log_debug_l4("Entering...\n");
 

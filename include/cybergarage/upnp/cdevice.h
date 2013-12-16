@@ -302,7 +302,7 @@ CgUpnpDevice *cg_upnp_device_getrootdevice(CgUpnpDevice *dev);
  *
  * \return TRUE, if the buffer was successfully parsed; otherwise FALSE
  */
-BOOL cg_upnp_device_parsedescription(CgUpnpDevice *dev, char *desciption, int descriptionLen);
+BOOL cg_upnp_device_parsedescription(CgUpnpDevice *dev, const char *desciption, size_t descriptionLen);
 
 /**
  * Fetch and parse the device description XML file, located in the given URL.
@@ -1050,8 +1050,7 @@ CgUpnpDevice *cg_upnp_device_getdevicebydescriptionuri(CgUpnpDevice *dev, char *
  * \param serviceId serviceId of the service
  * \return service matching the given serviceId
  */
-CgUpnpService *cg_upnp_device_getservicebyserviceid(CgUpnpDevice *dev,
-						    char *serviceId);
+CgUpnpService *cg_upnp_device_getservicebyserviceid(CgUpnpDevice *dev, const char *serviceId);
 
 /**
  * Find a service from the device by the type of the service.
@@ -1064,8 +1063,7 @@ CgUpnpService *cg_upnp_device_getservicebyserviceid(CgUpnpDevice *dev,
  * \param type Type of the service
  * 
  */
-CgUpnpService *cg_upnp_device_getservicebyexacttype(CgUpnpDevice *dev,
-						    char *type);
+CgUpnpService *cg_upnp_device_getservicebyexacttype(CgUpnpDevice *dev, const char *type);
 
 /**
  * Find a service from the device by the type of the service.
@@ -1078,7 +1076,7 @@ CgUpnpService *cg_upnp_device_getservicebyexacttype(CgUpnpDevice *dev,
  * \param type Type of the service
  *
  */
-CgUpnpService *cg_upnp_device_getservicebytype(CgUpnpDevice *dev, char *type);
+CgUpnpService *cg_upnp_device_getservicebytype(CgUpnpDevice *dev, const char *type);
 
 /**
  * Find a service from the device by the subscribtion ID
@@ -1086,7 +1084,7 @@ CgUpnpService *cg_upnp_device_getservicebytype(CgUpnpDevice *dev, char *type);
  * \param dev Device in question
  * \param sid Subscription ID of the service
  */
-CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, char *sid);
+CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, const char *sid);
 
 /**
  * Find a service from the device by the SCPD (Service Control Protocol Definition) URL of the service.
@@ -1095,7 +1093,7 @@ CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, char *sid);
  * \param url SCPD URL
  *
  */
-CgUpnpService *cg_upnp_device_getservicebyscpdurl(CgUpnpDevice *dev, char *url);
+CgUpnpService *cg_upnp_device_getservicebyscpdurl(CgUpnpDevice *dev, const char *url);
 
 /**
  * Find a service from a device by its control URL
@@ -1104,7 +1102,7 @@ CgUpnpService *cg_upnp_device_getservicebyscpdurl(CgUpnpDevice *dev, char *url);
  * \param url Control URL
  *
  */
-CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, char *url);
+CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, const char *url);
 
 /**
  * Find a service from a device by its event subscription URL
@@ -1113,7 +1111,7 @@ CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, char *ur
  * \param url Event Subscription URL
  *
  */
-CgUpnpService *cg_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, char *url);
+CgUpnpService *cg_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, const char *url);
 
 /**
  * Find a service from its Subscription ID
@@ -1122,7 +1120,7 @@ CgUpnpService *cg_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, char *u
  * \param char* Subscription-ID (SID)
  *
  */
-CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, char *sid);
+CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, const char *sid);
 
 
 /*****************************************************************************
@@ -1171,7 +1169,7 @@ CgUpnpIcon *cg_upnp_device_getsmallesticon(CgUpnpDevice *dev);
  *
  * \return A smallest icon.
 */
-CgUpnpIcon *cg_upnp_device_getsmallesticonbymimetype(CgUpnpDevice *dev, char *mimeType);
+CgUpnpIcon *cg_upnp_device_getsmallesticonbymimetype(CgUpnpDevice *dev, const char *mimeType);
 
 /**
  * Get an icon by its index from the device's list of icons
@@ -1204,7 +1202,7 @@ BOOL cg_upnp_device_addicon(CgUpnpDevice *dev, CgUpnpIcon *icon);
  * \param name Name of the action
  *
  */
-CgUpnpAction *cg_upnp_device_getactionbyname(CgUpnpDevice *dev, char *name);
+CgUpnpAction *cg_upnp_device_getactionbyname(CgUpnpDevice *dev, const char *name);
 
 /*****************************************************************************
  * Embedded StateVariable 
@@ -1217,7 +1215,7 @@ CgUpnpAction *cg_upnp_device_getactionbyname(CgUpnpDevice *dev, char *name);
  * \param name Name of the state variable
  *
  */
-CgUpnpStateVariable *cg_upnp_device_getstatevariablebyname(CgUpnpDevice *dev, char *name);
+CgUpnpStateVariable *cg_upnp_device_getstatevariablebyname(CgUpnpDevice *dev, const char *name);
 
 /*****************************************************************************
  * Function (DeviceList)

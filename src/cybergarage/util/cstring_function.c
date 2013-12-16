@@ -305,7 +305,7 @@ char *cg_strtrimwhite(char *str)
 * cg_strtrim
 ****************************************/
 
-char *cg_strtrim(char *str, char *delim, int ndelim)
+char *cg_strtrim(char *str, char *delim, size_t ndelim)
 {
 	cg_log_debug_l5("Entering...\n");
 
@@ -321,7 +321,7 @@ char *cg_strtrim(char *str, char *delim, int ndelim)
 * cg_strltrim
 ****************************************/
 
-char *cg_strltrim(char *str, char *delim, int ndelim)
+char *cg_strltrim(char *str, char *delim, size_t ndelim)
 {
 	size_t strLen;
   ssize_t i, j;
@@ -350,7 +350,7 @@ char *cg_strltrim(char *str, char *delim, int ndelim)
 * cg_strrtrim
 ****************************************/
 
-char *cg_strrtrim(char *str, char *delim, int ndelim)
+char *cg_strrtrim(char *str, char *delim, size_t ndelim)
 {
 	size_t strLen;
   ssize_t i, j;

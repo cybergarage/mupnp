@@ -9,13 +9,13 @@
 ////////////////////////////////////////
 
 extern "C" {
-CgNetURL *cg_upnp_service_mangleabsoluteurl(char *serviceURLStr, char *baseURLStr, char *locationURLStr);
+CgNetURL *cg_upnp_service_mangleabsoluteurl(const char *serviceURLStr, const char *baseURLStr, const char *locationURLStr);
 }
 
 void ClinkTestCase::testServiceAbsoluteURL()
 {
     CgNetURL *url;
-    char *urlStr;
+    const char *urlStr;
 
     /********************************************************************************
      * O:serviceURLStr ?:baseURLStr ?:locationURLStr

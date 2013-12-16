@@ -223,7 +223,7 @@ CgUpnpDevice *cg_upnp_device_getrootdevice(CgUpnpDevice *dev)
 * cg_upnp_device_parsedescription
 ****************************************/
 
-BOOL cg_upnp_device_parsedescription(CgUpnpDevice *dev, char *desciption, int descriptionLen)
+BOOL cg_upnp_device_parsedescription(CgUpnpDevice *dev, const char *desciption, size_t descriptionLen)
 {
 	CgXmlParser *xmlParser;
 	BOOL xmlParseSuccess;
@@ -366,11 +366,11 @@ BOOL cg_upnp_device_loaddescriptionfile(CgUpnpDevice *dev, char *fileName)
 BOOL cg_upnp_device_updatefromssdppacket(CgUpnpDevice* dev,
 					 CgUpnpSSDPPacket* ssdpPkt)
 {
-	char *usn = NULL;
+	const char *usn = NULL;
 	char udn[CG_UPNP_UDN_LEN_MAX];
 	CgUpnpSSDPPacket *tmpSsdpPkt = NULL;
-	char* oldLocation = NULL;
-	char* newLocation = NULL;
+	const char* oldLocation = NULL;
+	const char* newLocation = NULL;
 	CgNetURL *url = NULL;
 	
 	cg_log_debug_l4("Entering...\n");
@@ -1633,8 +1633,7 @@ static void cg_upnp_device_initservicelist(CgUpnpDevice *dev)
 }
 
 
-CgUpnpService *cg_upnp_device_getservicebyserviceid(CgUpnpDevice *dev,
-						    char *serviceId)
+CgUpnpService *cg_upnp_device_getservicebyserviceid(CgUpnpDevice *dev, const char *serviceId)
 {
 	CgUpnpService *service;
 	CgUpnpDevice *childDev;
@@ -1688,8 +1687,7 @@ CgUpnpService *cg_upnp_device_getservicebyserviceid(CgUpnpDevice *dev,
  * \param type Type of the service
  * 
  */
-CgUpnpService* cg_upnp_device_getservicebyexacttype(CgUpnpDevice* dev,
-						    char* type)
+CgUpnpService* cg_upnp_device_getservicebyexacttype(CgUpnpDevice* dev, const char* type)
 {
 	CgUpnpService *service;
 	CgUpnpDevice *childDev;
@@ -1743,7 +1741,7 @@ CgUpnpService* cg_upnp_device_getservicebyexacttype(CgUpnpDevice* dev,
  * \param type Type of the service
  *
  */
-CgUpnpService *cg_upnp_device_getservicebytype(CgUpnpDevice *dev, char *type)
+CgUpnpService *cg_upnp_device_getservicebytype(CgUpnpDevice *dev, const char *type)
 {
 	CgUpnpService *service = NULL;
 	CgUpnpDevice *childDev = NULL;
@@ -1803,7 +1801,7 @@ CgUpnpService *cg_upnp_device_getservicebytype(CgUpnpDevice *dev, char *type)
 * cg_upnp_device_getservicebyscpdurl
 ****************************************/
 
-CgUpnpService *cg_upnp_device_getservicebyscpdurl(CgUpnpDevice *dev, char *url)
+CgUpnpService *cg_upnp_device_getservicebyscpdurl(CgUpnpDevice *dev, const char *url)
 {
 	CgUpnpService *service;
 	CgUpnpDevice *childDev;
@@ -1834,7 +1832,7 @@ CgUpnpService *cg_upnp_device_getservicebyscpdurl(CgUpnpDevice *dev, char *url)
 * cg_upnp_device_getservicebycontrolurl
 ****************************************/
 
-CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, char *url)
+CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, const char *url)
 {
 	CgUpnpService *service;
 	CgUpnpDevice *childDev;
@@ -1880,7 +1878,7 @@ CgUpnpService *cg_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, char *ur
 * cg_upnp_device_getservicebysid
 ****************************************/
 
-CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, char *sid)
+CgUpnpService *cg_upnp_device_getservicebysid(CgUpnpDevice *dev, const char *sid)
 {
 	CgUpnpService *service;
 	CgUpnpDevice *childDev;
@@ -1957,7 +1955,7 @@ void cg_upnp_device_setquerylistener(CgUpnpDevice *dev, CG_UPNP_STATEVARIABLE_LI
 * cg_upnp_device_getservicebyeventsuburl
 ****************************************/
 
-CgUpnpService *cg_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, char *url)
+CgUpnpService *cg_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, const char *url)
 {
 	CgUpnpService *service;
 	CgUpnpDevice *childDev;
@@ -1987,7 +1985,7 @@ CgUpnpService *cg_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, char *u
  * cg_upnp_device_getsmallesticonbymimetype
  ****************************************/
 
-CgUpnpIcon *cg_upnp_device_getsmallesticonbymimetype(CgUpnpDevice *dev, char *mimeType)
+CgUpnpIcon *cg_upnp_device_getsmallesticonbymimetype(CgUpnpDevice *dev, const char *mimeType)
 {
 	CgUpnpIcon *icon;
 	CgUpnpIcon *smallestIcon;
@@ -2027,7 +2025,7 @@ BOOL cg_upnp_device_getabsoluteiconurl(CgUpnpDevice *dev, CgUpnpIcon *icon, CgSt
 	CgNetURI *uri;
 	CgNetURI *ssdpUri;
 	CgUpnpDevice *rootDev;
-	char *ssdplocation;
+	const char *ssdplocation;
 	
 	uri = cg_net_uri_new();
 
@@ -2067,7 +2065,7 @@ BOOL cg_upnp_device_getabsoluteiconurl(CgUpnpDevice *dev, CgUpnpIcon *icon, CgSt
 * cg_upnp_device_getactionbyname
 ****************************************/
 
-CgUpnpAction *cg_upnp_device_getactionbyname(CgUpnpDevice *dev, char *name)
+CgUpnpAction *cg_upnp_device_getactionbyname(CgUpnpDevice *dev, const char *name)
 {
 	CgUpnpService *service;
 	CgUpnpAction *action;
@@ -2105,7 +2103,7 @@ CgUpnpAction *cg_upnp_device_getactionbyname(CgUpnpDevice *dev, char *name)
 * cg_upnp_device_getstatevariablebyname
 ****************************************/
 
-CgUpnpStateVariable *cg_upnp_device_getstatevariablebyname(CgUpnpDevice *dev, char *name)
+CgUpnpStateVariable *cg_upnp_device_getstatevariablebyname(CgUpnpDevice *dev, const char *name)
 {
 	CgUpnpService *service;
 	CgUpnpStateVariable *statVar;

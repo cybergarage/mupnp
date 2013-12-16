@@ -140,7 +140,7 @@ void cg_http_packet_clear(CgHttpPacket *httpPkt)
 * cg_http_packet_setheader
 ****************************************/
 
-void cg_http_packet_setheadervalue(CgHttpPacket *httpPkt, char* name, char *value)
+void cg_http_packet_setheadervalue(CgHttpPacket *httpPkt, const char* name, const char *value)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -153,7 +153,7 @@ void cg_http_packet_setheadervalue(CgHttpPacket *httpPkt, char* name, char *valu
 * cg_http_packet_setheaderinteger
 ****************************************/
 
-void cg_http_packet_setheaderinteger(CgHttpPacket *httpPkt, char* name, int value)
+void cg_http_packet_setheaderinteger(CgHttpPacket *httpPkt, const char* name, int value)
 {
 	char svalue[CG_STRING_INTEGER_BUFLEN];
 
@@ -168,7 +168,7 @@ void cg_http_packet_setheaderinteger(CgHttpPacket *httpPkt, char* name, int valu
 * cg_http_packet_setheaderlong
 ****************************************/
 
-void cg_http_packet_setheaderlong(CgHttpPacket *httpPkt, char* name, long value)
+void cg_http_packet_setheaderlong(CgHttpPacket *httpPkt, const char* name, long value)
 {
 	char svalue[CG_STRING_LONG_BUFLEN];
 
@@ -184,7 +184,7 @@ void cg_http_packet_setheaderlong(CgHttpPacket *httpPkt, char* name, long value)
 ****************************************/
 
 #if defined(CG_USE_INT64)
-void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, CgInt64 value)
+void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, const char* name, CgInt64 value)
 {
 	char svalue[CG_STRING_LONGLONG_BUFLEN];
 	cg_http_packet_setheadervalue(httpPkt, name, cg_longlong2str(value, svalue, sizeof(svalue)));
@@ -195,7 +195,7 @@ void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, CgInt64
 * cg_http_packet_getheadervalue
 ****************************************/
 
-char *cg_http_packet_getheadervalue(CgHttpPacket *httpPkt, char* name)
+const char *cg_http_packet_getheadervalue(CgHttpPacket *httpPkt, const char* name)
 {
 	return cg_http_headerlist_getvalue(httpPkt->headerList, name);
 }
@@ -204,9 +204,9 @@ char *cg_http_packet_getheadervalue(CgHttpPacket *httpPkt, char* name)
 * cg_http_packet_getheadervalue
 ****************************************/
 
-int cg_http_packet_getheaderinteger(CgHttpPacket *httpPkt, char* name)
+int cg_http_packet_getheaderinteger(CgHttpPacket *httpPkt, const char* name)
 {
-	char *value;
+	const char *value;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -221,9 +221,9 @@ int cg_http_packet_getheaderinteger(CgHttpPacket *httpPkt, char* name)
 * cg_http_packet_getheadervalue
 ****************************************/
 
-long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, char* name)
+long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, const char* name)
 {
-	char *value;
+	const char *value;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -257,10 +257,10 @@ CgInt64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name)
 * cg_http_packet_getheadervalue
 ****************************************/
 
-void cg_http_packet_sethost(CgHttpPacket *httpPkt, char *addr, int port)
+void cg_http_packet_sethost(CgHttpPacket *httpPkt, const char *addr, int port)
 {
 	char *host;
-	int hostMaxLen;
+	size_t hostMaxLen;
 
 	cg_log_debug_l4("Entering...\n");
 	
@@ -316,7 +316,7 @@ void cg_http_packet_sethost(CgHttpPacket *httpPkt, char *addr, int port)
 void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock)
 {
 	CgHttpHeader *header;
-	char *name, *value;
+	const char *name, *value;
 	char *content;
 	CgInt64 contentLen;
 	
@@ -350,11 +350,11 @@ void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock)
 * cg_http_packet_read_headers
 ****************************************/
 
-void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize)
+void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize)
 {
 	CgStringTokenizer *strTok;
 	CgHttpHeader *header;
-	int readLen;
+	size_t readLen;
 	char *name, *value;
 	
 	cg_log_debug_l4("Entering...\n");
@@ -390,10 +390,10 @@ void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *li
 * cg_http_packet_read_chunk
 ****************************************/
 
-long cg_http_packet_read_chunk(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize)
+size_t cg_http_packet_read_chunk(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize)
 {
-	long readLen = 0;
-	long conLen = 0;
+	size_t readLen = 0;
+	size_t conLen = 0;
 	int tries = 0;
 	char *content = NULL;
 	
@@ -442,10 +442,10 @@ long cg_http_packet_read_chunk(CgHttpPacket *httpPkt, CgSocket *sock, char *line
 * cg_http_packet_read_body
 ****************************************/
 
-BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize)
+BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize)
 {
-	long readLen;
-	int conLen;
+	size_t readLen;
+	size_t conLen;
 	char *content;
 	char readBuf[READBUF_LENGTH + 1];
 	int tries = 0;
@@ -517,7 +517,7 @@ BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineB
 * cg_http_packet_read
 ****************************************/
 
-BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader, char *lineBuf, int lineBufSize)
+BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader, char *lineBuf, size_t lineBufSize)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -540,8 +540,8 @@ int cg_http_packet_getheadersize(CgHttpPacket *httpPkt)
 {
 	CgHttpHeader *header;
 	int headerSize;
-	char *name;
-	char *value;
+	const char *name;
+	const char *value;
 	
 	cg_log_debug_l4("Entering...\n");
 

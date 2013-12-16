@@ -224,9 +224,9 @@ BOOL cg_upnp_ssdpresponse_server_post(CgUpnpSSDPResponseServer *server, CgUpnpSS
 {
 	CgUpnpHttpUSocket *httpuSock;
 	char *ifAddr;
-	char *ssdpAddr;
+	const char *ssdpAddr;
 	CgString *ssdpMsg;
-	int sentLen = 0;
+	size_t sentLen = 0;
 	
 	cg_log_debug_l4("Entering...\n");
 

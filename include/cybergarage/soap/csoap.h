@@ -93,8 +93,8 @@ BOOL cg_soap_request_sethttprequest(CgSoapRequest *soapReq, CgHttpRequest *httpR
 #define cg_soap_request_getsoapaction(soapReq) cg_http_packet_getheadervalue((CgHttpPacket*)(soapReq->httpReq), CG_HTTP_SOAP_ACTION)
 #define cg_soap_request_getsoapactionwithns(soapReq) cg_http_packet_getheadervalue((CgHttpPacket*)(soapReq->httpReq), CG_HTTP_SOAP_ACTION_WITH_NS)
 
-BOOL cg_soap_request_parsemessage(CgSoapRequest *soapReq, char *msg, int msgLen);
-CgSoapResponse *cg_soap_request_post(CgSoapRequest *soapReq, char *ipaddr, int port);
+BOOL cg_soap_request_parsemessage(CgSoapRequest *soapReq, char *msg, size_t msgLen);
+CgSoapResponse *cg_soap_request_post(CgSoapRequest *soapReq, const char *ipaddr, int port);
 #define cg_soap_request_getsoapresponse(soapReq) (soapReq->soapRes)
 
 #define cg_soap_request_getrootnoodelist(soapReq) (soapReq->rootNodeList)

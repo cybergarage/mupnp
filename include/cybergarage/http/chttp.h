@@ -262,10 +262,10 @@ void cg_http_header_delete(CgHttpHeader *header);
 
 #define cg_http_header_next(header) (CgHttpHeader *)cg_list_next((CgList *)header)
           
-void cg_http_header_setname(CgHttpHeader *header, char *name);
-char *cg_http_header_getname(CgHttpHeader *header);
-void cg_http_header_setvalue(CgHttpHeader *header, char *value);
-char *cg_http_header_getvalue(CgHttpHeader *header);
+void cg_http_header_setname(CgHttpHeader *header, const char *name);
+const char *cg_http_header_getname(CgHttpHeader *header);
+void cg_http_header_setvalue(CgHttpHeader *header, const char *value);
+const char *cg_http_header_getvalue(CgHttpHeader *header);
 
 /****************************************
 * Function (Header List)
@@ -279,9 +279,9 @@ void cg_http_headerlist_delete(CgHttpHeaderList *headerList);
 #define cg_http_headerlist_gets(headerList) (CgHttpHeader *)cg_list_next((CgList *)headerList)
 #define cg_http_headerlist_add(headerList, header) cg_list_add((CgList *)headerList, (CgList *)header)
 
-CgHttpHeader *cg_http_headerlist_get(CgHttpHeaderList *headerList, char *name);
-void cg_http_headerlist_set(CgHttpHeaderList *headerList, char *name, char *value);
-char *cg_http_headerlist_getvalue(CgHttpHeaderList *headerList, char *name);
+CgHttpHeader *cg_http_headerlist_get(CgHttpHeaderList *headerList, const char *name);
+void cg_http_headerlist_set(CgHttpHeaderList *headerList, const char *name, const char *value);
+const char *cg_http_headerlist_getvalue(CgHttpHeaderList *headerList, const char *name);
 
 /****************************************
 * Function (Packet)
@@ -304,17 +304,17 @@ void cg_http_packet_clear(CgHttpPacket *httpPkt);
 
 #define cg_http_packet_addheader(httpPkt, header) cg_http_headerlist_add(httpPkt->headerList, header)
 
-void cg_http_packet_setheadervalue(CgHttpPacket *httpPkt, char* name, char *value);
-void cg_http_packet_setheaderinteger(CgHttpPacket *httpPkt, char* name, int value);
-void cg_http_packet_setheaderlong(CgHttpPacket *httpPkt, char* name, long value);
-char *cg_http_packet_getheadervalue(CgHttpPacket *httpPkt, char* name);
-int cg_http_packet_getheaderinteger(CgHttpPacket *httpPkt, char* name);
-long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, char* name);
+void cg_http_packet_setheadervalue(CgHttpPacket *httpPkt, const char* name, const char *value);
+void cg_http_packet_setheaderinteger(CgHttpPacket *httpPkt, const char* name, int value);
+void cg_http_packet_setheaderlong(CgHttpPacket *httpPkt, const char* name, long value);
+const char *cg_http_packet_getheadervalue(CgHttpPacket *httpPkt, const char* name);
+int cg_http_packet_getheaderinteger(CgHttpPacket *httpPkt, const char* name);
+long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, const char* name);
 int cg_http_packet_getheadersize(CgHttpPacket *httpPkt);
 
 #if defined(CG_USE_INT64)
-void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, char* name, CgInt64 value);
-CgInt64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name);
+void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, const char* name, CgInt64 value);
+CgInt64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, const char* name);
 #endif
 
 #define cg_http_packet_setcontent(httpPkt, value) cg_string_setvalue(httpPkt->content, value)
@@ -324,10 +324,9 @@ CgInt64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name);
 #define cg_http_packet_getcontent(httpPkt) cg_string_getvalue(httpPkt->content)
 
 void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock);
-void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
-BOOL cg_http_packet_read_body(
-							  CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, int lineBufSize);
-BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader, char *lineBuf, int lineBufSize);
+void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize);
+BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize);
+BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader, char *lineBuf, size_t lineBufSize);
 
 /**** Content-Length ****/
 #if defined(CG_USE_INT64)
@@ -349,7 +348,7 @@ BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader,
 #define cg_http_packet_ischunked(httpPkt) cg_strcaseeq(cg_http_packet_gettransferencoding(httpPkt), CG_HTTP_CHUNKED)
 
 /**** Host ****/
-void cg_http_packet_sethost(CgHttpPacket *httpPkt, char *addr, int port);
+void cg_http_packet_sethost(CgHttpPacket *httpPkt, const char *addr, int port);
 #define cg_http_packet_gethost(httpPkt) cg_http_packet_getheaderlong(httpPkt,CG_HTTP_HOST)
 
 /**** Copy ****/
@@ -365,21 +364,21 @@ void cg_http_packet_print(CgHttpPacket *httpPkt);
 CgHttpRequest *cg_http_request_new();
 void cg_http_request_delete(CgHttpRequest *httpReq);
 void cg_http_request_clear(CgHttpRequest *httpReq);
-void cg_http_request_setmethod(CgHttpRequest *httpReq, char *method);
+void cg_http_request_setmethod(CgHttpRequest *httpReq, const char *method);
 char *cg_http_request_getmethod(CgHttpRequest *httpReq);
-void cg_http_request_setversion(CgHttpRequest *httpReq, char *version);
+void cg_http_request_setversion(CgHttpRequest *httpReq, const char *version);
 char *cg_http_request_getversion(CgHttpRequest *httpReqest);
-void cg_http_request_setuseragent(CgHttpRequest *httpReq, char *version);
+void cg_http_request_setuseragent(CgHttpRequest *httpReq, const char *version);
 char *cg_http_request_getuseragent(CgHttpRequest *httpReqest);
-void cg_http_request_addtouseragent(CgHttpRequest *httpReq, char *value);
-void cg_http_request_seturi(CgHttpRequest *httpReq, char *uri);
+void cg_http_request_addtouseragent(CgHttpRequest *httpReq, const char *value);
+void cg_http_request_seturi(CgHttpRequest *httpReq, const char *uri);
 char *cg_http_request_geturi(CgHttpRequest *httpReq);
 void cg_http_request_setsocket(CgHttpRequest *httpReq, CgSocket *sock);
 CgSocket *cg_http_request_getsocket(CgHttpRequest *httpReq);
 #define cg_http_request_closesocket(httpReq) cg_socket_close(cg_http_request_getsocket(httpReq))
-CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, char *ipaddr, int port);
+CgHttpResponse *cg_http_request_post(CgHttpRequest *httpReq, const char *ipaddr, int port);
 #if defined(CG_USE_OPENSSL)
-CgHttpResponse *cg_https_request_post(CgHttpRequest *httpReq, char *ipaddr, int port);
+CgHttpResponse *cg_https_request_post(CgHttpRequest *httpReq, const char *ipaddr, int port);
 #endif
 BOOL cg_http_request_read(CgHttpRequest *httpReq, CgSocket *sock);
 BOOL cg_http_request_postresponse(CgHttpRequest *httpReq, CgHttpResponse *httpRes);
@@ -470,9 +469,9 @@ void cg_http_request_print(CgHttpRequest *httpReq);
 CgHttpResponse *cg_http_response_new();
 void cg_http_response_delete(CgHttpResponse *httpRes);
 void cg_http_response_clear(CgHttpResponse *httpRes);
-void cg_http_response_setversion(CgHttpResponse *httpRes, char *version);
+void cg_http_response_setversion(CgHttpResponse *httpRes, const char *version);
 char *cg_http_response_getversion(CgHttpResponse *httpRes);
-void cg_http_response_setreasonphrase(CgHttpResponse *httpRes, char *value);
+void cg_http_response_setreasonphrase(CgHttpResponse *httpRes, const char *value);
 char *cg_http_response_getreasonphrase(CgHttpResponse *httpRes);
 void cg_http_response_setstatuscode(CgHttpResponse *httpRes, int code);
 int cg_http_response_getstatuscode(CgHttpResponse *httpRes);
@@ -540,7 +539,7 @@ void cg_http_response_print(CgHttpResponse *httpRes);
 
 CgHttpServer *cg_http_server_new();
 void cg_http_server_delete(CgHttpServer *httpServer);
-BOOL cg_http_server_open(CgHttpServer *httpServer, int bindPort, char *bindAddr);
+BOOL cg_http_server_open(CgHttpServer *httpServer, int bindPort, const char *bindAddr);
 BOOL cg_http_server_close(CgHttpServer *httpServer);
 BOOL cg_http_server_accept(CgHttpServer *httpServer);
 BOOL cg_http_server_start(CgHttpServer *httpServer);
@@ -555,7 +554,7 @@ void cg_http_server_setlistener(CgHttpServer *httpServer, CG_HTTP_LISTENER liste
 #define cg_http_server_setuserdata(httpServer, value) (httpServer->userData = value)
 #define cg_http_server_getuserdata(httpServer) (httpServer->userData)
 
-char *cg_http_getservername(char *buf, int bufSize);
+const char *cg_http_getservername(char *buf, size_t bufSize);
 
 /**** Timeout ****/
 #define cg_http_server_settimeout(httpServer,value) (httpServer->timeout = value)
@@ -588,7 +587,7 @@ void cg_http_serverlist_setuserdata(CgHttpServerList *httpServerList, void *valu
 * Function (Date)
 ****************************************/
 
-char *cg_http_getdate(CgSysTime sysTime, char *buf, int bufSize);
+const char *cg_http_getdate(CgSysTime sysTime, char *buf, size_t bufSize);
 
 /****************************************
 * Persistent connection cache

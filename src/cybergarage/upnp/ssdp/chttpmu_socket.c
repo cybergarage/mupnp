@@ -46,11 +46,11 @@ BOOL cg_upnp_httpmu_socket_bind(CgUpnpHttpMuSocket *sock, char *mcastAddr, int p
 * cg_upnp_httpmu_socket_recv
 ****************************************/
 
-int cg_upnp_httpmu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt)
+ssize_t cg_upnp_httpmu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgDatagramPacket *dgmPkt;
 	char *ssdpData;
-	int recvLen;
+	ssize_t recvLen;
 	
 	cg_log_debug_l4("Entering...\n");
 

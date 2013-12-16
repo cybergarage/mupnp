@@ -184,7 +184,7 @@ CgXmlNode *cg_soap_request_getbodynode(CgSoapRequest *soapReq)
 BOOL cg_soap_request_sethttprequest(CgSoapRequest *soapReq, CgHttpRequest *httpReq)
 {
 	char *content;
-	int contentLen;
+	size_t contentLen;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -208,7 +208,7 @@ BOOL cg_soap_request_sethttprequest(CgSoapRequest *soapReq, CgHttpRequest *httpR
 * cg_soap_request_parsemessage
 ****************************************/
 
-BOOL cg_soap_request_parsemessage(CgSoapRequest *soapReq, char *msg, int msgLen)
+BOOL cg_soap_request_parsemessage(CgSoapRequest *soapReq, char *msg, size_t msgLen)
 {
 	CgXmlParser *xmlParser;
 	BOOL parseRet;
@@ -231,11 +231,11 @@ BOOL cg_soap_request_parsemessage(CgSoapRequest *soapReq, char *msg, int msgLen)
 * cg_soap_request_post
 ****************************************/
 
-CgSoapResponse *cg_soap_request_post(CgSoapRequest *soapReq, char *ipaddr, int port)
+CgSoapResponse *cg_soap_request_post(CgSoapRequest *soapReq, const char *ipaddr, int port)
 {
 	CgHttpResponse *httpRes;
 	char *content;
-	int contentLen;
+	size_t contentLen;
 	CgXmlParser *xmlParser;
 	CgHttpHeader *header = NULL;
 	

@@ -86,7 +86,7 @@ static char *to_week_string(int value)
 
 #if !defined(ITRON)
 
-char *cg_http_getdate(CgSysTime sysTime, char *buf, int bufSize)
+const char *cg_http_getdate(CgSysTime sysTime, char *buf, size_t bufSize)
 {
 #if defined(HAVE_GMTIME_R)
 	struct tm gmTimeBuf;

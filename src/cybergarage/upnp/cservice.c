@@ -177,10 +177,10 @@ void cg_upnp_service_clear(CgUpnpService *service)
  * @param url The URL (location) to compare
  * @return TRUE if location is found from URL; otherwise FALSE
  */
-BOOL cg_upnp_service_isscpdurl(CgUpnpService *service, char *url)
+BOOL cg_upnp_service_isscpdurl(CgUpnpService *service, const char *url)
 {
 	CgXmlNode *s = cg_upnp_service_getservicenode(service);
-	char      *v = cg_xml_node_getchildnodevalue(s, CG_UPNP_SERVICE_SCPDURL);
+	const char *v = cg_xml_node_getchildnodevalue(s, CG_UPNP_SERVICE_SCPDURL);
 	return cg_net_uri_isequivalent(v, url);
 }
 
@@ -360,11 +360,11 @@ char *cg_upnp_service_getdescription(CgUpnpService *service, CgString *descStr)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_getidentifier(char* serviceType)
+const char* cg_upnp_servicetype_getidentifier(const char* serviceType)
 {
 	char* part = NULL;
 	int tail = 0;
-	int len = 0;
+	size_t len = 0;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -416,12 +416,12 @@ char* cg_upnp_servicetype_getidentifier(char* serviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_geturn(char* serviceType)
+const char* cg_upnp_servicetype_geturn(const char* serviceType)
 {
 	char* part = NULL;
 	int tail = 0;
 	int head = 0;
-	int len = 0;
+	size_t len = 0;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -485,12 +485,12 @@ char* cg_upnp_servicetype_geturn(char* serviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_getservice(char* serviceType)
+const char* cg_upnp_servicetype_getservice(const char* serviceType)
 {
 	char* part = NULL;
 	int tail = 0;
 	int head = 0;
-	int len = 0;
+	size_t len = 0;
 	int count = 0;
 
 	cg_log_debug_l4("Entering...\n");
@@ -562,12 +562,12 @@ char* cg_upnp_servicetype_getservice(char* serviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_gettype(char* serviceType)
+const char* cg_upnp_servicetype_gettype(const char* serviceType)
 {
 	char* part = NULL;
 	int tail = 0;
 	int head = 0;
-	int len = 0;
+	size_t len = 0;
 	int count = 0;
 	
 	cg_log_debug_l4("Entering...\n");
@@ -640,11 +640,11 @@ char* cg_upnp_servicetype_gettype(char* serviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_getschematype(char* serviceType)
+const char* cg_upnp_servicetype_getschematype(const char* serviceType)
 {
 	char* part = NULL;
 	int tail = 0;
-	int len = 0;
+	size_t len = 0;
 	int count = 0;
 	
 	if (serviceType == NULL)
@@ -704,12 +704,12 @@ char* cg_upnp_servicetype_getschematype(char* serviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_getversion(char* serviceType)
+const char* cg_upnp_servicetype_getversion(const char* serviceType)
 {
 	char* part = NULL;
 	int tail = 0;
 	int head = 0;
-	int len = 0;
+	size_t len = 0;
 	int count = 0;
 
 	cg_log_debug_l4("Entering...\n");
@@ -808,7 +808,7 @@ char *cg_upnp_service_getnotifyservicetypeusn(CgUpnpService *service, char *buf,
 	return buf;
 }
 
-BOOL cg_upnp_service_announcefrom(CgUpnpService *service, char *bindAddr)
+BOOL cg_upnp_service_announcefrom(CgUpnpService *service, const char *bindAddr)
 {
 	/**** uuid:device-UUID::urn:schemas-upnp-org:service:serviceType:v ****/
 	char ssdpLineBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
@@ -843,7 +843,7 @@ BOOL cg_upnp_service_announcefrom(CgUpnpService *service, char *bindAddr)
 	return sentResult;
 }
 
-BOOL cg_upnp_service_byebyefrom(CgUpnpService *service, char *bindAddr)
+BOOL cg_upnp_service_byebyefrom(CgUpnpService *service, const char *bindAddr)
 {
 	/**** uuid:device-UUID::urn:schemas-upnp-org:service:serviceType:v ****/
 	char ssdpLineBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
@@ -938,7 +938,7 @@ static void cg_upnp_service_initactionlist(CgUpnpService *service)
 * cg_upnp_service_getactionbyname
 ****************************************/
 
-CgUpnpAction *cg_upnp_service_getactionbyname(CgUpnpService *service, char *name)
+CgUpnpAction *cg_upnp_service_getactionbyname(CgUpnpService *service, const char *name)
 {
 	CgUpnpActionList *actionList;
 	CgUpnpAction *action;
@@ -1010,7 +1010,7 @@ static void cg_upnp_service_initservicestatetable(CgUpnpService *service)
 * cg_upnp_service_getstatevariablebyname
 ****************************************/
 
-CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *service, char *name)
+CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *service, const char *name)
 {
 	CgUpnpServiceStateTable *stateTable;
 	CgUpnpStateVariable *stateVar;
@@ -1194,7 +1194,7 @@ CgUpnpSubscriber *cg_upnp_service_getsubscriberbysid(CgUpnpService *service, cha
 
 /* Private helper functions */
 
-CgNetURL *cg_upnp_service_mangleabsoluteurl(char *serviceURLStr, char *baseURLStr, char *locationURLStr)
+CgNetURL *cg_upnp_service_mangleabsoluteurl(const char *serviceURLStr, const char *baseURLStr, const char *locationURLStr)
 {
 	CgNetURL *absServiceURL;
 	CgNetURL *serviceURL;

@@ -86,7 +86,7 @@ typedef struct _CgUpnpSSDPResponseServer {
 #define cg_upnp_httpmu_socket_close(sock) cg_socket_close(sock)
 
 BOOL cg_upnp_httpmu_socket_bind(CgUpnpHttpMuSocket *sock, char *mcastAddr, int port, char *bindAddr);
-int cg_upnp_httpmu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt);
+ssize_t cg_upnp_httpmu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt);
 
 /****************************************
 * Function (HTTPU)

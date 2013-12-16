@@ -127,11 +127,11 @@ ttUserInterface kaInterfaceHandle;
 ****************************************/
 
 #if !defined(ITRON)
-BOOL cg_socket_tosockaddrin(char *addr, int port, struct sockaddr_in *sockaddr, BOOL isBindAddr);
+BOOL cg_socket_tosockaddrin(const char *addr, int port, struct sockaddr_in *sockaddr, BOOL isBindAddr);
 #endif
 
 #if !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
-BOOL cg_socket_tosockaddrinfo(int sockType, char *addr, int port, struct addrinfo **addrInfo, BOOL isBindAddr);
+BOOL cg_socket_tosockaddrinfo(int sockType, const char *addr, int port, struct addrinfo **addrInfo, BOOL isBindAddr);
 #endif
 
 #define cg_socket_getrawtype(socket) (((socket->type & CG_NET_SOCKET_STREAM) == CG_NET_SOCKET_STREAM) ? SOCK_STREAM : SOCK_DGRAM)
@@ -472,7 +472,7 @@ BOOL cg_socket_listen(CgSocket *sock)
 * cg_socket_bind
 ****************************************/
 
-BOOL cg_socket_bind(CgSocket *sock, int bindPort, char *bindAddr,  BOOL bindFlag, BOOL reuseFlag)
+BOOL cg_socket_bind(CgSocket *sock, int bindPort, const char *bindAddr, BOOL bindFlag, BOOL reuseFlag)
 {
 #if defined(BTRON) || defined(TENGINE)
 	struct sockaddr_in sockaddr;
@@ -657,7 +657,7 @@ cg_log_debug_s("clientSock->id = %d\n", cg_socket_getport(clientSock));
 * cg_socket_connect
 ****************************************/
 
-BOOL cg_socket_connect(CgSocket *sock, char *addr, int port)
+BOOL cg_socket_connect(CgSocket *sock, const char *addr, int port)
 {
 #if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
 	ERR ret;
@@ -782,7 +782,7 @@ ssize_t cg_socket_read(CgSocket *sock, char *buffer, size_t bufferLen)
 #define CG_NET_SOCKET_SEND_RETRY_CNT 10
 #define CG_NET_SOCKET_SEND_RETRY_WAIT_MSEC 20
 
-size_t cg_socket_write(CgSocket *sock, char *cmd, size_t cmdLen)
+size_t cg_socket_write(CgSocket *sock, const char *cmd, size_t cmdLen)
 {
 	ssize_t nSent;
 	size_t nTotalSent = 0;
@@ -913,7 +913,7 @@ size_t cg_socket_skip(CgSocket *sock, size_t skipLen)
 * cg_socket_sendto
 ****************************************/
 
-size_t cg_socket_sendto(CgSocket *sock, char *addr, int port, char *data, size_t dataLen)
+size_t cg_socket_sendto(CgSocket *sock, const char *addr, int port, const char *data, size_t dataLen)
 {
 #if defined(BTRON) || defined(TENGINE)
 	struct sockaddr_in sockaddr;
@@ -1331,7 +1331,7 @@ BOOL cg_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr)
 
 #if !defined(ITRON)
 
-BOOL cg_socket_tosockaddrin(char *addr, int port, struct sockaddr_in *sockaddr, BOOL isBindAddr)
+BOOL cg_socket_tosockaddrin(const char *addr, int port, struct sockaddr_in *sockaddr, BOOL isBindAddr)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -1384,7 +1384,7 @@ BOOL cg_socket_tosockaddrin(char *addr, int port, struct sockaddr_in *sockaddr, 
 
 #if !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
 
-BOOL cg_socket_tosockaddrinfo(int sockType, char *addr, int port, struct addrinfo **addrInfo, BOOL isBindAddr)
+BOOL cg_socket_tosockaddrinfo(int sockType, const char *addr, int port, struct addrinfo **addrInfo, BOOL isBindAddr)
 {
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
 	struct addrinfo hints;

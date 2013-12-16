@@ -595,7 +595,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 
 #if defined(ITRON)
 
-void cg_net_setinterface(char *ifaddr)
+void cg_net_setinterface(const char *ifaddr)
 {
 	cg_log_debug_l4("Entering...\n");
 

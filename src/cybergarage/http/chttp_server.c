@@ -97,7 +97,7 @@ void cg_http_server_delete(CgHttpServer *httpServer)
 * cg_http_server_delete
 ****************************************/
 
-BOOL cg_http_server_open(CgHttpServer *httpServer, int bindPort, char *bindAddr)
+BOOL cg_http_server_open(CgHttpServer *httpServer, int bindPort, const char *bindAddr)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -371,7 +371,7 @@ void cg_http_server_setlistener(CgHttpServer *httpServer, CG_HTTP_LISTENER liste
 * cg_http_getservername()
 ****************************************/
 
-char *cg_http_getservername(char *buf, int bufSize)
+const char *cg_http_getservername(char *buf, size_t bufSize)
 {
 #if defined(WIN32) && !defined(ITRON)
 	OSVERSIONINFO verInfo;

@@ -234,7 +234,7 @@ char *cg_upnp_service_getdescription(CgUpnpService *service, CgString *descStr);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_getidentifier(char* serviceType);
+const char* cg_upnp_servicetype_getidentifier(const char* serviceType);
 
 /** 
  * Get the URN part of a service type string (usually "schemas-upnp-org") 
@@ -244,7 +244,7 @@ char* cg_upnp_servicetype_getidentifier(char* serviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_geturn(char* serviceType);
+const char* cg_upnp_servicetype_geturn(const char* serviceType);
 
 /** 
  * Get the service part of a service type string (usually just "service")
@@ -254,7 +254,7 @@ char* cg_upnp_servicetype_geturn(char* serviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_getservice(char* serviceType);
+const char* cg_upnp_servicetype_getservice(const char* serviceType);
 
 /** 
  * Get the type part of a service type string (ex. "ContentDirectory")
@@ -264,7 +264,7 @@ char* cg_upnp_servicetype_getservice(char* serviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_gettype(char* serviceType);
+const char* cg_upnp_servicetype_gettype(const char* serviceType);
 
 /** 
  * Get the schema type part of a service type string (without last colon)
@@ -275,7 +275,7 @@ char* cg_upnp_servicetype_gettype(char* serviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_getschematype(char* serviceType);
+const char* cg_upnp_servicetype_getschematype(const char* serviceType);
 
 /** 
  * Get the version part of a service type string (ex. "1")
@@ -285,7 +285,7 @@ char* cg_upnp_servicetype_getschematype(char* serviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_getversion(char* serviceType);
+const char* cg_upnp_servicetype_getversion(const char* serviceType);
 
 /****************************************************************************
  * serviceID
@@ -335,7 +335,7 @@ CgNetURL *cg_upnp_service_getscpdurl(CgUpnpService *service);
  * @param url The URL (location) to compare
  * @return TRUE if location is found from URL; otherwise FALSE
  */
-BOOL cg_upnp_service_isscpdurl(CgUpnpService *service, char *url);
+BOOL cg_upnp_service_isscpdurl(CgUpnpService *service, const char *url);
 
 /****************************************************************************
  * controlURL
@@ -403,7 +403,7 @@ CgUpnpAction *cg_upnp_service_getactions(CgUpnpService *service);
  * @param name The name of the action to look for
  * @return CgUpnpAction* or NULL
  */
-CgUpnpAction *cg_upnp_service_getactionbyname(CgUpnpService *service, char *name);
+CgUpnpAction *cg_upnp_service_getactionbyname(CgUpnpService *service, const char *name);
 
 /**
  * Check, whether a service has an action by the given name
@@ -439,7 +439,7 @@ CgUpnpStateVariable *cg_upnp_service_getstatevariables(CgUpnpService *service);
  * @param name the name of the variable
  * @return CgUpnpStateVariable* or NULL
  */
-CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *service, char *name);
+CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *service, const char *name);
 
 /**
  * Check, whether the service has the given state variable
@@ -460,7 +460,7 @@ CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *servi
  * @param service The service to advertise
  * @param bindAddr The address to attach to the announcement
  */
-BOOL cg_upnp_service_announcefrom(CgUpnpService *service, char *bindAddr);
+BOOL cg_upnp_service_announcefrom(CgUpnpService *service, const char *bindAddr);
 
 /**
  * Send a byebye announcement (i.e. a cancelling advertisement) from the given
@@ -469,7 +469,7 @@ BOOL cg_upnp_service_announcefrom(CgUpnpService *service, char *bindAddr);
  * @param service The service to announce from
  * @param bindAddr The address to attach to the announcement
  */
-BOOL cg_upnp_service_byebyefrom(CgUpnpService *service, char *bindAddr);
+BOOL cg_upnp_service_byebyefrom(CgUpnpService *service, const char *bindAddr);
 
 /****************************************************************************
  * Listener 

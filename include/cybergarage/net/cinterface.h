@@ -139,13 +139,13 @@ void cg_net_interfacelist_getchanges(CgNetworkInterfaceList *netIfListOld,
 ****************************************/
 
 #if defined(ITRON)
-void cg_net_setinterface(char *ifaddr);
+void cg_net_setinterface(const char *ifaddr);
 #endif
 
 int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList);
 
-BOOL cg_net_isipv6address(char *addr);
-int cg_net_getipv6scopeid(char *addr);
+BOOL cg_net_isipv6address(const char *addr);
+int cg_net_getipv6scopeid(const char *addr);
 
 #ifdef  __cplusplus
 }

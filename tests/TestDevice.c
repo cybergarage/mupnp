@@ -165,11 +165,11 @@ char *TEST_SERVICE_DESCRIPTION =
 
 BOOL upnp_test_actionreceived(CgUpnpAction *action)
 {
+/*
 	CgSysTime currTime;
 	char *actionName;
 	CgUpnpArgument *currTimeArg;
 
-/*
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	CgUpnpArgument *newTimeArg, *resultArg;
 
@@ -199,9 +199,10 @@ BOOL upnp_test_actionreceived(CgUpnpAction *action)
 
 BOOL upnp_test_queryreceived(CgUpnpStateVariable *statVar)
 {
+  /*
 	char *varName;
 	CgSysTime currTime;
-/*
+
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	
 	varName = cg_upnp_statevariable_getname(statVar);
@@ -228,8 +229,8 @@ void upnp_test_device_httprequestrecieved(CgHttpRequest *httpReq)
 	char content[2048];
 /*
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
+ char serverName[CG_UPNP_SEVERNAME_MAXLEN];
 */
-	char serverName[CG_UPNP_SEVERNAME_MAXLEN];
 	CgHttpResponse *httpRes;
 	BOOL postRet;
 	
