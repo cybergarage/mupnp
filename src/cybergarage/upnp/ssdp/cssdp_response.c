@@ -79,14 +79,15 @@ void cg_upnp_ssdpresponse_setleasetime(CgUpnpSSDPResponse *ssdpRes, int value)
 
 int cg_upnp_ssdpresponse_getleasetime(CgUpnpSSDPResponse *ssdpRes)
 {
-	char *cacheCtrl;
+	const char *cacheCtrl;
 
 	cg_log_debug_l4("Entering...\n");
 
 	cacheCtrl = cg_http_packet_getheadervalue((CgHttpPacket*)ssdpRes, CG_HTTP_CACHE_CONTROL);
-	return cg_upnp_ssdp_getleasetime(cacheCtrl);
 
 	cg_log_debug_l4("Leaving...\n");
+  
+	return cg_upnp_ssdp_getleasetime(cacheCtrl);
 }
 
 /****************************************
@@ -97,8 +98,8 @@ char *cg_upnp_ssdpresponse_tostring(CgUpnpSSDPResponse *ssdpRes, CgString *ssdpM
 {
 	CgHttpHeader *header;
 	char statusCodeBuf[CG_STRING_INTEGER_BUFLEN];
-	char *name;
-	char *value;
+	const char *name;
+	const char *value;
 	
 	cg_log_debug_l4("Entering...\n");
 

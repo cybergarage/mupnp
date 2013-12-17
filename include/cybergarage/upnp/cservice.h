@@ -566,7 +566,7 @@ BOOL cg_upnp_service_removesubscriber(CgUpnpService *service, CgUpnpSubscriber *
  * @param service The service in question
  * @param sid The SID
  */
-CgUpnpSubscriber *cg_upnp_service_getsubscriberbysid(CgUpnpService *service, char *sid);
+CgUpnpSubscriber *cg_upnp_service_getsubscriberbysid(CgUpnpService *service, const char *sid);
 
 /****************************************************************************
  * Announce

@@ -25,7 +25,7 @@
 * cg_upnp_httpmu_socket_bind
 ****************************************/
 
-BOOL cg_upnp_httpmu_socket_bind(CgUpnpHttpMuSocket *sock, char *mcastAddr, int port, char *bindAddr)
+BOOL cg_upnp_httpmu_socket_bind(CgUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr)
 {
 	cg_log_debug_l4("Entering...\n");
 

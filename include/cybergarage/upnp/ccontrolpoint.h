@@ -458,7 +458,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param target The Search Target parameter (ex. "ssdp:all")
  */
-BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, char *target);
+BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *target);
 
 /**
  * Set the MX-parameter used for SSDP searches i.e. Set the time to wait 

@@ -678,7 +678,7 @@ static CgUpnpDevice *cg_upnp_controlpoint_createdevicefromssdkpacket(CgUpnpSSDPP
 void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgUpnpDevice *dev = NULL;
-	char *usn = NULL;
+	const char *usn = NULL;
 	char udn[CG_UPNP_UDN_LEN_MAX];
 	CG_UPNP_DEVICE_LISTENER listener = NULL;
 	CgUpnpDeviceStatus status = 0;
@@ -792,7 +792,7 @@ void cg_upnp_controlpoint_removedevicebyssdppacket(CgUpnpControlPoint *ctrlPoint
  * @param ctrlPoint The control point in question
  * @param target The Search Target parameter (ex. "ssdp:all")
  */
-BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, char *target)
+BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *target)
 {
 	CgUpnpSSDPRequest *ssdpReq;
 	CgUpnpSSDPResponseServerList *ssdpResServerList;

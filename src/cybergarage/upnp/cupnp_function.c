@@ -119,7 +119,7 @@ void uuid_unparse_lower (uuid_t uu, char *out)
 
 char *cg_upnp_getservername(char *buf, int bufSize)
 {
-	int nameLen;
+	size_t nameLen;
 
 	cg_log_debug_l4("Entering...\n");
 

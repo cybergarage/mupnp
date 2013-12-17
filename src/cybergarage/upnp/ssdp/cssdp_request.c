@@ -77,7 +77,7 @@ void cg_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, int value)
 
 int cg_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq)
 {
-	char *cacheCtrl;
+	const char *cacheCtrl;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -95,8 +95,8 @@ int cg_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq)
 char *cg_upnp_ssdprequest_tostring(CgUpnpSSDPRequest *ssdpReq, CgString *ssdpMsg)
 {
 	CgHttpHeader *header;
-	char *name;
-	char *value;
+	const char *name;
+	const char *value;
 	
 	cg_log_debug_l4("Entering...\n");
 

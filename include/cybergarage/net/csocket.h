@@ -167,7 +167,7 @@ int cg_socket_getlasterror();
 * Function (Multicast)
 ****************************************/
 
-BOOL cg_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr);
+BOOL cg_socket_joingroup(CgSocket *sock, const char *mcastAddr, const char *ifAddr);
 
 /****************************************
 * Function (Option)

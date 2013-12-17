@@ -122,7 +122,7 @@ BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notify
 	CgHttpRequest *httpReq;
 	CgXmlNode *propSetNode;
 	CgUpnpService* service;
-    char *server[CG_UPNP_SEVERNAME_MAXLEN];
+  char server[CG_UPNP_SEVERNAME_MAXLEN];
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -134,8 +134,8 @@ BOOL cg_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notify
 	cg_http_request_setconnection(httpReq, CG_HTTP_CLOSE);
 	cg_http_request_seturi(httpReq, cg_upnp_subscriber_getdeliverypath(sub));
 	cg_http_request_sethost(httpReq, cg_upnp_subscriber_getdeliveryhost(sub), cg_upnp_subscriber_getdeliveryport(sub));
-    cg_upnp_getservername(server, sizeof(server));
-    cg_http_packet_setheadervalue((CgHttpPacket*)httpReq,
+  cg_upnp_getservername(server, sizeof(server));
+  cg_http_packet_setheadervalue((CgHttpPacket*)httpReq,
                                   CG_HTTP_SERVER,
                                   server);
 	cg_upnp_event_notify_request_setnt(notifyReq, CG_UPNP_NT_EVENT);

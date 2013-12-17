@@ -25,11 +25,11 @@
 * cg_upnp_httpu_socket_recv
 ****************************************/
 
-int cg_upnp_httpu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt)
+ssize_t cg_upnp_httpu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgDatagramPacket *dgmPkt;
 	char *ssdpData;
-	int recvLen;
+	ssize_t recvLen;
 	
 	cg_log_debug_l4("Entering...\n");
 
@@ -43,7 +43,8 @@ int cg_upnp_httpu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPk
 	cg_upnp_ssdp_packet_setheader(ssdpPkt, ssdpData);
 	cg_socket_datagram_packet_setdata(dgmPkt, NULL);
 	
-	return recvLen;
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return recvLen;
 }
+

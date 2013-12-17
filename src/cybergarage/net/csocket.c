@@ -1194,7 +1194,7 @@ BOOL cg_socket_settimeout(CgSocket *sock, int sec)
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
 
-BOOL cg_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr)
+BOOL cg_socket_joingroup(CgSocket *sock, const char *mcastAddr, const char *ifAddr)
 {
 	struct ip_mreq ipmr;
 	u_long ifInetAddr = ka_inet_addr(ifAddr);
@@ -1251,7 +1251,7 @@ BOOL cg_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr)
 }
 #else
 
-BOOL cg_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr)
+BOOL cg_socket_joingroup(CgSocket *sock, const char *mcastAddr, const char *ifAddr)
 {
 	struct addrinfo hints;
 	struct addrinfo *mcastAddrInfo, *ifAddrInfo;

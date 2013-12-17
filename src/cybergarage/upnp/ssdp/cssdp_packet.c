@@ -161,8 +161,8 @@ void cg_upnp_ssdp_packet_setheader(CgUpnpSSDPPacket *ssdpPkt, char *ssdpMsg)
 
 long cg_upnp_ssdp_packet_getmaxage(CgUpnpSSDPPacket *ssdpPkt)
 {
-	char *cachecontrol = NULL;
-	int maxageIdx = 0;
+	const char *cachecontrol = NULL;
+	ssize_t maxageIdx = 0;
 	
 	cg_log_debug_l4("Entering...\n");
 

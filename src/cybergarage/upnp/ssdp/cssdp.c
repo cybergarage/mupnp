@@ -30,7 +30,7 @@ static int ssdpAnnounceCount = CG_UPNP_SSDP_DEFAULT_ANNOUNCE_COUNT;
 * cg_upnp_ssdp_setipv6address
 ****************************************/
 
-void cg_upnp_ssdp_setipv6address(char *addr)
+void cg_upnp_ssdp_setipv6address(const char *addr)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -43,13 +43,12 @@ void cg_upnp_ssdp_setipv6address(char *addr)
 * cg_upnp_ssdp_getipv6address
 ****************************************/
 
-char *cg_upnp_ssdp_getipv6address()
+const char *cg_upnp_ssdp_getipv6address()
 {
 	cg_log_debug_l4("Entering...\n");
+	cg_log_debug_l4("Leaving...\n");
 
 	return ssdpIPv6Address;
-
-	cg_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
@@ -82,7 +81,7 @@ int cg_upnp_ssdp_getannouncecount()
 * cg_upnp_ssdp_getleasetime
 ****************************************/
 
-int cg_upnp_ssdp_getleasetime(char *cacheCnt)
+int cg_upnp_ssdp_getleasetime(const char *cacheCnt)
 {
 	ssize_t eqIdx;
 

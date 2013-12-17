@@ -332,7 +332,7 @@ CgUpnpAllowedValuesList* cg_upnp_allowedvaluelist_new();
  * @param statVar State variable
  * @param data New value associated with this state variable, and the value is send to other devices which subscribe the service.
  */
-void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, char *data);
+void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, const char *data);
 
 /**
  * Set state variable value
@@ -340,7 +340,7 @@ void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, char *data);
  * @param statVar State variable
  * @param data New value associated with this state variable
  */
-void cg_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, char *data);
+void cg_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, const char *data);
 
 /**
  * Get value associated with this state variable

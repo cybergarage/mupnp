@@ -1424,7 +1424,7 @@ void cg_upnp_device_byebye(CgUpnpDevice *dev)
 * cg_upnp_device_postsearchresponse
 ****************************************/
 
-BOOL cg_upnp_device_postsearchresponse(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt, char *st, char *usn)
+BOOL cg_upnp_device_postsearchresponse(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt, const char *st, const char *usn)
 {
 	CgUpnpDevice *rootDev;
 	CgUpnpSSDPResponse *ssdpRes;

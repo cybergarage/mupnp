@@ -85,7 +85,7 @@ typedef struct _CgUpnpSSDPResponseServer {
 #define cg_upnp_httpmu_socket_delete(sock) cg_socket_delete(sock)
 #define cg_upnp_httpmu_socket_close(sock) cg_socket_close(sock)
 
-BOOL cg_upnp_httpmu_socket_bind(CgUpnpHttpMuSocket *sock, char *mcastAddr, int port, char *bindAddr);
+BOOL cg_upnp_httpmu_socket_bind(CgUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr);
 ssize_t cg_upnp_httpmu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt);
 
 /****************************************
@@ -97,7 +97,7 @@ ssize_t cg_upnp_httpmu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *s
 #define cg_upnp_httpu_socket_close(sock) cg_socket_close(sock)
 #define cg_upnp_httpu_socket_new() cg_socket_dgram_new()
 #define cg_upnp_httpu_socket_bind(sock, bindPort, bindAddr) cg_socket_bind(sock, bindPort, bindAddr, FALSE, FALSE)
-int cg_upnp_httpu_socket_recv(CgUpnpHttpUSocket *sock, CgUpnpSSDPPacket *ssdpPkt);
+ssize_t cg_upnp_httpu_socket_recv(CgUpnpHttpUSocket *sock, CgUpnpSSDPPacket *ssdpPkt);
 
 /****************************************
 * Function (SSDPPacket)

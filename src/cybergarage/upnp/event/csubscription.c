@@ -102,7 +102,7 @@ char *cg_upnp_event_subscription_createsid(char *buf, int bufSize)
 
 char *cg_upnp_event_subscription_tosidheaderstring(char *sid, char *buf, int bufSize)
 {
-	int colonIdx;
+	ssize_t colonIdx;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -132,7 +132,7 @@ char *cg_upnp_event_subscription_tosidheaderstring(char *sid, char *buf, int buf
 
 char *cg_upnp_event_subscription_getsid(char *headerValue)
 {
-	int colonIdx;
+	ssize_t colonIdx;
 	
 	cg_log_debug_l4("Entering...\n");
 

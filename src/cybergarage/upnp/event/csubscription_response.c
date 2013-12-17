@@ -34,12 +34,12 @@
 
 void cg_upnp_event_subscription_subscriberesponse_setresponse(CgUpnpSubscriptionResponse *subRes, int code)
 {
-    char *server[CG_UPNP_SEVERNAME_MAXLEN];
+  char server[CG_UPNP_SEVERNAME_MAXLEN];
 	cg_log_debug_l4("Entering...\n");
 
 	cg_http_response_setstatuscode(subRes, code);
-    cg_upnp_getservername(server, sizeof(server));
-    cg_http_packet_setheadervalue(((CgHttpPacket*)subRes),
+  cg_upnp_getservername(server, sizeof(server));
+  cg_http_packet_setheadervalue(((CgHttpPacket*)subRes),
                                   CG_HTTP_SERVER,
                                   server);
 	cg_http_response_setcontentlength(subRes, 0);

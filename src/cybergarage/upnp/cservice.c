@@ -1166,7 +1166,7 @@ BOOL cg_upnp_service_removesubscriber(CgUpnpService *service, CgUpnpSubscriber *
 * cg_upnp_service_getsubscriberbysid
 ****************************************/
 
-CgUpnpSubscriber *cg_upnp_service_getsubscriberbysid(CgUpnpService *service, char *sid)
+CgUpnpSubscriber *cg_upnp_service_getsubscriberbysid(CgUpnpService *service, const char *sid)
 {
 	CgUpnpSubscriber *sub;
 	char *subSid;
@@ -1286,9 +1286,9 @@ CgNetURL *cg_upnp_service_mangleabsoluteurl(const char *serviceURLStr, const cha
 
 static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 {
-    char *serviceURLStr;
-    char *baseURLStr;
-    char *locationURLStr;
+  const char *serviceURLStr;
+  const char *baseURLStr;
+  const char *locationURLStr;
 	CgUpnpDevice *rootDev;
 
 	serviceURLStr = cg_xml_node_getchildnodevalue(cg_upnp_service_getservicenode(service), type);
@@ -1297,13 +1297,13 @@ static CgNetURL *cg_upnp_service_mangleurl(CgUpnpService *service, char *type)
 	if (rootDev != NULL) {
         baseURLStr = cg_upnp_device_geturlbase(rootDev);
         locationURLStr = cg_upnp_device_getlocationfromssdppacket(rootDev);
-    }
-    else {
-        baseURLStr = NULL;
-        locationURLStr = NULL;
-    }
+  }
+  else {
+      baseURLStr = NULL;
+      locationURLStr = NULL;
+  }
     
-    return cg_upnp_service_mangleabsoluteurl(serviceURLStr, baseURLStr, locationURLStr);
+  return cg_upnp_service_mangleabsoluteurl(serviceURLStr, baseURLStr, locationURLStr);
 }
 
 #endif

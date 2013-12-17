@@ -31,10 +31,10 @@
 void cg_upnp_service_ssdpmessagereceived(CgUpnpService *service, CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgUpnpDevice *dev;
-	char *ssdpST;
+	const char *ssdpST;
+	const char *serviceType;
 	char serviceNT[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
 	char serviceUSN[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
-	char *serviceType;
 	
 	cg_log_debug_l4("Entering...\n");
 

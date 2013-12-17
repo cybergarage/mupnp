@@ -92,13 +92,13 @@ typedef CgSocket CgUpnpSSDPSocket;
 * Function
 ****************************************/
 
-void cg_upnp_ssdp_setipv6address(char *addr);
-char *cg_upnp_ssdp_getipv6address();
+void cg_upnp_ssdp_setipv6address(const char *addr);
+const char *cg_upnp_ssdp_getipv6address();
 
 void cg_upnp_ssdp_setannouncecount(int count);
 int cg_upnp_ssdp_getannouncecount();
 
-int cg_upnp_ssdp_getleasetime(char *cacheCont);
+int cg_upnp_ssdp_getleasetime(const char *cacheCont);
 
 const char *cg_upnp_ssdp_gethostaddress(const char *ifAddr);
 

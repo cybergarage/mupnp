@@ -74,7 +74,7 @@ void cg_upnp_ssdp_server_delete(CgUpnpSSDPServer *server)
 
 BOOL cg_upnp_ssdp_server_open(CgUpnpSSDPServer *server, char *bindAddr)
 {
-	char *ssdpAddr = CG_UPNP_SSDP_ADDRESS;
+	const char *ssdpAddr = CG_UPNP_SSDP_ADDRESS;
 
 	cg_log_debug_l4("Entering...\n");
 

@@ -34,7 +34,7 @@
 
 char *cg_upnp_usn_getudn(char *usn, char *udnBuf, int udnBufLen)
 {
-	int idx;
+	ssize_t idx;
 	
 	cg_log_debug_l4("Entering...\n");
 

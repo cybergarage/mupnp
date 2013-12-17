@@ -96,7 +96,7 @@ void cg_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar, Cg
 * cg_upnp_statevariable_setvaluewithnotify
 ****************************************/
 
-static void cg_upnp_statevariable_setvaluewithnotify(CgUpnpStateVariable *statVar, char *data, BOOL doNotify)
+static void cg_upnp_statevariable_setvaluewithnotify(CgUpnpStateVariable *statVar, const char *data, BOOL doNotify)
 {
 	CgUpnpService *service;
 
@@ -125,7 +125,7 @@ static void cg_upnp_statevariable_setvaluewithnotify(CgUpnpStateVariable *statVa
 * cg_upnp_statevariable_setvalue
 ****************************************/
 
-void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, char *data)
+void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, const char *data)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -138,7 +138,7 @@ void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, char *data)
 * cg_upnp_statevariable_setvaluewithoutnotify
 ****************************************/
 
-void cg_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, char *data)
+void cg_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, const char *data)
 {
 	cg_log_debug_l4("Entering...\n");
 

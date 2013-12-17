@@ -29,7 +29,7 @@
 * cg_upnp_ssdp_socket_notify
 ****************************************/
 
-static BOOL cg_upnp_ssdp_socket_notify(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPRequest *ssdpReq, char *ssdpAddr)
+static BOOL cg_upnp_ssdp_socket_notify(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPRequest *ssdpReq, const char *ssdpAddr)
 {
 	CgString *ssdpMsg;
 	size_t sentLen;
@@ -61,9 +61,10 @@ BOOL cg_upnp_ssdp_socket_notifyfrom(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPReques
 
 	ssdpAddr = cg_upnp_ssdp_gethostaddress(bindAddr);
 	cg_upnp_ssdprequest_sethost(ssdpReq, ssdpAddr, CG_UPNP_SSDP_PORT);
-	return cg_upnp_ssdp_socket_notify(ssdpSock, ssdpReq, ssdpAddr);
 
 	cg_log_debug_l4("Leaving...\n");
+	
+  return cg_upnp_ssdp_socket_notify(ssdpSock, ssdpReq, ssdpAddr);
 }
 
 /****************************************
@@ -73,13 +74,15 @@ BOOL cg_upnp_ssdp_socket_notifyfrom(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPReques
 BOOL cg_upnp_ssdp_socket_postresponse(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPResponse *ssdpRes, const char *host, int port)
 {
 	CgString *ssdpMsg;
+  size_t ssdpMsgLen;
 	BOOL postSuccess;
 
 	cg_log_debug_l4("Entering...\n");
 
 	ssdpMsg = cg_string_new();
 	cg_upnp_ssdpresponse_tostring(ssdpRes, ssdpMsg);
-	postSuccess = cg_socket_sendto(ssdpSock, host, port, cg_string_getvalue(ssdpMsg), cg_string_length(ssdpMsg));
+  ssdpMsgLen = cg_string_length(ssdpMsg);
+	postSuccess = (cg_socket_sendto(ssdpSock, host, port, cg_string_getvalue(ssdpMsg), ssdpMsgLen) == ssdpMsgLen) ? TRUE : FALSE;
 	cg_string_delete(ssdpMsg);
 
 	cg_log_debug_l4("Leaving...\n");
