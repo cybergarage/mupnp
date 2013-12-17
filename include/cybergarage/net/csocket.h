@@ -155,7 +155,7 @@ BOOL cg_socket_accept(CgSocket *sock, CgSocket *clientSock);
 BOOL cg_socket_connect(CgSocket *sock, const char *addr, int port);
 ssize_t cg_socket_read(CgSocket *sock, char *buffer, size_t bufferLen);
 size_t cg_socket_write(CgSocket *sock, const char *buffer, size_t bufferLen);
-size_t cg_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen);
+ssize_t cg_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen);
 size_t cg_socket_skip(CgSocket *sock, size_t skipLen);
 
 size_t cg_socket_sendto(CgSocket *sock, const char *addr, int port, const char *data, size_t dataeLen);

@@ -44,10 +44,10 @@ CgStringTokenizer *cg_string_tokenizer_new(const char *value, const char *delim)
 		strToken->nextToken = NULL;
 		cg_string_tokenizer_nexttoken(strToken);
 	}
-
-	return strToken;
-
+  
 	cg_log_debug_l4("Leaving...\n");
+  
+	return strToken;
 }
 
 /****************************************

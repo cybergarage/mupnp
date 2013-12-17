@@ -354,7 +354,7 @@ void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *li
 {
 	CgStringTokenizer *strTok;
 	CgHttpHeader *header;
-	size_t readLen;
+	ssize_t readLen;
 	char *name, *value;
 	
 	cg_log_debug_l4("Entering...\n");
@@ -372,8 +372,8 @@ void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *li
 			value = cg_string_tokenizer_nextalltoken(strTok);
 			cg_strrtrim(value, CG_HTTP_HEADERLINE_DELIM, cg_strlen(CG_HTTP_HEADERLINE_DELIM));
 		}
-		if (name != NULL) {
-			if (value == NULL)
+		if (0 < cg_strlen(name)) {
+			if (cg_strlen(value) == 0)
 				value = "";
 			header = cg_http_header_new();
 			cg_http_header_setname(header, name);

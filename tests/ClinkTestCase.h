@@ -3,7 +3,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-//#define CPP_UNIT_ENABLE_NETWORKING 1
+#define CPP_UNIT_ENABLE_NETWORKING 1
 
 class ClinkTestCase : public CPPUNIT_NS::TestFixture
 {
@@ -18,9 +18,9 @@ class ClinkTestCase : public CPPUNIT_NS::TestFixture
 #if defined(CPP_UNIT_ENABLE_NETWORKING)
     CPPUNIT_TEST( testDevice );
     CPPUNIT_TEST( testNetworkInterface );
-    CPPUNIT_TEST( testHttpServer );
+    //CPPUNIT_TEST( testHttpServer );
     CPPUNIT_TEST( testControlPoint );
-    CPPUNIT_TEST( testSubscription );
+    //CPPUNIT_TEST( testSubscription );
     CPPUNIT_TEST( testStateVariable );
 #endif
   
@@ -43,7 +43,7 @@ protected:
 	void testControlPoint();
 	void testSubscription();
 	void testStateVariable();
-    void testServiceAbsoluteURL();
+  void testServiceAbsoluteURL();
 };
 
 #endif

@@ -853,7 +853,7 @@ cg_log_debug_s("w %d : %s\n", nTotalSent, ((cmd != NULL) ? cmd : ""));
 * cg_socket_readline
 ****************************************/
 
-size_t cg_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen)
+ssize_t cg_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen)
 {
 	size_t readCnt;
 	ssize_t readLen;
