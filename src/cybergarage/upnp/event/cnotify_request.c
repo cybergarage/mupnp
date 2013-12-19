@@ -278,12 +278,12 @@ CgUpnpPropertyList *cg_upnp_event_notify_request_getpropertylist(CgUpnpNotifyReq
 	CgXmlNode *propNode;
 	CgXmlNode *varNode;
 	CgUpnpProperty *prop;
-	char *sid;
+	const char *sid;
 	int seq;
 
 	cg_log_debug_l4("Entering...\n");
 
-	sid = cg_upnp_event_notify_request_getsid(notifyReq);
+  sid = cg_upnp_event_notify_request_getsid(notifyReq);
 	seq = cg_upnp_event_notify_request_getseq(notifyReq);
 
 	propList = cg_upnp_event_notify_request_getpropertylistonly(notifyReq);

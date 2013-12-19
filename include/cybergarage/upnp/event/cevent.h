@@ -179,7 +179,7 @@ char * cg_upnp_event_subscription_createsid(char *buf, int bufSize);
  *
  * @return Pointer to buffer containing SID header string
  */
-char *cg_upnp_event_subscription_tosidheaderstring(char *sid, char *buf, int bufSize);
+const char *cg_upnp_event_subscription_tosidheaderstring(const char *sid, char *buf, int bufSize);
 
 /**
  * Get SID
@@ -188,7 +188,7 @@ char *cg_upnp_event_subscription_tosidheaderstring(char *sid, char *buf, int buf
  * 
  * @return C string containing SID
  */
-char *cg_upnp_event_subscription_getsid(char *headerValue);
+const char *cg_upnp_event_subscription_getsid(const char *headerValue);
 
 /****************************************
 * Function (Request)

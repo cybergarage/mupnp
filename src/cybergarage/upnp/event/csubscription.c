@@ -100,7 +100,7 @@ char *cg_upnp_event_subscription_createsid(char *buf, int bufSize)
 * cg_upnp_event_subscription_tosidheaderstring
 ****************************************/
 
-char *cg_upnp_event_subscription_tosidheaderstring(char *sid, char *buf, int bufSize)
+const char *cg_upnp_event_subscription_tosidheaderstring(const char *sid, char *buf, int bufSize)
 {
 	ssize_t colonIdx;
 
@@ -130,7 +130,7 @@ char *cg_upnp_event_subscription_tosidheaderstring(char *sid, char *buf, int buf
 * cg_upnp_event_subscription_getsid
 ****************************************/
 
-char *cg_upnp_event_subscription_getsid(char *headerValue)
+const char *cg_upnp_event_subscription_getsid(const char *headerValue)
 {
 	ssize_t colonIdx;
 	
@@ -140,9 +140,9 @@ char *cg_upnp_event_subscription_getsid(char *headerValue)
 	if (colonIdx < 0)
 		return headerValue;
 
-	return (headerValue + colonIdx + 1);
-
 	cg_log_debug_l4("Leaving...\n");
+
+	return (headerValue + colonIdx + 1);
 }
 
 /****************************************
