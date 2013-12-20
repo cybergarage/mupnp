@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		212CAC5E186439810065C62C /* ClinkTestCaseString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212CAC5D186439810065C62C /* ClinkTestCaseString.cpp */; };
 		21A2BCFB14C664E8007457AF /* ClinkTestCaseService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A2BCFA14C664E8007457AF /* ClinkTestCaseService.cpp */; };
 		21AA0F0C1331226600A2338F /* ClinkTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0EFF1331226600A2338F /* ClinkTestCase.cpp */; };
 		21AA0F0D1331226600A2338F /* ClinkTestCaseControlPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F011331226600A2338F /* ClinkTestCaseControlPoint.cpp */; };
@@ -53,6 +54,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		212CAC5D186439810065C62C /* ClinkTestCaseString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseString.cpp; path = ../../ClinkTestCaseString.cpp; sourceTree = "<group>"; };
 		2152CB8E1331206B00229C13 /* ClinkCTestUnit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ClinkCTestUnit; sourceTree = BUILT_PRODUCTS_DIR; };
 		21A2BCFA14C664E8007457AF /* ClinkTestCaseService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseService.cpp; path = ../../ClinkTestCaseService.cpp; sourceTree = "<group>"; };
 		21AA0EFF1331226600A2338F /* ClinkTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCase.cpp; path = ../../ClinkTestCase.cpp; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				21AA0F181331227300A2338F /* TestDevice.h */,
 				21AA0EFF1331226600A2338F /* ClinkTestCase.cpp */,
 				21AA0F001331226600A2338F /* ClinkTestCase.h */,
+				212CAC5D186439810065C62C /* ClinkTestCaseString.cpp */,
 				21AA0F011331226600A2338F /* ClinkTestCaseControlPoint.cpp */,
 				21AA0F021331226600A2338F /* ClinkTestCaseDevice.cpp */,
 				21A2BCFA14C664E8007457AF /* ClinkTestCaseService.cpp */,
@@ -209,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				212CAC5E186439810065C62C /* ClinkTestCaseString.cpp in Sources */,
 				21AA0F0C1331226600A2338F /* ClinkTestCase.cpp in Sources */,
 				21AA0F0D1331226600A2338F /* ClinkTestCaseControlPoint.cpp in Sources */,
 				21AA0F0E1331226600A2338F /* ClinkTestCaseDevice.cpp in Sources */,

@@ -412,7 +412,7 @@ char *cg_strncat(char *str1, const char *str2, size_t cnt)
 * cg_int2str
 ****************************************/
 
-char *cg_int2str(int value, char *buf, int bufSize)
+const char *cg_int2str(int value, char *buf, size_t bufSize)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -431,7 +431,7 @@ char *cg_int2str(int value, char *buf, int bufSize)
 * cg_long2str
 ****************************************/
 
-char *cg_long2str(long value, char *buf, int bufSize)
+const char *cg_long2str(long value, char *buf, size_t bufSize)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -451,7 +451,7 @@ char *cg_long2str(long value, char *buf, int bufSize)
 ****************************************/
 
 #if defined(__USE_ISOC99) || defined(HAVE_LONGLONG)
-char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
+char *cg_longlong2str(CgInt64 value, char *buf, size_t bufSize)
 {
 #if defined(HAVE_SNPRINTF)
  snprintf(buf, bufSize, "%lld", value);
@@ -478,7 +478,7 @@ char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
 * cg_float2str
 ****************************************/
 
-char *cg_float2str(float value, char *buf, int bufSize)
+const char *cg_float2str(float value, char *buf, size_t bufSize)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -497,7 +497,7 @@ char *cg_float2str(float value, char *buf, int bufSize)
 * cg_double2str
 ****************************************/
 
-char *cg_double2str(double value, char *buf, int bufSize)
+const char *cg_double2str(double value, char *buf, size_t bufSize)
 {
  cg_log_debug_l5("Entering...\n");
 
@@ -505,6 +505,44 @@ char *cg_double2str(double value, char *buf, int bufSize)
  snprintf(buf, bufSize, "%lf", value);
 #else
  sprintf(buf, "%lf", value);
+#endif
+
+ cg_log_debug_l5("Leaving...\n");
+
+ return buf;
+}
+
+/****************************************
+* cg_sizet2str
+****************************************/
+
+const char *cg_sizet2str(size_t value, char *buf, size_t bufSize)
+{
+ cg_log_debug_l5("Entering...\n");
+
+#if defined(HAVE_SNPRINTF)
+ snprintf(buf, bufSize, "%zd", value);
+#else
+ sprintf(buf, "%zd", value);
+#endif
+
+ cg_log_debug_l5("Leaving...\n");
+
+ return buf;
+}
+
+/****************************************
+* cg_ssizet2str
+****************************************/
+
+const char *cg_ssizet2str(ssize_t value, char *buf, size_t bufSize)
+{
+ cg_log_debug_l5("Entering...\n");
+
+#if defined(HAVE_SNPRINTF)
+ snprintf(buf, bufSize, "%zd", value);
+#else
+ sprintf(buf, "%zd", value);
 #endif
 
  cg_log_debug_l5("Leaving...\n");

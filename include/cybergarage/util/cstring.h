@@ -70,17 +70,19 @@ char *cg_strtrimwhite(char *str);
 char *cg_strtrim(char *str, char *delim, size_t ndelim);
 char *cg_strltrim(char *str, char *delim, size_t ndelim);
 char *cg_strrtrim(char *str, char *delim, size_t ndelim);
-char *cg_int2str(int value, char *buf, int bufSize);
-char *cg_long2str(long value, char *buf, int bufSize);
-char *cg_float2str(float value, char *buf, int bufSize);
-char *cg_double2str(double value, char *buf, int bufSize);
 char *cg_strncpy(char *str1, const char *str2, size_t cnt);
 char *cg_strncat(char *str1, const char *str2, size_t cnt);
 	
+const char *cg_int2str(int value, char *buf, size_t bufSize);
+const char *cg_long2str(long value, char *buf, size_t bufSize);
+const char *cg_float2str(float value, char *buf, size_t bufSize);
+const char *cg_double2str(double value, char *buf, size_t bufSize);
+const char *cg_sizet2str(size_t value, char *buf, size_t bufSize);
+const char *cg_ssizet2str(ssize_t value, char *buf, size_t bufSize);
 #if defined(CG_USE_INT64)
 char *cg_longlong2str(CgInt64 value, char *buf, int bufSize);
 #endif
-	
+
 #define cg_str2int(value) (value ? atoi(value) : 0)
 #define cg_str2long(value) (value ? atol(value) : 0)
 #define cg_strhex2long(value) (value ? strtol(value, NULL, 16) : 0)

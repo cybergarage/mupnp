@@ -9,6 +9,7 @@ class ClinkTestCase : public CPPUNIT_NS::TestFixture
 {
     CPPUNIT_TEST_SUITE( ClinkTestCase );
 
+    CPPUNIT_TEST( testString );
     CPPUNIT_TEST( testDictionary );
     CPPUNIT_TEST( testURI );
     CPPUNIT_TEST( testURIParameter );
@@ -33,6 +34,7 @@ public:
 
 protected:
   
+	void testString();
 	void testDictionary();
 	void testURI();
 	void testURIParameter();
