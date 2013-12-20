@@ -89,7 +89,9 @@ char *cg_longlong2str(CgInt64 value, char *buf, int bufSize);
 #define cg_strhex2ulong(value) (value ? strtoul(value, NULL, 16) : 0)
 #define cg_str2float(value) ((float)(value ? atof(value) : 0.0))
 #define cg_str2double(value) (value ? atof(value) : 0.0)
-	
+#define cg_str2sizet(value) (value ? atol(value) : 0)
+#define cg_str2ssizet(value) (value ? atol(value) : 0)
+
 #if defined(CG_USE_INT64)
 #if defined(__USE_ISOC99) || defined(HAVE_LONGLONG)
 #define cg_str2longlong(value) (value ? atoll(value) : 0)
