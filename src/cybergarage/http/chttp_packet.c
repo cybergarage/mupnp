@@ -180,16 +180,35 @@ void cg_http_packet_setheaderlong(CgHttpPacket *httpPkt, const char* name, long 
 }
 
 /****************************************
-* cg_http_packet_setheaderlonglong
-****************************************/
+ * cg_http_packet_setheadersizet
+ ****************************************/
 
-#if defined(CG_USE_INT64)
-void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, const char* name, CgInt64 value)
+void cg_http_packet_setheadersizet(CgHttpPacket *httpPkt, const char* name, size_t value)
 {
-	char svalue[CG_STRING_LONGLONG_BUFLEN];
-	cg_http_packet_setheadervalue(httpPkt, name, cg_longlong2str(value, svalue, sizeof(svalue)));
+	char svalue[CG_STRING_LONG_BUFLEN];
+  
+	cg_log_debug_l4("Entering...\n");
+  
+	cg_http_packet_setheadervalue(httpPkt, name, cg_sizet2str(value, svalue, sizeof(svalue)));
+  
+	cg_log_debug_l4("Leaving...\n");
 }
-#endif
+
+/****************************************
+ * cg_http_packet_setheaderssizet
+ ****************************************/
+
+void cg_http_packet_setheaderssizet(CgHttpPacket *httpPkt, const char* name, ssize_t value)
+{
+	char svalue[CG_STRING_LONG_BUFLEN];
+  
+	cg_log_debug_l4("Entering...\n");
+  
+	cg_http_packet_setheadervalue(httpPkt, name, cg_ssizet2str(value, svalue, sizeof(svalue)));
+  
+	cg_log_debug_l4("Leaving...\n");
+}
+
 
 /****************************************
 * cg_http_packet_getheadervalue
@@ -252,23 +271,21 @@ size_t cg_http_packet_getheadersizet(CgHttpPacket *httpPkt, const char* name)
 }
 
 /****************************************
-* cg_http_packet_getheaderlonglong
-****************************************/
+ * cg_http_packet_getheadersizet
+ ****************************************/
 
-#if defined(CG_USE_INT64)
-CgInt64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, char* name)
+ssize_t cg_http_packet_getheaderssizet(CgHttpPacket *httpPkt, const char* name)
 {
-	char *value;
-
+	const char *value;
+  
 	cg_log_debug_l4("Entering...\n");
-
-	value = cg_http_packet_getheadervalue(httpPkt, name); 
-
+  
+	value = cg_http_packet_getheadervalue(httpPkt, name);
+  
 	cg_log_debug_l4("Leaving...\n");
-
-	return (value != NULL) ? cg_str2longlong(value) : 0;
+  
+	return (value != NULL) ? atol(value) : 0;
 }
-#endif
 
 /****************************************
 * cg_http_packet_getheadervalue
@@ -335,7 +352,7 @@ void cg_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock)
 	CgHttpHeader *header;
 	const char *name, *value;
 	char *content;
-	CgInt64 contentLen;
+	size_t contentLen;
 	
 	cg_log_debug_l4("Entering...\n");
 

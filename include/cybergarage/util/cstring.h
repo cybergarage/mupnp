@@ -79,9 +79,6 @@ const char *cg_float2str(float value, char *buf, size_t bufSize);
 const char *cg_double2str(double value, char *buf, size_t bufSize);
 const char *cg_sizet2str(size_t value, char *buf, size_t bufSize);
 const char *cg_ssizet2str(ssize_t value, char *buf, size_t bufSize);
-#if defined(CG_USE_INT64)
-char *cg_longlong2str(CgInt64 value, char *buf, int bufSize);
-#endif
 
 #define cg_str2int(value) (value ? atoi(value) : 0)
 #define cg_str2long(value) (value ? atol(value) : 0)
@@ -91,16 +88,6 @@ char *cg_longlong2str(CgInt64 value, char *buf, int bufSize);
 #define cg_str2double(value) (value ? atof(value) : 0.0)
 #define cg_str2sizet(value) ((size_t)(value ? atol(value) : 0))
 #define cg_str2ssizet(value) ((ssize_t)(value ? atol(value) : 0))
-
-#if defined(CG_USE_INT64)
-#if defined(__USE_ISOC99) || defined(HAVE_LONGLONG)
-#define cg_str2longlong(value) (value ? atoll(value) : 0)
-#define cg_strhex2longlong(value) (value ? strtoll(value, NULL, 16) : 0)
-#define cg_strhex2ulonglong(value) (value ? strtoull(value, NULL, 16) : 0)
-#elif (defined(WIN32) || defined(WINCE))
-#define cg_str2longlong(value) (value ? _atoi64(value) : 0)
-#endif
-#endif
 
 /****************************************
 * Data Type

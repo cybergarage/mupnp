@@ -307,16 +307,15 @@ void cg_http_packet_clear(CgHttpPacket *httpPkt);
 void cg_http_packet_setheadervalue(CgHttpPacket *httpPkt, const char* name, const char *value);
 void cg_http_packet_setheaderinteger(CgHttpPacket *httpPkt, const char* name, int value);
 void cg_http_packet_setheaderlong(CgHttpPacket *httpPkt, const char* name, long value);
+void cg_http_packet_setheadersizet(CgHttpPacket *httpPkt, const char* name, size_t value);
+void cg_http_packet_setheaderssizet(CgHttpPacket *httpPkt, const char* name, ssize_t value);
+
 const char *cg_http_packet_getheadervalue(CgHttpPacket *httpPkt, const char* name);
 int cg_http_packet_getheaderinteger(CgHttpPacket *httpPkt, const char* name);
 long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, const char* name);
 size_t cg_http_packet_getheadersizet(CgHttpPacket *httpPkt, const char* name);
+ssize_t cg_http_packet_getheaderssizet(CgHttpPacket *httpPkt, const char* name);
 size_t cg_http_packet_getheadersize(CgHttpPacket *httpPkt);
-
-#if defined(CG_USE_INT64)
-void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, const char* name, CgInt64 value);
-CgInt64 cg_http_packet_getheaderlonglong(CgHttpPacket *httpPkt, const char* name);
-#endif
 
 #define cg_http_packet_setcontent(httpPkt, value) cg_string_setvalue(httpPkt->content, value)
 #define cg_http_packet_setncontent(httpPkt, value, len) cg_string_setnvalue(httpPkt->content, value, len)
@@ -329,14 +328,8 @@ void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *li
 BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize);
 BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader, char *lineBuf, size_t lineBufSize);
 
-/**** Content-Length ****/
-#if defined(CG_USE_INT64)
-#define cg_http_packet_setcontentlength(httpPkt,value) cg_http_packet_setheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH,value)
-#define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderlonglong(httpPkt,CG_HTTP_CONTENT_LENGTH)
-#else
-#define cg_http_packet_setcontentlength(httpPkt,value) cg_http_packet_setheaderlong(httpPkt,CG_HTTP_CONTENT_LENGTH,value)
-#define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderlong(httpPkt,CG_HTTP_CONTENT_LENGTH)
-#endif
+#define cg_http_packet_setcontentlength(httpPkt,value) cg_http_packet_setheaderssizet(httpPkt,CG_HTTP_CONTENT_LENGTH,value)
+#define cg_http_packet_getcontentlength(httpPkt) cg_http_packet_getheaderssizet(httpPkt,CG_HTTP_CONTENT_LENGTH)
 
 /**** Connection ****/
 #define cg_http_packet_setconnection(httpPkt, value) cg_http_packet_setheadervalue(httpPkt,CG_HTTP_CONNECTION, value)

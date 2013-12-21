@@ -281,7 +281,7 @@ BOOL cg_upnp_device_parsedescriptionurl(CgUpnpDevice *dev, CgNetURL *url)
 	CgHttpResponse *httpRes;
 	/*int statusCode;*/
 	char *content;
-	CgInt64 contentLen;
+	ssize_t contentLen;
 	BOOL parseSuccess;
 	
 	cg_log_debug_l4("Entering...\n");
