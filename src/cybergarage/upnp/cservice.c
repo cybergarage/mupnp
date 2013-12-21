@@ -222,7 +222,7 @@ CgNetURL *cg_upnp_service_getscpdurl(CgUpnpService *service)
 * cg_upnp_service_parsedescription
 ****************************************/
 
-BOOL cg_upnp_service_parsedescription(CgUpnpService *service, char *desciption, int descriptionLen)
+BOOL cg_upnp_service_parsedescription(CgUpnpService *service, const char *desciption, size_t descriptionLen)
 {
 	CgXmlParser *xmlParser;
 	BOOL xmlParseSuccess;
@@ -284,7 +284,7 @@ BOOL cg_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url)
 	CgHttpRequest *httpReq;
 	CgHttpResponse *httpRes;
 	char *content;
-	long contentLen;
+	size_t contentLen;
 	BOOL parseSuccess;
 	
 	cg_log_debug_l4("Entering...\n");

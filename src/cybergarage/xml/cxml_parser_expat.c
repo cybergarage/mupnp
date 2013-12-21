@@ -178,7 +178,7 @@ static void XMLCALL cg_expat_character_data(void *userData, const XML_Char *s, i
 #endif
 }
 
-BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int len)
+BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *data, size_t len)
 {
 #if defined DEBUG_XML_RESULT
 	CgString* resdata = NULL;

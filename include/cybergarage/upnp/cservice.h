@@ -177,7 +177,7 @@ void cg_upnp_service_clear(CgUpnpService *service);
  * @param description The XML document to parse
  * @param descriptionLen The length of the XML document
  */
-BOOL cg_upnp_service_parsedescription(CgUpnpService *service, char *description, int descriptionLen);
+BOOL cg_upnp_service_parsedescription(CgUpnpService *service, const char *description, size_t descriptionLen);
 
 /**
  * Create the service's contents from the given URL. Gets the XML document

@@ -81,7 +81,7 @@ extern long int cg_total_elapsed_time;
 /* 10000000 */
 #define UTF_RANGEX_2_R (1<<7)
 
-static int cg_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void *user_data, const char *buffer, int size, int recovery);
+static int cg_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void *user_data, const char *buffer, size_t size, int recovery);
 
 static xmlEntityPtr cg_libxml2_get_entity(void *user_data, 
 					  const xmlChar *name);
@@ -96,7 +96,7 @@ static void cg_libxml2_start_element(void *user_data,
 static void cg_libxml2_end_element(void *user_data,
 				   const xmlChar *name);			     
 
-static void cg_xml_force_utf8(char *data, int len);
+static void cg_xml_force_utf8(char *data, size_t len);
 
 typedef struct _CgLibxml2Data {
 	CgXmlNode *rootNode;
@@ -197,10 +197,10 @@ static xmlEntityPtr cg_libxml2_get_entity(void *user_data, const xmlChar *name)
 }
 
 /****************************************
-* cg_xml_parse
+* cg_xml_force_utf8
 ****************************************/
 
-static void cg_xml_force_utf8(char *data, int len)
+static void cg_xml_force_utf8(char *data, size_t len)
 {
 	int read=0;
 
@@ -314,7 +314,7 @@ static void cg_xml_force_utf8(char *data, int len)
         }
 }
 
-BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int len)
+BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *parseData, size_t len)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -322,10 +322,16 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 	int retval;
 #ifdef CG_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
+#endif
 	
+#ifdef CG_SHOW_TIMINGS
 	gettimeofday(&start_time, NULL);
-#endif	
-	
+#endif
+
+  char *data = cg_strdup(parseData);
+  if (!data)
+    return FALSE;
+  
 	libxml2Data.rootNode = NULL;
 	libxml2Data.currNode = NULL;
 
@@ -357,11 +363,11 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 			break;
 	}
 
-	if ( 0 != retval )
-	{
+	if ( 0 != retval )	{
 		cg_log_debug_s("LibXML error %d, not trying recovery.\n", retval);
 		if (libxml2Data.rootNode != NULL)
 			cg_xml_node_delete(libxml2Data.rootNode);
+    free(data);
 		return FALSE;
 	}
 
@@ -370,19 +376,22 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int 
 #ifdef CG_SHOW_TIMINGS
 	gettimeofday(&end_time, NULL);
 	timersub(&end_time, &start_time, &elapsed_time);
-cg_log_debug_s("Parsing XML completed. Elapsed time: "
+  cg_log_debug_s("Parsing XML completed. Elapsed time: "
 	       "%ld msec\n", ((elapsed_time.tv_sec*1000) + 
 			      (elapsed_time.tv_usec/1000)));
 	cg_total_elapsed_time += (elapsed_time.tv_sec*1000000)+
 				 (elapsed_time.tv_usec);
-cg_log_debug_s("Total elapsed time: %ld msec\n", cg_total_elapsed_time / 1000);
-#endif	
-	return TRUE;
+  cg_log_debug_s("Total elapsed time: %ld msec\n", cg_total_elapsed_time / 1000);
+#endif
+	
+  free(data);
 
 	cg_log_debug_l4("Leaving...\n");
+
+	return TRUE;
 }
 
-static int cg_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void *user_data, const char *buffer, int size, int flags)
+static int cg_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void *user_data, const char *buffer, size_t size, int flags)
 {
 	int retval = 0; 
 	xmlParserCtxtPtr ctxt;
@@ -390,7 +399,7 @@ static int cg_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void *user_data, const 
 	
 	if (sax == NULL) return -1;
 	
-	ctxt = xmlCreateMemoryParserCtxt(buffer, size); 
+	ctxt = xmlCreateMemoryParserCtxt(buffer, (int)size);
 	
 	if (ctxt == NULL) return -1; 
 

@@ -191,7 +191,7 @@ void cg_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode);
 
 CgXmlParser *cg_xml_parser_new();
 void cg_xml_parser_delete(CgXmlParser *parser);
-BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, char *data, int len);
+BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *data, size_t len);
 
 /****************************************
 * Function (Other)
