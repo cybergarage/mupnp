@@ -206,7 +206,7 @@ void cg_upnp_event_notify_request_setsid(CgUpnpNotifyRequest *soapReq, char *sid
  *
  * @param soapReq Notification request
  */
-#define cg_upnp_event_notify_request_getseq(soapReq) cg_http_packet_getheaderlong((CgHttpPacket*)(soapReq->httpReq), CG_HTTP_SEQ)
+#define cg_upnp_event_notify_request_getseq(soapReq) cg_http_packet_getheadersizet((CgHttpPacket*)(soapReq->httpReq), CG_HTTP_SEQ)
 
 /** 
  * \todo Check what this does exactly...

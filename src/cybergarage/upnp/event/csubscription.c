@@ -43,7 +43,7 @@
 * cg_upnp_event_subscription_totimeoutheaderstring
 ****************************************/
 
-char *cg_upnp_event_subscription_totimeoutheaderstring(long time, CgString *buf)
+const char *cg_upnp_event_subscription_totimeoutheaderstring(CgTime time, CgString *buf)
 {
 	char timeBuf[CG_STRING_LONG_BUFLEN];
 	
@@ -64,7 +64,7 @@ char *cg_upnp_event_subscription_totimeoutheaderstring(long time, CgString *buf)
 * cg_upnp_event_subscription_gettimeout
 ****************************************/
 
-long cg_upnp_event_subscription_gettimeout(char *headerValue)
+CgTime cg_upnp_event_subscription_gettimeout(const char *headerValue)
 {
 	ssize_t minusIdx;
 	long timeout;
@@ -88,7 +88,7 @@ long cg_upnp_event_subscription_gettimeout(char *headerValue)
 * cg_upnp_event_subscription_createsid
 ****************************************/
 
-char *cg_upnp_event_subscription_createsid(char *buf, int bufSize)
+const char *cg_upnp_event_subscription_createsid(char *buf, size_t bufSize)
 {
 	cg_log_debug_l4("Entering...\n");
 	cg_upnp_createuuid(buf, bufSize);
@@ -100,7 +100,7 @@ char *cg_upnp_event_subscription_createsid(char *buf, int bufSize)
 * cg_upnp_event_subscription_tosidheaderstring
 ****************************************/
 
-const char *cg_upnp_event_subscription_tosidheaderstring(const char *sid, char *buf, int bufSize)
+const char *cg_upnp_event_subscription_tosidheaderstring(const char *sid, char *buf, size_t bufSize)
 {
 	ssize_t colonIdx;
 

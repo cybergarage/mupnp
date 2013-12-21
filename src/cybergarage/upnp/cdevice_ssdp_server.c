@@ -43,8 +43,8 @@ static int simple_string_hash(char *str, int table_size);
 void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt, int filter)
 {
 	BOOL isRootDev;
-	char *ssdpST;
-	char *devUDN, *devType;
+	const char *ssdpST;
+	const char *devUDN, *devType;
 	char ssdpMsg[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
 	char deviceUSN[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
 #if defined WINCE
@@ -54,9 +54,9 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 #endif
 	CgUpnpService *service;
 	CgUpnpDevice *childDev;
-	char *ssdpMXString;
+	const char *ssdpMXString;
 	int ssdpMX;
-	char *ssdpTargetAddr;
+	const char *ssdpTargetAddr;
 
 	cg_log_debug_l4("Entering...\n");
 
@@ -190,18 +190,19 @@ void cg_upnp_device_ssdplistener(CgUpnpSSDPPacket *ssdpPkt)
 
 static int filter_duplicate_m_search(CgUpnpSSDPPacket *ssdpPkt)
 {
-	CgSysTime *timestamps = ssdpPkt->timestamps;
+	CgTime *timestamps = ssdpPkt->timestamps;
 	size_t s_length;
 	int loc;
-	char *id_string, *r_address, *st, port[6];
-	CgSysTime curr_time;
+  const char *st;
+	char *id_string, *r_address, port[6];
+	CgTime curr_time;
 
 	cg_log_debug_l4("Entering...\n");
 	
 	/* Initializing hash table to zero */
 	if (!ssdpPkt->initialized) {
 		ssdpPkt->initialized = 1;
-		memset(timestamps, '\0', CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof( CgSysTime ));
+		memset(timestamps, '\0', CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof( CgTime ));
 	}
 
 	r_address = cg_string_getvalue(ssdpPkt->dgmPkt->remoteAddress);

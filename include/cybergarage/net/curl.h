@@ -94,8 +94,8 @@ typedef struct _CgNetURI CgNetURL;
 
 #define cg_net_url_getupnpbasepath(urip) cg_net_uri_getupnpbasepath(urip);
 
-char *cg_net_gethosturl(char *host, int port, char *uri, char *buf, int bufSize);
-char *cg_net_getmodifierhosturl(char *host, int port, char *uri, char *buf, int bufSize, char *begin, char *end);
+const char *cg_net_gethosturl(const char *host, int port, const char *uri, char *buf, size_t bufSize);
+const char *cg_net_getmodifierhosturl(const char *host, int port, const char *uri, const char *begin, const char *end, char *buf, size_t bufSize);
 
 #define cg_net_url_getquerydictionary(urip) cg_net_uri_getquerydictionary(urip);
 

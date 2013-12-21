@@ -49,7 +49,7 @@ extern "C" {
  * \param uuidBuf The UUID created by this function (must not be NULL)
  * \return The UUID created by this function (== \e uuidBuf)
  */
-char *cg_upnp_createuuid(char *uuidBuf, int uuidBufSize);
+const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize);
 
 /**
  * Get the server name ("OSname/OSversion/UPnP/<version> CyberLinkC/<version>")
@@ -58,7 +58,7 @@ char *cg_upnp_createuuid(char *uuidBuf, int uuidBufSize);
  * \param bufSize Buffer length
  * \param The server name buffer (== \e buf)
  */
-char *cg_upnp_getservername(char *buf, int bufSize);
+const char *cg_upnp_getservername(char *buf, size_t bufSize);
 
 /**
  * Enable/disable NMPR (Intel Networked Media Product Requirements) mode.

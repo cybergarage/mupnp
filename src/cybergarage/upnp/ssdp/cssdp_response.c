@@ -61,13 +61,13 @@ void cg_upnp_ssdpresponse_delete(CgUpnpSSDPResponse *ssdpRes)
 * cg_upnp_ssdpresponse_setleasetime
 ****************************************/
 
-void cg_upnp_ssdpresponse_setleasetime(CgUpnpSSDPResponse *ssdpRes, int value)
+void cg_upnp_ssdpresponse_setleasetime(CgUpnpSSDPResponse *ssdpRes, CgTime value)
 {
 	char buf[CG_UPNP_SSDP_MAXAGE_LEN + 1 + CG_STRING_INTEGER_BUFLEN];
 
 	cg_log_debug_l4("Entering...\n");
 
-	sprintf(buf, "%s=%d", CG_HTTP_MAX_AGE, value);
+	sprintf(buf, "%s=%d", CG_HTTP_MAX_AGE, (int)value);
 	cg_http_packet_setheadervalue((CgHttpPacket*)ssdpRes, CG_HTTP_CACHE_CONTROL, buf);
 
 	cg_log_debug_l4("Leaving...\n");

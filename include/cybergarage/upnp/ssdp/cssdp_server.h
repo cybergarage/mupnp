@@ -44,12 +44,12 @@ typedef struct _CgUpnpSSDPPacket {
 	CgDatagramPacket *dgmPkt;
 	CgHttpHeaderList *headerList;
 	void *userData;
-	CgSysTime timeStamp;
+	CgTime timeStamp;
 
 	/* These are used when filtering out duplicate
 	 * M-SEARCHes
 	 */
-	CgSysTime *timestamps;
+	CgTime *timestamps;
         int initialized;
 } CgUpnpSSDPPacket;
 

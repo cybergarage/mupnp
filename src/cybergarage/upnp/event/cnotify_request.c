@@ -279,7 +279,7 @@ CgUpnpPropertyList *cg_upnp_event_notify_request_getpropertylist(CgUpnpNotifyReq
 	CgXmlNode *varNode;
 	CgUpnpProperty *prop;
 	const char *sid;
-	int seq;
+	size_t seq;
 
 	cg_log_debug_l4("Entering...\n");
 

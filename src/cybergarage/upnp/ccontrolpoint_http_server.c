@@ -45,7 +45,7 @@ void cg_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq)
 	CgUpnpPropertyList *propList = NULL;
 	CgUpnpProperty *prop = NULL;
 	CgUpnpEventListenerList *eventListeners = NULL;
-	char *sid = NULL;
+	const char *sid = NULL;
 	long seq = 0;
 	long timeout = 0;
 	CgUpnpDevice *dev = NULL;

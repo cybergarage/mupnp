@@ -588,7 +588,7 @@ void cg_http_serverlist_setuserdata(CgHttpServerList *httpServerList, void *valu
 * Function (Date)
 ****************************************/
 
-const char *cg_http_getdate(CgSysTime sysTime, char *buf, size_t bufSize);
+const char *cg_http_getdate(CgTime sysTime, char *buf, size_t bufSize);
 
 /****************************************
 * Persistent connection cache

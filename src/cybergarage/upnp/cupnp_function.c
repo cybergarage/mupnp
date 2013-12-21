@@ -48,7 +48,7 @@ static BOOL isUpnpNMPRMode = FALSE;
 * cg_upnp_createuuid
 ****************************************/
 
-char *cg_upnp_createuuid(char *uuidBuf, int uuidBufSize)
+const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 {
 #if defined(HAVE_LIBUUID) || defined(TARGET_OS_IPHONE)
 	uuid_t uuid;
@@ -117,7 +117,7 @@ void uuid_unparse_lower (uuid_t uu, char *out)
 * cg_upnp_getservername
 ****************************************/
 
-char *cg_upnp_getservername(char *buf, int bufSize)
+const char *cg_upnp_getservername(char *buf, size_t bufSize)
 {
 	size_t nameLen;
 

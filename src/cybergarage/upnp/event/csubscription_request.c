@@ -46,7 +46,7 @@
 * cg_upnp_event_subscription_request_setsid
 ****************************************/
 
-void cg_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *subReq, char *sid)
+void cg_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *subReq, const char *sid)
 {
 	CgString *headerSID;
 	ssize_t uuidIdx;
@@ -108,7 +108,7 @@ static void cg_upnp_event_subscription_request_setservice(CgUpnpSubscriptionRequ
 * cg_upnp_event_subscription_request_setnewsubscription
 ****************************************/
 
-void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *callback, long timeout)
+void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, const char *callback, CgTime timeout)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -124,7 +124,7 @@ void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionReq
 * cg_upnp_event_subscription_request_setrenewsubscription
 ****************************************/
 
-void cg_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *uuid, long timeout)
+void cg_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, const char *uuid, CgTime timeout)
 {
 	cg_log_debug_l4("Entering...\n");
 

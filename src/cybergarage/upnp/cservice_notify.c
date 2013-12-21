@@ -164,7 +164,7 @@ static void cg_upnp_service_notifyall_thread(CgThread *thread)
 	cg_thread_delete(thread);	
 }
 
-void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgSysTime waitTime)
+void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTime)
 {
 	CgThread *thread;
 	

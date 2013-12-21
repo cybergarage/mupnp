@@ -492,7 +492,7 @@ BOOL cg_thread_stop_with_cond(CgThread *thread, CgCond *cond)
 
 #if defined (WINCE)
 void cg_thread_sleep(CgThread *thread) {
-	CgSysTime until;
+	CgTime until;
 #if defined DEBUG_MEM
 	printf("###### Going to sleep - elapsed since last sleep = %d\n",memdiags_getelapsedtime(thread->hThread));
 #endif

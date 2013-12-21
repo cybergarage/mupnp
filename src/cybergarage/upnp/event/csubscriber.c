@@ -148,9 +148,9 @@ long cg_upnp_subscriber_incrementnotifycount(CgUpnpSubscriber *sub)
  */
 BOOL cg_upnp_subscriber_isexpired(CgUpnpSubscriber *sub)
 {
-	CgSysTime currTime;
-	CgSysTime timeout;
-	CgSysTime expiredTime;
+	CgTime currTime;
+	CgTime timeout;
+	CgTime expiredTime;
 	
 	timeout = cg_upnp_subscriber_gettimeout(sub);
 	if(timeout == CG_UPNP_SUBSCRIPTION_INFINITE_VALUE) 

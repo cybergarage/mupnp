@@ -40,13 +40,13 @@
 
 CgUpnpService *cg_upnp_device_getfirstexpiratedservice(CgUpnpControlPoint *ctrlPoint,
 						       CgUpnpDevice *dev, 
-						       CgSysTime expirationTime)
+						       CgTime expirationTime)
 {
 	CgUpnpDevice *childDev = NULL;
 	CgUpnpService *srv = NULL;
 	CgUpnpService *found_srv = NULL;
-	CgSysTime tmpTime;
-	CgSysTime currTime;
+	CgTime tmpTime;
+	CgTime currTime;
 	long timeout;
 	
 	cg_log_debug_l4("Entering...\n");
@@ -109,9 +109,9 @@ void cg_upnp_controlpoint_expirationhandler(CgThread *thread)
 	CgUpnpDevice *dev, *tmpDev;
 	CgUpnpService *srv;
 	CgUpnpSSDPPacket *ssdpPkt;
-	CgSysTime currTime;
-	CgSysTime expirationTime;
-	CgSysTime tmpTime;
+	CgTime currTime;
+	CgTime expirationTime;
+	CgTime tmpTime;
 	long timeout;
 	
 	cg_log_debug_l4("Entering...\n");

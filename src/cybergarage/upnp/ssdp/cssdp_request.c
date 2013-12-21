@@ -59,13 +59,13 @@ void cg_upnp_ssdprequest_delete(CgUpnpSSDPRequest *ssdpReq)
 * cg_upnp_ssdprequest_setleasetime
 ****************************************/
 
-void cg_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, int value)
+void cg_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, CgTime value)
 {
 	char buf[sizeof(CG_HTTP_MAX_AGE) + 1 + CG_STRING_INTEGER_BUFLEN];
 	
 	cg_log_debug_l4("Entering...\n");
 
-	sprintf(buf, "%s=%d", CG_HTTP_MAX_AGE, value);
+	sprintf(buf, "%s=%ld", CG_HTTP_MAX_AGE, (long)value);
 	cg_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL, buf);
 
 	cg_log_debug_l4("Leaving...\n");
@@ -75,7 +75,7 @@ void cg_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, int value)
 * cg_upnp_ssdprequest_getleasetime
 ****************************************/
 
-int cg_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq)
+CgTime cg_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq)
 {
 	const char *cacheCtrl;
 

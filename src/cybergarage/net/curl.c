@@ -35,7 +35,7 @@
 * cg_net_getmodifierhosturl
 ****************************************/
 
-char *cg_net_getmodifierhosturl(char *host, int port, char *uri, char *buf, int bufSize, char *begin, char *end)
+const char *cg_net_getmodifierhosturl(const char *host, int port, const char *uri, const char *begin, const char *end, char *buf, size_t bufSize)
 {
 	BOOL isIPv6Host;
 	
@@ -57,20 +57,20 @@ char *cg_net_getmodifierhosturl(char *host, int port, char *uri, char *buf, int 
 		uri,
 		end);
 	
-	return buf;
-
-	cg_log_debug_l4("Leaving...\n");
+  cg_log_debug_l4("Leaving...\n");
+	
+  return buf;
 }
 
 /****************************************
 * cg_net_gethosturl
 ****************************************/
 
-char *cg_net_gethosturl(char *host, int port, char *uri, char *buf, int bufSize)
+const char *cg_net_gethosturl(const char *host, int port, const char *uri, char *buf, size_t bufSize)
 {
 	cg_log_debug_l4("Entering...\n");
 
-	return cg_net_getmodifierhosturl(host, port, uri, buf, bufSize, "", "");
+	return cg_net_getmodifierhosturl(host, port, uri, "", "", buf, bufSize);
 
 	cg_log_debug_l4("Leaving...\n");
 }

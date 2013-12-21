@@ -47,7 +47,7 @@ CgUpnpSSDPPacket *cg_upnp_ssdp_packet_new()
 		cg_upnp_ssdp_packet_setuserdata(ssdpPkt, NULL);
 		cg_upnp_ssdp_packet_settimestamp(ssdpPkt, cg_getcurrentsystemtime());
 
-		ssdpPkt->timestamps = (CgSysTime *)malloc(CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof(CgSysTime));
+		ssdpPkt->timestamps = (CgTime *)malloc(CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof(CgTime));
 	}
 	
 	return ssdpPkt;

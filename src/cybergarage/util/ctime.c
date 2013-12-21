@@ -51,7 +51,7 @@
 * cg_time_wait
 ****************************************/
 
-void cg_wait(CgSysTime mtime)
+void cg_wait(CgTime mtime)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -76,7 +76,7 @@ void cg_wait(CgSysTime mtime)
 * cg_time_wait
 ****************************************/
 
-void cg_waitrandom(CgSysTime mtime)
+void cg_waitrandom(CgTime mtime)
 {
 	double factor;
 	long waitTime;
@@ -94,15 +94,15 @@ void cg_waitrandom(CgSysTime mtime)
 * cg_time_wait
 ****************************************/
 
-CgSysTime cg_getcurrentsystemtime()
+CgTime cg_getcurrentsystemtime()
 {
 #if defined(BTRON)
-	STIME CgSysTime;
+	STIME CgTime;
 	TIMEZONE tz;
 	STIME localtime;
-	if (get_tim(&CgSysTime, &tz) != 0)
+	if (get_tim(&CgTime, &tz) != 0)
 		return 0;
-	localtime = CgSysTime - tz.adjust + (tz.dst_flg ? (tz.dst_adj*60): 0);
+	localtime = CgTime - tz.adjust + (tz.dst_flg ? (tz.dst_adj*60): 0);
 #elif defined(ITRON)
 	static BOOL initialized = FALSE;
 	SYSTIM sysTim;

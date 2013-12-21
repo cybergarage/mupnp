@@ -149,7 +149,7 @@ typedef struct _CgUpnpEventListenerList {
  *
  * @return Timeout header C string
  */
-char *cg_upnp_event_subscription_totimeoutheaderstring(long time, CgString *buf);
+const char *cg_upnp_event_subscription_totimeoutheaderstring(CgTime time, CgString *buf);
 
 /**
  * Get event subscription timeout
@@ -158,7 +158,7 @@ char *cg_upnp_event_subscription_totimeoutheaderstring(long time, CgString *buf)
  *
  * @return Timeout
  */
-long cg_upnp_event_subscription_gettimeout(char *headerValue);
+CgTime cg_upnp_event_subscription_gettimeout(const char *headerValue);
 
 /**
  * Create SID for subscription
@@ -168,7 +168,7 @@ long cg_upnp_event_subscription_gettimeout(char *headerValue);
  *
  * @return Pointer to buffer containing SID
  */
-char * cg_upnp_event_subscription_createsid(char *buf, int bufSize);
+const char * cg_upnp_event_subscription_createsid(char *buf, size_t bufSize);
 
 /**
  * Creates SID header string
@@ -179,7 +179,7 @@ char * cg_upnp_event_subscription_createsid(char *buf, int bufSize);
  *
  * @return Pointer to buffer containing SID header string
  */
-const char *cg_upnp_event_subscription_tosidheaderstring(const char *sid, char *buf, int bufSize);
+const char *cg_upnp_event_subscription_tosidheaderstring(const char *sid, char *buf, size_t bufSize);
 
 /**
  * Get SID
@@ -234,7 +234,7 @@ const char *cg_upnp_event_subscription_getsid(const char *headerValue);
  * @param subReq Subscription request
  * @param sid SID (Subscription id)
  */
-void cg_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *subReq, char *sid);
+void cg_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *subReq, const char *sid);
 
 /**
  * Get sid from subscription request
@@ -318,7 +318,7 @@ void cg_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *subReq
  * @param subReq Subscription request
  * @param timeout Timeout value for subscription request
  */
-void cg_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest *subReq, long timeout);
+void cg_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest *subReq, CgTime timeout);
 
 /**
  * Get timeout value from subscription request
@@ -337,7 +337,7 @@ void cg_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest *su
  * @param callback URL to be called when service state changes
  * @param timeout Subscription timeout
  */
-void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *callback, long timeout);
+void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, const char *callback, CgTime timeout);
 
 /**
  * (Re)initializes subscription request to be renewal request
@@ -347,7 +347,7 @@ void cg_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionReq
  * @param uuid Devices unique identification string
  * @param timeout Subscription timeout
  */
-void cg_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, char *uuid, long timeout);
+void cg_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, const char *uuid, CgTime timeout);
 
 /**
  * (Re)initializes subscription request to be unsubscription request
@@ -442,7 +442,7 @@ void cg_upnp_event_subscription_request_setunsubscription(CgUpnpSubscriptionRequ
  * @param subRes Subscription response
  * @param sid Subscription ID
  */
-void cg_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *subRes, char *sid);
+void cg_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *subRes, const char *sid);
 
 /**
  * Get SID

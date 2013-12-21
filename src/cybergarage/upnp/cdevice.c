@@ -449,7 +449,7 @@ BOOL cg_upnp_device_updatefromssdppacket(CgUpnpDevice* dev,
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_getidentifier(char* deviceType)
+char* cg_upnp_devicetype_getidentifier(const char* deviceType)
 {
 	char* part = NULL;
 	size_t tail = 0;
@@ -505,7 +505,7 @@ char* cg_upnp_devicetype_getidentifier(char* deviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_geturn(char* deviceType)
+char* cg_upnp_devicetype_geturn(const char* deviceType)
 {
 	char* part = NULL;
 	size_t tail = 0;
@@ -574,7 +574,7 @@ char* cg_upnp_devicetype_geturn(char* deviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_getdevice(char* deviceType)
+char* cg_upnp_devicetype_getdevice(const char* deviceType)
 {
 	char* part = NULL;
 	size_t tail = 0;
@@ -651,7 +651,7 @@ char* cg_upnp_devicetype_getdevice(char* deviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_gettype(char* deviceType)
+char* cg_upnp_devicetype_gettype(const char* deviceType)
 {
 	char* part = NULL;
 	size_t tail = 0;
@@ -729,7 +729,7 @@ char* cg_upnp_devicetype_gettype(char* deviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_getschematype(char* deviceType)
+char* cg_upnp_devicetype_getschematype(const char* deviceType)
 {
 	char* part = NULL;
 	size_t tail = 0;
@@ -793,7 +793,7 @@ char* cg_upnp_devicetype_getschematype(char* deviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_getversion(char* deviceType)
+char* cg_upnp_devicetype_getversion(const char* deviceType)
 {
 	char* part = NULL;
 	size_t tail = 0;
@@ -947,7 +947,7 @@ CgUpnpDevice *cg_upnp_device_getdevicebytype(CgUpnpDevice *dev, char *type)
 {
 	CgUpnpDevice *childDev = NULL;
 	CgUpnpDevice *moreChildDev = NULL;
-	char* typeString = NULL;
+	const char* typeString = NULL;
 	char* part = NULL;
 	
 	cg_log_debug_l4("Entering...\n");
@@ -1125,7 +1125,7 @@ static void cg_upnp_device_notifywait(CgUpnpDevice *dev)
 * cg_upnp_device_getlocationurl
 ****************************************/
 
-char *cg_upnp_device_getlocationurl(CgUpnpDevice *dev, char *host, char *buf, int bufSize)
+const char *cg_upnp_device_getlocationurl(CgUpnpDevice *dev, const char *host, char *buf, int bufSize)
 {
 	cg_log_debug_l4("Entering...\n");
 
@@ -1745,7 +1745,7 @@ CgUpnpService *cg_upnp_device_getservicebytype(CgUpnpDevice *dev, const char *ty
 {
 	CgUpnpService *service = NULL;
 	CgUpnpDevice *childDev = NULL;
-	char* typeString = NULL;
+	const char* typeString = NULL;
 	char* part = NULL;
 	
 	cg_log_debug_l4("Entering...\n");

@@ -170,7 +170,7 @@ char *cg_upnp_control_action_request_getactionname(CgUpnpActionRequest *actionRe
 {
 	CgXmlNode *node;
 	char *name;
-	int urnDelimIdx;
+	ssize_t urnDelimIdx;
 	
 	cg_log_debug_l4("Entering...\n");
 

@@ -93,7 +93,7 @@ typedef struct _CgThread {
 	/** serves as look ahead to have the thread manage its own delete(thread) on exit */
 	BOOL isRunning;
 	BOOL deletePending;
-	CgSysTime sleep;
+	CgTime sleep;
 #endif //WINCE
 
 #if defined DEBUG

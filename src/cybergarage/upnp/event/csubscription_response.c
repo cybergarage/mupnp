@@ -51,7 +51,7 @@ void cg_upnp_event_subscription_subscriberesponse_setresponse(CgUpnpSubscription
 * cg_upnp_event_subscription_response_setsid
 ****************************************/
 
-void cg_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *subRes, char *sid)
+void cg_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *subRes, const char *sid)
 {
 	CgString *headerSID;
 	ssize_t uuidIdx;

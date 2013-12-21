@@ -39,8 +39,8 @@
 static void cg_upnp_device_advertiser_action(CgThread *thread) 
 {
 	CgUpnpDevice *dev;
-	CgSysTime leaseTime;
-	CgSysTime notifyInterval;
+	CgTime leaseTime;
+	CgTime notifyInterval;
   
 	cg_log_debug_l4("Entering...\n");
 

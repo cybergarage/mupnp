@@ -19,7 +19,7 @@
 *	12-Jan-06 Heikki Junnila
 *		- Added API comments
 *	04/05/06 
-*		- changed timing values to type CgSysTime
+*		- changed timing values to type CgTime
 *		- added cg_upnp_subscriberlist_get(CgUpnpSubscriberList *subscriberList, char *sid)
 ******************************************************************/
 
@@ -59,9 +59,9 @@ typedef struct _CgUpnpSubscriber {
 	CgString *ifAddr;
 	CgNetURL *deliveryURL;
 	
-	CgSysTime timeout;
+	CgTime timeout;
 	long notifyCount;
-	CgSysTime subscriptionTime;
+	CgTime subscriptionTime;
 } CgUpnpSubscriber, CgUpnpSubscriberList;
 
 /****************************************

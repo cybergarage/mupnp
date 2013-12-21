@@ -86,7 +86,7 @@ static char *to_week_string(int value)
 
 #if !defined(ITRON)
 
-const char *cg_http_getdate(CgSysTime sysTime, char *buf, size_t bufSize)
+const char *cg_http_getdate(CgTime sysTime, char *buf, size_t bufSize)
 {
 #if defined(HAVE_GMTIME_R)
 	struct tm gmTimeBuf;
@@ -165,7 +165,7 @@ static BOOL IsLeapYear(int year)
 	cg_log_debug_l4("Leaving...\n");
 }
 
-char *cg_http_getdate(CgSysTime sysTime, char *buf, int bufSize)
+char *cg_http_getdate(CgTime sysTime, char *buf, int bufSize)
 {
 	SYSTIM systim;
 	long uxtime;

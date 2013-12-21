@@ -154,8 +154,8 @@ void cg_upnp_ssdprequest_delete(CgUpnpSSDPRequest *ssdpReq);
 #define cg_upnp_ssdprequest_getman(ssdpReq) cg_http_packet_getheadervalue((CgHttpPacket*)ssdpReq,CG_UPNP_SSDP_MAN)
 
 /**** CacheControl ****/
-void cg_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, int value);
-int cg_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq);
+void cg_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, CgTime value);
+CgTime cg_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq);
 
 /**** toString ****/
 char *cg_upnp_ssdprequest_tostring(CgUpnpSSDPRequest *ssdpReq, CgString *ssdpMsg);
@@ -189,7 +189,7 @@ void cg_upnp_ssdpresponse_delete(CgUpnpSSDPResponse *ssdpRes);
 #define cg_upnp_ssdpresponse_getusn(ssdpRes) cg_http_packet_getheadervalue((CgHttpPacket*)ssdpRes,CG_UPNP_SSDP_USN)
 
 /**** CacheControl ****/
-void cg_upnp_ssdpresponse_setleasetime(CgUpnpSSDPResponse *ssdpRes, int value);
+void cg_upnp_ssdpresponse_setleasetime(CgUpnpSSDPResponse *ssdpRes, CgTime value);
 int cg_upnp_ssdpresponse_getleasetime(CgUpnpSSDPResponse *ssdpRes);
 
 /**** Date ****/

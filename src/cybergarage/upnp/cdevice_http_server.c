@@ -507,7 +507,7 @@ static void cg_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpn
 {
 	char *callback;
 	char *aux;
-	long timeout;
+	CgTime timeout;
 	char sid[CG_UPNP_SUBSCRIPTION_SID_SIZE];
 	CgUpnpSubscriber *sub;
 	CgUpnpSubscriptionResponse *subRes;
@@ -555,7 +555,7 @@ static void cg_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpn
 static void cg_upnp_device_renewsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
 {
 	CgUpnpSubscriber *sub;
-	char *sid;
+	const char *sid;
 	long timeout;
 	CgUpnpSubscriptionResponse *subRes;
 	
@@ -596,7 +596,7 @@ static void cg_upnp_device_renewsubscriptionrecieved(CgUpnpService *service, CgU
 static void cg_upnp_device_unsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
 {
 	CgUpnpSubscriber *sub;
-	char *sid;
+	const char *sid;
 	CgUpnpSubscriptionResponse *subRes;
 	
 	cg_log_debug_l4("Entering...\n");

@@ -80,12 +80,12 @@ static void cg_upnp_controlpoint_ssdpresponselistner(CgUpnpSSDPPacket *ssdpPkt);
  * @return Event callback url (pointer to buf)
  */
 
-char *cg_upnp_controlpoint_geteventsubcallbackurl(CgUpnpControlPoint *ctrlPoint, char *ifaddr, char *buf, int bufLen)
+const char *cg_upnp_controlpoint_geteventsubcallbackurl(CgUpnpControlPoint *ctrlPoint, char *ifaddr, char *buf, size_t bufLen)
 {
 	cg_log_debug_l4("Entering...\n");
 
 	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	return cg_net_getmodifierhosturl(ifaddr, cg_upnp_controlpoint_geteventport(ctrlPoint), cg_upnp_controlpoint_geteventsuburi(ctrlPoint), buf, bufLen, "<", ">");
+	return cg_net_getmodifierhosturl(ifaddr, cg_upnp_controlpoint_geteventport(ctrlPoint), cg_upnp_controlpoint_geteventsuburi(ctrlPoint),  "<", ">", buf, bufLen);
 
 	cg_log_debug_l4("Leaving...\n");
 }
@@ -476,7 +476,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebytype(CgUpnpControlPoint *ctrlPoint
 {
 	CgUpnpDevice *dev = NULL;
 	CgUpnpDevice *childDev = NULL;
-	char* typeString = NULL;
+	const char* typeString = NULL;
 	char* part = NULL;
 	
 	cg_log_debug_l4("Entering...\n");
@@ -749,7 +749,7 @@ void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, C
 
 void cg_upnp_controlpoint_removedevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, CgUpnpSSDPPacket *ssdpPkt)
 {
-	char *usn;
+	const char *usn;
 	char udn[CG_UPNP_UDN_LEN_MAX];
 	CgUpnpDevice *dev;
 	CG_UPNP_DEVICE_LISTENER listener = cg_upnp_controlpoint_getdevicelistener(ctrlPoint);

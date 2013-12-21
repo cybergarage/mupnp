@@ -754,7 +754,7 @@ char *cg_upnp_control_query_response_getreturnvalue(CgUpnpQueryResponse *queryRe
  *
  * @return Pointer to beginning of udnBuf.
  */
-char *cg_upnp_usn_getudn(char *usn, char *udnBuf, int udnBufLen);
+const char *cg_upnp_usn_getudn(const char *usn, char *udnBuf, size_t udnBufLen);
 
 /****************************************
 * Function (Action)

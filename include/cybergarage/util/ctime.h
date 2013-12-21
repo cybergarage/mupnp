@@ -36,9 +36,9 @@ extern "C" {
 ****************************************/
 
 #if defined(BTRON) || defined(ITRON) 
-typedef size_t CgSysTime;
+typedef size_t CgTime;
 #else
-typedef time_t CgSysTime;
+typedef time_t CgTime;
 #endif
 
 /****************************************
@@ -47,13 +47,13 @@ typedef time_t CgSysTime;
 
 float cg_random();
 
-void cg_wait(CgSysTime mtime);
-void cg_waitrandom(CgSysTime mtime);
+void cg_wait(CgTime mtime);
+void cg_waitrandom(CgTime mtime);
 
 #define cg_sleep(val) cg_wait(val)
 #define cg_sleeprandom(val) cg_waitrandom(val)
 
-CgSysTime cg_getcurrentsystemtime();
+CgTime cg_getcurrentsystemtime();
 
 #ifdef  __cplusplus
 }

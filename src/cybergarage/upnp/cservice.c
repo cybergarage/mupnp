@@ -640,7 +640,7 @@ const char* cg_upnp_servicetype_gettype(const char* serviceType)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-const char* cg_upnp_servicetype_getschematype(const char* serviceType)
+char* cg_upnp_servicetype_getschematype(const char* serviceType)
 {
 	char* part = NULL;
 	int tail = 0;
@@ -1198,7 +1198,8 @@ CgNetURL *cg_upnp_service_mangleabsoluteurl(const char *serviceURLStr, const cha
 {
 	CgNetURL *absServiceURL;
 	CgNetURL *serviceURL;
-    
+  char *basePath;
+  
 	if (cg_strlen(serviceURLStr) <= 0)
 		return NULL;
     
@@ -1257,11 +1258,10 @@ CgNetURL *cg_upnp_service_mangleabsoluteurl(const char *serviceURLStr, const cha
      * into http://192.168.1.1/base/path/
      */
         
-    locationURLStr = cg_net_url_getupnpbasepath(absServiceURL);
-		
-    if (locationURLStr) {
-        cg_net_url_setpath(absServiceURL, locationURLStr);
-        free(locationURLStr);
+    basePath = cg_net_url_getupnpbasepath(absServiceURL);
+    if (basePath) {
+        cg_net_url_setpath(absServiceURL, basePath);
+        free(basePath);
         locationURLStr = NULL;
     }
         

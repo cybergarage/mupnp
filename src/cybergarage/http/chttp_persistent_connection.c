@@ -46,7 +46,7 @@ typedef struct _CgHttpPersistentConnection {
        int port;
        void *cacheData;
 
-       CgSysTime timestamp;
+       CgTime timestamp;
 
 } CgHttpPersistentConnection, CgHttpPersistentConnectionList;
 
@@ -162,7 +162,7 @@ void cg_http_persistentconnection_delete(CgHttpPersistentConnection *node)
 void *cg_http_persistentconnection_get(char *host, int port)
 {
        CgHttpPersistentConnection *node;
-       CgSysTime sys_time = cg_getcurrentsystemtime();
+       CgTime sys_time = cg_getcurrentsystemtime();
        BOOL iterate;
 
 cg_log_debug_l4("Entering...\n");

@@ -112,7 +112,7 @@ typedef struct _CgUpnpControlPoint {
 	CgUpnpSSDPServerList *ssdpServerList;
 	CgUpnpSSDPResponseServerList *ssdpResServerList;
 	CgHttpServerList *httpServerList;
-	void (*deviceListener)(struct _CgUpnpControlPoint *, char*, CgUpnpDeviceStatus); /* CG_UPNP_DEVICE_LISTENER */
+	void (*deviceListener)(struct _CgUpnpControlPoint *, const char*, CgUpnpDeviceStatus); /* CG_UPNP_DEVICE_LISTENER */
 	CG_HTTP_LISTENER httpListener;
 	CG_UPNP_SSDP_LISTNER ssdpListener;
 	CG_UPNP_SSDP_RESPONSE_LISTNER ssdpResListener;
@@ -132,7 +132,7 @@ typedef struct _CgUpnpControlPoint {
 	CgNetworkInterfaceList *ifCache;
 } CgUpnpControlPoint;
 
-typedef void (*CG_UPNP_DEVICE_LISTENER)(CgUpnpControlPoint *ctrlPoint, char* udn, CgUpnpDeviceStatus status);
+typedef void (*CG_UPNP_DEVICE_LISTENER)(CgUpnpControlPoint *ctrlPoint, const char* udn, CgUpnpDeviceStatus status);
 	
 /****************************************************************************
  * Control Point top-level control
@@ -707,7 +707,7 @@ BOOL cg_upnp_controlpoint_ipchanged(CgUpnpControlPoint *ctrlpoint);
  *
  * @param ctrlPoint The control point in question
  */
-char *cg_upnp_controlpoint_geteventsubcallbackurl(CgUpnpControlPoint *ctrlPoint, char *ifaddr, char *buf, int bufLen);
+const char *cg_upnp_controlpoint_geteventsubcallbackurl(CgUpnpControlPoint *ctrlPoint, char *ifaddr, char *buf, size_t bufLen);
 
 #ifdef  __cplusplus
 }

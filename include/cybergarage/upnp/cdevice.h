@@ -35,7 +35,7 @@
 *		- Added cg_upnp_device_getdevicebyudn()
 *	04/03/06 Theo Beisch
 *		- Added cg_upnp_device_getservicebysid
-*		- changed leasetime and timer to type CgSysTime
+*		- changed leasetime and timer to type CgTime
 *		- added cg_upnp_device_waitforlock (nonblocking) 
 *	22-Apr-2008 
 *		- Added cg_upnp_device_getnservices() and cg_upnp_device_getservice() to get a device by the index.
@@ -184,7 +184,7 @@ typedef struct _CgUpnpDevice
   /** URI for this device's description */
   CgString *descriptionURI;
   /** Advertisement lease time */
-  CgSysTime leaseTime;
+  CgTime leaseTime;
   /** HTTP Port to listen to */
   int httpPort;
   /** This device's SSDP packet */
@@ -381,7 +381,7 @@ BOOL cg_upnp_device_updatefromssdppacket(CgUpnpDevice* dev,
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_getidentifier(char* deviceType);
+char* cg_upnp_devicetype_getidentifier(const char* deviceType);
 
 /** 
  * Get the URN part of a device type string (usually "schemas-upnp-org") 
@@ -391,7 +391,7 @@ char* cg_upnp_devicetype_getidentifier(char* deviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_geturn(char* deviceType);
+char* cg_upnp_devicetype_geturn(const char* deviceType);
 
 /** 
  * Get the device part of a device type string (usually just "device")
@@ -401,7 +401,7 @@ char* cg_upnp_devicetype_geturn(char* deviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_getdevice(char* deviceType);
+char* cg_upnp_devicetype_getdevice(const char* deviceType);
 
 /** 
  * Get the type part of a device type string (ex. "ContentDirectory")
@@ -411,7 +411,7 @@ char* cg_upnp_devicetype_getdevice(char* deviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_gettype(char* deviceType);
+char* cg_upnp_devicetype_gettype(const char* deviceType);
 
 /** 
  * Get the schema type part of a device type string (without last colon)
@@ -422,7 +422,7 @@ char* cg_upnp_devicetype_gettype(char* deviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_getschematype(char* deviceType);
+char* cg_upnp_devicetype_getschematype(const char* deviceType);
 
 /** 
  * Get the version part of a device type string (ex. "1")
@@ -432,7 +432,7 @@ char* cg_upnp_devicetype_getschematype(char* deviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_devicetype_getversion(char* deviceType);
+char* cg_upnp_devicetype_getversion(const char* deviceType);
 
 /*****************************************************************************
  * Friendly Name
@@ -767,7 +767,7 @@ BOOL cg_upnp_device_isrunning(CgUpnpDevice *dev);
  * \param bufSize Buffer length
  *
  */
-char *cg_upnp_device_getlocationurl(CgUpnpDevice *dev, char *host, char *buf, int bufSize);
+const char *cg_upnp_device_getlocationurl(CgUpnpDevice *dev, const char *host, char *buf, int bufSize);
 
 /*****************************************************************************
  * Notify 

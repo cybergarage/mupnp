@@ -96,11 +96,11 @@ typedef struct _CgUpnpService {
 	BOOL parsed;
 	/**** Execution Data ****/
 	CgString *subscriptionSid;
-	long subscriptionTimeout;
+	CgTime subscriptionTimeout;
 
 	void *userData;
-	unsigned int eventKey;
-	CgSysTime subscriptionTimestamp;
+	size_t eventKey;
+	CgTime subscriptionTimestamp;
 } CgUpnpService, CgUpnpServiceList;
 
 /****************************************
@@ -275,7 +275,7 @@ const char* cg_upnp_servicetype_gettype(const char* serviceType);
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-const char* cg_upnp_servicetype_getschematype(const char* serviceType);
+char* cg_upnp_servicetype_getschematype(const char* serviceType);
 
 /** 
  * Get the version part of a service type string (ex. "1")
@@ -600,7 +600,7 @@ BOOL cg_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket );
  * @param service The service in question
 *  @param waitTime The wait time to send
 */
-void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgSysTime waitTime);
+void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTime);
 
 /**
  * Send a notification message to all of the service's subscribers
@@ -739,7 +739,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgSysTime wai
  * Get the service's subscription time stamp
  *
  * @param service The service in question
- * @return CgSysTime
+ * @return CgTime
  */
 #define cg_upnp_service_getsubscriptiontimestamp(service) (service->subscriptionTimestamp)
 
@@ -747,7 +747,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgSysTime wai
  * Get the service's subscription expiration time
  *
  * @param service The service in question
- * @return CgSysTime
+ * @return CgTime
  */
 #define cg_upnp_service_getsubscriptionexpiration(service) (service->subscriptionTimestamp + service->subscriptionTimeout - CG_UPNP_SUBSCRIPTION_DELAY)
 

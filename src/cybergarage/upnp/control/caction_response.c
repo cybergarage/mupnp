@@ -120,7 +120,7 @@ static CgXmlNode *cg_upnp_control_action_response_createresponsenode(CgUpnpActio
 	CgXmlNode *actionNameResNode;
 	char nodeName[CG_UPNP_ACTOINNAME_LEN_MAX + sizeof(CG_SOAP_METHODNS) + sizeof(CG_SOAP_DELIM) + sizeof(CG_SOAP_RESPONSE) + 1];
 	char attrName[sizeof(CG_SOAP_ATTRIBUTE_XMLNS) + sizeof(CG_SOAP_DELIM) + sizeof(CG_SOAP_METHODNS) + 1];
-	char *actionName;
+	const char *actionName;
 	CgXmlNode *serviceNode;
 	CgUpnpService *service;
 	CgUpnpArgumentList *argList;

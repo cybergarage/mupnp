@@ -32,7 +32,7 @@
 * cg_upnp_usn_getudn
 ****************************************/
 
-char *cg_upnp_usn_getudn(char *usn, char *udnBuf, int udnBufLen)
+const char *cg_upnp_usn_getudn(const char *usn, char *udnBuf, size_t udnBufLen)
 {
 	ssize_t idx;
 	
