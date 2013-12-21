@@ -235,6 +235,23 @@ long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, const char* name)
 }
 
 /****************************************
+ * cg_http_packet_getheadersizet
+ ****************************************/
+
+size_t cg_http_packet_getheadersizet(CgHttpPacket *httpPkt, const char* name)
+{
+	const char *value;
+  
+	cg_log_debug_l4("Entering...\n");
+  
+	value = cg_http_packet_getheadervalue(httpPkt, name);
+  
+	cg_log_debug_l4("Leaving...\n");
+  
+	return (value != NULL) ? atol(value) : 0;
+}
+
+/****************************************
 * cg_http_packet_getheaderlonglong
 ****************************************/
 
@@ -536,10 +553,10 @@ BOOL cg_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader,
 * cg_http_packet_getheadersize
 ****************************************/
 
-int cg_http_packet_getheadersize(CgHttpPacket *httpPkt)
+size_t cg_http_packet_getheadersize(CgHttpPacket *httpPkt)
 {
 	CgHttpHeader *header;
-	int headerSize;
+	size_t headerSize;
 	const char *name;
 	const char *value;
 	

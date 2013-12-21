@@ -310,7 +310,8 @@ void cg_http_packet_setheaderlong(CgHttpPacket *httpPkt, const char* name, long 
 const char *cg_http_packet_getheadervalue(CgHttpPacket *httpPkt, const char* name);
 int cg_http_packet_getheaderinteger(CgHttpPacket *httpPkt, const char* name);
 long cg_http_packet_getheaderlong(CgHttpPacket *httpPkt, const char* name);
-int cg_http_packet_getheadersize(CgHttpPacket *httpPkt);
+size_t cg_http_packet_getheadersizet(CgHttpPacket *httpPkt, const char* name);
+size_t cg_http_packet_getheadersize(CgHttpPacket *httpPkt);
 
 #if defined(CG_USE_INT64)
 void cg_http_packet_setheaderlonglong(CgHttpPacket *httpPkt, const char* name, CgInt64 value);

@@ -3,7 +3,7 @@
 #include <cybergarage/util/cdictionary.h>
 
 ////////////////////////////////////////
-// testNetworkInterface
+// testDictionary
 ////////////////////////////////////////
 
 #define CLINK_TESTCASE_DICTIONARY_KEY "hello"
