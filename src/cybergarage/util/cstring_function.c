@@ -447,34 +447,6 @@ const char *cg_long2str(long value, char *buf, size_t bufSize)
 }
 
 /****************************************
-* cg_longlong2str
-****************************************/
-
-#if defined(__USE_ISOC99) || defined(HAVE_LONGLONG)
-char *cg_longlong2str(CgInt64 value, char *buf, size_t bufSize)
-{
-#if defined(HAVE_SNPRINTF)
- snprintf(buf, bufSize, "%lld", value);
-#else
- sprintf(buf, "%lld", value);
-#endif
- return buf;
-}
-#elif (defined(WIN32) && !defined(WINCE))
-char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
-{
- return _i64toa(value, buf, 10);
-}
-#elif (defined (WIN32) && defined (WINCE))
-//theo beisch CE supports only safe version of _i64toa
-char *cg_longlong2str(CgInt64 value, char *buf, int bufSize)
-{
- _i64toa_s(value, buf, bufSize, 10);
- return buf;
-}
-#endif
-
-/****************************************
 * cg_float2str
 ****************************************/
 

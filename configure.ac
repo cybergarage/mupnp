@@ -9,7 +9,7 @@
 AC_CONFIG_AUX_DIR(config)
 AM_CONFIG_HEADER(config.h)
 
-AC_INIT([clinkc], [2.4.x])
+AC_INIT([clinkc], [3.0])
 AC_CONFIG_SRCDIR([include/cybergarage/typedef.h])
 AM_INIT_AUTOMAKE([subdir-objects])
 
@@ -25,6 +25,9 @@ LIBXML2_VERSION=2.6.0
 
 #Libcurl version
 LIBCURL3_VERSION=7.13.0
+
+#CppUnit version
+CPPUNIT_VERSION=1.6.0
 
 ##############################
 # Checks for programs.
@@ -269,8 +272,6 @@ AC_ARG_ENABLE(persistent-connections,
 		CFLAGS="$CFLAGS -DCG_HTTP_USE_PERSISTENT_CONNECTIONS"
 	]
 )
-
-
 
 ##############################
 # Checks for fast mode.
@@ -547,7 +548,7 @@ AC_SEARCH_LIBS([socket], [socket inet])
 AC_ARG_ENABLE([tests], AC_HELP_STRING([--enable-tests], [ build tests (default = no) ]), [build_tests="yes"], [])
 AM_CONDITIONAL(BUILD_TEST, test "$build_tests" = "yes")
 if [ test "$build_tests" = yes ]; then
-	AM_PATH_CPPUNIT(1.6.0)
+	AC_CHECK_LIB([cppunit],[main],,[AC_MSG_ERROR(CyberLink needs CppUnit >= $CPPUNIT_VERSION)])
 fi
 
 ##############################
@@ -569,4 +570,6 @@ sample/upnpavdump/Makefile
 sample/upnpavdump/unix/Makefile
 sample/upnpigddump/Makefile
 sample/upnpigddump/unix/Makefile
+tests/Makefile
+tests/unix/Makefile
 ])

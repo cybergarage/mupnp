@@ -7,16 +7,18 @@ noinst_HEADERS = \
 	../TestDevice.h
 
 clinkctestunit_SOURCES = \
+	../TestDevice.c \
 	../ClinkTestCase.cpp \
 	../ClinkTestCaseControlPoint.cpp \
 	../ClinkTestCaseDevice.cpp \
 	../ClinkTestCaseDictionary.cpp \
 	../ClinkTestCaseHttp.cpp \
 	../ClinkTestCaseNetwork.cpp \
-	../ClinkTestCaseURI.cpp \
-	../ClinkTestCaseSubscription.cpp \
+	../ClinkTestCaseService.cpp \
 	../ClinkTestCaseStateVariable.cpp \
-	../TestDevice.c \
+	../ClinkTestCaseString.cpp \
+	../ClinkTestCaseSubscription.cpp \
+	../ClinkTestCaseURI.cpp \
 	../cppunitmain.cpp
 
 #if HAVE_LIBTOOL

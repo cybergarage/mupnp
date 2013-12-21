@@ -129,7 +129,7 @@ char *CLOCK_SERVICE_DESCRIPTION =
 
 BOOL upnp_clock_actionreceived(CgUpnpAction *action)
 {
-	CgSysTime currTime;
+	CgTime currTime;
 	char *actionName;
 	CgUpnpArgument *currTimeArg;
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
@@ -161,7 +161,7 @@ BOOL upnp_clock_actionreceived(CgUpnpAction *action)
 BOOL upnp_clock_queryreceived(CgUpnpStateVariable *statVar)
 {
 	char *varName;
-	CgSysTime currTime;
+	CgTime currTime;
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	
 	varName = cg_upnp_statevariable_getname(statVar);
@@ -181,7 +181,7 @@ BOOL upnp_clock_queryreceived(CgUpnpStateVariable *statVar)
 
 void upnp_clock_device_httprequestrecieved(CgHttpRequest *httpReq)
 {
-	CgSysTime currTime;
+	CgTime currTime;
 	CgUpnpDevice *dev;
 	char *uri;
 	char content[2048];
@@ -292,7 +292,7 @@ CgUpnpDevice *upnp_clock_device_new()
 
 void upnp_clock_device_update(CgUpnpDevice *clockDev)
 {
-	CgSysTime currTime;
+	CgTime currTime;
 	CgUpnpService *timeService;
 	CgUpnpStateVariable *timeState;
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];

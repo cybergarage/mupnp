@@ -68,7 +68,7 @@ static char *toWeekString(int value)
 * GetSystemTimeString
 ****************************************/
 
-char *GetSystemTimeString(CgSysTime currTime, char *buf)
+char *GetSystemTimeString(CgTime currTime, char *buf)
 {
 	struct tm *localTime;
 			
@@ -89,7 +89,7 @@ char *GetSystemTimeString(CgSysTime currTime, char *buf)
 * GetDateString
 ****************************************/
 
-char *GetDateString(CgSysTime currTime, char *buf)
+char *GetDateString(CgTime currTime, char *buf)
 {
 	struct tm *localTime;
 			
@@ -108,7 +108,7 @@ char *GetDateString(CgSysTime currTime, char *buf)
 * GetTimeString
 ****************************************/
 
-char *GetTimeString(CgSysTime currTime, char *buf)
+char *GetTimeString(CgTime currTime, char *buf)
 {
 	struct tm *localTime;
 			
@@ -126,7 +126,7 @@ char *GetTimeString(CgSysTime currTime, char *buf)
 * GetSecond
 ****************************************/
 
-int GetSecond(CgSysTime currTime)
+int GetSecond(CgTime currTime)
 {
 	struct tm *localTime;
 			

@@ -31,10 +31,10 @@ extern "C" {
 * Function
 ****************************************/
 
-char *GetSystemTimeString(CgSysTime currTime, char *buf);
-char *GetDateString(CgSysTime currTime, char *buf);
-char *GetTimeString(CgSysTime currTime, char *buf);
-int GetSecond(CgSysTime currTime);
+char *GetSystemTimeString(CgTime currTime, char *buf);
+char *GetDateString(CgTime currTime, char *buf);
+char *GetTimeString(CgTime currTime, char *buf);
+int GetSecond(CgTime currTime);
 
 #ifdef  __cplusplus
 }

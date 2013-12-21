@@ -42,6 +42,9 @@
 /* IP_PKTINFO */
 #undef HAVE_IP_PKTINFO
 
+/* Define to 1 if you have the `cppunit' library (-lcppunit). */
+#undef HAVE_LIBCPPUNIT
+
 /* Define to 1 if you have the `expat' library (-lexpat). */
 #undef HAVE_LIBEXPAT
 
