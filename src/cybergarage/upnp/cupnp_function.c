@@ -38,6 +38,23 @@
 #include <time.h>
 #include <stdlib.h>
 
+// Some systems (Solaris, CentOS?) come with libuuid, but does not feature
+// the uuid_unparse_lower() call.
+#if defined(HAVE_LIBUUID)
+#if !defined(HAVE_UUID_UNPARSE_LOWER) && !defined(TARGET_OS_IPHONE)
+// Older versions of libuuid don't have uuid_unparse_lower(),
+// only uuid_unparse()
+void uuid_unparse_lower (uuid_t uu, char *out)
+{
+    int i;
+    uuid_unparse (uu, out);
+    // Characters in out are either 0-9, a-z, '-', or A-Z.  A-Z is mapped to
+    // a-z by bitwise or with 0x20, and the others already have this bit set
+    for (i = 0; i < sizeof(uu); ++i) out[i] |= 0x20;
+}
+#endif
+#endif
+
 /****************************************
 * Static
 ****************************************/
