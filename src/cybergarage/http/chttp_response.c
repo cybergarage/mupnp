@@ -174,7 +174,7 @@ BOOL cg_http_response_read(CgHttpResponse *httpRes, CgSocket *sock, BOOL onlyHea
 	char lineBuf[CG_HTTP_READLINE_BUFSIZE];
 	CgStringTokenizer *strTok;
 	char *token;
-	size_t readLen;
+	ssize_t readLen;
 	
 	cg_log_debug_l4("Entering...\n");
 

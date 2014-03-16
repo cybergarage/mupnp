@@ -426,8 +426,8 @@ void cg_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *li
 
 size_t cg_http_packet_read_chunk(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize)
 {
-	size_t readLen = 0;
-	size_t conLen = 0;
+	ssize_t readLen = 0;
+	ssize_t conLen = 0;
 	int tries = 0;
 	char *content = NULL;
 	
@@ -478,8 +478,8 @@ size_t cg_http_packet_read_chunk(CgHttpPacket *httpPkt, CgSocket *sock, char *li
 
 BOOL cg_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize)
 {
-	size_t readLen;
-	size_t conLen;
+	ssize_t readLen;
+	ssize_t conLen;
 	char *content;
 	char readBuf[READBUF_LENGTH + 1];
 	int tries = 0;

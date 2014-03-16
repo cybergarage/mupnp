@@ -757,7 +757,7 @@ BOOL cg_http_request_read(CgHttpRequest *httpReq, CgSocket *sock)
 {
 	char lineBuf[CG_HTTP_READLINE_BUFSIZE];
 	CgStringTokenizer *strTok;
-	size_t readLen;
+	ssize_t readLen;
 	CgNetURI *uri = NULL;
 	BOOL failed = FALSE;
 	
