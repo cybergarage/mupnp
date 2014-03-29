@@ -24,7 +24,7 @@
 
 @synthesize contentDirectory;
 @synthesize cAvObject;
-@synthesize delegate;
+@synthesize delegateServer;
 
 #if defined(TARGET_OS_IPHONE)
 @synthesize thumbnailImage;
@@ -231,9 +231,9 @@
 	}
 
 	/* CGUpnpAvServerDelegate */
-	if ([[self delegate] respondsToSelector:@selector(upnpAvServer:browse:avObject:)]) {
+	if ([[self delegateServer] respondsToSelector:@selector(upnpAvServer:browse:avObject:)]) {
 		for (CGUpnpAvObject *avObj in avObjArray)
-			[[self delegate] upnpAvServer:self browse:browseAction avObject:avObj];
+			[[self delegateServer] upnpAvServer:self browse:browseAction avObject:avObj];
 	}
 
 	return avObjArray;	
@@ -276,7 +276,7 @@
 
 - (BOOL)hasSearchAvObjectDelegate
 {
-	return ([[self delegate] respondsToSelector:@selector(upnpAvServer:search:avObject:)]);
+	return ([[self delegateServer] respondsToSelector:@selector(upnpAvServer:search:avObject:)]);
 }
 
 - (NSArray *)search:(NSString *)aSearchCriteria;
@@ -301,7 +301,7 @@
 	/* CGUpnpAvServerDelegate */
 	if ([self hasSearchAvObjectDelegate]) {
 		for (CGUpnpAvObject *avObj in avObjArray)
-			[[self delegate] upnpAvServer:self search:action avObject:avObj];
+			[[self delegateServer] upnpAvServer:self search:action avObject:avObj];
 	}
 	
 	return avObjArray;	
