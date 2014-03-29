@@ -12,11 +12,11 @@
 #
 #############################################################################
 
-AC_INIT(include/cybergarage/upnp/std/av/cmediaserver.h)
 AC_CONFIG_AUX_DIR(config)
-
-AM_INIT_AUTOMAKE(clinkcav, 2.4)
 AM_CONFIG_HEADER(config.h)
+AC_INIT([clinkcav], [3.0])
+AC_CONFIG_SRCDIR(include/cybergarage/upnp/std/av/cmediaserver.h)
+AM_INIT_AUTOMAKE([subdir-objects])
 
 ##############################
 # Constants
@@ -28,13 +28,12 @@ CLINKC_VERSION=2.4
 ##############################
 # Checks for programs.
 ##############################
-cdms_filesyscdms_filesys
 AC_PROG_CC
 AC_PROG_CXX
 #AC_LANG_CPLUSPLUS
 AC_PROG_INSTALL
 AC_PROG_AWK
-AC_PROG_LIBTOOL
+#AC_PROG_LIBTOOL
 AC_PROG_RANLIB
 
 #############################################################################
