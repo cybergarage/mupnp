@@ -67,7 +67,7 @@
 - (float)durationTime
 {
 	NSArray *timeStrings = [self componentsSeparatedByString:@":"];
-	int timeStringsCount = [timeStrings count];
+	NSUInteger timeStringsCount = [timeStrings count];
 	if (timeStringsCount < 3)
 		return -1.0f;
 	float durationTime = 0.0;

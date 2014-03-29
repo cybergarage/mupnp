@@ -102,12 +102,12 @@
 
 - (CGUpnpAvServer *)serverForIndexPath:(NSIndexPath *)aIndexPath
 {
-	int idxCnt = [aIndexPath length];
+	NSUInteger idxCnt = [aIndexPath length];
 	if (idxCnt < 1)
 		return nil;
 	
 	NSArray *servers = [self servers];
-	int serverNum = [aIndexPath indexAtPosition:0];
+	NSUInteger serverNum = [aIndexPath indexAtPosition:0];
 	if ([servers count] <= serverNum)
 		return nil;
 	
@@ -142,15 +142,15 @@
 		return nil;
 
 	CGUpnpAvObject *avObj = rootObj;
-	int idxPathLength = [aServerAndTitleIndexPath length];
-	int n;
+	NSUInteger idxPathLength = [aServerAndTitleIndexPath length];
+	NSUInteger n;
 	for (n=1; n<idxPathLength; n++) {
 		if ([avObj isItem])
 			return nil;
 		CGUpnpAvContainer *avCon = (CGUpnpAvContainer *)avObj;
-		int avObjIdx = [aServerAndTitleIndexPath indexAtPosition:n];
+		NSUInteger avObjIdx = [aServerAndTitleIndexPath indexAtPosition:n];
 		avObj = [avCon childAtIndex:avObjIdx];
-		NSLog(@"objectForIndexPath = [%d/%d][%d/%d] %@ (%@)", n, idxPathLength, avObjIdx,  [avCon childCount], [avObj title], [avObj objectId]);
+		NSLog(@"objectForIndexPath = [%tu/%tu][%tu/%tu] %@ (%@)", n, idxPathLength, avObjIdx,  [avCon childCount], [avObj title], [avObj objectId]);
 		if (!avObj)
 			return nil;
 	}
