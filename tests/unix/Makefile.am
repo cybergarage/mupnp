@@ -1,6 +1,6 @@
 noinst_PROGRAMS = clinkctestunit
 
-INCLUDES = -I$(top_srcdir)/include -I../
+AM_CPPFLAGS = -I$(top_srcdir)/include -I../
 
 noinst_HEADERS = \
 	../ClinkTestCase.h \
