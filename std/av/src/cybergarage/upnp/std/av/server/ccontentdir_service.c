@@ -608,7 +608,7 @@ static BOOL cg_upnpav_dms_condir_browsemetadata(CgUpnpAvServer *dms, CgUpnpActio
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_RESULT, cg_string_getvalue(resultStr));
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_NUMBER_RETURNED, "1");
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_TOTAL_MACHES, "1");
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID, cg_int2str(cg_upnpav_dms_condir_getsystemupdateid(dms), intBuf, sizeof(intBuf)));
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID, (char*)cg_int2str(cg_upnpav_dms_condir_getsystemupdateid(dms), intBuf, sizeof(intBuf)));
 
     /*
       printf("browsemetadata reply: '%s'\n",
@@ -697,9 +697,9 @@ static BOOL cg_upnpav_dms_condir_browsedirectchildren(CgUpnpAvServer *dms, CgUpn
 	cg_upnpav_didl_node_tostring(didlNode, resultStr);
 
 	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_RESULT, cg_string_getvalue(resultStr));
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_NUMBER_RETURNED, cg_int2str(numberReturned, intBuf, sizeof(intBuf)));
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_TOTAL_MACHES, cg_int2str(totalMachesCnt, intBuf, sizeof(intBuf)));
-	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID, cg_int2str(cg_upnpav_dms_condir_getsystemupdateid(dms), intBuf, sizeof(intBuf)));
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_NUMBER_RETURNED, (char*)cg_int2str(numberReturned, intBuf, sizeof(intBuf)));
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_TOTAL_MACHES, (char*)cg_int2str(totalMachesCnt, intBuf, sizeof(intBuf)));
+	cg_upnp_action_setargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID, (char*)cg_int2str(cg_upnpav_dms_condir_getsystemupdateid(dms), intBuf, sizeof(intBuf)));
 
 	cg_string_delete(resultStr);
 	free(sortedContentArray);
@@ -722,7 +722,7 @@ BOOL cg_upnpav_dms_condir_actionreceived(CgUpnpAction *action)
 	char *argValue;
 	char intBuf[CG_STRING_INTEGER_BUFLEN];
 
-	actionName = cg_upnp_action_getname(action);
+	actionName = (char*)cg_upnp_action_getname(action);
 	if (cg_strlen(actionName) <= 0)
 		return FALSE;
 
@@ -796,7 +796,7 @@ BOOL cg_upnpav_dms_condir_queryreceived(CgUpnpStateVariable *var)
 	char *varName;
 	char intBuf[CG_STRING_INTEGER_BUFLEN];
 
-	varName = cg_upnp_statevariable_getname(var);
+	varName = (char*)cg_upnp_statevariable_getname(var);
 	if (cg_strlen(varName) <= 0)
 		return FALSE;
 
@@ -871,7 +871,7 @@ BOOL cg_upnpav_dms_medrec_actionreceived(CgUpnpAction *action)
     char *actionName;
     CgUpnpArgument *arg;
 
-    actionName = cg_upnp_action_getname(action);
+    actionName = (char*)cg_upnp_action_getname(action);
 
     if (cg_strlen(actionName) <= 0)
         return FALSE;
