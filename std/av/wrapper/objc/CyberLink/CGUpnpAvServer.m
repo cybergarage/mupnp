@@ -161,7 +161,7 @@
 
 - (int)browseDirectChildrenTotalMatches:(NSString *)aObjectId
 {	
-	if (![self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:[NSArray array]])
+	if (![self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:[NSDictionary dictionary]])
 		return 0;
 	return [[[self browseAction] argumentValueForName:@"TotalMatches"] integerValue];
 }
