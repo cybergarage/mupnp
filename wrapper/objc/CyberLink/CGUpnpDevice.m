@@ -322,7 +322,7 @@ static BOOL CGUpnpDeviceActionListener(CgUpnpAction *action);
 	
 	NSString *ipaddr = nil;
 	
-	char *location_str = cg_upnp_device_getlocationfromssdppacket(cObject);	
+	char *location_str = (char*)cg_upnp_device_getlocationfromssdppacket(cObject);
 	if (0 < cg_strlen(location_str)) {
 		CgNetURL *url = cg_net_url_new();
 		cg_net_url_set(url, location_str);

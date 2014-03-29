@@ -1188,7 +1188,7 @@ BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action)
 	char *actionName;
 	CgUpnpArgument *arg;
 
-	actionName = cg_upnp_action_getname(action);
+	actionName = (char*)cg_upnp_action_getname(action);
 	if (cg_strlen(actionName) <= 0)
 		return FALSE;
 

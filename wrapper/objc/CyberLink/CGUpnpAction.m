@@ -66,7 +66,7 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 	NSMutableDictionary *argDir = [NSMutableDictionary dictionary];
 	CgUpnpArgument *carg;
 	for (carg = cg_upnp_action_getarguments(cObject); carg; carg = cg_upnp_argument_next(carg)) {
-		char *name = cg_upnp_argument_getname(carg);
+		char *name = (char*)cg_upnp_argument_getname(carg);
 		char *value = cg_upnp_argument_getvalue(carg);
 		NSString *obj = [[NSString alloc] initWithUTF8String:(value ? value : "")];
 		NSString *key = [[NSString alloc] initWithUTF8String:name];

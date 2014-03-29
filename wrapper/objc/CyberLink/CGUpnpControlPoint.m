@@ -11,7 +11,7 @@
 #import "CGUpnpControlPoint.h"
 #import "CGUpnpDevice.h"
 
-static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, char* udn, CgUpnpDeviceStatus status);
+static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, const char* udn, CgUpnpDeviceStatus status);
 
 @implementation CGUpnpControlPoint
 
@@ -121,7 +121,7 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, char
 
 @end
 
-static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, char* udn, CgUpnpDeviceStatus status)
+static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, const char* udn, CgUpnpDeviceStatus status)
 {
 	CGUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_getuserdata(cCtrlPoint);
 	if (ctrlPoint == nil)
