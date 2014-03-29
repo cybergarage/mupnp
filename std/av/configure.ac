@@ -35,6 +35,7 @@ AC_PROG_INSTALL
 AC_PROG_AWK
 #AC_PROG_LIBTOOL
 AC_PROG_RANLIB
+AM_PROG_CC_C_O
 
 #############################################################################
 # Checks for CYGWIN an MinGW
