@@ -351,8 +351,6 @@ char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], size_t fr
 	if (NULL == str )
 		return NULL;
 	
-	repValue = cg_string_new();
-	
 	fromStrLen = (size_t *)malloc(sizeof(size_t) * fromStrCnt);
 
 	if ( NULL == fromStrLen )
@@ -361,6 +359,8 @@ char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], size_t fr
 		return NULL;
 	}
 	
+    repValue = cg_string_new();
+    
 	for (n=0; n<fromStrCnt; n++)
 		fromStrLen[n] = cg_strlen(fromStr[n]);
 	
