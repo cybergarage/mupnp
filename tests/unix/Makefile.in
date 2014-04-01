@@ -77,8 +77,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-samples_PROGRAMS = upnpavdump$(EXEEXT)
-subdir = sample/upnpavdump/unix
+noinst_PROGRAMS = clinkctestunit$(EXEEXT)
+subdir = tests/unix
 DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/Makefile.am \
 	$(top_srcdir)/config/depcomp $(noinst_HEADERS)
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -89,13 +89,22 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am__installdirs = "$(DESTDIR)$(samplesdir)"
-PROGRAMS = $(samples_PROGRAMS)
+PROGRAMS = $(noinst_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_upnpavdump_OBJECTS = ../upnpavdump.$(OBJEXT) \
-	../../common/kb_util.$(OBJEXT)
-upnpavdump_OBJECTS = $(am_upnpavdump_OBJECTS)
-upnpavdump_DEPENDENCIES = ../../../lib/unix/libclinkc.a
+am_clinkctestunit_OBJECTS = ../TestDevice.$(OBJEXT) \
+	../ClinkTestCase.$(OBJEXT) \
+	../ClinkTestCaseControlPoint.$(OBJEXT) \
+	../ClinkTestCaseDevice.$(OBJEXT) \
+	../ClinkTestCaseDictionary.$(OBJEXT) \
+	../ClinkTestCaseHttp.$(OBJEXT) \
+	../ClinkTestCaseNetwork.$(OBJEXT) \
+	../ClinkTestCaseService.$(OBJEXT) \
+	../ClinkTestCaseStateVariable.$(OBJEXT) \
+	../ClinkTestCaseString.$(OBJEXT) \
+	../ClinkTestCaseSubscription.$(OBJEXT) \
+	../ClinkTestCaseURI.$(OBJEXT) ../cppunitmain.$(OBJEXT)
+clinkctestunit_OBJECTS = $(am_clinkctestunit_OBJECTS)
+clinkctestunit_DEPENDENCIES = ../../lib/unix/libclinkc.a
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -124,8 +133,21 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(upnpavdump_SOURCES)
-DIST_SOURCES = $(upnpavdump_SOURCES)
+CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
+AM_V_CXX = $(am__v_CXX_@AM_V@)
+am__v_CXX_ = $(am__v_CXX_@AM_DEFAULT_V@)
+am__v_CXX_0 = @echo "  CXX     " $@;
+am__v_CXX_1 = 
+CXXLD = $(CXX)
+CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
+	-o $@
+AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
+am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
+am__v_CXXLD_0 = @echo "  CXXLD   " $@;
+am__v_CXXLD_1 = 
+SOURCES = $(clinkctestunit_SOURCES)
+DIST_SOURCES = $(clinkctestunit_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -249,24 +271,35 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-samplesdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)/samples
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include -I../ -I../../common @XML_CFLAGS@ @CLOG_DEBUG_FLAGS@
+AM_CPPFLAGS = -I$(top_srcdir)/include -I../
 noinst_HEADERS = \
-	../../common/kb_util.h
+	../ClinkTestCase.h \
+	../TestDevice.h
 
-upnpavdump_SOURCES = \
-	../upnpavdump.c \
-	../../common/kb_util.c
+clinkctestunit_SOURCES = \
+	../TestDevice.c \
+	../ClinkTestCase.cpp \
+	../ClinkTestCaseControlPoint.cpp \
+	../ClinkTestCaseDevice.cpp \
+	../ClinkTestCaseDictionary.cpp \
+	../ClinkTestCaseHttp.cpp \
+	../ClinkTestCaseNetwork.cpp \
+	../ClinkTestCaseService.cpp \
+	../ClinkTestCaseStateVariable.cpp \
+	../ClinkTestCaseString.cpp \
+	../ClinkTestCaseSubscription.cpp \
+	../ClinkTestCaseURI.cpp \
+	../cppunitmain.cpp
 
 
 #if HAVE_LIBTOOL
-#upnpavdump_LDADD = ../../../lib/unix/libclinkc.la @XML_LIBS@
+#clinkctestunit_LDADD = ../../lib/unix/libclinkc.la -lcppunit @XML_LIBS@
 #else
-upnpavdump_LDADD = ../../../lib/unix/libclinkc.a @XML_LIBS@
+clinkctestunit_LDADD = ../../lib/unix/libclinkc.a  -lcppunit @XML_LIBS@
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .c .o .obj
+.SUFFIXES: .c .cpp .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -276,9 +309,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign sample/upnpavdump/unix/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign tests/unix/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign sample/upnpavdump/unix/Makefile
+	  $(AUTOMAKE) --foreign tests/unix/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -297,79 +330,66 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-install-samplesPROGRAMS: $(samples_PROGRAMS)
-	@$(NORMAL_INSTALL)
-	@list='$(samples_PROGRAMS)'; test -n "$(samplesdir)" || list=; \
-	if test -n "$$list"; then \
-	  echo " $(MKDIR_P) '$(DESTDIR)$(samplesdir)'"; \
-	  $(MKDIR_P) "$(DESTDIR)$(samplesdir)" || exit 1; \
-	fi; \
-	for p in $$list; do echo "$$p $$p"; done | \
-	sed 's/$(EXEEXT)$$//' | \
-	while read p p1; do if test -f $$p \
-	  ; then echo "$$p"; echo "$$p"; else :; fi; \
-	done | \
-	sed -e 'p;s,.*/,,;n;h' \
-	    -e 's|.*|.|' \
-	    -e 'p;x;s,.*/,,;s/$(EXEEXT)$$//;$(transform);s/$$/$(EXEEXT)/' | \
-	sed 'N;N;N;s,\n, ,g' | \
-	$(AWK) 'BEGIN { files["."] = ""; dirs["."] = 1 } \
-	  { d=$$3; if (dirs[d] != 1) { print "d", d; dirs[d] = 1 } \
-	    if ($$2 == $$4) files[d] = files[d] " " $$1; \
-	    else { print "f", $$3 "/" $$4, $$1; } } \
-	  END { for (d in files) print "f", d, files[d] }' | \
-	while read type dir files; do \
-	    if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
-	    test -z "$$files" || { \
-	      echo " $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(samplesdir)$$dir'"; \
-	      $(INSTALL_PROGRAM_ENV) $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(samplesdir)$$dir" || exit $$?; \
-	    } \
-	; done
 
-uninstall-samplesPROGRAMS:
-	@$(NORMAL_UNINSTALL)
-	@list='$(samples_PROGRAMS)'; test -n "$(samplesdir)" || list=; \
-	files=`for p in $$list; do echo "$$p"; done | \
-	  sed -e 'h;s,^.*/,,;s/$(EXEEXT)$$//;$(transform)' \
-	      -e 's/$$/$(EXEEXT)/' \
-	`; \
-	test -n "$$list" || exit 0; \
-	echo " ( cd '$(DESTDIR)$(samplesdir)' && rm -f" $$files ")"; \
-	cd "$(DESTDIR)$(samplesdir)" && rm -f $$files
-
-clean-samplesPROGRAMS:
-	-test -z "$(samples_PROGRAMS)" || rm -f $(samples_PROGRAMS)
+clean-noinstPROGRAMS:
+	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
 ../$(am__dirstamp):
 	@$(MKDIR_P) ..
 	@: > ../$(am__dirstamp)
 ../$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) ../$(DEPDIR)
 	@: > ../$(DEPDIR)/$(am__dirstamp)
-../upnpavdump.$(OBJEXT): ../$(am__dirstamp) \
+../TestDevice.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../../common/$(am__dirstamp):
-	@$(MKDIR_P) ../../common
-	@: > ../../common/$(am__dirstamp)
-../../common/$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) ../../common/$(DEPDIR)
-	@: > ../../common/$(DEPDIR)/$(am__dirstamp)
-../../common/kb_util.$(OBJEXT): ../../common/$(am__dirstamp) \
-	../../common/$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCase.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseControlPoint.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseDevice.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseDictionary.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseHttp.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseNetwork.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseService.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseStateVariable.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseString.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseSubscription.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseURI.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../cppunitmain.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
 
-upnpavdump$(EXEEXT): $(upnpavdump_OBJECTS) $(upnpavdump_DEPENDENCIES) $(EXTRA_upnpavdump_DEPENDENCIES) 
-	@rm -f upnpavdump$(EXEEXT)
-	$(AM_V_CCLD)$(LINK) $(upnpavdump_OBJECTS) $(upnpavdump_LDADD) $(LIBS)
+clinkctestunit$(EXEEXT): $(clinkctestunit_OBJECTS) $(clinkctestunit_DEPENDENCIES) $(EXTRA_clinkctestunit_DEPENDENCIES) 
+	@rm -f clinkctestunit$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(clinkctestunit_OBJECTS) $(clinkctestunit_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 	-rm -f ../*.$(OBJEXT)
-	-rm -f ../../common/*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/upnpavdump.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@../../common/$(DEPDIR)/kb_util.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCase.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCaseControlPoint.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCaseDevice.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCaseDictionary.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCaseHttp.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCaseNetwork.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCaseService.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCaseStateVariable.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCaseString.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCaseSubscription.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ClinkTestCaseURI.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/TestDevice.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/cppunitmain.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -386,6 +406,22 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+.cpp.o:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
+
+.cpp.obj:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -473,9 +509,6 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(PROGRAMS) $(HEADERS)
 installdirs:
-	for dir in "$(DESTDIR)$(samplesdir)"; do \
-	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
-	done
 install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
@@ -504,18 +537,16 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f ../$(DEPDIR)/$(am__dirstamp)
 	-rm -f ../$(am__dirstamp)
-	-rm -f ../../common/$(DEPDIR)/$(am__dirstamp)
-	-rm -f ../../common/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-samplesPROGRAMS mostlyclean-am
+clean-am: clean-generic clean-noinstPROGRAMS mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf ../$(DEPDIR) ../../common/$(DEPDIR)
+	-rm -rf ../$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -532,7 +563,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-samplesPROGRAMS
+install-data-am:
 
 install-dvi: install-dvi-am
 
@@ -561,7 +592,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf ../$(DEPDIR) ../../common/$(DEPDIR)
+	-rm -rf ../$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -577,23 +608,22 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-samplesPROGRAMS
+uninstall-am:
 
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am check check-am clean clean-generic \
-	clean-samplesPROGRAMS cscopelist-am ctags ctags-am distclean \
+	clean-noinstPROGRAMS cscopelist-am ctags ctags-am distclean \
 	distclean-compile distclean-generic distclean-tags distdir dvi \
 	dvi-am html html-am info info-am install install-am \
 	install-data install-data-am install-dvi install-dvi-am \
 	install-exec install-exec-am install-html install-html-am \
 	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am \
-	install-samplesPROGRAMS install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
+	install-pdf-am install-ps install-ps-am install-strip \
+	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic pdf pdf-am ps ps-am tags tags-am uninstall \
-	uninstall-am uninstall-samplesPROGRAMS
+	uninstall-am
 
 #endif
 

@@ -1,6 +1,6 @@
 noinst_PROGRAMS = upnpavdump
 
-INCLUDES = -I$(top_srcdir)/include -I../ -I../../../common
+AM_CPPFLAGS = -I$(top_srcdir)/include -I../ -I../../../common
 
 noinst_HEADERS = \
 	../../common/ckeyboard.h

@@ -1,10 +1,10 @@
-if HAVE_LIBTOOL
-lib_LTLIBRARIES = libclinkcav.la
-else
+#if HAVE_LIBTOOL
+#lib_LTLIBRARIES = libclinkcav.la
+#else
 lib_LIBRARIES = libclinkcav.a
-endif
+#endif
 
-INCLUDES = -I$(top_srcdir)/include
+AM_CPPFLAGS = -I$(top_srcdir)/include
 
 ########################################
 # Sources
@@ -35,14 +35,14 @@ libclinkcavincludedir = $(includedir)/cybergarage
 nobase_libclinkcavinclude_HEADERS =  \
         $(clinkcav_header)
 
-if HAVE_LIBTOOL
-libclinkcav_la_SOURCES = \
-        $(clinkcav_source)
-libclinkcav_a_CFLAGS = $(AM_CFLAGS)
-libclinkcav_la_LIBADD =
-else
+#if HAVE_LIBTOOL
+#libclinkcav_la_SOURCES = \
+#        $(clinkcav_source)
+#libclinkcav_a_CFLAGS = $(AM_CFLAGS)
+#libclinkcav_la_LIBADD =
+#else
 libclinkcav_a_SOURCES = \
         $(clinkcav_source)
 libclinkcav_a_CFLAGS = $(AM_CFLAGS)
 libclinkcav_a_LIBADD =
-endif
+#endif
