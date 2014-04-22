@@ -24,7 +24,7 @@
 
 @synthesize contentDirectory;
 @synthesize cAvObject;
-@synthesize delegate;
+@synthesize delegateServer;
 
 #if defined(TARGET_OS_IPHONE)
 @synthesize thumbnailImage;
@@ -159,9 +159,9 @@
 	return (CGUpnpAvObject *)[avObjArray objectAtIndex:0];
 }
 
-- (int)browseDirectChildrenTotalMatches:(NSString *)aObjectId
+- (NSUInteger)browseDirectChildrenTotalMatches:(NSString *)aObjectId
 {	
-	if (![self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:[NSArray array]])
+	if (![self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:[NSDictionary dictionary]])
 		return 0;
 	return [[[self browseAction] argumentValueForName:@"TotalMatches"] integerValue];
 }
@@ -169,8 +169,8 @@
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger)aRequestedCount startingIndex:(NSUInteger)aStartingIndex
 {	
 	NSMutableDictionary *browseOptions = [NSMutableDictionary dictionary];
-	[browseOptions setObject:[NSString stringWithFormat:@"%d", aRequestedCount] forKey:@"RequestedCount"];
-	[browseOptions setObject:[NSString stringWithFormat:@"%d", aStartingIndex] forKey:@"StartingIndex"];
+	[browseOptions setObject:[NSString stringWithFormat:@"%tu", aRequestedCount] forKey:@"RequestedCount"];
+	[browseOptions setObject:[NSString stringWithFormat:@"%tu", aStartingIndex] forKey:@"StartingIndex"];
 	BOOL postResult = [self browse:aObjectId browseFlag:@"BrowseDirectChildren" options:browseOptions];
 	
 #if defined (CG_UPNPAVSERVER_BROWSEACTION_RETRY_ENABLED)
@@ -231,9 +231,9 @@
 	}
 
 	/* CGUpnpAvServerDelegate */
-	if ([[self delegate] respondsToSelector:@selector(upnpAvServer:browse:avObject:)]) {
+	if ([[self delegateServer] respondsToSelector:@selector(upnpAvServer:browse:avObject:)]) {
 		for (CGUpnpAvObject *avObj in avObjArray)
-			[[self delegate] upnpAvServer:self browse:browseAction avObject:avObj];
+			[[self delegateServer] upnpAvServer:self browse:browseAction avObject:avObj];
 	}
 
 	return avObjArray;	
@@ -249,7 +249,7 @@
 #if !defined (CG_UPNPAVSERVER_BROWSEACTION_CHECK_TOTALMATCHES)
 	return [self browseDirectChildren:aObjectId requestedCount:0];
 #else
-	int totalMatches = [self browseDirectChildrenTotalMatches:aObjectId];
+	NSUInteger totalMatches = [self browseDirectChildrenTotalMatches:aObjectId];
 	if (totalMatches <= 0)
 		return [self browseDirectChildren:aObjectId requestedCount:0];
 	
@@ -276,7 +276,7 @@
 
 - (BOOL)hasSearchAvObjectDelegate
 {
-	return ([[self delegate] respondsToSelector:@selector(upnpAvServer:search:avObject:)]);
+	return ([[self delegateServer] respondsToSelector:@selector(upnpAvServer:search:avObject:)]);
 }
 
 - (NSArray *)search:(NSString *)aSearchCriteria;
@@ -301,7 +301,7 @@
 	/* CGUpnpAvServerDelegate */
 	if ([self hasSearchAvObjectDelegate]) {
 		for (CGUpnpAvObject *avObj in avObjArray)
-			[[self delegate] upnpAvServer:self search:action avObject:avObj];
+			[[self delegateServer] upnpAvServer:self search:action avObject:avObj];
 	}
 	
 	return avObjArray;	

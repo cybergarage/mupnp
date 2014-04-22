@@ -169,7 +169,7 @@ BOOL cg_upnpav_dms_conmgr_actionreceived(CgUpnpAction *action)
 	CgString *protocolInfos;
 	CgUpnpAvProtocolInfo *protocolInfo;
 
-	actionName = cg_upnp_action_getname(action);
+	actionName = (char*)cg_upnp_action_getname(action);
 	if (cg_strlen(actionName) <= 0)
 		return FALSE;
 

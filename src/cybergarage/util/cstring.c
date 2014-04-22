@@ -357,6 +357,7 @@ char *cg_string_replace(CgString *str, char *fromStr[], char *toStr[], size_t fr
 
 	if ( NULL == fromStrLen )
 	{
+        cg_string_delete(repValue);
 		cg_log_debug_s("Memory allocation failure!\n");
 		return NULL;
 	}
