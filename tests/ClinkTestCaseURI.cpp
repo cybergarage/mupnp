@@ -18,9 +18,9 @@ void ClinkTestCase::testURI()
 {
 	CgNetURI *uri;
 	
-    //////////////////////////////////////////////////
+  //////////////////////////////////////////////////
     
-    uri = cg_net_uri_new();
+  uri = cg_net_uri_new();
 	cg_net_uri_setvalue(uri, 
                         CLINK_TESTCASE_NET_URI_PROTOCOL "://"
                         CLINK_TESTCASE_NET_URI_HOST ":"
@@ -31,9 +31,9 @@ void ClinkTestCase::testURI()
 	CPPUNIT_ASSERT(cg_net_uri_getport(uri) == atoi(CLINK_TESTCASE_NET_URI_PORT));
 	CPPUNIT_ASSERT(cg_streq(cg_net_uri_getpath(uri), CLINK_TESTCASE_NET_URI_PATH));
     
-    //////////////////////////////////////////////////
+  //////////////////////////////////////////////////
     
-    uri = cg_net_uri_new();
+  uri = cg_net_uri_new();
 	cg_net_uri_setvalue(uri, 
                         CLINK_TESTCASE_NET_URI_PROTOCOL "://"
                         CLINK_TESTCASE_NET_URI_HOST
@@ -43,9 +43,9 @@ void ClinkTestCase::testURI()
 	CPPUNIT_ASSERT(cg_net_uri_getport(uri) == CG_NET_URI_DEFAULT_HTTP_PORT);
 	CPPUNIT_ASSERT(cg_streq(cg_net_uri_getpath(uri), CLINK_TESTCASE_NET_URI_PATH));
     
-    //////////////////////////////////////////////////
+  //////////////////////////////////////////////////
     
-    uri = cg_net_uri_new();
+  uri = cg_net_uri_new();
 	cg_net_uri_setvalue(uri, 
                         CLINK_TESTCASE_NET_URI_PROTOCOL_FTP "://"
                         CLINK_TESTCASE_NET_URI_HOST
@@ -56,9 +56,9 @@ void ClinkTestCase::testURI()
 	CPPUNIT_ASSERT(cg_streq(cg_net_uri_getpath(uri), CLINK_TESTCASE_NET_URI_PATH));
 	cg_net_uri_delete(uri);
 
-    //////////////////////////////////////////////////
+  //////////////////////////////////////////////////
     
-    uri = cg_net_uri_new();
+  uri = cg_net_uri_new();
 	cg_net_uri_setvalue(uri, 
                         CLINK_TESTCASE_NET_URI_PROTOCOL "://"
                         CLINK_TESTCASE_NET_URI_HOST);
@@ -67,9 +67,9 @@ void ClinkTestCase::testURI()
 	CPPUNIT_ASSERT(!cg_net_uri_haspath(uri));
 	cg_net_uri_delete(uri);
 
-    //////////////////////////////////////////////////
+  //////////////////////////////////////////////////
     
-    uri = cg_net_uri_new();
+  uri = cg_net_uri_new();
 	cg_net_uri_setvalue(uri, 
                         CLINK_TESTCASE_NET_URI_PROTOCOL "://"
                         CLINK_TESTCASE_NET_URI_HOST "/");
@@ -96,7 +96,7 @@ void ClinkTestCase::testURIParameter()
 {
 	CgNetURI *uri;
 	
-    uri = cg_net_uri_new();
+  uri = cg_net_uri_new();
 	cg_net_uri_setvalue(uri, CLINK_TESTCASE_NET_URI_PARAM_PATH "?" 
 		CLINK_TESTCASE_NET_URI_PARAM_PARAM1_NAME "=" CLINK_TESTCASE_NET_URI_PARAM_PARAM1_VALUE "&"
 		CLINK_TESTCASE_NET_URI_PARAM_PARAM2_NAME "=" CLINK_TESTCASE_NET_URI_PARAM_PARAM2_VALUE
@@ -134,24 +134,24 @@ void ClinkTestCase::testURIAdd()
 	CgNetURI *uri;
   const char *uriStr;
     
-    uri = cg_net_uri_new();
-    cg_net_uri_setvalue(uri, CLINK_TESTCASE_NET_URI_ADD_BASEPATH "/");
-    cg_net_uri_addpath(uri, CLINK_TESTCASE_NET_URI_ADD_EXTRAPATH);
-    uriStr = cg_net_uri_getvalue(uri);
+  uri = cg_net_uri_new();
+  cg_net_uri_setvalue(uri, CLINK_TESTCASE_NET_URI_ADD_BASEPATH "/");
+  cg_net_uri_addpath(uri, CLINK_TESTCASE_NET_URI_ADD_EXTRAPATH);
+  uriStr = cg_net_uri_getvalue(uri);
 	CPPUNIT_ASSERT(cg_streq(uriStr, CLINK_TESTCASE_NET_URI_ADD_FULLPATH));
 	cg_net_uri_delete(uri);    
 
-    uri = cg_net_uri_new();
-    cg_net_uri_setvalue(uri, CLINK_TESTCASE_NET_URI_ADD_BASEPATH);
-    cg_net_uri_addpath(uri, "/" CLINK_TESTCASE_NET_URI_ADD_EXTRAPATH);
-    uriStr = cg_net_uri_getvalue(uri);
+  uri = cg_net_uri_new();
+  cg_net_uri_setvalue(uri, CLINK_TESTCASE_NET_URI_ADD_BASEPATH);
+  cg_net_uri_addpath(uri, "/" CLINK_TESTCASE_NET_URI_ADD_EXTRAPATH);
+  uriStr = cg_net_uri_getvalue(uri);
 	CPPUNIT_ASSERT(cg_streq(uriStr, CLINK_TESTCASE_NET_URI_ADD_FULLPATH));
 	cg_net_uri_delete(uri);    
     
-    uri = cg_net_uri_new();
-    cg_net_uri_setvalue(uri, CLINK_TESTCASE_NET_URI_ADD_BASEPATH);
-    cg_net_uri_addpath(uri, CLINK_TESTCASE_NET_URI_ADD_EXTRAPATH);
-    uriStr = cg_net_uri_getvalue(uri);
+  uri = cg_net_uri_new();
+  cg_net_uri_setvalue(uri, CLINK_TESTCASE_NET_URI_ADD_BASEPATH);
+  cg_net_uri_addpath(uri, CLINK_TESTCASE_NET_URI_ADD_EXTRAPATH);
+  uriStr = cg_net_uri_getvalue(uri);
 	CPPUNIT_ASSERT(cg_streq(uriStr, CLINK_TESTCASE_NET_URI_ADD_FULLPATH));
 	cg_net_uri_delete(uri);    
 }
