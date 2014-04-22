@@ -123,6 +123,7 @@ CgUpnpDevice *cg_upnp_device_new()
 		cg_upnp_device_sethttpport(dev, CG_UPNP_DEVICE_HTTP_DEFAULT_PORT);
 		cg_upnp_device_sethttplistener(dev, NULL);
 		cg_upnp_device_setuserdata(dev, NULL);
+    cg_upnp_device_setbootid(dev, cg_upnp_createbootid());
 	}
 	
 	cg_log_debug_l4("Leaving...\n");
@@ -1256,7 +1257,8 @@ BOOL cg_upnp_device_announcefrom(CgUpnpDevice *dev, char *bindAddr)
 	cg_upnp_ssdprequest_setleasetime(ssdpReq, cg_upnp_device_getleasetime(dev));
 	cg_upnp_ssdprequest_setlocation(ssdpReq, cg_upnp_device_getlocationurl(dev, bindAddr, ssdpLineBuf, sizeof(ssdpLineBuf)));
 	cg_upnp_ssdprequest_setnts(ssdpReq, CG_UPNP_SSDP_NTS_ALIVE);
-	
+	cg_upnp_ssdprequest_setbootid(ssdpReq, cg_upnp_device_getbootid(dev));
+
 	/**** uuid:device-UUID(::upnp:rootdevice) ****/
 	if (cg_upnp_device_isrootdevice(dev) == TRUE) {
 		cg_upnp_ssdprequest_setnt(ssdpReq, cg_upnp_device_getnotifydevicent(dev, ssdpLineBuf, sizeof(ssdpLineBuf)));
@@ -1450,6 +1452,7 @@ BOOL cg_upnp_device_postsearchresponse(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdp
 	cg_upnp_ssdpresponse_setleasetime(ssdpRes, cg_upnp_device_getleasetime(dev));
 	cg_upnp_ssdpresponse_setdate(ssdpRes, cg_http_getdate(cg_getcurrentsystemtime(), httpDateStr, sizeof(httpDateStr)));
 	cg_upnp_ssdpresponse_setst(ssdpRes, st);
+	cg_upnp_ssdpresponse_setbootid(ssdpRes, cg_upnp_device_getbootid(dev));
 
 	cg_upnp_ssdpresponse_setext(ssdpRes);
 	cg_upnp_getservername(serverBuf, CG_UPNP_SSDP_HEADER_LINE_MAXSIZE);
