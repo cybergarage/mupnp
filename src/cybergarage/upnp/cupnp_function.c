@@ -37,6 +37,7 @@
 
 #include <time.h>
 #include <stdlib.h>
+#include <limits.h>
 
 // Some systems (Solaris, CentOS?) come with libuuid, but does not feature
 // the uuid_unparse_lower() call.
@@ -182,3 +183,19 @@ BOOL cg_upnp_isnmprmode()
 	cg_log_debug_l4("Leaving...\n");
 }
 
+/****************************************
+* cg_upnp_createbootid
+****************************************/
+
+int cg_upnp_createbootid()
+{
+  CgTime currentTime;
+
+	cg_log_debug_l4("Entering...\n");
+
+  currentTime = cg_getcurrentsystemtime();
+
+	cg_log_debug_l4("Leaving...\n");
+
+  return (int)(currentTime % INT_MAX);
+}

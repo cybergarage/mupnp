@@ -75,6 +75,14 @@ void cg_upnp_setnmprmode(BOOL onFlag);
  */
 BOOL cg_upnp_isnmprmode();
 
+/**
+ * Generate BOOTID.UPNP .ORG.
+ * 
+ *
+ * \return BOOTID
+ */
+int cg_upnp_createbootid();
+
 #ifdef  __cplusplus
   
 } /* extern "C" */

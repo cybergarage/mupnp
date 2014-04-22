@@ -19,6 +19,7 @@ clinkctestunit_SOURCES = \
 	../ClinkTestCaseString.cpp \
 	../ClinkTestCaseSubscription.cpp \
 	../ClinkTestCaseURI.cpp \
+	../ClinkTestCaseUPnPFunc.cpp \
 	../cppunitmain.cpp
 
 #if HAVE_LIBTOOL

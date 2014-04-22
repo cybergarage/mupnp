@@ -133,6 +133,7 @@ extern "C" {
 #define CG_HTTP_SEQ "SEQ"
 #define CG_HTTP_CALLBACK "CALLBACK"
 #define CG_HTTP_TIMEOUT "TIMEOUT"
+#define CG_HTTP_BOOTID_UPNP_ORG "BOOTID.UPNP.ORG"
 
 /**** CURL connection timeout: 2 seconds ****/
 #define CG_HTTP_CURL_CONNECTTIMEOUT 2

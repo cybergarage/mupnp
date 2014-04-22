@@ -15,7 +15,8 @@ class ClinkTestCase : public CPPUNIT_NS::TestFixture
     CPPUNIT_TEST( testURIParameter );
     CPPUNIT_TEST( testURIAdd );
     CPPUNIT_TEST( testServiceAbsoluteURL );
-    
+    CPPUNIT_TEST( testBootID );
+
 #if defined(CPP_UNIT_ENABLE_NETWORKING)
     CPPUNIT_TEST( testDevice );
     CPPUNIT_TEST( testNetworkInterface );
@@ -46,6 +47,7 @@ protected:
 	void testSubscription();
 	void testStateVariable();
   void testServiceAbsoluteURL();
+  void testBootID();
 };
 
 #endif
