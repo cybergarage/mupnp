@@ -1528,6 +1528,9 @@ BOOL cg_upnp_device_start(CgUpnpDevice *dev)
 	cg_upnp_ssdp_serverlist_setlistener(dev->ssdpServerList, cg_upnp_device_ssdplistener);
 	cg_upnp_ssdp_serverlist_start(dev->ssdpServerList);
 
+	/**** Update BootId ****/
+  cg_upnp_device_setbootid(dev, cg_upnp_createbootid());
+
 	/**** Announce ****/
 	cg_upnp_device_announce(dev);
 	
