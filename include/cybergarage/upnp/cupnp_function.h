@@ -34,6 +34,7 @@ extern "C" {
 #define CG_UPNP_UUID_NAME "uuid"
 #define CG_UPNP_UUID_MAX_LEN 128 /*(5 + ((4+1)*4) + 1)*/
 #define CG_UPNP_SEVERNAME_MAXLEN 64
+#define CG_UPNP_CONFIGID_UPNP_ORG_MAX 16777215
 
 /****************************************
 * Data Type
@@ -76,12 +77,20 @@ void cg_upnp_setnmprmode(BOOL onFlag);
 BOOL cg_upnp_isnmprmode();
 
 /**
- * Generate BOOTID.UPNP .ORG.
+ * Generate a integer id of BOOTID.UPNP.ORG.
  * 
  *
  * \return BOOTID
  */
 int cg_upnp_createbootid();
+
+/**
+ * Generate a integer id of CONFIGID.UPNP.ORG.
+ *
+ *
+ * \return CONFIGID
+ */
+int cg_upnp_generateconfigid(const char *string);
 
 #ifdef  __cplusplus
   
