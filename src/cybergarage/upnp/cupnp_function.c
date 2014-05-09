@@ -209,6 +209,8 @@ int cg_upnp_generateconfigid(const char *string)
   int configId = 0;
   for (size_t n=0; n<cg_strlen(string); n++) {
     configId += string[n];
+    if (configId < CG_UPNP_CONFIGID_UPNP_ORG_MAX)
+      continue;
     configId = configId % CG_UPNP_CONFIGID_UPNP_ORG_MAX;
   }
   return configId;
