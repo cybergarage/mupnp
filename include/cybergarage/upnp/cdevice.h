@@ -192,6 +192,9 @@ typedef struct _CgUpnpDevice
   /** User data used to pass miscellaneous data */
   void *userData;
 
+  /** BOOTID.UPNP.ORG (UPnP DA v1.1) */
+  int bootId;
+
   /* List of cached interfaces */
   CgNetworkInterfaceList *ifCache;
 } CgUpnpDevice, CgUpnpDeviceList;
@@ -716,6 +719,28 @@ void cg_upnp_device_seturlbase(CgUpnpDevice *dev, char *value);
  *
  */
 #define cg_upnp_device_geturlbase(dev) cg_xml_node_getchildnodevalue(cg_upnp_device_getrootnode(cg_upnp_device_getrootdevice(dev)), CG_UPNP_DEVICE_URLBASE_NAME)
+
+/*****************************************************************************
+ * BOOTID.UPNP.ORG
+ *****************************************************************************/
+
+/**
+ * Modify the device's boot id
+ *
+ * \param dev Device in question
+ * \param value The boot id
+ *
+ */
+#define cg_upnp_device_setbootid(dev, value) (dev->bootId = value)
+
+/**
+ * Get the device's boot id
+ *
+ * \param dev Device in question
+ *
+ * \return The boot id
+ */
+#define cg_upnp_device_getbootid(dev) (dev->bootId)
 
 /*****************************************************************************
  * Start/Stop

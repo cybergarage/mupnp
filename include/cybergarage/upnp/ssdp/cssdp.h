@@ -76,6 +76,7 @@ extern "C" {
 #define CG_UPNP_SSDP_CALBACK "CALLBACK" 
 #define CG_UPNP_SSDP_TIMEOUT "TIMEOUT" 
 #define CG_UPNP_SSDP_SERVER "SERVER"
+#define CG_UPNP_SSDP_BOOTID_UPNP_ORG "BOOTID.UPNP.ORG"
 
 #define CG_UPNP_SSDP_FILTER_TABLE_SIZE 101
 
@@ -153,6 +154,10 @@ void cg_upnp_ssdprequest_delete(CgUpnpSSDPRequest *ssdpReq);
 #define cg_upnp_ssdprequest_setman(ssdpReq,value) cg_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_UPNP_SSDP_MAN, value)
 #define cg_upnp_ssdprequest_getman(ssdpReq) cg_http_packet_getheadervalue((CgHttpPacket*)ssdpReq,CG_UPNP_SSDP_MAN)
 
+/**** BOOTID.UPNP.ORG ****/
+#define cg_upnp_ssdprequest_setbootid(ssdpReq,value) cg_http_packet_setheaderinteger((CgHttpPacket*)ssdpReq, CG_UPNP_SSDP_BOOTID_UPNP_ORG, value)
+#define cg_upnp_ssdprequest_getbootid(ssdpReq) cg_http_packet_getheaderinteger((CgHttpPacket*)ssdpReq,CG_UPNP_SSDP_BOOTID_UPNP_ORG)
+
 /**** CacheControl ****/
 void cg_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, CgTime value);
 CgTime cg_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq);
@@ -195,6 +200,10 @@ int cg_upnp_ssdpresponse_getleasetime(CgUpnpSSDPResponse *ssdpRes);
 /**** Date ****/
 #define cg_upnp_ssdpresponse_setdate(ssdpRes,value) cg_http_packet_setheadervalue((CgHttpPacket*)ssdpRes, CG_HTTP_DATE, value)
 #define cg_upnp_ssdpresponse_getdate(ssdpRes) cg_http_packet_getheadervalue((CgHttpPacket*)ssdpRes,CG_HTTP_DATE)
+
+/**** BOOTID.UPNP.ORG ****/
+#define cg_upnp_ssdpresponse_setbootid(ssdpRes,value) cg_http_packet_setheaderinteger((CgHttpPacket*)ssdpRes, CG_UPNP_SSDP_BOOTID_UPNP_ORG, value)
+#define cg_upnp_ssdpresponse_getbootid(ssdpRes) cg_http_packet_getheaderinteger((CgHttpPacket*)ssdpRes,CG_UPNP_SSDP_BOOTID_UPNP_ORG)
 
 /**** toString ****/
 char *cg_upnp_ssdpresponse_tostring(CgUpnpSSDPResponse *ssdpRes, CgString *ssdpMsg);

@@ -15,6 +15,7 @@ void ClinkTestCase::testDevice()
 	CPPUNIT_ASSERT(testDev);
 	CPPUNIT_ASSERT(strcmp(cg_upnp_device_getfriendlyname(testDev), TEST_DEVICE_FREINDLYNAME) == 0);
 	CPPUNIT_ASSERT(strcmp(cg_upnp_device_getdevicetype(testDev), TEST_DEVICE_DEVICE_TYPE) == 0);
+	CPPUNIT_ASSERT(0 < cg_upnp_device_getbootid(testDev));
 
 	// Embedded Devices
 	int ebdDeviceCnt = 0;
