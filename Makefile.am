@@ -1,4 +1,4 @@
-if BUILD_TEST
+if UNITTESTS 
 SUBDIRS = include lib sample tests
 else
 SUBDIRS = include lib sample 

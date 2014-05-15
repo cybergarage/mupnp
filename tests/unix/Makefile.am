@@ -3,12 +3,10 @@ noinst_PROGRAMS = clinkctestunit
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../
 
 noinst_HEADERS = \
-	../ClinkTestCase.h \
 	../TestDevice.h
 
 clinkctestunit_SOURCES = \
 	../TestDevice.c \
-	../ClinkTestCase.cpp \
 	../ClinkTestCaseControlPoint.cpp \
 	../ClinkTestCaseDevice.cpp \
 	../ClinkTestCaseDictionary.cpp \
@@ -20,7 +18,7 @@ clinkctestunit_SOURCES = \
 	../ClinkTestCaseSubscription.cpp \
 	../ClinkTestCaseURI.cpp \
 	../ClinkTestCaseUPnPFunc.cpp \
-	../cppunitmain.cpp
+	../ClinkTestMain.cpp
 
 #if HAVE_LIBTOOL
 #clinkctestunit_LDADD = ../../lib/unix/libclinkc.la -lcppunit @XML_LIBS@

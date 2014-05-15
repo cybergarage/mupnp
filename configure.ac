@@ -546,9 +546,9 @@ AC_SEARCH_LIBS([socket], [socket inet])
 ##############################
 
 AC_ARG_ENABLE([tests], AC_HELP_STRING([--enable-tests], [ build tests (default = no) ]), [build_tests="yes"], [])
-AM_CONDITIONAL(BUILD_TEST, test "$build_tests" = "yes")
+AM_CONDITIONAL(UNITTESTS,test "$build_tests" = yes)
 if [ test "$build_tests" = yes ]; then
-	AC_CHECK_LIB([cppunit],[main],,[AC_MSG_ERROR(CyberLink needs CppUnit >= $CPPUNIT_VERSION)])
+        AC_CHECK_LIB([boost_unit_test_framework-mt],[main],,[AC_MSG_ERROR(uHTTP unittests need boost::unit_test_framework)])
 fi
 
 ##############################
