@@ -1,16 +1,26 @@
+/************************************************************
+ *
+ *	CyberLink for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ************************************************************/
+
 #include <limits.h>
 
 #include <cybergarage/upnp/cupnp_function.h>
 
-#include "ClinkTestCase.h"
+#include <boost/test/unit_test.hpp>
 
 ////////////////////////////////////////
 // testHttpServer
 ////////////////////////////////////////
 
-void ClinkTestCase::testBootID()
+BOOST_AUTO_TEST_CASE(BootID)
 {
   int bootId = cg_upnp_createbootid();
-  CPPUNIT_ASSERT(0 < bootId);
-  CPPUNIT_ASSERT(bootId < INT_MAX);
+  BOOST_CHECK(0 < bootId);
+  BOOST_CHECK(bootId < INT_MAX);
 }

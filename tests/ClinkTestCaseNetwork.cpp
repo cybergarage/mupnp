@@ -1,14 +1,22 @@
-#include <string.h>
+/************************************************************
+ *
+ *	CyberLink for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ************************************************************/
 
 #include <cybergarage/net/cinterface.h>
 
-#include "ClinkTestCase.h"
+#include <boost/test/unit_test.hpp>
 
 ////////////////////////////////////////
 // testNetworkInterface
 ////////////////////////////////////////
 
-void ClinkTestCase::testNetworkInterface()
+BOOST_AUTO_TEST_CASE(NetworkInterface)
 {
 #if defined(HAVE_SOCKADDR_DL) || defined(HAVE_SIOCGIFHWADDR)
 	CgByte macAddr[CG_NET_MACADDR_SIZE];
@@ -17,18 +25,18 @@ void ClinkTestCase::testNetworkInterface()
 #endif
 
 	CgNetworkInterfaceList *netIfList = cg_net_interfacelist_new();
-	CPPUNIT_ASSERT(netIfList);
-	CPPUNIT_ASSERT(0 < cg_net_gethostinterfaces(netIfList));
+	BOOST_CHECK(netIfList);
+	BOOST_CHECK(0 < cg_net_gethostinterfaces(netIfList));
 	for (CgNetworkInterface *netIf=cg_net_interfacelist_gets(netIfList); netIf; netIf=cg_net_interface_next(netIf)) {
 		char *ipaddr = cg_net_interface_getaddress(netIf);
-		CPPUNIT_ASSERT(0 < cg_strlen(ipaddr));
-		CPPUNIT_ASSERT(cg_streq(ipaddr, "0.0.0.0") == FALSE);
+		BOOST_CHECK(0 < cg_strlen(ipaddr));
+		BOOST_CHECK(cg_streq(ipaddr, "0.0.0.0") == FALSE);
 #if defined(HAVE_SOCKADDR_DL) || defined(HAVE_SIOCGIFHWADDR)
 		cg_net_interface_getmacaddress(netIf, macAddr);
-		CPPUNIT_ASSERT(memcmp(macAddr, nullMacAddr, CG_NET_MACADDR_SIZE) != 0);
+		BOOST_CHECK(memcmp(macAddr, nullMacAddr, CG_NET_MACADDR_SIZE) != 0);
 #endif
-		//CPPUNIT_ASSERT(0 < cg_strlen(cg_net_interface_getname(netIf)));
-		//CPPUNIT_ASSERT(0 < cg_strlen(cg_net_interface_getnetmask(netIf)));
+		//BOOST_CHECK(0 < cg_strlen(cg_net_interface_getname(netIf)));
+		//BOOST_CHECK(0 < cg_strlen(cg_net_interface_getnetmask(netIf)));
 	}
 	cg_net_interfacelist_delete(netIfList);
 }

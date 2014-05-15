@@ -1,27 +1,37 @@
+/************************************************************
+ *
+ *	CyberLink for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ************************************************************/
+
+#include <boost/test/unit_test.hpp>
 #include <string.h>
 
-#include "ClinkTestCase.h"
 #include "TestDevice.h"
 
 ////////////////////////////////////////
 // testControlPoint
 ////////////////////////////////////////
 
-void ClinkTestCase::testControlPoint()
+BOOST_AUTO_TEST_CASE(ControlPointTest)
 {
 	CgUpnpControlPoint *testCp = cg_upnp_controlpoint_new();
-	CPPUNIT_ASSERT(testCp);
-	CPPUNIT_ASSERT(cg_upnp_controlpoint_start(testCp));
-	CPPUNIT_ASSERT(cg_upnp_controlpoint_search(testCp, CG_UPNP_ST_ROOT_DEVICE));
+	BOOST_CHECK(testCp);
+	BOOST_CHECK(cg_upnp_controlpoint_start(testCp));
+	BOOST_CHECK(cg_upnp_controlpoint_search(testCp, CG_UPNP_ST_ROOT_DEVICE));
 
 	CgUpnpDevice *testDev = upnp_test_device_new();
-	CPPUNIT_ASSERT(testDev);
-	CPPUNIT_ASSERT(cg_upnp_device_start(testDev));
+	BOOST_CHECK(testDev);
+	BOOST_CHECK(cg_upnp_device_start(testDev));
 
 	cg_sleep(cg_upnp_controlpoint_getssdpsearchmx(testCp) * 1000 * 2);
 
 	int devCnt = cg_upnp_controlpoint_getndevices(testCp);
-	CPPUNIT_ASSERT(0 < devCnt);
+	BOOST_CHECK(0 < devCnt);
 
 	BOOL testDevFound = FALSE;
 	for (int n=0; n<devCnt; n++) {
@@ -31,11 +41,11 @@ void ClinkTestCase::testControlPoint()
 			break;
 		}
 	}
-	CPPUNIT_ASSERT(testDevFound);
+	BOOST_CHECK(testDevFound);
 
-	CPPUNIT_ASSERT(cg_upnp_device_stop(testDev));
+	BOOST_CHECK(cg_upnp_device_stop(testDev));
 	cg_upnp_device_delete(testDev);
 
-	CPPUNIT_ASSERT(cg_upnp_controlpoint_stop(testCp));
+	BOOST_CHECK(cg_upnp_controlpoint_stop(testCp));
 	cg_upnp_controlpoint_delete(testCp);
 }

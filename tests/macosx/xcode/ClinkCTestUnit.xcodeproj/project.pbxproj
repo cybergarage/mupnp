@@ -10,7 +10,6 @@
 		212CAC5E186439810065C62C /* ClinkTestCaseString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212CAC5D186439810065C62C /* ClinkTestCaseString.cpp */; };
 		219030B819067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 219030B719067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp */; };
 		21A2BCFB14C664E8007457AF /* ClinkTestCaseService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A2BCFA14C664E8007457AF /* ClinkTestCaseService.cpp */; };
-		21AA0F0C1331226600A2338F /* ClinkTestCase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0EFF1331226600A2338F /* ClinkTestCase.cpp */; };
 		21AA0F0D1331226600A2338F /* ClinkTestCaseControlPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F011331226600A2338F /* ClinkTestCaseControlPoint.cpp */; };
 		21AA0F0E1331226600A2338F /* ClinkTestCaseDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F021331226600A2338F /* ClinkTestCaseDevice.cpp */; };
 		21AA0F0F1331226600A2338F /* ClinkTestCaseDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F031331226600A2338F /* ClinkTestCaseDictionary.cpp */; };
@@ -19,10 +18,10 @@
 		21AA0F121331226600A2338F /* ClinkTestCaseStateVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F061331226600A2338F /* ClinkTestCaseStateVariable.cpp */; };
 		21AA0F131331226600A2338F /* ClinkTestCaseSubscription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F071331226600A2338F /* ClinkTestCaseSubscription.cpp */; };
 		21AA0F141331226600A2338F /* ClinkTestCaseURI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F081331226600A2338F /* ClinkTestCaseURI.cpp */; };
-		21AA0F161331226600A2338F /* cppunitmain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F0B1331226600A2338F /* cppunitmain.cpp */; };
 		21AA0F191331227300A2338F /* TestDevice.c in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F171331227300A2338F /* TestDevice.c */; };
 		21AA0F1D1331253600A2338F /* libclink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21AA0F1C1331253600A2338F /* libclink.a */; };
 		21AA0F201331790D00A2338F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 21AA0F1F1331790D00A2338F /* libxml2.dylib */; };
+		21E12B051924F3C0005D4F50 /* ClinkTestMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E12B041924F3C0005D4F50 /* ClinkTestMain.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,8 +58,6 @@
 		2152CB8E1331206B00229C13 /* ClinkCTestUnit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ClinkCTestUnit; sourceTree = BUILT_PRODUCTS_DIR; };
 		219030B719067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseUPnPFunc.cpp; path = ../../ClinkTestCaseUPnPFunc.cpp; sourceTree = "<group>"; };
 		21A2BCFA14C664E8007457AF /* ClinkTestCaseService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseService.cpp; path = ../../ClinkTestCaseService.cpp; sourceTree = "<group>"; };
-		21AA0EFF1331226600A2338F /* ClinkTestCase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCase.cpp; path = ../../ClinkTestCase.cpp; sourceTree = "<group>"; };
-		21AA0F001331226600A2338F /* ClinkTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClinkTestCase.h; path = ../../ClinkTestCase.h; sourceTree = "<group>"; };
 		21AA0F011331226600A2338F /* ClinkTestCaseControlPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseControlPoint.cpp; path = ../../ClinkTestCaseControlPoint.cpp; sourceTree = "<group>"; };
 		21AA0F021331226600A2338F /* ClinkTestCaseDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseDevice.cpp; path = ../../ClinkTestCaseDevice.cpp; sourceTree = "<group>"; };
 		21AA0F031331226600A2338F /* ClinkTestCaseDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseDictionary.cpp; path = ../../ClinkTestCaseDictionary.cpp; sourceTree = "<group>"; };
@@ -69,12 +66,12 @@
 		21AA0F061331226600A2338F /* ClinkTestCaseStateVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseStateVariable.cpp; path = ../../ClinkTestCaseStateVariable.cpp; sourceTree = "<group>"; };
 		21AA0F071331226600A2338F /* ClinkTestCaseSubscription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseSubscription.cpp; path = ../../ClinkTestCaseSubscription.cpp; sourceTree = "<group>"; };
 		21AA0F081331226600A2338F /* ClinkTestCaseURI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseURI.cpp; path = ../../ClinkTestCaseURI.cpp; sourceTree = "<group>"; };
-		21AA0F0B1331226600A2338F /* cppunitmain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cppunitmain.cpp; path = ../../cppunitmain.cpp; sourceTree = "<group>"; };
 		21AA0F171331227300A2338F /* TestDevice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TestDevice.c; path = ../../TestDevice.c; sourceTree = "<group>"; };
 		21AA0F181331227300A2338F /* TestDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestDevice.h; path = ../../TestDevice.h; sourceTree = "<group>"; };
 		21AA0F1C1331253600A2338F /* libclink.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libclink.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		21AA0F1F1331790D00A2338F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		21C42078133121EB00F2428B /* clink.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = clink.xcodeproj; path = ../../../lib/macosx/xcode/clink.xcodeproj; sourceTree = "<group>"; };
+		21E12B041924F3C0005D4F50 /* ClinkTestMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestMain.cpp; path = ../../ClinkTestMain.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,10 +109,9 @@
 		21AA0EFE1331224E00A2338F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				21E12B041924F3C0005D4F50 /* ClinkTestMain.cpp */,
 				21AA0F171331227300A2338F /* TestDevice.c */,
 				21AA0F181331227300A2338F /* TestDevice.h */,
-				21AA0EFF1331226600A2338F /* ClinkTestCase.cpp */,
-				21AA0F001331226600A2338F /* ClinkTestCase.h */,
 				212CAC5D186439810065C62C /* ClinkTestCaseString.cpp */,
 				21AA0F011331226600A2338F /* ClinkTestCaseControlPoint.cpp */,
 				21AA0F021331226600A2338F /* ClinkTestCaseDevice.cpp */,
@@ -127,7 +123,6 @@
 				21AA0F071331226600A2338F /* ClinkTestCaseSubscription.cpp */,
 				21AA0F081331226600A2338F /* ClinkTestCaseURI.cpp */,
 				219030B719067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp */,
-				21AA0F0B1331226600A2338F /* cppunitmain.cpp */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -216,8 +211,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				212CAC5E186439810065C62C /* ClinkTestCaseString.cpp in Sources */,
-				21AA0F0C1331226600A2338F /* ClinkTestCase.cpp in Sources */,
 				21AA0F0D1331226600A2338F /* ClinkTestCaseControlPoint.cpp in Sources */,
+				21E12B051924F3C0005D4F50 /* ClinkTestMain.cpp in Sources */,
 				21AA0F0E1331226600A2338F /* ClinkTestCaseDevice.cpp in Sources */,
 				219030B819067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp in Sources */,
 				21AA0F0F1331226600A2338F /* ClinkTestCaseDictionary.cpp in Sources */,
@@ -226,7 +221,6 @@
 				21AA0F121331226600A2338F /* ClinkTestCaseStateVariable.cpp in Sources */,
 				21AA0F131331226600A2338F /* ClinkTestCaseSubscription.cpp in Sources */,
 				21AA0F141331226600A2338F /* ClinkTestCaseURI.cpp in Sources */,
-				21AA0F161331226600A2338F /* cppunitmain.cpp in Sources */,
 				21AA0F191331227300A2338F /* TestDevice.c in Sources */,
 				21A2BCFB14C664E8007457AF /* ClinkTestCaseService.cpp in Sources */,
 			);
@@ -246,12 +240,15 @@
 		2152CB951331206B00229C13 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				FRAMEWORK_SEARCH_PATHS = /opt/local/include;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
@@ -263,6 +260,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
@@ -273,12 +271,15 @@
 		2152CB961331206B00229C13 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				FRAMEWORK_SEARCH_PATHS = /opt/local/include;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -287,6 +288,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LIBRARY_SEARCH_PATHS = /opt/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "";
 				SDKROOT = macosx;
