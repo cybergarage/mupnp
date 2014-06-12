@@ -538,6 +538,10 @@ BOOL cg_thread_isrunnable(CgThread *thread)
 {
 	cg_log_debug_l4("Entering...\n");
 
+#if !defined(WIN32) && !defined (WINCE) && !defined(ITRON) && !defined(BTRON) && !defined(TENGINE) && !defined(PROCESS_BASE)
+  pthread_testcancel();
+#endif
+  
 	return thread->runnableFlag;
 
 	cg_log_debug_l4("Leaving...\n");
