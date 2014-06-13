@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+print<<HEADER;
+/******************************************************************
+*
+* CyberGarage for C
+*
+* Copyright (C) Satoshi Konno 2005
+*
+******************************************************************/
+
+clinkc_headers = \\
+HEADER
+
+my @find_files = `find ./cybergarage -name *.h`;
+my @include_files;
+foreach $file (@find_files) {
+	$file =~ s/\n//;
+	$file = "\t" . $file;
+	push @include_files, $file;
+}
+print join(" \\\n", @include_files) . "\n";
+
+print<<FOTTER;
+
+
+cybergarage/upnp/cupnp.h: \$(top_builddir)/config.h
+	mkdir -p cybergarage/upnp
+	sed -e 's/CG_CLINK_VER/CG_CLINK_VER \\”\$(VERSION)\\\”/‘ \\
+	\$(srcdir)/cybergarage/upnp/cupnp.h.in > \$(srcdir)/cybergarage/upnp/cupnp.h
+
+nobase_include_HEADERS = \\
+	\$(clinkc_headers)
+FOTTER

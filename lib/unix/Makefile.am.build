@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+print<<HEADER;
+/******************************************************************
+*
+* CyberGarage for C
+*
+* Copyright (C) Satoshi Konno 2005
+*
+******************************************************************/
+
+#if HAVE_LIBTOOL
+#lib_LTLIBRARIES = libclinkc.la
+#else
+lib_LIBRARIES = libclinkc.a
+#endif
+
+AM_CFLAGS = -I\$(top_srcdir)/include -I\$(top_builddir)/include \@XML_CFLAGS\@ \@HTTP_CFLAGS\@ \@CLOG_DEBUG_FLAGS\@
+
+clinkc_sources = \\
+HEADER
+my @find_files = `find ../../src/cybergarage -name *.c`;
+my @source_files;
+foreach $file (@find_files) {
+	$file =~ s/\n//;
+	$file = "\t" . $file;
+	push @source_files, $file;
+}
+print join(" \\\n", @source_files) . "\n";
+
+print<<FOTTER;
+
+libclinkcincludedir = \$(includedir)/cybergarage
+nobase_libclinkcinclude_HEADERS =  \\
+        \$(clinkc_headers)
+
+#if HAVE_LIBTOOL
+#libclinkc_la_SOURCES = \\
+#        \$(clinkc_source)
+#libclinkc_la_LIBADD = \@HTTP_LIBS\@ \@XML_LIBS\@
+#else
+libclinkc_a_SOURCES = \\
+        \$(clinkc_sources)
+libclinkc_a_CFLAGS = \$(AM_CFLAGS)
+libclinkc_a_LIBADD = \@HTTP_LIBS\@ \@XML_LIBS\@
+#endif
+FOTTER

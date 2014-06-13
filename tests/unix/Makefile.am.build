@@ -1,0 +1,51 @@
+#!/usr/bin/perl
+print<<HEADER;
+/******************************************************************
+*
+* CyberGarage for C
+*
+* Copyright (C) Satoshi Konno 2005
+*
+******************************************************************/
+
+noinst_PROGRAMS = clinkctestunit
+
+AM_CPPFLAGS = -I\$(top_srcdir)/include -I../
+
+HEADER
+
+print<<NOINST_HEADERS;
+noinst_HEADERS = \\
+NOINST_HEADERS
+
+my @find_files = `find ../ -name *.h`;
+my @include_files;
+foreach $file (@find_files) {
+	$file =~ s/\n//;
+	$file = "\t" . $file;
+	push @include_files, $file;
+}
+print join(" \\\n", @include_files) . "\n";
+
+print<<SOURCES;
+
+clinkctestunit_SOURCES = \\
+SOURCES
+
+my @find_files = `find ../ -name *.cpp -or -name *.c`;
+my @source_files;
+foreach $file (@find_files) {
+	$file =~ s/\n//;
+	$file = "\t" . $file;
+	push @source_files, $file;
+}
+print join(" \\\n", @source_files) . "\n";
+
+print<<FOTTER;
+#if HAVE_LIBTOOL
+#clinkctestunit_LDADD = ../../lib/unix/libclinkc.la -lcppunit \@XML_LIBS\@
+#else
+clinkctestunit_LDADD = ../../lib/unix/libclinkc.a  -lcppunit \@XML_LIBS\@
+#endif
+FOTTER
+
