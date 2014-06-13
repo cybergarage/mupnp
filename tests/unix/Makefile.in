@@ -14,6 +14,14 @@
 
 @SET_MAKE@
 
+############################################################
+#
+# CyberGarage for C
+#
+# Copyright (C) Satoshi Konno 2005
+#
+############################################################
+
 
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
@@ -48,18 +56,18 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_clinkctestunit_OBJECTS = ../TestDevice.$(OBJEXT) \
+am_clinkctestunit_OBJECTS = ../ClinkTestCaseHttp.$(OBJEXT) \
+	../ClinkTestCaseNetwork.$(OBJEXT) ../TestDevice.$(OBJEXT) \
 	../ClinkTestCaseControlPoint.$(OBJEXT) \
-	../ClinkTestCaseDevice.$(OBJEXT) \
+	../ClinkTestMain.$(OBJEXT) \
 	../ClinkTestCaseDictionary.$(OBJEXT) \
-	../ClinkTestCaseHttp.$(OBJEXT) \
-	../ClinkTestCaseNetwork.$(OBJEXT) \
 	../ClinkTestCaseService.$(OBJEXT) \
+	../ClinkTestCaseURI.$(OBJEXT) \
 	../ClinkTestCaseStateVariable.$(OBJEXT) \
 	../ClinkTestCaseString.$(OBJEXT) \
 	../ClinkTestCaseSubscription.$(OBJEXT) \
-	../ClinkTestCaseURI.$(OBJEXT) \
-	../ClinkTestCaseUPnPFunc.$(OBJEXT) ../ClinkTestMain.$(OBJEXT)
+	../ClinkTestCaseUPnPFunc.$(OBJEXT) \
+	../ClinkTestCaseDevice.$(OBJEXT)
 clinkctestunit_OBJECTS = $(am_clinkctestunit_OBJECTS)
 clinkctestunit_DEPENDENCIES = ../../lib/unix/libclinkc.a
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
@@ -177,23 +185,23 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../
 noinst_HEADERS = \
-	../TestDevice.h
+	../TestDevice.h \
+	../ClinkUnitTest.h
 
 clinkctestunit_SOURCES = \
-	../TestDevice.c \
-	../ClinkTestCaseControlPoint.cpp \
-	../ClinkTestCaseDevice.cpp \
-	../ClinkTestCaseDictionary.cpp \
 	../ClinkTestCaseHttp.cpp \
 	../ClinkTestCaseNetwork.cpp \
+	../TestDevice.c \
+	../ClinkTestCaseControlPoint.cpp \
+	../ClinkTestMain.cpp \
+	../ClinkTestCaseDictionary.cpp \
 	../ClinkTestCaseService.cpp \
+	../ClinkTestCaseURI.cpp \
 	../ClinkTestCaseStateVariable.cpp \
 	../ClinkTestCaseString.cpp \
 	../ClinkTestCaseSubscription.cpp \
-	../ClinkTestCaseURI.cpp \
 	../ClinkTestCaseUPnPFunc.cpp \
-	../ClinkTestMain.cpp
-
+	../ClinkTestCaseDevice.cpp
 
 #if HAVE_LIBTOOL
 #clinkctestunit_LDADD = ../../lib/unix/libclinkc.la -lcppunit @XML_LIBS@
@@ -241,19 +249,21 @@ clean-noinstPROGRAMS:
 ../$(DEPDIR)/$(am__dirstamp):
 	@$(mkdir_p) ../$(DEPDIR)
 	@: > ../$(DEPDIR)/$(am__dirstamp)
-../TestDevice.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../ClinkTestCaseControlPoint.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../ClinkTestCaseDevice.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../ClinkTestCaseDictionary.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
 ../ClinkTestCaseHttp.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../ClinkTestCaseNetwork.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
+../TestDevice.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseControlPoint.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestMain.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseDictionary.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
 ../ClinkTestCaseService.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ClinkTestCaseURI.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../ClinkTestCaseStateVariable.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
@@ -261,11 +271,9 @@ clean-noinstPROGRAMS:
 	../$(DEPDIR)/$(am__dirstamp)
 ../ClinkTestCaseSubscription.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../ClinkTestCaseURI.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
 ../ClinkTestCaseUPnPFunc.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../ClinkTestMain.$(OBJEXT): ../$(am__dirstamp) \
+../ClinkTestCaseDevice.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 clinkctestunit$(EXEEXT): $(clinkctestunit_OBJECTS) $(clinkctestunit_DEPENDENCIES) 
 	@rm -f clinkctestunit$(EXEEXT)
