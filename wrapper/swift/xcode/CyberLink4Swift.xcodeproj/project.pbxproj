@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21A05D5B19598D5E000A5E7D /* UpnpControlPoint.swift in Resources */ = {isa = PBXBuildFile; fileRef = 21A05D5919598D5E000A5E7D /* UpnpControlPoint.swift */; };
+		21A05D5C19598D5E000A5E7D /* UpnpDevice.swift in Resources */ = {isa = PBXBuildFile; fileRef = 21A05D5A19598D5E000A5E7D /* UpnpDevice.swift */; };
 		21B902A91959892800F37619 /* CyberLink4Swift.h in Headers */ = {isa = PBXBuildFile; fileRef = 21B902A81959892800F37619 /* CyberLink4Swift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		21B902AF1959892800F37619 /* CyberLink4Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21B902A31959892800F37619 /* CyberLink4Swift.framework */; };
 		21B902B61959892900F37619 /* CyberLink4SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B902B51959892900F37619 /* CyberLink4SwiftTests.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21A05D5919598D5E000A5E7D /* UpnpControlPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UpnpControlPoint.swift; sourceTree = "<group>"; };
+		21A05D5A19598D5E000A5E7D /* UpnpDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UpnpDevice.swift; sourceTree = "<group>"; };
 		21B902A31959892800F37619 /* CyberLink4Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CyberLink4Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		21B902A71959892800F37619 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21B902A81959892800F37619 /* CyberLink4Swift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CyberLink4Swift.h; sourceTree = "<group>"; };
@@ -50,6 +54,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21A05D5819598D5E000A5E7D /* CyberLink */ = {
+			isa = PBXGroup;
+			children = (
+				21A05D5919598D5E000A5E7D /* UpnpControlPoint.swift */,
+				21A05D5A19598D5E000A5E7D /* UpnpDevice.swift */,
+			);
+			name = CyberLink;
+			path = ../../CyberLink;
+			sourceTree = "<group>";
+		};
 		21B902991959892800F37619 = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +85,7 @@
 		21B902A51959892800F37619 /* CyberLink4Swift */ = {
 			isa = PBXGroup;
 			children = (
+				21A05D5819598D5E000A5E7D /* CyberLink */,
 				21B902A81959892800F37619 /* CyberLink4Swift.h */,
 				21B902A61959892800F37619 /* Supporting Files */,
 			);
@@ -193,6 +208,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21A05D5C19598D5E000A5E7D /* UpnpDevice.swift in Resources */,
+				21A05D5B19598D5E000A5E7D /* UpnpControlPoint.swift in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +417,7 @@
 				21B902BB1959892900F37619 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		21B902BC1959892900F37619 /* Build configuration list for PBXNativeTarget "CyberLink4SwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -408,6 +426,7 @@
 				21B902BE1959892900F37619 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
