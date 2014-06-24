@@ -68,9 +68,6 @@
 	return cg_upnp_statevariable_is_allowed_value(cObject, [value UTF8String]);
 }
 		 
-		 
-	
-
 - (BOOL)query
 {
 	if (!cObject)

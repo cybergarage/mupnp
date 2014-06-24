@@ -1,0 +1,584 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		211481C51959863A00B8EC17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C41959863A00B8EC17 /* Cocoa.framework */; };
+		211481CF1959863A00B8EC17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211481CD1959863A00B8EC17 /* InfoPlist.strings */; };
+		211481DA1959863A00B8EC17 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481D91959863A00B8EC17 /* XCTest.framework */; };
+		211481DB1959863A00B8EC17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C41959863A00B8EC17 /* Cocoa.framework */; };
+		211481DE1959863A00B8EC17 /* CyberLink4ObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C11959863A00B8EC17 /* CyberLink4ObjC.framework */; };
+		211481E41959863A00B8EC17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211481E21959863A00B8EC17 /* InfoPlist.strings */; };
+		211481E61959863A00B8EC17 /* CyberLink4ObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211481E51959863A00B8EC17 /* CyberLink4ObjCTests.m */; };
+		213AF7ED195986C1009E7963 /* CGUpnpAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E0195986C1009E7963 /* CGUpnpAction.h */; };
+		213AF7EE195986C1009E7963 /* CGUpnpAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E1195986C1009E7963 /* CGUpnpAction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		213AF7EF195986C1009E7963 /* CGUpnpControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E2195986C1009E7963 /* CGUpnpControlPoint.h */; };
+		213AF7F0195986C1009E7963 /* CGUpnpControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E3195986C1009E7963 /* CGUpnpControlPoint.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		213AF7F1195986C1009E7963 /* CGUpnpDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E4195986C1009E7963 /* CGUpnpDevice.h */; };
+		213AF7F2195986C1009E7963 /* CGUpnpDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E5195986C1009E7963 /* CGUpnpDevice.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		213AF7F3195986C1009E7963 /* CGUpnpIcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E6195986C1009E7963 /* CGUpnpIcon.h */; };
+		213AF7F4195986C1009E7963 /* CGUpnpIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E7195986C1009E7963 /* CGUpnpIcon.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		213AF7F5195986C1009E7963 /* CGUpnpService.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E8195986C1009E7963 /* CGUpnpService.h */; };
+		213AF7F6195986C1009E7963 /* CGUpnpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E9195986C1009E7963 /* CGUpnpService.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		213AF7F7195986C1009E7963 /* CGUpnpStateVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7EA195986C1009E7963 /* CGUpnpStateVariable.h */; };
+		213AF7F8195986C1009E7963 /* CGUpnpStateVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7EB195986C1009E7963 /* CGUpnpStateVariable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		213AF7F9195986C1009E7963 /* UPnP.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7EC195986C1009E7963 /* UPnP.h */; };
+		213AF80219598806009E7963 /* libclink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 213AF7FF195986FB009E7963 /* libclink.a */; };
+		217C0F0C195988AD00FA1929 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 217C0F0B195988AD00FA1929 /* libxml2.2.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		211481DC1959863A00B8EC17 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 211481B81959863A00B8EC17 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 211481C01959863A00B8EC17;
+			remoteInfo = CyberLink4ObjC;
+		};
+		213AF7FE195986FB009E7963 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 213AF7FA195986FB009E7963 /* clink.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 210AF4181331182E00A2EB09;
+			remoteInfo = clink;
+		};
+		213AF800195987FE009E7963 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 213AF7FA195986FB009E7963 /* clink.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 210AF4171331182E00A2EB09;
+			remoteInfo = clink;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		211481C11959863A00B8EC17 /* CyberLink4ObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CyberLink4ObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		211481C41959863A00B8EC17 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		211481C71959863A00B8EC17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		211481C81959863A00B8EC17 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		211481C91959863A00B8EC17 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		211481CC1959863A00B8EC17 /* CyberLink4ObjC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CyberLink4ObjC-Info.plist"; sourceTree = "<group>"; };
+		211481CE1959863A00B8EC17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		211481D01959863A00B8EC17 /* CyberLink4ObjC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CyberLink4ObjC-Prefix.pch"; sourceTree = "<group>"; };
+		211481D81959863A00B8EC17 /* CyberLink4ObjCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CyberLink4ObjCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		211481D91959863A00B8EC17 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		211481E11959863A00B8EC17 /* CyberLink4ObjCTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CyberLink4ObjCTests-Info.plist"; sourceTree = "<group>"; };
+		211481E31959863A00B8EC17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		211481E51959863A00B8EC17 /* CyberLink4ObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CyberLink4ObjCTests.m; sourceTree = "<group>"; };
+		213AF7E0195986C1009E7963 /* CGUpnpAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAction.h; sourceTree = "<group>"; };
+		213AF7E1195986C1009E7963 /* CGUpnpAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAction.m; sourceTree = "<group>"; };
+		213AF7E2195986C1009E7963 /* CGUpnpControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpControlPoint.h; sourceTree = "<group>"; };
+		213AF7E3195986C1009E7963 /* CGUpnpControlPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpControlPoint.m; sourceTree = "<group>"; };
+		213AF7E4195986C1009E7963 /* CGUpnpDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpDevice.h; sourceTree = "<group>"; };
+		213AF7E5195986C1009E7963 /* CGUpnpDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpDevice.m; sourceTree = "<group>"; };
+		213AF7E6195986C1009E7963 /* CGUpnpIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpIcon.h; sourceTree = "<group>"; };
+		213AF7E7195986C1009E7963 /* CGUpnpIcon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpIcon.m; sourceTree = "<group>"; };
+		213AF7E8195986C1009E7963 /* CGUpnpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpService.h; sourceTree = "<group>"; };
+		213AF7E9195986C1009E7963 /* CGUpnpService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpService.m; sourceTree = "<group>"; };
+		213AF7EA195986C1009E7963 /* CGUpnpStateVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpStateVariable.h; sourceTree = "<group>"; };
+		213AF7EB195986C1009E7963 /* CGUpnpStateVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpStateVariable.m; sourceTree = "<group>"; };
+		213AF7EC195986C1009E7963 /* UPnP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnP.h; sourceTree = "<group>"; };
+		213AF7FA195986FB009E7963 /* clink.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = clink.xcodeproj; path = ../../../lib/macosx/xcode/clink.xcodeproj; sourceTree = "<group>"; };
+		217C0F0B195988AD00FA1929 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		211481BD1959863A00B8EC17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				217C0F0C195988AD00FA1929 /* libxml2.2.dylib in Frameworks */,
+				213AF80219598806009E7963 /* libclink.a in Frameworks */,
+				211481C51959863A00B8EC17 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		211481D51959863A00B8EC17 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				211481DE1959863A00B8EC17 /* CyberLink4ObjC.framework in Frameworks */,
+				211481DB1959863A00B8EC17 /* Cocoa.framework in Frameworks */,
+				211481DA1959863A00B8EC17 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		211481B71959863A00B8EC17 = {
+			isa = PBXGroup;
+			children = (
+				211481CA1959863A00B8EC17 /* CyberLink4ObjC */,
+				211481DF1959863A00B8EC17 /* CyberLink4ObjCTests */,
+				211481C31959863A00B8EC17 /* Frameworks */,
+				211481C21959863A00B8EC17 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		211481C21959863A00B8EC17 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				211481C11959863A00B8EC17 /* CyberLink4ObjC.framework */,
+				211481D81959863A00B8EC17 /* CyberLink4ObjCTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		211481C31959863A00B8EC17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				217C0F0B195988AD00FA1929 /* libxml2.2.dylib */,
+				213AF7FA195986FB009E7963 /* clink.xcodeproj */,
+				211481C41959863A00B8EC17 /* Cocoa.framework */,
+				211481D91959863A00B8EC17 /* XCTest.framework */,
+				211481C61959863A00B8EC17 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		211481C61959863A00B8EC17 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				211481C71959863A00B8EC17 /* Foundation.framework */,
+				211481C81959863A00B8EC17 /* CoreData.framework */,
+				211481C91959863A00B8EC17 /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		211481CA1959863A00B8EC17 /* CyberLink4ObjC */ = {
+			isa = PBXGroup;
+			children = (
+				213AF7DF195986C1009E7963 /* CyberLink */,
+				211481CB1959863A00B8EC17 /* Supporting Files */,
+			);
+			path = CyberLink4ObjC;
+			sourceTree = "<group>";
+		};
+		211481CB1959863A00B8EC17 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				211481CC1959863A00B8EC17 /* CyberLink4ObjC-Info.plist */,
+				211481CD1959863A00B8EC17 /* InfoPlist.strings */,
+				211481D01959863A00B8EC17 /* CyberLink4ObjC-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		211481DF1959863A00B8EC17 /* CyberLink4ObjCTests */ = {
+			isa = PBXGroup;
+			children = (
+				211481E51959863A00B8EC17 /* CyberLink4ObjCTests.m */,
+				211481E01959863A00B8EC17 /* Supporting Files */,
+			);
+			path = CyberLink4ObjCTests;
+			sourceTree = "<group>";
+		};
+		211481E01959863A00B8EC17 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				211481E11959863A00B8EC17 /* CyberLink4ObjCTests-Info.plist */,
+				211481E21959863A00B8EC17 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		213AF7DF195986C1009E7963 /* CyberLink */ = {
+			isa = PBXGroup;
+			children = (
+				213AF7E0195986C1009E7963 /* CGUpnpAction.h */,
+				213AF7E1195986C1009E7963 /* CGUpnpAction.m */,
+				213AF7E2195986C1009E7963 /* CGUpnpControlPoint.h */,
+				213AF7E3195986C1009E7963 /* CGUpnpControlPoint.m */,
+				213AF7E4195986C1009E7963 /* CGUpnpDevice.h */,
+				213AF7E5195986C1009E7963 /* CGUpnpDevice.m */,
+				213AF7E6195986C1009E7963 /* CGUpnpIcon.h */,
+				213AF7E7195986C1009E7963 /* CGUpnpIcon.m */,
+				213AF7E8195986C1009E7963 /* CGUpnpService.h */,
+				213AF7E9195986C1009E7963 /* CGUpnpService.m */,
+				213AF7EA195986C1009E7963 /* CGUpnpStateVariable.h */,
+				213AF7EB195986C1009E7963 /* CGUpnpStateVariable.m */,
+				213AF7EC195986C1009E7963 /* UPnP.h */,
+			);
+			name = CyberLink;
+			path = ../../CyberLink;
+			sourceTree = "<group>";
+		};
+		213AF7FB195986FB009E7963 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				213AF7FF195986FB009E7963 /* libclink.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		211481BE1959863A00B8EC17 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				213AF7F3195986C1009E7963 /* CGUpnpIcon.h in Headers */,
+				213AF7EF195986C1009E7963 /* CGUpnpControlPoint.h in Headers */,
+				213AF7F9195986C1009E7963 /* UPnP.h in Headers */,
+				213AF7F1195986C1009E7963 /* CGUpnpDevice.h in Headers */,
+				213AF7F7195986C1009E7963 /* CGUpnpStateVariable.h in Headers */,
+				213AF7F5195986C1009E7963 /* CGUpnpService.h in Headers */,
+				213AF7ED195986C1009E7963 /* CGUpnpAction.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		211481C01959863A00B8EC17 /* CyberLink4ObjC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 211481E91959863A00B8EC17 /* Build configuration list for PBXNativeTarget "CyberLink4ObjC" */;
+			buildPhases = (
+				211481BC1959863A00B8EC17 /* Sources */,
+				211481BD1959863A00B8EC17 /* Frameworks */,
+				211481BE1959863A00B8EC17 /* Headers */,
+				211481BF1959863A00B8EC17 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				213AF801195987FE009E7963 /* PBXTargetDependency */,
+			);
+			name = CyberLink4ObjC;
+			productName = CyberLink4ObjC;
+			productReference = 211481C11959863A00B8EC17 /* CyberLink4ObjC.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		211481D71959863A00B8EC17 /* CyberLink4ObjCTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 211481EC1959863A00B8EC17 /* Build configuration list for PBXNativeTarget "CyberLink4ObjCTests" */;
+			buildPhases = (
+				211481D41959863A00B8EC17 /* Sources */,
+				211481D51959863A00B8EC17 /* Frameworks */,
+				211481D61959863A00B8EC17 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				211481DD1959863A00B8EC17 /* PBXTargetDependency */,
+			);
+			name = CyberLink4ObjCTests;
+			productName = CyberLink4ObjCTests;
+			productReference = 211481D81959863A00B8EC17 /* CyberLink4ObjCTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		211481B81959863A00B8EC17 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Satoshi Konno";
+				TargetAttributes = {
+					211481D71959863A00B8EC17 = {
+						TestTargetID = 211481C01959863A00B8EC17;
+					};
+				};
+			};
+			buildConfigurationList = 211481BB1959863A00B8EC17 /* Build configuration list for PBXProject "CyberLink4ObjC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 211481B71959863A00B8EC17;
+			productRefGroup = 211481C21959863A00B8EC17 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 213AF7FB195986FB009E7963 /* Products */;
+					ProjectRef = 213AF7FA195986FB009E7963 /* clink.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				211481C01959863A00B8EC17 /* CyberLink4ObjC */,
+				211481D71959863A00B8EC17 /* CyberLink4ObjCTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		213AF7FF195986FB009E7963 /* libclink.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libclink.a;
+			remoteRef = 213AF7FE195986FB009E7963 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		211481BF1959863A00B8EC17 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				211481CF1959863A00B8EC17 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		211481D61959863A00B8EC17 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				211481E41959863A00B8EC17 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		211481BC1959863A00B8EC17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				213AF7F8195986C1009E7963 /* CGUpnpStateVariable.m in Sources */,
+				213AF7EE195986C1009E7963 /* CGUpnpAction.m in Sources */,
+				213AF7F4195986C1009E7963 /* CGUpnpIcon.m in Sources */,
+				213AF7F0195986C1009E7963 /* CGUpnpControlPoint.m in Sources */,
+				213AF7F6195986C1009E7963 /* CGUpnpService.m in Sources */,
+				213AF7F2195986C1009E7963 /* CGUpnpDevice.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		211481D41959863A00B8EC17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				211481E61959863A00B8EC17 /* CyberLink4ObjCTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		211481DD1959863A00B8EC17 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 211481C01959863A00B8EC17 /* CyberLink4ObjC */;
+			targetProxy = 211481DC1959863A00B8EC17 /* PBXContainerItemProxy */;
+		};
+		213AF801195987FE009E7963 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = clink;
+			targetProxy = 213AF800195987FE009E7963 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		211481CD1959863A00B8EC17 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				211481CE1959863A00B8EC17 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		211481E21959863A00B8EC17 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				211481E31959863A00B8EC17 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		211481E71959863A00B8EC17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/skonno/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					../../../include/,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		211481E81959863A00B8EC17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/skonno/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					../../../include/,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		211481EA1959863A00B8EC17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CyberLink4ObjC/CyberLink4ObjC-Prefix.pch";
+				INFOPLIST_FILE = "CyberLink4ObjC/CyberLink4ObjC-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		211481EB1959863A00B8EC17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CyberLink4ObjC/CyberLink4ObjC-Prefix.pch";
+				INFOPLIST_FILE = "CyberLink4ObjC/CyberLink4ObjC-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		211481ED1959863A00B8EC17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CyberLink4ObjC.framework/Versions/A/CyberLink4ObjC";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CyberLink4ObjC/CyberLink4ObjC-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "CyberLink4ObjCTests/CyberLink4ObjCTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		211481EE1959863A00B8EC17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CyberLink4ObjC.framework/Versions/A/CyberLink4ObjC";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CyberLink4ObjC/CyberLink4ObjC-Prefix.pch";
+				INFOPLIST_FILE = "CyberLink4ObjCTests/CyberLink4ObjCTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		211481BB1959863A00B8EC17 /* Build configuration list for PBXProject "CyberLink4ObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				211481E71959863A00B8EC17 /* Debug */,
+				211481E81959863A00B8EC17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		211481E91959863A00B8EC17 /* Build configuration list for PBXNativeTarget "CyberLink4ObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				211481EA1959863A00B8EC17 /* Debug */,
+				211481EB1959863A00B8EC17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		211481EC1959863A00B8EC17 /* Build configuration list for PBXNativeTarget "CyberLink4ObjCTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				211481ED1959863A00B8EC17 /* Debug */,
+				211481EE1959863A00B8EC17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 211481B81959863A00B8EC17 /* Project object */;
+}
