@@ -510,8 +510,8 @@ char* cg_upnp_devicetype_geturn(const char* deviceType)
 {
 	char* part = NULL;
 	size_t tail = 0;
-	char head = 0;
-	char len = 0;
+	size_t head = 0;
+	size_t len = 0;
 	
 	cg_log_debug_l4("Entering...\n");
 
