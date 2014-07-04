@@ -154,7 +154,7 @@ static void cg_upnp_action_initargumentlist(CgUpnpAction *action)
 * cg_upnp_action_getargumentbyname
 ****************************************/
 
-CgUpnpArgument *cg_upnp_action_getargumentbyname(CgUpnpAction *action, char *name)
+CgUpnpArgument *cg_upnp_action_getargumentbyname(CgUpnpAction *action, const char *name)
 {
 	CgUpnpArgumentList *argList;
 	CgUpnpArgument *arg;
@@ -179,7 +179,7 @@ CgUpnpArgument *cg_upnp_action_getargumentbyname(CgUpnpAction *action, char *nam
 * cg_upnp_action_getargumentvaluebyname
 ****************************************/
 
-char *cg_upnp_action_getargumentvaluebyname(CgUpnpAction *action, char *name)
+char *cg_upnp_action_getargumentvaluebyname(CgUpnpAction *action, const char *name)
 {
 	CgUpnpArgument *arg;
 
@@ -193,7 +193,7 @@ char *cg_upnp_action_getargumentvaluebyname(CgUpnpAction *action, char *name)
 * cg_upnp_action_setargumentvaluebyname
 ****************************************/
 
-BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, char *name, char *value)
+BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *name, const char *value)
 {
 	CgUpnpArgument *arg;
 

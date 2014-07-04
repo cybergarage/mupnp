@@ -192,7 +192,7 @@ void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
  * @param name The name of the argument to look for
  * @return CgUpnpArgument* if successfull; otherwise NULL
  */
-CgUpnpArgument *cg_upnp_action_getargumentbyname(CgUpnpAction *action, char *name);
+CgUpnpArgument *cg_upnp_action_getargumentbyname(CgUpnpAction *action, const char *name);
 
 /**
  * Find out, whether the action has an argument by the given name
@@ -210,7 +210,7 @@ CgUpnpArgument *cg_upnp_action_getargumentbyname(CgUpnpAction *action, char *nam
  * @param name The name of the argument to look for
  * @return char* if successfull; otherwise NULL
  */
-char *cg_upnp_action_getargumentvaluebyname(CgUpnpAction *action, char *name);
+char *cg_upnp_action_getargumentvaluebyname(CgUpnpAction *action, const char *name);
 
 /**
  * Set a value of the specified argument from the action by the argument's name directly.
@@ -220,7 +220,7 @@ char *cg_upnp_action_getargumentvaluebyname(CgUpnpAction *action, char *name);
  * @param value The value to set
  * @return TRUE if successfull; otherwise NO
  */
-BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, char *name, char *value);
+BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *name, const char *value);
 
 /****************************************************************************
  * Function (Action - Execution Data)
