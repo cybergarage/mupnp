@@ -40,7 +40,7 @@
 *	Compiler Switch (BEGIN)
 ****************************************/
 
-#if !defined(CG_XMLPARSER_LIBXML2) && !defined(TARGET_OS_IPHONE)
+#if defined(CG_XMLPARSER_EXPAT) || (!defined(HAVE_CONFIG_H) && !defined(TARGET_OS_IPHONE))
 
 /****************************************
 * Header Files

@@ -41,6 +41,6 @@ nobase_libclinkcinclude_HEADERS =  \\
 libclinkc_a_SOURCES = \\
         \$(clinkc_sources)
 libclinkc_a_CFLAGS = \$(AM_CFLAGS)
-libclinkc_a_LIBADD = \@HTTP_LIBS\@ \@XML_LIBS\@
+#libclinkc_a_LIBADD = \@HTTP_LIBS\@ \@XML_LIBS\@
 #endif
 FOTTER

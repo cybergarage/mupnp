@@ -138,7 +138,14 @@ fi
 if [ test $USE_LIBXML2 != yes ]; then
 	AC_CHECK_HEADERS([expat/expat.h])
 	AC_CHECK_HEADERS([expat.h])
-	AC_CHECK_LIB([expat],[XML_ParserCreate],,[AC_MSG_ERROR(CyberLink needs Expat >= $EXPAT_VERSION)])
+	AC_CHECK_LIB([expat],[main],
+  [
+    AC_DEFINE([CG_XMLPARSER_EXPAT],1,[EXPAT])
+		XML_LIBS="-lexpat"
+		AC_SUBST(XML_LIBS)
+  ],[
+    AC_MSG_ERROR(CyberLink needs Expat >= $EXPAT_VERSION)
+  ])
 fi
 
 ##############################
