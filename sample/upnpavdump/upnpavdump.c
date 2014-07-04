@@ -22,7 +22,7 @@
 // PrintContentDirectory
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintContentDirectory(CgUpnpAction *browseAction, int indent, char *objectId)
+void PrintContentDirectory(CgUpnpAction *browseAction, int indent, const char *objectId)
 {
 	int n;
 	char indentStr[128];
@@ -31,9 +31,9 @@ void PrintContentDirectory(CgUpnpAction *browseAction, int indent, char *objectI
 	CgXmlNodeList *rootNode;
 	CgXmlNode *didlNode;
 	CgXmlNode *cnode;
-	char *id;
-	char *title;
-	char *url;
+	const char *id;
+	const char *title;
+	const char *url;
 
 	for (n=0; n<indent && n<(sizeof(indentStr)-1); n++)
 		indentStr[n] = ' ';
