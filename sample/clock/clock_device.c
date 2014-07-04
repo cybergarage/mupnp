@@ -130,7 +130,7 @@ char *CLOCK_SERVICE_DESCRIPTION =
 BOOL upnp_clock_actionreceived(CgUpnpAction *action)
 {
 	CgTime currTime;
-	char *actionName;
+	const char *actionName;
 	CgUpnpArgument *currTimeArg;
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	CgUpnpArgument *newTimeArg, *resultArg;
@@ -160,7 +160,7 @@ BOOL upnp_clock_actionreceived(CgUpnpAction *action)
 
 BOOL upnp_clock_queryreceived(CgUpnpStateVariable *statVar)
 {
-	char *varName;
+	const char *varName;
 	CgTime currTime;
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	
