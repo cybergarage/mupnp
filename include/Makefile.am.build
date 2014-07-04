@@ -25,7 +25,7 @@ print<<FOTTER;
 
 cybergarage/upnp/cupnp.h: \$(top_builddir)/config.h
 	mkdir -p cybergarage/upnp
-	sed -e 's/CG_CLINK_VER/CG_CLINK_VER \\”\$(VERSION)\\\”/‘ \\
+	sed -e "s/CG_CLINK_VER/CG_CLINK_VER \\"\$(PACKAGE_VERSION)\\"/" \\
 	\$(srcdir)/cybergarage/upnp/cupnp.h.in > \$(srcdir)/cybergarage/upnp/cupnp.h
 
 nobase_include_HEADERS = \\
