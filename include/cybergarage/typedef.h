@@ -43,7 +43,7 @@
 #include <kernel.h>
 #endif
 
-#if defined(__GNUC__) && ( defined(__APPLE_CPP__) || defined(__APPLE_CC__) )
+#if defined(__APPLE_CPP__) || defined(__APPLE_CC__)
 #include <TargetConditionals.h>
 #endif
 	
