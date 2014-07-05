@@ -31,23 +31,19 @@ static void ClinkTestCaseTestSubscription(CgUpnpProperty *prop)
 	char *sid = cg_upnp_property_getsid(prop);
 	BOOST_CHECK(sid != NULL);
 
-	long seq = cg_upnp_property_getseq(prop);
+	size_t seq = cg_upnp_property_getseq(prop);
 	BOOST_CHECK(sid != NULL);
 
 	char *propValue = cg_upnp_property_getvalue(prop);
 	BOOST_CHECK(propValue != NULL);
-	switch (seq) {
-	case 0:
-		{
-			BOOST_CHECK(cg_streq(propValue, TEST_UPDATE_STATEVARIABLE_DEFAULTVALUE));
-		}
-		break;
-	default:
-		{
-			BOOST_CHECK(cg_streq(propValue, TEST_UPDATE_STATEVARIABLE_UPDATEVALUE));
-		}
-	}
-
+  
+  if (seq == 0) {
+    BOOST_CHECK(cg_streq(propValue, TEST_UPDATE_STATEVARIABLE_DEFAULTVALUE));
+  }
+  else {
+    BOOST_CHECK(cg_streq(propValue, TEST_UPDATE_STATEVARIABLE_UPDATEVALUE));
+  }
+  
 	ClinkTestCaseTestSubscriptionFlag = true;
 }
 
@@ -90,11 +86,12 @@ BOOST_AUTO_TEST_CASE(Subscription)
 	CgUpnpService *testCpDevService = cg_upnp_device_getservicebyexacttype(testCpDev, TEST_DEVICE_SERVICE_TYPE);
 	BOOST_CHECK(testCpDevService != NULL);
 	BOOST_CHECK(cg_upnp_controlpoint_subscribe(testCp, testCpDevService, 300) );
+	cg_sleep(CG_UPNP_SERVICE_NOTIFY_WAITTIME * 2);
 
 	// Update State Variable
 	ClinkTestCaseTestSubscriptionFlag = false;
 	cg_upnp_statevariable_setvalue(testDevState, TEST_UPDATE_STATEVARIABLE_UPDATEVALUE);
-	cg_sleep(1000);
+	cg_sleep(CG_UPNP_SERVICE_NOTIFY_WAITTIME * 2);
 	BOOST_CHECK(ClinkTestCaseTestSubscriptionFlag);
 
 	// Unscribe
