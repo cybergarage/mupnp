@@ -1,7 +1,7 @@
 if UNITTESTS 
-SUBDIRS = include lib sample tests
+SUBDIRS = include lib examples tests
 else
-SUBDIRS = include lib sample 
+SUBDIRS = include lib examples 
 endif
 
 devdocsdir = $(datadir)/doc/clinkc-dev

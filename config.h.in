@@ -3,6 +3,9 @@
 /* LIBCURL */
 #undef CG_HTTP_CURL
 
+/* EXPAT */
+#undef CG_XMLPARSER_EXPAT
+
 /* LIBXML2 */
 #undef CG_XMLPARSER_LIBXML2
 
@@ -45,9 +48,6 @@
 /* Define to 1 if you have the `boost_unit_test_framework-mt' library
    (-lboost_unit_test_framework-mt). */
 #undef HAVE_LIBBOOST_UNIT_TEST_FRAMEWORK_MT
-
-/* Define to 1 if you have the `expat' library (-lexpat). */
-#undef HAVE_LIBEXPAT
 
 /* Define to 1 if you have the `iconv' library (-liconv). */
 #undef HAVE_LIBICONV
@@ -150,9 +150,6 @@
 
 /* Define to 1 if you have the <uuid/uuid.h> header file. */
 #undef HAVE_UUID_UUID_H
-
-/* Define to 1 if your C compiler doesn't accept -c and -o together. */
-#undef NO_MINUS_C_MINUS_O
 
 /* Name of package */
 #undef PACKAGE
