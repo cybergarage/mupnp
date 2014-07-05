@@ -44,7 +44,7 @@ typedef struct _CgUpnpProperty {
 	CgString *name;
 	CgString *value;
 	CgString *sid;
-	long seq;
+	size_t seq;
 } CgUpnpProperty, CgUpnpPropertyList;
 
 /****************************************
