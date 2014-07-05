@@ -28,7 +28,13 @@
 
 #include <cybergarage/typedef.h>
 
-#if defined(HAVE_UUID_UUID_H) || defined(HAVE_LIBUUID) || defined(TARGET_OS_IPHONE)
+#if defined(TARGET_OS_MAC) || defined(TARGET_OS_IPHONE)
+#define HAVE_UUID_UUID_H 1
+#define HAVE_LIBUUID 1
+#define HAVE_UUID_UNPARSE_LOWER 1
+#endif
+
+#if defined(HAVE_UUID_UUID_H) || defined(HAVE_LIBUUID)
 #include <uuid/uuid.h>
 #endif
 
@@ -42,7 +48,7 @@
 // Some systems (Solaris, CentOS?) come with libuuid, but does not feature
 // the uuid_unparse_lower() call.
 #if defined(HAVE_LIBUUID)
-#if !defined(HAVE_UUID_UNPARSE_LOWER) && !defined(TARGET_OS_IPHONE)
+#if !defined(HAVE_UUID_UNPARSE_LOWER)
 // Older versions of libuuid don't have uuid_unparse_lower(),
 // only uuid_unparse()
 void uuid_unparse_lower (uuid_t uu, char *out)
@@ -68,7 +74,7 @@ static BOOL isUpnpNMPRMode = FALSE;
 
 const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 {
-#if defined(HAVE_LIBUUID) || defined(TARGET_OS_IPHONE)
+#if defined(HAVE_LIBUUID)
 	uuid_t uuid;
 	char uuidStr[CG_UPNP_UUID_MAX_LEN];
 #elif defined(WIN32)
@@ -82,7 +88,7 @@ const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 
 	cg_log_debug_l4("Entering...\n");
 
-#if defined(HAVE_LIBUUID) || defined(TARGET_OS_IPHONE)
+#if defined(HAVE_LIBUUID)
     uuid_generate(uuid);
 	uuid_unparse_lower(uuid, uuidStr);
 	snprintf(uuidBuf,uuidBufSize, "uuid:%s",uuidStr);
@@ -117,7 +123,7 @@ const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 /* Some systems (Solaris, CentOS?) come with libuuid, but does not feature
     the uuid_unparse_lower() call. */
 
-#if defined(HAVE_UUID_UUID_H) && !defined(HAVE_UUID_UNPARSE_LOWER) && !defined(TARGET_OS_IPHONE)
+#if defined(HAVE_UUID_UUID_H) && !defined(HAVE_UUID_UNPARSE_LOWER)
 /* Older versions of libuuid don't have uuid_unparse_lower(),
    only uuid_unparse() */
 void uuid_unparse_lower (uuid_t uu, char *out)
