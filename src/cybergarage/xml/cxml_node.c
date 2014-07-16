@@ -139,6 +139,25 @@ void cg_xml_node_setchildnode(CgXmlNode *node, const char *name, const char *val
 	cg_log_debug_l4("Leaving...\n");
 }
 
+/****************************************
+ * cg_xml_node_removechildnode
+ ****************************************/
+
+BOOL cg_xml_node_removechildnode(CgXmlNode *node, const char *name)
+{
+	CgXmlNode *childNode;
+  
+	cg_log_debug_l4("Entering...\n");
+  
+	childNode = cg_xml_node_getchildnode(node, name);
+	if (!childNode)
+    return FALSE;
+
+  cg_xml_node_remove(childNode);
+  
+  return TRUE;
+}
+
 /***************************************************************************** 
 * Get childnode with some specific namespace prefix, or ignore namespace prefix.
 * If ns is NULL, name string must match completely
@@ -236,18 +255,20 @@ const char *cg_xml_node_getchildnodevalue(CgXmlNode *node, const char *name)
 * cg_xml_node_removeattribute
 ****************************************/
 
-void cg_xml_node_removeattribute(CgXmlNode *node, const char *name)
+BOOL cg_xml_node_removeattribute(CgXmlNode *node, const char *name)
 {
 	CgXmlAttribute *attr;
 
 	if (!node || !name)
-		return;
+		return FALSE;
 
 	attr = cg_xml_node_getattribute(node, name);
 	if (!attr)
-		return;
+		return FALSE;
 
 	cg_xml_attribute_remove(attr);
+  
+  return TRUE;
 }
 
 /****************************************

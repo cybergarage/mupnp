@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		211B90D6197675F500DEA0D7 /* ClinkTestCaseXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211B90D5197675F500DEA0D7 /* ClinkTestCaseXML.cpp */; };
 		212CAC5E186439810065C62C /* ClinkTestCaseString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212CAC5D186439810065C62C /* ClinkTestCaseString.cpp */; };
 		219030B819067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 219030B719067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp */; };
 		21A2BCFB14C664E8007457AF /* ClinkTestCaseService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A2BCFA14C664E8007457AF /* ClinkTestCaseService.cpp */; };
@@ -54,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		211B90D5197675F500DEA0D7 /* ClinkTestCaseXML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseXML.cpp; path = ../../ClinkTestCaseXML.cpp; sourceTree = "<group>"; };
 		212CAC5D186439810065C62C /* ClinkTestCaseString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseString.cpp; path = ../../ClinkTestCaseString.cpp; sourceTree = "<group>"; };
 		2152CB8E1331206B00229C13 /* ClinkCTestUnit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ClinkCTestUnit; sourceTree = BUILT_PRODUCTS_DIR; };
 		219030B719067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseUPnPFunc.cpp; path = ../../ClinkTestCaseUPnPFunc.cpp; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				21AA0F071331226600A2338F /* ClinkTestCaseSubscription.cpp */,
 				21AA0F081331226600A2338F /* ClinkTestCaseURI.cpp */,
 				219030B719067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp */,
+				211B90D5197675F500DEA0D7 /* ClinkTestCaseXML.cpp */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				21AA0F141331226600A2338F /* ClinkTestCaseURI.cpp in Sources */,
 				21AA0F191331227300A2338F /* TestDevice.c in Sources */,
 				21A2BCFB14C664E8007457AF /* ClinkTestCaseService.cpp in Sources */,
+				211B90D6197675F500DEA0D7 /* ClinkTestCaseXML.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +323,7 @@
 					/usr/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "-lboost_unit_test_framework-mt";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -336,6 +341,7 @@
 					/usr/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "-lboost_unit_test_framework-mt";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

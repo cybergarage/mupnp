@@ -152,6 +152,7 @@ CgXmlNode *cg_xml_node_getrootnode(CgXmlNode *node);
 #define cg_xml_node_getchildnodelist(node) (node->nodeList)
 void cg_xml_node_addchildnode(CgXmlNode *node, CgXmlNode *cnode);
 void cg_xml_node_setchildnode(CgXmlNode *node, const char *name, const char *value);
+BOOL cg_xml_node_removechildnode(CgXmlNode *node, const char *name);
 const char *cg_xml_node_getchildnodevalue(CgXmlNode *node, const char *name);
 #define cg_xml_node_getchildnodeintvalue(node, name) cg_str2int(cg_xml_node_getchildnodevalue(node, name))
 #define cg_xml_node_getchildnodelongvalue(node, name) cg_str2long(cg_xml_node_getchildnodevalue(node, name))
@@ -176,7 +177,7 @@ CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *na
 #define cg_xml_node_addattribute(node, attr) cg_xml_attributelist_add(node->attrList,attr)
 #define cg_xml_node_setattribute(node, name, value) cg_xml_attributelist_set(node->attrList,name,value)
 #define cg_xml_node_getattributevalue(node, name) cg_xml_attributelist_getvalue(node->attrList, name)
-void cg_xml_node_removeattribute(CgXmlNode *node, const char *name);
+BOOL cg_xml_node_removeattribute(CgXmlNode *node, const char *name);
 
 #define cg_xml_node_setnamespace(node, ns, value) cg_xml_node_setattribute(node, "xmlns:" ns , value)
 
