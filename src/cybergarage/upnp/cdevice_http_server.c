@@ -34,6 +34,7 @@
 * prototype define for static functions
 ****************************************/
 
+static BOOL cg_upnp_device_ispresentationrequest(CgUpnpDevice *dev, CgHttpRequest *httpReq);
 static void cg_upnp_device_getrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq);
 static void cg_upnp_device_postrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq);
 static void cg_upnp_device_soapactionrecieved(CgUpnpDevice *dev, CgSoapRequest *soapReq);
@@ -77,6 +78,14 @@ void cg_upnp_device_httprequestrecieved(CgHttpRequest *httpReq)
 		cg_string_delete(unescapedUrl);
 	}
 	
+  if (cg_upnp_device_ispresentationrequest(dev, httpReq) == TRUE) {
+    CG_UPNP_PRESENTATION_LISTNER presentationListener = cg_upnp_device_getpresentationlistener(dev);
+    if (presentationListener) {
+      presentationListener(httpReq);
+      return;
+    }
+  }
+  
 	if (cg_http_request_isgetrequest(httpReq) == TRUE ||
 	    cg_http_request_isheadrequest(httpReq) == TRUE) {
 		cg_upnp_device_getrequestrecieved(dev, httpReq);
@@ -99,6 +108,30 @@ void cg_upnp_device_httprequestrecieved(CgHttpRequest *httpReq)
 
 	cg_log_debug_l4("Leaving...\n");
 }
+
+/****************************************
+ * cg_upnp_device_ispresentationrequest
+ ****************************************/
+
+static BOOL cg_upnp_device_ispresentationrequest(CgUpnpDevice *dev, CgHttpRequest *httpReq)
+{
+  const char *presentationURL;
+  const char *requestURI;
+  
+	if (!cg_http_request_isgetrequest(httpReq))
+    return FALSE;
+  
+  presentationURL = cg_upnp_device_getpresentationurl(dev);
+  if (!presentationURL)
+    return FALSE;
+  
+  requestURI = cg_http_request_geturi(httpReq);
+  if (!requestURI)
+    return FALSE;
+  
+  return (0 < cg_strstr(requestURI, presentationURL)) ? TRUE : FALSE;
+}
+
 
 /****************************************
 * 

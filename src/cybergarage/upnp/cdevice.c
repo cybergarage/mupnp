@@ -124,6 +124,7 @@ CgUpnpDevice *cg_upnp_device_new()
 		cg_upnp_device_sethttplistener(dev, NULL);
 		cg_upnp_device_setuserdata(dev, NULL);
     cg_upnp_device_setbootid(dev, cg_upnp_createbootid());
+    cg_upnp_device_setpresentationlistener(dev, NULL);
 	}
 	
 	cg_log_debug_l4("Leaving...\n");
@@ -2226,3 +2227,15 @@ void cg_upnp_device_updateudn(CgUpnpDevice *dev)
 	cg_upnp_device_setudn(dev, uuid);
 }
 
+/****************************************
+ * cg_upnp_device_setpresentationlistener
+ ****************************************/
+
+void cg_upnp_device_setpresentationlistener(CgUpnpDevice *dev, CG_UPNP_PRESENTATION_LISTNER func)
+{
+  cg_upnp_device_removepresentationurl(dev);
+  if (func)
+    cg_upnp_device_setpresentationurl(dev, CG_UPNP_DEVICE_DEFAULT_PRESENTATION_URI);
+  
+  dev->presentationListener = func;
+}

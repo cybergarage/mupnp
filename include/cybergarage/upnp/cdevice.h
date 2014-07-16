@@ -136,6 +136,12 @@ extern "C" {
 /** Definition for device presentation URL XML element name */
 #define CG_UPNP_DEVICE_PRESENTATION_URL "presentationURL"
 
+/** Definition for default presentation URL" */
+#define CG_UPNP_DEVICE_DEFAULT_PRESENTATION_URI "/presentation"
+
+/** Definition for presentation listener */
+typedef void (*CG_UPNP_PRESENTATION_LISTNER)(CgHttpRequest *);
+  
 /****************************************
  * Data Type
  ****************************************/
@@ -180,6 +186,9 @@ typedef struct _CgUpnpDevice
   
   /** HTTP request listener */
   CG_HTTP_LISTENER httpListener;
+  
+  /** Presentation listener */
+  CG_UPNP_PRESENTATION_LISTNER presentationListener;
   
   /** URI for this device's description */
   CgString *descriptionURI;
@@ -696,6 +705,31 @@ void cg_upnp_device_updateudn(CgUpnpDevice *dev);
  */
 #define cg_upnp_device_getpresentationurl(dev) cg_xml_node_getchildnodevalue(cg_upnp_device_getdevicenode(dev), CG_UPNP_DEVICE_PRESENTATION_URL)
 
+/**
+ * Remove the device's presentation URL
+ *
+ * \param dev Device in question
+ *
+ */
+#define cg_upnp_device_removepresentationurl(dev) cg_xml_node_removechildnode(cg_upnp_device_getdevicenode(dev), CG_UPNP_DEVICE_PRESENTATION_URL)
+  
+/*
+ * Set an presentation listener function to the device
+ *
+ * \param dev The device in question
+ * \param func The listener function
+ *
+ */
+void cg_upnp_device_setpresentationlistener(CgUpnpDevice *dev, CG_UPNP_PRESENTATION_LISTNER func);
+  
+/**
+ * Get the device's presentation listener function
+ *
+ * \param dev The device in question
+ *
+ */
+#define cg_upnp_device_getpresentationlistener(dev) (dev->presentationListener)
+  
 /*****************************************************************************
  * URLBase
  *****************************************************************************/
