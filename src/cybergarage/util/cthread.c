@@ -359,8 +359,10 @@ BOOL cg_thread_start(CgThread *thread)
 	}
 #else
 	pthread_attr_t thread_attr;
-	if (pthread_attr_init(&thread_attr) != 0)
+	if (pthread_attr_init(&thread_attr) != 0) {
+		thread->runnableFlag = FALSE;
     return FALSE;
+  }
 	/* MODIFICATION Fabrice Fontaine Orange 24/04/2007
 	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE); */
 	/* Bug correction : Threads used to answer UPnP requests are created */
@@ -368,6 +370,7 @@ BOOL cg_thread_start(CgThread *thread)
 	/* So, they are kept alive until the end of the program. By creating them */
 	/* in detached state, they are correctly clean up */
 	if (pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED) !=0) {
+		thread->runnableFlag = FALSE;
 		pthread_attr_destroy(&thread_attr);
 		return FALSE;
   }
@@ -375,6 +378,7 @@ BOOL cg_thread_start(CgThread *thread)
 	/* Optimization : not we can set STACK_SIZE attribute at compilation time */
 	/* to specify thread stack size */
   if (pthread_attr_setstacksize (&thread_attr,STACK_SIZE) != 0) {
+		thread->runnableFlag = FALSE;
 		pthread_attr_destroy(&thread_attr);
 		return FALSE;
   }
