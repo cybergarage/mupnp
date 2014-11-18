@@ -1525,8 +1525,8 @@ BOOL cg_upnp_device_start(CgUpnpDevice *dev)
 	/**** SSDP Server ****/
 	if (cg_upnp_ssdp_serverlist_open(dev->ssdpServerList) == FALSE)
 		return FALSE;
+  cg_upnp_ssdp_serverlist_setlistener(dev->ssdpServerList, cg_upnp_device_ssdplistener);
 	cg_upnp_ssdp_serverlist_setuserdata(dev->ssdpServerList, dev);
-	cg_upnp_ssdp_serverlist_setlistener(dev->ssdpServerList, cg_upnp_device_ssdplistener);
 	cg_upnp_ssdp_serverlist_start(dev->ssdpServerList);
 
 	/**** Update BootId ****/
@@ -1572,6 +1572,7 @@ BOOL cg_upnp_device_stop(CgUpnpDevice *dev)
 
 	/**** HTTP Server ****/
 	if (0 < cg_http_headerlist_size(dev->httpServerList)) {
+    cg_http_serverlist_setlistener(dev->httpServerList, NULL);
 		cg_http_serverlist_stop(dev->httpServerList);
 		cg_http_serverlist_close(dev->httpServerList);
 		cg_http_serverlist_clear(dev->httpServerList);
@@ -1579,6 +1580,8 @@ BOOL cg_upnp_device_stop(CgUpnpDevice *dev)
 	
 	/**** SSDP Server ****/
 	if (0 < cg_upnp_ssdp_serverlist_size(dev->ssdpServerList)) {
+    cg_upnp_ssdp_serverlist_setlistener(dev->ssdpServerList, NULL);
+    cg_upnp_ssdp_serverlist_setuserdata(dev->ssdpServerList, NULL);
 		cg_upnp_ssdp_serverlist_stop(dev->ssdpServerList);
 		cg_upnp_ssdp_serverlist_close(dev->ssdpServerList);
 		cg_upnp_ssdp_serverlist_clear(dev->ssdpServerList);

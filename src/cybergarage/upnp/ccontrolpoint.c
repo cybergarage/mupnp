@@ -249,7 +249,6 @@ BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint)
 		cg_upnp_controlpoint_setssdpresponseport(ctrlPoint, ssdpResPort + 1);
 		ssdpResPort = cg_upnp_controlpoint_getssdpresponseport(ctrlPoint);
 	}
-
 	cg_upnp_ssdpresponse_serverlist_setlistener(ssdpResServerList, cg_upnp_controlpoint_ssdpresponselistner);
 	cg_upnp_ssdpresponse_serverlist_setuserdata(ssdpResServerList, ctrlPoint);
 	if (cg_upnp_ssdpresponse_serverlist_start(ssdpResServerList) == FALSE)
@@ -286,6 +285,8 @@ BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint)
 	/**** SSDP Server ****/
 	ssdpServerList = cg_upnp_controlpoint_getssdpserverlist(ctrlPoint);
 	cg_log_debug_s("Stopping ssdp servers.\n");
+  cg_upnp_ssdp_serverlist_setlistener(ssdpServerList, NULL);
+  cg_upnp_ssdp_serverlist_setuserdata(ssdpServerList, NULL);
 	cg_upnp_ssdp_serverlist_stop(ssdpServerList);
 	cg_log_debug_s("Done\n");
 	cg_upnp_ssdp_serverlist_close(ssdpServerList);
@@ -294,6 +295,8 @@ BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint)
 	/**** SSDP Response Server ****/
 	ssdpResServerList = cg_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
 	cg_log_debug_s("Stopping ssdp response servers.\n");
+  cg_upnp_ssdpresponse_serverlist_setlistener(ssdpResServerList, NULL);
+  cg_upnp_ssdpresponse_serverlist_setuserdata(ssdpResServerList, NULL);
 	cg_upnp_ssdpresponse_serverlist_stop(ssdpResServerList);
 	cg_log_debug_s("Done\n");
 	cg_upnp_ssdpresponse_serverlist_close(ssdpResServerList);
@@ -302,6 +305,7 @@ BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint)
 	/**** HTTP Server ****/
 	httpServerList = cg_upnp_controlpoint_gethttpserverlist(ctrlPoint);
 	cg_log_debug_s("Stopping http servers.\n");
+  cg_http_serverlist_setlistener(httpServerList, NULL);
 	cg_http_serverlist_stop(httpServerList);
 	cg_log_debug_s("Done\n");
 	cg_http_serverlist_close(httpServerList);
