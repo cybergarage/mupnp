@@ -1,10 +1,12 @@
-//
-//  CGUpnpControlPoint.h
-//  CyberLink for C
-//
-//  Created by Satoshi Konno on 08/03/14.
-//  Copyright 2008 Satoshi Konno. All rights reserved.
-//
+/******************************************************************
+ *
+ * mUPnP for ObjC
+ *
+ * Copyright (C) Satoshi Konno 2008
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #import <Foundation/NSString.h>
 #import <Foundation/NSArray.h>

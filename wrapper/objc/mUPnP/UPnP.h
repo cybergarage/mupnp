@@ -1,14 +1,16 @@
-//
-//  UPnP.h
-//  CyberLink for C
-//
-//  Created by Satoshi Konno on 08/05/08.
-//  Copyright 2008 Satoshi Konno. All rights reserved.
-//
+/******************************************************************
+ *
+ * mUPnP for ObjC
+ *
+ * Copyright (C) Satoshi Konno 2008
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#import <CyberLink/CGUpnpControlPoint.h>
-#import <CyberLink/CGUpnpDevice.h>
-#import <CyberLink/CGUpnpService.h>
-#import <CyberLink/CGUpnpAction.h>
-#import <CyberLink/CGUpnpStateVariable.h>
-#import <CyberLink/CGUpnpIcon.h>
+#import <mUPnP/CGUpnpControlPoint.h>
+#import <mUPnP/CGUpnpDevice.h>
+#import <mUPnP/CGUpnpService.h>
+#import <mUPnP/CGUpnpAction.h>
+#import <mUPnP/CGUpnpStateVariable.h>
+#import <mUPnP/CGUpnpIcon.h>

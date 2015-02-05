@@ -1,10 +1,12 @@
-//
-//  CGUpnpService.m
-//  CyberLink for C
-//
-//  Created by Satoshi Konno on 08/05/12.
-//  Copyright 2008 Satoshi Konno. All rights reserved.
-//
+/******************************************************************
+ *
+ * mUPnP for ObjC
+ *
+ * Copyright (C) Satoshi Konno 2008
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/service.h>
 #include <mupnp/action.h>
