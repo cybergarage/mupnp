@@ -26,12 +26,12 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_list_header_init
+* mupnp_list_header_init
 ****************************************/
 
-void cg_list_header_init(CgList *list)
+void mupnp_list_header_init(CgList *list)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (NULL == list)
 		return;
@@ -39,16 +39,16 @@ void cg_list_header_init(CgList *list)
 	list->headFlag = TRUE;			
 	list->prev = list->next = list;
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_list_node_init
+* mupnp_list_node_init
 ****************************************/
 
-void cg_list_node_init(CgList *list)
+void mupnp_list_node_init(CgList *list)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (NULL == list)
 		return;
@@ -56,67 +56,67 @@ void cg_list_node_init(CgList *list)
 	list->headFlag = FALSE;			
 	list->prev = list->next = list;
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_list_size
+* mupnp_list_size
 ****************************************/
 
-int cg_list_size(CgList *headList)
+int mupnp_list_size(CgList *headList)
 {
 	CgList *list;
 	int listCnt;
 	
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (NULL == headList)
 		return 0;
 
 	listCnt = 0;
-	for (list = cg_list_next(headList); list != NULL; list = cg_list_next(list))
+	for (list = mupnp_list_next(headList); list != NULL; list = mupnp_list_next(list))
 		listCnt++;
 	
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 	
 	return listCnt;
 }
 
 /****************************************
-* cg_list_get
+* mupnp_list_get
 ****************************************/
 
-CgList *cg_list_get(CgList *headList, int index)
+CgList *mupnp_list_get(CgList *headList, int index)
 {
 	CgList *list;
 	int n;
 	
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (NULL == headList)
 		return NULL;
 
-	list = cg_list_next(headList);
+	list = mupnp_list_next(headList);
 	for (n=0; n<index; n++) {
 		if (NULL == list)
 			break;
-		list = cg_list_next(list);
+		list = mupnp_list_next(list);
 	}
 		
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 	
 	return list;
 }
 
 /****************************************
-* cg_list_insert
+* mupnp_list_insert
 ****************************************/
 
-void cg_list_insert(
+void mupnp_list_insert(
 CgList *prevList,
 CgList *list)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if ((NULL == prevList) || (NULL == list))
 		return;
@@ -126,18 +126,18 @@ CgList *list)
 	prevList->next->prev = list;
 	prevList->next = list;
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_list_add
+* mupnp_list_add
 ****************************************/
 
-void cg_list_add(
+void mupnp_list_add(
 CgList *headList,
 CgList *list)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if ((NULL == headList) || (NULL == list))
 		return;
@@ -145,18 +145,18 @@ CgList *list)
 	if (NULL == headList->prev)
 		return;
 	
-	cg_list_insert(headList->prev, list);
+	mupnp_list_insert(headList->prev, list);
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_list_remove
+* mupnp_list_remove
 ****************************************/
 
-void cg_list_remove(CgList *list)
+void mupnp_list_remove(CgList *list)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (NULL == list)
 		return;
@@ -168,17 +168,17 @@ void cg_list_remove(CgList *list)
 	list->next->prev = list->prev;
 	list->prev = list->next = list;
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_list_prev_circular
+* mupnp_list_prev_circular
 ****************************************/
 
-CgList *cg_list_prev_circular (
+CgList *mupnp_list_prev_circular (
 CgList *list)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (NULL == list)
 		return NULL;
@@ -189,19 +189,19 @@ CgList *list)
 	if (list->prev->headFlag)
 		list = list->prev;
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 
 	return list->prev;
 }
 
 /****************************************
-* cg_list_prev
+* mupnp_list_prev
 ****************************************/
 
-CgList *cg_list_prev(
+CgList *mupnp_list_prev(
 CgList *list)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (NULL == list)
 		return NULL;
@@ -212,19 +212,19 @@ CgList *list)
 	if (list->prev->headFlag == TRUE)
 		return NULL;
 	
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 
 	return list->prev;
 }
 
 /****************************************
-* cg_list_next_circular
+* mupnp_list_next_circular
 ****************************************/
 
-CgList *cg_list_next_circular(
+CgList *mupnp_list_next_circular(
 CgList *list)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (NULL == list)
 		return NULL;
@@ -235,19 +235,19 @@ CgList *list)
 	if (list->next->headFlag == TRUE)
 		list = list->next;
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 	
 	return list->next;
 }
 
 /****************************************
-* cg_list_next
+* mupnp_list_next
 ****************************************/
 
-CgList *cg_list_next(
+CgList *mupnp_list_next(
 CgList *list)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (NULL == list)
 		return NULL;
@@ -258,38 +258,38 @@ CgList *list)
 	if (list->next->headFlag == TRUE)
 		return NULL;
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 
 	return list->next;
 }
 
 /****************************************
-* cg_list_clear
+* mupnp_list_clear
 ****************************************/
 
-void cg_list_clear(CgList *headList, CG_LIST_DESTRUCTORFUNC destructorFunc)
+void mupnp_list_clear(CgList *headList, CG_LIST_DESTRUCTORFUNC destructorFunc)
 {
 	CgList *list;
 
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (NULL == headList)
 		return;
 
-	list = cg_list_next(headList);
+	list = mupnp_list_next(headList);
 	while(list != NULL) {
-		cg_list_remove(list);
+		mupnp_list_remove(list);
 		//Theo Beisch: use destructorFunc or just free(listElement)
 		if (destructorFunc != NULL){
 			destructorFunc(list);
 		} else {
 			free(list);
 		}
-		list = cg_list_next(headList);
+		list = mupnp_list_next(headList);
 	}
 
 	/*** list header must be deleted by user ***/
 	/* free(headList); */
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }

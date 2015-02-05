@@ -25,10 +25,10 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnp_service_ssdpmessagereceived
+* mupnp_upnp_service_ssdpmessagereceived
 ****************************************/
 
-void cg_upnp_service_ssdpmessagereceived(CgUpnpService *service, CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_service_ssdpmessagereceived(CgUpnpService *service, CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgUpnpDevice *dev;
 	const char *ssdpST;
@@ -36,25 +36,25 @@ void cg_upnp_service_ssdpmessagereceived(CgUpnpService *service, CgUpnpSSDPPacke
 	char serviceNT[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
 	char serviceUSN[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpST = cg_upnp_ssdp_packet_getst(ssdpPkt);
-	if (cg_strlen(ssdpST) <= 0)
+	ssdpST = mupnp_upnp_ssdp_packet_getst(ssdpPkt);
+	if (mupnp_strlen(ssdpST) <= 0)
 		return;
 
-	dev = cg_upnp_service_getdevice(service);
+	dev = mupnp_upnp_service_getdevice(service);
 
-	cg_upnp_service_getnotifyservicetypent(service, serviceNT, sizeof(serviceNT));
-	cg_upnp_service_getnotifyservicetypeusn(service, serviceUSN, sizeof(serviceUSN));
+	mupnp_upnp_service_getnotifyservicetypent(service, serviceNT, sizeof(serviceNT));
+	mupnp_upnp_service_getnotifyservicetypeusn(service, serviceUSN, sizeof(serviceUSN));
 	
-	if (cg_upnp_st_isalldevice(ssdpST) == TRUE) {
-			cg_upnp_device_postsearchresponse(dev, ssdpPkt, serviceNT, serviceUSN);
+	if (mupnp_upnp_st_isalldevice(ssdpST) == TRUE) {
+			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, serviceNT, serviceUSN);
 	}
-	else if (cg_upnp_st_isurn(ssdpST)  == TRUE) {
-		serviceType = cg_upnp_service_getservicetype(service);
-		if (cg_streq(ssdpST, serviceType) == TRUE)
-			cg_upnp_device_postsearchresponse(dev, ssdpPkt, serviceType, serviceUSN);
+	else if (mupnp_upnp_st_isurn(ssdpST)  == TRUE) {
+		serviceType = mupnp_upnp_service_getservicetype(service);
+		if (mupnp_streq(ssdpST, serviceType) == TRUE)
+			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, serviceType, serviceUSN);
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

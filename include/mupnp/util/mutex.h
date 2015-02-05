@@ -90,14 +90,14 @@ typedef struct _CgLockInfo
 /** 
  * Create a new mutex
  */
-CgMutex *cg_mutex_new();
+CgMutex *mupnp_mutex_new();
 
 /** 
  * Destroy a mutex
  *
  * \param mutex The mutex to destroy
  */
-BOOL cg_mutex_delete(CgMutex *mutex);
+BOOL mupnp_mutex_delete(CgMutex *mutex);
 
 /** 
  * Acquire a mutex lock
@@ -106,9 +106,9 @@ BOOL cg_mutex_delete(CgMutex *mutex);
  */
 
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
-#	define cg_mutex_lock(mutex) cg_mutex_lock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, mutex)
+#	define mupnp_mutex_lock(mutex) mupnp_mutex_lock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, mutex)
 #else
-	BOOL cg_mutex_lock(CgMutex *mutex);
+	BOOL mupnp_mutex_lock(CgMutex *mutex);
 #endif
 
 /** 
@@ -117,9 +117,9 @@ BOOL cg_mutex_delete(CgMutex *mutex);
  * \param mutex Mutex to unlock
  */
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
-#       define cg_mutex_unlock(mutex) cg_mutex_unlock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, mutex)
+#       define mupnp_mutex_unlock(mutex) mupnp_mutex_unlock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, mutex)
 #else
-	BOOL cg_mutex_unlock(CgMutex *mutex);
+	BOOL mupnp_mutex_unlock(CgMutex *mutex);
 #endif
 
 #ifdef  __cplusplus

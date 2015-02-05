@@ -50,7 +50,7 @@ extern "C" {
  * \param uuidBuf The UUID created by this function (must not be NULL)
  * \return The UUID created by this function (== \e uuidBuf)
  */
-const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize);
+const char *mupnp_upnp_createuuid(char *uuidBuf, size_t uuidBufSize);
 
 /**
  * Get the server name ("OSname/OSversion/UPnP/<version> CyberLinkC/<version>")
@@ -59,14 +59,14 @@ const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize);
  * \param bufSize Buffer length
  * \param The server name buffer (== \e buf)
  */
-const char *cg_upnp_getservername(char *buf, size_t bufSize);
+const char *mupnp_upnp_getservername(char *buf, size_t bufSize);
 
 /**
  * Enable/disable NMPR (Intel Networked Media Product Requirements) mode.
  *
  * \param onFlag TRUE: enable; FALSE: disable
  */
-void cg_upnp_setnmprmode(BOOL onFlag);
+void mupnp_upnp_setnmprmode(BOOL onFlag);
 
 /**
  * Check whether NMPR (Intel Networked Media Product Requirements) mode is on.
@@ -74,7 +74,7 @@ void cg_upnp_setnmprmode(BOOL onFlag);
  *
  * \return TRUE if on; otherwise FALSE
  */
-BOOL cg_upnp_isnmprmode();
+BOOL mupnp_upnp_isnmprmode();
 
 /**
  * Generate a integer id of BOOTID.UPNP.ORG.
@@ -82,7 +82,7 @@ BOOL cg_upnp_isnmprmode();
  *
  * \return BOOTID
  */
-int cg_upnp_createbootid();
+int mupnp_upnp_createbootid();
 
 /**
  * Generate a integer id of CONFIGID.UPNP.ORG.
@@ -90,7 +90,7 @@ int cg_upnp_createbootid();
  *
  * \return CONFIGID
  */
-int cg_upnp_generateconfigid(const char *string);
+int mupnp_upnp_generateconfigid(const char *string);
 
 #ifdef  __cplusplus
   

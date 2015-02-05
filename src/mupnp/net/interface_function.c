@@ -17,23 +17,23 @@
 *		- first revision
 *	01/15/06
 *		- Thanks for Tobias.Gansen (Tobias.Gansen@lineas.de)
-*		- Changed cg_net_gethostinterfaces() not to bind the MAC address interface on QNX platform.
+*		- Changed mupnp_net_gethostinterfaces() not to bind the MAC address interface on QNX platform.
 *	02/13/06 Theo Beisch
 *		- added WINCE support
 *	01/30/07
 *		- Fixed to compile normally on the release mode for Windows Mobile.
 *	04/18/07
-*		- Fixed UNIX version of cg_net_gethostinterfaces()
+*		- Fixed UNIX version of mupnp_net_gethostinterfaces()
 *	09/12/07
 *		- Added the following functions to get MAC address.
-*		  cg_net_interface_setmacaddress(), cg_net_interface_getmacaddress()
-*		- Changed cg_net_gethostinterfaces() to get the MAC address using GetAdaptersInfo() as default on Windows platform.
-*		- Changed cg_net_gethostinterfaces() to get the MAC address using getifaddrs() on UNIX platform.
+*		  mupnp_net_interface_setmacaddress(), mupnp_net_interface_getmacaddress()
+*		- Changed mupnp_net_gethostinterfaces() to get the MAC address using GetAdaptersInfo() as default on Windows platform.
+*		- Changed mupnp_net_gethostinterfaces() to get the MAC address using getifaddrs() on UNIX platform.
 *		   Note : Other platforms might not support to get this functions yet. 
 *	10/22/07 Aapo Makela
-*		- Added NULL checks and fixed memory leaks in cg_net_selectaddr() and cg_net_gethostinterfaces()
+*		- Added NULL checks and fixed memory leaks in mupnp_net_selectaddr() and mupnp_net_gethostinterfaces()
 *	05/14/18
-*		- Enabled cg_net_gethostinterfaces() for MacOSX using __APPLE_CC_ macro.
+*		- Enabled mupnp_net_gethostinterfaces() for MacOSX using __APPLE_CC_ macro.
 *
 ******************************************************************/
 
@@ -103,7 +103,7 @@ BOOL IsInterfaceAddressInitialized = FALSE;
 #endif
 
 /****************************************
-* cg_net_gethostinterfaces (WIN32)
+* mupnp_net_gethostinterfaces (WIN32)
 * (WINCE follows below)
 ****************************************/
 
@@ -111,7 +111,7 @@ BOOL IsInterfaceAddressInitialized = FALSE;
 
 #pragma message ("******** WIN32 && !WINCE selected!")
 
-int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 {
 #if !defined(CG_USE_WIN32_GETHOSTADDRESSES) && !defined(CG_USE_WIN32_GETADAPTERSINFO)
 	CgNetworkInterface *netIf;
@@ -126,8 +126,8 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	u_long nFlags;
 	int i;
 
-	cg_socket_startup();
-	cg_net_interfacelist_clear(netIfList);
+	mupnp_socket_startup();
+	mupnp_net_interfacelist_clear(netIfList);
 
 	sd = WSASocket(AF_INET, SOCK_DGRAM, 0, 0, 0, 0);
 	//Theo Beisch WINSOCK2API WSASocket will return INVALID_SOCKET on error, not SOCKET_ERROR
@@ -150,17 +150,17 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		//if (IsUseAddress(host) == false)
 		//	continue;
 		
-		netIf = cg_net_interface_new();
+		netIf = mupnp_net_interface_new();
 		
 		pAddress = (struct sockaddr_in *) & (InterfaceList[i].iiAddress);
 		host = inet_ntoa(pAddress->sin_addr);
-		cg_net_interface_setaddress(netIf, host);
+		mupnp_net_interface_setaddress(netIf, host);
 		
 		pNetmask = (struct sockaddr_in *) & (InterfaceList[i].iiNetmask);
 		netmask = inet_ntoa(pNetmask->sin_addr);
-		cg_net_interface_setnetmask(netIf, netmask);
+		mupnp_net_interface_setnetmask(netIf, netmask);
 		
-		cg_net_interfacelist_add(netIfList, netIf);
+		mupnp_net_interfacelist_add(netIfList, netIf);
 	}
 
 #elif defined(CG_USE_WIN32_GETADAPTERSINFO)
@@ -172,8 +172,8 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	DWORD            dwRetVal;
 	DWORD			nOfInterfaces;
 
-	cg_socket_startup();
-	cg_net_interfacelist_clear(netIfList);
+	mupnp_socket_startup();
+	mupnp_net_interfacelist_clear(netIfList);
 
 	ulOutBufLen = sizeof(IP_ADAPTER_INFO);
 	pAdapterInfo = (IP_ADAPTER_INFO *) malloc (ulOutBufLen);
@@ -186,14 +186,14 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		for (pAdapter = pAdapterInfo, nOfInterfaces = 0; pAdapter; pAdapter = pAdapter->Next, ++nOfInterfaces) {
 			if (pAdapter->Type == MIB_IF_TYPE_LOOPBACK)
 				continue;
-			if (cg_streq(pAdapter->IpAddressList.IpAddress.String, "0.0.0.0"))
+			if (mupnp_streq(pAdapter->IpAddressList.IpAddress.String, "0.0.0.0"))
 				continue;
-			netIf = cg_net_interface_new();
-			cg_net_interface_setaddress(netIf, pAdapter->IpAddressList.IpAddress.String);
-			cg_net_interface_setnetmask(netIf, pAdapter->IpAddressList.IpMask.String);
+			netIf = mupnp_net_interface_new();
+			mupnp_net_interface_setaddress(netIf, pAdapter->IpAddressList.IpAddress.String);
+			mupnp_net_interface_setnetmask(netIf, pAdapter->IpAddressList.IpMask.String);
 			if (pAdapter->AddressLength  == CG_NET_MACADDR_SIZE)
-				cg_net_interface_setmacaddress(netIf, pAdapter->Address);
-			cg_net_interfacelist_add(netIfList, netIf);
+				mupnp_net_interface_setmacaddress(netIf, pAdapter->Address);
+			mupnp_net_interfacelist_add(netIfList, netIf);
 		}
 	} 
 	free(pAdapterInfo);
@@ -214,8 +214,8 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	int ifIdx;
 	CgNetworkInterface *netIf;
 
-	cg_socket_startup();
-	cg_net_interfacelist_clear(netIfList);
+	mupnp_socket_startup();
+	mupnp_net_interfacelist_clear(netIfList);
 
 	outBufLen = 0;
 	ifFlags = 
@@ -250,14 +250,14 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 			if (namInfoRet == 0) {
 				//if (IsUseAddress(addr) == true) {
 					ifIdx = 0;
-					if (cg_net_isipv6address(addr) == TRUE)
-						ifIdx = cg_net_getipv6scopeid(addr);
-					netIf = cg_net_interface_new();
-					cg_net_interface_setaddress(netIf, addr);
+					if (mupnp_net_isipv6address(addr) == TRUE)
+						ifIdx = mupnp_net_getipv6scopeid(addr);
+					netIf = mupnp_net_interface_new();
+					mupnp_net_interface_setaddress(netIf, addr);
 					if (ai->PhysicalAddressLength  == CG_NET_MACADDR_SIZE)
-						cg_net_interface_setmacaddress(netIf, ai->PhysicalAddress);
-					cg_net_interface_setindex(netIf, ifIdx);
-					cg_net_interfacelist_add(netIfList, netIf);
+						mupnp_net_interface_setmacaddress(netIf, ai->PhysicalAddress);
+					mupnp_net_interface_setindex(netIf, ifIdx);
+					mupnp_net_interfacelist_add(netIfList, netIf);
 				//}
 			}
 			else {
@@ -271,16 +271,16 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 
 #endif
 
-	return cg_net_interfacelist_size(netIfList);
+	return mupnp_net_interfacelist_size(netIfList);
 }
 
 #elif defined(WINCE)
 
 /****************************************
-* cg_net_gethostinterfaces (WINCE)
+* mupnp_net_gethostinterfaces (WINCE)
 ****************************************/
 
-int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 {
 	CgNetworkInterface *netIf;
 
@@ -291,8 +291,8 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	DWORD			nOfInterfaces;
 	int i =0;
 
-//cg_socket_startup();
-	cg_net_interfacelist_clear(netIfList);
+//mupnp_socket_startup();
+	mupnp_net_interfacelist_clear(netIfList);
 
 	// new code to determine interfaces available
 	
@@ -340,42 +340,42 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 				// List will not contain loopback
 				// IFF_UP check not required, ce only returns UP interfaces here 
 				//host = inet_ntoa(pAdapter->Address);
-				netIf = cg_net_interface_new();
-				cg_net_interface_setaddress(netIf, pAdapter->IpAddressList.IpAddress.String);
-				cg_net_interface_setmacaddress(netIf, pAdapter->IpAddressList.Address.String);
-				cg_net_interfacelist_add(netIfList, netIf);
+				netIf = mupnp_net_interface_new();
+				mupnp_net_interface_setaddress(netIf, pAdapter->IpAddressList.IpAddress.String);
+				mupnp_net_interface_setmacaddress(netIf, pAdapter->IpAddressList.Address.String);
+				mupnp_net_interfacelist_add(netIfList, netIf);
 
 			}
 			pAdapter=pAdapter->Next;
 		}
 #if defined(DEBUG)
 		printf("* %d Adapters found\n",nOfInterfaces);
-		printf("  %d usable\n",cg_net_interfacelist_size(netIfList));
+		printf("  %d usable\n",mupnp_net_interfacelist_size(netIfList));
 #endif
 	} 
 	free(pAdapterInfo);
 
-	i=cg_net_interfacelist_size(netIfList);
+	i=mupnp_net_interfacelist_size(netIfList);
 
 	if (i==0) {
 		printf("* no Adapters found - try at least localhost\n");
-		netIf = cg_net_interface_new();
-		cg_net_interface_setaddress(netIf, CG_NET_IPV4_LOOPBACK);
-		cg_net_interfacelist_add(netIfList, netIf);
+		netIf = mupnp_net_interface_new();
+		mupnp_net_interface_setaddress(netIf, CG_NET_IPV4_LOOPBACK);
+		mupnp_net_interfacelist_add(netIfList, netIf);
 	}
 
-	return cg_net_interfacelist_size(netIfList);
+	return mupnp_net_interfacelist_size(netIfList);
 }
 
 #else
 
 /****************************************
-* cg_net_gethostinterfaces (UNIX)
+* mupnp_net_gethostinterfaces (UNIX)
 ****************************************/
 
 #if defined(HAVE_IFADDRS_H) 
 
-int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 {
 	CgNetworkInterface *netIf;
 	struct ifaddrs *ifaddr;
@@ -390,13 +390,13 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	struct ifreq ifr;
 #endif
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_net_interfacelist_clear(netIfList);
+	mupnp_net_interfacelist_clear(netIfList);
 	
 	if (getifaddrs(&ifaddr) != 0)
 	{
-		cg_log_debug("No addresses for interfaces!\n");
+		mupnp_log_debug("No addresses for interfaces!\n");
 		return 0;
 	}
 	
@@ -422,29 +422,29 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 			continue;
 
 		ifname = i->ifa_name;
-		cg_log_debug("Interface name: %s, address: %s\n",  ifname, addr);
-		netIf = cg_net_interface_new();
-		cg_net_interface_setname(netIf, ifname);
-		cg_net_interface_setaddress(netIf, addr);
-		cg_net_interface_setnetmask(netIf, netmask);
+		mupnp_log_debug("Interface name: %s, address: %s\n",  ifname, addr);
+		netIf = mupnp_net_interface_new();
+		mupnp_net_interface_setname(netIf, ifname);
+		mupnp_net_interface_setaddress(netIf, addr);
+		mupnp_net_interface_setnetmask(netIf, netmask);
 #if defined(HAVE_SOCKADDR_DL)
 		dladdr = (struct sockaddr_dl *)(i->ifa_addr);
-		cg_net_interface_setmacaddress(netIf, LLADDR(dladdr)); 
+		mupnp_net_interface_setmacaddress(netIf, LLADDR(dladdr)); 
 #elif defined(HAVE_SIOCGIFHWADDR)
 		sock = socket(AF_INET, SOCK_DGRAM, 0);
 		strncpy(ifr.ifr_name, ifname, IFNAMSIZ-1);
 		ifr.ifr_addr.sa_family = AF_INET;
 		ioctl(sock, SIOCGIFHWADDR, &ifr);  
-		cg_net_interface_setmacaddress(netIf, ifr.ifr_hwaddr.sa_data);
+		mupnp_net_interface_setmacaddress(netIf, ifr.ifr_hwaddr.sa_data);
 		close(sock);
 #endif
-		cg_net_interfacelist_add(netIfList, netIf);
+		mupnp_net_interfacelist_add(netIfList, netIf);
 	}
 	freeifaddrs(ifaddr);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
-	return cg_net_interfacelist_size(netIfList);
+	return mupnp_net_interfacelist_size(netIfList);
 }
 
 #elif !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
@@ -457,9 +457,9 @@ DELETE END Fabrice Fontaine Orange 16/04/2007 */
 
 static const char *PATH_PROC_NET_DEV = "/proc/net/dev";
 
-int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	CgNetworkInterface *netIf;
 	FILE *fd;
@@ -469,7 +469,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	char *ifname;
 	char *sep;
 	
-	cg_net_interfacelist_clear(netIfList);
+	mupnp_net_interfacelist_clear(netIfList);
 	
 	s = socket(AF_INET, SOCK_DGRAM, 0);
 	if (s < 0)
@@ -498,18 +498,18 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		if (ioctl(s, SIOCGIFADDR, &req) < 0)
 			continue;
 		strncpy(ifaddr, inet_ntoa(((struct sockaddr_in*)&req.ifr_addr)->sin_addr), sizeof(ifaddr)-1);
-		netIf = cg_net_interface_new();
-		cg_net_interface_setname(netIf, ifname);
-		cg_net_interface_setaddress(netIf, ifaddr);
-		cg_net_interfacelist_add(netIfList, netIf);
-		cg_log_debug("Interface name: %s, address: %s\n", ifname, ifaddr);
+		netIf = mupnp_net_interface_new();
+		mupnp_net_interface_setname(netIf, ifname);
+		mupnp_net_interface_setaddress(netIf, ifaddr);
+		mupnp_net_interfacelist_add(netIfList, netIf);
+		mupnp_log_debug("Interface name: %s, address: %s\n", ifname, ifaddr);
 		//cout << ifname << ", " << ifaddr << endl;
 	}
 	fclose(fd);
 	close(s);
-	return cg_net_interfacelist_size(netIfList);
+	return mupnp_net_interfacelist_size(netIfList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif
@@ -517,14 +517,14 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 #endif
 
 /****************************************
-* cg_net_gethostinterfaces (BTRON)
+* mupnp_net_gethostinterfaces (BTRON)
 ****************************************/
 
 #if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
 
-int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	CgNetworkInterface *netIf;
 	struct hostent hostEnt;
@@ -533,7 +533,7 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	char *ifname = CG_NET_DEFAULT_IFNAME;
 	char ifaddr[32];
 
-	cg_net_interfacelist_clear(netIfList);
+	mupnp_net_interfacelist_clear(netIfList);
 	
 	err = so_gethostbyname("localhost", &hostEnt, buf);
 	if (err != 0)
@@ -541,34 +541,34 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	
 	inet_ntop(hostEnt.h_addrtype, hostEnt.h_addr, ifaddr, sizeof(ifname));
 	
-	netIf = cg_net_interface_new();
-	cg_net_interface_setname(netIf, ifname);
-	cg_net_interface_setaddress(netIf, ifaddr);
-	cg_net_interfacelist_add(netIfList, netIf);
+	netIf = mupnp_net_interface_new();
+	mupnp_net_interface_setname(netIf, ifname);
+	mupnp_net_interface_setaddress(netIf, ifaddr);
+	mupnp_net_interfacelist_add(netIfList, netIf);
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
-	return cg_net_interfacelist_size(netIfList);
+	return mupnp_net_interfacelist_size(netIfList);
 }
 
 #endif
 
 /****************************************
-* cg_net_gethostinterfaces (TENGINE-KASAGO)
+* mupnp_net_gethostinterfaces (TENGINE-KASAGO)
 ****************************************/
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
 
-int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	CgNetworkInterface *netIf;
     struct in_addr inAddr;
     char ipaddr[CG_NET_IPV6_ADDRSTRING_MAXSIZE];
 	int kaRet;
 	
-	cg_socket_startup();
+	mupnp_socket_startup();
 
     inAddr.s_addr = 0;
     kaRet = ka_tfGetIpAddress(kaInterfaceHandle, &(inAddr.s_addr), 0);
@@ -577,61 +577,61 @@ int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 		
     ka_tfInetToAscii((unsigned long)inAddr.s_addr, ipaddr);
 	
-	netIf = cg_net_interface_new();
-	cg_net_interface_setname(netIf, CG_NET_DEFAULT_IFNAME);
-	cg_net_interface_setaddress(netIf, ipaddr);
-	cg_net_interfacelist_add(netIfList, netIf);
+	netIf = mupnp_net_interface_new();
+	mupnp_net_interface_setname(netIf, CG_NET_DEFAULT_IFNAME);
+	mupnp_net_interface_setaddress(netIf, ipaddr);
+	mupnp_net_interfacelist_add(netIfList, netIf);
 	
-	return cg_net_interfacelist_size(netIfList);
+	return mupnp_net_interfacelist_size(netIfList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif
 
 /****************************************
-* cg_net_gethostinterfaces (ITRON)
+* mupnp_net_gethostinterfaces (ITRON)
 ****************************************/
 
 #if defined(ITRON)
 
-void cg_net_setinterface(const char *ifaddr)
+void mupnp_net_setinterface(const char *ifaddr)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_strcpy(InterfaceAddress, ifaddr);
+	mupnp_strcpy(InterfaceAddress, ifaddr);
 	IsInterfaceAddressInitialized = TRUE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-int cg_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 {
 	CgNetworkInterface *netIf;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (IsInterfaceAddressInitialized == FALSE)
 			return 0;
 
-	netIf = cg_net_interface_new();
-	cg_net_interface_setname(netIf, "");
-	cg_net_interface_setaddress(netIf, InterfaceAddress);
-	cg_net_interfacelist_add(netIfList, netIf);
+	netIf = mupnp_net_interface_new();
+	mupnp_net_interface_setname(netIf, "");
+	mupnp_net_interface_setaddress(netIf, InterfaceAddress);
+	mupnp_net_interfacelist_add(netIfList, netIf);
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
-	return cg_net_interfacelist_size(netIfList);
+	return mupnp_net_interfacelist_size(netIfList);
 }
 
 #endif
 
 /****************************************
-* cg_net_selectaddr
+* mupnp_net_selectaddr
 ****************************************/
 
 #if !defined(HAVE_IFADDRS_H) || defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR)
-char *cg_net_selectaddr(struct sockaddr *remoteaddr)
+char *mupnp_net_selectaddr(struct sockaddr *remoteaddr)
 {
 	CgNetworkInterfaceList *netIfList;
 	CgNetworkInterface *netIf;
@@ -642,13 +642,13 @@ char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 	struct addrinfo *netIfAddrInfo;
 	struct addrinfo *netMaskAddrInfo;
 
-	netIfList = cg_net_interfacelist_new();
+	netIfList = mupnp_net_interfacelist_new();
 	if (!netIfList)
-		return cg_strdup("127.0.0.1");
+		return mupnp_strdup("127.0.0.1");
 
-	if (cg_net_gethostinterfaces(netIfList) <= 0) {
-		cg_net_interfacelist_delete(netIfList);
-		return cg_strdup("127.0.0.1");
+	if (mupnp_net_gethostinterfaces(netIfList) <= 0) {
+		mupnp_net_interfacelist_delete(netIfList);
+		return mupnp_strdup("127.0.0.1");
 	}
 
 	raddr = ntohl(((struct sockaddr_in *)remoteaddr)->sin_addr.s_addr);
@@ -657,11 +657,11 @@ char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 	hints.ai_flags= AI_NUMERICHOST | AI_PASSIVE;
 
 	selectNetIf = NULL;
-	if (1 <= cg_net_gethostinterfaces(netIfList)) {
-		for (netIf=cg_net_interfacelist_gets(netIfList); netIf; netIf = cg_net_interface_next(netIf)) {
-			if (getaddrinfo(cg_net_interface_getaddress(netIf), NULL, &hints, &netIfAddrInfo) != 0) 
+	if (1 <= mupnp_net_gethostinterfaces(netIfList)) {
+		for (netIf=mupnp_net_interfacelist_gets(netIfList); netIf; netIf = mupnp_net_interface_next(netIf)) {
+			if (getaddrinfo(mupnp_net_interface_getaddress(netIf), NULL, &hints, &netIfAddrInfo) != 0) 
 				continue;
-			if (getaddrinfo(cg_net_interface_getnetmask(netIf), NULL, &hints, &netMaskAddrInfo) != 0) {
+			if (getaddrinfo(mupnp_net_interface_getnetmask(netIf), NULL, &hints, &netMaskAddrInfo) != 0) {
 				freeaddrinfo(netIfAddrInfo);
 				continue;
 			}
@@ -677,16 +677,16 @@ char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 	}
 
 	if (!selectNetIf)
-		selectNetIf = cg_net_interfacelist_gets(netIfList);
+		selectNetIf = mupnp_net_interfacelist_gets(netIfList);
 
-	selectNetIfAddr = cg_strdup(cg_net_interface_getaddress(selectNetIf));
+	selectNetIfAddr = mupnp_strdup(mupnp_net_interface_getaddress(selectNetIf));
 
-	cg_net_interfacelist_delete(netIfList);
+	mupnp_net_interfacelist_delete(netIfList);
 
 	return selectNetIfAddr;
 }
 #else
-char *cg_net_selectaddr(struct sockaddr *remoteaddr)
+char *mupnp_net_selectaddr(struct sockaddr *remoteaddr)
 {
 	struct ifaddrs *ifaddrs, *ifaddr;
 	uint32_t laddr, lmask, raddr;
@@ -714,31 +714,31 @@ char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 		if ( NULL != (struct sockaddr_in *)ifaddr->ifa_netmask )
 			lmask = ntohl(((struct sockaddr_in *)ifaddr->ifa_netmask)->sin_addr.s_addr);
 		else {
-			cg_log_debug_s("No netmask for address %u!\n", laddr);
+			mupnp_log_debug_s("No netmask for address %u!\n", laddr);
 			continue;
 		}
 
 		/* Checking if we have an exact subnet match */
 		if ( ( laddr & lmask ) == ( raddr & lmask ) ) {
 			if ( NULL != address_candidate ) free(address_candidate);
-			address_candidate = cg_strdup(
+			address_candidate = mupnp_strdup(
 					inet_ntoa((struct in_addr)((struct sockaddr_in *)ifaddr->ifa_addr)->sin_addr));
-			cg_log_debug_s("Address match! Selecting local address (%u)\n", laddr);
+			mupnp_log_debug_s("Address match! Selecting local address (%u)\n", laddr);
 			break;
 		}
 
 		/* Checking if we have and auto ip address */
 		if ( ( laddr & lmask ) == CG_NET_SOCKET_AUTO_IP_NET ) {
-			cg_log_debug_s("Found auto ip address. Selecting it for second address candidate (%u)\n", laddr);
+			mupnp_log_debug_s("Found auto ip address. Selecting it for second address candidate (%u)\n", laddr);
 			if ( NULL != auto_ip_address_candidate ) free(auto_ip_address_candidate);
-			auto_ip_address_candidate = cg_strdup(
+			auto_ip_address_candidate = mupnp_strdup(
 					inet_ntoa((struct in_addr)((struct sockaddr_in *)ifaddr->ifa_addr)->sin_addr));
 		}
 		/* Good. We have others than auto ips present. */
 		else {
-			cg_log_debug_s("Didn't have an exact subnet match, but non auto ip address anyway... (%u)\n", laddr);
+			mupnp_log_debug_s("Didn't have an exact subnet match, but non auto ip address anyway... (%u)\n", laddr);
 			if ( NULL != address_candidate ) free(address_candidate);
-			address_candidate = cg_strdup(
+			address_candidate = mupnp_strdup(
 					inet_ntoa((struct in_addr)((struct sockaddr_in *)ifaddr->ifa_addr)->sin_addr));
 		}
 	}
@@ -759,7 +759,7 @@ char *cg_net_selectaddr(struct sockaddr *remoteaddr)
 
 	/* Starting to feel desperate and returning local address.*/
 
-	return cg_strdup("127.0.0.1");
+	return mupnp_strdup("127.0.0.1");
 }
 
 #endif

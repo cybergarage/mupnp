@@ -43,15 +43,15 @@ typedef long CgTime;
 * Function
 ****************************************/
 
-float cg_random();
+float mupnp_random();
 
-void cg_wait(CgTime mtime);
-void cg_waitrandom(CgTime mtime);
+void mupnp_wait(CgTime mtime);
+void mupnp_waitrandom(CgTime mtime);
 
-#define cg_sleep(val) cg_wait(val)
-#define cg_sleeprandom(val) cg_waitrandom(val)
+#define mupnp_sleep(val) mupnp_wait(val)
+#define mupnp_sleeprandom(val) mupnp_waitrandom(val)
 
-CgTime cg_getcurrentsystemtime();
+CgTime mupnp_getcurrentsystemtime();
 
 #ifdef  __cplusplus
 }

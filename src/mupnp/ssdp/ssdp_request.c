@@ -22,103 +22,103 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnp_ssdprequest_new
+* mupnp_upnp_ssdprequest_new
 ****************************************/
 
-CgUpnpSSDPRequest *cg_upnp_ssdprequest_new()
+CgUpnpSSDPRequest *mupnp_upnp_ssdprequest_new()
 {
 	CgUpnpSSDPRequest *ssdpReq;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpReq = cg_http_request_new();
+	ssdpReq = mupnp_http_request_new();
 	
-	cg_http_request_seturi(ssdpReq, "*");
-	cg_http_request_setversion(ssdpReq, CG_HTTP_VER11);
-	cg_http_request_setcontentlength(ssdpReq, 0);
+	mupnp_http_request_seturi(ssdpReq, "*");
+	mupnp_http_request_setversion(ssdpReq, CG_HTTP_VER11);
+	mupnp_http_request_setcontentlength(ssdpReq, 0);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 	
 	return ssdpReq;
 }
 
 /****************************************
-* cg_upnp_ssdprequest_delete
+* mupnp_upnp_ssdprequest_delete
 ****************************************/
 
-void cg_upnp_ssdprequest_delete(CgUpnpSSDPRequest *ssdpReq)
+void mupnp_upnp_ssdprequest_delete(CgUpnpSSDPRequest *ssdpReq)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_http_request_delete(ssdpReq);
+	mupnp_http_request_delete(ssdpReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_ssdprequest_setleasetime
+* mupnp_upnp_ssdprequest_setleasetime
 ****************************************/
 
-void cg_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, CgTime value)
+void mupnp_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, CgTime value)
 {
 	char buf[sizeof(CG_HTTP_MAX_AGE) + 1 + CG_STRING_INTEGER_BUFLEN];
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	sprintf(buf, "%s=%ld", CG_HTTP_MAX_AGE, (long)value);
-	cg_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL, buf);
+	mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL, buf);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 		
 /****************************************
-* cg_upnp_ssdprequest_getleasetime
+* mupnp_upnp_ssdprequest_getleasetime
 ****************************************/
 
-CgTime cg_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq)
+CgTime mupnp_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq)
 {
 	const char *cacheCtrl;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cacheCtrl = cg_http_packet_getheadervalue((CgHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL);
+	cacheCtrl = mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL);
 	
-	return cg_upnp_ssdp_getleasetime(cacheCtrl);
+	return mupnp_upnp_ssdp_getleasetime(cacheCtrl);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_ssdprequest_tostring
+* mupnp_upnp_ssdprequest_tostring
 ****************************************/
 
-char *cg_upnp_ssdprequest_tostring(CgUpnpSSDPRequest *ssdpReq, CgString *ssdpMsg)
+char *mupnp_upnp_ssdprequest_tostring(CgUpnpSSDPRequest *ssdpReq, CgString *ssdpMsg)
 {
 	CgHttpHeader *header;
 	const char *name;
 	const char *value;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_string_addvalue(ssdpMsg, cg_http_request_getmethod(ssdpReq));
-	cg_string_addvalue(ssdpMsg, CG_HTTP_SP);
-	cg_string_addvalue(ssdpMsg, cg_http_request_geturi(ssdpReq));
-	cg_string_addvalue(ssdpMsg, CG_HTTP_SP);
-	cg_string_addvalue(ssdpMsg, cg_http_request_getversion(ssdpReq));
-	cg_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
+	mupnp_string_addvalue(ssdpMsg, mupnp_http_request_getmethod(ssdpReq));
+	mupnp_string_addvalue(ssdpMsg, CG_HTTP_SP);
+	mupnp_string_addvalue(ssdpMsg, mupnp_http_request_geturi(ssdpReq));
+	mupnp_string_addvalue(ssdpMsg, CG_HTTP_SP);
+	mupnp_string_addvalue(ssdpMsg, mupnp_http_request_getversion(ssdpReq));
+	mupnp_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
 	
-	for (header = cg_http_packet_getheaders((CgHttpPacket *)ssdpReq); header != NULL; header = cg_http_header_next(header)) {
-		name = cg_http_header_getname(header);
-		value = cg_http_header_getvalue(header);
-		cg_string_addvalue(ssdpMsg, name);
-		cg_string_addvalue(ssdpMsg, CG_HTTP_COLON);
-		cg_string_addvalue(ssdpMsg, CG_HTTP_SP);
-		cg_string_addvalue(ssdpMsg, value);
-		cg_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
+	for (header = mupnp_http_packet_getheaders((CgHttpPacket *)ssdpReq); header != NULL; header = mupnp_http_header_next(header)) {
+		name = mupnp_http_header_getname(header);
+		value = mupnp_http_header_getvalue(header);
+		mupnp_string_addvalue(ssdpMsg, name);
+		mupnp_string_addvalue(ssdpMsg, CG_HTTP_COLON);
+		mupnp_string_addvalue(ssdpMsg, CG_HTTP_SP);
+		mupnp_string_addvalue(ssdpMsg, value);
+		mupnp_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
 	}
-	cg_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
+	mupnp_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
 	
-	return cg_string_getvalue(ssdpMsg);
+	return mupnp_string_getvalue(ssdpMsg);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

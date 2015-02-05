@@ -23,49 +23,49 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnp_status_new
+* mupnp_upnp_status_new
 ****************************************/
 
-CgUpnpStatus *cg_upnp_status_new()
+CgUpnpStatus *mupnp_upnp_status_new()
 {
 	CgUpnpStatus *upnpStat;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	upnpStat = (CgUpnpStatus *)malloc(sizeof(CgUpnpStatus));
 
 	if ( NULL != upnpStat )
 	{
 		upnpStat->code = 0;
-		upnpStat->description = cg_string_new();
+		upnpStat->description = mupnp_string_new();
 	}
 
 	return upnpStat;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_status_delete
+* mupnp_upnp_status_delete
 ****************************************/
 
-void cg_upnp_status_delete(CgUpnpStatus *upnpStat)
+void mupnp_upnp_status_delete(CgUpnpStatus *upnpStat)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_string_delete(upnpStat->description);
+	mupnp_string_delete(upnpStat->description);
 	free(upnpStat);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_status_code2string
+* mupnp_upnp_status_code2string
 ****************************************/
 
-char *cg_upnp_status_code2string(int code)
+char *mupnp_upnp_status_code2string(int code)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	switch (code) {
 	case CG_UPNP_STATUS_INVALID_ACTION: return "Invalid Action";
@@ -76,5 +76,5 @@ char *cg_upnp_status_code2string(int code)
 	}
 	 return "";
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

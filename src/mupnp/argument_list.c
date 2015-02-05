@@ -22,85 +22,85 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnp_argument_new
+* mupnp_upnp_argument_new
 ****************************************/
 
-CgUpnpArgumentList *cg_upnp_argumentlist_new()
+CgUpnpArgumentList *mupnp_upnp_argumentlist_new()
 {
 	CgUpnpArgument *argumentList;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	argumentList = (CgUpnpArgument *)malloc(sizeof(CgUpnpArgument));
 
 	if ( NULL != argumentList )
-		cg_list_header_init((CgList *)argumentList);
+		mupnp_list_header_init((CgList *)argumentList);
 
 	return argumentList;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_argument_delete
+* mupnp_upnp_argument_delete
 ****************************************/
 
-void cg_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList)
+void mupnp_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_clear((CgList*)argumentList, (CG_LIST_DESTRUCTORFUNC)cg_upnp_argument_delete);
+	mupnp_list_clear((CgList*)argumentList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_argument_delete);
 	free(argumentList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_argumentlist_get
+* mupnp_upnp_argumentlist_get
 ****************************************/
 
-CgUpnpArgument *cg_upnp_argumentlist_get(CgUpnpArgumentList *argList, const char *name)
+CgUpnpArgument *mupnp_upnp_argumentlist_get(CgUpnpArgumentList *argList, const char *name)
 {
 	CgUpnpArgument *arg;
 	const char *argName;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (name == NULL)
 		return NULL;
 		
-	for (arg = cg_upnp_argumentlist_gets(argList); arg != NULL; arg = cg_upnp_argument_next(arg)) {
-		argName = cg_upnp_argument_getname(arg);
+	for (arg = mupnp_upnp_argumentlist_gets(argList); arg != NULL; arg = mupnp_upnp_argument_next(arg)) {
+		argName = mupnp_upnp_argument_getname(arg);
 		if (argName == NULL)
 			continue;
-		if (cg_strcasecmp(argName, name) == 0)
+		if (mupnp_strcasecmp(argName, name) == 0)
 			return arg;
 	}
 
 	return NULL;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_argumentlist_set
+* mupnp_upnp_argumentlist_set
 ****************************************/
 
-void cg_upnp_argumentlist_set(CgUpnpArgumentList *argList, CgUpnpArgumentList *srcArgList)
+void mupnp_upnp_argumentlist_set(CgUpnpArgumentList *argList, CgUpnpArgumentList *srcArgList)
 {
 	CgUpnpArgument *arg;
 	CgUpnpArgument *srcArg;
 	const char *srcArgName;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	for (srcArg = cg_upnp_argumentlist_gets(srcArgList); srcArg != NULL; srcArg = cg_upnp_argument_next(srcArg)) {
-		srcArgName = cg_upnp_argument_getname(srcArg);
-		arg = cg_upnp_argumentlist_get(argList, srcArgName);
+	for (srcArg = mupnp_upnp_argumentlist_gets(srcArgList); srcArg != NULL; srcArg = mupnp_upnp_argument_next(srcArg)) {
+		srcArgName = mupnp_upnp_argument_getname(srcArg);
+		arg = mupnp_upnp_argumentlist_get(argList, srcArgName);
 		if (arg == NULL)
 			continue;
-		cg_upnp_argument_setvalue(arg, cg_upnp_argument_getvalue(srcArg));
+		mupnp_upnp_argument_setvalue(arg, mupnp_upnp_argument_getvalue(srcArg));
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

@@ -20,10 +20,10 @@
 extern "C" {
 #endif
 
-void cg_kb_init();
-int cg_kb_hit();
-int cg_kb_key();
-void cg_kb_exit();
+void mupnp_kb_init();
+int mupnp_kb_hit();
+int mupnp_kb_key();
+void mupnp_kb_exit();
 
 #ifdef  __cplusplus
 }

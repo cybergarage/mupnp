@@ -19,15 +19,15 @@
 *		- WINCE support (still untested)
 *	07/18/07
 *		- Added the following functions.
-*		  cg_file_open()
-*		  cg_file_close()
-*		  cg_file_write()
-*		  cg_file_read()
-*		  cg_file_seek() ]
+*		  mupnp_file_open()
+*		  mupnp_file_close()
+*		  mupnp_file_write()
+*		  mupnp_file_read()
+*		  mupnp_file_seek() ]
 *  08/19/07
 *		- Added the following functions.
-*		  cg_file_setpath()
-*		  cg_file_setfilename()
+*		  mupnp_file_setpath()
+*		  mupnp_file_setfilename()
 *
 ******************************************************************/
 
@@ -79,94 +79,94 @@ struct stat {
 #endif
 
 /****************************************
-* cg_file_new
+* mupnp_file_new
 ****************************************/
 
-CgFile *cg_file_new()
+CgFile *mupnp_file_new()
 {
 	CgFile *file;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 	
 	file = (CgFile *)malloc(sizeof(CgFile));
 
 	if ( NULL != file )
 	{
-		cg_list_node_init((CgList *)file);
-		file->name = cg_string_new();
-		file->path = cg_string_new();
+		mupnp_list_node_init((CgList *)file);
+		file->name = mupnp_string_new();
+		file->path = mupnp_string_new();
 		file->content = NULL;
 		file->fp = NULL;
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return file;
 }
 
 /****************************************
-* cg_file_delete
+* mupnp_file_delete
 ****************************************/
 
-void cg_file_delete(CgFile *file)
+void mupnp_file_delete(CgFile *file)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)file);
+	mupnp_list_remove((CgList *)file);
 
-	cg_string_delete(file->name);
-	cg_string_delete(file->path);
+	mupnp_string_delete(file->name);
+	mupnp_string_delete(file->path);
 	if (file->content != NULL)
 		free(file->content);
 	free(file);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_setname
+* mupnp_file_setname
 ****************************************/
 
-void cg_file_setname(CgFile *file, char *name)
+void mupnp_file_setname(CgFile *file, char *name)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_string_setvalue(file->name, name);
+	mupnp_string_setvalue(file->name, name);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_getname
+* mupnp_file_getname
 ****************************************/
 
-char *cg_file_getname(CgFile *file)
+char *mupnp_file_getname(CgFile *file)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return cg_string_getvalue(file->name);
+	return mupnp_string_getvalue(file->name);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_getname
+* mupnp_file_getname
 ****************************************/
 
-long cg_file_getlastmodified(CgFile *file)
+long mupnp_file_getlastmodified(CgFile *file)
 {
 	char *fileName;
 #if !defined (WINCE)
 	struct stat buf ;
 #endif
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 #if !defined (WINCE)
 	buf.st_mtime = 0;
 #endif
 
-	fileName = cg_file_getname(file);
+	fileName = mupnp_file_getname(file);
 #if defined(BTRON) || defined(ITRON) || defined(TENGINE) 
 	if(u_stat(fileName, &buf ) == -1)
 		return 0;
@@ -181,23 +181,23 @@ long cg_file_getlastmodified(CgFile *file)
 	return buf.st_mtime;
 #endif
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_getname
+* mupnp_file_getname
 ****************************************/
 
-long cg_file_getlength(CgFile *file)
+long mupnp_file_getlength(CgFile *file)
 {
 	char *fileName;
 #if !defined (WINCE)
 	struct stat buf ;
 #endif
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	fileName = cg_file_getname(file);
+	fileName = mupnp_file_getname(file);
 #if defined(BTRON) || defined(ITRON) || defined(TENGINE) 
 	if(u_stat(fileName, &buf ) == -1)
 		return 0;
@@ -210,7 +210,7 @@ long cg_file_getlength(CgFile *file)
 		return 0;
 #endif
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 #if !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && !defined (WINCE)
 	return buf.st_size;
@@ -218,10 +218,10 @@ long cg_file_getlength(CgFile *file)
 }
 
 /****************************************
-* cg_file_exists
+* mupnp_file_exists
 ****************************************/
 
-BOOL cg_file_exists(CgFile *file)
+BOOL mupnp_file_exists(CgFile *file)
 {
 #if !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) 
 	FILE *fp;
@@ -230,9 +230,9 @@ BOOL cg_file_exists(CgFile *file)
 #endif
 	char *fileName;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	fileName = cg_file_getname(file);
+	fileName = mupnp_file_getname(file);
 	
 #if !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) 
 	fp = fopen(fileName, "r");
@@ -248,21 +248,21 @@ BOOL cg_file_exists(CgFile *file)
 	return TRUE;
 #endif
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_remove
+* mupnp_file_remove
 ****************************************/
 
-BOOL cg_file_remove(CgFile *file)
+BOOL mupnp_file_remove(CgFile *file)
 {
 	char *fileName;
 	int removeSuccess = 0;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	fileName = cg_file_getname(file);
+	fileName = mupnp_file_getname(file);
 #if defined(WINCE)
 	#pragma message("############################## FIXMELATER cfile.c - Verify File removal (untested on CE)")
 	removeSuccess = DeleteFile((void*)fileName);
@@ -272,102 +272,102 @@ BOOL cg_file_remove(CgFile *file)
 	
 	return (removeSuccess == 0) ? TRUE : FALSE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_setcontent
+* mupnp_file_setcontent
 ****************************************/
 
-void cg_file_setcontent(CgFile *file, char *content)
+void mupnp_file_setcontent(CgFile *file, char *content)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (file->content != NULL) {
 		free(file->content);
 		file->content = NULL;
 	}
-	file->content = cg_strdup(content);
+	file->content = mupnp_strdup(content);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_getcontent
+* mupnp_file_getcontent
 ****************************************/
 
-char *cg_file_getcontent(CgFile *file)
+char *mupnp_file_getcontent(CgFile *file)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	return file->content;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_getfilename
+* mupnp_file_getfilename
 ****************************************/
 
-char *cg_file_getfilename(CgFile *file)
+char *mupnp_file_getfilename(CgFile *file)
 {
 	char *fileName;
 	int sepIdx;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	fileName = cg_file_getname(file);	
-	sepIdx = cg_strrchr(fileName, CG_FILE_SEPARATOR, 1);
+	fileName = mupnp_file_getname(file);	
+	sepIdx = mupnp_strrchr(fileName, CG_FILE_SEPARATOR, 1);
 	if (0 < sepIdx)
 		return (fileName + sepIdx + 1);
 	return NULL;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_getpath
+* mupnp_file_getpath
 ****************************************/
 
-char *cg_file_getpath(CgFile *file)
+char *mupnp_file_getpath(CgFile *file)
 {
 	char *path;
 	char *fileName;
 	int sepIdx;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	path = cg_string_getvalue(file->path);
+	path = mupnp_string_getvalue(file->path);
 	if (path != NULL)
 		return path;
 		
-	fileName = cg_file_getname(file);	
-	sepIdx = cg_strrchr(fileName, CG_FILE_SEPARATOR, 1);
+	fileName = mupnp_file_getname(file);	
+	sepIdx = mupnp_strrchr(fileName, CG_FILE_SEPARATOR, 1);
 	
 	if (0 < sepIdx) {
 		path = (char *)malloc(sizeof(char)*(sepIdx+1));
 
 		if  ( NULL == path )
 		{
-			cg_log_debug_s("Memory allocation failure!\n");
+			mupnp_log_debug_s("Memory allocation failure!\n");
 			return NULL;
 		}
 		
-		cg_strncpy(path, fileName, sepIdx);
+		mupnp_strncpy(path, fileName, sepIdx);
 		path[sepIdx]='\0';
-		cg_string_setpointervalue(file->path, path, cg_strlen(path));
+		mupnp_string_setpointervalue(file->path, path, mupnp_strlen(path));
 	}
 	
-	return cg_string_getvalue(file->path);
+	return mupnp_string_getvalue(file->path);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_load
+* mupnp_file_load
 ****************************************/
 
-BOOL cg_file_load(CgFile *file)
+BOOL mupnp_file_load(CgFile *file)
 {
 #if defined(WIN32) || defined(HAVE_FOPEN)
 	FILE *fp;
@@ -381,7 +381,7 @@ BOOL cg_file_load(CgFile *file)
 	char *fileName;
 	long fileLen;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if ( NULL == file )
 		return FALSE;
@@ -391,16 +391,16 @@ BOOL cg_file_load(CgFile *file)
 		file->content = NULL;
 	}
 	
-	fileLen = cg_file_getlength(file);
+	fileLen = mupnp_file_getlength(file);
 	if (fileLen <= 0)
 		return FALSE;
 		
-	fileName = cg_file_getname(file);
+	fileName = mupnp_file_getname(file);
 	file->content = (char *)malloc(fileLen + 1);		
 
 	if ( NULL == file->content )
 	{
-		cg_log_debug("Memory allocation failure!\n");
+		mupnp_log_debug("Memory allocation failure!\n");
 		return FALSE;
 	}
 	
@@ -437,14 +437,14 @@ BOOL cg_file_load(CgFile *file)
 	
 	return TRUE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_save
+* mupnp_file_save
 ****************************************/
 
-BOOL cg_file_save(CgFile *file)
+BOOL mupnp_file_save(CgFile *file)
 {
 #if defined(WIN32) || defined(HAVE_FOPEN)
 	FILE *fp;
@@ -459,16 +459,16 @@ BOOL cg_file_save(CgFile *file)
 #endif
 	char *fileName;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	fileName = cg_file_getname(file);
+	fileName = mupnp_file_getname(file);
 	if (fileName == NULL)
 		return FALSE;
 		
 	if (file->content == NULL)
 		return FALSE;
 	
-	contentLen = cg_strlen(file->content);
+	contentLen = mupnp_strlen(file->content);
 	if (contentLen <= 0)
 		return FALSE;
 	
@@ -502,14 +502,14 @@ BOOL cg_file_save(CgFile *file)
 
 	return TRUE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_file_listfiles
+* mupnp_file_listfiles
 ****************************************/
 
-int cg_file_listfiles(CgFile *file, CgFileList *fileList)
+int mupnp_file_listfiles(CgFile *file, CgFileList *fileList)
 {
 	char *dir;
 	char *fileName;
@@ -528,66 +528,66 @@ int cg_file_listfiles(CgFile *file, CgFileList *fileList)
 	int n;
 #endif
 
-	dir = cg_file_getname(file);
-	if (cg_strlen(dir) <= 0)
+	dir = mupnp_file_getname(file);
+	if (mupnp_strlen(dir) <= 0)
 		return 0;
 
 #if defined(WIN32)
-	findDirStr = cg_string_new();
-	cg_string_addvalue(findDirStr, dir);
-	cg_string_addvalue(findDirStr, "\\*.*");
+	findDirStr = mupnp_string_new();
+	mupnp_string_addvalue(findDirStr, dir);
+	mupnp_string_addvalue(findDirStr, "\\*.*");
 	#if defined(UNICODE)
-	MultiByteToWideChar(CP_UTF8, 0, cg_string_getvalue(findDirStr), -1, wCharBuf, (MAX_PATH-1));
+	MultiByteToWideChar(CP_UTF8, 0, mupnp_string_getvalue(findDirStr), -1, wCharBuf, (MAX_PATH-1));
 	hFind = FindFirstFile(wCharBuf, &fd);
 	#else
-	hFind = FindFirstFile(cg_string_getvalue(findDirStr), &fd);
+	hFind = FindFirstFile(mupnp_string_getvalue(findDirStr), &fd);
 	#endif
 	if (hFind != INVALID_HANDLE_VALUE) {
 		do{
 			#if defined(UNICODE)
 			WideCharToMultiByte(CP_ACP, 0, fd.cFileName, -1, mCharBuf, (MAX_PATH-1), NULL, NULL);
-			fileName = cg_strdup(mCharBuf);
+			fileName = mupnp_strdup(mCharBuf);
 			#else
-			fileName = cg_strdup(fd.cFileName);
+			fileName = mupnp_strdup(fd.cFileName);
 			#endif
-			if (!cg_streq(".", fileName) && !cg_streq("..", fileName)) {
-				fullPathStr = cg_string_new();
-				cg_string_addvalue(fullPathStr, dir);
-				cg_string_addvalue(fullPathStr, "\\");
-				cg_string_addvalue(fullPathStr, fileName);
+			if (!mupnp_streq(".", fileName) && !mupnp_streq("..", fileName)) {
+				fullPathStr = mupnp_string_new();
+				mupnp_string_addvalue(fullPathStr, dir);
+				mupnp_string_addvalue(fullPathStr, "\\");
+				mupnp_string_addvalue(fullPathStr, fileName);
 //				conType = (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ? CG_UPNPAV_CONTENT_CONTAINER : CG_UPNPAV_CONTENT_ITEM;
 #else
 	n = scandir(dir, &dirFileList, 0, alphasort);
 	if (0 <= n) {
 		while(n--) {
-			if (!cg_streq(".", dirFileList[n]->d_name) && !cg_streq("..", dirFileList[n]->d_name)) {
-				fileName = cg_strdup(dirFileList[n]->d_name);
-				fullPathStr = cg_string_new();
-				cg_string_addvalue(fullPathStr, dir);
-				cg_string_addvalue(fullPathStr, "/");
-				cg_string_addvalue(fullPathStr, dirFileList[n]->d_name);
-//				if(stat(cg_string_getvalue(fullPathStr), &fileStat) != -1)
+			if (!mupnp_streq(".", dirFileList[n]->d_name) && !mupnp_streq("..", dirFileList[n]->d_name)) {
+				fileName = mupnp_strdup(dirFileList[n]->d_name);
+				fullPathStr = mupnp_string_new();
+				mupnp_string_addvalue(fullPathStr, dir);
+				mupnp_string_addvalue(fullPathStr, "/");
+				mupnp_string_addvalue(fullPathStr, dirFileList[n]->d_name);
+//				if(stat(mupnp_string_getvalue(fullPathStr), &fileStat) != -1)
 //				conType = ((fileStat.st_mode & S_IFMT)==S_IFDIR) ? CG_UPNPAV_CONTENT_CONTAINER : CG_UPNPAV_CONTENT_ITEM;
 #endif
 				/* file */
-				childFile = cg_file_new();
+				childFile = mupnp_file_new();
 				if (!childFile)
 					continue;
 
 				/* title */
-				cg_file_setname(childFile, fileName);
+				mupnp_file_setname(childFile, fileName);
 
-				cg_filelist_add(fileList, childFile);
+				mupnp_filelist_add(fileList, childFile);
 
 				free(fileName);
-				cg_string_delete(fullPathStr);
+				mupnp_string_delete(fullPathStr);
 				
 #if defined(WIN32)
 			}
 		} while(FindNextFile(hFind,&fd) != FALSE);
 		FindClose(hFind);
 	}
-	cg_string_delete(findDirStr);
+	mupnp_string_delete(findDirStr);
 #else
 			}
 			free(dirFileList[n]);
@@ -596,20 +596,20 @@ int cg_file_listfiles(CgFile *file, CgFileList *fileList)
 	}
 #endif
 
-	return cg_filelist_size(fileList);
+	return mupnp_filelist_size(fileList);
 }
 
 /****************************************
-* cg_file_listfiles
+* mupnp_file_listfiles
 ****************************************/
 
-BOOL cg_file_open(CgFile *file, int mode)
+BOOL mupnp_file_open(CgFile *file, int mode)
 {
 	char *filename;
 	char *stdioMode;
 
-	filename = cg_file_getname(file);
-	if (cg_strlen(filename) <= 0)
+	filename = mupnp_file_getname(file);
+	if (mupnp_strlen(filename) <= 0)
 		return FALSE;
 
 	stdioMode = "";
@@ -628,10 +628,10 @@ BOOL cg_file_open(CgFile *file, int mode)
 }
 
 /****************************************
-* cg_file_listfiles
+* mupnp_file_listfiles
 ****************************************/
 
-BOOL cg_file_close(CgFile *file)
+BOOL mupnp_file_close(CgFile *file)
 {
 	if (!file->fp)
 		return FALSE;
@@ -645,10 +645,10 @@ BOOL cg_file_close(CgFile *file)
 }
 
 /****************************************
-* cg_file_listfiles
+* mupnp_file_listfiles
 ****************************************/
 
-BOOL cg_file_write(CgFile *file, CgByte *buf, int bufLen)
+BOOL mupnp_file_write(CgFile *file, CgByte *buf, int bufLen)
 {
 	if (!file->fp)
 		return FALSE;
@@ -657,10 +657,10 @@ BOOL cg_file_write(CgFile *file, CgByte *buf, int bufLen)
 }
 
 /****************************************
-* cg_file_listfiles
+* mupnp_file_listfiles
 ****************************************/
 
-BOOL cg_file_read(CgFile *file, CgByte *buf, int bufLen)
+BOOL mupnp_file_read(CgFile *file, CgByte *buf, int bufLen)
 {
 	if (!file->fp)
 		return FALSE;
@@ -669,10 +669,10 @@ BOOL cg_file_read(CgFile *file, CgByte *buf, int bufLen)
 }
 
 /****************************************
-* cg_file_listfiles
+* mupnp_file_listfiles
 ****************************************/
 
-BOOL cg_file_seek(CgFile *file, CgInt64 offset, int whence)
+BOOL mupnp_file_seek(CgFile *file, CgInt64 offset, int whence)
 {
 	int stdioWhence;
 
@@ -697,32 +697,32 @@ BOOL cg_file_seek(CgFile *file, CgInt64 offset, int whence)
 }
 
 /****************************************
-* cg_file_setfilename
+* mupnp_file_setfilename
 ****************************************/
 
-void cg_file_setfilename(CgFile *file, char *name)
+void mupnp_file_setfilename(CgFile *file, char *name)
 {
 	int nameLen;
 	char *pathName;
 	int pathNameLen;
 
-	nameLen = cg_strlen(name);
+	nameLen = mupnp_strlen(name);
 	if (nameLen <= 0)
 		return;
 
-	pathName = cg_file_getname(file);
-	pathNameLen = cg_strlen(pathName); 
+	pathName = mupnp_file_getname(file);
+	pathNameLen = mupnp_strlen(pathName); 
 	if (pathNameLen <= 0) {
-		cg_file_setname(file, name);
+		mupnp_file_setname(file, name);
 		return;
 	}
 
 	if (pathName[pathNameLen-1] != CG_FILE_SEPARATOR_CHAR) {
 		if (name[nameLen-1] != CG_FILE_SEPARATOR_CHAR)
-			cg_string_addvalue(file->name, CG_FILE_SEPARATOR);
+			mupnp_string_addvalue(file->name, CG_FILE_SEPARATOR);
 	}
 
-	cg_string_addvalue(file->name, name);
+	mupnp_string_addvalue(file->name, name);
 }
 
 #endif

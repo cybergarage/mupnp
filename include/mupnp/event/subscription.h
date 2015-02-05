@@ -50,14 +50,14 @@ typedef CgHttpRequest CgUpnpSubscriptionRequest;
 /**
  * Create new subscription request
  */
-CgUpnpSubscriptionRequest *cg_upnp_event_subscription_request_new();
+CgUpnpSubscriptionRequest *mupnp_upnp_event_subscription_request_new();
 
 /**
  * Delete subscription request
  *
  * @param subReq subscription request
  */
-#define cg_upnp_event_subscription_request_delete(subReq) cg_http_request_delete(subReq)
+#define mupnp_upnp_event_subscription_request_delete(subReq) mupnp_http_request_delete(subReq)
 
 /**** NT ****/
 
@@ -68,7 +68,7 @@ CgUpnpSubscriptionRequest *cg_upnp_event_subscription_request_new();
  * @param ipaddr Host ip address
  * @param port Host port
  */
-#define cg_upnp_event_subscription_request_sethost(subReq, ipaddr, port) cg_http_request_sethost(subReq, ipaddr, port)
+#define mupnp_upnp_event_subscription_request_sethost(subReq, ipaddr, port) mupnp_http_request_sethost(subReq, ipaddr, port)
 
 /**
  * Get host header value from subscription request
@@ -78,7 +78,7 @@ CgUpnpSubscriptionRequest *cg_upnp_event_subscription_request_new();
  *
  * \bug Value not needed here! (It is even processed out from to be compiled code)
  */
-#define cg_upnp_event_subscription_request_gethost(subReq, value) cg_http_request_gethost(subReq)
+#define mupnp_upnp_event_subscription_request_gethost(subReq, value) mupnp_http_request_gethost(subReq)
 
 /**** NT ****/
 
@@ -88,7 +88,7 @@ CgUpnpSubscriptionRequest *cg_upnp_event_subscription_request_new();
  * @param subReq Subscription request
  * @param value Notification type
  */
-#define cg_upnp_event_subscription_request_setnt(subReq, value) cg_http_request_setheadervalue(subReq, CG_HTTP_NT, value)
+#define mupnp_upnp_event_subscription_request_setnt(subReq, value) mupnp_http_request_setheadervalue(subReq, CG_HTTP_NT, value)
 
 /**
  * Get NT from subscription request
@@ -98,7 +98,7 @@ CgUpnpSubscriptionRequest *cg_upnp_event_subscription_request_new();
  *
  * \bug Value not needed here!
  */
-#define cg_upnp_event_subscription_request_getnt(subReq, value) cg_http_request_getheadervalue(subReq, CG_HTTP_NT)
+#define mupnp_upnp_event_subscription_request_getnt(subReq, value) mupnp_http_request_getheadervalue(subReq, CG_HTTP_NT)
 
 /**** CALLBACK ****/
 
@@ -108,7 +108,7 @@ CgUpnpSubscriptionRequest *cg_upnp_event_subscription_request_new();
  * @param subReq Subscription request
  * @value value String which defines the callback URL
  */
-#define cg_upnp_event_subscription_request_setcallback(subReq, value) cg_http_request_setheadervalue(subReq, CG_HTTP_CALLBACK, value)
+#define mupnp_upnp_event_subscription_request_setcallback(subReq, value) mupnp_http_request_setheadervalue(subReq, CG_HTTP_CALLBACK, value)
 
 /**
  * Get callback url from subscription request
@@ -118,7 +118,7 @@ CgUpnpSubscriptionRequest *cg_upnp_event_subscription_request_new();
  *
  * \bug Value not needed here!
  */
-#define cg_upnp_event_subscription_request_getcallback(subReq, value) cg_http_request_getheadervalue(subReq, CG_HTTP_CALLBACK)
+#define mupnp_upnp_event_subscription_request_getcallback(subReq, value) mupnp_http_request_getheadervalue(subReq, CG_HTTP_CALLBACK)
 
 /**** SID ****/
 
@@ -128,7 +128,7 @@ CgUpnpSubscriptionRequest *cg_upnp_event_subscription_request_new();
  * @param subReq Subscription request
  * @param value SID
  */
-#define cg_upnp_event_subscription_request_setsid(subReq, value) cg_http_request_setheadervalue(subReq, CG_HTTP_SID, value)
+#define mupnp_upnp_event_subscription_request_setsid(subReq, value) mupnp_http_request_setheadervalue(subReq, CG_HTTP_SID, value)
 
 /**
  * Get SID from subscription request object
@@ -138,7 +138,7 @@ CgUpnpSubscriptionRequest *cg_upnp_event_subscription_request_new();
  *
  * \bug Value not needed here!
  */
-#define cg_upnp_event_subscription_request_getsid(subReq, value) cg_http_request_getheadervalue(subReq, CG_HTTP_SID)
+#define mupnp_upnp_event_subscription_request_getsid(subReq, value) mupnp_http_request_getheadervalue(subReq, CG_HTTP_SID)
 
 /**** Timeout ****/
 
@@ -148,7 +148,7 @@ CgUpnpSubscriptionRequest *cg_upnp_event_subscription_request_new();
  * @param subReq Subscription request
  * @param timeout Timeout
  */
-void cg_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest *subReq, long timeout);
+void mupnp_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest *subReq, long timeout);
 
 /**
  * Get timeout value from subscription request
@@ -157,7 +157,7 @@ void cg_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest *su
  *
  * @return Timeout
  */
-long cg_upnp_event_subscription_request_gettimeout(CgUpnpSubscriptionRequest *subReq);
+long mupnp_upnp_event_subscription_request_gettimeout(CgUpnpSubscriptionRequest *subReq);
 
 #ifdef  __cplusplus
 }

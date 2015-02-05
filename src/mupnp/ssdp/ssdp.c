@@ -27,89 +27,89 @@ static char *ssdpIPv6Address = CG_UPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS;
 static int ssdpAnnounceCount = CG_UPNP_SSDP_DEFAULT_ANNOUNCE_COUNT;
 
 /****************************************
-* cg_upnp_ssdp_setipv6address
+* mupnp_upnp_ssdp_setipv6address
 ****************************************/
 
-void cg_upnp_ssdp_setipv6address(const char *addr)
+void mupnp_upnp_ssdp_setipv6address(const char *addr)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	ssdpIPv6Address = CG_UPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_ssdp_getipv6address
+* mupnp_upnp_ssdp_getipv6address
 ****************************************/
 
-const char *cg_upnp_ssdp_getipv6address()
+const char *mupnp_upnp_ssdp_getipv6address()
 {
-	cg_log_debug_l4("Entering...\n");
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return ssdpIPv6Address;
 }
 
 /****************************************
-* cg_upnp_ssdp_setannouncecount
+* mupnp_upnp_ssdp_setannouncecount
 ****************************************/
 
-void cg_upnp_ssdp_setannouncecount(int count)
+void mupnp_upnp_ssdp_setannouncecount(int count)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	ssdpAnnounceCount = count;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_ssdp_getannouncecount
+* mupnp_upnp_ssdp_getannouncecount
 ****************************************/
 
-int cg_upnp_ssdp_getannouncecount()
+int mupnp_upnp_ssdp_getannouncecount()
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	return ssdpAnnounceCount;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_ssdp_getleasetime
+* mupnp_upnp_ssdp_getleasetime
 ****************************************/
 
-int cg_upnp_ssdp_getleasetime(const char *cacheCnt)
+int mupnp_upnp_ssdp_getleasetime(const char *cacheCnt)
 {
 	ssize_t eqIdx;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (cacheCnt == NULL)
 		return 0;
-	eqIdx = cg_strchr(cacheCnt, "=", 1);
+	eqIdx = mupnp_strchr(cacheCnt, "=", 1);
 	if (eqIdx < 0)
 		return 0;
 	return atoi((cacheCnt + eqIdx + 1));
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_ssdp_gethostaddress
+* mupnp_upnp_ssdp_gethostaddress
 ****************************************/
 
-const char *cg_upnp_ssdp_gethostaddress(const char *ifAddr)
+const char *mupnp_upnp_ssdp_gethostaddress(const char *ifAddr)
 {
 	const char *ssdpAddr = CG_UPNP_SSDP_ADDRESS;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	if (cg_net_isipv6address(ifAddr) == TRUE)
-		ssdpAddr = cg_upnp_ssdp_getipv6address();
+	if (mupnp_net_isipv6address(ifAddr) == TRUE)
+		ssdpAddr = mupnp_upnp_ssdp_getipv6address();
 	return ssdpAddr;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

@@ -39,48 +39,48 @@ void PrintContentDirectory(CgUpnpAction *browseAction, int indent, const char *o
 		indentStr[n] = ' ';
 	indentStr[n] = '\0';
 
-	cg_upnp_action_setargumentvaluebyname(browseAction, "ObjectID", objectId);
-	cg_upnp_action_setargumentvaluebyname(browseAction, "BrowseFlag", "BrowseDirectChildren");
-	cg_upnp_action_setargumentvaluebyname(browseAction, "Filter", "*");
-	cg_upnp_action_setargumentvaluebyname(browseAction, "StartingIndex", "0");
-	cg_upnp_action_setargumentvaluebyname(browseAction, "RequestedCount", "0");
-	cg_upnp_action_setargumentvaluebyname(browseAction, "SortCriteria", "");
+	mupnp_upnp_action_setargumentvaluebyname(browseAction, "ObjectID", objectId);
+	mupnp_upnp_action_setargumentvaluebyname(browseAction, "BrowseFlag", "BrowseDirectChildren");
+	mupnp_upnp_action_setargumentvaluebyname(browseAction, "Filter", "*");
+	mupnp_upnp_action_setargumentvaluebyname(browseAction, "StartingIndex", "0");
+	mupnp_upnp_action_setargumentvaluebyname(browseAction, "RequestedCount", "0");
+	mupnp_upnp_action_setargumentvaluebyname(browseAction, "SortCriteria", "");
 	
-	if (!cg_upnp_action_post(browseAction))
+	if (!mupnp_upnp_action_post(browseAction))
 		return;
 
-	resultXml = cg_upnp_action_getargumentvaluebyname(browseAction, "Result");
-	if (cg_strlen(resultXml) <= 0)
+	resultXml = mupnp_upnp_action_getargumentvaluebyname(browseAction, "Result");
+	if (mupnp_strlen(resultXml) <= 0)
 		return;
 
-	rootNode = cg_xml_nodelist_new();
-	xmlParser = cg_xml_parser_new();
-	if (cg_xml_parse(xmlParser, rootNode, resultXml, cg_strlen(resultXml))) {
-		didlNode = cg_xml_nodelist_getbyname(rootNode, "DIDL-Lite");
+	rootNode = mupnp_xml_nodelist_new();
+	xmlParser = mupnp_xml_parser_new();
+	if (mupnp_xml_parse(xmlParser, rootNode, resultXml, mupnp_strlen(resultXml))) {
+		didlNode = mupnp_xml_nodelist_getbyname(rootNode, "DIDL-Lite");
 		if (didlNode) {
-			for (cnode=cg_xml_node_getchildnodes(didlNode); cnode; cnode=cg_xml_node_next(cnode)) {
-				id = cg_xml_node_getattributevalue(cnode, "id");
-				title = cg_xml_node_getchildnodevalue(cnode, "dc:title");
-				if (cg_xml_node_isname(cnode, "container")) {
+			for (cnode=mupnp_xml_node_getchildnodes(didlNode); cnode; cnode=mupnp_xml_node_next(cnode)) {
+				id = mupnp_xml_node_getattributevalue(cnode, "id");
+				title = mupnp_xml_node_getchildnodevalue(cnode, "dc:title");
+				if (mupnp_xml_node_isname(cnode, "container")) {
 					printf(" %s[%s]%s\n", 
 						indentStr, 
 						id, 
-						((0 < cg_strlen(title)) ? title : ""));
+						((0 < mupnp_strlen(title)) ? title : ""));
 					PrintContentDirectory(browseAction, (indent+1), id);
 				}
 				else {
-					url = cg_xml_node_getchildnodevalue(cnode, "res");
+					url = mupnp_xml_node_getchildnodevalue(cnode, "res");
 					printf(" %s[%s]%s (%s)\n", 
 						indentStr, 
 						id, 
-						((0 < cg_strlen(title)) ? title : ""),
-						((0 < cg_strlen(url)) ? url: ""));
+						((0 < mupnp_strlen(title)) ? title : ""),
+						((0 < mupnp_strlen(url)) ? url: ""));
 				}
 			}
 		}
 	}
-	cg_xml_nodelist_delete(rootNode);
-	cg_xml_parser_delete(xmlParser);
+	mupnp_xml_nodelist_delete(rootNode);
+	mupnp_xml_parser_delete(xmlParser);
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -94,28 +94,28 @@ void PrintDMSInfo(CgUpnpDevice *dev, int dmsNum)
 	CgUpnpStateVariable *searchCap;
 	CgUpnpStateVariable *sorpCap;
 
-	if (!cg_upnp_device_isdevicetype(dev, UPNPAVDUMP_DMS_DEVICETYPE))
+	if (!mupnp_upnp_device_isdevicetype(dev, UPNPAVDUMP_DMS_DEVICETYPE))
 		return;
 	
-	printf("[%d] : %s\n", dmsNum, cg_upnp_device_getfriendlyname(dev));
+	printf("[%d] : %s\n", dmsNum, mupnp_upnp_device_getfriendlyname(dev));
 
-	conDirService = cg_upnp_device_getservicebytype(dev, UPNPAVDUMP_DMS_CONTENTDIR_SERVICETYPE);
+	conDirService = mupnp_upnp_device_getservicebytype(dev, UPNPAVDUMP_DMS_CONTENTDIR_SERVICETYPE);
 	if (!conDirService)
 		return;
 
-	searchCap = cg_upnp_service_getstatevariablebyname(conDirService, "SearchCapabilities");
+	searchCap = mupnp_upnp_service_getstatevariablebyname(conDirService, "SearchCapabilities");
 	if (searchCap) {
-		if (cg_upnp_statevariable_post(searchCap))
-			printf(" SearchCapabilities = %s\n", cg_upnp_statevariable_getvalue(searchCap));
+		if (mupnp_upnp_statevariable_post(searchCap))
+			printf(" SearchCapabilities = %s\n", mupnp_upnp_statevariable_getvalue(searchCap));
 	}
 
-	sorpCap = cg_upnp_service_getstatevariablebyname(conDirService, "SortCapabilities");
+	sorpCap = mupnp_upnp_service_getstatevariablebyname(conDirService, "SortCapabilities");
 	if (sorpCap) {
-		if (cg_upnp_statevariable_post(sorpCap))
-			printf(" SortCapabilities = %s\n", cg_upnp_statevariable_getvalue(sorpCap));
+		if (mupnp_upnp_statevariable_post(sorpCap))
+			printf(" SortCapabilities = %s\n", mupnp_upnp_statevariable_getvalue(sorpCap));
 	}
 
-	browseAction = cg_upnp_service_getactionbyname(conDirService, UPNPAVDUMP_DMS_BROWSE_ACTIONNAME);
+	browseAction = mupnp_upnp_service_getactionbyname(conDirService, UPNPAVDUMP_DMS_BROWSE_ACTIONNAME);
 	if (!browseAction)
 		return;
 
@@ -132,8 +132,8 @@ void PrintDMSInfos(CgUpnpControlPoint *ctrlPoint)
 	int dmsNum;
 		
 	dmsNum = 0;
-	for (dev = cg_upnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = cg_upnp_device_next(dev)) {
-		if (cg_upnp_device_isdevicetype(dev, UPNPAVDUMP_DMS_DEVICETYPE))
+	for (dev = mupnp_upnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = mupnp_upnp_device_next(dev)) {
+		if (mupnp_upnp_device_isdevicetype(dev, UPNPAVDUMP_DMS_DEVICETYPE))
 			PrintDMSInfo(dev, ++dmsNum);
 	}
 
@@ -153,20 +153,20 @@ int main( int argc, char* argv[] )
 {
 	CgUpnpControlPoint *ctrlPoint;
 
-	ctrlPoint = cg_upnp_controlpoint_new();
-	if (cg_upnp_controlpoint_start(ctrlPoint) == FALSE) {
+	ctrlPoint = mupnp_upnp_controlpoint_new();
+	if (mupnp_upnp_controlpoint_start(ctrlPoint) == FALSE) {
 		printf("Couldn't start this control point !!");
 		exit(1);
 	}
 	
-	cg_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
+	mupnp_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
 
-	cg_sleep(cg_upnp_controlpoint_getssdpsearchmx(ctrlPoint) * 1000);
+	mupnp_sleep(mupnp_upnp_controlpoint_getssdpsearchmx(ctrlPoint) * 1000);
 
 	PrintDMSInfos(ctrlPoint);
 	
-	cg_upnp_controlpoint_stop(ctrlPoint);
-	cg_upnp_controlpoint_delete(ctrlPoint);
+	mupnp_upnp_controlpoint_stop(ctrlPoint);
+	mupnp_upnp_controlpoint_delete(ctrlPoint);
 	
 	return(0);
 }

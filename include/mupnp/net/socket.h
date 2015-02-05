@@ -119,84 +119,84 @@ typedef struct _CgDatagramPacket {
 * Function (Socket)
 ****************************************/
 
-void cg_socket_startup();
-void cg_socket_cleanup();
+void mupnp_socket_startup();
+void mupnp_socket_cleanup();
 
-CgSocket *cg_socket_new(int type);
-#define cg_socket_stream_new() cg_socket_new(CG_NET_SOCKET_STREAM)
-#define cg_socket_dgram_new() cg_socket_new(CG_NET_SOCKET_DGRAM)
-BOOL cg_socket_delete(CgSocket *socket);
+CgSocket *mupnp_socket_new(int type);
+#define mupnp_socket_stream_new() mupnp_socket_new(CG_NET_SOCKET_STREAM)
+#define mupnp_socket_dgram_new() mupnp_socket_new(CG_NET_SOCKET_DGRAM)
+BOOL mupnp_socket_delete(CgSocket *socket);
 
-void cg_socket_setid(CgSocket *socket, SOCKET value);
-#define cg_socket_getid(socket) (socket->id)
+void mupnp_socket_setid(CgSocket *socket, SOCKET value);
+#define mupnp_socket_getid(socket) (socket->id)
 
-#define cg_socket_settype(socket, value) (socket->type = value)
-#define cg_socket_gettype(socket) (socket->type)
-#define cg_socket_issocketstream(socket) ((socket->type & CG_NET_SOCKET_STREAM) ? TRUE : FALSE)
-#define cg_socket_isdatagramstream(socket) ((socket->type & CG_NET_SOCKET_DGRAM) ? TRUE : FALSE)
+#define mupnp_socket_settype(socket, value) (socket->type = value)
+#define mupnp_socket_gettype(socket) (socket->type)
+#define mupnp_socket_issocketstream(socket) ((socket->type & CG_NET_SOCKET_STREAM) ? TRUE : FALSE)
+#define mupnp_socket_isdatagramstream(socket) ((socket->type & CG_NET_SOCKET_DGRAM) ? TRUE : FALSE)
 
-#define cg_socket_setdirection(socket, value) (socket->direction = value)
-#define cg_socket_getdirection(socket) (socket->direction)
-#define cg_socket_isclient(socket) ((socket->direction == CG_NET_SOCKET_CLIENT) ? TRUE : FALSE)
-#define cg_socket_isserver(socket) ((socket->direction == CG_NET_SOCKET_SERVER) ? TRUE : FALSE)
+#define mupnp_socket_setdirection(socket, value) (socket->direction = value)
+#define mupnp_socket_getdirection(socket) (socket->direction)
+#define mupnp_socket_isclient(socket) ((socket->direction == CG_NET_SOCKET_CLIENT) ? TRUE : FALSE)
+#define mupnp_socket_isserver(socket) ((socket->direction == CG_NET_SOCKET_SERVER) ? TRUE : FALSE)
 
-#define cg_socket_setaddress(socket, value) cg_string_setvalue(socket->ipaddr, value)
-#define cg_socket_setport(socket, value) (socket->port = value)
-#define cg_socket_getaddress(socket) cg_string_getvalue(socket->ipaddr)
-#define cg_socket_getport(socket) (socket->port)
+#define mupnp_socket_setaddress(socket, value) mupnp_string_setvalue(socket->ipaddr, value)
+#define mupnp_socket_setport(socket, value) (socket->port = value)
+#define mupnp_socket_getaddress(socket) mupnp_string_getvalue(socket->ipaddr)
+#define mupnp_socket_getport(socket) (socket->port)
 
-BOOL cg_socket_isbound(CgSocket *socket);
-BOOL cg_socket_close(CgSocket *socket);
+BOOL mupnp_socket_isbound(CgSocket *socket);
+BOOL mupnp_socket_close(CgSocket *socket);
 
-BOOL cg_socket_listen(CgSocket *socket);
+BOOL mupnp_socket_listen(CgSocket *socket);
 
-BOOL cg_socket_bind(CgSocket *sock, int bindPort, const char *bindAddr, BOOL bindFlag, BOOL reuseFlag);
-BOOL cg_socket_accept(CgSocket *sock, CgSocket *clientSock);
-BOOL cg_socket_connect(CgSocket *sock, const char *addr, int port);
-ssize_t cg_socket_read(CgSocket *sock, char *buffer, size_t bufferLen);
-size_t cg_socket_write(CgSocket *sock, const char *buffer, size_t bufferLen);
-ssize_t cg_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen);
-size_t cg_socket_skip(CgSocket *sock, size_t skipLen);
+BOOL mupnp_socket_bind(CgSocket *sock, int bindPort, const char *bindAddr, BOOL bindFlag, BOOL reuseFlag);
+BOOL mupnp_socket_accept(CgSocket *sock, CgSocket *clientSock);
+BOOL mupnp_socket_connect(CgSocket *sock, const char *addr, int port);
+ssize_t mupnp_socket_read(CgSocket *sock, char *buffer, size_t bufferLen);
+size_t mupnp_socket_write(CgSocket *sock, const char *buffer, size_t bufferLen);
+ssize_t mupnp_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen);
+size_t mupnp_socket_skip(CgSocket *sock, size_t skipLen);
 
-size_t cg_socket_sendto(CgSocket *sock, const char *addr, int port, const char *data, size_t dataeLen);
-ssize_t cg_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt);
+size_t mupnp_socket_sendto(CgSocket *sock, const char *addr, int port, const char *data, size_t dataeLen);
+ssize_t mupnp_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt);
 
-int cg_socket_getlasterror();
+int mupnp_socket_getlasterror();
 
 /****************************************
 * Function (Multicast)
 ****************************************/
 
-BOOL cg_socket_joingroup(CgSocket *sock, const char *mcastAddr, const char *ifAddr);
+BOOL mupnp_socket_joingroup(CgSocket *sock, const char *mcastAddr, const char *ifAddr);
 
 /****************************************
 * Function (Option)
 ****************************************/
 
-BOOL cg_socket_setreuseaddress(CgSocket *socket, BOOL flag);
-BOOL cg_socket_setmulticastttl(CgSocket *sock,  int ttl);
-BOOL cg_socket_settimeout(CgSocket *sock, int sec);
+BOOL mupnp_socket_setreuseaddress(CgSocket *socket, BOOL flag);
+BOOL mupnp_socket_setmulticastttl(CgSocket *sock,  int ttl);
+BOOL mupnp_socket_settimeout(CgSocket *sock, int sec);
 
 /****************************************
 * Function (DatagramPacket)
 ****************************************/
 
-CgDatagramPacket *cg_socket_datagram_packet_new();
-void cg_socket_datagram_packet_delete(CgDatagramPacket *dgmPkt);
+CgDatagramPacket *mupnp_socket_datagram_packet_new();
+void mupnp_socket_datagram_packet_delete(CgDatagramPacket *dgmPkt);
 
-#define cg_socket_datagram_packet_setdata(dgmPkt, value) cg_string_setvalue(dgmPkt->data, value)
-#define cg_socket_datagram_packet_getdata(dgmPkt) cg_string_getvalue(dgmPkt->data)
+#define mupnp_socket_datagram_packet_setdata(dgmPkt, value) mupnp_string_setvalue(dgmPkt->data, value)
+#define mupnp_socket_datagram_packet_getdata(dgmPkt) mupnp_string_getvalue(dgmPkt->data)
 
-#define cg_socket_datagram_packet_setlocaladdress(dgmPkt, addr) cg_string_setvalue(dgmPkt->localAddress, addr)
-#define cg_socket_datagram_packet_getlocaladdress(dgmPkt) cg_string_getvalue(dgmPkt->localAddress)
-#define cg_socket_datagram_packet_setlocalport(dgmPkt, port) (dgmPkt->localPort = port)
-#define cg_socket_datagram_packet_getlocalport(dgmPkt) (dgmPkt->localPort)
-#define cg_socket_datagram_packet_setremoteaddress(dgmPkt, addr) cg_string_setvalue(dgmPkt->remoteAddress, addr)
-#define cg_socket_datagram_packet_getremoteaddress(dgmPkt) cg_string_getvalue(dgmPkt->remoteAddress)
-#define cg_socket_datagram_packet_setremoteport(dgmPkt, port) (dgmPkt->remotePort = port)
-#define cg_socket_datagram_packet_getremoteport(dgmPkt) (dgmPkt->remotePort)
+#define mupnp_socket_datagram_packet_setlocaladdress(dgmPkt, addr) mupnp_string_setvalue(dgmPkt->localAddress, addr)
+#define mupnp_socket_datagram_packet_getlocaladdress(dgmPkt) mupnp_string_getvalue(dgmPkt->localAddress)
+#define mupnp_socket_datagram_packet_setlocalport(dgmPkt, port) (dgmPkt->localPort = port)
+#define mupnp_socket_datagram_packet_getlocalport(dgmPkt) (dgmPkt->localPort)
+#define mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, addr) mupnp_string_setvalue(dgmPkt->remoteAddress, addr)
+#define mupnp_socket_datagram_packet_getremoteaddress(dgmPkt) mupnp_string_getvalue(dgmPkt->remoteAddress)
+#define mupnp_socket_datagram_packet_setremoteport(dgmPkt, port) (dgmPkt->remotePort = port)
+#define mupnp_socket_datagram_packet_getremoteport(dgmPkt) (dgmPkt->remotePort)
 
-void cg_socket_datagram_packet_copy(CgDatagramPacket *dstDgmPkt, CgDatagramPacket *srcDgmPkt);
+void mupnp_socket_datagram_packet_copy(CgDatagramPacket *dstDgmPkt, CgDatagramPacket *srcDgmPkt);
 
 /****************************************
 * Function (SSLSocket)
@@ -204,8 +204,8 @@ void cg_socket_datagram_packet_copy(CgDatagramPacket *dstDgmPkt, CgDatagramPacke
 
 #if defined(CG_USE_OPENSSL)
 #define CG_NET_SOCKET_SSL 0x0100
-#define cg_socket_ssl_new() cg_socket_new(CG_NET_SOCKET_STREAM | CG_NET_SOCKET_SSL)
-#define cg_socket_isssl(socket) ((socket->type & CG_NET_SOCKET_SSL) ? TRUE : FALSE)
+#define mupnp_socket_ssl_new() mupnp_socket_new(CG_NET_SOCKET_STREAM | CG_NET_SOCKET_SSL)
+#define mupnp_socket_isssl(socket) ((socket->type & CG_NET_SOCKET_SSL) ? TRUE : FALSE)
 #endif
 
 /****************************************
@@ -214,15 +214,15 @@ void cg_socket_datagram_packet_copy(CgDatagramPacket *dstDgmPkt, CgDatagramPacke
 
 #if defined(CG_NET_USE_SOCKET_LIST)
 
-#define cg_socket_next(sock) (CgSocket *)cg_list_next((CgList *)sock)
+#define mupnp_socket_next(sock) (CgSocket *)mupnp_list_next((CgList *)sock)
 
-CgSocketList *cg_socketlist_new();
-void cg_socketlist_delete(CgSocketList *sockList);
+CgSocketList *mupnp_socketlist_new();
+void mupnp_socketlist_delete(CgSocketList *sockList);
 
-#define cg_socketlist_clear(sockList) cg_list_clear((CgList *)sockList, (CG_LIST_DESTRUCTORFUNC)cg_socket_delete)
-#define cg_socketlist_size(sockList) cg_list_size((CgList *)sockList)
-#define cg_socketlist_gets(sockList) (CgSocket *)cg_list_next((CgList *)sockList)
-#define cg_socketlist_add(sockList, sock) cg_list_add((CgList *)sockList, (CgList *)sock)
+#define mupnp_socketlist_clear(sockList) mupnp_list_clear((CgList *)sockList, (CG_LIST_DESTRUCTORFUNC)mupnp_socket_delete)
+#define mupnp_socketlist_size(sockList) mupnp_list_size((CgList *)sockList)
+#define mupnp_socketlist_gets(sockList) (CgSocket *)mupnp_list_next((CgList *)sockList)
+#define mupnp_socketlist_add(sockList, sock) mupnp_list_add((CgList *)sockList, (CgList *)sock)
 
 #endif
 

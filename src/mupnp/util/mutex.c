@@ -26,19 +26,19 @@
 #endif
 
 #if !defined(CG_MUTEX_LOG_ENABLED)
-#undef cg_log_debug_l4
-#define cg_log_debug_l4(msg)
+#undef mupnp_log_debug_l4
+#define mupnp_log_debug_l4(msg)
 #endif
 
 /****************************************
-* cg_mutex_new
+* mupnp_mutex_new
 ****************************************/
 
-CgMutex *cg_mutex_new()
+CgMutex *mupnp_mutex_new()
 {
 	CgMutex *mutex;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 	
 	mutex = (CgMutex *)malloc(sizeof(CgMutex));
 
@@ -69,21 +69,21 @@ CgMutex *cg_mutex_new()
 #endif
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return mutex;
 }
 
 /****************************************
-* cg_mutex_delete
+* mupnp_mutex_delete
 ****************************************/
 
-BOOL cg_mutex_delete(CgMutex *mutex)
+BOOL mupnp_mutex_delete(CgMutex *mutex)
 {
 	if (!mutex)
 		return FALSE;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
 	CloseHandle(mutex->mutexID);
@@ -100,13 +100,13 @@ BOOL cg_mutex_delete(CgMutex *mutex)
 #endif
 	free(mutex);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_mutex_lock
+* mupnp_mutex_lock
 ****************************************/
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
 #include <string.h>
@@ -115,13 +115,13 @@ BOOL cg_mutex_delete(CgMutex *mutex)
 /* Contains record for every thread which has lock or is
  * waiting for lock
  */
-CgLockInfo *cg_tlt_list = NULL;
+CgLockInfo *mupnp_tlt_list = NULL;
 
 /* Used to synchronize the thread lock record db access.
  */
 pthread_mutex_t tlt_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-BOOL cg_mutex_lock_trace(	const char *file, 
+BOOL mupnp_mutex_lock_trace(	const char *file, 
 				int line, 
 				const char *function,
 				CgMutex *mutex)
@@ -140,7 +140,7 @@ BOOL cg_mutex_lock_trace(	const char *file,
 
 	/* Searching existing lock record for this thread.
 	 */
-	temp = cg_tlt_list;
+	temp = mupnp_tlt_list;
 	while ( NULL != temp ) {
 		if ( pthread_equal(temp->thread_id, thid) && ( temp->mutex_id == (int)mutex ) ) {
 			found = 1;
@@ -154,8 +154,8 @@ BOOL cg_mutex_lock_trace(	const char *file,
 		/* Double locking detected */
 		FILE *error_dump = NULL;
 
-		system("date >>/tmp/cg_td_errors.log");
-		error_dump = fopen("/tmp/cg_td_errors.log", "a");
+		system("date >>/tmp/mupnp_td_errors.log");
+		error_dump = fopen("/tmp/mupnp_td_errors.log", "a");
 		fprintf(stderr, "Double locking detected, locked from\n\tfile: %s\n\tline: %d\n\tfunction: %s\ntried to lock again from\n\tfile: %s\n\tline: %d\n\tfunction: %s\nfailing fast...\n",
                         temp->file,
                         temp->line,
@@ -186,8 +186,8 @@ BOOL cg_mutex_lock_trace(	const char *file,
 	 * mutexes... */
 	temp->mutex_id = (int)mutex;
 
-        temp->next = cg_tlt_list;
-	cg_tlt_list = temp;
+        temp->next = mupnp_tlt_list;
+	mupnp_tlt_list = temp;
 
 	pthread_mutex_unlock(&tlt_mutex);
 
@@ -197,13 +197,13 @@ BOOL cg_mutex_lock_trace(	const char *file,
 		 * about thread having lock and threads waiting for lock.
 		 */
 		pthread_mutex_lock(&tlt_mutex);
-		temp = cg_tlt_list;
+		temp = mupnp_tlt_list;
 
 		while ( NULL != temp  && ( temp->mutex_id == (int)mutex ) ) {
 			FILE *error_dump = NULL;
 
-			system("date >>/tmp/cg_td_errors.log");
-			error_dump = fopen("/tmp/cg_td_errors.log", "a");
+			system("date >>/tmp/mupnp_td_errors.log");
+			error_dump = fopen("/tmp/mupnp_td_errors.log", "a");
 			fprintf(stderr, "Already locked from\n\tfile: %s\n\tline: %d\n\tfunction: %s\ntried to lock from\n\tfile: %s\n\tline: %d\n\tfunction: %s\ngoing to be blocked for a while...\n",
 				temp->file,
 				temp->line,
@@ -232,7 +232,7 @@ BOOL cg_mutex_lock_trace(	const char *file,
 	return TRUE;
 }
 
-BOOL cg_mutex_unlock_trace(	const char *file, 
+BOOL mupnp_mutex_unlock_trace(	const char *file, 
 				int line, 
 				const char *function,
 				CgMutex *mutex)
@@ -249,7 +249,7 @@ BOOL cg_mutex_unlock_trace(	const char *file,
 
         found = 0;
 
-        temp = cg_tlt_list;
+        temp = mupnp_tlt_list;
         ptemp = NULL;
         while ( NULL != temp ) {
                 if ( pthread_equal(temp->thread_id, thid)  && ( temp->mutex_id == (int)mutex ) ) {
@@ -274,7 +274,7 @@ BOOL cg_mutex_unlock_trace(	const char *file,
          */
         else if ( found && ( NULL == ptemp ) )
         {
-                cg_tlt_list = temp->next;
+                mupnp_tlt_list = temp->next;
                 free(temp->file);
                 free(temp->function);
                 free(temp);
@@ -284,8 +284,8 @@ BOOL cg_mutex_unlock_trace(	const char *file,
                 /* Double unlock */
                 FILE *error_dump = NULL;
 
-                system("date >>/tmp/cg_td_errors.log");
-                error_dump = fopen("/tmp/cg_td_errors.log", "a");
+                system("date >>/tmp/mupnp_td_errors.log");
+                error_dump = fopen("/tmp/mupnp_td_errors.log", "a");
 
                 fprintf(stderr, "Unlocking from %s, (f:%s l:%d), but cannot find lock record...\n",
                         function, file, line);
@@ -302,12 +302,12 @@ BOOL cg_mutex_unlock_trace(	const char *file,
 	return TRUE;
 }
 #else
-BOOL cg_mutex_lock(CgMutex *mutex)
+BOOL mupnp_mutex_lock(CgMutex *mutex)
 {
 	if (!mutex)
 		return FALSE;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
 	WaitForSingleObject(mutex->mutexID, INFINITE);
@@ -323,21 +323,21 @@ BOOL cg_mutex_lock(CgMutex *mutex)
 	pthread_mutex_lock(&mutex->mutexID);
 #endif
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_mutex_unlock
+* mupnp_mutex_unlock
 ****************************************/
 
-BOOL cg_mutex_unlock(CgMutex *mutex)
+BOOL mupnp_mutex_unlock(CgMutex *mutex)
 {
 	if (!mutex)
 		return FALSE;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
 	ReleaseMutex(mutex->mutexID);
@@ -354,6 +354,6 @@ BOOL cg_mutex_unlock(CgMutex *mutex)
 #endif
 	return TRUE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 #endif /* WITH_THREAD_LOCK_TRACE */

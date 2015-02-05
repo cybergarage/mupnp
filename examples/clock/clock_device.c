@@ -135,19 +135,19 @@ BOOL upnp_clock_actionreceived(CgUpnpAction *action)
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	CgUpnpArgument *newTimeArg, *resultArg;
 
-	currTime = cg_getcurrentsystemtime();
+	currTime = mupnp_getcurrentsystemtime();
 	
-	actionName = cg_upnp_action_getname(action);
+	actionName = mupnp_upnp_action_getname(action);
 	if (strcmp("GetTime", actionName) == 0) {
 		GetSystemTimeString(currTime, sysTimeStr);
-		currTimeArg = cg_upnp_action_getargumentbyname(action, "CurrentTime");
-		cg_upnp_argument_setvalue(currTimeArg, sysTimeStr);
+		currTimeArg = mupnp_upnp_action_getargumentbyname(action, "CurrentTime");
+		mupnp_upnp_argument_setvalue(currTimeArg, sysTimeStr);
 		return TRUE;
 	}
 	if (strcmp(actionName, "SetTime") == 0) {
-		newTimeArg = cg_upnp_action_getargumentbyname(action, "NewTime");
-		resultArg = cg_upnp_action_getargumentbyname(action, "Result");
-		cg_upnp_argument_setvalue(resultArg, "Not implemented");
+		newTimeArg = mupnp_upnp_action_getargumentbyname(action, "NewTime");
+		resultArg = mupnp_upnp_action_getargumentbyname(action, "Result");
+		mupnp_upnp_argument_setvalue(resultArg, "Not implemented");
 		return TRUE;
 	}
 
@@ -164,11 +164,11 @@ BOOL upnp_clock_queryreceived(CgUpnpStateVariable *statVar)
 	CgTime currTime;
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	
-	varName = cg_upnp_statevariable_getname(statVar);
+	varName = mupnp_upnp_statevariable_getname(statVar);
 	if (strcmp("Time", varName) == 0) {
-		currTime = cg_getcurrentsystemtime();
+		currTime = mupnp_getcurrentsystemtime();
 		GetSystemTimeString(currTime, sysTimeStr);
-		cg_upnp_statevariable_setvalue(statVar, sysTimeStr);
+		mupnp_upnp_statevariable_setvalue(statVar, sysTimeStr);
 		return TRUE;
 	}
 	
@@ -190,15 +190,15 @@ void upnp_clock_device_httprequestrecieved(CgHttpRequest *httpReq)
 	CgHttpResponse *httpRes;
 	BOOL postRet;
 	
-	dev = (CgUpnpDevice *)cg_http_request_getuserdata(httpReq);
+	dev = (CgUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
 
-	uri = cg_http_request_geturi(httpReq);
+	uri = mupnp_http_request_geturi(httpReq);
 	if (strcmp(uri, "/presentation") != 0) {
-		cg_upnp_device_httprequestrecieved(httpReq);
+		mupnp_upnp_device_httprequestrecieved(httpReq);
 		return;
 	}
 
-	currTime = cg_getcurrentsystemtime();
+	currTime = mupnp_getcurrentsystemtime();
 
 #if defined(HAVE_SNPRINTF)
 	snprintf(content, sizeof(content),
@@ -241,15 +241,15 @@ void upnp_clock_device_httprequestrecieved(CgHttpRequest *httpReq)
 		"<CENTER></BODY>"
 		"</HTML>",
 		GetSystemTimeString(currTime, sysTimeStr),
-		cg_upnp_getservername(serverName, sizeof(serverName)));
+		mupnp_upnp_getservername(serverName, sizeof(serverName)));
 
-	httpRes = cg_http_response_new();
-	cg_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
-	cg_http_response_setcontent(httpRes, content);
-	cg_http_response_setcontenttype(httpRes, "text/html");
-	cg_http_response_setcontentlength(httpRes, strlen(content));
-	postRet = cg_http_request_postresponse(httpReq, httpRes);
-	cg_http_response_delete(httpRes);
+	httpRes = mupnp_http_response_new();
+	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
+	mupnp_http_response_setcontent(httpRes, content);
+	mupnp_http_response_setcontenttype(httpRes, "text/html");
+	mupnp_http_response_setcontentlength(httpRes, strlen(content));
+	postRet = mupnp_http_request_postresponse(httpReq, httpRes);
+	mupnp_http_response_delete(httpRes);
 }
 
 /****************************************
@@ -261,27 +261,27 @@ CgUpnpDevice *upnp_clock_device_new()
 	CgUpnpDevice *clockDev;
 	CgUpnpService *timeService;
 	 
-	clockDev = cg_upnp_device_new();
+	clockDev = mupnp_upnp_device_new();
 	
-	if (cg_upnp_device_parsedescription(clockDev, CLOCK_DEVICE_DESCRIPTION, strlen(CLOCK_DEVICE_DESCRIPTION)) == FALSE) {
-		cg_upnp_device_delete(clockDev);
+	if (mupnp_upnp_device_parsedescription(clockDev, CLOCK_DEVICE_DESCRIPTION, strlen(CLOCK_DEVICE_DESCRIPTION)) == FALSE) {
+		mupnp_upnp_device_delete(clockDev);
 		return NULL;
 	}
 
-	timeService = cg_upnp_device_getservicebyexacttype(clockDev, "urn:schemas-upnp-org:service:timer:1");
+	timeService = mupnp_upnp_device_getservicebyexacttype(clockDev, "urn:schemas-upnp-org:service:timer:1");
 	if (timeService == NULL) {
-		cg_upnp_device_delete(clockDev);
+		mupnp_upnp_device_delete(clockDev);
 		return NULL;
 	}
 	
-	if (cg_upnp_service_parsedescription(timeService, CLOCK_SERVICE_DESCRIPTION, strlen(CLOCK_SERVICE_DESCRIPTION)) == FALSE) {
-		cg_upnp_device_delete(clockDev);
+	if (mupnp_upnp_service_parsedescription(timeService, CLOCK_SERVICE_DESCRIPTION, strlen(CLOCK_SERVICE_DESCRIPTION)) == FALSE) {
+		mupnp_upnp_device_delete(clockDev);
 		return NULL;
 	}
 
-	cg_upnp_device_setactionlistener(clockDev, upnp_clock_actionreceived);
-	cg_upnp_device_setquerylistener(clockDev, upnp_clock_queryreceived);
-	cg_upnp_device_sethttplistener(clockDev, upnp_clock_device_httprequestrecieved);
+	mupnp_upnp_device_setactionlistener(clockDev, upnp_clock_actionreceived);
+	mupnp_upnp_device_setquerylistener(clockDev, upnp_clock_queryreceived);
+	mupnp_upnp_device_sethttplistener(clockDev, upnp_clock_device_httprequestrecieved);
 
 	return clockDev;
 }
@@ -297,17 +297,17 @@ void upnp_clock_device_update(CgUpnpDevice *clockDev)
 	CgUpnpStateVariable *timeState;
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	
-	timeService = cg_upnp_device_getservicebyexacttype(clockDev, "urn:schemas-upnp-org:service:timer:1");
+	timeService = mupnp_upnp_device_getservicebyexacttype(clockDev, "urn:schemas-upnp-org:service:timer:1");
 	if (timeService == NULL)
 		return;
 
-	timeState = cg_upnp_service_getstatevariablebyname(timeService, "Time");
+	timeState = mupnp_upnp_service_getstatevariablebyname(timeService, "Time");
 	if (timeState == NULL)
 		return;
 	
-	currTime = cg_getcurrentsystemtime();
+	currTime = mupnp_getcurrentsystemtime();
 	GetSystemTimeString(currTime, sysTimeStr);
-	cg_upnp_statevariable_setvalue(timeState, sysTimeStr);
+	mupnp_upnp_statevariable_setvalue(timeState, sysTimeStr);
 	
 	printf("%s\n", sysTimeStr);
 }

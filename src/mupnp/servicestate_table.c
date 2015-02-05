@@ -22,35 +22,35 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnp_servicestatetable_new
+* mupnp_upnp_servicestatetable_new
 ****************************************/
 
-CgUpnpServiceStateTable *cg_upnp_servicestatetable_new()
+CgUpnpServiceStateTable *mupnp_upnp_servicestatetable_new()
 {
 	CgUpnpServiceStateTable *statevariableTable;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	statevariableTable = (CgUpnpServiceStateTable *)malloc(sizeof(CgUpnpServiceStateTable));
 
 	if ( NULL != statevariableTable )
-		cg_list_header_init((CgList *)statevariableTable);
+		mupnp_list_header_init((CgList *)statevariableTable);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 	
 	return statevariableTable;
 }
 
 /****************************************
-* cg_upnp_servicestatetable_delete
+* mupnp_upnp_servicestatetable_delete
 ****************************************/
 
-void cg_upnp_servicestatetable_delete(CgUpnpServiceStateTable *statevariableTable)
+void mupnp_upnp_servicestatetable_delete(CgUpnpServiceStateTable *statevariableTable)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)statevariableTable);
+	mupnp_list_remove((CgList *)statevariableTable);
 	free(statevariableTable);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

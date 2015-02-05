@@ -25,141 +25,141 @@
 #include <string.h>
 
 /****************************************
-* cg_upnp_statevariable_new
+* mupnp_upnp_statevariable_new
 ****************************************/
 
-CgUpnpStateVariable *cg_upnp_statevariable_new()
+CgUpnpStateVariable *mupnp_upnp_statevariable_new()
 {
 	CgUpnpStateVariable *statVar;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	statVar = (CgUpnpStateVariable *)malloc(sizeof(CgUpnpStateVariable));
 
 	if ( NULL != statVar )
 	{
-		cg_list_node_init((CgList *)statVar);
+		mupnp_list_node_init((CgList *)statVar);
 
 		statVar->parentService = NULL;
 		statVar->stateVarNode = NULL;
 
-		statVar->value = cg_string_new();
-		statVar->upnpStatus = cg_upnp_status_new();
+		statVar->value = mupnp_string_new();
+		statVar->upnpStatus = mupnp_upnp_status_new();
 		statVar->allowedValueList = NULL;
 
 
-		cg_upnp_statevariable_setlistener(statVar, NULL);
-		cg_upnp_statevariable_setuserdata(statVar, NULL);
+		mupnp_upnp_statevariable_setlistener(statVar, NULL);
+		mupnp_upnp_statevariable_setuserdata(statVar, NULL);
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return statVar;
 }
 
 /****************************************
-* cg_upnp_statevariable_delete
+* mupnp_upnp_statevariable_delete
 ****************************************/
 
-void cg_upnp_statevariable_delete(CgUpnpStateVariable *statVar)
+void mupnp_upnp_statevariable_delete(CgUpnpStateVariable *statVar)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)statVar);
+	mupnp_list_remove((CgList *)statVar);
 
-	cg_string_delete(statVar->value);
-	cg_upnp_status_delete(statVar->upnpStatus);
+	mupnp_string_delete(statVar->value);
+	mupnp_upnp_status_delete(statVar->upnpStatus);
 	if (statVar->allowedValueList)
 	{
-		cg_list_remove((CgList *)statVar->allowedValueList);
+		mupnp_list_remove((CgList *)statVar->allowedValueList);
 	}
 
 	free(statVar);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_statevariable_setstatevariablenode
+* mupnp_upnp_statevariable_setstatevariablenode
 ****************************************/
 
-void cg_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar, CgXmlNode *node)
+void mupnp_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar, CgXmlNode *node)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	statVar->stateVarNode = node;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_statevariable_setvaluewithnotify
+* mupnp_upnp_statevariable_setvaluewithnotify
 ****************************************/
 
-static void cg_upnp_statevariable_setvaluewithnotify(CgUpnpStateVariable *statVar, const char *data, BOOL doNotify)
+static void mupnp_upnp_statevariable_setvaluewithnotify(CgUpnpStateVariable *statVar, const char *data, BOOL doNotify)
 {
 	CgUpnpService *service;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_string_setvalue(statVar->value, data);
+	mupnp_string_setvalue(statVar->value, data);
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 	/**** notify event ****/
 	if (doNotify) {
-		if (cg_upnp_statevariable_issendevents(statVar) == FALSE)
+		if (mupnp_upnp_statevariable_issendevents(statVar) == FALSE)
 			return;
 
-		service = cg_upnp_statevariable_getservice(statVar);
+		service = mupnp_upnp_statevariable_getservice(statVar);
 		if (service == NULL)
 			return;
 
-		cg_upnp_service_notify(service, statVar);
+		mupnp_upnp_service_notify(service, statVar);
 	}
 #endif
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_statevariable_setvalue
+* mupnp_upnp_statevariable_setvalue
 ****************************************/
 
-void cg_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, const char *data)
+void mupnp_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, const char *data)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_statevariable_setvaluewithnotify(statVar, data, TRUE);
+	mupnp_upnp_statevariable_setvaluewithnotify(statVar, data, TRUE);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_statevariable_setvaluewithoutnotify
+* mupnp_upnp_statevariable_setvaluewithoutnotify
 ****************************************/
 
-void cg_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, const char *data)
+void mupnp_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, const char *data)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_statevariable_setvaluewithnotify(statVar, data, FALSE);
+	mupnp_upnp_statevariable_setvaluewithnotify(statVar, data, FALSE);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
- * cg_upnp_allowedvaluelist_new
+ * mupnp_upnp_allowedvaluelist_new
  ****************************************/
 
-CgUpnpAllowedValuesList* cg_upnp_allowedvaluelist_new()
+CgUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new()
 {
 	CgUpnpAllowedValuesList* allowedValueList = (CgUpnpAllowedValuesList *)malloc(sizeof(CgUpnpAllowedValuesList));
 
 
 	if ( NULL != allowedValueList )
 	{
-		cg_list_header_init((CgList *)allowedValueList);
-		allowedValueList->value = cg_string_new();
+		mupnp_list_header_init((CgList *)allowedValueList);
+		allowedValueList->value = mupnp_string_new();
 		return allowedValueList;
 	}
 
@@ -168,31 +168,31 @@ CgUpnpAllowedValuesList* cg_upnp_allowedvaluelist_new()
 
 
 /****************************************
- * cg_upnp_statevariable_getallowedvaluelist
+ * mupnp_upnp_statevariable_getallowedvaluelist
  ****************************************/
-CgUpnpAllowedValuesList*  cg_upnp_statevariable_getallowedvaluelist(CgUpnpStateVariable* statVar)
+CgUpnpAllowedValuesList*  mupnp_upnp_statevariable_getallowedvaluelist(CgUpnpStateVariable* statVar)
 {
 	if (!statVar->allowedValueList)
 	{
-		CgXmlNode* allowedValuesNode = cg_xml_node_getchildnodebyname(cg_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_ALLOWEDVALUELIST);
+		CgXmlNode* allowedValuesNode = mupnp_xml_node_getchildnodebyname(mupnp_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_ALLOWEDVALUELIST);
 
 		if (allowedValuesNode) {
 			CgXmlNode* cnode;
-			for (cnode = cg_xml_node_getchildnodes(allowedValuesNode); cnode; cnode=cg_xml_node_next(cnode)) {
+			for (cnode = mupnp_xml_node_getchildnodes(allowedValuesNode); cnode; cnode=mupnp_xml_node_next(cnode)) {
 				if (!statVar->allowedValueList)
 				{
 					statVar->allowedValueList = (CgUpnpAllowedValuesList *)malloc(sizeof(CgUpnpAllowedValuesList));
-					cg_list_header_init((CgList *)statVar->allowedValueList);
-					statVar->allowedValueList->value = cg_string_new();
-					cg_string_setvalue(statVar->allowedValueList->value, cg_xml_node_getvalue(cnode));
+					mupnp_list_header_init((CgList *)statVar->allowedValueList);
+					statVar->allowedValueList->value = mupnp_string_new();
+					mupnp_string_setvalue(statVar->allowedValueList->value, mupnp_xml_node_getvalue(cnode));
 				}
 				else {
 					CgUpnpAllowedValue* allowed_value;
 					allowed_value = (CgUpnpAllowedValue *)malloc(sizeof(CgUpnpAllowedValue));
-					cg_list_node_init((CgList*)allowed_value);
-					allowed_value->value = cg_string_new();
-					cg_string_setvalue(allowed_value->value, cg_xml_node_getvalue(cnode));
-					cg_list_insert((CgList *)statVar->allowedValueList, (CgList *)allowed_value);
+					mupnp_list_node_init((CgList*)allowed_value);
+					allowed_value->value = mupnp_string_new();
+					mupnp_string_setvalue(allowed_value->value, mupnp_xml_node_getvalue(cnode));
+					mupnp_list_insert((CgList *)statVar->allowedValueList, (CgList *)allowed_value);
 				}
 			}
 		}
@@ -201,21 +201,21 @@ CgUpnpAllowedValuesList*  cg_upnp_statevariable_getallowedvaluelist(CgUpnpStateV
 }
 
 /****************************************
- * cg_upnp_statevariable_is_allowed_value
+ * mupnp_upnp_statevariable_is_allowed_value
  ****************************************/
-int cg_upnp_statevariable_is_allowed_value(CgUpnpStateVariable* statVar, const char* value)
+int mupnp_upnp_statevariable_is_allowed_value(CgUpnpStateVariable* statVar, const char* value)
 {
 	if (!statVar->allowedValueList)
 	{
-		cg_upnp_statevariable_getallowedvaluelist(statVar);
+		mupnp_upnp_statevariable_getallowedvaluelist(statVar);
 	}
 
 	if (statVar->allowedValueList)
 	{
 		CgUpnpAllowedValue *allowedValue;
-		for (allowedValue = (CgUpnpAllowedValue*)cg_list_next((CgList*)statVar->allowedValueList); allowedValue != NULL; allowedValue = (CgUpnpAllowedValue*)cg_list_next((CgList*)allowedValue))
+		for (allowedValue = (CgUpnpAllowedValue*)mupnp_list_next((CgList*)statVar->allowedValueList); allowedValue != NULL; allowedValue = (CgUpnpAllowedValue*)mupnp_list_next((CgList*)allowedValue))
 		{
-			if (cg_strcasecmp((char *)value, cg_string_getvalue(allowedValue->value)) == 0)
+			if (mupnp_strcasecmp((char *)value, mupnp_string_getvalue(allowedValue->value)) == 0)
 			{
 				return 1;
 			}

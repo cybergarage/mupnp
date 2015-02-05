@@ -17,7 +17,7 @@
 *		- first revision
 *	10/30/05
 *		- Thanks for Makela Aapo (aapo.makela@nokia.com)
-*		- Changed to cg_upnp_createuuid() create new UUIDs as they are specified in
+*		- Changed to mupnp_upnp_createuuid() create new UUIDs as they are specified in
 *		  UPnP DA specification (UUIDs have "uuid:"prefix).
 *
 ******************************************************************/
@@ -69,10 +69,10 @@ void uuid_unparse_lower (uuid_t uu, char *out)
 static BOOL isUpnpNMPRMode = FALSE;
 
 /****************************************
-* cg_upnp_createuuid
+* mupnp_upnp_createuuid
 ****************************************/
 
-const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
+const char *mupnp_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 {
 #if defined(HAVE_LIBUUID)
 	uuid_t uuid;
@@ -86,7 +86,7 @@ const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 	time_t time2;
 #endif
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 #if defined(HAVE_LIBUUID)
     uuid_generate(uuid);
@@ -101,8 +101,8 @@ const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 	RpcStringFree(&szUuid);
 #else
 	/**** Thanks for Makela Aapo (10/30/05) ****/
-	time1 = cg_getcurrentsystemtime();
-	time2 = (time_t)((double)cg_getcurrentsystemtime(NULL) * ((double)rand() / (double)RAND_MAX));
+	time1 = mupnp_getcurrentsystemtime();
+	time2 = (time_t)((double)mupnp_getcurrentsystemtime(NULL) * ((double)rand() / (double)RAND_MAX));
 	snprintf(uuidBuf, uuidBufSize, "%s:%04x-%04x-%04x-%04x",
 		CG_UPNP_UUID_NAME,
 		(int)(time1 & 0xFFFF),
@@ -111,7 +111,7 @@ const char *cg_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 		(int)(((time2 >> 31) | 0xE000) & 0xFFFF));
 #endif
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return uuidBuf;
 }
@@ -138,17 +138,17 @@ void uuid_unparse_lower (uuid_t uu, char *out)
 #endif
 
 /****************************************
-* cg_upnp_getservername
+* mupnp_upnp_getservername
 ****************************************/
 
-const char *cg_upnp_getservername(char *buf, size_t bufSize)
+const char *mupnp_upnp_getservername(char *buf, size_t bufSize)
 {
 	size_t nameLen;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_http_getservername(buf, bufSize);
-	nameLen = cg_strlen(buf);
+	mupnp_http_getservername(buf, bufSize);
+	nameLen = mupnp_strlen(buf);
 	bufSize -= nameLen;
 	if (bufSize <= 0)
 		return buf;
@@ -158,64 +158,64 @@ const char *cg_upnp_getservername(char *buf, size_t bufSize)
 	sprintf((buf+nameLen), " %s/%s UPnP/%s DLNADOC/%s", CG_CLINK_NAME, CG_CLINK_VER, CG_UPNP_VER, CG_DLNA_VER);
 #endif
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return buf;
 }
 
 /****************************************
-* cg_upnp_setnmprmode
+* mupnp_upnp_setnmprmode
 ****************************************/
 
-void cg_upnp_setnmprmode(BOOL onFlag)
+void mupnp_upnp_setnmprmode(BOOL onFlag)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	isUpnpNMPRMode = onFlag;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_isnmprmode
+* mupnp_upnp_isnmprmode
 ****************************************/
 
-BOOL cg_upnp_isnmprmode()
+BOOL mupnp_upnp_isnmprmode()
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	return isUpnpNMPRMode;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_createbootid
+* mupnp_upnp_createbootid
 ****************************************/
 
-int cg_upnp_createbootid()
+int mupnp_upnp_createbootid()
 {
   CgTime currentTime;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-  currentTime = cg_getcurrentsystemtime();
+  currentTime = mupnp_getcurrentsystemtime();
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
   return (int)(currentTime % INT_MAX);
 }
 
 /****************************************
- * cg_upnp_generateconfigid
+ * mupnp_upnp_generateconfigid
  ****************************************/
 
-int cg_upnp_generateconfigid(const char *string)
+int mupnp_upnp_generateconfigid(const char *string)
 {
   int configId = 0;
   size_t n;
 
-  for (n=0; n<cg_strlen(string); n++) {
+  for (n=0; n<mupnp_strlen(string); n++) {
     configId += string[n];
     if (configId < CG_UPNP_CONFIGID_UPNP_ORG_MAX)
       continue;

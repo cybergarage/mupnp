@@ -34,13 +34,13 @@ void InitApp()
 	clockBitmap = (HBITMAP)LoadImage(gInstance, panelFilename, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE); 
 
 	clockDev = upnp_clock_device_new();
-	cg_upnp_device_start(clockDev);
+	mupnp_upnp_device_start(clockDev);
 }
 
 void ExitApp()
 {
-	cg_upnp_device_stop(clockDev);
-	cg_upnp_device_delete(clockDev);
+	mupnp_upnp_device_stop(clockDev);
+	mupnp_upnp_device_delete(clockDev);
 }
 
 void CALLBACK ClockUpdate(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime)
@@ -149,7 +149,7 @@ void OnPaint(HWND hWnd)
 	SetBkMode(memDC,TRANSPARENT);
 	SetTextColor(memDC,RGB(0, 0, 0));
 
-	currTime = cg_getcurrentsystemtime();
+	currTime = mupnp_getcurrentsystemtime();
 
 	//// Date String ////
 

@@ -76,14 +76,14 @@ typedef struct _CgCond {
 /** 
  * Create a new condition variable
  */
-CgCond *cg_cond_new();
+CgCond *mupnp_cond_new();
 
 /** 
  * Destroy a condition variable
  *
  * \param cond The cond to destroy
  */
-BOOL cg_cond_delete(CgCond *cond);
+BOOL mupnp_cond_delete(CgCond *cond);
 
 /** 
  * Wait for condition variable to be signalled.
@@ -92,14 +92,14 @@ BOOL cg_cond_delete(CgCond *cond);
  * \param mutex Mutex used for synchronization
  * \param timeout Maximum time in seconds to wait, 0 to wait forever
  */
-BOOL cg_cond_wait(CgCond *cond, CgMutex *mutex, unsigned long timeout);
+BOOL mupnp_cond_wait(CgCond *cond, CgMutex *mutex, unsigned long timeout);
 
 /** 
  * Signal a condition variable
  *
  * \param cond Cond to be signalled
  */
-BOOL cg_cond_signal(CgCond *cond);
+BOOL mupnp_cond_signal(CgCond *cond);
 
 #ifdef  __cplusplus
 

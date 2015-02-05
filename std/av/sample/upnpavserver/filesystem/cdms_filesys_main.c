@@ -69,16 +69,16 @@ int main(int argc, char *argv[])
 
 	if (!pubDir) {
 #if defined(WIN32)
-		programNameIdx = cg_strrchr(argv[0], "\\", 1);
+		programNameIdx = mupnp_strrchr(argv[0], "\\", 1);
 #else
-		programNameIdx = cg_strrchr(argv[0], "/", 1);
+		programNameIdx = mupnp_strrchr(argv[0], "/", 1);
 #endif
 		printf("Usage : %s <publication directory>\n", (argv[0] + programNameIdx + 1));
 		exit(1);
 	}
 
-	dms = cg_upnpav_dms_filesys_new();
-	cg_upnpav_dms_filesys_setpublicationdirectory(dms, pubDir);
+	dms = mupnp_upnpav_dms_filesys_new();
+	mupnp_upnpav_dms_filesys_setpublicationdirectory(dms, pubDir);
 
     // Demonstrate how to use CgUpnpAvProtocolInfo to register protocolinfo.
     // Which is required for some devices to work, like Sony Bravia TV.
@@ -88,20 +88,20 @@ int main(int argc, char *argv[])
         int i;
         CgUpnpAvProtocolInfo *info;
         for (i = 0; protocols[i]; i++) {
-            if ((info = cg_upnpav_protocolinfo_new())) {
-                cg_upnpav_protocolinfo_setprotocol(info, "http-get");
-                cg_upnpav_protocolinfo_setnetwork(info, "*");
-                cg_upnpav_protocolinfo_setmimetype(info, protocols[i]);
-                cg_upnpav_protocolinfo_setadditionalinfo(info, "*");
-                cg_upnpav_dms_addprotocolinfo(dms, info);
+            if ((info = mupnp_upnpav_protocolinfo_new())) {
+                mupnp_upnpav_protocolinfo_setprotocol(info, "http-get");
+                mupnp_upnpav_protocolinfo_setnetwork(info, "*");
+                mupnp_upnpav_protocolinfo_setmimetype(info, protocols[i]);
+                mupnp_upnpav_protocolinfo_setadditionalinfo(info, "*");
+                mupnp_upnpav_dms_addprotocolinfo(dms, info);
             }
         }
     }
 
-	cg_upnpav_dms_filesys_start(dms);
+	mupnp_upnpav_dms_filesys_start(dms);
 
 #if !defined(WIN32) || defined(__CYGWIN__)
-	cg_kb_init();
+	mupnp_kb_init();
 #endif
 
 	PrintKeyMessage();
@@ -123,11 +123,11 @@ int main(int argc, char *argv[])
 	} while(key != 'X');
 
 #if !defined(WIN32) || defined(__CYGWIN__)
-	cg_kb_exit();
+	mupnp_kb_exit();
 #endif
 
-	cg_upnpav_dms_filesys_stop(dms);
-	cg_upnpav_dms_filesys_delete(dms);
+	mupnp_upnpav_dms_filesys_stop(dms);
+	mupnp_upnpav_dms_filesys_delete(dms);
 
 	return 0;
 }

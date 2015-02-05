@@ -64,28 +64,28 @@ typedef struct _CgUpnpIcon {
 /**
  * Create a new icon struct
  */
-CgUpnpIcon *cg_upnp_icon_new();
+CgUpnpIcon *mupnp_upnp_icon_new();
 
 /**
  * Delete an icon struct
  *
  * \param dev Icon to delete
  */
-void cg_upnp_icon_delete(CgUpnpIcon *dev);
+void mupnp_upnp_icon_delete(CgUpnpIcon *dev);
 
 /**
  * Get the next icon in list. Use as an iterator.
  * 
  * \param icon Node in a list of icons
  */
-#define cg_upnp_icon_next(icon) (CgUpnpIcon *)cg_list_next((CgList *)icon)
+#define mupnp_upnp_icon_next(icon) (CgUpnpIcon *)mupnp_list_next((CgList *)icon)
 
 /**
  * Check whether the given node is a member of an icon list
  * 
  * \param node List node
  */
-#define cg_upnp_icon_isiconnode(node) cg_xml_node_isname(node, CG_UPNP_ICON_ELEM_NAME)
+#define mupnp_upnp_icon_isiconnode(node) mupnp_xml_node_isname(node, CG_UPNP_ICON_ELEM_NAME)
 
 /**
  * Set the XML icon node to an icon struct
@@ -93,14 +93,14 @@ void cg_upnp_icon_delete(CgUpnpIcon *dev);
  * \param icon The icon struct
  * \param node XML node
  */
-#define cg_upnp_icon_seticonnode(icon,node) (icon->iconNode = node)
+#define mupnp_upnp_icon_seticonnode(icon,node) (icon->iconNode = node)
 
 /**
  * Get the XML icon node from an icon struct
  * 
  * \param icon The icon struct
  */
-#define cg_upnp_icon_geticonnode(icon) (icon->iconNode)
+#define mupnp_upnp_icon_geticonnode(icon) (icon->iconNode)
 
 /*****************************************************************************
  * mimeType
@@ -112,13 +112,13 @@ void cg_upnp_icon_delete(CgUpnpIcon *dev);
  * \param icon Icon in question
  * \param value MIME type
  */
-#define cg_upnp_icon_setmimetype(icon, value) cg_xml_node_setchildnode(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_MIME_TYPE, value)
+#define mupnp_upnp_icon_setmimetype(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_MIME_TYPE, value)
 
 /**
  * Get the icon's MIME type
  * 
  */
-#define cg_upnp_icon_getmimetype(icon) cg_xml_node_getchildnodevalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_MIME_TYPE)
+#define mupnp_upnp_icon_getmimetype(icon) mupnp_xml_node_getchildnodevalue(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_MIME_TYPE)
 
 /*****************************************************************************
  * width 
@@ -130,13 +130,13 @@ void cg_upnp_icon_delete(CgUpnpIcon *dev);
  * \param icon Icon in question
  * \param value Icon width
  */
-#define cg_upnp_icon_setwidth(icon, value) cg_xml_node_setchildnode(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_WIDTH, value)
+#define mupnp_upnp_icon_setwidth(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_WIDTH, value)
 
 /**
  * Get icon width
  * 
  */
-#define cg_upnp_icon_getwidth(icon) cg_xml_node_getchildnodeintvalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_WIDTH)
+#define mupnp_upnp_icon_getwidth(icon) mupnp_xml_node_getchildnodeintvalue(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_WIDTH)
 
 /*****************************************************************************
  * height 
@@ -148,13 +148,13 @@ void cg_upnp_icon_delete(CgUpnpIcon *dev);
  * \param icon Icon in question
  * \param value Icon height
  */
-#define cg_upnp_icon_setheight(icon, value) cg_xml_node_setchildnode(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_HEIGHT, value)
+#define mupnp_upnp_icon_setheight(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_HEIGHT, value)
 
 /**
  * Get icon height
  * 
  */
-#define cg_upnp_icon_getheight(icon) cg_xml_node_getchildnodeintvalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_HEIGHT)
+#define mupnp_upnp_icon_getheight(icon) mupnp_xml_node_getchildnodeintvalue(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_HEIGHT)
 
 /*****************************************************************************
  * Colour Depth 
@@ -166,13 +166,13 @@ void cg_upnp_icon_delete(CgUpnpIcon *dev);
  * \param icon Icon in question
  * \param value Colour depth
  */
-#define cg_upnp_icon_setdepth(icon, value) cg_xml_node_setchildnode(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_DEPTH, value)
+#define mupnp_upnp_icon_setdepth(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_DEPTH, value)
 
 /**
  * Get icon's colour depth
  * 
  */
-#define cg_upnp_icon_getdepth(icon) cg_xml_node_getchildnodeintvalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_DEPTH)
+#define mupnp_upnp_icon_getdepth(icon) mupnp_xml_node_getchildnodeintvalue(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_DEPTH)
 
 /*****************************************************************************
  * URL
@@ -184,13 +184,13 @@ void cg_upnp_icon_delete(CgUpnpIcon *dev);
  * \param icon Icon in question
  * \param value Icon's URL
  */
-#define cg_upnp_icon_seturl(icon, value) cg_xml_node_setchildnode(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_URL, value)
+#define mupnp_upnp_icon_seturl(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_URL, value)
 
 /**
  * Get icon's URL
  * 
  */
-#define cg_upnp_icon_geturl(icon) cg_xml_node_getchildnodevalue(cg_upnp_icon_geticonnode(icon), CG_UPNP_ICON_URL)
+#define mupnp_upnp_icon_geturl(icon) mupnp_xml_node_getchildnodevalue(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_URL)
 
 /*****************************************************************************
  * Function (IconList)
@@ -200,35 +200,35 @@ void cg_upnp_icon_delete(CgUpnpIcon *dev);
  * Create a new list of icons
  * 
  */
-CgUpnpIconList *cg_upnp_iconlist_new();
+CgUpnpIconList *mupnp_upnp_iconlist_new();
 
 /**
  * Delete a list of icons
  * 
  * \param iconList List of icons
  */
-void cg_upnp_iconlist_delete(CgUpnpIconList *iconList);
+void mupnp_upnp_iconlist_delete(CgUpnpIconList *iconList);
 
 /**
  * Clear the contents of an icon list
  * 
  * \param iconList List of icons
  */
-#define cg_upnp_iconlist_clear(iconList) cg_list_clear((CgList *)iconList, (CG_LIST_DESTRUCTORFUNC)cg_upnp_icon_delete)
+#define mupnp_upnp_iconlist_clear(iconList) mupnp_list_clear((CgList *)iconList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_icon_delete)
 
 /**
  * Get the size (number of elements) of an icon list
  * 
  * \param iconList List of icons
  */
-#define cg_upnp_iconlist_size(iconList) cg_list_size((CgList *)iconList)
+#define mupnp_upnp_iconlist_size(iconList) mupnp_list_size((CgList *)iconList)
 
 /**
  * \todo Get the first icon from the list for iteration
  * 
  * \param iconList List of icons
  */
-#define cg_upnp_iconlist_gets(iconList) (CgUpnpIcon *)cg_list_next((CgList *)iconList)
+#define mupnp_upnp_iconlist_gets(iconList) (CgUpnpIcon *)mupnp_list_next((CgList *)iconList)
 
 /**
  * Add an icon to an icon list
@@ -236,7 +236,7 @@ void cg_upnp_iconlist_delete(CgUpnpIconList *iconList);
  * \param iconList List of icons
  * \param icon Icon to add
  */
-#define cg_upnp_iconlist_add(iconList, icon) cg_list_add((CgList *)iconList, (CgList *)icon)
+#define mupnp_upnp_iconlist_add(iconList, icon) mupnp_list_add((CgList *)iconList, (CgList *)icon)
 
 #ifdef  __cplusplus
 

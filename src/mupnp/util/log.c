@@ -65,8 +65,8 @@ static CgMutex *(print_mutex) = NULL;
 
 static void log_init_with_defaults()
 {
-	cg_log_add_target( "stdout", SEV_INFO | SEV_DEBUG_L1 | SEV_DEBUG_L2 | SEV_DEBUG_L3 );
-	cg_log_add_target( "stderr", SEV_ERROR | SEV_WARNING );
+	mupnp_log_add_target( "stdout", SEV_INFO | SEV_DEBUG_L1 | SEV_DEBUG_L2 | SEV_DEBUG_L3 );
+	mupnp_log_add_target( "stderr", SEV_ERROR | SEV_WARNING );
 }
 
 static const char *map_severity(int severity)
@@ -117,7 +117,7 @@ static const char *map_severity(int severity)
  * @param target String identifying the logging target (Currently stdout|stderr|FILENAME)
  * @param mask Bitmask defining what messages are to be printed into this target
  */
-int cg_log_add_target(char *target, int mask)
+int mupnp_log_add_target(char *target, int mask)
 {
 	struct fd_list *temp = NULL; 
 	FILE *r_target = NULL;
@@ -154,7 +154,7 @@ int cg_log_add_target(char *target, int mask)
 	/* Adding new target into single linked list */
 	temp->next=descriptor_list;
 	temp->apply_mask = mask;
-	temp->name = cg_strdup(target);
+	temp->name = mupnp_strdup(target);
 	temp->fd = r_target;
 	descriptor_list = temp;
 
@@ -165,7 +165,7 @@ int cg_log_add_target(char *target, int mask)
  * Clear target list
  *
  */
-int cg_log_clear_targets()
+int mupnp_log_clear_targets()
 {
 	struct fd_list *temp = descriptor_list;
 	
@@ -188,11 +188,11 @@ int cg_log_clear_targets()
  * Set log item separator
  * @param s String to use as a log item separator
  */
-void cg_log_set_separator(char *s)
+void mupnp_log_set_separator(char *s)
 {
 	if (separator != NULL) free(separator);
 
-	separator = cg_strdup(s);
+	separator = mupnp_strdup(s);
 }
 
 /**
@@ -204,7 +204,7 @@ void cg_log_set_separator(char *s)
  * @param format Format string for the actual log message
  * @param ... Possible parameters for the format string
  */
-void cg_log_print(int severity, const char *file, int line_n, const char *function, const char *format, ...)
+void mupnp_log_print(int severity, const char *file, int line_n, const char *function, const char *format, ...)
 {
 	va_list list;
 
@@ -222,12 +222,12 @@ void cg_log_print(int severity, const char *file, int line_n, const char *functi
 	if (!initialized) log_init_with_defaults();
 
 	/* If separator is not set, do it now */
-	if (NULL == separator) cg_log_set_separator(" : ");
+	if (NULL == separator) mupnp_log_set_separator(" : ");
 
 	/* Create a mutex */
 	if (!print_mutex)
-		print_mutex = cg_mutex_new();
-	cg_mutex_lock(print_mutex);
+		print_mutex = mupnp_mutex_new();
+	mupnp_mutex_lock(print_mutex);
 	
 	/* Create timestamp for the log prefix */
 	timestamp = time(NULL);
@@ -274,7 +274,7 @@ void cg_log_print(int severity, const char *file, int line_n, const char *functi
 		}
 	}
 
-	cg_mutex_unlock(print_mutex);
+	mupnp_mutex_unlock(print_mutex);
 }
 
 #if defined(WIN32)
@@ -284,7 +284,7 @@ void cg_log_print(int severity, const char *file, int line_n, const char *functi
  * @param format Format string for the actual log message
  * @param ... Possible parameters for the format string
  */
-void cg_log_error(const char *format, ...)
+void mupnp_log_error(const char *format, ...)
 {
 /*
 	va_list args;
@@ -303,7 +303,7 @@ void cg_log_error(const char *format, ...)
  * @param format Format string for the actual log message
  * @param ... Possible parameters for the format string
  */
-void cg_log_warning(const char *format, ...)
+void mupnp_log_warning(const char *format, ...)
 {
 }
 
@@ -312,7 +312,7 @@ void cg_log_warning(const char *format, ...)
  * @param format Format string for the actual log message
  * @param ... Possible parameters for the format string
  */
-void cg_log_info(const char *format, ...)
+void mupnp_log_info(const char *format, ...)
 {
 }
 
@@ -321,7 +321,7 @@ void cg_log_info(const char *format, ...)
  * @param format Format string for the actual log message
  * @param ... Possible parameters for the format string
  */
-void cg_log_debug(const char *format, ...)
+void mupnp_log_debug(const char *format, ...)
 {
 }
 
@@ -330,7 +330,7 @@ void cg_log_debug(const char *format, ...)
  * @param format Format string for the actual log message
  * @param ... Possible parameters for the format string
  */
-void cg_log_debug_l4(const char *format, ...)
+void mupnp_log_debug_l4(const char *format, ...)
 {
 }
 
@@ -339,7 +339,7 @@ void cg_log_debug_l4(const char *format, ...)
  * @param format Format string for the actual log message
  * @param ... Possible parameters for the format string
  */
-void cg_log_debug_l5(const char *format, ...)
+void mupnp_log_debug_l5(const char *format, ...)
 {
 }
 
@@ -349,7 +349,7 @@ void cg_log_debug_l5(const char *format, ...)
  * @param ... Possible parameters for the format string
  */
 
-void cg_log_debug_s(const char *format, ...)
+void mupnp_log_debug_s(const char *format, ...)
 {
 }
 
@@ -358,7 +358,7 @@ void cg_log_debug_s(const char *format, ...)
  * @param format Format string for the actual log message
  * @param ... Possible parameters for the format string
  */
-void cg_log_debug_a(const char *format, ...)
+void mupnp_log_debug_a(const char *format, ...)
 {
 }
 

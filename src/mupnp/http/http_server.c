@@ -37,20 +37,20 @@
 #endif
 
 /****************************************
-* cg_http_server_new
+* mupnp_http_server_new
 ****************************************/
 
-CgHttpServer *cg_http_server_new()
+CgHttpServer *mupnp_http_server_new()
 {
 	CgHttpServer *httpServer;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	httpServer = (CgHttpServer *)malloc(sizeof(CgHttpServer));
 
 	if ( NULL != httpServer )
 	{
-		cg_list_node_init((CgList *)httpServer);
+		mupnp_list_node_init((CgList *)httpServer);
 
 		httpServer->sock = NULL;
 		httpServer->acceptThread = NULL;
@@ -59,91 +59,91 @@ CgHttpServer *cg_http_server_new()
 		/**** Thanks for Makela Aapo (10/31/05) ****/
 		httpServer->clientThreads = NULL;
 
-		cg_http_server_setuserdata(httpServer, NULL);
+		mupnp_http_server_setuserdata(httpServer, NULL);
 
-		cg_http_server_settimeout(httpServer, CG_HTTP_SERVER_READ_TIMEOUT);
+		mupnp_http_server_settimeout(httpServer, CG_HTTP_SERVER_READ_TIMEOUT);
 
 		/* Mutex */
-		httpServer->mutex = cg_mutex_new();
+		httpServer->mutex = mupnp_mutex_new();
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return httpServer;
 }
 
 /****************************************
-* cg_http_server_delete
+* mupnp_http_server_delete
 ****************************************/
 
-void cg_http_server_delete(CgHttpServer *httpServer)
+void mupnp_http_server_delete(CgHttpServer *httpServer)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_http_server_stop(httpServer);
-	cg_http_server_close(httpServer);
+	mupnp_http_server_stop(httpServer);
+	mupnp_http_server_close(httpServer);
 
 	if (httpServer->mutex)
-		cg_mutex_delete(httpServer->mutex);
+		mupnp_mutex_delete(httpServer->mutex);
 
-	cg_list_remove((CgList *)httpServer);
+	mupnp_list_remove((CgList *)httpServer);
 
 	free(httpServer);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_http_server_delete
+* mupnp_http_server_delete
 ****************************************/
 
-BOOL cg_http_server_open(CgHttpServer *httpServer, int bindPort, const char *bindAddr)
+BOOL mupnp_http_server_open(CgHttpServer *httpServer, int bindPort, const char *bindAddr)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	if (cg_http_server_isopened(httpServer) == TRUE)
+	if (mupnp_http_server_isopened(httpServer) == TRUE)
 		return FALSE;
 
-	httpServer->sock = cg_socket_stream_new();
-	if (cg_socket_bind(httpServer->sock, bindPort, bindAddr, TRUE, FALSE) == FALSE) {
-		cg_socket_delete(httpServer->sock);
+	httpServer->sock = mupnp_socket_stream_new();
+	if (mupnp_socket_bind(httpServer->sock, bindPort, bindAddr, TRUE, FALSE) == FALSE) {
+		mupnp_socket_delete(httpServer->sock);
 		httpServer->sock = NULL;
 		return FALSE;
 	}
-	if (cg_socket_listen(httpServer->sock) == FALSE) {
-		cg_socket_delete(httpServer->sock);
+	if (mupnp_socket_listen(httpServer->sock) == FALSE) {
+		mupnp_socket_delete(httpServer->sock);
 		httpServer->sock = NULL;
 		return FALSE;
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_http_server_delete
+* mupnp_http_server_delete
 ****************************************/
 
-BOOL cg_http_server_close(CgHttpServer *httpServer)
+BOOL mupnp_http_server_close(CgHttpServer *httpServer)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_http_server_stop(httpServer);
+	mupnp_http_server_stop(httpServer);
 
 	if (httpServer->sock != NULL) {
-		cg_socket_close(httpServer->sock);
-		cg_socket_delete(httpServer->sock);
+		mupnp_socket_close(httpServer->sock);
+		mupnp_socket_delete(httpServer->sock);
 		httpServer->sock = NULL;
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_http_server_thread
+* mupnp_http_server_thread
 ****************************************/
 
 typedef struct _CgHttpServerClientData {
@@ -151,11 +151,11 @@ typedef struct _CgHttpServerClientData {
 	CgHttpServer *httpServer;
 } CgHttpServerClientData;
 
-static CgHttpServerClientData *cg_http_server_clientdata_new(CgHttpServer *httpServer, CgSocket *clientSock)
+static CgHttpServerClientData *mupnp_http_server_clientdata_new(CgHttpServer *httpServer, CgSocket *clientSock)
 {
 	CgHttpServerClientData *clientData;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	clientData = (CgHttpServerClientData *)malloc(sizeof(CgHttpServerClientData));
 
@@ -165,21 +165,21 @@ static CgHttpServerClientData *cg_http_server_clientdata_new(CgHttpServer *httpS
 		clientData->clientSock = clientSock;
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return clientData;
 }
 
-static void cg_http_server_clientdata_delete(CgHttpServerClientData *clientData)
+static void mupnp_http_server_clientdata_delete(CgHttpServerClientData *clientData)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	free(clientData);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_http_server_clientthread(CgThread *thread)
+static void mupnp_http_server_clientthread(CgThread *thread)
 {
 	CgHttpServerClientData *clientData;
 	CgHttpServer *httpServer;
@@ -188,74 +188,74 @@ static void cg_http_server_clientthread(CgThread *thread)
 	CgHttpRequest *httpReq;
 	char *version = NULL;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	clientData = (CgHttpServerClientData *)cg_thread_getuserdata(thread);
+	clientData = (CgHttpServerClientData *)mupnp_thread_getuserdata(thread);
 	httpServer = clientData->httpServer;
 	clientSock = clientData->clientSock;
-	httpServerUserData = cg_http_server_getuserdata(httpServer);
+	httpServerUserData = mupnp_http_server_getuserdata(httpServer);
 
-	httpReq = cg_http_request_new();
-	cg_http_request_setsocket(httpReq, clientSock);
+	httpReq = mupnp_http_request_new();
+	mupnp_http_request_setsocket(httpReq, clientSock);
 
 	/**** Thanks for Makela Aapo (10/31/05) ****/
-	while (cg_http_request_read(httpReq, clientSock) == TRUE && cg_thread_isrunnable(thread) == TRUE) {
+	while (mupnp_http_request_read(httpReq, clientSock) == TRUE && mupnp_thread_isrunnable(thread) == TRUE) {
 		/* Check some validity of the request */
-		version = cg_http_request_getversion(httpReq);
-		if (cg_strcmp(version, CG_HTTP_VER11) == 0)
+		version = mupnp_http_request_getversion(httpReq);
+		if (mupnp_strcmp(version, CG_HTTP_VER11) == 0)
 		{
 			/* According to HTTP/1.1 spec, we must not tolerate
 			   HTTP/1.1 request without HOST-header */
-			if (cg_http_request_gethost(httpReq) == NULL)
+			if (mupnp_http_request_gethost(httpReq) == NULL)
 			{
-				cg_http_request_postbadrequest(httpReq);
+				mupnp_http_request_postbadrequest(httpReq);
 				continue;
 			}
 		}
 
 		if (httpServer->listener != NULL) {
-            cg_http_request_setuserdata(httpReq, httpServerUserData);
+            mupnp_http_request_setuserdata(httpReq, httpServerUserData);
 			httpServer->listener(httpReq);
 		}
 
 		/* Close connection according to HTTP version and headers */
-		if (cg_strcmp(version, CG_HTTP_VER10) == 0)
+		if (mupnp_strcmp(version, CG_HTTP_VER10) == 0)
 		{
 			/* Terminate connection after HTTP/1.0 request */
 			break;
 		}
 
 		/* We are having HTTP/1.1 or better => terminate, if requested */
-		if (cg_http_request_iskeepaliveconnection(httpReq) == FALSE)
+		if (mupnp_http_request_iskeepaliveconnection(httpReq) == FALSE)
 		{
 			break;
 		}
 	}
 
-	cg_log_debug_s("Dropping HTTP client\n");
-	cg_http_request_delete(httpReq);
+	mupnp_log_debug_s("Dropping HTTP client\n");
+	mupnp_http_request_delete(httpReq);
 
-	cg_socket_close(clientSock);
-	cg_socket_delete(clientSock);
+	mupnp_socket_close(clientSock);
+	mupnp_socket_delete(clientSock);
 
-	cg_http_server_clientdata_delete(clientData);
-	cg_thread_setuserdata(thread, NULL);
+	mupnp_http_server_clientdata_delete(clientData);
+	mupnp_thread_setuserdata(thread, NULL);
 
     // This code frequently crashes. mutex lock referencing free'd memory.
-	cg_http_server_lock(httpServer);
-	cg_thread_remove(thread);
-	cg_http_server_unlock(httpServer);
+	mupnp_http_server_lock(httpServer);
+	mupnp_thread_remove(thread);
+	mupnp_http_server_unlock(httpServer);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
-	cg_thread_delete(thread);
+	mupnp_thread_delete(thread);
 }
 
 /****************************************
-* cg_http_server_thread
+* mupnp_http_server_thread
 ****************************************/
 
-static void cg_http_server_thread(CgThread *thread)
+static void mupnp_http_server_thread(CgThread *thread)
 {
 	CgHttpServer *httpServer;
 	CgThread *httpClientThread;
@@ -263,119 +263,119 @@ static void cg_http_server_thread(CgThread *thread)
 	CgSocket *serverSock;
 	CgSocket *clientSock;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	httpServer = (CgHttpServer *)cg_thread_getuserdata(thread);
+	httpServer = (CgHttpServer *)mupnp_thread_getuserdata(thread);
 
-	if (cg_http_server_isopened(httpServer) == FALSE)
+	if (mupnp_http_server_isopened(httpServer) == FALSE)
 		return;
 
 	serverSock = httpServer->sock;
-	while (cg_thread_isrunnable(thread) == TRUE) {
-		clientSock = cg_socket_stream_new();
-		if (cg_socket_accept(serverSock, clientSock) == FALSE) {
-			cg_socket_delete(clientSock);
+	while (mupnp_thread_isrunnable(thread) == TRUE) {
+		clientSock = mupnp_socket_stream_new();
+		if (mupnp_socket_accept(serverSock, clientSock) == FALSE) {
+			mupnp_socket_delete(clientSock);
 			break;
 		}
 
-		cg_socket_settimeout(clientSock, cg_http_server_gettimeout(httpServer));
-		clientData = cg_http_server_clientdata_new(httpServer, clientSock);
-		httpClientThread = cg_thread_new();
-		cg_thread_setaction(httpClientThread, cg_http_server_clientthread);
-		cg_thread_setuserdata(httpClientThread, clientData);
+		mupnp_socket_settimeout(clientSock, mupnp_http_server_gettimeout(httpServer));
+		clientData = mupnp_http_server_clientdata_new(httpServer, clientSock);
+		httpClientThread = mupnp_thread_new();
+		mupnp_thread_setaction(httpClientThread, mupnp_http_server_clientthread);
+		mupnp_thread_setuserdata(httpClientThread, clientData);
 
 		/**** Thanks for Makela Aapo (10/31/05) ****/
-		cg_http_server_lock(httpServer);
-		cg_threadlist_add(httpServer->clientThreads, httpClientThread);
-		cg_http_server_unlock(httpServer);
+		mupnp_http_server_lock(httpServer);
+		mupnp_threadlist_add(httpServer->clientThreads, httpClientThread);
+		mupnp_http_server_unlock(httpServer);
 
-		cg_thread_start(httpClientThread);
+		mupnp_thread_start(httpClientThread);
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_http_server_start
+* mupnp_http_server_start
 ****************************************/
 
-BOOL cg_http_server_start(CgHttpServer *httpServer)
+BOOL mupnp_http_server_start(CgHttpServer *httpServer)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (httpServer->acceptThread != NULL)
 		return FALSE;
 
-	httpServer->acceptThread = cg_thread_new();
-	cg_thread_setaction(httpServer->acceptThread, cg_http_server_thread);
-	cg_thread_setuserdata(httpServer->acceptThread, httpServer);
+	httpServer->acceptThread = mupnp_thread_new();
+	mupnp_thread_setaction(httpServer->acceptThread, mupnp_http_server_thread);
+	mupnp_thread_setuserdata(httpServer->acceptThread, httpServer);
 
 	/**** Thanks for Makela Aapo (10/31/05) ****/
-	httpServer->clientThreads = cg_threadlist_new();
+	httpServer->clientThreads = mupnp_threadlist_new();
 
-	if (cg_thread_start(httpServer->acceptThread) == FALSE) {
-		cg_thread_delete(httpServer->acceptThread);
+	if (mupnp_thread_start(httpServer->acceptThread) == FALSE) {
+		mupnp_thread_delete(httpServer->acceptThread);
 		httpServer->acceptThread = NULL;
 
 		/**** Thanks for Makela Aapo (10/31/05) ****/
-		cg_threadlist_delete(httpServer->clientThreads);
+		mupnp_threadlist_delete(httpServer->clientThreads);
 		httpServer->clientThreads = NULL;
 
 		return FALSE;
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_http_server_stop
+* mupnp_http_server_stop
 ****************************************/
 
-BOOL cg_http_server_stop(CgHttpServer *httpServer)
+BOOL mupnp_http_server_stop(CgHttpServer *httpServer)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (httpServer->acceptThread != NULL) {
-		cg_thread_stop(httpServer->acceptThread);
-		cg_thread_delete(httpServer->acceptThread);
+		mupnp_thread_stop(httpServer->acceptThread);
+		mupnp_thread_delete(httpServer->acceptThread);
 		httpServer->acceptThread = NULL;
 	}
 	/**** Thanks for Makela Aapo (10/31/05) ****/
 	if (httpServer->clientThreads != NULL) {
-		cg_threadlist_stop(httpServer->clientThreads);
-		cg_threadlist_delete(httpServer->clientThreads);
+		mupnp_threadlist_stop(httpServer->clientThreads);
+		mupnp_threadlist_delete(httpServer->clientThreads);
 		httpServer->clientThreads = NULL;
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_http_server_setlistener
+* mupnp_http_server_setlistener
 ****************************************/
 
-void cg_http_server_setlistener(CgHttpServer *httpServer, CG_HTTP_LISTENER listener)
+void mupnp_http_server_setlistener(CgHttpServer *httpServer, CG_HTTP_LISTENER listener)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	httpServer->listener = listener;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_http_getservername()
+* mupnp_http_getservername()
 ****************************************/
 
-const char *cg_http_getservername(char *buf, size_t bufSize)
+const char *mupnp_http_getservername(char *buf, size_t bufSize)
 {
 #if defined(WIN32) && !defined(ITRON)
 	OSVERSIONINFO verInfo;
-	cg_strcpy(buf, "Platform 1.0");
+	mupnp_strcpy(buf, "Platform 1.0");
 	ZeroMemory(&verInfo, sizeof(OSVERSIONINFO));
 	verInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 	if (GetVersionEx(&verInfo)) {
@@ -387,7 +387,7 @@ const char *cg_http_getservername(char *buf, size_t bufSize)
 	}
 #elif defined(BTRON)
 	T_VER verInfo;
-	cg_strcpy(buf, "Platform 1.0");
+	mupnp_strcpy(buf, "Platform 1.0");
 	if (get_ver(&verInfo) == 0) {
 		#if defined(HAVE_SNPRINTF)
 		snprintf(buf, bufSize, "BTRON %hd", verInfo.spver);
@@ -396,12 +396,12 @@ const char *cg_http_getservername(char *buf, size_t bufSize)
 		#endif
 	}
 #elif defined(ITRON)
-	cg_strcpy(buf, "uITRON 4.0");
+	mupnp_strcpy(buf, "uITRON 4.0");
 #elif defined(TENGINE)
-	cg_strcpy(buf, "T-Engine 1.0");
+	mupnp_strcpy(buf, "T-Engine 1.0");
 #elif defined(HAVE_UNAME) || defined(TARGET_OS_MAC) || defined(TARGET_OS_IPHONE)
 	struct utsname unameBuf;
-	cg_strcpy(buf, "Platform 1.0");
+	mupnp_strcpy(buf, "Platform 1.0");
 	if (uname(&unameBuf) == 0) {
 		#if defined(HAVE_SNPRINTF)
 		snprintf(buf, bufSize, "%s %s", unameBuf.sysname, unameBuf.release);
@@ -410,12 +410,12 @@ const char *cg_http_getservername(char *buf, size_t bufSize)
 		#endif
 	}
 #else
-	cg_strcpy(buf, "Platform 1.0");
+	mupnp_strcpy(buf, "Platform 1.0");
 #endif
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	return buf;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

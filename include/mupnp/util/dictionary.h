@@ -58,14 +58,14 @@ typedef struct _CgDictionary {
 /**
  * Create a new dictionary
  */
-CgDictionaryElement *cg_dictionary_element_new();
+CgDictionaryElement *mupnp_dictionary_element_new();
 
 /**
  * Destroy a dictionary.
  *
  * \param dirElem Dictionary to destroy
  */
-BOOL cg_dictionary_element_delete(CgDictionaryElement *dirElem);
+BOOL mupnp_dictionary_element_delete(CgDictionaryElement *dirElem);
 
 /**
  * Set a key
@@ -73,13 +73,13 @@ BOOL cg_dictionary_element_delete(CgDictionaryElement *dirElem);
  * \param dirElem Dictionary struct
  * \param name String to set 
  */
-#define cg_dictionary_element_setkey(dirElem, name) cg_string_setvalue(dirElem->key, name)
+#define mupnp_dictionary_element_setkey(dirElem, name) mupnp_string_setvalue(dirElem->key, name)
 /**
  * Get a key
  *
  * \param dirElem Dictionary struct
  */
-#define cg_dictionary_element_getkey(dirElem) cg_string_getvalue(dirElem->key)
+#define mupnp_dictionary_element_getkey(dirElem) mupnp_string_getvalue(dirElem->key)
 
 /**
  * Set a value
@@ -87,16 +87,16 @@ BOOL cg_dictionary_element_delete(CgDictionaryElement *dirElem);
  * \param dirElem Dictionary struct
  * \param value String to set
  */
-#define cg_dictionary_element_setvalue(dirElem, val) cg_string_setvalue(dirElem->value, val)
+#define mupnp_dictionary_element_setvalue(dirElem, val) mupnp_string_setvalue(dirElem->value, val)
 /**
  * Get a value
  *
  * \param dirElem Dictionary struct
  */
-#define cg_dictionary_element_getvalue(dirElem) cg_string_getvalue(dirElem->value)
+#define mupnp_dictionary_element_getvalue(dirElem) mupnp_string_getvalue(dirElem->value)
 
-#define cg_dictionary_element_next(dirElem) (CgDictionaryElement *)cg_list_next((CgList *)dirElem)
-#define cg_dictionary_element_remove(dirElem) cg_list_remove((CgList *)dirElem)
+#define mupnp_dictionary_element_next(dirElem) (CgDictionaryElement *)mupnp_list_next((CgList *)dirElem)
+#define mupnp_dictionary_element_remove(dirElem) mupnp_list_remove((CgList *)dirElem)
 
 /****************************************
 * Function (Dictionary List)
@@ -107,35 +107,35 @@ BOOL cg_dictionary_element_delete(CgDictionaryElement *dirElem);
  *
  * \return Dictionary list
  */
-CgDictionary *cg_dictionary_new();
+CgDictionary *mupnp_dictionary_new();
 
 /**
  * Destroy a dictionary list
  *
  * \param dir The dictionary list in question
  */
-void cg_dictionary_delete(CgDictionary *dir);
+void mupnp_dictionary_delete(CgDictionary *dir);
 
 /**
  * Clear the contents of a dictionary list
  *
  * \param dir Dictionary list in question
  */
-#define cg_dictionary_clear(dir) cg_list_clear((CgList *)dir, (CG_LIST_DESTRUCTORFUNC)cg_dictionary_element_delete)
+#define mupnp_dictionary_clear(dir) mupnp_list_clear((CgList *)dir, (CG_LIST_DESTRUCTORFUNC)mupnp_dictionary_element_delete)
 
 /**
  * Get the size of a dictionary list
  *
  * \param dir The dictionary list in question
  */
-#define cg_dictionary_size(dir) cg_list_size((CgList *)dir)
+#define mupnp_dictionary_size(dir) mupnp_list_size((CgList *)dir)
 
 /**
  * Get the first actual item from a dictionary list to use as an iterator
  *
  * \param dir The dictionary list in question
  */
-#define cg_dictionary_gets(dir) (CgDictionaryElement *)cg_list_next((CgList *)dir)
+#define mupnp_dictionary_gets(dir) (CgDictionaryElement *)mupnp_list_next((CgList *)dir)
 
 /**
  * Add a dictionary into a dictionary list
@@ -143,14 +143,14 @@ void cg_dictionary_delete(CgDictionary *dir);
  * \param dir The dictionary list in question
  * \param dirElem The dictionary to add to the list
  */
-#define cg_dictionary_add(dir, dirElem) cg_list_add((CgList *)dir, (CgList *)dirElem)
+#define mupnp_dictionary_add(dir, dirElem) mupnp_list_add((CgList *)dir, (CgList *)dirElem)
 
 /**
  * Remove a dictionary from dictionary list
  *
  * \param dirElem The dictionary to be removed 
  */
-#define cg_dictionary_remove(dirElem) cg_list_remove((CgList *)dirElem)
+#define mupnp_dictionary_remove(dirElem) mupnp_list_remove((CgList *)dirElem)
 
 /**
  * Get a element of the specified key
@@ -159,7 +159,7 @@ void cg_dictionary_delete(CgDictionary *dir);
  * \param key Name to search.
  * \return Element of the specified key.
  */
-CgDictionaryElement *cg_dictionary_get(CgDictionary *dir, const char *key);
+CgDictionaryElement *mupnp_dictionary_get(CgDictionary *dir, const char *key);
 
 /**
  * Set a new element into a dictionary 
@@ -168,7 +168,7 @@ CgDictionaryElement *cg_dictionary_get(CgDictionary *dir, const char *key);
  * \param key Name to set.
  * \param value Value to set.
  */
-void cg_dictionary_setvalue(CgDictionary *dir, const char *key, const char *value);
+void mupnp_dictionary_setvalue(CgDictionary *dir, const char *key, const char *value);
 
 /**
  * Get a value of the specified key
@@ -177,7 +177,7 @@ void cg_dictionary_setvalue(CgDictionary *dir, const char *key, const char *valu
  * \param key Name to search.
  * \return Value of the specified key.
  */
-const char *cg_dictionary_getvalue(CgDictionary *dir, const char *key);
+const char *mupnp_dictionary_getvalue(CgDictionary *dir, const char *key);
 
 #ifdef  __cplusplus
 

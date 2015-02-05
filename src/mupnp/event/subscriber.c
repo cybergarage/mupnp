@@ -25,7 +25,7 @@
 *		- subscriber clear does reset notifyCount
 *		- expiry check is by [s] (removed *1000 factor)
 *	03/13/08
-*		- Changed cg_upnp_subscriber_notifyall() using void parameter instead of CgService not to conflict the prototype defines.
+*		- Changed mupnp_upnp_subscriber_notifyall() using void parameter instead of CgService not to conflict the prototype defines.
 *
 ******************************************************************/
 
@@ -44,28 +44,28 @@
 /**
  * Create a new event subscriber
  */
-CgUpnpSubscriber *cg_upnp_subscriber_new()
+CgUpnpSubscriber *mupnp_upnp_subscriber_new()
 {
 	CgUpnpSubscriber *sub;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	sub = (CgUpnpSubscriber *)malloc(sizeof(CgUpnpSubscriber));
 
 	if ( NULL != sub )
 	{
-		cg_list_node_init((CgList *)sub);
+		mupnp_list_node_init((CgList *)sub);
 		
-		sub->sid = cg_string_new();
-		sub->ifAddr = cg_string_new();
-		sub->deliveryURL = cg_net_url_new();
+		sub->sid = mupnp_string_new();
+		sub->ifAddr = mupnp_string_new();
+		sub->deliveryURL = mupnp_net_url_new();
 		
-		cg_upnp_subscriber_settimeout(sub, 0);
-		cg_upnp_subscriber_renew(sub);
-		cg_upnp_subscriber_setnotifycount(sub, 0);
+		mupnp_upnp_subscriber_settimeout(sub, 0);
+		mupnp_upnp_subscriber_renew(sub);
+		mupnp_upnp_subscriber_setnotifycount(sub, 0);
 	}
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return sub;
 }
@@ -75,20 +75,20 @@ CgUpnpSubscriber *cg_upnp_subscriber_new()
  *
  * @param sub The event subscriber
  */
-void cg_upnp_subscriber_delete(CgUpnpSubscriber *sub)
+void mupnp_upnp_subscriber_delete(CgUpnpSubscriber *sub)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_subscriber_clear(sub);
-	cg_list_remove((CgList *)sub);
+	mupnp_upnp_subscriber_clear(sub);
+	mupnp_list_remove((CgList *)sub);
 
-	cg_string_delete(sub->sid);
-	cg_string_delete(sub->ifAddr);
-	cg_net_url_delete(sub->deliveryURL);
+	mupnp_string_delete(sub->sid);
+	mupnp_string_delete(sub->ifAddr);
+	mupnp_net_url_delete(sub->deliveryURL);
 	
 	free(sub);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -98,11 +98,11 @@ void cg_upnp_subscriber_delete(CgUpnpSubscriber *sub)
  *
  * @param sub The event subscriber
  */
-void cg_upnp_subscriber_clear(CgUpnpSubscriber *sub)
+void mupnp_upnp_subscriber_clear(CgUpnpSubscriber *sub)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -111,14 +111,14 @@ void cg_upnp_subscriber_clear(CgUpnpSubscriber *sub)
  *
  * @param sub The event subscriber
  */
-void cg_upnp_subscriber_renew(CgUpnpSubscriber *sub)
+void mupnp_upnp_subscriber_renew(CgUpnpSubscriber *sub)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	//Theo Beisch use clinkc time
-	cg_upnp_subscriber_setsubscriptiontime(sub, cg_getcurrentsystemtime());
+	mupnp_upnp_subscriber_setsubscriptiontime(sub, mupnp_getcurrentsystemtime());
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -127,15 +127,15 @@ void cg_upnp_subscriber_renew(CgUpnpSubscriber *sub)
  * @param sub The event subscriber
  * @return The new notify count
  */
-long cg_upnp_subscriber_incrementnotifycount(CgUpnpSubscriber *sub)
+long mupnp_upnp_subscriber_incrementnotifycount(CgUpnpSubscriber *sub)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (CG_UPNP_NOTIFY_COUNT_MAX <= sub->notifyCount)
 		sub->notifyCount = 0;
 	sub->notifyCount++;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return sub->notifyCount;
 }
@@ -146,25 +146,25 @@ long cg_upnp_subscriber_incrementnotifycount(CgUpnpSubscriber *sub)
  * @param sub The subscriber
  * @return TRUE if the subscription has been expired; otherwise FALSE
  */
-BOOL cg_upnp_subscriber_isexpired(CgUpnpSubscriber *sub)
+BOOL mupnp_upnp_subscriber_isexpired(CgUpnpSubscriber *sub)
 {
 	CgTime currTime;
 	CgTime timeout;
 	CgTime expiredTime;
 	
-	timeout = cg_upnp_subscriber_gettimeout(sub);
+	timeout = mupnp_upnp_subscriber_gettimeout(sub);
 	if(timeout == CG_UPNP_SUBSCRIPTION_INFINITE_VALUE) 
 		return FALSE; 
 			
 	//Theo Beisch - use clinkc function 
-	currTime = cg_getcurrentsystemtime(); //returns time in s 
-	expiredTime = cg_upnp_subscriber_getsubscriptiontime(sub) + (timeout); //tb: removed( *1000);
+	currTime = mupnp_getcurrentsystemtime(); //returns time in s 
+	expiredTime = mupnp_upnp_subscriber_getsubscriptiontime(sub) + (timeout); //tb: removed( *1000);
 	if (expiredTime < currTime)
 		return TRUE;
 			
 	return FALSE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -174,7 +174,7 @@ BOOL cg_upnp_subscriber_isexpired(CgUpnpSubscriber *sub)
  * @param statVar The evented state variable
  * @return TRUE if succesful; otherwise FALSE
  */
-static BOOL cg_upnp_subscriber_notifymain(CgUpnpSubscriber *sub, CgUpnpService *service, CgUpnpStateVariable *statVar)
+static BOOL mupnp_upnp_subscriber_notifymain(CgUpnpSubscriber *sub, CgUpnpService *service, CgUpnpStateVariable *statVar)
 {
 	char *host;
 	int port;
@@ -182,27 +182,27 @@ static BOOL cg_upnp_subscriber_notifymain(CgUpnpSubscriber *sub, CgUpnpService *
 	CgUpnpNotifyResponse *notifyRes;
 	BOOL notifySuccess;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	host = cg_upnp_subscriber_getdeliveryhost(sub);
-	port = cg_upnp_subscriber_getdeliveryport(sub);
+	host = mupnp_upnp_subscriber_getdeliveryhost(sub);
+	port = mupnp_upnp_subscriber_getdeliveryport(sub);
 
-	notifyReq = cg_upnp_event_notify_request_new();
-	cg_upnp_event_notify_request_setpropertysetnode(notifyReq, sub, service, statVar);
-	notifyRes = cg_upnp_event_notify_request_post(notifyReq, host, port);
-	notifySuccess = cg_upnp_event_notify_response_issuccessful(notifyRes);
+	notifyReq = mupnp_upnp_event_notify_request_new();
+	mupnp_upnp_event_notify_request_setpropertysetnode(notifyReq, sub, service, statVar);
+	notifyRes = mupnp_upnp_event_notify_request_post(notifyReq, host, port);
+	notifySuccess = mupnp_upnp_event_notify_response_issuccessful(notifyRes);
 
-	cg_http_request_print(notifyReq->httpReq);
-	cg_http_response_print(notifyRes->httpRes);
+	mupnp_http_request_print(notifyReq->httpReq);
+	mupnp_http_response_print(notifyRes->httpRes);
 	
-	cg_upnp_event_notify_request_delete(notifyReq);
+	mupnp_upnp_event_notify_request_delete(notifyReq);
 
 	if (notifySuccess == FALSE)
 		return FALSE;
 		
-	cg_upnp_subscriber_incrementnotifycount(sub);
+	mupnp_upnp_subscriber_incrementnotifycount(sub);
 			
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
@@ -214,9 +214,9 @@ static BOOL cg_upnp_subscriber_notifymain(CgUpnpSubscriber *sub, CgUpnpService *
  * @param statVar The evented state variable
  * @return TRUE if succesful; otherwise FALSE
  */
-BOOL cg_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statVar)
+BOOL mupnp_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statVar)
 {
-	return cg_upnp_subscriber_notifymain(sub, NULL, statVar);
+	return mupnp_upnp_subscriber_notifymain(sub, NULL, statVar);
 }
 
 /**
@@ -226,9 +226,9 @@ BOOL cg_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statV
  * @param service The evented service
  * @return TRUE if succesful; otherwise FALSE
  */
-BOOL cg_upnp_subscriber_notifyall(CgUpnpSubscriber *sub, /* CgUpnpService */ void *service)
+BOOL mupnp_upnp_subscriber_notifyall(CgUpnpSubscriber *sub, /* CgUpnpService */ void *service)
 {
-	return cg_upnp_subscriber_notifymain(sub, (CgUpnpService *)service, NULL);
+	return mupnp_upnp_subscriber_notifymain(sub, (CgUpnpService *)service, NULL);
 }
 
 /****************************************

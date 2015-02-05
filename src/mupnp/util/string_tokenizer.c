@@ -22,72 +22,72 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_string_tokenizer_new
+* mupnp_string_tokenizer_new
 ****************************************/
 
-CgStringTokenizer *cg_string_tokenizer_new(const char *value, const char *delim)
+CgStringTokenizer *mupnp_string_tokenizer_new(const char *value, const char *delim)
 {
 	CgStringTokenizer *strToken;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	strToken = (CgStringTokenizer *)malloc(sizeof(CgStringTokenizer));
 
 	if ( NULL != strToken )
 	{
-		strToken->value = cg_strdup(value);
-		strToken->delim = cg_strdup(delim);
-		strToken->delimCnt = cg_strlen(strToken->delim);
+		strToken->value = mupnp_strdup(value);
+		strToken->delim = mupnp_strdup(delim);
+		strToken->delimCnt = mupnp_strlen(strToken->delim);
 		strToken->nextStartPos = 0;
-		strToken->lastPos = cg_strlen(value) - 1;
+		strToken->lastPos = mupnp_strlen(value) - 1;
 		strToken->currToken = NULL;
 		strToken->nextToken = NULL;
-		cg_string_tokenizer_nexttoken(strToken);
+		mupnp_string_tokenizer_nexttoken(strToken);
 	}
   
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
   
 	return strToken;
 }
 
 /****************************************
-* cg_string_tokenizer_delete
+* mupnp_string_tokenizer_delete
 ****************************************/
 
-void cg_string_tokenizer_delete(CgStringTokenizer *strToken)
+void mupnp_string_tokenizer_delete(CgStringTokenizer *strToken)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	free(strToken->value);
 	free(strToken->delim);
 	free(strToken);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_string_tokenizer_hasmoretoken
+* mupnp_string_tokenizer_hasmoretoken
 ****************************************/
 
-BOOL cg_string_tokenizer_hasmoretoken(CgStringTokenizer *strToken)
+BOOL mupnp_string_tokenizer_hasmoretoken(CgStringTokenizer *strToken)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	return strToken->hasNextTokens;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_string_tokenizer_nexttoken
+* mupnp_string_tokenizer_nexttoken
 ****************************************/
 
-char *cg_string_tokenizer_nexttoken(CgStringTokenizer *strToken)
+char *mupnp_string_tokenizer_nexttoken(CgStringTokenizer *strToken)
 {
 	size_t tokenCnt;
 	size_t i, j;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	strToken->currToken = strToken->nextToken;
 	strToken->nextToken = NULL;
@@ -125,39 +125,39 @@ char *cg_string_tokenizer_nexttoken(CgStringTokenizer *strToken)
 
 	return strToken->currToken;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_string_tokenizer_nextalltoken
+* mupnp_string_tokenizer_nextalltoken
 ****************************************/
 
-char *cg_string_tokenizer_nextalltoken(CgStringTokenizer *strToken)
+char *mupnp_string_tokenizer_nextalltoken(CgStringTokenizer *strToken)
 {
 	size_t nextTokenLen;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	nextTokenLen = cg_strlen(strToken->nextToken);
+	nextTokenLen = mupnp_strlen(strToken->nextToken);
 	strToken->nextToken[nextTokenLen] = strToken->repToken;
 	strToken->currToken = strToken->nextToken;
 	strToken->nextToken = NULL;
 	strToken->hasNextTokens = FALSE;
 	return strToken->currToken;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_string_tokenizer_print
+* mupnp_string_tokenizer_print
 ****************************************/
 
-void cg_string_tokenizer_print(CgStringTokenizer *strToken)
+void mupnp_string_tokenizer_print(CgStringTokenizer *strToken)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-cg_log_debug_s(
-		"cg_string_tokenizer_print\n"
+mupnp_log_debug_s(
+		"mupnp_string_tokenizer_print\n"
 		"value = %s\n, delim = %s,\n delimCnt = %d,\n nextStartPos = %d,\n lastPos = %d,\n currToken = %s,\n nextToken = %s,\n repToken = %c,\n hasNextTokens = %d\n",
 		strToken->value,
 		strToken->delim,
@@ -169,5 +169,5 @@ cg_log_debug_s(
 		strToken->repToken,
 		strToken->hasNextTokens);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

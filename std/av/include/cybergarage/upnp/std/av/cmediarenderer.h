@@ -99,52 +99,52 @@ void *userData;
 * Public Functions
 ****************************************/
 
-CgUpnpAvRenderer *cg_upnpav_dmr_new();
-void cg_upnpav_dmr_delete(CgUpnpAvRenderer *dmr);
+CgUpnpAvRenderer *mupnp_upnpav_dmr_new();
+void mupnp_upnpav_dmr_delete(CgUpnpAvRenderer *dmr);
 
-#define cg_upnpav_dmr_getdevice(dmr) (dmr->dev)
+#define mupnp_upnpav_dmr_getdevice(dmr) (dmr->dev)
 
-#define cg_upnpav_dmr_start(dmr) cg_upnp_device_start(dmr->dev)
-#define cg_upnpav_dmr_stop(dmr) cg_upnp_device_stop(dmr->dev)
+#define mupnp_upnpav_dmr_start(dmr) mupnp_upnp_device_start(dmr->dev)
+#define mupnp_upnpav_dmr_stop(dmr) mupnp_upnp_device_stop(dmr->dev)
 
-#define cg_upnpav_dmr_lock(dmr) cg_mutex_lock(dmr->mutex)
-#define cg_upnpav_dmr_unlock(dmr) cg_mutex_unlock(dmr->mutex)
+#define mupnp_upnpav_dmr_lock(dmr) mupnp_mutex_lock(dmr->mutex)
+#define mupnp_upnpav_dmr_unlock(dmr) mupnp_mutex_unlock(dmr->mutex)
 
-#define cg_upnpav_dmr_setfriendlyname(dmr, value) cg_upnp_device_setfriendlyname(dmr->dev, value)
-#define cg_upnpav_dmr_getfriendlyname(dmr) cg_upnp_device_getfriendlyname(dmr->dev)
+#define mupnp_upnpav_dmr_setfriendlyname(dmr, value) mupnp_upnp_device_setfriendlyname(dmr->dev, value)
+#define mupnp_upnpav_dmr_getfriendlyname(dmr) mupnp_upnp_device_getfriendlyname(dmr->dev)
 
-#define cg_upnpav_dmr_setudn(dmr, value) cg_upnp_device_setudn(dmr->dev, value)
-#define cg_upnpav_dmr_getudn(dmr) cg_upnp_device_getudn(dmr->dev)
+#define mupnp_upnpav_dmr_setudn(dmr, value) mupnp_upnp_device_setudn(dmr->dev, value)
+#define mupnp_upnpav_dmr_getudn(dmr) mupnp_upnp_device_getudn(dmr->dev)
 
-#define cg_upnpav_dmr_sethttplistener(dmr,func) (dmr->httplistener = func)
-#define cg_upnpav_dmr_gethttplistener(dmr) (dmr->httplistener)
+#define mupnp_upnpav_dmr_sethttplistener(dmr,func) (dmr->httplistener = func)
+#define mupnp_upnpav_dmr_gethttplistener(dmr) (dmr->httplistener)
 
-#define cg_upnpav_dmr_setactionlistener(dmr,func) (dmr->actionListner = func)
-#define cg_upnpav_dmr_getactionlistener(dmr) (dmr->actionListner)
+#define mupnp_upnpav_dmr_setactionlistener(dmr,func) (dmr->actionListner = func)
+#define mupnp_upnpav_dmr_getactionlistener(dmr) (dmr->actionListner)
 
-#define cg_upnpav_dmr_setquerylistener(dmr,func) (dmr->queryListner = func)
-#define cg_upnpav_dmr_getquerylistener(dmr) (dmr->queryListner)
+#define mupnp_upnpav_dmr_setquerylistener(dmr,func) (dmr->queryListner = func)
+#define mupnp_upnpav_dmr_getquerylistener(dmr) (dmr->queryListner)
 
-#define cg_upnpav_dmr_setuserdata(dmr,data) (dmr->userData = data)
-#define cg_upnpav_dmr_getuserdata(dmr) (dmr->userData)
+#define mupnp_upnpav_dmr_setuserdata(dmr,data) (dmr->userData = data)
+#define mupnp_upnpav_dmr_getuserdata(dmr) (dmr->userData)
 
-void cg_upnpav_dmr_addprotocolinfo(CgUpnpAvRenderer *dmr, CgUpnpAvProtocolInfo *info);
-#define cg_upnpav_dmr_getprotocolinfos(dmr) cg_upnpav_protocolinfolist_gets(dmr->protocolInfoList)
+void mupnp_upnpav_dmr_addprotocolinfo(CgUpnpAvRenderer *dmr, CgUpnpAvProtocolInfo *info);
+#define mupnp_upnpav_dmr_getprotocolinfos(dmr) mupnp_upnpav_protocolinfolist_gets(dmr->protocolInfoList)
 
-void cg_upnpav_dmr_setsinkprotocolinfo(CgUpnpAvRenderer *dmr, char *value);
-char *cg_upnpav_dmr_getsinkprotocolinfo(CgUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setsinkprotocolinfo(CgUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getsinkprotocolinfo(CgUpnpAvRenderer *dmr);
 
-void cg_upnpav_dmr_setsourceprotocolinfo(CgUpnpAvRenderer *dmr, char *value);
-char *cg_upnpav_dmr_getsourceprotocolinfo(CgUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setsourceprotocolinfo(CgUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getsourceprotocolinfo(CgUpnpAvRenderer *dmr);
 
-void cg_upnpav_dmr_setcurrentconnectionids(CgUpnpAvRenderer *dmr, char *value);
-char *cg_upnpav_dmr_getcurrentconnectionids(CgUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setcurrentconnectionids(CgUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getcurrentconnectionids(CgUpnpAvRenderer *dmr);
 
-void cg_upnpav_dmr_setavtransportlastchange(CgUpnpAvRenderer *dmr, char *value);
-char *cg_upnpav_dmr_getavtransportlastchange(CgUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setavtransportlastchange(CgUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getavtransportlastchange(CgUpnpAvRenderer *dmr);
 
-void cg_upnpav_dmr_setrenderingcontrollastchange(CgUpnpAvRenderer *dmr, char *value);
-char *cg_upnpav_dmr_getrenderingcontrollastchange(CgUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setrenderingcontrollastchange(CgUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getrenderingcontrollastchange(CgUpnpAvRenderer *dmr);
 
 #ifdef  __cplusplus
 }

@@ -42,31 +42,31 @@ typedef struct _CgUpnpMediaFileSystemContentData {
 #define CG_UPNP_MEDIA_UPNPCLASS_MUSIC CG_UPNPAV_UPNPCLASS_MUSIC
 #define CgUpnpMediaResource CgUpnpAvResource
 #define CG_UPNP_MEDIA_DLNAPN_MAXLEN CG_UPNPAV_DLNAATTR_MAXLEN
-#define cg_upnp_media_resource_new cg_upnpav_resource_new
+#define mupnp_upnp_media_resource_new mupnp_upnpav_resource_new
 #define CG_UPNP_MEDIA_CONTENT_NONE 0
-#define cg_upnp_dms_getdevice cg_upnpav_dms_getdevice
+#define mupnp_upnp_dms_getdevice mupnp_upnpav_dms_getdevice
 #define CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE
 #define CG_UPNP_DMS_CONTENTDIRECTORY_BROWSE_OBJECT_ID CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_OBJECT_ID
 #define  CG_UPNPAV_FILESYS_RESURL_PATH "content"
 #define  CG_UPNPAV_FILESYS_RESURL_MAXLEN (CG_NET_IPV6_ADDRSTRING_MAXSIZE + CG_MD5_STRING_BUF_SIZE + 64)
 
-CgUpnpAvServer *cg_upnpav_dms_filesys_new();
-void cg_upnpav_dms_filesys_delete(CgUpnpAvServer *dms);
+CgUpnpAvServer *mupnp_upnpav_dms_filesys_new();
+void mupnp_upnpav_dms_filesys_delete(CgUpnpAvServer *dms);
 
-#define cg_upnpav_dms_filesys_start(dms) cg_upnpav_dms_start(dms)
-#define cg_upnpav_dms_filesys_stop(dms) cg_upnpav_dms_stop(dms)
+#define mupnp_upnpav_dms_filesys_start(dms) mupnp_upnpav_dms_start(dms)
+#define mupnp_upnpav_dms_filesys_stop(dms) mupnp_upnpav_dms_stop(dms)
 
 
-void cg_upnpav_dms_filesys_setpublicationdirectory(CgUpnpAvServer *dms, char *pubdir);
-char *cg_upnpav_dms_filesys_getpublicationdirectory(CgUpnpMediaServer *dms);
+void mupnp_upnpav_dms_filesys_setpublicationdirectory(CgUpnpAvServer *dms, char *pubdir);
+char *mupnp_upnpav_dms_filesys_getpublicationdirectory(CgUpnpMediaServer *dms);
 
-CgUpnpMediaFileSystemContentData *cg_upnpav_dms_filesys_content_data_new();
-void cg_upnpav_dms_filesys_content_data_delete(CgUpnpMediaFileSystemContentData *data);
-CgUpnpMediaFileSystemContentData *cg_upnpav_dms_filesys_content_getdata(CgUpnpAvContent *con);
-void cg_upnpav_dms_filesys_content_setpubicdirectory(CgUpnpMediaContent *con, char *dir);
-char *cg_upnpav_dms_filesys_content_getpubicdirectory(CgUpnpMediaContent *con);
+CgUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_data_new();
+void mupnp_upnpav_dms_filesys_content_data_delete(CgUpnpMediaFileSystemContentData *data);
+CgUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_getdata(CgUpnpAvContent *con);
+void mupnp_upnpav_dms_filesys_content_setpubicdirectory(CgUpnpMediaContent *con, char *dir);
+char *mupnp_upnpav_dms_filesys_content_getpubicdirectory(CgUpnpMediaContent *con);
 
-void cg_upnpav_dms_filesys_http_listener(CgHttpRequest *httpReq);
+void mupnp_upnpav_dms_filesys_http_listener(CgHttpRequest *httpReq);
 
 #ifdef  __cplusplus
 }

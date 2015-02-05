@@ -69,9 +69,9 @@ static const char CG_HTTP_REASON_PHRASE_UNKNOWN[] = { "Unknown" };
  * @param code The HTTP status code to convert
  * @return The reason phrase (do not modify the pointer's contents)
  */
-const char *cg_http_statuscode2reasonphrase(const int code)
+const char *mupnp_http_statuscode2reasonphrase(const int code)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	switch (code) 
 	{
@@ -118,5 +118,5 @@ const char *cg_http_statuscode2reasonphrase(const int code)
 		default: return CG_HTTP_REASON_PHRASE_UNKNOWN;
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

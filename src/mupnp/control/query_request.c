@@ -29,20 +29,20 @@
 #if !defined(CG_UPNP_NOUSE_QUERYCTRL)
 
 /****************************************
-* cg_upnp_control_query_request_new
+* mupnp_upnp_control_query_request_new
 ****************************************/
 
-CgUpnpQueryRequest *cg_upnp_control_query_request_new()
+CgUpnpQueryRequest *mupnp_upnp_control_query_request_new()
 {
 	CgUpnpQueryRequest *queryReq;
 	 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	queryReq = (CgUpnpQueryRequest *)malloc(sizeof(CgUpnpQueryRequest));
 
 	if ( NULL != queryReq )
 	{	
-		queryReq->soapReq = cg_soap_request_new();
+		queryReq->soapReq = mupnp_soap_request_new();
 		if (queryReq->soapReq == NULL) 
 		{
 			/* Memory allocation failed */
@@ -52,11 +52,11 @@ CgUpnpQueryRequest *cg_upnp_control_query_request_new()
 
 		queryReq->isSoapReqCreated = TRUE;
 		
-		queryReq->queryRes = cg_upnp_control_query_response_new();
+		queryReq->queryRes = mupnp_upnp_control_query_response_new();
 		if (queryReq->queryRes == NULL)
 		{
 			/* Memory allocation failed */
-			cg_soap_request_delete(queryReq->soapReq);
+			mupnp_soap_request_delete(queryReq->soapReq);
 			free(queryReq);
 			return NULL;
 		}
@@ -64,172 +64,172 @@ CgUpnpQueryRequest *cg_upnp_control_query_request_new()
 		
 	return queryReq;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_control_query_request_delete
+* mupnp_upnp_control_query_request_delete
 ****************************************/
 
-void cg_upnp_control_query_request_delete(CgUpnpQueryRequest *queryReq)
+void mupnp_upnp_control_query_request_delete(CgUpnpQueryRequest *queryReq)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_control_query_request_clear(queryReq);
+	mupnp_upnp_control_query_request_clear(queryReq);
 
 	if (queryReq->isSoapReqCreated == TRUE)
-		cg_soap_request_delete(queryReq->soapReq);
+		mupnp_soap_request_delete(queryReq->soapReq);
 
-	cg_upnp_control_query_response_delete(queryReq->queryRes);
+	mupnp_upnp_control_query_response_delete(queryReq->queryRes);
 			
 	free(queryReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_control_query_request_clear
+* mupnp_upnp_control_query_request_clear
 ****************************************/
 
-void cg_upnp_control_query_request_clear(CgUpnpQueryRequest *queryReq)
+void mupnp_upnp_control_query_request_clear(CgUpnpQueryRequest *queryReq)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (queryReq->isSoapReqCreated == TRUE)
-		cg_soap_request_delete(queryReq->soapReq);
-	queryReq->soapReq = cg_soap_request_new();
+		mupnp_soap_request_delete(queryReq->soapReq);
+	queryReq->soapReq = mupnp_soap_request_new();
 	queryReq->isSoapReqCreated = TRUE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_control_query_request_setsoaprequest
+* mupnp_upnp_control_query_request_setsoaprequest
 ****************************************/
 
-void cg_upnp_control_query_request_setsoaprequest(CgUpnpQueryRequest *queryReq, CgSoapRequest *soapReq)
+void mupnp_upnp_control_query_request_setsoaprequest(CgUpnpQueryRequest *queryReq, CgSoapRequest *soapReq)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (queryReq->isSoapReqCreated == TRUE)
-		cg_soap_request_delete(queryReq->soapReq);
+		mupnp_soap_request_delete(queryReq->soapReq);
 	queryReq->soapReq = soapReq;
 	queryReq->isSoapReqCreated = FALSE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_control_query_request_getvarnamenode
+* mupnp_upnp_control_query_request_getvarnamenode
 ****************************************/
 
-CgXmlNode *cg_upnp_control_query_request_getvarnamenode(CgUpnpQueryRequest *queryReq)
+CgXmlNode *mupnp_upnp_control_query_request_getvarnamenode(CgUpnpQueryRequest *queryReq)
 {
 	CgSoapRequest *soapReq;	
 	CgXmlNode *bodyNode;
 	CgXmlNode *queryStateVarNode;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	soapReq = cg_upnp_control_query_request_getsoaprequest(queryReq);
+	soapReq = mupnp_upnp_control_query_request_getsoaprequest(queryReq);
 	
-	bodyNode = cg_soap_request_getbodynode(soapReq);
+	bodyNode = mupnp_soap_request_getbodynode(soapReq);
 	if (bodyNode == NULL)
 		return NULL;
-	if (cg_xml_node_haschildnodes(bodyNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(bodyNode) == FALSE)
 		return NULL;
 
-	queryStateVarNode = cg_xml_node_getchildnodes(bodyNode);		
+	queryStateVarNode = mupnp_xml_node_getchildnodes(bodyNode);		
 	if (queryStateVarNode == NULL)
 		return NULL;
-	if (cg_xml_node_haschildnodes(queryStateVarNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(queryStateVarNode) == FALSE)
 		return NULL;
 		
-	return cg_xml_node_getchildnodes(queryStateVarNode);		
+	return mupnp_xml_node_getchildnodes(queryStateVarNode);		
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_control_query_request_getqueryname
+* mupnp_upnp_control_query_request_getqueryname
 ****************************************/
 
-char *cg_upnp_control_query_request_getvarname(CgUpnpQueryRequest *queryReq)
+char *mupnp_upnp_control_query_request_getvarname(CgUpnpQueryRequest *queryReq)
 {
 	CgXmlNode *node;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	node = cg_upnp_control_query_request_getvarnamenode(queryReq);
+	node = mupnp_upnp_control_query_request_getvarnamenode(queryReq);
 	if (node == NULL)
 		return "";
 	
-	return cg_xml_node_getvalue(node);
+	return mupnp_xml_node_getvalue(node);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_control_query_request_cratestatevariablenode
+* mupnp_upnp_control_query_request_cratestatevariablenode
 ****************************************/
 
-CgXmlNode *cg_upnp_control_query_request_cratestatevariablenode(CgUpnpStateVariable *statVar)
+CgXmlNode *mupnp_upnp_control_query_request_cratestatevariablenode(CgUpnpStateVariable *statVar)
 {
 	CgXmlNode *queryVarNode;
 	CgXmlNode *varNode;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	queryVarNode = cg_xml_node_new();
-	cg_xml_node_setname(queryVarNode, CG_UPNP_CONTROL_NS  CG_SOAP_DELIM CG_UPNP_CONTROL_QUERY_STATE_VARIABLE);
-	cg_xml_node_setnamespace(queryVarNode, CG_UPNP_CONTROL_NS, CG_UPNP_CONTROL_XMLNS);
+	queryVarNode = mupnp_xml_node_new();
+	mupnp_xml_node_setname(queryVarNode, CG_UPNP_CONTROL_NS  CG_SOAP_DELIM CG_UPNP_CONTROL_QUERY_STATE_VARIABLE);
+	mupnp_xml_node_setnamespace(queryVarNode, CG_UPNP_CONTROL_NS, CG_UPNP_CONTROL_XMLNS);
 	
-	varNode = cg_xml_node_new();
-	cg_xml_node_setname(varNode, CG_UPNP_CONTROL_NS CG_SOAP_DELIM CG_UPNP_CONTROL_VAR_NAME);
-	cg_xml_node_setvalue(varNode, cg_upnp_statevariable_getname(statVar));
+	varNode = mupnp_xml_node_new();
+	mupnp_xml_node_setname(varNode, CG_UPNP_CONTROL_NS CG_SOAP_DELIM CG_UPNP_CONTROL_VAR_NAME);
+	mupnp_xml_node_setvalue(varNode, mupnp_upnp_statevariable_getname(statVar));
 	
-	cg_xml_node_addchildnode(queryVarNode, varNode);
+	mupnp_xml_node_addchildnode(queryVarNode, varNode);
 	
 	return queryVarNode;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_control_query_request_setstatevariable
+* mupnp_upnp_control_query_request_setstatevariable
 ****************************************/
 
-void cg_upnp_control_query_request_setstatevariable(CgUpnpQueryRequest *queryReq, CgUpnpStateVariable *statVar)
+void mupnp_upnp_control_query_request_setstatevariable(CgUpnpQueryRequest *queryReq, CgUpnpStateVariable *statVar)
 {
 	CgUpnpService *service;
 	CgSoapRequest *soapReq;
 	CgXmlNode *bodyNode;
 	CgXmlNode *queryNode;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	service = cg_upnp_statevariable_getservice(statVar);
-	soapReq = cg_upnp_control_query_request_getsoaprequest(queryReq);
+	service = mupnp_upnp_statevariable_getservice(statVar);
+	soapReq = mupnp_upnp_control_query_request_getsoaprequest(queryReq);
 	
-	cg_soap_request_setsoapaction(soapReq, CG_UPNP_CONTROL_QUERY_SOAPACTION);
+	mupnp_soap_request_setsoapaction(soapReq, CG_UPNP_CONTROL_QUERY_SOAPACTION);
 	
-	cg_upnp_control_request_sethostfromservice(soapReq, service);
+	mupnp_upnp_control_request_sethostfromservice(soapReq, service);
 	
-	cg_upnp_control_soap_request_initializeenvelopenode(soapReq);
-	bodyNode = cg_soap_request_getbodynode(soapReq);
-	queryNode = cg_upnp_control_query_request_cratestatevariablenode(statVar);
-	cg_xml_node_addchildnode(bodyNode, queryNode);
+	mupnp_upnp_control_soap_request_initializeenvelopenode(soapReq);
+	bodyNode = mupnp_soap_request_getbodynode(soapReq);
+	queryNode = mupnp_upnp_control_query_request_cratestatevariablenode(statVar);
+	mupnp_xml_node_addchildnode(bodyNode, queryNode);
 
-	cg_soap_request_createcontent(soapReq);
+	mupnp_soap_request_createcontent(soapReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_control_query_request_post
+* mupnp_upnp_control_query_request_post
 ****************************************/
 
-CgUpnpQueryResponse *cg_upnp_control_query_request_post(CgUpnpQueryRequest *queryReq)
+CgUpnpQueryResponse *mupnp_upnp_control_query_request_post(CgUpnpQueryRequest *queryReq)
 {
 	CgSoapRequest *soapReq;
 	CgSoapResponse *soapRes;
@@ -237,24 +237,24 @@ CgUpnpQueryResponse *cg_upnp_control_query_request_post(CgUpnpQueryRequest *quer
 	CgHttpRequest *httpReq;
 	CgNetURL *postURL;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	soapReq = cg_upnp_control_query_request_getsoaprequest(queryReq);
-	soapRes = cg_soap_request_getsoapresponse(soapReq);
-	queryRes = cg_upnp_control_query_request_getqueryresponse(queryReq);
-	httpReq = cg_soap_request_gethttprequest(soapReq);
-	postURL = cg_http_request_getposturl(httpReq);
+	soapReq = mupnp_upnp_control_query_request_getsoaprequest(queryReq);
+	soapRes = mupnp_soap_request_getsoapresponse(soapReq);
+	queryRes = mupnp_upnp_control_query_request_getqueryresponse(queryReq);
+	httpReq = mupnp_soap_request_gethttprequest(soapReq);
+	postURL = mupnp_http_request_getposturl(httpReq);
 	
-	cg_upnp_control_query_response_setsoapresponse(queryRes, soapRes);
+	mupnp_upnp_control_query_response_setsoapresponse(queryRes, soapRes);
 	
-	cg_soap_request_post(
+	mupnp_soap_request_post(
 		soapReq, 
-		cg_net_url_gethost(postURL),
-		cg_net_url_getport(postURL));
+		mupnp_net_url_gethost(postURL),
+		mupnp_net_url_getport(postURL));
 	
 	return queryRes;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************

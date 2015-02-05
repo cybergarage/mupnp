@@ -42,7 +42,7 @@ static struct termios orgTermAttr;
 #endif
 #include "ckeyboard.h"
 
-void cg_kb_init()
+void mupnp_kb_init()
 {
 #if !defined(WIN32) && !defined(__MINGW32__)
 	struct termios termAttr;
@@ -55,7 +55,7 @@ void cg_kb_init()
 #endif
 }
 
-int cg_kb_hit()
+int mupnp_kb_hit()
 {
 #if !defined(WIN32) && !defined(__MINGW32__)
 	int ret, n;
@@ -66,12 +66,12 @@ int cg_kb_hit()
 	return 0;
 }
 
-int cg_kb_key()
+int mupnp_kb_key()
 {
 	return 0;
 }
 
-void cg_kb_exit()
+void mupnp_kb_exit()
 {
 #if !defined(WIN32) && !defined(__MINGW32__)
 	tcsetattr(0, TCSANOW, &orgTermAttr);

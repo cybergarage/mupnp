@@ -31,31 +31,31 @@ void PrintIGDInfo(CgUpnpDevice *dev, int igdNum)
 	CgUpnpAction *totalBytesSentAction;
 	CgUpnpAction *totalBytesRecvAction;
 
-	if (!cg_upnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE))
+	if (!mupnp_upnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE))
 		return;
 	
-	printf("[%d] : %s\n", igdNum, cg_upnp_device_getfriendlyname(dev));
+	printf("[%d] : %s\n", igdNum, mupnp_upnp_device_getfriendlyname(dev));
 
-	ipConService = cg_upnp_device_getservicebytype(dev, UPNPAVDUMP_IGD_WANIPCON_SERVICETYPE);
+	ipConService = mupnp_upnp_device_getservicebytype(dev, UPNPAVDUMP_IGD_WANIPCON_SERVICETYPE);
 	if (ipConService) {
-		extIpAddrAction = cg_upnp_service_getactionbyname(ipConService, "GetExternalIPAddress");
+		extIpAddrAction = mupnp_upnp_service_getactionbyname(ipConService, "GetExternalIPAddress");
 		if (extIpAddrAction) {
-			if (cg_upnp_action_post(extIpAddrAction))
-				printf("  GetExternalIPAddress = %s\n", cg_upnp_action_getargumentvaluebyname(extIpAddrAction, "NewExternalIPAddress"));
+			if (mupnp_upnp_action_post(extIpAddrAction))
+				printf("  GetExternalIPAddress = %s\n", mupnp_upnp_action_getargumentvaluebyname(extIpAddrAction, "NewExternalIPAddress"));
 		}
 	}
 
-	wanComIfCfgService = cg_upnp_device_getservicebytype(dev, UPNPAVDUMP_IGD_WANCOMIFCFG_SERVICETYPE);
+	wanComIfCfgService = mupnp_upnp_device_getservicebytype(dev, UPNPAVDUMP_IGD_WANCOMIFCFG_SERVICETYPE);
 	if (wanComIfCfgService) {
-		totalBytesSentAction = cg_upnp_service_getactionbyname(ipConService, "GetTotalBytesSent");
+		totalBytesSentAction = mupnp_upnp_service_getactionbyname(ipConService, "GetTotalBytesSent");
 		if (totalBytesSentAction) {
-			if (cg_upnp_action_post(totalBytesSentAction))
-				printf("  GetTotalBytesSent = %s\n", cg_upnp_action_getargumentvaluebyname(totalBytesSentAction, "NewTotalBytesSent"));
+			if (mupnp_upnp_action_post(totalBytesSentAction))
+				printf("  GetTotalBytesSent = %s\n", mupnp_upnp_action_getargumentvaluebyname(totalBytesSentAction, "NewTotalBytesSent"));
 		}
-		totalBytesRecvAction = cg_upnp_service_getactionbyname(ipConService, "GetTotalBytesReceived");
+		totalBytesRecvAction = mupnp_upnp_service_getactionbyname(ipConService, "GetTotalBytesReceived");
 		if (totalBytesRecvAction) {
-			if (cg_upnp_action_post(totalBytesRecvAction))
-				printf("  GetTotalBytesSent = %s\n", cg_upnp_action_getargumentvaluebyname(totalBytesRecvAction, "NewTotalBytesReceived"));
+			if (mupnp_upnp_action_post(totalBytesRecvAction))
+				printf("  GetTotalBytesSent = %s\n", mupnp_upnp_action_getargumentvaluebyname(totalBytesRecvAction, "NewTotalBytesReceived"));
 		}
 	}
 }
@@ -70,8 +70,8 @@ void PrintIGDInfos(CgUpnpControlPoint *ctrlPoint)
 	int igdNum;
 		
 	igdNum = 0;
-	for (dev = cg_upnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = cg_upnp_device_next(dev)) {
-		if (cg_upnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE))
+	for (dev = mupnp_upnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = mupnp_upnp_device_next(dev)) {
+		if (mupnp_upnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE))
 			PrintIGDInfo(dev, ++igdNum);
 	}
 
@@ -91,20 +91,20 @@ int main( int argc, char* argv[] )
 {
 	CgUpnpControlPoint *ctrlPoint;
 
-	ctrlPoint = cg_upnp_controlpoint_new();
-	if (cg_upnp_controlpoint_start(ctrlPoint) == FALSE) {
+	ctrlPoint = mupnp_upnp_controlpoint_new();
+	if (mupnp_upnp_controlpoint_start(ctrlPoint) == FALSE) {
 		printf("Couldn't start this control point !!");
 		exit(1);
 	}
 	
-	cg_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
+	mupnp_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
 
-	cg_sleep(cg_upnp_controlpoint_getssdpsearchmx(ctrlPoint) * 1000);
+	mupnp_sleep(mupnp_upnp_controlpoint_getssdpsearchmx(ctrlPoint) * 1000);
 
 	PrintIGDInfos(ctrlPoint);
 	
-	cg_upnp_controlpoint_stop(ctrlPoint);
-	cg_upnp_controlpoint_delete(ctrlPoint);
+	mupnp_upnp_controlpoint_stop(ctrlPoint);
+	mupnp_upnp_controlpoint_delete(ctrlPoint);
 	
 	return(0);
 }

@@ -22,48 +22,48 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_dictionary_element_new
+* mupnp_dictionary_element_new
 ****************************************/
 
-CgDictionaryElement *cg_dictionary_element_new()
+CgDictionaryElement *mupnp_dictionary_element_new()
 {
 	CgDictionaryElement *dirElem;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	dirElem = (CgDictionaryElement *)malloc(sizeof(CgDictionaryElement));
 
-	cg_log_debug_s("Creating dirElem data into %p\n", dirElem);
+	mupnp_log_debug_s("Creating dirElem data into %p\n", dirElem);
 
 	if ( NULL != dirElem )
 	{
-		cg_list_node_init((CgList *)dirElem);
-		dirElem->key = cg_string_new();
-		dirElem->value = cg_string_new();
+		mupnp_list_node_init((CgList *)dirElem);
+		dirElem->key = mupnp_string_new();
+		dirElem->value = mupnp_string_new();
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return dirElem;
 }
 
 /****************************************
-* cg_dictionary_element_delete
+* mupnp_dictionary_element_delete
 ****************************************/
 
-BOOL cg_dictionary_element_delete(CgDictionaryElement *dirElem)
+BOOL mupnp_dictionary_element_delete(CgDictionaryElement *dirElem)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)dirElem);
+	mupnp_list_remove((CgList *)dirElem);
 
 	if (dirElem->key)
-		cg_string_delete(dirElem->key);
+		mupnp_string_delete(dirElem->key);
 	if (dirElem->value)
-		cg_string_delete(dirElem->value);
+		mupnp_string_delete(dirElem->value);
 	free(dirElem);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }

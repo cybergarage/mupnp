@@ -22,35 +22,35 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnp_devicelist_new
+* mupnp_upnp_devicelist_new
 ****************************************/
 
-CgUpnpDeviceList *cg_upnp_devicelist_new()
+CgUpnpDeviceList *mupnp_upnp_devicelist_new()
 {
 	CgUpnpDeviceList *devList;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	devList = (CgUpnpDeviceList *)malloc(sizeof(CgUpnpDeviceList));
 
 	if ( NULL != devList )
-		cg_list_header_init((CgList *)devList);
+		mupnp_list_header_init((CgList *)devList);
 
 	return devList;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_devicelist_delete
+* mupnp_upnp_devicelist_delete
 ****************************************/
 
-void cg_upnp_devicelist_delete(CgUpnpDeviceList *devList)
+void mupnp_upnp_devicelist_delete(CgUpnpDeviceList *devList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_devicelist_clear(devList);
+	mupnp_upnp_devicelist_clear(devList);
 	free(devList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

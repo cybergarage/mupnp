@@ -16,17 +16,17 @@
 * 01/25/05
 *  - first revision
 * 11/11/05
-*  - Added cg_longlong2str() and cg_str2longlong().
+*  - Added mupnp_longlong2str() and mupnp_str2longlong().
 * 03/20/06 Theo Beisch
 *  - WINCE support
-*  - added cg_strtrimwhite() - trims all whitespace, not just ' '
+*  - added mupnp_strtrimwhite() - trims all whitespace, not just ' '
 * 03/18/07
 *  - Changed the following functions to use CgInt64.
-*    cg_longlong2str()
+*    mupnp_longlong2str()
 * 10/22/07 Aapo Makela
-*  - Added NULL check to cg_strtrimwhite()
+*  - Added NULL check to mupnp_strtrimwhite()
 * 08/04/09
-*  - Added cg_float2str() and cg_double2str().
+*  - Added mupnp_float2str() and mupnp_double2str().
 *
 ******************************************************************/
 
@@ -51,16 +51,16 @@
 #endif
 
 /****************************************
-* cg_strdup
+* mupnp_strdup
 ****************************************/
 
-char *cg_strdup(const char *str)
+char *mupnp_strdup(const char *str)
 {
 #if !defined(HAVE_STRDUP)
  char *cpStrBuf;
 #endif
 
-	/* cg_log_debug_l5("Entering...\n"); */
+	/* mupnp_log_debug_l5("Entering...\n"); */
 
 	if (str == NULL)
 		return NULL;
@@ -74,55 +74,55 @@ char *cg_strdup(const char *str)
 	return cpStrBuf;
 #endif
 
-	/* cg_log_debug_l5("Leaving...\n"); */
+	/* mupnp_log_debug_l5("Leaving...\n"); */
 }
 
 /****************************************
-* cg_strlen
+* mupnp_strlen
 ****************************************/
 
-size_t cg_strlen(const char *str)
+size_t mupnp_strlen(const char *str)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
  return (str == NULL) ? 0 : strlen(str);
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strcpy
+* mupnp_strcpy
 ****************************************/
 
-char *cg_strcpy(char *dest, const char *src)
+char *mupnp_strcpy(char *dest, const char *src)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
  return strcpy(dest, src);
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strcat
+* mupnp_strcat
 ****************************************/
 
-char *cg_strcat(char *dest, const char *src)
+char *mupnp_strcat(char *dest, const char *src)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
  return strcat(dest, src);
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strcmp
+* mupnp_strcmp
 ****************************************/
 
-int cg_strcmp(const char *str1, const char *str2)
+int mupnp_strcmp(const char *str1, const char *str2)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
  if (str1 == NULL)
   return -1;
@@ -130,16 +130,16 @@ int cg_strcmp(const char *str1, const char *str2)
   return 1;
  return strcmp(str1, str2);
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strncmp
+* mupnp_strncmp
 ****************************************/
 
-int cg_strncmp(const char *str1, const char *str2, int nchars)
+int mupnp_strncmp(const char *str1, const char *str2, int nchars)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
  if (str1 == NULL)
                 return -1;
@@ -148,16 +148,16 @@ int cg_strncmp(const char *str1, const char *str2, int nchars)
 
  return strncmp(str1, str2, nchars);
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strcasecmp
+* mupnp_strcasecmp
 ****************************************/
 
-int cg_strcasecmp(const char *str1, const char *str2)
+int mupnp_strcasecmp(const char *str1, const char *str2)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
 	if (str1 == NULL || str2 == NULL) return -1;
 #if !defined(WIN32)
@@ -170,48 +170,48 @@ int cg_strcasecmp(const char *str1, const char *str2)
 	return *str1 - *str2;
 #endif
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_streq
+* mupnp_streq
 ****************************************/
 
-BOOL cg_streq(const char *str1, const char *str2)
+BOOL mupnp_streq(const char *str1, const char *str2)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (str1 == NULL || str2 == NULL) return FALSE;
 	
-	return ((cg_strcmp(str1, str2) == 0) ? TRUE : FALSE);
+	return ((mupnp_strcmp(str1, str2) == 0) ? TRUE : FALSE);
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strcaseeq
+* mupnp_strcaseeq
 ****************************************/
 
-BOOL cg_strcaseeq(const char *str1, const char *str2)
+BOOL mupnp_strcaseeq(const char *str1, const char *str2)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (str1 == NULL || str2 == NULL) return FALSE;
 	
-	return ((cg_strcasecmp(str1, str2) == 0) ? TRUE : FALSE);
+	return ((mupnp_strcasecmp(str1, str2) == 0) ? TRUE : FALSE);
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strstr
+* mupnp_strstr
 ****************************************/
 
-ssize_t cg_strstr(const char *haystack, const char *needle)
+ssize_t mupnp_strstr(const char *haystack, const char *needle)
 {
 	char *strPos;
 
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (haystack == NULL || needle == NULL)
 		return -1;
@@ -220,24 +220,24 @@ ssize_t cg_strstr(const char *haystack, const char *needle)
 		return -1;
 	return (strPos - haystack);
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strchr
+* mupnp_strchr
 ****************************************/
 
-ssize_t cg_strchr(const char *str, const char *chars, size_t nchars)
+ssize_t mupnp_strchr(const char *str, const char *chars, size_t nchars)
 {
 	size_t strLen;
 	ssize_t i, j;
 	
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (str == NULL || chars == NULL)
 		return -1;
 		
-	strLen = cg_strlen(str);
+	strLen = mupnp_strlen(str);
 	for (i=0; i<strLen; i++) {
 		for (j=0; j<nchars; j++) {
 			if (str[i] == chars[j])
@@ -247,24 +247,24 @@ ssize_t cg_strchr(const char *str, const char *chars, size_t nchars)
 	
 	return -1;
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strrchr
+* mupnp_strrchr
 ****************************************/
 
-ssize_t cg_strrchr(const char *str, const char *chars, size_t nchars)
+ssize_t mupnp_strrchr(const char *str, const char *chars, size_t nchars)
 {
 	size_t strLen;
 	ssize_t i, j;
 	
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (str == NULL || chars == NULL)
 		return -1;
 		
-	strLen = cg_strlen(str);
+	strLen = mupnp_strlen(str);
 	for (i=(strLen-1); 0<=i; i--) {
 		for (j=0; j<nchars; j++) {
 			if (str[i] == chars[j])
@@ -277,14 +277,14 @@ ssize_t cg_strrchr(const char *str, const char *chars, size_t nchars)
 }
 
 /****************************************
-* cg_strtrimwhite
+* mupnp_strtrimwhite
 ****************************************/
 
-char *cg_strtrimwhite(char *str)
+char *mupnp_strtrimwhite(char *str)
 {
 	size_t strLen;
   ssize_t i;
-	strLen = cg_strlen(str);
+	strLen = mupnp_strlen(str);
 	if (strLen == 0) return str;
 	for (i=(strLen-1); 0<=i; i--) {
 		if (isspace(str[i])) {
@@ -302,33 +302,33 @@ char *cg_strtrimwhite(char *str)
 }
 
 /****************************************
-* cg_strtrim
+* mupnp_strtrim
 ****************************************/
 
-char *cg_strtrim(char *str, char *delim, size_t ndelim)
+char *mupnp_strtrim(char *str, char *delim, size_t ndelim)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	if (str == NULL || delim == NULL) return NULL;
 
-	cg_strrtrim(str, delim, ndelim);
-	return cg_strltrim(str, delim, ndelim);
+	mupnp_strrtrim(str, delim, ndelim);
+	return mupnp_strltrim(str, delim, ndelim);
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strltrim
+* mupnp_strltrim
 ****************************************/
 
-char *cg_strltrim(char *str, char *delim, size_t ndelim)
+char *mupnp_strltrim(char *str, char *delim, size_t ndelim)
 {
 	size_t strLen;
   ssize_t i, j;
 	
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
-	strLen = cg_strlen(str);
+	strLen = mupnp_strlen(str);
 	for (i=0; i<strLen; i++) {
 		BOOL hasDelim = FALSE;
 		for (j=0; j<ndelim; j++) {
@@ -343,21 +343,21 @@ char *cg_strltrim(char *str, char *delim, size_t ndelim)
 	
 	return (str + strLen);
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strrtrim
+* mupnp_strrtrim
 ****************************************/
 
-char *cg_strrtrim(char *str, char *delim, size_t ndelim)
+char *mupnp_strrtrim(char *str, char *delim, size_t ndelim)
 {
 	size_t strLen;
   ssize_t i, j;
 	
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
-	strLen = cg_strlen(str);
+	strLen = mupnp_strlen(str);
 	for (i=(strLen-1); 0<=i; i--) {
 		BOOL hasDelim = FALSE;
 		for (j=0; j<ndelim; j++) {
@@ -373,48 +373,48 @@ char *cg_strrtrim(char *str, char *delim, size_t ndelim)
 	
 	return str;
 
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
-* cg_strncpy
+* mupnp_strncpy
 ****************************************/
 
-char *cg_strncpy(char *str1, const char *str2, size_t cnt)
+char *mupnp_strncpy(char *str1, const char *str2, size_t cnt)
 {
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
 	strncpy(str1, str2, cnt);
 	
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 
 	return str1;
 }
 
 /****************************************
-* cg_strncat
+* mupnp_strncat
 ****************************************/
 
-char *cg_strncat(char *str1, const char *str2, size_t cnt)
+char *mupnp_strncat(char *str1, const char *str2, size_t cnt)
 {
 	size_t str1Len;
-	cg_log_debug_l5("Entering...\n");
+	mupnp_log_debug_l5("Entering...\n");
 
-	str1Len = cg_strlen(str1);
+	str1Len = mupnp_strlen(str1);
 	
-	cg_log_debug_l5("Leaving...\n");
+	mupnp_log_debug_l5("Leaving...\n");
 	
-	return cg_strncpy((str1 + str1Len), str2, cnt);
+	return mupnp_strncpy((str1 + str1Len), str2, cnt);
 
 }
 
 /****************************************
-* cg_int2str
+* mupnp_int2str
 ****************************************/
 
-const char *cg_int2str(int value, char *buf, size_t bufSize)
+const char *mupnp_int2str(int value, char *buf, size_t bufSize)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
 #if defined(HAVE_SNPRINTF)
  snprintf(buf, bufSize, "%d", value);
@@ -422,18 +422,18 @@ const char *cg_int2str(int value, char *buf, size_t bufSize)
  sprintf(buf, "%d", value);
 #endif
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 
  return buf;
 }
 
 /****************************************
-* cg_long2str
+* mupnp_long2str
 ****************************************/
 
-const char *cg_long2str(long value, char *buf, size_t bufSize)
+const char *mupnp_long2str(long value, char *buf, size_t bufSize)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
 #if defined(HAVE_SNPRINTF)
  snprintf(buf, bufSize, "%ld", value);
@@ -441,18 +441,18 @@ const char *cg_long2str(long value, char *buf, size_t bufSize)
  sprintf(buf, "%ld", value);
 #endif
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 
  return buf;
 }
 
 /****************************************
-* cg_float2str
+* mupnp_float2str
 ****************************************/
 
-const char *cg_float2str(float value, char *buf, size_t bufSize)
+const char *mupnp_float2str(float value, char *buf, size_t bufSize)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
 #if defined(HAVE_SNPRINTF)
  snprintf(buf, bufSize, "%f", value);
@@ -460,18 +460,18 @@ const char *cg_float2str(float value, char *buf, size_t bufSize)
  sprintf(buf, "%f", value);
 #endif
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 
  return buf;
 }
 
 /****************************************
-* cg_double2str
+* mupnp_double2str
 ****************************************/
 
-const char *cg_double2str(double value, char *buf, size_t bufSize)
+const char *mupnp_double2str(double value, char *buf, size_t bufSize)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
 #if defined(HAVE_SNPRINTF)
  snprintf(buf, bufSize, "%lf", value);
@@ -479,18 +479,18 @@ const char *cg_double2str(double value, char *buf, size_t bufSize)
  sprintf(buf, "%lf", value);
 #endif
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 
  return buf;
 }
 
 /****************************************
-* cg_sizet2str
+* mupnp_sizet2str
 ****************************************/
 
-const char *cg_sizet2str(size_t value, char *buf, size_t bufSize)
+const char *mupnp_sizet2str(size_t value, char *buf, size_t bufSize)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
 #if defined(HAVE_SNPRINTF)
  snprintf(buf, bufSize, "%zd", value);
@@ -498,18 +498,18 @@ const char *cg_sizet2str(size_t value, char *buf, size_t bufSize)
  sprintf(buf, "%zd", value);
 #endif
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 
  return buf;
 }
 
 /****************************************
-* cg_ssizet2str
+* mupnp_ssizet2str
 ****************************************/
 
-const char *cg_ssizet2str(ssize_t value, char *buf, size_t bufSize)
+const char *mupnp_ssizet2str(ssize_t value, char *buf, size_t bufSize)
 {
- cg_log_debug_l5("Entering...\n");
+ mupnp_log_debug_l5("Entering...\n");
 
 #if defined(HAVE_SNPRINTF)
  snprintf(buf, bufSize, "%zd", value);
@@ -517,7 +517,7 @@ const char *cg_ssizet2str(ssize_t value, char *buf, size_t bufSize)
  sprintf(buf, "%zd", value);
 #endif
 
- cg_log_debug_l5("Leaving...\n");
+ mupnp_log_debug_l5("Leaving...\n");
 
  return buf;
 }

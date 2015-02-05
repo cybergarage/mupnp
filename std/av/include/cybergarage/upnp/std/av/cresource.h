@@ -48,38 +48,38 @@ typedef struct _CgUpnpAvResourceData {
 * Resource
 ****************************************/
 
-#define cg_upnpav_resourcelist_new() cg_xml_nodelist_new()
-#define cg_upnpav_resourcelist_delete(resList) cg_xml_nodelist_delete(resList)
-#define cg_upnpav_resourcelist_clear(resList) cg_xml_nodelist_clear(resList)
-#define cg_upnpav_resourcelist_size(resList) cg_xml_nodelist_size(resList)
-#define cg_upnpav_resourcelist_gets(resList) cg_xml_nodelist_gets(resList)
-#define cg_upnpav_resourcelist_add(resList, res) cg_xml_nodelist_add(resList, res)
+#define mupnp_upnpav_resourcelist_new() mupnp_xml_nodelist_new()
+#define mupnp_upnpav_resourcelist_delete(resList) mupnp_xml_nodelist_delete(resList)
+#define mupnp_upnpav_resourcelist_clear(resList) mupnp_xml_nodelist_clear(resList)
+#define mupnp_upnpav_resourcelist_size(resList) mupnp_xml_nodelist_size(resList)
+#define mupnp_upnpav_resourcelist_gets(resList) mupnp_xml_nodelist_gets(resList)
+#define mupnp_upnpav_resourcelist_add(resList, res) mupnp_xml_nodelist_add(resList, res)
 
-CgUpnpAvResource *cg_upnpav_resource_new();
-void cg_upnpav_resource_delete(CgUpnpAvResource *res);
-#define cg_upnpav_resource_next(res) cg_xml_node_next(res)
-#define cg_upnpav_resource_remove(res) cg_xml_node_remove(res)
+CgUpnpAvResource *mupnp_upnpav_resource_new();
+void mupnp_upnpav_resource_delete(CgUpnpAvResource *res);
+#define mupnp_upnpav_resource_next(res) mupnp_xml_node_next(res)
+#define mupnp_upnpav_resource_remove(res) mupnp_xml_node_remove(res)
 
-void cg_upnpav_resource_copy(CgUpnpAvResource *destRes, CgUpnpAvResource *srcRes);
+void mupnp_upnpav_resource_copy(CgUpnpAvResource *destRes, CgUpnpAvResource *srcRes);
 
-void cg_upnpav_resource_setmimetype(CgUpnpAvResource *res, char *mimeType);
-void cg_upnpav_resource_setdlnaattribute(CgUpnpAvResource *res, char *attr);
-#define cg_upnpav_resource_seturl(res, val) cg_xml_node_setvalue(res, val)
-void cg_upnpav_resource_setsize(CgUpnpAvResource *res, long value);
+void mupnp_upnpav_resource_setmimetype(CgUpnpAvResource *res, char *mimeType);
+void mupnp_upnpav_resource_setdlnaattribute(CgUpnpAvResource *res, char *attr);
+#define mupnp_upnpav_resource_seturl(res, val) mupnp_xml_node_setvalue(res, val)
+void mupnp_upnpav_resource_setsize(CgUpnpAvResource *res, long value);
 
-#define cg_upnpav_resource_getmimetype(res) cg_string_getvalue(((CgUpnpAvResourceData *)(cg_xml_node_getuserdata(res)))->mimeType)
-#define cg_upnpav_resource_getdlnaattribute(res) cg_string_getvalue(((CgUpnpAvResourceData *)(cg_xml_node_getuserdata(res)))->dlnaAttr)
-#define cg_upnpav_resource_geturl(res) cg_xml_node_getvalue(res)
-#define cg_upnpav_resource_getsize(res) cg_str2long(cg_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE))
-#define cg_upnpav_resource_getduration(res) cg_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_DURATION)
-#define cg_upnpav_resource_getresolution(res) cg_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_RESOLUTION)
+#define mupnp_upnpav_resource_getmimetype(res) mupnp_string_getvalue(((CgUpnpAvResourceData *)(mupnp_xml_node_getuserdata(res)))->mimeType)
+#define mupnp_upnpav_resource_getdlnaattribute(res) mupnp_string_getvalue(((CgUpnpAvResourceData *)(mupnp_xml_node_getuserdata(res)))->dlnaAttr)
+#define mupnp_upnpav_resource_geturl(res) mupnp_xml_node_getvalue(res)
+#define mupnp_upnpav_resource_getsize(res) mupnp_str2long(mupnp_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE))
+#define mupnp_upnpav_resource_getduration(res) mupnp_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_DURATION)
+#define mupnp_upnpav_resource_getresolution(res) mupnp_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_RESOLUTION)
 
-CgUpnpAvResourceData *cg_upnpav_resource_data_new();
-void cg_upnpav_resource_data_delete(CgUpnpAvResourceData *resData);
-void cg_upnpav_resource_data_copy(CgUpnpAvResourceData *destResData, CgUpnpAvResourceData *srcResData);
+CgUpnpAvResourceData *mupnp_upnpav_resource_data_new();
+void mupnp_upnpav_resource_data_delete(CgUpnpAvResourceData *resData);
+void mupnp_upnpav_resource_data_copy(CgUpnpAvResourceData *destResData, CgUpnpAvResourceData *srcResData);
 
-char *cg_upnpav_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaAttr, int dlnaAttrSize);
-char *cg_upnpav_resource_getdlnaattributes(CgUpnpAvResource *res, char *dlnaAttr, int dlnaAttrSize);
+char *mupnp_upnpav_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaAttr, int dlnaAttrSize);
+char *mupnp_upnpav_resource_getdlnaattributes(CgUpnpAvResource *res, char *dlnaAttr, int dlnaAttrSize);
 
 #ifdef __cplusplus
 }

@@ -22,35 +22,35 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnp_icon_new
+* mupnp_upnp_icon_new
 ****************************************/
 
-CgUpnpIcon *cg_upnp_icon_new()
+CgUpnpIcon *mupnp_upnp_icon_new()
 {
 	CgUpnpIcon *dev;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	dev = (CgUpnpIcon *)malloc(sizeof(CgUpnpIcon));
 
 	if  ( NULL != dev )
-		cg_list_node_init((CgList *)dev);
+		mupnp_list_node_init((CgList *)dev);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return dev;
 }
 
 /****************************************
-* cg_upnp_icon_delete
+* mupnp_upnp_icon_delete
 ****************************************/
 
-void cg_upnp_icon_delete(CgUpnpIcon *dev)
+void mupnp_upnp_icon_delete(CgUpnpIcon *dev)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)dev);
+	mupnp_list_remove((CgList *)dev);
 	free(dev);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

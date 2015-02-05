@@ -24,35 +24,35 @@
 #if defined(CG_NET_USE_SOCKET_LIST)
 
 /****************************************
-* cg_socketlist_new
+* mupnp_socketlist_new
 ****************************************/
 
-CgSocketList *cg_socketlist_new()
+CgSocketList *mupnp_socketlist_new()
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	CgSocketList *socketList = (CgSocketList *)malloc(sizeof(CgSocketList));
 
 	if ( NULL != socketList )
-		cg_list_header_init((CgList *)socketList);
+		mupnp_list_header_init((CgList *)socketList);
 
 	return socketList;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_socketlist_delete
+* mupnp_socketlist_delete
 ****************************************/
 
-void cg_socketlist_delete(CgSocketList *socketList)
+void mupnp_socketlist_delete(CgSocketList *socketList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_socketlist_clear(socketList);
+	mupnp_socketlist_clear(socketList);
 	free(socketList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif

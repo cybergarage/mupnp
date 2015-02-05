@@ -64,14 +64,14 @@ typedef struct _CgUpnpStatus {
  * Create a new status struct
  *
  */
-CgUpnpStatus *cg_upnp_status_new();
+CgUpnpStatus *mupnp_upnp_status_new();
 
 /**
  * Delete a status struct
  *
  * \param upnpStat Status struct to delete
  */
-void cg_upnp_status_delete(CgUpnpStatus *upnpStat);
+void mupnp_upnp_status_delete(CgUpnpStatus *upnpStat);
 
 /**
  * Set status code for status struct
@@ -79,14 +79,14 @@ void cg_upnp_status_delete(CgUpnpStatus *upnpStat);
  * \param upnpStat Status struct
  * \param value Status code
  */
-#define cg_upnp_status_setcode(upnpStat, value) (upnpStat->code = value)
+#define mupnp_upnp_status_setcode(upnpStat, value) (upnpStat->code = value)
 
 /**
  * Get Status code from a status struct
  *
  * \param upnpStat Status structure
  */
-#define cg_upnp_status_getcode(upnpStat) (upnpStat->code)
+#define mupnp_upnp_status_getcode(upnpStat) (upnpStat->code)
 
 /**
  * Set status description for a status struct
@@ -94,14 +94,14 @@ void cg_upnp_status_delete(CgUpnpStatus *upnpStat);
  * \param upnpStat Status struct
  * \param value Status description
  */
-#define cg_upnp_status_setdescription(upnpStat, value) cg_string_setvalue(upnpStat->description, value)
+#define mupnp_upnp_status_setdescription(upnpStat, value) mupnp_string_setvalue(upnpStat->description, value)
 
 /**
  * Get status description from a status struct
  *
  * \param upnpStat Status struct
  */
-#define cg_upnp_status_getdescription(upnpStat) cg_string_getvalue(upnpStat->description)
+#define mupnp_upnp_status_getdescription(upnpStat) mupnp_string_getvalue(upnpStat->description)
 
 /**
  * Helper function that converts a status code into a status description
@@ -109,7 +109,7 @@ void cg_upnp_status_delete(CgUpnpStatus *upnpStat);
  * \param code Code to convert into a description
  * \return Status description
  */
-char *cg_upnp_status_code2string(int code);
+char *mupnp_upnp_status_code2string(int code);
 
 #ifdef  __cplusplus
 

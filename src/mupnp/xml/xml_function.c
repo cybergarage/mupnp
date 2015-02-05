@@ -17,7 +17,7 @@
 *		- first revision
 *
 *	10/31/05
-*		- Added cg_xml_unescapechars() function for DIDL-lite parsing
+*		- Added mupnp_xml_unescapechars() function for DIDL-lite parsing
 *
 ******************************************************************/
 
@@ -25,15 +25,15 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_xml_escapechars
+* mupnp_xml_escapechars
 ****************************************/
 
-char *cg_xml_escapechars(CgString *str)
+char *mupnp_xml_escapechars(CgString *str)
 {
 	char *fromChars[5];
 	char *toChars[5];
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	fromChars[0] = "&";
 	fromChars[1] = ">";
@@ -47,17 +47,17 @@ char *cg_xml_escapechars(CgString *str)
 	toChars[3] = "&quot;";
 	toChars[4] = "&apos;";
 		
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 	
-	return cg_string_replace(str, fromChars, toChars, (sizeof(fromChars)/sizeof(fromChars[0])));
+	return mupnp_string_replace(str, fromChars, toChars, (sizeof(fromChars)/sizeof(fromChars[0])));
 }
 
-char *cg_xml_unescapechars(CgString *str)
+char *mupnp_xml_unescapechars(CgString *str)
 {
 	char *fromChars[5];
 	char *toChars[5];
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	fromChars[0] = "&amp;";
 	fromChars[1] = "&gt;";
@@ -71,9 +71,9 @@ char *cg_xml_unescapechars(CgString *str)
 	toChars[3] = "\"";
 	toChars[4] = "'";
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 	
-	return cg_string_replace(str, fromChars, toChars, (sizeof(fromChars)/sizeof(fromChars[0])));
+	return mupnp_string_replace(str, fromChars, toChars, (sizeof(fromChars)/sizeof(fromChars[0])));
 }
 
 

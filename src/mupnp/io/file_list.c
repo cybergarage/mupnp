@@ -25,42 +25,42 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_filelist_new
+* mupnp_filelist_new
 ****************************************/
 
-CgFileList *cg_filelist_new()
+CgFileList *mupnp_filelist_new()
 {
 	CgFileList *fileList;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	fileList = (CgFileList *)malloc(sizeof(CgFileList));
 
 	if ( NULL != fileList )
 	{
-		cg_list_header_init((CgList *)fileList);
+		mupnp_list_header_init((CgList *)fileList);
 		fileList->name = NULL;
 		fileList->path = NULL;
 		fileList->content = NULL;
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return fileList;
 }
 
 /****************************************
-* cg_filelist_delete
+* mupnp_filelist_delete
 ****************************************/
 
-void cg_filelist_delete(CgFileList *fileList)
+void mupnp_filelist_delete(CgFileList *fileList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_filelist_clear(fileList);
+	mupnp_filelist_clear(fileList);
 	free(fileList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif

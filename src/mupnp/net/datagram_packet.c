@@ -22,62 +22,62 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_socket_datagram_packet_new
+* mupnp_socket_datagram_packet_new
 ****************************************/
 
-CgDatagramPacket *cg_socket_datagram_packet_new()
+CgDatagramPacket *mupnp_socket_datagram_packet_new()
 {
 	CgDatagramPacket *dgmPkt;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	dgmPkt = (CgDatagramPacket *)malloc(sizeof(CgDatagramPacket));
 
 	if ( NULL != dgmPkt )
 	{
-		dgmPkt->data = cg_string_new();
-		dgmPkt->localAddress = cg_string_new();
-		dgmPkt->remoteAddress = cg_string_new();
+		dgmPkt->data = mupnp_string_new();
+		dgmPkt->localAddress = mupnp_string_new();
+		dgmPkt->remoteAddress = mupnp_string_new();
 
-		cg_socket_datagram_packet_setlocalport(dgmPkt, 0);
-		cg_socket_datagram_packet_setremoteport(dgmPkt, 0);
+		mupnp_socket_datagram_packet_setlocalport(dgmPkt, 0);
+		mupnp_socket_datagram_packet_setremoteport(dgmPkt, 0);
 	}
 	
 	return dgmPkt;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_socket_datagram_packet_delete
+* mupnp_socket_datagram_packet_delete
 ****************************************/
 
-void cg_socket_datagram_packet_delete(CgDatagramPacket *dgmPkt)
+void mupnp_socket_datagram_packet_delete(CgDatagramPacket *dgmPkt)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_string_delete(dgmPkt->data);
-	cg_string_delete(dgmPkt->localAddress);
-	cg_string_delete(dgmPkt->remoteAddress);
+	mupnp_string_delete(dgmPkt->data);
+	mupnp_string_delete(dgmPkt->localAddress);
+	mupnp_string_delete(dgmPkt->remoteAddress);
 
 	free(dgmPkt);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_socket_datagram_packet_copy
+* mupnp_socket_datagram_packet_copy
 ****************************************/
 
-void cg_socket_datagram_packet_copy(CgDatagramPacket *dstDgmPkt, CgDatagramPacket *srcDgmPkt)
+void mupnp_socket_datagram_packet_copy(CgDatagramPacket *dstDgmPkt, CgDatagramPacket *srcDgmPkt)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_socket_datagram_packet_setdata(dstDgmPkt, cg_socket_datagram_packet_getdata(srcDgmPkt));
-	cg_socket_datagram_packet_setlocaladdress(dstDgmPkt, cg_socket_datagram_packet_getlocaladdress(srcDgmPkt));
-	cg_socket_datagram_packet_setlocalport(dstDgmPkt, cg_socket_datagram_packet_getlocalport(srcDgmPkt));
-	cg_socket_datagram_packet_setremoteaddress(dstDgmPkt, cg_socket_datagram_packet_getremoteaddress(srcDgmPkt));
-	cg_socket_datagram_packet_setremoteport(dstDgmPkt, cg_socket_datagram_packet_getremoteport(srcDgmPkt));
+	mupnp_socket_datagram_packet_setdata(dstDgmPkt, mupnp_socket_datagram_packet_getdata(srcDgmPkt));
+	mupnp_socket_datagram_packet_setlocaladdress(dstDgmPkt, mupnp_socket_datagram_packet_getlocaladdress(srcDgmPkt));
+	mupnp_socket_datagram_packet_setlocalport(dstDgmPkt, mupnp_socket_datagram_packet_getlocalport(srcDgmPkt));
+	mupnp_socket_datagram_packet_setremoteaddress(dstDgmPkt, mupnp_socket_datagram_packet_getremoteaddress(srcDgmPkt));
+	mupnp_socket_datagram_packet_setremoteport(dstDgmPkt, mupnp_socket_datagram_packet_getremoteport(srcDgmPkt));
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

@@ -28,66 +28,66 @@
 #if !defined(CG_UPNP_NOUSE_QUERYCTRL)
 
 /****************************************
-* cg_upnp_action_performlistener
+* mupnp_upnp_action_performlistener
 ****************************************/
 
-BOOL cg_upnp_statevariable_performlistner(CgUpnpStateVariable *statVar, CgUpnpQueryRequest *queryReq)
+BOOL mupnp_upnp_statevariable_performlistner(CgUpnpStateVariable *statVar, CgUpnpQueryRequest *queryReq)
 {
 	CG_UPNP_STATEVARIABLE_LISTNER	 listener;
 	CgUpnpQueryResponse *queryRes;
 	CgHttpRequest *queryReqHttpReq;
 	CgHttpResponse *queryResHttpRes;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	listener = cg_upnp_statevariable_getlistener(statVar);
+	listener = mupnp_upnp_statevariable_getlistener(statVar);
 	if (listener == NULL)
 		return FALSE;
 	
-	queryRes = cg_upnp_control_query_response_new();
+	queryRes = mupnp_upnp_control_query_response_new();
 
-	cg_upnp_statevariable_setstatuscode(statVar, CG_UPNP_STATUS_INVALID_ACTION);
-	cg_upnp_statevariable_setstatusdescription(statVar, cg_upnp_status_code2string(CG_UPNP_STATUS_INVALID_ACTION));
-	cg_upnp_statevariable_setvalue(statVar, "");
+	mupnp_upnp_statevariable_setstatuscode(statVar, CG_UPNP_STATUS_INVALID_ACTION);
+	mupnp_upnp_statevariable_setstatusdescription(statVar, mupnp_upnp_status_code2string(CG_UPNP_STATUS_INVALID_ACTION));
+	mupnp_upnp_statevariable_setvalue(statVar, "");
 	
 	if (listener(statVar) == TRUE)
-		cg_upnp_control_query_response_setresponse(queryRes, statVar);
+		mupnp_upnp_control_query_response_setresponse(queryRes, statVar);
 	else
-		cg_upnp_control_soap_response_setfaultresponse(cg_upnp_control_query_response_getsoapresponse(queryRes), cg_upnp_statevariable_getstatuscode(statVar), cg_upnp_statevariable_getstatusdescription(statVar));
+		mupnp_upnp_control_soap_response_setfaultresponse(mupnp_upnp_control_query_response_getsoapresponse(queryRes), mupnp_upnp_statevariable_getstatuscode(statVar), mupnp_upnp_statevariable_getstatusdescription(statVar));
 	
-	queryReqHttpReq = cg_soap_request_gethttprequest(cg_upnp_control_query_request_getsoaprequest(queryReq));
-	queryResHttpRes = cg_soap_response_gethttpresponse(cg_upnp_control_query_response_getsoapresponse(queryRes));
-	cg_http_request_postresponse(queryReqHttpReq, queryResHttpRes);	
+	queryReqHttpReq = mupnp_soap_request_gethttprequest(mupnp_upnp_control_query_request_getsoaprequest(queryReq));
+	queryResHttpRes = mupnp_soap_response_gethttpresponse(mupnp_upnp_control_query_response_getsoapresponse(queryRes));
+	mupnp_http_request_postresponse(queryReqHttpReq, queryResHttpRes);	
 
-	cg_upnp_control_query_response_delete(queryRes);
+	mupnp_upnp_control_query_response_delete(queryRes);
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_upnp_statevariable_post
+* mupnp_upnp_statevariable_post
 ****************************************/
 
-BOOL cg_upnp_statevariable_post(CgUpnpStateVariable *statVar)
+BOOL mupnp_upnp_statevariable_post(CgUpnpStateVariable *statVar)
 {
 	CgUpnpQueryRequest *queryReq;
 	CgUpnpQueryResponse *queryRes;
 	BOOL querySuccess;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	queryReq = cg_upnp_control_query_request_new();
+	queryReq = mupnp_upnp_control_query_request_new();
 	
-	cg_upnp_control_query_request_setstatevariable(queryReq, statVar);
-	queryRes = cg_upnp_control_query_request_post(queryReq);
-	querySuccess = cg_upnp_control_query_response_issuccessful(queryRes);
-	cg_upnp_statevariable_setvalue(statVar, (querySuccess == TRUE) ? cg_upnp_control_query_response_getreturnvalue(queryRes) : "");
+	mupnp_upnp_control_query_request_setstatevariable(queryReq, statVar);
+	queryRes = mupnp_upnp_control_query_request_post(queryReq);
+	querySuccess = mupnp_upnp_control_query_response_issuccessful(queryRes);
+	mupnp_upnp_statevariable_setvalue(statVar, (querySuccess == TRUE) ? mupnp_upnp_control_query_response_getreturnvalue(queryRes) : "");
 	
-	cg_upnp_control_query_request_delete(queryReq);
+	mupnp_upnp_control_query_request_delete(queryReq);
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return querySuccess;
 }

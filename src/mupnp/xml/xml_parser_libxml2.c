@@ -56,7 +56,7 @@
 #include <sys/time.h>
 #include <time.h>
 
-extern long int cg_total_elapsed_time;
+extern long int mupnp_total_elapsed_time;
 #endif
 
 /* 10000000 */
@@ -81,22 +81,22 @@ extern long int cg_total_elapsed_time;
 /* 10000000 */
 #define UTF_RANGEX_2_R (1<<7)
 
-static int cg_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void *user_data, const char *buffer, size_t size, int recovery);
+static int mupnp_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void *user_data, const char *buffer, size_t size, int recovery);
 
-static xmlEntityPtr cg_libxml2_get_entity(void *user_data, 
+static xmlEntityPtr mupnp_libxml2_get_entity(void *user_data, 
 					  const xmlChar *name);
 
-static void cg_libxml2_characters(void *user_data,
+static void mupnp_libxml2_characters(void *user_data,
 				  const xmlChar *ch,
 				  int len);
 
-static void cg_libxml2_start_element(void *user_data,
+static void mupnp_libxml2_start_element(void *user_data,
 				     const xmlChar *name,
 				     const xmlChar **attrs);
-static void cg_libxml2_end_element(void *user_data,
+static void mupnp_libxml2_end_element(void *user_data,
 				   const xmlChar *name);			     
 
-static void cg_xml_force_utf8(char *data, size_t len);
+static void mupnp_xml_force_utf8(char *data, size_t len);
 
 typedef struct _CgLibxml2Data {
 	CgXmlNode *rootNode;
@@ -109,19 +109,19 @@ enum
 	LIBXML2_RECOVERY = 1
 };
 
-static xmlSAXHandler cg_libxml2_handler =
+static xmlSAXHandler mupnp_libxml2_handler =
 {
-	.startElement = cg_libxml2_start_element,
-	.endElement = cg_libxml2_end_element,
-	.getEntity = cg_libxml2_get_entity,
-	.characters = cg_libxml2_characters
+	.startElement = mupnp_libxml2_start_element,
+	.endElement = mupnp_libxml2_end_element,
+	.getEntity = mupnp_libxml2_get_entity,
+	.characters = mupnp_libxml2_characters
 };
 
-static void cg_libxml2_start_element(void *user_data,
+static void mupnp_libxml2_start_element(void *user_data,
 				     const xmlChar *name,
 				     const xmlChar **attrs)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	CgLibxml2Data *libxml2Data;
 	CgXmlNode *node;
@@ -129,7 +129,7 @@ static void cg_libxml2_start_element(void *user_data,
 
 	libxml2Data = (CgLibxml2Data *)user_data;
 
-	node = cg_xml_node_new();
+	node = mupnp_xml_node_new();
 	if (node == NULL)
 	{
 		/* Memory allocation failed */
@@ -137,70 +137,70 @@ static void cg_libxml2_start_element(void *user_data,
 		return;
 	}
 
-	cg_xml_node_setname(node, (char *)name);
+	mupnp_xml_node_setname(node, (char *)name);
 
 	if (attrs != NULL)
 	{
 		for (n = 0; attrs[n]; n += 2)
-			cg_xml_node_setattribute(node, (char *)attrs[n], (char *)attrs[n+1]);
+			mupnp_xml_node_setattribute(node, (char *)attrs[n], (char *)attrs[n+1]);
 	}
 
 	if (libxml2Data->rootNode != NULL) {
 		if (libxml2Data->currNode != NULL)
-			cg_xml_node_addchildnode(libxml2Data->currNode, node);
+			mupnp_xml_node_addchildnode(libxml2Data->currNode, node);
 		else
-			cg_xml_node_addchildnode(libxml2Data->rootNode, node);
+			mupnp_xml_node_addchildnode(libxml2Data->rootNode, node);
 	}
 	else
 		libxml2Data->rootNode = node;
 
 	libxml2Data->currNode = node;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_libxml2_end_element(void *user_data,
+static void mupnp_libxml2_end_element(void *user_data,
 				   const xmlChar *name)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	CgLibxml2Data *libxml2Data = (CgLibxml2Data *)user_data;
 	if (libxml2Data->currNode != NULL)
-		libxml2Data->currNode = cg_xml_node_getparentnode(libxml2Data->currNode);
+		libxml2Data->currNode = mupnp_xml_node_getparentnode(libxml2Data->currNode);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_libxml2_characters(void *user_data,
+static void mupnp_libxml2_characters(void *user_data,
 				  const xmlChar *ch,
 				  int len)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	CgLibxml2Data *libxml2Data;
 
 	libxml2Data = (CgLibxml2Data *)user_data;
 
 	if (libxml2Data->currNode != NULL)
-		cg_xml_node_naddvalue(libxml2Data->currNode, (char *)ch, len);
+		mupnp_xml_node_naddvalue(libxml2Data->currNode, (char *)ch, len);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static xmlEntityPtr cg_libxml2_get_entity(void *user_data, const xmlChar *name) 
+static xmlEntityPtr mupnp_libxml2_get_entity(void *user_data, const xmlChar *name) 
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	return xmlGetPredefinedEntity(name);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_force_utf8
+* mupnp_xml_force_utf8
 ****************************************/
 
-static void cg_xml_force_utf8(char *data, size_t len)
+static void mupnp_xml_force_utf8(char *data, size_t len)
 {
 	int read=0;
 
@@ -314,9 +314,9 @@ static void cg_xml_force_utf8(char *data, size_t len)
         }
 }
 
-BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *parseData, size_t len)
+BOOL mupnp_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *parseData, size_t len)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	CgLibxml2Data libxml2Data;
 	int retval;
@@ -328,31 +328,31 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *pars
 	gettimeofday(&start_time, NULL);
 #endif
 
-  char *data = cg_strdup(parseData);
+  char *data = mupnp_strdup(parseData);
   if (!data)
     return FALSE;
   
 	libxml2Data.rootNode = NULL;
 	libxml2Data.currNode = NULL;
 
-	retval = cg_libxml2_parsewrapper(&cg_libxml2_handler, &libxml2Data, data, len, LIBXML2_NOFLAGS);
+	retval = mupnp_libxml2_parsewrapper(&mupnp_libxml2_handler, &libxml2Data, data, len, LIBXML2_NOFLAGS);
 	
 	switch (retval)
 	{
 		case XML_ERR_INVALID_CHAR:
-			cg_log_debug_s("Trying to recover from error %d.\n", retval);
+			mupnp_log_debug_s("Trying to recover from error %d.\n", retval);
 			
 			if (libxml2Data.rootNode != NULL)
-				cg_xml_node_delete(libxml2Data.rootNode);
+				mupnp_xml_node_delete(libxml2Data.rootNode);
 
 			libxml2Data.rootNode = NULL;
 			libxml2Data.currNode = NULL;
 
 			/* Replace non utf8 characters with '?' */
-			cg_xml_force_utf8(data, len);
+			mupnp_xml_force_utf8(data, len);
 
-			retval = cg_libxml2_parsewrapper(
-					&cg_libxml2_handler, 
+			retval = mupnp_libxml2_parsewrapper(
+					&mupnp_libxml2_handler, 
 					&libxml2Data, 
 					data, 
 					len, 
@@ -364,34 +364,34 @@ BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *pars
 	}
 
 	if ( 0 != retval )	{
-		cg_log_debug_s("LibXML error %d, not trying recovery.\n", retval);
+		mupnp_log_debug_s("LibXML error %d, not trying recovery.\n", retval);
 		if (libxml2Data.rootNode != NULL)
-			cg_xml_node_delete(libxml2Data.rootNode);
+			mupnp_xml_node_delete(libxml2Data.rootNode);
     free(data);
 		return FALSE;
 	}
 
-	cg_xml_nodelist_add(nodeList, libxml2Data.rootNode);
+	mupnp_xml_nodelist_add(nodeList, libxml2Data.rootNode);
 	
 #ifdef CG_SHOW_TIMINGS
 	gettimeofday(&end_time, NULL);
 	timersub(&end_time, &start_time, &elapsed_time);
-  cg_log_debug_s("Parsing XML completed. Elapsed time: "
+  mupnp_log_debug_s("Parsing XML completed. Elapsed time: "
 	       "%ld msec\n", ((elapsed_time.tv_sec*1000) + 
 			      (elapsed_time.tv_usec/1000)));
-	cg_total_elapsed_time += (elapsed_time.tv_sec*1000000)+
+	mupnp_total_elapsed_time += (elapsed_time.tv_sec*1000000)+
 				 (elapsed_time.tv_usec);
-  cg_log_debug_s("Total elapsed time: %ld msec\n", cg_total_elapsed_time / 1000);
+  mupnp_log_debug_s("Total elapsed time: %ld msec\n", mupnp_total_elapsed_time / 1000);
 #endif
 	
   free(data);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
-static int cg_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void *user_data, const char *buffer, size_t size, int flags)
+static int mupnp_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void *user_data, const char *buffer, size_t size, int flags)
 {
 	int retval = 0; 
 	xmlParserCtxtPtr ctxt;

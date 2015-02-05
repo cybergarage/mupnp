@@ -22,28 +22,28 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnp_httpu_socket_recv
+* mupnp_upnp_httpu_socket_recv
 ****************************************/
 
-ssize_t cg_upnp_httpu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt)
+ssize_t mupnp_upnp_httpu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgDatagramPacket *dgmPkt;
 	char *ssdpData;
 	ssize_t recvLen;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	dgmPkt = cg_upnp_ssdp_packet_getdatagrampacket(ssdpPkt);
-	recvLen = cg_socket_recv(sock, dgmPkt);
+	dgmPkt = mupnp_upnp_ssdp_packet_getdatagrampacket(ssdpPkt);
+	recvLen = mupnp_socket_recv(sock, dgmPkt);
 	
 	if (recvLen <= 0)
 		return recvLen;
 
-	ssdpData = cg_socket_datagram_packet_getdata(dgmPkt);
-	cg_upnp_ssdp_packet_setheader(ssdpPkt, ssdpData);
-	cg_socket_datagram_packet_setdata(dgmPkt, NULL);
+	ssdpData = mupnp_socket_datagram_packet_getdata(dgmPkt);
+	mupnp_upnp_ssdp_packet_setheader(ssdpPkt, ssdpData);
+	mupnp_socket_datagram_packet_setdata(dgmPkt, NULL);
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return recvLen;
 }

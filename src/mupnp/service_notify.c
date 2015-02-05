@@ -28,152 +28,152 @@
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* cg_upnp_service_notifymain
+* mupnp_upnp_service_notifymain
 ****************************************/
 
-static BOOL cg_upnp_service_notifymain(CgUpnpService *service, CgUpnpStateVariable *statVar)
+static BOOL mupnp_upnp_service_notifymain(CgUpnpService *service, CgUpnpStateVariable *statVar)
 {
 	CgUpnpSubscriber *sub;
 	CgUpnpSubscriber **subArray;
 	int subArrayCnt;
 	int n;
 		
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_service_lock(service);
+	mupnp_upnp_service_lock(service);
 
 	/**** Remove expired subscribers ****/
-	subArrayCnt = cg_upnp_service_getnsubscribers(service);
+	subArrayCnt = mupnp_upnp_service_getnsubscribers(service);
 	subArray = (CgUpnpSubscriber **)malloc(sizeof(CgUpnpSubscriber *) * subArrayCnt);
 
 	if ( NULL == subArray )
 	{
-		cg_log_debug_s("Memory allocation problem!\n");
-		cg_upnp_service_unlock(service);
+		mupnp_log_debug_s("Memory allocation problem!\n");
+		mupnp_upnp_service_unlock(service);
 		return FALSE;
 	}
 
-	sub = cg_upnp_service_getsubscribers(service);
+	sub = mupnp_upnp_service_getsubscribers(service);
 	for (n=0; n<subArrayCnt; n++) {
 		subArray[n] = sub;
-		sub = cg_upnp_subscriber_next(sub);
+		sub = mupnp_upnp_subscriber_next(sub);
 	}
 	for (n=0; n<subArrayCnt; n++) {
 		sub = subArray[n];
 		if (sub == NULL)
 			continue;
-		if (cg_upnp_subscriber_isexpired(sub) == TRUE)
-			cg_upnp_service_removesubscriber(service, sub);
+		if (mupnp_upnp_subscriber_isexpired(sub) == TRUE)
+			mupnp_upnp_service_removesubscriber(service, sub);
 	}
 	free(subArray);
 		
 	/**** Notify to subscribers ****/
-	subArrayCnt = cg_upnp_service_getnsubscribers(service);
+	subArrayCnt = mupnp_upnp_service_getnsubscribers(service);
 	subArray = (CgUpnpSubscriber **)malloc(sizeof(CgUpnpSubscriber *) * subArrayCnt);
 
 	if ( NULL == subArray ) {
-		cg_log_debug_s("Memory allocation problem!\n");
-		cg_upnp_service_unlock(service);
+		mupnp_log_debug_s("Memory allocation problem!\n");
+		mupnp_upnp_service_unlock(service);
 		return FALSE;
 	}
 
-	sub = cg_upnp_service_getsubscribers(service);
+	sub = mupnp_upnp_service_getsubscribers(service);
 	for (n=0; n<subArrayCnt; n++) {
 		subArray[n] = sub;
-		sub = cg_upnp_subscriber_next(sub);
+		sub = mupnp_upnp_subscriber_next(sub);
 	}
 	for (n=0; n<subArrayCnt; n++) {
 		sub = subArray[n];
 		if (sub == NULL)
 			continue;
 		if (statVar) {
-			if (cg_upnp_subscriber_notify(sub, statVar) == FALSE) {
+			if (mupnp_upnp_subscriber_notify(sub, statVar) == FALSE) {
 				/**** remove invalid the subscriber but don't remove in NMPR specification ****/
-				cg_upnp_service_removesubscriber(service, sub);
+				mupnp_upnp_service_removesubscriber(service, sub);
 			}
 		}
 		else {
-			if (cg_upnp_subscriber_notifyall(sub, service) == FALSE) {
+			if (mupnp_upnp_subscriber_notifyall(sub, service) == FALSE) {
 				/**** remove invalid the subscriber but don't remove in NMPR specification ****/
-				cg_upnp_service_removesubscriber(service, sub);
+				mupnp_upnp_service_removesubscriber(service, sub);
 			}
 		}
 	}
 	free(subArray);
 	
-	cg_upnp_service_unlock(service);
+	mupnp_upnp_service_unlock(service);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_upnp_service_notify
+* mupnp_upnp_service_notify
 ****************************************/
 
-BOOL cg_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar)
+BOOL mupnp_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar)
 {
-	return cg_upnp_service_notifymain(service, statVar);
+	return mupnp_upnp_service_notifymain(service, statVar);
 }
 
 /****************************************
-* cg_upnp_service_notifyall
+* mupnp_upnp_service_notifyall
 ****************************************/
 
-BOOL cg_upnp_service_notifyallbracket(CgUpnpService *service)
+BOOL mupnp_upnp_service_notifyallbracket(CgUpnpService *service)
 {
-	return cg_upnp_service_notifymain(service, NULL);
+	return mupnp_upnp_service_notifymain(service, NULL);
 }
 
 /****************************************
-* cg_upnp_service_notifyall
+* mupnp_upnp_service_notifyall
 ****************************************/
 
-BOOL cg_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket)
+BOOL mupnp_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket)
 {
 	CgUpnpStateVariable *statVar;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (doBracket) {
-		cg_upnp_service_notifyallbracket(service);
+		mupnp_upnp_service_notifyallbracket(service);
 	}
 	else {
-		for (statVar = cg_upnp_service_getstatevariables(service); statVar != NULL; statVar = cg_upnp_statevariable_next(statVar)) {
-			if (cg_upnp_statevariable_issendevents(statVar) == TRUE)
-				cg_upnp_service_notify(service, statVar);
+		for (statVar = mupnp_upnp_service_getstatevariables(service); statVar != NULL; statVar = mupnp_upnp_statevariable_next(statVar)) {
+			if (mupnp_upnp_statevariable_issendevents(statVar) == TRUE)
+				mupnp_upnp_service_notify(service, statVar);
 		}
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
- * cg_upnp_service_notifyall
+ * mupnp_upnp_service_notifyall
  ****************************************/
 
-static void cg_upnp_service_notifyall_thread(CgThread *thread)
+static void mupnp_upnp_service_notifyall_thread(CgThread *thread)
 {
 	CgUpnpService *service;
 	
-	service = (CgUpnpService *)cg_thread_getuserdata(thread);
-	cg_upnp_service_notifyall(service, TRUE);
-	cg_thread_delete(thread);	
+	service = (CgUpnpService *)mupnp_thread_getuserdata(thread);
+	mupnp_upnp_service_notifyall(service, TRUE);
+	mupnp_thread_delete(thread);	
 }
 
-void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTime)
+void mupnp_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTime)
 {
 	CgThread *thread;
 	
-	thread = cg_thread_new();
-	cg_thread_setaction(thread, cg_upnp_service_notifyall_thread);
-	cg_thread_setuserdata(thread, service);
+	thread = mupnp_thread_new();
+	mupnp_thread_setaction(thread, mupnp_upnp_service_notifyall_thread);
+	mupnp_thread_setuserdata(thread, service);
 	
-	cg_wait(waitTime);
-	cg_thread_start(thread);
+	mupnp_wait(waitTime);
+	mupnp_thread_start(thread);
 }
 
 /****************************************

@@ -17,20 +17,20 @@
 *		- first revision
 *	08/25/05
 *		- Thanks for Theo Beisch <theo.beisch@gmx.de>
-*		- Changed cg_upnp_controlpoint_geteventsubcallbackurl() to add < and > around callbackurl per UPnP def.
+*		- Changed mupnp_upnp_controlpoint_geteventsubcallbackurl() to add < and > around callbackurl per UPnP def.
 *	09/06/05
 *		- Thanks for Smolander Visa <visa.smolander@nokia.com>
-*		- Added cg_upnp_controlpoint_setuserdata() and cg_upnp_controlpoint_getuserdatga().
+*		- Added mupnp_upnp_controlpoint_setuserdata() and mupnp_upnp_controlpoint_getuserdatga().
 *	10/31/05
 *		- Fixed severe bug in getting child devices
 *	12/14/05
 *		- Fixed to be more robust on opening servers
 *	12/14/05
-*		- Fixed cg_upnp_controlpoint_removedevicebyssdppacket() to use
-*		  cg_upnp_device_delete() instead of cg_upnp_device_remove().
+*		- Fixed mupnp_upnp_controlpoint_removedevicebyssdppacket() to use
+*		  mupnp_upnp_device_delete() instead of mupnp_upnp_device_remove().
 *
 *	11-Jan-06 Heikki Junnila
-*		- Removed cg_upnp_device_isname and _getbyname because
+*		- Removed mupnp_upnp_device_isname and _getbyname because
 *		  according to UPnP specs UDN, type or friendlyname is
 *		  not the same as the device's name.
 *   
@@ -58,16 +58,16 @@
  ****************************************/
 
 #if defined(CG_UPNP_USE_STDDCP)
-char *cg_upnp_service_getstddcp(CgUpnpService *service);
-BOOL cg_upnp_service_hasstddcp(CgUpnpService *service);
+char *mupnp_upnp_service_getstddcp(CgUpnpService *service);
+BOOL mupnp_upnp_service_hasstddcp(CgUpnpService *service);
 #endif
 
 /****************************************
 * static function defines
 ****************************************/
 
-static void cg_upnp_controlpoint_ssdplistner(CgUpnpSSDPPacket *ssdpPkt);
-static void cg_upnp_controlpoint_ssdpresponselistner(CgUpnpSSDPPacket *ssdpPkt);
+static void mupnp_upnp_controlpoint_ssdplistner(CgUpnpSSDPPacket *ssdpPkt);
+static void mupnp_upnp_controlpoint_ssdpresponselistner(CgUpnpSSDPPacket *ssdpPkt);
 
 /**
  * Get the event subscription callback URI
@@ -80,14 +80,14 @@ static void cg_upnp_controlpoint_ssdpresponselistner(CgUpnpSSDPPacket *ssdpPkt);
  * @return Event callback url (pointer to buf)
  */
 
-const char *cg_upnp_controlpoint_geteventsubcallbackurl(CgUpnpControlPoint *ctrlPoint, char *ifaddr, char *buf, size_t bufLen)
+const char *mupnp_upnp_controlpoint_geteventsubcallbackurl(CgUpnpControlPoint *ctrlPoint, char *ifaddr, char *buf, size_t bufLen)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	return cg_net_getmodifierhosturl(ifaddr, cg_upnp_controlpoint_geteventport(ctrlPoint), cg_upnp_controlpoint_geteventsuburi(ctrlPoint),  "<", ">", buf, bufLen);
+	return mupnp_net_getmodifierhosturl(ifaddr, mupnp_upnp_controlpoint_geteventport(ctrlPoint), mupnp_upnp_controlpoint_geteventsuburi(ctrlPoint),  "<", ">", buf, bufLen);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************************************************
@@ -99,51 +99,51 @@ const char *cg_upnp_controlpoint_geteventsubcallbackurl(CgUpnpControlPoint *ctrl
  *
  * @return A newly-created CgUpnpControlPoint
  */
-CgUpnpControlPoint *cg_upnp_controlpoint_new()
+CgUpnpControlPoint *mupnp_upnp_controlpoint_new()
 {
 	CgUpnpControlPoint *ctrlPoint;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	ctrlPoint = (CgUpnpControlPoint *)malloc(sizeof(CgUpnpControlPoint));
 
 	if ( NULL != ctrlPoint )
 	{
 #ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS	
-		cg_http_persistentconnection_init();
+		mupnp_http_persistentconnection_init();
 #endif
-		ctrlPoint->mutex = cg_mutex_new();
-		ctrlPoint->deviceRootNodeList = cg_xml_nodelist_new();
-		ctrlPoint->deviceList = cg_upnp_devicelist_new();
-		ctrlPoint->ssdpServerList = cg_upnp_ssdp_serverlist_new();
-		ctrlPoint->ssdpResServerList = cg_upnp_ssdpresponse_serverlist_new();
-		ctrlPoint->httpServerList = cg_http_serverlist_new();
-		ctrlPoint->httpEventURI = cg_string_new();
-		ctrlPoint->eventListeners = cg_upnp_eventlistenerlist_new();
+		ctrlPoint->mutex = mupnp_mutex_new();
+		ctrlPoint->deviceRootNodeList = mupnp_xml_nodelist_new();
+		ctrlPoint->deviceList = mupnp_upnp_devicelist_new();
+		ctrlPoint->ssdpServerList = mupnp_upnp_ssdp_serverlist_new();
+		ctrlPoint->ssdpResServerList = mupnp_upnp_ssdpresponse_serverlist_new();
+		ctrlPoint->httpServerList = mupnp_http_serverlist_new();
+		ctrlPoint->httpEventURI = mupnp_string_new();
+		ctrlPoint->eventListeners = mupnp_upnp_eventlistenerlist_new();
 
 		/* Expiration handling */
-		ctrlPoint->expThread = cg_thread_new();
-		cg_thread_setaction(ctrlPoint->expThread, cg_upnp_controlpoint_expirationhandler);
-		cg_thread_setuserdata(ctrlPoint->expThread, ctrlPoint);
-		ctrlPoint->expMutex = cg_mutex_new();
-		ctrlPoint->expCond = cg_cond_new();
+		ctrlPoint->expThread = mupnp_thread_new();
+		mupnp_thread_setaction(ctrlPoint->expThread, mupnp_upnp_controlpoint_expirationhandler);
+		mupnp_thread_setuserdata(ctrlPoint->expThread, ctrlPoint);
+		ctrlPoint->expMutex = mupnp_mutex_new();
+		ctrlPoint->expCond = mupnp_cond_new();
 		
-		ctrlPoint->ifCache = cg_net_interfacelist_new();
+		ctrlPoint->ifCache = mupnp_net_interfacelist_new();
 		
-		cg_upnp_controlpoint_setssdplistener(ctrlPoint, NULL);
-		cg_upnp_controlpoint_setssdpresponselistener(ctrlPoint, NULL);
-		cg_upnp_controlpoint_sethttplistener(ctrlPoint, NULL);
-		cg_upnp_controlpoint_setdevicelistener(ctrlPoint, NULL);
+		mupnp_upnp_controlpoint_setssdplistener(ctrlPoint, NULL);
+		mupnp_upnp_controlpoint_setssdpresponselistener(ctrlPoint, NULL);
+		mupnp_upnp_controlpoint_sethttplistener(ctrlPoint, NULL);
+		mupnp_upnp_controlpoint_setdevicelistener(ctrlPoint, NULL);
 		
-		cg_upnp_controlpoint_setssdpresponseport(ctrlPoint, CG_UPNP_CONTROLPOINT_SSDP_RESPONSE_DEFAULT_PORT);
-		cg_upnp_controlpoint_setssdpsearchmx(ctrlPoint, CG_UPNP_CONTROLPOINT_SSDP_DEFAULT_SEARCH_MX);
-		cg_upnp_controlpoint_seteventport(ctrlPoint, CG_UPNP_CONTROLPOINT_HTTP_EVENT_DEFAULT_PORT);
-		cg_upnp_controlpoint_seteventsuburi(ctrlPoint, CG_UPNP_CONTROLPOINT_HTTP_EVENTSUB_URI);
+		mupnp_upnp_controlpoint_setssdpresponseport(ctrlPoint, CG_UPNP_CONTROLPOINT_SSDP_RESPONSE_DEFAULT_PORT);
+		mupnp_upnp_controlpoint_setssdpsearchmx(ctrlPoint, CG_UPNP_CONTROLPOINT_SSDP_DEFAULT_SEARCH_MX);
+		mupnp_upnp_controlpoint_seteventport(ctrlPoint, CG_UPNP_CONTROLPOINT_HTTP_EVENT_DEFAULT_PORT);
+		mupnp_upnp_controlpoint_seteventsuburi(ctrlPoint, CG_UPNP_CONTROLPOINT_HTTP_EVENTSUB_URI);
 
-		cg_upnp_controlpoint_setuserdata(ctrlPoint, NULL);
+		mupnp_upnp_controlpoint_setuserdata(ctrlPoint, NULL);
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return ctrlPoint;
 }
@@ -153,36 +153,36 @@ CgUpnpControlPoint *cg_upnp_controlpoint_new()
  *
  * @param ctrlPoint The control point struct to destroy
  */
-void cg_upnp_controlpoint_delete(CgUpnpControlPoint *ctrlPoint)
+void mupnp_upnp_controlpoint_delete(CgUpnpControlPoint *ctrlPoint)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_controlpoint_stop(ctrlPoint);
+	mupnp_upnp_controlpoint_stop(ctrlPoint);
 	
 	/* Delete cached interfaces */
-	cg_net_interfacelist_delete(ctrlPoint->ifCache);
+	mupnp_net_interfacelist_delete(ctrlPoint->ifCache);
 	
 	/* Delete expiration handlers */
-	cg_thread_delete(ctrlPoint->expThread);
-	cg_mutex_delete(ctrlPoint->expMutex);
-	cg_cond_delete(ctrlPoint->expCond);
+	mupnp_thread_delete(ctrlPoint->expThread);
+	mupnp_mutex_delete(ctrlPoint->expMutex);
+	mupnp_cond_delete(ctrlPoint->expCond);
 	
 	/* Delete others */
-	cg_mutex_delete(ctrlPoint->mutex);
-	cg_xml_nodelist_delete(ctrlPoint->deviceRootNodeList);
-	cg_upnp_devicelist_delete(ctrlPoint->deviceList);
-	cg_upnp_ssdp_serverlist_delete(ctrlPoint->ssdpServerList);
-	cg_upnp_ssdpresponse_serverlist_delete(ctrlPoint->ssdpResServerList);
-	cg_http_serverlist_delete(ctrlPoint->httpServerList);
-	cg_string_delete(ctrlPoint->httpEventURI);
-	cg_upnp_eventlistenerlist_delete(ctrlPoint->eventListeners);	
+	mupnp_mutex_delete(ctrlPoint->mutex);
+	mupnp_xml_nodelist_delete(ctrlPoint->deviceRootNodeList);
+	mupnp_upnp_devicelist_delete(ctrlPoint->deviceList);
+	mupnp_upnp_ssdp_serverlist_delete(ctrlPoint->ssdpServerList);
+	mupnp_upnp_ssdpresponse_serverlist_delete(ctrlPoint->ssdpResServerList);
+	mupnp_http_serverlist_delete(ctrlPoint->httpServerList);
+	mupnp_string_delete(ctrlPoint->httpEventURI);
+	mupnp_upnp_eventlistenerlist_delete(ctrlPoint->eventListeners);	
 
 #ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS	
-	cg_http_persistentconnection_clear();
+	mupnp_http_persistentconnection_clear();
 #endif
 	free(ctrlPoint);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -194,7 +194,7 @@ void cg_upnp_controlpoint_delete(CgUpnpControlPoint *ctrlPoint)
  * @return TRUE if successful; otherwise FALSE
  *
  */
-BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint)
+BOOL mupnp_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint)
 {
 	CgHttpServerList *httpServerList;
 	CG_HTTP_LISTENER httpListener;
@@ -204,57 +204,57 @@ BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint)
 	int ssdpResPort;
 	int ssdpMaxResPort;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_controlpoint_stop(ctrlPoint);
+	mupnp_upnp_controlpoint_stop(ctrlPoint);
 
 	/* Expiration handling */
-	cg_thread_start(ctrlPoint->expThread);
+	mupnp_thread_start(ctrlPoint->expThread);
 	
 	/**** Cache current interfaces ****/
-	cg_net_gethostinterfaces(ctrlPoint->ifCache);
+	mupnp_net_gethostinterfaces(ctrlPoint->ifCache);
 	
 	/**** HTTP Server ****/
-	httpEventPort = cg_upnp_controlpoint_geteventport(ctrlPoint);
-	httpServerList = cg_upnp_controlpoint_gethttpserverlist(ctrlPoint);
+	httpEventPort = mupnp_upnp_controlpoint_geteventport(ctrlPoint);
+	httpServerList = mupnp_upnp_controlpoint_gethttpserverlist(ctrlPoint);
 	/* Opening HTTP server may fail, so try many ports */
-	while(cg_http_serverlist_open(httpServerList, httpEventPort) == FALSE) {
-		cg_upnp_controlpoint_seteventport(ctrlPoint, httpEventPort + 1);
-		httpEventPort = cg_upnp_controlpoint_geteventport(ctrlPoint);
+	while(mupnp_http_serverlist_open(httpServerList, httpEventPort) == FALSE) {
+		mupnp_upnp_controlpoint_seteventport(ctrlPoint, httpEventPort + 1);
+		httpEventPort = mupnp_upnp_controlpoint_geteventport(ctrlPoint);
 	}
-	cg_http_serverlist_setuserdata(httpServerList, ctrlPoint);
-	httpListener = cg_upnp_controlpoint_gethttplistener(ctrlPoint);
+	mupnp_http_serverlist_setuserdata(httpServerList, ctrlPoint);
+	httpListener = mupnp_upnp_controlpoint_gethttplistener(ctrlPoint);
 	if (httpListener == NULL)
-		httpListener = cg_upnp_controlpoint_httprequestreceived;
-	cg_http_serverlist_setlistener(httpServerList, httpListener);
-	cg_http_serverlist_start(httpServerList);
+		httpListener = mupnp_upnp_controlpoint_httprequestreceived;
+	mupnp_http_serverlist_setlistener(httpServerList, httpListener);
+	mupnp_http_serverlist_start(httpServerList);
 
 	/**** SSDP Server ****/
-	ssdpServerList = cg_upnp_controlpoint_getssdpserverlist(ctrlPoint);
-	if (cg_upnp_ssdp_serverlist_open(ssdpServerList) == FALSE)
+	ssdpServerList = mupnp_upnp_controlpoint_getssdpserverlist(ctrlPoint);
+	if (mupnp_upnp_ssdp_serverlist_open(ssdpServerList) == FALSE)
 		return FALSE;
-	cg_upnp_ssdp_serverlist_setlistener(ssdpServerList, cg_upnp_controlpoint_ssdplistner);
-	cg_upnp_ssdp_serverlist_setuserdata(ssdpServerList, ctrlPoint);
-	if (cg_upnp_ssdp_serverlist_start(ssdpServerList) == FALSE)
+	mupnp_upnp_ssdp_serverlist_setlistener(ssdpServerList, mupnp_upnp_controlpoint_ssdplistner);
+	mupnp_upnp_ssdp_serverlist_setuserdata(ssdpServerList, ctrlPoint);
+	if (mupnp_upnp_ssdp_serverlist_start(ssdpServerList) == FALSE)
 		return FALSE;
 
 	/**** SSDP Response Server ****/
-	ssdpResPort = cg_upnp_controlpoint_getssdpresponseport(ctrlPoint);
+	ssdpResPort = mupnp_upnp_controlpoint_getssdpresponseport(ctrlPoint);
 	/* below is the max SSDP Response port number to assign (rosfran.borges) */
 	ssdpMaxResPort = ssdpResPort + CG_UPNP_CONTROLPOINT_SSDP_RESPONSE_PORT_MAX_TRIES_INDEX;
-	ssdpResServerList = cg_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
+	ssdpResServerList = mupnp_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
 	/* Opening SSDP response server may fail, so try many ports */
-	while(cg_upnp_ssdpresponse_serverlist_open(ssdpResServerList, ssdpResPort) == FALSE &&
+	while(mupnp_upnp_ssdpresponse_serverlist_open(ssdpResServerList, ssdpResPort) == FALSE &&
 		(ssdpResPort < ssdpMaxResPort) ) {
-		cg_upnp_controlpoint_setssdpresponseport(ctrlPoint, ssdpResPort + 1);
-		ssdpResPort = cg_upnp_controlpoint_getssdpresponseport(ctrlPoint);
+		mupnp_upnp_controlpoint_setssdpresponseport(ctrlPoint, ssdpResPort + 1);
+		ssdpResPort = mupnp_upnp_controlpoint_getssdpresponseport(ctrlPoint);
 	}
-	cg_upnp_ssdpresponse_serverlist_setlistener(ssdpResServerList, cg_upnp_controlpoint_ssdpresponselistner);
-	cg_upnp_ssdpresponse_serverlist_setuserdata(ssdpResServerList, ctrlPoint);
-	if (cg_upnp_ssdpresponse_serverlist_start(ssdpResServerList) == FALSE)
+	mupnp_upnp_ssdpresponse_serverlist_setlistener(ssdpResServerList, mupnp_upnp_controlpoint_ssdpresponselistner);
+	mupnp_upnp_ssdpresponse_serverlist_setuserdata(ssdpResServerList, ctrlPoint);
+	if (mupnp_upnp_ssdpresponse_serverlist_start(ssdpResServerList) == FALSE)
 		return FALSE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
@@ -267,77 +267,77 @@ BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint)
  * @return TRUE if successful; otherwise FALSE
  *
  */
-BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint)
+BOOL mupnp_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint)
 {
 	CgUpnpDevice *dev = NULL;
 	CgUpnpSSDPServerList *ssdpServerList;
 	CgUpnpSSDPResponseServerList *ssdpResServerList;
 	CgHttpServerList *httpServerList;
 	const char *udn = NULL;
-	CG_UPNP_DEVICE_LISTENER listener = cg_upnp_controlpoint_getdevicelistener(ctrlPoint);
+	CG_UPNP_DEVICE_LISTENER listener = mupnp_upnp_controlpoint_getdevicelistener(ctrlPoint);
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	/* Stop expiration handling */
-	cg_thread_stop_with_cond(ctrlPoint->expThread, ctrlPoint->expCond);
-	cg_log_debug_s("Expiration thread stopped.\n");
+	mupnp_thread_stop_with_cond(ctrlPoint->expThread, ctrlPoint->expCond);
+	mupnp_log_debug_s("Expiration thread stopped.\n");
 	
 	/**** SSDP Server ****/
-	ssdpServerList = cg_upnp_controlpoint_getssdpserverlist(ctrlPoint);
-	cg_log_debug_s("Stopping ssdp servers.\n");
-  cg_upnp_ssdp_serverlist_setlistener(ssdpServerList, NULL);
-  cg_upnp_ssdp_serverlist_setuserdata(ssdpServerList, NULL);
-	cg_upnp_ssdp_serverlist_stop(ssdpServerList);
-	cg_log_debug_s("Done\n");
-	cg_upnp_ssdp_serverlist_close(ssdpServerList);
-	cg_upnp_ssdp_serverlist_clear(ssdpServerList);
+	ssdpServerList = mupnp_upnp_controlpoint_getssdpserverlist(ctrlPoint);
+	mupnp_log_debug_s("Stopping ssdp servers.\n");
+  mupnp_upnp_ssdp_serverlist_setlistener(ssdpServerList, NULL);
+  mupnp_upnp_ssdp_serverlist_setuserdata(ssdpServerList, NULL);
+	mupnp_upnp_ssdp_serverlist_stop(ssdpServerList);
+	mupnp_log_debug_s("Done\n");
+	mupnp_upnp_ssdp_serverlist_close(ssdpServerList);
+	mupnp_upnp_ssdp_serverlist_clear(ssdpServerList);
 	
 	/**** SSDP Response Server ****/
-	ssdpResServerList = cg_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
-	cg_log_debug_s("Stopping ssdp response servers.\n");
-  cg_upnp_ssdpresponse_serverlist_setlistener(ssdpResServerList, NULL);
-  cg_upnp_ssdpresponse_serverlist_setuserdata(ssdpResServerList, NULL);
-	cg_upnp_ssdpresponse_serverlist_stop(ssdpResServerList);
-	cg_log_debug_s("Done\n");
-	cg_upnp_ssdpresponse_serverlist_close(ssdpResServerList);
-	cg_upnp_ssdpresponse_serverlist_clear(ssdpResServerList);
+	ssdpResServerList = mupnp_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
+	mupnp_log_debug_s("Stopping ssdp response servers.\n");
+  mupnp_upnp_ssdpresponse_serverlist_setlistener(ssdpResServerList, NULL);
+  mupnp_upnp_ssdpresponse_serverlist_setuserdata(ssdpResServerList, NULL);
+	mupnp_upnp_ssdpresponse_serverlist_stop(ssdpResServerList);
+	mupnp_log_debug_s("Done\n");
+	mupnp_upnp_ssdpresponse_serverlist_close(ssdpResServerList);
+	mupnp_upnp_ssdpresponse_serverlist_clear(ssdpResServerList);
 	
 	/**** HTTP Server ****/
-	httpServerList = cg_upnp_controlpoint_gethttpserverlist(ctrlPoint);
-	cg_log_debug_s("Stopping http servers.\n");
-  cg_http_serverlist_setlistener(httpServerList, NULL);
-	cg_http_serverlist_stop(httpServerList);
-	cg_log_debug_s("Done\n");
-	cg_http_serverlist_close(httpServerList);
-	cg_http_serverlist_clear(httpServerList);
+	httpServerList = mupnp_upnp_controlpoint_gethttpserverlist(ctrlPoint);
+	mupnp_log_debug_s("Stopping http servers.\n");
+  mupnp_http_serverlist_setlistener(httpServerList, NULL);
+	mupnp_http_serverlist_stop(httpServerList);
+	mupnp_log_debug_s("Done\n");
+	mupnp_http_serverlist_close(httpServerList);
+	mupnp_http_serverlist_clear(httpServerList);
 
-	cg_upnp_controlpoint_lock(ctrlPoint);
+	mupnp_upnp_controlpoint_lock(ctrlPoint);
 
-	cg_log_debug_s("Got controlpoint lock.\n");
+	mupnp_log_debug_s("Got controlpoint lock.\n");
 	
 	/* Unsubscribe from all services */
 
-	for (dev = cg_upnp_controlpoint_getdevices(ctrlPoint); 
+	for (dev = mupnp_upnp_controlpoint_getdevices(ctrlPoint); 
 	     dev != NULL;
-	     dev = cg_upnp_device_next(dev))
+	     dev = mupnp_upnp_device_next(dev))
 	{
-		udn = cg_upnp_device_getudn(dev);
+		udn = mupnp_upnp_device_getudn(dev);
 		
 		/* Call device listener for each device */
 		if (udn != NULL && listener != NULL)
 		{
-			cg_upnp_controlpoint_unlock(ctrlPoint);
+			mupnp_upnp_controlpoint_unlock(ctrlPoint);
 			listener(ctrlPoint, udn, CgUpnpDeviceStatusRemoved);
-			cg_upnp_controlpoint_lock(ctrlPoint);
+			mupnp_upnp_controlpoint_lock(ctrlPoint);
 		}
 	}
 	/* Empty device cache */
-	cg_upnp_devicelist_clear(ctrlPoint->deviceList);
-	cg_log_debug_s("Device list cleared.\n");
+	mupnp_upnp_devicelist_clear(ctrlPoint->deviceList);
+	mupnp_log_debug_s("Device list cleared.\n");
 
-	cg_upnp_controlpoint_unlock(ctrlPoint);
+	mupnp_upnp_controlpoint_unlock(ctrlPoint);
 		
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
@@ -350,7 +350,7 @@ BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint)
  * @return TRUE if running; otherwise FALSE
  *
  */
-BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint);
+BOOL mupnp_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint);
 /**
  * Check if  the control point is activated.
  *
@@ -359,12 +359,12 @@ BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint);
  * @return TRUE if running; otherwise FALSE
  *
  */
-BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint)
+BOOL mupnp_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint)
 {
 	CgHttpServerList *httpServerList;
 	
-	httpServerList = cg_upnp_controlpoint_gethttpserverlist(ctrlPoint);
-	if (cg_http_serverlist_size(httpServerList) == 0)
+	httpServerList = mupnp_upnp_controlpoint_gethttpserverlist(ctrlPoint);
+	if (mupnp_http_serverlist_size(httpServerList) == 0)
 		return FALSE;
 	
 	return TRUE;
@@ -379,7 +379,7 @@ BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint)
  * CgUpnpService*, CgUpnpAction* or other pointer has been taken into use from
  * the stack. This effectively prevents devices/services from being updated/
  * removed or added while the control point is locked. You should release the
- * lock as soon as possible with @ref cg_upnp_controlpoint_unlock
+ * lock as soon as possible with @ref mupnp_upnp_controlpoint_unlock
  *
  * @note Do NOT save any CgUpnp* pointers to user-space variables. Use them
  * only as local variables (inside one function) after gaining a mutex lock.
@@ -389,29 +389,29 @@ BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint)
  * @param ctrlPoint The control point in question
  */
 #ifndef WITH_THREAD_LOCK_TRACE
-BOOL cg_upnp_controlpoint_lock(CgUpnpControlPoint *ctrlPoint)
+BOOL mupnp_upnp_controlpoint_lock(CgUpnpControlPoint *ctrlPoint)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return cg_mutex_lock(ctrlPoint->mutex);
+	return mupnp_mutex_lock(ctrlPoint->mutex);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
  * Release a previously locked control point mutex.
- * See @ref cg_upnp_controlpoint_lock for a more detailed description on
+ * See @ref mupnp_upnp_controlpoint_lock for a more detailed description on
  * the control point locking mechanism.
  *
  * @param ctrlPoint The control point in question
  */
-BOOL cg_upnp_controlpoint_unlock(CgUpnpControlPoint *ctrlPoint)
+BOOL mupnp_upnp_controlpoint_unlock(CgUpnpControlPoint *ctrlPoint)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return cg_mutex_unlock(ctrlPoint->mutex);
+	return mupnp_mutex_unlock(ctrlPoint->mutex);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 #endif
 /****************************************************************************
@@ -423,43 +423,43 @@ BOOL cg_upnp_controlpoint_unlock(CgUpnpControlPoint *ctrlPoint)
  * This function searches for devices, whose *complete type string*
  * matches the given string, including version number. For example: 
  * "urn:schemas-upnp-org:device:FooDevice:1". If you need to disregard
- * the version, use \ref cg_upnp_controlpoint_getdevicebytype
+ * the version, use \ref mupnp_upnp_controlpoint_getdevicebytype
  *
  * \param ctrlPoint Controlpoint in question
  * \param exacttype Type of the device
  *
  */
-CgUpnpDevice *cg_upnp_controlpoint_getdevicebyexacttype(CgUpnpControlPoint *ctrlPoint,
+CgUpnpDevice *mupnp_upnp_controlpoint_getdevicebyexacttype(CgUpnpControlPoint *ctrlPoint,
 						   char *exacttype)
 {
 	CgUpnpDevice *dev = NULL;
 	CgUpnpDevice *childDev = NULL;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	if (cg_strlen(exacttype) <= 0 || ctrlPoint == NULL)
+	if (mupnp_strlen(exacttype) <= 0 || ctrlPoint == NULL)
 	{
 		return NULL;
 	}
 	
-	for (dev = cg_upnp_controlpoint_getdevices(ctrlPoint); 
+	for (dev = mupnp_upnp_controlpoint_getdevices(ctrlPoint); 
 	     dev != NULL;
-	     dev = cg_upnp_device_next(dev))
+	     dev = mupnp_upnp_device_next(dev))
 	{
-		if (cg_strcmp(cg_upnp_device_getdevicetype(dev),
+		if (mupnp_strcmp(mupnp_upnp_device_getdevicetype(dev),
 			      exacttype) == 0)
 		{
 			return dev;
 		}
 
-		childDev = cg_upnp_device_getdevicebyexacttype(dev, exacttype);
+		childDev = mupnp_upnp_device_getdevicebyexacttype(dev, exacttype);
 		if (childDev != NULL)
 		{
 			return childDev;
 		}
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return NULL;
 }
@@ -469,13 +469,13 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyexacttype(CgUpnpControlPoint *ctrl
  * This function searches for devices, whose *type part* (i.e. not including
  * the version) of the device type string matches the given string.
  * For example: "urn:schemas-upnp-org:device:FooDevice". If you need
- * to know the version of a device, use \ref cg_upnp_devicetype_getversion
+ * to know the version of a device, use \ref mupnp_upnp_devicetype_getversion
  *
  * \param ctrlPoint Controlpoint in question
  * \param type Type of the device
  *
  */
-CgUpnpDevice *cg_upnp_controlpoint_getdevicebytype(CgUpnpControlPoint *ctrlPoint,
+CgUpnpDevice *mupnp_upnp_controlpoint_getdevicebytype(CgUpnpControlPoint *ctrlPoint,
 						   char *type)
 {
 	CgUpnpDevice *dev = NULL;
@@ -483,22 +483,22 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebytype(CgUpnpControlPoint *ctrlPoint
 	const char* typeString = NULL;
 	char* part = NULL;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	if (cg_strlen(type) <= 0 || ctrlPoint == NULL)
+	if (mupnp_strlen(type) <= 0 || ctrlPoint == NULL)
 	{
 		return NULL;
 	}
 
-	for (dev = cg_upnp_controlpoint_getdevices(ctrlPoint);
+	for (dev = mupnp_upnp_controlpoint_getdevices(ctrlPoint);
 	     dev != NULL;
-	     dev = cg_upnp_device_next(dev))
+	     dev = mupnp_upnp_device_next(dev))
 	{
-		typeString = cg_upnp_device_getdevicetype(dev);
+		typeString = mupnp_upnp_device_getdevicetype(dev);
 		if (typeString != NULL)
 		{
-			part = cg_upnp_devicetype_getschematype(typeString);
-			if (cg_strcmp(part, type) == 0)
+			part = mupnp_upnp_devicetype_getschematype(typeString);
+			if (mupnp_strcmp(part, type) == 0)
 			{
 				free(part);
 				
@@ -510,14 +510,14 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebytype(CgUpnpControlPoint *ctrlPoint
 			}
 		}
 				
-		childDev = cg_upnp_device_getdevicebytype(dev, type);
+		childDev = mupnp_upnp_device_getdevicebytype(dev, type);
 		if (childDev != NULL)
 		{
 			return childDev;
 		}
 	}
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return NULL;
 }
@@ -529,35 +529,35 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebytype(CgUpnpControlPoint *ctrlPoint
  * \param udn Type of the device
  *
  */
-CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
+CgUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
 						  char *udn)
 {
 	CgUpnpDevice *dev = NULL;
 	CgUpnpDevice *childDev = NULL;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	if (cg_strlen(udn) <= 0 || ctrlPoint == NULL)
+	if (mupnp_strlen(udn) <= 0 || ctrlPoint == NULL)
 	{
 		return NULL;
 	}
 	
-	for (dev = cg_upnp_controlpoint_getdevices(ctrlPoint); 
+	for (dev = mupnp_upnp_controlpoint_getdevices(ctrlPoint); 
 	     dev != NULL;
-	     dev = cg_upnp_device_next(dev))
+	     dev = mupnp_upnp_device_next(dev))
 	{
-		if (cg_strcmp(cg_upnp_device_getudn(dev), udn) == 0)
+		if (mupnp_strcmp(mupnp_upnp_device_getudn(dev), udn) == 0)
 		{
 			return dev;
 		}
-		childDev = cg_upnp_device_getdevicebyudn(dev, udn);
+		childDev = mupnp_upnp_device_getdevicebyudn(dev, udn);
 		if (childDev != NULL)
 		{
 			return childDev;
 		}
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return NULL;
 }
@@ -573,113 +573,113 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param service The service in question
  * @return TRUE if successful; otherwise FALSE
  */
-BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service)
+BOOL mupnp_upnp_controlpoint_parsescservicescpd(CgUpnpService *service)
 {
 	CgNetURL *scpdURL;
 	BOOL scpdParseSuccess;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	scpdURL = cg_upnp_service_getscpdurl(service); 
+	scpdURL = mupnp_upnp_service_getscpdurl(service); 
 
 	if ( NULL == scpdURL )		
 		return FALSE;
 	
-	cg_log_debug_s("SCPD URL: %s\n", cg_net_url_getrequest(scpdURL));
-	scpdParseSuccess = cg_upnp_service_parsedescriptionurl(service, scpdURL);
+	mupnp_log_debug_s("SCPD URL: %s\n", mupnp_net_url_getrequest(scpdURL));
+	scpdParseSuccess = mupnp_upnp_service_parsedescriptionurl(service, scpdURL);
 	
-	cg_net_url_delete(scpdURL);
+	mupnp_net_url_delete(scpdURL);
 	if (scpdParseSuccess == TRUE)
 		return TRUE;
 
 #if defined(CG_UPNP_USE_STDDCP)
-	if (cg_upnp_service_hasstddcp(service)) {
-		char *stdDCP = cg_upnp_service_getstddcp(service);
-		scpdParseSuccess = cg_upnp_service_parsedescription(service, stdDCP, cg_strlen(stdDCP));
+	if (mupnp_upnp_service_hasstddcp(service)) {
+		char *stdDCP = mupnp_upnp_service_getstddcp(service);
+		scpdParseSuccess = mupnp_upnp_service_parsedescription(service, stdDCP, mupnp_strlen(stdDCP));
 	}
 #endif
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return scpdParseSuccess;
 }
 
 /****************************************
-* cg_upnp_controlpoint_parseservicesfordevice
+* mupnp_upnp_controlpoint_parseservicesfordevice
 ****************************************/
 
-BOOL cg_upnp_controlpoint_parseservicesfordevice(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt)
+BOOL mupnp_upnp_controlpoint_parseservicesfordevice(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgUpnpService *service;
 	CgUpnpDevice *childDev;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	for (service=cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) {
-		if (cg_upnp_controlpoint_parsescservicescpd(service) == FALSE) {
+	for (service=mupnp_upnp_device_getservices(dev); service != NULL; service = mupnp_upnp_service_next(service)) {
+		if (mupnp_upnp_controlpoint_parsescservicescpd(service) == FALSE) {
 			return FALSE;
 		}
 	}
 	
 	/* Now only root SCPDs for root services are parsed, but also child 
 	   devices' services have to be parsed, so parse them */
-	for (childDev=cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
-		if (cg_upnp_controlpoint_parseservicesfordevice(childDev, ssdpPkt) == FALSE)
+	for (childDev=mupnp_upnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_upnp_device_next(childDev)) {
+		if (mupnp_upnp_controlpoint_parseservicesfordevice(childDev, ssdpPkt) == FALSE)
 		{
 			return FALSE;
 		}
 	}
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
-static CgUpnpDevice *cg_upnp_controlpoint_createdevicefromssdkpacket(CgUpnpSSDPPacket *ssdpPkt)
+static CgUpnpDevice *mupnp_upnp_controlpoint_createdevicefromssdkpacket(CgUpnpSSDPPacket *ssdpPkt)
 {
 	const char *location;
 	CgNetURL *url;
 	CgUpnpDevice *dev;
 	BOOL parseSuccess;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	location = cg_upnp_ssdp_packet_getlocation(ssdpPkt);
-	if (cg_strlen(location) <= 0)
+	location = mupnp_upnp_ssdp_packet_getlocation(ssdpPkt);
+	if (mupnp_strlen(location) <= 0)
 		return NULL;
 			
-	dev = cg_upnp_device_new();
+	dev = mupnp_upnp_device_new();
 	
-	url = cg_net_url_new();
-	cg_net_url_set(url, location);
-	parseSuccess =  cg_upnp_device_parsedescriptionurl(dev, url);
-	cg_net_url_delete(url);
+	url = mupnp_net_url_new();
+	mupnp_net_url_set(url, location);
+	parseSuccess =  mupnp_upnp_device_parsedescriptionurl(dev, url);
+	mupnp_net_url_delete(url);
 	
 	if (parseSuccess == FALSE) {
-		cg_upnp_device_delete(dev);
+		mupnp_upnp_device_delete(dev);
 		return NULL;
 	}
 
-	cg_upnp_device_setssdppacket(dev, ssdpPkt);
+	mupnp_upnp_device_setssdppacket(dev, ssdpPkt);
 
 #ifndef CG_OPTIMIZED_CP_MODE
-	if (cg_upnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == FALSE)
+	if (mupnp_upnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == FALSE)
 	{
-		cg_upnp_device_delete(dev);
+		mupnp_upnp_device_delete(dev);
 		return NULL;
 	}
 #endif
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return dev;
 }
 
 /****************************************
-* cg_upnp_controlpoint_adddevicebyssdppacket
+* mupnp_upnp_controlpoint_adddevicebyssdppacket
 ****************************************/
 
-void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgUpnpDevice *dev = NULL;
 	const char *usn = NULL;
@@ -687,25 +687,25 @@ void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, C
 	CG_UPNP_DEVICE_LISTENER listener = NULL;
 	CgUpnpDeviceStatus status = 0;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	listener = cg_upnp_controlpoint_getdevicelistener(ctrlPoint);
+	listener = mupnp_upnp_controlpoint_getdevicelistener(ctrlPoint);
 	
-	usn = cg_upnp_ssdp_packet_getusn(ssdpPkt);
-	cg_upnp_usn_getudn(usn, udn, sizeof(udn));
+	usn = mupnp_upnp_ssdp_packet_getusn(ssdpPkt);
+	mupnp_upnp_usn_getudn(usn, udn, sizeof(udn));
 	
-	cg_upnp_controlpoint_lock(ctrlPoint);
+	mupnp_upnp_controlpoint_lock(ctrlPoint);
 	
-	dev = cg_upnp_controlpoint_getdevicebyudn(ctrlPoint, udn);
+	dev = mupnp_upnp_controlpoint_getdevicebyudn(ctrlPoint, udn);
 	
 	if (dev != NULL)
 	{
 		/* Device was found from local cache */
-		if (cg_upnp_device_updatefromssdppacket(dev, ssdpPkt) == TRUE)
+		if (mupnp_upnp_device_updatefromssdppacket(dev, ssdpPkt) == TRUE)
 		{
-			cg_mutex_lock(ctrlPoint->expMutex);
-			cg_cond_signal(ctrlPoint->expCond);
-			cg_mutex_unlock(ctrlPoint->expMutex);
+			mupnp_mutex_lock(ctrlPoint->expMutex);
+			mupnp_cond_signal(ctrlPoint->expCond);
+			mupnp_mutex_unlock(ctrlPoint->expMutex);
 			
 			/* Device was successfully updated */
 			status = CgUpnpDeviceStatusUpdated;
@@ -718,7 +718,7 @@ void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, C
 	else
 	{
 		/* This is a new device */
-		dev = cg_upnp_controlpoint_createdevicefromssdkpacket(ssdpPkt);
+		dev = mupnp_upnp_controlpoint_createdevicefromssdkpacket(ssdpPkt);
 		if (dev == NULL)
 		{
 			/* Problems occurred in device creation */
@@ -726,64 +726,64 @@ void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, C
 		}
 		else
 		{
-			cg_upnp_controlpoint_adddevice(ctrlPoint, dev);
+			mupnp_upnp_controlpoint_adddevice(ctrlPoint, dev);
 
 			/* Device added, wake up expirationhandler thread */
-			cg_mutex_lock(ctrlPoint->expMutex);
-			cg_cond_signal(ctrlPoint->expCond);
-			cg_mutex_unlock(ctrlPoint->expMutex);
+			mupnp_mutex_lock(ctrlPoint->expMutex);
+			mupnp_cond_signal(ctrlPoint->expCond);
+			mupnp_mutex_unlock(ctrlPoint->expMutex);
 			
 			status = CgUpnpDeviceStatusAdded;
 		}
 	}
 	
-	cg_upnp_controlpoint_unlock(ctrlPoint);
+	mupnp_upnp_controlpoint_unlock(ctrlPoint);
 	
 	if (listener != NULL)
 	{
 		listener(ctrlPoint, udn, status);
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_controlpoint_removedevicebyssdppacket
+* mupnp_upnp_controlpoint_removedevicebyssdppacket
 ****************************************/
 
-void cg_upnp_controlpoint_removedevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_controlpoint_removedevicebyssdppacket(CgUpnpControlPoint *ctrlPoint, CgUpnpSSDPPacket *ssdpPkt)
 {
 	const char *usn;
 	char udn[CG_UPNP_UDN_LEN_MAX];
 	CgUpnpDevice *dev;
-	CG_UPNP_DEVICE_LISTENER listener = cg_upnp_controlpoint_getdevicelistener(ctrlPoint);
+	CG_UPNP_DEVICE_LISTENER listener = mupnp_upnp_controlpoint_getdevicelistener(ctrlPoint);
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	usn = cg_upnp_ssdp_packet_getusn(ssdpPkt);
-	cg_upnp_usn_getudn(usn, udn, sizeof(udn));
+	usn = mupnp_upnp_ssdp_packet_getusn(ssdpPkt);
+	mupnp_upnp_usn_getudn(usn, udn, sizeof(udn));
 	
-	cg_upnp_controlpoint_lock(ctrlPoint);
+	mupnp_upnp_controlpoint_lock(ctrlPoint);
 	
-	dev = cg_upnp_controlpoint_getdevicebyudn(ctrlPoint, udn);
+	dev = mupnp_upnp_controlpoint_getdevicebyudn(ctrlPoint, udn);
 
 	if (dev == NULL) {
-		cg_upnp_controlpoint_unlock(ctrlPoint);
+		mupnp_upnp_controlpoint_unlock(ctrlPoint);
 		return;
 	}
 	
 	if (listener != NULL)
 	{
-		cg_upnp_controlpoint_unlock(ctrlPoint);
+		mupnp_upnp_controlpoint_unlock(ctrlPoint);
 		listener(ctrlPoint, udn, CgUpnpDeviceStatusRemoved);
-		cg_upnp_controlpoint_lock(ctrlPoint);
+		mupnp_upnp_controlpoint_lock(ctrlPoint);
 	}
 	
-	cg_upnp_device_delete(dev);
+	mupnp_upnp_device_delete(dev);
 	
-	cg_upnp_controlpoint_unlock(ctrlPoint);
+	mupnp_upnp_controlpoint_unlock(ctrlPoint);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************************************************
@@ -796,43 +796,43 @@ void cg_upnp_controlpoint_removedevicebyssdppacket(CgUpnpControlPoint *ctrlPoint
  * @param ctrlPoint The control point in question
  * @param target The Search Target parameter (ex. "ssdp:all")
  */
-BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *target)
+BOOL mupnp_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *target)
 {
 	CgUpnpSSDPRequest *ssdpReq;
 	CgUpnpSSDPResponseServerList *ssdpResServerList;
 	int i = 0;
 	BOOL retval = FALSE;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpReq = cg_upnp_ssdprequest_new();
-	cg_upnp_ssdprequest_setmethod(ssdpReq, CG_HTTP_MSEARCH);
-	cg_upnp_ssdprequest_setst(ssdpReq, target);
-	cg_upnp_ssdprequest_setmx(ssdpReq, cg_upnp_controlpoint_getssdpsearchmx(ctrlPoint));
-	cg_upnp_ssdprequest_setman(ssdpReq, CG_UPNP_MAN_DISCOVER);
+	ssdpReq = mupnp_upnp_ssdprequest_new();
+	mupnp_upnp_ssdprequest_setmethod(ssdpReq, CG_HTTP_MSEARCH);
+	mupnp_upnp_ssdprequest_setst(ssdpReq, target);
+	mupnp_upnp_ssdprequest_setmx(ssdpReq, mupnp_upnp_controlpoint_getssdpsearchmx(ctrlPoint));
+	mupnp_upnp_ssdprequest_setman(ssdpReq, CG_UPNP_MAN_DISCOVER);
 	
-	cg_log_debug("Announcing %d times.\n", cg_upnp_ssdp_getannouncecount());
-	cg_upnp_ssdprequest_print(ssdpReq);
+	mupnp_log_debug("Announcing %d times.\n", mupnp_upnp_ssdp_getannouncecount());
+	mupnp_upnp_ssdprequest_print(ssdpReq);
 	
-	for (i = 0; i < cg_upnp_ssdp_getannouncecount(); i++)
+	for (i = 0; i < mupnp_upnp_ssdp_getannouncecount(); i++)
 	{
-		ssdpResServerList = cg_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
-		retval = ( cg_upnp_ssdpresponse_serverlist_post(ssdpResServerList, ssdpReq ) || retval );
-		cg_wait(CG_UPNP_CONTROLPOINT_SSDP_MIN_DELAY);
+		ssdpResServerList = mupnp_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
+		retval = ( mupnp_upnp_ssdpresponse_serverlist_post(ssdpResServerList, ssdpReq ) || retval );
+		mupnp_wait(CG_UPNP_CONTROLPOINT_SSDP_MIN_DELAY);
 	}
 	
-	cg_upnp_ssdprequest_delete(ssdpReq);
+	mupnp_upnp_ssdprequest_delete(ssdpReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return retval;
 }
 
 /****************************************
-* cg_upnp_controlpoint_ipchanged
+* mupnp_upnp_controlpoint_ipchanged
 ****************************************/
 
-BOOL cg_upnp_controlpoint_ipchanged(CgUpnpControlPoint *ctrlPoint)
+BOOL mupnp_upnp_controlpoint_ipchanged(CgUpnpControlPoint *ctrlPoint)
 {
 	CgNetworkInterfaceList *current, *added, *removed;
 	CgNetworkInterface *netIf;
@@ -840,121 +840,121 @@ BOOL cg_upnp_controlpoint_ipchanged(CgUpnpControlPoint *ctrlPoint)
 	CgUpnpSSDPPacket *ssdpPkt;
 	char *address;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	current = cg_net_interfacelist_new();
-	added = cg_net_interfacelist_new();
-	removed = cg_net_interfacelist_new();
+	current = mupnp_net_interfacelist_new();
+	added = mupnp_net_interfacelist_new();
+	removed = mupnp_net_interfacelist_new();
 
 	if (current == NULL || added == NULL || removed == NULL)
 	{
-		if (current != NULL) cg_net_interfacelist_delete(current);
-		if (added != NULL) cg_net_interfacelist_delete(added);
-		if (removed != NULL) cg_net_interfacelist_delete(removed);
+		if (current != NULL) mupnp_net_interfacelist_delete(current);
+		if (added != NULL) mupnp_net_interfacelist_delete(added);
+		if (removed != NULL) mupnp_net_interfacelist_delete(removed);
 		return FALSE;
 	}
 	
 	/* Get Interface changes */
-	cg_net_gethostinterfaces(current);
-	cg_net_interfacelist_getchanges(ctrlPoint->ifCache, current, 
+	mupnp_net_gethostinterfaces(current);
+	mupnp_net_interfacelist_getchanges(ctrlPoint->ifCache, current, 
 					added, removed);
 	
 	/* Remove all devices registered through old interface */
-	for (netIf = cg_net_interfacelist_gets(removed);
-	     netIf != NULL; netIf = cg_net_interface_next(netIf))
+	for (netIf = mupnp_net_interfacelist_gets(removed);
+	     netIf != NULL; netIf = mupnp_net_interface_next(netIf))
 	{
-		cg_upnp_controlpoint_lock(ctrlPoint);
-		tmp = cg_upnp_controlpoint_getdevices(ctrlPoint);
+		mupnp_upnp_controlpoint_lock(ctrlPoint);
+		tmp = mupnp_upnp_controlpoint_getdevices(ctrlPoint);
 		while (tmp != NULL)
 		{
-			dev = tmp; tmp = cg_upnp_device_next(dev);
-			ssdpPkt = cg_upnp_device_getssdppacket(dev);
-			address = cg_upnp_ssdp_packet_getlocaladdress(ssdpPkt);
+			dev = tmp; tmp = mupnp_upnp_device_next(dev);
+			ssdpPkt = mupnp_upnp_device_getssdppacket(dev);
+			address = mupnp_upnp_ssdp_packet_getlocaladdress(ssdpPkt);
 			
 			if (address != NULL && 
-			    cg_strcmp(address, cg_net_interface_getaddress(netIf)) == 0)
+			    mupnp_strcmp(address, mupnp_net_interface_getaddress(netIf)) == 0)
 			{
 				/* This device has been received from the 
 				   removed interface, so it does not exist */
-				cg_upnp_controlpoint_unlock(ctrlPoint);
-				cg_upnp_controlpoint_removedevicebyssdppacket(ctrlPoint, 
+				mupnp_upnp_controlpoint_unlock(ctrlPoint);
+				mupnp_upnp_controlpoint_removedevicebyssdppacket(ctrlPoint, 
 									      ssdpPkt);
-				cg_upnp_controlpoint_lock(ctrlPoint);
+				mupnp_upnp_controlpoint_lock(ctrlPoint);
 				address = NULL; dev = NULL; ssdpPkt = NULL;
 			}
 		}
-		cg_upnp_controlpoint_unlock(ctrlPoint);
+		mupnp_upnp_controlpoint_unlock(ctrlPoint);
 	}
 
 	/* Launch new M-SEARCH */
-	cg_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
+	mupnp_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
 	
 	/**** Cache current interfaces ****/
-	cg_net_gethostinterfaces(ctrlPoint->ifCache);
+	mupnp_net_gethostinterfaces(ctrlPoint->ifCache);
 	
-	cg_net_interfacelist_delete(current);
-	cg_net_interfacelist_delete(added);
-	cg_net_interfacelist_delete(removed);
+	mupnp_net_interfacelist_delete(current);
+	mupnp_net_interfacelist_delete(added);
+	mupnp_net_interfacelist_delete(removed);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_upnp_controlpoint_ssdplistner
+* mupnp_upnp_controlpoint_ssdplistner
 ****************************************/
 
-static void cg_upnp_controlpoint_ssdplistner(CgUpnpSSDPPacket *ssdpPkt)
+static void mupnp_upnp_controlpoint_ssdplistner(CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgUpnpControlPoint *ctrlPoint;
 	CG_UPNP_SSDP_LISTNER listener;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	ctrlPoint = (CgUpnpControlPoint *)cg_upnp_ssdp_packet_getuserdata(ssdpPkt);
+	ctrlPoint = (CgUpnpControlPoint *)mupnp_upnp_ssdp_packet_getuserdata(ssdpPkt);
 	if (ctrlPoint == NULL)
 		return;
 
 	/* We filter out all but rootdevice, since it must be advertized by all
 	 * devices. This way we avoid lots of device updates during advertizement
 	 * cycle. */
-	if (cg_upnp_ssdp_packet_isrootdevice(ssdpPkt) == TRUE) {
-		if (cg_upnp_ssdp_packet_isalive(ssdpPkt) == TRUE)
-			cg_upnp_controlpoint_adddevicebyssdppacket(ctrlPoint, ssdpPkt);
-		else if (cg_upnp_ssdp_packet_isbyebye(ssdpPkt) == TRUE)
-			cg_upnp_controlpoint_removedevicebyssdppacket(ctrlPoint, ssdpPkt);
+	if (mupnp_upnp_ssdp_packet_isrootdevice(ssdpPkt) == TRUE) {
+		if (mupnp_upnp_ssdp_packet_isalive(ssdpPkt) == TRUE)
+			mupnp_upnp_controlpoint_adddevicebyssdppacket(ctrlPoint, ssdpPkt);
+		else if (mupnp_upnp_ssdp_packet_isbyebye(ssdpPkt) == TRUE)
+			mupnp_upnp_controlpoint_removedevicebyssdppacket(ctrlPoint, ssdpPkt);
 	}
 				
-	listener = cg_upnp_controlpoint_getssdplistener(ctrlPoint);
+	listener = mupnp_upnp_controlpoint_getssdplistener(ctrlPoint);
 	if (listener != NULL)
 		listener(ssdpPkt);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_controlpoint_ssdpresponselistner
+* mupnp_upnp_controlpoint_ssdpresponselistner
 ****************************************/
 
-static void cg_upnp_controlpoint_ssdpresponselistner(CgUpnpSSDPPacket *ssdpPkt)
+static void mupnp_upnp_controlpoint_ssdpresponselistner(CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgUpnpControlPoint *ctrlPoint;
 	CG_UPNP_SSDP_RESPONSE_LISTNER listener;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	ctrlPoint = (CgUpnpControlPoint *)cg_upnp_ssdp_packet_getuserdata(ssdpPkt);
+	ctrlPoint = (CgUpnpControlPoint *)mupnp_upnp_ssdp_packet_getuserdata(ssdpPkt);
 	if (ctrlPoint == NULL)
 		return;
 
-	cg_upnp_controlpoint_adddevicebyssdppacket(ctrlPoint, ssdpPkt);
+	mupnp_upnp_controlpoint_adddevicebyssdppacket(ctrlPoint, ssdpPkt);
 				
-	listener = cg_upnp_controlpoint_getssdpresponselistener(ctrlPoint);
+	listener = mupnp_upnp_controlpoint_getssdpresponselistener(ctrlPoint);
 	if (listener != NULL)
 		listener(ssdpPkt);	
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif

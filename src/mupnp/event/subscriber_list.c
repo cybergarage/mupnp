@@ -33,57 +33,57 @@
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* cg_upnp_subscriberlist_new
+* mupnp_upnp_subscriberlist_new
 ****************************************/
 
-CgUpnpSubscriberList *cg_upnp_subscriberlist_new()
+CgUpnpSubscriberList *mupnp_upnp_subscriberlist_new()
 {
 	CgUpnpSubscriberList *subscriberList;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	subscriberList = (CgUpnpSubscriberList *)malloc(sizeof(CgUpnpSubscriberList));
 
 	if ( NULL != subscriberList )
-		cg_list_header_init((CgList *)subscriberList);
+		mupnp_list_header_init((CgList *)subscriberList);
 
 	return subscriberList;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_subscriberlist_delete
+* mupnp_upnp_subscriberlist_delete
 ****************************************/
 
-void cg_upnp_subscriberlist_delete(CgUpnpSubscriberList *subscriberList)
+void mupnp_upnp_subscriberlist_delete(CgUpnpSubscriberList *subscriberList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_subscriberlist_clear(subscriberList);
+	mupnp_upnp_subscriberlist_clear(subscriberList);
 	free(subscriberList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_subscriberlist_get
+* mupnp_upnp_subscriberlist_get
 ****************************************/
 
-CgUpnpSubscriber *cg_upnp_subscriberlist_get(CgUpnpSubscriberList *subscriberList, char *sid)
+CgUpnpSubscriber *mupnp_upnp_subscriberlist_get(CgUpnpSubscriberList *subscriberList, char *sid)
 {
 	CgUpnpSubscriber *sub;
 	ssize_t uuidIdx;
 
-	if (cg_strlen(sid) <= 0)
+	if (mupnp_strlen(sid) <= 0)
 		return NULL;
 	
-	uuidIdx = cg_strstr(sid, CG_UPNP_ST_UUID_DEVICE);
+	uuidIdx = mupnp_strstr(sid, CG_UPNP_ST_UUID_DEVICE);
 	if (0 <= uuidIdx)
-		sid += (uuidIdx + cg_strlen(CG_UPNP_ST_UUID_DEVICE) + 1);
+		sid += (uuidIdx + mupnp_strlen(CG_UPNP_ST_UUID_DEVICE) + 1);
 
-	for (sub = cg_upnp_subscriberlist_gets(subscriberList); sub != NULL; sub = cg_upnp_subscriber_next(sub)) {
-		if (cg_streq(sid, cg_upnp_subscriber_getsid(sub)) == TRUE)
+	for (sub = mupnp_upnp_subscriberlist_gets(subscriberList); sub != NULL; sub = mupnp_upnp_subscriber_next(sub)) {
+		if (mupnp_streq(sid, mupnp_upnp_subscriber_getsid(sub)) == TRUE)
 			return sub;
 	}
 	

@@ -18,11 +18,11 @@
 *
 *
 *	10/31/05
-*		- cg_net_getmodifierhosturl set the tag begin mark "<" before port
+*		- mupnp_net_getmodifierhosturl set the tag begin mark "<" before port
 *		  while it must come before "http://"
 *
 *	19-Jan-06 Aapo Makela
-*		- Fixed cg_net_gethosturl to call cg_net_getmodifierhosturl
+*		- Fixed mupnp_net_gethosturl to call mupnp_net_getmodifierhosturl
 ******************************************************************/
 
 #include <mupnp/net/uri.h>
@@ -32,16 +32,16 @@
 #include <stdio.h>
 
 /****************************************
-* cg_net_getmodifierhosturl
+* mupnp_net_getmodifierhosturl
 ****************************************/
 
-const char *cg_net_getmodifierhosturl(const char *host, int port, const char *uri, const char *begin, const char *end, char *buf, size_t bufSize)
+const char *mupnp_net_getmodifierhosturl(const char *host, int port, const char *uri, const char *begin, const char *end, char *buf, size_t bufSize)
 {
 	BOOL isIPv6Host;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	isIPv6Host = cg_net_isipv6address(host);
+	isIPv6Host = mupnp_net_isipv6address(host);
 	
 #if defined(HAVE_SNPRINTF)
 	snprintf(buf, bufSize,
@@ -57,20 +57,20 @@ const char *cg_net_getmodifierhosturl(const char *host, int port, const char *ur
 		uri,
 		end);
 	
-  cg_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 	
   return buf;
 }
 
 /****************************************
-* cg_net_gethosturl
+* mupnp_net_gethosturl
 ****************************************/
 
-const char *cg_net_gethosturl(const char *host, int port, const char *uri, char *buf, size_t bufSize)
+const char *mupnp_net_gethosturl(const char *host, int port, const char *uri, char *buf, size_t bufSize)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return cg_net_getmodifierhosturl(host, port, uri, "", "", buf, bufSize);
+	return mupnp_net_getmodifierhosturl(host, port, uri, "", "", buf, bufSize);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

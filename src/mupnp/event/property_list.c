@@ -28,37 +28,37 @@
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* cg_upnp_propertylist_new
+* mupnp_upnp_propertylist_new
 ****************************************/
 
-CgUpnpPropertyList *cg_upnp_propertylist_new()
+CgUpnpPropertyList *mupnp_upnp_propertylist_new()
 {
 	CgUpnpPropertyList *propertyList;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	propertyList = (CgUpnpPropertyList *)malloc(sizeof(CgUpnpPropertyList));
 
 	if ( NULL != propertyList )
-		cg_list_header_init((CgList *)propertyList);
+		mupnp_list_header_init((CgList *)propertyList);
 
 	return propertyList;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_propertylist_delete
+* mupnp_upnp_propertylist_delete
 ****************************************/
 
-void cg_upnp_propertylist_delete(CgUpnpPropertyList *propertyList)
+void mupnp_upnp_propertylist_delete(CgUpnpPropertyList *propertyList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_propertylist_clear(propertyList);
+	mupnp_upnp_propertylist_clear(propertyList);
 	free(propertyList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************

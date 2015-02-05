@@ -22,26 +22,26 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_soap_createenvelopebodynode
+* mupnp_soap_createenvelopebodynode
 ****************************************/
 
-CgXmlNode *cg_soap_createenvelopebodynode()
+CgXmlNode *mupnp_soap_createenvelopebodynode()
 {
 	CgXmlNode *envNode;
 	CgXmlNode *bodyNode;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	envNode = cg_xml_node_new();
-	cg_xml_node_setname(envNode, CG_SOAP_XMLNS CG_SOAP_DELIM CG_SOAP_ENVELOPE);
-	cg_xml_node_setattribute(envNode, CG_SOAP_ATTRIBUTE_XMLNS CG_SOAP_DELIM CG_SOAP_XMLNS, CG_SOAP_XMLNS_URL);
-	cg_xml_node_setattribute(envNode, CG_SOAP_XMLNS CG_SOAP_DELIM CG_SOAP_ENCORDING, CG_SOAP_ENCSTYLE_URL);
+	envNode = mupnp_xml_node_new();
+	mupnp_xml_node_setname(envNode, CG_SOAP_XMLNS CG_SOAP_DELIM CG_SOAP_ENVELOPE);
+	mupnp_xml_node_setattribute(envNode, CG_SOAP_ATTRIBUTE_XMLNS CG_SOAP_DELIM CG_SOAP_XMLNS, CG_SOAP_XMLNS_URL);
+	mupnp_xml_node_setattribute(envNode, CG_SOAP_XMLNS CG_SOAP_DELIM CG_SOAP_ENCORDING, CG_SOAP_ENCSTYLE_URL);
 
-	bodyNode = cg_xml_node_new();
-	cg_xml_node_setname(bodyNode, CG_SOAP_XMLNS CG_SOAP_DELIM CG_SOAP_BODY);
-	cg_xml_node_addchildnode(envNode, bodyNode);
+	bodyNode = mupnp_xml_node_new();
+	mupnp_xml_node_setname(bodyNode, CG_SOAP_XMLNS CG_SOAP_DELIM CG_SOAP_BODY);
+	mupnp_xml_node_addchildnode(envNode, bodyNode);
 
 	return envNode;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

@@ -48,12 +48,12 @@
 #endif
 
 /****************************************
-* cg_time_wait
+* mupnp_time_wait
 ****************************************/
 
-void cg_wait(CgTime mtime)
+void mupnp_wait(CgTime mtime)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
 	Sleep(mtime);
@@ -69,32 +69,32 @@ void cg_wait(CgTime mtime)
 	usleep(((useconds_t)(mtime * 1000)));
 #endif
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_time_wait
+* mupnp_time_wait
 ****************************************/
 
-void cg_waitrandom(CgTime mtime)
+void mupnp_waitrandom(CgTime mtime)
 {
 	double factor;
 	long waitTime;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	factor = (double)rand() / (double)RAND_MAX;
 	waitTime = (long)((double)mtime * factor);
-	cg_wait(waitTime);
+	mupnp_wait(waitTime);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_time_wait
+* mupnp_time_wait
 ****************************************/
 
-CgTime cg_getcurrentsystemtime()
+CgTime mupnp_getcurrentsystemtime()
 {
 #if defined(BTRON)
 	STIME CgTime;
@@ -114,9 +114,9 @@ CgTime cg_getcurrentsystemtime()
 	get_tim(&sysTim);
 #endif
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 #if defined(BTRON)
 	return localtime;
@@ -128,21 +128,21 @@ CgTime cg_getcurrentsystemtime()
 }
 
 /****************************************
-* cg_random
+* mupnp_random
 ****************************************/
 
-float cg_random()
+float mupnp_random()
 {
 	static BOOL seedDone = FALSE;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (seedDone == FALSE) {
-		srand((int)(cg_getcurrentsystemtime() % INT_MAX));
+		srand((int)(mupnp_getcurrentsystemtime() % INT_MAX));
 		seedDone = TRUE;
 	}
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 	
 	return (float)rand() / (float)RAND_MAX;
 }

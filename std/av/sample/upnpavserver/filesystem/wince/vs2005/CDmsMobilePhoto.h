@@ -53,12 +53,12 @@ public:
 
 	void SetSlideShowRoot(char *dir)
 	{
-		cg_string_setvalue(shideShowRoot, dir);
+		mupnp_string_setvalue(shideShowRoot, dir);
 	}
 
 	char *GetSlideShowRoot()
 	{
-		return cg_string_getvalue(shideShowRoot);
+		return mupnp_string_getvalue(shideShowRoot);
 	}
 
 	CgUpnpMediaServer *GetDMS()

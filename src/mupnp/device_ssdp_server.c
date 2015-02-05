@@ -37,10 +37,10 @@ static int filter_duplicate_m_search(CgUpnpSSDPPacket *ssdpPkt);
 static int simple_string_hash(char *str, int table_size);
 
 /****************************************
-* cg_upnp_device_ssdpmessagereceived
+* mupnp_upnp_device_ssdpmessagereceived
 ****************************************/
 
-void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt, int filter)
+void mupnp_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt, int filter)
 {
 	BOOL isRootDev;
 	const char *ssdpST;
@@ -58,10 +58,10 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 	int ssdpMX;
 	const char *ssdpTargetAddr;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpMXString = cg_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_MX);
-	ssdpST = cg_upnp_ssdp_packet_getst(ssdpPkt);
+	ssdpMXString = mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_MX);
+	ssdpST = mupnp_upnp_ssdp_packet_getst(ssdpPkt);
 
 	/* Check if this ssdp packet has already been checked + filtered */
 	if (filter)
@@ -73,32 +73,32 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 		 * checks for the presence of the strings and not the order.
 		 ***************************************/
 		/**** check for M-SEARCH and return if not found ****/
-		if (cg_strstr(cg_string_getvalue(ssdpPkt->dgmPkt->data), CG_HTTP_MSEARCH) < 0)
+		if (mupnp_strstr(mupnp_string_getvalue(ssdpPkt->dgmPkt->data), CG_HTTP_MSEARCH) < 0)
 			return;
 		/**** check for * and return if not found ****/
-		if (cg_strstr(cg_string_getvalue(ssdpPkt->dgmPkt->data), "*") < 0)
+		if (mupnp_strstr(mupnp_string_getvalue(ssdpPkt->dgmPkt->data), "*") < 0)
 			return;
 		/**** check HTTP version and return if not found ****/
-		if (cg_strstr(cg_string_getvalue(ssdpPkt->dgmPkt->data),  CG_HTTP_VER11) < 0)
+		if (mupnp_strstr(mupnp_string_getvalue(ssdpPkt->dgmPkt->data),  CG_HTTP_VER11) < 0)
 			return;
 
 		/****************************************
 		 * check HOST header, should always be 239.255.255.250:1900, return if incorrect
 		 ***************************************/
-		ssdpTargetAddr = cg_upnp_ssdp_packet_gethost(ssdpPkt);
-		if (cg_strcmp(ssdpTargetAddr, CG_UPNP_SSDP_MULTICAST_ADDRESS) != 0 && !cg_net_isipv6address(ssdpTargetAddr) )
+		ssdpTargetAddr = mupnp_upnp_ssdp_packet_gethost(ssdpPkt);
+		if (mupnp_strcmp(ssdpTargetAddr, CG_UPNP_SSDP_MULTICAST_ADDRESS) != 0 && !mupnp_net_isipv6address(ssdpTargetAddr) )
 			return;
 
 		/****************************************
 		 * check MAN header, return if incorrect
 		 ***************************************/
-		if (cg_upnp_ssdp_packet_isdiscover(ssdpPkt) == FALSE)
+		if (mupnp_upnp_ssdp_packet_isdiscover(ssdpPkt) == FALSE)
 			return;
 
 		/****************************************
 		 * check MX header, return if incorrect
 		 ***************************************/
-		if (ssdpMXString == NULL || cg_strlen(ssdpMXString)==0)
+		if (ssdpMXString == NULL || mupnp_strlen(ssdpMXString)==0)
 			/* return if the MX value does not exist or is empty */
 			return;
 		/* check if MX value is not an integer */
@@ -111,7 +111,7 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 		/****************************************
 		 * check ST header and if empty return
 		 ***************************************/
-		if (cg_strlen(ssdpST) <= 0)
+		if (mupnp_strlen(ssdpST) <= 0)
 			return;
 
 		/* Check if we have received this search recently
@@ -119,71 +119,71 @@ void cg_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssd
 		if ( filter_duplicate_m_search(ssdpPkt) )
 			return;
 
-		ssdpMX = cg_upnp_ssdp_packet_getmx(ssdpPkt);
-		cg_log_debug("Sleeping for a while... (MX:%d)\n", ssdpMX);
-		cg_waitrandom((ssdpMX*1000)/4);
+		ssdpMX = mupnp_upnp_ssdp_packet_getmx(ssdpPkt);
+		mupnp_log_debug("Sleeping for a while... (MX:%d)\n", ssdpMX);
+		mupnp_waitrandom((ssdpMX*1000)/4);
 	}
 
-	isRootDev = cg_upnp_device_isrootdevice(dev);
+	isRootDev = mupnp_upnp_device_isrootdevice(dev);
 	
-	if (cg_upnp_st_isalldevice(ssdpST) == TRUE) {
+	if (mupnp_upnp_st_isalldevice(ssdpST) == TRUE) {
 		/* for root device only */
 		if (isRootDev == TRUE) {
-			cg_upnp_device_getnotifydevicent(dev, ssdpMsg, sizeof(ssdpMsg));
-			cg_upnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
-			cg_upnp_device_postsearchresponse(dev, ssdpPkt, ssdpMsg, deviceUSN);
+			mupnp_upnp_device_getnotifydevicent(dev, ssdpMsg, sizeof(ssdpMsg));
+			mupnp_upnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
+			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, ssdpMsg, deviceUSN);
 		}
 		/* for all devices send */
 		/* device type : device version */
-		cg_upnp_device_getnotifydevicetypent(dev, ssdpMsg, sizeof(ssdpMsg));
-		cg_upnp_device_getnotifydevicetypeusn(dev, deviceUSN, sizeof(deviceUSN));
-		cg_upnp_device_postsearchresponse(dev, ssdpPkt, ssdpMsg, deviceUSN);
+		mupnp_upnp_device_getnotifydevicetypent(dev, ssdpMsg, sizeof(ssdpMsg));
+		mupnp_upnp_device_getnotifydevicetypeusn(dev, deviceUSN, sizeof(deviceUSN));
+		mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, ssdpMsg, deviceUSN);
 		/* device UUID */
-		cg_upnp_device_postsearchresponse(dev, ssdpPkt, cg_upnp_device_getudn(dev), cg_upnp_device_getudn(dev));
+		mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, mupnp_upnp_device_getudn(dev), mupnp_upnp_device_getudn(dev));
 	}
-	else if (cg_upnp_st_isrootdevice(ssdpST)  == TRUE) {
+	else if (mupnp_upnp_st_isrootdevice(ssdpST)  == TRUE) {
 		if (isRootDev == TRUE) {
-			cg_upnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
-			cg_upnp_device_postsearchresponse(dev, ssdpPkt, CG_UPNP_ST_ROOT_DEVICE, deviceUSN);
+			mupnp_upnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
+			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, CG_UPNP_ST_ROOT_DEVICE, deviceUSN);
 		}
 	}
-	else if (cg_upnp_st_isuuiddevice(ssdpST)  == TRUE) {
-		devUDN = cg_upnp_device_getudn(dev);
-		if (cg_streq(ssdpST, devUDN) == TRUE)
-			cg_upnp_device_postsearchresponse(dev, ssdpPkt, devUDN, devUDN);
+	else if (mupnp_upnp_st_isuuiddevice(ssdpST)  == TRUE) {
+		devUDN = mupnp_upnp_device_getudn(dev);
+		if (mupnp_streq(ssdpST, devUDN) == TRUE)
+			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, devUDN, devUDN);
 	}
-	else if (cg_upnp_st_isurn(ssdpST)  == TRUE) {
-		devType = cg_upnp_device_getdevicetype(dev);
-		if (cg_streq(ssdpST, devType) == TRUE) {
-			cg_upnp_device_getnotifydevicetypeusn(dev, deviceUSN, sizeof(deviceUSN));
-			cg_upnp_device_postsearchresponse(dev, ssdpPkt, devType, deviceUSN);
+	else if (mupnp_upnp_st_isurn(ssdpST)  == TRUE) {
+		devType = mupnp_upnp_device_getdevicetype(dev);
+		if (mupnp_streq(ssdpST, devType) == TRUE) {
+			mupnp_upnp_device_getnotifydevicetypeusn(dev, deviceUSN, sizeof(deviceUSN));
+			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, devType, deviceUSN);
 		}
 	}
 
-	for (service=cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service))
-		cg_upnp_service_ssdpmessagereceived(service, ssdpPkt);
+	for (service=mupnp_upnp_device_getservices(dev); service != NULL; service = mupnp_upnp_service_next(service))
+		mupnp_upnp_service_ssdpmessagereceived(service, ssdpPkt);
 
-	for (childDev = cg_upnp_device_getdevices(dev); childDev != NULL; childDev = cg_upnp_device_next(childDev))
-		cg_upnp_device_ssdpmessagereceived(childDev, ssdpPkt, FALSE);
+	for (childDev = mupnp_upnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_upnp_device_next(childDev))
+		mupnp_upnp_device_ssdpmessagereceived(childDev, ssdpPkt, FALSE);
 	
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_device_ssdplistener
+* mupnp_upnp_device_ssdplistener
 ****************************************/
 
-void cg_upnp_device_ssdplistener(CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_device_ssdplistener(CgUpnpSSDPPacket *ssdpPkt)
 {
 	CgUpnpDevice *dev;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	dev = (CgUpnpDevice *)cg_upnp_ssdp_packet_getuserdata(ssdpPkt);
-	cg_upnp_device_ssdpmessagereceived(dev, ssdpPkt, TRUE);
+	dev = (CgUpnpDevice *)mupnp_upnp_ssdp_packet_getuserdata(ssdpPkt);
+	mupnp_upnp_device_ssdpmessagereceived(dev, ssdpPkt, TRUE);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /* private methods */
@@ -197,7 +197,7 @@ static int filter_duplicate_m_search(CgUpnpSSDPPacket *ssdpPkt)
 	char *id_string, *r_address, port[6];
 	CgTime curr_time;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 	
 	/* Initializing hash table to zero */
 	if (!ssdpPkt->initialized) {
@@ -205,8 +205,8 @@ static int filter_duplicate_m_search(CgUpnpSSDPPacket *ssdpPkt)
 		memset(timestamps, '\0', CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof( CgTime ));
 	}
 
-	r_address = cg_string_getvalue(ssdpPkt->dgmPkt->remoteAddress);
-	st = cg_upnp_ssdp_packet_getst(ssdpPkt);
+	r_address = mupnp_string_getvalue(ssdpPkt->dgmPkt->remoteAddress);
+	st = mupnp_upnp_ssdp_packet_getst(ssdpPkt);
 	sprintf(port, "%d", ssdpPkt->dgmPkt->remotePort); 
 
 	/* Catenating remote address string with ssdp ST header field. */
@@ -215,57 +215,57 @@ static int filter_duplicate_m_search(CgUpnpSSDPPacket *ssdpPkt)
 
 	if ( NULL == id_string )
 	{
-		cg_log_debug_s("Memory allocation problem!\n");
+		mupnp_log_debug_s("Memory allocation problem!\n");
 		return FALSE;
 	}
 
 	memset(id_string, '\0', s_length + 1);
 
-	cg_strcat(id_string, r_address );
-	cg_strcat(id_string, port);
-	cg_strcat(id_string, st );
+	mupnp_strcat(id_string, r_address );
+	mupnp_strcat(id_string, port);
+	mupnp_strcat(id_string, st );
 	
 	loc = simple_string_hash(id_string, CG_UPNP_SSDP_FILTER_TABLE_SIZE);
 
-	cg_log_debug("Calculated hash: %d\n", loc);
+	mupnp_log_debug("Calculated hash: %d\n", loc);
 
 	free(id_string);
 
-	curr_time = cg_getcurrentsystemtime();
+	curr_time = mupnp_getcurrentsystemtime();
 
 	if ( 0 == timestamps[loc] ) {
 		timestamps[loc] = curr_time;
-		cg_log_debug("First packet... Updating hash table.\n");
+		mupnp_log_debug("First packet... Updating hash table.\n");
 		return FALSE;
 	}	
 	else if ( ( curr_time - timestamps[loc] ) < CG_UPNP_DEVICE_M_SEARCH_FILTER_INTERVAL ) {
-		cg_log_debug("Filtering packet!\n");
+		mupnp_log_debug("Filtering packet!\n");
 		timestamps[loc] = curr_time;
 		return TRUE;
 	}
 	else {
 		timestamps[loc] = curr_time;
-		cg_log_debug("Old timestamp found, just updating it.\n");
+		mupnp_log_debug("Old timestamp found, just updating it.\n");
 		return FALSE;
 	}
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 static int simple_string_hash(char *str, int table_size)
 {
         int sum=0;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 	
         if (str==NULL) return -1;
 	
-	cg_log_debug("Calculating hash from string |%s|, table size: %d\n", str, table_size);
+	mupnp_log_debug("Calculating hash from string |%s|, table size: %d\n", str, table_size);
 
 	/* Sum up all the characters in the string */
 	for( ; *str; str++) sum += *str;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return sum % table_size;
 }

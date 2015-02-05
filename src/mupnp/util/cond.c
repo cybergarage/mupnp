@@ -16,7 +16,7 @@
 *	16-Jan-06
 *		- first revision
 *	09-May-08
-*		- Changed cg_cond_signal() using SetEvent() instead of WaitForSingleObject for WIN32 platform.
+*		- Changed mupnp_cond_signal() using SetEvent() instead of WaitForSingleObject for WIN32 platform.
 *
 ******************************************************************/
 
@@ -30,14 +30,14 @@
 #endif
 
 /****************************************
-* cg_cond_new
+* mupnp_cond_new
 ****************************************/
 
-CgCond *cg_cond_new()
+CgCond *mupnp_cond_new()
 {
 	CgCond *cond;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	cond = (CgCond *)malloc(sizeof(CgCond));
 
@@ -60,16 +60,16 @@ CgCond *cg_cond_new()
 
 	return cond;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_cond_delete
+* mupnp_cond_delete
 ****************************************/
 
-BOOL cg_cond_delete(CgCond *cond)
+BOOL mupnp_cond_delete(CgCond *cond)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
 	CloseHandle(cond->condID);
@@ -86,22 +86,22 @@ BOOL cg_cond_delete(CgCond *cond)
 #endif
 	free(cond);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_cond_lock
+* mupnp_cond_lock
 ****************************************/
 
-BOOL cg_cond_wait(CgCond *cond, CgMutex *mutex, unsigned long timeout)
+BOOL mupnp_cond_wait(CgCond *cond, CgMutex *mutex, unsigned long timeout)
 {
 #if defined(WIN32) && !defined(ITRON)
 	DWORD timeout_s = (timeout == 0 ? INFINITE : timeout);
-	cg_mutex_unlock(mutex);
+	mupnp_mutex_unlock(mutex);
 	WaitForSingleObject(cond->condID, timeout_s);
-	cg_mutex_lock(mutex);
+	mupnp_mutex_lock(mutex);
 #elif defined(BTRON)
 	/* TODO: Add implementation */
 #elif defined(ITRON)
@@ -114,7 +114,7 @@ BOOL cg_cond_wait(CgCond *cond, CgMutex *mutex, unsigned long timeout)
 	struct timeval  now;
 	struct timespec timeout_s;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	gettimeofday(&now, NULL);
 	
@@ -127,20 +127,20 @@ BOOL cg_cond_wait(CgCond *cond, CgMutex *mutex, unsigned long timeout)
 		pthread_cond_timedwait(&cond->condID, &mutex->mutexID, &timeout_s);
 	}
 #endif
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_cond_unlock
+* mupnp_cond_unlock
 ****************************************/
 
-BOOL cg_cond_signal(CgCond *cond)
+BOOL mupnp_cond_signal(CgCond *cond)
 {
 	BOOL success = FALSE;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
 	/* TODO: Add implementation */
@@ -158,7 +158,7 @@ BOOL cg_cond_signal(CgCond *cond)
 #else
 	success = (pthread_cond_signal(&cond->condID) == 0);
 #endif
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return success;
 }

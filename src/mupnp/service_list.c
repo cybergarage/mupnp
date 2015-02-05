@@ -22,35 +22,35 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnp_servicelist_new
+* mupnp_upnp_servicelist_new
 ****************************************/
 
-CgUpnpServiceList *cg_upnp_servicelist_new()
+CgUpnpServiceList *mupnp_upnp_servicelist_new()
 {
 	CgUpnpServiceList *serviceList;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	serviceList = (CgUpnpServiceList *)malloc(sizeof(CgUpnpServiceList));
 
 	if ( NULL != serviceList )
-		cg_list_header_init((CgList *)serviceList);
+		mupnp_list_header_init((CgList *)serviceList);
 
 	return serviceList;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_servicelist_delete
+* mupnp_upnp_servicelist_delete
 ****************************************/
 
-void cg_upnp_servicelist_delete(CgUpnpServiceList *serviceList)
+void mupnp_upnp_servicelist_delete(CgUpnpServiceList *serviceList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_servicelist_clear(serviceList);
+	mupnp_upnp_servicelist_clear(serviceList);
 	free(serviceList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

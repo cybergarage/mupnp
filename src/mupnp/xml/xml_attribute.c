@@ -22,105 +22,105 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_xml_attribute_new
+* mupnp_xml_attribute_new
 ****************************************/
 
-CgXmlAttribute *cg_xml_attribute_new()
+CgXmlAttribute *mupnp_xml_attribute_new()
 {
 	CgXmlAttribute *attr;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	attr = (CgXmlAttribute *)malloc(sizeof(CgXmlAttribute));
 
 	if ( NULL != attr )
 	{
-		cg_list_node_init((CgList *)attr);
-		attr->name = cg_string_new();
-		attr->value = cg_string_new();
+		mupnp_list_node_init((CgList *)attr);
+		attr->name = mupnp_string_new();
+		attr->value = mupnp_string_new();
 	}
 	return attr;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_attribute_delete
+* mupnp_xml_attribute_delete
 ****************************************/
 
-void cg_xml_attribute_delete(CgXmlAttribute *attr)
+void mupnp_xml_attribute_delete(CgXmlAttribute *attr)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)attr);
-	cg_string_delete(attr->name);
-	cg_string_delete(attr->value);
+	mupnp_list_remove((CgList *)attr);
+	mupnp_string_delete(attr->name);
+	mupnp_string_delete(attr->value);
 	free(attr);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_attribute_setname
+* mupnp_xml_attribute_setname
 ****************************************/
 
-void cg_xml_attribute_setname(CgXmlAttribute *attr, const char *name)
+void mupnp_xml_attribute_setname(CgXmlAttribute *attr, const char *name)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_string_setvalue(attr->name, name);
+	mupnp_string_setvalue(attr->name, name);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_attribute_getname
+* mupnp_xml_attribute_getname
 ****************************************/
 
-const char *cg_xml_attribute_getname(CgXmlAttribute *attr)
+const char *mupnp_xml_attribute_getname(CgXmlAttribute *attr)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return cg_string_getvalue(attr->name);
+	return mupnp_string_getvalue(attr->name);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_attribute_isname
+* mupnp_xml_attribute_isname
 ****************************************/
 
-BOOL cg_xml_attribute_isname(CgXmlAttribute *attr, const char *name)
+BOOL mupnp_xml_attribute_isname(CgXmlAttribute *attr, const char *name)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return ((cg_strcmp(cg_xml_attribute_getname(attr), name) == 0) ? TRUE : FALSE);
+	return ((mupnp_strcmp(mupnp_xml_attribute_getname(attr), name) == 0) ? TRUE : FALSE);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_attribute_setvalue
+* mupnp_xml_attribute_setvalue
 ****************************************/
 
-void cg_xml_attribute_setvalue(CgXmlAttribute *attr, const char *value)
+void mupnp_xml_attribute_setvalue(CgXmlAttribute *attr, const char *value)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_string_setvalue(attr->value, value);
+	mupnp_string_setvalue(attr->value, value);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_attribute_setvalue
+* mupnp_xml_attribute_setvalue
 ****************************************/
 
-const char *cg_xml_attribute_getvalue(CgXmlAttribute *attr)
+const char *mupnp_xml_attribute_getvalue(CgXmlAttribute *attr)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return cg_string_getvalue(attr->value);
+	return mupnp_string_getvalue(attr->value);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

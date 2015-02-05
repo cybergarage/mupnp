@@ -17,14 +17,14 @@
 *		- first revision
 *
 *	10/31/05
-*		- Modified the thread struct to use the cg_list concept
+*		- Modified the thread struct to use the mupnp_list concept
 *	02/13/06 Theo Beisch
 *		- added WINCE support
 *	03/20/06 Theo Beisch
 *		- added thread->deletePending and thread->selfDelete (WINCE only)
-*		  so that a thread can delete its own cg_thread context when truly
-*		  finished (as cg_thread_stop is not reliable under WINCE)
-*		- added cg_threadlist_remove
+*		  so that a thread can delete its own mupnp_thread context when truly
+*		  finished (as mupnp_thread_stop is not reliable under WINCE)
+*		- added mupnp_threadlist_remove
 *	06/13/07 Fabrice Fontaine Orange
 *		- Bug correction : Variable used to wait for thread termination by sleeping instead of joining.
 *
@@ -137,53 +137,53 @@ typedef void (*CG_THREAD_FUNC)(CgThread *);
 /**
  * Create a new thread
  */
-CgThread *cg_thread_new();
+CgThread *mupnp_thread_new();
 
 /**
  * Get a self reference to thread.
  */
 
-CgThread *cg_thread_self();
+CgThread *mupnp_thread_self();
 
 /**
  * Stop and destroy a thread.
  *
  * \param thread Thread to destroy
  */
-BOOL cg_thread_delete(CgThread *thread);
+BOOL mupnp_thread_delete(CgThread *thread);
 
 /**
  * Start a thread (must be created first with ch_thread_new())
  *
  * \param thread Thread to start
  */
-BOOL cg_thread_start(CgThread *thread);
+BOOL mupnp_thread_start(CgThread *thread);
 
 /**
  * Stop a running thread.
  *
  * \param thread Thread to stop
  */
-BOOL cg_thread_stop(CgThread *thread);
+BOOL mupnp_thread_stop(CgThread *thread);
 
 /**
  * Stop the running thread and signal the given CGCond.
  */
-BOOL cg_thread_stop_with_cond(CgThread *thread, CgCond *cond);
+BOOL mupnp_thread_stop_with_cond(CgThread *thread, CgCond *cond);
 
 /**
- * Restart a thread. Essentially calls cg_thread_stop() and cg_thread_start()
+ * Restart a thread. Essentially calls mupnp_thread_stop() and mupnp_thread_start()
  *
  * \param thread Thread to restart
  */
-BOOL cg_thread_restart(CgThread *thread);
+BOOL mupnp_thread_restart(CgThread *thread);
 
 /**
  * Check if a thread has been started
  *
  * \param thread Thread to check
  */
-BOOL cg_thread_isrunnable(CgThread *thread);
+BOOL mupnp_thread_isrunnable(CgThread *thread);
 
 /**
  * Set the thread's worker function.
@@ -191,7 +191,7 @@ BOOL cg_thread_isrunnable(CgThread *thread);
  * \param thread Thread struct
  * \param actionFunc Function pointer to set as the worker function
  */
-void cg_thread_setaction(CgThread *thread, CG_THREAD_FUNC actionFunc);
+void mupnp_thread_setaction(CgThread *thread, CG_THREAD_FUNC actionFunc);
 
 /**
  * Set the user data pointer
@@ -199,25 +199,25 @@ void cg_thread_setaction(CgThread *thread, CG_THREAD_FUNC actionFunc);
  * \param thread Thread struct
  * \param data Pointer to user data
  */
-void cg_thread_setuserdata(CgThread *thread, void *data);
+void mupnp_thread_setuserdata(CgThread *thread, void *data);
 
 /**
  * Get the user data pointer
  *
  * \param thread Thread from which to get the pointer
  */
-void *cg_thread_getuserdata(CgThread *thread);
+void *mupnp_thread_getuserdata(CgThread *thread);
 
 #if defined (WINCE)
-void cg_thread_sleep(CgThread *thread); 
-void cg_thread_exit(DWORD exitCode);
+void mupnp_thread_sleep(CgThread *thread); 
+void mupnp_thread_exit(DWORD exitCode);
 #if defined DEBUG_MEM
-void cg_thread_monitor(CgThread *thread);
+void mupnp_thread_monitor(CgThread *thread);
 #endif //DEBUG_MEM
 #endif //WIN32_WCE
 
-#define cg_thread_next(thread) (CgThread *)cg_list_next((CgList *)thread)
-#define cg_thread_remove(thread) cg_list_remove((CgList *)thread)
+#define mupnp_thread_next(thread) (CgThread *)mupnp_list_next((CgList *)thread)
+#define mupnp_thread_remove(thread) mupnp_list_remove((CgList *)thread)
 
 /****************************************
 * Function (Thread List)
@@ -228,35 +228,35 @@ void cg_thread_monitor(CgThread *thread);
  *
  * \return Thread list
  */
-CgThreadList *cg_threadlist_new();
+CgThreadList *mupnp_threadlist_new();
 
 /**
  * Destroy a thread list
  *
  * \param threadList The thread list in question
  */
-void cg_threadlist_delete(CgThreadList *threadList);
+void mupnp_threadlist_delete(CgThreadList *threadList);
 
 /**
  * Clear the contents of a thread list
  *
  * \param threadList Thread list in question
  */
-#define cg_threadlist_clear(threadList) cg_list_clear((CgList *)threadList, (CG_LIST_DESTRUCTORFUNC)cg_thread_delete)
+#define mupnp_threadlist_clear(threadList) mupnp_list_clear((CgList *)threadList, (CG_LIST_DESTRUCTORFUNC)mupnp_thread_delete)
 
 /**
  * Get the size of a thread list
  *
  * \param threadList The thread list in question
  */
-#define cg_threadlist_size(threadList) cg_list_size((CgList *)threadList)
+#define mupnp_threadlist_size(threadList) mupnp_list_size((CgList *)threadList)
 
 /**
  * Get the first actual item from a thread list to use as an iterator
  *
  * \param threadList The thread list in question
  */
-#define cg_threadlist_gets(threadList) (CgThread *)cg_list_next((CgList *)threadList)
+#define mupnp_threadlist_gets(threadList) (CgThread *)mupnp_list_next((CgList *)threadList)
 
 /**
  * Add a thread into a thread list
@@ -264,7 +264,7 @@ void cg_threadlist_delete(CgThreadList *threadList);
  * \param threadList The thread list in question
  * \param thread The thread to add to the list
  */
-#define cg_threadlist_add(threadList, thread) cg_list_add((CgList *)threadList, (CgList *)thread)
+#define mupnp_threadlist_add(threadList, thread) mupnp_list_add((CgList *)threadList, (CgList *)thread)
 
 /**
  * Remove a thread from thread list
@@ -272,7 +272,7 @@ void cg_threadlist_delete(CgThreadList *threadList);
  * \param threadList The thread list in question
  * \param thread The thread to be removed 
  */
-#define cg_threadlist_remove(thread) cg_list_remove((CgList *)thread)
+#define mupnp_threadlist_remove(thread) mupnp_list_remove((CgList *)thread)
 
 /**
 
@@ -280,14 +280,14 @@ void cg_threadlist_delete(CgThreadList *threadList);
  *
  * \param threadList The thread list in question
  */
-BOOL cg_threadlist_start(CgThreadList *threadList);
+BOOL mupnp_threadlist_start(CgThreadList *threadList);
 
 /**
  * Stop all threads in the thread list
  *
  * \param threadList The thread list in question
  */
-BOOL cg_threadlist_stop(CgThreadList *threadList);
+BOOL mupnp_threadlist_stop(CgThreadList *threadList);
 
 #ifdef  __cplusplus
 

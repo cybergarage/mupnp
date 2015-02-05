@@ -22,107 +22,107 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_http_headerlist_new
+* mupnp_http_headerlist_new
 ****************************************/
 
-CgHttpHeaderList *cg_http_headerlist_new()
+CgHttpHeaderList *mupnp_http_headerlist_new()
 {
 	CgHttpHeaderList *headerList;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	headerList = (CgHttpHeaderList *)malloc(sizeof(CgHttpHeaderList));
 
 	if ( NULL != headerList )
 	{
-		cg_list_header_init((CgList *)headerList);
+		mupnp_list_header_init((CgList *)headerList);
 		headerList->name = NULL;
 		headerList->value = NULL;
 	}
 
 	return headerList;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_http_headerlist_delete
+* mupnp_http_headerlist_delete
 ****************************************/
 
-void cg_http_headerlist_delete(CgHttpHeaderList *headerList)
+void mupnp_http_headerlist_delete(CgHttpHeaderList *headerList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_http_headerlist_clear(headerList);
+	mupnp_http_headerlist_clear(headerList);
 	free(headerList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_http_headerlist_getheader
+* mupnp_http_headerlist_getheader
 ****************************************/
 
-CgHttpHeader *cg_http_headerlist_get(CgHttpHeaderList *headerList, const char *name)
+CgHttpHeader *mupnp_http_headerlist_get(CgHttpHeaderList *headerList, const char *name)
 {
 	CgHttpHeader *header;
 	const char *headerName;
 		
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (name == NULL)
 		return NULL;
 		
-	for (header = cg_http_headerlist_gets(headerList); header != NULL; header = cg_http_header_next(header)) {
-		headerName = cg_http_header_getname(header);
+	for (header = mupnp_http_headerlist_gets(headerList); header != NULL; header = mupnp_http_header_next(header)) {
+		headerName = mupnp_http_header_getname(header);
 		if (headerName == NULL)
 			continue;
-		if (cg_strcasecmp(headerName, name) == 0)
+		if (mupnp_strcasecmp(headerName, name) == 0)
 			return header;
 	}
 	
 	return NULL;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_http_headerlist_setheader
+* mupnp_http_headerlist_setheader
 ****************************************/
 
-void cg_http_headerlist_set(CgHttpHeaderList *headerList, const char *name, const char *value)
+void mupnp_http_headerlist_set(CgHttpHeaderList *headerList, const char *name, const char *value)
 {
 	CgHttpHeader *header;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	header = cg_http_headerlist_get(headerList, name);
+	header = mupnp_http_headerlist_get(headerList, name);
 	if (header == NULL) {
-		header = cg_http_header_new();
-		cg_http_headerlist_add(headerList, header);
-		cg_http_header_setname(header, name);
+		header = mupnp_http_header_new();
+		mupnp_http_headerlist_add(headerList, header);
+		mupnp_http_header_setname(header, name);
 	}
 	
-	cg_http_header_setvalue(header, value);
+	mupnp_http_header_setvalue(header, value);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_http_headerlist_setheader
+* mupnp_http_headerlist_setheader
 ****************************************/
 
-const char *cg_http_headerlist_getvalue(CgHttpHeaderList *headerList, const char *name)
+const char *mupnp_http_headerlist_getvalue(CgHttpHeaderList *headerList, const char *name)
 {
 	CgHttpHeader *header;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	header = cg_http_headerlist_get(headerList, name);
+	header = mupnp_http_headerlist_get(headerList, name);
 	if (header != NULL)
-		return cg_http_header_getvalue(header);
+		return mupnp_http_header_getvalue(header);
 		
 	return NULL;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

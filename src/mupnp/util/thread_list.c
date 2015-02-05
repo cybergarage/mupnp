@@ -22,20 +22,20 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_threadlist_new
+* mupnp_threadlist_new
 ****************************************/
 
-CgThreadList *cg_threadlist_new()
+CgThreadList *mupnp_threadlist_new()
 {
 	CgThreadList *threadList;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	threadList = (CgThreadList *)malloc(sizeof(CgThreadList));
 
 	if ( NULL != threadList )
 	{
-		cg_list_header_init((CgList *)threadList);
+		mupnp_list_header_init((CgList *)threadList);
 		threadList->runnableFlag = FALSE;
 		threadList->action = NULL;
 		threadList->userData = NULL;
@@ -43,55 +43,55 @@ CgThreadList *cg_threadlist_new()
 
 	return threadList;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_threadlist_delete
+* mupnp_threadlist_delete
 ****************************************/
 
-void cg_threadlist_delete(CgThreadList *threadList)
+void mupnp_threadlist_delete(CgThreadList *threadList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_threadlist_clear(threadList);
+	mupnp_threadlist_clear(threadList);
 	free(threadList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_threadlist_start
+* mupnp_threadlist_start
 ****************************************/
 
-BOOL cg_threadlist_start(CgThreadList *threadList)
+BOOL mupnp_threadlist_start(CgThreadList *threadList)
 {
 	CgThreadList *thread;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	for (thread = cg_threadlist_gets(threadList); thread != NULL; thread = cg_thread_next(thread))
-		cg_thread_start(thread);
+	for (thread = mupnp_threadlist_gets(threadList); thread != NULL; thread = mupnp_thread_next(thread))
+		mupnp_thread_start(thread);
 
 	return TRUE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_threadlist_stop
+* mupnp_threadlist_stop
 ****************************************/
 
-BOOL cg_threadlist_stop(CgThreadList *threadList)
+BOOL mupnp_threadlist_stop(CgThreadList *threadList)
 {
 	CgThreadList *thread;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	for (thread = cg_threadlist_gets(threadList); thread != NULL; thread = cg_thread_next(thread))
-		cg_thread_stop(thread);
+	for (thread = mupnp_threadlist_gets(threadList); thread != NULL; thread = mupnp_thread_next(thread))
+		mupnp_thread_stop(thread);
 
 	return TRUE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

@@ -54,28 +54,28 @@ typedef struct _CgUpnpProperty {
 /**
  * Construct new UPnP property object
  */
-CgUpnpProperty *cg_upnp_property_new();
+CgUpnpProperty *mupnp_upnp_property_new();
 
 /**
  * Delete UPnP property object
  *
  * @param prop UPnP property
  */
-void cg_upnp_property_delete(CgUpnpProperty *prop);
+void mupnp_upnp_property_delete(CgUpnpProperty *prop);
 
 /**
  * Clear UPnP property
  *
  * @param prop UPnP property
  */
-void cg_upnp_property_clear(CgUpnpProperty *prop);
+void mupnp_upnp_property_clear(CgUpnpProperty *prop);
 
 /**
  * Fetches next UPnP property from property list
  *
  * @param prop UPnP property
  */
-#define cg_upnp_property_next(prop) (CgUpnpProperty *)cg_list_next((CgList *)prop)
+#define mupnp_upnp_property_next(prop) (CgUpnpProperty *)mupnp_list_next((CgList *)prop)
 
 /**** name ****/
 /**
@@ -84,14 +84,14 @@ void cg_upnp_property_clear(CgUpnpProperty *prop);
  * @param prop UPnP property
  * @param value Name
  */
-#define cg_upnp_property_setname(prop, value) cg_string_setvalue(prop->name, value)
+#define mupnp_upnp_property_setname(prop, value) mupnp_string_setvalue(prop->name, value)
 
 /**
  * Get property name
  *
  * @param prop UPnP property
  */
-#define cg_upnp_property_getname(prop) cg_string_getvalue(prop->name)
+#define mupnp_upnp_property_getname(prop) mupnp_string_getvalue(prop->name)
 
 /**** value ****/
 
@@ -101,14 +101,14 @@ void cg_upnp_property_clear(CgUpnpProperty *prop);
  * @param prop UPnP property
  * @param nvalue Value
  */
-#define cg_upnp_property_setvalue(prop, nvalue) cg_string_setvalue(prop->value, nvalue)
+#define mupnp_upnp_property_setvalue(prop, nvalue) mupnp_string_setvalue(prop->value, nvalue)
 
 /**
  * Get value from property
  *
  * @param prop UPnP property
  */
-#define cg_upnp_property_getvalue(prop) cg_string_getvalue(prop->value)
+#define mupnp_upnp_property_getvalue(prop) mupnp_string_getvalue(prop->value)
 
 /**** sid ****/
 
@@ -118,14 +118,14 @@ void cg_upnp_property_clear(CgUpnpProperty *prop);
  * @param prop UPnP property
  * @param value Value
  */
-#define cg_upnp_property_setsid(prop, value) cg_string_setvalue(prop->sid, value)
+#define mupnp_upnp_property_setsid(prop, value) mupnp_string_setvalue(prop->sid, value)
 
 /**
  * Get SID from UPnP property
  *
  * @param prop UPnP property
  */
-#define cg_upnp_property_getsid(prop) cg_string_getvalue(prop->sid)
+#define mupnp_upnp_property_getsid(prop) mupnp_string_getvalue(prop->sid)
 
 /**** seq ****/
 
@@ -135,14 +135,14 @@ void cg_upnp_property_clear(CgUpnpProperty *prop);
  * @param prop UPnP property
  * @param value
  */
-#define cg_upnp_property_setseq(prop, value) (prop->seq = value)
+#define mupnp_upnp_property_setseq(prop, value) (prop->seq = value)
 
 /**
  * Get sequence number from UPnP property
  *
  * @param prop UPnP property
  */
-#define cg_upnp_property_getseq(prop) (prop->seq)
+#define mupnp_upnp_property_getseq(prop) (prop->seq)
 
 /****************************************
 * Function (PropertyList)
@@ -151,35 +151,35 @@ void cg_upnp_property_clear(CgUpnpProperty *prop);
 /**
  * Create new UPnP property list
  */
-CgUpnpPropertyList *cg_upnp_propertylist_new();
+CgUpnpPropertyList *mupnp_upnp_propertylist_new();
 
 /**
  * Delete UPnP property list
  *
  * @param propertylist UPnP property list
  */
-void cg_upnp_propertylist_delete(CgUpnpPropertyList *propertylist);
+void mupnp_upnp_propertylist_delete(CgUpnpPropertyList *propertylist);
 
 /**
  * Clear UPnP propertylist
  *
  * @param propList UPnP property list
  */
-#define cg_upnp_propertylist_clear(propList) cg_list_clear((CgList *)propList, (CG_LIST_DESTRUCTORFUNC)cg_upnp_property_delete)
+#define mupnp_upnp_propertylist_clear(propList) mupnp_list_clear((CgList *)propList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_property_delete)
 
 /**
  * Get size of property list
  *
  * @param propList UPnP property list
  */
-#define cg_upnp_propertylist_size(propList) cg_list_size((CgList *)propList)
+#define mupnp_upnp_propertylist_size(propList) mupnp_list_size((CgList *)propList)
 
 /**
  * Get next list element from property list
  *
  * @param propList UPnP property list
  */
-#define cg_upnp_propertylist_gets(propList) (CgUpnpProperty *)cg_list_next((CgList *)propList)
+#define mupnp_upnp_propertylist_gets(propList) (CgUpnpProperty *)mupnp_list_next((CgList *)propList)
 
 /**
  * Add new property into property list
@@ -187,7 +187,7 @@ void cg_upnp_propertylist_delete(CgUpnpPropertyList *propertylist);
  * @param propList UPnP property list
  * @param prop UPnP property
  */
-#define cg_upnp_propertylist_add(propList, prop) cg_list_add((CgList *)propList, (CgList *)prop)
+#define mupnp_upnp_propertylist_add(propList, prop) mupnp_list_add((CgList *)propList, (CgList *)prop)
 
 #ifdef  __cplusplus
 }

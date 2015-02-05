@@ -18,18 +18,18 @@
 *
 *	09-Jan-06 Heikki Junnila
 *		- Added service type parsing functions:
-*		  cg_upnp_servicetype_getidentifier
-*		  cg_upnp_servicetype_geturn
-*		  cg_upnp_servicetype_getservice
-*		  cg_upnp_servicetype_gettype
-*		  cg_upnp_servicetype_getversion
+*		  mupnp_upnp_servicetype_getidentifier
+*		  mupnp_upnp_servicetype_geturn
+*		  mupnp_upnp_servicetype_getservice
+*		  mupnp_upnp_servicetype_gettype
+*		  mupnp_upnp_servicetype_getversion
 *
 *	10-Jan-06 Heikki Junnila
-*		- Added cg_upnp_servicetype_getschematype() and fixed
+*		- Added mupnp_upnp_servicetype_getschematype() and fixed
 *		  existing servicetype functions to accept 1-character strings
 *
 *	11-Jan-06 Heikki Junnila
-*		- Removed cg_upnp_service_isname() and _getname() because
+*		- Removed mupnp_upnp_service_isname() and _getname() because
 *		  according to UPnP specs, services have only types, not names
 *
 *	17-Jan-06 Heikki Junnila
@@ -110,28 +110,28 @@ typedef struct _CgUpnpService {
 /**
  * Create a new UPnP service
  */
-CgUpnpService *cg_upnp_service_new();
+CgUpnpService *mupnp_upnp_service_new();
 
 /**
  * Destroy a UPnP service
  *
  * @param service The service to destroy
  */
-void cg_upnp_service_delete(CgUpnpService *service);
+void mupnp_upnp_service_delete(CgUpnpService *service);
 
 /**
  * Clear the contents of a UPnP service
  *
  * @param service The service to clear
  */
-void cg_upnp_service_clear(CgUpnpService *service);
+void mupnp_upnp_service_clear(CgUpnpService *service);
 
 /**
  * Get the next service in a service list. Use as an iterator.
  *
  * @param service Current service
  */
-#define cg_upnp_service_next(service) (CgUpnpService *)cg_list_next((CgList *)service)
+#define mupnp_upnp_service_next(service) (CgUpnpService *)mupnp_list_next((CgList *)service)
 
 /**
  * Check, whether the given XML node is a service root node
@@ -139,14 +139,14 @@ void cg_upnp_service_clear(CgUpnpService *service);
  * @param node CgXmlNode*
  * @return TRUE if the node is a service root node; otherwise FALSE
  */
-#define cg_upnp_service_isservicenode(node) cg_xml_node_isname(node, CG_UPNP_SERVICE_ELEM_NAME)
+#define mupnp_upnp_service_isservicenode(node) mupnp_xml_node_isname(node, CG_UPNP_SERVICE_ELEM_NAME)
 
 /**
  * Get the service's SCPD node
  *
  * @param service The service in question
  */
-#define cg_upnp_service_getscpdnode(service) cg_xml_nodelist_gets(service->scpdNodeList)
+#define mupnp_upnp_service_getscpdnode(service) mupnp_xml_nodelist_gets(service->scpdNodeList)
 
 /**
  * Set the root XML node for the service
@@ -154,21 +154,21 @@ void cg_upnp_service_clear(CgUpnpService *service);
  * @param service The service in question
  * @param node The node to set
  */
-#define cg_upnp_service_setservicenode(service,node) (service->serviceNode = node)
+#define mupnp_upnp_service_setservicenode(service,node) (service->serviceNode = node)
 
 /**
  * Get the root XML node for the service
  *
  * @param service The service in question
  */
-#define cg_upnp_service_getservicenode(service) (service->serviceNode)
+#define mupnp_upnp_service_getservicenode(service) (service->serviceNode)
 
 /**
  * Get the parent device's XML node for the service
  *
  * @param service The service in question
  */
-#define cg_upnp_service_getdevicenode(service) cg_xml_node_getparentnode(cg_xml_node_getparentnode(service->serviceNode))
+#define mupnp_upnp_service_getdevicenode(service) mupnp_xml_node_getparentnode(mupnp_xml_node_getparentnode(service->serviceNode))
 
 /**
  * Create the service's contents from the given XML document
@@ -177,16 +177,16 @@ void cg_upnp_service_clear(CgUpnpService *service);
  * @param description The XML document to parse
  * @param descriptionLen The length of the XML document
  */
-BOOL cg_upnp_service_parsedescription(CgUpnpService *service, const char *description, size_t descriptionLen);
+BOOL mupnp_upnp_service_parsedescription(CgUpnpService *service, const char *description, size_t descriptionLen);
 
 /**
  * Create the service's contents from the given URL. Gets the XML document
- * from the URL and passes it again to @ref cg_upnp_service_parsedescription
+ * from the URL and passes it again to @ref mupnp_upnp_service_parsedescription
  * 
  * @param service The service to create
  * @param url The URL of the document to parse
  */
-BOOL cg_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url);
+BOOL mupnp_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url);
 
 /**
  * Get the service's description XML nodes as a string
@@ -194,7 +194,7 @@ BOOL cg_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url);
  * @param service The service in question
  * @param descStr The description string
  */
-char *cg_upnp_service_getdescription(CgUpnpService *service, CgString *descStr);
+char *mupnp_upnp_service_getdescription(CgUpnpService *service, CgString *descStr);
 
 /**
  * Get the service's parsing status (i.e. whether the service has been
@@ -202,7 +202,7 @@ char *cg_upnp_service_getdescription(CgUpnpService *service, CgString *descStr);
  *
  * @param service The service in question
  */
-#define cg_upnp_service_isparsed(service) (service->parsed)
+#define mupnp_upnp_service_isparsed(service) (service->parsed)
 
 /****************************************************************************
  * serviceType
@@ -215,7 +215,7 @@ char *cg_upnp_service_getdescription(CgUpnpService *service, CgString *descStr);
  * @param service The service in question
  * @param value The type string
  */
-#define cg_upnp_service_setservicetype(service, value) cg_xml_node_setchildnode(cg_upnp_service_getservicenode(service), CG_UPNP_SERVICE_TYPE, value)
+#define mupnp_upnp_service_setservicetype(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_TYPE, value)
 
 /**
  * Get the service's complete type string
@@ -224,68 +224,68 @@ char *cg_upnp_service_getdescription(CgUpnpService *service, CgString *descStr);
  * @param service The service in question
  * @return char*
  */
-#define cg_upnp_service_getservicetype(service) cg_xml_node_getchildnodevalue(cg_upnp_service_getservicenode(service), CG_UPNP_SERVICE_TYPE)
+#define mupnp_upnp_service_getservicetype(service) mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_TYPE)
 
 /** 
  * Get the identifier-part of a service type string (usually "urn") 
  *
  * @param serviceType A service type string (usually the result from
- *	  \ref cg_upnp_service_getservicetype)
+ *	  \ref mupnp_upnp_service_getservicetype)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-const char* cg_upnp_servicetype_getidentifier(const char* serviceType);
+const char* mupnp_upnp_servicetype_getidentifier(const char* serviceType);
 
 /** 
  * Get the URN part of a service type string (usually "schemas-upnp-org") 
  *
  * @param serviceType A service type string (usually the result from
- *	  \ref cg_upnp_service_getservicetype)
+ *	  \ref mupnp_upnp_service_getservicetype)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-const char* cg_upnp_servicetype_geturn(const char* serviceType);
+const char* mupnp_upnp_servicetype_geturn(const char* serviceType);
 
 /** 
  * Get the service part of a service type string (usually just "service")
  *
  * @param serviceType A service type string (usually the result from
- *	  \ref cg_upnp_service_getservicetype)
+ *	  \ref mupnp_upnp_service_getservicetype)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-const char* cg_upnp_servicetype_getservice(const char* serviceType);
+const char* mupnp_upnp_servicetype_getservice(const char* serviceType);
 
 /** 
  * Get the type part of a service type string (ex. "ContentDirectory")
  *
  * @param serviceType A service type string (usually the result from
- *	  \ref cg_upnp_service_getservicetype)
+ *	  \ref mupnp_upnp_service_getservicetype)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-const char* cg_upnp_servicetype_gettype(const char* serviceType);
+const char* mupnp_upnp_servicetype_gettype(const char* serviceType);
 
 /** 
  * Get the schema type part of a service type string (without last colon)
  * (ex. "urn:schemas-upnp-org:service:ContentDirectory")
  *
  * @param serviceType A service type string (usually the result from
- *	  \ref cg_upnp_service_getservicetype)
+ *	  \ref mupnp_upnp_service_getservicetype)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-char* cg_upnp_servicetype_getschematype(const char* serviceType);
+char* mupnp_upnp_servicetype_getschematype(const char* serviceType);
 
 /** 
  * Get the version part of a service type string (ex. "1")
  *
  * @param serviceType A service type string (usually the result from
- *	  \ref cg_upnp_service_getservicetype)
+ *	  \ref mupnp_upnp_service_getservicetype)
  *
  * @return A newly-created char* if successful; otherwise NULL
  */
-const char* cg_upnp_servicetype_getversion(const char* serviceType);
+const char* mupnp_upnp_servicetype_getversion(const char* serviceType);
 
 /****************************************************************************
  * serviceID
@@ -297,7 +297,7 @@ const char* cg_upnp_servicetype_getversion(const char* serviceType);
  * @param service The service in question
  * @param value Service ID string
  */
-#define cg_upnp_service_setserviceid(service, value) cg_xml_node_setchildnode(cg_upnp_service_getservicenode(service), CG_UPNP_SERVICE_ID, value)
+#define mupnp_upnp_service_setserviceid(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_ID, value)
 
 /**
  * Get the service's service ID
@@ -305,7 +305,7 @@ const char* cg_upnp_servicetype_getversion(const char* serviceType);
  * @param service The service in question
  * @return char*
  */
-#define cg_upnp_service_getserviceid(service) cg_xml_node_getchildnodevalue(cg_upnp_service_getservicenode(service), CG_UPNP_SERVICE_ID)
+#define mupnp_upnp_service_getserviceid(service) mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_ID)
 
 /****************************************************************************
  * SCPDURL
@@ -317,7 +317,7 @@ const char* cg_upnp_servicetype_getversion(const char* serviceType);
  * @param service The service in question
  * @param value The SCPD URL string
  */
-#define cg_upnp_service_setscpdurl(service, value) cg_xml_node_setchildnode(cg_upnp_service_getservicenode(service), CG_UPNP_SERVICE_SCPDURL, value)
+#define mupnp_upnp_service_setscpdurl(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_SCPDURL, value)
 
 /**
  * Get the service's SCPD (service description) URL
@@ -326,7 +326,7 @@ const char* cg_upnp_servicetype_getversion(const char* serviceType);
  * @return CgNetURL Pointer to URL/URI structure
  */
 
-CgNetURL *cg_upnp_service_getscpdurl(CgUpnpService *service);
+CgNetURL *mupnp_upnp_service_getscpdurl(CgUpnpService *service);
 
 /**
  * Compare the service's SCPD URL and the given location
@@ -335,7 +335,7 @@ CgNetURL *cg_upnp_service_getscpdurl(CgUpnpService *service);
  * @param url The URL (location) to compare
  * @return TRUE if location is found from URL; otherwise FALSE
  */
-BOOL cg_upnp_service_isscpdurl(CgUpnpService *service, const char *url);
+BOOL mupnp_upnp_service_isscpdurl(CgUpnpService *service, const char *url);
 
 /****************************************************************************
  * controlURL
@@ -347,7 +347,7 @@ BOOL cg_upnp_service_isscpdurl(CgUpnpService *service, const char *url);
  * @param service The service in question
  * @param value The control URL string
  */
-#define cg_upnp_service_setcontrolurl(service, value) cg_xml_node_setchildnode(cg_upnp_service_getservicenode(service), CG_UPNP_SERVICE_CONTROL_URL, value)
+#define mupnp_upnp_service_setcontrolurl(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_CONTROL_URL, value)
 
 /**
  * Get the service's control URL
@@ -355,7 +355,7 @@ BOOL cg_upnp_service_isscpdurl(CgUpnpService *service, const char *url);
  * @param service The service in question
  * @return CgNetURL Pointer to URL/URI structure
  */
-CgNetURL *cg_upnp_service_getcontrolurl(CgUpnpService *service);
+CgNetURL *mupnp_upnp_service_getcontrolurl(CgUpnpService *service);
 
 /****************************************************************************
  * eventSubURL
@@ -367,7 +367,7 @@ CgNetURL *cg_upnp_service_getcontrolurl(CgUpnpService *service);
  * @param service The service in question
  * @param value The event subscription URL string
  */
-#define cg_upnp_service_seteventsuburl(service, value) cg_xml_node_setchildnode(cg_upnp_service_getservicenode(service), CG_UPNP_SERVICE_EVENT_SUB_URL, value)
+#define mupnp_upnp_service_seteventsuburl(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_EVENT_SUB_URL, value)
 
 /**
  * Get the service's event subscription URL
@@ -375,7 +375,7 @@ CgNetURL *cg_upnp_service_getcontrolurl(CgUpnpService *service);
  * @param service The service in question
  * @return CgNetURL Pointer to URL/URI structure
  */
-CgNetURL *cg_upnp_service_geteventsuburl(CgUpnpService *service);
+CgNetURL *mupnp_upnp_service_geteventsuburl(CgUpnpService *service);
 
 /****************************************************************************
  * Action
@@ -386,7 +386,7 @@ CgNetURL *cg_upnp_service_geteventsuburl(CgUpnpService *service);
  *
  * @param service The service in question
  */
-CgUpnpActionList *cg_upnp_service_getactionlist(CgUpnpService *service);
+CgUpnpActionList *mupnp_upnp_service_getactionlist(CgUpnpService *service);
 
 /**
  * Get the first action in the service's list of actions. Use as the
@@ -394,7 +394,7 @@ CgUpnpActionList *cg_upnp_service_getactionlist(CgUpnpService *service);
  *
  * @param service The service in question
  */
-CgUpnpAction *cg_upnp_service_getactions(CgUpnpService *service);
+CgUpnpAction *mupnp_upnp_service_getactions(CgUpnpService *service);
 
 /**
  * Get an action from the service by the action's name
@@ -403,7 +403,7 @@ CgUpnpAction *cg_upnp_service_getactions(CgUpnpService *service);
  * @param name The name of the action to look for
  * @return CgUpnpAction* or NULL
  */
-CgUpnpAction *cg_upnp_service_getactionbyname(CgUpnpService *service, const char *name);
+CgUpnpAction *mupnp_upnp_service_getactionbyname(CgUpnpService *service, const char *name);
 
 /**
  * Check, whether a service has an action by the given name
@@ -411,7 +411,7 @@ CgUpnpAction *cg_upnp_service_getactionbyname(CgUpnpService *service, const char
  * @param service The service in question
  * @param name The name of the action
  */
-#define cg_upnp_service_hasactionbyname(service, name) ((cg_upnp_service_getactionbyname(service,name) != NULL) ? TRUE : FALSE)
+#define mupnp_upnp_service_hasactionbyname(service, name) ((mupnp_upnp_service_getactionbyname(service,name) != NULL) ? TRUE : FALSE)
 
 /****************************************************************************
  * ServiceStateTable
@@ -422,7 +422,7 @@ CgUpnpAction *cg_upnp_service_getactionbyname(CgUpnpService *service, const char
  *
  * @param service The service in question
  */
-CgUpnpServiceStateTable *cg_upnp_service_getservicestatetable(CgUpnpService *service);
+CgUpnpServiceStateTable *mupnp_upnp_service_getservicestatetable(CgUpnpService *service);
 
 /**
  * Get the first state variable in the service's state table. Use as the
@@ -430,7 +430,7 @@ CgUpnpServiceStateTable *cg_upnp_service_getservicestatetable(CgUpnpService *ser
  *
  * @param service The service in question
  */
-CgUpnpStateVariable *cg_upnp_service_getstatevariables(CgUpnpService *service);
+CgUpnpStateVariable *mupnp_upnp_service_getstatevariables(CgUpnpService *service);
 
 /**
  * Get a state variable from the service's state table by the variable's name
@@ -439,7 +439,7 @@ CgUpnpStateVariable *cg_upnp_service_getstatevariables(CgUpnpService *service);
  * @param name the name of the variable
  * @return CgUpnpStateVariable* or NULL
  */
-CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *service, const char *name);
+CgUpnpStateVariable *mupnp_upnp_service_getstatevariablebyname(CgUpnpService *service, const char *name);
 
 /**
  * Check, whether the service has the given state variable
@@ -448,7 +448,7 @@ CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *servi
  * @param name The name of the state variable
  * @return TRUE if found; otherwise FALSE
  */
-#define cg_upnp_service_hasstatevariablebyname(service, name) ((cg_upnp_service_getstatevariablebyname(service,name) != NULL) ? TRUE : FALSE)
+#define mupnp_upnp_service_hasstatevariablebyname(service, name) ((mupnp_upnp_service_getstatevariablebyname(service,name) != NULL) ? TRUE : FALSE)
 
 /****************************************************************************
  * Advertisement
@@ -460,7 +460,7 @@ CgUpnpStateVariable *cg_upnp_service_getstatevariablebyname(CgUpnpService *servi
  * @param service The service to advertise
  * @param bindAddr The address to attach to the announcement
  */
-BOOL cg_upnp_service_announcefrom(CgUpnpService *service, const char *bindAddr);
+BOOL mupnp_upnp_service_announcefrom(CgUpnpService *service, const char *bindAddr);
 
 /**
  * Send a byebye announcement (i.e. a cancelling advertisement) from the given
@@ -469,7 +469,7 @@ BOOL cg_upnp_service_announcefrom(CgUpnpService *service, const char *bindAddr);
  * @param service The service to announce from
  * @param bindAddr The address to attach to the announcement
  */
-BOOL cg_upnp_service_byebyefrom(CgUpnpService *service, const char *bindAddr);
+BOOL mupnp_upnp_service_byebyefrom(CgUpnpService *service, const char *bindAddr);
 
 /****************************************************************************
  * Listener 
@@ -481,7 +481,7 @@ BOOL cg_upnp_service_byebyefrom(CgUpnpService *service, const char *bindAddr);
  * @param service The service in question
  * @param actionListener A callback function of type CG_UPNP_ACTION_LISTNER
  */
-void cg_upnp_service_setactionlistener(CgUpnpService *service, CG_UPNP_ACTION_LISTNER actionListener);
+void mupnp_upnp_service_setactionlistener(CgUpnpService *service, CG_UPNP_ACTION_LISTNER actionListener);
 
 /**
  * Set a query listener to the service
@@ -489,7 +489,7 @@ void cg_upnp_service_setactionlistener(CgUpnpService *service, CG_UPNP_ACTION_LI
  * @param service The service in question
  * @param queryListener A callback function of type CG_UPNP_STATEVARIABLE_LISTNER
  */
-void cg_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIABLE_LISTNER queryListener);
+void mupnp_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIABLE_LISTNER queryListener);
 
 /****************************************************************************
  * Parent Device
@@ -501,7 +501,7 @@ void cg_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIA
  * @param service The service in question
  * @param dev The parent device
  */
-#define cg_upnp_service_setdevice(service, dev) (service->parentDevice = dev)
+#define mupnp_upnp_service_setdevice(service, dev) (service->parentDevice = dev)
 
 /**
  * Get the service's parent device
@@ -509,7 +509,7 @@ void cg_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIA
  * @param service The service in question
  * @return CgUpnpDevice*
  */
-#define cg_upnp_service_getdevice(service) ((CgUpnpDevice *)service->parentDevice)
+#define mupnp_upnp_service_getdevice(service) ((CgUpnpDevice *)service->parentDevice)
 
 /****************************************************************************
  * Root Device
@@ -521,7 +521,7 @@ void cg_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIA
  * @param service The service in question
  * @return CgUpnpDevice*
  */
-#define cg_upnp_service_getrootdevice(service) cg_upnp_device_getrootdevice((CgUpnpDevice *)service->parentDevice)
+#define mupnp_upnp_service_getrootdevice(service) mupnp_upnp_device_getrootdevice((CgUpnpDevice *)service->parentDevice)
 
 /****************************************************************************
  * Subscriber
@@ -533,7 +533,7 @@ void cg_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIA
  *
  * @param service The service in question
  */
-#define cg_upnp_service_getsubscribers(service) cg_upnp_subscriberlist_gets(service->subscriberList)
+#define mupnp_upnp_service_getsubscribers(service) mupnp_upnp_subscriberlist_gets(service->subscriberList)
 
 /**
  * Get the number of subscribers for the service
@@ -541,7 +541,7 @@ void cg_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIA
  * @param service The service in question
  * @return int
  */
-#define cg_upnp_service_getnsubscribers(service) cg_upnp_subscriberlist_size(service->subscriberList)
+#define mupnp_upnp_service_getnsubscribers(service) mupnp_upnp_subscriberlist_size(service->subscriberList)
 
 /**
  * Add a subscriber to the service
@@ -549,7 +549,7 @@ void cg_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIA
  * @param service The service in question
  * @param sub The subscriber
  */
-BOOL cg_upnp_service_addsubscriber(CgUpnpService *service, CgUpnpSubscriber *sub);
+BOOL mupnp_upnp_service_addsubscriber(CgUpnpService *service, CgUpnpSubscriber *sub);
 
 /**
  * Remove a subscriber from the service
@@ -557,7 +557,7 @@ BOOL cg_upnp_service_addsubscriber(CgUpnpService *service, CgUpnpSubscriber *sub
  * @param service The service in question
  * @param sub The subscriber to remove
  */
-BOOL cg_upnp_service_removesubscriber(CgUpnpService *service, CgUpnpSubscriber *sub);
+BOOL mupnp_upnp_service_removesubscriber(CgUpnpService *service, CgUpnpSubscriber *sub);
 
 /**
  * Find a subscriber from the service's list of subscribers by its SID
@@ -566,14 +566,14 @@ BOOL cg_upnp_service_removesubscriber(CgUpnpService *service, CgUpnpSubscriber *
  * @param service The service in question
  * @param sid The SID
  */
-CgUpnpSubscriber *cg_upnp_service_getsubscriberbysid(CgUpnpService *service, const char *sid);
+CgUpnpSubscriber *mupnp_upnp_service_getsubscriberbysid(CgUpnpService *service, const char *sid);
 
 /****************************************************************************
  * Announce
  ****************************************************************************/
 
-char *cg_upnp_service_getnotifyservicetypent(CgUpnpService *service, char *buf, int bufSize);
-char *cg_upnp_service_getnotifyservicetypeusn(CgUpnpService *service, char *buf, int bufSize);
+char *mupnp_upnp_service_getnotifyservicetypent(CgUpnpService *service, char *buf, int bufSize);
+char *mupnp_upnp_service_getnotifyservicetypeusn(CgUpnpService *service, char *buf, int bufSize);
 
 /****************************************************************************
  * Notify
@@ -585,14 +585,14 @@ char *cg_upnp_service_getnotifyservicetypeusn(CgUpnpService *service, char *buf,
  * @param service The service in question
  * @param statVar The changed state variable
  */
-BOOL cg_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar);
+BOOL mupnp_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar);
 
 /**
  * Send a notification message to all of the service's subscribers
  *
  * @param service The service in question
  */
-BOOL cg_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket );
+BOOL mupnp_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket );
 
 /**
 * Create a new thread to send a notification message to all of the service's subscribers
@@ -600,15 +600,15 @@ BOOL cg_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket );
  * @param service The service in question
 *  @param waitTime The wait time to send
 */
-void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTime);
+void mupnp_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTime);
 
 /**
  * Send a notification message to all of the service's subscribers
  *
  * @param service The service in question
- * @deprecated Use cg_upnp_service_notifyall().
+ * @deprecated Use mupnp_upnp_service_notifyall().
  */
-#define cg_upnp_service_notifyallstatevariables(service) cg_upnp_service_notifyall(service, FALSE);
+#define mupnp_upnp_service_notifyallstatevariables(service) mupnp_upnp_service_notifyall(service, FALSE);
 
 /****************************************************************************
  * Mutex
@@ -619,14 +619,14 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  *
  * @param service The service in question
  */
-#define cg_upnp_service_lock(service) cg_mutex_lock(service->mutex)
+#define mupnp_upnp_service_lock(service) mupnp_mutex_lock(service->mutex)
 
 /**
  * Unlock the service's mutex
  *
  * @param service The service in question
  */
-#define cg_upnp_service_unlock(service) cg_mutex_unlock(service->mutex)
+#define mupnp_upnp_service_unlock(service) mupnp_mutex_unlock(service->mutex)
 
 /****************************************************************************
  * SID
@@ -638,7 +638,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @param value The SID
  */
-#define cg_upnp_service_setsubscriptionsid(service, value) cg_string_setvalue(service->subscriptionSid, value)
+#define mupnp_upnp_service_setsubscriptionsid(service, value) mupnp_string_setvalue(service->subscriptionSid, value)
 
 /**
  * Get the service's SID (subscription ID)
@@ -646,7 +646,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @return char*
  */
-#define cg_upnp_service_getsubscriptionsid(service) cg_string_getvalue(service->subscriptionSid)
+#define mupnp_upnp_service_getsubscriptionsid(service) mupnp_string_getvalue(service->subscriptionSid)
 
 /**
  * Check, whether the service has any subscribers
@@ -654,14 +654,14 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @return TRUE if at least one subscriber is found; otherwise FALSE
  */
-#define cg_upnp_service_issubscribed(service) ((0 < cg_string_length(service->subscriptionSid)) ? TRUE : FALSE)
+#define mupnp_upnp_service_issubscribed(service) ((0 < mupnp_string_length(service->subscriptionSid)) ? TRUE : FALSE)
 
 /**
  * Clear (i.e. empty) the service's SID (subscription ID)
  *
  * @param service The service in question
  */
-#define cg_upnp_service_clearsubscriptionsid(service) cg_string_setvalue(service->subscriptionSid, "")
+#define mupnp_upnp_service_clearsubscriptionsid(service) mupnp_string_setvalue(service->subscriptionSid, "")
 
 /****************************************************************************
  * Timeout
@@ -673,7 +673,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @param value The timeout value
  */
-#define cg_upnp_service_setsubscriptiontimeout(service, value) (service->subscriptionTimeout = value)
+#define mupnp_upnp_service_setsubscriptiontimeout(service, value) (service->subscriptionTimeout = value)
 
 /**
  * Get the service's subscription timeout (expiration) value
@@ -681,7 +681,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @return long
  */
-#define cg_upnp_service_getsubscriptiontimeout(service) (service->subscriptionTimeout)
+#define mupnp_upnp_service_getsubscriptiontimeout(service) (service->subscriptionTimeout)
 
 /****************************************************************************
  * User Data
@@ -693,7 +693,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @param value The user data pointer
  */
-#define cg_upnp_service_setuserdata(service, value) (service->userData = value)
+#define mupnp_upnp_service_setuserdata(service, value) (service->userData = value)
 
 /**
  * Get the service's arbitrary user data pointer
@@ -701,7 +701,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @return void*
  */
-#define cg_upnp_service_getuserdata(service) (service->userData)
+#define mupnp_upnp_service_getuserdata(service) (service->userData)
 
 /****************************************************************************
  * Event Key
@@ -713,7 +713,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @param value The event key value (uint)
  */
-#define cg_upnp_service_seteventkey(service, value) (service->eventKey = value)
+#define mupnp_upnp_service_seteventkey(service, value) (service->eventKey = value)
 
 /**
  * Get the service's event key
@@ -721,7 +721,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @return uint
  */
-#define cg_upnp_service_geteventkey(service) (service->eventKey)
+#define mupnp_upnp_service_geteventkey(service) (service->eventKey)
 
 /****************************************************************************
  * Timestamp
@@ -733,7 +733,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @param value The time stamp
  */
-#define cg_upnp_service_setsubscriptiontimestamp(service, value) (service->subscriptionTimestamp = value)
+#define mupnp_upnp_service_setsubscriptiontimestamp(service, value) (service->subscriptionTimestamp = value)
 
 /**
  * Get the service's subscription time stamp
@@ -741,7 +741,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @return CgTime
  */
-#define cg_upnp_service_getsubscriptiontimestamp(service) (service->subscriptionTimestamp)
+#define mupnp_upnp_service_getsubscriptiontimestamp(service) (service->subscriptionTimestamp)
 
 /**
  * Get the service's subscription expiration time
@@ -749,7 +749,7 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
  * @param service The service in question
  * @return CgTime
  */
-#define cg_upnp_service_getsubscriptionexpiration(service) (service->subscriptionTimestamp + service->subscriptionTimeout - CG_UPNP_SUBSCRIPTION_DELAY)
+#define mupnp_upnp_service_getsubscriptionexpiration(service) (service->subscriptionTimestamp + service->subscriptionTimeout - CG_UPNP_SUBSCRIPTION_DELAY)
 
 
 /****************************************************************************
@@ -759,14 +759,14 @@ void cg_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTi
 /**
  * Create a new list of services
  */
-CgUpnpServiceList *cg_upnp_servicelist_new();
+CgUpnpServiceList *mupnp_upnp_servicelist_new();
 
 /**
  * Destroy a list of services
  *
  * @param serviceList The list of services to destroy
  */
-void cg_upnp_servicelist_delete(CgUpnpServiceList *serviceList);
+void mupnp_upnp_servicelist_delete(CgUpnpServiceList *serviceList);
 
 
 /**
@@ -774,7 +774,7 @@ void cg_upnp_servicelist_delete(CgUpnpServiceList *serviceList);
  *
  * @param serviceList The list of services to clear
  */
-#define cg_upnp_servicelist_clear(serviceList) cg_list_clear((CgList *)serviceList, (CG_LIST_DESTRUCTORFUNC)cg_upnp_service_delete)
+#define mupnp_upnp_servicelist_clear(serviceList) mupnp_list_clear((CgList *)serviceList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_service_delete)
 
 /**
  * Get the number of services in a list of services
@@ -782,7 +782,7 @@ void cg_upnp_servicelist_delete(CgUpnpServiceList *serviceList);
  * @param serviceList The list of services
  * @return int
  */
-#define cg_upnp_servicelist_size(serviceList) cg_list_size((CgList *)serviceList)
+#define mupnp_upnp_servicelist_size(serviceList) mupnp_list_size((CgList *)serviceList)
 
 /**
  * Get the first service in a list of services. Use as the starting point in
@@ -790,7 +790,7 @@ void cg_upnp_servicelist_delete(CgUpnpServiceList *serviceList);
  *
  * @param serviceList The service list
  */
-#define cg_upnp_servicelist_gets(serviceList) (CgUpnpService *)cg_list_next((CgList *)serviceList)
+#define mupnp_upnp_servicelist_gets(serviceList) (CgUpnpService *)mupnp_list_next((CgList *)serviceList)
 
 /**
  * Add a service to a list of services
@@ -798,7 +798,7 @@ void cg_upnp_servicelist_delete(CgUpnpServiceList *serviceList);
  * @param serviceList The list to add the service to
  * @param service The service to add to the list
  */
-#define cg_upnp_servicelist_add(serviceList, service) cg_list_add((CgList *)serviceList, (CgList *)service)
+#define mupnp_upnp_servicelist_add(serviceList, service) mupnp_list_add((CgList *)serviceList, (CgList *)service)
 
 /****************************************************************************
  * Function (SSDP)
@@ -810,7 +810,7 @@ void cg_upnp_servicelist_delete(CgUpnpServiceList *serviceList);
  * @param service The service in question
  * @param ssdpPkt The received SSDP packet
  */
-void cg_upnp_service_ssdpmessagereceived(CgUpnpService *service, CgUpnpSSDPPacket *ssdpPkt);
+void mupnp_upnp_service_ssdpmessagereceived(CgUpnpService *service, CgUpnpSSDPPacket *ssdpPkt);
 
 #ifdef  __cplusplus
 }

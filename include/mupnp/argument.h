@@ -78,21 +78,21 @@ typedef struct _CgUpnpArgument {
 /**
  * Create new argument
  */
-CgUpnpArgument *cg_upnp_argument_new();
+CgUpnpArgument *mupnp_upnp_argument_new();
 
 /**
  * Delete argument
  *
  * @param dev Argument
  */
-void cg_upnp_argument_delete(CgUpnpArgument *dev);
+void mupnp_upnp_argument_delete(CgUpnpArgument *dev);
 
 /**
  * Get next argument using argument as iterator
  *
  * @param arg Argument node
  */
-#define cg_upnp_argument_next(arg) (CgUpnpArgument *)cg_list_next((CgList *)arg)
+#define mupnp_upnp_argument_next(arg) (CgUpnpArgument *)mupnp_list_next((CgList *)arg)
 
 /**
  * Check if XML node is argument node
@@ -101,7 +101,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return True if node is argument node, false otherwise
  */
-#define cg_upnp_argument_isargumentnode(node) cg_xml_node_isname(node, CG_UPNP_ARGUMENT_ELEM_NAME)
+#define mupnp_upnp_argument_isargumentnode(node) mupnp_xml_node_isname(node, CG_UPNP_ARGUMENT_ELEM_NAME)
 
 /**
  * Set XML service node for argument
@@ -109,14 +109,14 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  * @param arg Argument
  * @param node XML service node
  */
-#define cg_upnp_argument_setservicenode(arg,node) (arg->serviceNode = node)
+#define mupnp_upnp_argument_setservicenode(arg,node) (arg->serviceNode = node)
 
 /**
  * Get service node from argument
  *
  * @param arg Argument
  */
-#define cg_upnp_argument_getservicenode(arg) (arg->serviceNode)
+#define mupnp_upnp_argument_getservicenode(arg) (arg->serviceNode)
 
 /**
  * Set XML argument node for argument
@@ -124,14 +124,14 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  * @param arg Argument
  * @param node XML argument node
  */
-#define cg_upnp_argument_setargumentnode(arg,node) (arg->argumentNode = node)
+#define mupnp_upnp_argument_setargumentnode(arg,node) (arg->argumentNode = node)
 
 /**
  * Get XML argument node from argument
  *
  * @param arg Argument
  */
-#define cg_upnp_argument_getargumentnode(arg) (arg->argumentNode)
+#define mupnp_upnp_argument_getargumentnode(arg) (arg->argumentNode)
 
 /**** name ****/
 
@@ -141,14 +141,14 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  * @param arg Argument
  * @param value Argument name
  */
-#define cg_upnp_argument_setname(arg, value) cg_xml_node_setchildnode(cg_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_NAME, value)
+#define mupnp_upnp_argument_setname(arg, value) mupnp_xml_node_setchildnode(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_NAME, value)
 
 /**
  * Get argument name
  *
  * @param arg Argument
  */
-#define cg_upnp_argument_getname(arg) cg_xml_node_getchildnodevalue(cg_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_NAME)
+#define mupnp_upnp_argument_getname(arg) mupnp_xml_node_getchildnodevalue(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_NAME)
 
 /**
  * Check if current argument name matches with the provided name
@@ -158,7 +158,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return True if argument name equals with the provided name, false otherwise
  */
-#define cg_upnp_argument_isname(arg, name) cg_streq(cg_upnp_argument_getname(arg), name)
+#define mupnp_upnp_argument_isname(arg, name) mupnp_streq(mupnp_upnp_argument_getname(arg), name)
 
 /**** direction ****/
 
@@ -168,7 +168,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  * @param arg Argument
  * @param value New direction value
  */
-#define cg_upnp_argument_setdirection(arg, value) cg_xml_node_setchildnode(cg_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_DIRECTION, value)
+#define mupnp_upnp_argument_setdirection(arg, value) mupnp_xml_node_setchildnode(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_DIRECTION, value)
 
 /**
  * Get argument direction
@@ -177,7 +177,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return Argument direction
  */
-#define cg_upnp_argument_getdirection(arg) cg_xml_node_getchildnodevalue(cg_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_DIRECTION)
+#define mupnp_upnp_argument_getdirection(arg) mupnp_xml_node_getchildnodevalue(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_DIRECTION)
 
 /**
  * Check if argument direction is "in"
@@ -186,7 +186,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return True if argument directon is "in"
  */
-#define cg_upnp_argument_isindirection(arg) cg_streq(cg_upnp_argument_getdirection(arg), CG_UPNP_ARGUMENT_IN_DIR)
+#define mupnp_upnp_argument_isindirection(arg) mupnp_streq(mupnp_upnp_argument_getdirection(arg), CG_UPNP_ARGUMENT_IN_DIR)
 
 /**
  * Check if argument direction is "out"
@@ -195,7 +195,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return True if argument direction is "out"
  */
-#define cg_upnp_argument_isoutdirection(arg) cg_streq(cg_upnp_argument_getdirection(arg), CG_UPNP_ARGUMENT_OUT_DIR)
+#define mupnp_upnp_argument_isoutdirection(arg) mupnp_streq(mupnp_upnp_argument_getdirection(arg), CG_UPNP_ARGUMENT_OUT_DIR)
 
 /**** relatedStateVariable ****/
 
@@ -205,7 +205,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  * @param arg Argument
  * @param value Related state variable name
  */
-#define cg_upnp_argument_setrelatedstatevariable(arg, value) cg_xml_node_setchildnode(cg_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_RELATED_STATE_VARIABLE, value)
+#define mupnp_upnp_argument_setrelatedstatevariable(arg, value) mupnp_xml_node_setchildnode(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_RELATED_STATE_VARIABLE, value)
 
 /**
  * Get related state variable
@@ -214,7 +214,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return String representing the related state variable
  */
-#define cg_upnp_argument_getrelatedstatevariable(arg) cg_xml_node_getchildnodevalue(cg_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_RELATED_STATE_VARIABLE)
+#define mupnp_upnp_argument_getrelatedstatevariable(arg) mupnp_xml_node_getchildnodevalue(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_RELATED_STATE_VARIABLE)
 
 /****************************************
 * Function (Argument - Execution Data)
@@ -228,7 +228,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  * @param arg Argument
  * @param data Argument value
  */
-#define cg_upnp_argument_setvalue(arg,data) cg_string_setvalue(arg->value, data)
+#define mupnp_upnp_argument_setvalue(arg,data) mupnp_string_setvalue(arg->value, data)
 
 /**
  * Get argument value
@@ -237,7 +237,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return Argument value
  */
-#define cg_upnp_argument_getvalue(arg) cg_string_getvalue(arg->value)
+#define mupnp_upnp_argument_getvalue(arg) mupnp_string_getvalue(arg->value)
 
 /**
  * Set argument value
@@ -245,7 +245,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  * @param arg Argument
  * @param data Argument value
  */
-#define cg_upnp_argument_setintvalue(arg,data) cg_string_setintvalue(arg->value, data)
+#define mupnp_upnp_argument_setintvalue(arg,data) mupnp_string_setintvalue(arg->value, data)
 
 /**
  * Get argument value
@@ -254,7 +254,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return Argument value
  */
-#define cg_upnp_argument_getintvalue(arg) cg_string_getintvalue(arg->value)
+#define mupnp_upnp_argument_getintvalue(arg) mupnp_string_getintvalue(arg->value)
 
 /**
  * Set argument value
@@ -262,7 +262,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  * @param arg Argument
  * @param data Argument value
  */
-#define cg_upnp_argument_setfloatvalue(arg,data) cg_string_setfloatvalue(arg->value, data)
+#define mupnp_upnp_argument_setfloatvalue(arg,data) mupnp_string_setfloatvalue(arg->value, data)
 
 /**
  * Get argument value
@@ -271,7 +271,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return Argument value
  */
-#define cg_upnp_argument_getfloatvalue(arg) cg_string_getfloatvalue(arg->value)
+#define mupnp_upnp_argument_getfloatvalue(arg) mupnp_string_getfloatvalue(arg->value)
 
 /**
  * Set argument value
@@ -279,7 +279,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  * @param arg Argument
  * @param data Argument value
  */
-#define cg_upnp_argument_setdoublevalue(arg,data) cg_string_setdoublevalue(arg->value, data)
+#define mupnp_upnp_argument_setdoublevalue(arg,data) mupnp_string_setdoublevalue(arg->value, data)
 
 /**
  * Get argument value
@@ -288,7 +288,7 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
  *
  * @return Argument value
  */
-#define cg_upnp_argument_getdoublevalue(arg) cg_string_getdoublevalue(arg->value)
+#define mupnp_upnp_argument_getdoublevalue(arg) mupnp_string_getdoublevalue(arg->value)
 
 /****************************************
 * Function (ArgumentList)
@@ -297,35 +297,35 @@ void cg_upnp_argument_delete(CgUpnpArgument *dev);
 /**
  * Create new argument list
  */
-CgUpnpArgumentList *cg_upnp_argumentlist_new();
+CgUpnpArgumentList *mupnp_upnp_argumentlist_new();
 
 /**
  * Delete argument list
  *
  * @param argumentList Argument list
  */
-void cg_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList);
+void mupnp_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList);
 
 /**
  * Clear argument list
  *
  * @param argList Argument list
  */
-#define cg_upnp_argumentlist_clear(argList) cg_list_clear((CgList *)argList, (CG_LIST_DESTRUCTORFUNC)cg_upnp_argument_delete)
+#define mupnp_upnp_argumentlist_clear(argList) mupnp_list_clear((CgList *)argList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_argument_delete)
 
 /**
  * Get argument list size
  *
  * @param argList Argument list
  */
-#define cg_upnp_argumentlist_size(argList) cg_list_size((CgList *)argList)
+#define mupnp_upnp_argumentlist_size(argList) mupnp_list_size((CgList *)argList)
 
 /**
  * Get next argument from argument list
  *
  * @param argList Argument list
  */
-#define cg_upnp_argumentlist_gets(argList) (CgUpnpArgument *)cg_list_next((CgList *)argList)
+#define mupnp_upnp_argumentlist_gets(argList) (CgUpnpArgument *)mupnp_list_next((CgList *)argList)
 
 /**
  * Add argument into argument list
@@ -333,7 +333,7 @@ void cg_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList);
  * @param argList Argument list
  * @param arg Argument
  */
-#define cg_upnp_argumentlist_add(argList, arg) cg_list_add((CgList *)argList, (CgList *)arg)
+#define mupnp_upnp_argumentlist_add(argList, arg) mupnp_list_add((CgList *)argList, (CgList *)arg)
 
 /**
  * Get argument from argument list based on argument name
@@ -343,7 +343,7 @@ void cg_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList);
  *
  * @return Argument
  */
-CgUpnpArgument *cg_upnp_argumentlist_get(CgUpnpArgumentList *argumentList, const char *name);
+CgUpnpArgument *mupnp_upnp_argumentlist_get(CgUpnpArgumentList *argumentList, const char *name);
 
 /**
  * Set argument values by using source argument list. If there is an argument with the 
@@ -353,7 +353,7 @@ CgUpnpArgument *cg_upnp_argumentlist_get(CgUpnpArgumentList *argumentList, const
  * @param argumentList Argument list
  * @param srcArgumentList Source argument list
  */
-void cg_upnp_argumentlist_set(CgUpnpArgumentList *argumentList, CgUpnpArgumentList *srcArgumentList);
+void mupnp_upnp_argumentlist_set(CgUpnpArgumentList *argumentList, CgUpnpArgumentList *srcArgumentList);
 
 #ifdef  __cplusplus
 }

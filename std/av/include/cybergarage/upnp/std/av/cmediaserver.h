@@ -141,73 +141,73 @@ void *userData;
 * Public Functions
 ****************************************/
 
-CgUpnpAvServer *cg_upnpav_dms_new();
-void cg_upnpav_dms_delete(CgUpnpAvServer *dms);
+CgUpnpAvServer *mupnp_upnpav_dms_new();
+void mupnp_upnpav_dms_delete(CgUpnpAvServer *dms);
 
-#define cg_upnpav_dms_getdevice(dms) (dms->dev)
-#define cg_upnpav_dms_getrootcontent(dms) (dms->rootContent)
+#define mupnp_upnpav_dms_getdevice(dms) (dms->dev)
+#define mupnp_upnpav_dms_getrootcontent(dms) (dms->rootContent)
 
-#define cg_upnpav_dms_start(dms) cg_upnp_device_start(dms->dev)
-#define cg_upnpav_dms_stop(dms) cg_upnp_device_stop(dms->dev)
+#define mupnp_upnpav_dms_start(dms) mupnp_upnp_device_start(dms->dev)
+#define mupnp_upnpav_dms_stop(dms) mupnp_upnp_device_stop(dms->dev)
 
-#define cg_upnpav_dms_lock(dms) cg_mutex_lock(dms->mutex)
-#define cg_upnpav_dms_unlock(dms) cg_mutex_unlock(dms->mutex)
+#define mupnp_upnpav_dms_lock(dms) mupnp_mutex_lock(dms->mutex)
+#define mupnp_upnpav_dms_unlock(dms) mupnp_mutex_unlock(dms->mutex)
 
-#define cg_upnpav_dms_setfriendlyname(dms, value) cg_upnp_device_setfriendlyname(dms->dev, value)
-#define cg_upnpav_dms_getfriendlyname(dms) cg_upnp_device_getfriendlyname(dms->dev)
+#define mupnp_upnpav_dms_setfriendlyname(dms, value) mupnp_upnp_device_setfriendlyname(dms->dev, value)
+#define mupnp_upnpav_dms_getfriendlyname(dms) mupnp_upnp_device_getfriendlyname(dms->dev)
 
-#define cg_upnpav_dms_setudn(dms, value) cg_upnp_device_setudn(dms->dev, value)
-#define cg_upnpav_dms_getudn(dms) cg_upnp_device_getudn(dms->dev)
+#define mupnp_upnpav_dms_setudn(dms, value) mupnp_upnp_device_setudn(dms->dev, value)
+#define mupnp_upnpav_dms_getudn(dms) mupnp_upnp_device_getudn(dms->dev)
 
-CgUpnpAvContent *cg_upnpav_dms_findcontentbytitle(CgUpnpAvServer *dms, char *name);
-CgUpnpAvContent *cg_upnpav_dms_findcontentbyid(CgUpnpAvServer *dms, char *objectID);
+CgUpnpAvContent *mupnp_upnpav_dms_findcontentbytitle(CgUpnpAvServer *dms, char *name);
+CgUpnpAvContent *mupnp_upnpav_dms_findcontentbyid(CgUpnpAvServer *dms, char *objectID);
 
-#define cg_upnpav_dms_sethttplistener(dms,func) (dms->httplistener = func)
-#define cg_upnpav_dms_gethttplistener(dms) (dms->httplistener)
+#define mupnp_upnpav_dms_sethttplistener(dms,func) (dms->httplistener = func)
+#define mupnp_upnpav_dms_gethttplistener(dms) (dms->httplistener)
 
-#define cg_upnpav_dms_setactionlistener(dms,func) (dms->actionListner = func)
-#define cg_upnpav_dms_getactionlistener(dms) (dms->actionListner)
+#define mupnp_upnpav_dms_setactionlistener(dms,func) (dms->actionListner = func)
+#define mupnp_upnpav_dms_getactionlistener(dms) (dms->actionListner)
 
-#define cg_upnpav_dms_setquerylistener(dms,func) (dms->queryListner = func)
-#define cg_upnpav_dms_getquerylistener(dms) (dms->queryListner)
+#define mupnp_upnpav_dms_setquerylistener(dms,func) (dms->queryListner = func)
+#define mupnp_upnpav_dms_getquerylistener(dms) (dms->queryListner)
 
-#define cg_upnpav_dms_setuserdata(dms,data) (dms->userData = data)
-#define cg_upnpav_dms_getuserdata(dms) (dms->userData)
+#define mupnp_upnpav_dms_setuserdata(dms,data) (dms->userData = data)
+#define mupnp_upnpav_dms_getuserdata(dms) (dms->userData)
 
-#define cg_upnpav_dms_addprotocolinfo(dms, info) cg_upnpav_protocolinfolist_add(dms->protocolInfoList, info)
-#define cg_upnpav_dms_getprotocolinfos(dms) cg_upnpav_protocolinfolist_gets(dms->protocolInfoList)
+#define mupnp_upnpav_dms_addprotocolinfo(dms, info) mupnp_upnpav_protocolinfolist_add(dms->protocolInfoList, info)
+#define mupnp_upnpav_dms_getprotocolinfos(dms) mupnp_upnpav_protocolinfolist_gets(dms->protocolInfoList)
 
 /****************************************
 * Connection Manager
 ****************************************/
 
-BOOL cg_upnpav_dms_conmgr_init(CgUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_conmgr_init(CgUpnpAvServer *dms);
 
 /****************************************
 * Network Interface
 ****************************************/
 
-#define cg_upnpav_dms_getnetworkinterfaces(dms) cg_net_interfacelist_gets(dms->networkInterfaceList)
-#define cg_upnpav_dms_getnnetworkinterfaces(dms) cg_net_interfacelist_size(dms->networkInterfaceList)
+#define mupnp_upnpav_dms_getnetworkinterfaces(dms) mupnp_net_interfacelist_gets(dms->networkInterfaceList)
+#define mupnp_upnpav_dms_getnnetworkinterfaces(dms) mupnp_net_interfacelist_size(dms->networkInterfaceList)
 
-BOOL cg_upnpav_dms_updatenetworkinterfaces(CgUpnpAvServer *dms);
-CgNetworkInterface *cg_upnpav_dms_getnetworkinterface(CgUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_updatenetworkinterfaces(CgUpnpAvServer *dms);
+CgNetworkInterface *mupnp_upnpav_dms_getnetworkinterface(CgUpnpAvServer *dms);
 
 /****************************************
 * Content Directory
 ****************************************/
 
-BOOL cg_upnpav_dms_condir_init(CgUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_condir_init(CgUpnpAvServer *dms);
 
-void cg_upnpav_dms_condir_setsystemupdateid(CgUpnpAvServer *dms, int id);
-int cg_upnpav_dms_condir_getsystemupdateid(CgUpnpAvServer *dms);
-void cg_upnpav_dms_condir_updatesystemupdateid(CgUpnpAvServer *dms);
+void mupnp_upnpav_dms_condir_setsystemupdateid(CgUpnpAvServer *dms, int id);
+int mupnp_upnpav_dms_condir_getsystemupdateid(CgUpnpAvServer *dms);
+void mupnp_upnpav_dms_condir_updatesystemupdateid(CgUpnpAvServer *dms);
 
 /****************************************
 * Media Receiveer
 ****************************************/
 
-BOOL cg_upnpav_dms_medrec_init(CgUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_medrec_init(CgUpnpAvServer *dms);
 
 
 #ifdef  __cplusplus

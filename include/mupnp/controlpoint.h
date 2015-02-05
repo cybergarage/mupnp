@@ -17,17 +17,17 @@
 *		- first revision
 *
 *	11-Jan-06 Heikki Junnila
-*		- Removed cg_upnp_device_isname and _getbyname because
+*		- Removed mupnp_upnp_device_isname and _getbyname because
 *		  according to UPnP specs UDN, type or friendlyname is
 *		  not the same as the device's name.
-*		- Added cg_upnp_controlpoint_getdevicebyudn()
+*		- Added mupnp_upnp_controlpoint_getdevicebyudn()
 *	04/02/06 Theo Beisch
 *		- added support for resubscriber 
 *		  and device disposer
-*		- added cg_upnp_controlpoint_getservicebysid
-*		- added cg_upnp_controlpoint_waitforlock 
+*		- added mupnp_upnp_controlpoint_getservicebysid
+*		- added mupnp_upnp_controlpoint_waitforlock 
 *	22-Apr-2008 
-*		- Added cg_upnp_controlpoint_getdevice() to get a device by the index.
+*		- Added mupnp_upnp_controlpoint_getdevice() to get a device by the index.
 *
 ******************************************************************/
 
@@ -143,14 +143,14 @@ typedef void (*CG_UPNP_DEVICE_LISTENER)(CgUpnpControlPoint *ctrlPoint, const cha
  *
  * @return A newly-created CgUpnpControlPoint
  */
-CgUpnpControlPoint *cg_upnp_controlpoint_new();
+CgUpnpControlPoint *mupnp_upnp_controlpoint_new();
 
 /**
  * Destroy the given control point
  *
  * @param ctrlPoint The control point struct to destroy
  */
-void cg_upnp_controlpoint_delete(CgUpnpControlPoint *ctrlPoint);
+void mupnp_upnp_controlpoint_delete(CgUpnpControlPoint *ctrlPoint);
 
 /**
  * Activate the control point. Starts listening for SSDP messages etc.
@@ -161,7 +161,7 @@ void cg_upnp_controlpoint_delete(CgUpnpControlPoint *ctrlPoint);
  * @return TRUE if successful; otherwise FALSE
  *
  */
-BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint);
+BOOL mupnp_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint);
 
 /**
  * Stop the control point. Stops sending/receiveing/responding to any messages.
@@ -171,7 +171,7 @@ BOOL cg_upnp_controlpoint_start(CgUpnpControlPoint *ctrlPoint);
  * @return TRUE if successful; otherwise FALSE
  *
  */
-BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint);
+BOOL mupnp_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint);
 
 /**
 * Check if  the control point is activated.
@@ -181,7 +181,7 @@ BOOL cg_upnp_controlpoint_stop(CgUpnpControlPoint *ctrlPoint);
 * @return TRUE if running; otherwise FALSE
 *
 */
-BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint);
+BOOL mupnp_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint);
 	
 /****************************************************************************
  * Control Point locking
@@ -193,7 +193,7 @@ BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint);
  * CgUpnpService*, CgUpnpAction* or other pointer has been taken into use from
  * the stack. This effectively prevents devices/services from being updated/
  * removed or added while the control point is locked. You should release the
- * lock as soon as possible with @ref cg_upnp_controlpoint_unlock
+ * lock as soon as possible with @ref mupnp_upnp_controlpoint_unlock
  *
  * @note Do NOT save any CgUpnp* pointers to user-space variables. Use them
  * only as local variables (inside one function) after gaining a mutex lock.
@@ -204,21 +204,21 @@ BOOL cg_upnp_controlpoint_isrunning(CgUpnpControlPoint *ctrlPoint);
  */
 
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
-#define cg_upnp_controlpoint_lock(ctrlPoint) cg_mutex_lock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, ctrlPoint->mutex)
+#define mupnp_upnp_controlpoint_lock(ctrlPoint) mupnp_mutex_lock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, ctrlPoint->mutex)
 #else
-BOOL cg_upnp_controlpoint_lock(CgUpnpControlPoint *ctrlPoint);
+BOOL mupnp_upnp_controlpoint_lock(CgUpnpControlPoint *ctrlPoint);
 #endif
 /**
  * Release a previously locked control point mutex.
- * See @ref cg_upnp_controlpoint_lock for a more detailed description on
+ * See @ref mupnp_upnp_controlpoint_lock for a more detailed description on
  * the control point locking mechanism.
  *
  * @param ctrlPoint The control point in question
  */
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
-#define cg_upnp_controlpoint_unlock(ctrlPoint) cg_mutex_unlock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, ctrlPoint->mutex)
+#define mupnp_upnp_controlpoint_unlock(ctrlPoint) mupnp_mutex_unlock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, ctrlPoint->mutex)
 #else
-BOOL cg_upnp_controlpoint_unlock(CgUpnpControlPoint *ctrlPoint);
+BOOL mupnp_upnp_controlpoint_unlock(CgUpnpControlPoint *ctrlPoint);
 #endif
 
 /****************************************************************************
@@ -230,13 +230,13 @@ BOOL cg_upnp_controlpoint_unlock(CgUpnpControlPoint *ctrlPoint);
  * This function searches for devices, whose *complete type string*
  * matches the given string, including version number. For example: 
  * "urn:schemas-upnp-org:device:FooDevice:1". If you need to disregard
- * the version, use @ref cg_upnp_controlpoint_getdevicebytype
+ * the version, use @ref mupnp_upnp_controlpoint_getdevicebytype
  *
  * @param ctrlPoint Controlpoint in question
  * @param exacttype Type of the device
  *
  */
-CgUpnpDevice *cg_upnp_controlpoint_getdevicebyexacttype(CgUpnpControlPoint *ctrlPoint,
+CgUpnpDevice *mupnp_upnp_controlpoint_getdevicebyexacttype(CgUpnpControlPoint *ctrlPoint,
 						   char *exacttype);
 
 /**
@@ -244,13 +244,13 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyexacttype(CgUpnpControlPoint *ctrl
  * This function searches for devices, whose *type part* (i.e. not including
  * the version) of the device type string matches the given string.
  * For example: "urn:schemas-upnp-org:device:FooDevice". If you need
- * to know the version of a device, use @ref cg_upnp_devicetype_getversion
+ * to know the version of a device, use @ref mupnp_upnp_devicetype_getversion
  *
  * @param ctrlPoint Controlpoint in question
  * @param type Type of the device
  *
  */
-CgUpnpDevice *cg_upnp_controlpoint_getdevicebytype(CgUpnpControlPoint *ctrlPoint,
+CgUpnpDevice *mupnp_upnp_controlpoint_getdevicebytype(CgUpnpControlPoint *ctrlPoint,
 						   char *type);
 
 /**
@@ -260,7 +260,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebytype(CgUpnpControlPoint *ctrlPoint
  * @param type Type of the device
  *
  */
-CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
+CgUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
 						   char *udn);
 
 /****************************************************************************
@@ -272,21 +272,21 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  *
  * @param ctrlPoint The control point in question
  */
-#define cg_upnp_controlpoint_getssdpserverlist(ctrlPoint) (ctrlPoint->ssdpServerList)
+#define mupnp_upnp_controlpoint_getssdpserverlist(ctrlPoint) (ctrlPoint->ssdpServerList)
 
 /**
  * Get the list of SSDP response servers associated to the control point
  *
  * @param ctrlPoint The control point in question
  */
-#define cg_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint) (ctrlPoint->ssdpResServerList)
+#define mupnp_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint) (ctrlPoint->ssdpResServerList)
 
 /**
  * Get the list of HTTP servers associated to the control point
  *
  * @param ctrlPoint The control point in question
  */
-#define cg_upnp_controlpoint_gethttpserverlist(ctrlPoint) (ctrlPoint->httpServerList)
+#define mupnp_upnp_controlpoint_gethttpserverlist(ctrlPoint) (ctrlPoint->httpServerList)
 
 /****************************************************************************
  * SSDP listener
@@ -299,7 +299,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param func A callback function that is of type @ref CG_UPNP_SSDP_LISTNER
  */
-#define cg_upnp_controlpoint_setssdplistener(ctrlPoint, func) (ctrlPoint->ssdpListener = func)
+#define mupnp_upnp_controlpoint_setssdplistener(ctrlPoint, func) (ctrlPoint->ssdpListener = func)
 
 /**
  * Get the SSDP message listener for the control point. 
@@ -307,7 +307,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @return A callback function that is of type @ref CG_UPNP_SSDP_LISTNER or NULL
  */
-#define cg_upnp_controlpoint_getssdplistener(ctrlPoint) (ctrlPoint->ssdpListener)
+#define mupnp_upnp_controlpoint_getssdplistener(ctrlPoint) (ctrlPoint->ssdpListener)
 
 /**
  * Set an SSDP response listener for the control point. Use this function to
@@ -316,7 +316,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param func A callback function that is of type @ref CG_UPNP_SSDP_RESPONSE_LISTNER
  */
-#define cg_upnp_controlpoint_setssdpresponselistener(ctrlPoint, func) (ctrlPoint->ssdpResListener = func)
+#define mupnp_upnp_controlpoint_setssdpresponselistener(ctrlPoint, func) (ctrlPoint->ssdpResListener = func)
 
 /**
  * Get the SSDP response listener for the control point.
@@ -324,7 +324,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @return A callback function that is of type @ref CG_UPNP_SSDP_RESPONSE_LISTNER or NULL
  */
-#define cg_upnp_controlpoint_getssdpresponselistener(ctrlPoint) (ctrlPoint->ssdpResListener)
+#define mupnp_upnp_controlpoint_getssdpresponselistener(ctrlPoint) (ctrlPoint->ssdpResListener)
 
 /**
  * Set device listener for the control point.
@@ -332,7 +332,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point
  * @param func A callback function that is type @ref CG_UPNP_DEVICE_LISTENER or NULL
  */
-#define cg_upnp_controlpoint_setdevicelistener(ctrlPoint, func) (ctrlPoint->deviceListener = func)
+#define mupnp_upnp_controlpoint_setdevicelistener(ctrlPoint, func) (ctrlPoint->deviceListener = func)
 
 /**
  * Get the device listener for the control point.
@@ -340,7 +340,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @return A callback function that is of type @ref CG_UPNP_DEVICE_LISTENER or NULL
  */
-#define cg_upnp_controlpoint_getdevicelistener(ctrlPoint) (ctrlPoint->deviceListener)
+#define mupnp_upnp_controlpoint_getdevicelistener(ctrlPoint) (ctrlPoint->deviceListener)
 
 /****************************************************************************
  * Event listening
@@ -353,7 +353,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param listener A callback function that is of type @ref CG_UPNP_EVENT_LISTENER
  */
-#define cg_upnp_controlpoint_addeventlistener(ctrlPoint, listener) (cg_upnp_eventlistenerlist_add(ctrlPoint->eventListeners, listener))
+#define mupnp_upnp_controlpoint_addeventlistener(ctrlPoint, listener) (mupnp_upnp_eventlistenerlist_add(ctrlPoint->eventListeners, listener))
 
 /**
  * Remove an event listener from the control point.
@@ -361,7 +361,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param listener The callback function to remove, that is of type @ref CG_UPNP_EVENT_LISTENER
  */
-#define cg_upnp_controlpoint_removeeventlistener(ctrlPoint, listener) (cg_upnp_eventlistenerlist_remove(ctrlPoint->eventListeners, listener))
+#define mupnp_upnp_controlpoint_removeeventlistener(ctrlPoint, listener) (mupnp_upnp_eventlistenerlist_remove(ctrlPoint->eventListeners, listener))
 
 /**
  * Set a single event listener for the control point. Use this function to
@@ -370,12 +370,12 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param evlistener The callback function to set, that is of type @ref CG_UPNP_EVENT_LISTENER, or NULL
  */
-#define cg_upnp_controlpoint_seteventlistener(ctrlPoint, evlistener) \
+#define mupnp_upnp_controlpoint_seteventlistener(ctrlPoint, evlistener) \
 	do {\
 		if (evlistener == NULL) \
-			cg_upnp_eventlistenerlist_remove(ctrlPoint->eventListeners, ctrlPoint->eventListeners->next->listener); \
+			mupnp_upnp_eventlistenerlist_remove(ctrlPoint->eventListeners, ctrlPoint->eventListeners->next->listener); \
 		else \
-			cg_upnp_eventlistenerlist_add(ctrlPoint->eventListeners, evlistener); \
+			mupnp_upnp_eventlistenerlist_add(ctrlPoint->eventListeners, evlistener); \
 	} while(0)
 
 /**
@@ -385,7 +385,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @return The callback function, that is of type @ref CG_UPNP_EVENT_LISTENER,
  *         or NULL if there is no listener
  */
-#define cg_upnp_controlpoint_geteventlistener(ctrlPoint) (ctrlPoint->eventListeners->next->listener)
+#define mupnp_upnp_controlpoint_geteventlistener(ctrlPoint) (ctrlPoint->eventListeners->next->listener)
 
 /**
  * Get the list of event listeners for the control point.
@@ -393,7 +393,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @return List of @ref CG_UPNP_EVENT_LISTENER functions
  */
-#define cg_upnp_controlpoint_geteventlisteners(ctrlPoint) (ctrlPoint->eventListeners)
+#define mupnp_upnp_controlpoint_geteventlisteners(ctrlPoint) (ctrlPoint->eventListeners)
 
 /****************************************************************************
  * SSDP Response port
@@ -405,14 +405,14 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param port The IP port number
  */
-#define cg_upnp_controlpoint_setssdpresponseport(ctrlPoint, port) (ctrlPoint->ssdpResPort = port)
+#define mupnp_upnp_controlpoint_setssdpresponseport(ctrlPoint, port) (ctrlPoint->ssdpResPort = port)
 
 /**
  * Get the IP port number used for the control point's SSDP responses
  *
  * @param ctrlPoint The control point in question
  */
-#define cg_upnp_controlpoint_getssdpresponseport(ctrlPoint) (ctrlPoint->ssdpResPort)
+#define mupnp_upnp_controlpoint_getssdpresponseport(ctrlPoint) (ctrlPoint->ssdpResPort)
 
 /****************************************************************************
  * Eventing
@@ -424,14 +424,14 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param port The IP port number
  */
-#define cg_upnp_controlpoint_seteventport(ctrlPoint, port) (ctrlPoint->httpEventPort = port)
+#define mupnp_upnp_controlpoint_seteventport(ctrlPoint, port) (ctrlPoint->httpEventPort = port)
 
 /**
  * Get the IP port number for the control point's event reception
  *
  * @param ctrlPoint The control point in question
  */
-#define cg_upnp_controlpoint_geteventport(ctrlPoint) (ctrlPoint->httpEventPort)
+#define mupnp_upnp_controlpoint_geteventport(ctrlPoint) (ctrlPoint->httpEventPort)
 
 /**
  * Set the URI used for the control point's event subscription notifications
@@ -439,14 +439,14 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param uri The URI to set
  */
-#define cg_upnp_controlpoint_seteventsuburi(ctrlPoint, uri) cg_string_setvalue(ctrlPoint->httpEventURI, uri)
+#define mupnp_upnp_controlpoint_seteventsuburi(ctrlPoint, uri) mupnp_string_setvalue(ctrlPoint->httpEventURI, uri)
 
 /**
  * Get the URI used for the control point's event subscription notifications
  *
  * @param ctrlPoint The control point in question
  */
-#define cg_upnp_controlpoint_geteventsuburi(ctrlPoint) cg_string_getvalue(ctrlPoint->httpEventURI)
+#define mupnp_upnp_controlpoint_geteventsuburi(ctrlPoint) mupnp_string_getvalue(ctrlPoint->httpEventURI)
 
 /****************************************************************************
  * M-SEARCH
@@ -458,7 +458,7 @@ CgUpnpDevice *cg_upnp_controlpoint_getdevicebyudn(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param target The Search Target parameter (ex. "ssdp:all")
  */
-BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *target);
+BOOL mupnp_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *target);
 
 /**
  * Set the MX-parameter used for SSDP searches i.e. Set the time to wait 
@@ -467,7 +467,7 @@ BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *targ
  * @param ctrlPoint The control point in question
  * @param value MX; Time to wait
  */
-#define cg_upnp_controlpoint_setssdpsearchmx(ctrlPoint, value) (ctrlPoint->ssdpSearchMx = value)
+#define mupnp_upnp_controlpoint_setssdpsearchmx(ctrlPoint, value) (ctrlPoint->ssdpSearchMx = value)
 
 /**
  * Get the MX-parameter used for SSDP searches
@@ -475,7 +475,7 @@ BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *targ
  * @param ctrlPoint The control point in question
  * @return value MX; Time to wait
  */
-#define cg_upnp_controlpoint_getssdpsearchmx(ctrlPoint) (ctrlPoint->ssdpSearchMx)
+#define mupnp_upnp_controlpoint_getssdpsearchmx(ctrlPoint) (ctrlPoint->ssdpSearchMx)
 
 /****************************************************************************
  * HTTP listener
@@ -488,7 +488,7 @@ BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *targ
  * @param ctrlPoint The control point in question
  * @param func The listener function, that is of type @ref CG_HTTP_LISTENER
  */
-#define cg_upnp_controlpoint_sethttplistener(ctrlPoint, func) (ctrlPoint->httpListener = func)
+#define mupnp_upnp_controlpoint_sethttplistener(ctrlPoint, func) (ctrlPoint->httpListener = func)
 
 /**
  * Get the HTTP listener function for the control point.
@@ -496,7 +496,7 @@ BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *targ
  * @param ctrlPoint The control point in question
  * @return The listener function, that is of type @ref CG_HTTP_LISTENER
  */
-#define cg_upnp_controlpoint_gethttplistener(ctrlPoint) (ctrlPoint->httpListener)
+#define mupnp_upnp_controlpoint_gethttplistener(ctrlPoint) (ctrlPoint->httpListener)
 
 /**
  * The function that calls all HTTP listener callback functions. Do not call
@@ -504,7 +504,7 @@ BOOL cg_upnp_controlpoint_search(CgUpnpControlPoint *ctrlPoint, const char *targ
  *
  * @param httpReq The received HTTP request
  */
-void cg_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq);
+void mupnp_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq);
 
 /**
  * When an event is received, update also the associated service's
@@ -513,7 +513,7 @@ void cg_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq);
  * @param service The service, whose state table to update
  * @param prop The evented property from which to update
  */
-void cg_upnp_controlpoint_updatestatetablefromproperty(CgUpnpService* service,
+void mupnp_upnp_controlpoint_updatestatetablefromproperty(CgUpnpService* service,
 						       CgUpnpProperty* prop);
 						       
 /****************************************************************************
@@ -526,7 +526,7 @@ void cg_upnp_controlpoint_updatestatetablefromproperty(CgUpnpService* service,
  * @param ctrlPoint The control point in question
  * @param value Arbitrary user data
  */
-#define cg_upnp_controlpoint_setuserdata(ctrlPoint, value) (ctrlPoint->userData = value)
+#define mupnp_upnp_controlpoint_setuserdata(ctrlPoint, value) (ctrlPoint->userData = value)
 
 /**
  * Get the user data pointer (arbitrary user data) from the control point.
@@ -534,7 +534,7 @@ void cg_upnp_controlpoint_updatestatetablefromproperty(CgUpnpService* service,
  * @param dev The control point in question
  * @return Pointer to user data or NULL
  */
-#define cg_upnp_controlpoint_getuserdata(ctrlPoint) (ctrlPoint->userData)
+#define mupnp_upnp_controlpoint_getuserdata(ctrlPoint) (ctrlPoint->userData)
 
 /****************************************************************************
  * Service SCPD
@@ -547,7 +547,7 @@ void cg_upnp_controlpoint_updatestatetablefromproperty(CgUpnpService* service,
  * @param service The service in question
  * @return TRUE if successful; otherwise FALSE
  */
-BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service);
+BOOL mupnp_upnp_controlpoint_parsescservicescpd(CgUpnpService *service);
 
 /**
  * Parse the device's services using the received SSDP packet. Do not call this
@@ -556,7 +556,7 @@ BOOL cg_upnp_controlpoint_parsescservicescpd(CgUpnpService *service);
  * @param dev The device in question
  * @param ssdpPkt An SSDP packet
  */
-BOOL cg_upnp_controlpoint_parseservicesfordevice(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt);
+BOOL mupnp_upnp_controlpoint_parseservicesfordevice(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt);
 
 /****************************************************************************
  * Device adding/removal by SSDP packets
@@ -569,7 +569,7 @@ BOOL cg_upnp_controlpoint_parseservicesfordevice(CgUpnpDevice *dev, CgUpnpSSDPPa
  * @param ctrlPoint The control point, whose device list to handle
  * @param ssdpPkt The received SSDP packet
  */
-void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint,
+void mupnp_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint,
 						CgUpnpSSDPPacket *ssdpPkt);
 
 /**
@@ -579,7 +579,7 @@ void cg_upnp_controlpoint_adddevicebyssdppacket(CgUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point, whose device list to handle
  * @param ssdpPkt The received SSDP packet
  */
-void cg_upnp_controlpoint_removedevicebyssdppacket(CgUpnpControlPoint *ctrlPoint,
+void mupnp_upnp_controlpoint_removedevicebyssdppacket(CgUpnpControlPoint *ctrlPoint,
 						   CgUpnpSSDPPacket *ssdpPkt);
 
 /****************************************
@@ -594,7 +594,7 @@ void cg_upnp_controlpoint_removedevicebyssdppacket(CgUpnpControlPoint *ctrlPoint
  * @param timeout Timeout for subscription expiration/renewal
  * @return TRUE if successful; otherwise FALSE
  */
-BOOL cg_upnp_controlpoint_subscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service, long timeout);
+BOOL mupnp_upnp_controlpoint_subscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service, long timeout);
 
 /**
  * Re-subscribe to a service's events (i.e. renew subscription)
@@ -604,7 +604,7 @@ BOOL cg_upnp_controlpoint_subscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService
  * @param timeout Timeout for subscription expiration/renewal
  * @return TRUE if successful; otherwise FALSE
  */
-BOOL cg_upnp_controlpoint_resubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service, long timeout);
+BOOL mupnp_upnp_controlpoint_resubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service, long timeout);
 
 /**
  * Unsubscribe to a service's events (i.e. cancel subscription)
@@ -613,7 +613,7 @@ BOOL cg_upnp_controlpoint_resubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpServi
  * @param service The service to unsubscribe to
  * @return TRUE if successful; otherwise FALSE
  */
-BOOL cg_upnp_controlpoint_unsubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service);
+BOOL mupnp_upnp_controlpoint_unsubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service);
 
 /**
  * Subscribe to all of the device's services' events
@@ -623,7 +623,7 @@ BOOL cg_upnp_controlpoint_unsubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpServi
  * @param timeout Timeout for subscription expiration/renewal
  * @return TRUE if successful; otherwise FALSE
  */
-BOOL cg_upnp_controlpoint_subscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevice *dev, long timeout);
+BOOL mupnp_upnp_controlpoint_subscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevice *dev, long timeout);
 
 /**
  * Re-subscribe to all of the device's services' events (i.e. renew subscription)
@@ -633,7 +633,7 @@ BOOL cg_upnp_controlpoint_subscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevi
  * @param timeout Timeout for subscription expiration/renewal
  * @return TRUE if successful; otherwise FALSE
  */
-BOOL cg_upnp_controlpoint_resubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevice *dev, long timeout);
+BOOL mupnp_upnp_controlpoint_resubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevice *dev, long timeout);
 
 /**
  * Unsubscribe to all of the device's services' events (i.e. cancel subscription)
@@ -642,7 +642,7 @@ BOOL cg_upnp_controlpoint_resubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDe
  * @param dev The device to unsubscribe to
  * @return TRUE if successful; otherwise FALSE
  */
-BOOL cg_upnp_controlpoint_unsubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevice *dev);
+BOOL mupnp_upnp_controlpoint_unsubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevice *dev);
 
 /****************************************
  * Function (DeviceList)
@@ -654,7 +654,7 @@ BOOL cg_upnp_controlpoint_unsubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDe
  * @param ctrlPoint The control point in use
  * @return The head of the device list
  */
-#define cg_upnp_controlpoint_getdevices(ctrlPoint) cg_upnp_devicelist_gets(ctrlPoint->deviceList)
+#define mupnp_upnp_controlpoint_getdevices(ctrlPoint) mupnp_upnp_devicelist_gets(ctrlPoint->deviceList)
 
 /**
  * Get the number of devices known by the control point
@@ -662,7 +662,7 @@ BOOL cg_upnp_controlpoint_unsubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDe
  * @param ctrlPoint The control point in use
  * @return The number of devices in the control point's device list
  */
-#define cg_upnp_controlpoint_getndevices(ctrlPoint) cg_upnp_devicelist_size(ctrlPoint->deviceList)
+#define mupnp_upnp_controlpoint_getndevices(ctrlPoint) mupnp_upnp_devicelist_size(ctrlPoint->deviceList)
 
 /**
  * Get the head of the control point's list of devices (use for iteration)
@@ -671,7 +671,7 @@ BOOL cg_upnp_controlpoint_unsubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDe
  * @param index The index of the device to get
  * @return The specified device
  */
-#define cg_upnp_controlpoint_getdevice(ctrlPoint, index) cg_upnp_devicelist_get(ctrlPoint->deviceList, index)
+#define mupnp_upnp_controlpoint_getdevice(ctrlPoint, index) mupnp_upnp_devicelist_get(ctrlPoint->deviceList, index)
 
 /**
  * Add a device to the control point's list of devices. Do not call this from
@@ -680,7 +680,7 @@ BOOL cg_upnp_controlpoint_unsubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDe
  * @param ctrlPoint The control point in use
  * @param dev The device to add
  */
-#define cg_upnp_controlpoint_adddevice(ctrlPoint, dev) cg_upnp_devicelist_add(ctrlPoint->deviceList, dev)
+#define mupnp_upnp_controlpoint_adddevice(ctrlPoint, dev) mupnp_upnp_devicelist_add(ctrlPoint->deviceList, dev)
 
 /****************************************
  * Environment handling
@@ -691,7 +691,7 @@ BOOL cg_upnp_controlpoint_unsubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDe
  *
  * \param thread the thread in question
  */
-void cg_upnp_controlpoint_expirationhandler(CgThread *thread);
+void mupnp_upnp_controlpoint_expirationhandler(CgThread *thread);
 
 /**
  * Notify the control point that any IP of the host has been changed.
@@ -699,7 +699,7 @@ void cg_upnp_controlpoint_expirationhandler(CgThread *thread);
  * \param ctrlpoint The control point in use
  * \return success of changing used interfaces
  */
-BOOL cg_upnp_controlpoint_ipchanged(CgUpnpControlPoint *ctrlpoint);
+BOOL mupnp_upnp_controlpoint_ipchanged(CgUpnpControlPoint *ctrlpoint);
 
 
 /**
@@ -707,7 +707,7 @@ BOOL cg_upnp_controlpoint_ipchanged(CgUpnpControlPoint *ctrlpoint);
  *
  * @param ctrlPoint The control point in question
  */
-const char *cg_upnp_controlpoint_geteventsubcallbackurl(CgUpnpControlPoint *ctrlPoint, char *ifaddr, char *buf, size_t bufLen);
+const char *mupnp_upnp_controlpoint_geteventsubcallbackurl(CgUpnpControlPoint *ctrlPoint, char *ifaddr, char *buf, size_t bufLen);
 
 #ifdef  __cplusplus
 }

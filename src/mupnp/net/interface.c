@@ -16,10 +16,10 @@
 *	02/09/05
 *		- first revision
 *	02/09/05
-*		- Added cg_net_interface_setnetmask() and cg_net_interface_getnetmask().
+*		- Added mupnp_net_interface_setnetmask() and mupnp_net_interface_getnetmask().
 *	09/12/07
 *		- Added the following functions to get MAC address.
-*		  cg_net_interface_setmacaddress(), cg_net_interface_getmacaddress()
+*		  mupnp_net_interface_setmacaddress(), mupnp_net_interface_getmacaddress()
 *
 ******************************************************************/
 
@@ -32,163 +32,163 @@
 #include <string.h>
 
 /****************************************
-* cg_net_interface_new
+* mupnp_net_interface_new
 ****************************************/
 
-CgNetworkInterface *cg_net_interface_new()
+CgNetworkInterface *mupnp_net_interface_new()
 {
 	CgNetworkInterface *netIf;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	netIf = (CgNetworkInterface *)malloc(sizeof(CgNetworkInterface));
 
 	if ( NULL != netIf )
 	{
-		cg_list_node_init((CgList *)netIf);
-		netIf->name = cg_string_new();
-		netIf->ipaddr = cg_string_new();
-		netIf->netmask = cg_string_new();
-		cg_net_interface_setindex(netIf, 0);
+		mupnp_list_node_init((CgList *)netIf);
+		netIf->name = mupnp_string_new();
+		netIf->ipaddr = mupnp_string_new();
+		netIf->netmask = mupnp_string_new();
+		mupnp_net_interface_setindex(netIf, 0);
 		memset(netIf->macaddr, 0, (size_t)CG_NET_MACADDR_SIZE);
 	}
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return netIf;
 }
 
 /****************************************
-* cg_net_interface_delete
+* mupnp_net_interface_delete
 ****************************************/
 
-void cg_net_interface_delete(CgNetworkInterface *netIf)
+void mupnp_net_interface_delete(CgNetworkInterface *netIf)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)netIf);
-	cg_string_delete(netIf->name);
-	cg_string_delete(netIf->ipaddr);
-	cg_string_delete(netIf->netmask);
+	mupnp_list_remove((CgList *)netIf);
+	mupnp_string_delete(netIf->name);
+	mupnp_string_delete(netIf->ipaddr);
+	mupnp_string_delete(netIf->netmask);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	free(netIf);
 }
 
 /****************************************
-* cg_net_interface_getany
+* mupnp_net_interface_getany
 ****************************************/
 
-CgNetworkInterface *cg_net_interface_getany()
+CgNetworkInterface *mupnp_net_interface_getany()
 {
 	CgNetworkInterface *netIf;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	netIf = cg_net_interface_new();
+	netIf = mupnp_net_interface_new();
 	/* It would be more approriate to use INADDR_ANY, but this will do */
-	cg_net_interface_setname(netIf, "INADDR_ANY");
-	cg_net_interface_setaddress(netIf, "0.0.0.0");
+	mupnp_net_interface_setname(netIf, "INADDR_ANY");
+	mupnp_net_interface_setaddress(netIf, "0.0.0.0");
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return netIf;
 }
 
 /****************************************
-* cg_net_interface_setname
+* mupnp_net_interface_setname
 ****************************************/
 
-void cg_net_interface_setname(CgNetworkInterface *netIf, char *name)
+void mupnp_net_interface_setname(CgNetworkInterface *netIf, char *name)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_string_setvalue(netIf->name, name);
+	mupnp_string_setvalue(netIf->name, name);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_net_interface_getname
+* mupnp_net_interface_getname
 ****************************************/
 
-char *cg_net_interface_getname(CgNetworkInterface *netIf)
+char *mupnp_net_interface_getname(CgNetworkInterface *netIf)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return cg_string_getvalue(netIf->name);
+	return mupnp_string_getvalue(netIf->name);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_net_interface_setaddress
+* mupnp_net_interface_setaddress
 ****************************************/
 
-void cg_net_interface_setaddress(CgNetworkInterface *netIf, char *value)
+void mupnp_net_interface_setaddress(CgNetworkInterface *netIf, char *value)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_string_setvalue(netIf->ipaddr, value);
+	mupnp_string_setvalue(netIf->ipaddr, value);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_net_interface_getaddress
+* mupnp_net_interface_getaddress
 ****************************************/
 
-char *cg_net_interface_getaddress(CgNetworkInterface *netIf)
+char *mupnp_net_interface_getaddress(CgNetworkInterface *netIf)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return cg_string_getvalue(netIf->ipaddr);
+	return mupnp_string_getvalue(netIf->ipaddr);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_net_interface_setnetmask
+* mupnp_net_interface_setnetmask
 ****************************************/
 
-void cg_net_interface_setnetmask(CgNetworkInterface *netIf, char *value)
+void mupnp_net_interface_setnetmask(CgNetworkInterface *netIf, char *value)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_string_setvalue(netIf->netmask, value);
+	mupnp_string_setvalue(netIf->netmask, value);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_net_interface_getnetmask
+* mupnp_net_interface_getnetmask
 ****************************************/
 
-char *cg_net_interface_getnetmask(CgNetworkInterface *netIf)
+char *mupnp_net_interface_getnetmask(CgNetworkInterface *netIf)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return cg_string_getvalue(netIf->netmask);
+	return mupnp_string_getvalue(netIf->netmask);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_net_interface_cmp
+* mupnp_net_interface_cmp
 ****************************************/
 
-int cg_net_interface_cmp(CgNetworkInterface *netIfA, 
+int mupnp_net_interface_cmp(CgNetworkInterface *netIfA, 
 			 CgNetworkInterface *netIfB)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (netIfA == NULL && netIfB == NULL) return 0;
 	if (netIfA == NULL && netIfB != NULL) return 1;
 	if (netIfA != NULL && netIfB == NULL) return -1;
 	
-	return cg_strcmp(cg_net_interface_getaddress(netIfA), 
-			 cg_net_interface_getaddress(netIfB));
+	return mupnp_strcmp(mupnp_net_interface_getaddress(netIfA), 
+			 mupnp_net_interface_getaddress(netIfB));
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

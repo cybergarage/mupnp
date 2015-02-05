@@ -18,10 +18,10 @@
 *	12/13/07 Aapo Makela
 *		- Fixes to work in out-of-memory situations
 *	05/22/08
-*		- Added cg_xml_nodelist_getbyname() instead of cg_xml_nodelist_get().
-*		- Added cg_xml_node_getchildnodebyname() instead of cg_xml_node_getchildnode().
-*		- Added cg_xml_nodelist_getbyxpath() and cg_xml_node_getchildnodebyxpath() to get a node simply.
-*		- Deprecated cg_xml_nodelist_get() and cg_xml_node_getchildnode().*
+*		- Added mupnp_xml_nodelist_getbyname() instead of mupnp_xml_nodelist_get().
+*		- Added mupnp_xml_node_getchildnodebyname() instead of mupnp_xml_node_getchildnode().
+*		- Added mupnp_xml_nodelist_getbyxpath() and mupnp_xml_node_getchildnodebyxpath() to get a node simply.
+*		- Deprecated mupnp_xml_nodelist_get() and mupnp_xml_node_getchildnode().*
 *
 ******************************************************************/
 
@@ -29,131 +29,131 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_xml_node_new
+* mupnp_xml_node_new
 ****************************************/
 
-CgXmlNode *cg_xml_node_new()
+CgXmlNode *mupnp_xml_node_new()
 {
 	CgXmlNode *node;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	node = (CgXmlNode *)malloc(sizeof(CgXmlNode));
 
 	if ( NULL != node )
 	{
-		cg_list_node_init((CgList *)node);
+		mupnp_list_node_init((CgList *)node);
 
-		node->name = cg_string_new();
-		node->value = cg_string_new();
-		node->attrList = cg_xml_attributelist_new();
-		node->nodeList = cg_xml_nodelist_new();
+		node->name = mupnp_string_new();
+		node->value = mupnp_string_new();
+		node->attrList = mupnp_xml_attributelist_new();
+		node->nodeList = mupnp_xml_nodelist_new();
 		node->parentNode = NULL;
 		node->userData = NULL;
 		node->userDataDestructorFunc = NULL;
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 	
 	return node;
 }
 
 /****************************************
-* cg_xml_node_delete
+* mupnp_xml_node_delete
 ****************************************/
 
-void cg_xml_node_delete(CgXmlNode *node)
+void mupnp_xml_node_delete(CgXmlNode *node)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)node);
-	cg_string_delete(node->name);
-	cg_string_delete(node->value);
-	cg_xml_attributelist_delete(node->attrList);
-	cg_xml_nodelist_delete(node->nodeList);
+	mupnp_list_remove((CgList *)node);
+	mupnp_string_delete(node->name);
+	mupnp_string_delete(node->value);
+	mupnp_xml_attributelist_delete(node->attrList);
+	mupnp_xml_nodelist_delete(node->nodeList);
 	if (node->userDataDestructorFunc != NULL)
 		node->userDataDestructorFunc(node->userData);
 	free(node);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_node_setparentnode
+* mupnp_xml_node_setparentnode
 ****************************************/
 
-CgXmlNode *cg_xml_node_getrootnode(CgXmlNode *node)
+CgXmlNode *mupnp_xml_node_getrootnode(CgXmlNode *node)
 {
 	CgXmlNode *rootNode;
 	CgXmlNode *parentNode;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	rootNode = NULL; 
-	parentNode = cg_xml_node_getparentnode(node);
+	parentNode = mupnp_xml_node_getparentnode(node);
 	while (parentNode != NULL) {
 		 rootNode = parentNode;
-		 parentNode = cg_xml_node_getparentnode(rootNode);
+		 parentNode = mupnp_xml_node_getparentnode(rootNode);
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return rootNode;
 }
 
 /****************************************
-* cg_xml_node_addchildnode
+* mupnp_xml_node_addchildnode
 ****************************************/
 
-void cg_xml_node_addchildnode(CgXmlNode *node, CgXmlNode *cnode)
+void mupnp_xml_node_addchildnode(CgXmlNode *node, CgXmlNode *cnode)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_xml_nodelist_add(node->nodeList, cnode);
-	cg_xml_node_setparentnode(cnode, node);
+	mupnp_xml_nodelist_add(node->nodeList, cnode);
+	mupnp_xml_node_setparentnode(cnode, node);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_node_setchildnode
+* mupnp_xml_node_setchildnode
 ****************************************/
 
-void cg_xml_node_setchildnode(CgXmlNode *node, const char *name, const char *value)
+void mupnp_xml_node_setchildnode(CgXmlNode *node, const char *name, const char *value)
 {
 	CgXmlNode *childNode;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	childNode = cg_xml_node_getchildnode(node, name);
+	childNode = mupnp_xml_node_getchildnode(node, name);
 	if (childNode != NULL) {
-		cg_xml_node_setvalue(childNode, value);
+		mupnp_xml_node_setvalue(childNode, value);
 		return;
 	}
-	childNode = cg_xml_node_new();
-	cg_xml_node_setname(childNode, name);
-	cg_xml_node_setvalue(childNode, value);
+	childNode = mupnp_xml_node_new();
+	mupnp_xml_node_setname(childNode, name);
+	mupnp_xml_node_setvalue(childNode, value);
 	
-	cg_xml_node_addchildnode(node, childNode);
+	mupnp_xml_node_addchildnode(node, childNode);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
- * cg_xml_node_removechildnode
+ * mupnp_xml_node_removechildnode
  ****************************************/
 
-BOOL cg_xml_node_removechildnode(CgXmlNode *node, const char *name)
+BOOL mupnp_xml_node_removechildnode(CgXmlNode *node, const char *name)
 {
 	CgXmlNode *childNode;
   
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
   
-	childNode = cg_xml_node_getchildnode(node, name);
+	childNode = mupnp_xml_node_getchildnode(node, name);
 	if (!childNode)
     return FALSE;
 
-  cg_xml_node_remove(childNode);
+  mupnp_xml_node_remove(childNode);
   
   return TRUE;
 }
@@ -163,7 +163,7 @@ BOOL cg_xml_node_removechildnode(CgXmlNode *node, const char *name)
 * If ns is NULL, name string must match completely
 *****************************************************************************/
 
-CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *name, const char *ns, BOOL ignoreNs)
+CgXmlNode *mupnp_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *name, const char *ns, BOOL ignoreNs)
 {
 	char *nameWithPrefix = NULL;
 	size_t nameLen = 0;
@@ -172,7 +172,7 @@ CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *na
 	CgXmlNode *child = NULL;
 	char *nodeName = NULL;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (node == NULL)
 		return NULL;
@@ -182,22 +182,22 @@ CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *na
 
 	if (ignoreNs == TRUE)
 	{
-		for (child = cg_xml_node_getchildnodelist(node); child != NULL; child = cg_xml_node_next(child))
+		for (child = mupnp_xml_node_getchildnodelist(node); child != NULL; child = mupnp_xml_node_next(child))
 		{
-			nodeName = cg_xml_node_getname(child);
+			nodeName = mupnp_xml_node_getname(child);
 			if (nodeName == NULL)
 				continue;
 
-			nameIdx = cg_strstr(nodeName, ":");
+			nameIdx = mupnp_strstr(nodeName, ":");
 			if (nameIdx < 0)
 			{
 				/* No prefix (no ':') */
-				if (cg_strcasecmp(nodeName, name) == 0)
+				if (mupnp_strcasecmp(nodeName, name) == 0)
 					return child;
 			}
 			else
 			{
-				if (cg_strcasecmp(&(nodeName[nameIdx+1]), name) == 0)
+				if (mupnp_strcasecmp(&(nodeName[nameIdx+1]), name) == 0)
 					return child;
 			}
 		}
@@ -209,10 +209,10 @@ CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *na
 		if (ns == NULL)
 		{
 			/* When ns is NULL, this works like normal ..._getchildnode */
-			return cg_xml_node_getchildnode(node, name);
+			return mupnp_xml_node_getchildnode(node, name);
 		}
 
-		nameLen = cg_strlen(name) + cg_strlen(ns) + 1; /* Not including the terminating \0 */
+		nameLen = mupnp_strlen(name) + mupnp_strlen(ns) + 1; /* Not including the terminating \0 */
 		nameWithPrefix = (char*) malloc(nameLen + 1);
 		if (nameWithPrefix == NULL)
 			return NULL;
@@ -223,226 +223,226 @@ CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *na
 		sprintf(nameWithPrefix, "%s:%s", ns, name);
 #endif
 		
-		result = cg_xml_node_getchildnode(node, nameWithPrefix);
+		result = mupnp_xml_node_getchildnode(node, nameWithPrefix);
 
 		free(nameWithPrefix);
 		return result;
 	}
 
-	cg_log_debug_l4("Leaving...\n");	
+	mupnp_log_debug_l4("Leaving...\n");	
 }
 
 /****************************************
-* cg_xml_node_getchildnodevalue
+* mupnp_xml_node_getchildnodevalue
 ****************************************/
 
-const char *cg_xml_node_getchildnodevalue(CgXmlNode *node, const char *name)
+const char *mupnp_xml_node_getchildnodevalue(CgXmlNode *node, const char *name)
 {
 	CgXmlNode *childNode;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	childNode = cg_xml_node_getchildnode(node, name);
+	childNode = mupnp_xml_node_getchildnode(node, name);
 	if (childNode != NULL)
-		return cg_xml_node_getvalue(childNode);
+		return mupnp_xml_node_getvalue(childNode);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return NULL;
 }
 
 /****************************************
-* cg_xml_node_removeattribute
+* mupnp_xml_node_removeattribute
 ****************************************/
 
-BOOL cg_xml_node_removeattribute(CgXmlNode *node, const char *name)
+BOOL mupnp_xml_node_removeattribute(CgXmlNode *node, const char *name)
 {
 	CgXmlAttribute *attr;
 
 	if (!node || !name)
 		return FALSE;
 
-	attr = cg_xml_node_getattribute(node, name);
+	attr = mupnp_xml_node_getattribute(node, name);
 	if (!attr)
 		return FALSE;
 
-	cg_xml_attribute_remove(attr);
+	mupnp_xml_attribute_remove(attr);
   
   return TRUE;
 }
 
 /****************************************
- * cg_xml_node_copy
+ * mupnp_xml_node_copy
  ****************************************/
 
-void cg_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode)
+void mupnp_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode)
 {
 	CgXmlAttribute *attr;
 	CgXmlNode *dstChildNode;
 	CgXmlNode *srcChildNode;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 	
 	if (!dstNode || !srcNode)
 		return;
 
-	cg_xml_node_setname(dstNode, cg_xml_node_getname(srcNode));
-	cg_xml_node_setvalue(dstNode, cg_xml_node_getvalue(srcNode));
+	mupnp_xml_node_setname(dstNode, mupnp_xml_node_getname(srcNode));
+	mupnp_xml_node_setvalue(dstNode, mupnp_xml_node_getvalue(srcNode));
 	
-	for (attr = cg_xml_node_getattributes(srcNode); attr != NULL; attr = cg_xml_attribute_next(attr))
-		cg_xml_node_setattribute(dstNode, cg_xml_attribute_getname(attr), cg_xml_attribute_getvalue(attr));
+	for (attr = mupnp_xml_node_getattributes(srcNode); attr != NULL; attr = mupnp_xml_attribute_next(attr))
+		mupnp_xml_node_setattribute(dstNode, mupnp_xml_attribute_getname(attr), mupnp_xml_attribute_getvalue(attr));
 	
-	for (srcChildNode = cg_xml_node_getchildnodes(srcNode); srcChildNode != NULL; srcChildNode = cg_xml_node_next(srcChildNode)) {
-		dstChildNode = cg_xml_node_new();
-		cg_xml_node_copy(dstChildNode, srcChildNode);
-		cg_xml_node_addchildnode(dstNode, dstChildNode);
+	for (srcChildNode = mupnp_xml_node_getchildnodes(srcNode); srcChildNode != NULL; srcChildNode = mupnp_xml_node_next(srcChildNode)) {
+		dstChildNode = mupnp_xml_node_new();
+		mupnp_xml_node_copy(dstChildNode, srcChildNode);
+		mupnp_xml_node_addchildnode(dstNode, dstChildNode);
 	}
 	
-	 cg_log_debug_l4("Leaving...\n");
+	 mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_node_attribute_tostring
+* mupnp_xml_node_attribute_tostring
 ****************************************/
 
-static char *cg_xml_node_attribute_tostring(CgXmlNode *node, CgString *str)
+static char *mupnp_xml_node_attribute_tostring(CgXmlNode *node, CgString *str)
 {
 	CgXmlAttribute *attr;
 	const char *name;
 	const char *value;
 	CgString *valueStr;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	valueStr = cg_string_new();
+	valueStr = mupnp_string_new();
 	if (valueStr == NULL) return NULL;
 
-	for (attr = cg_xml_node_getattributes(node); attr != NULL; attr = cg_xml_attribute_next(attr)) {
-		name = cg_xml_attribute_getname(attr);
-		value = cg_xml_attribute_getvalue(attr);
+	for (attr = mupnp_xml_node_getattributes(node); attr != NULL; attr = mupnp_xml_attribute_next(attr)) {
+		name = mupnp_xml_attribute_getname(attr);
+		value = mupnp_xml_attribute_getvalue(attr);
 		
-		cg_string_setvalue(valueStr, value);
-		cg_xml_escapechars(valueStr);
+		mupnp_string_setvalue(valueStr, value);
+		mupnp_xml_escapechars(valueStr);
 
 		/* All the following functions return NULL only when memory 
 		   allocation fails, so we can check them all */
-		if (!cg_string_naddvalue(str, " ", 1) || 
-		    !cg_string_addvalue(str, name) ||
-		    !cg_string_naddvalue(str, "=\"", 2) ||
-		    !cg_string_addvalue(str, cg_string_getvalue(valueStr)) ||
-		    !cg_string_naddvalue(str, "\"", 1))
+		if (!mupnp_string_naddvalue(str, " ", 1) || 
+		    !mupnp_string_addvalue(str, name) ||
+		    !mupnp_string_naddvalue(str, "=\"", 2) ||
+		    !mupnp_string_addvalue(str, mupnp_string_getvalue(valueStr)) ||
+		    !mupnp_string_naddvalue(str, "\"", 1))
 		{
 			/* Memory allocation failed */
-			cg_string_delete(valueStr);
+			mupnp_string_delete(valueStr);
 			return NULL;
 		}
 	}
-	cg_string_delete(valueStr);
+	mupnp_string_delete(valueStr);
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
-	return cg_string_getvalue(str);
+	return mupnp_string_getvalue(str);
 }
 
 /****************************************
-* cg_xml_node_tostring_indent
+* mupnp_xml_node_tostring_indent
 ****************************************/
 
-static char *cg_xml_node_tostring_indent(CgXmlNode *node, int indentLevel, BOOL withChildNode, CgString *str)
+static char *mupnp_xml_node_tostring_indent(CgXmlNode *node, int indentLevel, BOOL withChildNode, CgString *str)
 {
 	char *name;
 	char *value;
 	CgString *valueStr;
 	CgXmlNode *childNode;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	name = cg_xml_node_getname(node);
-	value = cg_xml_node_getvalue(node);
+	name = mupnp_xml_node_getname(node);
+	value = mupnp_xml_node_getvalue(node);
 
-	if (cg_xml_node_haschildnodes(node) == FALSE || withChildNode == FALSE) {
-		cg_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
-		if (!cg_string_naddvalue(str, "<", 1) ||
-		    !cg_string_addvalue(str, name) ||
-		    !cg_xml_node_attribute_tostring(node, str))
+	if (mupnp_xml_node_haschildnodes(node) == FALSE || withChildNode == FALSE) {
+		mupnp_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
+		if (!mupnp_string_naddvalue(str, "<", 1) ||
+		    !mupnp_string_addvalue(str, name) ||
+		    !mupnp_xml_node_attribute_tostring(node, str))
 			/* Memory allocation failed */
 			return NULL;
 		
-		valueStr = cg_string_new();
+		valueStr = mupnp_string_new();
 		if (!valueStr)
 			/* Memory allocation failed */
 			return NULL;
 		
-		cg_string_setvalue(valueStr, value);
-		cg_xml_escapechars(valueStr);
+		mupnp_string_setvalue(valueStr, value);
+		mupnp_xml_escapechars(valueStr);
 
-		if (!cg_string_naddvalue(str, ">", 1) ||
-		    !cg_string_addvalue(str, cg_string_getvalue(valueStr)) ||
-		    !cg_string_naddvalue(str, "</", 2) ||
-		    !cg_string_addvalue(str, name) ||
-		    !cg_string_naddvalue(str, ">", 1) ||
-		    !cg_string_addvalue(str, "\n"))
+		if (!mupnp_string_naddvalue(str, ">", 1) ||
+		    !mupnp_string_addvalue(str, mupnp_string_getvalue(valueStr)) ||
+		    !mupnp_string_naddvalue(str, "</", 2) ||
+		    !mupnp_string_addvalue(str, name) ||
+		    !mupnp_string_naddvalue(str, ">", 1) ||
+		    !mupnp_string_addvalue(str, "\n"))
 		{
 			/* Memory allocation failed */
-			cg_string_delete(valueStr);
+			mupnp_string_delete(valueStr);
 			return NULL;
 		}
 
-		cg_string_delete(valueStr);
+		mupnp_string_delete(valueStr);
 		
-		return cg_string_getvalue(str);
+		return mupnp_string_getvalue(str);
 	}
 
-	cg_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
-	if (!cg_string_naddvalue(str, "<", 1) ||
-	    !cg_string_addvalue(str, name) ||
-	    !cg_xml_node_attribute_tostring(node, str) ||
-	    !cg_string_naddvalue(str, ">", 1) ||
-	    !cg_string_addvalue(str, "\n"))
+	mupnp_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
+	if (!mupnp_string_naddvalue(str, "<", 1) ||
+	    !mupnp_string_addvalue(str, name) ||
+	    !mupnp_xml_node_attribute_tostring(node, str) ||
+	    !mupnp_string_naddvalue(str, ">", 1) ||
+	    !mupnp_string_addvalue(str, "\n"))
 		/* Memory allocation failed */
 		return NULL;
 
-	for (childNode = cg_xml_node_getchildnodes(node); childNode != NULL; childNode = cg_xml_node_next(childNode))
-		if (!cg_xml_node_tostring_indent(childNode, indentLevel+1, TRUE, str))
+	for (childNode = mupnp_xml_node_getchildnodes(node); childNode != NULL; childNode = mupnp_xml_node_next(childNode))
+		if (!mupnp_xml_node_tostring_indent(childNode, indentLevel+1, TRUE, str))
 			/* Memory allocation failed */
 			return NULL;
 
-	cg_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
-	if (!cg_string_naddvalue(str, "</", 2) ||
-	    !cg_string_addvalue(str, name) ||
-	    !cg_string_naddvalue(str, ">", 1) ||
-	    !cg_string_addvalue(str, "\n"))
+	mupnp_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
+	if (!mupnp_string_naddvalue(str, "</", 2) ||
+	    !mupnp_string_addvalue(str, name) ||
+	    !mupnp_string_naddvalue(str, ">", 1) ||
+	    !mupnp_string_addvalue(str, "\n"))
 		/* Memory allocation failed */
 		return NULL;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 	
-	return cg_string_getvalue(str);
+	return mupnp_string_getvalue(str);
 }
 
 /****************************************
-* cg_xml_node_tostring
+* mupnp_xml_node_tostring
 ****************************************/
 
-char *cg_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str)
+char *mupnp_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	return cg_xml_node_tostring_indent(node, 0, withChildNode, str);
+	return mupnp_xml_node_tostring_indent(node, 0, withChildNode, str);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
- * cg_xml_node_print
+ * mupnp_xml_node_print
  ****************************************/
 
-void  cg_xml_node_print(CgXmlNode *node)
+void  mupnp_xml_node_print(CgXmlNode *node)
 {
-	CgString *str = cg_string_new();
-	cg_xml_node_tostring(node, TRUE, str);
-	printf("%s", cg_string_getvalue(str));
-	cg_string_delete(str);
+	CgString *str = mupnp_string_new();
+	mupnp_xml_node_tostring(node, TRUE, str);
+	printf("%s", mupnp_string_getvalue(str));
+	mupnp_string_delete(str);
 }
 
 

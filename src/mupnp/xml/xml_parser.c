@@ -23,14 +23,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* cg_xml_parser_new
+* mupnp_xml_parser_new
 ****************************************/
 
-CgXmlParser *cg_xml_parser_new()
+CgXmlParser *mupnp_xml_parser_new()
 {
 	CgXmlParser *parser;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	parser = (CgXmlParser *)malloc(sizeof(CgXmlParser));
 
@@ -40,18 +40,18 @@ CgXmlParser *cg_xml_parser_new()
 	}
 	return parser;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_xml_parser_delete
+* mupnp_xml_parser_delete
 ****************************************/
 
-void cg_xml_parser_delete(CgXmlParser *parser)
+void mupnp_xml_parser_delete(CgXmlParser *parser)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	free(parser);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

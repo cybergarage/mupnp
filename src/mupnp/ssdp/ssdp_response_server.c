@@ -29,198 +29,198 @@
 #if !defined(CG_UPNP_NOUSE_CONTROLPOINT)
 
 /****************************************
-* cg_upnp_ssdpresponse_server_new
+* mupnp_upnp_ssdpresponse_server_new
 ****************************************/
 
-CgUpnpSSDPResponseServer *cg_upnp_ssdpresponse_server_new()
+CgUpnpSSDPResponseServer *mupnp_upnp_ssdpresponse_server_new()
 {
 	CgUpnpSSDPResponseServer *server;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	server = (CgUpnpSSDPResponseServer *)malloc(sizeof(CgUpnpSSDPResponseServer));
 
 	if ( NULL != server )
 	{
-		cg_list_node_init((CgList *)server);
+		mupnp_list_node_init((CgList *)server);
 
 		server->httpuSock = NULL;
 		server->recvThread = NULL;
 
-		cg_upnp_ssdpresponse_server_setlistener(server, NULL);
-		cg_upnp_ssdpresponse_server_setuserdata(server, NULL);
+		mupnp_upnp_ssdpresponse_server_setlistener(server, NULL);
+		mupnp_upnp_ssdpresponse_server_setuserdata(server, NULL);
 	}
 		
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return server;
 }
 
 /****************************************
-* cg_upnp_ssdpresponse_server_delete
+* mupnp_upnp_ssdpresponse_server_delete
 ****************************************/
 
-void cg_upnp_ssdpresponse_server_delete(CgUpnpSSDPResponseServer *server)
+void mupnp_upnp_ssdpresponse_server_delete(CgUpnpSSDPResponseServer *server)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_ssdpresponse_server_stop(server);
-	cg_upnp_ssdpresponse_server_close(server);
+	mupnp_upnp_ssdpresponse_server_stop(server);
+	mupnp_upnp_ssdpresponse_server_close(server);
 	
-	cg_list_remove((CgList *)server);
+	mupnp_list_remove((CgList *)server);
 
 	free(server);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_ssdpresponse_server_open
+* mupnp_upnp_ssdpresponse_server_open
 ****************************************/
 
-BOOL cg_upnp_ssdpresponse_server_open(CgUpnpSSDPResponseServer *server, int bindPort, char *bindAddr)
+BOOL mupnp_upnp_ssdpresponse_server_open(CgUpnpSSDPResponseServer *server, int bindPort, char *bindAddr)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	if (cg_upnp_ssdpresponse_server_isopened(server) == TRUE)
+	if (mupnp_upnp_ssdpresponse_server_isopened(server) == TRUE)
 		return FALSE;
 		
-	server->httpuSock = cg_upnp_httpu_socket_new();
-	if (cg_upnp_httpu_socket_bind(server->httpuSock, bindPort, bindAddr) == FALSE) {
-		cg_upnp_httpu_socket_delete(server->httpuSock);
+	server->httpuSock = mupnp_upnp_httpu_socket_new();
+	if (mupnp_upnp_httpu_socket_bind(server->httpuSock, bindPort, bindAddr) == FALSE) {
+		mupnp_upnp_httpu_socket_delete(server->httpuSock);
 		server->httpuSock = NULL;
 		return FALSE;
 	}
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_upnp_ssdpresponse_server_close
+* mupnp_upnp_ssdpresponse_server_close
 ****************************************/
 
-BOOL cg_upnp_ssdpresponse_server_close(CgUpnpSSDPResponseServer *server)
+BOOL mupnp_upnp_ssdpresponse_server_close(CgUpnpSSDPResponseServer *server)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_ssdpresponse_server_stop(server);
+	mupnp_upnp_ssdpresponse_server_stop(server);
 	
 	if (server->httpuSock != NULL) {
-		cg_upnp_httpu_socket_close(server->httpuSock);
-		cg_upnp_httpu_socket_delete(server->httpuSock);
+		mupnp_upnp_httpu_socket_close(server->httpuSock);
+		mupnp_upnp_httpu_socket_delete(server->httpuSock);
 		server->httpuSock = NULL;
 	}
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_upnp_ssdpresponse_server_performlistener
+* mupnp_upnp_ssdpresponse_server_performlistener
 ****************************************/
 
-void cg_upnp_ssdpresponse_server_performlistener(CgUpnpSSDPResponseServer *server, CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_ssdpresponse_server_performlistener(CgUpnpSSDPResponseServer *server, CgUpnpSSDPPacket *ssdpPkt)
 {
 	CG_UPNP_SSDP_RESPONSE_LISTNER listener;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	listener = cg_upnp_ssdpresponse_server_getlistener(server);
+	listener = mupnp_upnp_ssdpresponse_server_getlistener(server);
 	if (listener == NULL)
 		return;
 	listener(ssdpPkt);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_ssdpresponse_server_thread
+* mupnp_upnp_ssdpresponse_server_thread
 ****************************************/
 
-static void cg_upnp_ssdpresponse_server_thread(CgThread *thread)
+static void mupnp_upnp_ssdpresponse_server_thread(CgThread *thread)
 {
 	CgUpnpSSDPResponseServer *server;
 	CgUpnpSSDPPacket *ssdpPkt;
 	void *userData;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	server = (CgUpnpSSDPResponseServer *)cg_thread_getuserdata(thread);
-	userData = cg_upnp_ssdpresponse_server_getuserdata(server);
+	server = (CgUpnpSSDPResponseServer *)mupnp_thread_getuserdata(thread);
+	userData = mupnp_upnp_ssdpresponse_server_getuserdata(server);
 	
-	if (cg_upnp_ssdpresponse_server_isopened(server) == FALSE)
+	if (mupnp_upnp_ssdpresponse_server_isopened(server) == FALSE)
 		return;
 
-	ssdpPkt = cg_upnp_ssdp_packet_new();
-	cg_upnp_ssdp_packet_setuserdata(ssdpPkt, userData);
+	ssdpPkt = mupnp_upnp_ssdp_packet_new();
+	mupnp_upnp_ssdp_packet_setuserdata(ssdpPkt, userData);
 	
-	while (cg_thread_isrunnable(thread) == TRUE) {
-		if (cg_upnp_httpu_socket_recv(server->httpuSock, ssdpPkt) <= 0)
+	while (mupnp_thread_isrunnable(thread) == TRUE) {
+		if (mupnp_upnp_httpu_socket_recv(server->httpuSock, ssdpPkt) <= 0)
 			break;
 
-		cg_upnp_ssdp_packet_print(ssdpPkt);
+		mupnp_upnp_ssdp_packet_print(ssdpPkt);
 		
-		cg_upnp_ssdpresponse_server_performlistener(server, ssdpPkt);
-		cg_upnp_ssdp_packet_clear(ssdpPkt);
+		mupnp_upnp_ssdpresponse_server_performlistener(server, ssdpPkt);
+		mupnp_upnp_ssdp_packet_clear(ssdpPkt);
 	}
 	
-	cg_upnp_ssdp_packet_delete(ssdpPkt);
+	mupnp_upnp_ssdp_packet_delete(ssdpPkt);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_ssdpresponse_server_start
+* mupnp_upnp_ssdpresponse_server_start
 ****************************************/
 
-BOOL cg_upnp_ssdpresponse_server_start(CgUpnpSSDPResponseServer *server)
+BOOL mupnp_upnp_ssdpresponse_server_start(CgUpnpSSDPResponseServer *server)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (server->recvThread != NULL)
 		return FALSE;
 		
-	server->recvThread = cg_thread_new();
-	cg_thread_setaction(server->recvThread, cg_upnp_ssdpresponse_server_thread);
-	cg_thread_setuserdata(server->recvThread, server);
-	if (cg_thread_start(server->recvThread) == FALSE) {	
-		cg_thread_delete(server->recvThread);
+	server->recvThread = mupnp_thread_new();
+	mupnp_thread_setaction(server->recvThread, mupnp_upnp_ssdpresponse_server_thread);
+	mupnp_thread_setuserdata(server->recvThread, server);
+	if (mupnp_thread_start(server->recvThread) == FALSE) {	
+		mupnp_thread_delete(server->recvThread);
 		server->recvThread = NULL;
 		return FALSE;
 	}
 	
 	return TRUE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnp_ssdpresponse_server_stop
+* mupnp_upnp_ssdpresponse_server_stop
 ****************************************/
 
-BOOL cg_upnp_ssdpresponse_server_stop(CgUpnpSSDPResponseServer *server)
+BOOL mupnp_upnp_ssdpresponse_server_stop(CgUpnpSSDPResponseServer *server)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (server->recvThread != NULL) {
-		cg_thread_stop(server->recvThread);
-		cg_thread_delete(server->recvThread);
+		mupnp_thread_stop(server->recvThread);
+		mupnp_thread_delete(server->recvThread);
 		server->recvThread = NULL;
 	}
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return TRUE;
 }
 
 /****************************************
-* cg_upnp_ssdpresponse_server_post
+* mupnp_upnp_ssdpresponse_server_post
 ****************************************/
 
-BOOL cg_upnp_ssdpresponse_server_post(CgUpnpSSDPResponseServer *server, CgUpnpSSDPRequest *ssdpReq)
+BOOL mupnp_upnp_ssdpresponse_server_post(CgUpnpSSDPResponseServer *server, CgUpnpSSDPRequest *ssdpReq)
 {
 	CgUpnpHttpUSocket *httpuSock;
 	char *ifAddr;
@@ -228,21 +228,21 @@ BOOL cg_upnp_ssdpresponse_server_post(CgUpnpSSDPResponseServer *server, CgUpnpSS
 	CgString *ssdpMsg;
 	size_t sentLen = 0;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	httpuSock = cg_upnp_ssdpresponse_server_getsocket(server);
+	httpuSock = mupnp_upnp_ssdpresponse_server_getsocket(server);
 	
-	ifAddr = cg_socket_getaddress(httpuSock);
-	ssdpAddr = cg_upnp_ssdp_gethostaddress(ifAddr);
-	cg_upnp_ssdprequest_sethost(ssdpReq, ssdpAddr, CG_UPNP_SSDP_PORT);
+	ifAddr = mupnp_socket_getaddress(httpuSock);
+	ssdpAddr = mupnp_upnp_ssdp_gethostaddress(ifAddr);
+	mupnp_upnp_ssdprequest_sethost(ssdpReq, ssdpAddr, CG_UPNP_SSDP_PORT);
 		
-	ssdpMsg = cg_string_new();
-	cg_upnp_ssdprequest_tostring(ssdpReq, ssdpMsg);
+	ssdpMsg = mupnp_string_new();
+	mupnp_upnp_ssdprequest_tostring(ssdpReq, ssdpMsg);
 
-	sentLen = cg_socket_sendto(httpuSock, ssdpAddr, CG_UPNP_SSDP_PORT, cg_string_getvalue(ssdpMsg), cg_string_length(ssdpMsg));
-	cg_string_delete(ssdpMsg);
+	sentLen = mupnp_socket_sendto(httpuSock, ssdpAddr, CG_UPNP_SSDP_PORT, mupnp_string_getvalue(ssdpMsg), mupnp_string_length(ssdpMsg));
+	mupnp_string_delete(ssdpMsg);
 	
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return (sentLen > 0);
 }

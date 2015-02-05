@@ -22,8 +22,8 @@ extern "C" {
 
 #include <mupnp/util/string.h>
 
-BOOL cg_http_getrestresponse(char *url, CgString *str);
-BOOL cg_http_getredirecturl(char *orgURL, char *redirectURL, int redirectURLSize);
+BOOL mupnp_http_getrestresponse(char *url, CgString *str);
+BOOL mupnp_http_getredirecturl(char *orgURL, char *redirectURL, int redirectURLSize);
 
 #ifdef  __cplusplus
 }

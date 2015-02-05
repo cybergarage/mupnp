@@ -1048,28 +1048,28 @@ static char *CG_UPNP_AV_AVTRANSPORT_SERVICE_DESCRIPTION =
 " </scpd> \n";
 
 /****************************************
- * cg_upnp_service_getstddcp
+ * mupnp_upnp_service_getstddcp
  ****************************************/
 
-char *cg_upnp_service_getstddcp(CgUpnpService *service)
+char *mupnp_upnp_service_getstddcp(CgUpnpService *service)
 {
-	char *serviceType = cg_upnp_service_getservicetype(service);
-	if (cg_streq(serviceType, "urn:schemas-upnp-org:service:ContentDirectory:1"))
+	char *serviceType = mupnp_upnp_service_getservicetype(service);
+	if (mupnp_streq(serviceType, "urn:schemas-upnp-org:service:ContentDirectory:1"))
 		return CG_UPNP_AV_CONTENTDIRECTORY_SERVICE_DESCRIPTION;
-	if (cg_streq(serviceType, "urn:schemas-upnp-org:service:ConnectionManager:1"))
+	if (mupnp_streq(serviceType, "urn:schemas-upnp-org:service:ConnectionManager:1"))
 		return CG_UPNP_AV_CONNECTIONMANAGER_SERVICE_DESCRIPTION;
-	if (cg_streq(serviceType, "urn:schemas-upnp-org:service:AVTransport:1"))
+	if (mupnp_streq(serviceType, "urn:schemas-upnp-org:service:AVTransport:1"))
 		return CG_UPNP_AV_AVTRANSPORT_SERVICE_DESCRIPTION;
 	return NULL;
 }
 
 /****************************************
- * cg_upnp_service_hasstddcp
+ * mupnp_upnp_service_hasstddcp
  ****************************************/
 		
-BOOL cg_upnp_service_hasstddcp(CgUpnpService *service)
+BOOL mupnp_upnp_service_hasstddcp(CgUpnpService *service)
 {
-	return (cg_upnp_service_getstddcp(service) != NULL) ? TRUE : FALSE;
+	return (mupnp_upnp_service_getstddcp(service) != NULL) ? TRUE : FALSE;
 }		
 		
 /****************************************

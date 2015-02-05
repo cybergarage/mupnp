@@ -47,7 +47,7 @@ static char MONTH_STRING[][4] = {
 
 static char *to_month_string(int value)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (0 <= value && value < 12)
 		return MONTH_STRING[value];
@@ -71,22 +71,22 @@ static char WEEK_STRING[][4] = {
 	
 static char *to_week_string(int value)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	if (0 <= value && value < 7)
 		return WEEK_STRING[value];
 	return "";
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_http_getservername()
+* mupnp_http_getservername()
 ****************************************/
 
 #if !defined(ITRON)
 
-const char *cg_http_getdate(CgTime sysTime, char *buf, size_t bufSize)
+const char *mupnp_http_getdate(CgTime sysTime, char *buf, size_t bufSize)
 {
 #if defined(HAVE_GMTIME_R)
 	struct tm gmTimeBuf;
@@ -97,7 +97,7 @@ const char *cg_http_getdate(CgTime sysTime, char *buf, size_t bufSize)
 	struct tm *gmTime;
 #endif
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 #if defined(HAVE_GMTIME_R)
 	gmtime_r(&sysTime, &gmTimeBuf);
@@ -135,7 +135,7 @@ const char *cg_http_getdate(CgTime sysTime, char *buf, size_t bufSize)
 #endif
    */
   
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return buf;
 }
@@ -143,7 +143,7 @@ const char *cg_http_getdate(CgTime sysTime, char *buf, size_t bufSize)
 #endif
 
 /****************************************
-* cg_http_getservername() (ITRON)
+* mupnp_http_getservername() (ITRON)
 ****************************************/
 
 #if defined(ITRON)
@@ -158,22 +158,22 @@ static const int dayLearYear[ ] = {
 
 static BOOL IsLeapYear(int year)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
     if (!(year % 4) && ((year % 100) || !(year % 400)))
         return TRUE;
 	return FALSE;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-char *cg_http_getdate(CgTime sysTime, char *buf, int bufSize)
+char *mupnp_http_getdate(CgTime sysTime, char *buf, int bufSize)
 {
 	SYSTIM systim;
 	long uxtime;
 	int year, month, day, hour, min, sec, week;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
 	get_tim(&systim);
 
@@ -235,7 +235,7 @@ char *cg_http_getdate(CgTime sysTime, char *buf, int bufSize)
 
 	return buf;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif

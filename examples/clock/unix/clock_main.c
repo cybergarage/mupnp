@@ -48,15 +48,15 @@ CgUpnpDevice *clockDev;
 BOOL InitApp( int cacheControl )
 {
 	clockDev = upnp_clock_device_new();
-        cg_upnp_device_setleasetime( clockDev, cacheControl );
-	cg_upnp_device_start(clockDev);
+        mupnp_upnp_device_setleasetime( clockDev, cacheControl );
+	mupnp_upnp_device_start(clockDev);
 	return TRUE;
 }
 
 void ExitApp()
 {
-	cg_upnp_device_stop(clockDev);
-	cg_upnp_device_delete(clockDev);
+	mupnp_upnp_device_stop(clockDev);
+	mupnp_upnp_device_delete(clockDev);
 }
 
 ////////////////////////////////////////////////////////// 
@@ -103,9 +103,9 @@ int main( int argc, char* argv[] )
 			ch = toupper( ch );
 		}
 		else
-			cg_wait(1000);
+			mupnp_wait(1000);
 #else
-		cg_wait(1000);
+		mupnp_wait(1000);
 #endif
 		
 		upnp_clock_device_update(clockDev);

@@ -34,102 +34,102 @@
 * prototype define for static functions
 ****************************************/
 
-static BOOL cg_upnp_device_ispresentationrequest(CgUpnpDevice *dev, CgHttpRequest *httpReq);
-static void cg_upnp_device_getrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq);
-static void cg_upnp_device_postrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq);
-static void cg_upnp_device_soapactionrecieved(CgUpnpDevice *dev, CgSoapRequest *soapReq);
+static BOOL mupnp_upnp_device_ispresentationrequest(CgUpnpDevice *dev, CgHttpRequest *httpReq);
+static void mupnp_upnp_device_getrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq);
+static void mupnp_upnp_device_postrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq);
+static void mupnp_upnp_device_soapactionrecieved(CgUpnpDevice *dev, CgSoapRequest *soapReq);
 
-static void cg_upnp_device_controlrequestrecieved(CgUpnpService *service, CgSoapRequest *soapReq);
+static void mupnp_upnp_device_controlrequestrecieved(CgUpnpService *service, CgSoapRequest *soapReq);
 #if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
-static void cg_upnp_device_actioncontrolrequestrecieved(CgUpnpService *service, CgUpnpActionRequest *actionReq);
+static void mupnp_upnp_device_actioncontrolrequestrecieved(CgUpnpService *service, CgUpnpActionRequest *actionReq);
 #endif
 #if !defined(CG_UPNP_NOUSE_QUERYCTRL)
-static void cg_upnp_device_querycontrolrequestrecieved(CgUpnpService *service, CgUpnpQueryRequest *queryReq);
+static void mupnp_upnp_device_querycontrolrequestrecieved(CgUpnpService *service, CgUpnpQueryRequest *queryReq);
 #endif
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
-static void cg_upnp_device_subscriptionrecieved(CgUpnpDevice *dev, CgUpnpSubscriptionRequest *subReq);
-static void cg_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq);
-static void cg_upnp_device_renewsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq);
-static void cg_upnp_device_unsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq);
+static void mupnp_upnp_device_subscriptionrecieved(CgUpnpDevice *dev, CgUpnpSubscriptionRequest *subReq);
+static void mupnp_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq);
+static void mupnp_upnp_device_renewsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq);
+static void mupnp_upnp_device_unsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq);
 #endif
 
 /****************************************
-* cg_upnp_device_httprequestrecieved
+* mupnp_upnp_device_httprequestrecieved
 ****************************************/
 
-void cg_upnp_device_httprequestrecieved(CgHttpRequest *httpReq)
+void mupnp_upnp_device_httprequestrecieved(CgHttpRequest *httpReq)
 {
 	CgUpnpDevice *dev;
 	CgString *unescapedUrl;
 	char *url;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	dev = (CgUpnpDevice *)cg_http_request_getuserdata(httpReq);
+	dev = (CgUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
 	
 	/* Unescape URI */
-	url = cg_http_request_geturi(httpReq);
-	if (0 < cg_strlen(url)) {
-		unescapedUrl = cg_string_new();
-		cg_net_uri_unescapestring(url, 0, unescapedUrl);
-		if (0 < cg_string_length(unescapedUrl))
-			cg_http_request_seturi(httpReq, cg_string_getvalue(unescapedUrl));
-		cg_string_delete(unescapedUrl);
+	url = mupnp_http_request_geturi(httpReq);
+	if (0 < mupnp_strlen(url)) {
+		unescapedUrl = mupnp_string_new();
+		mupnp_net_uri_unescapestring(url, 0, unescapedUrl);
+		if (0 < mupnp_string_length(unescapedUrl))
+			mupnp_http_request_seturi(httpReq, mupnp_string_getvalue(unescapedUrl));
+		mupnp_string_delete(unescapedUrl);
 	}
 	
-  if (cg_upnp_device_ispresentationrequest(dev, httpReq) == TRUE) {
-    CG_UPNP_PRESENTATION_LISTNER presentationListener = cg_upnp_device_getpresentationlistener(dev);
+  if (mupnp_upnp_device_ispresentationrequest(dev, httpReq) == TRUE) {
+    CG_UPNP_PRESENTATION_LISTNER presentationListener = mupnp_upnp_device_getpresentationlistener(dev);
     if (presentationListener) {
       presentationListener(httpReq);
       return;
     }
   }
   
-	if (cg_http_request_isgetrequest(httpReq) == TRUE ||
-	    cg_http_request_isheadrequest(httpReq) == TRUE) {
-		cg_upnp_device_getrequestrecieved(dev, httpReq);
+	if (mupnp_http_request_isgetrequest(httpReq) == TRUE ||
+	    mupnp_http_request_isheadrequest(httpReq) == TRUE) {
+		mupnp_upnp_device_getrequestrecieved(dev, httpReq);
 		return;
 	}
 
-	if (cg_http_request_ispostrequest(httpReq) == TRUE) {
-		cg_upnp_device_postrequestrecieved(dev, httpReq);
+	if (mupnp_http_request_ispostrequest(httpReq) == TRUE) {
+		mupnp_upnp_device_postrequestrecieved(dev, httpReq);
 		return;
 	}
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
-	if (cg_http_request_issubscriberequest(httpReq) == TRUE || cg_http_request_isunsubscriberequest(httpReq) == TRUE) {
-		cg_upnp_device_subscriptionrecieved(dev, httpReq);
+	if (mupnp_http_request_issubscriberequest(httpReq) == TRUE || mupnp_http_request_isunsubscriberequest(httpReq) == TRUE) {
+		mupnp_upnp_device_subscriptionrecieved(dev, httpReq);
 		return;
 	}
 #endif
 
-	cg_http_request_postbadrequest(httpReq);
+	mupnp_http_request_postbadrequest(httpReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
- * cg_upnp_device_ispresentationrequest
+ * mupnp_upnp_device_ispresentationrequest
  ****************************************/
 
-static BOOL cg_upnp_device_ispresentationrequest(CgUpnpDevice *dev, CgHttpRequest *httpReq)
+static BOOL mupnp_upnp_device_ispresentationrequest(CgUpnpDevice *dev, CgHttpRequest *httpReq)
 {
   const char *presentationURL;
   const char *requestURI;
   
-	if (!cg_http_request_isgetrequest(httpReq))
+	if (!mupnp_http_request_isgetrequest(httpReq))
     return FALSE;
   
-  presentationURL = cg_upnp_device_getpresentationurl(dev);
+  presentationURL = mupnp_upnp_device_getpresentationurl(dev);
   if (!presentationURL)
     return FALSE;
   
-  requestURI = cg_http_request_geturi(httpReq);
+  requestURI = mupnp_http_request_geturi(httpReq);
   if (!requestURI)
     return FALSE;
   
-  return (0 < cg_strstr(requestURI, presentationURL)) ? TRUE : FALSE;
+  return (0 < mupnp_strstr(requestURI, presentationURL)) ? TRUE : FALSE;
 }
 
 
@@ -140,77 +140,77 @@ static BOOL cg_upnp_device_ispresentationrequest(CgUpnpDevice *dev, CgHttpReques
 ****************************************/
 
 /****************************************
-* cg_upnp_device_updateurlbase
+* mupnp_upnp_device_updateurlbase
 ****************************************/
 
-void cg_upnp_device_seturlbase(CgUpnpDevice *dev, char *value)
+void mupnp_upnp_device_seturlbase(CgUpnpDevice *dev, char *value)
 {
 	CgXmlNode *rootNode;
 	CgXmlNode *node;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	if (cg_upnp_device_isrootdevice(dev) == FALSE)
+	if (mupnp_upnp_device_isrootdevice(dev) == FALSE)
 		return;
 	
-	rootNode = cg_upnp_device_getrootnode(dev);
+	rootNode = mupnp_upnp_device_getrootnode(dev);
 	if (rootNode == NULL)
 		return;
 
-	node = cg_xml_node_getchildnode(rootNode, CG_UPNP_DEVICE_URLBASE_NAME);
+	node = mupnp_xml_node_getchildnode(rootNode, CG_UPNP_DEVICE_URLBASE_NAME);
 	if (node != NULL) {
-		cg_xml_node_setvalue(node, value);
+		mupnp_xml_node_setvalue(node, value);
 		return;
 	}
 
-	node = cg_xml_node_new();
-	cg_xml_node_setname(node, CG_UPNP_DEVICE_URLBASE_NAME);
-	cg_xml_node_setvalue(node, value);
+	node = mupnp_xml_node_new();
+	mupnp_xml_node_setname(node, CG_UPNP_DEVICE_URLBASE_NAME);
+	mupnp_xml_node_setvalue(node, value);
 
-	cg_xml_node_addchildnode(rootNode, node);
+	mupnp_xml_node_addchildnode(rootNode, node);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_upnp_device_updateurlbase(CgUpnpDevice *dev, char *host)
+static void mupnp_upnp_device_updateurlbase(CgUpnpDevice *dev, char *host)
 {
 	char urlBase[CG_UPNP_DEVICE_URLBASE_MAXLEN];
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_net_gethosturl(host, cg_upnp_device_gethttpport(dev), "", urlBase, sizeof(urlBase));
-	cg_upnp_device_seturlbase(dev, urlBase);
+	mupnp_net_gethosturl(host, mupnp_upnp_device_gethttpport(dev), "", urlBase, sizeof(urlBase));
+	mupnp_upnp_device_seturlbase(dev, urlBase);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static char *cg_upnp_device_getdescription(CgUpnpDevice *dev, char *ifAddr, CgString *descStr)
+static char *mupnp_upnp_device_getdescription(CgUpnpDevice *dev, char *ifAddr, CgString *descStr)
 {
 	CgXmlNode *rootNode;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_upnp_device_lock(dev);
+	mupnp_upnp_device_lock(dev);
 	
-	if (cg_upnp_isnmprmode() == FALSE)
-		cg_upnp_device_updateurlbase(dev, ifAddr);
+	if (mupnp_upnp_isnmprmode() == FALSE)
+		mupnp_upnp_device_updateurlbase(dev, ifAddr);
 	
-	rootNode = cg_upnp_device_getrootnode(dev);
+	rootNode = mupnp_upnp_device_getrootnode(dev);
 	
 	if (rootNode != NULL) {
-		cg_string_addvalue(descStr, CG_UPNP_XML_DECLARATION);
-		cg_string_addvalue(descStr, "\n");
-		cg_xml_node_tostring(rootNode, TRUE, descStr);	
+		mupnp_string_addvalue(descStr, CG_UPNP_XML_DECLARATION);
+		mupnp_string_addvalue(descStr, "\n");
+		mupnp_xml_node_tostring(rootNode, TRUE, descStr);	
 	}
 	
-	cg_upnp_device_unlock(dev);
+	mupnp_upnp_device_unlock(dev);
 	
-	return cg_string_getvalue(descStr);
+	return mupnp_string_getvalue(descStr);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_upnp_device_getrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq)
+static void mupnp_upnp_device_getrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq)
 {
 	CgString *descStr;
 	char *url;
@@ -219,71 +219,71 @@ static void cg_upnp_device_getrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *
 	CgUpnpDevice *embDev;
 	CgHttpResponse *httpRes;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	url = cg_http_request_geturi(httpReq);
-	if (cg_strlen(url) <= 0) {
-		cg_http_request_postbadrequest(httpReq);
+	url = mupnp_http_request_geturi(httpReq);
+	if (mupnp_strlen(url) <= 0) {
+		mupnp_http_request_postbadrequest(httpReq);
 		return;
 	}
 
-	descStr = cg_string_new();	
-	ifAddr = cg_http_request_getlocaladdress(httpReq);
+	descStr = mupnp_string_new();	
+	ifAddr = mupnp_http_request_getlocaladdress(httpReq);
 
-	cg_log_debug_s("Requested: |%s|, description: |%s|\n", url, cg_string_getvalue(dev->descriptionURI));
-	if (cg_upnp_device_isdescriptionuri(dev, url) == TRUE) {
-		cg_upnp_device_getdescription(dev, ifAddr, descStr);
+	mupnp_log_debug_s("Requested: |%s|, description: |%s|\n", url, mupnp_string_getvalue(dev->descriptionURI));
+	if (mupnp_upnp_device_isdescriptionuri(dev, url) == TRUE) {
+		mupnp_upnp_device_getdescription(dev, ifAddr, descStr);
 	}
-	else if ((embService = cg_upnp_device_getservicebyscpdurl(dev, url)) != NULL) {
-		cg_upnp_service_getdescription(embService, descStr);
+	else if ((embService = mupnp_upnp_device_getservicebyscpdurl(dev, url)) != NULL) {
+		mupnp_upnp_service_getdescription(embService, descStr);
 	}
-	else if ((embDev = cg_upnp_device_getdevicebydescriptionuri(dev, url)) != NULL) {
-		cg_upnp_device_getdescription(embDev, ifAddr, descStr);
+	else if ((embDev = mupnp_upnp_device_getdevicebydescriptionuri(dev, url)) != NULL) {
+		mupnp_upnp_device_getdescription(embDev, ifAddr, descStr);
 	} else {
 		/* Here we should handle Not Found case */
-		cg_http_request_poststatuscode(httpReq, CG_HTTP_STATUS_NOT_FOUND);
-		cg_string_delete(descStr);
+		mupnp_http_request_poststatuscode(httpReq, CG_HTTP_STATUS_NOT_FOUND);
+		mupnp_string_delete(descStr);
 		return;
 	}
 	
-	httpRes = cg_http_response_new();
-	cg_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
-	cg_http_response_setcontenttype(httpRes, CG_XML_CONTENT_TYPE);
-	cg_http_response_setcontent(httpRes, cg_string_getvalue(descStr));
-	cg_http_response_setcontentlength(httpRes, cg_string_length(descStr));
+	httpRes = mupnp_http_response_new();
+	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
+	mupnp_http_response_setcontenttype(httpRes, CG_XML_CONTENT_TYPE);
+	mupnp_http_response_setcontent(httpRes, mupnp_string_getvalue(descStr));
+	mupnp_http_response_setcontentlength(httpRes, mupnp_string_length(descStr));
 	
-	if (cg_http_request_isheadrequest(httpReq) == TRUE)
+	if (mupnp_http_request_isheadrequest(httpReq) == TRUE)
 	{
 		/* If the request is head request, then clear message body */
-		cg_http_response_setcontent(httpRes, NULL);
+		mupnp_http_response_setcontent(httpRes, NULL);
 	}
 	
-	cg_http_response_print(httpRes);
+	mupnp_http_response_print(httpRes);
 	
-	cg_http_request_postresponse(httpReq, httpRes);
-	cg_http_response_delete(httpRes);	
+	mupnp_http_request_postresponse(httpReq, httpRes);
+	mupnp_http_response_delete(httpRes);	
 
-	cg_string_delete(descStr);	
+	mupnp_string_delete(descStr);	
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_upnp_device_postrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq)
+static void mupnp_upnp_device_postrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq)
 {
 	CgSoapRequest *soapReq;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	if (cg_http_request_issoapaction(httpReq) == TRUE) {
-		soapReq = cg_soap_request_new();
-		cg_soap_request_sethttprequest(soapReq, httpReq);
-		cg_upnp_device_soapactionrecieved(dev, soapReq);
-		cg_soap_request_delete(soapReq);
+	if (mupnp_http_request_issoapaction(httpReq) == TRUE) {
+		soapReq = mupnp_soap_request_new();
+		mupnp_soap_request_sethttprequest(soapReq, httpReq);
+		mupnp_upnp_device_soapactionrecieved(dev, soapReq);
+		mupnp_soap_request_delete(soapReq);
 		return;
 	}
-	cg_http_request_postbadrequest(httpReq);
+	mupnp_http_request_postbadrequest(httpReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 
@@ -293,91 +293,91 @@ static void cg_upnp_device_postrequestrecieved(CgUpnpDevice *dev, CgHttpRequest 
 *
 ****************************************/
 
-static void cg_upnp_device_badsoapactionrecieved(CgHttpRequest *httpReq)
+static void mupnp_upnp_device_badsoapactionrecieved(CgHttpRequest *httpReq)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_http_request_postbadrequest(httpReq);
+	mupnp_http_request_postbadrequest(httpReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_upnp_device_invalidcontrolrecieved(CgSoapRequest *soapReq, int code)
+static void mupnp_upnp_device_invalidcontrolrecieved(CgSoapRequest *soapReq, int code)
 {
 	CgHttpRequest *httpReq;
 	CgSoapResponse *soapRes;
 	CgHttpResponse *httpRes;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	httpReq = cg_soap_request_gethttprequest(soapReq);
+	httpReq = mupnp_soap_request_gethttprequest(soapReq);
 	
-	soapRes = cg_soap_response_new();
-	cg_upnp_control_soap_response_setfaultresponse(soapRes, code, cg_upnp_status_code2string(code));
-	httpRes = cg_soap_response_gethttpresponse(soapRes);
-	cg_http_request_postresponse(httpReq, httpRes);
-	cg_soap_response_delete(soapRes);
+	soapRes = mupnp_soap_response_new();
+	mupnp_upnp_control_soap_response_setfaultresponse(soapRes, code, mupnp_upnp_status_code2string(code));
+	httpRes = mupnp_soap_response_gethttpresponse(soapRes);
+	mupnp_http_request_postresponse(httpReq, httpRes);
+	mupnp_soap_response_delete(soapRes);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_upnp_device_soapactionrecieved(CgUpnpDevice *dev, CgSoapRequest *soapReq)
+static void mupnp_upnp_device_soapactionrecieved(CgUpnpDevice *dev, CgSoapRequest *soapReq)
 {
 	CgHttpRequest *httpReq;
 	CgUpnpService *ctrlService;
 	char *url;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	httpReq = cg_soap_request_gethttprequest(soapReq);
+	httpReq = mupnp_soap_request_gethttprequest(soapReq);
 	
-	url = cg_http_request_geturi(httpReq);
-	cg_log_debug_s("Control url in device: %s\n", url);
-	ctrlService = cg_upnp_device_getservicebycontrolurl(dev, url);
+	url = mupnp_http_request_geturi(httpReq);
+	mupnp_log_debug_s("Control url in device: %s\n", url);
+	ctrlService = mupnp_upnp_device_getservicebycontrolurl(dev, url);
 	
 	if (ctrlService != NULL) {
-		cg_upnp_device_controlrequestrecieved(ctrlService, soapReq);
+		mupnp_upnp_device_controlrequestrecieved(ctrlService, soapReq);
 		return;
 	}
 	
-	cg_upnp_device_badsoapactionrecieved(httpReq);
+	mupnp_upnp_device_badsoapactionrecieved(httpReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_upnp_device_controlrequestrecieved(CgUpnpService *service, CgSoapRequest *soapReq)
+static void mupnp_upnp_device_controlrequestrecieved(CgUpnpService *service, CgSoapRequest *soapReq)
 {
 	CgHttpRequest *httpReq;
 	CgUpnpActionRequest *actionReq;
 	CgUpnpQueryRequest *queryReq;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	httpReq = cg_soap_request_gethttprequest(soapReq);
+	httpReq = mupnp_soap_request_gethttprequest(soapReq);
 	
 #if !defined(CG_UPNP_NOUSE_QUERYCTRL)
-	if (cg_upnp_control_isqueryrequest(soapReq) == TRUE) {
-		queryReq = cg_upnp_control_query_request_new();
-		cg_upnp_control_query_request_setsoaprequest(queryReq, soapReq);
-		cg_upnp_device_querycontrolrequestrecieved(service, queryReq);
-		cg_upnp_control_query_request_delete(queryReq);
+	if (mupnp_upnp_control_isqueryrequest(soapReq) == TRUE) {
+		queryReq = mupnp_upnp_control_query_request_new();
+		mupnp_upnp_control_query_request_setsoaprequest(queryReq, soapReq);
+		mupnp_upnp_device_querycontrolrequestrecieved(service, queryReq);
+		mupnp_upnp_control_query_request_delete(queryReq);
 		return;
 	}
 #endif
 	
 #if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
-	if (cg_upnp_control_isactionrequest(soapReq) == TRUE) {
-		actionReq = cg_upnp_control_action_request_new();
-		cg_upnp_control_action_request_setsoaprequest(actionReq, soapReq);
-		cg_upnp_device_actioncontrolrequestrecieved(service, actionReq);
-		cg_upnp_control_action_request_delete(actionReq);
+	if (mupnp_upnp_control_isactionrequest(soapReq) == TRUE) {
+		actionReq = mupnp_upnp_control_action_request_new();
+		mupnp_upnp_control_action_request_setsoaprequest(actionReq, soapReq);
+		mupnp_upnp_device_actioncontrolrequestrecieved(service, actionReq);
+		mupnp_upnp_control_action_request_delete(actionReq);
 		return;
 	}
 #endif
 	
-	cg_upnp_device_badsoapactionrecieved(httpReq);
+	mupnp_upnp_device_badsoapactionrecieved(httpReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
@@ -388,31 +388,31 @@ static void cg_upnp_device_controlrequestrecieved(CgUpnpService *service, CgSoap
 
 #if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
 
-#define cg_upnp_device_invalidactioncontrolrecieved(actionReq) cg_upnp_device_invalidcontrolrecieved(cg_upnp_control_action_request_getsoaprequest(actionReq), CG_UPNP_STATUS_INVALID_ACTION)
+#define mupnp_upnp_device_invalidactioncontrolrecieved(actionReq) mupnp_upnp_device_invalidcontrolrecieved(mupnp_upnp_control_action_request_getsoaprequest(actionReq), CG_UPNP_STATUS_INVALID_ACTION)
 
-static void cg_upnp_device_actioncontrolrequestrecieved(CgUpnpService *service, CgUpnpActionRequest *actionReq)
+static void mupnp_upnp_device_actioncontrolrequestrecieved(CgUpnpService *service, CgUpnpActionRequest *actionReq)
 {
 	char *actionName;
 	CgUpnpAction *action;
 	CgUpnpArgumentList *actionArgList;
 	CgUpnpArgumentList *actionReqArgList;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	actionName = cg_upnp_control_action_request_getactionname(actionReq);
-	action = cg_upnp_service_getactionbyname(service, actionName);
+	actionName = mupnp_upnp_control_action_request_getactionname(actionReq);
+	action = mupnp_upnp_service_getactionbyname(service, actionName);
 	if (action == NULL) {
-		cg_upnp_device_invalidactioncontrolrecieved(actionReq);
+		mupnp_upnp_device_invalidactioncontrolrecieved(actionReq);
 		return;
 	}
 	
-	actionArgList = cg_upnp_action_getargumentlist(action);
-	actionReqArgList = cg_upnp_control_action_request_getargumentlist(actionReq);
-	cg_upnp_argumentlist_set(actionArgList, actionReqArgList);
-	if (cg_upnp_action_performlistner(action, actionReq) == FALSE)
-		cg_upnp_device_invalidactioncontrolrecieved(actionReq);
+	actionArgList = mupnp_upnp_action_getargumentlist(action);
+	actionReqArgList = mupnp_upnp_control_action_request_getargumentlist(actionReq);
+	mupnp_upnp_argumentlist_set(actionArgList, actionReqArgList);
+	if (mupnp_upnp_action_performlistner(action, actionReq) == FALSE)
+		mupnp_upnp_device_invalidactioncontrolrecieved(actionReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif
@@ -425,26 +425,26 @@ static void cg_upnp_device_actioncontrolrequestrecieved(CgUpnpService *service, 
 
 #if !defined(CG_UPNP_NOUSE_QUERYCTRL)
 
-#define cg_upnp_device_invalidquerycontrolrecieved(queryReq) cg_upnp_device_invalidcontrolrecieved(cg_upnp_control_query_request_getsoaprequest(queryReq), CG_UPNP_STATUS_INVALID_VAR)
+#define mupnp_upnp_device_invalidquerycontrolrecieved(queryReq) mupnp_upnp_device_invalidcontrolrecieved(mupnp_upnp_control_query_request_getsoaprequest(queryReq), CG_UPNP_STATUS_INVALID_VAR)
 
-static void cg_upnp_device_querycontrolrequestrecieved(CgUpnpService *service, CgUpnpQueryRequest *queryReq)
+static void mupnp_upnp_device_querycontrolrequestrecieved(CgUpnpService *service, CgUpnpQueryRequest *queryReq)
 {
 	char *varName;
 	CgUpnpStateVariable *stateVar;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	varName = cg_upnp_control_query_request_getvarname(queryReq);
-	if (cg_upnp_service_hasstatevariablebyname(service, varName) == FALSE) {
-		cg_upnp_device_invalidquerycontrolrecieved(queryReq);
+	varName = mupnp_upnp_control_query_request_getvarname(queryReq);
+	if (mupnp_upnp_service_hasstatevariablebyname(service, varName) == FALSE) {
+		mupnp_upnp_device_invalidquerycontrolrecieved(queryReq);
 		return;
 	}
 
-	stateVar = cg_upnp_service_getstatevariablebyname(service, varName);
-	if (cg_upnp_statevariable_performlistner(stateVar, queryReq) == FALSE)
-		cg_upnp_device_invalidquerycontrolrecieved(queryReq);
+	stateVar = mupnp_upnp_service_getstatevariablebyname(service, varName);
+	if (mupnp_upnp_statevariable_performlistner(stateVar, queryReq) == FALSE)
+		mupnp_upnp_device_invalidquerycontrolrecieved(queryReq);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif
@@ -457,86 +457,86 @@ static void cg_upnp_device_querycontrolrequestrecieved(CgUpnpService *service, C
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 
-static void cg_upnp_device_badsubscriptionrecieved(CgUpnpSubscriptionRequest *subReq, int code)
+static void mupnp_upnp_device_badsubscriptionrecieved(CgUpnpSubscriptionRequest *subReq, int code)
 {
 	CgUpnpSubscriptionResponse *subRes;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	subRes = cg_upnp_event_subscription_response_new();
-	cg_upnp_event_subscription_response_setstatuscode(subRes, code);
-	cg_upnp_event_subscription_request_postresponse(subReq, subRes);
-	cg_upnp_event_subscription_response_delete(subRes);
+	subRes = mupnp_upnp_event_subscription_response_new();
+	mupnp_upnp_event_subscription_response_setstatuscode(subRes, code);
+	mupnp_upnp_event_subscription_request_postresponse(subReq, subRes);
+	mupnp_upnp_event_subscription_response_delete(subRes);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_upnp_device_subscriptionrecieved(CgUpnpDevice *dev, CgUpnpSubscriptionRequest *subReq)
+static void mupnp_upnp_device_subscriptionrecieved(CgUpnpDevice *dev, CgUpnpSubscriptionRequest *subReq)
 {
 	char *uri;
 	CgUpnpService *service;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	uri = cg_http_request_geturi(subReq);
-	if (cg_strlen(uri) <= 0) {
-		cg_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+	uri = mupnp_http_request_geturi(subReq);
+	if (mupnp_strlen(uri) <= 0) {
+		mupnp_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
-	service = cg_upnp_device_getservicebyeventsuburl(dev, uri);
+	service = mupnp_upnp_device_getservicebyeventsuburl(dev, uri);
 	if (service == NULL) {
-		cg_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+		mupnp_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
 		
-	if (cg_upnp_event_subscription_request_hascallback(subReq) == FALSE && cg_upnp_event_subscription_request_hassid(subReq) == FALSE) {
-		cg_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+	if (mupnp_upnp_event_subscription_request_hascallback(subReq) == FALSE && mupnp_upnp_event_subscription_request_hassid(subReq) == FALSE) {
+		mupnp_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
 
-        if (cg_upnp_event_subscription_request_hascallback(subReq) &&
-            cg_strlen(cg_upnp_event_subscription_request_getcallback(subReq)) <= 0) {
-		cg_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+        if (mupnp_upnp_event_subscription_request_hascallback(subReq) &&
+            mupnp_strlen(mupnp_upnp_event_subscription_request_getcallback(subReq)) <= 0) {
+		mupnp_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
 
-        if (cg_upnp_event_subscription_request_hassid(subReq) && 
-            (cg_upnp_event_subscription_request_hascallback(subReq) ||
-             cg_upnp_event_subscription_request_hasnt(subReq))) {
-                cg_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_BAD_REQUEST);
+        if (mupnp_upnp_event_subscription_request_hassid(subReq) && 
+            (mupnp_upnp_event_subscription_request_hascallback(subReq) ||
+             mupnp_upnp_event_subscription_request_hasnt(subReq))) {
+                mupnp_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_BAD_REQUEST);
 		return;
         }
 
-	if (cg_upnp_event_subscription_request_hasnt(subReq) &&
-            (cg_strcmp(cg_upnp_event_subscription_request_getnt(subReq), CG_UPNP_NT_EVENT) != 0)) {
-                cg_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+	if (mupnp_upnp_event_subscription_request_hasnt(subReq) &&
+            (mupnp_strcmp(mupnp_upnp_event_subscription_request_getnt(subReq), CG_UPNP_NT_EVENT) != 0)) {
+                mupnp_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
         }
 
 	/**** UNSUBSCRIBE ****/
-	if (cg_upnp_event_subscription_isunsubscriberequest(subReq) == TRUE) {
-		cg_upnp_device_unsubscriptionrecieved(service, subReq);
+	if (mupnp_upnp_event_subscription_isunsubscriberequest(subReq) == TRUE) {
+		mupnp_upnp_device_unsubscriptionrecieved(service, subReq);
 		return;
 	}
 
 	/**** SUBSCRIBE (NEW) ****/
-	if (cg_upnp_event_subscription_request_hascallback(subReq) == TRUE) {
-		cg_upnp_device_newsubscriptionrecieved(service, subReq);
+	if (mupnp_upnp_event_subscription_request_hascallback(subReq) == TRUE) {
+		mupnp_upnp_device_newsubscriptionrecieved(service, subReq);
 		return;
 	}
 		
 	/**** SUBSCRIBE (RENEW) ****/
-	if (cg_upnp_event_subscription_request_hassid(subReq) == TRUE) {
-		cg_upnp_device_renewsubscriptionrecieved(service, subReq);
+	if (mupnp_upnp_event_subscription_request_hassid(subReq) == TRUE) {
+		mupnp_upnp_device_renewsubscriptionrecieved(service, subReq);
 		return;
 	}
 
-	cg_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+	mupnp_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
+static void mupnp_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
 {
 	char *callback;
 	char *aux;
@@ -545,15 +545,15 @@ static void cg_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpn
 	CgUpnpSubscriber *sub;
 	CgUpnpSubscriptionResponse *subRes;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	aux = cg_strdup(cg_upnp_event_subscription_request_getcallback(subReq));
+	aux = mupnp_strdup(mupnp_upnp_event_subscription_request_getcallback(subReq));
 	if (aux == NULL)
 		return;
-	callback = cg_strltrim(aux, CG_UPNP_SUBSCRIPTION_CALLBACK_START_WITH, 1);
-	cg_strrtrim(callback, CG_UPNP_SUBSCRIPTION_CALLBACK_END_WITH, 1);
+	callback = mupnp_strltrim(aux, CG_UPNP_SUBSCRIPTION_CALLBACK_START_WITH, 1);
+	mupnp_strrtrim(callback, CG_UPNP_SUBSCRIPTION_CALLBACK_END_WITH, 1);
 	
-	timeout = cg_upnp_event_subscription_request_gettimeout(subReq);
+	timeout = mupnp_upnp_event_subscription_request_gettimeout(subReq);
 	/* Limit timeout to the given maximum */
 	if (CG_UPNP_SUBSCRIPTION_MAX_TIMEOUT > 0)
 	{
@@ -564,45 +564,45 @@ static void cg_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpn
 		}
 	}
 	
-	cg_upnp_event_subscription_createsid(sid, sizeof(sid));
+	mupnp_upnp_event_subscription_createsid(sid, sizeof(sid));
 
-	sub = cg_upnp_subscriber_new();
-	cg_upnp_subscriber_setdeliveryurl(sub, callback);
+	sub = mupnp_upnp_subscriber_new();
+	mupnp_upnp_subscriber_setdeliveryurl(sub, callback);
 	free(aux);
-	cg_upnp_subscriber_settimeout(sub, timeout);
-	cg_upnp_subscriber_setsid(sub, sid);
-	cg_upnp_service_addsubscriber(service, sub);
+	mupnp_upnp_subscriber_settimeout(sub, timeout);
+	mupnp_upnp_subscriber_setsid(sub, sid);
+	mupnp_upnp_service_addsubscriber(service, sub);
 
-	subRes = cg_upnp_event_subscription_response_new();
-	cg_upnp_event_subscription_subscriberesponse_setresponse(subRes, CG_HTTP_STATUS_OK);
-	cg_upnp_event_subscription_response_setsid(subRes, sid);
-	cg_upnp_event_subscription_response_settimeout(subRes, timeout);
-	cg_upnp_event_subscription_request_postresponse(subReq, subRes);
-	cg_upnp_event_subscription_response_delete(subRes);
+	subRes = mupnp_upnp_event_subscription_response_new();
+	mupnp_upnp_event_subscription_subscriberesponse_setresponse(subRes, CG_HTTP_STATUS_OK);
+	mupnp_upnp_event_subscription_response_setsid(subRes, sid);
+	mupnp_upnp_event_subscription_response_settimeout(subRes, timeout);
+	mupnp_upnp_event_subscription_request_postresponse(subReq, subRes);
+	mupnp_upnp_event_subscription_response_delete(subRes);
 
-	cg_upnp_service_createnotifyallthread(service, CG_UPNP_SERVICE_NOTIFY_WAITTIME);
+	mupnp_upnp_service_createnotifyallthread(service, CG_UPNP_SERVICE_NOTIFY_WAITTIME);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void cg_upnp_device_renewsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
+static void mupnp_upnp_device_renewsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
 {
 	CgUpnpSubscriber *sub;
 	const char *sid;
 	long timeout;
 	CgUpnpSubscriptionResponse *subRes;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	sid = cg_upnp_event_subscription_request_getsid(subReq);
-	sub = cg_upnp_service_getsubscriberbysid(service, sid);
+	sid = mupnp_upnp_event_subscription_request_getsid(subReq);
+	sub = mupnp_upnp_service_getsubscriberbysid(service, sid);
 
 	if (sub == NULL) {
-		cg_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+		mupnp_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
 	
-	timeout = cg_upnp_event_subscription_request_gettimeout(subReq);
+	timeout = mupnp_upnp_event_subscription_request_gettimeout(subReq);
 	/* Limit timeout to the given maximum */
 	if (CG_UPNP_SUBSCRIPTION_MAX_TIMEOUT > 0)
 	{
@@ -613,46 +613,46 @@ static void cg_upnp_device_renewsubscriptionrecieved(CgUpnpService *service, CgU
 		}
 	}
 	
-	cg_upnp_subscriber_settimeout(sub, timeout);
-	cg_upnp_subscriber_renew(sub);
+	mupnp_upnp_subscriber_settimeout(sub, timeout);
+	mupnp_upnp_subscriber_renew(sub);
 
-	subRes = cg_upnp_event_subscription_response_new();
-	cg_upnp_event_subscription_subscriberesponse_setresponse(subRes, CG_HTTP_STATUS_OK);
-	cg_upnp_event_subscription_response_setsid(subRes, sid);
-	cg_upnp_event_subscription_response_settimeout(subRes, timeout);
-	cg_upnp_event_subscription_request_postresponse(subReq, subRes);
-	cg_upnp_event_subscription_response_delete(subRes);
+	subRes = mupnp_upnp_event_subscription_response_new();
+	mupnp_upnp_event_subscription_subscriberesponse_setresponse(subRes, CG_HTTP_STATUS_OK);
+	mupnp_upnp_event_subscription_response_setsid(subRes, sid);
+	mupnp_upnp_event_subscription_response_settimeout(subRes, timeout);
+	mupnp_upnp_event_subscription_request_postresponse(subReq, subRes);
+	mupnp_upnp_event_subscription_response_delete(subRes);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }		
 
-static void cg_upnp_device_unsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
+static void mupnp_upnp_device_unsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
 {
 	CgUpnpSubscriber *sub;
 	const char *sid;
 	CgUpnpSubscriptionResponse *subRes;
 	
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	sid = cg_upnp_event_subscription_request_getsid(subReq);
-	cg_upnp_service_lock(service);
-	sub = cg_upnp_service_getsubscriberbysid(service, sid);
+	sid = mupnp_upnp_event_subscription_request_getsid(subReq);
+	mupnp_upnp_service_lock(service);
+	sub = mupnp_upnp_service_getsubscriberbysid(service, sid);
 
 	if (sub == NULL) {
-		cg_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
-		cg_upnp_service_unlock(service);
+		mupnp_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+		mupnp_upnp_service_unlock(service);
 		return;
 	}
 	
-	cg_upnp_service_removesubscriber(service, sub);
-	cg_upnp_service_unlock(service);
+	mupnp_upnp_service_removesubscriber(service, sub);
+	mupnp_upnp_service_unlock(service);
 	
-	subRes = cg_upnp_event_subscription_response_new();
-	cg_upnp_event_subscription_subscriberesponse_setresponse(subRes, CG_HTTP_STATUS_OK);
-	cg_upnp_event_subscription_request_postresponse(subReq, subRes);
-	cg_upnp_event_subscription_response_delete(subRes);
+	subRes = mupnp_upnp_event_subscription_response_new();
+	mupnp_upnp_event_subscription_subscriberesponse_setresponse(subRes, CG_HTTP_STATUS_OK);
+	mupnp_upnp_event_subscription_request_postresponse(subReq, subRes);
+	mupnp_upnp_event_subscription_response_delete(subRes);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }		
 
 #endif

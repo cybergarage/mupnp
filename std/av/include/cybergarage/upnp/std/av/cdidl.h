@@ -25,10 +25,10 @@ extern "C" {
 * Function
 ****************************************/
 
-CgXmlNode *cg_upnpav_didl_node_new();
+CgXmlNode *mupnp_upnpav_didl_node_new();
 
-#define cg_upnpav_didl_node_delete(node) cg_xml_node_delete(node)
-#define cg_upnpav_didl_node_tostring(node, str) cg_xml_node_tostring(node, TRUE, str)
+#define mupnp_upnpav_didl_node_delete(node) mupnp_xml_node_delete(node)
+#define mupnp_upnpav_didl_node_tostring(node, str) mupnp_xml_node_tostring(node, TRUE, str)
 
 #ifdef __cplusplus
 }

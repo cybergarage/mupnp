@@ -73,28 +73,28 @@ typedef BOOL (*CG_UPNP_ACTION_LISTNER)(CgUpnpAction *);
  *
  * @return CgUpnpAction*
  */
-CgUpnpAction *cg_upnp_action_new();
+CgUpnpAction *mupnp_upnp_action_new();
 
 /**
  * Destroy an action
  *
  * @param action The action to destroy
  */
-void cg_upnp_action_delete(CgUpnpAction *action);
+void mupnp_upnp_action_delete(CgUpnpAction *action);
 
 /**
  * Get the next action in a list of actions. Use as an iterator.
  *
  * @param action The current action
  */
-#define cg_upnp_action_next(action) (CgUpnpAction *)cg_list_next((CgList *)action)
+#define mupnp_upnp_action_next(action) (CgUpnpAction *)mupnp_list_next((CgList *)action)
 
 /**
  * Check, whether the given XML node is an action node
  * 
  * @param node The CgXmlNode*
  */
-#define cg_upnp_action_isactionnode(node) cg_xml_node_isname(node, CG_UPNP_ACTION_ELEM_NAME)
+#define mupnp_upnp_action_isactionnode(node) mupnp_xml_node_isname(node, CG_UPNP_ACTION_ELEM_NAME)
 
 /****************************************************************************
  * XML Node
@@ -106,7 +106,7 @@ void cg_upnp_action_delete(CgUpnpAction *action);
  * @param action The action in question
  * @param node The CgXmlNode*
  */
-void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
+void mupnp_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
 
 /**
  * Get the action's XML node (i.e. the XML representation of the action)
@@ -114,7 +114,7 @@ void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
  * @param action The action in question
  * @return CgXmlNode*
  */
-#define cg_upnp_action_getactionnode(action) (action->actionNode)
+#define mupnp_upnp_action_getactionnode(action) (action->actionNode)
 
 /****************************************************************************
  * Service
@@ -126,7 +126,7 @@ void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
  * @param action The action in question
  * @param service The action's parent service
  */
-#define cg_upnp_action_setservice(action, service) (action->parentService = service)
+#define mupnp_upnp_action_setservice(action, service) (action->parentService = service)
 
 /**
  * Get the action's parent service
@@ -134,7 +134,7 @@ void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
  * @param action The action in question
  * @return CgUpnpService*
  */
-#define cg_upnp_action_getservice(action) ((CgUpnpService *)action->parentService)
+#define mupnp_upnp_action_getservice(action) ((CgUpnpService *)action->parentService)
 
 /****************************************************************************
  * Name
@@ -146,7 +146,7 @@ void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
  * @param action The action in question
  * @param value The action's name
  */
-#define cg_upnp_action_setname(action, value) cg_xml_node_setchildnode(cg_upnp_action_getactionnode(action), CG_UPNP_ACTION_NAME, value)
+#define mupnp_upnp_action_setname(action, value) mupnp_xml_node_setchildnode(mupnp_upnp_action_getactionnode(action), CG_UPNP_ACTION_NAME, value)
 
 /**
  * Get the action's name
@@ -154,7 +154,7 @@ void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
  * @param action The action in question
  * @return char*
  */
-#define cg_upnp_action_getname(action) cg_xml_node_getchildnodevalue(cg_upnp_action_getactionnode(action), CG_UPNP_ACTION_NAME)
+#define mupnp_upnp_action_getname(action) mupnp_xml_node_getchildnodevalue(mupnp_upnp_action_getactionnode(action), CG_UPNP_ACTION_NAME)
 
 /**
  * Check, whether the action's name matches the one given as parameter.
@@ -162,7 +162,7 @@ void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
  * @param action The action in question
  * @param name The name string to compare
  */
-#define cg_upnp_action_isname(action, name) cg_streq(cg_upnp_action_getname(action), name)
+#define mupnp_upnp_action_isname(action, name) mupnp_streq(mupnp_upnp_action_getname(action), name)
 
 /****************************************************************************
  * Argument
@@ -174,7 +174,7 @@ void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
  * @param action The action in question
  * @return CgUpnpArgumentList*
  */
-#define cg_upnp_action_getargumentlist(action) (action->argumentList)
+#define mupnp_upnp_action_getargumentlist(action) (action->argumentList)
 
 /**
  * Get the first argument from the action's list of arguments. Use as the
@@ -183,7 +183,7 @@ void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
  * @param action The action in question
  * @return CgUpnpArgument*
  */
-#define cg_upnp_action_getarguments(action) ((CgUpnpArgument *)cg_list_next((CgList *)action->argumentList))
+#define mupnp_upnp_action_getarguments(action) ((CgUpnpArgument *)mupnp_list_next((CgList *)action->argumentList))
 
 /**
  * Find an argument from the action by the argument's name.
@@ -192,7 +192,7 @@ void cg_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node);
  * @param name The name of the argument to look for
  * @return CgUpnpArgument* if successfull; otherwise NULL
  */
-CgUpnpArgument *cg_upnp_action_getargumentbyname(CgUpnpAction *action, const char *name);
+CgUpnpArgument *mupnp_upnp_action_getargumentbyname(CgUpnpAction *action, const char *name);
 
 /**
  * Find out, whether the action has an argument by the given name
@@ -201,7 +201,7 @@ CgUpnpArgument *cg_upnp_action_getargumentbyname(CgUpnpAction *action, const cha
  * @param name The name to look for
  * @return TRUE if the action has the argument; otherwise FALSE
  */
-#define cg_upnp_action_hasargumentbyname(action,name) ((cg_upnp_action_getargumentbyname(action,name) != NULL) ? TRUE : FALSE)
+#define mupnp_upnp_action_hasargumentbyname(action,name) ((mupnp_upnp_action_getargumentbyname(action,name) != NULL) ? TRUE : FALSE)
 
 /**
  * Get a value of the specified argument from the action by the argument's name directly.
@@ -210,7 +210,7 @@ CgUpnpArgument *cg_upnp_action_getargumentbyname(CgUpnpAction *action, const cha
  * @param name The name of the argument to look for
  * @return char* if successfull; otherwise NULL
  */
-char *cg_upnp_action_getargumentvaluebyname(CgUpnpAction *action, const char *name);
+char *mupnp_upnp_action_getargumentvaluebyname(CgUpnpAction *action, const char *name);
 
 /**
  * Set a value of the specified argument from the action by the argument's name directly.
@@ -220,7 +220,7 @@ char *cg_upnp_action_getargumentvaluebyname(CgUpnpAction *action, const char *na
  * @param value The value to set
  * @return TRUE if successfull; otherwise NO
  */
-BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *name, const char *value);
+BOOL mupnp_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *name, const char *value);
 
 /****************************************************************************
  * Function (Action - Execution Data)
@@ -236,7 +236,7 @@ BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *nam
  * @param action The action in question
  * @param code The status code (int)
  */
-#define cg_upnp_action_setstatuscode(action, code) cg_upnp_status_setcode(action->upnpStatus, code)
+#define mupnp_upnp_action_setstatuscode(action, code) mupnp_upnp_status_setcode(action->upnpStatus, code)
 
 /**
  * Get the action's latest status code
@@ -244,7 +244,7 @@ BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *nam
  * @param action The action in question
  * @return int
  */
-#define cg_upnp_action_getstatuscode(action) cg_upnp_status_getcode(action->upnpStatus)
+#define mupnp_upnp_action_getstatuscode(action) mupnp_upnp_status_getcode(action->upnpStatus)
 
 /**
  * Set the action's latest status description
@@ -252,7 +252,7 @@ BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *nam
  * @param action The action in question
  * @param value The status description string
  */
-#define cg_upnp_action_setstatusdescription(action, value) cg_upnp_status_setdescription(action->upnpStatus, value)
+#define mupnp_upnp_action_setstatusdescription(action, value) mupnp_upnp_status_setdescription(action->upnpStatus, value)
 
 /**
  * Get the action's latest status description
@@ -260,7 +260,7 @@ BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *nam
  * @param action The action in question
  * @return char*
  */
-#define cg_upnp_action_getstatusdescription(action) cg_upnp_status_getdescription(action->upnpStatus)
+#define mupnp_upnp_action_getstatusdescription(action) mupnp_upnp_status_getdescription(action->upnpStatus)
 
 /****************************************************************************
  * Listener
@@ -272,7 +272,7 @@ BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *nam
  * @param action The action in question
  * @param func The listener function of type: BOOL (*CG_UPNP_ACTION_LISTNER)(CgUpnpAction *)
  */
-#define cg_upnp_action_setlistener(action, func) (action->listener = func)
+#define mupnp_upnp_action_setlistener(action, func) (action->listener = func)
 
 /**
  * Get the action's listener function
@@ -280,17 +280,17 @@ BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *nam
  * @param action The action in question
  * @return BOOL (*CG_UPNP_ACTION_LISTNER)(CgUpnpAction *)
  */
-#define cg_upnp_action_getlistener(action) (action->listener)
+#define mupnp_upnp_action_getlistener(action) (action->listener)
 
 /**
  * @deprecated Compatibility macro for typo correction
  */
-#define cg_upnp_action_setlistner cg_upnp_action_setlistener
+#define mupnp_upnp_action_setlistner mupnp_upnp_action_setlistener
 
 /**
  * @deprecated Compatibility macro for typo correction
  */
-#define cg_upnp_action_getlistner cg_upnp_action_getlistener
+#define mupnp_upnp_action_getlistner mupnp_upnp_action_getlistener
 
 /****************************************************************************
  * User Data
@@ -302,7 +302,7 @@ BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *nam
  * @param action The action in question
  * @param value The user data pointer (void*)
  */
-#define cg_upnp_action_setuserdata(action, value) (action->userData = value)
+#define mupnp_upnp_action_setuserdata(action, value) (action->userData = value)
 
 /**
  * Get the action's arbitrary user data pointer
@@ -310,7 +310,7 @@ BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *nam
  * @param action The action in question
  * @return void*
  */
-#define cg_upnp_action_getuserdata(action) (action->userData)
+#define mupnp_upnp_action_getuserdata(action) (action->userData)
 
 /****************************************************************************
  * Function (ActionList)
@@ -321,21 +321,21 @@ BOOL cg_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *nam
  *
  * @return CgUpnpActionList*
  */
-CgUpnpActionList *cg_upnp_actionlist_new();
+CgUpnpActionList *mupnp_upnp_actionlist_new();
 
 /**
  * Destroy a list of actions
  *
  * @param actionList The list of actions to destroy
  */
-void cg_upnp_actionlist_delete(CgUpnpActionList *actionList);
+void mupnp_upnp_actionlist_delete(CgUpnpActionList *actionList);
 
 /**
  * Clear the contents of a list of actions
  *
  * @param actionList The list of actions to clear
  */
-#define cg_upnp_actionlist_clear(actionList) cg_list_clear((CgList *)actionList, (CG_LIST_DESTRUCTORFUNC)cg_upnp_action_delete)
+#define mupnp_upnp_actionlist_clear(actionList) mupnp_list_clear((CgList *)actionList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_action_delete)
 
 /**
  * Get the number of actions in a list of actions
@@ -343,7 +343,7 @@ void cg_upnp_actionlist_delete(CgUpnpActionList *actionList);
  * @param actionList The list in question
  * @return int
  */
-#define cg_upnp_actionlist_size(actionList) cg_list_size((CgList *)actionList)
+#define mupnp_upnp_actionlist_size(actionList) mupnp_list_size((CgList *)actionList)
 
 /**
  * Get the first action in a list of actions. Use as the starting point in
@@ -352,7 +352,7 @@ void cg_upnp_actionlist_delete(CgUpnpActionList *actionList);
  * @param actionList The list in question
  * @return CgUpnpAction*
  */
-#define cg_upnp_actionlist_gets(actionList) (CgUpnpAction *)cg_list_next((CgList *)actionList)
+#define mupnp_upnp_actionlist_gets(actionList) (CgUpnpAction *)mupnp_list_next((CgList *)actionList)
 
 /**
  * Add an action to a list of actions
@@ -360,7 +360,7 @@ void cg_upnp_actionlist_delete(CgUpnpActionList *actionList);
  * @param actionList The list in question
  * @param action The action to add to the list
  */
-#define cg_upnp_actionlist_add(actionList, action) cg_list_add((CgList *)actionList, (CgList *)action)
+#define mupnp_upnp_actionlist_add(actionList, action) mupnp_list_add((CgList *)actionList, (CgList *)action)
 
 #ifdef  __cplusplus
 }

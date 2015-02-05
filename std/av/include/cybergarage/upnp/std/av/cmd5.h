@@ -21,7 +21,7 @@ extern "C" {
 
 #define CG_MD5_STRING_BUF_SIZE ((16*2)+1)
 
-char *cg_str2md5(char *string, char *md5buf);
+char *mupnp_str2md5(char *string, char *md5buf);
 
 #ifdef __cplusplus
 }

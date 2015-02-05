@@ -64,106 +64,106 @@ extern "C" {
 /* Filename, line_n and unique build number can be used to give unique id tag
  * to all messages.
  */
-void cg_log_print(int severity, const char *file, int line_n, const char *function, const char *format, ...);
-void cg_log_set_separator(char *s);
+void mupnp_log_print(int severity, const char *file, int line_n, const char *function, const char *format, ...);
+void mupnp_log_set_separator(char *s);
 
 /* Target defines a file or stdout/stderr, in future it may also
  * contain special targets like network addresses etc.
  */
-int cg_log_add_target(char *target, int severity_mask);
-int cg_log_clear_targets();
+int mupnp_log_add_target(char *target, int severity_mask);
+int mupnp_log_clear_targets();
 
 /* Standard error handling */
 #if defined(__USE_ISOC99)
-#define cg_log_error(format, ...) cg_log_print(SEV_ERROR, __FILE__,  __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#define mupnp_log_error(format, ...) mupnp_log_print(SEV_ERROR, __FILE__,  __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32) || defined(WINCE)
-void cg_log_error(const char *format, ...);
+void mupnp_log_error(const char *format, ...);
 #else
-#define cg_log_error(format...) cg_log_print(SEV_ERROR, __FILE__,  __LINE__, __PRETTY_FUNCTION__, format)
+#define mupnp_log_error(format...) mupnp_log_print(SEV_ERROR, __FILE__,  __LINE__, __PRETTY_FUNCTION__, format)
 #endif
 
 #if defined(__USE_ISOC99)
-#define cg_log_warning(format, ...) cg_log_print(SEV_WARNING, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#define mupnp_log_warning(format, ...) mupnp_log_print(SEV_WARNING, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32) || defined(WINCE)
-void cg_log_warning(const char *format, ...);
+void mupnp_log_warning(const char *format, ...);
 #else
-#define cg_log_warning(format...) cg_log_print(SEV_WARNING, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#define mupnp_log_warning(format...) mupnp_log_print(SEV_WARNING, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
 
 #if defined(__USE_ISOC99)
-#define cg_log_info(format, ...) cg_log_print(SEV_INFO, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#define mupnp_log_info(format, ...) mupnp_log_print(SEV_INFO, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32) || defined(WINCE)
-void cg_log_info(const char *format, ...);
+void mupnp_log_info(const char *format, ...);
 #else
-#define cg_log_info(format...) cg_log_print(SEV_INFO, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#define mupnp_log_info(format...) mupnp_log_print(SEV_INFO, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
 
 /* General and low level debug */
 #ifdef CLOG_DEBUG
 #if defined(__USE_ISOC99)
-#	define cg_log_debug(format, ...) cg_log_print(SEV_DEBUG_L1, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
-#	define cg_log_debug_l4(format, ...) cg_log_print(SEV_DEBUG_L4, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
-#	define cg_log_debug_l5(format, ...) cg_log_print(SEV_DEBUG_L5, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#	define mupnp_log_debug(format, ...) mupnp_log_print(SEV_DEBUG_L1, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#	define mupnp_log_debug_l4(format, ...) mupnp_log_print(SEV_DEBUG_L4, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#	define mupnp_log_debug_l5(format, ...) mupnp_log_print(SEV_DEBUG_L5, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32)
-void cg_log_debug(const char *format, ...);
-void cg_log_debug_l4(const char *format, ...);
-void cg_log_debug_l5(const char *format, ...);
+void mupnp_log_debug(const char *format, ...);
+void mupnp_log_debug_l4(const char *format, ...);
+void mupnp_log_debug_l5(const char *format, ...);
 #else
-#	define cg_log_debug(format...) cg_log_print(SEV_DEBUG_L1, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
-#	define cg_log_debug_l4(format...) cg_log_print(SEV_DEBUG_L4, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
-#	define cg_log_debug_l5(format...) cg_log_print(SEV_DEBUG_L5, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#	define mupnp_log_debug(format...) mupnp_log_print(SEV_DEBUG_L1, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#	define mupnp_log_debug_l4(format...) mupnp_log_print(SEV_DEBUG_L4, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#	define mupnp_log_debug_l5(format...) mupnp_log_print(SEV_DEBUG_L5, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
 #else
 #if defined(__USE_ISOC99)
-#	define cg_log_debug(format, ...)
-#	define cg_log_debug_l4(format, ...)
-#	define cg_log_debug_l5(format, ...)
+#	define mupnp_log_debug(format, ...)
+#	define mupnp_log_debug_l4(format, ...)
+#	define mupnp_log_debug_l5(format, ...)
 #elif defined(WIN32) || defined(WINCE)
-void cg_log_debug(const char *format, ...);
-void cg_log_debug_l4(const char *format, ...);
-void cg_log_debug_l5(const char *format, ...);
+void mupnp_log_debug(const char *format, ...);
+void mupnp_log_debug_l4(const char *format, ...);
+void mupnp_log_debug_l5(const char *format, ...);
 #else
-#	define cg_log_debug(format...)
-#	define cg_log_debug_l4(format...)
-#	define cg_log_debug_l5(format...)
+#	define mupnp_log_debug(format...)
+#	define mupnp_log_debug_l4(format...)
+#	define mupnp_log_debug_l5(format...)
 #endif
 #endif
 
 /* Debug messages coming from stack */
 #ifdef CLOG_DEBUG_STACK
 #if defined(__USE_ISOC99)
-#	define cg_log_debug_s(format, ...) cg_log_print(SEV_DEBUG_L2, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#	define mupnp_log_debug_s(format, ...) mupnp_log_print(SEV_DEBUG_L2, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32)
-void cg_log_debug_s(const char *format, ...);
+void mupnp_log_debug_s(const char *format, ...);
 #else
-#	define cg_log_debug_s(format...) cg_log_print(SEV_DEBUG_L2, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#	define mupnp_log_debug_s(format...) mupnp_log_print(SEV_DEBUG_L2, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
 #else
 #if defined(__USE_ISOC99)
-#	define cg_log_debug_s(format, ...)
+#	define mupnp_log_debug_s(format, ...)
 #elif defined(WIN32) || defined(WINCE)
-void cg_log_debug_s(const char *format, ...);
+void mupnp_log_debug_s(const char *format, ...);
 #else
-#	define cg_log_debug_s(format...)
+#	define mupnp_log_debug_s(format...)
 #endif
 #endif
 
 /* Debug messages coming from application */
 #ifdef CLOG_DEBUG_APPLICATION
 #if defined(__USE_ISOC99)
-#	define cg_log_debug_a(format...) cg_log_print(SEV_DEBUG_L3, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#	define mupnp_log_debug_a(format...) mupnp_log_print(SEV_DEBUG_L3, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32)
-void cg_log_debug_a(const char *format, ...);
+void mupnp_log_debug_a(const char *format, ...);
 #else
-#	define cg_log_debug_a(format...) cg_log_print(SEV_DEBUG_L3, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#	define mupnp_log_debug_a(format...) mupnp_log_print(SEV_DEBUG_L3, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
 #else
 #if defined(__USE_ISOC99)
-#	define cg_log_debug_a(format, ...)
+#	define mupnp_log_debug_a(format, ...)
 #elif defined(WIN32) || defined(WINCE)
-void cg_log_debug_a(const char *format, ...);
+void mupnp_log_debug_a(const char *format, ...);
 #else
-#	define cg_log_debug_a(format...)
+#	define mupnp_log_debug_a(format...)
 #endif
 #endif
 

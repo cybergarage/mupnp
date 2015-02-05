@@ -16,7 +16,7 @@
 *	02/07/05
 *		- first revision
 *	10/22/07 Aapo Makela
-*		- Added NULL check to cg_xml_node_getchildnode() macro
+*		- Added NULL check to mupnp_xml_node_getchildnode() macro
 *
 ******************************************************************/
 
@@ -75,131 +75,131 @@ typedef struct _CgXmlParser {
 * Function (AttribureList)
 ****************************************/
 
-CgXmlAttributeList *cg_xml_attributelist_new();
-void cg_xml_attributelist_delete(CgXmlAttributeList *attrList);
+CgXmlAttributeList *mupnp_xml_attributelist_new();
+void mupnp_xml_attributelist_delete(CgXmlAttributeList *attrList);
 
-#define cg_xml_attributelist_clear(attrList) cg_list_clear((CgList *)attrList, (CG_LIST_DESTRUCTORFUNC)cg_xml_attribute_delete)
-#define cg_xml_attributelist_size(attrList) cg_list_size((CgList *)attrList)
-#define cg_xml_attributelist_gets(attrList) (CgXmlAttribute *)cg_list_next((CgList *)attrList)
-#define cg_xml_attributelist_add(attrList, attr) cg_list_add((CgList *)attrList, (CgList *)attr)
+#define mupnp_xml_attributelist_clear(attrList) mupnp_list_clear((CgList *)attrList, (CG_LIST_DESTRUCTORFUNC)mupnp_xml_attribute_delete)
+#define mupnp_xml_attributelist_size(attrList) mupnp_list_size((CgList *)attrList)
+#define mupnp_xml_attributelist_gets(attrList) (CgXmlAttribute *)mupnp_list_next((CgList *)attrList)
+#define mupnp_xml_attributelist_add(attrList, attr) mupnp_list_add((CgList *)attrList, (CgList *)attr)
 
-void cg_xml_attributelist_set(CgXmlAttributeList *attrList, const char *name, const char *value);
-CgXmlAttribute *cg_xml_attributelist_get(CgXmlAttributeList *attrList, const char *name);
-const char *cg_xml_attributelist_getvalue(CgXmlAttributeList *attrList, const char *name);
+void mupnp_xml_attributelist_set(CgXmlAttributeList *attrList, const char *name, const char *value);
+CgXmlAttribute *mupnp_xml_attributelist_get(CgXmlAttributeList *attrList, const char *name);
+const char *mupnp_xml_attributelist_getvalue(CgXmlAttributeList *attrList, const char *name);
 
 /****************************************
 * Function (Attributes)
 ****************************************/
 
-CgXmlAttribute *cg_xml_attribute_new();
-void cg_xml_attribute_delete(CgXmlAttribute *attr);
+CgXmlAttribute *mupnp_xml_attribute_new();
+void mupnp_xml_attribute_delete(CgXmlAttribute *attr);
 
-#define cg_xml_attribute_next(attr) (CgXmlAttribute *)cg_list_next((CgList *)attr)
-#define cg_xml_attribute_remove(attr) cg_list_remove((CgList *)attr)
+#define mupnp_xml_attribute_next(attr) (CgXmlAttribute *)mupnp_list_next((CgList *)attr)
+#define mupnp_xml_attribute_remove(attr) mupnp_list_remove((CgList *)attr)
 
-void cg_xml_attribute_setname(CgXmlAttribute *attr, const char *name);
-const char *cg_xml_attribute_getname(CgXmlAttribute *attr);
-BOOL cg_xml_attribute_isname(CgXmlAttribute *attr, const char *name);
+void mupnp_xml_attribute_setname(CgXmlAttribute *attr, const char *name);
+const char *mupnp_xml_attribute_getname(CgXmlAttribute *attr);
+BOOL mupnp_xml_attribute_isname(CgXmlAttribute *attr, const char *name);
 
-void cg_xml_attribute_setvalue(CgXmlAttribute *attr, const char *value);
-const char *cg_xml_attribute_getvalue(CgXmlAttribute *attr);
+void mupnp_xml_attribute_setvalue(CgXmlAttribute *attr, const char *value);
+const char *mupnp_xml_attribute_getvalue(CgXmlAttribute *attr);
 
 /****************************************
 * Function (NodeList)
 ****************************************/
 
-CgXmlNodeList *cg_xml_nodelist_new();
-void cg_xml_nodelist_delete(CgXmlNodeList *nodeList);
+CgXmlNodeList *mupnp_xml_nodelist_new();
+void mupnp_xml_nodelist_delete(CgXmlNodeList *nodeList);
 
-#define cg_xml_nodelist_clear(nodeList) cg_list_clear((CgList *)(nodeList), (CG_LIST_DESTRUCTORFUNC)cg_xml_node_delete)
-#define cg_xml_nodelist_size(nodeList) cg_list_size((CgList *)(nodeList))
-#define cg_xml_nodelist_gets(nodeList) (CgXmlNode *)cg_list_next((CgList *)(nodeList))
-#define cg_xml_nodelist_add(nodeList, node) cg_list_add((CgList *)(nodeList), (CgList *)(node))
+#define mupnp_xml_nodelist_clear(nodeList) mupnp_list_clear((CgList *)(nodeList), (CG_LIST_DESTRUCTORFUNC)mupnp_xml_node_delete)
+#define mupnp_xml_nodelist_size(nodeList) mupnp_list_size((CgList *)(nodeList))
+#define mupnp_xml_nodelist_gets(nodeList) (CgXmlNode *)mupnp_list_next((CgList *)(nodeList))
+#define mupnp_xml_nodelist_add(nodeList, node) mupnp_list_add((CgList *)(nodeList), (CgList *)(node))
 
-/* Deprecated : Use cg_xml_nodelist_getbyname */
-#define cg_xml_nodelist_get(nodeList, name) cg_xml_nodelist_getbyname(nodeList, name)
-CgXmlNode *cg_xml_nodelist_getbyname(CgXmlNodeList *nodeList, const char *name);
-CgXmlNode *cg_xml_nodelist_getbyxpath(CgXmlNodeList *nodeList, const char *xpath);
+/* Deprecated : Use mupnp_xml_nodelist_getbyname */
+#define mupnp_xml_nodelist_get(nodeList, name) mupnp_xml_nodelist_getbyname(nodeList, name)
+CgXmlNode *mupnp_xml_nodelist_getbyname(CgXmlNodeList *nodeList, const char *name);
+CgXmlNode *mupnp_xml_nodelist_getbyxpath(CgXmlNodeList *nodeList, const char *xpath);
 
 /****************************************
 * Function (Node)
 ****************************************/
 
-CgXmlNode *cg_xml_node_new();
-void cg_xml_node_delete(CgXmlNode *node);
+CgXmlNode *mupnp_xml_node_new();
+void mupnp_xml_node_delete(CgXmlNode *node);
 
-#define cg_xml_node_next(node) (CgXmlNode *)cg_list_next((CgList *)node)
-#define cg_xml_node_remove(node) cg_list_remove((CgList *)node)
+#define mupnp_xml_node_next(node) (CgXmlNode *)mupnp_list_next((CgList *)node)
+#define mupnp_xml_node_remove(node) mupnp_list_remove((CgList *)node)
 
-#define cg_xml_node_setname(node, nodename) cg_string_setvalue(node->name, nodename)
-#define cg_xml_node_getname(node) cg_string_getvalue(node->name)
-#define cg_xml_node_isname(node, nodename) (cg_strcmp(cg_xml_node_getname(node), nodename) == 0 ? TRUE : FALSE)
+#define mupnp_xml_node_setname(node, nodename) mupnp_string_setvalue(node->name, nodename)
+#define mupnp_xml_node_getname(node) mupnp_string_getvalue(node->name)
+#define mupnp_xml_node_isname(node, nodename) (mupnp_strcmp(mupnp_xml_node_getname(node), nodename) == 0 ? TRUE : FALSE)
 
-#define cg_xml_node_setvalue(node, nodevalue) cg_string_setvalue(node->value, nodevalue)
-#define cg_xml_node_setintvalue(node, nodevalue) cg_string_setintvalue(node->value, nodevalue)
-#define cg_xml_node_setlongvalue(node, nodevalue) cg_string_setlongvalue(node->value, nodevalue)
-#define cg_xml_node_setnvalue(node, nodevalue, nodevaluelen) cg_string_setnvalue(node->value, nodevalue, nodevaluelen)
-#define cg_xml_node_addvalue(node, nodevalue) cg_string_addvalue(node->value, nodevalue)
-#define cg_xml_node_naddvalue(node, nodevalue, len) cg_string_naddvalue(node->value, nodevalue, len)
-#define cg_xml_node_getvalue(node) cg_string_getvalue(node->value)
-#define cg_xml_node_getintvalue(node) cg_string_getintvalue(node->value)
-#define cg_xml_node_getlongvalue(node) cg_string_getlongvalue(node->value)
+#define mupnp_xml_node_setvalue(node, nodevalue) mupnp_string_setvalue(node->value, nodevalue)
+#define mupnp_xml_node_setintvalue(node, nodevalue) mupnp_string_setintvalue(node->value, nodevalue)
+#define mupnp_xml_node_setlongvalue(node, nodevalue) mupnp_string_setlongvalue(node->value, nodevalue)
+#define mupnp_xml_node_setnvalue(node, nodevalue, nodevaluelen) mupnp_string_setnvalue(node->value, nodevalue, nodevaluelen)
+#define mupnp_xml_node_addvalue(node, nodevalue) mupnp_string_addvalue(node->value, nodevalue)
+#define mupnp_xml_node_naddvalue(node, nodevalue, len) mupnp_string_naddvalue(node->value, nodevalue, len)
+#define mupnp_xml_node_getvalue(node) mupnp_string_getvalue(node->value)
+#define mupnp_xml_node_getintvalue(node) mupnp_string_getintvalue(node->value)
+#define mupnp_xml_node_getlongvalue(node) mupnp_string_getlongvalue(node->value)
 
-#define cg_xml_node_setparentnode(node, pnode) (node->parentNode = pnode)
-#define cg_xml_node_getparentnode(node) (node->parentNode)
-CgXmlNode *cg_xml_node_getrootnode(CgXmlNode *node);
+#define mupnp_xml_node_setparentnode(node, pnode) (node->parentNode = pnode)
+#define mupnp_xml_node_getparentnode(node) (node->parentNode)
+CgXmlNode *mupnp_xml_node_getrootnode(CgXmlNode *node);
 
-#define cg_xml_node_getchildnodelist(node) (node->nodeList)
-void cg_xml_node_addchildnode(CgXmlNode *node, CgXmlNode *cnode);
-void cg_xml_node_setchildnode(CgXmlNode *node, const char *name, const char *value);
-BOOL cg_xml_node_removechildnode(CgXmlNode *node, const char *name);
-const char *cg_xml_node_getchildnodevalue(CgXmlNode *node, const char *name);
-#define cg_xml_node_getchildnodeintvalue(node, name) cg_str2int(cg_xml_node_getchildnodevalue(node, name))
-#define cg_xml_node_getchildnodelongvalue(node, name) cg_str2long(cg_xml_node_getchildnodevalue(node, name))
+#define mupnp_xml_node_getchildnodelist(node) (node->nodeList)
+void mupnp_xml_node_addchildnode(CgXmlNode *node, CgXmlNode *cnode);
+void mupnp_xml_node_setchildnode(CgXmlNode *node, const char *name, const char *value);
+BOOL mupnp_xml_node_removechildnode(CgXmlNode *node, const char *name);
+const char *mupnp_xml_node_getchildnodevalue(CgXmlNode *node, const char *name);
+#define mupnp_xml_node_getchildnodeintvalue(node, name) mupnp_str2int(mupnp_xml_node_getchildnodevalue(node, name))
+#define mupnp_xml_node_getchildnodelongvalue(node, name) mupnp_str2long(mupnp_xml_node_getchildnodevalue(node, name))
 	
-#define cg_xml_node_setuserdata(node, data) (node->userData = data)
-#define cg_xml_node_getuserdata(node) (node->userData)
-#define cg_xml_node_setuserdatadestructor(node, func) (node->userDataDestructorFunc = func)
+#define mupnp_xml_node_setuserdata(node, data) (node->userData = data)
+#define mupnp_xml_node_getuserdata(node) (node->userData)
+#define mupnp_xml_node_setuserdatadestructor(node, func) (node->userDataDestructorFunc = func)
 
-#define cg_xml_node_getchildnodes(node) cg_xml_nodelist_gets(node->nodeList)
-#define cg_xml_node_haschildnodes(node) ((cg_xml_node_getchildnodes(node) != NULL) ? TRUE : FALSE) 
-/* Deprecated : Use cg_xml_node_getchildnodebyname */
-#define cg_xml_node_getchildnode(node,name) ((node != NULL) ? cg_xml_nodelist_getbyname(node->nodeList,name) : NULL)
-#define cg_xml_node_getchildnodebyname(node,name) ((node != NULL) ? cg_xml_nodelist_getbyname(node->nodeList,name) : NULL)
-#define cg_xml_node_getchildnodebyxpath(node,xpath) ((node != NULL) ? cg_xml_nodelist_getbyxpath(node->nodeList,xpath) : NULL)
+#define mupnp_xml_node_getchildnodes(node) mupnp_xml_nodelist_gets(node->nodeList)
+#define mupnp_xml_node_haschildnodes(node) ((mupnp_xml_node_getchildnodes(node) != NULL) ? TRUE : FALSE) 
+/* Deprecated : Use mupnp_xml_node_getchildnodebyname */
+#define mupnp_xml_node_getchildnode(node,name) ((node != NULL) ? mupnp_xml_nodelist_getbyname(node->nodeList,name) : NULL)
+#define mupnp_xml_node_getchildnodebyname(node,name) ((node != NULL) ? mupnp_xml_nodelist_getbyname(node->nodeList,name) : NULL)
+#define mupnp_xml_node_getchildnodebyxpath(node,xpath) ((node != NULL) ? mupnp_xml_nodelist_getbyxpath(node->nodeList,xpath) : NULL)
 
 /* Get childnode with some specific namespace prefix, or ignore namespace prefix.
    If ns is NULL, name string must match completely */
-CgXmlNode *cg_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *name, const char *ns, BOOL ignoreNs);
+CgXmlNode *mupnp_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *name, const char *ns, BOOL ignoreNs);
 
-#define cg_xml_node_getattributes(node) cg_xml_attributelist_gets(node->attrList)
-#define cg_xml_node_getattribute(node, name) cg_xml_attributelist_get(node->attrList,name)
-#define cg_xml_node_addattribute(node, attr) cg_xml_attributelist_add(node->attrList,attr)
-#define cg_xml_node_setattribute(node, name, value) cg_xml_attributelist_set(node->attrList,name,value)
-#define cg_xml_node_getattributevalue(node, name) cg_xml_attributelist_getvalue(node->attrList, name)
-BOOL cg_xml_node_removeattribute(CgXmlNode *node, const char *name);
+#define mupnp_xml_node_getattributes(node) mupnp_xml_attributelist_gets(node->attrList)
+#define mupnp_xml_node_getattribute(node, name) mupnp_xml_attributelist_get(node->attrList,name)
+#define mupnp_xml_node_addattribute(node, attr) mupnp_xml_attributelist_add(node->attrList,attr)
+#define mupnp_xml_node_setattribute(node, name, value) mupnp_xml_attributelist_set(node->attrList,name,value)
+#define mupnp_xml_node_getattributevalue(node, name) mupnp_xml_attributelist_getvalue(node->attrList, name)
+BOOL mupnp_xml_node_removeattribute(CgXmlNode *node, const char *name);
 
-#define cg_xml_node_setnamespace(node, ns, value) cg_xml_node_setattribute(node, "xmlns:" ns , value)
+#define mupnp_xml_node_setnamespace(node, ns, value) mupnp_xml_node_setattribute(node, "xmlns:" ns , value)
 
-char *cg_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str);
-void  cg_xml_node_print(CgXmlNode *node);
+char *mupnp_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str);
+void  mupnp_xml_node_print(CgXmlNode *node);
 
-void cg_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode);
+void mupnp_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode);
 
 /****************************************
 * Function (Parser)
 ****************************************/
 
-CgXmlParser *cg_xml_parser_new();
-void cg_xml_parser_delete(CgXmlParser *parser);
-BOOL cg_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *data, size_t len);
+CgXmlParser *mupnp_xml_parser_new();
+void mupnp_xml_parser_delete(CgXmlParser *parser);
+BOOL mupnp_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *data, size_t len);
 
 /****************************************
 * Function (Other)
 ****************************************/
 
-char *cg_xml_escapechars(CgString *str);
-char *cg_xml_unescapechars(CgString *str);
+char *mupnp_xml_escapechars(CgString *str);
+char *mupnp_xml_unescapechars(CgString *str);
 
 
 #ifdef  __cplusplus
