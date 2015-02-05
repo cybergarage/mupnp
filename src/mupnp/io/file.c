@@ -533,7 +533,7 @@ int mupnp_file_listfiles(mUpnpFile *file, mUpnpFileList *fileList)
 				mupnp_string_addvalue(fullPathStr, dir);
 				mupnp_string_addvalue(fullPathStr, "\\");
 				mupnp_string_addvalue(fullPathStr, fileName);
-//				conType = (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ? CG_UPNPAV_CONTENT_CONTAINER : CG_UPNPAV_CONTENT_ITEM;
+//				conType = (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ? MUPNPAV_CONTENT_CONTAINER : MUPNPAV_CONTENT_ITEM;
 #else
 	n = scandir(dir, &dirFileList, 0, alphasort);
 	if (0 <= n) {
@@ -545,7 +545,7 @@ int mupnp_file_listfiles(mUpnpFile *file, mUpnpFileList *fileList)
 				mupnp_string_addvalue(fullPathStr, "/");
 				mupnp_string_addvalue(fullPathStr, dirFileList[n]->d_name);
 //				if(stat(mupnp_string_getvalue(fullPathStr), &fileStat) != -1)
-//				conType = ((fileStat.st_mode & S_IFMT)==S_IFDIR) ? CG_UPNPAV_CONTENT_CONTAINER : CG_UPNPAV_CONTENT_ITEM;
+//				conType = ((fileStat.st_mode & S_IFMT)==S_IFDIR) ? MUPNPAV_CONTENT_CONTAINER : MUPNPAV_CONTENT_ITEM;
 #endif
 				/* file */
 				childFile = mupnp_file_new();

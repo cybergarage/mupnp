@@ -1,14 +1,15 @@
-/************************************************************
+/******************************************************************
  *
- *	CyberLink for C
+ * mUPnP for C
  *
- *	Copyright (C) Satoshi Konno 2005
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
  *
  * This is licensed under BSD-style license, see file COPYING.
  *
- ************************************************************/
+ ******************************************************************/
 
-#include <cybergarage/net/cinterface.h>
+#include <mupnp/net/interface.h>
 
 #include <boost/test/unit_test.hpp>
 
@@ -19,24 +20,24 @@
 BOOST_AUTO_TEST_CASE(NetworkInterface)
 {
 #if defined(HAVE_SOCKADDR_DL) || defined(HAVE_SIOCGIFHWADDR)
-	CgByte macAddr[CG_NET_MACADDR_SIZE];
-	CgByte nullMacAddr[CG_NET_MACADDR_SIZE];
+	mUpnpByte macAddr[CG_NET_MACADDR_SIZE];
+	mUpnpByte nullMacAddr[CG_NET_MACADDR_SIZE];
 	memset(nullMacAddr, 0, CG_NET_MACADDR_SIZE);
 #endif
 
-	CgNetworkInterfaceList *netIfList = cg_net_interfacelist_new();
+	mUpnpNetworkInterfaceList *netIfList = mupnp_net_interfacelist_new();
 	BOOST_CHECK(netIfList);
-	BOOST_CHECK(0 < cg_net_gethostinterfaces(netIfList));
-	for (CgNetworkInterface *netIf=cg_net_interfacelist_gets(netIfList); netIf; netIf=cg_net_interface_next(netIf)) {
-		char *ipaddr = cg_net_interface_getaddress(netIf);
-		BOOST_CHECK(0 < cg_strlen(ipaddr));
-		BOOST_CHECK(cg_streq(ipaddr, "0.0.0.0") == FALSE);
+	BOOST_CHECK(0 < mupnp_net_gethostinterfaces(netIfList));
+	for (mUpnpNetworkInterface *netIf=mupnp_net_interfacelist_gets(netIfList); netIf; netIf=mupnp_net_interface_next(netIf)) {
+		char *ipaddr = mupnp_net_interface_getaddress(netIf);
+		BOOST_CHECK(0 < mupnp_strlen(ipaddr));
+		BOOST_CHECK(mupnp_streq(ipaddr, "0.0.0.0") == FALSE);
 #if defined(HAVE_SOCKADDR_DL) || defined(HAVE_SIOCGIFHWADDR)
-		cg_net_interface_getmacaddress(netIf, macAddr);
+		mupnp_net_interface_getmacaddress(netIf, macAddr);
 		BOOST_CHECK(memcmp(macAddr, nullMacAddr, CG_NET_MACADDR_SIZE) != 0);
 #endif
-		//BOOST_CHECK(0 < cg_strlen(cg_net_interface_getname(netIf)));
-		//BOOST_CHECK(0 < cg_strlen(cg_net_interface_getnetmask(netIf)));
+		//BOOST_CHECK(0 < mupnp_strlen(mupnp_net_interface_getname(netIf)));
+		//BOOST_CHECK(0 < mupnp_strlen(mupnp_net_interface_getnetmask(netIf)));
 	}
-	cg_net_interfacelist_delete(netIfList);
+	mupnp_net_interfacelist_delete(netIfList);
 }
