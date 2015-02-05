@@ -1,5 +1,5 @@
 2013-12-21 Satoshi Konno <skonno@cybergarage.org>
-	* 3.0
+	* 2.4.1
 	* Updated all functions using 'const' keyword in C99.
 	* Fixed compiler warnings using GCC 4.4.1.
 
