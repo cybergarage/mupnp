@@ -12,7 +12,7 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/cupnp.h>
+#include <mupnp/upnp.h>
 
 #define UPNPAVDUMP_DMS_DEVICETYPE "urn:schemas-upnp-org:device:MediaServer:1"
 #define UPNPAVDUMP_DMS_CONTENTDIR_SERVICETYPE "urn:schemas-upnp-org:service:ContentDirectory:1"

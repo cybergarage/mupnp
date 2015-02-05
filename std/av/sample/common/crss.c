@@ -15,11 +15,11 @@
 #include "crss.h"
 #include "cwebservice.h"
 
-#include <cybergarage/http/chttp.h>
-#include <cybergarage/xml/cxml.h>
+#include <mupnp/http/http.h>
+#include <mupnp/xml/xml.h>
 
-#include <cybergarage/upnp/std/av/ccontent.h>
-#include <cybergarage/upnp/std/av/cmd5.h>
+#include <mupnp/std/av/ccontent.h>
+#include <mupnp/std/av/cmd5.h>
 
 /************************************************************
 * cg_http_getrestresponse

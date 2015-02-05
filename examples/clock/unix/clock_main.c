@@ -17,7 +17,7 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/cupnp.h>
+#include <mupnp/upnp.h>
 
 #include "clock_device.h"
 #include "kb_util.h"

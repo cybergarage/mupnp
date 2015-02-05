@@ -15,7 +15,7 @@
 #ifndef _CG_CLINKCAV_CONTENT_H_
 #define _CG_CLINKCAV_CONTENT_H_
 
-#include <cybergarage/upnp/std/av/cresource.h>
+#include <mupnp/std/av/cresource.h>
 
 #ifdef __cplusplus
 extern "C" {

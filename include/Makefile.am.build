@@ -2,16 +2,16 @@
 print<<HEADER;
 ############################################################
 #
-# CyberGarage for C
+# mUPnP for C
 #
 # Copyright (C) Satoshi Konno 2005
 #
 ############################################################
 
-clinkc_headers = \\
+mupnp_headers = \\
 HEADER
 
-my @find_files = `find ./cybergarage -name *.h`;
+my @find_files = `find ./mupnp -name *.h`;
 my @include_files;
 foreach $file (@find_files) {
 	$file =~ s/\n//;
@@ -23,11 +23,11 @@ print join(" \\\n", @include_files) . "\n";
 print<<FOTTER;
 
 
-cybergarage/upnp/cupnp.h: \$(top_builddir)/config.h
-	mkdir -p cybergarage/upnp
-	sed -e "s/CG_CLINK_VER/CG_CLINK_VER \\"\$(PACKAGE_VERSION)\\"/" \\
-	\$(srcdir)/cybergarage/upnp/cupnp.h.in > \$(srcdir)/cybergarage/upnp/cupnp.h
+mupnp/upnp.h: \$(top_builddir)/config.h
+	mkdir -p mupnp/upnp
+	sed -e "s/MUPNP_VER/MUPNP_VER \\"\$(PACKAGE_VERSION)\\"/" \\
+	\$(srcdir)/mupnp/mupnp.h.in > \$(srcdir)/mupnp/mupnp.h
 
 nobase_include_HEADERS = \\
-	\$(clinkc_headers)
+	\$(mupnp_headers)
 FOTTER

@@ -20,7 +20,7 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/cupnp.h>
+#include <mupnp/upnp.h>
 
 #include <ctype.h>
 

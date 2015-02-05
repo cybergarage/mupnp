@@ -13,8 +13,8 @@
 ************************************************************/
 
 #include "cdms_filesys.h"
-#include <cybergarage/upnp/std/av/cmediaserver.h>
-#include <cybergarage/net/cinterface.h>
+#include <mupnp/std/av/cmediaserver.h>
+#include <mupnp/net/interface.h>
 
 #include <stdio.h>
 #include <ctype.h>

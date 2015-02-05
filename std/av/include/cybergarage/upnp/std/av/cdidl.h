@@ -15,7 +15,7 @@
 #ifndef _CG_CLINKCAV_DIDL_H_
 #define _CG_CLINKCAV_DIDL_H_
 
-#include <cybergarage/xml/cxml.h>
+#include <mupnp/xml/xml.h>
 
 #ifdef __cplusplus
 extern "C" {

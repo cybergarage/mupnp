@@ -15,8 +15,8 @@
 #ifndef _CG_CLINKC_MEDIASERVER_FILESYS_H_
 #define _CG_CLINKC_MEDIASERVER_FILESYS_H_
 
-#include <cybergarage/upnp/std/av/cmediaserver.h>
-#include <cybergarage/upnp/std/av/ccontent.h>
+#include <mupnp/std/av/cmediaserver.h>
+#include <mupnp/std/av/ccontent.h>
 
 
 #ifdef  __cplusplus

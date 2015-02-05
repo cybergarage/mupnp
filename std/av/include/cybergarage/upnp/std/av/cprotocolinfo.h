@@ -21,8 +21,8 @@
 #ifndef _CG_CLINKCAV_PROTOCOLINFO_H_
 #define _CG_CLINKCAV_PROTOCOLINFO_H_
 
-#include <cybergarage/util/cstring.h>
-#include <cybergarage/util/clist.h>
+#include <mupnp/util/string.h>
+#include <mupnp/util/list.h>
 
 #ifdef  __cplusplus
 extern "C" {

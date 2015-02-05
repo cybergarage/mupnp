@@ -15,8 +15,8 @@
 #ifndef _CG_CLINKCAV_RESOURCE_H_
 #define _CG_CLINKCAV_RESOURCE_H_
 
-#include <cybergarage/util/clist.h>
-#include <cybergarage/xml/cxml.h>
+#include <mupnp/util/list.h>
+#include <mupnp/xml/xml.h>
 
 #ifdef __cplusplus
 extern "C" {

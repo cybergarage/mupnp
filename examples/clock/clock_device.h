@@ -15,7 +15,7 @@
 #ifndef _CG_CLOCK_DEVICE_H_
 #define _CG_CLOCK_DEVICE_H_
 
-#include <cybergarage/upnp/cupnp.h>
+#include <mupnp/upnp.h>
 
 #ifdef  __cplusplus
 extern "C" {

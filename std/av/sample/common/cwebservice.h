@@ -20,7 +20,7 @@
 extern "C" {
 #endif
 
-#include <cybergarage/util/cstring.h>
+#include <mupnp/util/string.h>
 
 BOOL cg_http_getrestresponse(char *url, CgString *str);
 BOOL cg_http_getredirecturl(char *orgURL, char *redirectURL, int redirectURLSize);

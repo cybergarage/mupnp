@@ -12,7 +12,7 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/cupnp.h>
+#include <mupnp/upnp.h>
 
 #define UPNPAVDUMP_IGD_DEVICETYPE "urn:schemas-upnp-org:device:InternetGatewayDevice:1"
 

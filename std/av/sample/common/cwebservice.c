@@ -12,8 +12,8 @@
 *
 ************************************************************/
 
-#include <cybergarage/http/chttp.h>
-#include <cybergarage/xml/cxml.h>
+#include <mupnp/http/http.h>
+#include <mupnp/xml/xml.h>
 
 /************************************************************
 * cg_http_getrestresponse

@@ -15,7 +15,7 @@
 #ifndef _CG_CLOCK_H_
 #define _CG_CLOCK_H_
 
-#include <cybergarage/util/ctime.h>
+#include <mupnp/util/time.h>
 
 #ifdef  __cplusplus
 extern "C" {

@@ -16,8 +16,8 @@
 #ifndef _CG_CLINKCAV_MEDIARENDERER_H_
 #define _CG_CLINKCAV_MEDIARENDERER_H_
 
-#include <cybergarage/upnp/cupnp.h>
-#include <cybergarage/upnp/std/av/cupnpav.h>
+#include <mupnp/upnp.h>
+#include <mupnp/std/av/cupnpav.h>
 
 #ifdef  __cplusplus
 extern "C" {

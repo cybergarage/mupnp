@@ -18,7 +18,7 @@
 //
 
 #include "cdms_filesys.h"
-#include <cybergarage/io/cfile.h>
+#include <mupnp/io/file.h>
 
 #define CDMS_MOBILE_PHOTO_TIMER (10 * 1000)
 #define CDMS_MOBILE_PHOTO_APPNAME "Cyber Media Gate for Windows Mobile"

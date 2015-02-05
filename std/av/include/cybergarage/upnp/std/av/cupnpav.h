@@ -15,8 +15,8 @@
 #ifndef _CG_CLINKCAV_CUPNPAV_H_
 #define _CG_CLINKCAV_CUPNPAV_H_
 
-#include <cybergarage/http/chttp.h>
-#include <cybergarage/upnp/cupnp.h>
+#include <mupnp/http/http.h>
+#include <mupnp/upnp.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -40,12 +40,12 @@ typedef BOOL (*CG_UPNPAV_STATEVARIABLE_LISTNER)(CgUpnpStateVariable *);
 }
 #endif
 
-#include <cybergarage/upnp/std/av/cdidl.h>
-#include <cybergarage/upnp/std/av/ccontent.h>
-#include <cybergarage/upnp/std/av/cmd5.h>
-#include <cybergarage/upnp/std/av/cresource.h>
-#include <cybergarage/upnp/std/av/cprotocolinfo.h>
-#include <cybergarage/upnp/std/av/cmediaserver.h>
-#include <cybergarage/upnp/std/av/cmediarenderer.h>
+#include <mupnp/std/av/cdidl.h>
+#include <mupnp/std/av/ccontent.h>
+#include <mupnp/std/av/cmd5.h>
+#include <mupnp/std/av/cresource.h>
+#include <mupnp/std/av/cprotocolinfo.h>
+#include <mupnp/std/av/cmediaserver.h>
+#include <mupnp/std/av/cmediarenderer.h>
 
 #endif
