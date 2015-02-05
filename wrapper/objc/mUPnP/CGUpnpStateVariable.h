@@ -8,18 +8,18 @@
 
 #import <Foundation/NSString.h>
 
-#if !defined(_CG_UPNP_CSTATEVARIABLE_H_)
-typedef void CgUpnpStateVariable;
+#if !defined(_MUPNP_STATEVARIABLE_H_)
+typedef void mUpnpStateVariable;
 #endif
 
 /**
- * The CGUpnpStateVariable class is a wrapper class for CgUpnpStateVariable of CyberLink for C.
+ * The CGUpnpStateVariable class is a wrapper class for mUpnpStateVariable of CyberLink for C.
  */
 @interface CGUpnpStateVariable : NSObject 
 {
 }
-@property(assign, readonly) CgUpnpStateVariable *cObject;
-- (id)initWithCObject:(CgUpnpStateVariable *)cobj;
+@property(assign, readonly) mUpnpStateVariable *cObject;
+- (id)initWithCObject:(mUpnpStateVariable *)cobj;
 /**
  * Get the name of the state variable.
  * 

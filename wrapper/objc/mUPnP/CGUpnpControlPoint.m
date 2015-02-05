@@ -6,12 +6,12 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/ccontrolpoint.h>
-#include <cybergarage/upnp/control/ccontrol.h>
+#include <mupnp/controlpoint.h>
+#include <mupnp/control/control.h>
 #import "CGUpnpControlPoint.h"
 #import "CGUpnpDevice.h"
 
-static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, const char* udn, CgUpnpDeviceStatus status);
+static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const char* udn, mUpnpDeviceStatus status);
 
 @implementation CGUpnpControlPoint
 
@@ -22,10 +22,10 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, cons
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	cObject = cg_upnp_controlpoint_new();
+	cObject = mupnp_controlpoint_new();
 	if (cObject) {
-		cg_upnp_controlpoint_setdevicelistener(cObject, CGUpnpControlPointDeviceListener);
-		cg_upnp_controlpoint_setuserdata(cObject, self);
+		mupnp_controlpoint_setdevicelistener(cObject, CGUpnpControlPointDeviceListener);
+		mupnp_controlpoint_setuserdata(cObject, self);
 		if (![self start])
 			self = nil;
 	}
@@ -37,7 +37,7 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, cons
 - (void)dealloc
 {
 	if (cObject)
-		cg_upnp_controlpoint_delete(cObject);
+		mupnp_controlpoint_delete(cObject);
 	[super dealloc];
 }
 
@@ -45,38 +45,38 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, cons
 {
 	if (!cObject)
 		return NO;
-	return cg_upnp_controlpoint_start(cObject);
+	return mupnp_controlpoint_start(cObject);
 }
 
 - (BOOL)stop
 {
 	if (!cObject)
 		return NO;
-	return cg_upnp_controlpoint_stop(cObject);
+	return mupnp_controlpoint_stop(cObject);
 }
 
 -(BOOL)isRunning
 {
 	if (!cObject)
 		return NO;
-	return cg_upnp_controlpoint_isrunning(cObject);
+	return mupnp_controlpoint_isrunning(cObject);
 }
 
 - (void)search
 {
-	[self searchWithST:[NSString stringWithUTF8String:CG_UPNP_NT_ROOTDEVICE]];
+	[self searchWithST:[NSString stringWithUTF8String:MUPNP_NT_ROOTDEVICE]];
 }
 
 - (void)searchWithST:(NSString *)aST
 {
 	if (!cObject)
 		return;
-	cg_upnp_controlpoint_search(cObject, (char *)[aST UTF8String]);
+	mupnp_controlpoint_search(cObject, (char *)[aST UTF8String]);
 	
 #if defined(CG_UPNPCONTROLPOINT_ENABLE_SEARCH_SLEEP)
-	int mx = cg_upnp_controlpoint_getssdpsearchmx(cObject);
+	int mx = mupnp_controlpoint_getssdpsearchmx(cObject);
 	if (0 < mx)
-		cg_sleep((mx * 1000));
+		mupnp_sleep((mx * 1000));
 #endif
 }
 
@@ -84,14 +84,14 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, cons
 {
 	if (!cObject)
 		return 0;
-	return cg_upnp_controlpoint_getssdpsearchmx(cObject);
+	return mupnp_controlpoint_getssdpsearchmx(cObject);
 }
 
 - (void)setSsdpSearchMX:(NSInteger)mx;
 {
 	if (!cObject)
 		return;
-	cg_upnp_controlpoint_setssdpsearchmx(cObject, (int)mx);
+	mupnp_controlpoint_setssdpsearchmx(cObject, (int)mx);
 }
 
 - (NSArray *)devices
@@ -99,8 +99,8 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, cons
 	if (!cObject)
 		return [NSArray array];
 	NSMutableArray *devArray = [NSMutableArray array];
-	CgUpnpDevice *cDevice;
-	for (cDevice = cg_upnp_controlpoint_getdevices(cObject); cDevice; cDevice = cg_upnp_device_next(cDevice)) {
+	mUpnpDevice *cDevice;
+	for (cDevice = mupnp_controlpoint_getdevices(cObject); cDevice; cDevice = mupnp_device_next(cDevice)) {
 		CGUpnpDevice *device = [[[CGUpnpDevice alloc] initWithCObject:cDevice] autorelease];
 		[devArray addObject:device];
 	}
@@ -111,9 +111,9 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, cons
 {
 	if (!cObject)
 		return nil;
-	CgUpnpDevice *cDevice;
-	for (cDevice = cg_upnp_controlpoint_getdevices(cObject); cDevice; cDevice = cg_upnp_device_next(cDevice)) {
-		if (cg_strcmp(cg_upnp_device_getudn(cDevice), (char *)[udn UTF8String]) == 0) 
+	mUpnpDevice *cDevice;
+	for (cDevice = mupnp_controlpoint_getdevices(cObject); cDevice; cDevice = mupnp_device_next(cDevice)) {
+		if (mupnp_strcmp(mupnp_device_getudn(cDevice), (char *)[udn UTF8String]) == 0) 
 			return [[[CGUpnpDevice alloc] initWithCObject:cDevice] autorelease];
 	}
 	return nil;
@@ -121,9 +121,9 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *ctrlPoint, cons
 
 @end
 
-static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, const char* udn, CgUpnpDeviceStatus status)
+static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *cCtrlPoint, const char* udn, mUpnpDeviceStatus status)
 {
-	CGUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_getuserdata(cCtrlPoint);
+	CGUpnpControlPoint *ctrlPoint = mupnp_controlpoint_getuserdata(cCtrlPoint);
 	if (ctrlPoint == nil)
 		return;
 	
@@ -135,25 +135,25 @@ static void CGUpnpControlPointDeviceListener(CgUpnpControlPoint *cCtrlPoint, con
 	NSString *deviceUdn = [[NSString alloc] initWithUTF8String:udn];
 	
 	switch (status) {
-		case CgUpnpDeviceStatusAdded:
+		case mUpnpDeviceStatusAdded:
 			{
 				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceAdded:)])
 					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceAdded:deviceUdn];
 			}
 			break;
-		case CgUpnpDeviceStatusUpdated:
+		case mUpnpDeviceStatusUpdated:
 			{
 				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceUpdated:)])
 					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceUpdated:deviceUdn];
 			}
 			break;
-		case CgUpnpDeviceStatusRemoved:
+		case mUpnpDeviceStatusRemoved:
 			{
 				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceRemoved:)])
 					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceRemoved:deviceUdn];
 			}
 			break;
-		case CgUpnpDeviceStatusInvalid:
+		case mUpnpDeviceStatusInvalid:
 			{
 				if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceInvalid:)])
 					[[ctrlPoint delegate] controlPoint:ctrlPoint deviceInvalid:deviceUdn];

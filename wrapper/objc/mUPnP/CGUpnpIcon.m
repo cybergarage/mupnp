@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/cicon.h>
+#include <mupnp/icon.h>
 #import "CGUpnpIcon.h"
 
 @implementation CGUpnpIcon
@@ -16,7 +16,7 @@
 @synthesize resourceName;
 #endif
 
-- (id) initWithCObject:(CgUpnpIcon *)cobj
+- (id) initWithCObject:(mUpnpIcon *)cobj
 {
 	if ((self = [super init]) == nil)
 		return nil;
@@ -42,35 +42,35 @@
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_upnp_icon_geturl(cObject)] autorelease];
+	return [[[NSString alloc] initWithUTF8String:mupnp_icon_geturl(cObject)] autorelease];
 }
 
 - (NSString *)mimeType
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_upnp_icon_getmimetype(cObject)] autorelease];
+	return [[[NSString alloc] initWithUTF8String:mupnp_icon_getmimetype(cObject)] autorelease];
 }
 
 - (NSInteger)width
 {
 	if (!cObject)
 		return 0;
-	return cg_upnp_icon_getwidth(cObject);
+	return mupnp_icon_getwidth(cObject);
 }
 
 - (NSInteger)height
 {
 	if (!cObject)
 		return 0;
-	return cg_upnp_icon_getheight(cObject);
+	return mupnp_icon_getheight(cObject);
 }
 
 - (NSInteger)depth
 {
 	if (!cObject)
 		return 0;
-	return cg_upnp_icon_getdepth(cObject);
+	return mupnp_icon_getdepth(cObject);
 }
 
 #if defined(TARGET_OS_IPHONE)

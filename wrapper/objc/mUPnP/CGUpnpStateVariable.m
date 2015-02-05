@@ -6,20 +6,20 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/cstatevariable.h>
-#include <cybergarage/upnp/control/ccontrol.h>
+#include <mupnp/statevariable.h>
+#include <mupnp/control/control.h>
 #import "CGUpnpStateVariable.h"
 
 @implementation CGUpnpStateVariable
 
 @synthesize cObject;
 
-- (id) initWithCObject:(CgUpnpStateVariable *)cobj
+- (id) initWithCObject:(mUpnpStateVariable *)cobj
 {
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cobj;
-	cg_upnp_statevariable_setuserdata(cObject, self);
+	mupnp_statevariable_setuserdata(cObject, self);
 	return self;
 }
 
@@ -39,14 +39,14 @@
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_upnp_statevariable_getname(cObject)] autorelease];
+	return [[[NSString alloc] initWithUTF8String:mupnp_statevariable_getname(cObject)] autorelease];
 }
 
 - (NSString *)value
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_upnp_statevariable_getvalue(cObject)] autorelease];
+	return [[[NSString alloc] initWithUTF8String:mupnp_statevariable_getvalue(cObject)] autorelease];
 }
 
 - (NSArray *)allowedValues
@@ -55,9 +55,9 @@
 		return [[[NSArray alloc] init] autorelease];
 	NSMutableArray *valuesArray = [[[NSMutableArray alloc] init] autorelease];
 	
-	CgUpnpAllowedValue *cAllowedValue;
-	for (cAllowedValue = cg_upnp_statevariable_getallowedvaluelist(cObject); cAllowedValue; cAllowedValue = (CgUpnpAllowedValue*)cg_list_next((CgList*)cAllowedValue)) {
-		NSString *value = [[[NSString alloc] initWithUTF8String:cg_string_getvalue(cAllowedValue->value)] autorelease];
+	mUpnpAllowedValue *cAllowedValue;
+	for (cAllowedValue = mupnp_statevariable_getallowedvaluelist(cObject); cAllowedValue; cAllowedValue = (mUpnpAllowedValue*)mupnp_list_next((mUpnpList*)cAllowedValue)) {
+		NSString *value = [[[NSString alloc] initWithUTF8String:mupnp_string_getvalue(cAllowedValue->value)] autorelease];
 		[valuesArray addObject:value];
 	}
 	return valuesArray;
@@ -65,21 +65,21 @@
 
 - (BOOL)isAllowedValue:(NSString*)value
 {
-	return cg_upnp_statevariable_is_allowed_value(cObject, [value UTF8String]);
+	return mupnp_statevariable_is_allowed_value(cObject, [value UTF8String]);
 }
 		 
 - (BOOL)query
 {
 	if (!cObject)
 		return NO;
-	return cg_upnp_statevariable_post(cObject);
+	return mupnp_statevariable_post(cObject);
 }
 
 - (NSInteger)statusCode
 {
 	if (!cObject)
 		return 0;
-	return cg_upnp_statevariable_getstatuscode(cObject);
+	return mupnp_statevariable_getstatuscode(cObject);
 }
 
 @end

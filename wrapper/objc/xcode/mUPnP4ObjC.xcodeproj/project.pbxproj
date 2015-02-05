@@ -11,9 +11,9 @@
 		211481CF1959863A00B8EC17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211481CD1959863A00B8EC17 /* InfoPlist.strings */; };
 		211481DA1959863A00B8EC17 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481D91959863A00B8EC17 /* XCTest.framework */; };
 		211481DB1959863A00B8EC17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C41959863A00B8EC17 /* Cocoa.framework */; };
-		211481DE1959863A00B8EC17 /* CyberLink4ObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C11959863A00B8EC17 /* CyberLink4ObjC.framework */; };
+		211481DE1959863A00B8EC17 /* mUPnP4ObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C11959863A00B8EC17 /* mUPnP4ObjC.framework */; };
 		211481E41959863A00B8EC17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211481E21959863A00B8EC17 /* InfoPlist.strings */; };
-		211481E61959863A00B8EC17 /* CyberLink4ObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211481E51959863A00B8EC17 /* CyberLink4ObjCTests.m */; };
+		211481E61959863A00B8EC17 /* mUPnP4ObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211481E51959863A00B8EC17 /* mUPnP4ObjCTests.m */; };
 		213AF7ED195986C1009E7963 /* CGUpnpAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E0195986C1009E7963 /* CGUpnpAction.h */; };
 		213AF7EE195986C1009E7963 /* CGUpnpAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E1195986C1009E7963 /* CGUpnpAction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		213AF7EF195986C1009E7963 /* CGUpnpControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E2195986C1009E7963 /* CGUpnpControlPoint.h */; };
@@ -27,7 +27,7 @@
 		213AF7F7195986C1009E7963 /* CGUpnpStateVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7EA195986C1009E7963 /* CGUpnpStateVariable.h */; };
 		213AF7F8195986C1009E7963 /* CGUpnpStateVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7EB195986C1009E7963 /* CGUpnpStateVariable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		213AF7F9195986C1009E7963 /* UPnP.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7EC195986C1009E7963 /* UPnP.h */; };
-		213AF80219598806009E7963 /* libclink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 213AF7FF195986FB009E7963 /* libclink.a */; };
+		215AC1A31A842B5F000FC959 /* liblibmupnp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 215AC1A01A842B48000FC959 /* liblibmupnp.a */; };
 		217C0F0C195988AD00FA1929 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 217C0F0B195988AD00FA1929 /* libxml2.2.dylib */; };
 /* End PBXBuildFile section */
 
@@ -37,38 +37,38 @@
 			containerPortal = 211481B81959863A00B8EC17 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 211481C01959863A00B8EC17;
-			remoteInfo = CyberLink4ObjC;
+			remoteInfo = mUPnP4ObjC;
 		};
-		213AF7FE195986FB009E7963 /* PBXContainerItemProxy */ = {
+		215AC19F1A842B48000FC959 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 213AF7FA195986FB009E7963 /* clink.xcodeproj */;
+			containerPortal = 215AC19B1A842B48000FC959 /* libmupnp.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 210AF4181331182E00A2EB09;
-			remoteInfo = clink;
+			remoteInfo = libmupnp;
 		};
-		213AF800195987FE009E7963 /* PBXContainerItemProxy */ = {
+		215AC1A11A842B57000FC959 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 213AF7FA195986FB009E7963 /* clink.xcodeproj */;
+			containerPortal = 215AC19B1A842B48000FC959 /* libmupnp.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 210AF4171331182E00A2EB09;
-			remoteInfo = clink;
+			remoteInfo = libmupnp;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		211481C11959863A00B8EC17 /* CyberLink4ObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CyberLink4ObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		211481C11959863A00B8EC17 /* mUPnP4ObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = mUPnP4ObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		211481C41959863A00B8EC17 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		211481C71959863A00B8EC17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		211481C81959863A00B8EC17 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		211481C91959863A00B8EC17 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		211481CC1959863A00B8EC17 /* CyberLink4ObjC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CyberLink4ObjC-Info.plist"; sourceTree = "<group>"; };
+		211481CC1959863A00B8EC17 /* mUPnP4ObjC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mUPnP4ObjC-Info.plist"; sourceTree = "<group>"; };
 		211481CE1959863A00B8EC17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		211481D01959863A00B8EC17 /* CyberLink4ObjC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CyberLink4ObjC-Prefix.pch"; sourceTree = "<group>"; };
-		211481D81959863A00B8EC17 /* CyberLink4ObjCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CyberLink4ObjCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		211481D01959863A00B8EC17 /* mUPnP4ObjC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mUPnP4ObjC-Prefix.pch"; sourceTree = "<group>"; };
+		211481D81959863A00B8EC17 /* mUPnP4ObjCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mUPnP4ObjCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		211481D91959863A00B8EC17 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		211481E11959863A00B8EC17 /* CyberLink4ObjCTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CyberLink4ObjCTests-Info.plist"; sourceTree = "<group>"; };
+		211481E11959863A00B8EC17 /* mUPnP4ObjCTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mUPnP4ObjCTests-Info.plist"; sourceTree = "<group>"; };
 		211481E31959863A00B8EC17 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		211481E51959863A00B8EC17 /* CyberLink4ObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CyberLink4ObjCTests.m; sourceTree = "<group>"; };
+		211481E51959863A00B8EC17 /* mUPnP4ObjCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mUPnP4ObjCTests.m; sourceTree = "<group>"; };
 		213AF7E0195986C1009E7963 /* CGUpnpAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAction.h; sourceTree = "<group>"; };
 		213AF7E1195986C1009E7963 /* CGUpnpAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAction.m; sourceTree = "<group>"; };
 		213AF7E2195986C1009E7963 /* CGUpnpControlPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpControlPoint.h; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 		213AF7EA195986C1009E7963 /* CGUpnpStateVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpStateVariable.h; sourceTree = "<group>"; };
 		213AF7EB195986C1009E7963 /* CGUpnpStateVariable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpStateVariable.m; sourceTree = "<group>"; };
 		213AF7EC195986C1009E7963 /* UPnP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnP.h; sourceTree = "<group>"; };
-		213AF7FA195986FB009E7963 /* clink.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = clink.xcodeproj; path = ../../../lib/macosx/xcode/clink.xcodeproj; sourceTree = "<group>"; };
+		215AC19B1A842B48000FC959 /* libmupnp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libmupnp.xcodeproj; path = ../../../lib/macosx/xcode/libmupnp.xcodeproj; sourceTree = "<group>"; };
 		217C0F0B195988AD00FA1929 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -91,8 +91,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				215AC1A31A842B5F000FC959 /* liblibmupnp.a in Frameworks */,
 				217C0F0C195988AD00FA1929 /* libxml2.2.dylib in Frameworks */,
-				213AF80219598806009E7963 /* libclink.a in Frameworks */,
 				211481C51959863A00B8EC17 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				211481DE1959863A00B8EC17 /* CyberLink4ObjC.framework in Frameworks */,
+				211481DE1959863A00B8EC17 /* mUPnP4ObjC.framework in Frameworks */,
 				211481DB1959863A00B8EC17 /* Cocoa.framework in Frameworks */,
 				211481DA1959863A00B8EC17 /* XCTest.framework in Frameworks */,
 			);
@@ -113,8 +113,8 @@
 		211481B71959863A00B8EC17 = {
 			isa = PBXGroup;
 			children = (
-				211481CA1959863A00B8EC17 /* CyberLink4ObjC */,
-				211481DF1959863A00B8EC17 /* CyberLink4ObjCTests */,
+				211481CA1959863A00B8EC17 /* mUPnP4ObjC */,
+				211481DF1959863A00B8EC17 /* mUPnP4ObjCTests */,
 				211481C31959863A00B8EC17 /* Frameworks */,
 				211481C21959863A00B8EC17 /* Products */,
 			);
@@ -123,8 +123,8 @@
 		211481C21959863A00B8EC17 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				211481C11959863A00B8EC17 /* CyberLink4ObjC.framework */,
-				211481D81959863A00B8EC17 /* CyberLink4ObjCTests.xctest */,
+				211481C11959863A00B8EC17 /* mUPnP4ObjC.framework */,
+				211481D81959863A00B8EC17 /* mUPnP4ObjCTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,8 +132,8 @@
 		211481C31959863A00B8EC17 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				215AC19B1A842B48000FC959 /* libmupnp.xcodeproj */,
 				217C0F0B195988AD00FA1929 /* libxml2.2.dylib */,
-				213AF7FA195986FB009E7963 /* clink.xcodeproj */,
 				211481C41959863A00B8EC17 /* Cocoa.framework */,
 				211481D91959863A00B8EC17 /* XCTest.framework */,
 				211481C61959863A00B8EC17 /* Other Frameworks */,
@@ -151,44 +151,44 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		211481CA1959863A00B8EC17 /* CyberLink4ObjC */ = {
+		211481CA1959863A00B8EC17 /* mUPnP4ObjC */ = {
 			isa = PBXGroup;
 			children = (
-				213AF7DF195986C1009E7963 /* CyberLink */,
+				213AF7DF195986C1009E7963 /* mUPnP */,
 				211481CB1959863A00B8EC17 /* Supporting Files */,
 			);
-			path = CyberLink4ObjC;
+			path = mUPnP4ObjC;
 			sourceTree = "<group>";
 		};
 		211481CB1959863A00B8EC17 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				211481CC1959863A00B8EC17 /* CyberLink4ObjC-Info.plist */,
+				211481CC1959863A00B8EC17 /* mUPnP4ObjC-Info.plist */,
 				211481CD1959863A00B8EC17 /* InfoPlist.strings */,
-				211481D01959863A00B8EC17 /* CyberLink4ObjC-Prefix.pch */,
+				211481D01959863A00B8EC17 /* mUPnP4ObjC-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		211481DF1959863A00B8EC17 /* CyberLink4ObjCTests */ = {
+		211481DF1959863A00B8EC17 /* mUPnP4ObjCTests */ = {
 			isa = PBXGroup;
 			children = (
-				211481E51959863A00B8EC17 /* CyberLink4ObjCTests.m */,
+				211481E51959863A00B8EC17 /* mUPnP4ObjCTests.m */,
 				211481E01959863A00B8EC17 /* Supporting Files */,
 			);
-			path = CyberLink4ObjCTests;
+			path = mUPnP4ObjCTests;
 			sourceTree = "<group>";
 		};
 		211481E01959863A00B8EC17 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				211481E11959863A00B8EC17 /* CyberLink4ObjCTests-Info.plist */,
+				211481E11959863A00B8EC17 /* mUPnP4ObjCTests-Info.plist */,
 				211481E21959863A00B8EC17 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		213AF7DF195986C1009E7963 /* CyberLink */ = {
+		213AF7DF195986C1009E7963 /* mUPnP */ = {
 			isa = PBXGroup;
 			children = (
 				213AF7E0195986C1009E7963 /* CGUpnpAction.h */,
@@ -205,14 +205,14 @@
 				213AF7EB195986C1009E7963 /* CGUpnpStateVariable.m */,
 				213AF7EC195986C1009E7963 /* UPnP.h */,
 			);
-			name = CyberLink;
-			path = ../../CyberLink;
+			name = mUPnP;
+			path = ../../mUPnP;
 			sourceTree = "<group>";
 		};
-		213AF7FB195986FB009E7963 /* Products */ = {
+		215AC19C1A842B48000FC959 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				213AF7FF195986FB009E7963 /* libclink.a */,
+				215AC1A01A842B48000FC959 /* liblibmupnp.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -237,9 +237,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		211481C01959863A00B8EC17 /* CyberLink4ObjC */ = {
+		211481C01959863A00B8EC17 /* mUPnP4ObjC */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 211481E91959863A00B8EC17 /* Build configuration list for PBXNativeTarget "CyberLink4ObjC" */;
+			buildConfigurationList = 211481E91959863A00B8EC17 /* Build configuration list for PBXNativeTarget "mUPnP4ObjC" */;
 			buildPhases = (
 				211481BC1959863A00B8EC17 /* Sources */,
 				211481BD1959863A00B8EC17 /* Frameworks */,
@@ -249,16 +249,16 @@
 			buildRules = (
 			);
 			dependencies = (
-				213AF801195987FE009E7963 /* PBXTargetDependency */,
+				215AC1A21A842B57000FC959 /* PBXTargetDependency */,
 			);
-			name = CyberLink4ObjC;
-			productName = CyberLink4ObjC;
-			productReference = 211481C11959863A00B8EC17 /* CyberLink4ObjC.framework */;
+			name = mUPnP4ObjC;
+			productName = mUPnP4ObjC;
+			productReference = 211481C11959863A00B8EC17 /* mUPnP4ObjC.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		211481D71959863A00B8EC17 /* CyberLink4ObjCTests */ = {
+		211481D71959863A00B8EC17 /* mUPnP4ObjCTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 211481EC1959863A00B8EC17 /* Build configuration list for PBXNativeTarget "CyberLink4ObjCTests" */;
+			buildConfigurationList = 211481EC1959863A00B8EC17 /* Build configuration list for PBXNativeTarget "mUPnP4ObjCTests" */;
 			buildPhases = (
 				211481D41959863A00B8EC17 /* Sources */,
 				211481D51959863A00B8EC17 /* Frameworks */,
@@ -269,9 +269,9 @@
 			dependencies = (
 				211481DD1959863A00B8EC17 /* PBXTargetDependency */,
 			);
-			name = CyberLink4ObjCTests;
-			productName = CyberLink4ObjCTests;
-			productReference = 211481D81959863A00B8EC17 /* CyberLink4ObjCTests.xctest */;
+			name = mUPnP4ObjCTests;
+			productName = mUPnP4ObjCTests;
+			productReference = 211481D81959863A00B8EC17 /* mUPnP4ObjCTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -288,7 +288,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 211481BB1959863A00B8EC17 /* Build configuration list for PBXProject "CyberLink4ObjC" */;
+			buildConfigurationList = 211481BB1959863A00B8EC17 /* Build configuration list for PBXProject "mUPnP4ObjC" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -300,24 +300,24 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 213AF7FB195986FB009E7963 /* Products */;
-					ProjectRef = 213AF7FA195986FB009E7963 /* clink.xcodeproj */;
+					ProductGroup = 215AC19C1A842B48000FC959 /* Products */;
+					ProjectRef = 215AC19B1A842B48000FC959 /* libmupnp.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
-				211481C01959863A00B8EC17 /* CyberLink4ObjC */,
-				211481D71959863A00B8EC17 /* CyberLink4ObjCTests */,
+				211481C01959863A00B8EC17 /* mUPnP4ObjC */,
+				211481D71959863A00B8EC17 /* mUPnP4ObjCTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		213AF7FF195986FB009E7963 /* libclink.a */ = {
+		215AC1A01A842B48000FC959 /* liblibmupnp.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libclink.a;
-			remoteRef = 213AF7FE195986FB009E7963 /* PBXContainerItemProxy */;
+			path = liblibmupnp.a;
+			remoteRef = 215AC19F1A842B48000FC959 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -359,7 +359,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				211481E61959863A00B8EC17 /* CyberLink4ObjCTests.m in Sources */,
+				211481E61959863A00B8EC17 /* mUPnP4ObjCTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,13 +368,13 @@
 /* Begin PBXTargetDependency section */
 		211481DD1959863A00B8EC17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 211481C01959863A00B8EC17 /* CyberLink4ObjC */;
+			target = 211481C01959863A00B8EC17 /* mUPnP4ObjC */;
 			targetProxy = 211481DC1959863A00B8EC17 /* PBXContainerItemProxy */;
 		};
-		213AF801195987FE009E7963 /* PBXTargetDependency */ = {
+		215AC1A21A842B57000FC959 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = clink;
-			targetProxy = 213AF800195987FE009E7963 /* PBXContainerItemProxy */;
+			name = libmupnp;
+			targetProxy = 215AC1A11A842B57000FC959 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -486,8 +486,8 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CyberLink4ObjC/CyberLink4ObjC-Prefix.pch";
-				INFOPLIST_FILE = "CyberLink4ObjC/CyberLink4ObjC-Info.plist";
+				GCC_PREFIX_HEADER = "mUPnP4ObjC/mUPnP4ObjC-Prefix.pch";
+				INFOPLIST_FILE = "mUPnP4ObjC/mUPnP4ObjC-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -501,8 +501,8 @@
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CyberLink4ObjC/CyberLink4ObjC-Prefix.pch";
-				INFOPLIST_FILE = "CyberLink4ObjC/CyberLink4ObjC-Info.plist";
+				GCC_PREFIX_HEADER = "mUPnP4ObjC/mUPnP4ObjC-Prefix.pch";
+				INFOPLIST_FILE = "mUPnP4ObjC/mUPnP4ObjC-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -511,19 +511,19 @@
 		211481ED1959863A00B8EC17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CyberLink4ObjC.framework/Versions/A/CyberLink4ObjC";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/mUPnP4ObjC.framework/Versions/A/mUPnP4ObjC";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CyberLink4ObjC/CyberLink4ObjC-Prefix.pch";
+				GCC_PREFIX_HEADER = "mUPnP4ObjC/mUPnP4ObjC-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "CyberLink4ObjCTests/CyberLink4ObjCTests-Info.plist";
+				INFOPLIST_FILE = "mUPnP4ObjCTests/mUPnP4ObjCTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -533,15 +533,15 @@
 		211481EE1959863A00B8EC17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CyberLink4ObjC.framework/Versions/A/CyberLink4ObjC";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/mUPnP4ObjC.framework/Versions/A/mUPnP4ObjC";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CyberLink4ObjC/CyberLink4ObjC-Prefix.pch";
-				INFOPLIST_FILE = "CyberLink4ObjCTests/CyberLink4ObjCTests-Info.plist";
+				GCC_PREFIX_HEADER = "mUPnP4ObjC/mUPnP4ObjC-Prefix.pch";
+				INFOPLIST_FILE = "mUPnP4ObjCTests/mUPnP4ObjCTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -551,7 +551,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		211481BB1959863A00B8EC17 /* Build configuration list for PBXProject "CyberLink4ObjC" */ = {
+		211481BB1959863A00B8EC17 /* Build configuration list for PBXProject "mUPnP4ObjC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				211481E71959863A00B8EC17 /* Debug */,
@@ -560,7 +560,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		211481E91959863A00B8EC17 /* Build configuration list for PBXNativeTarget "CyberLink4ObjC" */ = {
+		211481E91959863A00B8EC17 /* Build configuration list for PBXNativeTarget "mUPnP4ObjC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				211481EA1959863A00B8EC17 /* Debug */,
@@ -569,7 +569,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		211481EC1959863A00B8EC17 /* Build configuration list for PBXNativeTarget "CyberLink4ObjCTests" */ = {
+		211481EC1959863A00B8EC17 /* Build configuration list for PBXNativeTarget "mUPnP4ObjCTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				211481ED1959863A00B8EC17 /* Debug */,

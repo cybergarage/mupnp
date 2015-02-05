@@ -9,18 +9,18 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSDictionary.h>
 
-#if !defined(_CG_UPNP_CACTION_H_)
-typedef void CgUpnpAction;
+#if !defined(_MUPNP_ACTION_H_)
+typedef void mUpnpAction;
 #endif
 
 /**
- * The CGUpnpAction class is a wrapper class for CgUpnpAction of CyberLink for C.
+ * The CGUpnpAction class is a wrapper class for mUpnpAction of CyberLink for C.
  */
 @interface CGUpnpAction : NSObject 
 {
 }
-@property(assign, readonly) CgUpnpAction *cObject;
-- (id)initWithCObject:(CgUpnpAction *)cobj;
+@property(assign, readonly) mUpnpAction *cObject;
+- (id)initWithCObject:(mUpnpAction *)cobj;
 /**
  * Get the name of the action.
  * 

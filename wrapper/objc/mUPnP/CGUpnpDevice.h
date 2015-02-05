@@ -9,8 +9,8 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSDictionary.h>
 
-#if !defined(_CG_UPNP_CDEVICE_H_)
-typedef void CgUpnpDevice;
+#if !defined(_MUPNP_DEVICE_H_)
+typedef void mUpnpDevice;
 #endif
 
 @class CGUpnpDevice;
@@ -19,7 +19,7 @@ typedef void CgUpnpDevice;
 @class CGUpnpIcon;
 
 /**
- * The CGUpnpDevice class is a wrapper class for CgUpnpDevice of CyberLink for C.
+ * The CGUpnpDevice class is a wrapper class for mUpnpDevice of CyberLink for C.
  */
 @protocol CGUpnpDeviceDelegate <NSObject>
 @optional
@@ -27,13 +27,13 @@ typedef void CgUpnpDevice;
 @end
 
 /**
- * The CGUpnpDevice class is a wrapper class for CgUpnpDevice of CyberLink for C.
+ * The CGUpnpDevice class is a wrapper class for mUpnpDevice of CyberLink for C.
  */
 @interface CGUpnpDevice : NSObject 
 {
 	BOOL isCObjectCreated;
 }
-@property(assign) CgUpnpDevice *cObject;
+@property(assign) mUpnpDevice *cObject;
 @property(assign) id<CGUpnpDeviceDelegate> delegate;
 /**
  * Create a new UPnP device.
@@ -46,7 +46,7 @@ typedef void CgUpnpDevice;
  * 
  * @return New instance if successfull; otherwise nil.
  */
-- (id) initWithCObject:(CgUpnpDevice *)cobj;
+- (id) initWithCObject:(mUpnpDevice *)cobj;
 /**
  * Create a new UPnP device with the XML descriptioin.
  * 

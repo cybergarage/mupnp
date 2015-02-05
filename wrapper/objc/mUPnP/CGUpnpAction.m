@@ -6,15 +6,15 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/caction.h>
-#include <cybergarage/upnp/control/ccontrol.h>
+#include <mupnp/action.h>
+#include <mupnp/control/control.h>
 #import "CGUpnpAction.h"
 
-static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
+static BOOL CGUpnpActionListener(mUpnpAction *cAction)
 {
 	if (!cAction)
 		return FALSE;
-	CGUpnpAction *objcAction = (CGUpnpAction *)cg_upnp_action_getuserdata(cAction);
+	CGUpnpAction *objcAction = (CGUpnpAction *)mupnp_action_getuserdata(cAction);
 	if (!objcAction)
 		return FALSE;
 	SEL actionReceived = @selector(actionReceived);		
@@ -30,13 +30,13 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 
 @synthesize cObject;
 
-- (id) initWithCObject:(CgUpnpAction *)cobj
+- (id) initWithCObject:(mUpnpAction *)cobj
 {
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cobj;
-	cg_upnp_action_setuserdata(cObject, self);
-	cg_upnp_action_setlistener(cObject, CGUpnpActionListener);
+	mupnp_action_setuserdata(cObject, self);
+	mupnp_action_setlistener(cObject, CGUpnpActionListener);
 	return self;
 }
 
@@ -56,7 +56,7 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:cg_upnp_action_getname(cObject)] autorelease];
+	return [[[NSString alloc] initWithUTF8String:mupnp_action_getname(cObject)] autorelease];
 }
 
 - (NSDictionary *)arguments
@@ -64,10 +64,10 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 	if (!cObject)
 		return [NSDictionary dictionary];
 	NSMutableDictionary *argDir = [NSMutableDictionary dictionary];
-	CgUpnpArgument *carg;
-	for (carg = cg_upnp_action_getarguments(cObject); carg; carg = cg_upnp_argument_next(carg)) {
-		char *name = (char*)cg_upnp_argument_getname(carg);
-		char *value = cg_upnp_argument_getvalue(carg);
+	mUpnpArgument *carg;
+	for (carg = mupnp_action_getarguments(cObject); carg; carg = mupnp_argument_next(carg)) {
+		char *name = (char*)mupnp_argument_getname(carg);
+		char *value = mupnp_argument_getvalue(carg);
 		NSString *obj = [[NSString alloc] initWithUTF8String:(value ? value : "")];
 		NSString *key = [[NSString alloc] initWithUTF8String:name];
 		[argDir setObject:obj forKey:key];
@@ -79,29 +79,29 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 
 - (BOOL)setArgumentValue:(NSString *)value forName:(NSString *)name
 {
-	CgUpnpArgument *cArg;
+	mUpnpArgument *cArg;
 
 	if (!cObject)
 		return NO;
-	cArg = cg_upnp_action_getargumentbyname(cObject, (char *)[name UTF8String]);
+	cArg = mupnp_action_getargumentbyname(cObject, (char *)[name UTF8String]);
 	if (!cArg)
 		return NO;
-	cg_upnp_argument_setvalue(cArg, (char *)[value UTF8String]);
+	mupnp_argument_setvalue(cArg, (char *)[value UTF8String]);
 	return YES;
 }
 
 - (NSString *)argumentValueForName:(NSString *)name
 {
 	char *cValue;
-	CgUpnpArgument *cArg;
+	mUpnpArgument *cArg;
 
 	if (!cObject)
 		return nil;
-	cArg = cg_upnp_action_getargumentbyname(cObject, (char *)[name UTF8String]);
+	cArg = mupnp_action_getargumentbyname(cObject, (char *)[name UTF8String]);
 	if (!cArg)
 		return nil;
-	cValue = cg_upnp_argument_getvalue(cArg);
-	if (cg_strlen(cValue) <= 0)
+	cValue = mupnp_argument_getvalue(cArg);
+	if (mupnp_strlen(cValue) <= 0)
 		return nil;
 	return [NSString stringWithUTF8String:cValue];
 }
@@ -110,7 +110,7 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 {
 	if (!cObject)
 		return NO;
-	BOOL ret = cg_upnp_action_post(cObject);
+	BOOL ret = mupnp_action_post(cObject);
 	return ret;
 }
 
@@ -129,7 +129,7 @@ static BOOL CGUpnpActionListener(CgUpnpAction *cAction)
 {
 	if (!cObject)
 		return 0;
-	return cg_upnp_action_getstatuscode(cObject);
+	return mupnp_action_getstatuscode(cObject);
 }
 
 @end

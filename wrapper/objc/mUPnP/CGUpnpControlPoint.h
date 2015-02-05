@@ -9,8 +9,8 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSArray.h>
 
-#if !defined(_CG_UPNP_CCONTROLPOINT_H_)
-typedef void CgUpnpControlPoint;
+#if !defined(_MUPNP_CONTROLPOINT_H_)
+typedef void mUpnpControlPoint;
 #endif
 
 @class CGUpnpDevice;
@@ -25,16 +25,16 @@ typedef void CgUpnpControlPoint;
 @end
 
 /**
- * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
+ * The CGUpnpControlPoint class is a wrapper class for mUpnpControlPoint of CyberLink for C to 
  * program using only Objective-C directly on MacOSX.
  * Currently, the only basic methods are wrapped to control UPnP devices.
  */
 @interface CGUpnpControlPoint : NSObject 
 {
 }
-@property(assign, readonly) CgUpnpControlPoint *cObject;
+@property(assign, readonly) mUpnpControlPoint *cObject;
 @property(assign) id<CGUpnpControlPointDelegate> delegate;
-- (CgUpnpControlPoint *)cObject;
+- (mUpnpControlPoint *)cObject;
 /**
  * Activate some background threads of the control point such as SSDP and 
  * HTTP servers to listen messages and events of UPnP. You must call this 

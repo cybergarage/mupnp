@@ -9,12 +9,12 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSDictionary.h>
 
-#if !defined(_CG_UPNP_CICON_H_)
-typedef void CgUpnpIcon;
+#if !defined(_MUPNP_ICON_H_)
+typedef void mUpnpIcon;
 #endif
 
 /**
- * The CGUpnpIcon class is a wrapper class for CgUpnpIcon of CyberLink for C.
+ * The CGUpnpIcon class is a wrapper class for mUpnpIcon of CyberLink for C.
  */
 @interface CGUpnpIcon : NSObject
 {
@@ -22,11 +22,11 @@ typedef void CgUpnpIcon;
 	NSString *resourceName;
 #endif
 }
-@property(assign, readonly) CgUpnpIcon *cObject;
+@property(assign, readonly) mUpnpIcon *cObject;
 #if defined(TARGET_OS_IPHONE)
 @property(readonly) NSString *resourceName;
 #endif
-- (id)initWithCObject:(CgUpnpIcon *)cobj;
+- (id)initWithCObject:(mUpnpIcon *)cobj;
 /**
  * Get the url of the icon.
  * 

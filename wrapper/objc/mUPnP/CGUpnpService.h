@@ -9,26 +9,26 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSDictionary.h>
 
-#if !defined(_CG_UPNP_CSERVICE_H_)
-typedef void CgUpnpService;
+#if !defined(_MUPNP_SERVICE_H_)
+typedef void mUpnpService;
 #endif
 
 @class CGUpnpAction;
 @class CGUpnpStateVariable;
 
 /**
- * The CGUpnpService class is a wrapper class for CgUpnpService of CyberLink for C.
+ * The CGUpnpService class is a wrapper class for mUpnpService of CyberLink for C.
  */
 @interface CGUpnpService : NSObject 
 {
 }
-@property(assign, readonly) CgUpnpService *cObject;
+@property(assign, readonly) mUpnpService *cObject;
 /**
  * Create a new UPnP service with the C instance.
  * 
  * @return New instance if successfull; otherwise nil.
  */
-- (id) initWithCObject:(CgUpnpService *)cobj;
+- (id) initWithCObject:(mUpnpService *)cobj;
 /**
  * Parse the specified XML description.
  * 
