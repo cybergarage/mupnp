@@ -7,22 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		211B90D6197675F500DEA0D7 /* ClinkTestCaseXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211B90D5197675F500DEA0D7 /* ClinkTestCaseXML.cpp */; };
+		211B90D6197675F500DEA0D7 /* XMLTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211B90D5197675F500DEA0D7 /* XMLTest.cpp */; };
 		2121F3081A83D83900930B36 /* liblibmupnp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2123216C1A83C528002AA265 /* liblibmupnp.a */; };
-		212CAC5E186439810065C62C /* ClinkTestCaseString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212CAC5D186439810065C62C /* ClinkTestCaseString.cpp */; };
-		219030B819067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 219030B719067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp */; };
-		21A2BCFB14C664E8007457AF /* ClinkTestCaseService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A2BCFA14C664E8007457AF /* ClinkTestCaseService.cpp */; };
-		21AA0F0D1331226600A2338F /* ClinkTestCaseControlPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F011331226600A2338F /* ClinkTestCaseControlPoint.cpp */; };
-		21AA0F0E1331226600A2338F /* ClinkTestCaseDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F021331226600A2338F /* ClinkTestCaseDevice.cpp */; };
-		21AA0F0F1331226600A2338F /* ClinkTestCaseDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F031331226600A2338F /* ClinkTestCaseDictionary.cpp */; };
-		21AA0F101331226600A2338F /* ClinkTestCaseHttp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F041331226600A2338F /* ClinkTestCaseHttp.cpp */; };
-		21AA0F111331226600A2338F /* ClinkTestCaseNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F051331226600A2338F /* ClinkTestCaseNetwork.cpp */; };
-		21AA0F121331226600A2338F /* ClinkTestCaseStateVariable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F061331226600A2338F /* ClinkTestCaseStateVariable.cpp */; };
-		21AA0F131331226600A2338F /* ClinkTestCaseSubscription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F071331226600A2338F /* ClinkTestCaseSubscription.cpp */; };
-		21AA0F141331226600A2338F /* ClinkTestCaseURI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F081331226600A2338F /* ClinkTestCaseURI.cpp */; };
+		212CAC5E186439810065C62C /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212CAC5D186439810065C62C /* StringTest.cpp */; };
+		219030B819067A4E003D4327 /* UPnPFuncTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 219030B719067A4E003D4327 /* UPnPFuncTest.cpp */; };
+		21A2BCFB14C664E8007457AF /* ServiceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A2BCFA14C664E8007457AF /* ServiceTest.cpp */; };
+		21AA0F0D1331226600A2338F /* ControlPointTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F011331226600A2338F /* ControlPointTest.cpp */; };
+		21AA0F0E1331226600A2338F /* DeviceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F021331226600A2338F /* DeviceTest.cpp */; };
+		21AA0F0F1331226600A2338F /* DictionaryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F031331226600A2338F /* DictionaryTest.cpp */; };
+		21AA0F101331226600A2338F /* HttpTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F041331226600A2338F /* HttpTest.cpp */; };
+		21AA0F111331226600A2338F /* NetworkTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F051331226600A2338F /* NetworkTest.cpp */; };
+		21AA0F121331226600A2338F /* StateVariableTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F061331226600A2338F /* StateVariableTest.cpp */; };
+		21AA0F131331226600A2338F /* SubscriptionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F071331226600A2338F /* SubscriptionTest.cpp */; };
+		21AA0F141331226600A2338F /* URITest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F081331226600A2338F /* URITest.cpp */; };
 		21AA0F191331227300A2338F /* TestDevice.c in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F171331227300A2338F /* TestDevice.c */; };
 		21AA0F201331790D00A2338F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 21AA0F1F1331790D00A2338F /* libxml2.dylib */; };
-		21E12B051924F3C0005D4F50 /* ClinkTestMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E12B041924F3C0005D4F50 /* ClinkTestMain.cpp */; };
+		21E12B051924F3C0005D4F50 /* mUpnpTestMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E12B041924F3C0005D4F50 /* mUpnpTestMain.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,24 +55,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		211B90D5197675F500DEA0D7 /* ClinkTestCaseXML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseXML.cpp; path = ../../ClinkTestCaseXML.cpp; sourceTree = "<group>"; };
+		211B90D5197675F500DEA0D7 /* XMLTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = XMLTest.cpp; path = ../../XMLTest.cpp; sourceTree = "<group>"; };
 		212321671A83C528002AA265 /* libmupnp.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libmupnp.xcodeproj; path = ../../../lib/macosx/xcode/libmupnp.xcodeproj; sourceTree = "<group>"; };
-		212CAC5D186439810065C62C /* ClinkTestCaseString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseString.cpp; path = ../../ClinkTestCaseString.cpp; sourceTree = "<group>"; };
+		212CAC5D186439810065C62C /* StringTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringTest.cpp; path = ../../StringTest.cpp; sourceTree = "<group>"; };
 		2152CB8E1331206B00229C13 /* mupnptest */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = mupnptest; sourceTree = BUILT_PRODUCTS_DIR; };
-		219030B719067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseUPnPFunc.cpp; path = ../../ClinkTestCaseUPnPFunc.cpp; sourceTree = "<group>"; };
-		21A2BCFA14C664E8007457AF /* ClinkTestCaseService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseService.cpp; path = ../../ClinkTestCaseService.cpp; sourceTree = "<group>"; };
-		21AA0F011331226600A2338F /* ClinkTestCaseControlPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseControlPoint.cpp; path = ../../ClinkTestCaseControlPoint.cpp; sourceTree = "<group>"; };
-		21AA0F021331226600A2338F /* ClinkTestCaseDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseDevice.cpp; path = ../../ClinkTestCaseDevice.cpp; sourceTree = "<group>"; };
-		21AA0F031331226600A2338F /* ClinkTestCaseDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseDictionary.cpp; path = ../../ClinkTestCaseDictionary.cpp; sourceTree = "<group>"; };
-		21AA0F041331226600A2338F /* ClinkTestCaseHttp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseHttp.cpp; path = ../../ClinkTestCaseHttp.cpp; sourceTree = "<group>"; };
-		21AA0F051331226600A2338F /* ClinkTestCaseNetwork.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseNetwork.cpp; path = ../../ClinkTestCaseNetwork.cpp; sourceTree = "<group>"; };
-		21AA0F061331226600A2338F /* ClinkTestCaseStateVariable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseStateVariable.cpp; path = ../../ClinkTestCaseStateVariable.cpp; sourceTree = "<group>"; };
-		21AA0F071331226600A2338F /* ClinkTestCaseSubscription.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseSubscription.cpp; path = ../../ClinkTestCaseSubscription.cpp; sourceTree = "<group>"; };
-		21AA0F081331226600A2338F /* ClinkTestCaseURI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestCaseURI.cpp; path = ../../ClinkTestCaseURI.cpp; sourceTree = "<group>"; };
+		219030B719067A4E003D4327 /* UPnPFuncTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UPnPFuncTest.cpp; path = ../../UPnPFuncTest.cpp; sourceTree = "<group>"; };
+		21A2BCFA14C664E8007457AF /* ServiceTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ServiceTest.cpp; path = ../../ServiceTest.cpp; sourceTree = "<group>"; };
+		21AA0F011331226600A2338F /* ControlPointTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ControlPointTest.cpp; path = ../../ControlPointTest.cpp; sourceTree = "<group>"; };
+		21AA0F021331226600A2338F /* DeviceTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DeviceTest.cpp; path = ../../DeviceTest.cpp; sourceTree = "<group>"; };
+		21AA0F031331226600A2338F /* DictionaryTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DictionaryTest.cpp; path = ../../DictionaryTest.cpp; sourceTree = "<group>"; };
+		21AA0F041331226600A2338F /* HttpTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HttpTest.cpp; path = ../../HttpTest.cpp; sourceTree = "<group>"; };
+		21AA0F051331226600A2338F /* NetworkTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NetworkTest.cpp; path = ../../NetworkTest.cpp; sourceTree = "<group>"; };
+		21AA0F061331226600A2338F /* StateVariableTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StateVariableTest.cpp; path = ../../StateVariableTest.cpp; sourceTree = "<group>"; };
+		21AA0F071331226600A2338F /* SubscriptionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SubscriptionTest.cpp; path = ../../SubscriptionTest.cpp; sourceTree = "<group>"; };
+		21AA0F081331226600A2338F /* URITest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = URITest.cpp; path = ../../URITest.cpp; sourceTree = "<group>"; };
 		21AA0F171331227300A2338F /* TestDevice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TestDevice.c; path = ../../TestDevice.c; sourceTree = "<group>"; };
 		21AA0F181331227300A2338F /* TestDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestDevice.h; path = ../../TestDevice.h; sourceTree = "<group>"; };
 		21AA0F1F1331790D00A2338F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		21E12B041924F3C0005D4F50 /* ClinkTestMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClinkTestMain.cpp; path = ../../ClinkTestMain.cpp; sourceTree = "<group>"; };
+		21E12B041924F3C0005D4F50 /* mUpnpTestMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mUpnpTestMain.cpp; path = ../../mUpnpTestMain.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,21 +116,21 @@
 		21AA0EFE1331224E00A2338F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				21E12B041924F3C0005D4F50 /* ClinkTestMain.cpp */,
+				21E12B041924F3C0005D4F50 /* mUpnpTestMain.cpp */,
 				21AA0F171331227300A2338F /* TestDevice.c */,
 				21AA0F181331227300A2338F /* TestDevice.h */,
-				212CAC5D186439810065C62C /* ClinkTestCaseString.cpp */,
-				21AA0F011331226600A2338F /* ClinkTestCaseControlPoint.cpp */,
-				21AA0F021331226600A2338F /* ClinkTestCaseDevice.cpp */,
-				21A2BCFA14C664E8007457AF /* ClinkTestCaseService.cpp */,
-				21AA0F031331226600A2338F /* ClinkTestCaseDictionary.cpp */,
-				21AA0F041331226600A2338F /* ClinkTestCaseHttp.cpp */,
-				21AA0F051331226600A2338F /* ClinkTestCaseNetwork.cpp */,
-				21AA0F061331226600A2338F /* ClinkTestCaseStateVariable.cpp */,
-				21AA0F071331226600A2338F /* ClinkTestCaseSubscription.cpp */,
-				21AA0F081331226600A2338F /* ClinkTestCaseURI.cpp */,
-				219030B719067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp */,
-				211B90D5197675F500DEA0D7 /* ClinkTestCaseXML.cpp */,
+				212CAC5D186439810065C62C /* StringTest.cpp */,
+				21AA0F011331226600A2338F /* ControlPointTest.cpp */,
+				21AA0F021331226600A2338F /* DeviceTest.cpp */,
+				21A2BCFA14C664E8007457AF /* ServiceTest.cpp */,
+				21AA0F031331226600A2338F /* DictionaryTest.cpp */,
+				21AA0F041331226600A2338F /* HttpTest.cpp */,
+				21AA0F051331226600A2338F /* NetworkTest.cpp */,
+				21AA0F061331226600A2338F /* StateVariableTest.cpp */,
+				21AA0F071331226600A2338F /* SubscriptionTest.cpp */,
+				21AA0F081331226600A2338F /* URITest.cpp */,
+				219030B719067A4E003D4327 /* UPnPFuncTest.cpp */,
+				211B90D5197675F500DEA0D7 /* XMLTest.cpp */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -211,20 +211,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				212CAC5E186439810065C62C /* ClinkTestCaseString.cpp in Sources */,
-				21AA0F0D1331226600A2338F /* ClinkTestCaseControlPoint.cpp in Sources */,
-				21E12B051924F3C0005D4F50 /* ClinkTestMain.cpp in Sources */,
-				21AA0F0E1331226600A2338F /* ClinkTestCaseDevice.cpp in Sources */,
-				219030B819067A4E003D4327 /* ClinkTestCaseUPnPFunc.cpp in Sources */,
-				21AA0F0F1331226600A2338F /* ClinkTestCaseDictionary.cpp in Sources */,
-				21AA0F101331226600A2338F /* ClinkTestCaseHttp.cpp in Sources */,
-				21AA0F111331226600A2338F /* ClinkTestCaseNetwork.cpp in Sources */,
-				21AA0F121331226600A2338F /* ClinkTestCaseStateVariable.cpp in Sources */,
-				21AA0F131331226600A2338F /* ClinkTestCaseSubscription.cpp in Sources */,
-				21AA0F141331226600A2338F /* ClinkTestCaseURI.cpp in Sources */,
+				212CAC5E186439810065C62C /* StringTest.cpp in Sources */,
+				21AA0F0D1331226600A2338F /* ControlPointTest.cpp in Sources */,
+				21E12B051924F3C0005D4F50 /* mUpnpTestMain.cpp in Sources */,
+				21AA0F0E1331226600A2338F /* DeviceTest.cpp in Sources */,
+				219030B819067A4E003D4327 /* UPnPFuncTest.cpp in Sources */,
+				21AA0F0F1331226600A2338F /* DictionaryTest.cpp in Sources */,
+				21AA0F101331226600A2338F /* HttpTest.cpp in Sources */,
+				21AA0F111331226600A2338F /* NetworkTest.cpp in Sources */,
+				21AA0F121331226600A2338F /* StateVariableTest.cpp in Sources */,
+				21AA0F131331226600A2338F /* SubscriptionTest.cpp in Sources */,
+				21AA0F141331226600A2338F /* URITest.cpp in Sources */,
 				21AA0F191331227300A2338F /* TestDevice.c in Sources */,
-				21A2BCFB14C664E8007457AF /* ClinkTestCaseService.cpp in Sources */,
-				211B90D6197675F500DEA0D7 /* ClinkTestCaseXML.cpp in Sources */,
+				21A2BCFB14C664E8007457AF /* ServiceTest.cpp in Sources */,
+				211B90D6197675F500DEA0D7 /* XMLTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
