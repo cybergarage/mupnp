@@ -1,48 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cservice.h
-*
-*	Revision:
-*
-*	02/14/05
-*		- first revision
-*
-*	09-Jan-06 Heikki Junnila
-*		- Added service type parsing functions:
-*		  mupnp_upnp_servicetype_getidentifier
-*		  mupnp_upnp_servicetype_geturn
-*		  mupnp_upnp_servicetype_getservice
-*		  mupnp_upnp_servicetype_gettype
-*		  mupnp_upnp_servicetype_getversion
-*
-*	10-Jan-06 Heikki Junnila
-*		- Added mupnp_upnp_servicetype_getschematype() and fixed
-*		  existing servicetype functions to accept 1-character strings
-*
-*	11-Jan-06 Heikki Junnila
-*		- Removed mupnp_upnp_service_isname() and _getname() because
-*		  according to UPnP specs, services have only types, not names
-*
-*	17-Jan-06 Heikki Junnila
-*		- Added API comments
-*	04/05/06 Theo Beisch
-*		- changed timeout to use subscriber object
-*		  when used by ControlPoint 
-*		  modified execution data accordingly
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CSERVICE_H_
-#define _CG_UPNP_CSERVICE_H_
+#ifndef _MUPNP_SERVICE_H_
+#define _MUPNP_SERVICE_H_
 
 #include <mupnp/typedef.h>
 #include <mupnp/xml/xml.h>
@@ -65,16 +33,16 @@ extern "C" {
 * Define
 *****************************************************************************/
 
-#define CG_UPNP_SERVICE_ELEM_NAME "service"
-#define CG_UPNP_SERVICELIST_ELEM_NAME "serviceList"
+#define MUPNP_SERVICE_ELEM_NAME "service"
+#define MUPNP_SERVICELIST_ELEM_NAME "serviceList"
 
-#define CG_UPNP_SERVICE_TYPE "serviceType"
-#define CG_UPNP_SERVICE_ID "serviceId"
-#define CG_UPNP_SERVICE_SCPDURL "SCPDURL"
-#define CG_UPNP_SERVICE_CONTROL_URL "controlURL"
-#define CG_UPNP_SERVICE_EVENT_SUB_URL "eventSubURL"
-#define CG_UPNP_SERVICE_EVENT_KEY_INVALID 0
-#define CG_UPNP_SERVICE_NOTIFY_WAITTIME 1000
+#define MUPNP_SERVICE_TYPE "serviceType"
+#define MUPNP_SERVICE_ID "serviceId"
+#define MUPNP_SERVICE_SCPDURL "SCPDURL"
+#define MUPNP_SERVICE_CONTROL_URL "controlURL"
+#define MUPNP_SERVICE_EVENT_SUB_URL "eventSubURL"
+#define MUPNP_SERVICE_EVENT_KEY_INVALID 0
+#define MUPNP_SERVICE_NOTIFY_WAITTIME 1000
 
 /****************************************************************************
 * Data Type
@@ -90,7 +58,7 @@ typedef struct _mUpnpUpnpService {
 	mUpnpUpnpServiceStateTable *serviceStateTable;
 	void *parentDevice;
 	mUpnpMutex *mutex;
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 	mUpnpUpnpSubscriberList *subscriberList;
 #endif
 	BOOL parsed;
@@ -139,7 +107,7 @@ void mupnp_upnp_service_clear(mUpnpUpnpService *service);
  * @param node mUpnpXmlNode*
  * @return TRUE if the node is a service root node; otherwise FALSE
  */
-#define mupnp_upnp_service_isservicenode(node) mupnp_xml_node_isname(node, CG_UPNP_SERVICE_ELEM_NAME)
+#define mupnp_upnp_service_isservicenode(node) mupnp_xml_node_isname(node, MUPNP_SERVICE_ELEM_NAME)
 
 /**
  * Get the service's SCPD node
@@ -215,7 +183,7 @@ char *mupnp_upnp_service_getdescription(mUpnpUpnpService *service, mUpnpString *
  * @param service The service in question
  * @param value The type string
  */
-#define mupnp_upnp_service_setservicetype(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_TYPE, value)
+#define mupnp_upnp_service_setservicetype(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), MUPNP_SERVICE_TYPE, value)
 
 /**
  * Get the service's complete type string
@@ -224,7 +192,7 @@ char *mupnp_upnp_service_getdescription(mUpnpUpnpService *service, mUpnpString *
  * @param service The service in question
  * @return char*
  */
-#define mupnp_upnp_service_getservicetype(service) mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_TYPE)
+#define mupnp_upnp_service_getservicetype(service) mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), MUPNP_SERVICE_TYPE)
 
 /** 
  * Get the identifier-part of a service type string (usually "urn") 
@@ -297,7 +265,7 @@ const char* mupnp_upnp_servicetype_getversion(const char* serviceType);
  * @param service The service in question
  * @param value Service ID string
  */
-#define mupnp_upnp_service_setserviceid(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_ID, value)
+#define mupnp_upnp_service_setserviceid(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), MUPNP_SERVICE_ID, value)
 
 /**
  * Get the service's service ID
@@ -305,7 +273,7 @@ const char* mupnp_upnp_servicetype_getversion(const char* serviceType);
  * @param service The service in question
  * @return char*
  */
-#define mupnp_upnp_service_getserviceid(service) mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_ID)
+#define mupnp_upnp_service_getserviceid(service) mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), MUPNP_SERVICE_ID)
 
 /****************************************************************************
  * SCPDURL
@@ -317,7 +285,7 @@ const char* mupnp_upnp_servicetype_getversion(const char* serviceType);
  * @param service The service in question
  * @param value The SCPD URL string
  */
-#define mupnp_upnp_service_setscpdurl(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_SCPDURL, value)
+#define mupnp_upnp_service_setscpdurl(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), MUPNP_SERVICE_SCPDURL, value)
 
 /**
  * Get the service's SCPD (service description) URL
@@ -347,7 +315,7 @@ BOOL mupnp_upnp_service_isscpdurl(mUpnpUpnpService *service, const char *url);
  * @param service The service in question
  * @param value The control URL string
  */
-#define mupnp_upnp_service_setcontrolurl(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_CONTROL_URL, value)
+#define mupnp_upnp_service_setcontrolurl(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), MUPNP_SERVICE_CONTROL_URL, value)
 
 /**
  * Get the service's control URL
@@ -367,7 +335,7 @@ mUpnpNetURL *mupnp_upnp_service_getcontrolurl(mUpnpUpnpService *service);
  * @param service The service in question
  * @param value The event subscription URL string
  */
-#define mupnp_upnp_service_seteventsuburl(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_EVENT_SUB_URL, value)
+#define mupnp_upnp_service_seteventsuburl(service, value) mupnp_xml_node_setchildnode(mupnp_upnp_service_getservicenode(service), MUPNP_SERVICE_EVENT_SUB_URL, value)
 
 /**
  * Get the service's event subscription URL
@@ -479,17 +447,17 @@ BOOL mupnp_upnp_service_byebyefrom(mUpnpUpnpService *service, const char *bindAd
  * Set an action listener to the service
  *
  * @param service The service in question
- * @param actionListener A callback function of type CG_UPNP_ACTION_LISTNER
+ * @param actionListener A callback function of type MUPNP_ACTION_LISTNER
  */
-void mupnp_upnp_service_setactionlistener(mUpnpUpnpService *service, CG_UPNP_ACTION_LISTNER actionListener);
+void mupnp_upnp_service_setactionlistener(mUpnpUpnpService *service, MUPNP_ACTION_LISTNER actionListener);
 
 /**
  * Set a query listener to the service
  *
  * @param service The service in question
- * @param queryListener A callback function of type CG_UPNP_STATEVARIABLE_LISTNER
+ * @param queryListener A callback function of type MUPNP_STATEVARIABLE_LISTNER
  */
-void mupnp_upnp_service_setquerylistener(mUpnpUpnpService *service, CG_UPNP_STATEVARIABLE_LISTNER queryListener);
+void mupnp_upnp_service_setquerylistener(mUpnpUpnpService *service, MUPNP_STATEVARIABLE_LISTNER queryListener);
 
 /****************************************************************************
  * Parent Device
@@ -749,7 +717,7 @@ void mupnp_upnp_service_createnotifyallthread(mUpnpUpnpService *service, mUpnpTi
  * @param service The service in question
  * @return mUpnpTime
  */
-#define mupnp_upnp_service_getsubscriptionexpiration(service) (service->subscriptionTimestamp + service->subscriptionTimeout - CG_UPNP_SUBSCRIPTION_DELAY)
+#define mupnp_upnp_service_getsubscriptionexpiration(service) (service->subscriptionTimestamp + service->subscriptionTimeout - MUPNP_SUBSCRIPTION_DELAY)
 
 
 /****************************************************************************

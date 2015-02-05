@@ -1,25 +1,16 @@
 /******************************************************************
-*
-*	CyberIO for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cfile.h
-*
-*	Revision:
-*
-*	02/1/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_IO_CFILE_H_
-#define _CG_IO_CFILE_H_
+#ifndef _MUPNP_IO_FILE_H_
+#define _MUPNP_IO_FILE_H_
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

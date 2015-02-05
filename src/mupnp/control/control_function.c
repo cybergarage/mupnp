@@ -1,27 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: ccontrol_function.c
-*
-*	Revision:
-*
-*	06/03/05
-*		- first revision
-*	09/11/05
-*		- Thanks for Visa Smolander <visa.smolander@nokia.com>
-*		- Fixed mupnp_upnp_control_soap_response_createfaultresponsenode() to set
-*		  the namespace attribute in the response <UPnPError> node.
-*
-*****************************************************************/
-
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 #include <mupnp/control/control.h>
 
 #include <mupnp/device.h>
@@ -132,13 +118,13 @@ mUpnpXmlNode *mupnp_upnp_control_soap_response_createfaultresponsenode(int errCo
 	/**** <faultcode>s:Client</faultcode> ****/
 	faultCodeNode = mupnp_xml_node_new();
 	mupnp_xml_node_setname(faultCodeNode, CG_SOAP_FAULT_CODE);
-	mupnp_xml_node_setvalue(faultCodeNode, CG_SOAP_XMLNS CG_SOAP_DELIM CG_UPNP_CONTROL_FAULT_CODE);
+	mupnp_xml_node_setvalue(faultCodeNode, CG_SOAP_XMLNS CG_SOAP_DELIM MUPNP_CONTROL_FAULT_CODE);
 	mupnp_xml_node_addchildnode(faultNode, faultCodeNode);
 		
 	/**** <faultstring>UPnPError</faultstring> ****/
 	faultStringNode = mupnp_xml_node_new();
 	mupnp_xml_node_setname(faultStringNode, CG_SOAP_FAULT_STRING);
-	mupnp_xml_node_setvalue(faultStringNode, CG_UPNP_CONTROL_FAULT_STRING);
+	mupnp_xml_node_setvalue(faultStringNode, MUPNP_CONTROL_FAULT_STRING);
 	mupnp_xml_node_addchildnode(faultNode, faultStringNode);
 
 	/**** <detail> ****/
@@ -148,20 +134,20 @@ mUpnpXmlNode *mupnp_upnp_control_soap_response_createfaultresponsenode(int errCo
 
 	/**** <UPnPError xmlns="urn:schemas-upnp-org:control-1-0"> ****/
 	upnpErrorNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(upnpErrorNode, CG_UPNP_CONTROL_FAULT_STRING);
+	mupnp_xml_node_setname(upnpErrorNode, MUPNP_CONTROL_FAULT_STRING);
 	/**** Thanks for Visa Smolander (09/11/2005) ****/
-	mupnp_xml_node_setattribute(upnpErrorNode, CG_SOAP_ATTRIBUTE_XMLNS, CG_UPNP_CONTROL_XMLNS);
+	mupnp_xml_node_setattribute(upnpErrorNode, CG_SOAP_ATTRIBUTE_XMLNS, MUPNP_CONTROL_XMLNS);
 	mupnp_xml_node_addchildnode(detailNode, upnpErrorNode);
 
 	/**** <errorCode>error code</errorCode> ****/
 	errorCodeNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(errorCodeNode, CG_UPNP_CONTROL_ERROR_CODE);
+	mupnp_xml_node_setname(errorCodeNode, MUPNP_CONTROL_ERROR_CODE);
 	mupnp_xml_node_setintvalue(errorCodeNode, errCode);
 	mupnp_xml_node_addchildnode(upnpErrorNode, errorCodeNode);
 
 	/**** <errorDescription>error string</errorDescription> ****/
 	errorDesctiprionNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(errorDesctiprionNode, CG_UPNP_CONTROL_ERROR_DESCRIPTION);
+	mupnp_xml_node_setname(errorDesctiprionNode, MUPNP_CONTROL_ERROR_DESCRIPTION);
 	mupnp_xml_node_setvalue(errorDesctiprionNode, errDescr);
 	mupnp_xml_node_addchildnode(upnpErrorNode, errorDesctiprionNode);
 	
@@ -219,7 +205,7 @@ void mupnp_upnp_control_request_sethostfromservice(mUpnpSoapRequest *soapReq, mU
 			mupnp_net_url_getport(ctrlURL), 
 			mupnp_net_url_getpath(ctrlURL));
 
-	//mupnp_http_request_seturi(httpReq, mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_CONTROL_URL));
+	//mupnp_http_request_seturi(httpReq, mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), MUPNP_SERVICE_CONTROL_URL));
 	mupnp_http_request_seturi(httpReq, mupnp_net_url_getrequest(ctrlURL));
 
 	/**** Host ****/

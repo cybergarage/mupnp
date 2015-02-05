@@ -1,29 +1,16 @@
 /******************************************************************
-*
-* CyberUtil for C
-*
-* Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-* File: cstring.h
-*
-* Revision:
-*
-* 01/25/05
-*  - first revision
-* 03/01/06 Theo Beisch
-*  - introduced LONGLONG macro
-*  - added mupnp_strtrimwhite() to trim all 
-*    leading and trailing non-printable chars
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UTIL_CSTRING_H_
-#define _CG_UTIL_CSTRING_H_
+#ifndef _MUPNP_UTIL_STRING_H_
+#define _MUPNP_UTIL_STRING_H_
 
 #include <mupnp/typedef.h>
 #include <stdlib.h>

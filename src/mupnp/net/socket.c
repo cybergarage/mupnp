@@ -1,58 +1,13 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: csocket.cpp
-*
-*	Revision:
-*
-*	01/17/05
-*		- first revision
-*	08/16/05
-*		- Thanks for Theo Beisch <theo.beisch@gmx.de>
-*		- Changed mupnp_socket_startup() for WindowsCE platform.
-*	10/31/05
-*		- mupnp_socket_getrawtype and mupnp_socket_getprototype:
-*		  changed sock->type to socket->type to use the macro parameter
-*		  correctly.
-*	12/05/05
-*		- Changed mupnp_socket_tosockaddrinfo() not to use the AI_NUMERICHOST option.
-*	02/13/06 tb
-*		- added WINCE support
-*	03/21/06 Theo Beisch
-*		- changed mupnp_socket_cleanup() to return socketCnt so
-*		  that open socketCnt cleanup can be done on application 
-*		  exit (one WSACleanup per WSAStartup / WS2 API) - probably a 
-*		  temporary solution but it works in cases of threads
-*		  that don't retire properly on exit 
-*	04/09/06
-*		- (WIN32 only) added int mupnp_socket_getlasterror()
-*		- fixed memory leak in WIN32 recv() (fromLen init)
-*		- fixed socket_cleanup() bookkeeping 
-*	04/10/06
-*		- introduced mutex for socketCnt accounting as 
-*		  use of static variable otherwise unreliable
-*		- moved mupnp_socket_startup and mupnp_socket_cleanup calls to 
-*		  start and stop methods for controlpoint and device
-*		fixmelater: this is still not 100% safe if multiple devices/CPs
-*		should be created 'simultaneous', however already better  
-*	    than having a CP/Device race into this with multiple
-*		concurrent socket startups - the only truly self contained
-*		solution would need a named mutex or alike to protect the counter
-*	03/11/07
-*		- Added support of OpenSSL to socket functions in csocket.c.
-*		- Added CG_USE_OPENSSL define and --enable-openssl option to  disable the SSL functions as default.
-*	03/13/07
-*		- Fixed mupnp_socket_setid() to disable the IPPROTO_IP option using XCode on MacOSX.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/net/socket.h>
 #include <mupnp/net/interface.h>

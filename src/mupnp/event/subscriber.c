@@ -1,33 +1,13 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: csubscriber.c
-*
-*	Revision:
-*
-*	02/01/05
-*		- first revision
-*	12-Jan-06 Heikki Junnila
-*		- Added API comments
-*	01/12/06 Theo Beisch
-*		- modified time() to come from util/ctime
-*		  for WINCE OS support		
-*	04/04/06 Theo Beisch
-*		- subscriber renew does not reset notifyCount
-*		- subscriber clear does reset notifyCount
-*		- expiry check is by [s] (removed *1000 factor)
-*	03/13/08
-*		- Changed mupnp_upnp_subscriber_notifyall() using void parameter instead of mUpnpService not to conflict the prototype defines.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/event/event.h>
 #include <mupnp/event/notify.h>
@@ -36,10 +16,10 @@
 #include <mupnp/util/time.h>
 
 /****************************************
-* CG_UPNP_NOUSE_SUBSCRIPTION (Begin)
+* MUPNP_NOUSE_SUBSCRIPTION (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /**
  * Create a new event subscriber
@@ -131,7 +111,7 @@ long mupnp_upnp_subscriber_incrementnotifycount(mUpnpUpnpSubscriber *sub)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (CG_UPNP_NOTIFY_COUNT_MAX <= sub->notifyCount)
+	if (MUPNP_NOTIFY_COUNT_MAX <= sub->notifyCount)
 		sub->notifyCount = 0;
 	sub->notifyCount++;
 
@@ -153,7 +133,7 @@ BOOL mupnp_upnp_subscriber_isexpired(mUpnpUpnpSubscriber *sub)
 	mUpnpTime expiredTime;
 	
 	timeout = mupnp_upnp_subscriber_gettimeout(sub);
-	if(timeout == CG_UPNP_SUBSCRIPTION_INFINITE_VALUE) 
+	if(timeout == MUPNP_SUBSCRIPTION_INFINITE_VALUE) 
 		return FALSE; 
 			
 	//Theo Beisch - use clinkc function 
@@ -232,7 +212,7 @@ BOOL mupnp_upnp_subscriber_notifyall(mUpnpUpnpSubscriber *sub, /* mUpnpUpnpServi
 }
 
 /****************************************
-* CG_UPNP_NOUSE_SUBSCRIPTION (End)
+* MUPNP_NOUSE_SUBSCRIPTION (End)
 ****************************************/
 
 #endif

@@ -1,56 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cdevice.c
-*
-*	Revision:
-*
-*	02/14/05
-*		- first revision
-*	10/30/05
-*		- Thanks for Makela Aapo (aapo.makela@nokia.com)
-*		- Added mupnp_upnp_device_getservicebysid().
-*	10/31/05
-*		- mupnp_upnp_device_getdevicebyname: Changed dev to childDev in for
-*		- mupnp_upnp_device_byebyefrom & _announcefrom: Added missing 
-*		  advertisement and byebye messages
-*		- Added EXT handling to postsearchresponse
-*	11/17/05
-*		- Fixed many wrong variable names in for loops (dev => childDev)
-*	01/09/06 Heikki Junnila
-*		- Added mupnp_upnp_device_getservicebytype() to enable
-*		  searching for services without version information.
-*	10-Jan-06 Heikki Junnila
-*		- Renamed mupnp_upnp_device_getservicebyname to
-*		  mupnp_upnp_device_getservicebyexacttype and created a compat
-*		  macro for _getservicebyname
-*	11-Jan-06 Heikki Junnila
-*		- Removed mupnp_upnp_device_isname and _getbyname because
-*		  according to UPnP specs UDN, type or friendlyname is
-*		  not the same as the device's name.
-*		- Added mupnp_upnp_device_getdevicebyudn()
-*	23-Jan-06 Aapo Makela
-*		- Modified to try the next HTTP-port, if opening a port fails
-*	05-May-06 Rosfran Borges
-*		- Propagate some important data (description URI, lease-time), 
-*		  from the root device, to the embededd sub-devices, because
-*		  all embedded devices advertisements goes with wrong Location
-*		  path.
-*	06/13/07 Fabrice Fontaine Orange
-*		- Fixed compilation issue when using DCG_UPNP_NOUSE_CONTROLPOINT flag in mupnp_upnp_device_updatefromssdppacket().
-*		- Fixed a memory leak in mupnp_upnp_device_getservicebycontrolurl().
-*	12/08/08
- *		- Added mupnp_upnp_device_getabsoluteiconurl().
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/device.h>
 #include <mupnp/controlpoint.h>
@@ -118,9 +75,9 @@ mUpnpUpnpDevice *mupnp_upnp_device_new()
 		dev->ifCache = NULL;
 		
 		mupnp_upnp_device_setparentdevice(dev, NULL);
-		mupnp_upnp_device_setdescriptionuri(dev, CG_UPNP_DEVICE_DEFAULT_DESCRIPTION_URI);
-		mupnp_upnp_device_setleasetime(dev, CG_UPNP_DEVICE_DEFAULT_LEASE_TIME);
-		mupnp_upnp_device_sethttpport(dev, CG_UPNP_DEVICE_HTTP_DEFAULT_PORT);
+		mupnp_upnp_device_setdescriptionuri(dev, MUPNP_DEVICE_DEFAULT_DESCRIPTION_URI);
+		mupnp_upnp_device_setleasetime(dev, MUPNP_DEVICE_DEFAULT_LEASE_TIME);
+		mupnp_upnp_device_sethttpport(dev, MUPNP_DEVICE_HTTP_DEFAULT_PORT);
 		mupnp_upnp_device_sethttplistener(dev, NULL);
 		mupnp_upnp_device_setuserdata(dev, NULL);
     mupnp_upnp_device_setbootid(dev, mupnp_upnp_createbootid());
@@ -230,7 +187,7 @@ BOOL mupnp_upnp_device_parsedescription(mUpnpUpnpDevice *dev, const char *descip
 	mUpnpXmlParser *xmlParser;
 	BOOL xmlParseSuccess;
 	mUpnpXmlNode *rootNode;
-	char uuidBuf[CG_UPNP_UUID_MAX_LEN];
+	char uuidBuf[MUPNP_UUID_MAX_LEN];
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -254,7 +211,7 @@ BOOL mupnp_upnp_device_parsedescription(mUpnpUpnpDevice *dev, const char *descip
 		return FALSE;
 	}
 		
-	dev->deviceNode = mupnp_xml_node_getchildnode(rootNode, CG_UPNP_DEVICE_ELEM_NAME);
+	dev->deviceNode = mupnp_xml_node_getchildnode(rootNode, MUPNP_DEVICE_ELEM_NAME);
 	if (dev->deviceNode == NULL) {
 		mupnp_upnp_device_clear(dev);
 		return FALSE;
@@ -369,7 +326,7 @@ BOOL mupnp_upnp_device_updatefromssdppacket(mUpnpUpnpDevice* dev,
 					 mUpnpUpnpSSDPPacket* ssdpPkt)
 {
 	const char *usn = NULL;
-	char udn[CG_UPNP_UDN_LEN_MAX];
+	char udn[MUPNP_UDN_LEN_MAX];
 	mUpnpUpnpSSDPPacket *tmpSsdpPkt = NULL;
 	const char* oldLocation = NULL;
 	const char* newLocation = NULL;
@@ -419,8 +376,8 @@ BOOL mupnp_upnp_device_updatefromssdppacket(mUpnpUpnpDevice* dev,
 		mupnp_net_url_delete(url);
 		
 /* ADD Fabrice Fontaine Orange 16/04/2007 */
-/* Bug correction : Solving compilation issue when using DCG_UPNP_NOUSE_CONTROLPOINT flag */
-#ifndef CG_UPNP_NOUSE_CONTROLPOINT
+/* Bug correction : Solving compilation issue when using DMUPNP_NOUSE_CONTROLPOINT flag */
+#ifndef MUPNP_NOUSE_CONTROLPOINT
 /* ADD END Fabrice Fontaine Orange 16/04/2007 */
 #ifndef CG_OPTIMIZED_CP_MODE
 		if (mupnp_upnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == FALSE)
@@ -910,7 +867,7 @@ static void mupnp_upnp_device_initdevicelist(mUpnpUpnpDevice *dev)
 	if (devNode == NULL)
 		return;
 		
-	devListNode = mupnp_xml_node_getchildnode(devNode, CG_UPNP_DEVICELIST_ELEM_NAME);
+	devListNode = mupnp_xml_node_getchildnode(devNode, MUPNP_DEVICELIST_ELEM_NAME);
 	if (devListNode == NULL)
 		return;
 	
@@ -1118,7 +1075,7 @@ static void mupnp_upnp_device_notifywait(mUpnpUpnpDevice *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_waitrandom(CG_UPNP_DEVICE_DEFAULT_DISCOVERY_WAIT_TIME);
+	mupnp_waitrandom(MUPNP_DEVICE_DEFAULT_DISCOVERY_WAIT_TIME);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -1157,9 +1114,9 @@ char *mupnp_upnp_device_getnotifydevicent(mUpnpUpnpDevice *dev, char *buf, int b
 #endif
 	} else {
 #if defined(HAVE_SNPRINTF)
-		snprintf(buf, bufSize, "%s", CG_UPNP_DEVICE_UPNP_ROOTDEVICE);
+		snprintf(buf, bufSize, "%s", MUPNP_DEVICE_UPNP_ROOTDEVICE);
 #else
-		mupnp_strcpy(buf, CG_UPNP_DEVICE_UPNP_ROOTDEVICE);
+		mupnp_strcpy(buf, MUPNP_DEVICE_UPNP_ROOTDEVICE);
 #endif
 	}
 	mupnp_log_debug_l4("Leaving...\n");
@@ -1177,9 +1134,9 @@ char *mupnp_upnp_device_getnotifydeviceusn(mUpnpUpnpDevice *dev, char *buf, int 
 
 	if (mupnp_upnp_device_isrootdevice(dev) == TRUE) {
 #if defined(HAVE_SNPRINTF)
-		snprintf(buf, bufSize, "%s::%s", mupnp_upnp_device_getudn(dev), CG_UPNP_DEVICE_UPNP_ROOTDEVICE);
+		snprintf(buf, bufSize, "%s::%s", mupnp_upnp_device_getudn(dev), MUPNP_DEVICE_UPNP_ROOTDEVICE);
 #else
-		sprintf(buf, "%s::%s", mupnp_upnp_device_getudn(dev), CG_UPNP_DEVICE_UPNP_ROOTDEVICE);
+		sprintf(buf, "%s::%s", mupnp_upnp_device_getudn(dev), MUPNP_DEVICE_UPNP_ROOTDEVICE);
 #endif
 	}
 	else {
@@ -1239,7 +1196,7 @@ char *mupnp_upnp_device_getnotifydevicetypeusn(mUpnpUpnpDevice *dev, char *buf, 
 
 BOOL mupnp_upnp_device_announcefrom(mUpnpUpnpDevice *dev, char *bindAddr)
 {
-	char ssdpLineBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char ssdpLineBuf[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 	mUpnpUpnpServiceList *serviceList;
 	mUpnpUpnpService *service;
 	mUpnpUpnpDeviceList *devList;
@@ -1257,7 +1214,7 @@ BOOL mupnp_upnp_device_announcefrom(mUpnpUpnpDevice *dev, char *bindAddr)
 	mupnp_upnp_ssdprequest_setserver(ssdpReq, mupnp_upnp_getservername(ssdpLineBuf, sizeof(ssdpLineBuf)));
 	mupnp_upnp_ssdprequest_setleasetime(ssdpReq, mupnp_upnp_device_getleasetime(dev));
 	mupnp_upnp_ssdprequest_setlocation(ssdpReq, mupnp_upnp_device_getlocationurl(dev, bindAddr, ssdpLineBuf, sizeof(ssdpLineBuf)));
-	mupnp_upnp_ssdprequest_setnts(ssdpReq, CG_UPNP_SSDP_NTS_ALIVE);
+	mupnp_upnp_ssdprequest_setnts(ssdpReq, MUPNP_SSDP_NTS_ALIVE);
 	mupnp_upnp_ssdprequest_setbootid(ssdpReq, mupnp_upnp_device_getbootid(dev));
 
 	/**** uuid:device-UUID(::upnp:rootdevice) ****/
@@ -1341,7 +1298,7 @@ void mupnp_upnp_device_announce(mUpnpUpnpDevice *dev)
 
 BOOL mupnp_upnp_device_byebyefrom(mUpnpUpnpDevice *dev, char *bindAddr)
 {
-	char ssdpLineBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char ssdpLineBuf[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 	mUpnpUpnpServiceList *serviceList;
 	mUpnpUpnpService *service;
 	mUpnpUpnpDeviceList *devList;
@@ -1355,7 +1312,7 @@ BOOL mupnp_upnp_device_byebyefrom(mUpnpUpnpDevice *dev, char *bindAddr)
 	ssdpSock = mupnp_upnp_ssdp_socket_new();
 	ssdpReq = mupnp_upnp_ssdprequest_new();
 	
-	mupnp_upnp_ssdprequest_setnts(ssdpReq, CG_UPNP_SSDP_NTS_BYEBYE);
+	mupnp_upnp_ssdprequest_setnts(ssdpReq, MUPNP_SSDP_NTS_BYEBYE);
 
 	/**** uuid:device-UUID(::upnp:rootdevice) ****/
 	if (mupnp_upnp_device_isrootdevice(dev) == TRUE) {
@@ -1435,8 +1392,8 @@ BOOL mupnp_upnp_device_postsearchresponse(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPac
 	char *localAddr;
 	char *remoteAddr;
 	int remotePort;
-	char rootDevLocation[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
-	char serverBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char rootDevLocation[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char serverBuf[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 	int ssdpCount;
 	mUpnpUpnpSSDPSocket *ssdpSock;
 	int n;
@@ -1456,7 +1413,7 @@ BOOL mupnp_upnp_device_postsearchresponse(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPac
 	mupnp_upnp_ssdpresponse_setbootid(ssdpRes, mupnp_upnp_device_getbootid(dev));
 
 	mupnp_upnp_ssdpresponse_setext(ssdpRes);
-	mupnp_upnp_getservername(serverBuf, CG_UPNP_SSDP_HEADER_LINE_MAXSIZE);
+	mupnp_upnp_getservername(serverBuf, MUPNP_SSDP_HEADER_LINE_MAXSIZE);
 	mupnp_upnp_ssdpresponse_setserver(ssdpRes, serverBuf);
 
 	mupnp_upnp_ssdpresponse_setusn(ssdpRes, usn);
@@ -1626,7 +1583,7 @@ static void mupnp_upnp_device_initservicelist(mUpnpUpnpDevice *dev)
 	if (devNode == NULL)
 		return;
 		
-	serviceListNode = mupnp_xml_node_getchildnode(devNode, CG_UPNP_SERVICELIST_ELEM_NAME);
+	serviceListNode = mupnp_xml_node_getchildnode(devNode, MUPNP_SERVICELIST_ELEM_NAME);
 	if (serviceListNode == NULL)
 		return;
 		
@@ -1822,7 +1779,7 @@ mUpnpUpnpService *mupnp_upnp_device_getservicebyscpdurl(mUpnpUpnpDevice *dev, co
 		return NULL;
 			
 	for (service=mupnp_upnp_device_getservices(dev); service != NULL; service = mupnp_upnp_service_next(service)) {
-		mupnp_log_debug_s("Child node v: %s\n", mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), CG_UPNP_SERVICE_SCPDURL));
+		mupnp_log_debug_s("Child node v: %s\n", mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), MUPNP_SERVICE_SCPDURL));
 		if (mupnp_upnp_service_isscpdurl(service, url) == TRUE)
 			return service;
 	}
@@ -1925,7 +1882,7 @@ mUpnpUpnpService *mupnp_upnp_device_getservicebysid(mUpnpUpnpDevice *dev, const 
 * mupnp_upnp_device_setactionlistener
 ****************************************/
 
-void mupnp_upnp_device_setactionlistener(mUpnpUpnpDevice *dev, CG_UPNP_ACTION_LISTNER actionListner)
+void mupnp_upnp_device_setactionlistener(mUpnpUpnpDevice *dev, MUPNP_ACTION_LISTNER actionListner)
 {
 	mUpnpUpnpService *service;
 	mUpnpUpnpDevice *childDev;
@@ -1945,7 +1902,7 @@ void mupnp_upnp_device_setactionlistener(mUpnpUpnpDevice *dev, CG_UPNP_ACTION_LI
 * mupnp_upnp_device_setquerylistener
 ****************************************/
 
-void mupnp_upnp_device_setquerylistener(mUpnpUpnpDevice *dev, CG_UPNP_STATEVARIABLE_LISTNER queryListner)
+void mupnp_upnp_device_setquerylistener(mUpnpUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER queryListner)
 {
 	mUpnpUpnpService *service;
 	mUpnpUpnpDevice *childDev;
@@ -2166,7 +2123,7 @@ static void mupnp_upnp_device_initiconlist(mUpnpUpnpDevice *dev)
 	if (devNode == NULL)
 		return;
 		
-	iconListNode = mupnp_xml_node_getchildnode(devNode, CG_UPNP_ICONLIST_ELEM_NAME);
+	iconListNode = mupnp_xml_node_getchildnode(devNode, MUPNP_ICONLIST_ELEM_NAME);
 	if (iconListNode == NULL)
 		return;
 		
@@ -2201,10 +2158,10 @@ BOOL mupnp_upnp_device_addicon(mUpnpUpnpDevice *dev, mUpnpUpnpIcon *icon)
 	if (devNode == NULL)
 		return FALSE;
 
-	iconListNode = mupnp_xml_node_getchildnode(devNode, CG_UPNP_ICONLIST_ELEM_NAME);
+	iconListNode = mupnp_xml_node_getchildnode(devNode, MUPNP_ICONLIST_ELEM_NAME);
 	if (iconListNode == NULL) {
 		iconListNode = mupnp_xml_node_new();
-		mupnp_xml_node_setname(iconListNode, CG_UPNP_ICONLIST_ELEM_NAME);
+		mupnp_xml_node_setname(iconListNode, MUPNP_ICONLIST_ELEM_NAME);
 		mupnp_xml_node_addchildnode(devNode, iconListNode);
 	}
 	
@@ -2225,7 +2182,7 @@ BOOL mupnp_upnp_device_addicon(mUpnpUpnpDevice *dev, mUpnpUpnpIcon *icon)
 
 void mupnp_upnp_device_updateudn(mUpnpUpnpDevice *dev)
 {
-	char uuid[CG_UPNP_UUID_MAX_LEN];
+	char uuid[MUPNP_UUID_MAX_LEN];
 	mupnp_upnp_createuuid(uuid, sizeof(uuid));
 	mupnp_upnp_device_setudn(dev, uuid);
 }
@@ -2234,11 +2191,11 @@ void mupnp_upnp_device_updateudn(mUpnpUpnpDevice *dev)
  * mupnp_upnp_device_setpresentationlistener
  ****************************************/
 
-void mupnp_upnp_device_setpresentationlistener(mUpnpUpnpDevice *dev, CG_UPNP_PRESENTATION_LISTNER func)
+void mupnp_upnp_device_setpresentationlistener(mUpnpUpnpDevice *dev, MUPNP_PRESENTATION_LISTNER func)
 {
   mupnp_upnp_device_removepresentationurl(dev);
   if (func)
-    mupnp_upnp_device_setpresentationurl(dev, CG_UPNP_DEVICE_DEFAULT_PRESENTATION_URI);
+    mupnp_upnp_device_setpresentationurl(dev, MUPNP_DEVICE_DEFAULT_PRESENTATION_URI);
   
   dev->presentationListener = func;
 }

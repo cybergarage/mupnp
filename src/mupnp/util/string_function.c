@@ -1,34 +1,13 @@
 /******************************************************************
-*
-* CyberUtil for C
-*
-* Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-* File: cstring_function.c
-*
-* Revision:
-*
-* 01/25/05
-*  - first revision
-* 11/11/05
-*  - Added mupnp_longlong2str() and mupnp_str2longlong().
-* 03/20/06 Theo Beisch
-*  - WINCE support
-*  - added mupnp_strtrimwhite() - trims all whitespace, not just ' '
-* 03/18/07
-*  - Changed the following functions to use mUpnpInt64.
-*    mupnp_longlong2str()
-* 10/22/07 Aapo Makela
-*  - Added NULL check to mupnp_strtrimwhite()
-* 08/04/09
-*  - Added mupnp_float2str() and mupnp_double2str().
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"

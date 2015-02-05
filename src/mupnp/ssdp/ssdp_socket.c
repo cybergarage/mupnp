@@ -1,22 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cssdp_socket.c
-*
-*	Revision:
-*
-*	02/18/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/service.h>
 #include <mupnp/upnp_function.h>
@@ -41,7 +32,7 @@ static BOOL mupnp_upnp_ssdp_socket_notify(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUp
 	ssdpMsg = mupnp_string_new();
 	mupnp_upnp_ssdprequest_tostring(ssdpReq, ssdpMsg);
 
-	sentLen = mupnp_socket_sendto(ssdpSock, ssdpAddr, CG_UPNP_SSDP_PORT, mupnp_string_getvalue(ssdpMsg), mupnp_string_length(ssdpMsg));
+	sentLen = mupnp_socket_sendto(ssdpSock, ssdpAddr, MUPNP_SSDP_PORT, mupnp_string_getvalue(ssdpMsg), mupnp_string_length(ssdpMsg));
 	mupnp_string_delete(ssdpMsg);
 	
 	mupnp_log_debug_l4("Leaving...\n");
@@ -60,7 +51,7 @@ BOOL mupnp_upnp_ssdp_socket_notifyfrom(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUpnpS
 	mupnp_log_debug_l4("Entering...\n");
 
 	ssdpAddr = mupnp_upnp_ssdp_gethostaddress(bindAddr);
-	mupnp_upnp_ssdprequest_sethost(ssdpReq, ssdpAddr, CG_UPNP_SSDP_PORT);
+	mupnp_upnp_ssdprequest_sethost(ssdpReq, ssdpAddr, MUPNP_SSDP_PORT);
 
 	mupnp_log_debug_l4("Leaving...\n");
 	

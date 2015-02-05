@@ -1,29 +1,13 @@
 /******************************************************************
-*
-*	CyberXML for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cxml_node.cpp
-*
-*	Revision:
-*
-*	02/07/05
-*		- first revision
-*	12/13/07 Aapo Makela
-*		- Fixes to work in out-of-memory situations
-*	05/22/08
-*		- Added mupnp_xml_nodelist_getbyname() instead of mupnp_xml_nodelist_get().
-*		- Added mupnp_xml_node_getchildnodebyname() instead of mupnp_xml_node_getchildnode().
-*		- Added mupnp_xml_nodelist_getbyxpath() and mupnp_xml_node_getchildnodebyxpath() to get a node simply.
-*		- Deprecated mupnp_xml_nodelist_get() and mupnp_xml_node_getchildnode().*
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/xml/xml.h>
 #include <mupnp/util/log.h>

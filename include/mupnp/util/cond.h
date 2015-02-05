@@ -1,25 +1,16 @@
 /******************************************************************
-*
-*	CyberUtil for C
-*
-*	Copyright (C) 2006 Nokia Corporation
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: ccond.h
-*
-*	Revision:
-*
-*	16-Jan-06
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UTIL_CCOND_H_
-#define _CG_UTIL_CCOND_H_
+#ifndef _MUPNP_UTIL_COND_H_
+#define _MUPNP_UTIL_COND_H_
 
 #include <mupnp/typedef.h>
 #include <mupnp/util/mutex.h>

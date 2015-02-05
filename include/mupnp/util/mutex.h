@@ -1,28 +1,16 @@
 /******************************************************************
-*
-*	CyberUtil for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cmutex.h
-*
-*	Revision:
-*
-*	01/17/05
-*		- first revision
-*
-*	10/31/05
-*		- Added comments to all functions and structs
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UTIL_CMUTEX_H_
-#define _CG_UTIL_CMUTEX_H_
+#ifndef _MUPNP_UTIL_MUTEX_H_
+#define _MUPNP_UTIL_MUTEX_H_
 
 #include <mupnp/typedef.h>
 

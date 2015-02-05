@@ -1,31 +1,22 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cquery_ctrl.c
-*
-*	Revision:
-*
-*	06/09/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/control/control.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_QUERY (Begin)
+* MUPNP_NOUSE_QUERY (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_QUERYCTRL)
+#if !defined(MUPNP_NOUSE_QUERYCTRL)
 
 /****************************************
 * mupnp_upnp_action_performlistener
@@ -33,7 +24,7 @@
 
 BOOL mupnp_upnp_statevariable_performlistner(mUpnpUpnpStateVariable *statVar, mUpnpUpnpQueryRequest *queryReq)
 {
-	CG_UPNP_STATEVARIABLE_LISTNER	 listener;
+	MUPNP_STATEVARIABLE_LISTNER	 listener;
 	mUpnpUpnpQueryResponse *queryRes;
 	mUpnpHttpRequest *queryReqHttpReq;
 	mUpnpHttpResponse *queryResHttpRes;
@@ -46,8 +37,8 @@ BOOL mupnp_upnp_statevariable_performlistner(mUpnpUpnpStateVariable *statVar, mU
 	
 	queryRes = mupnp_upnp_control_query_response_new();
 
-	mupnp_upnp_statevariable_setstatuscode(statVar, CG_UPNP_STATUS_INVALID_ACTION);
-	mupnp_upnp_statevariable_setstatusdescription(statVar, mupnp_upnp_status_code2string(CG_UPNP_STATUS_INVALID_ACTION));
+	mupnp_upnp_statevariable_setstatuscode(statVar, MUPNP_STATUS_INVALID_ACTION);
+	mupnp_upnp_statevariable_setstatusdescription(statVar, mupnp_upnp_status_code2string(MUPNP_STATUS_INVALID_ACTION));
 	mupnp_upnp_statevariable_setvalue(statVar, "");
 	
 	if (listener(statVar) == TRUE)
@@ -93,7 +84,7 @@ BOOL mupnp_upnp_statevariable_post(mUpnpUpnpStateVariable *statVar)
 }
 
 /****************************************
-* CG_UPNP_NOUSE_QUERY (End)
+* MUPNP_NOUSE_QUERY (End)
 ****************************************/
 
 #endif

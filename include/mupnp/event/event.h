@@ -1,31 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cevent.h
-*
-*	Revision:
-*
-*	06/20/05
-*		- first revision
-*	03/28/06 Theo Beisch
-*		- modified mupnp_upnp_eventlistenerlist_clear to use
-*		  default destructor in clist
-*		- added mupnp_upnp_event_subscription_request_hasnt
-*		- changed _subscription function signature to use (service)
-*		  instead of (remoteAddress)
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CEVENT_H_
-#define _CG_UPNP_CEVENT_H_
+#ifndef  _MUPNP_EVENT_H_
+#define _MUPNP_EVENT_H_
 
 #include <mupnp/typedef.h>
 
@@ -47,62 +32,62 @@ extern "C" {
 /**
  * Definition for SID size
  */
-#define CG_UPNP_SUBSCRIPTION_SID_SIZE (CG_UPNP_UUID_MAX_LEN + 8)
+#define MUPNP_SUBSCRIPTION_SID_SIZE (MUPNP_UUID_MAX_LEN + 8)
 
 /**
  * Definition for SID header size
  */
-#define CG_UPNP_SUBSCRIPTION_SID_HEADER_SIZE (5 + CG_UPNP_SUBSCRIPTION_SID_SIZE)
+#define MUPNP_SUBSCRIPTION_SID_HEADER_SIZE (5 + MUPNP_SUBSCRIPTION_SID_SIZE)
 
 /**
  * Definition for subscription xml namespace
  */
-#define CG_UPNP_SUBSCRIPTION_XMLNS "urn:schemas-upnp-org:event-1-0"
+#define MUPNP_SUBSCRIPTION_XMLNS "urn:schemas-upnp-org:event-1-0"
 
 /**
  * Definition for subscription timeout header prefix
  */
-#define CG_UPNP_SUBSCRIPTION_TIMEOUT_HEADER "Second-"
+#define MUPNP_SUBSCRIPTION_TIMEOUT_HEADER "Second-"
 
 /**
  * Definition for infinite string in subscription
  */
-#define CG_UPNP_SUBSCRIPTION_INFINITE_STRING "infinite"
+#define MUPNP_SUBSCRIPTION_INFINITE_STRING "infinite"
 
 /**
  * Definition for infinite value in subscription
  */
-#define CG_UPNP_SUBSCRIPTION_INFINITE_VALUE (-1)
+#define MUPNP_SUBSCRIPTION_INFINITE_VALUE (-1)
 
 /**
  * Definition for subscription uuid prefix
  */
-#define CG_UPNP_SUBSCRIPTION_UUID "uuid:"
+#define MUPNP_SUBSCRIPTION_UUID "uuid:"
 
 /**
  * Definition for subscription callback start tag
  */
-#define CG_UPNP_SUBSCRIPTION_CALLBACK_START_WITH  "<"
+#define MUPNP_SUBSCRIPTION_CALLBACK_START_WITH  "<"
 
 /**
  * Definition for subscription callback end tag
  */
-#define CG_UPNP_SUBSCRIPTION_CALLBACK_END_WITH  ">"
+#define MUPNP_SUBSCRIPTION_CALLBACK_END_WITH  ">"
 
 /**
  * Definition for subscription delay
  */
-#define CG_UPNP_SUBSCRIPTION_DELAY 30
+#define MUPNP_SUBSCRIPTION_DELAY 30
 
 /**
  * Definition for maximum event sequence number
  */
-#define CG_UPNP_EVENT_MAX_SEQ 2147483647
+#define MUPNP_EVENT_MAX_SEQ 2147483647
 
 /**
  * Definition for maximum upnp subscription timeout
  */
-#define CG_UPNP_SUBSCRIPTION_MAX_TIMEOUT 300
+#define MUPNP_SUBSCRIPTION_MAX_TIMEOUT 300
 	
 /****************************************
 * Data Type
@@ -121,7 +106,7 @@ typedef mUpnpHttpResponse mUpnpUpnpSubscriptionResponse;
 /**
  * Type definition for event listener callback
  */
-typedef void (*CG_UPNP_EVENT_LISTENER)(mUpnpUpnpProperty *);
+typedef void (*MUPNP_EVENT_LISTENER)(mUpnpUpnpProperty *);
 
 /**
  * Type definition for event listener list
@@ -134,7 +119,7 @@ typedef struct _mUpnpUpnpEventListenerList {
 	/** Used by mupnp_list_* functions to point to the next item in list */
 	struct _mUpnpUpnpEventListenerList *next;
  
-	CG_UPNP_EVENT_LISTENER listener;
+	MUPNP_EVENT_LISTENER listener;
 } mUpnpUpnpEventListenerList;
  
 /****************************************
@@ -536,7 +521,7 @@ void mupnp_upnp_eventlistenerlist_delete(mUpnpUpnpEventListenerList *eventListen
 * \param listener The listener to remove
 *
 */
-void mupnp_upnp_eventlistenerlist_remove(mUpnpUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener);
+void mupnp_upnp_eventlistenerlist_remove(mUpnpUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener);
  
 /**
 * Add a listener to the event listener list
@@ -545,7 +530,7 @@ void mupnp_upnp_eventlistenerlist_remove(mUpnpUpnpEventListenerList* eventListen
 * \param listener The listener to add
 *
 */
-void mupnp_upnp_eventlistenerlist_add(mUpnpUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener);
+void mupnp_upnp_eventlistenerlist_add(mUpnpUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener);
  
 /**
  * Call all event listeners in the list with the given data.

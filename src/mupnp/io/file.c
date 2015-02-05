@@ -1,35 +1,13 @@
 /******************************************************************
-*
-*	CyberIO for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cfile.c
-*
-*	Revision:
-*
-*	01/25/05
-*		- first revision
-*	03/19/06 Theo Beisch
-*		- WINCE support (still untested)
-*	07/18/07
-*		- Added the following functions.
-*		  mupnp_file_open()
-*		  mupnp_file_close()
-*		  mupnp_file_write()
-*		  mupnp_file_read()
-*		  mupnp_file_seek() ]
-*  08/19/07
-*		- Added the following functions.
-*		  mupnp_file_setpath()
-*		  mupnp_file_setfilename()
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/io/file.h>
 

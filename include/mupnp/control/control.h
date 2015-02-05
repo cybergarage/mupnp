@@ -1,25 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: ccontrol.h
-*
-*	Re1vision:
-*
-*	04/19/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CCONTROL_H_
-#define _CG_UPNP_CCONTROL_H_
+#ifndef _MUPNP_CONTROL_H_
+#define _MUPNP_CONTROL_H_
 
 #include <mupnp/typedef.h>
 
@@ -43,130 +34,130 @@ extern "C" {
 /**
  * Definition for mandatory discover header
  */
-#define CG_UPNP_MAN_DISCOVER "\"ssdp:discover\""
+#define MUPNP_MAN_DISCOVER "\"ssdp:discover\""
 
 /**** NT ****/
 
 /**
  * Definition for NT (Notification type) root device
  */
-#define CG_UPNP_NT_ROOTDEVICE "upnp:rootdevice"
+#define MUPNP_NT_ROOTDEVICE "upnp:rootdevice"
 
 /**
  * Definition for NT event
  */
-#define CG_UPNP_NT_EVENT "upnp:event"
+#define MUPNP_NT_EVENT "upnp:event"
 
 /**** NTS ****/
 
 /**
  * Definition for NTS alive
  */
-#define CG_UPNP_NTS_ALIVE "ssdp:alive"
+#define MUPNP_NTS_ALIVE "ssdp:alive"
 
 /**
  * Definition for NTS byebye
  */
-#define CG_UPNP_NTS_BYEBYE "ssdp:byebye"
+#define MUPNP_NTS_BYEBYE "ssdp:byebye"
 
 /**
  * Definition for NTS property change
  */
-#define CG_UPNP_NTS_PROPCHANGE "upnp:propchange"
+#define MUPNP_NTS_PROPCHANGE "upnp:propchange"
 
 /**** ST ****/
 
 /**
  * Definition for general ST (search target)
  */
-#define CG_UPNP_ST_ALL_DEVICE "ssdp:all"
+#define MUPNP_ST_ALL_DEVICE "ssdp:all"
 
 /**
  * Definition for root device ST
  */
-#define CG_UPNP_ST_ROOT_DEVICE "upnp:rootdevice"
+#define MUPNP_ST_ROOT_DEVICE "upnp:rootdevice"
 
 /**
  * Definition for ST UUID (universally unique identifier) prefix
  */
-#define CG_UPNP_ST_UUID_DEVICE "uuid"
+#define MUPNP_ST_UUID_DEVICE "uuid"
 
 	/**
  * Definition for URN device
  */
-#define CG_UPNP_ST_URN "urn"
+#define MUPNP_ST_URN "urn"
 
 /**
  * Definition for URN device
  */
-#define CG_UPNP_ST_URN_DEVICE "urn:schemas-upnp-org:device"
+#define MUPNP_ST_URN_DEVICE "urn:schemas-upnp-org:device"
 
 /**
  * Definition for URN service
  */
-#define CG_UPNP_ST_URN_SERVICE "urn:schemas-upnp-org:service"
+#define MUPNP_ST_URN_SERVICE "urn:schemas-upnp-org:service"
 
 /**** USN ****/
 
 /**
  * Definition for USN rootdevice
  */
-#define CG_UPNP_USN_ROOTDEVICE "upnp:rootdevice"
+#define MUPNP_USN_ROOTDEVICE "upnp:rootdevice"
 
 /**
  * Definition for control name space
  */
-#define CG_UPNP_CONTROL_NS "u"
+#define MUPNP_CONTROL_NS "u"
 
 /**
  * Definition for soap action: state variable query
  */
-#define CG_UPNP_CONTROL_QUERY_SOAPACTION "\"urn:schemas-upnp-org:control-1-0#QueryStateVariable\""
+#define MUPNP_CONTROL_QUERY_SOAPACTION "\"urn:schemas-upnp-org:control-1-0#QueryStateVariable\""
 
 /**
  * Definition for control XML name space
  */
-#define CG_UPNP_CONTROL_XMLNS "urn:schemas-upnp-org:control-1-0"
+#define MUPNP_CONTROL_XMLNS "urn:schemas-upnp-org:control-1-0"
 
 /**
  * Definition for query state variable
  */
-#define CG_UPNP_CONTROL_QUERY_STATE_VARIABLE "QueryStateVariable"
+#define MUPNP_CONTROL_QUERY_STATE_VARIABLE "QueryStateVariable"
 
 /**
  * Definition for query state variable response
  */
-#define CG_UPNP_CONTROL_QUERY_STATE_VARIABLE_RESPONSE "QueryStateVariableResponse"
+#define MUPNP_CONTROL_QUERY_STATE_VARIABLE_RESPONSE "QueryStateVariableResponse"
 
 /**
  * Definition for control variable name
  */
-#define CG_UPNP_CONTROL_VAR_NAME "varName"
+#define MUPNP_CONTROL_VAR_NAME "varName"
 
 /**
  * Definition for control return
  */
-#define CG_UPNP_CONTROL_RETURN "return"
+#define MUPNP_CONTROL_RETURN "return"
 
 /**
  * Definition for control fault code
  */
-#define CG_UPNP_CONTROL_FAULT_CODE "Client"
+#define MUPNP_CONTROL_FAULT_CODE "Client"
 
 /**
  * Definition for contol fault string
  */
-#define CG_UPNP_CONTROL_FAULT_STRING "UPnPError"
+#define MUPNP_CONTROL_FAULT_STRING "UPnPError"
 
 /** 
  * Definition fro control error code
  */
-#define CG_UPNP_CONTROL_ERROR_CODE "errorCode"
+#define MUPNP_CONTROL_ERROR_CODE "errorCode"
 
 /**
  * Definition for control error description
  */
-#define CG_UPNP_CONTROL_ERROR_DESCRIPTION "errorDescription"
+#define MUPNP_CONTROL_ERROR_DESCRIPTION "errorDescription"
 
 /****************************************
 * Data Type
@@ -227,7 +218,7 @@ typedef struct _mUpnpUpnpQueryRequest{
  *
  * @return True if request is UPnP query request, false othewise
  */
-#define mupnp_upnp_control_isqueryrequest(httpReq) ( ((0 <= mupnp_strstr(mupnp_soap_request_getsoapaction(httpReq), CG_UPNP_CONTROL_QUERY_SOAPACTION)) ? TRUE : FALSE) || ((0 <= mupnp_strstr(mupnp_soap_request_getsoapactionwithns(httpReq), CG_UPNP_CONTROL_QUERY_SOAPACTION)) ? TRUE : FALSE) )
+#define mupnp_upnp_control_isqueryrequest(httpReq) ( ((0 <= mupnp_strstr(mupnp_soap_request_getsoapaction(httpReq), MUPNP_CONTROL_QUERY_SOAPACTION)) ? TRUE : FALSE) || ((0 <= mupnp_strstr(mupnp_soap_request_getsoapactionwithns(httpReq), MUPNP_CONTROL_QUERY_SOAPACTION)) ? TRUE : FALSE) )
 
 /* Check if HTTP request is UPnP action request
  *
@@ -628,7 +619,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if string is exactly the required one, false otherwise
  */
-#define mupnp_upnp_man_isdiscover(str) ((0 == mupnp_strstr(str, CG_UPNP_MAN_DISCOVER)) ? TRUE : FALSE)
+#define mupnp_upnp_man_isdiscover(str) ((0 == mupnp_strstr(str, MUPNP_MAN_DISCOVER)) ? TRUE : FALSE)
 
 /****************************************
 * Function (ST)
@@ -641,7 +632,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  * 
  * @return True if device type is "all", false otherwise
  */
-#define mupnp_upnp_st_isalldevice(str) ((0 <= mupnp_strstr(str, CG_UPNP_ST_ALL_DEVICE)) ? TRUE : FALSE)
+#define mupnp_upnp_st_isalldevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_ALL_DEVICE)) ? TRUE : FALSE)
 
 /**
  * Check if device string is from root device
@@ -650,7 +641,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if string is from device type "root device", false otherwise
  */
-#define mupnp_upnp_st_isrootdevice(str) ((0 <= mupnp_strstr(str, CG_UPNP_ST_ROOT_DEVICE)) ? TRUE : FALSE)
+#define mupnp_upnp_st_isrootdevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_ROOT_DEVICE)) ? TRUE : FALSE)
 
 /**
  * Check if string is from uuid device
@@ -659,7 +650,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if string is from uuid device, false otherwise
  */
-#define mupnp_upnp_st_isuuiddevice(str) ((0 <= mupnp_strstr(str, CG_UPNP_ST_UUID_DEVICE)) ? TRUE : FALSE)
+#define mupnp_upnp_st_isuuiddevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_UUID_DEVICE)) ? TRUE : FALSE)
 
 /**
  * Check if string is from urn
@@ -668,7 +659,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if string is from urn, false otherwise
  */
-#define mupnp_upnp_st_isurn(str) ((0 <= mupnp_strstr(str, CG_UPNP_ST_URN)) ? TRUE : FALSE)
+#define mupnp_upnp_st_isurn(str) ((0 <= mupnp_strstr(str, MUPNP_ST_URN)) ? TRUE : FALSE)
 
 /**
  * Check if string is from urn device
@@ -677,7 +668,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if string is from urn device, false otherwise
  */
-#define mupnp_upnp_st_isurndevice(str) ((0 <= mupnp_strstr(str, CG_UPNP_ST_URN_DEVICE)) ? TRUE : FALSE)
+#define mupnp_upnp_st_isurndevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_URN_DEVICE)) ? TRUE : FALSE)
 
 /**
  * Check if string is from urn service
@@ -686,7 +677,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if string is from urn service, false otherwise
  */
-#define mupnp_upnp_st_isurnservice(str) ((0 <= mupnp_strstr(str, CG_UPNP_ST_URN_SERVICE)) ? TRUE : FALSE)
+#define mupnp_upnp_st_isurnservice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_URN_SERVICE)) ? TRUE : FALSE)
 
 /****************************************
 * Function (NT)
@@ -699,7 +690,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if NT is for root device, false otherwise
  */
-#define mupnp_upnp_nt_isrootdevice(str) ((0 <= mupnp_strstr(str, CG_UPNP_NT_ROOTDEVICE)) ? TRUE : FALSE)
+#define mupnp_upnp_nt_isrootdevice(str) ((0 <= mupnp_strstr(str, MUPNP_NT_ROOTDEVICE)) ? TRUE : FALSE)
 
 /****************************************
 * Function (NTS)
@@ -712,7 +703,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if string is of type "alive", false otherwise
  */
-#define mupnp_upnp_nts_isalive(str) ((0 <= mupnp_strstr(str, CG_UPNP_NTS_ALIVE)) ? TRUE : FALSE)
+#define mupnp_upnp_nts_isalive(str) ((0 <= mupnp_strstr(str, MUPNP_NTS_ALIVE)) ? TRUE : FALSE)
 
 /**
  * Check if string type is "byebye"
@@ -721,7 +712,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if string is of type "byebye", false othewise
  */
-#define mupnp_upnp_nts_isbyebye(str) ((0 <= mupnp_strstr(str, CG_UPNP_NTS_BYEBYE)) ? TRUE : FALSE)
+#define mupnp_upnp_nts_isbyebye(str) ((0 <= mupnp_strstr(str, MUPNP_NTS_BYEBYE)) ? TRUE : FALSE)
 
 /**
  * Check if string type is "property change"
@@ -730,7 +721,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if string type is "property change"
  */
-#define mupnp_upnp_nts_ispropchange(str) ((0 <= mupnp_strstr(str, CG_UPNP_NTS_PROPCHANGE)) ? TRUE : FALSE)
+#define mupnp_upnp_nts_ispropchange(str) ((0 <= mupnp_strstr(str, MUPNP_NTS_PROPCHANGE)) ? TRUE : FALSE)
 
 /****************************************
 * Function (USN)
@@ -743,7 +734,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
  *
  * @return True if usn associates to root device, false otherwise
  */
-#define mupnp_upnp_usn_isrootdevice(str) ((0 <= mupnp_strstr(str, CG_UPNP_USN_ROOTDEVICE)) ? TRUE : FALSE)
+#define mupnp_upnp_usn_isrootdevice(str) ((0 <= mupnp_strstr(str, MUPNP_USN_ROOTDEVICE)) ? TRUE : FALSE)
 
 /**
  * Get udn from usn

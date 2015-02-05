@@ -1,25 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: caction_response.c
-*
-*	Revision:
-*
-*	05/17/05
-*		- first revision
-*
-*	10/31/05
-*		- Added mupnp_upnp_control_action_response_geterror
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/upnp_limit.h>
 #include <mupnp/service.h>
@@ -27,10 +15,10 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_ACTIONCTRL (Begin)
+* MUPNP_NOUSE_ACTIONCTRL (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
+#if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
 /****************************************
 * mupnp_upnp_control_action_response_new
@@ -118,7 +106,7 @@ void mupnp_upnp_control_action_response_setsoapresponse(mUpnpUpnpActionResponse 
 static mUpnpXmlNode *mupnp_upnp_control_action_response_createresponsenode(mUpnpUpnpAction *action)
 {
 	mUpnpXmlNode *actionNameResNode;
-	char nodeName[CG_UPNP_ACTOINNAME_LEN_MAX + sizeof(CG_SOAP_METHODNS) + sizeof(CG_SOAP_DELIM) + sizeof(CG_SOAP_RESPONSE) + 1];
+	char nodeName[MUPNP_ACTOINNAME_LEN_MAX + sizeof(CG_SOAP_METHODNS) + sizeof(CG_SOAP_DELIM) + sizeof(CG_SOAP_RESPONSE) + 1];
 	char attrName[sizeof(CG_SOAP_ATTRIBUTE_XMLNS) + sizeof(CG_SOAP_DELIM) + sizeof(CG_SOAP_METHODNS) + 1];
 	const char *actionName;
 	mUpnpXmlNode *serviceNode;
@@ -135,7 +123,7 @@ static mUpnpXmlNode *mupnp_upnp_control_action_response_createresponsenode(mUpnp
 	actionName = mupnp_upnp_action_getname(action);
 	mupnp_strcpy(nodeName, CG_SOAP_METHODNS);
 	mupnp_strcat(nodeName, CG_SOAP_DELIM);
-	mupnp_strncat(nodeName, actionName, CG_UPNP_ACTOINNAME_LEN_MAX);
+	mupnp_strncat(nodeName, actionName, MUPNP_ACTOINNAME_LEN_MAX);
 	mupnp_strcat(nodeName, CG_SOAP_RESPONSE);
 	mupnp_xml_node_setname(actionNameResNode, nodeName);
 
@@ -277,17 +265,17 @@ BOOL mupnp_upnp_control_action_response_geterror(mUpnpUpnpActionResponse *action
 
 	if (upnpErrorNode == NULL) return FALSE;
 		
-	upnpErrorNode = mupnp_xml_node_getchildnodewithnamespace(upnpErrorNode, CG_UPNP_CONTROL_FAULT_STRING, 
+	upnpErrorNode = mupnp_xml_node_getchildnodewithnamespace(upnpErrorNode, MUPNP_CONTROL_FAULT_STRING, 
 							      NULL, TRUE);
 
 	if (upnpErrorNode == NULL) return FALSE;
 		
-	node = mupnp_xml_node_getchildnodewithnamespace(upnpErrorNode, CG_UPNP_CONTROL_ERROR_DESCRIPTION, 
+	node = mupnp_xml_node_getchildnodewithnamespace(upnpErrorNode, MUPNP_CONTROL_ERROR_DESCRIPTION, 
 						     NULL, TRUE);
 	if (node)
 		errDesc = mupnp_xml_node_getvalue(node);
 
-	node = mupnp_xml_node_getchildnodewithnamespace(upnpErrorNode, CG_UPNP_CONTROL_ERROR_CODE, 
+	node = mupnp_xml_node_getchildnodewithnamespace(upnpErrorNode, MUPNP_CONTROL_ERROR_CODE, 
 						     NULL, TRUE);
 	if (node)
 		errCode = mupnp_xml_node_getvalue(node);
@@ -303,7 +291,7 @@ BOOL mupnp_upnp_control_action_response_geterror(mUpnpUpnpActionResponse *action
 }
 
 /****************************************
-* CG_UPNP_NOUSE_ACTIONCTRL (End)
+* MUPNP_NOUSE_ACTIONCTRL (End)
 ****************************************/
 
 #endif

@@ -1,42 +1,22 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license with patent exclusion,
-*       see file COPYING.
-*
-*	File: ccontrolpoint_event.c
-*
-*	Revision:
-*
-*	07/13/05
-*		- first revision
-*	08/25/05
-*		- Thanks for Theo Beisch <theo.beisch@gmx.de>
-*		- Change the following functions to set HOTS header according to UPnP Spec HOST.
-*		  mupnp_upnp_controlpoint_subscribe()
-*		  mupnp_upnp_controlpoint_resubscribe()
-*		  mupnp_upnp_controlpoint_unsubscribe()
-*		- Changed mupnp_upnp_controlpoint_geteventsubcallbackurl() to add < and > around callbackurl per UPnP def.
-*	17-Jan-06 Aapo Makela
-*		- Added expiration handler thread
-*	04/24/07 Aapo Makela
-*		- Do not set host in subscription request (it is handled automatically when sending request)
-******************************************************************/
-
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 #include <mupnp/upnp_limit.h>
 #include <mupnp/controlpoint.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_CONTROLPOINT (Begin)
+* MUPNP_NOUSE_CONTROLPOINT (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_CONTROLPOINT) && !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_CONTROLPOINT) && !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 mUpnpUpnpService *mupnp_upnp_device_getfirstexpiratedservice(mUpnpUpnpControlPoint *ctrlPoint,
 						       mUpnpUpnpDevice *dev, 
@@ -261,7 +241,7 @@ BOOL mupnp_upnp_controlpoint_subscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUp
 	char *roodDevIfAddress;
 	mUpnpUpnpSubscriptionRequest *subReq;
 	mUpnpUpnpSubscriptionResponse *subRes;
-	char eventSubURL[CG_UPNP_CONTROLPOINT_EVENTSUBURL_MAX];
+	char eventSubURL[MUPNP_CONTROLPOINT_EVENTSUBURL_MAX];
 	BOOL isSuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -475,7 +455,7 @@ void ControlPoint::unsubscribe(Device *device)
 */
 
 /****************************************
-* CG_UPNP_NOUSE_CONTROLPOINT (End)
+* MUPNP_NOUSE_CONTROLPOINT (End)
 ****************************************/
 
 #endif

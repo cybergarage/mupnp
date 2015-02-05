@@ -1,26 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cupnp_function.c
-*
-*	Revision:
-*
-*	02/21/05
-*		- first revision
-*	10/30/05
-*		- Thanks for Makela Aapo (aapo.makela@nokia.com)
-*		- Changed to mupnp_upnp_createuuid() create new UUIDs as they are specified in
-*		  UPnP DA specification (UUIDs have "uuid:"prefix).
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
@@ -76,7 +63,7 @@ const char *mupnp_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 {
 #if defined(HAVE_LIBUUID)
 	uuid_t uuid;
-	char uuidStr[CG_UPNP_UUID_MAX_LEN];
+	char uuidStr[MUPNP_UUID_MAX_LEN];
 #elif defined(WIN32)
 	#pragma comment(lib, "Rpcrt4.lib")
 	UUID uuid;
@@ -96,7 +83,7 @@ const char *mupnp_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 	UuidCreate(&uuid);
 	UuidToString(&uuid, &szUuid);
 	sprintf(uuidBuf, "%s:%s",
-		CG_UPNP_UUID_NAME,
+		MUPNP_UUID_NAME,
 		szUuid);
 	RpcStringFree(&szUuid);
 #else
@@ -104,7 +91,7 @@ const char *mupnp_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 	time1 = mupnp_getcurrentsystemtime();
 	time2 = (time_t)((double)mupnp_getcurrentsystemtime(NULL) * ((double)rand() / (double)RAND_MAX));
 	snprintf(uuidBuf, uuidBufSize, "%s:%04x-%04x-%04x-%04x",
-		CG_UPNP_UUID_NAME,
+		MUPNP_UUID_NAME,
 		(int)(time1 & 0xFFFF),
 		(int)(((time1 >> 31) | 0xA000) & 0xFFFF),
 		(int)(time2 & 0xFFFF),
@@ -153,9 +140,9 @@ const char *mupnp_upnp_getservername(char *buf, size_t bufSize)
 	if (bufSize <= 0)
 		return buf;
 #if defined(HAVE_SNPRINTF)
-	snprintf((buf+nameLen), bufSize, " %s/%s UPnP/%s DLNADOC/%s", CG_CLINK_NAME, CG_CLINK_VER, CG_UPNP_VER, CG_DLNA_VER);
+	snprintf((buf+nameLen), bufSize, " %s/%s UPnP/%s DLNADOC/%s", MUPNP_NAME, MUPNP_VER, MUPNP_VER, MUPNP_DLNA_VER);
 #else
-	sprintf((buf+nameLen), " %s/%s UPnP/%s DLNADOC/%s", CG_CLINK_NAME, CG_CLINK_VER, CG_UPNP_VER, CG_DLNA_VER);
+	sprintf((buf+nameLen), " %s/%s UPnP/%s DLNADOC/%s", MUPNP_NAME, MUPNP_VER, MUPNP_VER, MUPNP_DLNA_VER);
 #endif
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -217,9 +204,9 @@ int mupnp_upnp_generateconfigid(const char *string)
 
   for (n=0; n<mupnp_strlen(string); n++) {
     configId += string[n];
-    if (configId < CG_UPNP_CONFIGID_UPNP_ORG_MAX)
+    if (configId < MUPNP_CONFIGID_UPNP_ORG_MAX)
       continue;
-    configId = configId % CG_UPNP_CONFIGID_UPNP_ORG_MAX;
+    configId = configId % MUPNP_CONFIGID_UPNP_ORG_MAX;
   }
   return configId;
 }

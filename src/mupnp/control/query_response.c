@@ -1,22 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cquery_response.c
-*
-*	Revision:
-*
-*	05/17/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/upnp_limit.h>
 #include <mupnp/service.h>
@@ -24,10 +15,10 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_QUERY (Begin)
+* MUPNP_NOUSE_QUERY (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_QUERYCTRL)
+#if !defined(MUPNP_NOUSE_QUERYCTRL)
 
 /****************************************
 * mupnp_upnp_control_query_response_new
@@ -114,11 +105,11 @@ static mUpnpXmlNode *mupnp_upnp_control_query_response_createresponsenode(mUpnpU
 	mupnp_log_debug_l4("Entering...\n");
 
 	queryResNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(queryResNode, CG_UPNP_CONTROL_NS CG_SOAP_DELIM CG_UPNP_CONTROL_QUERY_STATE_VARIABLE_RESPONSE);
-	mupnp_xml_node_setnamespace(queryResNode, CG_UPNP_CONTROL_NS, CG_UPNP_CONTROL_XMLNS);
+	mupnp_xml_node_setname(queryResNode, MUPNP_CONTROL_NS CG_SOAP_DELIM MUPNP_CONTROL_QUERY_STATE_VARIABLE_RESPONSE);
+	mupnp_xml_node_setnamespace(queryResNode, MUPNP_CONTROL_NS, MUPNP_CONTROL_XMLNS);
 	
 	returnNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(returnNode, CG_UPNP_CONTROL_RETURN);
+	mupnp_xml_node_setname(returnNode, MUPNP_CONTROL_RETURN);
 	mupnp_xml_node_setvalue(returnNode, mupnp_upnp_statevariable_getvalue(statVar));
 	mupnp_xml_node_addchildnode(queryResNode, returnNode);
 			
@@ -207,7 +198,7 @@ char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *q
 }
 
 /****************************************
-* CG_UPNP_NOUSE_QUERY (End)
+* MUPNP_NOUSE_QUERY (End)
 ****************************************/
 
 #endif

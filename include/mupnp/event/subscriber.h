@@ -1,30 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: csubscriber.h
-*
-*	Revision:
-*
-*	06/21/05
-*		- first revision
-*
-*	12-Jan-06 Heikki Junnila
-*		- Added API comments
-*	04/05/06 
-*		- changed timing values to type mUpnpTime
-*		- added mupnp_upnp_subscriberlist_get(mUpnpUpnpSubscriberList *subscriberList, char *sid)
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CSUBSCRIBER_H_
-#define _CG_UPNP_CSUBSCRIBER_H_
+#ifndef _MUPNP_SUBSCRIBER_H_
+#define _MUPNP_SUBSCRIBER_H_
 
 #include <mupnp/typedef.h>
 

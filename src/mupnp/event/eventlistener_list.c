@@ -1,22 +1,13 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Nokia Corporation 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cthread_list.c
-*
-*	Revision:
-*
-*	11/10/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/event/event.h>
 #include <mupnp/util/log.h>
@@ -66,7 +57,7 @@ void mupnp_upnp_eventlistenerlist_delete(mUpnpUpnpEventListenerList *eventListen
  * @param listener The listener to remove
  *
  */
-void mupnp_upnp_eventlistenerlist_remove(mUpnpUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener)
+void mupnp_upnp_eventlistenerlist_remove(mUpnpUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener)
 {
 	mUpnpUpnpEventListenerList *list_node = NULL;
 	
@@ -97,7 +88,7 @@ void mupnp_upnp_eventlistenerlist_remove(mUpnpUpnpEventListenerList* eventListen
  * @param listener The listener to add
  *
  */
-void mupnp_upnp_eventlistenerlist_add(mUpnpUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener)
+void mupnp_upnp_eventlistenerlist_add(mUpnpUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener)
 {
 	mUpnpUpnpEventListenerList *list_node;
 	

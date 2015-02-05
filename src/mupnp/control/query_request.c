@@ -1,32 +1,23 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cquery_request.c
-*
-*	Revision:
-*
-*	06/09/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/control/control.h>
 #include <mupnp/service.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_QUERY (Begin)
+* MUPNP_NOUSE_QUERY (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_QUERYCTRL)
+#if !defined(MUPNP_NOUSE_QUERYCTRL)
 
 /****************************************
 * mupnp_upnp_control_query_request_new
@@ -181,11 +172,11 @@ mUpnpXmlNode *mupnp_upnp_control_query_request_cratestatevariablenode(mUpnpUpnpS
 	mupnp_log_debug_l4("Entering...\n");
 
 	queryVarNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(queryVarNode, CG_UPNP_CONTROL_NS  CG_SOAP_DELIM CG_UPNP_CONTROL_QUERY_STATE_VARIABLE);
-	mupnp_xml_node_setnamespace(queryVarNode, CG_UPNP_CONTROL_NS, CG_UPNP_CONTROL_XMLNS);
+	mupnp_xml_node_setname(queryVarNode, MUPNP_CONTROL_NS  CG_SOAP_DELIM MUPNP_CONTROL_QUERY_STATE_VARIABLE);
+	mupnp_xml_node_setnamespace(queryVarNode, MUPNP_CONTROL_NS, MUPNP_CONTROL_XMLNS);
 	
 	varNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(varNode, CG_UPNP_CONTROL_NS CG_SOAP_DELIM CG_UPNP_CONTROL_VAR_NAME);
+	mupnp_xml_node_setname(varNode, MUPNP_CONTROL_NS CG_SOAP_DELIM MUPNP_CONTROL_VAR_NAME);
 	mupnp_xml_node_setvalue(varNode, mupnp_upnp_statevariable_getname(statVar));
 	
 	mupnp_xml_node_addchildnode(queryVarNode, varNode);
@@ -211,7 +202,7 @@ void mupnp_upnp_control_query_request_setstatevariable(mUpnpUpnpQueryRequest *qu
 	service = mupnp_upnp_statevariable_getservice(statVar);
 	soapReq = mupnp_upnp_control_query_request_getsoaprequest(queryReq);
 	
-	mupnp_soap_request_setsoapaction(soapReq, CG_UPNP_CONTROL_QUERY_SOAPACTION);
+	mupnp_soap_request_setsoapaction(soapReq, MUPNP_CONTROL_QUERY_SOAPACTION);
 	
 	mupnp_upnp_control_request_sethostfromservice(soapReq, service);
 	
@@ -258,7 +249,7 @@ mUpnpUpnpQueryResponse *mupnp_upnp_control_query_request_post(mUpnpUpnpQueryRequ
 }
 
 /****************************************
-* CG_UPNP_NOUSE_QUERY (End)
+* MUPNP_NOUSE_QUERY (End)
 ****************************************/
 
 #endif

@@ -1,27 +1,13 @@
 /******************************************************************
-*
-*	CyberUtil for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cstring.c
-*
-*	Revision:
-*
-*	01/25/05
-*		- first revision
-*	12/13/07 Aapo Makela
-*		- Changed memory reallocation policy to more efficient
-*		- Fix crashes in out-of-memory situations
-*	05/20/09
-*		- Improved mupnp_string_*() not to abort when the string object is null.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/util/string.h>
 #include <mupnp/util/log.h>

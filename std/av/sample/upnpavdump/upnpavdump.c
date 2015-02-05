@@ -159,7 +159,7 @@ int main( int argc, char* argv[] )
 		exit(1);
 	}
 	
-	mupnp_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
+	mupnp_upnp_controlpoint_search(ctrlPoint, MUPNP_ST_ROOT_DEVICE);
 
 	mupnp_sleep(mupnp_upnp_controlpoint_getssdpsearchmx(ctrlPoint) * 1000);
 

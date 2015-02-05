@@ -1,24 +1,13 @@
 /******************************************************************
-*
-*	CyberUtil for C
-*
-*	Copyright (C) 2006 Nokia Corporation
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: ccond.c
-*
-*	Revision:
-*
-*	16-Jan-06
-*		- first revision
-*	09-May-08
-*		- Changed mupnp_cond_signal() using SetEvent() instead of WaitForSingleObject for WIN32 platform.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/util/cond.h>
 #include <mupnp/util/log.h>

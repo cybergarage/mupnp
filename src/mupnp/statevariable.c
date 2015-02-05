@@ -1,22 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cstatevariable.c
-*
-*	Revision:
-*
-*	02/23/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/statevariable.h>
 #include <mupnp/service.h>
@@ -104,7 +95,7 @@ static void mupnp_upnp_statevariable_setvaluewithnotify(mUpnpUpnpStateVariable *
 
 	mupnp_string_setvalue(statVar->value, data);
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 	/**** notify event ****/
 	if (doNotify) {
 		if (mupnp_upnp_statevariable_issendevents(statVar) == FALSE)
@@ -174,7 +165,7 @@ mUpnpUpnpAllowedValuesList*  mupnp_upnp_statevariable_getallowedvaluelist(mUpnpU
 {
 	if (!statVar->allowedValueList)
 	{
-		mUpnpXmlNode* allowedValuesNode = mupnp_xml_node_getchildnodebyname(mupnp_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_ALLOWEDVALUELIST);
+		mUpnpXmlNode* allowedValuesNode = mupnp_xml_node_getchildnodebyname(mupnp_upnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_ALLOWEDVALUELIST);
 
 		if (allowedValuesNode) {
 			mUpnpXmlNode* cnode;

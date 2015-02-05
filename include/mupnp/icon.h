@@ -1,27 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cicon.h
-*
-*	Revision:
-*
-*	02/14/05
-*		- first revision
-*
-*	10/31/05
-*		- Added comments to all functions and structs
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CICON_H_
-#define _CG_UPNP_CICON_H_
+#ifndef _MUPNP_ICON_H_
+#define _MUPNP_ICON_H_
 
 #include <mupnp/typedef.h>
 #include <mupnp/xml/xml.h>
@@ -35,14 +24,14 @@ extern "C" {
 * Define
 ****************************************/
 
-#define CG_UPNP_ICON_ELEM_NAME "icon"
-#define CG_UPNP_ICONLIST_ELEM_NAME "iconList"
+#define MUPNP_ICON_ELEM_NAME "icon"
+#define MUPNP_ICONLIST_ELEM_NAME "iconList"
 
-#define CG_UPNP_ICON_MIME_TYPE "mimetype"
-#define CG_UPNP_ICON_WIDTH "width"
-#define CG_UPNP_ICON_HEIGHT "height"
-#define CG_UPNP_ICON_DEPTH "depth"
-#define CG_UPNP_ICON_URL "url"
+#define MUPNP_ICON_MIME_TYPE "mimetype"
+#define MUPNP_ICON_WIDTH "width"
+#define MUPNP_ICON_HEIGHT "height"
+#define MUPNP_ICON_DEPTH "depth"
+#define MUPNP_ICON_URL "url"
 
 /****************************************
 * Data Type
@@ -85,7 +74,7 @@ void mupnp_upnp_icon_delete(mUpnpUpnpIcon *dev);
  * 
  * \param node List node
  */
-#define mupnp_upnp_icon_isiconnode(node) mupnp_xml_node_isname(node, CG_UPNP_ICON_ELEM_NAME)
+#define mupnp_upnp_icon_isiconnode(node) mupnp_xml_node_isname(node, MUPNP_ICON_ELEM_NAME)
 
 /**
  * Set the XML icon node to an icon struct
@@ -112,13 +101,13 @@ void mupnp_upnp_icon_delete(mUpnpUpnpIcon *dev);
  * \param icon Icon in question
  * \param value MIME type
  */
-#define mupnp_upnp_icon_setmimetype(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_MIME_TYPE, value)
+#define mupnp_upnp_icon_setmimetype(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), MUPNP_ICON_MIME_TYPE, value)
 
 /**
  * Get the icon's MIME type
  * 
  */
-#define mupnp_upnp_icon_getmimetype(icon) mupnp_xml_node_getchildnodevalue(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_MIME_TYPE)
+#define mupnp_upnp_icon_getmimetype(icon) mupnp_xml_node_getchildnodevalue(mupnp_upnp_icon_geticonnode(icon), MUPNP_ICON_MIME_TYPE)
 
 /*****************************************************************************
  * width 
@@ -130,13 +119,13 @@ void mupnp_upnp_icon_delete(mUpnpUpnpIcon *dev);
  * \param icon Icon in question
  * \param value Icon width
  */
-#define mupnp_upnp_icon_setwidth(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_WIDTH, value)
+#define mupnp_upnp_icon_setwidth(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), MUPNP_ICON_WIDTH, value)
 
 /**
  * Get icon width
  * 
  */
-#define mupnp_upnp_icon_getwidth(icon) mupnp_xml_node_getchildnodeintvalue(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_WIDTH)
+#define mupnp_upnp_icon_getwidth(icon) mupnp_xml_node_getchildnodeintvalue(mupnp_upnp_icon_geticonnode(icon), MUPNP_ICON_WIDTH)
 
 /*****************************************************************************
  * height 
@@ -148,13 +137,13 @@ void mupnp_upnp_icon_delete(mUpnpUpnpIcon *dev);
  * \param icon Icon in question
  * \param value Icon height
  */
-#define mupnp_upnp_icon_setheight(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_HEIGHT, value)
+#define mupnp_upnp_icon_setheight(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), MUPNP_ICON_HEIGHT, value)
 
 /**
  * Get icon height
  * 
  */
-#define mupnp_upnp_icon_getheight(icon) mupnp_xml_node_getchildnodeintvalue(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_HEIGHT)
+#define mupnp_upnp_icon_getheight(icon) mupnp_xml_node_getchildnodeintvalue(mupnp_upnp_icon_geticonnode(icon), MUPNP_ICON_HEIGHT)
 
 /*****************************************************************************
  * Colour Depth 
@@ -166,13 +155,13 @@ void mupnp_upnp_icon_delete(mUpnpUpnpIcon *dev);
  * \param icon Icon in question
  * \param value Colour depth
  */
-#define mupnp_upnp_icon_setdepth(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_DEPTH, value)
+#define mupnp_upnp_icon_setdepth(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), MUPNP_ICON_DEPTH, value)
 
 /**
  * Get icon's colour depth
  * 
  */
-#define mupnp_upnp_icon_getdepth(icon) mupnp_xml_node_getchildnodeintvalue(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_DEPTH)
+#define mupnp_upnp_icon_getdepth(icon) mupnp_xml_node_getchildnodeintvalue(mupnp_upnp_icon_geticonnode(icon), MUPNP_ICON_DEPTH)
 
 /*****************************************************************************
  * URL
@@ -184,13 +173,13 @@ void mupnp_upnp_icon_delete(mUpnpUpnpIcon *dev);
  * \param icon Icon in question
  * \param value Icon's URL
  */
-#define mupnp_upnp_icon_seturl(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_URL, value)
+#define mupnp_upnp_icon_seturl(icon, value) mupnp_xml_node_setchildnode(mupnp_upnp_icon_geticonnode(icon), MUPNP_ICON_URL, value)
 
 /**
  * Get icon's URL
  * 
  */
-#define mupnp_upnp_icon_geturl(icon) mupnp_xml_node_getchildnodevalue(mupnp_upnp_icon_geticonnode(icon), CG_UPNP_ICON_URL)
+#define mupnp_upnp_icon_geturl(icon) mupnp_xml_node_getchildnodevalue(mupnp_upnp_icon_geticonnode(icon), MUPNP_ICON_URL)
 
 /*****************************************************************************
  * Function (IconList)

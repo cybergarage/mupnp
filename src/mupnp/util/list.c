@@ -1,26 +1,13 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: csocket.cpp
-*
-*	Revision:
-*
-*	01/17/05
-*		- first revision
-*	10/26/05
-*		- Added changes when the parametes are null.
-*
-*	03/19/06 Theo Beisch
-*		- Added NULL check for CG_LIST_DESTRUCTORFUNC
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/util/list.h>
 #include <mupnp/util/log.h>

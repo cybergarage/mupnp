@@ -1,28 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cdevice_advertiser.c
-*
-*	Revision:
-*
-*	06/14/05
-*		- first revision
-*
-*	10/31/05
-*		- Added comments
-*
-*	03/20/06 Theo Beisch
-*		- added NULL check on advertiser_stop
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/device.h>
 #include <mupnp/util/time.h>

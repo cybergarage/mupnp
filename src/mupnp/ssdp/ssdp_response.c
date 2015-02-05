@@ -1,28 +1,19 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cssdp_request.c
-*
-*	Revision:
-*
-*	03/05/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/ssdp/ssdp.h>
 #include <mupnp/util/string.h>
 #include <mupnp/util/log.h>
 
-#define CG_UPNP_SSDP_MAXAGE_LEN 7
+#define MUPNP_SSDP_MAXAGE_LEN 7
 
 /****************************************
 * mupnp_upnp_ssdpresponse_new
@@ -63,7 +54,7 @@ void mupnp_upnp_ssdpresponse_delete(mUpnpUpnpSSDPResponse *ssdpRes)
 
 void mupnp_upnp_ssdpresponse_setleasetime(mUpnpUpnpSSDPResponse *ssdpRes, mUpnpTime value)
 {
-	char buf[CG_UPNP_SSDP_MAXAGE_LEN + 1 + CG_STRING_INTEGER_BUFLEN];
+	char buf[MUPNP_SSDP_MAXAGE_LEN + 1 + CG_STRING_INTEGER_BUFLEN];
 
 	mupnp_log_debug_l4("Entering...\n");
 

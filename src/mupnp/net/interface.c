@@ -1,27 +1,13 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cinterface.cpp
-*
-*	Revision:
-*
-*	02/09/05
-*		- first revision
-*	02/09/05
-*		- Added mupnp_net_interface_setnetmask() and mupnp_net_interface_getnetmask().
-*	09/12/07
-*		- Added the following functions to get MAC address.
-*		  mupnp_net_interface_setmacaddress(), mupnp_net_interface_getmacaddress()
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

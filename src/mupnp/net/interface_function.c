@@ -1,41 +1,13 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cinterface_function.cpp
-*
-*	Revision:
-*
-*	02/09/05
-*		- first revision
-*	01/15/06
-*		- Thanks for Tobias.Gansen (Tobias.Gansen@lineas.de)
-*		- Changed mupnp_net_gethostinterfaces() not to bind the MAC address interface on QNX platform.
-*	02/13/06 Theo Beisch
-*		- added WINCE support
-*	01/30/07
-*		- Fixed to compile normally on the release mode for Windows Mobile.
-*	04/18/07
-*		- Fixed UNIX version of mupnp_net_gethostinterfaces()
-*	09/12/07
-*		- Added the following functions to get MAC address.
-*		  mupnp_net_interface_setmacaddress(), mupnp_net_interface_getmacaddress()
-*		- Changed mupnp_net_gethostinterfaces() to get the MAC address using GetAdaptersInfo() as default on Windows platform.
-*		- Changed mupnp_net_gethostinterfaces() to get the MAC address using getifaddrs() on UNIX platform.
-*		   Note : Other platforms might not support to get this functions yet. 
-*	10/22/07 Aapo Makela
-*		- Added NULL checks and fixed memory leaks in mupnp_net_selectaddr() and mupnp_net_gethostinterfaces()
-*	05/14/18
-*		- Enabled mupnp_net_gethostinterfaces() for MacOSX using __APPLE_CC_ macro.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/net/interface.h>
 #include <mupnp/net/socket.h>

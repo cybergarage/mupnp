@@ -1,39 +1,22 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: caction_request.c
-*
-*	Revision:
-*
-*	05/09/05
-*		- first revision
-*	10/31/05
-*		- Thanks for Smolander Visa <visa.smolander@nokia.com>
-*		- Changed mupnp_upnp_control_action_request_createactionnode() to use the namespace.
-*	10/31/05
-*		- Fixed not to include output-args in action request
-*		- Fixed some namespace stuff during merge
-*	12/13/07 Aapo Makela
-*		- Fixes to work in out-of-memory situations
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/control/control.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_ACTIONCTRL (Begin)
+* MUPNP_NOUSE_ACTIONCTRL (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
+#if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
 /****************************************
 * mupnp_upnp_control_action_request_new
@@ -210,11 +193,11 @@ mUpnpXmlNode *mupnp_upnp_control_action_request_createactionnode(mUpnpUpnpAction
 	actionNode = mupnp_xml_node_new();
 	/**** Thanks for Visa Smolander (10/31/2005) ****/
 	nameWithNamespace = mupnp_string_new();
-	mupnp_string_addvalue( nameWithNamespace, CG_UPNP_CONTROL_NS ":" );
+	mupnp_string_addvalue( nameWithNamespace, MUPNP_CONTROL_NS ":" );
 	mupnp_string_addvalue( nameWithNamespace, mupnp_upnp_action_getname(action) );
 	mupnp_xml_node_setname(actionNode, mupnp_string_getvalue( nameWithNamespace ) );
 	mupnp_string_delete( nameWithNamespace );
-	mupnp_xml_node_setnamespace(actionNode, CG_UPNP_CONTROL_NS, mupnp_upnp_service_getservicetype(service));
+	mupnp_xml_node_setnamespace(actionNode, MUPNP_CONTROL_NS, mupnp_upnp_service_getservicetype(service));
 	
 	for (arg = mupnp_upnp_action_getarguments(action); arg; arg = mupnp_upnp_argument_next(arg)) {
 		if (mupnp_upnp_argument_isindirection(arg) == FALSE)
@@ -301,7 +284,7 @@ mUpnpUpnpActionResponse *mupnp_upnp_control_action_request_post(mUpnpUpnpActionR
 }
 
 /****************************************
-* CG_UPNP_NOUSE_ACTIONCTRL (End)
+* MUPNP_NOUSE_ACTIONCTRL (End)
 ****************************************/
 
 #endif

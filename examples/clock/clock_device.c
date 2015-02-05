@@ -186,7 +186,7 @@ void upnp_clock_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 	char *uri;
 	char content[2048];
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
-	char serverName[CG_UPNP_SEVERNAME_MAXLEN];
+	char serverName[MUPNP_SEVERNAME_MAXLEN];
 	mUpnpHttpResponse *httpRes;
 	BOOL postRet;
 	

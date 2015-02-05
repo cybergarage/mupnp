@@ -1,29 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: curl.c
-*
-*	Revision:
-*
-*	03/16/05
-*		- first revision
-*
-*
-*	10/31/05
-*		- mupnp_net_getmodifierhosturl set the tag begin mark "<" before port
-*		  while it must come before "http://"
-*
-*	19-Jan-06 Aapo Makela
-*		- Fixed mupnp_net_gethosturl to call mupnp_net_getmodifierhosturl
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/net/uri.h>
 #include <mupnp/net/interface.h>

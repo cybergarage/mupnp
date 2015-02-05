@@ -1,25 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cssdp_packet.c
-*
-*	Revision:
-*
-*	06/01/05
-*		- first revision
-*
-*	10/31/05
-*		- Delete also ssdpTok in mupnp_upnp_ssdp_packet_set_header()
-
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/control/control.h>
@@ -47,7 +35,7 @@ mUpnpUpnpSSDPPacket *mupnp_upnp_ssdp_packet_new()
 		mupnp_upnp_ssdp_packet_setuserdata(ssdpPkt, NULL);
 		mupnp_upnp_ssdp_packet_settimestamp(ssdpPkt, mupnp_getcurrentsystemtime());
 
-		ssdpPkt->timestamps = (mUpnpTime *)malloc(CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof(mUpnpTime));
+		ssdpPkt->timestamps = (mUpnpTime *)malloc(MUPNP_SSDP_FILTER_TABLE_SIZE * sizeof(mUpnpTime));
 	}
 	
 	return ssdpPkt;

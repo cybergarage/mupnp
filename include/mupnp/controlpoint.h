@@ -1,38 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: ccontrolpoint.h
-*
-*	Revision:
-*
-*	05/25/05
-*		- first revision
-*
-*	11-Jan-06 Heikki Junnila
-*		- Removed mupnp_upnp_device_isname and _getbyname because
-*		  according to UPnP specs UDN, type or friendlyname is
-*		  not the same as the device's name.
-*		- Added mupnp_upnp_controlpoint_getdevicebyudn()
-*	04/02/06 Theo Beisch
-*		- added support for resubscriber 
-*		  and device disposer
-*		- added mupnp_upnp_controlpoint_getservicebysid
-*		- added mupnp_upnp_controlpoint_waitforlock 
-*	22-Apr-2008 
-*		- Added mupnp_upnp_controlpoint_getdevice() to get a device by the index.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CCONTROLPOINT_H_
-#define _CG_UPNP_CCONTROLPOINT_H_
+#ifndef _MUPNP_CONTROLPOINT_H_
+#define _MUPNP_CONTROLPOINT_H_
 
 #include <mupnp/util/string.h>
 #include <mupnp/util/mutex.h>
@@ -56,22 +34,22 @@ extern "C" {
 ****************************************/
 
 /** Definition for SSDP default search MX */
-#define CG_UPNP_CONTROLPOINT_SSDP_DEFAULT_SEARCH_MX 3
+#define MUPNP_CONTROLPOINT_SSDP_DEFAULT_SEARCH_MX 3
 
 /** Definition for control point SSDP minimum delay */
-#define CG_UPNP_CONTROLPOINT_SSDP_MIN_DELAY 20
+#define MUPNP_CONTROLPOINT_SSDP_MIN_DELAY 20
 
 /** Definition for control point default response port */
-#define CG_UPNP_CONTROLPOINT_SSDP_RESPONSE_DEFAULT_PORT 39400
+#define MUPNP_CONTROLPOINT_SSDP_RESPONSE_DEFAULT_PORT 39400
 
 /** Definition for numeric constant to specify the max tries to open a SSDP Response Port (rosfran.borges) */
-#define CG_UPNP_CONTROLPOINT_SSDP_RESPONSE_PORT_MAX_TRIES_INDEX 80
+#define MUPNP_CONTROLPOINT_SSDP_RESPONSE_PORT_MAX_TRIES_INDEX 80
 
 /** Definition for HTTP event default port */
-#define CG_UPNP_CONTROLPOINT_HTTP_EVENT_DEFAULT_PORT 39500
+#define MUPNP_CONTROLPOINT_HTTP_EVENT_DEFAULT_PORT 39500
 
 /** Definition for default controlpoint event callback "location" */ 
-#define CG_UPNP_CONTROLPOINT_HTTP_EVENTSUB_URI "/eventSub"
+#define MUPNP_CONTROLPOINT_HTTP_EVENTSUB_URI "/eventSub"
 
 /****************************************
 * Data Type
@@ -112,10 +90,10 @@ typedef struct _mUpnpUpnpControlPoint {
 	mUpnpUpnpSSDPServerList *ssdpServerList;
 	mUpnpUpnpSSDPResponseServerList *ssdpResServerList;
 	mUpnpHttpServerList *httpServerList;
-	void (*deviceListener)(struct _mUpnpUpnpControlPoint *, const char*, mUpnpUpnpDeviceStatus); /* CG_UPNP_DEVICE_LISTENER */
+	void (*deviceListener)(struct _mUpnpUpnpControlPoint *, const char*, mUpnpUpnpDeviceStatus); /* MUPNP_DEVICE_LISTENER */
 	CG_HTTP_LISTENER httpListener;
-	CG_UPNP_SSDP_LISTNER ssdpListener;
-	CG_UPNP_SSDP_RESPONSE_LISTNER ssdpResListener;
+	MUPNP_SSDP_LISTNER ssdpListener;
+	MUPNP_SSDP_RESPONSE_LISTNER ssdpResListener;
 	mUpnpUpnpEventListenerList* eventListeners;
 	int ssdpResPort;
 	mUpnpString *httpEventURI;
@@ -132,7 +110,7 @@ typedef struct _mUpnpUpnpControlPoint {
 	mUpnpNetworkInterfaceList *ifCache;
 } mUpnpUpnpControlPoint;
 
-typedef void (*CG_UPNP_DEVICE_LISTENER)(mUpnpUpnpControlPoint *ctrlPoint, const char* udn, mUpnpUpnpDeviceStatus status);
+typedef void (*MUPNP_DEVICE_LISTENER)(mUpnpUpnpControlPoint *ctrlPoint, const char* udn, mUpnpUpnpDeviceStatus status);
 	
 /****************************************************************************
  * Control Point top-level control
@@ -297,7 +275,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * get SSDP messages to user-space applications.
  *
  * @param ctrlPoint The control point in question
- * @param func A callback function that is of type @ref CG_UPNP_SSDP_LISTNER
+ * @param func A callback function that is of type @ref MUPNP_SSDP_LISTNER
  */
 #define mupnp_upnp_controlpoint_setssdplistener(ctrlPoint, func) (ctrlPoint->ssdpListener = func)
 
@@ -305,7 +283,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * Get the SSDP message listener for the control point. 
  *
  * @param ctrlPoint The control point in question
- * @return A callback function that is of type @ref CG_UPNP_SSDP_LISTNER or NULL
+ * @return A callback function that is of type @ref MUPNP_SSDP_LISTNER or NULL
  */
 #define mupnp_upnp_controlpoint_getssdplistener(ctrlPoint) (ctrlPoint->ssdpListener)
 
@@ -314,7 +292,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * get SSDP responses to user-space applications.
  *
  * @param ctrlPoint The control point in question
- * @param func A callback function that is of type @ref CG_UPNP_SSDP_RESPONSE_LISTNER
+ * @param func A callback function that is of type @ref MUPNP_SSDP_RESPONSE_LISTNER
  */
 #define mupnp_upnp_controlpoint_setssdpresponselistener(ctrlPoint, func) (ctrlPoint->ssdpResListener = func)
 
@@ -322,7 +300,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * Get the SSDP response listener for the control point.
  *
  * @param ctrlPoint The control point in question
- * @return A callback function that is of type @ref CG_UPNP_SSDP_RESPONSE_LISTNER or NULL
+ * @return A callback function that is of type @ref MUPNP_SSDP_RESPONSE_LISTNER or NULL
  */
 #define mupnp_upnp_controlpoint_getssdpresponselistener(ctrlPoint) (ctrlPoint->ssdpResListener)
 
@@ -330,7 +308,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * Set device listener for the control point.
  *
  * @param ctrlPoint The control point
- * @param func A callback function that is type @ref CG_UPNP_DEVICE_LISTENER or NULL
+ * @param func A callback function that is type @ref MUPNP_DEVICE_LISTENER or NULL
  */
 #define mupnp_upnp_controlpoint_setdevicelistener(ctrlPoint, func) (ctrlPoint->deviceListener = func)
 
@@ -338,7 +316,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * Get the device listener for the control point.
  *
  * @param ctrlPoint The control point in question
- * @return A callback function that is of type @ref CG_UPNP_DEVICE_LISTENER or NULL
+ * @return A callback function that is of type @ref MUPNP_DEVICE_LISTENER or NULL
  */
 #define mupnp_upnp_controlpoint_getdevicelistener(ctrlPoint) (ctrlPoint->deviceListener)
 
@@ -351,7 +329,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * get event notifications to user-space applications.
  *
  * @param ctrlPoint The control point in question
- * @param listener A callback function that is of type @ref CG_UPNP_EVENT_LISTENER
+ * @param listener A callback function that is of type @ref MUPNP_EVENT_LISTENER
  */
 #define mupnp_upnp_controlpoint_addeventlistener(ctrlPoint, listener) (mupnp_upnp_eventlistenerlist_add(ctrlPoint->eventListeners, listener))
 
@@ -359,7 +337,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * Remove an event listener from the control point.
  *
  * @param ctrlPoint The control point in question
- * @param listener The callback function to remove, that is of type @ref CG_UPNP_EVENT_LISTENER
+ * @param listener The callback function to remove, that is of type @ref MUPNP_EVENT_LISTENER
  */
 #define mupnp_upnp_controlpoint_removeeventlistener(ctrlPoint, listener) (mupnp_upnp_eventlistenerlist_remove(ctrlPoint->eventListeners, listener))
 
@@ -368,7 +346,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * get event notifications to user-space applications if you need only one listener.
  *
  * @param ctrlPoint The control point in question
- * @param evlistener The callback function to set, that is of type @ref CG_UPNP_EVENT_LISTENER, or NULL
+ * @param evlistener The callback function to set, that is of type @ref MUPNP_EVENT_LISTENER, or NULL
  */
 #define mupnp_upnp_controlpoint_seteventlistener(ctrlPoint, evlistener) \
 	do {\
@@ -382,7 +360,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * Get the single event listener for the control point.
  *
  * @param ctrlPoint The control point in question
- * @return The callback function, that is of type @ref CG_UPNP_EVENT_LISTENER,
+ * @return The callback function, that is of type @ref MUPNP_EVENT_LISTENER,
  *         or NULL if there is no listener
  */
 #define mupnp_upnp_controlpoint_geteventlistener(ctrlPoint) (ctrlPoint->eventListeners->next->listener)
@@ -391,7 +369,7 @@ mUpnpUpnpDevice *mupnp_upnp_controlpoint_getdevicebyudn(mUpnpUpnpControlPoint *c
  * Get the list of event listeners for the control point.
  *
  * @param ctrlPoint The control point in question
- * @return List of @ref CG_UPNP_EVENT_LISTENER functions
+ * @return List of @ref MUPNP_EVENT_LISTENER functions
  */
 #define mupnp_upnp_controlpoint_geteventlisteners(ctrlPoint) (ctrlPoint->eventListeners)
 
@@ -713,4 +691,4 @@ const char *mupnp_upnp_controlpoint_geteventsubcallbackurl(mUpnpUpnpControlPoint
 }
 #endif
 
-#endif /* _CG_UPNP_CCONTROLPOINT_H_ */
+#endif /* _MUPNP_CONTROLPOINT_H_ */

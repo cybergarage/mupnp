@@ -1,33 +1,16 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cinterface.h
-*
-*	Revision:
-*
-*	02/09/05
-*		- first revision
-*	03/23/06 Theo Beisch
-*		- added localhost constants
-*	09/12/07
-*		- Added the following functions to get MAC address.
-*		  mupnp_net_interface_setmacaddress(), mupnp_net_interface_getmacaddress()
-*		- Changed mupnp_net_gethostinterfaces() to get the MAC address using GetAdaptersInfo() as default on Windows platform.
-*		- Changed mupnp_net_gethostinterfaces() to get the MAC address using getifaddrs() on UNIX platform.
-*		   Note : Other platforms might not support to get this functions yet. 
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_NET_CINTERFACE_H_
-#define _CG_NET_CINTERFACE_H_
+#ifndef _MUPNP_NET_CINTERFACE_H_
+#define _MUPNP_NET_CINTERFACE_H_
 
 #include <mupnp/typedef.h>
 #include <mupnp/util/string.h>

@@ -1,34 +1,13 @@
 /******************************************************************
-*
-*	CyberXML for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cxml_parser_expat.c
-*
-*	Revision:
-*
-*	02/07/05
-*		- first revision
-*
-*	10/31/05
-*		- Added performance measurement functionality under
-*		  CG_SHOW_TIMINGS macro (not enabled by default)
-*
-*	03/30/06 Theo Beisch
-*		- ignore whitespace character data (in search of memory...)
-*		- added DEBUG_XML configurations
-*	05/09/08
-*		-  Fixed mupnp_xml_parse() not to abort when the data is null or the length less than zero.
-*	08/05/30
-*		-  Added support to include <expat/expat.h>
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

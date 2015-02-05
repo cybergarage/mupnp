@@ -1,25 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cargument.h
-*
-*	Revision:
-*
-*	02/23/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CARGUMENT_H_
-#define _CG_UPNP_CARGUMENT_H_
+#ifndef _MUPNP_ARGUMENT_H_
+#define _MUPNP_ARGUMENT_H_
 
 #include <mupnp/typedef.h>
 #include <mupnp/xml/xml.h>
@@ -34,25 +25,25 @@ extern "C" {
 ****************************************/
 
 /** Definition for argument element name */
-#define CG_UPNP_ARGUMENT_ELEM_NAME "argument"
+#define MUPNP_ARGUMENT_ELEM_NAME "argument"
 
 /** Definition for argument list element name */
-#define CG_UPNP_ARGUMENTLIST_ELEM_NAME "argumentList"
+#define MUPNP_ARGUMENTLIST_ELEM_NAME "argumentList"
 
 /** Definition for argument passing direction (in) */
-#define CG_UPNP_ARGUMENT_IN_DIR "in"
+#define MUPNP_ARGUMENT_IN_DIR "in"
 
 /** Definition for argument passing direction (out) */
-#define CG_UPNP_ARGUMENT_OUT_DIR "out"
+#define MUPNP_ARGUMENT_OUT_DIR "out"
 
 /** Definition for argument element name */
-#define CG_UPNP_ARGUMENT_NAME "name"
+#define MUPNP_ARGUMENT_NAME "name"
 
 /** Definition for argument element "direction" */
-#define CG_UPNP_ARGUMENT_DIRECTION "direction"
+#define MUPNP_ARGUMENT_DIRECTION "direction"
 
 /** Definition for argument related state variable */
-#define CG_UPNP_ARGUMENT_RELATED_STATE_VARIABLE "relatedStateVariable"
+#define MUPNP_ARGUMENT_RELATED_STATE_VARIABLE "relatedStateVariable"
 
 /****************************************
 * Data Type
@@ -101,7 +92,7 @@ void mupnp_upnp_argument_delete(mUpnpUpnpArgument *dev);
  *
  * @return True if node is argument node, false otherwise
  */
-#define mupnp_upnp_argument_isargumentnode(node) mupnp_xml_node_isname(node, CG_UPNP_ARGUMENT_ELEM_NAME)
+#define mupnp_upnp_argument_isargumentnode(node) mupnp_xml_node_isname(node, MUPNP_ARGUMENT_ELEM_NAME)
 
 /**
  * Set XML service node for argument
@@ -141,14 +132,14 @@ void mupnp_upnp_argument_delete(mUpnpUpnpArgument *dev);
  * @param arg Argument
  * @param value Argument name
  */
-#define mupnp_upnp_argument_setname(arg, value) mupnp_xml_node_setchildnode(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_NAME, value)
+#define mupnp_upnp_argument_setname(arg, value) mupnp_xml_node_setchildnode(mupnp_upnp_argument_getargumentnode(arg), MUPNP_ARGUMENT_NAME, value)
 
 /**
  * Get argument name
  *
  * @param arg Argument
  */
-#define mupnp_upnp_argument_getname(arg) mupnp_xml_node_getchildnodevalue(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_NAME)
+#define mupnp_upnp_argument_getname(arg) mupnp_xml_node_getchildnodevalue(mupnp_upnp_argument_getargumentnode(arg), MUPNP_ARGUMENT_NAME)
 
 /**
  * Check if current argument name matches with the provided name
@@ -168,7 +159,7 @@ void mupnp_upnp_argument_delete(mUpnpUpnpArgument *dev);
  * @param arg Argument
  * @param value New direction value
  */
-#define mupnp_upnp_argument_setdirection(arg, value) mupnp_xml_node_setchildnode(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_DIRECTION, value)
+#define mupnp_upnp_argument_setdirection(arg, value) mupnp_xml_node_setchildnode(mupnp_upnp_argument_getargumentnode(arg), MUPNP_ARGUMENT_DIRECTION, value)
 
 /**
  * Get argument direction
@@ -177,7 +168,7 @@ void mupnp_upnp_argument_delete(mUpnpUpnpArgument *dev);
  *
  * @return Argument direction
  */
-#define mupnp_upnp_argument_getdirection(arg) mupnp_xml_node_getchildnodevalue(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_DIRECTION)
+#define mupnp_upnp_argument_getdirection(arg) mupnp_xml_node_getchildnodevalue(mupnp_upnp_argument_getargumentnode(arg), MUPNP_ARGUMENT_DIRECTION)
 
 /**
  * Check if argument direction is "in"
@@ -186,7 +177,7 @@ void mupnp_upnp_argument_delete(mUpnpUpnpArgument *dev);
  *
  * @return True if argument directon is "in"
  */
-#define mupnp_upnp_argument_isindirection(arg) mupnp_streq(mupnp_upnp_argument_getdirection(arg), CG_UPNP_ARGUMENT_IN_DIR)
+#define mupnp_upnp_argument_isindirection(arg) mupnp_streq(mupnp_upnp_argument_getdirection(arg), MUPNP_ARGUMENT_IN_DIR)
 
 /**
  * Check if argument direction is "out"
@@ -195,7 +186,7 @@ void mupnp_upnp_argument_delete(mUpnpUpnpArgument *dev);
  *
  * @return True if argument direction is "out"
  */
-#define mupnp_upnp_argument_isoutdirection(arg) mupnp_streq(mupnp_upnp_argument_getdirection(arg), CG_UPNP_ARGUMENT_OUT_DIR)
+#define mupnp_upnp_argument_isoutdirection(arg) mupnp_streq(mupnp_upnp_argument_getdirection(arg), MUPNP_ARGUMENT_OUT_DIR)
 
 /**** relatedStateVariable ****/
 
@@ -205,7 +196,7 @@ void mupnp_upnp_argument_delete(mUpnpUpnpArgument *dev);
  * @param arg Argument
  * @param value Related state variable name
  */
-#define mupnp_upnp_argument_setrelatedstatevariable(arg, value) mupnp_xml_node_setchildnode(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_RELATED_STATE_VARIABLE, value)
+#define mupnp_upnp_argument_setrelatedstatevariable(arg, value) mupnp_xml_node_setchildnode(mupnp_upnp_argument_getargumentnode(arg), MUPNP_ARGUMENT_RELATED_STATE_VARIABLE, value)
 
 /**
  * Get related state variable
@@ -214,7 +205,7 @@ void mupnp_upnp_argument_delete(mUpnpUpnpArgument *dev);
  *
  * @return String representing the related state variable
  */
-#define mupnp_upnp_argument_getrelatedstatevariable(arg) mupnp_xml_node_getchildnodevalue(mupnp_upnp_argument_getargumentnode(arg), CG_UPNP_ARGUMENT_RELATED_STATE_VARIABLE)
+#define mupnp_upnp_argument_getrelatedstatevariable(arg) mupnp_xml_node_getchildnodevalue(mupnp_upnp_argument_getargumentnode(arg), MUPNP_ARGUMENT_RELATED_STATE_VARIABLE)
 
 /****************************************
 * Function (Argument - Execution Data)

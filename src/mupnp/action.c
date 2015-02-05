@@ -1,22 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: caction.c
-*
-*	Revision:
-*
-*	02/23/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/action.h>
 #include <mupnp/util/log.h>
@@ -132,7 +123,7 @@ static void mupnp_upnp_action_initargumentlist(mUpnpUpnpAction *action)
 	mupnp_upnp_argumentlist_clear(action->argumentList);
 
 	actionNode = mupnp_upnp_action_getactionnode(action);
-	argumentListNode = mupnp_xml_node_getchildnode(actionNode, CG_UPNP_ARGUMENTLIST_ELEM_NAME);
+	argumentListNode = mupnp_xml_node_getchildnode(actionNode, MUPNP_ARGUMENTLIST_ELEM_NAME);
 	
 	if (argumentListNode == NULL)
 		return;

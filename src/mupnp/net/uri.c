@@ -1,50 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cdevice.c
-*
-*	Revision:
-*
-*	03/09/05
-*		- first revision
-*	08/16/05
-*		- Thanks for Theo Beisch <theo.beisch@gmx.de>
-*		- Change mupnp_net_uri_new() to set "/" as the default path.
-*		- Changed mupnp_net_uri_set() to check a ":" and "@" in the password.
-*	10/30/05
-*		- Thanks for Smolander Visa <visa.smolander@nokia.com>
-*		- Changed mupnp_net_uri_set(). Even a slash wasn't found in URL, 
-*		  so it represents only a  part of path. Put slash infront and 
-*		  append rest of the string.
-*	10/31/05
-*		- mupnp_net_uri_set: Accepts URI (as a path), which doesn't have
-*		  a slash.
-*	01/16/07 Aapo Makela
-*		- Added URI escaping and unescaping functions
-*	03/20/07
-*		- Added a parameter, mUpnpString, to return the result safety and the implementation without curl for the following functions.
-*		  mupnp_net_uri_unescapestring() and mupnp_net_uri_escapestring().
-*		- Added a define, CG_USE_NET_URI_ESCAPESTRING_SKIP,in mupnp_net_uri_escapestring() and disabled the function not to skip only the first path.
-*		-Changed mupnp_upnp_device_httprequestrecieved() using the new mupnp_net_uri_unescapestring().
-*		- Added the following functions.
-*		  mupnp_net_uri_isreservedchar()
-*		  mupnp_net_uri_isunreservedchar()
-*		  mupnp_net_uri_isescapechar()
-*		  mupnp_net_uri_isalphanumchar()
-*		- Fixed mupnp_net_uri_escapestring() to use curl_escape() instead of curl_unescape().
-*		- Fixed mupnp_net_uri_unescapestring() to use curl_unescape() instead of curl_escape().
-*	05-Jan-08  Satoshi Konno <skonno@cybergarage.org>
-*		- Added mupnp_net_uri_rebuild() and mupnp_net_url_rebuild().
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/net/uri.h>
 #include <mupnp/util/string.h>

@@ -1,22 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cservice_ssdp_server.c
-*
-*	Revision:
-*
-*	06/08/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/device.h>
 #include <mupnp/service.h>
@@ -33,8 +24,8 @@ void mupnp_upnp_service_ssdpmessagereceived(mUpnpUpnpService *service, mUpnpUpnp
 	mUpnpUpnpDevice *dev;
 	const char *ssdpST;
 	const char *serviceType;
-	char serviceNT[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
-	char serviceUSN[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char serviceNT[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char serviceUSN[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 	
 	mupnp_log_debug_l4("Entering...\n");
 

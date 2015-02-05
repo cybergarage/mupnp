@@ -1,25 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cproperty.h
-*
-*	Revision:
-*
-*	06/21/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CPROPERTY_H_
-#define _CG_UPNP_CPROPERTY_H_
+#ifndef _MUPNP_PROPERTY_H_
+#define _MUPNP_PROPERTY_H_
 
 #include <mupnp/typedef.h>
 

@@ -1,29 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cdevice_ssdp_server.c
-*
-*	Revision:
-*
-*	03/22/05
-*		- first revision
-*
-*	10/31/05
-*		- Corrected response to MSearch message for all ST
-*		  (search target) types.
-*	12/07/05
-*		- No longer responds if MX header is empty
-*		  or non-integer.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/device.h>
 #include <mupnp/control/control.h>
@@ -45,8 +29,8 @@ void mupnp_upnp_device_ssdpmessagereceived(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPa
 	BOOL isRootDev;
 	const char *ssdpST;
 	const char *devUDN, *devType;
-	char ssdpMsg[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
-	char deviceUSN[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char ssdpMsg[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char deviceUSN[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 #if defined WINCE
 	size_t n;
 #else
@@ -86,7 +70,7 @@ void mupnp_upnp_device_ssdpmessagereceived(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPa
 		 * check HOST header, should always be 239.255.255.250:1900, return if incorrect
 		 ***************************************/
 		ssdpTargetAddr = mupnp_upnp_ssdp_packet_gethost(ssdpPkt);
-		if (mupnp_strcmp(ssdpTargetAddr, CG_UPNP_SSDP_MULTICAST_ADDRESS) != 0 && !mupnp_net_isipv6address(ssdpTargetAddr) )
+		if (mupnp_strcmp(ssdpTargetAddr, MUPNP_SSDP_MULTICAST_ADDRESS) != 0 && !mupnp_net_isipv6address(ssdpTargetAddr) )
 			return;
 
 		/****************************************
@@ -144,7 +128,7 @@ void mupnp_upnp_device_ssdpmessagereceived(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPa
 	else if (mupnp_upnp_st_isrootdevice(ssdpST)  == TRUE) {
 		if (isRootDev == TRUE) {
 			mupnp_upnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
-			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, CG_UPNP_ST_ROOT_DEVICE, deviceUSN);
+			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, MUPNP_ST_ROOT_DEVICE, deviceUSN);
 		}
 	}
 	else if (mupnp_upnp_st_isuuiddevice(ssdpST)  == TRUE) {
@@ -202,7 +186,7 @@ static int filter_duplicate_m_search(mUpnpUpnpSSDPPacket *ssdpPkt)
 	/* Initializing hash table to zero */
 	if (!ssdpPkt->initialized) {
 		ssdpPkt->initialized = 1;
-		memset(timestamps, '\0', CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof( mUpnpTime ));
+		memset(timestamps, '\0', MUPNP_SSDP_FILTER_TABLE_SIZE * sizeof( mUpnpTime ));
 	}
 
 	r_address = mupnp_string_getvalue(ssdpPkt->dgmPkt->remoteAddress);
@@ -225,7 +209,7 @@ static int filter_duplicate_m_search(mUpnpUpnpSSDPPacket *ssdpPkt)
 	mupnp_strcat(id_string, port);
 	mupnp_strcat(id_string, st );
 	
-	loc = simple_string_hash(id_string, CG_UPNP_SSDP_FILTER_TABLE_SIZE);
+	loc = simple_string_hash(id_string, MUPNP_SSDP_FILTER_TABLE_SIZE);
 
 	mupnp_log_debug("Calculated hash: %d\n", loc);
 
@@ -238,7 +222,7 @@ static int filter_duplicate_m_search(mUpnpUpnpSSDPPacket *ssdpPkt)
 		mupnp_log_debug("First packet... Updating hash table.\n");
 		return FALSE;
 	}	
-	else if ( ( curr_time - timestamps[loc] ) < CG_UPNP_DEVICE_M_SEARCH_FILTER_INTERVAL ) {
+	else if ( ( curr_time - timestamps[loc] ) < MUPNP_DEVICE_M_SEARCH_FILTER_INTERVAL ) {
 		mupnp_log_debug("Filtering packet!\n");
 		timestamps[loc] = curr_time;
 		return TRUE;

@@ -66,14 +66,14 @@ void ControlDeviceAlter(mUpnpUpnpControlPoint *ctrlPoint, int alteration_mask);
 void PrintKeyMessage()
 {
 	printf("'p' : Print\n");
-#if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
+#if !defined(MUPNP_NOUSE_ACTIONCTRL)
 	printf("'c' : Control\n");
 	printf("'o' : Control (multiple actions)\n");
 #endif
-#if !defined(CG_UPNP_NOUSE_QUERYCTRL)
+#if !defined(MUPNP_NOUSE_QUERYCTRL)
 	printf("'q' : Query\n");
 #endif
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 	printf("'s' : Subscribe\n");
 	printf("'u' : Unsubscribe\n");
 #endif
@@ -312,7 +312,7 @@ mUpnpUpnpStateVariable *SelectStateVariable(mUpnpUpnpService *service)
 // Action
 /////////////////////////////////////////////////////////////////////////////////
 
-#if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
+#if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
 void ControlDevice(mUpnpUpnpControlPoint *ctrlPoint)
 {
@@ -398,7 +398,7 @@ void ControlDeviceAlter(mUpnpUpnpControlPoint *ctrlPoint, int alteration_mask)
 // Query
 /////////////////////////////////////////////////////////////////////////////////
 
-#if !defined(CG_UPNP_NOUSE_QUERYCTRL)
+#if !defined(MUPNP_NOUSE_QUERYCTRL)
 
 void QueryDevice(mUpnpUpnpControlPoint *ctrlPoint)
 {
@@ -435,7 +435,7 @@ void QueryDevice(mUpnpUpnpControlPoint *ctrlPoint)
 // Subscribe
 /////////////////////////////////////////////////////////////////////////////////
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 void SubscribeService(mUpnpUpnpControlPoint *ctrlPoint)
 {
@@ -473,7 +473,7 @@ void SubscribeService(mUpnpUpnpControlPoint *ctrlPoint)
 // Unsubscribe
 /////////////////////////////////////////////////////////////////////////////////
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 void UnsubscribeService(mUpnpUpnpControlPoint *ctrlPoint)
 {
@@ -562,7 +562,7 @@ int main( int argc, char* argv[] )
 		case 'P':
 			PrintControlPointDevice(ctrlPoint);
 			break;
-#if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
+#if !defined(MUPNP_NOUSE_ACTIONCTRL)
 		case 'C':
 			ControlDeviceAlter(ctrlPoint, CMD_NO_ALTERATIONS);
 			break;
@@ -571,12 +571,12 @@ int main( int argc, char* argv[] )
 			ControlDeviceAlter(ctrlPoint, CMD_LOOP_ACTION_CALLS);
 			break;
 #endif
-#if !defined(CG_UPNP_NOUSE_QUERYCTRL)
+#if !defined(MUPNP_NOUSE_QUERYCTRL)
 		case 'Q':
 			QueryDevice(ctrlPoint);
 			break;
 #endif
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 		case 'S':
 			SubscribeService(ctrlPoint);
 			break;
@@ -589,7 +589,7 @@ int main( int argc, char* argv[] )
                         break;
 		case 'R':
 	          printf("M-Search upnp::rootdevice\n");
-		  mupnp_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
+		  mupnp_upnp_controlpoint_search(ctrlPoint, MUPNP_ST_ROOT_DEVICE);
 		  break;
 		case 'H':
 	          printf("M-Search ssdp:all\n");
@@ -611,7 +611,7 @@ int main( int argc, char* argv[] )
 			  
 			  for (i=0; i<4; i++)
 			  {
-				  mupnp_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
+				  mupnp_upnp_controlpoint_search(ctrlPoint, MUPNP_ST_ROOT_DEVICE);
 				  mupnp_upnp_controlpoint_search(ctrlPoint, "ssdp:all");
 				  mupnp_upnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:device:clock:1");
 				  mupnp_upnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:service:timer:1");

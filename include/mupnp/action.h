@@ -1,28 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: caction.h
-*
-*	Revision:
-*
-*	02/23/05
-*		- first revision
-*
-*	18-Jan-06 Heikki Junnila
-*		- Added API comments
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CACTION_H_
-#define _CG_UPNP_CACTION_H_
+#ifndef _MUPNP_ACTION_H_
+#define _MUPNP_ACTION_H_
 
 #include <mupnp/typedef.h>
 #include <mupnp/xml/xml.h>
@@ -40,10 +28,10 @@ extern "C" {
 * Define
 ****************************************/
 
-#define CG_UPNP_ACTION_ELEM_NAME "action"
-#define CG_UPNP_ACTIONLIST_ELEM_NAME "actionList"
+#define MUPNP_ACTION_ELEM_NAME "action"
+#define MUPNP_ACTIONLIST_ELEM_NAME "actionList"
 
-#define CG_UPNP_ACTION_NAME "name"
+#define MUPNP_ACTION_NAME "name"
 
 /****************************************
 * Data Type
@@ -62,7 +50,7 @@ typedef struct _mUpnpUpnpAction {
 	void *userData;
 } mUpnpUpnpAction, mUpnpUpnpActionList;
 
-typedef BOOL (*CG_UPNP_ACTION_LISTNER)(mUpnpUpnpAction *);
+typedef BOOL (*MUPNP_ACTION_LISTNER)(mUpnpUpnpAction *);
 
 /****************************************************************************
  * Function (Action)
@@ -94,7 +82,7 @@ void mupnp_upnp_action_delete(mUpnpUpnpAction *action);
  * 
  * @param node The mUpnpXmlNode*
  */
-#define mupnp_upnp_action_isactionnode(node) mupnp_xml_node_isname(node, CG_UPNP_ACTION_ELEM_NAME)
+#define mupnp_upnp_action_isactionnode(node) mupnp_xml_node_isname(node, MUPNP_ACTION_ELEM_NAME)
 
 /****************************************************************************
  * XML Node
@@ -146,7 +134,7 @@ void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node
  * @param action The action in question
  * @param value The action's name
  */
-#define mupnp_upnp_action_setname(action, value) mupnp_xml_node_setchildnode(mupnp_upnp_action_getactionnode(action), CG_UPNP_ACTION_NAME, value)
+#define mupnp_upnp_action_setname(action, value) mupnp_xml_node_setchildnode(mupnp_upnp_action_getactionnode(action), MUPNP_ACTION_NAME, value)
 
 /**
  * Get the action's name
@@ -154,7 +142,7 @@ void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node
  * @param action The action in question
  * @return char*
  */
-#define mupnp_upnp_action_getname(action) mupnp_xml_node_getchildnodevalue(mupnp_upnp_action_getactionnode(action), CG_UPNP_ACTION_NAME)
+#define mupnp_upnp_action_getname(action) mupnp_xml_node_getchildnodevalue(mupnp_upnp_action_getactionnode(action), MUPNP_ACTION_NAME)
 
 /**
  * Check, whether the action's name matches the one given as parameter.
@@ -270,7 +258,7 @@ BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const cha
  * Set the action's listener function
  *
  * @param action The action in question
- * @param func The listener function of type: BOOL (*CG_UPNP_ACTION_LISTNER)(mUpnpUpnpAction *)
+ * @param func The listener function of type: BOOL (*MUPNP_ACTION_LISTNER)(mUpnpUpnpAction *)
  */
 #define mupnp_upnp_action_setlistener(action, func) (action->listener = func)
 
@@ -278,7 +266,7 @@ BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const cha
  * Get the action's listener function
  *
  * @param action The action in question
- * @return BOOL (*CG_UPNP_ACTION_LISTNER)(mUpnpUpnpAction *)
+ * @return BOOL (*MUPNP_ACTION_LISTNER)(mUpnpUpnpAction *)
  */
 #define mupnp_upnp_action_getlistener(action) (action->listener)
 

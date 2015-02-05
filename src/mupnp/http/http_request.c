@@ -1,45 +1,13 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: chttp_request.c
-*
-*	Revision:
-*
-*	02/01/05
-*		- first revision
-*	10/25/05
-*		- Added support for libcurl in mupnp_http_request_post().
-*	10/26/05
-*		- Changed to use CURLOPT_CUSTOMREQUEST instead of CURLOPT_POST in mupnp_http_request_post().
-*	19-Jan-06 Aapo Makela
-*		- Fixed to convert absolute URLs to relative
-*		- Fixed evil crash bug, when receiving malformed HTTP request
-*	02/01/07
-*		- Fixed mupnp_http_request_post() not to hung up when the request method is HEAD.
-*		- Added a onlyHeader parameter to mupnp_http_response_read() and mupnp_http_response_packet().
-*	02/19/07
-*		-  Changed mupnp_http_request_post() to add a user agent, CyberGarage HTTP/1.0, as default.
-*		-  Changed CG_HTTP_USERAGENT to CG_HTTP_USERAGENT_DEFAULT to add CG_HTTP_USERAGENT as the normal header define.
-*	03/11/07
-*		-  Added a secure parameter to mupnp_http_request_post() when the compiler flag, CG_USE_OPENSSL,is enabled.
-*	06/13/07 Fabrice Fontaine Orange
-*		- Fixed a memory leak in mupnp_http_request_delete().
-*	10/22/07 Aapo Makela
-*		- Disable Expect header because it causes IOP issues.
-*	12/13/07 Aapo Makela
-*		- Fixes to work in out-of-memory situations
-*	11/18/08
-*		- Changed mupnp_http_request_post_main() to write the first line at a time because SIGPIPE occurred on some HTTP server such as Flickr.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/util/list.h>
 #include <mupnp/http/http.h>

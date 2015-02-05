@@ -1,27 +1,13 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: chttp_server.cpp
-*
-*	Revision:
-*
-*	02/07/05
-*		- first revision
-*	10/30/05
-*		- Thanks for Makela Aapo <aapo.makela@nokia.com>
-*		- Fixed a memory leak problem in the http client thread.
-*	16-Jan-06 Aapo Makela
-*		- Changed to do a better keepalive check
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"

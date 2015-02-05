@@ -1,31 +1,16 @@
 /******************************************************************
-*
-* CyberGarage for C
-*
-* Copyright (C) Satoshi Konno 2005
-*
-* File: typedef.h
-*
-* Revision:
-*
-* 01/17/05
-*  - first revision
-* 08/16/05
-*  - Thanks for Theo Beisch <theo.beisch@gmx.de>
-*  - Added support for WindowsCE platform.
-* 03/18/07
-*  - Added mUpnpInt64 to <typedef.h>
-* 06/24/07
-*  - Added mUpnpByte to <typedef.h>
-* 03/18/08
-*  - Changed not to define BOOL type using XCode.
-* 09/03/08
-*  - Changed to include <TargetConditionals.h> in <typedef.h> on XCode as default.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_TYPEDEF_H_
-#define _CG_TYPEDEF_H_
+#ifndef _MUPNP_TYPEDEF_H_
+#define _MUPNP_TYPEDEF_H_
 
 #include <stdio.h>
 #include <stdlib.h>

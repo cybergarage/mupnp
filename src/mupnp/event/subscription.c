@@ -1,26 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: csubscription.c
-*
-*	Revision:
-*
-*	06/20/05
-*		- first revision
-*	02/12/06 Theo Beisch
-*		- changed time(NULL) to mupnp_getcurrentsystemtime()
-*	18-Jan-06 Aapo Makela
-*		- Modified to fix negative timeout value
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #  include "config.h"
@@ -34,10 +21,10 @@
 #include <stdlib.h>
 
 /****************************************
-* CG_UPNP_NOUSE_SUBSCRIPTION (Begin)
+* MUPNP_NOUSE_SUBSCRIPTION (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
 * mupnp_upnp_event_subscription_totimeoutheaderstring
@@ -49,12 +36,12 @@ const char *mupnp_upnp_event_subscription_totimeoutheaderstring(mUpnpTime time, 
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (time != CG_UPNP_SUBSCRIPTION_INFINITE_VALUE) {
-		mupnp_string_setvalue(buf, CG_UPNP_SUBSCRIPTION_TIMEOUT_HEADER);
+	if (time != MUPNP_SUBSCRIPTION_INFINITE_VALUE) {
+		mupnp_string_setvalue(buf, MUPNP_SUBSCRIPTION_TIMEOUT_HEADER);
 		mupnp_string_addvalue(buf, mupnp_long2str(time, timeBuf, sizeof(timeBuf)));
 	}
 	else
-		mupnp_string_setvalue(buf, CG_UPNP_SUBSCRIPTION_INFINITE_STRING);
+		mupnp_string_setvalue(buf, MUPNP_SUBSCRIPTION_INFINITE_STRING);
 	return mupnp_string_getvalue(buf);
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -73,10 +60,10 @@ mUpnpTime mupnp_upnp_event_subscription_gettimeout(const char *headerValue)
 
 	minusIdx = mupnp_strstr(headerValue, "-");
 	if (minusIdx < 0)
-		return CG_UPNP_SUBSCRIPTION_INFINITE_VALUE;
+		return MUPNP_SUBSCRIPTION_INFINITE_VALUE;
 	timeout = mupnp_str2long(headerValue + minusIdx + 1);
 	if (timeout == 0)
-		return CG_UPNP_SUBSCRIPTION_INFINITE_VALUE;
+		return MUPNP_SUBSCRIPTION_INFINITE_VALUE;
 	if (timeout < 0)
 		timeout =-timeout;
 	return timeout;
@@ -106,7 +93,7 @@ const char *mupnp_upnp_event_subscription_tosidheaderstring(const char *sid, cha
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	colonIdx = mupnp_strstr(sid, CG_UPNP_SUBSCRIPTION_UUID);
+	colonIdx = mupnp_strstr(sid, MUPNP_SUBSCRIPTION_UUID);
 	if (0 <= colonIdx) {
 		mupnp_strncpy(buf, sid, bufSize);
 		buf[bufSize-1] = '\0';
@@ -119,7 +106,7 @@ const char *mupnp_upnp_event_subscription_tosidheaderstring(const char *sid, cha
 	sprintf(buf,
 #endif
 		"%s%s",
-		CG_UPNP_SUBSCRIPTION_UUID,
+		MUPNP_SUBSCRIPTION_UUID,
 		sid);
 	return buf;
 
@@ -146,7 +133,7 @@ const char *mupnp_upnp_event_subscription_getsid(const char *headerValue)
 }
 
 /****************************************
-* CG_UPNP_NOUSE_SUBSCRIPTION (End)
+* MUPNP_NOUSE_SUBSCRIPTION (End)
 ****************************************/
 
 #endif

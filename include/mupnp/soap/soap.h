@@ -1,25 +1,16 @@
 /******************************************************************
-*
-*	CyberSOAP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: csoap.h
-*
-*	Revision:
-*
-*	02/13/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_SOAP_CSOAP_H_
-#define _CG_SOAP_CSOAP_H_
+#ifndef _MUPNP_SOAP_SOAP_H_
+#define _MUPNP_SOAP_SOAP_H_
 
 #include <mupnp/typedef.h>
 #include <mupnp/http/http.h>

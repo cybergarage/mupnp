@@ -1,45 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: ccontrolpoint.c
-*
-*	Revision:
-*
-*	05/26/05
-*		- first revision
-*	08/25/05
-*		- Thanks for Theo Beisch <theo.beisch@gmx.de>
-*		- Changed mupnp_upnp_controlpoint_geteventsubcallbackurl() to add < and > around callbackurl per UPnP def.
-*	09/06/05
-*		- Thanks for Smolander Visa <visa.smolander@nokia.com>
-*		- Added mupnp_upnp_controlpoint_setuserdata() and mupnp_upnp_controlpoint_getuserdatga().
-*	10/31/05
-*		- Fixed severe bug in getting child devices
-*	12/14/05
-*		- Fixed to be more robust on opening servers
-*	12/14/05
-*		- Fixed mupnp_upnp_controlpoint_removedevicebyssdppacket() to use
-*		  mupnp_upnp_device_delete() instead of mupnp_upnp_device_remove().
-*
-*	11-Jan-06 Heikki Junnila
-*		- Removed mupnp_upnp_device_isname and _getbyname because
-*		  according to UPnP specs UDN, type or friendlyname is
-*		  not the same as the device's name.
-*   
-*	16-Jan-06 Aapo Makela
-*		- Fixed to send many M-SEARCHes (and not too often)
-*	25-Jan-05 Aapo Makela
-*		- Modified to handle local IP change
-*		- Modified to remove devices when CP is stopped.
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/controlpoint.h>
 #include <mupnp/upnp_limit.h>
@@ -48,16 +16,16 @@
 #include <mupnp/net/uri.h>
 
 /****************************************
-* CG_UPNP_NOUSE_CONTROLPOINT (Begin)
+* MUPNP_NOUSE_CONTROLPOINT (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_CONTROLPOINT)
+#if !defined(MUPNP_NOUSE_CONTROLPOINT)
 
 /****************************************
  * static function defines
  ****************************************/
 
-#if defined(CG_UPNP_USE_STDDCP)
+#if defined(MUPNP_USE_STDDCP)
 char *mupnp_upnp_service_getstddcp(mUpnpUpnpService *service);
 BOOL mupnp_upnp_service_hasstddcp(mUpnpUpnpService *service);
 #endif
@@ -135,10 +103,10 @@ mUpnpUpnpControlPoint *mupnp_upnp_controlpoint_new()
 		mupnp_upnp_controlpoint_sethttplistener(ctrlPoint, NULL);
 		mupnp_upnp_controlpoint_setdevicelistener(ctrlPoint, NULL);
 		
-		mupnp_upnp_controlpoint_setssdpresponseport(ctrlPoint, CG_UPNP_CONTROLPOINT_SSDP_RESPONSE_DEFAULT_PORT);
-		mupnp_upnp_controlpoint_setssdpsearchmx(ctrlPoint, CG_UPNP_CONTROLPOINT_SSDP_DEFAULT_SEARCH_MX);
-		mupnp_upnp_controlpoint_seteventport(ctrlPoint, CG_UPNP_CONTROLPOINT_HTTP_EVENT_DEFAULT_PORT);
-		mupnp_upnp_controlpoint_seteventsuburi(ctrlPoint, CG_UPNP_CONTROLPOINT_HTTP_EVENTSUB_URI);
+		mupnp_upnp_controlpoint_setssdpresponseport(ctrlPoint, MUPNP_CONTROLPOINT_SSDP_RESPONSE_DEFAULT_PORT);
+		mupnp_upnp_controlpoint_setssdpsearchmx(ctrlPoint, MUPNP_CONTROLPOINT_SSDP_DEFAULT_SEARCH_MX);
+		mupnp_upnp_controlpoint_seteventport(ctrlPoint, MUPNP_CONTROLPOINT_HTTP_EVENT_DEFAULT_PORT);
+		mupnp_upnp_controlpoint_seteventsuburi(ctrlPoint, MUPNP_CONTROLPOINT_HTTP_EVENTSUB_URI);
 
 		mupnp_upnp_controlpoint_setuserdata(ctrlPoint, NULL);
 	}
@@ -241,7 +209,7 @@ BOOL mupnp_upnp_controlpoint_start(mUpnpUpnpControlPoint *ctrlPoint)
 	/**** SSDP Response Server ****/
 	ssdpResPort = mupnp_upnp_controlpoint_getssdpresponseport(ctrlPoint);
 	/* below is the max SSDP Response port number to assign (rosfran.borges) */
-	ssdpMaxResPort = ssdpResPort + CG_UPNP_CONTROLPOINT_SSDP_RESPONSE_PORT_MAX_TRIES_INDEX;
+	ssdpMaxResPort = ssdpResPort + MUPNP_CONTROLPOINT_SSDP_RESPONSE_PORT_MAX_TRIES_INDEX;
 	ssdpResServerList = mupnp_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
 	/* Opening SSDP response server may fail, so try many ports */
 	while(mupnp_upnp_ssdpresponse_serverlist_open(ssdpResServerList, ssdpResPort) == FALSE &&
@@ -274,7 +242,7 @@ BOOL mupnp_upnp_controlpoint_stop(mUpnpUpnpControlPoint *ctrlPoint)
 	mUpnpUpnpSSDPResponseServerList *ssdpResServerList;
 	mUpnpHttpServerList *httpServerList;
 	const char *udn = NULL;
-	CG_UPNP_DEVICE_LISTENER listener = mupnp_upnp_controlpoint_getdevicelistener(ctrlPoint);
+	MUPNP_DEVICE_LISTENER listener = mupnp_upnp_controlpoint_getdevicelistener(ctrlPoint);
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -592,7 +560,7 @@ BOOL mupnp_upnp_controlpoint_parsescservicescpd(mUpnpUpnpService *service)
 	if (scpdParseSuccess == TRUE)
 		return TRUE;
 
-#if defined(CG_UPNP_USE_STDDCP)
+#if defined(MUPNP_USE_STDDCP)
 	if (mupnp_upnp_service_hasstddcp(service)) {
 		char *stdDCP = mupnp_upnp_service_getstddcp(service);
 		scpdParseSuccess = mupnp_upnp_service_parsedescription(service, stdDCP, mupnp_strlen(stdDCP));
@@ -683,8 +651,8 @@ void mupnp_upnp_controlpoint_adddevicebyssdppacket(mUpnpUpnpControlPoint *ctrlPo
 {
 	mUpnpUpnpDevice *dev = NULL;
 	const char *usn = NULL;
-	char udn[CG_UPNP_UDN_LEN_MAX];
-	CG_UPNP_DEVICE_LISTENER listener = NULL;
+	char udn[MUPNP_UDN_LEN_MAX];
+	MUPNP_DEVICE_LISTENER listener = NULL;
 	mUpnpUpnpDeviceStatus status = 0;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -754,9 +722,9 @@ void mupnp_upnp_controlpoint_adddevicebyssdppacket(mUpnpUpnpControlPoint *ctrlPo
 void mupnp_upnp_controlpoint_removedevicebyssdppacket(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpSSDPPacket *ssdpPkt)
 {
 	const char *usn;
-	char udn[CG_UPNP_UDN_LEN_MAX];
+	char udn[MUPNP_UDN_LEN_MAX];
 	mUpnpUpnpDevice *dev;
-	CG_UPNP_DEVICE_LISTENER listener = mupnp_upnp_controlpoint_getdevicelistener(ctrlPoint);
+	MUPNP_DEVICE_LISTENER listener = mupnp_upnp_controlpoint_getdevicelistener(ctrlPoint);
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -809,7 +777,7 @@ BOOL mupnp_upnp_controlpoint_search(mUpnpUpnpControlPoint *ctrlPoint, const char
 	mupnp_upnp_ssdprequest_setmethod(ssdpReq, CG_HTTP_MSEARCH);
 	mupnp_upnp_ssdprequest_setst(ssdpReq, target);
 	mupnp_upnp_ssdprequest_setmx(ssdpReq, mupnp_upnp_controlpoint_getssdpsearchmx(ctrlPoint));
-	mupnp_upnp_ssdprequest_setman(ssdpReq, CG_UPNP_MAN_DISCOVER);
+	mupnp_upnp_ssdprequest_setman(ssdpReq, MUPNP_MAN_DISCOVER);
 	
 	mupnp_log_debug("Announcing %d times.\n", mupnp_upnp_ssdp_getannouncecount());
 	mupnp_upnp_ssdprequest_print(ssdpReq);
@@ -818,7 +786,7 @@ BOOL mupnp_upnp_controlpoint_search(mUpnpUpnpControlPoint *ctrlPoint, const char
 	{
 		ssdpResServerList = mupnp_upnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
 		retval = ( mupnp_upnp_ssdpresponse_serverlist_post(ssdpResServerList, ssdpReq ) || retval );
-		mupnp_wait(CG_UPNP_CONTROLPOINT_SSDP_MIN_DELAY);
+		mupnp_wait(MUPNP_CONTROLPOINT_SSDP_MIN_DELAY);
 	}
 	
 	mupnp_upnp_ssdprequest_delete(ssdpReq);
@@ -887,7 +855,7 @@ BOOL mupnp_upnp_controlpoint_ipchanged(mUpnpUpnpControlPoint *ctrlPoint)
 	}
 
 	/* Launch new M-SEARCH */
-	mupnp_upnp_controlpoint_search(ctrlPoint, CG_UPNP_ST_ROOT_DEVICE);
+	mupnp_upnp_controlpoint_search(ctrlPoint, MUPNP_ST_ROOT_DEVICE);
 	
 	/**** Cache current interfaces ****/
 	mupnp_net_gethostinterfaces(ctrlPoint->ifCache);
@@ -908,7 +876,7 @@ BOOL mupnp_upnp_controlpoint_ipchanged(mUpnpUpnpControlPoint *ctrlPoint)
 static void mupnp_upnp_controlpoint_ssdplistner(mUpnpUpnpSSDPPacket *ssdpPkt)
 {
 	mUpnpUpnpControlPoint *ctrlPoint;
-	CG_UPNP_SSDP_LISTNER listener;
+	MUPNP_SSDP_LISTNER listener;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -940,7 +908,7 @@ static void mupnp_upnp_controlpoint_ssdplistner(mUpnpUpnpSSDPPacket *ssdpPkt)
 static void mupnp_upnp_controlpoint_ssdpresponselistner(mUpnpUpnpSSDPPacket *ssdpPkt)
 {
 	mUpnpUpnpControlPoint *ctrlPoint;
-	CG_UPNP_SSDP_RESPONSE_LISTNER listener;
+	MUPNP_SSDP_RESPONSE_LISTNER listener;
 
 	mupnp_log_debug_l4("Entering...\n");
 

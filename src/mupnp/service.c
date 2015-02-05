@@ -1,47 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cservice.c
-*
-*	Revision:
-*
-*	02/14/05
-*		- first revision
-*	08/16/05
-*		- Thanks for Theo Beisch <theo.beisch@gmx.de>
-*		- Changed mupnp_upnp_service_parsedescriptionurl() to set "/" as the default path when the url has no path.
-*
-*	09-Jan-06 Heikki Junnila
-*		- Added service type parsing functions:
-*		  mupnp_upnp_servicetype_getidentifier
-*		  mupnp_upnp_servicetype_geturn
-*		  mupnp_upnp_servicetype_getservice
-*		  mupnp_upnp_servicetype_gettype
-*		  mupnp_upnp_servicetype_getversion
-*
-*	10-Jan-06 Heikki Junnila
-*		- Added mupnp_upnp_servicetype_getschematype() and fixed
-*		  existing servicetype functions to accept 1-character strings
-*
-*	11-Jan-06 Heikki Junnila
-*		- Removed mupnp_upnp_service_isname() and _getname() because
-*		  according to UPnP specs, services have only types, not names
-*
-*	22-Oct-07 Aapo Makela
-*		- Fixed memory leak (free location_str in mupnp_upnp_service_mangleurl())
-*
- *	05-Jan-08  Satoshi Konno <skonno@cybergarage.org>
- *		- Fixed mupnp_upnp_service_mangleurl() to return correct url using mupnp_net_uri_rebuild() when a device has URLBase and the service's URL is relative.
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
  ******************************************************************/
-
 #include <mupnp/service.h>
 
 #ifdef HAVE_CONFIG_H
@@ -92,7 +58,7 @@ mUpnpUpnpService *mupnp_upnp_service_new()
 		service->actionList = mupnp_upnp_actionlist_new();
 		service->serviceStateTable = mupnp_upnp_servicestatetable_new();
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 		service->subscriberList = mupnp_upnp_subscriberlist_new();
 #endif
 	
@@ -130,7 +96,7 @@ void mupnp_upnp_service_delete(mUpnpUpnpService *service)
 	mupnp_upnp_actionlist_delete(service->actionList);
 	mupnp_upnp_servicestatetable_delete(service->serviceStateTable);
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 	mupnp_upnp_subscriberlist_delete(service->subscriberList);
 #endif
 	
@@ -160,7 +126,7 @@ void mupnp_upnp_service_clear(mUpnpUpnpService *service)
 
 	mupnp_upnp_actionlist_clear(service->actionList);
 	mupnp_upnp_servicestatetable_clear(service->serviceStateTable);
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 	mupnp_upnp_subscriberlist_clear(service->subscriberList);
 #endif
 	
@@ -180,7 +146,7 @@ void mupnp_upnp_service_clear(mUpnpUpnpService *service)
 BOOL mupnp_upnp_service_isscpdurl(mUpnpUpnpService *service, const char *url)
 {
 	mUpnpXmlNode *s = mupnp_upnp_service_getservicenode(service);
-	const char *v = mupnp_xml_node_getchildnodevalue(s, CG_UPNP_SERVICE_SCPDURL);
+	const char *v = mupnp_xml_node_getchildnodevalue(s, MUPNP_SERVICE_SCPDURL);
 	return mupnp_net_uri_isequivalent(v, url);
 }
 
@@ -192,7 +158,7 @@ BOOL mupnp_upnp_service_isscpdurl(mUpnpUpnpService *service, const char *url)
  */
 mUpnpNetURL *mupnp_upnp_service_geteventsuburl(mUpnpUpnpService *service) 
 {
-	return mupnp_upnp_service_mangleurl(service, CG_UPNP_SERVICE_EVENT_SUB_URL);
+	return mupnp_upnp_service_mangleurl(service, MUPNP_SERVICE_EVENT_SUB_URL);
 }
 
 /**
@@ -202,7 +168,7 @@ mUpnpNetURL *mupnp_upnp_service_geteventsuburl(mUpnpUpnpService *service)
  */
 mUpnpNetURL *mupnp_upnp_service_getcontrolurl(mUpnpUpnpService *service)
 { 
-	return mupnp_upnp_service_mangleurl(service, CG_UPNP_SERVICE_CONTROL_URL);
+	return mupnp_upnp_service_mangleurl(service, MUPNP_SERVICE_CONTROL_URL);
 }
 
 /**
@@ -213,7 +179,7 @@ mUpnpNetURL *mupnp_upnp_service_getcontrolurl(mUpnpUpnpService *service)
  */
 mUpnpNetURL *mupnp_upnp_service_getscpdurl(mUpnpUpnpService *service)
 {
-	return mupnp_upnp_service_mangleurl(service, CG_UPNP_SERVICE_SCPDURL);
+	return mupnp_upnp_service_mangleurl(service, MUPNP_SERVICE_SCPDURL);
 }
 
 
@@ -338,7 +304,7 @@ char *mupnp_upnp_service_getdescription(mUpnpUpnpService *service, mUpnpString *
 
 	scpdNode = mupnp_upnp_service_getscpdnode(service);
 	if (scpdNode != NULL) {
-		mupnp_string_addvalue(descStr, CG_UPNP_XML_DECLARATION);
+		mupnp_string_addvalue(descStr, MUPNP_XML_DECLARATION);
 		mupnp_string_addvalue(descStr, "\n");
 		mupnp_xml_node_tostring(scpdNode, TRUE, descStr);
 	}
@@ -811,7 +777,7 @@ char *mupnp_upnp_service_getnotifyservicetypeusn(mUpnpUpnpService *service, char
 BOOL mupnp_upnp_service_announcefrom(mUpnpUpnpService *service, const char *bindAddr)
 {
 	/**** uuid:device-UUID::urn:schemas-upnp-org:service:serviceType:v ****/
-	char ssdpLineBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char ssdpLineBuf[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 	mUpnpUpnpDevice *rootDev;
 	mUpnpUpnpDevice *dev;
 	mUpnpUpnpSSDPRequest *ssdpReq;
@@ -827,7 +793,7 @@ BOOL mupnp_upnp_service_announcefrom(mUpnpUpnpService *service, const char *bind
 	mupnp_upnp_ssdprequest_setserver(ssdpReq, mupnp_upnp_getservername(ssdpLineBuf, sizeof(ssdpLineBuf)));
 	mupnp_upnp_ssdprequest_setleasetime(ssdpReq, mupnp_upnp_device_getleasetime(dev));
 	mupnp_upnp_ssdprequest_setlocation(ssdpReq, mupnp_upnp_device_getlocationurl(rootDev, bindAddr, ssdpLineBuf, sizeof(ssdpLineBuf)));
-	mupnp_upnp_ssdprequest_setnts(ssdpReq, CG_UPNP_SSDP_NTS_ALIVE);
+	mupnp_upnp_ssdprequest_setnts(ssdpReq, MUPNP_SSDP_NTS_ALIVE);
 	mupnp_upnp_ssdprequest_setnt(ssdpReq, mupnp_upnp_service_getnotifyservicetypent(service, ssdpLineBuf, sizeof(ssdpLineBuf)));
 	mupnp_upnp_ssdprequest_setusn(ssdpReq, mupnp_upnp_service_getnotifyservicetypeusn(service, ssdpLineBuf, sizeof(ssdpLineBuf)));
 	
@@ -846,7 +812,7 @@ BOOL mupnp_upnp_service_announcefrom(mUpnpUpnpService *service, const char *bind
 BOOL mupnp_upnp_service_byebyefrom(mUpnpUpnpService *service, const char *bindAddr)
 {
 	/**** uuid:device-UUID::urn:schemas-upnp-org:service:serviceType:v ****/
-	char ssdpLineBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
+	char ssdpLineBuf[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 	mUpnpUpnpSSDPRequest *ssdpReq;
 	mUpnpUpnpSSDPSocket *ssdpSock;
 	BOOL sentResult;
@@ -855,7 +821,7 @@ BOOL mupnp_upnp_service_byebyefrom(mUpnpUpnpService *service, const char *bindAd
 
 	ssdpReq = mupnp_upnp_ssdprequest_new();
 	
-	mupnp_upnp_ssdprequest_setnts(ssdpReq, CG_UPNP_SSDP_NTS_BYEBYE);
+	mupnp_upnp_ssdprequest_setnts(ssdpReq, MUPNP_SSDP_NTS_BYEBYE);
 	mupnp_upnp_ssdprequest_setnt(ssdpReq, mupnp_upnp_service_getnotifyservicetypent(service, ssdpLineBuf, sizeof(ssdpLineBuf)));
 	mupnp_upnp_ssdprequest_setusn(ssdpReq, mupnp_upnp_service_getnotifyservicetypeusn(service, ssdpLineBuf, sizeof(ssdpLineBuf)));
 
@@ -917,7 +883,7 @@ static void mupnp_upnp_service_initactionlist(mUpnpUpnpService *service)
 	if (scdpNode == NULL)
 		return;
 		
-	actionListNode = mupnp_xml_node_getchildnode(scdpNode, CG_UPNP_ACTIONLIST_ELEM_NAME);
+	actionListNode = mupnp_xml_node_getchildnode(scdpNode, MUPNP_ACTIONLIST_ELEM_NAME);
 	if (actionListNode == NULL)
 		return;
 		
@@ -989,7 +955,7 @@ static void mupnp_upnp_service_initservicestatetable(mUpnpUpnpService *service)
 	if (scdpNode == NULL)
 		return;
 		
-	stateTableNode = mupnp_xml_node_getchildnode(scdpNode, CG_UPNP_SERVICESTATETALBE_ELEM_NAME);
+	stateTableNode = mupnp_xml_node_getchildnode(scdpNode, MUPNP_SERVICESTATETALBE_ELEM_NAME);
 	if (stateTableNode == NULL)
 		return;
 		
@@ -1039,7 +1005,7 @@ mUpnpUpnpStateVariable *mupnp_upnp_service_getstatevariablebyname(mUpnpUpnpServi
 * mupnp_upnp_service_setactionlistener
 ****************************************/
 
-void mupnp_upnp_service_setactionlistener(mUpnpUpnpService *service, CG_UPNP_ACTION_LISTNER actionListener)
+void mupnp_upnp_service_setactionlistener(mUpnpUpnpService *service, MUPNP_ACTION_LISTNER actionListener)
 {
 	mUpnpUpnpActionList *actionList;
 	mUpnpUpnpAction *action;
@@ -1057,7 +1023,7 @@ void mupnp_upnp_service_setactionlistener(mUpnpUpnpService *service, CG_UPNP_ACT
 * mupnp_upnp_service_setquerylistener
 ****************************************/
 
-void mupnp_upnp_service_setquerylistener(mUpnpUpnpService *service, CG_UPNP_STATEVARIABLE_LISTNER queryListener)
+void mupnp_upnp_service_setquerylistener(mUpnpUpnpService *service, MUPNP_STATEVARIABLE_LISTNER queryListener)
 {
 	mUpnpUpnpServiceStateTable *stateTable;
 	mUpnpUpnpStateVariable *stateVar;
@@ -1129,7 +1095,7 @@ mUpnpUpnpStateVariable *mupnp_upnp_service_getstatevariables(mUpnpUpnpService *s
 *
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
 * mupnp_upnp_service_addsubscriber
@@ -1176,13 +1142,13 @@ mUpnpUpnpSubscriber *mupnp_upnp_service_getsubscriberbysid(mUpnpUpnpService *ser
 	if (mupnp_strlen(sid) <= 0)
 		return NULL;
 	
-	if (0 <= mupnp_strstr(sid, CG_UPNP_ST_UUID_DEVICE))
-		sid += mupnp_strlen(CG_UPNP_ST_UUID_DEVICE) + 1;
+	if (0 <= mupnp_strstr(sid, MUPNP_ST_UUID_DEVICE))
+		sid += mupnp_strlen(MUPNP_ST_UUID_DEVICE) + 1;
 
 	for (sub = mupnp_upnp_service_getsubscribers(service); sub != NULL; sub = mupnp_upnp_subscriber_next(sub)) {
 		subSid = mupnp_upnp_subscriber_getsid(sub);
-		if (0 <= mupnp_strstr(subSid, CG_UPNP_ST_UUID_DEVICE))
-			subSid += mupnp_strlen(CG_UPNP_ST_UUID_DEVICE) + 1;
+		if (0 <= mupnp_strstr(subSid, MUPNP_ST_UUID_DEVICE))
+			subSid += mupnp_strlen(MUPNP_ST_UUID_DEVICE) + 1;
 		if (mupnp_streq(sid, subSid) == TRUE)
 			return sub;
 	}

@@ -1,27 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cevent.h
-*
-*	Revision:
-*
-*	06/20/05
-*		- first revision
-*
-*	03/20/06 Theo Beisch
-*		- added mupnp_upnp_event_notify_request_hasnt & _hasnts & _hassid
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CNOTIFY_H_
-#define _CG_UPNP_CNOTIFY_H_
+#ifndef _MUPNP_NOTIFY_H_
+#define _MUPNP_NOTIFY_H_
 
 #include <mupnp/typedef.h>
 
@@ -42,17 +31,17 @@ extern "C" {
 
 /** Define for XML namespace
  */
-#define CG_UPNP_NOTIFY_XMLNS "e"
+#define MUPNP_NOTIFY_XMLNS "e"
 
 /**
  * Define for notify property
  */
-#define CG_UPNP_NOTIFY_PROPERTY "property"
+#define MUPNP_NOTIFY_PROPERTY "property"
 
 /**
  * Define for notify property set
  */
-#define CG_UPNP_NOTIFY_PROPERTYSET "propertyset"
+#define MUPNP_NOTIFY_PROPERTYSET "propertyset"
 
 /****************************************
 * Data Type

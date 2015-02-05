@@ -1,37 +1,16 @@
 /******************************************************************
-*
-*	CyberUtil for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cthread.h
-*
-*	Revision:
-*
-*	02/07/05
-*		- first revision
-*
-*	10/31/05
-*		- Modified the thread struct to use the mupnp_list concept
-*	02/13/06 Theo Beisch
-*		- added WINCE support
-*	03/20/06 Theo Beisch
-*		- added thread->deletePending and thread->selfDelete (WINCE only)
-*		  so that a thread can delete its own mupnp_thread context when truly
-*		  finished (as mupnp_thread_stop is not reliable under WINCE)
-*		- added mupnp_threadlist_remove
-*	06/13/07 Fabrice Fontaine Orange
-*		- Bug correction : Variable used to wait for thread termination by sleeping instead of joining.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UTIL_CTHREAD_H_
-#define _CG_UTIL_CTHREAD_H_
+#ifndef _MUPNP_UTIL_THREAD_H_
+#define _MUPNP_UTIL_THREAD_H_
 
 #include <mupnp/typedef.h>
 #include <mupnp/util/list.h>

@@ -1,31 +1,22 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cservice_notify.c
-*
-*	Revision:
-*
-*	06/21/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/service.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_SUBSCRIPTION (Begin)
+* MUPNP_NOUSE_SUBSCRIPTION (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
 * mupnp_upnp_service_notifymain
@@ -177,7 +168,7 @@ void mupnp_upnp_service_createnotifyallthread(mUpnpUpnpService *service, mUpnpTi
 }
 
 /****************************************
-* CG_UPNP_NOUSE_SUBSCRIPTION (End)
+* MUPNP_NOUSE_SUBSCRIPTION (End)
 ****************************************/
 
 #endif

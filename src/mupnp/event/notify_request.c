@@ -1,24 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cnotify_request.c
-*
-*	Revision:
-*
-*	07/07/05
-*		- first revision
-*	03/13/08
-*		- Changed mupnp_upnp_event_notify_request_setpropertysetnode() using void parameter instead of mUpnpService not to conflict the prototype defines.
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/event/notify.h>
 #include <mupnp/event/event.h>
@@ -29,10 +18,10 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_SUBSCRIPTION (Begin)
+* MUPNP_NOUSE_SUBSCRIPTION (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
 * Static Function Prototype
@@ -105,7 +94,7 @@ void mupnp_upnp_event_notify_request_clear(mUpnpUpnpNotifyRequest *notifyReq)
 
 void mupnp_upnp_event_notify_request_setsid(mUpnpUpnpNotifyRequest *soapReq, char *sid)
 {
-	char buf[CG_UPNP_SUBSCRIPTION_SID_HEADER_SIZE];
+	char buf[MUPNP_SUBSCRIPTION_SID_HEADER_SIZE];
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -122,7 +111,7 @@ BOOL mupnp_upnp_event_notify_request_setpropertysetnode(mUpnpUpnpNotifyRequest *
 	mUpnpHttpRequest *httpReq;
 	mUpnpXmlNode *propSetNode;
 	mUpnpUpnpService* service;
-  char server[CG_UPNP_SEVERNAME_MAXLEN];
+  char server[MUPNP_SEVERNAME_MAXLEN];
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -138,8 +127,8 @@ BOOL mupnp_upnp_event_notify_request_setpropertysetnode(mUpnpUpnpNotifyRequest *
   mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpReq,
                                   CG_HTTP_SERVER,
                                   server);
-	mupnp_upnp_event_notify_request_setnt(notifyReq, CG_UPNP_NT_EVENT);
-	mupnp_upnp_event_notify_request_setnts(notifyReq, CG_UPNP_NTS_PROPCHANGE);
+	mupnp_upnp_event_notify_request_setnt(notifyReq, MUPNP_NT_EVENT);
+	mupnp_upnp_event_notify_request_setnts(notifyReq, MUPNP_NTS_PROPCHANGE);
 	mupnp_upnp_event_notify_request_setsid(notifyReq, mupnp_upnp_subscriber_getsid(sub));
 	mupnp_upnp_event_notify_request_setseq(notifyReq, mupnp_upnp_subscriber_getnotifycount(sub));
 
@@ -165,8 +154,8 @@ static mUpnpXmlNode *mupnp_upnp_event_notify_request_createpropertysetnode(mUpnp
 	mupnp_log_debug_l4("Entering...\n");
 
 	propSetNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(propSetNode, CG_UPNP_NOTIFY_XMLNS CG_SOAP_DELIM CG_UPNP_NOTIFY_PROPERTYSET);
-	mupnp_xml_node_setnamespace(propSetNode, CG_UPNP_NOTIFY_XMLNS, CG_UPNP_SUBSCRIPTION_XMLNS);
+	mupnp_xml_node_setname(propSetNode, MUPNP_NOTIFY_XMLNS CG_SOAP_DELIM MUPNP_NOTIFY_PROPERTYSET);
+	mupnp_xml_node_setnamespace(propSetNode, MUPNP_NOTIFY_XMLNS, MUPNP_SUBSCRIPTION_XMLNS);
 
 	if (service) {
 		for (statVar = mupnp_upnp_service_getstatevariables(service); statVar != NULL; statVar = mupnp_upnp_statevariable_next(statVar)) {
@@ -175,7 +164,7 @@ static mUpnpXmlNode *mupnp_upnp_event_notify_request_createpropertysetnode(mUpnp
 			propNode = mupnp_xml_node_new();
 			if (!propNode)
 				continue;
-			mupnp_xml_node_setname(propNode, CG_UPNP_NOTIFY_XMLNS CG_SOAP_DELIM CG_UPNP_NOTIFY_PROPERTY);
+			mupnp_xml_node_setname(propNode, MUPNP_NOTIFY_XMLNS CG_SOAP_DELIM MUPNP_NOTIFY_PROPERTY);
 			mupnp_xml_node_addchildnode(propSetNode, propNode);
 			varNode = mupnp_xml_node_new();
 			if (!varNode) {
@@ -190,7 +179,7 @@ static mUpnpXmlNode *mupnp_upnp_event_notify_request_createpropertysetnode(mUpnp
 	else if (statVar) {
 		propNode = mupnp_xml_node_new();
 		if (propNode) {
-			mupnp_xml_node_setname(propNode, CG_UPNP_NOTIFY_XMLNS CG_SOAP_DELIM CG_UPNP_NOTIFY_PROPERTY);
+			mupnp_xml_node_setname(propNode, MUPNP_NOTIFY_XMLNS CG_SOAP_DELIM MUPNP_NOTIFY_PROPERTY);
 			mupnp_xml_node_addchildnode(propSetNode, propNode);
 			varNode = mupnp_xml_node_new();
 			if (varNode) {
@@ -307,7 +296,7 @@ mUpnpUpnpPropertyList *mupnp_upnp_event_notify_request_getpropertylist(mUpnpUpnp
 }
 
 /****************************************
-* CG_UPNP_NOUSE_SUBSCRIPTION (End)
+* MUPNP_NOUSE_SUBSCRIPTION (End)
 ****************************************/
 
 #endif

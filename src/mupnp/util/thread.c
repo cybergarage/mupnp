@@ -1,39 +1,13 @@
 /******************************************************************
-*
-*	CyberUtil for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cthread.cpp
-*
-*	Revision:
-*
-*	01/17/05
-*		- first revision
-*	09/11/05
-*		- Thanks for Visa Smolander <visa.smolander@nokia.com>
-*		- Changed mupnp_thread_start() to set the flag at first.
-*	10/31/05
-*		- Added a signal handler to block all signals to posix threads
-*	02/12/06 Theo Beisch
-*		- added WINCE support
-*	03/10/06 tb
-*		- added 'self delete' for thread on real exit
-*		  (WINCE thread termination does not work reliably)
-*		- added some debug configurations
-*	06/13/07 Fabrice Fontaine Orange
-*		- Fixed mupnp_thread_start(). Threads used to answer UPnP requests are created
-*		   in joinable state but the main thread doesn't call pthread_join on them.
-*		   So, they are kept alive until the end of the program. By creating them
-*		   in detached state, they are correctly clean up.
-*		- Fixed mupnp_thread_stop_with_cond() to wait one second for thread termination instead of using pthread_join(). 
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #if !defined (WIN32) && !defined(WINCE)
 #include <signal.h>

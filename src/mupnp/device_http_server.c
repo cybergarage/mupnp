@@ -1,26 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cdevice_http_server.c
-*
-*	Revision:
-*
-*	03/22/05
-*		- first revision
-*
-*	18-Jan-06 Aapo Makela
-*		- Added HEAD-method support
-*		- Fixed to handle "Not Found" case for GET-request
-*		- Fixed to unescape URIs
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/device.h>
 #include <mupnp/upnp.h>
@@ -40,14 +27,14 @@ static void mupnp_upnp_device_postrequestrecieved(mUpnpUpnpDevice *dev, mUpnpHtt
 static void mupnp_upnp_device_soapactionrecieved(mUpnpUpnpDevice *dev, mUpnpSoapRequest *soapReq);
 
 static void mupnp_upnp_device_controlrequestrecieved(mUpnpUpnpService *service, mUpnpSoapRequest *soapReq);
-#if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
+#if !defined(MUPNP_NOUSE_ACTIONCTRL)
 static void mupnp_upnp_device_actioncontrolrequestrecieved(mUpnpUpnpService *service, mUpnpUpnpActionRequest *actionReq);
 #endif
-#if !defined(CG_UPNP_NOUSE_QUERYCTRL)
+#if !defined(MUPNP_NOUSE_QUERYCTRL)
 static void mupnp_upnp_device_querycontrolrequestrecieved(mUpnpUpnpService *service, mUpnpUpnpQueryRequest *queryReq);
 #endif
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 static void mupnp_upnp_device_subscriptionrecieved(mUpnpUpnpDevice *dev, mUpnpUpnpSubscriptionRequest *subReq);
 static void mupnp_upnp_device_newsubscriptionrecieved(mUpnpUpnpService *service, mUpnpUpnpSubscriptionRequest *subReq);
 static void mupnp_upnp_device_renewsubscriptionrecieved(mUpnpUpnpService *service, mUpnpUpnpSubscriptionRequest *subReq);
@@ -79,7 +66,7 @@ void mupnp_upnp_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 	}
 	
   if (mupnp_upnp_device_ispresentationrequest(dev, httpReq) == TRUE) {
-    CG_UPNP_PRESENTATION_LISTNER presentationListener = mupnp_upnp_device_getpresentationlistener(dev);
+    MUPNP_PRESENTATION_LISTNER presentationListener = mupnp_upnp_device_getpresentationlistener(dev);
     if (presentationListener) {
       presentationListener(httpReq);
       return;
@@ -97,7 +84,7 @@ void mupnp_upnp_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 		return;
 	}
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 	if (mupnp_http_request_issubscriberequest(httpReq) == TRUE || mupnp_http_request_isunsubscriberequest(httpReq) == TRUE) {
 		mupnp_upnp_device_subscriptionrecieved(dev, httpReq);
 		return;
@@ -157,14 +144,14 @@ void mupnp_upnp_device_seturlbase(mUpnpUpnpDevice *dev, char *value)
 	if (rootNode == NULL)
 		return;
 
-	node = mupnp_xml_node_getchildnode(rootNode, CG_UPNP_DEVICE_URLBASE_NAME);
+	node = mupnp_xml_node_getchildnode(rootNode, MUPNP_DEVICE_URLBASE_NAME);
 	if (node != NULL) {
 		mupnp_xml_node_setvalue(node, value);
 		return;
 	}
 
 	node = mupnp_xml_node_new();
-	mupnp_xml_node_setname(node, CG_UPNP_DEVICE_URLBASE_NAME);
+	mupnp_xml_node_setname(node, MUPNP_DEVICE_URLBASE_NAME);
 	mupnp_xml_node_setvalue(node, value);
 
 	mupnp_xml_node_addchildnode(rootNode, node);
@@ -174,7 +161,7 @@ void mupnp_upnp_device_seturlbase(mUpnpUpnpDevice *dev, char *value)
 
 static void mupnp_upnp_device_updateurlbase(mUpnpUpnpDevice *dev, char *host)
 {
-	char urlBase[CG_UPNP_DEVICE_URLBASE_MAXLEN];
+	char urlBase[MUPNP_DEVICE_URLBASE_MAXLEN];
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -198,7 +185,7 @@ static char *mupnp_upnp_device_getdescription(mUpnpUpnpDevice *dev, char *ifAddr
 	rootNode = mupnp_upnp_device_getrootnode(dev);
 	
 	if (rootNode != NULL) {
-		mupnp_string_addvalue(descStr, CG_UPNP_XML_DECLARATION);
+		mupnp_string_addvalue(descStr, MUPNP_XML_DECLARATION);
 		mupnp_string_addvalue(descStr, "\n");
 		mupnp_xml_node_tostring(rootNode, TRUE, descStr);	
 	}
@@ -355,7 +342,7 @@ static void mupnp_upnp_device_controlrequestrecieved(mUpnpUpnpService *service, 
 
 	httpReq = mupnp_soap_request_gethttprequest(soapReq);
 	
-#if !defined(CG_UPNP_NOUSE_QUERYCTRL)
+#if !defined(MUPNP_NOUSE_QUERYCTRL)
 	if (mupnp_upnp_control_isqueryrequest(soapReq) == TRUE) {
 		queryReq = mupnp_upnp_control_query_request_new();
 		mupnp_upnp_control_query_request_setsoaprequest(queryReq, soapReq);
@@ -365,7 +352,7 @@ static void mupnp_upnp_device_controlrequestrecieved(mUpnpUpnpService *service, 
 	}
 #endif
 	
-#if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
+#if !defined(MUPNP_NOUSE_ACTIONCTRL)
 	if (mupnp_upnp_control_isactionrequest(soapReq) == TRUE) {
 		actionReq = mupnp_upnp_control_action_request_new();
 		mupnp_upnp_control_action_request_setsoaprequest(actionReq, soapReq);
@@ -386,9 +373,9 @@ static void mupnp_upnp_device_controlrequestrecieved(mUpnpUpnpService *service, 
 *
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
+#if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
-#define mupnp_upnp_device_invalidactioncontrolrecieved(actionReq) mupnp_upnp_device_invalidcontrolrecieved(mupnp_upnp_control_action_request_getsoaprequest(actionReq), CG_UPNP_STATUS_INVALID_ACTION)
+#define mupnp_upnp_device_invalidactioncontrolrecieved(actionReq) mupnp_upnp_device_invalidcontrolrecieved(mupnp_upnp_control_action_request_getsoaprequest(actionReq), MUPNP_STATUS_INVALID_ACTION)
 
 static void mupnp_upnp_device_actioncontrolrequestrecieved(mUpnpUpnpService *service, mUpnpUpnpActionRequest *actionReq)
 {
@@ -423,9 +410,9 @@ static void mupnp_upnp_device_actioncontrolrequestrecieved(mUpnpUpnpService *ser
 *
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_QUERYCTRL)
+#if !defined(MUPNP_NOUSE_QUERYCTRL)
 
-#define mupnp_upnp_device_invalidquerycontrolrecieved(queryReq) mupnp_upnp_device_invalidcontrolrecieved(mupnp_upnp_control_query_request_getsoaprequest(queryReq), CG_UPNP_STATUS_INVALID_VAR)
+#define mupnp_upnp_device_invalidquerycontrolrecieved(queryReq) mupnp_upnp_device_invalidcontrolrecieved(mupnp_upnp_control_query_request_getsoaprequest(queryReq), MUPNP_STATUS_INVALID_VAR)
 
 static void mupnp_upnp_device_querycontrolrequestrecieved(mUpnpUpnpService *service, mUpnpUpnpQueryRequest *queryReq)
 {
@@ -455,7 +442,7 @@ static void mupnp_upnp_device_querycontrolrequestrecieved(mUpnpUpnpService *serv
 *
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 static void mupnp_upnp_device_badsubscriptionrecieved(mUpnpUpnpSubscriptionRequest *subReq, int code)
 {
@@ -508,7 +495,7 @@ static void mupnp_upnp_device_subscriptionrecieved(mUpnpUpnpDevice *dev, mUpnpUp
         }
 
 	if (mupnp_upnp_event_subscription_request_hasnt(subReq) &&
-            (mupnp_strcmp(mupnp_upnp_event_subscription_request_getnt(subReq), CG_UPNP_NT_EVENT) != 0)) {
+            (mupnp_strcmp(mupnp_upnp_event_subscription_request_getnt(subReq), MUPNP_NT_EVENT) != 0)) {
                 mupnp_upnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
         }
@@ -541,7 +528,7 @@ static void mupnp_upnp_device_newsubscriptionrecieved(mUpnpUpnpService *service,
 	char *callback;
 	char *aux;
 	mUpnpTime timeout;
-	char sid[CG_UPNP_SUBSCRIPTION_SID_SIZE];
+	char sid[MUPNP_SUBSCRIPTION_SID_SIZE];
 	mUpnpUpnpSubscriber *sub;
 	mUpnpUpnpSubscriptionResponse *subRes;
 	
@@ -550,17 +537,17 @@ static void mupnp_upnp_device_newsubscriptionrecieved(mUpnpUpnpService *service,
 	aux = mupnp_strdup(mupnp_upnp_event_subscription_request_getcallback(subReq));
 	if (aux == NULL)
 		return;
-	callback = mupnp_strltrim(aux, CG_UPNP_SUBSCRIPTION_CALLBACK_START_WITH, 1);
-	mupnp_strrtrim(callback, CG_UPNP_SUBSCRIPTION_CALLBACK_END_WITH, 1);
+	callback = mupnp_strltrim(aux, MUPNP_SUBSCRIPTION_CALLBACK_START_WITH, 1);
+	mupnp_strrtrim(callback, MUPNP_SUBSCRIPTION_CALLBACK_END_WITH, 1);
 	
 	timeout = mupnp_upnp_event_subscription_request_gettimeout(subReq);
 	/* Limit timeout to the given maximum */
-	if (CG_UPNP_SUBSCRIPTION_MAX_TIMEOUT > 0)
+	if (MUPNP_SUBSCRIPTION_MAX_TIMEOUT > 0)
 	{
-		if (timeout > CG_UPNP_SUBSCRIPTION_MAX_TIMEOUT ||
-		    timeout == CG_UPNP_SUBSCRIPTION_INFINITE_VALUE)
+		if (timeout > MUPNP_SUBSCRIPTION_MAX_TIMEOUT ||
+		    timeout == MUPNP_SUBSCRIPTION_INFINITE_VALUE)
 		{
-			timeout = CG_UPNP_SUBSCRIPTION_MAX_TIMEOUT;
+			timeout = MUPNP_SUBSCRIPTION_MAX_TIMEOUT;
 		}
 	}
 	
@@ -580,7 +567,7 @@ static void mupnp_upnp_device_newsubscriptionrecieved(mUpnpUpnpService *service,
 	mupnp_upnp_event_subscription_request_postresponse(subReq, subRes);
 	mupnp_upnp_event_subscription_response_delete(subRes);
 
-	mupnp_upnp_service_createnotifyallthread(service, CG_UPNP_SERVICE_NOTIFY_WAITTIME);
+	mupnp_upnp_service_createnotifyallthread(service, MUPNP_SERVICE_NOTIFY_WAITTIME);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -604,12 +591,12 @@ static void mupnp_upnp_device_renewsubscriptionrecieved(mUpnpUpnpService *servic
 	
 	timeout = mupnp_upnp_event_subscription_request_gettimeout(subReq);
 	/* Limit timeout to the given maximum */
-	if (CG_UPNP_SUBSCRIPTION_MAX_TIMEOUT > 0)
+	if (MUPNP_SUBSCRIPTION_MAX_TIMEOUT > 0)
 	{
-		if (timeout > CG_UPNP_SUBSCRIPTION_MAX_TIMEOUT ||
-		    timeout == CG_UPNP_SUBSCRIPTION_INFINITE_VALUE)
+		if (timeout > MUPNP_SUBSCRIPTION_MAX_TIMEOUT ||
+		    timeout == MUPNP_SUBSCRIPTION_INFINITE_VALUE)
 		{
-			timeout = CG_UPNP_SUBSCRIPTION_MAX_TIMEOUT;
+			timeout = MUPNP_SUBSCRIPTION_MAX_TIMEOUT;
 		}
 	}
 	

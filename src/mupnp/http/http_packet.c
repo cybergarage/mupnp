@@ -1,49 +1,13 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: chttp_packet.cpp
-*
-*	Revision:
-*
-*	01/25/05
-*		- first revision
-*	08/21/05
-*		- Thanks for Theo Beisch <theo.beisch@gmx.de>
-*		- Changed mupnp_http_packet_read() to store length in HTTPPacket.
-*	10/25/05
-*		- The following functions move to define macros.
-*		  mupnp_http_packet_setcontent()
-*		  mupnp_http_packet_setcontentpointer()
-*		  mupnp_http_packet_getcontent()
-*		- mupnp_http_packet_setncontent() is added.
-*	10/31/05
-*		- mupnp_http_packet_sethost:
-*		  port was an excess parameter for s(n)printf when port <= 0
-*	11/11/05
-*		- Added mupnp_http_packet_setheaderlonglong() and mupnp_http_packet_getheaderlonglong().
-*		- Extended mupnp_http_packet_setcontentlength() and mupnp_http_packet_getcontentlength() to 64bit
-*		  when the compiler is supported C99 or the platform is WIN32.
-*	02/01/07
-*		- Fixed mupnp_http_request_post() not to hung up when the request method is HEAD.
-*		- Added a onlyHeader parameter to mupnp_http_response_read() and mupnp_http_response_packet().
-*	03/18/07
-*		- Changed the following functions to use mUpnpInt64.
-*		  mupnp_http_packet_setheaderlonglong()
-*		  mupnp_http_packet_getheaderlonglong()
-*	11/16\07  Satoshi Konno <skonno@cybergarage.org>
-*		- Fixed mupnp_http_packet_read_body()not to lost data when the response packet is huge.
-*	12/13/07  Aapo makela <aapo.makela@nokia.com>
-*		- Fix to mupnp_http_packet_sethost() not to crash in out-of-memory situation
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/http/http.h>
 #include <mupnp/util/log.h>

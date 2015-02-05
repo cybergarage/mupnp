@@ -1,22 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cupnp_status.c
-*
-*	Revision:
-*
-*	02/13/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/upnp_status.h>
 #include <mupnp/util/list.h>
@@ -68,11 +59,11 @@ char *mupnp_upnp_status_code2string(int code)
 	mupnp_log_debug_l4("Entering...\n");
 
 	switch (code) {
-	case CG_UPNP_STATUS_INVALID_ACTION: return "Invalid Action";
-	case CG_UPNP_STATUS_INVALID_ARGS: return "Invalid Args";
-	case CG_UPNP_STATUS_OUT_OF_SYNC: return "Out of Sync";
-	case CG_UPNP_STATUS_INVALID_VAR: return "Invalid Var";
-	case CG_UPNP_STATUS_ACTION_FAILED: return "Action Failed";
+	case MUPNP_STATUS_INVALID_ACTION: return "Invalid Action";
+	case MUPNP_STATUS_INVALID_ARGS: return "Invalid Args";
+	case MUPNP_STATUS_OUT_OF_SYNC: return "Out of Sync";
+	case MUPNP_STATUS_INVALID_VAR: return "Invalid Var";
+	case MUPNP_STATUS_ACTION_FAILED: return "Action Failed";
 	}
 	 return "";
 

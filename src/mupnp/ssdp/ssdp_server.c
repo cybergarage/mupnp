@@ -1,22 +1,13 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cssdp_socket.c
-*
-*	Revision:
-*
-*	02/18/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/net/interface.h>
@@ -74,7 +65,7 @@ void mupnp_upnp_ssdp_server_delete(mUpnpUpnpSSDPServer *server)
 
 BOOL mupnp_upnp_ssdp_server_open(mUpnpUpnpSSDPServer *server, char *bindAddr)
 {
-	const char *ssdpAddr = CG_UPNP_SSDP_ADDRESS;
+	const char *ssdpAddr = MUPNP_SSDP_ADDRESS;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -85,7 +76,7 @@ BOOL mupnp_upnp_ssdp_server_open(mUpnpUpnpSSDPServer *server, char *bindAddr)
 		ssdpAddr = mupnp_upnp_ssdp_getipv6address();
 	
 	server->httpmuSock = mupnp_upnp_httpmu_socket_new();
-	if (mupnp_upnp_httpmu_socket_bind(server->httpmuSock, ssdpAddr, CG_UPNP_SSDP_PORT, bindAddr) == FALSE) {
+	if (mupnp_upnp_httpmu_socket_bind(server->httpmuSock, ssdpAddr, MUPNP_SSDP_PORT, bindAddr) == FALSE) {
 		mupnp_upnp_httpmu_socket_delete(server->httpmuSock);
 		server->httpmuSock = NULL;
 		return FALSE;
@@ -122,7 +113,7 @@ BOOL mupnp_upnp_ssdp_server_close(mUpnpUpnpSSDPServer *server)
 
 void mupnp_upnp_ssdp_server_performlistener(mUpnpUpnpSSDPServer *server, mUpnpUpnpSSDPPacket *ssdpPkt)
 {
-	CG_UPNP_SSDP_LISTNER listener;
+	MUPNP_SSDP_LISTNER listener;
 
 	mupnp_log_debug_l4("Entering...\n");
 

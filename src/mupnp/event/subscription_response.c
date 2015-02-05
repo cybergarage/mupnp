@@ -1,32 +1,23 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: csubscription_response.c
-*
-*	Revision:
-*
-*	06/20/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/event/event.h>
 #include <mupnp/control/control.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_SUBSCRIPTION (Begin)
+* MUPNP_NOUSE_SUBSCRIPTION (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
 * mupnp_upnp_event_subscription_subscriberesponse_setresponse
@@ -34,7 +25,7 @@
 
 void mupnp_upnp_event_subscription_subscriberesponse_setresponse(mUpnpUpnpSubscriptionResponse *subRes, int code)
 {
-  char server[CG_UPNP_SEVERNAME_MAXLEN];
+  char server[MUPNP_SEVERNAME_MAXLEN];
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_http_response_setstatuscode(subRes, code);
@@ -60,9 +51,9 @@ void mupnp_upnp_event_subscription_response_setsid(mUpnpUpnpSubscriptionResponse
 
 	headerSID = mupnp_string_new();
 
-	uuidIdx = mupnp_strstr(sid, CG_UPNP_ST_UUID_DEVICE);
+	uuidIdx = mupnp_strstr(sid, MUPNP_ST_UUID_DEVICE);
 	if (uuidIdx < 0)
-		mupnp_string_addvalue(headerSID, CG_UPNP_ST_UUID_DEVICE ":");
+		mupnp_string_addvalue(headerSID, MUPNP_ST_UUID_DEVICE ":");
 	mupnp_string_addvalue(headerSID, sid);
 
 	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subRes), CG_HTTP_SID, mupnp_string_getvalue(headerSID));
@@ -90,7 +81,7 @@ void mupnp_upnp_event_subscription_response_settimeout(mUpnpUpnpSubscriptionResp
 }
 
 /****************************************
-* CG_UPNP_NOUSE_SUBSCRIPTION (End)
+* MUPNP_NOUSE_SUBSCRIPTION (End)
 ****************************************/
 
 #endif

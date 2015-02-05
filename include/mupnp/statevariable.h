@@ -1,25 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cstatevariable.h
-*
-*	Revision:
-*
-*	02/23/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CSTATEVARIABLE_H_
-#define _CG_UPNP_CSTATEVARIABLE_H_
+#ifndef _MUPNP_STATEVARIABLE_H_
+#define _MUPNP_STATEVARIABLE_H_
 
 #include <mupnp/typedef.h>
 #include <mupnp/xml/xml.h>
@@ -39,42 +30,42 @@ extern "C" {
 /**
  * Definition for state variable XML element name
  */
-#define CG_UPNP_STATEVARIABLE_ELEM_NAME "stateVariable"
+#define MUPNP_STATEVARIABLE_ELEM_NAME "stateVariable"
 
 /**
  * Definition for service state table XML element name
  */
-#define CG_UPNP_SERVICESTATETALBE_ELEM_NAME "serviceStateTable"
+#define MUPNP_SERVICESTATETALBE_ELEM_NAME "serviceStateTable"
 
 /**
  * Definition for state variable name element
  */
-#define CG_UPNP_STATEVARIABLE_NAME "name"
+#define MUPNP_STATEVARIABLE_NAME "name"
 
 /**
  * Definition for state variable data type element
  */
-#define CG_UPNP_STATEVARIABLE_DATATYPE "dataType"
+#define MUPNP_STATEVARIABLE_DATATYPE "dataType"
 
 /**
  * Definition for state variable send events element name
  */
-#define CG_UPNP_STATEVARIABLE_SENDEVENTS "sendEvents"
+#define MUPNP_STATEVARIABLE_SENDEVENTS "sendEvents"
 
 /**
  * Definition for state variable send events element value
  */
-#define CG_UPNP_STATEVARIABLE_SENDEVENTS_YES "yes"
+#define MUPNP_STATEVARIABLE_SENDEVENTS_YES "yes"
 
 /**
  * Definition for state variable send events element value
  */
-#define CG_UPNP_STATEVARIABLE_SENDEVENTS_NO "no"
+#define MUPNP_STATEVARIABLE_SENDEVENTS_NO "no"
 	
 /**
  * Definition for state variable allowed values list
  */	
-#define CG_UPNP_STATEVARIABLE_ALLOWEDVALUELIST "allowedValueList"
+#define MUPNP_STATEVARIABLE_ALLOWEDVALUELIST "allowedValueList"
 
 
 /****************************************
@@ -119,7 +110,7 @@ typedef struct _mUpnpUpnpStateVariable {
 /**
  * Type definition for state variable listener function
  */
-typedef BOOL (*CG_UPNP_STATEVARIABLE_LISTNER)(mUpnpUpnpStateVariable *);
+typedef BOOL (*MUPNP_STATEVARIABLE_LISTNER)(mUpnpUpnpStateVariable *);
 
 /****************************************
 * Function (StateVariable)
@@ -149,7 +140,7 @@ void mupnp_upnp_statevariable_delete(mUpnpUpnpStateVariable *statVar);
  *
  * @param node XML node
  */
-#define mupnp_upnp_statevariable_isstatevariablenode(node) mupnp_xml_node_isname(node, CG_UPNP_STATEVARIABLE_ELEM_NAME)
+#define mupnp_upnp_statevariable_isstatevariablenode(node) mupnp_xml_node_isname(node, MUPNP_STATEVARIABLE_ELEM_NAME)
 
 /**** XML Node ****/
 
@@ -251,7 +242,7 @@ mUpnpUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new();
  * @param statVar State variable
  * @param value New state variable name
  */
-#define mupnp_upnp_statevariable_setname(statVar, value) mupnp_xml_node_setchildnode(mupnp_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_NAME, value)
+#define mupnp_upnp_statevariable_setname(statVar, value) mupnp_xml_node_setchildnode(mupnp_upnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_NAME, value)
 
 /**
  * Get state variable name
@@ -260,7 +251,7 @@ mUpnpUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new();
  *
  * @return State variable name
  */
-#define mupnp_upnp_statevariable_getname(statVar) mupnp_xml_node_getchildnodevalue(mupnp_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_NAME)
+#define mupnp_upnp_statevariable_getname(statVar) mupnp_xml_node_getchildnodevalue(mupnp_upnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_NAME)
 
 /**
  * Checks if state variable has certain name
@@ -280,7 +271,7 @@ mUpnpUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new();
  * @param statVar State variable
  * @param value Data type
  */
-#define mupnp_upnp_statevariable_setdatatype(statVar, value) mupnp_xml_node_setchildnode(mupnp_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_DATATYPE, value)
+#define mupnp_upnp_statevariable_setdatatype(statVar, value) mupnp_xml_node_setchildnode(mupnp_upnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_DATATYPE, value)
 
 /**
  * Get data type from state variable
@@ -289,7 +280,7 @@ mUpnpUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new();
  *
  * @return Data type
  */
-#define mupnp_upnp_statevariable_getdatatype(statVar) mupnp_xml_node_getchildnodevalue(mupnp_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_DATATYPE)
+#define mupnp_upnp_statevariable_getdatatype(statVar) mupnp_xml_node_getchildnodevalue(mupnp_upnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_DATATYPE)
 
 /**** sendEvents ****/
 
@@ -300,7 +291,7 @@ mUpnpUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new();
  * @param statVar State variable
  * @param value New value
  */
-#define mupnp_upnp_statevariable_setsendevents(statVar, value) mupnp_xml_node_setattribute(mupnp_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_SENDEVENTS, value)
+#define mupnp_upnp_statevariable_setsendevents(statVar, value) mupnp_xml_node_setattribute(mupnp_upnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_SENDEVENTS, value)
 
 /**
  * Get state variable event sending option value
@@ -309,7 +300,7 @@ mUpnpUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new();
  * 
  * @return Current value associated to state variable
  */
-#define mupnp_upnp_statevariable_getsendevents(statVar) mupnp_xml_node_getattributevalue(mupnp_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_SENDEVENTS)
+#define mupnp_upnp_statevariable_getsendevents(statVar) mupnp_xml_node_getattributevalue(mupnp_upnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_SENDEVENTS)
 
 /**
  * Check if events are sent to subscribers when this state variable changes
@@ -318,7 +309,7 @@ mUpnpUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new();
  *
  * @return True if events are sent, false otherwise
  */
-#define mupnp_upnp_statevariable_issendevents(statVar) (mupnp_streq(mupnp_upnp_statevariable_getsendevents(statVar), CG_UPNP_STATEVARIABLE_SENDEVENTS_YES))
+#define mupnp_upnp_statevariable_issendevents(statVar) (mupnp_streq(mupnp_upnp_statevariable_getsendevents(statVar), MUPNP_STATEVARIABLE_SENDEVENTS_YES))
 
 /****************************************
 * Function (StateVariable - Execution Data)

@@ -1,36 +1,23 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006-2007 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: ccontrolpoint_http_server.c
-*
-*	Revision:
-*
-*	07/07/05
-*		- first revision
-*	01/15/06 Aapo Makela
-*		- Modified to resubscribe, if event is missed
-*	12/13/07 Aapo Makela
-*		- Added proper locking for the control point
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/controlpoint.h>
 #include <mupnp/event/notify.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_CONTROLPOINT (Begin)
+* MUPNP_NOUSE_CONTROLPOINT (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_CONTROLPOINT)
+#if !defined(MUPNP_NOUSE_CONTROLPOINT)
 
 /**
  * The function that calls all HTTP listener callback functions. Do not call
@@ -58,7 +45,7 @@ void mupnp_upnp_controlpoint_httprequestreceived(mUpnpHttpRequest *httpReq)
 
 	mupnp_upnp_controlpoint_lock(ctrlPoint);
 
-#if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
+#if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 	if (mupnp_http_request_isnotifyrequest(httpReq) == TRUE) {	
 		notifyReq = mupnp_upnp_event_notify_request_new();
 		mupnp_upnp_event_notify_request_sethttprequest(notifyReq, httpReq);
@@ -87,7 +74,7 @@ void mupnp_upnp_controlpoint_httprequestreceived(mUpnpHttpRequest *httpReq)
 				mupnp_upnp_controlpoint_subscribe(ctrlPoint, service, timeout);
 			} else {
 				/* Wrap seq, so that assertion is true next time */
-				if (seq == CG_UPNP_EVENT_MAX_SEQ) seq = 0;
+				if (seq == MUPNP_EVENT_MAX_SEQ) seq = 0;
 				
 				/* Set event key */
 				mupnp_upnp_service_seteventkey(service, seq);
@@ -162,7 +149,7 @@ void mupnp_upnp_controlpoint_updatestatetablefromproperty(mUpnpUpnpService* serv
 }
 
 /****************************************
-* CG_UPNP_NOUSE_CONTROLPOINT (End)
+* MUPNP_NOUSE_CONTROLPOINT (End)
 ****************************************/
 
 #endif

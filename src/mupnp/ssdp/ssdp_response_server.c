@@ -1,32 +1,23 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cssdp_socket.c
-*
-*	Revision:
-*
-*	02/18/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/net/interface.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_CONTROLPOINT (Begin)
+* MUPNP_NOUSE_CONTROLPOINT (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_CONTROLPOINT)
+#if !defined(MUPNP_NOUSE_CONTROLPOINT)
 
 /****************************************
 * mupnp_upnp_ssdpresponse_server_new
@@ -124,7 +115,7 @@ BOOL mupnp_upnp_ssdpresponse_server_close(mUpnpUpnpSSDPResponseServer *server)
 
 void mupnp_upnp_ssdpresponse_server_performlistener(mUpnpUpnpSSDPResponseServer *server, mUpnpUpnpSSDPPacket *ssdpPkt)
 {
-	CG_UPNP_SSDP_RESPONSE_LISTNER listener;
+	MUPNP_SSDP_RESPONSE_LISTNER listener;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -234,12 +225,12 @@ BOOL mupnp_upnp_ssdpresponse_server_post(mUpnpUpnpSSDPResponseServer *server, mU
 	
 	ifAddr = mupnp_socket_getaddress(httpuSock);
 	ssdpAddr = mupnp_upnp_ssdp_gethostaddress(ifAddr);
-	mupnp_upnp_ssdprequest_sethost(ssdpReq, ssdpAddr, CG_UPNP_SSDP_PORT);
+	mupnp_upnp_ssdprequest_sethost(ssdpReq, ssdpAddr, MUPNP_SSDP_PORT);
 		
 	ssdpMsg = mupnp_string_new();
 	mupnp_upnp_ssdprequest_tostring(ssdpReq, ssdpMsg);
 
-	sentLen = mupnp_socket_sendto(httpuSock, ssdpAddr, CG_UPNP_SSDP_PORT, mupnp_string_getvalue(ssdpMsg), mupnp_string_length(ssdpMsg));
+	sentLen = mupnp_socket_sendto(httpuSock, ssdpAddr, MUPNP_SSDP_PORT, mupnp_string_getvalue(ssdpMsg), mupnp_string_length(ssdpMsg));
 	mupnp_string_delete(ssdpMsg);
 	
 	mupnp_log_debug_l4("Leaving...\n");
@@ -248,7 +239,7 @@ BOOL mupnp_upnp_ssdpresponse_server_post(mUpnpUpnpSSDPResponseServer *server, mU
 }
 
 /****************************************
-* CG_UPNP_NOUSE_CONTROLPOINT (End)
+* MUPNP_NOUSE_CONTROLPOINT (End)
 ****************************************/
 
 #endif

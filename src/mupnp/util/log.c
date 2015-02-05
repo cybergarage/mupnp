@@ -1,22 +1,13 @@
 /******************************************************************
-*
-*       CyberUtil for C
-*
-*       Copyright (C) 2006 Nokia Corporation
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*       File: clog.c
-*
-*       Revision:
-*
-*       06-Feb-06
-*               - first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <stdio.h>
 #include <time.h>

@@ -1,24 +1,13 @@
 /******************************************************************
-*
-*	CyberSOAP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: csoap_request.c
-*
-*	Revision:
-*
-*	02/13/05
-*		- first revision
-*
-*	18-Jan-06 Aapo Makela
-*		- Fixed to send also M-POST, if required (UPnP DA)
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/soap/soap.h>
 #include <mupnp/util/log.h>

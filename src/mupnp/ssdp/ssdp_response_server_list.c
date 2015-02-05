@@ -1,42 +1,23 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cssdp_notify_server_list.c
-*
-*	Revision:
-*
-*	05/31/05
-*		- first revision
-*
-*	10/31/05
-*		- Changed "continue;" to "return FALSE;" in serverlist_open
-*		  to indicate that port allocation was unsuccessful
-*	12/14/05
-*		- Fixed memory leak situation, which was introduced by 
-*		  the previous patch
-*	02/13/06 Theo Beisch
-*		- mupnp_upnp_ssdpresponse_serverlist_open now returns true if
-*		  at least a single open was successfull (WINCE support)
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/net/interface.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_CONTROLPOINT (Begin)
+* MUPNP_NOUSE_CONTROLPOINT (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_CONTROLPOINT)
+#if !defined(MUPNP_NOUSE_CONTROLPOINT)
 
 /****************************************
 * mupnp_upnp_ssdpresponse_serverlist_new
@@ -178,7 +159,7 @@ BOOL mupnp_upnp_ssdpresponse_serverlist_stop(mUpnpUpnpSSDPResponseServerList *ss
 * mupnp_upnp_ssdpresponse_serverlist_setlistener
 ****************************************/
 
-void mupnp_upnp_ssdpresponse_serverlist_setlistener(mUpnpUpnpSSDPResponseServerList *ssdpServerList, CG_UPNP_SSDP_LISTNER listener)
+void mupnp_upnp_ssdpresponse_serverlist_setlistener(mUpnpUpnpSSDPResponseServerList *ssdpServerList, MUPNP_SSDP_LISTNER listener)
 {
 	mUpnpUpnpSSDPResponseServer *ssdpServer;
 	
@@ -226,7 +207,7 @@ BOOL mupnp_upnp_ssdpresponse_serverlist_post(mUpnpUpnpSSDPResponseServerList *ss
 }
 
 /****************************************
-* CG_UPNP_NOUSE_CONTROLPOINT (End)
+* MUPNP_NOUSE_CONTROLPOINT (End)
 ****************************************/
 
 #endif

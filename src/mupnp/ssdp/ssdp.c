@@ -1,30 +1,21 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cssdp.c
-*
-*	Revision:
-*
-*	02/13/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/ssdp/ssdp.h>
 #include <mupnp/util/string.h>
 #include <mupnp/net/interface.h>
 #include <mupnp/util/log.h>
 
-static char *ssdpIPv6Address = CG_UPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS;
-static int ssdpAnnounceCount = CG_UPNP_SSDP_DEFAULT_ANNOUNCE_COUNT;
+static char *ssdpIPv6Address = MUPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS;
+static int ssdpAnnounceCount = MUPNP_SSDP_DEFAULT_ANNOUNCE_COUNT;
 
 /****************************************
 * mupnp_upnp_ssdp_setipv6address
@@ -34,7 +25,7 @@ void mupnp_upnp_ssdp_setipv6address(const char *addr)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpIPv6Address = CG_UPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS;
+	ssdpIPv6Address = MUPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -103,7 +94,7 @@ int mupnp_upnp_ssdp_getleasetime(const char *cacheCnt)
 
 const char *mupnp_upnp_ssdp_gethostaddress(const char *ifAddr)
 {
-	const char *ssdpAddr = CG_UPNP_SSDP_ADDRESS;
+	const char *ssdpAddr = MUPNP_SSDP_ADDRESS;
 
 	mupnp_log_debug_l4("Entering...\n");
 

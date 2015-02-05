@@ -1,37 +1,28 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cservice_notify.c
-*
-*	Revision:
-*
-*	06/21/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/service.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_USE_STDDCP (Begin)
+* MUPNP_USE_STDDCP (Begin)
 ****************************************/
 
-#if defined(CG_UPNP_USE_STDDCP)
+#if defined(MUPNP_USE_STDDCP)
 
 /****************************************
  * Service Description (Content Directory)
  ****************************************/
 
-static char *CG_UPNP_AV_CONTENTDIRECTORY_SERVICE_DESCRIPTION = 
+static char *MUPNP_AV_CONTENTDIRECTORY_SERVICE_DESCRIPTION = 
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
 "   <specVersion>\n"
@@ -434,7 +425,7 @@ static char *CG_UPNP_AV_CONTENTDIRECTORY_SERVICE_DESCRIPTION =
 "    </serviceStateTable>\n"
 " </scpd>\n";
 
-static char *CG_UPNP_AV_CONNECTIONMANAGER_SERVICE_DESCRIPTION = 
+static char *MUPNP_AV_CONNECTIONMANAGER_SERVICE_DESCRIPTION = 
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
 "   <specVersion>\n"
@@ -568,7 +559,7 @@ static char *CG_UPNP_AV_CONNECTIONMANAGER_SERVICE_DESCRIPTION =
 "    </serviceStateTable>\n"
 " </scpd>\n";
 
-static char *CG_UPNP_AV_AVTRANSPORT_SERVICE_DESCRIPTION = 
+static char *MUPNP_AV_AVTRANSPORT_SERVICE_DESCRIPTION = 
 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
 "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
 "     <serviceStateTable> \n"
@@ -1055,11 +1046,11 @@ char *mupnp_upnp_service_getstddcp(mUpnpUpnpService *service)
 {
 	char *serviceType = mupnp_upnp_service_getservicetype(service);
 	if (mupnp_streq(serviceType, "urn:schemas-upnp-org:service:ContentDirectory:1"))
-		return CG_UPNP_AV_CONTENTDIRECTORY_SERVICE_DESCRIPTION;
+		return MUPNP_AV_CONTENTDIRECTORY_SERVICE_DESCRIPTION;
 	if (mupnp_streq(serviceType, "urn:schemas-upnp-org:service:ConnectionManager:1"))
-		return CG_UPNP_AV_CONNECTIONMANAGER_SERVICE_DESCRIPTION;
+		return MUPNP_AV_CONNECTIONMANAGER_SERVICE_DESCRIPTION;
 	if (mupnp_streq(serviceType, "urn:schemas-upnp-org:service:AVTransport:1"))
-		return CG_UPNP_AV_AVTRANSPORT_SERVICE_DESCRIPTION;
+		return MUPNP_AV_AVTRANSPORT_SERVICE_DESCRIPTION;
 	return NULL;
 }
 
@@ -1073,7 +1064,7 @@ BOOL mupnp_upnp_service_hasstddcp(mUpnpUpnpService *service)
 }		
 		
 /****************************************
-* CG_UPNP_USE_STDDCP (End)
+* MUPNP_USE_STDDCP (End)
 ****************************************/
 
 #endif

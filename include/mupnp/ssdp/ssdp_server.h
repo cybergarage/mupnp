@@ -1,25 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cssdp_server.h
-*
-*	Revision:
-*
-*	05/26/05
-*		- first revision
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CSSDP_SERVER_H_
-#define _CG_UPNP_CSSDP_SERVER_H_
+#ifndef _MUPNP_SSDP_SERVER_H_
+#define _MUPNP_SSDP_SERVER_H_
 
 #include <mupnp/typedef.h>
 
@@ -53,7 +44,7 @@ typedef struct _mUpnpUpnpSSDPPacket {
         int initialized;
 } mUpnpUpnpSSDPPacket;
 
-typedef void (*CG_UPNP_SSDP_LISTNER)(mUpnpUpnpSSDPPacket *);
+typedef void (*MUPNP_SSDP_LISTNER)(mUpnpUpnpSSDPPacket *);
 
 typedef struct _mUpnpUpnpSSDPServer {
 	BOOL headFlag;
@@ -61,11 +52,11 @@ typedef struct _mUpnpUpnpSSDPServer {
 	struct _mUpnpUpnpSSDPServer *next;
 	mUpnpUpnpHttpMuSocket *httpmuSock;
 	mUpnpThread *recvThread;
-	CG_UPNP_SSDP_LISTNER listener;
+	MUPNP_SSDP_LISTNER listener;
 	void *userData;
 } mUpnpUpnpSSDPServer, mUpnpUpnpSSDPServerList;
 
-typedef void (*CG_UPNP_SSDP_RESPONSE_LISTNER)(mUpnpUpnpSSDPPacket *);
+typedef void (*MUPNP_SSDP_RESPONSE_LISTNER)(mUpnpUpnpSSDPPacket *);
 
 typedef struct _mUpnpUpnpSSDPResponseServer {
 	BOOL headFlag;
@@ -73,7 +64,7 @@ typedef struct _mUpnpUpnpSSDPResponseServer {
 	struct _mUpnpUpnpSSDPServer *next;
 	mUpnpUpnpHttpUSocket *httpuSock;
 	mUpnpThread *recvThread;
-	CG_UPNP_SSDP_RESPONSE_LISTNER listener;
+	MUPNP_SSDP_RESPONSE_LISTNER listener;
 	void *userData;
 } mUpnpUpnpSSDPResponseServer, mUpnpUpnpSSDPResponseServerList;
 
@@ -190,7 +181,7 @@ BOOL mupnp_upnp_ssdp_serverlist_open(mUpnpUpnpSSDPServerList *ssdpServerList);
 BOOL mupnp_upnp_ssdp_serverlist_close(mUpnpUpnpSSDPServerList *ssdpServerList);
 BOOL mupnp_upnp_ssdp_serverlist_start(mUpnpUpnpSSDPServerList *ssdpServerList);
 BOOL mupnp_upnp_ssdp_serverlist_stop(mUpnpUpnpSSDPServerList *ssdpServerList);
-void mupnp_upnp_ssdp_serverlist_setlistener(mUpnpUpnpSSDPServerList *ssdpServerList, CG_UPNP_SSDP_LISTNER listener);
+void mupnp_upnp_ssdp_serverlist_setlistener(mUpnpUpnpSSDPServerList *ssdpServerList, MUPNP_SSDP_LISTNER listener);
 void mupnp_upnp_ssdp_serverlist_setuserdata(mUpnpUpnpSSDPServerList *ssdpServerList, void *data);
 
 /****************************************
@@ -236,7 +227,7 @@ BOOL mupnp_upnp_ssdpresponse_serverlist_open(mUpnpUpnpSSDPResponseServerList *ss
 BOOL mupnp_upnp_ssdpresponse_serverlist_close(mUpnpUpnpSSDPResponseServerList *ssdpServerList);
 BOOL mupnp_upnp_ssdpresponse_serverlist_start(mUpnpUpnpSSDPResponseServerList *ssdpServerList);
 BOOL mupnp_upnp_ssdpresponse_serverlist_stop(mUpnpUpnpSSDPResponseServerList *ssdpServerList);
-void mupnp_upnp_ssdpresponse_serverlist_setlistener(mUpnpUpnpSSDPResponseServerList *ssdpServerList, CG_UPNP_SSDP_LISTNER listener);
+void mupnp_upnp_ssdpresponse_serverlist_setlistener(mUpnpUpnpSSDPResponseServerList *ssdpServerList, MUPNP_SSDP_LISTNER listener);
 void mupnp_upnp_ssdpresponse_serverlist_setuserdata(mUpnpUpnpSSDPResponseServerList *ssdpServerList, void *data);
 BOOL mupnp_upnp_ssdpresponse_serverlist_post(mUpnpUpnpSSDPResponseServerList *ssdpServerList, mUpnpUpnpSSDPRequest *ssdpReq);
 

@@ -1,36 +1,22 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: caction_ctrl.c
-*
-*	Revision:
-*
-*	05/17/05
-*		- first revision
-*
-*
-*	10/31/05
-*		- mupnp_upnp_action_post: If action post was unsuccessful, put the 
-*		  error message to the action response
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/control/control.h>
 #include <mupnp/util/log.h>
 
 /****************************************
-* CG_UPNP_NOUSE_ACTIONCTRL (Begin)
+* MUPNP_NOUSE_ACTIONCTRL (Begin)
 ****************************************/
 
-#if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
+#if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
 /****************************************
 * mupnp_upnp_action_clearoutputargumentvalues
@@ -58,7 +44,7 @@ void mupnp_upnp_action_clearoutputargumentvalues(mUpnpUpnpAction *action)
 
 BOOL mupnp_upnp_action_performlistner(mUpnpUpnpAction *action, mUpnpUpnpActionRequest *actionReq)
 {
-	CG_UPNP_ACTION_LISTNER listener;
+	MUPNP_ACTION_LISTNER listener;
 	mUpnpUpnpActionResponse *actionRes;
 	mUpnpHttpRequest *actionReqHttpReq;
 	mUpnpHttpResponse *actionResHttpRes;
@@ -71,8 +57,8 @@ BOOL mupnp_upnp_action_performlistner(mUpnpUpnpAction *action, mUpnpUpnpActionRe
 
 	actionRes = mupnp_upnp_control_action_response_new();
 	
-	mupnp_upnp_action_setstatuscode(action, CG_UPNP_STATUS_INVALID_ACTION);
-	mupnp_upnp_action_setstatusdescription(action, mupnp_upnp_status_code2string(CG_UPNP_STATUS_INVALID_ACTION));
+	mupnp_upnp_action_setstatuscode(action, MUPNP_STATUS_INVALID_ACTION);
+	mupnp_upnp_action_setstatusdescription(action, mupnp_upnp_status_code2string(MUPNP_STATUS_INVALID_ACTION));
 
 	mupnp_upnp_action_clearoutputargumentvalues(action);
 	
@@ -128,7 +114,7 @@ BOOL mupnp_upnp_action_post(mUpnpUpnpAction *action)
 }
 
 /****************************************
-* CG_UPNP_NOUSE_ACTIONCTRL (End)
+* MUPNP_NOUSE_ACTIONCTRL (End)
 ****************************************/
 
 #endif

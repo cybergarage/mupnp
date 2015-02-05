@@ -101,7 +101,7 @@ mUpnpUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
 	}
 
 	container = mupnp_upnp_media_content_new();
-	mupnp_upnp_media_content_settype(container, CG_UPNP_MEDIA_CONTENT_CONTAINER);
+	mupnp_upnp_media_content_settype(container, MUPNP_MEDIA_CONTENT_CONTAINER);
 	mupnp_upnp_media_content_settitle(container, container_title);
 	mupnp_str2md5(container_title, containerID);
 	mupnp_upnp_media_content_setid(container, containerID);
@@ -141,7 +141,7 @@ mUpnpUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
 			continue;
 
 		content = mupnp_upnp_media_content_new();
-		mupnp_upnp_media_content_settype(content, CG_UPNP_MEDIA_CONTENT_ITEM);
+		mupnp_upnp_media_content_settype(content, MUPNP_MEDIA_CONTENT_ITEM);
 
 		/**** content name ****/
 		content_title = mupnp_strtrim(content_title, " ", 1);

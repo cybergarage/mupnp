@@ -1,28 +1,16 @@
 /******************************************************************
-*
-*	CyberLink for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: upnp_status.h
-*
-*	Revision:
-*
-*	02/13/05
-*		- first revision
-*
-*	10/31/05
-*		- Added comments to all functions and structs
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
-#ifndef _CG_UPNP_CUPNPSTATUS_H_
-#define _CG_UPNP_CUPNPSTATUS_H_
+#ifndef _MUPNP_UPNPSTATUS_H_
+#define _MUPNP_UPNPSTATUS_H_
 
 #include <mupnp/typedef.h>
 #include <mupnp/util/string.h>
@@ -35,11 +23,11 @@ extern "C" {
  * Defines
  ********************************************************************************/
 
-#define CG_UPNP_STATUS_INVALID_ACTION 401
-#define CG_UPNP_STATUS_INVALID_ARGS 402
-#define CG_UPNP_STATUS_OUT_OF_SYNC 403
-#define CG_UPNP_STATUS_INVALID_VAR 404
-#define CG_UPNP_STATUS_ACTION_FAILED 501
+#define MUPNP_STATUS_INVALID_ACTION 401
+#define MUPNP_STATUS_INVALID_ARGS 402
+#define MUPNP_STATUS_OUT_OF_SYNC 403
+#define MUPNP_STATUS_INVALID_VAR 404
+#define MUPNP_STATUS_ACTION_FAILED 501
 
 /****************************************
  * Data Type

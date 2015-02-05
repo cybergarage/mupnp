@@ -1,47 +1,38 @@
 /******************************************************************
 *
-*       CyberLink for C
+* mUPnP for C
 *
-*       Copyright (C) Satoshi Konno 2005
+* Copyright (C) Satoshi Konno 2005
+* Copyright (C) 2006 Nokia Corporation. All rights reserved.
 *
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*       File: cupnp.h
-*
-*       Revision:
-*
-*       02/14/05
-*               - first revision
+* This is licensed under BSD-style license, see file COPYING.
 *
 ******************************************************************/
 
-#ifndef _CG_UPNP_CUPNP_H_
-#define _CG_UPNP_CUPNP_H_
+#ifndef _MUPNP_UPNP_H_
+#define _MUPNP_UPNP_H_
 
-#include <cybergarage/typedef.h>
+#include <mupnp/typedef.h>
 
-#include <cybergarage/upnp/cupnp_function.h>
-#include <cybergarage/upnp/cupnp_status.h>
-#include <cybergarage/upnp/cupnp_limit.h>
+#include <mupnp/upnp_function.h>
+#include <mupnp/upnp_status.h>
+#include <mupnp/upnp_limit.h>
 
-#include <cybergarage/upnp/cdevice.h>
-#include <cybergarage/upnp/ccontrolpoint.h>
-#include <cybergarage/upnp/control/ccontrol.h>
-#include <cybergarage/upnp/event/cevent.h>
+#include <mupnp/device.h>
+#include <mupnp/controlpoint.h>
+#include <mupnp/control/control.h>
+#include <mupnp/event/event.h>
 
 /****************************************
 * Define
 ****************************************/
 
-#define CG_CLINK_NAME "CyberLinkC"
-#define CG_CLINK_VER
+#define MUPNP_NAME "mUPnP"
+#define MUPNP_VER
 
-#define CG_UPNP_VER "1.0"
-#define CG_DLNA_VER "1.50"
+#define MUPNP_VER "1.0"
+#define MUPNP_DLNA_VER "1.50"
 
-#define CG_UPNP_XML_DECLARATION "<?xml version=\"1.0\"?>"
+#define MUPNP_XML_DECLARATION "<?xml version=\"1.0\"?>"
 
 #endif

@@ -1,25 +1,13 @@
 /******************************************************************
-*
-*	CyberNet for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cssdp_notify_server_list.c
-*
-*	Revision:
-*
-*	05/31/05
-*		- first revision
-*	02/13/06 Theo Beisch
-*		- mupnp_upnp_ssdp_serverlist_open now returns FALSE
-*		  if no interface had successful open
-*
-******************************************************************/
+ *
+ * mUPnP for C
+ *
+ * Copyright (C) Satoshi Konno 2005
+ * Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/net/interface.h>
@@ -163,7 +151,7 @@ BOOL mupnp_upnp_ssdp_serverlist_stop(mUpnpUpnpSSDPServerList *ssdpServerList)
 * mupnp_upnp_ssdp_serverlist_setlistener
 ****************************************/
 
-void mupnp_upnp_ssdp_serverlist_setlistener(mUpnpUpnpSSDPServerList *ssdpServerList, CG_UPNP_SSDP_LISTNER listener)
+void mupnp_upnp_ssdp_serverlist_setlistener(mUpnpUpnpSSDPServerList *ssdpServerList, MUPNP_SSDP_LISTNER listener)
 {
 	mUpnpUpnpSSDPServer *ssdpServer;
 	
