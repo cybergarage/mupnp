@@ -149,29 +149,29 @@ char *TEST_SERVICE_DESCRIPTION =
 * upnp_test_actionreceived
 ****************************************/
 
-BOOL upnp_test_actionreceived(mUpnpUpnpAction *action)
+BOOL upnp_test_actionreceived(mUpnpAction *action)
 {
 /*
 	mUpnpTime currTime;
 	char *actionName;
-	mUpnpUpnpArgument *currTimeArg;
+	mUpnpArgument *currTimeArg;
 
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
-	mUpnpUpnpArgument *newTimeArg, *resultArg;
+	mUpnpArgument *newTimeArg, *resultArg;
 
 	currTime = mupnp_getcurrentsystemtime();
 	
-	actionName = mupnp_upnp_action_getname(action);
+	actionName = mupnp_action_getname(action);
 	if (strcmp("GetTime", actionName) == 0) {
 		GetSystemTimeString(currTime, sysTimeStr);
-		currTimeArg = mupnp_upnp_action_getargumentbyname(action, "CurrentTime");
-		mupnp_upnp_argument_setvalue(currTimeArg, sysTimeStr);
+		currTimeArg = mupnp_action_getargumentbyname(action, "CurrentTime");
+		mupnp_argument_setvalue(currTimeArg, sysTimeStr);
 		return TRUE;
 	}
 	if (strcmp(actionName, "SetTime") == 0) {
-		newTimeArg = mupnp_upnp_action_getargumentbyname(action, "NewTime");
-		resultArg = mupnp_upnp_action_getargumentbyname(action, "Result");
-		mupnp_upnp_argument_setvalue(resultArg, "Not implemented");
+		newTimeArg = mupnp_action_getargumentbyname(action, "NewTime");
+		resultArg = mupnp_action_getargumentbyname(action, "Result");
+		mupnp_argument_setvalue(resultArg, "Not implemented");
 		return TRUE;
 	}
 */
@@ -183,7 +183,7 @@ BOOL upnp_test_actionreceived(mUpnpUpnpAction *action)
 * upnp_test_queryreceived
 ****************************************/
 
-BOOL upnp_test_queryreceived(mUpnpUpnpStateVariable *statVar)
+BOOL upnp_test_queryreceived(mUpnpStateVariable *statVar)
 {
   /*
 	char *varName;
@@ -191,11 +191,11 @@ BOOL upnp_test_queryreceived(mUpnpUpnpStateVariable *statVar)
 
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	
-	varName = mupnp_upnp_statevariable_getname(statVar);
+	varName = mupnp_statevariable_getname(statVar);
 	if (strcmp("Time", varName) == 0) {
 		currTime = mupnp_getcurrentsystemtime();
 		GetSystemTimeString(currTime, sysTimeStr);
-		mupnp_upnp_statevariable_setvalue(statVar, sysTimeStr);
+		mupnp_statevariable_setvalue(statVar, sysTimeStr);
 		return TRUE;
 	}
 */
@@ -210,7 +210,7 @@ BOOL upnp_test_queryreceived(mUpnpUpnpStateVariable *statVar)
 void upnp_test_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 {
 	mUpnpTime currTime;
-	mUpnpUpnpDevice *dev;
+	mUpnpDevice *dev;
 	char *uri;
 	char content[2048];
 /*
@@ -220,11 +220,11 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 	mUpnpHttpResponse *httpRes;
 	BOOL postRet;
 	
-	dev = (mUpnpUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
+	dev = (mUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
 
 	uri = mupnp_http_request_geturi(httpReq);
 	if (strcmp(uri, "/presentation") != 0) {
-		mupnp_upnp_device_httprequestrecieved(httpReq);
+		mupnp_device_httprequestrecieved(httpReq);
 		return;
 	}
 
@@ -272,7 +272,7 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 		"<CENTER></BODY>"
 		"</HTML>",
 		GetSystemTimeString(currTime, sysTimeStr),
-		mupnp_upnp_getservername(serverName, sizeof(serverName)));
+		mupnp_getservername(serverName, sizeof(serverName)));
 */
 
 	httpRes = mupnp_http_response_new();
@@ -288,32 +288,32 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 * upnp_test_device_new
 ****************************************/
 
-mUpnpUpnpDevice *upnp_test_device_new()
+mUpnpDevice *upnp_test_device_new()
 {
-	mUpnpUpnpDevice *testDev;
-	mUpnpUpnpService *testService;
+	mUpnpDevice *testDev;
+	mUpnpService *testService;
 	 
-	testDev = mupnp_upnp_device_new();
+	testDev = mupnp_device_new();
 	
-	if (mupnp_upnp_device_parsedescription(testDev, TEST_DEVICE_DESCRIPTION, strlen(TEST_DEVICE_DESCRIPTION)) == FALSE) {
-		mupnp_upnp_device_delete(testDev);
+	if (mupnp_device_parsedescription(testDev, TEST_DEVICE_DESCRIPTION, strlen(TEST_DEVICE_DESCRIPTION)) == FALSE) {
+		mupnp_device_delete(testDev);
 		return NULL;
 	}
 
-	testService = mupnp_upnp_device_getservicebyexacttype(testDev, TEST_DEVICE_SERVICE_TYPE);
+	testService = mupnp_device_getservicebyexacttype(testDev, TEST_DEVICE_SERVICE_TYPE);
 	if (testService == NULL) {
-		mupnp_upnp_device_delete(testDev);
+		mupnp_device_delete(testDev);
 		return NULL;
 	}
 	
-	if (mupnp_upnp_service_parsedescription(testService, TEST_SERVICE_DESCRIPTION, strlen(TEST_SERVICE_DESCRIPTION)) == FALSE) {
-		mupnp_upnp_device_delete(testDev);
+	if (mupnp_service_parsedescription(testService, TEST_SERVICE_DESCRIPTION, strlen(TEST_SERVICE_DESCRIPTION)) == FALSE) {
+		mupnp_device_delete(testDev);
 		return NULL;
 	}
 
-	mupnp_upnp_device_setactionlistener(testDev, upnp_test_actionreceived);
-	mupnp_upnp_device_setquerylistener(testDev, upnp_test_queryreceived);
-	mupnp_upnp_device_sethttplistener(testDev, upnp_test_device_httprequestrecieved);
+	mupnp_device_setactionlistener(testDev, upnp_test_actionreceived);
+	mupnp_device_setquerylistener(testDev, upnp_test_queryreceived);
+	mupnp_device_sethttplistener(testDev, upnp_test_device_httprequestrecieved);
 
 	return testDev;
 }

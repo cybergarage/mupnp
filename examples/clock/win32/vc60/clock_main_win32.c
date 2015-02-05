@@ -23,7 +23,7 @@ const char szTitle[] = "CyberLink Clock Device";
 
 LONG WINAPI WndProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
-mUpnpUpnpDevice *clockDev; 
+mUpnpDevice *clockDev; 
 
 ////////////////////////////////////////////////////////// 
 //  InitApp
@@ -34,13 +34,13 @@ void InitApp()
 	clockBitmap = (HBITMAP)LoadImage(gInstance, panelFilename, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE); 
 
 	clockDev = upnp_clock_device_new();
-	mupnp_upnp_device_start(clockDev);
+	mupnp_device_start(clockDev);
 }
 
 void ExitApp()
 {
-	mupnp_upnp_device_stop(clockDev);
-	mupnp_upnp_device_delete(clockDev);
+	mupnp_device_stop(clockDev);
+	mupnp_device_delete(clockDev);
 }
 
 void CALLBACK ClockUpdate(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime)

@@ -37,20 +37,20 @@ extern "C" {
 * Data Type
 ****************************************/
 
-typedef struct _mUpnpUpnpAction {
+typedef struct _mUpnpAction {
 	BOOL headFlag;
-	struct _mUpnpUpnpAction *prev;
-	struct _mUpnpUpnpAction *next;
+	struct _mUpnpAction *prev;
+	struct _mUpnpAction *next;
 	void *parentService;
 	mUpnpXmlNode *actionNode;
-	mUpnpUpnpArgumentList *argumentList;
+	mUpnpArgumentList *argumentList;
 	/**** Execution Data ****/
-	BOOL (*listener)(struct _mUpnpUpnpAction *);
-	mUpnpUpnpStatus *upnpStatus;
+	BOOL (*listener)(struct _mUpnpAction *);
+	mUpnpStatus *upnpStatus;
 	void *userData;
-} mUpnpUpnpAction, mUpnpUpnpActionList;
+} mUpnpAction, mUpnpActionList;
 
-typedef BOOL (*MUPNP_ACTION_LISTNER)(mUpnpUpnpAction *);
+typedef BOOL (*MUPNP_ACTION_LISTNER)(mUpnpAction *);
 
 /****************************************************************************
  * Function (Action)
@@ -59,30 +59,30 @@ typedef BOOL (*MUPNP_ACTION_LISTNER)(mUpnpUpnpAction *);
 /**
  * Create a new action
  *
- * @return mUpnpUpnpAction*
+ * @return mUpnpAction*
  */
-mUpnpUpnpAction *mupnp_upnp_action_new();
+mUpnpAction *mupnp_action_new();
 
 /**
  * Destroy an action
  *
  * @param action The action to destroy
  */
-void mupnp_upnp_action_delete(mUpnpUpnpAction *action);
+void mupnp_action_delete(mUpnpAction *action);
 
 /**
  * Get the next action in a list of actions. Use as an iterator.
  *
  * @param action The current action
  */
-#define mupnp_upnp_action_next(action) (mUpnpUpnpAction *)mupnp_list_next((mUpnpList *)action)
+#define mupnp_action_next(action) (mUpnpAction *)mupnp_list_next((mUpnpList *)action)
 
 /**
  * Check, whether the given XML node is an action node
  * 
  * @param node The mUpnpXmlNode*
  */
-#define mupnp_upnp_action_isactionnode(node) mupnp_xml_node_isname(node, MUPNP_ACTION_ELEM_NAME)
+#define mupnp_action_isactionnode(node) mupnp_xml_node_isname(node, MUPNP_ACTION_ELEM_NAME)
 
 /****************************************************************************
  * XML Node
@@ -94,7 +94,7 @@ void mupnp_upnp_action_delete(mUpnpUpnpAction *action);
  * @param action The action in question
  * @param node The mUpnpXmlNode*
  */
-void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node);
+void mupnp_action_setactionnode(mUpnpAction *action, mUpnpXmlNode *node);
 
 /**
  * Get the action's XML node (i.e. the XML representation of the action)
@@ -102,7 +102,7 @@ void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node
  * @param action The action in question
  * @return mUpnpXmlNode*
  */
-#define mupnp_upnp_action_getactionnode(action) (action->actionNode)
+#define mupnp_action_getactionnode(action) (action->actionNode)
 
 /****************************************************************************
  * Service
@@ -114,15 +114,15 @@ void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node
  * @param action The action in question
  * @param service The action's parent service
  */
-#define mupnp_upnp_action_setservice(action, service) (action->parentService = service)
+#define mupnp_action_setservice(action, service) (action->parentService = service)
 
 /**
  * Get the action's parent service
  *
  * @param action The action in question
- * @return mUpnpUpnpService*
+ * @return mUpnpService*
  */
-#define mupnp_upnp_action_getservice(action) ((mUpnpUpnpService *)action->parentService)
+#define mupnp_action_getservice(action) ((mUpnpService *)action->parentService)
 
 /****************************************************************************
  * Name
@@ -134,7 +134,7 @@ void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node
  * @param action The action in question
  * @param value The action's name
  */
-#define mupnp_upnp_action_setname(action, value) mupnp_xml_node_setchildnode(mupnp_upnp_action_getactionnode(action), MUPNP_ACTION_NAME, value)
+#define mupnp_action_setname(action, value) mupnp_xml_node_setchildnode(mupnp_action_getactionnode(action), MUPNP_ACTION_NAME, value)
 
 /**
  * Get the action's name
@@ -142,7 +142,7 @@ void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node
  * @param action The action in question
  * @return char*
  */
-#define mupnp_upnp_action_getname(action) mupnp_xml_node_getchildnodevalue(mupnp_upnp_action_getactionnode(action), MUPNP_ACTION_NAME)
+#define mupnp_action_getname(action) mupnp_xml_node_getchildnodevalue(mupnp_action_getactionnode(action), MUPNP_ACTION_NAME)
 
 /**
  * Check, whether the action's name matches the one given as parameter.
@@ -150,7 +150,7 @@ void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node
  * @param action The action in question
  * @param name The name string to compare
  */
-#define mupnp_upnp_action_isname(action, name) mupnp_streq(mupnp_upnp_action_getname(action), name)
+#define mupnp_action_isname(action, name) mupnp_streq(mupnp_action_getname(action), name)
 
 /****************************************************************************
  * Argument
@@ -160,27 +160,27 @@ void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node
  * Get the action's list of arguments
  *
  * @param action The action in question
- * @return mUpnpUpnpArgumentList*
+ * @return mUpnpArgumentList*
  */
-#define mupnp_upnp_action_getargumentlist(action) (action->argumentList)
+#define mupnp_action_getargumentlist(action) (action->argumentList)
 
 /**
  * Get the first argument from the action's list of arguments. Use as the
  * starting point in iteration loops.
  *
  * @param action The action in question
- * @return mUpnpUpnpArgument*
+ * @return mUpnpArgument*
  */
-#define mupnp_upnp_action_getarguments(action) ((mUpnpUpnpArgument *)mupnp_list_next((mUpnpList *)action->argumentList))
+#define mupnp_action_getarguments(action) ((mUpnpArgument *)mupnp_list_next((mUpnpList *)action->argumentList))
 
 /**
  * Find an argument from the action by the argument's name.
  *
  * @param action The action in question
  * @param name The name of the argument to look for
- * @return mUpnpUpnpArgument* if successfull; otherwise NULL
+ * @return mUpnpArgument* if successfull; otherwise NULL
  */
-mUpnpUpnpArgument *mupnp_upnp_action_getargumentbyname(mUpnpUpnpAction *action, const char *name);
+mUpnpArgument *mupnp_action_getargumentbyname(mUpnpAction *action, const char *name);
 
 /**
  * Find out, whether the action has an argument by the given name
@@ -189,7 +189,7 @@ mUpnpUpnpArgument *mupnp_upnp_action_getargumentbyname(mUpnpUpnpAction *action, 
  * @param name The name to look for
  * @return TRUE if the action has the argument; otherwise FALSE
  */
-#define mupnp_upnp_action_hasargumentbyname(action,name) ((mupnp_upnp_action_getargumentbyname(action,name) != NULL) ? TRUE : FALSE)
+#define mupnp_action_hasargumentbyname(action,name) ((mupnp_action_getargumentbyname(action,name) != NULL) ? TRUE : FALSE)
 
 /**
  * Get a value of the specified argument from the action by the argument's name directly.
@@ -198,7 +198,7 @@ mUpnpUpnpArgument *mupnp_upnp_action_getargumentbyname(mUpnpUpnpAction *action, 
  * @param name The name of the argument to look for
  * @return char* if successfull; otherwise NULL
  */
-char *mupnp_upnp_action_getargumentvaluebyname(mUpnpUpnpAction *action, const char *name);
+char *mupnp_action_getargumentvaluebyname(mUpnpAction *action, const char *name);
 
 /**
  * Set a value of the specified argument from the action by the argument's name directly.
@@ -208,7 +208,7 @@ char *mupnp_upnp_action_getargumentvaluebyname(mUpnpUpnpAction *action, const ch
  * @param value The value to set
  * @return TRUE if successfull; otherwise NO
  */
-BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const char *name, const char *value);
+BOOL mupnp_action_setargumentvaluebyname(mUpnpAction *action, const char *name, const char *value);
 
 /****************************************************************************
  * Function (Action - Execution Data)
@@ -224,7 +224,7 @@ BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const cha
  * @param action The action in question
  * @param code The status code (int)
  */
-#define mupnp_upnp_action_setstatuscode(action, code) mupnp_upnp_status_setcode(action->upnpStatus, code)
+#define mupnp_action_setstatuscode(action, code) mupnp_status_setcode(action->upnpStatus, code)
 
 /**
  * Get the action's latest status code
@@ -232,7 +232,7 @@ BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const cha
  * @param action The action in question
  * @return int
  */
-#define mupnp_upnp_action_getstatuscode(action) mupnp_upnp_status_getcode(action->upnpStatus)
+#define mupnp_action_getstatuscode(action) mupnp_status_getcode(action->upnpStatus)
 
 /**
  * Set the action's latest status description
@@ -240,7 +240,7 @@ BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const cha
  * @param action The action in question
  * @param value The status description string
  */
-#define mupnp_upnp_action_setstatusdescription(action, value) mupnp_upnp_status_setdescription(action->upnpStatus, value)
+#define mupnp_action_setstatusdescription(action, value) mupnp_status_setdescription(action->upnpStatus, value)
 
 /**
  * Get the action's latest status description
@@ -248,7 +248,7 @@ BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const cha
  * @param action The action in question
  * @return char*
  */
-#define mupnp_upnp_action_getstatusdescription(action) mupnp_upnp_status_getdescription(action->upnpStatus)
+#define mupnp_action_getstatusdescription(action) mupnp_status_getdescription(action->upnpStatus)
 
 /****************************************************************************
  * Listener
@@ -258,27 +258,27 @@ BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const cha
  * Set the action's listener function
  *
  * @param action The action in question
- * @param func The listener function of type: BOOL (*MUPNP_ACTION_LISTNER)(mUpnpUpnpAction *)
+ * @param func The listener function of type: BOOL (*MUPNP_ACTION_LISTNER)(mUpnpAction *)
  */
-#define mupnp_upnp_action_setlistener(action, func) (action->listener = func)
+#define mupnp_action_setlistener(action, func) (action->listener = func)
 
 /**
  * Get the action's listener function
  *
  * @param action The action in question
- * @return BOOL (*MUPNP_ACTION_LISTNER)(mUpnpUpnpAction *)
+ * @return BOOL (*MUPNP_ACTION_LISTNER)(mUpnpAction *)
  */
-#define mupnp_upnp_action_getlistener(action) (action->listener)
+#define mupnp_action_getlistener(action) (action->listener)
 
 /**
  * @deprecated Compatibility macro for typo correction
  */
-#define mupnp_upnp_action_setlistner mupnp_upnp_action_setlistener
+#define mupnp_action_setlistner mupnp_action_setlistener
 
 /**
  * @deprecated Compatibility macro for typo correction
  */
-#define mupnp_upnp_action_getlistner mupnp_upnp_action_getlistener
+#define mupnp_action_getlistner mupnp_action_getlistener
 
 /****************************************************************************
  * User Data
@@ -290,7 +290,7 @@ BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const cha
  * @param action The action in question
  * @param value The user data pointer (void*)
  */
-#define mupnp_upnp_action_setuserdata(action, value) (action->userData = value)
+#define mupnp_action_setuserdata(action, value) (action->userData = value)
 
 /**
  * Get the action's arbitrary user data pointer
@@ -298,7 +298,7 @@ BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const cha
  * @param action The action in question
  * @return void*
  */
-#define mupnp_upnp_action_getuserdata(action) (action->userData)
+#define mupnp_action_getuserdata(action) (action->userData)
 
 /****************************************************************************
  * Function (ActionList)
@@ -307,23 +307,23 @@ BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const cha
 /**
  * Create a new list of actions
  *
- * @return mUpnpUpnpActionList*
+ * @return mUpnpActionList*
  */
-mUpnpUpnpActionList *mupnp_upnp_actionlist_new();
+mUpnpActionList *mupnp_actionlist_new();
 
 /**
  * Destroy a list of actions
  *
  * @param actionList The list of actions to destroy
  */
-void mupnp_upnp_actionlist_delete(mUpnpUpnpActionList *actionList);
+void mupnp_actionlist_delete(mUpnpActionList *actionList);
 
 /**
  * Clear the contents of a list of actions
  *
  * @param actionList The list of actions to clear
  */
-#define mupnp_upnp_actionlist_clear(actionList) mupnp_list_clear((mUpnpList *)actionList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_action_delete)
+#define mupnp_actionlist_clear(actionList) mupnp_list_clear((mUpnpList *)actionList, (CG_LIST_DESTRUCTORFUNC)mupnp_action_delete)
 
 /**
  * Get the number of actions in a list of actions
@@ -331,16 +331,16 @@ void mupnp_upnp_actionlist_delete(mUpnpUpnpActionList *actionList);
  * @param actionList The list in question
  * @return int
  */
-#define mupnp_upnp_actionlist_size(actionList) mupnp_list_size((mUpnpList *)actionList)
+#define mupnp_actionlist_size(actionList) mupnp_list_size((mUpnpList *)actionList)
 
 /**
  * Get the first action in a list of actions. Use as the starting point in
  * iteration loops.
  *
  * @param actionList The list in question
- * @return mUpnpUpnpAction*
+ * @return mUpnpAction*
  */
-#define mupnp_upnp_actionlist_gets(actionList) (mUpnpUpnpAction *)mupnp_list_next((mUpnpList *)actionList)
+#define mupnp_actionlist_gets(actionList) (mUpnpAction *)mupnp_list_next((mUpnpList *)actionList)
 
 /**
  * Add an action to a list of actions
@@ -348,7 +348,7 @@ void mupnp_upnp_actionlist_delete(mUpnpUpnpActionList *actionList);
  * @param actionList The list in question
  * @param action The action to add to the list
  */
-#define mupnp_upnp_actionlist_add(actionList, action) mupnp_list_add((mUpnpList *)actionList, (mUpnpList *)action)
+#define mupnp_actionlist_add(actionList, action) mupnp_list_add((mUpnpList *)actionList, (mUpnpList *)action)
 
 #ifdef  __cplusplus
 }

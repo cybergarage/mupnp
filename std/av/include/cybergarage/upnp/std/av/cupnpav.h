@@ -33,8 +33,8 @@ extern "C" {
 #define CG_UPNPAV_OBJECT_ROOT_ID "0"
 
 typedef BOOL (*CG_UPNPAV_HTTP_LISTENER)(mUpnpHttpRequest *);
-typedef BOOL (*CG_UPNPAV_ACTION_LISTNER)(mUpnpUpnpAction *);
-typedef BOOL (*CG_UPNPAV_STATEVARIABLE_LISTNER)(mUpnpUpnpStateVariable *);
+typedef BOOL (*CG_UPNPAV_ACTION_LISTNER)(mUpnpAction *);
+typedef BOOL (*CG_UPNPAV_STATEVARIABLE_LISTNER)(mUpnpStateVariable *);
 
 #ifdef __cplusplus
 }

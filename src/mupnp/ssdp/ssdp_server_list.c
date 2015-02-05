@@ -14,16 +14,16 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_ssdp_serverlist_new
+* mupnp_ssdp_serverlist_new
 ****************************************/
 
-mUpnpUpnpSSDPServerList *mupnp_upnp_ssdp_serverlist_new()
+mUpnpSSDPServerList *mupnp_ssdp_serverlist_new()
 {
-	mUpnpUpnpSSDPServerList *ssdpServerList;
+	mUpnpSSDPServerList *ssdpServerList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpServerList = (mUpnpUpnpSSDPServerList *)malloc(sizeof(mUpnpUpnpSSDPServerList));
+	ssdpServerList = (mUpnpSSDPServerList *)malloc(sizeof(mUpnpSSDPServerList));
 
 	if ( NULL != ssdpServerList )
 	{
@@ -40,14 +40,14 @@ mUpnpUpnpSSDPServerList *mupnp_upnp_ssdp_serverlist_new()
 }
 
 /****************************************
-* mupnp_upnp_ssdp_serverlist_delete
+* mupnp_ssdp_serverlist_delete
 ****************************************/
 
-void mupnp_upnp_ssdp_serverlist_delete(mUpnpUpnpSSDPServerList *ssdpServerList)
+void mupnp_ssdp_serverlist_delete(mUpnpSSDPServerList *ssdpServerList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_ssdp_serverlist_clear(ssdpServerList);
+	mupnp_ssdp_serverlist_clear(ssdpServerList);
 	
 	free(ssdpServerList);
 
@@ -55,14 +55,14 @@ void mupnp_upnp_ssdp_serverlist_delete(mUpnpUpnpSSDPServerList *ssdpServerList)
 }
 
 /****************************************
-* mupnp_upnp_ssdp_serverlist_open
+* mupnp_ssdp_serverlist_open
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_serverlist_open(mUpnpUpnpSSDPServerList *ssdpServerList)
+BOOL mupnp_ssdp_serverlist_open(mUpnpSSDPServerList *ssdpServerList)
 {
 	mUpnpNetworkInterfaceList *netIfList;
 	mUpnpNetworkInterface *netIf;
-	mUpnpUpnpSSDPServer *ssdpServer;
+	mUpnpSSDPServer *ssdpServer;
 	char *bindAddr;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -78,12 +78,12 @@ BOOL mupnp_upnp_ssdp_serverlist_open(mUpnpUpnpSSDPServerList *ssdpServerList)
 		bindAddr = mupnp_net_interface_getaddress(netIf);
 		if (mupnp_strlen(bindAddr) <= 0)
 			continue;
-		ssdpServer = mupnp_upnp_ssdp_server_new();
-		if (mupnp_upnp_ssdp_server_open(ssdpServer, bindAddr) == FALSE) {
-			mupnp_upnp_ssdp_server_delete(ssdpServer);
+		ssdpServer = mupnp_ssdp_server_new();
+		if (mupnp_ssdp_server_open(ssdpServer, bindAddr) == FALSE) {
+			mupnp_ssdp_server_delete(ssdpServer);
 			continue;
 		}
-		mupnp_upnp_ssdp_serverlist_add(ssdpServerList, ssdpServer);
+		mupnp_ssdp_serverlist_add(ssdpServerList, ssdpServer);
 	}
 
 	mupnp_net_interfacelist_delete(netIfList);
@@ -94,17 +94,17 @@ BOOL mupnp_upnp_ssdp_serverlist_open(mUpnpUpnpSSDPServerList *ssdpServerList)
 }
 
 /****************************************
-* mupnp_upnp_ssdp_serverlist_close
+* mupnp_ssdp_serverlist_close
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_serverlist_close(mUpnpUpnpSSDPServerList *ssdpServerList)
+BOOL mupnp_ssdp_serverlist_close(mUpnpSSDPServerList *ssdpServerList)
 {
-	mUpnpUpnpSSDPServer *ssdpServer;
+	mUpnpSSDPServer *ssdpServer;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	for (ssdpServer = mupnp_upnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_upnp_ssdp_server_next(ssdpServer))
-		mupnp_upnp_ssdp_server_close(ssdpServer);
+	for (ssdpServer = mupnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_ssdp_server_next(ssdpServer))
+		mupnp_ssdp_server_close(ssdpServer);
 
 	mupnp_log_debug_l4("Leaving...\n");
 
@@ -112,17 +112,17 @@ BOOL mupnp_upnp_ssdp_serverlist_close(mUpnpUpnpSSDPServerList *ssdpServerList)
 }
 
 /****************************************
-* mupnp_upnp_ssdp_serverlist_start
+* mupnp_ssdp_serverlist_start
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_serverlist_start(mUpnpUpnpSSDPServerList *ssdpServerList)
+BOOL mupnp_ssdp_serverlist_start(mUpnpSSDPServerList *ssdpServerList)
 {
-	mUpnpUpnpSSDPServer *ssdpServer;
+	mUpnpSSDPServer *ssdpServer;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	for (ssdpServer = mupnp_upnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_upnp_ssdp_server_next(ssdpServer))
-		mupnp_upnp_ssdp_server_start(ssdpServer);
+	for (ssdpServer = mupnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_ssdp_server_next(ssdpServer))
+		mupnp_ssdp_server_start(ssdpServer);
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
@@ -130,17 +130,17 @@ BOOL mupnp_upnp_ssdp_serverlist_start(mUpnpUpnpSSDPServerList *ssdpServerList)
 }
 
 /****************************************
-* mupnp_upnp_ssdp_serverlist_stop
+* mupnp_ssdp_serverlist_stop
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_serverlist_stop(mUpnpUpnpSSDPServerList *ssdpServerList)
+BOOL mupnp_ssdp_serverlist_stop(mUpnpSSDPServerList *ssdpServerList)
 {
-	mUpnpUpnpSSDPServer *ssdpServer;
+	mUpnpSSDPServer *ssdpServer;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	for (ssdpServer = mupnp_upnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_upnp_ssdp_server_next(ssdpServer))
-		mupnp_upnp_ssdp_server_stop(ssdpServer);
+	for (ssdpServer = mupnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_ssdp_server_next(ssdpServer))
+		mupnp_ssdp_server_stop(ssdpServer);
 		
 	mupnp_log_debug_l4("Leaving...\n");
 
@@ -148,33 +148,33 @@ BOOL mupnp_upnp_ssdp_serverlist_stop(mUpnpUpnpSSDPServerList *ssdpServerList)
 }
 
 /****************************************
-* mupnp_upnp_ssdp_serverlist_setlistener
+* mupnp_ssdp_serverlist_setlistener
 ****************************************/
 
-void mupnp_upnp_ssdp_serverlist_setlistener(mUpnpUpnpSSDPServerList *ssdpServerList, MUPNP_SSDP_LISTNER listener)
+void mupnp_ssdp_serverlist_setlistener(mUpnpSSDPServerList *ssdpServerList, MUPNP_SSDP_LISTNER listener)
 {
-	mUpnpUpnpSSDPServer *ssdpServer;
+	mUpnpSSDPServer *ssdpServer;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	for (ssdpServer = mupnp_upnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_upnp_ssdp_server_next(ssdpServer))
-		mupnp_upnp_ssdp_server_setlistener(ssdpServer, listener);
+	for (ssdpServer = mupnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_ssdp_server_next(ssdpServer))
+		mupnp_ssdp_server_setlistener(ssdpServer, listener);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_ssdp_serverlist_setuserdata
+* mupnp_ssdp_serverlist_setuserdata
 ****************************************/
 
-void mupnp_upnp_ssdp_serverlist_setuserdata(mUpnpUpnpSSDPServerList *ssdpServerList, void *data)
+void mupnp_ssdp_serverlist_setuserdata(mUpnpSSDPServerList *ssdpServerList, void *data)
 {
-	mUpnpUpnpSSDPServer *ssdpServer;
+	mUpnpSSDPServer *ssdpServer;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	for (ssdpServer = mupnp_upnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_upnp_ssdp_server_next(ssdpServer))
-		mupnp_upnp_ssdp_server_setuserdata(ssdpServer, data);
+	for (ssdpServer = mupnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_ssdp_server_next(ssdpServer))
+		mupnp_ssdp_server_setuserdata(ssdpServer, data);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }

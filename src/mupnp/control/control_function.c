@@ -15,10 +15,10 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_usn_getudn
+* mupnp_usn_getudn
 ****************************************/
 
-const char *mupnp_upnp_usn_getudn(const char *usn, char *udnBuf, size_t udnBufLen)
+const char *mupnp_usn_getudn(const char *usn, char *udnBuf, size_t udnBufLen)
 {
 	ssize_t idx;
 	
@@ -56,10 +56,10 @@ const char *mupnp_upnp_usn_getudn(const char *usn, char *udnBuf, size_t udnBufLe
 }
 
 /****************************************
-* mupnp_upnp_control_soap_response_initializeenvelopenode
+* mupnp_control_soap_response_initializeenvelopenode
 ****************************************/
 
-void mupnp_upnp_control_soap_response_initializeenvelopenode(mUpnpSoapResponse *soapRes)
+void mupnp_control_soap_response_initializeenvelopenode(mUpnpSoapResponse *soapRes)
 {
 	mUpnpXmlNodeList *rootNodeList;
 	mUpnpHttpResponse *httpRes;
@@ -76,10 +76,10 @@ void mupnp_upnp_control_soap_response_initializeenvelopenode(mUpnpSoapResponse *
 }
 
 /****************************************
-* mupnp_upnp_control_soap_request_initializeenvelopenode
+* mupnp_control_soap_request_initializeenvelopenode
 ****************************************/
 
-void mupnp_upnp_control_soap_request_initializeenvelopenode(mUpnpSoapRequest *soapReq)
+void mupnp_control_soap_request_initializeenvelopenode(mUpnpSoapRequest *soapReq)
 {
 	mUpnpXmlNodeList *rootNodeList;
 	mUpnpHttpRequest *httpReq;
@@ -96,10 +96,10 @@ void mupnp_upnp_control_soap_request_initializeenvelopenode(mUpnpSoapRequest *so
 }
 
 /****************************************
-* mupnp_upnp_control_soap_response_createfaultresponsenode
+* mupnp_control_soap_response_createfaultresponsenode
 ****************************************/
 
-mUpnpXmlNode *mupnp_upnp_control_soap_response_createfaultresponsenode(int errCode, char *errDescr)
+mUpnpXmlNode *mupnp_control_soap_response_createfaultresponsenode(int errCode, char *errDescr)
 {
 	mUpnpXmlNode *faultNode;
 	mUpnpXmlNode *faultCodeNode;
@@ -158,10 +158,10 @@ mUpnpXmlNode *mupnp_upnp_control_soap_response_createfaultresponsenode(int errCo
 
 
 /****************************************
-* mupnp_upnp_control_soap_response_setfaultresponse
+* mupnp_control_soap_response_setfaultresponse
 ****************************************/
 
-void mupnp_upnp_control_soap_response_setfaultresponse(mUpnpSoapResponse *soapRes, int errCode, char *errDescr)
+void mupnp_control_soap_response_setfaultresponse(mUpnpSoapResponse *soapRes, int errCode, char *errDescr)
 {
 	mUpnpHttpResponse *httpRes;
 	mUpnpXmlNode *bodyNode;
@@ -173,10 +173,10 @@ void mupnp_upnp_control_soap_response_setfaultresponse(mUpnpSoapResponse *soapRe
 	httpRes = mupnp_soap_response_gethttpresponse(soapRes);
 
 	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_INTERNAL_SERVER_ERROR);
-	mupnp_upnp_control_soap_response_initializeenvelopenode(soapRes);
+	mupnp_control_soap_response_initializeenvelopenode(soapRes);
 
 	bodyNode = mupnp_soap_response_getbodynode(soapRes);
-	faultNode = mupnp_upnp_control_soap_response_createfaultresponsenode(errCode, errDescr);
+	faultNode = mupnp_control_soap_response_createfaultresponsenode(errCode, errDescr);
 	mupnp_xml_node_addchildnode(bodyNode, faultNode);
 	
 	envNode = mupnp_soap_response_getenvelopenode(soapRes);
@@ -186,10 +186,10 @@ void mupnp_upnp_control_soap_response_setfaultresponse(mUpnpSoapResponse *soapRe
 }
 
 /****************************************
-* mupnp_upnp_control_request_sethostfromservice
+* mupnp_control_request_sethostfromservice
 ****************************************/
 
-void mupnp_upnp_control_request_sethostfromservice(mUpnpSoapRequest *soapReq, mUpnpUpnpService *service)
+void mupnp_control_request_sethostfromservice(mUpnpSoapRequest *soapReq, mUpnpService *service)
 {
 	mUpnpHttpRequest *httpReq;
 	mUpnpNetURL *ctrlURL;
@@ -198,14 +198,14 @@ void mupnp_upnp_control_request_sethostfromservice(mUpnpSoapRequest *soapReq, mU
 
 	httpReq = mupnp_soap_request_gethttprequest(soapReq);
 
-	ctrlURL = mupnp_upnp_service_getcontrolurl(service);
+	ctrlURL = mupnp_service_getcontrolurl(service);
 
 	mupnp_log_debug_s("Ctrl URL: %s - %d -%s", 
 			mupnp_net_url_gethost(ctrlURL), 
 			mupnp_net_url_getport(ctrlURL), 
 			mupnp_net_url_getpath(ctrlURL));
 
-	//mupnp_http_request_seturi(httpReq, mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), MUPNP_SERVICE_CONTROL_URL));
+	//mupnp_http_request_seturi(httpReq, mupnp_xml_node_getchildnodevalue(mupnp_service_getservicenode(service), MUPNP_SERVICE_CONTROL_URL));
 	mupnp_http_request_seturi(httpReq, mupnp_net_url_getrequest(ctrlURL));
 
 	/**** Host ****/

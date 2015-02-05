@@ -16,20 +16,20 @@
 * prototype define for static functions
 ****************************************/
 
-static void mupnp_upnp_action_initchildnodes(mUpnpUpnpAction *action);
-static void mupnp_upnp_action_initargumentlist(mUpnpUpnpAction *action);
+static void mupnp_action_initchildnodes(mUpnpAction *action);
+static void mupnp_action_initargumentlist(mUpnpAction *action);
 
 /****************************************
-* mupnp_upnp_action_new
+* mupnp_action_new
 ****************************************/
 
-mUpnpUpnpAction *mupnp_upnp_action_new()
+mUpnpAction *mupnp_action_new()
 {
-	mUpnpUpnpAction *action;
+	mUpnpAction *action;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	action = (mUpnpUpnpAction *)malloc(sizeof(mUpnpUpnpAction));
+	action = (mUpnpAction *)malloc(sizeof(mUpnpAction));
 
 	if ( NULL != action )
 	{
@@ -38,11 +38,11 @@ mUpnpUpnpAction *mupnp_upnp_action_new()
 		action->parentService = NULL;
 		action->actionNode = NULL;
 
-		action->argumentList = mupnp_upnp_argumentlist_new();
+		action->argumentList = mupnp_argumentlist_new();
 		
-		action->upnpStatus = mupnp_upnp_status_new();
+		action->upnpStatus = mupnp_status_new();
 		action->listener = NULL;
-		mupnp_upnp_action_setuserdata(action, NULL);
+		mupnp_action_setuserdata(action, NULL);
 	}
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -51,16 +51,16 @@ mUpnpUpnpAction *mupnp_upnp_action_new()
 }
 
 /****************************************
-* mupnp_upnp_action_delete
+* mupnp_action_delete
 ****************************************/
 
-void mupnp_upnp_action_delete(mUpnpUpnpAction *action)
+void mupnp_action_delete(mUpnpAction *action)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_argumentlist_delete(action->argumentList);
+	mupnp_argumentlist_delete(action->argumentList);
 	
-	mupnp_upnp_status_delete(action->upnpStatus);
+	mupnp_status_delete(action->upnpStatus);
 	
 	mupnp_list_remove((mUpnpList *)action);
 	free(action);
@@ -69,15 +69,15 @@ void mupnp_upnp_action_delete(mUpnpUpnpAction *action)
 }
 
 /****************************************
-* mupnp_upnp_action_setactionnode
+* mupnp_action_setactionnode
 ****************************************/
 
-void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node)
+void mupnp_action_setactionnode(mUpnpAction *action, mUpnpXmlNode *node)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	action->actionNode = node;
-	mupnp_upnp_action_initchildnodes(action);
+	mupnp_action_initchildnodes(action);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -89,14 +89,14 @@ void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node
 ****************************************/
 
 /****************************************
-* mupnp_upnp_action_initchildnodes
+* mupnp_action_initchildnodes
 ****************************************/
 
-static void mupnp_upnp_action_initchildnodes(mUpnpUpnpAction *action)
+static void mupnp_action_initchildnodes(mUpnpAction *action)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_action_initargumentlist(action);
+	mupnp_action_initargumentlist(action);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -108,21 +108,21 @@ static void mupnp_upnp_action_initchildnodes(mUpnpUpnpAction *action)
 ****************************************/
 
 /****************************************
-* mupnp_upnp_action_initargumentlist
+* mupnp_action_initargumentlist
 ****************************************/
 
-static void mupnp_upnp_action_initargumentlist(mUpnpUpnpAction *action)
+static void mupnp_action_initargumentlist(mUpnpAction *action)
 {
 	mUpnpXmlNode *actionNode;
 	mUpnpXmlNode *argumentListNode;
 	mUpnpXmlNode *childNode;
-	mUpnpUpnpArgument *arg;
+	mUpnpArgument *arg;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_argumentlist_clear(action->argumentList);
+	mupnp_argumentlist_clear(action->argumentList);
 
-	actionNode = mupnp_upnp_action_getactionnode(action);
+	actionNode = mupnp_action_getactionnode(action);
 	argumentListNode = mupnp_xml_node_getchildnode(actionNode, MUPNP_ARGUMENTLIST_ELEM_NAME);
 	
 	if (argumentListNode == NULL)
@@ -130,34 +130,34 @@ static void mupnp_upnp_action_initargumentlist(mUpnpUpnpAction *action)
 
 	for (childNode = mupnp_xml_node_getchildnodes(argumentListNode); childNode != NULL; childNode = mupnp_xml_node_next(childNode)) {
 	
-		if (mupnp_upnp_argument_isargumentnode(childNode) == FALSE)
+		if (mupnp_argument_isargumentnode(childNode) == FALSE)
 			continue;
 			
-		arg = mupnp_upnp_argument_new();
-		mupnp_upnp_argument_setargumentnode(arg, childNode);
-		mupnp_upnp_argumentlist_add(action->argumentList, arg);
+		arg = mupnp_argument_new();
+		mupnp_argument_setargumentnode(arg, childNode);
+		mupnp_argumentlist_add(action->argumentList, arg);
 	} 
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_action_getargumentbyname
+* mupnp_action_getargumentbyname
 ****************************************/
 
-mUpnpUpnpArgument *mupnp_upnp_action_getargumentbyname(mUpnpUpnpAction *action, const char *name)
+mUpnpArgument *mupnp_action_getargumentbyname(mUpnpAction *action, const char *name)
 {
-	mUpnpUpnpArgumentList *argList;
-	mUpnpUpnpArgument *arg;
+	mUpnpArgumentList *argList;
+	mUpnpArgument *arg;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
 	if (mupnp_strlen(name) <= 0)
 		return NULL;
 			
-	argList = mupnp_upnp_action_getargumentlist(action);
-	for (arg=mupnp_upnp_argumentlist_gets(argList); arg != NULL; arg = mupnp_upnp_argument_next(arg)) {
-		if (mupnp_upnp_argument_isname(arg, name) == TRUE)
+	argList = mupnp_action_getargumentlist(action);
+	for (arg=mupnp_argumentlist_gets(argList); arg != NULL; arg = mupnp_argument_next(arg)) {
+		if (mupnp_argument_isname(arg, name) == TRUE)
 			return arg;
 	}
 	
@@ -167,30 +167,30 @@ mUpnpUpnpArgument *mupnp_upnp_action_getargumentbyname(mUpnpUpnpAction *action, 
 }
 
 /****************************************
-* mupnp_upnp_action_getargumentvaluebyname
+* mupnp_action_getargumentvaluebyname
 ****************************************/
 
-char *mupnp_upnp_action_getargumentvaluebyname(mUpnpUpnpAction *action, const char *name)
+char *mupnp_action_getargumentvaluebyname(mUpnpAction *action, const char *name)
 {
-	mUpnpUpnpArgument *arg;
+	mUpnpArgument *arg;
 
-	arg = mupnp_upnp_action_getargumentbyname(action, name);
+	arg = mupnp_action_getargumentbyname(action, name);
 	if (!arg)
 		return NULL;
-	return mupnp_upnp_argument_getvalue(arg);
+	return mupnp_argument_getvalue(arg);
 }
 
 /****************************************
-* mupnp_upnp_action_setargumentvaluebyname
+* mupnp_action_setargumentvaluebyname
 ****************************************/
 
-BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const char *name, const char *value)
+BOOL mupnp_action_setargumentvaluebyname(mUpnpAction *action, const char *name, const char *value)
 {
-	mUpnpUpnpArgument *arg;
+	mUpnpArgument *arg;
 
-	arg = mupnp_upnp_action_getargumentbyname(action, name);
+	arg = mupnp_action_getargumentbyname(action, name);
 	if (!arg)
 		return FALSE;
-	mupnp_upnp_argument_setvalue(arg, value);
+	mupnp_argument_setvalue(arg, value);
 	return TRUE;
 }

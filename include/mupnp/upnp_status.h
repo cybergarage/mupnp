@@ -36,13 +36,13 @@ extern "C" {
 /**
  * UPnP status struct used in action and state operations
  */
-typedef struct _mUpnpUpnpStatus {
+typedef struct _mUpnpStatus {
 	/** Status code */
 	int code;
 
 	/** Status description */
 	mUpnpString *description;
-} mUpnpUpnpStatus;
+} mUpnpStatus;
 
 /******************************************************************************
  * Function
@@ -52,14 +52,14 @@ typedef struct _mUpnpUpnpStatus {
  * Create a new status struct
  *
  */
-mUpnpUpnpStatus *mupnp_upnp_status_new();
+mUpnpStatus *mupnp_status_new();
 
 /**
  * Delete a status struct
  *
  * \param upnpStat Status struct to delete
  */
-void mupnp_upnp_status_delete(mUpnpUpnpStatus *upnpStat);
+void mupnp_status_delete(mUpnpStatus *upnpStat);
 
 /**
  * Set status code for status struct
@@ -67,14 +67,14 @@ void mupnp_upnp_status_delete(mUpnpUpnpStatus *upnpStat);
  * \param upnpStat Status struct
  * \param value Status code
  */
-#define mupnp_upnp_status_setcode(upnpStat, value) (upnpStat->code = value)
+#define mupnp_status_setcode(upnpStat, value) (upnpStat->code = value)
 
 /**
  * Get Status code from a status struct
  *
  * \param upnpStat Status structure
  */
-#define mupnp_upnp_status_getcode(upnpStat) (upnpStat->code)
+#define mupnp_status_getcode(upnpStat) (upnpStat->code)
 
 /**
  * Set status description for a status struct
@@ -82,14 +82,14 @@ void mupnp_upnp_status_delete(mUpnpUpnpStatus *upnpStat);
  * \param upnpStat Status struct
  * \param value Status description
  */
-#define mupnp_upnp_status_setdescription(upnpStat, value) mupnp_string_setvalue(upnpStat->description, value)
+#define mupnp_status_setdescription(upnpStat, value) mupnp_string_setvalue(upnpStat->description, value)
 
 /**
  * Get status description from a status struct
  *
  * \param upnpStat Status struct
  */
-#define mupnp_upnp_status_getdescription(upnpStat) mupnp_string_getvalue(upnpStat->description)
+#define mupnp_status_getdescription(upnpStat) mupnp_string_getvalue(upnpStat->description)
 
 /**
  * Helper function that converts a status code into a status description
@@ -97,7 +97,7 @@ void mupnp_upnp_status_delete(mUpnpUpnpStatus *upnpStat);
  * \param code Code to convert into a description
  * \return Status description
  */
-char *mupnp_upnp_status_code2string(int code);
+char *mupnp_status_code2string(int code);
 
 #ifdef  __cplusplus
 

@@ -13,12 +13,12 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_ssdprequest_new
+* mupnp_ssdprequest_new
 ****************************************/
 
-mUpnpUpnpSSDPRequest *mupnp_upnp_ssdprequest_new()
+mUpnpSSDPRequest *mupnp_ssdprequest_new()
 {
-	mUpnpUpnpSSDPRequest *ssdpReq;
+	mUpnpSSDPRequest *ssdpReq;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -34,10 +34,10 @@ mUpnpUpnpSSDPRequest *mupnp_upnp_ssdprequest_new()
 }
 
 /****************************************
-* mupnp_upnp_ssdprequest_delete
+* mupnp_ssdprequest_delete
 ****************************************/
 
-void mupnp_upnp_ssdprequest_delete(mUpnpUpnpSSDPRequest *ssdpReq)
+void mupnp_ssdprequest_delete(mUpnpSSDPRequest *ssdpReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -47,10 +47,10 @@ void mupnp_upnp_ssdprequest_delete(mUpnpUpnpSSDPRequest *ssdpReq)
 }
 
 /****************************************
-* mupnp_upnp_ssdprequest_setleasetime
+* mupnp_ssdprequest_setleasetime
 ****************************************/
 
-void mupnp_upnp_ssdprequest_setleasetime(mUpnpUpnpSSDPRequest *ssdpReq, mUpnpTime value)
+void mupnp_ssdprequest_setleasetime(mUpnpSSDPRequest *ssdpReq, mUpnpTime value)
 {
 	char buf[sizeof(CG_HTTP_MAX_AGE) + 1 + CG_STRING_INTEGER_BUFLEN];
 	
@@ -63,10 +63,10 @@ void mupnp_upnp_ssdprequest_setleasetime(mUpnpUpnpSSDPRequest *ssdpReq, mUpnpTim
 }
 		
 /****************************************
-* mupnp_upnp_ssdprequest_getleasetime
+* mupnp_ssdprequest_getleasetime
 ****************************************/
 
-mUpnpTime mupnp_upnp_ssdprequest_getleasetime(mUpnpUpnpSSDPRequest *ssdpReq)
+mUpnpTime mupnp_ssdprequest_getleasetime(mUpnpSSDPRequest *ssdpReq)
 {
 	const char *cacheCtrl;
 
@@ -74,16 +74,16 @@ mUpnpTime mupnp_upnp_ssdprequest_getleasetime(mUpnpUpnpSSDPRequest *ssdpReq)
 
 	cacheCtrl = mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL);
 	
-	return mupnp_upnp_ssdp_getleasetime(cacheCtrl);
+	return mupnp_ssdp_getleasetime(cacheCtrl);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_ssdprequest_tostring
+* mupnp_ssdprequest_tostring
 ****************************************/
 
-char *mupnp_upnp_ssdprequest_tostring(mUpnpUpnpSSDPRequest *ssdpReq, mUpnpString *ssdpMsg)
+char *mupnp_ssdprequest_tostring(mUpnpSSDPRequest *ssdpReq, mUpnpString *ssdpMsg)
 {
 	mUpnpHttpHeader *header;
 	const char *name;

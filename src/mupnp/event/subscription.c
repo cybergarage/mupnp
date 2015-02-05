@@ -27,10 +27,10 @@
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_upnp_event_subscription_totimeoutheaderstring
+* mupnp_event_subscription_totimeoutheaderstring
 ****************************************/
 
-const char *mupnp_upnp_event_subscription_totimeoutheaderstring(mUpnpTime time, mUpnpString *buf)
+const char *mupnp_event_subscription_totimeoutheaderstring(mUpnpTime time, mUpnpString *buf)
 {
 	char timeBuf[CG_STRING_LONG_BUFLEN];
 	
@@ -48,10 +48,10 @@ const char *mupnp_upnp_event_subscription_totimeoutheaderstring(mUpnpTime time, 
 }
 
 /****************************************
-* mupnp_upnp_event_subscription_gettimeout
+* mupnp_event_subscription_gettimeout
 ****************************************/
 
-mUpnpTime mupnp_upnp_event_subscription_gettimeout(const char *headerValue)
+mUpnpTime mupnp_event_subscription_gettimeout(const char *headerValue)
 {
 	ssize_t minusIdx;
 	long timeout;
@@ -72,22 +72,22 @@ mUpnpTime mupnp_upnp_event_subscription_gettimeout(const char *headerValue)
 }
 
 /****************************************
-* mupnp_upnp_event_subscription_createsid
+* mupnp_event_subscription_createsid
 ****************************************/
 
-const char *mupnp_upnp_event_subscription_createsid(char *buf, size_t bufSize)
+const char *mupnp_event_subscription_createsid(char *buf, size_t bufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
-	mupnp_upnp_createuuid(buf, bufSize);
+	mupnp_createuuid(buf, bufSize);
 	mupnp_log_debug_l4("Leaving...\n");
 	return buf;	
 }
 
 /****************************************
-* mupnp_upnp_event_subscription_tosidheaderstring
+* mupnp_event_subscription_tosidheaderstring
 ****************************************/
 
-const char *mupnp_upnp_event_subscription_tosidheaderstring(const char *sid, char *buf, size_t bufSize)
+const char *mupnp_event_subscription_tosidheaderstring(const char *sid, char *buf, size_t bufSize)
 {
 	ssize_t colonIdx;
 
@@ -114,10 +114,10 @@ const char *mupnp_upnp_event_subscription_tosidheaderstring(const char *sid, cha
 }
 
 /****************************************
-* mupnp_upnp_event_subscription_getsid
+* mupnp_event_subscription_getsid
 ****************************************/
 
-const char *mupnp_upnp_event_subscription_getsid(const char *headerValue)
+const char *mupnp_event_subscription_getsid(const char *headerValue)
 {
 	ssize_t colonIdx;
 	

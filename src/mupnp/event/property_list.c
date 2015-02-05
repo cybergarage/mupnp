@@ -19,16 +19,16 @@
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_upnp_propertylist_new
+* mupnp_propertylist_new
 ****************************************/
 
-mUpnpUpnpPropertyList *mupnp_upnp_propertylist_new()
+mUpnpPropertyList *mupnp_propertylist_new()
 {
-	mUpnpUpnpPropertyList *propertyList;
+	mUpnpPropertyList *propertyList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	propertyList = (mUpnpUpnpPropertyList *)malloc(sizeof(mUpnpUpnpPropertyList));
+	propertyList = (mUpnpPropertyList *)malloc(sizeof(mUpnpPropertyList));
 
 	if ( NULL != propertyList )
 		mupnp_list_header_init((mUpnpList *)propertyList);
@@ -39,14 +39,14 @@ mUpnpUpnpPropertyList *mupnp_upnp_propertylist_new()
 }
 
 /****************************************
-* mupnp_upnp_propertylist_delete
+* mupnp_propertylist_delete
 ****************************************/
 
-void mupnp_upnp_propertylist_delete(mUpnpUpnpPropertyList *propertyList)
+void mupnp_propertylist_delete(mUpnpPropertyList *propertyList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_propertylist_clear(propertyList);
+	mupnp_propertylist_clear(propertyList);
 	free(propertyList);
 
 	mupnp_log_debug_l4("Leaving...\n");

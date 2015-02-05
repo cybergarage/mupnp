@@ -1039,12 +1039,12 @@ static char *MUPNP_AV_AVTRANSPORT_SERVICE_DESCRIPTION =
 " </scpd> \n";
 
 /****************************************
- * mupnp_upnp_service_getstddcp
+ * mupnp_service_getstddcp
  ****************************************/
 
-char *mupnp_upnp_service_getstddcp(mUpnpUpnpService *service)
+char *mupnp_service_getstddcp(mUpnpService *service)
 {
-	char *serviceType = mupnp_upnp_service_getservicetype(service);
+	char *serviceType = mupnp_service_getservicetype(service);
 	if (mupnp_streq(serviceType, "urn:schemas-upnp-org:service:ContentDirectory:1"))
 		return MUPNP_AV_CONTENTDIRECTORY_SERVICE_DESCRIPTION;
 	if (mupnp_streq(serviceType, "urn:schemas-upnp-org:service:ConnectionManager:1"))
@@ -1055,12 +1055,12 @@ char *mupnp_upnp_service_getstddcp(mUpnpUpnpService *service)
 }
 
 /****************************************
- * mupnp_upnp_service_hasstddcp
+ * mupnp_service_hasstddcp
  ****************************************/
 		
-BOOL mupnp_upnp_service_hasstddcp(mUpnpUpnpService *service)
+BOOL mupnp_service_hasstddcp(mUpnpService *service)
 {
-	return (mupnp_upnp_service_getstddcp(service) != NULL) ? TRUE : FALSE;
+	return (mupnp_service_getstddcp(service) != NULL) ? TRUE : FALSE;
 }		
 		
 /****************************************

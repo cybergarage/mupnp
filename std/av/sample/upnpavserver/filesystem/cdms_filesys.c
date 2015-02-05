@@ -67,10 +67,10 @@ char *mupnp_upnpav_dms_filesys_getupnpclass(char *ext)
 * mupnp_upnpav_dms_filesys_updatecontentlist
 ****************************************/
 
-void mupnp_upnpav_dms_filesys_updatecontentlist(mUpnpUpnpMediaServer *dms, mUpnpUpnpMediaContentList *parentCon, char *pubdir)
+void mupnp_upnpav_dms_filesys_updatecontentlist(mUpnpMediaServer *dms, mUpnpMediaContentList *parentCon, char *pubdir)
 {
-	mUpnpUpnpMediaContent *con;
-	mUpnpUpnpMediaResource *res;
+	mUpnpMediaContent *con;
+	mUpnpMediaResource *res;
 	mUpnpNetworkInterfaceList *netIfList;
 	mUpnpNetworkInterfaceList *netIf;
 	int conType;
@@ -83,7 +83,7 @@ void mupnp_upnpav_dms_filesys_updatecontentlist(mUpnpUpnpMediaServer *dms, mUpnp
 	char resURL[1024];
 	char *mimeType;
 	char *upnpClass;
-	mUpnpUpnpMediaFileSystemContentData *conData;
+	mUpnpMediaFileSystemContentData *conData;
 	char dlnaAttr[CG_UPNPAV_DLNAATTR_MAXLEN];
 #if !defined(WINCE)
 	struct stat fileStat;
@@ -207,7 +207,7 @@ void mupnp_upnpav_dms_filesys_updatecontentlist(mUpnpUpnpMediaServer *dms, mUpnp
 					snprintf(resURL, sizeof(resURL),
                             "http://%s:%d/%s/%s",
 						mupnp_net_interface_getaddress(netIf),
-						mupnp_upnp_device_gethttpport(mupnp_upnpav_dms_getdevice(dms)),
+						mupnp_device_gethttpport(mupnp_upnpav_dms_getdevice(dms)),
 						CG_UPNPAV_FILESYS_RESURL_PATH,
 						idmd5
 						);
@@ -263,10 +263,10 @@ void mupnp_upnpav_dms_filesys_updatecontentlist(mUpnpUpnpMediaServer *dms, mUpnp
 * mupnp_upnpav_dms_filesys_updaterootcontentlist
 ****************************************/
 
-void mupnp_upnpav_dms_filesys_updaterootcontentlist(mUpnpUpnpMediaServer *dms)
+void mupnp_upnpav_dms_filesys_updaterootcontentlist(mUpnpMediaServer *dms)
 {
 	char *pubdir;
-	mUpnpUpnpMediaContent *rootContent;
+	mUpnpMediaContent *rootContent;
 
 	pubdir = mupnp_upnpav_dms_filesys_getpublicationdirectory(dms);
 	if (!pubdir)
@@ -288,9 +288,9 @@ void mupnp_upnpav_dms_filesys_updaterootcontentlist(mUpnpUpnpMediaServer *dms)
 * mupnp_upnpav_dms_filesys_setpublicationdirectory
 ****************************************/
 
-void mupnp_upnpav_dms_filesys_setpublicationdirectory(mUpnpUpnpMediaServer *dms, char *pubdir)
+void mupnp_upnpav_dms_filesys_setpublicationdirectory(mUpnpMediaServer *dms, char *pubdir)
 {
-	mUpnpUpnpMediaContent *rootContent;
+	mUpnpMediaContent *rootContent;
 
 	rootContent = mupnp_upnpav_dms_getrootcontent(dms);
 	if (!rootContent)
@@ -303,9 +303,9 @@ void mupnp_upnpav_dms_filesys_setpublicationdirectory(mUpnpUpnpMediaServer *dms,
 * mupnp_upnpav_dms_filesys_getpublicationdirectory
 ****************************************/
 
-char *mupnp_upnpav_dms_filesys_getpublicationdirectory(mUpnpUpnpMediaServer *dms)
+char *mupnp_upnpav_dms_filesys_getpublicationdirectory(mUpnpMediaServer *dms)
 {
-	mUpnpUpnpMediaContent *rootContent;
+	mUpnpMediaContent *rootContent;
 
 	rootContent = mupnp_upnpav_dms_getrootcontent(dms);
 	if (!rootContent)
@@ -318,30 +318,30 @@ char *mupnp_upnpav_dms_filesys_getpublicationdirectory(mUpnpUpnpMediaServer *dms
 * mupnp_upnpav_dms_filesys_actionlistner
 ****************************************/
 
-BOOL mupnp_upnpav_dms_filesys_actionlistner(mUpnpUpnpAction *action)
+BOOL mupnp_upnpav_dms_filesys_actionlistner(mUpnpAction *action)
 {
-	mUpnpUpnpMediaServer *dms;
-	mUpnpUpnpDevice *dev;
+	mUpnpMediaServer *dms;
+	mUpnpDevice *dev;
 	char *contentID;
-	mUpnpUpnpMediaContent *content;
+	mUpnpMediaContent *content;
 	char *contentDir;
 	char *actionName;
 
-	actionName = mupnp_upnp_action_getname(action);
+	actionName = mupnp_action_getname(action);
 	if (mupnp_strlen(actionName) <= 0)
 		return FALSE;
 
 	/* Browse */
 	if (mupnp_streq(actionName, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE)) {
-		contentID = mupnp_upnp_action_getargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_OBJECT_ID);
+		contentID = mupnp_action_getargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_OBJECT_ID);
 		if (mupnp_strlen(contentID) <=0)
 			return FALSE;
 
-		dev = mupnp_upnp_service_getdevice(mupnp_upnp_action_getservice(action));
+		dev = mupnp_service_getdevice(mupnp_action_getservice(action));
 		if (!dev)
 			return FALSE;
 
-		dms = (mUpnpUpnpMediaServer *)mupnp_upnp_device_getuserdata(dev);
+		dms = (mUpnpMediaServer *)mupnp_device_getuserdata(dev);
 		if (!dms)
 			return FALSE;
 
@@ -371,9 +371,9 @@ BOOL mupnp_upnpav_dms_filesys_actionlistner(mUpnpUpnpAction *action)
 * mupnp_upnpav_dms_filesys_new
 ****************************************/
 
-mUpnpUpnpMediaServer *mupnp_upnpav_dms_filesys_new()
+mUpnpMediaServer *mupnp_upnpav_dms_filesys_new()
 {
-	mUpnpUpnpMediaServer *dms;
+	mUpnpMediaServer *dms;
 
 	dms = mupnp_upnpav_dms_new();
 
@@ -387,7 +387,7 @@ mUpnpUpnpMediaServer *mupnp_upnpav_dms_filesys_new()
 * mupnp_upnpav_dms_filesys_delete
 ****************************************/
 
-void mupnp_upnpav_dms_filesys_delete(mUpnpUpnpMediaServer *dms)
+void mupnp_upnpav_dms_filesys_delete(mUpnpMediaServer *dms)
 {
 	mupnp_upnpav_dms_delete(dms);
 }

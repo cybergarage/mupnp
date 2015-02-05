@@ -19,24 +19,24 @@
 #if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
 /****************************************
-* mupnp_upnp_control_action_request_new
+* mupnp_control_action_request_new
 ****************************************/
 
-mUpnpUpnpActionRequest *mupnp_upnp_control_action_request_new()
+mUpnpActionRequest *mupnp_control_action_request_new()
 {
-	mUpnpUpnpActionRequest *actionReq;
+	mUpnpActionRequest *actionReq;
 	 
 	mupnp_log_debug_l4("Entering...\n");
 
-	actionReq = (mUpnpUpnpActionRequest *)malloc(sizeof(mUpnpUpnpActionRequest));
+	actionReq = (mUpnpActionRequest *)malloc(sizeof(mUpnpActionRequest));
 	
 	if ( NULL != actionReq )
 	{
 		actionReq->soapReq = mupnp_soap_request_new();
 		actionReq->isSoapReqCreated = TRUE;
-		actionReq->actionRes = mupnp_upnp_control_action_response_new();
+		actionReq->actionRes = mupnp_control_action_response_new();
 		
-		actionReq->argList = mupnp_upnp_argumentlist_new();
+		actionReq->argList = mupnp_argumentlist_new();
 	}
 	
 	mupnp_log_debug_l4("Leaving...\n");
@@ -45,21 +45,21 @@ mUpnpUpnpActionRequest *mupnp_upnp_control_action_request_new()
 }
 
 /****************************************
-* mupnp_upnp_control_action_request_delete
+* mupnp_control_action_request_delete
 ****************************************/
 
-void mupnp_upnp_control_action_request_delete(mUpnpUpnpActionRequest *actionReq)
+void mupnp_control_action_request_delete(mUpnpActionRequest *actionReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_control_action_request_clear(actionReq);
+	mupnp_control_action_request_clear(actionReq);
 
 	if (actionReq->isSoapReqCreated == TRUE)
 		mupnp_soap_request_delete(actionReq->soapReq);
 
-	mupnp_upnp_control_action_response_delete(actionReq->actionRes);
+	mupnp_control_action_response_delete(actionReq->actionRes);
 			
-	mupnp_upnp_argumentlist_delete(actionReq->argList);
+	mupnp_argumentlist_delete(actionReq->argList);
 	
 	free(actionReq);
 
@@ -67,10 +67,10 @@ void mupnp_upnp_control_action_request_delete(mUpnpUpnpActionRequest *actionReq)
 }
 
 /****************************************
-* mupnp_upnp_control_action_request_clear
+* mupnp_control_action_request_clear
 ****************************************/
 
-void mupnp_upnp_control_action_request_clear(mUpnpUpnpActionRequest *actionReq)
+void mupnp_control_action_request_clear(mUpnpActionRequest *actionReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -79,20 +79,20 @@ void mupnp_upnp_control_action_request_clear(mUpnpUpnpActionRequest *actionReq)
 	actionReq->soapReq = mupnp_soap_request_new();
 	actionReq->isSoapReqCreated = TRUE;
 	
-	mupnp_upnp_argumentlist_clear(actionReq->argList);
+	mupnp_argumentlist_clear(actionReq->argList);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_control_action_request_setsoaprequest
+* mupnp_control_action_request_setsoaprequest
 ****************************************/
 
-void mupnp_upnp_control_action_request_setsoaprequest(mUpnpUpnpActionRequest *actionReq, mUpnpSoapRequest *soapReq)
+void mupnp_control_action_request_setsoaprequest(mUpnpActionRequest *actionReq, mUpnpSoapRequest *soapReq)
 {
 	mUpnpXmlNode *actionNode;
 	mUpnpXmlNode *argNode;
-	mUpnpUpnpArgument *arg;
+	mUpnpArgument *arg;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -101,18 +101,18 @@ void mupnp_upnp_control_action_request_setsoaprequest(mUpnpUpnpActionRequest *ac
 	actionReq->soapReq = soapReq;
 	actionReq->isSoapReqCreated = FALSE;
 	
-	mupnp_upnp_argumentlist_clear(actionReq->argList);
+	mupnp_argumentlist_clear(actionReq->argList);
 	
-	actionNode = mupnp_upnp_control_action_request_getactionnode(actionReq);
+	actionNode = mupnp_control_action_request_getactionnode(actionReq);
 	if (actionNode == NULL)
 		return;
 	
 	for (argNode = mupnp_xml_node_getchildnodes(actionNode); argNode != NULL; argNode = mupnp_xml_node_next(argNode)) {
-		arg = mupnp_upnp_argument_new();
-		mupnp_upnp_argument_setargumentnode(arg, argNode);
-		mupnp_upnp_argument_setname(arg, mupnp_xml_node_getname( argNode ) );
-		mupnp_upnp_argument_setvalue(arg, mupnp_xml_node_getvalue( argNode ) );
-		mupnp_upnp_argumentlist_add(actionReq->argList, arg);
+		arg = mupnp_argument_new();
+		mupnp_argument_setargumentnode(arg, argNode);
+		mupnp_argument_setname(arg, mupnp_xml_node_getname( argNode ) );
+		mupnp_argument_setvalue(arg, mupnp_xml_node_getvalue( argNode ) );
+		mupnp_argumentlist_add(actionReq->argList, arg);
 	}
 
 	mupnp_soap_request_createcontent(soapReq);
@@ -121,17 +121,17 @@ void mupnp_upnp_control_action_request_setsoaprequest(mUpnpUpnpActionRequest *ac
 }
 
 /****************************************
-* mupnp_upnp_control_action_request_getactionnode
+* mupnp_control_action_request_getactionnode
 ****************************************/
 
-mUpnpXmlNode *mupnp_upnp_control_action_request_getactionnode(mUpnpUpnpActionRequest *actionReq)
+mUpnpXmlNode *mupnp_control_action_request_getactionnode(mUpnpActionRequest *actionReq)
 {
 	mUpnpSoapRequest *soapReq;	
 	mUpnpXmlNode *bodyNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	soapReq = mupnp_upnp_control_action_request_getsoaprequest(actionReq);
+	soapReq = mupnp_control_action_request_getsoaprequest(actionReq);
 	
 	bodyNode = mupnp_soap_request_getbodynode(soapReq);
 	if (bodyNode == NULL)
@@ -146,10 +146,10 @@ mUpnpXmlNode *mupnp_upnp_control_action_request_getactionnode(mUpnpUpnpActionReq
 }
 
 /****************************************
-* mupnp_upnp_control_action_request_getactionname
+* mupnp_control_action_request_getactionname
 ****************************************/
 
-char *mupnp_upnp_control_action_request_getactionname(mUpnpUpnpActionRequest *actionReq)
+char *mupnp_control_action_request_getactionname(mUpnpActionRequest *actionReq)
 {
 	mUpnpXmlNode *node;
 	char *name;
@@ -157,7 +157,7 @@ char *mupnp_upnp_control_action_request_getactionname(mUpnpUpnpActionRequest *ac
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	node = mupnp_upnp_control_action_request_getactionnode(actionReq);
+	node = mupnp_control_action_request_getactionnode(actionReq);
 	if (node == NULL)
 		return "";
 	
@@ -175,36 +175,36 @@ char *mupnp_upnp_control_action_request_getactionname(mUpnpUpnpActionRequest *ac
 }
 
 /****************************************
-* mupnp_upnp_control_action_request_createactionnode
+* mupnp_control_action_request_createactionnode
 ****************************************/
 
-mUpnpXmlNode *mupnp_upnp_control_action_request_createactionnode(mUpnpUpnpAction *action)
+mUpnpXmlNode *mupnp_control_action_request_createactionnode(mUpnpAction *action)
 {
-	mUpnpUpnpService *service;
+	mUpnpService *service;
 	mUpnpXmlNode *actionNode;
-	mUpnpUpnpArgument *arg;
+	mUpnpArgument *arg;
 	mUpnpXmlNode *argNode;
 	mUpnpString *nameWithNamespace;
 		
 	mupnp_log_debug_l4("Entering...\n");
 
-	service = mupnp_upnp_action_getservice(action);
+	service = mupnp_action_getservice(action);
 	
 	actionNode = mupnp_xml_node_new();
 	/**** Thanks for Visa Smolander (10/31/2005) ****/
 	nameWithNamespace = mupnp_string_new();
 	mupnp_string_addvalue( nameWithNamespace, MUPNP_CONTROL_NS ":" );
-	mupnp_string_addvalue( nameWithNamespace, mupnp_upnp_action_getname(action) );
+	mupnp_string_addvalue( nameWithNamespace, mupnp_action_getname(action) );
 	mupnp_xml_node_setname(actionNode, mupnp_string_getvalue( nameWithNamespace ) );
 	mupnp_string_delete( nameWithNamespace );
-	mupnp_xml_node_setnamespace(actionNode, MUPNP_CONTROL_NS, mupnp_upnp_service_getservicetype(service));
+	mupnp_xml_node_setnamespace(actionNode, MUPNP_CONTROL_NS, mupnp_service_getservicetype(service));
 	
-	for (arg = mupnp_upnp_action_getarguments(action); arg; arg = mupnp_upnp_argument_next(arg)) {
-		if (mupnp_upnp_argument_isindirection(arg) == FALSE)
+	for (arg = mupnp_action_getarguments(action); arg; arg = mupnp_argument_next(arg)) {
+		if (mupnp_argument_isindirection(arg) == FALSE)
 			continue;
 		argNode = mupnp_xml_node_new();
-		mupnp_xml_node_setname(argNode, mupnp_upnp_argument_getname(arg));			
-		mupnp_xml_node_setvalue(argNode, mupnp_upnp_argument_getvalue(arg));			
+		mupnp_xml_node_setname(argNode, mupnp_argument_getname(arg));			
+		mupnp_xml_node_setvalue(argNode, mupnp_argument_getvalue(arg));			
 		mupnp_xml_node_addchildnode(actionNode, argNode);
 	}
 	
@@ -214,12 +214,12 @@ mUpnpXmlNode *mupnp_upnp_control_action_request_createactionnode(mUpnpUpnpAction
 }
 
 /****************************************
-* mupnp_upnp_control_action_setrequest
+* mupnp_control_action_setrequest
 ****************************************/
 	
-void mupnp_upnp_control_action_request_setaction(mUpnpUpnpActionRequest *actionReq, mUpnpUpnpAction *action)
+void mupnp_control_action_request_setaction(mUpnpActionRequest *actionReq, mUpnpAction *action)
 {
-	mUpnpUpnpService *service;
+	mUpnpService *service;
 	mUpnpSoapRequest *soapReq;
 	mUpnpString *soapAction;	
 	mUpnpXmlNode *bodyNode;
@@ -227,23 +227,23 @@ void mupnp_upnp_control_action_request_setaction(mUpnpUpnpActionRequest *actionR
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	service = mupnp_upnp_action_getservice(action);
-	soapReq = mupnp_upnp_control_action_request_getsoaprequest(actionReq);
+	service = mupnp_action_getservice(action);
+	soapReq = mupnp_control_action_request_getsoaprequest(actionReq);
 	
 	soapAction = mupnp_string_new();
 	mupnp_string_addvalue(soapAction, "\"");
-	mupnp_string_addvalue(soapAction, mupnp_upnp_service_getservicetype(service));
+	mupnp_string_addvalue(soapAction, mupnp_service_getservicetype(service));
 	mupnp_string_addvalue(soapAction, "#");
-	mupnp_string_addvalue(soapAction, mupnp_upnp_action_getname(action));
+	mupnp_string_addvalue(soapAction, mupnp_action_getname(action));
 	mupnp_string_addvalue(soapAction, "\"");
 	mupnp_soap_request_setsoapaction(soapReq, mupnp_string_getvalue(soapAction));
 	mupnp_string_delete(soapAction);
 		
-	mupnp_upnp_control_request_sethostfromservice(soapReq, service);
+	mupnp_control_request_sethostfromservice(soapReq, service);
 	
-	mupnp_upnp_control_soap_request_initializeenvelopenode(soapReq);
+	mupnp_control_soap_request_initializeenvelopenode(soapReq);
 	bodyNode = mupnp_soap_request_getbodynode(soapReq);
-	contentNode = mupnp_upnp_control_action_request_createactionnode(action);
+	contentNode = mupnp_control_action_request_createactionnode(action);
 	mupnp_xml_node_addchildnode(bodyNode, contentNode);
 
 	mupnp_soap_request_createcontent(soapReq);
@@ -252,26 +252,26 @@ void mupnp_upnp_control_action_request_setaction(mUpnpUpnpActionRequest *actionR
 }
 
 /****************************************
-* mupnp_upnp_control_action_request_post
+* mupnp_control_action_request_post
 ****************************************/
 
-mUpnpUpnpActionResponse *mupnp_upnp_control_action_request_post(mUpnpUpnpActionRequest *actionReq)
+mUpnpActionResponse *mupnp_control_action_request_post(mUpnpActionRequest *actionReq)
 {
 	mUpnpSoapRequest *soapReq;
 	mUpnpSoapResponse *soapRes;
-	mUpnpUpnpActionResponse *actionRes;
+	mUpnpActionResponse *actionRes;
 	mUpnpHttpRequest *httpReq;
 	mUpnpNetURL *postURL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	soapReq = mupnp_upnp_control_action_request_getsoaprequest(actionReq);
+	soapReq = mupnp_control_action_request_getsoaprequest(actionReq);
 	soapRes = mupnp_soap_request_getsoapresponse(soapReq);
-	actionRes = mupnp_upnp_control_action_request_getactionresponse(actionReq);
+	actionRes = mupnp_control_action_request_getactionresponse(actionReq);
 	httpReq = mupnp_soap_request_gethttprequest(soapReq);
 	postURL = mupnp_http_request_getposturl(httpReq);
 	
-	mupnp_upnp_control_action_response_setsoapresponse(actionRes, soapRes);
+	mupnp_control_action_response_setsoapresponse(actionRes, soapRes);
 	
 	mupnp_soap_request_post(
 		soapReq, 

@@ -18,13 +18,13 @@
 
 #if !defined(MUPNP_NOUSE_CONTROLPOINT) && !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
-mUpnpUpnpService *mupnp_upnp_device_getfirstexpiratedservice(mUpnpUpnpControlPoint *ctrlPoint,
-						       mUpnpUpnpDevice *dev, 
+mUpnpService *mupnp_device_getfirstexpiratedservice(mUpnpControlPoint *ctrlPoint,
+						       mUpnpDevice *dev, 
 						       mUpnpTime expirationTime)
 {
-	mUpnpUpnpDevice *childDev = NULL;
-	mUpnpUpnpService *srv = NULL;
-	mUpnpUpnpService *found_srv = NULL;
+	mUpnpDevice *childDev = NULL;
+	mUpnpService *srv = NULL;
+	mUpnpService *found_srv = NULL;
 	mUpnpTime tmpTime;
 	mUpnpTime currTime;
 	long timeout;
@@ -34,12 +34,12 @@ mUpnpUpnpService *mupnp_upnp_device_getfirstexpiratedservice(mUpnpUpnpControlPoi
 	tmpTime = 0;
 	currTime = mupnp_getcurrentsystemtime();
 	
-	for (srv = mupnp_upnp_device_getservices(dev); srv != NULL;
-	     srv = mupnp_upnp_service_next(srv))
+	for (srv = mupnp_device_getservices(dev); srv != NULL;
+	     srv = mupnp_service_next(srv))
 	{
-		if (mupnp_upnp_service_issubscribed(srv) == FALSE) continue;
+		if (mupnp_service_issubscribed(srv) == FALSE) continue;
 	
-		tmpTime = mupnp_upnp_service_getsubscriptionexpiration(srv);
+		tmpTime = mupnp_service_getsubscriptionexpiration(srv);
 		
 	mupnp_log_debug_s("Found subscribed service with expiration of  %ld\n",
 			tmpTime);
@@ -48,14 +48,14 @@ mUpnpUpnpService *mupnp_upnp_device_getfirstexpiratedservice(mUpnpUpnpControlPoi
 		{
 		mupnp_log_debug_s("Trying to resubscribe!\n");
 			/* Subscription has almost expired! resubscribe */
-			timeout = mupnp_upnp_service_getsubscriptiontimeout(srv);
-			if (mupnp_upnp_controlpoint_resubscribe(ctrlPoint, srv, timeout) == FALSE)
+			timeout = mupnp_service_getsubscriptiontimeout(srv);
+			if (mupnp_controlpoint_resubscribe(ctrlPoint, srv, timeout) == FALSE)
 			{
 			mupnp_log_debug_s("Resubscription unsuccesful!\n");
 				tmpTime = 0;
 			} else {
 			mupnp_log_debug_s("Resubscription succesful!\n");
-				tmpTime = mupnp_upnp_service_getsubscriptionexpiration(srv);
+				tmpTime = mupnp_service_getsubscriptionexpiration(srv);
 			}
 			
 		} 
@@ -67,10 +67,10 @@ mUpnpUpnpService *mupnp_upnp_device_getfirstexpiratedservice(mUpnpUpnpControlPoi
 		}
 	}
 		
-	for (childDev = mupnp_upnp_device_getdevices(dev); childDev != NULL;
-	     childDev = mupnp_upnp_device_next(childDev))
+	for (childDev = mupnp_device_getdevices(dev); childDev != NULL;
+	     childDev = mupnp_device_next(childDev))
 	{
-		srv = mupnp_upnp_device_getfirstexpiratedservice(ctrlPoint,
+		srv = mupnp_device_getfirstexpiratedservice(ctrlPoint,
 							      childDev,
 							      expirationTime);
 		
@@ -83,12 +83,12 @@ mUpnpUpnpService *mupnp_upnp_device_getfirstexpiratedservice(mUpnpUpnpControlPoi
 }
 
 
-void mupnp_upnp_controlpoint_expirationhandler(mUpnpThread *thread)
+void mupnp_controlpoint_expirationhandler(mUpnpThread *thread)
 {
-	mUpnpUpnpControlPoint *ctrlPoint;
-	mUpnpUpnpDevice *dev, *tmpDev;
-	mUpnpUpnpService *srv;
-	mUpnpUpnpSSDPPacket *ssdpPkt;
+	mUpnpControlPoint *ctrlPoint;
+	mUpnpDevice *dev, *tmpDev;
+	mUpnpService *srv;
+	mUpnpSSDPPacket *ssdpPkt;
 	mUpnpTime currTime;
 	mUpnpTime expirationTime;
 	mUpnpTime tmpTime;
@@ -96,7 +96,7 @@ void mupnp_upnp_controlpoint_expirationhandler(mUpnpThread *thread)
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	ctrlPoint = (mUpnpUpnpControlPoint *)mupnp_thread_getuserdata(thread);
+	ctrlPoint = (mUpnpControlPoint *)mupnp_thread_getuserdata(thread);
 	mupnp_log_debug_s("CtrlPoint: %p\n", ctrlPoint);
 	
 	mupnp_mutex_lock(ctrlPoint->expMutex);
@@ -110,32 +110,32 @@ void mupnp_upnp_controlpoint_expirationhandler(mUpnpThread *thread)
 		
 		/* Get expirations from all services and devices */
 		mupnp_mutex_unlock(ctrlPoint->expMutex);
-		mupnp_upnp_controlpoint_lock(ctrlPoint);
+		mupnp_controlpoint_lock(ctrlPoint);
 		
-		for (dev = mupnp_upnp_controlpoint_getdevices(ctrlPoint);
-		     dev != NULL; dev = mupnp_upnp_device_next(dev))
+		for (dev = mupnp_controlpoint_getdevices(ctrlPoint);
+		     dev != NULL; dev = mupnp_device_next(dev))
 		{
 			/* Check device expiration */
 			mupnp_log_debug_s("Checking device expiration.\n");
-			ssdpPkt = mupnp_upnp_device_getssdppacket(dev);
+			ssdpPkt = mupnp_device_getssdppacket(dev);
 			if (ssdpPkt != NULL)
 			{
-				tmpTime = mupnp_upnp_ssdp_packet_getexpiration(ssdpPkt);
+				tmpTime = mupnp_ssdp_packet_getexpiration(ssdpPkt);
 				mupnp_log_debug_s("expiration for device %s: %ld\n", 
-				mupnp_upnp_device_getfriendlyname(dev),
-				mupnp_upnp_ssdp_packet_getexpiration(ssdpPkt));
+				mupnp_device_getfriendlyname(dev),
+				mupnp_ssdp_packet_getexpiration(ssdpPkt));
 				
 				if (tmpTime > 0 && tmpTime <= currTime)
 				{
 					/* Device has already expired, remove it! */
 					tmpDev = dev;
-					dev = mupnp_upnp_device_next(tmpDev);
+					dev = mupnp_device_next(tmpDev);
 					
-					mupnp_upnp_controlpoint_unlock(ctrlPoint);
-					mupnp_upnp_controlpoint_removedevicebyssdppacket(
+					mupnp_controlpoint_unlock(ctrlPoint);
+					mupnp_controlpoint_removedevicebyssdppacket(
 						ctrlPoint,
-						mupnp_upnp_device_getssdppacket(tmpDev));
-					mupnp_upnp_controlpoint_lock(ctrlPoint);
+						mupnp_device_getssdppacket(tmpDev));
+					mupnp_controlpoint_lock(ctrlPoint);
 					
 					tmpDev = NULL;
 					
@@ -152,15 +152,15 @@ void mupnp_upnp_controlpoint_expirationhandler(mUpnpThread *thread)
 			}
 			
 			/* Get service expiration */
-			srv = mupnp_upnp_device_getfirstexpiratedservice(ctrlPoint, dev, expirationTime);
+			srv = mupnp_device_getfirstexpiratedservice(ctrlPoint, dev, expirationTime);
 			
 			if (srv != NULL) 
 			{
-				expirationTime = mupnp_upnp_service_getsubscriptionexpiration(srv);
+				expirationTime = mupnp_service_getsubscriptionexpiration(srv);
 			}
 		}
 		
-		mupnp_upnp_controlpoint_unlock(ctrlPoint);
+		mupnp_controlpoint_unlock(ctrlPoint);
 		mupnp_mutex_lock(ctrlPoint->expMutex);
 		
 		/* Now we know, how much we should sleep */
@@ -192,39 +192,39 @@ void mupnp_upnp_controlpoint_expirationhandler(mUpnpThread *thread)
 
 
 /****************************************
-* mupnp_upnp_controlpoint_resubscribe
+* mupnp_controlpoint_resubscribe
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_resubscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpService *service, long timeout)
+BOOL mupnp_controlpoint_resubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service, long timeout)
 {
-	mUpnpUpnpDevice *rootDev;
-	mUpnpUpnpSubscriptionRequest *subReq;
-	mUpnpUpnpSubscriptionResponse *subRes;
+	mUpnpDevice *rootDev;
+	mUpnpSubscriptionRequest *subReq;
+	mUpnpSubscriptionResponse *subRes;
 	BOOL isSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_upnp_service_issubscribed(service) == FALSE)
+	if (mupnp_service_issubscribed(service) == FALSE)
 		return FALSE;
 
-	rootDev = mupnp_upnp_service_getrootdevice(service);
+	rootDev = mupnp_service_getrootdevice(service);
 	if (rootDev == NULL)
 		return FALSE;
 
-	subReq = mupnp_upnp_event_subscription_request_new();
+	subReq = mupnp_event_subscription_request_new();
 	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	mupnp_upnp_event_subscription_request_setrenewsubscription(subReq, service, mupnp_upnp_service_getsubscriptionsid(service), timeout);
-	subRes = mupnp_upnp_event_subscription_request_post(subReq);
-	isSuccess = mupnp_upnp_event_subscription_response_issuccessful(subRes);
+	mupnp_event_subscription_request_setrenewsubscription(subReq, service, mupnp_service_getsubscriptionsid(service), timeout);
+	subRes = mupnp_event_subscription_request_post(subReq);
+	isSuccess = mupnp_event_subscription_response_issuccessful(subRes);
 	if (isSuccess == TRUE) {
-		mupnp_upnp_service_setsubscriptionsid(service, mupnp_upnp_event_subscription_response_getsid(subRes));
-		mupnp_upnp_service_setsubscriptiontimeout(service, mupnp_upnp_event_subscription_response_gettimeout(subRes));
-		mupnp_upnp_service_setsubscriptiontimestamp(service, mupnp_getcurrentsystemtime());
+		mupnp_service_setsubscriptionsid(service, mupnp_event_subscription_response_getsid(subRes));
+		mupnp_service_setsubscriptiontimeout(service, mupnp_event_subscription_response_gettimeout(subRes));
+		mupnp_service_setsubscriptiontimestamp(service, mupnp_getcurrentsystemtime());
 	}
 	else
-		mupnp_upnp_service_clearsubscriptionsid(service);
+		mupnp_service_clearsubscriptionsid(service);
 
-	mupnp_upnp_event_subscription_request_delete(subReq);
+	mupnp_event_subscription_request_delete(subReq);
 
 	mupnp_log_debug_l4("Leaving...\n");
 
@@ -232,49 +232,49 @@ BOOL mupnp_upnp_controlpoint_resubscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnp
 }
 
 /****************************************
-* mupnp_upnp_controlpoint_subscribe
+* mupnp_controlpoint_subscribe
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_subscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpService *service, long timeout)
+BOOL mupnp_controlpoint_subscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service, long timeout)
 {
-	mUpnpUpnpDevice *rootDev;
+	mUpnpDevice *rootDev;
 	char *roodDevIfAddress;
-	mUpnpUpnpSubscriptionRequest *subReq;
-	mUpnpUpnpSubscriptionResponse *subRes;
+	mUpnpSubscriptionRequest *subReq;
+	mUpnpSubscriptionResponse *subRes;
 	char eventSubURL[MUPNP_CONTROLPOINT_EVENTSUBURL_MAX];
 	BOOL isSuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_upnp_service_issubscribed(service) == TRUE)
-		return mupnp_upnp_controlpoint_resubscribe(ctrlPoint, service, timeout);
+	if (mupnp_service_issubscribed(service) == TRUE)
+		return mupnp_controlpoint_resubscribe(ctrlPoint, service, timeout);
 
-	rootDev = mupnp_upnp_service_getrootdevice(service);
+	rootDev = mupnp_service_getrootdevice(service);
 	if (rootDev == NULL)
 		return FALSE;
 
 #ifdef CG_OPTIMIZED_CP_MODE
-	if (mupnp_upnp_service_isparsed(service) == FALSE)
-				mupnp_upnp_controlpoint_parsescservicescpd(service); 
+	if (mupnp_service_isparsed(service) == FALSE)
+				mupnp_controlpoint_parsescservicescpd(service); 
 #endif
 	
-	mupnp_upnp_service_lock(service);
-	roodDevIfAddress = mupnp_upnp_device_getinterfaceaddressfromssdppacket(rootDev);
+	mupnp_service_lock(service);
+	roodDevIfAddress = mupnp_device_getinterfaceaddressfromssdppacket(rootDev);
 
 	mupnp_log_debug_s("roodevifaddress = %s\n", roodDevIfAddress);
 
-	subReq = mupnp_upnp_event_subscription_request_new();
+	subReq = mupnp_event_subscription_request_new();
 	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	mupnp_upnp_event_subscription_request_setnewsubscription(subReq, service, mupnp_upnp_controlpoint_geteventsubcallbackurl(ctrlPoint, roodDevIfAddress, eventSubURL, sizeof(eventSubURL)), timeout);
+	mupnp_event_subscription_request_setnewsubscription(subReq, service, mupnp_controlpoint_geteventsubcallbackurl(ctrlPoint, roodDevIfAddress, eventSubURL, sizeof(eventSubURL)), timeout);
 	/* Set the event key to zero before any events are received */
-	mupnp_upnp_service_seteventkey(service, 0);
-	subRes = mupnp_upnp_event_subscription_request_post(subReq);
+	mupnp_service_seteventkey(service, 0);
+	subRes = mupnp_event_subscription_request_post(subReq);
 	
-	isSuccess = mupnp_upnp_event_subscription_response_issuccessful(subRes);
+	isSuccess = mupnp_event_subscription_response_issuccessful(subRes);
 	if (isSuccess == TRUE) {
-		mupnp_upnp_service_setsubscriptionsid(service, mupnp_upnp_event_subscription_response_getsid(subRes));
-		mupnp_upnp_service_setsubscriptiontimeout(service, mupnp_upnp_event_subscription_response_gettimeout(subRes));
-		mupnp_upnp_service_setsubscriptiontimestamp(service, mupnp_getcurrentsystemtime());
+		mupnp_service_setsubscriptionsid(service, mupnp_event_subscription_response_getsid(subRes));
+		mupnp_service_setsubscriptiontimeout(service, mupnp_event_subscription_response_gettimeout(subRes));
+		mupnp_service_setsubscriptiontimestamp(service, mupnp_getcurrentsystemtime());
 		
 		/* New subscription, wake up expirationhandler thread */
 		mupnp_mutex_lock(ctrlPoint->expMutex);
@@ -282,10 +282,10 @@ BOOL mupnp_upnp_controlpoint_subscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUp
 		mupnp_mutex_unlock(ctrlPoint->expMutex);
 	}
 	else
-		mupnp_upnp_service_clearsubscriptionsid(service);
+		mupnp_service_clearsubscriptionsid(service);
 
-	mupnp_upnp_event_subscription_request_delete(subReq);
-	mupnp_upnp_service_unlock(service);
+	mupnp_event_subscription_request_delete(subReq);
+	mupnp_service_unlock(service);
 	
 	mupnp_log_debug_l4("Leaving...\n");
 	
@@ -293,33 +293,33 @@ BOOL mupnp_upnp_controlpoint_subscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUp
 }
 
 /****************************************
-* mupnp_upnp_event_subscription_request_setunsubscription
+* mupnp_event_subscription_request_setunsubscription
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_unsubscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpService *service)
+BOOL mupnp_controlpoint_unsubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service)
 {
-	mUpnpUpnpDevice *rootDev;
-	mUpnpUpnpSubscriptionRequest *subReq;
-	mUpnpUpnpSubscriptionResponse *subRes;
+	mUpnpDevice *rootDev;
+	mUpnpSubscriptionRequest *subReq;
+	mUpnpSubscriptionResponse *subRes;
 	BOOL isSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	rootDev = mupnp_upnp_service_getrootdevice(service);
+	rootDev = mupnp_service_getrootdevice(service);
 	if (rootDev == NULL)
 		return FALSE;
 
-	subReq = mupnp_upnp_event_subscription_request_new();
+	subReq = mupnp_event_subscription_request_new();
 	/**** Thanks for Theo Beisch (2005/08/25) ****/
-	mupnp_upnp_event_subscription_request_setunsubscription(subReq, service);
-	subRes = mupnp_upnp_event_subscription_request_post(subReq);
-	isSuccess = mupnp_upnp_event_subscription_response_issuccessful(subRes);
+	mupnp_event_subscription_request_setunsubscription(subReq, service);
+	subRes = mupnp_event_subscription_request_post(subReq);
+	isSuccess = mupnp_event_subscription_response_issuccessful(subRes);
 	
-	mupnp_upnp_service_clearsubscriptionsid(service);
-	mupnp_upnp_service_setsubscriptiontimeout(service, 0);
-	mupnp_upnp_service_setsubscriptiontimestamp(service, 0);
+	mupnp_service_clearsubscriptionsid(service);
+	mupnp_service_setsubscriptiontimeout(service, 0);
+	mupnp_service_setsubscriptiontimestamp(service, 0);
 	
-	mupnp_upnp_event_subscription_request_delete(subReq);
+	mupnp_event_subscription_request_delete(subReq);
 
 	mupnp_log_debug_l4("Leaving...\n");
 
@@ -327,26 +327,26 @@ BOOL mupnp_upnp_controlpoint_unsubscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnp
 }
 
 /****************************************
-* mupnp_upnp_controlpoint_subscribeall
+* mupnp_controlpoint_subscribeall
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_subscribeall(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpDevice *dev, long timeout)
+BOOL mupnp_controlpoint_subscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev, long timeout)
 {
-	mUpnpUpnpService *service;
-	mUpnpUpnpDevice *childDev;
+	mUpnpService *service;
+	mUpnpDevice *childDev;
 	BOOL isSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	isSuccess = FALSE;
 
-	for (service=mupnp_upnp_device_getservices(dev); service != NULL; service = mupnp_upnp_service_next(service)) {
-		if (mupnp_upnp_controlpoint_subscribe(ctrlPoint, service, timeout) == TRUE)
+	for (service=mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
+		if (mupnp_controlpoint_subscribe(ctrlPoint, service, timeout) == TRUE)
 			isSuccess = TRUE;
 	}
 		
-	for (childDev = mupnp_upnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_upnp_device_next(dev)) {
-		if (mupnp_upnp_controlpoint_subscribeall(ctrlPoint, childDev, timeout) == TRUE)
+	for (childDev = mupnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_device_next(dev)) {
+		if (mupnp_controlpoint_subscribeall(ctrlPoint, childDev, timeout) == TRUE)
 			isSuccess = TRUE;
 	}
 
@@ -356,26 +356,26 @@ BOOL mupnp_upnp_controlpoint_subscribeall(mUpnpUpnpControlPoint *ctrlPoint, mUpn
 }
 
 /****************************************
-* mupnp_upnp_controlpoint_resubscribeall
+* mupnp_controlpoint_resubscribeall
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_resubscribeall(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpDevice *dev, long timeout)
+BOOL mupnp_controlpoint_resubscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev, long timeout)
 {
-	mUpnpUpnpService *service;
-	mUpnpUpnpDevice *childDev;
+	mUpnpService *service;
+	mUpnpDevice *childDev;
 	BOOL isSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	isSuccess = FALSE;
 
-	for (service=mupnp_upnp_device_getservices(dev); service != NULL; service = mupnp_upnp_service_next(service)) {
-		if (mupnp_upnp_controlpoint_resubscribe(ctrlPoint, service, timeout) == TRUE)
+	for (service=mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
+		if (mupnp_controlpoint_resubscribe(ctrlPoint, service, timeout) == TRUE)
 			isSuccess = TRUE;
 	}
 		
-	for (childDev = mupnp_upnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_upnp_device_next(dev)) {
-		if (mupnp_upnp_controlpoint_resubscribeall(ctrlPoint, childDev, timeout) == TRUE)
+	for (childDev = mupnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_device_next(dev)) {
+		if (mupnp_controlpoint_resubscribeall(ctrlPoint, childDev, timeout) == TRUE)
 			isSuccess = TRUE;
 	}
 
@@ -385,29 +385,29 @@ BOOL mupnp_upnp_controlpoint_resubscribeall(mUpnpUpnpControlPoint *ctrlPoint, mU
 }
 
 /****************************************
-* mupnp_upnp_controlpoint_unsubscribeall
+* mupnp_controlpoint_unsubscribeall
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_unsubscribeall(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpDevice *dev)
+BOOL mupnp_controlpoint_unsubscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev)
 {
-	mUpnpUpnpService *service;
-	mUpnpUpnpDevice *childDev;
+	mUpnpService *service;
+	mUpnpDevice *childDev;
 	BOOL isSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	isSuccess = TRUE;
 
-	for (service=mupnp_upnp_device_getservices(dev); service != NULL; service = mupnp_upnp_service_next(service)) {
-		if (mupnp_upnp_service_issubscribed(service) == TRUE)
+	for (service=mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
+		if (mupnp_service_issubscribed(service) == TRUE)
 		{
-			if (mupnp_upnp_controlpoint_unsubscribe(ctrlPoint, service) == FALSE)
+			if (mupnp_controlpoint_unsubscribe(ctrlPoint, service) == FALSE)
 				isSuccess = FALSE;
 		}
 	}
 		
-	for (childDev = mupnp_upnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_upnp_device_next(childDev)) {
-		if (mupnp_upnp_controlpoint_unsubscribeall(ctrlPoint, childDev) == FALSE)
+	for (childDev = mupnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_device_next(childDev)) {
+		if (mupnp_controlpoint_unsubscribeall(ctrlPoint, childDev) == FALSE)
 			isSuccess = FALSE;
 	}
 

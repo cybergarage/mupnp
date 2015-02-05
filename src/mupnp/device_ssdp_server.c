@@ -17,14 +17,14 @@
 #include <ctype.h>
 #include <string.h>
 
-static int filter_duplicate_m_search(mUpnpUpnpSSDPPacket *ssdpPkt);
+static int filter_duplicate_m_search(mUpnpSSDPPacket *ssdpPkt);
 static int simple_string_hash(char *str, int table_size);
 
 /****************************************
-* mupnp_upnp_device_ssdpmessagereceived
+* mupnp_device_ssdpmessagereceived
 ****************************************/
 
-void mupnp_upnp_device_ssdpmessagereceived(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPacket *ssdpPkt, int filter)
+void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt, int filter)
 {
 	BOOL isRootDev;
 	const char *ssdpST;
@@ -36,8 +36,8 @@ void mupnp_upnp_device_ssdpmessagereceived(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPa
 #else
 	int n;
 #endif
-	mUpnpUpnpService *service;
-	mUpnpUpnpDevice *childDev;
+	mUpnpService *service;
+	mUpnpDevice *childDev;
 	const char *ssdpMXString;
 	int ssdpMX;
 	const char *ssdpTargetAddr;
@@ -45,7 +45,7 @@ void mupnp_upnp_device_ssdpmessagereceived(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPa
 	mupnp_log_debug_l4("Entering...\n");
 
 	ssdpMXString = mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_MX);
-	ssdpST = mupnp_upnp_ssdp_packet_getst(ssdpPkt);
+	ssdpST = mupnp_ssdp_packet_getst(ssdpPkt);
 
 	/* Check if this ssdp packet has already been checked + filtered */
 	if (filter)
@@ -69,14 +69,14 @@ void mupnp_upnp_device_ssdpmessagereceived(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPa
 		/****************************************
 		 * check HOST header, should always be 239.255.255.250:1900, return if incorrect
 		 ***************************************/
-		ssdpTargetAddr = mupnp_upnp_ssdp_packet_gethost(ssdpPkt);
+		ssdpTargetAddr = mupnp_ssdp_packet_gethost(ssdpPkt);
 		if (mupnp_strcmp(ssdpTargetAddr, MUPNP_SSDP_MULTICAST_ADDRESS) != 0 && !mupnp_net_isipv6address(ssdpTargetAddr) )
 			return;
 
 		/****************************************
 		 * check MAN header, return if incorrect
 		 ***************************************/
-		if (mupnp_upnp_ssdp_packet_isdiscover(ssdpPkt) == FALSE)
+		if (mupnp_ssdp_packet_isdiscover(ssdpPkt) == FALSE)
 			return;
 
 		/****************************************
@@ -103,76 +103,76 @@ void mupnp_upnp_device_ssdpmessagereceived(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPa
 		if ( filter_duplicate_m_search(ssdpPkt) )
 			return;
 
-		ssdpMX = mupnp_upnp_ssdp_packet_getmx(ssdpPkt);
+		ssdpMX = mupnp_ssdp_packet_getmx(ssdpPkt);
 		mupnp_log_debug("Sleeping for a while... (MX:%d)\n", ssdpMX);
 		mupnp_waitrandom((ssdpMX*1000)/4);
 	}
 
-	isRootDev = mupnp_upnp_device_isrootdevice(dev);
+	isRootDev = mupnp_device_isrootdevice(dev);
 	
-	if (mupnp_upnp_st_isalldevice(ssdpST) == TRUE) {
+	if (mupnp_st_isalldevice(ssdpST) == TRUE) {
 		/* for root device only */
 		if (isRootDev == TRUE) {
-			mupnp_upnp_device_getnotifydevicent(dev, ssdpMsg, sizeof(ssdpMsg));
-			mupnp_upnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
-			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, ssdpMsg, deviceUSN);
+			mupnp_device_getnotifydevicent(dev, ssdpMsg, sizeof(ssdpMsg));
+			mupnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
+			mupnp_device_postsearchresponse(dev, ssdpPkt, ssdpMsg, deviceUSN);
 		}
 		/* for all devices send */
 		/* device type : device version */
-		mupnp_upnp_device_getnotifydevicetypent(dev, ssdpMsg, sizeof(ssdpMsg));
-		mupnp_upnp_device_getnotifydevicetypeusn(dev, deviceUSN, sizeof(deviceUSN));
-		mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, ssdpMsg, deviceUSN);
+		mupnp_device_getnotifydevicetypent(dev, ssdpMsg, sizeof(ssdpMsg));
+		mupnp_device_getnotifydevicetypeusn(dev, deviceUSN, sizeof(deviceUSN));
+		mupnp_device_postsearchresponse(dev, ssdpPkt, ssdpMsg, deviceUSN);
 		/* device UUID */
-		mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, mupnp_upnp_device_getudn(dev), mupnp_upnp_device_getudn(dev));
+		mupnp_device_postsearchresponse(dev, ssdpPkt, mupnp_device_getudn(dev), mupnp_device_getudn(dev));
 	}
-	else if (mupnp_upnp_st_isrootdevice(ssdpST)  == TRUE) {
+	else if (mupnp_st_isrootdevice(ssdpST)  == TRUE) {
 		if (isRootDev == TRUE) {
-			mupnp_upnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
-			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, MUPNP_ST_ROOT_DEVICE, deviceUSN);
+			mupnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
+			mupnp_device_postsearchresponse(dev, ssdpPkt, MUPNP_ST_ROOT_DEVICE, deviceUSN);
 		}
 	}
-	else if (mupnp_upnp_st_isuuiddevice(ssdpST)  == TRUE) {
-		devUDN = mupnp_upnp_device_getudn(dev);
+	else if (mupnp_st_isuuiddevice(ssdpST)  == TRUE) {
+		devUDN = mupnp_device_getudn(dev);
 		if (mupnp_streq(ssdpST, devUDN) == TRUE)
-			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, devUDN, devUDN);
+			mupnp_device_postsearchresponse(dev, ssdpPkt, devUDN, devUDN);
 	}
-	else if (mupnp_upnp_st_isurn(ssdpST)  == TRUE) {
-		devType = mupnp_upnp_device_getdevicetype(dev);
+	else if (mupnp_st_isurn(ssdpST)  == TRUE) {
+		devType = mupnp_device_getdevicetype(dev);
 		if (mupnp_streq(ssdpST, devType) == TRUE) {
-			mupnp_upnp_device_getnotifydevicetypeusn(dev, deviceUSN, sizeof(deviceUSN));
-			mupnp_upnp_device_postsearchresponse(dev, ssdpPkt, devType, deviceUSN);
+			mupnp_device_getnotifydevicetypeusn(dev, deviceUSN, sizeof(deviceUSN));
+			mupnp_device_postsearchresponse(dev, ssdpPkt, devType, deviceUSN);
 		}
 	}
 
-	for (service=mupnp_upnp_device_getservices(dev); service != NULL; service = mupnp_upnp_service_next(service))
-		mupnp_upnp_service_ssdpmessagereceived(service, ssdpPkt);
+	for (service=mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service))
+		mupnp_service_ssdpmessagereceived(service, ssdpPkt);
 
-	for (childDev = mupnp_upnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_upnp_device_next(childDev))
-		mupnp_upnp_device_ssdpmessagereceived(childDev, ssdpPkt, FALSE);
+	for (childDev = mupnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_device_next(childDev))
+		mupnp_device_ssdpmessagereceived(childDev, ssdpPkt, FALSE);
 	
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_device_ssdplistener
+* mupnp_device_ssdplistener
 ****************************************/
 
-void mupnp_upnp_device_ssdplistener(mUpnpUpnpSSDPPacket *ssdpPkt)
+void mupnp_device_ssdplistener(mUpnpSSDPPacket *ssdpPkt)
 {
-	mUpnpUpnpDevice *dev;
+	mUpnpDevice *dev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	dev = (mUpnpUpnpDevice *)mupnp_upnp_ssdp_packet_getuserdata(ssdpPkt);
-	mupnp_upnp_device_ssdpmessagereceived(dev, ssdpPkt, TRUE);
+	dev = (mUpnpDevice *)mupnp_ssdp_packet_getuserdata(ssdpPkt);
+	mupnp_device_ssdpmessagereceived(dev, ssdpPkt, TRUE);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /* private methods */
 
-static int filter_duplicate_m_search(mUpnpUpnpSSDPPacket *ssdpPkt)
+static int filter_duplicate_m_search(mUpnpSSDPPacket *ssdpPkt)
 {
 	mUpnpTime *timestamps = ssdpPkt->timestamps;
 	size_t s_length;
@@ -190,7 +190,7 @@ static int filter_duplicate_m_search(mUpnpUpnpSSDPPacket *ssdpPkt)
 	}
 
 	r_address = mupnp_string_getvalue(ssdpPkt->dgmPkt->remoteAddress);
-	st = mupnp_upnp_ssdp_packet_getst(ssdpPkt);
+	st = mupnp_ssdp_packet_getst(ssdpPkt);
 	sprintf(port, "%d", ssdpPkt->dgmPkt->remotePort); 
 
 	/* Catenating remote address string with ssdp ST header field. */

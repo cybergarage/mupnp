@@ -26,18 +26,18 @@ extern "C" {
 * Struct
 ****************************************/
 
-typedef struct _mUpnpUpnpAvServer {
+typedef struct _mUpnpAvServer {
 mUpnpMutex *mutex;
-mUpnpUpnpDevice *dev;
-mUpnpUpnpAvContent *rootContent;
+mUpnpDevice *dev;
+mUpnpAvContent *rootContent;
 int systemUpdateID;
 CG_UPNPAV_HTTP_LISTENER httplistener;
 CG_UPNPAV_ACTION_LISTNER actionListner;
 CG_UPNPAV_STATEVARIABLE_LISTNER queryListner;
-mUpnpUpnpAvProtocolInfoList *protocolInfoList;
+mUpnpAvProtocolInfoList *protocolInfoList;
 mUpnpNetworkInterfaceList *networkInterfaceList;
 void *userData;
-} mUpnpUpnpAvServer;
+} mUpnpAvServer;
 
 /****************************************
 * Constants (Media Server)
@@ -141,26 +141,26 @@ void *userData;
 * Public Functions
 ****************************************/
 
-mUpnpUpnpAvServer *mupnp_upnpav_dms_new();
-void mupnp_upnpav_dms_delete(mUpnpUpnpAvServer *dms);
+mUpnpAvServer *mupnp_upnpav_dms_new();
+void mupnp_upnpav_dms_delete(mUpnpAvServer *dms);
 
 #define mupnp_upnpav_dms_getdevice(dms) (dms->dev)
 #define mupnp_upnpav_dms_getrootcontent(dms) (dms->rootContent)
 
-#define mupnp_upnpav_dms_start(dms) mupnp_upnp_device_start(dms->dev)
-#define mupnp_upnpav_dms_stop(dms) mupnp_upnp_device_stop(dms->dev)
+#define mupnp_upnpav_dms_start(dms) mupnp_device_start(dms->dev)
+#define mupnp_upnpav_dms_stop(dms) mupnp_device_stop(dms->dev)
 
 #define mupnp_upnpav_dms_lock(dms) mupnp_mutex_lock(dms->mutex)
 #define mupnp_upnpav_dms_unlock(dms) mupnp_mutex_unlock(dms->mutex)
 
-#define mupnp_upnpav_dms_setfriendlyname(dms, value) mupnp_upnp_device_setfriendlyname(dms->dev, value)
-#define mupnp_upnpav_dms_getfriendlyname(dms) mupnp_upnp_device_getfriendlyname(dms->dev)
+#define mupnp_upnpav_dms_setfriendlyname(dms, value) mupnp_device_setfriendlyname(dms->dev, value)
+#define mupnp_upnpav_dms_getfriendlyname(dms) mupnp_device_getfriendlyname(dms->dev)
 
-#define mupnp_upnpav_dms_setudn(dms, value) mupnp_upnp_device_setudn(dms->dev, value)
-#define mupnp_upnpav_dms_getudn(dms) mupnp_upnp_device_getudn(dms->dev)
+#define mupnp_upnpav_dms_setudn(dms, value) mupnp_device_setudn(dms->dev, value)
+#define mupnp_upnpav_dms_getudn(dms) mupnp_device_getudn(dms->dev)
 
-mUpnpUpnpAvContent *mupnp_upnpav_dms_findcontentbytitle(mUpnpUpnpAvServer *dms, char *name);
-mUpnpUpnpAvContent *mupnp_upnpav_dms_findcontentbyid(mUpnpUpnpAvServer *dms, char *objectID);
+mUpnpAvContent *mupnp_upnpav_dms_findcontentbytitle(mUpnpAvServer *dms, char *name);
+mUpnpAvContent *mupnp_upnpav_dms_findcontentbyid(mUpnpAvServer *dms, char *objectID);
 
 #define mupnp_upnpav_dms_sethttplistener(dms,func) (dms->httplistener = func)
 #define mupnp_upnpav_dms_gethttplistener(dms) (dms->httplistener)
@@ -181,7 +181,7 @@ mUpnpUpnpAvContent *mupnp_upnpav_dms_findcontentbyid(mUpnpUpnpAvServer *dms, cha
 * Connection Manager
 ****************************************/
 
-BOOL mupnp_upnpav_dms_conmgr_init(mUpnpUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_conmgr_init(mUpnpAvServer *dms);
 
 /****************************************
 * Network Interface
@@ -190,24 +190,24 @@ BOOL mupnp_upnpav_dms_conmgr_init(mUpnpUpnpAvServer *dms);
 #define mupnp_upnpav_dms_getnetworkinterfaces(dms) mupnp_net_interfacelist_gets(dms->networkInterfaceList)
 #define mupnp_upnpav_dms_getnnetworkinterfaces(dms) mupnp_net_interfacelist_size(dms->networkInterfaceList)
 
-BOOL mupnp_upnpav_dms_updatenetworkinterfaces(mUpnpUpnpAvServer *dms);
-mUpnpNetworkInterface *mupnp_upnpav_dms_getnetworkinterface(mUpnpUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_updatenetworkinterfaces(mUpnpAvServer *dms);
+mUpnpNetworkInterface *mupnp_upnpav_dms_getnetworkinterface(mUpnpAvServer *dms);
 
 /****************************************
 * Content Directory
 ****************************************/
 
-BOOL mupnp_upnpav_dms_condir_init(mUpnpUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_condir_init(mUpnpAvServer *dms);
 
-void mupnp_upnpav_dms_condir_setsystemupdateid(mUpnpUpnpAvServer *dms, int id);
-int mupnp_upnpav_dms_condir_getsystemupdateid(mUpnpUpnpAvServer *dms);
-void mupnp_upnpav_dms_condir_updatesystemupdateid(mUpnpUpnpAvServer *dms);
+void mupnp_upnpav_dms_condir_setsystemupdateid(mUpnpAvServer *dms, int id);
+int mupnp_upnpav_dms_condir_getsystemupdateid(mUpnpAvServer *dms);
+void mupnp_upnpav_dms_condir_updatesystemupdateid(mUpnpAvServer *dms);
 
 /****************************************
 * Media Receiveer
 ****************************************/
 
-BOOL mupnp_upnpav_dms_medrec_init(mUpnpUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_medrec_init(mUpnpAvServer *dms);
 
 
 #ifdef  __cplusplus

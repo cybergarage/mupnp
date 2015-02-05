@@ -23,19 +23,19 @@
 
 static bool ClinkTestCaseTestSubscriptionFlag;
 
-static void ClinkTestCaseTestSubscription(mUpnpUpnpProperty *prop)
+static void ClinkTestCaseTestSubscription(mUpnpProperty *prop)
 {
-	char *propName = mupnp_upnp_property_getname(prop);
+	char *propName = mupnp_property_getname(prop);
 	BOOST_CHECK(propName != NULL);
 	BOOST_CHECK(mupnp_streq(propName, TEST_DEVICE_STATEVARIABLE_STATUS));
 
-	char *sid = mupnp_upnp_property_getsid(prop);
+	char *sid = mupnp_property_getsid(prop);
 	BOOST_CHECK(sid != NULL);
 
-	size_t seq = mupnp_upnp_property_getseq(prop);
+	size_t seq = mupnp_property_getseq(prop);
 	BOOST_CHECK(sid != NULL);
 
-	char *propValue = mupnp_upnp_property_getvalue(prop);
+	char *propValue = mupnp_property_getvalue(prop);
 	BOOST_CHECK(propValue != NULL);
   
   if (seq == 0) {
@@ -50,24 +50,24 @@ static void ClinkTestCaseTestSubscription(mUpnpUpnpProperty *prop)
 
 BOOST_AUTO_TEST_CASE(Subscription)
 {
-	mUpnpUpnpDevice *testDev = upnp_test_device_new();
+	mUpnpDevice *testDev = upnp_test_device_new();
 	BOOST_CHECK(testDev);
-	BOOST_CHECK(mupnp_upnp_device_start(testDev));
+	BOOST_CHECK(mupnp_device_start(testDev));
 
-	mUpnpUpnpControlPoint *testCp = mupnp_upnp_controlpoint_new();
+	mUpnpControlPoint *testCp = mupnp_controlpoint_new();
 	BOOST_CHECK(testCp);
-	BOOST_CHECK(mupnp_upnp_controlpoint_start(testCp));
-	BOOST_CHECK(mupnp_upnp_controlpoint_search(testCp, MUPNP_ST_ROOT_DEVICE));
-	mupnp_upnp_controlpoint_addeventlistener(testCp, ClinkTestCaseTestSubscription);
+	BOOST_CHECK(mupnp_controlpoint_start(testCp));
+	BOOST_CHECK(mupnp_controlpoint_search(testCp, MUPNP_ST_ROOT_DEVICE));
+	mupnp_controlpoint_addeventlistener(testCp, ClinkTestCaseTestSubscription);
 	
 	// Find Device
-	mupnp_sleep(mupnp_upnp_controlpoint_getssdpsearchmx(testCp) * 1000);
-	int devCnt = mupnp_upnp_controlpoint_getndevices(testCp);
+	mupnp_sleep(mupnp_controlpoint_getssdpsearchmx(testCp) * 1000);
+	int devCnt = mupnp_controlpoint_getndevices(testCp);
 	BOOST_CHECK(0 < devCnt);
-	mUpnpUpnpDevice *testCpDev = NULL;
+	mUpnpDevice *testCpDev = NULL;
 	for (int n=0; n<devCnt; n++) {
-		mUpnpUpnpDevice *dev = mupnp_upnp_controlpoint_getdevice(testCp, n);
-		if (strcmp(mupnp_upnp_device_getdevicetype(dev), TEST_DEVICE_DEVICE_TYPE) == 0) {
+		mUpnpDevice *dev = mupnp_controlpoint_getdevice(testCp, n);
+		if (strcmp(mupnp_device_getdevicetype(dev), TEST_DEVICE_DEVICE_TYPE) == 0) {
 			testCpDev = dev;
 			break;
 		}
@@ -75,32 +75,32 @@ BOOST_AUTO_TEST_CASE(Subscription)
 	BOOST_CHECK(testCpDev != NULL);
 
 	// Get Target Service
-	mUpnpUpnpService *testDevService = mupnp_upnp_device_getservicebyexacttype(testDev, TEST_DEVICE_SERVICE_TYPE);
+	mUpnpService *testDevService = mupnp_device_getservicebyexacttype(testDev, TEST_DEVICE_SERVICE_TYPE);
 	BOOST_CHECK(testDevService != NULL);
-	mUpnpUpnpStateVariable *testDevState = mupnp_upnp_service_getstatevariablebyname(testDevService, TEST_DEVICE_STATEVARIABLE_STATUS);
+	mUpnpStateVariable *testDevState = mupnp_service_getstatevariablebyname(testDevService, TEST_DEVICE_STATEVARIABLE_STATUS);
 	BOOST_CHECK(testDevState != NULL);
 
 	// Set Initial Value
-	mupnp_upnp_statevariable_setvalue(testDevState, TEST_UPDATE_STATEVARIABLE_DEFAULTVALUE);
+	mupnp_statevariable_setvalue(testDevState, TEST_UPDATE_STATEVARIABLE_DEFAULTVALUE);
 
 	// Subscribe
-	mUpnpUpnpService *testCpDevService = mupnp_upnp_device_getservicebyexacttype(testCpDev, TEST_DEVICE_SERVICE_TYPE);
+	mUpnpService *testCpDevService = mupnp_device_getservicebyexacttype(testCpDev, TEST_DEVICE_SERVICE_TYPE);
 	BOOST_CHECK(testCpDevService != NULL);
-	BOOST_CHECK(mupnp_upnp_controlpoint_subscribe(testCp, testCpDevService, 300) );
+	BOOST_CHECK(mupnp_controlpoint_subscribe(testCp, testCpDevService, 300) );
 	mupnp_sleep(MUPNP_SERVICE_NOTIFY_WAITTIME * 2);
 
 	// Update State Variable
 	ClinkTestCaseTestSubscriptionFlag = false;
-	mupnp_upnp_statevariable_setvalue(testDevState, TEST_UPDATE_STATEVARIABLE_UPDATEVALUE);
+	mupnp_statevariable_setvalue(testDevState, TEST_UPDATE_STATEVARIABLE_UPDATEVALUE);
 	mupnp_sleep(MUPNP_SERVICE_NOTIFY_WAITTIME * 2);
 	BOOST_CHECK(ClinkTestCaseTestSubscriptionFlag);
 
 	// Unscribe
-	BOOST_CHECK(mupnp_upnp_controlpoint_unsubscribe(testCp, testCpDevService));
+	BOOST_CHECK(mupnp_controlpoint_unsubscribe(testCp, testCpDevService));
 
 	// Finish
-	BOOST_CHECK(mupnp_upnp_device_stop(testDev));
-	mupnp_upnp_device_delete(testDev);
-	BOOST_CHECK(mupnp_upnp_controlpoint_stop(testCp));
-	mupnp_upnp_controlpoint_delete(testCp);
+	BOOST_CHECK(mupnp_device_stop(testDev));
+	mupnp_device_delete(testDev);
+	BOOST_CHECK(mupnp_controlpoint_stop(testCp));
+	mupnp_controlpoint_delete(testCp);
 }

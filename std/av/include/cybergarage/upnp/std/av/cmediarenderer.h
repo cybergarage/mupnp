@@ -29,15 +29,15 @@ extern "C" {
 * Struct
 ****************************************/
 
-typedef struct _mUpnpUpnpAvRenderer {
+typedef struct _mUpnpAvRenderer {
 mUpnpMutex *mutex;
-mUpnpUpnpDevice *dev;
+mUpnpDevice *dev;
 CG_UPNPAV_HTTP_LISTENER httplistener;
 CG_UPNPAV_ACTION_LISTNER actionListner;
 CG_UPNPAV_STATEVARIABLE_LISTNER queryListner;
-mUpnpUpnpAvProtocolInfoList *protocolInfoList;
+mUpnpAvProtocolInfoList *protocolInfoList;
 void *userData;
-} mUpnpUpnpAvRenderer;
+} mUpnpAvRenderer;
 
 /****************************************
 * Constants (Media Server)
@@ -99,22 +99,22 @@ void *userData;
 * Public Functions
 ****************************************/
 
-mUpnpUpnpAvRenderer *mupnp_upnpav_dmr_new();
-void mupnp_upnpav_dmr_delete(mUpnpUpnpAvRenderer *dmr);
+mUpnpAvRenderer *mupnp_upnpav_dmr_new();
+void mupnp_upnpav_dmr_delete(mUpnpAvRenderer *dmr);
 
 #define mupnp_upnpav_dmr_getdevice(dmr) (dmr->dev)
 
-#define mupnp_upnpav_dmr_start(dmr) mupnp_upnp_device_start(dmr->dev)
-#define mupnp_upnpav_dmr_stop(dmr) mupnp_upnp_device_stop(dmr->dev)
+#define mupnp_upnpav_dmr_start(dmr) mupnp_device_start(dmr->dev)
+#define mupnp_upnpav_dmr_stop(dmr) mupnp_device_stop(dmr->dev)
 
 #define mupnp_upnpav_dmr_lock(dmr) mupnp_mutex_lock(dmr->mutex)
 #define mupnp_upnpav_dmr_unlock(dmr) mupnp_mutex_unlock(dmr->mutex)
 
-#define mupnp_upnpav_dmr_setfriendlyname(dmr, value) mupnp_upnp_device_setfriendlyname(dmr->dev, value)
-#define mupnp_upnpav_dmr_getfriendlyname(dmr) mupnp_upnp_device_getfriendlyname(dmr->dev)
+#define mupnp_upnpav_dmr_setfriendlyname(dmr, value) mupnp_device_setfriendlyname(dmr->dev, value)
+#define mupnp_upnpav_dmr_getfriendlyname(dmr) mupnp_device_getfriendlyname(dmr->dev)
 
-#define mupnp_upnpav_dmr_setudn(dmr, value) mupnp_upnp_device_setudn(dmr->dev, value)
-#define mupnp_upnpav_dmr_getudn(dmr) mupnp_upnp_device_getudn(dmr->dev)
+#define mupnp_upnpav_dmr_setudn(dmr, value) mupnp_device_setudn(dmr->dev, value)
+#define mupnp_upnpav_dmr_getudn(dmr) mupnp_device_getudn(dmr->dev)
 
 #define mupnp_upnpav_dmr_sethttplistener(dmr,func) (dmr->httplistener = func)
 #define mupnp_upnpav_dmr_gethttplistener(dmr) (dmr->httplistener)
@@ -128,23 +128,23 @@ void mupnp_upnpav_dmr_delete(mUpnpUpnpAvRenderer *dmr);
 #define mupnp_upnpav_dmr_setuserdata(dmr,data) (dmr->userData = data)
 #define mupnp_upnpav_dmr_getuserdata(dmr) (dmr->userData)
 
-void mupnp_upnpav_dmr_addprotocolinfo(mUpnpUpnpAvRenderer *dmr, mUpnpUpnpAvProtocolInfo *info);
+void mupnp_upnpav_dmr_addprotocolinfo(mUpnpAvRenderer *dmr, mUpnpAvProtocolInfo *info);
 #define mupnp_upnpav_dmr_getprotocolinfos(dmr) mupnp_upnpav_protocolinfolist_gets(dmr->protocolInfoList)
 
-void mupnp_upnpav_dmr_setsinkprotocolinfo(mUpnpUpnpAvRenderer *dmr, char *value);
-char *mupnp_upnpav_dmr_getsinkprotocolinfo(mUpnpUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setsinkprotocolinfo(mUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getsinkprotocolinfo(mUpnpAvRenderer *dmr);
 
-void mupnp_upnpav_dmr_setsourceprotocolinfo(mUpnpUpnpAvRenderer *dmr, char *value);
-char *mupnp_upnpav_dmr_getsourceprotocolinfo(mUpnpUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setsourceprotocolinfo(mUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getsourceprotocolinfo(mUpnpAvRenderer *dmr);
 
-void mupnp_upnpav_dmr_setcurrentconnectionids(mUpnpUpnpAvRenderer *dmr, char *value);
-char *mupnp_upnpav_dmr_getcurrentconnectionids(mUpnpUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setcurrentconnectionids(mUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getcurrentconnectionids(mUpnpAvRenderer *dmr);
 
-void mupnp_upnpav_dmr_setavtransportlastchange(mUpnpUpnpAvRenderer *dmr, char *value);
-char *mupnp_upnpav_dmr_getavtransportlastchange(mUpnpUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setavtransportlastchange(mUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getavtransportlastchange(mUpnpAvRenderer *dmr);
 
-void mupnp_upnpav_dmr_setrenderingcontrollastchange(mUpnpUpnpAvRenderer *dmr, char *value);
-char *mupnp_upnpav_dmr_getrenderingcontrollastchange(mUpnpUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setrenderingcontrollastchange(mUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getrenderingcontrollastchange(mUpnpAvRenderer *dmr);
 
 #ifdef  __cplusplus
 }

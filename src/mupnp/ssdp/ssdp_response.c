@@ -16,12 +16,12 @@
 #define MUPNP_SSDP_MAXAGE_LEN 7
 
 /****************************************
-* mupnp_upnp_ssdpresponse_new
+* mupnp_ssdpresponse_new
 ****************************************/
 
-mUpnpUpnpSSDPResponse *mupnp_upnp_ssdpresponse_new()
+mUpnpSSDPResponse *mupnp_ssdpresponse_new()
 {
-	mUpnpUpnpSSDPResponse*ssdpRes;
+	mUpnpSSDPResponse*ssdpRes;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -36,10 +36,10 @@ mUpnpUpnpSSDPResponse *mupnp_upnp_ssdpresponse_new()
 }
 
 /****************************************
-* mupnp_upnp_ssdpresponse_delete
+* mupnp_ssdpresponse_delete
 ****************************************/
 
-void mupnp_upnp_ssdpresponse_delete(mUpnpUpnpSSDPResponse *ssdpRes)
+void mupnp_ssdpresponse_delete(mUpnpSSDPResponse *ssdpRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -49,10 +49,10 @@ void mupnp_upnp_ssdpresponse_delete(mUpnpUpnpSSDPResponse *ssdpRes)
 }
 
 /****************************************
-* mupnp_upnp_ssdpresponse_setleasetime
+* mupnp_ssdpresponse_setleasetime
 ****************************************/
 
-void mupnp_upnp_ssdpresponse_setleasetime(mUpnpUpnpSSDPResponse *ssdpRes, mUpnpTime value)
+void mupnp_ssdpresponse_setleasetime(mUpnpSSDPResponse *ssdpRes, mUpnpTime value)
 {
 	char buf[MUPNP_SSDP_MAXAGE_LEN + 1 + CG_STRING_INTEGER_BUFLEN];
 
@@ -65,10 +65,10 @@ void mupnp_upnp_ssdpresponse_setleasetime(mUpnpUpnpSSDPResponse *ssdpRes, mUpnpT
 }
 		
 /****************************************
-* mupnp_upnp_ssdpresponse_getleasetime
+* mupnp_ssdpresponse_getleasetime
 ****************************************/
 
-int mupnp_upnp_ssdpresponse_getleasetime(mUpnpUpnpSSDPResponse *ssdpRes)
+int mupnp_ssdpresponse_getleasetime(mUpnpSSDPResponse *ssdpRes)
 {
 	const char *cacheCtrl;
 
@@ -78,14 +78,14 @@ int mupnp_upnp_ssdpresponse_getleasetime(mUpnpUpnpSSDPResponse *ssdpRes)
 
 	mupnp_log_debug_l4("Leaving...\n");
   
-	return mupnp_upnp_ssdp_getleasetime(cacheCtrl);
+	return mupnp_ssdp_getleasetime(cacheCtrl);
 }
 
 /****************************************
-* mupnp_upnp_ssdpresponse_tostring
+* mupnp_ssdpresponse_tostring
 ****************************************/
 
-char *mupnp_upnp_ssdpresponse_tostring(mUpnpUpnpSSDPResponse *ssdpRes, mUpnpString *ssdpMsg)
+char *mupnp_ssdpresponse_tostring(mUpnpSSDPResponse *ssdpRes, mUpnpString *ssdpMsg)
 {
 	mUpnpHttpHeader *header;
 	char statusCodeBuf[CG_STRING_INTEGER_BUFLEN];

@@ -50,12 +50,12 @@ extern "C" {
 /**
  * Data type for UPnP Notification request
  */
-typedef mUpnpSoapRequest mUpnpUpnpNotifyRequest;
+typedef mUpnpSoapRequest mUpnpNotifyRequest;
 
 /**
  * Data type for UPnP notify response
  */
-typedef mUpnpSoapResponse mUpnpUpnpNotifyResponse;
+typedef mUpnpSoapResponse mUpnpNotifyResponse;
 
 /****************************************
 * Function (Request)
@@ -64,21 +64,21 @@ typedef mUpnpSoapResponse mUpnpUpnpNotifyResponse;
 /**
  * Create new Notification request
  */
-mUpnpUpnpNotifyRequest *mupnp_upnp_event_notify_request_new();
+mUpnpNotifyRequest *mupnp_event_notify_request_new();
 
 /**
  * Delete Notification request
  *
  * @param notifyReq Notification request
  */
-void mupnp_upnp_event_notify_request_delete(mUpnpUpnpNotifyRequest *notifyReq);
+void mupnp_event_notify_request_delete(mUpnpNotifyRequest *notifyReq);
 
 /**
  * Clear Notification request
  *
  * @param notifyReq Notification request
  */
-void mupnp_upnp_event_notify_request_clear(mUpnpUpnpNotifyRequest *notifyReq);
+void mupnp_event_notify_request_clear(mUpnpNotifyRequest *notifyReq);
 
 /**
  * Set HTTP request for event Notification request
@@ -86,7 +86,7 @@ void mupnp_upnp_event_notify_request_clear(mUpnpUpnpNotifyRequest *notifyReq);
  * @param notifyReq Notification request
  * @param httpReq HTTP request
  */
-#define mupnp_upnp_event_notify_request_sethttprequest(notifyReq, httpReq) mupnp_soap_request_sethttprequest(notifyReq, httpReq)
+#define mupnp_event_notify_request_sethttprequest(notifyReq, httpReq) mupnp_soap_request_sethttprequest(notifyReq, httpReq)
 
 /**
  * Sends event Notification request to control point
@@ -97,7 +97,7 @@ void mupnp_upnp_event_notify_request_clear(mUpnpUpnpNotifyRequest *notifyReq);
  *
  * @return Notify response
  */
-#define mupnp_upnp_event_notify_request_post(notifyReq, host, port) mupnp_soap_request_post(notifyReq, host, port)
+#define mupnp_event_notify_request_post(notifyReq, host, port) mupnp_soap_request_post(notifyReq, host, port)
 
 /**
  * Get root node associated with current Notification request
@@ -106,7 +106,7 @@ void mupnp_upnp_event_notify_request_clear(mUpnpUpnpNotifyRequest *notifyReq);
  *
  * @return XML node
  */
-#define mupnp_upnp_event_notify_request_getpropertysetnode(notifyReq) mupnp_soap_request_getrootnoode(notifyReq)
+#define mupnp_event_notify_request_getpropertysetnode(notifyReq) mupnp_soap_request_getrootnoode(notifyReq)
 
 /**
  * Set property list for Notification request
@@ -114,14 +114,14 @@ void mupnp_upnp_event_notify_request_clear(mUpnpUpnpNotifyRequest *notifyReq);
  * @param notifyReq Notification request
  * @param value Property list value
  */
-#define mupnp_upnp_event_notify_request_setpropertylist(notifyReq, value) mupnp_soap_request_setuserdata(notifyReq, value)
+#define mupnp_event_notify_request_setpropertylist(notifyReq, value) mupnp_soap_request_setuserdata(notifyReq, value)
 
 /**
  * Get property list from Notification request
  *
  * @param nofityReq Notification request
  */
-mUpnpUpnpPropertyList *mupnp_upnp_event_notify_request_getpropertylist(mUpnpUpnpNotifyRequest *nofityReq);
+mUpnpPropertyList *mupnp_event_notify_request_getpropertylist(mUpnpNotifyRequest *nofityReq);
 
 /**** NT ****/
 
@@ -131,16 +131,16 @@ mUpnpUpnpPropertyList *mupnp_upnp_event_notify_request_getpropertylist(mUpnpUpnp
  * @param soapReq Notification request
  * @param value Notification type
  */
-#define mupnp_upnp_event_notify_request_setnt(soapReq, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NT, value)
+#define mupnp_event_notify_request_setnt(soapReq, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NT, value)
 
 /**
  * Get NT from notification request
  *
  * @param soapReq Notification request
  */
-#define mupnp_upnp_event_notify_request_getnt(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NT)
+#define mupnp_event_notify_request_getnt(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NT)
 //Theo Beisch
-#define mupnp_upnp_event_notify_request_hasnt(soapReq) mupnp_http_packet_hasheader((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NT)
+#define mupnp_event_notify_request_hasnt(soapReq) mupnp_http_packet_hasheader((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NT)
 
 /**** NTS ****/
 
@@ -150,16 +150,16 @@ mUpnpUpnpPropertyList *mupnp_upnp_event_notify_request_getpropertylist(mUpnpUpnp
  * @param soapReq Notification request
  * @param value NTS
  */
-#define mupnp_upnp_event_notify_request_setnts(soapReq, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NTS, value)
+#define mupnp_event_notify_request_setnts(soapReq, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NTS, value)
 
 /**
  * Get NTS from notification request
  *
  * @param soapReq Notification request
  */
-#define mupnp_upnp_event_notify_request_getnts(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NTS)
+#define mupnp_event_notify_request_getnts(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NTS)
 //Theo Beisch
-#define mupnp_upnp_event_notify_request_hasnts(soapReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)soapReq->httpReq), CG_HTTP_NTS)
+#define mupnp_event_notify_request_hasnts(soapReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)soapReq->httpReq), CG_HTTP_NTS)
 
 /**** SID ****/
 
@@ -169,16 +169,16 @@ mUpnpUpnpPropertyList *mupnp_upnp_event_notify_request_getpropertylist(mUpnpUpnp
  * @param soapReq Notification request
  * @param sid SID
  */
-void mupnp_upnp_event_notify_request_setsid(mUpnpUpnpNotifyRequest *soapReq, char *sid);
+void mupnp_event_notify_request_setsid(mUpnpNotifyRequest *soapReq, char *sid);
 
 /**
  * Get SID from notification request
  *
  * @param soapReq Notification request
  */
-#define mupnp_upnp_event_notify_request_getsid(soapReq) mupnp_upnp_event_subscription_getsid(mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SID))
+#define mupnp_event_notify_request_getsid(soapReq) mupnp_event_subscription_getsid(mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SID))
 //Theo Beisch
-#define mupnp_upnp_event_notify_request_hassid(soapReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)(soapReq->httpReq)), CG_HTTP_SID)
+#define mupnp_event_notify_request_hassid(soapReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)(soapReq->httpReq)), CG_HTTP_SID)
 
 /**** SEQ ****/
 
@@ -188,19 +188,19 @@ void mupnp_upnp_event_notify_request_setsid(mUpnpUpnpNotifyRequest *soapReq, cha
  * @param soapReq Notification request
  * @param value Sequence number
  */
-#define mupnp_upnp_event_notify_request_setseq(soapReq, value) mupnp_http_packet_setheaderlong((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SEQ, value)
+#define mupnp_event_notify_request_setseq(soapReq, value) mupnp_http_packet_setheaderlong((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SEQ, value)
 
 /**
  * Get sequence number from notification request
  *
  * @param soapReq Notification request
  */
-#define mupnp_upnp_event_notify_request_getseq(soapReq) mupnp_http_packet_getheadersizet((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SEQ)
+#define mupnp_event_notify_request_getseq(soapReq) mupnp_http_packet_getheadersizet((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SEQ)
 
 /** 
  * \todo Check what this does exactly...
  */
-BOOL mupnp_upnp_event_notify_request_setpropertysetnode(mUpnpUpnpNotifyRequest *notifyReq, mUpnpUpnpSubscriber *sub, /* mUpnpUpnpService */void *service, mUpnpUpnpStateVariable *statVar);
+BOOL mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest *notifyReq, mUpnpSubscriber *sub, /* mUpnpService */void *service, mUpnpStateVariable *statVar);
 
 /****************************************
 * Function (Response)
@@ -211,14 +211,14 @@ BOOL mupnp_upnp_event_notify_request_setpropertysetnode(mUpnpUpnpNotifyRequest *
  *
  * @param notifyRes Notification response
  */
-#define mupnp_upnp_event_notify_response_issuccessful(notifyRes) mupnp_soap_response_issuccessful(notifyRes)
+#define mupnp_event_notify_response_issuccessful(notifyRes) mupnp_soap_response_issuccessful(notifyRes)
 
 /**
  * Get the status code of the specified response
  *
  * @param notifyRes Notification response
  */
-#define mupnp_upnp_event_notify_response_getstatuscode(notifyRes) mupnp_soap_response_getstatuscode(notifyRes)
+#define mupnp_event_notify_response_getstatuscode(notifyRes) mupnp_soap_response_getstatuscode(notifyRes)
 	
 #ifdef  __cplusplus
 }

@@ -56,10 +56,10 @@ void uuid_unparse_lower (uuid_t uu, char *out)
 static BOOL isUpnpNMPRMode = FALSE;
 
 /****************************************
-* mupnp_upnp_createuuid
+* mupnp_createuuid
 ****************************************/
 
-const char *mupnp_upnp_createuuid(char *uuidBuf, size_t uuidBufSize)
+const char *mupnp_createuuid(char *uuidBuf, size_t uuidBufSize)
 {
 #if defined(HAVE_LIBUUID)
 	uuid_t uuid;
@@ -125,10 +125,10 @@ void uuid_unparse_lower (uuid_t uu, char *out)
 #endif
 
 /****************************************
-* mupnp_upnp_getservername
+* mupnp_getservername
 ****************************************/
 
-const char *mupnp_upnp_getservername(char *buf, size_t bufSize)
+const char *mupnp_getservername(char *buf, size_t bufSize)
 {
 	size_t nameLen;
 
@@ -151,10 +151,10 @@ const char *mupnp_upnp_getservername(char *buf, size_t bufSize)
 }
 
 /****************************************
-* mupnp_upnp_setnmprmode
+* mupnp_setnmprmode
 ****************************************/
 
-void mupnp_upnp_setnmprmode(BOOL onFlag)
+void mupnp_setnmprmode(BOOL onFlag)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -164,10 +164,10 @@ void mupnp_upnp_setnmprmode(BOOL onFlag)
 }
 
 /****************************************
-* mupnp_upnp_isnmprmode
+* mupnp_isnmprmode
 ****************************************/
 
-BOOL mupnp_upnp_isnmprmode()
+BOOL mupnp_isnmprmode()
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -177,10 +177,10 @@ BOOL mupnp_upnp_isnmprmode()
 }
 
 /****************************************
-* mupnp_upnp_createbootid
+* mupnp_createbootid
 ****************************************/
 
-int mupnp_upnp_createbootid()
+int mupnp_createbootid()
 {
   mUpnpTime currentTime;
 
@@ -194,10 +194,10 @@ int mupnp_upnp_createbootid()
 }
 
 /****************************************
- * mupnp_upnp_generateconfigid
+ * mupnp_generateconfigid
  ****************************************/
 
-int mupnp_upnp_generateconfigid(const char *string)
+int mupnp_generateconfigid(const char *string)
 {
   int configId = 0;
   size_t n;

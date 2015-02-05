@@ -22,18 +22,18 @@
 #define CG_USE_CHUNKED_STREAM 1
 
 /**********************************************************************
-* mupnp_upnp_dms_filesys_http_listener
+* mupnp_dms_filesys_http_listener
 **********************************************************************/
 
 void mupnp_upnpav_dms_filesys_http_listener(mUpnpHttpRequest *httpReq)
 {
-	mUpnpUpnpMediaServer *dms;
-	mUpnpUpnpDevice *dev;
+	mUpnpMediaServer *dms;
+	mUpnpDevice *dev;
 	char *httpURI;
 	int contentMD5Idx;
 	char *contentMd5;
-	mUpnpUpnpMediaContent *content;
-	mUpnpUpnpMediaResource *resource;
+	mUpnpMediaContent *content;
+	mUpnpMediaResource *resource;
 	char *pubDir;
 	mUpnpHttpResponse *httpRes;
 	mUpnpSocket *sock;
@@ -52,13 +52,13 @@ void mupnp_upnpav_dms_filesys_http_listener(mUpnpHttpRequest *httpReq)
 	TCHAR wCharBuf[MAX_PATH];
 #endif
 
-	dev = (mUpnpUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
+	dev = (mUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
 	if (!dev) {
 		mupnp_http_request_postbadrequest(httpReq);
 		return;
 	}
 
-	dms = (mUpnpUpnpMediaServer *)mupnp_upnp_device_getuserdata(dev);
+	dms = (mUpnpMediaServer *)mupnp_device_getuserdata(dev);
 	if (!dms) {
 		mupnp_http_request_postbadrequest(httpReq);
 		return;
@@ -71,7 +71,7 @@ void mupnp_upnpav_dms_filesys_http_listener(mUpnpHttpRequest *httpReq)
 	}
 
 	if (mupnp_strstr(httpURI, CG_UPNPAV_FILESYS_RESURL_PATH) < 0) {
-		mupnp_upnp_device_httprequestrecieved(httpReq);
+		mupnp_device_httprequestrecieved(httpReq);
 		return;
 	}
 

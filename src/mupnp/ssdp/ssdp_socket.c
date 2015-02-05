@@ -17,20 +17,20 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_ssdp_socket_notify
+* mupnp_ssdp_socket_notify
 ****************************************/
 
-static BOOL mupnp_upnp_ssdp_socket_notify(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUpnpSSDPRequest *ssdpReq, const char *ssdpAddr)
+static BOOL mupnp_ssdp_socket_notify(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPRequest *ssdpReq, const char *ssdpAddr)
 {
 	mUpnpString *ssdpMsg;
 	size_t sentLen;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_ssdprequest_setmethod(ssdpReq, CG_HTTP_NOTIFY);
+	mupnp_ssdprequest_setmethod(ssdpReq, CG_HTTP_NOTIFY);
 	
 	ssdpMsg = mupnp_string_new();
-	mupnp_upnp_ssdprequest_tostring(ssdpReq, ssdpMsg);
+	mupnp_ssdprequest_tostring(ssdpReq, ssdpMsg);
 
 	sentLen = mupnp_socket_sendto(ssdpSock, ssdpAddr, MUPNP_SSDP_PORT, mupnp_string_getvalue(ssdpMsg), mupnp_string_length(ssdpMsg));
 	mupnp_string_delete(ssdpMsg);
@@ -41,28 +41,28 @@ static BOOL mupnp_upnp_ssdp_socket_notify(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUp
 }
 
 /****************************************
-* mupnp_upnp_ssdp_socket_notifyfrom
+* mupnp_ssdp_socket_notifyfrom
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_socket_notifyfrom(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUpnpSSDPRequest *ssdpReq, const char *bindAddr)
+BOOL mupnp_ssdp_socket_notifyfrom(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPRequest *ssdpReq, const char *bindAddr)
 {
 	const char *ssdpAddr;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpAddr = mupnp_upnp_ssdp_gethostaddress(bindAddr);
-	mupnp_upnp_ssdprequest_sethost(ssdpReq, ssdpAddr, MUPNP_SSDP_PORT);
+	ssdpAddr = mupnp_ssdp_gethostaddress(bindAddr);
+	mupnp_ssdprequest_sethost(ssdpReq, ssdpAddr, MUPNP_SSDP_PORT);
 
 	mupnp_log_debug_l4("Leaving...\n");
 	
-  return mupnp_upnp_ssdp_socket_notify(ssdpSock, ssdpReq, ssdpAddr);
+  return mupnp_ssdp_socket_notify(ssdpSock, ssdpReq, ssdpAddr);
 }
 
 /****************************************
-* mupnp_upnp_ssdp_socket_postresponse
+* mupnp_ssdp_socket_postresponse
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_socket_postresponse(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUpnpSSDPResponse *ssdpRes, const char *host, int port)
+BOOL mupnp_ssdp_socket_postresponse(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPResponse *ssdpRes, const char *host, int port)
 {
 	mUpnpString *ssdpMsg;
   size_t ssdpMsgLen;
@@ -71,7 +71,7 @@ BOOL mupnp_upnp_ssdp_socket_postresponse(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUpn
 	mupnp_log_debug_l4("Entering...\n");
 
 	ssdpMsg = mupnp_string_new();
-	mupnp_upnp_ssdpresponse_tostring(ssdpRes, ssdpMsg);
+	mupnp_ssdpresponse_tostring(ssdpRes, ssdpMsg);
   ssdpMsgLen = mupnp_string_length(ssdpMsg);
 	postSuccess = (mupnp_socket_sendto(ssdpSock, host, port, mupnp_string_getvalue(ssdpMsg), ssdpMsgLen) == ssdpMsgLen) ? TRUE : FALSE;
 	mupnp_string_delete(ssdpMsg);

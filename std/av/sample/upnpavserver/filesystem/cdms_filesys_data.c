@@ -18,11 +18,11 @@
 * mupnp_upnpav_dms_filesys_content_data_new
 ****************************************/
 
-mUpnpUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_data_new()
+mUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_data_new()
 {
-	mUpnpUpnpMediaFileSystemContentData *data;
+	mUpnpMediaFileSystemContentData *data;
 
-	data = (mUpnpUpnpMediaFileSystemContentData *)malloc(sizeof(mUpnpUpnpMediaFileSystemContentData));
+	data = (mUpnpMediaFileSystemContentData *)malloc(sizeof(mUpnpMediaFileSystemContentData));
 	data->pubdir = NULL;
 
 	return data;
@@ -32,7 +32,7 @@ mUpnpUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_data_new()
 * mupnp_upnpav_dms_filesys_content_data_delete
 ****************************************/
 
-void mupnp_upnpav_dms_filesys_content_data_delete(mUpnpUpnpMediaFileSystemContentData *data)
+void mupnp_upnpav_dms_filesys_content_data_delete(mUpnpMediaFileSystemContentData *data)
 {
 	if (!data)
 		return;
@@ -47,9 +47,9 @@ void mupnp_upnpav_dms_filesys_content_data_delete(mUpnpUpnpMediaFileSystemConten
 * mupnp_upnpav_dms_filesys_content_getdata
 ****************************************/
 
-mUpnpUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_getdata(mUpnpUpnpMediaContent *con)
+mUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_getdata(mUpnpMediaContent *con)
 {
-	mUpnpUpnpMediaFileSystemContentData *data;
+	mUpnpMediaFileSystemContentData *data;
 
 	data = mupnp_upnpav_content_getuserdata(con);
 	if (!data) {
@@ -64,9 +64,9 @@ mUpnpUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_getdata(mU
 * mupnp_upnpav_dms_filesys_content_setpubicdirectory
 ****************************************/
 
-void mupnp_upnpav_dms_filesys_content_setpubicdirectory(mUpnpUpnpMediaContent *con, char *dir)
+void mupnp_upnpav_dms_filesys_content_setpubicdirectory(mUpnpMediaContent *con, char *dir)
 {
-	mUpnpUpnpMediaFileSystemContentData *data;
+	mUpnpMediaFileSystemContentData *data;
 
 	data = mupnp_upnpav_dms_filesys_content_getdata(con);
 	if (data->pubdir)
@@ -78,9 +78,9 @@ void mupnp_upnpav_dms_filesys_content_setpubicdirectory(mUpnpUpnpMediaContent *c
 * mupnp_upnpav_dms_filesys_content_getpubicdirectory
 ****************************************/
 
-char *mupnp_upnpav_dms_filesys_content_getpubicdirectory(mUpnpUpnpMediaContent *con)
+char *mupnp_upnpav_dms_filesys_content_getpubicdirectory(mUpnpMediaContent *con)
 {
-	mUpnpUpnpMediaFileSystemContentData *data;
+	mUpnpMediaFileSystemContentData *data;
 
 	data = mupnp_upnpav_dms_filesys_content_getdata(con);
 	return data->pubdir;

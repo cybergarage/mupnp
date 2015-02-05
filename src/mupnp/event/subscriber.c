@@ -24,13 +24,13 @@
 /**
  * Create a new event subscriber
  */
-mUpnpUpnpSubscriber *mupnp_upnp_subscriber_new()
+mUpnpSubscriber *mupnp_subscriber_new()
 {
-	mUpnpUpnpSubscriber *sub;
+	mUpnpSubscriber *sub;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	sub = (mUpnpUpnpSubscriber *)malloc(sizeof(mUpnpUpnpSubscriber));
+	sub = (mUpnpSubscriber *)malloc(sizeof(mUpnpSubscriber));
 
 	if ( NULL != sub )
 	{
@@ -40,9 +40,9 @@ mUpnpUpnpSubscriber *mupnp_upnp_subscriber_new()
 		sub->ifAddr = mupnp_string_new();
 		sub->deliveryURL = mupnp_net_url_new();
 		
-		mupnp_upnp_subscriber_settimeout(sub, 0);
-		mupnp_upnp_subscriber_renew(sub);
-		mupnp_upnp_subscriber_setnotifycount(sub, 0);
+		mupnp_subscriber_settimeout(sub, 0);
+		mupnp_subscriber_renew(sub);
+		mupnp_subscriber_setnotifycount(sub, 0);
 	}
 	
 	mupnp_log_debug_l4("Leaving...\n");
@@ -55,11 +55,11 @@ mUpnpUpnpSubscriber *mupnp_upnp_subscriber_new()
  *
  * @param sub The event subscriber
  */
-void mupnp_upnp_subscriber_delete(mUpnpUpnpSubscriber *sub)
+void mupnp_subscriber_delete(mUpnpSubscriber *sub)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_subscriber_clear(sub);
+	mupnp_subscriber_clear(sub);
 	mupnp_list_remove((mUpnpList *)sub);
 
 	mupnp_string_delete(sub->sid);
@@ -78,7 +78,7 @@ void mupnp_upnp_subscriber_delete(mUpnpUpnpSubscriber *sub)
  *
  * @param sub The event subscriber
  */
-void mupnp_upnp_subscriber_clear(mUpnpUpnpSubscriber *sub)
+void mupnp_subscriber_clear(mUpnpSubscriber *sub)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -91,12 +91,12 @@ void mupnp_upnp_subscriber_clear(mUpnpUpnpSubscriber *sub)
  *
  * @param sub The event subscriber
  */
-void mupnp_upnp_subscriber_renew(mUpnpUpnpSubscriber *sub)
+void mupnp_subscriber_renew(mUpnpSubscriber *sub)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	//Theo Beisch use clinkc time
-	mupnp_upnp_subscriber_setsubscriptiontime(sub, mupnp_getcurrentsystemtime());
+	mupnp_subscriber_setsubscriptiontime(sub, mupnp_getcurrentsystemtime());
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -107,7 +107,7 @@ void mupnp_upnp_subscriber_renew(mUpnpUpnpSubscriber *sub)
  * @param sub The event subscriber
  * @return The new notify count
  */
-long mupnp_upnp_subscriber_incrementnotifycount(mUpnpUpnpSubscriber *sub)
+long mupnp_subscriber_incrementnotifycount(mUpnpSubscriber *sub)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -126,19 +126,19 @@ long mupnp_upnp_subscriber_incrementnotifycount(mUpnpUpnpSubscriber *sub)
  * @param sub The subscriber
  * @return TRUE if the subscription has been expired; otherwise FALSE
  */
-BOOL mupnp_upnp_subscriber_isexpired(mUpnpUpnpSubscriber *sub)
+BOOL mupnp_subscriber_isexpired(mUpnpSubscriber *sub)
 {
 	mUpnpTime currTime;
 	mUpnpTime timeout;
 	mUpnpTime expiredTime;
 	
-	timeout = mupnp_upnp_subscriber_gettimeout(sub);
+	timeout = mupnp_subscriber_gettimeout(sub);
 	if(timeout == MUPNP_SUBSCRIPTION_INFINITE_VALUE) 
 		return FALSE; 
 			
 	//Theo Beisch - use clinkc function 
 	currTime = mupnp_getcurrentsystemtime(); //returns time in s 
-	expiredTime = mupnp_upnp_subscriber_getsubscriptiontime(sub) + (timeout); //tb: removed( *1000);
+	expiredTime = mupnp_subscriber_getsubscriptiontime(sub) + (timeout); //tb: removed( *1000);
 	if (expiredTime < currTime)
 		return TRUE;
 			
@@ -154,33 +154,33 @@ BOOL mupnp_upnp_subscriber_isexpired(mUpnpUpnpSubscriber *sub)
  * @param statVar The evented state variable
  * @return TRUE if succesful; otherwise FALSE
  */
-static BOOL mupnp_upnp_subscriber_notifymain(mUpnpUpnpSubscriber *sub, mUpnpUpnpService *service, mUpnpUpnpStateVariable *statVar)
+static BOOL mupnp_subscriber_notifymain(mUpnpSubscriber *sub, mUpnpService *service, mUpnpStateVariable *statVar)
 {
 	char *host;
 	int port;
-	mUpnpUpnpNotifyRequest *notifyReq;
-	mUpnpUpnpNotifyResponse *notifyRes;
+	mUpnpNotifyRequest *notifyReq;
+	mUpnpNotifyResponse *notifyRes;
 	BOOL notifySuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	host = mupnp_upnp_subscriber_getdeliveryhost(sub);
-	port = mupnp_upnp_subscriber_getdeliveryport(sub);
+	host = mupnp_subscriber_getdeliveryhost(sub);
+	port = mupnp_subscriber_getdeliveryport(sub);
 
-	notifyReq = mupnp_upnp_event_notify_request_new();
-	mupnp_upnp_event_notify_request_setpropertysetnode(notifyReq, sub, service, statVar);
-	notifyRes = mupnp_upnp_event_notify_request_post(notifyReq, host, port);
-	notifySuccess = mupnp_upnp_event_notify_response_issuccessful(notifyRes);
+	notifyReq = mupnp_event_notify_request_new();
+	mupnp_event_notify_request_setpropertysetnode(notifyReq, sub, service, statVar);
+	notifyRes = mupnp_event_notify_request_post(notifyReq, host, port);
+	notifySuccess = mupnp_event_notify_response_issuccessful(notifyRes);
 
 	mupnp_http_request_print(notifyReq->httpReq);
 	mupnp_http_response_print(notifyRes->httpRes);
 	
-	mupnp_upnp_event_notify_request_delete(notifyReq);
+	mupnp_event_notify_request_delete(notifyReq);
 
 	if (notifySuccess == FALSE)
 		return FALSE;
 		
-	mupnp_upnp_subscriber_incrementnotifycount(sub);
+	mupnp_subscriber_incrementnotifycount(sub);
 			
 	mupnp_log_debug_l4("Leaving...\n");
 
@@ -194,9 +194,9 @@ static BOOL mupnp_upnp_subscriber_notifymain(mUpnpUpnpSubscriber *sub, mUpnpUpnp
  * @param statVar The evented state variable
  * @return TRUE if succesful; otherwise FALSE
  */
-BOOL mupnp_upnp_subscriber_notify(mUpnpUpnpSubscriber *sub, mUpnpUpnpStateVariable *statVar)
+BOOL mupnp_subscriber_notify(mUpnpSubscriber *sub, mUpnpStateVariable *statVar)
 {
-	return mupnp_upnp_subscriber_notifymain(sub, NULL, statVar);
+	return mupnp_subscriber_notifymain(sub, NULL, statVar);
 }
 
 /**
@@ -206,9 +206,9 @@ BOOL mupnp_upnp_subscriber_notify(mUpnpUpnpSubscriber *sub, mUpnpUpnpStateVariab
  * @param service The evented service
  * @return TRUE if succesful; otherwise FALSE
  */
-BOOL mupnp_upnp_subscriber_notifyall(mUpnpUpnpSubscriber *sub, /* mUpnpUpnpService */ void *service)
+BOOL mupnp_subscriber_notifyall(mUpnpSubscriber *sub, /* mUpnpService */ void *service)
 {
-	return mupnp_upnp_subscriber_notifymain(sub, (mUpnpUpnpService *)service, NULL);
+	return mupnp_subscriber_notifymain(sub, (mUpnpService *)service, NULL);
 }
 
 /****************************************

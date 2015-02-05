@@ -39,7 +39,7 @@
 #endif
 #endif
 
-mUpnpUpnpDevice *clockDev;
+mUpnpDevice *clockDev;
 
 ////////////////////////////////////////////////////////// 
 //  InitApp
@@ -48,15 +48,15 @@ mUpnpUpnpDevice *clockDev;
 BOOL InitApp( int cacheControl )
 {
 	clockDev = upnp_clock_device_new();
-        mupnp_upnp_device_setleasetime( clockDev, cacheControl );
-	mupnp_upnp_device_start(clockDev);
+        mupnp_device_setleasetime( clockDev, cacheControl );
+	mupnp_device_start(clockDev);
 	return TRUE;
 }
 
 void ExitApp()
 {
-	mupnp_upnp_device_stop(clockDev);
-	mupnp_upnp_device_delete(clockDev);
+	mupnp_device_stop(clockDev);
+	mupnp_device_delete(clockDev);
 }
 
 ////////////////////////////////////////////////////////// 

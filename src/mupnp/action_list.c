@@ -13,16 +13,16 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_action_new
+* mupnp_action_new
 ****************************************/
 
-mUpnpUpnpActionList *mupnp_upnp_actionlist_new()
+mUpnpActionList *mupnp_actionlist_new()
 {
-	mUpnpUpnpAction *actionList;
+	mUpnpAction *actionList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	actionList = (mUpnpUpnpAction *)malloc(sizeof(mUpnpUpnpAction));
+	actionList = (mUpnpAction *)malloc(sizeof(mUpnpAction));
 
 	if ( NULL != actionList )
 		mupnp_list_header_init((mUpnpList *)actionList);
@@ -33,10 +33,10 @@ mUpnpUpnpActionList *mupnp_upnp_actionlist_new()
 }
 
 /****************************************
-* mupnp_upnp_action_delete
+* mupnp_action_delete
 ****************************************/
 
-void mupnp_upnp_actionlist_delete(mUpnpUpnpActionList *actionList)
+void mupnp_actionlist_delete(mUpnpActionList *actionList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

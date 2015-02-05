@@ -13,10 +13,10 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_httpmu_socket_bind
+* mupnp_httpmu_socket_bind
 ****************************************/
 
-BOOL mupnp_upnp_httpmu_socket_bind(mUpnpUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr)
+BOOL mupnp_httpmu_socket_bind(mUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -34,10 +34,10 @@ BOOL mupnp_upnp_httpmu_socket_bind(mUpnpUpnpHttpMuSocket *sock, const char *mcas
 }
 
 /****************************************
-* mupnp_upnp_httpmu_socket_recv
+* mupnp_httpmu_socket_recv
 ****************************************/
 
-ssize_t mupnp_upnp_httpmu_socket_recv(mUpnpUpnpHttpMuSocket *sock, mUpnpUpnpSSDPPacket *ssdpPkt)
+ssize_t mupnp_httpmu_socket_recv(mUpnpHttpMuSocket *sock, mUpnpSSDPPacket *ssdpPkt)
 {
 	mUpnpDatagramPacket *dgmPkt;
 	char *ssdpData;
@@ -45,7 +45,7 @@ ssize_t mupnp_upnp_httpmu_socket_recv(mUpnpUpnpHttpMuSocket *sock, mUpnpUpnpSSDP
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	dgmPkt = mupnp_upnp_ssdp_packet_getdatagrampacket(ssdpPkt);
+	dgmPkt = mupnp_ssdp_packet_getdatagrampacket(ssdpPkt);
 	recvLen = mupnp_socket_recv(sock, dgmPkt);
 
 	if (recvLen <= 0)
@@ -56,7 +56,7 @@ ssize_t mupnp_upnp_httpmu_socket_recv(mUpnpUpnpHttpMuSocket *sock, mUpnpUpnpSSDP
 	/* set header information to the packets headerlist,
 	   this will leave only the request line in the datagram packet 
 	   which is need to verify the message */
-	mupnp_upnp_ssdp_packet_setheader(ssdpPkt, ssdpData);
+	mupnp_ssdp_packet_setheader(ssdpPkt, ssdpData);
 	
 	mupnp_log_debug_l4("Leaving...\n");
 

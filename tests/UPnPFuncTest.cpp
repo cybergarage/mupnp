@@ -21,7 +21,7 @@
 
 BOOST_AUTO_TEST_CASE(BootID)
 {
-  int bootId = mupnp_upnp_createbootid();
+  int bootId = mupnp_createbootid();
   BOOST_CHECK(0 < bootId);
   BOOST_CHECK(bootId < INT_MAX);
 }

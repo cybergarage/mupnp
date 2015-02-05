@@ -25,7 +25,7 @@
 
 class CCDmsMobilePhotoApp : public CWinApp
 {
-	mUpnpUpnpMediaServer *dms;
+	mUpnpMediaServer *dms;
 
 	mUpnpString *shideShowRoot;
 	mUpnpFileList *slideShowFileList;
@@ -61,7 +61,7 @@ public:
 		return mupnp_string_getvalue(shideShowRoot);
 	}
 
-	mUpnpUpnpMediaServer *GetDMS()
+	mUpnpMediaServer *GetDMS()
 	{
 		return dms;
 	}

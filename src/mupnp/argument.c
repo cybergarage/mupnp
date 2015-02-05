@@ -13,16 +13,16 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_argument_new
+* mupnp_argument_new
 ****************************************/
 
-mUpnpUpnpArgument *mupnp_upnp_argument_new()
+mUpnpArgument *mupnp_argument_new()
 {
-	mUpnpUpnpArgument *arg;
+	mUpnpArgument *arg;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	arg = (mUpnpUpnpArgument *)malloc(sizeof(mUpnpUpnpArgument));
+	arg = (mUpnpArgument *)malloc(sizeof(mUpnpArgument));
 
 	if ( NULL != arg )
 	{
@@ -40,10 +40,10 @@ mUpnpUpnpArgument *mupnp_upnp_argument_new()
 }
 
 /****************************************
-* mupnp_upnp_argument_delete
+* mupnp_argument_delete
 ****************************************/
 
-void mupnp_upnp_argument_delete(mUpnpUpnpArgument *arg)
+void mupnp_argument_delete(mUpnpArgument *arg)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

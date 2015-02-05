@@ -21,10 +21,10 @@
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_upnp_event_subscription_request_setsid
+* mupnp_event_subscription_request_setsid
 ****************************************/
 
-void mupnp_upnp_event_subscription_request_setsid(mUpnpUpnpSubscriptionRequest *subReq, const char *sid)
+void mupnp_event_subscription_request_setsid(mUpnpSubscriptionRequest *subReq, const char *sid)
 {
 	mUpnpString *headerSID;
 	ssize_t uuidIdx;
@@ -46,33 +46,33 @@ void mupnp_upnp_event_subscription_request_setsid(mUpnpUpnpSubscriptionRequest *
 }
 
 /****************************************
-* mupnp_upnp_event_subscription_request_settimeout
+* mupnp_event_subscription_request_settimeout
 ****************************************/
 
-void mupnp_upnp_event_subscription_request_settimeout(mUpnpUpnpSubscriptionRequest *subReq, long timeout)
+void mupnp_event_subscription_request_settimeout(mUpnpSubscriptionRequest *subReq, long timeout)
 {
 	mUpnpString *timeoutBuf;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	timeoutBuf = mupnp_string_new();
-	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_TIMEOUT, mupnp_upnp_event_subscription_totimeoutheaderstring(timeout, timeoutBuf));
+	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_TIMEOUT, mupnp_event_subscription_totimeoutheaderstring(timeout, timeoutBuf));
 	mupnp_string_delete(timeoutBuf);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_event_subscription_request_setservice
+* mupnp_event_subscription_request_setservice
 ****************************************/
 
-static void mupnp_upnp_event_subscription_request_setservice(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service)
+static void mupnp_event_subscription_request_setservice(mUpnpSubscriptionRequest *subReq, mUpnpService *service)
 {
 	mUpnpNetURL *eventSubURL;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	eventSubURL = mupnp_upnp_service_geteventsuburl(service); 
+	eventSubURL = mupnp_service_geteventsuburl(service); 
 	mupnp_http_request_seturi(subReq, mupnp_net_url_getrequest(eventSubURL));
 
 	mupnp_net_url_delete(subReq->postURL);
@@ -83,47 +83,47 @@ static void mupnp_upnp_event_subscription_request_setservice(mUpnpUpnpSubscripti
 }
 
 /****************************************
-* mupnp_upnp_event_subscription_request_setnewsubscription
+* mupnp_event_subscription_request_setnewsubscription
 ****************************************/
 
-void mupnp_upnp_event_subscription_request_setnewsubscription(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service, const char *callback, mUpnpTime timeout)
+void mupnp_event_subscription_request_setnewsubscription(mUpnpSubscriptionRequest *subReq, mUpnpService *service, const char *callback, mUpnpTime timeout)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_http_request_setmethod(subReq, CG_HTTP_SUBSCRIBE);
-	mupnp_upnp_event_subscription_request_setservice(subReq, service);
-	mupnp_upnp_event_subscription_request_setcallback(subReq, callback);
-	mupnp_upnp_event_subscription_request_setnt(subReq, MUPNP_NT_EVENT);
-	mupnp_upnp_event_subscription_request_settimeout(subReq, timeout);
+	mupnp_event_subscription_request_setservice(subReq, service);
+	mupnp_event_subscription_request_setcallback(subReq, callback);
+	mupnp_event_subscription_request_setnt(subReq, MUPNP_NT_EVENT);
+	mupnp_event_subscription_request_settimeout(subReq, timeout);
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_event_subscription_request_setrenewsubscription
+* mupnp_event_subscription_request_setrenewsubscription
 ****************************************/
 
-void mupnp_upnp_event_subscription_request_setrenewsubscription(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service, const char *uuid, mUpnpTime timeout)
+void mupnp_event_subscription_request_setrenewsubscription(mUpnpSubscriptionRequest *subReq, mUpnpService *service, const char *uuid, mUpnpTime timeout)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_http_request_setmethod(subReq, CG_HTTP_SUBSCRIBE);
-	mupnp_upnp_event_subscription_request_setservice(subReq, service);
-	mupnp_upnp_event_subscription_request_setsid(subReq, uuid);
-	mupnp_upnp_event_subscription_request_settimeout(subReq, timeout);
+	mupnp_event_subscription_request_setservice(subReq, service);
+	mupnp_event_subscription_request_setsid(subReq, uuid);
+	mupnp_event_subscription_request_settimeout(subReq, timeout);
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_event_subscription_request_setunsubscription
+* mupnp_event_subscription_request_setunsubscription
 ****************************************/
 
-void mupnp_upnp_event_subscription_request_setunsubscription(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service)
+void mupnp_event_subscription_request_setunsubscription(mUpnpSubscriptionRequest *subReq, mUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_http_request_setmethod(subReq, CG_HTTP_UNSUBSCRIBE);
-	mupnp_upnp_event_subscription_request_setservice(subReq, service);
-	mupnp_upnp_event_subscription_request_setsid(subReq, mupnp_upnp_service_getsubscriptionsid(service));
+	mupnp_event_subscription_request_setservice(subReq, service);
+	mupnp_event_subscription_request_setsid(subReq, mupnp_service_getsubscriptionsid(service));
 	mupnp_log_debug_l4("Leaving...\n");
 }
 

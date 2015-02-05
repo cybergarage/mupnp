@@ -21,23 +21,23 @@
 #if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
 /****************************************
-* mupnp_upnp_control_action_response_new
+* mupnp_control_action_response_new
 ****************************************/
 
-mUpnpUpnpActionResponse *mupnp_upnp_control_action_response_new()
+mUpnpActionResponse *mupnp_control_action_response_new()
 {
-	mUpnpUpnpActionResponse *actionRes;
+	mUpnpActionResponse *actionRes;
 	 
 	mupnp_log_debug_l4("Entering...\n");
 
-	actionRes = (mUpnpUpnpActionResponse *)malloc(sizeof(mUpnpUpnpActionResponse));
+	actionRes = (mUpnpActionResponse *)malloc(sizeof(mUpnpActionResponse));
 
 	if ( NULL != actionRes )
 	{	
 		actionRes->soapRes = mupnp_soap_response_new();
 		actionRes->isSoapResCreated = TRUE;
 
-		actionRes->argList = mupnp_upnp_argumentlist_new();
+		actionRes->argList = mupnp_argumentlist_new();
 	}
 	
 	return actionRes;
@@ -46,19 +46,19 @@ mUpnpUpnpActionResponse *mupnp_upnp_control_action_response_new()
 }
 
 /****************************************
-* mupnp_upnp_control_action_response_delete
+* mupnp_control_action_response_delete
 ****************************************/
 
-void mupnp_upnp_control_action_response_delete(mUpnpUpnpActionResponse *actionRes)
+void mupnp_control_action_response_delete(mUpnpActionResponse *actionRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_control_action_response_clear(actionRes);
+	mupnp_control_action_response_clear(actionRes);
 	
 	if (actionRes->isSoapResCreated == TRUE)
 		mupnp_soap_response_delete(actionRes->soapRes);
 		
-	mupnp_upnp_argumentlist_delete(actionRes->argList);
+	mupnp_argumentlist_delete(actionRes->argList);
 	
 	free(actionRes);
 
@@ -66,10 +66,10 @@ void mupnp_upnp_control_action_response_delete(mUpnpUpnpActionResponse *actionRe
 }
 
 /****************************************
-* mupnp_upnp_control_action_response_clear
+* mupnp_control_action_response_clear
 ****************************************/
 
-void mupnp_upnp_control_action_response_clear(mUpnpUpnpActionResponse *actionRes)
+void mupnp_control_action_response_clear(mUpnpActionResponse *actionRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -78,16 +78,16 @@ void mupnp_upnp_control_action_response_clear(mUpnpUpnpActionResponse *actionRes
 	actionRes->soapRes = mupnp_soap_response_new();
 	actionRes->isSoapResCreated = TRUE;
 		
-	mupnp_upnp_argumentlist_clear(actionRes->argList);
+	mupnp_argumentlist_clear(actionRes->argList);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_control_action_response_setsoapresponse
+* mupnp_control_action_response_setsoapresponse
 ****************************************/
 
-void mupnp_upnp_control_action_response_setsoapresponse(mUpnpUpnpActionResponse *actionRes, mUpnpSoapResponse *soapRes)
+void mupnp_control_action_response_setsoapresponse(mUpnpActionResponse *actionRes, mUpnpSoapResponse *soapRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -100,19 +100,19 @@ void mupnp_upnp_control_action_response_setsoapresponse(mUpnpUpnpActionResponse 
 }
 
 /****************************************
-* mupnp_upnp_control_action_response_createresponsenode
+* mupnp_control_action_response_createresponsenode
 ****************************************/
 
-static mUpnpXmlNode *mupnp_upnp_control_action_response_createresponsenode(mUpnpUpnpAction *action)
+static mUpnpXmlNode *mupnp_control_action_response_createresponsenode(mUpnpAction *action)
 {
 	mUpnpXmlNode *actionNameResNode;
 	char nodeName[MUPNP_ACTOINNAME_LEN_MAX + sizeof(CG_SOAP_METHODNS) + sizeof(CG_SOAP_DELIM) + sizeof(CG_SOAP_RESPONSE) + 1];
 	char attrName[sizeof(CG_SOAP_ATTRIBUTE_XMLNS) + sizeof(CG_SOAP_DELIM) + sizeof(CG_SOAP_METHODNS) + 1];
 	const char *actionName;
 	mUpnpXmlNode *serviceNode;
-	mUpnpUpnpService *service;
-	mUpnpUpnpArgumentList *argList;
-	mUpnpUpnpArgument *arg;
+	mUpnpService *service;
+	mUpnpArgumentList *argList;
+	mUpnpArgument *arg;
 	mUpnpXmlNode *argNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -120,7 +120,7 @@ static mUpnpXmlNode *mupnp_upnp_control_action_response_createresponsenode(mUpnp
 	actionNameResNode = mupnp_xml_node_new();
 
 	/* action name */
-	actionName = mupnp_upnp_action_getname(action);
+	actionName = mupnp_action_getname(action);
 	mupnp_strcpy(nodeName, CG_SOAP_METHODNS);
 	mupnp_strcat(nodeName, CG_SOAP_DELIM);
 	mupnp_strncat(nodeName, actionName, MUPNP_ACTOINNAME_LEN_MAX);
@@ -128,25 +128,25 @@ static mUpnpXmlNode *mupnp_upnp_control_action_response_createresponsenode(mUpnp
 	mupnp_xml_node_setname(actionNameResNode, nodeName);
 
 	/* service attribute */
-	serviceNode = mupnp_upnp_service_getservicenode(mupnp_upnp_action_getservice(action));
+	serviceNode = mupnp_service_getservicenode(mupnp_action_getservice(action));
 	if (serviceNode != NULL) {
-		service = mupnp_upnp_service_new();
-		mupnp_upnp_service_setservicenode(service, serviceNode);
+		service = mupnp_service_new();
+		mupnp_service_setservicenode(service, serviceNode);
 		mupnp_strcpy(attrName, CG_SOAP_ATTRIBUTE_XMLNS);
 		mupnp_strcat(attrName, CG_SOAP_DELIM);
 		mupnp_strcat(attrName, CG_SOAP_METHODNS);
-		mupnp_xml_node_setattribute(actionNameResNode, attrName, mupnp_upnp_service_getservicetype(service));
-		mupnp_upnp_service_delete(service);
+		mupnp_xml_node_setattribute(actionNameResNode, attrName, mupnp_service_getservicetype(service));
+		mupnp_service_delete(service);
 	}
 
 	/* arguments */
-	argList = mupnp_upnp_action_getargumentlist(action);
-	for (arg = mupnp_upnp_argumentlist_gets(argList); arg != NULL; arg = mupnp_upnp_argument_next(arg)) {
-		if (mupnp_upnp_argument_isoutdirection(arg) == FALSE)
+	argList = mupnp_action_getargumentlist(action);
+	for (arg = mupnp_argumentlist_gets(argList); arg != NULL; arg = mupnp_argument_next(arg)) {
+		if (mupnp_argument_isoutdirection(arg) == FALSE)
 			continue;
 		argNode = mupnp_xml_node_new();
-		mupnp_xml_node_setname(argNode, mupnp_upnp_argument_getname(arg));		
-		mupnp_xml_node_setvalue(argNode, mupnp_upnp_argument_getvalue(arg));
+		mupnp_xml_node_setname(argNode, mupnp_argument_getname(arg));		
+		mupnp_xml_node_setvalue(argNode, mupnp_argument_getvalue(arg));
 		mupnp_xml_node_addchildnode(actionNameResNode, argNode);
 	}
 
@@ -156,10 +156,10 @@ static mUpnpXmlNode *mupnp_upnp_control_action_response_createresponsenode(mUpnp
 }
 
 /****************************************
-* mupnp_upnp_control_action_response_setresponse
+* mupnp_control_action_response_setresponse
 ****************************************/
 
-void mupnp_upnp_control_action_response_setresponse(mUpnpUpnpActionResponse *actionRes, mUpnpUpnpAction *action)
+void mupnp_control_action_response_setresponse(mUpnpActionResponse *actionRes, mUpnpAction *action)
 {
 	mUpnpSoapResponse *soapRes;
 	mUpnpHttpResponse *httpRes;
@@ -169,14 +169,14 @@ void mupnp_upnp_control_action_response_setresponse(mUpnpUpnpActionResponse *act
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	soapRes = mupnp_upnp_control_action_response_getsoapresponse(actionRes);
+	soapRes = mupnp_control_action_response_getsoapresponse(actionRes);
 	httpRes = mupnp_soap_response_gethttpresponse(soapRes);
 
 	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
-	mupnp_upnp_control_soap_response_initializeenvelopenode(soapRes);
+	mupnp_control_soap_response_initializeenvelopenode(soapRes);
 
 	bodyNode = mupnp_soap_response_getbodynode(soapRes);
-	resNode = mupnp_upnp_control_action_response_createresponsenode(action);
+	resNode = mupnp_control_action_response_createresponsenode(action);
 	mupnp_xml_node_addchildnode(bodyNode, resNode);
 	
 	envNode = mupnp_soap_response_getenvelopenode(soapRes);
@@ -186,17 +186,17 @@ void mupnp_upnp_control_action_response_setresponse(mUpnpUpnpActionResponse *act
 }
 
 /****************************************
-* mupnp_upnp_control_action_response_getactionresponsenode
+* mupnp_control_action_response_getactionresponsenode
 ****************************************/
 
-mUpnpXmlNode *mupnp_upnp_control_action_response_getactionresponsenode(mUpnpUpnpActionResponse *actionRes)
+mUpnpXmlNode *mupnp_control_action_response_getactionresponsenode(mUpnpActionResponse *actionRes)
 {
 	mUpnpSoapResponse *soapRes;
 	mUpnpXmlNode *bodyNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	soapRes = mupnp_upnp_control_action_response_getsoapresponse(actionRes);
+	soapRes = mupnp_control_action_response_getsoapresponse(actionRes);
 	
 	bodyNode = mupnp_soap_response_getbodynode(soapRes);
 
@@ -211,28 +211,28 @@ mUpnpXmlNode *mupnp_upnp_control_action_response_getactionresponsenode(mUpnpUpnp
 }
 
 /****************************************
-* mupnp_upnp_control_action_response_getresult
+* mupnp_control_action_response_getresult
 ****************************************/
 
-BOOL mupnp_upnp_control_action_response_getresult(mUpnpUpnpActionResponse *actionRes, mUpnpUpnpAction *action)
+BOOL mupnp_control_action_response_getresult(mUpnpActionResponse *actionRes, mUpnpAction *action)
 {
 	mUpnpXmlNode *resNode;
 	mUpnpXmlNode *argNode;
 	char *argName;
-	mUpnpUpnpArgument *arg;
+	mUpnpArgument *arg;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	resNode = mupnp_upnp_control_action_response_getactionresponsenode(actionRes);
+	resNode = mupnp_control_action_response_getactionresponsenode(actionRes);
 	if (resNode == NULL)
 		return FALSE;
 		
 	for (argNode = mupnp_xml_node_getchildnodes(resNode); argNode != NULL; argNode = mupnp_xml_node_next(argNode)) {
 		argName = mupnp_xml_node_getname(argNode);
-		arg = mupnp_upnp_action_getargumentbyname(action, argName);
+		arg = mupnp_action_getargumentbyname(action, argName);
 		if (arg == NULL)
 			continue;
-		mupnp_upnp_argument_setvalue(arg, mupnp_xml_node_getvalue(argNode));
+		mupnp_argument_setvalue(arg, mupnp_xml_node_getvalue(argNode));
 	}
 
 	return TRUE;
@@ -241,9 +241,9 @@ BOOL mupnp_upnp_control_action_response_getresult(mUpnpUpnpActionResponse *actio
 }
 
 /****************************************
-* mupnp_upnp_control_action_response_geterror
+* mupnp_control_action_response_geterror
 ****************************************/
-BOOL mupnp_upnp_control_action_response_geterror(mUpnpUpnpActionResponse *actionRes, mUpnpUpnpAction *action)
+BOOL mupnp_control_action_response_geterror(mUpnpActionResponse *actionRes, mUpnpAction *action)
 {
 	mUpnpXmlNode *resNode;
 	mUpnpXmlNode *upnpErrorNode;
@@ -253,7 +253,7 @@ BOOL mupnp_upnp_control_action_response_geterror(mUpnpUpnpActionResponse *action
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	resNode = mupnp_upnp_control_action_response_getactionresponsenode(actionRes);
+	resNode = mupnp_control_action_response_getactionresponsenode(actionRes);
 	if (resNode == NULL)
 	{
 		return FALSE;
@@ -282,8 +282,8 @@ BOOL mupnp_upnp_control_action_response_geterror(mUpnpUpnpActionResponse *action
 
 	if (errCode == NULL) return FALSE;
 
-	mupnp_upnp_action_setstatusdescription(action, errDesc);
-	mupnp_upnp_action_setstatuscode(action, mupnp_str2int(errCode));
+	mupnp_action_setstatusdescription(action, errDesc);
+	mupnp_action_setstatuscode(action, mupnp_str2int(errCode));
 		
 	return TRUE;
 

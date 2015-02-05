@@ -20,16 +20,16 @@
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_upnp_subscriberlist_new
+* mupnp_subscriberlist_new
 ****************************************/
 
-mUpnpUpnpSubscriberList *mupnp_upnp_subscriberlist_new()
+mUpnpSubscriberList *mupnp_subscriberlist_new()
 {
-	mUpnpUpnpSubscriberList *subscriberList;
+	mUpnpSubscriberList *subscriberList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	subscriberList = (mUpnpUpnpSubscriberList *)malloc(sizeof(mUpnpUpnpSubscriberList));
+	subscriberList = (mUpnpSubscriberList *)malloc(sizeof(mUpnpSubscriberList));
 
 	if ( NULL != subscriberList )
 		mupnp_list_header_init((mUpnpList *)subscriberList);
@@ -40,26 +40,26 @@ mUpnpUpnpSubscriberList *mupnp_upnp_subscriberlist_new()
 }
 
 /****************************************
-* mupnp_upnp_subscriberlist_delete
+* mupnp_subscriberlist_delete
 ****************************************/
 
-void mupnp_upnp_subscriberlist_delete(mUpnpUpnpSubscriberList *subscriberList)
+void mupnp_subscriberlist_delete(mUpnpSubscriberList *subscriberList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_subscriberlist_clear(subscriberList);
+	mupnp_subscriberlist_clear(subscriberList);
 	free(subscriberList);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_subscriberlist_get
+* mupnp_subscriberlist_get
 ****************************************/
 
-mUpnpUpnpSubscriber *mupnp_upnp_subscriberlist_get(mUpnpUpnpSubscriberList *subscriberList, char *sid)
+mUpnpSubscriber *mupnp_subscriberlist_get(mUpnpSubscriberList *subscriberList, char *sid)
 {
-	mUpnpUpnpSubscriber *sub;
+	mUpnpSubscriber *sub;
 	ssize_t uuidIdx;
 
 	if (mupnp_strlen(sid) <= 0)
@@ -69,8 +69,8 @@ mUpnpUpnpSubscriber *mupnp_upnp_subscriberlist_get(mUpnpUpnpSubscriberList *subs
 	if (0 <= uuidIdx)
 		sid += (uuidIdx + mupnp_strlen(MUPNP_ST_UUID_DEVICE) + 1);
 
-	for (sub = mupnp_upnp_subscriberlist_gets(subscriberList); sub != NULL; sub = mupnp_upnp_subscriber_next(sub)) {
-		if (mupnp_streq(sid, mupnp_upnp_subscriber_getsid(sub)) == TRUE)
+	for (sub = mupnp_subscriberlist_gets(subscriberList); sub != NULL; sub = mupnp_subscriber_next(sub)) {
+		if (mupnp_streq(sid, mupnp_subscriber_getsid(sub)) == TRUE)
 			return sub;
 	}
 	

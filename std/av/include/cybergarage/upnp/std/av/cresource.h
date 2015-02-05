@@ -36,13 +36,13 @@ extern "C" {
 * Struct
 ****************************************/
 
-typedef mUpnpXmlNode mUpnpUpnpAvResource;
-typedef mUpnpXmlNodeList mUpnpUpnpAvResourceList;
+typedef mUpnpXmlNode mUpnpAvResource;
+typedef mUpnpXmlNodeList mUpnpAvResourceList;
 
-typedef struct _mUpnpUpnpAvResourceData {
+typedef struct _mUpnpAvResourceData {
 	mUpnpString *mimeType;
 	mUpnpString *dlnaAttr;
-} mUpnpUpnpAvResourceData;
+} mUpnpAvResourceData;
 
 /****************************************
 * Resource
@@ -55,31 +55,31 @@ typedef struct _mUpnpUpnpAvResourceData {
 #define mupnp_upnpav_resourcelist_gets(resList) mupnp_xml_nodelist_gets(resList)
 #define mupnp_upnpav_resourcelist_add(resList, res) mupnp_xml_nodelist_add(resList, res)
 
-mUpnpUpnpAvResource *mupnp_upnpav_resource_new();
-void mupnp_upnpav_resource_delete(mUpnpUpnpAvResource *res);
+mUpnpAvResource *mupnp_upnpav_resource_new();
+void mupnp_upnpav_resource_delete(mUpnpAvResource *res);
 #define mupnp_upnpav_resource_next(res) mupnp_xml_node_next(res)
 #define mupnp_upnpav_resource_remove(res) mupnp_xml_node_remove(res)
 
-void mupnp_upnpav_resource_copy(mUpnpUpnpAvResource *destRes, mUpnpUpnpAvResource *srcRes);
+void mupnp_upnpav_resource_copy(mUpnpAvResource *destRes, mUpnpAvResource *srcRes);
 
-void mupnp_upnpav_resource_setmimetype(mUpnpUpnpAvResource *res, char *mimeType);
-void mupnp_upnpav_resource_setdlnaattribute(mUpnpUpnpAvResource *res, char *attr);
+void mupnp_upnpav_resource_setmimetype(mUpnpAvResource *res, char *mimeType);
+void mupnp_upnpav_resource_setdlnaattribute(mUpnpAvResource *res, char *attr);
 #define mupnp_upnpav_resource_seturl(res, val) mupnp_xml_node_setvalue(res, val)
-void mupnp_upnpav_resource_setsize(mUpnpUpnpAvResource *res, long value);
+void mupnp_upnpav_resource_setsize(mUpnpAvResource *res, long value);
 
-#define mupnp_upnpav_resource_getmimetype(res) mupnp_string_getvalue(((mUpnpUpnpAvResourceData *)(mupnp_xml_node_getuserdata(res)))->mimeType)
-#define mupnp_upnpav_resource_getdlnaattribute(res) mupnp_string_getvalue(((mUpnpUpnpAvResourceData *)(mupnp_xml_node_getuserdata(res)))->dlnaAttr)
+#define mupnp_upnpav_resource_getmimetype(res) mupnp_string_getvalue(((mUpnpAvResourceData *)(mupnp_xml_node_getuserdata(res)))->mimeType)
+#define mupnp_upnpav_resource_getdlnaattribute(res) mupnp_string_getvalue(((mUpnpAvResourceData *)(mupnp_xml_node_getuserdata(res)))->dlnaAttr)
 #define mupnp_upnpav_resource_geturl(res) mupnp_xml_node_getvalue(res)
 #define mupnp_upnpav_resource_getsize(res) mupnp_str2long(mupnp_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE))
 #define mupnp_upnpav_resource_getduration(res) mupnp_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_DURATION)
 #define mupnp_upnpav_resource_getresolution(res) mupnp_xml_node_getattributevalue(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_RESOLUTION)
 
-mUpnpUpnpAvResourceData *mupnp_upnpav_resource_data_new();
-void mupnp_upnpav_resource_data_delete(mUpnpUpnpAvResourceData *resData);
-void mupnp_upnpav_resource_data_copy(mUpnpUpnpAvResourceData *destResData, mUpnpUpnpAvResourceData *srcResData);
+mUpnpAvResourceData *mupnp_upnpav_resource_data_new();
+void mupnp_upnpav_resource_data_delete(mUpnpAvResourceData *resData);
+void mupnp_upnpav_resource_data_copy(mUpnpAvResourceData *destResData, mUpnpAvResourceData *srcResData);
 
 char *mupnp_upnpav_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaAttr, int dlnaAttrSize);
-char *mupnp_upnpav_resource_getdlnaattributes(mUpnpUpnpAvResource *res, char *dlnaAttr, int dlnaAttrSize);
+char *mupnp_upnpav_resource_getdlnaattributes(mUpnpAvResource *res, char *dlnaAttr, int dlnaAttrSize);
 
 #ifdef __cplusplus
 }

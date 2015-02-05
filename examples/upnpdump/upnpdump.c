@@ -57,7 +57,7 @@
 #define CMD_NO_ALTERATIONS 1
 #define CMD_LOOP_ACTION_CALLS 2
 
-void ControlDeviceAlter(mUpnpUpnpControlPoint *ctrlPoint, int alteration_mask);
+void ControlDeviceAlter(mUpnpControlPoint *ctrlPoint, int alteration_mask);
 
 /////////////////////////////////////////////////////////////////////////////////
 // PrintKeyMessage
@@ -90,41 +90,41 @@ void PrintKeyMessage()
 // Notify Listener
 /////////////////////////////////////////////////////////////////////////////////
 
-void SSDPNotifyListner(mUpnpUpnpSSDPPacket *ssdpPkt)
+void SSDPNotifyListner(mUpnpSSDPPacket *ssdpPkt)
 {
-	if (mupnp_upnp_ssdp_packet_isdiscover(ssdpPkt) == TRUE) {
+	if (mupnp_ssdp_packet_isdiscover(ssdpPkt) == TRUE) {
 		printf("ssdp:discover : ST = %s\n",
-			mupnp_upnp_ssdp_packet_getst(ssdpPkt)); 
+			mupnp_ssdp_packet_getst(ssdpPkt)); 
 	}
-	else if (mupnp_upnp_ssdp_packet_isalive(ssdpPkt) == TRUE) {
+	else if (mupnp_ssdp_packet_isalive(ssdpPkt) == TRUE) {
 		printf("ssdp:alive : uuid = %s, NT = %s, location = %s\n",
-			mupnp_upnp_ssdp_packet_getusn(ssdpPkt), 
-			mupnp_upnp_ssdp_packet_getnt(ssdpPkt), 
-			mupnp_upnp_ssdp_packet_getlocation(ssdpPkt)); 
+			mupnp_ssdp_packet_getusn(ssdpPkt), 
+			mupnp_ssdp_packet_getnt(ssdpPkt), 
+			mupnp_ssdp_packet_getlocation(ssdpPkt)); 
 	}
-	else if (mupnp_upnp_ssdp_packet_isbyebye(ssdpPkt) == TRUE) {
+	else if (mupnp_ssdp_packet_isbyebye(ssdpPkt) == TRUE) {
 		printf("ssdp:byebye : uuid = %s, NT = %s\n",
-			mupnp_upnp_ssdp_packet_getusn(ssdpPkt), 
-			mupnp_upnp_ssdp_packet_getnt(ssdpPkt));
+			mupnp_ssdp_packet_getusn(ssdpPkt), 
+			mupnp_ssdp_packet_getnt(ssdpPkt));
 	}
-	mupnp_upnp_ssdp_packet_print(ssdpPkt); 
+	mupnp_ssdp_packet_print(ssdpPkt); 
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 // Print Device
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintDeviceInfo(mUpnpUpnpDevice *dev, int indent)
+void PrintDeviceInfo(mUpnpDevice *dev, int indent)
 {
 	char indentStr[128];
 	int n;
-	mUpnpUpnpService *service;
+	mUpnpService *service;
 	int serviceCnt;
-	mUpnpUpnpAction *action;
+	mUpnpAction *action;
 	int actionCnt;
-	mUpnpUpnpArgumentList *arg;
+	mUpnpArgumentList *arg;
 	int argCnt;
-	mUpnpUpnpStateVariable *stateVar;
+	mUpnpStateVariable *stateVar;
 	int stateVarCnt;
 	
 	for (n=0; n<indent && n<(sizeof(indentStr)-1); n++)
@@ -132,48 +132,48 @@ void PrintDeviceInfo(mUpnpUpnpDevice *dev, int indent)
 	indentStr[n] = '\0';
 	
 	serviceCnt = 0;
-	for (service = mupnp_upnp_device_getservices(dev); service != NULL; service = mupnp_upnp_service_next(service)) {
-		printf("%s service[%d] = %s\n", indentStr, ++serviceCnt, mupnp_upnp_service_getservicetype(service));
+	for (service = mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
+		printf("%s service[%d] = %s\n", indentStr, ++serviceCnt, mupnp_service_getservicetype(service));
 		actionCnt = 0;
-		for (action = mupnp_upnp_service_getactions(service); action != NULL; action = mupnp_upnp_action_next(action)) {
-			printf("%s  action[%d] = %s\n", indentStr, ++actionCnt, mupnp_upnp_action_getname(action));
+		for (action = mupnp_service_getactions(service); action != NULL; action = mupnp_action_next(action)) {
+			printf("%s  action[%d] = %s\n", indentStr, ++actionCnt, mupnp_action_getname(action));
 			argCnt = 0;
-			for (arg = mupnp_upnp_action_getarguments(action); arg != NULL; arg = mupnp_upnp_argument_next(arg)) {
-				printf("%s   arg[%d] = %s\n", indentStr, ++argCnt, mupnp_upnp_argument_getname(arg));
+			for (arg = mupnp_action_getarguments(action); arg != NULL; arg = mupnp_argument_next(arg)) {
+				printf("%s   arg[%d] = %s\n", indentStr, ++argCnt, mupnp_argument_getname(arg));
 			}
 		}
 		stateVarCnt = 0;
-		for (stateVar = mupnp_upnp_service_getstatevariables(service); stateVar != NULL; stateVar = mupnp_upnp_statevariable_next(stateVar)) {
+		for (stateVar = mupnp_service_getstatevariables(service); stateVar != NULL; stateVar = mupnp_statevariable_next(stateVar)) {
 			printf("%s  stateVar[%d] = %s = %s\n", 
 			       indentStr, 
 			       ++stateVarCnt, 
-			       mupnp_upnp_statevariable_getname(stateVar),
-			       mupnp_upnp_statevariable_getvalue(stateVar));
+			       mupnp_statevariable_getname(stateVar),
+			       mupnp_statevariable_getvalue(stateVar));
 		}
 	}
 }
 
-void PrintDevice(mUpnpUpnpDevice *dev, int indent)
+void PrintDevice(mUpnpDevice *dev, int indent)
 {
-	mUpnpUpnpDevice *childDev;
+	mUpnpDevice *childDev;
 	
 	PrintDeviceInfo(dev, indent);
 
-	for (childDev = mupnp_upnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_upnp_device_next(childDev))
+	for (childDev = mupnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_device_next(childDev))
 		PrintDevice(childDev, indent+1);
 }
 
 
-void PrintControlPointDevice(mUpnpUpnpControlPoint *ctrlPoint)
+void PrintControlPointDevice(mUpnpControlPoint *ctrlPoint)
 {
-	mUpnpUpnpDevice *dev;
+	mUpnpDevice *dev;
 	int devCnt;
 		
-	printf("Device Num = %d\n", mupnp_upnp_controlpoint_getndevices(ctrlPoint));
+	printf("Device Num = %d\n", mupnp_controlpoint_getndevices(ctrlPoint));
 	
 	devCnt = 0;
-	for (dev = mupnp_upnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = mupnp_upnp_device_next(dev)) {
-		printf("[%d] = %s\n", ++devCnt, mupnp_upnp_device_getfriendlyname(dev));
+	for (dev = mupnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = mupnp_device_next(dev)) {
+		printf("[%d] = %s\n", ++devCnt, mupnp_device_getfriendlyname(dev));
 		PrintDevice(dev, 1);
 	}
 }
@@ -182,19 +182,19 @@ void PrintControlPointDevice(mUpnpUpnpControlPoint *ctrlPoint)
 // Select*
 /////////////////////////////////////////////////////////////////////////////////
 
-mUpnpUpnpDevice *SelectDevice(mUpnpUpnpControlPoint *ctrlPoint)
+mUpnpDevice *SelectDevice(mUpnpControlPoint *ctrlPoint)
 {
-	mUpnpUpnpDevice *dev;
+	mUpnpDevice *dev;
 	int n;
 	char key;
 	int devNum;
 
 	n = 0;
-	for (dev = mupnp_upnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = mupnp_upnp_device_next(dev)) {
+	for (dev = mupnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = mupnp_device_next(dev)) {
 		key = 'a' + n;
 		if ('z' < key)
 			break;
-		printf(" [%c] = %s\n", key, mupnp_upnp_device_getfriendlyname(dev));
+		printf(" [%c] = %s\n", key, mupnp_device_getfriendlyname(dev));
 		n++;
 	}
 	if (n == 0)
@@ -208,26 +208,26 @@ mUpnpUpnpDevice *SelectDevice(mUpnpUpnpControlPoint *ctrlPoint)
 		return NULL;
 	
 	devNum = key - 'a';
-	dev = mupnp_upnp_controlpoint_getdevices(ctrlPoint);
+	dev = mupnp_controlpoint_getdevices(ctrlPoint);
 	for (n=0; n<devNum; n++)
-		dev = mupnp_upnp_device_next(dev);
+		dev = mupnp_device_next(dev);
 
 	return dev;
 }
 
-mUpnpUpnpService *SelectService(mUpnpUpnpDevice *dev)
+mUpnpService *SelectService(mUpnpDevice *dev)
 {
-	mUpnpUpnpService *service;
+	mUpnpService *service;
 	int n;
 	char key;
 	int serviceNum;
 
 	n = 0;
-	for (service = mupnp_upnp_device_getservices(dev); service != NULL; service = mupnp_upnp_service_next(service)) {
+	for (service = mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
 		key = 'a' + n;
 		if ('z' < key)
 			break;
-		printf(" [%c] = %s\n", key, mupnp_upnp_service_getservicetype(service));
+		printf(" [%c] = %s\n", key, mupnp_service_getservicetype(service));
 		n++;
 	}
 	printf("Select Service : ");
@@ -239,26 +239,26 @@ mUpnpUpnpService *SelectService(mUpnpUpnpDevice *dev)
 		return NULL;
 	
 	serviceNum = key - 'a';
-	service = mupnp_upnp_device_getservices(dev);
+	service = mupnp_device_getservices(dev);
 	for (n=0; n<serviceNum; n++)
-		service = mupnp_upnp_service_next(service);
+		service = mupnp_service_next(service);
 
 	return service;
 }
 
-mUpnpUpnpAction *SelectAction(mUpnpUpnpService *service)
+mUpnpAction *SelectAction(mUpnpService *service)
 {
-	mUpnpUpnpAction *action;
+	mUpnpAction *action;
 	int n;
 	char key;
 	int actionNum;
 
 	n = 0;
-	for (action = mupnp_upnp_service_getactions(service); action != NULL; action = mupnp_upnp_action_next(action)) {
+	for (action = mupnp_service_getactions(service); action != NULL; action = mupnp_action_next(action)) {
 		key = 'a' + n;
 		if ('z' < key)
 			break;
-		printf(" [%c] = %s\n", key, mupnp_upnp_action_getname(action));
+		printf(" [%c] = %s\n", key, mupnp_action_getname(action));
 		n++;
 	}
 	printf("Select Action : ");
@@ -270,26 +270,26 @@ mUpnpUpnpAction *SelectAction(mUpnpUpnpService *service)
 		return NULL;
 	
 	actionNum = key - 'a';
-	action = mupnp_upnp_service_getactions(service);
+	action = mupnp_service_getactions(service);
 	for (n=0; n<actionNum; n++)
-		action = mupnp_upnp_action_next(action);
+		action = mupnp_action_next(action);
 
 	return action;
 }
 
-mUpnpUpnpStateVariable *SelectStateVariable(mUpnpUpnpService *service)
+mUpnpStateVariable *SelectStateVariable(mUpnpService *service)
 {
-	mUpnpUpnpStateVariable *stateVar;
+	mUpnpStateVariable *stateVar;
 	int n;
 	char key;
 	int serviceNum;
 
 	n = 0;
-	for (stateVar = mupnp_upnp_service_getstatevariables(service); stateVar != NULL; stateVar = mupnp_upnp_statevariable_next(stateVar)) {
+	for (stateVar = mupnp_service_getstatevariables(service); stateVar != NULL; stateVar = mupnp_statevariable_next(stateVar)) {
 		key = 'a' + n;
 		if ('z' < key)
 			break;
-		printf(" [%c] = %s\n", key, mupnp_upnp_statevariable_getname(stateVar));
+		printf(" [%c] = %s\n", key, mupnp_statevariable_getname(stateVar));
 		n++;
 	}
 	printf("Select StateVariable : ");
@@ -301,9 +301,9 @@ mUpnpUpnpStateVariable *SelectStateVariable(mUpnpUpnpService *service)
 		return NULL;
 	
 	serviceNum = key - 'a';
-	stateVar = mupnp_upnp_service_getstatevariables(service);
+	stateVar = mupnp_service_getstatevariables(service);
 	for (n=1; n<serviceNum; n++)
-		stateVar = mupnp_upnp_statevariable_next(stateVar);
+		stateVar = mupnp_statevariable_next(stateVar);
 
 	return stateVar;
 }
@@ -314,18 +314,18 @@ mUpnpUpnpStateVariable *SelectStateVariable(mUpnpUpnpService *service)
 
 #if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
-void ControlDevice(mUpnpUpnpControlPoint *ctrlPoint)
+void ControlDevice(mUpnpControlPoint *ctrlPoint)
 {
 	ControlDeviceAlter(ctrlPoint, CMD_NO_ALTERATIONS);
 }
 
-void ControlDeviceAlter(mUpnpUpnpControlPoint *ctrlPoint, int alteration_mask)
+void ControlDeviceAlter(mUpnpControlPoint *ctrlPoint, int alteration_mask)
 {
-	mUpnpUpnpDevice *selDev;
-	mUpnpUpnpService *selService;
-	mUpnpUpnpAction *selAction;
+	mUpnpDevice *selDev;
+	mUpnpService *selService;
+	mUpnpAction *selAction;
 	BOOL actionSuccess;
-	mUpnpUpnpArgument *arg;
+	mUpnpArgument *arg;
 	char argValue[2048];
 	
 	printf("Control Device\n");
@@ -340,11 +340,11 @@ void ControlDeviceAlter(mUpnpUpnpControlPoint *ctrlPoint, int alteration_mask)
 	if (selAction == NULL)
 		return;
 	
-	for (arg = mupnp_upnp_action_getarguments(selAction); arg; arg = mupnp_upnp_argument_next(arg)) {
-		if (mupnp_upnp_argument_isindirection(arg) == TRUE) {
-			printf("%s : ", mupnp_upnp_argument_getname(arg));
+	for (arg = mupnp_action_getarguments(selAction); arg; arg = mupnp_argument_next(arg)) {
+		if (mupnp_argument_isindirection(arg) == TRUE) {
+			printf("%s : ", mupnp_argument_getname(arg));
 			if (scanf("%s", argValue) == 1)
-				mupnp_upnp_argument_setvalue(arg, argValue);
+				mupnp_argument_setvalue(arg, argValue);
 		}
 	}
 
@@ -360,20 +360,20 @@ void ControlDeviceAlter(mUpnpUpnpControlPoint *ctrlPoint, int alteration_mask)
 			printf("\n");
 			for (i=0; i<loop_count; i++)
 			{
-				actionSuccess = mupnp_upnp_action_post(selAction);
+				actionSuccess = mupnp_action_post(selAction);
 				printf("Control Result(%d)\n", (int)actionSuccess);
 			}
 
 			mupnp_sleep(3000);
 
-			for (	arg = mupnp_upnp_action_getarguments(selAction); 
+			for (	arg = mupnp_action_getarguments(selAction); 
 				arg; 
-				arg = mupnp_upnp_argument_next(arg)) 
+				arg = mupnp_argument_next(arg)) 
 			{
-				if (mupnp_upnp_argument_isoutdirection(arg) == TRUE)
+				if (mupnp_argument_isoutdirection(arg) == TRUE)
 					printf(" %s = %s\n", 
-							mupnp_upnp_argument_getname(arg), 
-							mupnp_upnp_argument_getvalue(arg));
+							mupnp_argument_getname(arg), 
+							mupnp_argument_getvalue(arg));
 			}
 
 			mupnp_sleep(2000);
@@ -382,12 +382,12 @@ void ControlDeviceAlter(mUpnpUpnpControlPoint *ctrlPoint, int alteration_mask)
 
 	if ((alteration_mask & CMD_NO_ALTERATIONS) == CMD_NO_ALTERATIONS)
 	{	
-		actionSuccess = mupnp_upnp_action_post(selAction);
+		actionSuccess = mupnp_action_post(selAction);
 		
 		printf("Control Result(%d)\n", (int)actionSuccess);
-		for (arg = mupnp_upnp_action_getarguments(selAction); arg; arg = mupnp_upnp_argument_next(arg)) {
-			if (mupnp_upnp_argument_isoutdirection(arg) == TRUE)
-				printf(" %s = %s\n", mupnp_upnp_argument_getname(arg), mupnp_upnp_argument_getvalue(arg));
+		for (arg = mupnp_action_getarguments(selAction); arg; arg = mupnp_argument_next(arg)) {
+			if (mupnp_argument_isoutdirection(arg) == TRUE)
+				printf(" %s = %s\n", mupnp_argument_getname(arg), mupnp_argument_getvalue(arg));
 		}
 	}
 }
@@ -400,11 +400,11 @@ void ControlDeviceAlter(mUpnpUpnpControlPoint *ctrlPoint, int alteration_mask)
 
 #if !defined(MUPNP_NOUSE_QUERYCTRL)
 
-void QueryDevice(mUpnpUpnpControlPoint *ctrlPoint)
+void QueryDevice(mUpnpControlPoint *ctrlPoint)
 {
-	mUpnpUpnpDevice *selDev;
-	mUpnpUpnpService *selService;
-	mUpnpUpnpStateVariable *selStateVar;
+	mUpnpDevice *selDev;
+	mUpnpService *selService;
+	mUpnpStateVariable *selStateVar;
 	BOOL querySuccess;
 	char *stateValue;
 	
@@ -420,9 +420,9 @@ void QueryDevice(mUpnpUpnpControlPoint *ctrlPoint)
 	if (selStateVar == NULL)
 		return;
 	
-	querySuccess = mupnp_upnp_statevariable_post(selStateVar);
+	querySuccess = mupnp_statevariable_post(selStateVar);
 	
-	stateValue = mupnp_upnp_statevariable_getvalue(selStateVar);
+	stateValue = mupnp_statevariable_getvalue(selStateVar);
 
 	printf("Query Result(%d) = %s\n",
 		(int)querySuccess, 
@@ -437,33 +437,33 @@ void QueryDevice(mUpnpUpnpControlPoint *ctrlPoint)
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
-void SubscribeService(mUpnpUpnpControlPoint *ctrlPoint)
+void SubscribeService(mUpnpControlPoint *ctrlPoint)
 {
-	mUpnpUpnpDevice *selDev;
-	mUpnpUpnpService *selService;
+	mUpnpDevice *selDev;
+	mUpnpService *selService;
 	BOOL subSuccess;
 	
 	printf("Subscribe Device\n");
 	
-	mupnp_upnp_controlpoint_lock(ctrlPoint);
+	mupnp_controlpoint_lock(ctrlPoint);
 	selDev = SelectDevice(ctrlPoint);
 	if (selDev == NULL)
 	{
-		mupnp_upnp_controlpoint_unlock(ctrlPoint);
+		mupnp_controlpoint_unlock(ctrlPoint);
 		return;
 	}
 	selService = SelectService(selDev);
 	if (selService == NULL)
 	{
-		mupnp_upnp_controlpoint_unlock(ctrlPoint);
+		mupnp_controlpoint_unlock(ctrlPoint);
 		return;
 	}
-	subSuccess = mupnp_upnp_controlpoint_subscribe(ctrlPoint, selService, 300);
+	subSuccess = mupnp_controlpoint_subscribe(ctrlPoint, selService, 300);
 	
 	printf("Subscribe Result(%d) = %s\n",
 		(int)subSuccess, 
-		(subSuccess == TRUE) ? mupnp_upnp_service_getsubscriptionsid(selService) : "");
-	mupnp_upnp_controlpoint_unlock(ctrlPoint);
+		(subSuccess == TRUE) ? mupnp_service_getsubscriptionsid(selService) : "");
+	mupnp_controlpoint_unlock(ctrlPoint);
 	
 }
 
@@ -475,10 +475,10 @@ void SubscribeService(mUpnpUpnpControlPoint *ctrlPoint)
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
-void UnsubscribeService(mUpnpUpnpControlPoint *ctrlPoint)
+void UnsubscribeService(mUpnpControlPoint *ctrlPoint)
 {
-	mUpnpUpnpDevice *selDev;
-	mUpnpUpnpService *selService;
+	mUpnpDevice *selDev;
+	mUpnpService *selService;
 	BOOL subSuccess;
 	
 	printf("Query Device\n");
@@ -490,7 +490,7 @@ void UnsubscribeService(mUpnpUpnpControlPoint *ctrlPoint)
 	if (selService == NULL)
 		return;
 
-	subSuccess = mupnp_upnp_controlpoint_unsubscribe(ctrlPoint, selService);
+	subSuccess = mupnp_controlpoint_unsubscribe(ctrlPoint, selService);
 
 	printf("Unsubscribe Result(%d)\n",
 		(int)subSuccess);
@@ -502,14 +502,14 @@ void UnsubscribeService(mUpnpUpnpControlPoint *ctrlPoint)
 // Set MX value
 /////////////////////////////////////////////////////////////////////////////////
 
-void SetMXValue(mUpnpUpnpControlPoint *ctrlPoint)
+void SetMXValue(mUpnpControlPoint *ctrlPoint)
 {
         unsigned int mxValue;
 
         printf("Give new MX value: ");
         if (scanf("%u", &mxValue) == 1) {
                 printf( "%d", mxValue );
-                mupnp_upnp_controlpoint_setssdpsearchmx(ctrlPoint, mxValue);
+                mupnp_controlpoint_setssdpsearchmx(ctrlPoint, mxValue);
         }
         printf( "\n" );
 }
@@ -518,11 +518,11 @@ void SetMXValue(mUpnpUpnpControlPoint *ctrlPoint)
 // Event
 /////////////////////////////////////////////////////////////////////////////////
 
-void EventListener(mUpnpUpnpProperty *prop)
+void EventListener(mUpnpProperty *prop)
 {
 	printf("Property Changed (%s) = %s\n",
-		mupnp_upnp_property_getname(prop),
-		mupnp_upnp_property_getvalue(prop));
+		mupnp_property_getname(prop),
+		mupnp_property_getvalue(prop));
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -535,13 +535,13 @@ MBEG
 int main( int argc, char* argv[] )
 #endif
 {
-	mUpnpUpnpControlPoint *ctrlPoint;
+	mUpnpControlPoint *ctrlPoint;
 	int key;
 	
-	ctrlPoint = mupnp_upnp_controlpoint_new();
-	mupnp_upnp_controlpoint_setssdplistener(ctrlPoint, SSDPNotifyListner);
-	mupnp_upnp_controlpoint_seteventlistener(ctrlPoint, EventListener);
-	if (mupnp_upnp_controlpoint_start(ctrlPoint) == FALSE) {
+	ctrlPoint = mupnp_controlpoint_new();
+	mupnp_controlpoint_setssdplistener(ctrlPoint, SSDPNotifyListner);
+	mupnp_controlpoint_seteventlistener(ctrlPoint, EventListener);
+	if (mupnp_controlpoint_start(ctrlPoint) == FALSE) {
 		printf("Couldn't start this control point !!");
 		exit(1);
 	}
@@ -589,19 +589,19 @@ int main( int argc, char* argv[] )
                         break;
 		case 'R':
 	          printf("M-Search upnp::rootdevice\n");
-		  mupnp_upnp_controlpoint_search(ctrlPoint, MUPNP_ST_ROOT_DEVICE);
+		  mupnp_controlpoint_search(ctrlPoint, MUPNP_ST_ROOT_DEVICE);
 		  break;
 		case 'H':
 	          printf("M-Search ssdp:all\n");
-		  mupnp_upnp_controlpoint_search(ctrlPoint, "ssdp:all");
+		  mupnp_controlpoint_search(ctrlPoint, "ssdp:all");
 		  break;
 		case 'V':
 	          printf("M-Search device type\n");
-		  mupnp_upnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:device:clock:1");
+		  mupnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:device:clock:1");
 		  break;
 		case 'T':
 	          printf("M-Search service type\n");
-		  mupnp_upnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:service:timer:1");
+		  mupnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:service:timer:1");
 		  break;
 		case 'A':
 		  {
@@ -611,10 +611,10 @@ int main( int argc, char* argv[] )
 			  
 			  for (i=0; i<4; i++)
 			  {
-				  mupnp_upnp_controlpoint_search(ctrlPoint, MUPNP_ST_ROOT_DEVICE);
-				  mupnp_upnp_controlpoint_search(ctrlPoint, "ssdp:all");
-				  mupnp_upnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:device:clock:1");
-				  mupnp_upnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:service:timer:1");
+				  mupnp_controlpoint_search(ctrlPoint, MUPNP_ST_ROOT_DEVICE);
+				  mupnp_controlpoint_search(ctrlPoint, "ssdp:all");
+				  mupnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:device:clock:1");
+				  mupnp_controlpoint_search(ctrlPoint, "urn:schemas-upnp-org:service:timer:1");
 			  }
 			  
 			  printf("Done (doing all searches four times).\n");
@@ -634,8 +634,8 @@ int main( int argc, char* argv[] )
 	kbexit();
 #endif
 	
-	mupnp_upnp_controlpoint_stop(ctrlPoint);
-	mupnp_upnp_controlpoint_delete(ctrlPoint);
+	mupnp_controlpoint_stop(ctrlPoint);
+	mupnp_controlpoint_delete(ctrlPoint);
 	
 	return(0);
 }

@@ -15,16 +15,16 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_ssdp_packet_new
+* mupnp_ssdp_packet_new
 ****************************************/
 
-mUpnpUpnpSSDPPacket *mupnp_upnp_ssdp_packet_new()
+mUpnpSSDPPacket *mupnp_ssdp_packet_new()
 {
-	mUpnpUpnpSSDPPacket *ssdpPkt;
+	mUpnpSSDPPacket *ssdpPkt;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpPkt = (mUpnpUpnpSSDPPacket *)malloc(sizeof(mUpnpUpnpSSDPPacket));
+	ssdpPkt = (mUpnpSSDPPacket *)malloc(sizeof(mUpnpSSDPPacket));
 	
 	if ( NULL != ssdpPkt )
 	{
@@ -32,8 +32,8 @@ mUpnpUpnpSSDPPacket *mupnp_upnp_ssdp_packet_new()
 		ssdpPkt->headerList = mupnp_http_headerlist_new();
 		ssdpPkt->initialized = 0;
 
-		mupnp_upnp_ssdp_packet_setuserdata(ssdpPkt, NULL);
-		mupnp_upnp_ssdp_packet_settimestamp(ssdpPkt, mupnp_getcurrentsystemtime());
+		mupnp_ssdp_packet_setuserdata(ssdpPkt, NULL);
+		mupnp_ssdp_packet_settimestamp(ssdpPkt, mupnp_getcurrentsystemtime());
 
 		ssdpPkt->timestamps = (mUpnpTime *)malloc(MUPNP_SSDP_FILTER_TABLE_SIZE * sizeof(mUpnpTime));
 	}
@@ -44,14 +44,14 @@ mUpnpUpnpSSDPPacket *mupnp_upnp_ssdp_packet_new()
 }
 
 /****************************************
-* mupnp_upnp_ssdp_packet_delete
+* mupnp_ssdp_packet_delete
 ****************************************/
 
-void mupnp_upnp_ssdp_packet_delete(mUpnpUpnpSSDPPacket *ssdpPkt)
+void mupnp_ssdp_packet_delete(mUpnpSSDPPacket *ssdpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_ssdp_packet_clear(ssdpPkt);
+	mupnp_ssdp_packet_clear(ssdpPkt);
 	
 	mupnp_socket_datagram_packet_delete(ssdpPkt->dgmPkt);
 	mupnp_http_headerlist_delete(ssdpPkt->headerList);
@@ -64,10 +64,10 @@ void mupnp_upnp_ssdp_packet_delete(mUpnpUpnpSSDPPacket *ssdpPkt)
 }
 
 /****************************************
-* mupnp_upnp_ssdp_packet_clear
+* mupnp_ssdp_packet_clear
 ****************************************/
 
-void mupnp_upnp_ssdp_packet_clear(mUpnpUpnpSSDPPacket *ssdpPkt)
+void mupnp_ssdp_packet_clear(mUpnpSSDPPacket *ssdpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -78,27 +78,27 @@ void mupnp_upnp_ssdp_packet_clear(mUpnpUpnpSSDPPacket *ssdpPkt)
 }
 
 /****************************************
-* mupnp_upnp_ssdp_packet_isrootdevice
+* mupnp_ssdp_packet_isrootdevice
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_packet_isrootdevice(mUpnpUpnpSSDPPacket *ssdpPkt)
+BOOL mupnp_ssdp_packet_isrootdevice(mUpnpSSDPPacket *ssdpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_upnp_nt_isrootdevice(mupnp_upnp_ssdp_packet_getnt(ssdpPkt)) == TRUE)
+	if (mupnp_nt_isrootdevice(mupnp_ssdp_packet_getnt(ssdpPkt)) == TRUE)
 		return TRUE;
-	if (mupnp_upnp_st_isrootdevice(mupnp_upnp_ssdp_packet_getst(ssdpPkt)) == TRUE)
+	if (mupnp_st_isrootdevice(mupnp_ssdp_packet_getst(ssdpPkt)) == TRUE)
 		return TRUE;
-	return mupnp_upnp_usn_isrootdevice(mupnp_upnp_ssdp_packet_getusn(ssdpPkt));
+	return mupnp_usn_isrootdevice(mupnp_ssdp_packet_getusn(ssdpPkt));
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_ssdp_packet_setheader
+* mupnp_ssdp_packet_setheader
 ****************************************/
 
-void mupnp_upnp_ssdp_packet_setheader(mUpnpUpnpSSDPPacket *ssdpPkt, char *ssdpMsg)
+void mupnp_ssdp_packet_setheader(mUpnpSSDPPacket *ssdpPkt, char *ssdpMsg)
 {
 	mUpnpStringTokenizer *ssdpTok;
 	mUpnpStringTokenizer *ssdpLineTok;
@@ -144,17 +144,17 @@ void mupnp_upnp_ssdp_packet_setheader(mUpnpUpnpSSDPPacket *ssdpPkt, char *ssdpMs
 }
 
 /****************************************
- * mupnp_upnp_ssdp_packet_getmaxage
+ * mupnp_ssdp_packet_getmaxage
  ****************************************/
 
-long mupnp_upnp_ssdp_packet_getmaxage(mUpnpUpnpSSDPPacket *ssdpPkt)
+long mupnp_ssdp_packet_getmaxage(mUpnpSSDPPacket *ssdpPkt)
 {
 	const char *cachecontrol = NULL;
 	ssize_t maxageIdx = 0;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	cachecontrol = mupnp_upnp_ssdp_packet_getcachecontrol(ssdpPkt);
+	cachecontrol = mupnp_ssdp_packet_getcachecontrol(ssdpPkt);
 	if (cachecontrol == NULL) return 0;
 	
 	maxageIdx = mupnp_strstr(cachecontrol, CG_HTTP_MAX_AGE);
@@ -171,10 +171,10 @@ long mupnp_upnp_ssdp_packet_getmaxage(mUpnpUpnpSSDPPacket *ssdpPkt)
 }
 
 /****************************************
-* mupnp_upnp_ssdp_packet_copy
+* mupnp_ssdp_packet_copy
 ****************************************/
 
-void mupnp_upnp_ssdp_packet_copy(mUpnpUpnpSSDPPacket *dstSsdpPkt, mUpnpUpnpSSDPPacket *srcSsdpPkt)
+void mupnp_ssdp_packet_copy(mUpnpSSDPPacket *dstSsdpPkt, mUpnpSSDPPacket *srcSsdpPkt)
 {
 	mUpnpHttpHeader *srcHeader;
 	mUpnpHttpHeader *destHeader;
@@ -184,33 +184,33 @@ void mupnp_upnp_ssdp_packet_copy(mUpnpUpnpSSDPPacket *dstSsdpPkt, mUpnpUpnpSSDPP
 	mupnp_socket_datagram_packet_copy(dstSsdpPkt->dgmPkt, srcSsdpPkt->dgmPkt);
 
 	/**** copy headers ****/
-	mupnp_upnp_ssdp_packet_clear(dstSsdpPkt);
-	for (srcHeader = mupnp_upnp_ssdp_packet_getheaders(srcSsdpPkt); srcHeader != NULL; srcHeader = mupnp_http_header_next(srcHeader)) {
+	mupnp_ssdp_packet_clear(dstSsdpPkt);
+	for (srcHeader = mupnp_ssdp_packet_getheaders(srcSsdpPkt); srcHeader != NULL; srcHeader = mupnp_http_header_next(srcHeader)) {
 		destHeader = mupnp_http_header_new();
 		mupnp_http_header_setname(destHeader, mupnp_http_header_getname(srcHeader));
 		mupnp_http_header_setvalue(destHeader, mupnp_http_header_getvalue(srcHeader));
-		mupnp_upnp_ssdp_packet_addheader(dstSsdpPkt, destHeader);
+		mupnp_ssdp_packet_addheader(dstSsdpPkt, destHeader);
 	}
 	
 	/* Set timestamp */
-	mupnp_upnp_ssdp_packet_settimestamp(dstSsdpPkt, mupnp_getcurrentsystemtime());
+	mupnp_ssdp_packet_settimestamp(dstSsdpPkt, mupnp_getcurrentsystemtime());
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_ssdp_packet_print
+* mupnp_ssdp_packet_print
 ****************************************/
 
-void mupnp_upnp_ssdp_packet_print(mUpnpUpnpSSDPPacket *ssdpPkt)
+void mupnp_ssdp_packet_print(mUpnpSSDPPacket *ssdpPkt)
 {
 	mUpnpHttpHeader *header;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_log_debug_s("ssdp from %s %d\n",
-		mupnp_upnp_ssdp_packet_getremoteaddress(ssdpPkt),
-		mupnp_upnp_ssdp_packet_getremoteport(ssdpPkt));
+		mupnp_ssdp_packet_getremoteaddress(ssdpPkt),
+		mupnp_ssdp_packet_getremoteport(ssdpPkt));
 		
 	/**** print headers ****/
 	for (header = mupnp_http_headerlist_gets(ssdpPkt->headerList); header != NULL; header = mupnp_http_header_next(header)) {

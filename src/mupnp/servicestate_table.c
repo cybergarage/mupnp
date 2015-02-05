@@ -13,16 +13,16 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_servicestatetable_new
+* mupnp_servicestatetable_new
 ****************************************/
 
-mUpnpUpnpServiceStateTable *mupnp_upnp_servicestatetable_new()
+mUpnpServiceStateTable *mupnp_servicestatetable_new()
 {
-	mUpnpUpnpServiceStateTable *statevariableTable;
+	mUpnpServiceStateTable *statevariableTable;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	statevariableTable = (mUpnpUpnpServiceStateTable *)malloc(sizeof(mUpnpUpnpServiceStateTable));
+	statevariableTable = (mUpnpServiceStateTable *)malloc(sizeof(mUpnpServiceStateTable));
 
 	if ( NULL != statevariableTable )
 		mupnp_list_header_init((mUpnpList *)statevariableTable);
@@ -33,10 +33,10 @@ mUpnpUpnpServiceStateTable *mupnp_upnp_servicestatetable_new()
 }
 
 /****************************************
-* mupnp_upnp_servicestatetable_delete
+* mupnp_servicestatetable_delete
 ****************************************/
 
-void mupnp_upnp_servicestatetable_delete(mUpnpUpnpServiceStateTable *statevariableTable)
+void mupnp_servicestatetable_delete(mUpnpServiceStateTable *statevariableTable)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

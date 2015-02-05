@@ -20,16 +20,16 @@
 #if !defined(MUPNP_NOUSE_QUERYCTRL)
 
 /****************************************
-* mupnp_upnp_control_query_request_new
+* mupnp_control_query_request_new
 ****************************************/
 
-mUpnpUpnpQueryRequest *mupnp_upnp_control_query_request_new()
+mUpnpQueryRequest *mupnp_control_query_request_new()
 {
-	mUpnpUpnpQueryRequest *queryReq;
+	mUpnpQueryRequest *queryReq;
 	 
 	mupnp_log_debug_l4("Entering...\n");
 
-	queryReq = (mUpnpUpnpQueryRequest *)malloc(sizeof(mUpnpUpnpQueryRequest));
+	queryReq = (mUpnpQueryRequest *)malloc(sizeof(mUpnpQueryRequest));
 
 	if ( NULL != queryReq )
 	{	
@@ -43,7 +43,7 @@ mUpnpUpnpQueryRequest *mupnp_upnp_control_query_request_new()
 
 		queryReq->isSoapReqCreated = TRUE;
 		
-		queryReq->queryRes = mupnp_upnp_control_query_response_new();
+		queryReq->queryRes = mupnp_control_query_response_new();
 		if (queryReq->queryRes == NULL)
 		{
 			/* Memory allocation failed */
@@ -59,19 +59,19 @@ mUpnpUpnpQueryRequest *mupnp_upnp_control_query_request_new()
 }
 
 /****************************************
-* mupnp_upnp_control_query_request_delete
+* mupnp_control_query_request_delete
 ****************************************/
 
-void mupnp_upnp_control_query_request_delete(mUpnpUpnpQueryRequest *queryReq)
+void mupnp_control_query_request_delete(mUpnpQueryRequest *queryReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_control_query_request_clear(queryReq);
+	mupnp_control_query_request_clear(queryReq);
 
 	if (queryReq->isSoapReqCreated == TRUE)
 		mupnp_soap_request_delete(queryReq->soapReq);
 
-	mupnp_upnp_control_query_response_delete(queryReq->queryRes);
+	mupnp_control_query_response_delete(queryReq->queryRes);
 			
 	free(queryReq);
 
@@ -79,10 +79,10 @@ void mupnp_upnp_control_query_request_delete(mUpnpUpnpQueryRequest *queryReq)
 }
 
 /****************************************
-* mupnp_upnp_control_query_request_clear
+* mupnp_control_query_request_clear
 ****************************************/
 
-void mupnp_upnp_control_query_request_clear(mUpnpUpnpQueryRequest *queryReq)
+void mupnp_control_query_request_clear(mUpnpQueryRequest *queryReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -95,10 +95,10 @@ void mupnp_upnp_control_query_request_clear(mUpnpUpnpQueryRequest *queryReq)
 }
 
 /****************************************
-* mupnp_upnp_control_query_request_setsoaprequest
+* mupnp_control_query_request_setsoaprequest
 ****************************************/
 
-void mupnp_upnp_control_query_request_setsoaprequest(mUpnpUpnpQueryRequest *queryReq, mUpnpSoapRequest *soapReq)
+void mupnp_control_query_request_setsoaprequest(mUpnpQueryRequest *queryReq, mUpnpSoapRequest *soapReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -111,10 +111,10 @@ void mupnp_upnp_control_query_request_setsoaprequest(mUpnpUpnpQueryRequest *quer
 }
 
 /****************************************
-* mupnp_upnp_control_query_request_getvarnamenode
+* mupnp_control_query_request_getvarnamenode
 ****************************************/
 
-mUpnpXmlNode *mupnp_upnp_control_query_request_getvarnamenode(mUpnpUpnpQueryRequest *queryReq)
+mUpnpXmlNode *mupnp_control_query_request_getvarnamenode(mUpnpQueryRequest *queryReq)
 {
 	mUpnpSoapRequest *soapReq;	
 	mUpnpXmlNode *bodyNode;
@@ -122,7 +122,7 @@ mUpnpXmlNode *mupnp_upnp_control_query_request_getvarnamenode(mUpnpUpnpQueryRequ
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	soapReq = mupnp_upnp_control_query_request_getsoaprequest(queryReq);
+	soapReq = mupnp_control_query_request_getsoaprequest(queryReq);
 	
 	bodyNode = mupnp_soap_request_getbodynode(soapReq);
 	if (bodyNode == NULL)
@@ -142,16 +142,16 @@ mUpnpXmlNode *mupnp_upnp_control_query_request_getvarnamenode(mUpnpUpnpQueryRequ
 }
 
 /****************************************
-* mupnp_upnp_control_query_request_getqueryname
+* mupnp_control_query_request_getqueryname
 ****************************************/
 
-char *mupnp_upnp_control_query_request_getvarname(mUpnpUpnpQueryRequest *queryReq)
+char *mupnp_control_query_request_getvarname(mUpnpQueryRequest *queryReq)
 {
 	mUpnpXmlNode *node;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	node = mupnp_upnp_control_query_request_getvarnamenode(queryReq);
+	node = mupnp_control_query_request_getvarnamenode(queryReq);
 	if (node == NULL)
 		return "";
 	
@@ -161,10 +161,10 @@ char *mupnp_upnp_control_query_request_getvarname(mUpnpUpnpQueryRequest *queryRe
 }
 
 /****************************************
-* mupnp_upnp_control_query_request_cratestatevariablenode
+* mupnp_control_query_request_cratestatevariablenode
 ****************************************/
 
-mUpnpXmlNode *mupnp_upnp_control_query_request_cratestatevariablenode(mUpnpUpnpStateVariable *statVar)
+mUpnpXmlNode *mupnp_control_query_request_cratestatevariablenode(mUpnpStateVariable *statVar)
 {
 	mUpnpXmlNode *queryVarNode;
 	mUpnpXmlNode *varNode;
@@ -177,7 +177,7 @@ mUpnpXmlNode *mupnp_upnp_control_query_request_cratestatevariablenode(mUpnpUpnpS
 	
 	varNode = mupnp_xml_node_new();
 	mupnp_xml_node_setname(varNode, MUPNP_CONTROL_NS CG_SOAP_DELIM MUPNP_CONTROL_VAR_NAME);
-	mupnp_xml_node_setvalue(varNode, mupnp_upnp_statevariable_getname(statVar));
+	mupnp_xml_node_setvalue(varNode, mupnp_statevariable_getname(statVar));
 	
 	mupnp_xml_node_addchildnode(queryVarNode, varNode);
 	
@@ -187,28 +187,28 @@ mUpnpXmlNode *mupnp_upnp_control_query_request_cratestatevariablenode(mUpnpUpnpS
 }
 
 /****************************************
-* mupnp_upnp_control_query_request_setstatevariable
+* mupnp_control_query_request_setstatevariable
 ****************************************/
 
-void mupnp_upnp_control_query_request_setstatevariable(mUpnpUpnpQueryRequest *queryReq, mUpnpUpnpStateVariable *statVar)
+void mupnp_control_query_request_setstatevariable(mUpnpQueryRequest *queryReq, mUpnpStateVariable *statVar)
 {
-	mUpnpUpnpService *service;
+	mUpnpService *service;
 	mUpnpSoapRequest *soapReq;
 	mUpnpXmlNode *bodyNode;
 	mUpnpXmlNode *queryNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	service = mupnp_upnp_statevariable_getservice(statVar);
-	soapReq = mupnp_upnp_control_query_request_getsoaprequest(queryReq);
+	service = mupnp_statevariable_getservice(statVar);
+	soapReq = mupnp_control_query_request_getsoaprequest(queryReq);
 	
 	mupnp_soap_request_setsoapaction(soapReq, MUPNP_CONTROL_QUERY_SOAPACTION);
 	
-	mupnp_upnp_control_request_sethostfromservice(soapReq, service);
+	mupnp_control_request_sethostfromservice(soapReq, service);
 	
-	mupnp_upnp_control_soap_request_initializeenvelopenode(soapReq);
+	mupnp_control_soap_request_initializeenvelopenode(soapReq);
 	bodyNode = mupnp_soap_request_getbodynode(soapReq);
-	queryNode = mupnp_upnp_control_query_request_cratestatevariablenode(statVar);
+	queryNode = mupnp_control_query_request_cratestatevariablenode(statVar);
 	mupnp_xml_node_addchildnode(bodyNode, queryNode);
 
 	mupnp_soap_request_createcontent(soapReq);
@@ -217,26 +217,26 @@ void mupnp_upnp_control_query_request_setstatevariable(mUpnpUpnpQueryRequest *qu
 }
 
 /****************************************
-* mupnp_upnp_control_query_request_post
+* mupnp_control_query_request_post
 ****************************************/
 
-mUpnpUpnpQueryResponse *mupnp_upnp_control_query_request_post(mUpnpUpnpQueryRequest *queryReq)
+mUpnpQueryResponse *mupnp_control_query_request_post(mUpnpQueryRequest *queryReq)
 {
 	mUpnpSoapRequest *soapReq;
 	mUpnpSoapResponse *soapRes;
-	mUpnpUpnpQueryResponse *queryRes;
+	mUpnpQueryResponse *queryRes;
 	mUpnpHttpRequest *httpReq;
 	mUpnpNetURL *postURL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	soapReq = mupnp_upnp_control_query_request_getsoaprequest(queryReq);
+	soapReq = mupnp_control_query_request_getsoaprequest(queryReq);
 	soapRes = mupnp_soap_request_getsoapresponse(soapReq);
-	queryRes = mupnp_upnp_control_query_request_getqueryresponse(queryReq);
+	queryRes = mupnp_control_query_request_getqueryresponse(queryReq);
 	httpReq = mupnp_soap_request_gethttprequest(soapReq);
 	postURL = mupnp_http_request_getposturl(httpReq);
 	
-	mupnp_upnp_control_query_response_setsoapresponse(queryRes, soapRes);
+	mupnp_control_query_response_setsoapresponse(queryRes, soapRes);
 	
 	mupnp_soap_request_post(
 		soapReq, 

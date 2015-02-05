@@ -19,59 +19,59 @@
 #if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
 /****************************************
-* mupnp_upnp_action_clearoutputargumentvalues
+* mupnp_action_clearoutputargumentvalues
 ****************************************/
 
-void mupnp_upnp_action_clearoutputargumentvalues(mUpnpUpnpAction *action)
+void mupnp_action_clearoutputargumentvalues(mUpnpAction *action)
 {
-	mUpnpUpnpArgumentList *argList;
-	mUpnpUpnpArgument *arg;
+	mUpnpArgumentList *argList;
+	mUpnpArgument *arg;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	argList = mupnp_upnp_action_getargumentlist(action);
-	for (arg=mupnp_upnp_argumentlist_gets(argList); arg != NULL; arg = mupnp_upnp_argument_next(arg)) {
-		if (mupnp_upnp_argument_isoutdirection(arg) == TRUE)
-			mupnp_upnp_argument_setvalue(arg, "");
+	argList = mupnp_action_getargumentlist(action);
+	for (arg=mupnp_argumentlist_gets(argList); arg != NULL; arg = mupnp_argument_next(arg)) {
+		if (mupnp_argument_isoutdirection(arg) == TRUE)
+			mupnp_argument_setvalue(arg, "");
 	}
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* mupnp_upnp_action_performlistener
+* mupnp_action_performlistener
 ****************************************/
 
-BOOL mupnp_upnp_action_performlistner(mUpnpUpnpAction *action, mUpnpUpnpActionRequest *actionReq)
+BOOL mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *actionReq)
 {
 	MUPNP_ACTION_LISTNER listener;
-	mUpnpUpnpActionResponse *actionRes;
+	mUpnpActionResponse *actionRes;
 	mUpnpHttpRequest *actionReqHttpReq;
 	mUpnpHttpResponse *actionResHttpRes;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	listener = mupnp_upnp_action_getlistner(action);
+	listener = mupnp_action_getlistner(action);
 	if (listener == NULL)
 		return FALSE;
 
-	actionRes = mupnp_upnp_control_action_response_new();
+	actionRes = mupnp_control_action_response_new();
 	
-	mupnp_upnp_action_setstatuscode(action, MUPNP_STATUS_INVALID_ACTION);
-	mupnp_upnp_action_setstatusdescription(action, mupnp_upnp_status_code2string(MUPNP_STATUS_INVALID_ACTION));
+	mupnp_action_setstatuscode(action, MUPNP_STATUS_INVALID_ACTION);
+	mupnp_action_setstatusdescription(action, mupnp_status_code2string(MUPNP_STATUS_INVALID_ACTION));
 
-	mupnp_upnp_action_clearoutputargumentvalues(action);
+	mupnp_action_clearoutputargumentvalues(action);
 	
 	if (listener(action) == TRUE)
-		mupnp_upnp_control_action_response_setresponse(actionRes, action);
+		mupnp_control_action_response_setresponse(actionRes, action);
 	else
-		mupnp_upnp_control_soap_response_setfaultresponse(mupnp_upnp_control_action_response_getsoapresponse(actionRes), mupnp_upnp_action_getstatuscode(action), mupnp_upnp_action_getstatusdescription(action));
+		mupnp_control_soap_response_setfaultresponse(mupnp_control_action_response_getsoapresponse(actionRes), mupnp_action_getstatuscode(action), mupnp_action_getstatusdescription(action));
 	
-	actionReqHttpReq = mupnp_soap_request_gethttprequest(mupnp_upnp_control_action_request_getsoaprequest(actionReq));
-	actionResHttpRes = mupnp_soap_response_gethttpresponse(mupnp_upnp_control_action_response_getsoapresponse(actionRes));
+	actionReqHttpReq = mupnp_soap_request_gethttprequest(mupnp_control_action_request_getsoaprequest(actionReq));
+	actionResHttpRes = mupnp_soap_response_gethttpresponse(mupnp_control_action_response_getsoapresponse(actionRes));
 	mupnp_http_request_postresponse(actionReqHttpReq, actionResHttpRes);	
 
-	mupnp_upnp_control_action_response_delete(actionRes);
+	mupnp_control_action_response_delete(actionRes);
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
@@ -79,34 +79,34 @@ BOOL mupnp_upnp_action_performlistner(mUpnpUpnpAction *action, mUpnpUpnpActionRe
 }
 
 /****************************************
-* mupnp_upnp_action_post
+* mupnp_action_post
 ****************************************/
 
-BOOL mupnp_upnp_action_post(mUpnpUpnpAction *action)
+BOOL mupnp_action_post(mUpnpAction *action)
 {
-	mUpnpUpnpActionRequest *actionReq;
-	mUpnpUpnpActionResponse *actionRes;
+	mUpnpActionRequest *actionReq;
+	mUpnpActionResponse *actionRes;
 	BOOL actionSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
 	
-	actionReq = mupnp_upnp_control_action_request_new();
+	actionReq = mupnp_control_action_request_new();
 	
-	mupnp_upnp_control_action_request_setaction(actionReq, action);
-	actionRes = mupnp_upnp_control_action_request_post(actionReq);
-	actionSuccess = mupnp_upnp_control_action_response_issuccessful(actionRes);
+	mupnp_control_action_request_setaction(actionReq, action);
+	actionRes = mupnp_control_action_request_post(actionReq);
+	actionSuccess = mupnp_control_action_response_issuccessful(actionRes);
 	if (actionSuccess == TRUE) {
                 /* Reset status code to 0 (otherwise latest error stays in action) */
-                mupnp_upnp_action_setstatuscode(action, 0);
-		if (mupnp_upnp_control_action_response_getresult(actionRes, action) == FALSE) {
+                mupnp_action_setstatuscode(action, 0);
+		if (mupnp_control_action_response_getresult(actionRes, action) == FALSE) {
 			actionSuccess = FALSE;
 		}
 	} else {
 		/* Action was unsuccesful, but put the error to the action */
-		mupnp_upnp_control_action_response_geterror(actionRes, action);
+		mupnp_control_action_response_geterror(actionRes, action);
 	}
 
-	mupnp_upnp_control_action_request_delete(actionReq);
+	mupnp_control_action_request_delete(actionReq);
 	
 	mupnp_log_debug_l4("Leaving...\n");
 

@@ -23,16 +23,16 @@
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_upnp_property_new
+* mupnp_property_new
 ****************************************/
 
-mUpnpUpnpProperty *mupnp_upnp_property_new()
+mUpnpProperty *mupnp_property_new()
 {
-	mUpnpUpnpProperty *prop;
+	mUpnpProperty *prop;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	prop = (mUpnpUpnpProperty *)malloc(sizeof(mUpnpUpnpProperty));
+	prop = (mUpnpProperty *)malloc(sizeof(mUpnpProperty));
 
 	if ( NULL != prop )
 	{
@@ -42,7 +42,7 @@ mUpnpUpnpProperty *mupnp_upnp_property_new()
 		prop->value = mupnp_string_new();
 		prop->sid = mupnp_string_new();
 		
-		mupnp_upnp_property_setseq(prop, 0);
+		mupnp_property_setseq(prop, 0);
 	}
 	
 	return prop;
@@ -51,14 +51,14 @@ mUpnpUpnpProperty *mupnp_upnp_property_new()
 }
 
 /****************************************
-* mupnp_upnp_property_delete
+* mupnp_property_delete
 ****************************************/
 
-void mupnp_upnp_property_delete(mUpnpUpnpProperty *prop)
+void mupnp_property_delete(mUpnpProperty *prop)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_property_clear(prop);
+	mupnp_property_clear(prop);
 	mupnp_list_remove((mUpnpList *)prop);
 
 	mupnp_string_delete(prop->name);
@@ -71,10 +71,10 @@ void mupnp_upnp_property_delete(mUpnpUpnpProperty *prop)
 }
 
 /****************************************
-* mupnp_upnp_property_clear
+* mupnp_property_clear
 ****************************************/
 
-void mupnp_upnp_property_clear(mUpnpUpnpProperty *prop)
+void mupnp_property_clear(mUpnpProperty *prop)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

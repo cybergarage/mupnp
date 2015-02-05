@@ -27,16 +27,16 @@ extern "C" {
 /**
  * Type definition for UPnP property
  */
-typedef struct _mUpnpUpnpProperty {
+typedef struct _mUpnpProperty {
 	BOOL headFlag;
-	struct _mUpnpUpnpProperty *prev;
-	struct _mUpnpUpnpProperty *next;
+	struct _mUpnpProperty *prev;
+	struct _mUpnpProperty *next;
 
 	mUpnpString *name;
 	mUpnpString *value;
 	mUpnpString *sid;
 	size_t seq;
-} mUpnpUpnpProperty, mUpnpUpnpPropertyList;
+} mUpnpProperty, mUpnpPropertyList;
 
 /****************************************
 * Function (Property)
@@ -45,28 +45,28 @@ typedef struct _mUpnpUpnpProperty {
 /**
  * Construct new UPnP property object
  */
-mUpnpUpnpProperty *mupnp_upnp_property_new();
+mUpnpProperty *mupnp_property_new();
 
 /**
  * Delete UPnP property object
  *
  * @param prop UPnP property
  */
-void mupnp_upnp_property_delete(mUpnpUpnpProperty *prop);
+void mupnp_property_delete(mUpnpProperty *prop);
 
 /**
  * Clear UPnP property
  *
  * @param prop UPnP property
  */
-void mupnp_upnp_property_clear(mUpnpUpnpProperty *prop);
+void mupnp_property_clear(mUpnpProperty *prop);
 
 /**
  * Fetches next UPnP property from property list
  *
  * @param prop UPnP property
  */
-#define mupnp_upnp_property_next(prop) (mUpnpUpnpProperty *)mupnp_list_next((mUpnpList *)prop)
+#define mupnp_property_next(prop) (mUpnpProperty *)mupnp_list_next((mUpnpList *)prop)
 
 /**** name ****/
 /**
@@ -75,14 +75,14 @@ void mupnp_upnp_property_clear(mUpnpUpnpProperty *prop);
  * @param prop UPnP property
  * @param value Name
  */
-#define mupnp_upnp_property_setname(prop, value) mupnp_string_setvalue(prop->name, value)
+#define mupnp_property_setname(prop, value) mupnp_string_setvalue(prop->name, value)
 
 /**
  * Get property name
  *
  * @param prop UPnP property
  */
-#define mupnp_upnp_property_getname(prop) mupnp_string_getvalue(prop->name)
+#define mupnp_property_getname(prop) mupnp_string_getvalue(prop->name)
 
 /**** value ****/
 
@@ -92,14 +92,14 @@ void mupnp_upnp_property_clear(mUpnpUpnpProperty *prop);
  * @param prop UPnP property
  * @param nvalue Value
  */
-#define mupnp_upnp_property_setvalue(prop, nvalue) mupnp_string_setvalue(prop->value, nvalue)
+#define mupnp_property_setvalue(prop, nvalue) mupnp_string_setvalue(prop->value, nvalue)
 
 /**
  * Get value from property
  *
  * @param prop UPnP property
  */
-#define mupnp_upnp_property_getvalue(prop) mupnp_string_getvalue(prop->value)
+#define mupnp_property_getvalue(prop) mupnp_string_getvalue(prop->value)
 
 /**** sid ****/
 
@@ -109,14 +109,14 @@ void mupnp_upnp_property_clear(mUpnpUpnpProperty *prop);
  * @param prop UPnP property
  * @param value Value
  */
-#define mupnp_upnp_property_setsid(prop, value) mupnp_string_setvalue(prop->sid, value)
+#define mupnp_property_setsid(prop, value) mupnp_string_setvalue(prop->sid, value)
 
 /**
  * Get SID from UPnP property
  *
  * @param prop UPnP property
  */
-#define mupnp_upnp_property_getsid(prop) mupnp_string_getvalue(prop->sid)
+#define mupnp_property_getsid(prop) mupnp_string_getvalue(prop->sid)
 
 /**** seq ****/
 
@@ -126,14 +126,14 @@ void mupnp_upnp_property_clear(mUpnpUpnpProperty *prop);
  * @param prop UPnP property
  * @param value
  */
-#define mupnp_upnp_property_setseq(prop, value) (prop->seq = value)
+#define mupnp_property_setseq(prop, value) (prop->seq = value)
 
 /**
  * Get sequence number from UPnP property
  *
  * @param prop UPnP property
  */
-#define mupnp_upnp_property_getseq(prop) (prop->seq)
+#define mupnp_property_getseq(prop) (prop->seq)
 
 /****************************************
 * Function (PropertyList)
@@ -142,35 +142,35 @@ void mupnp_upnp_property_clear(mUpnpUpnpProperty *prop);
 /**
  * Create new UPnP property list
  */
-mUpnpUpnpPropertyList *mupnp_upnp_propertylist_new();
+mUpnpPropertyList *mupnp_propertylist_new();
 
 /**
  * Delete UPnP property list
  *
  * @param propertylist UPnP property list
  */
-void mupnp_upnp_propertylist_delete(mUpnpUpnpPropertyList *propertylist);
+void mupnp_propertylist_delete(mUpnpPropertyList *propertylist);
 
 /**
  * Clear UPnP propertylist
  *
  * @param propList UPnP property list
  */
-#define mupnp_upnp_propertylist_clear(propList) mupnp_list_clear((mUpnpList *)propList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_property_delete)
+#define mupnp_propertylist_clear(propList) mupnp_list_clear((mUpnpList *)propList, (CG_LIST_DESTRUCTORFUNC)mupnp_property_delete)
 
 /**
  * Get size of property list
  *
  * @param propList UPnP property list
  */
-#define mupnp_upnp_propertylist_size(propList) mupnp_list_size((mUpnpList *)propList)
+#define mupnp_propertylist_size(propList) mupnp_list_size((mUpnpList *)propList)
 
 /**
  * Get next list element from property list
  *
  * @param propList UPnP property list
  */
-#define mupnp_upnp_propertylist_gets(propList) (mUpnpUpnpProperty *)mupnp_list_next((mUpnpList *)propList)
+#define mupnp_propertylist_gets(propList) (mUpnpProperty *)mupnp_list_next((mUpnpList *)propList)
 
 /**
  * Add new property into property list
@@ -178,7 +178,7 @@ void mupnp_upnp_propertylist_delete(mUpnpUpnpPropertyList *propertylist);
  * @param propList UPnP property list
  * @param prop UPnP property
  */
-#define mupnp_upnp_propertylist_add(propList, prop) mupnp_list_add((mUpnpList *)propList, (mUpnpList *)prop)
+#define mupnp_propertylist_add(propList, prop) mupnp_list_add((mUpnpList *)propList, (mUpnpList *)prop)
 
 #ifdef  __cplusplus
 }

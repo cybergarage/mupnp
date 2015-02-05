@@ -25,8 +25,8 @@ extern "C" {
 * Function
 ****************************************/
 
-mUpnpUpnpDevice *upnp_clock_device_new();
-void upnp_clock_device_update(mUpnpUpnpDevice *dev);
+mUpnpDevice *upnp_clock_device_new();
+void upnp_clock_device_update(mUpnpDevice *dev);
 
 #ifdef  __cplusplus
 }

@@ -13,16 +13,16 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_icon_new
+* mupnp_icon_new
 ****************************************/
 
-mUpnpUpnpIcon *mupnp_upnp_icon_new()
+mUpnpIcon *mupnp_icon_new()
 {
-	mUpnpUpnpIcon *dev;
+	mUpnpIcon *dev;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	dev = (mUpnpUpnpIcon *)malloc(sizeof(mUpnpUpnpIcon));
+	dev = (mUpnpIcon *)malloc(sizeof(mUpnpIcon));
 
 	if  ( NULL != dev )
 		mupnp_list_node_init((mUpnpList *)dev);
@@ -33,10 +33,10 @@ mUpnpUpnpIcon *mupnp_upnp_icon_new()
 }
 
 /****************************************
-* mupnp_upnp_icon_delete
+* mupnp_icon_delete
 ****************************************/
 
-void mupnp_upnp_icon_delete(mUpnpUpnpIcon *dev)
+void mupnp_icon_delete(mUpnpIcon *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

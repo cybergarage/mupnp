@@ -18,13 +18,13 @@
  * Create a new event listener list
  *
  */
-mUpnpUpnpEventListenerList *mupnp_upnp_eventlistenerlist_new()
+mUpnpEventListenerList *mupnp_eventlistenerlist_new()
 {
-	mUpnpUpnpEventListenerList *eventListenerList;
+	mUpnpEventListenerList *eventListenerList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	eventListenerList = (mUpnpUpnpEventListenerList *)malloc(sizeof(mUpnpUpnpEventListenerList));
+	eventListenerList = (mUpnpEventListenerList *)malloc(sizeof(mUpnpEventListenerList));
 
 	if ( NULL != eventListenerList )
 		mupnp_list_header_init((mUpnpList *)eventListenerList);
@@ -40,11 +40,11 @@ mUpnpUpnpEventListenerList *mupnp_upnp_eventlistenerlist_new()
  * @param eventListenerList The event listener list to delete
  *
  */
-void mupnp_upnp_eventlistenerlist_delete(mUpnpUpnpEventListenerList *eventListenerList)
+void mupnp_eventlistenerlist_delete(mUpnpEventListenerList *eventListenerList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_eventlistenerlist_clear(eventListenerList);
+	mupnp_eventlistenerlist_clear(eventListenerList);
 	free(eventListenerList);
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -57,17 +57,17 @@ void mupnp_upnp_eventlistenerlist_delete(mUpnpUpnpEventListenerList *eventListen
  * @param listener The listener to remove
  *
  */
-void mupnp_upnp_eventlistenerlist_remove(mUpnpUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener)
+void mupnp_eventlistenerlist_remove(mUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener)
 {
-	mUpnpUpnpEventListenerList *list_node = NULL;
+	mUpnpEventListenerList *list_node = NULL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
 	if (listener == NULL) return;
 	
-	for (list_node = mupnp_upnp_eventlistenerlist_gets(eventListenerList);
+	for (list_node = mupnp_eventlistenerlist_gets(eventListenerList);
 	     list_node != NULL;
-	     list_node = mupnp_upnp_eventlistenerlist_next(list_node))
+	     list_node = mupnp_eventlistenerlist_next(list_node))
 	{
 		if (list_node->listener == listener)
 		{
@@ -88,19 +88,19 @@ void mupnp_upnp_eventlistenerlist_remove(mUpnpUpnpEventListenerList* eventListen
  * @param listener The listener to add
  *
  */
-void mupnp_upnp_eventlistenerlist_add(mUpnpUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener)
+void mupnp_eventlistenerlist_add(mUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener)
 {
-	mUpnpUpnpEventListenerList *list_node;
+	mUpnpEventListenerList *list_node;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
 	if (listener == NULL) return;
 	
-	list_node = (mUpnpUpnpEventListenerList*)malloc(sizeof(mUpnpUpnpEventListenerList));
+	list_node = (mUpnpEventListenerList*)malloc(sizeof(mUpnpEventListenerList));
 
 	if ( NULL != list_node )
 	{	
-		memset(list_node, 0, sizeof(mUpnpUpnpEventListenerList));
+		memset(list_node, 0, sizeof(mUpnpEventListenerList));
 		list_node->listener = listener;
 		mupnp_list_node_init((mUpnpList *)list_node);
 		mupnp_list_add((mUpnpList*)eventListenerList, (mUpnpList*)list_node);
@@ -117,15 +117,15 @@ void mupnp_upnp_eventlistenerlist_add(mUpnpUpnpEventListenerList* eventListenerL
  * @param eventListenerList The list to iterate thru
  * @param property The property that has been evented
  */
-void mupnp_upnp_eventlistenerlist_notify(mUpnpUpnpEventListenerList* eventListenerList, mUpnpUpnpProperty *property)
+void mupnp_eventlistenerlist_notify(mUpnpEventListenerList* eventListenerList, mUpnpProperty *property)
 {
-	mUpnpUpnpEventListenerList *list_node = NULL;
+	mUpnpEventListenerList *list_node = NULL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	for (list_node = mupnp_upnp_eventlistenerlist_gets(eventListenerList);
+	for (list_node = mupnp_eventlistenerlist_gets(eventListenerList);
 	     list_node != NULL;
-	     list_node = mupnp_upnp_eventlistenerlist_next(list_node))
+	     list_node = mupnp_eventlistenerlist_next(list_node))
 	{
 		if (list_node->listener != NULL)
 		{

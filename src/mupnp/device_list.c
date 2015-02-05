@@ -13,16 +13,16 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_upnp_devicelist_new
+* mupnp_devicelist_new
 ****************************************/
 
-mUpnpUpnpDeviceList *mupnp_upnp_devicelist_new()
+mUpnpDeviceList *mupnp_devicelist_new()
 {
-	mUpnpUpnpDeviceList *devList;
+	mUpnpDeviceList *devList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	devList = (mUpnpUpnpDeviceList *)malloc(sizeof(mUpnpUpnpDeviceList));
+	devList = (mUpnpDeviceList *)malloc(sizeof(mUpnpDeviceList));
 
 	if ( NULL != devList )
 		mupnp_list_header_init((mUpnpList *)devList);
@@ -33,14 +33,14 @@ mUpnpUpnpDeviceList *mupnp_upnp_devicelist_new()
 }
 
 /****************************************
-* mupnp_upnp_devicelist_delete
+* mupnp_devicelist_delete
 ****************************************/
 
-void mupnp_upnp_devicelist_delete(mUpnpUpnpDeviceList *devList)
+void mupnp_devicelist_delete(mUpnpDeviceList *devList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_devicelist_clear(devList);
+	mupnp_devicelist_clear(devList);
 	free(devList);
 
 	mupnp_log_debug_l4("Leaving...\n");

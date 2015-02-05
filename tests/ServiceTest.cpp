@@ -18,7 +18,7 @@
 ////////////////////////////////////////
 
 extern "C" {
-mUpnpNetURL *mupnp_upnp_service_mangleabsoluteurl(const char *serviceURLStr, const char *baseURLStr, const char *locationURLStr);
+mUpnpNetURL *mupnp_service_mangleabsoluteurl(const char *serviceURLStr, const char *baseURLStr, const char *locationURLStr);
 }
 
 BOOST_AUTO_TEST_CASE(ServiceAbsoluteURL)
@@ -31,25 +31,25 @@ BOOST_AUTO_TEST_CASE(ServiceAbsoluteURL)
      ********************************************************************************/
      
     /* O:serviceURLStr -:baseURLStr -:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("http://192.168.0.1:80/serviceURL", NULL, NULL);
+    url = mupnp_service_mangleabsoluteurl("http://192.168.0.1:80/serviceURL", NULL, NULL);
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.1:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
 
     /* O:serviceURLStr O:baseURLStr -:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("http://192.168.0.1:80/serviceURL", "http://192.168.0.2:80/", NULL);
+    url = mupnp_service_mangleabsoluteurl("http://192.168.0.1:80/serviceURL", "http://192.168.0.2:80/", NULL);
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.1:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
     
     /* O:serviceURLStr -:baseURLStr O:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("http://192.168.0.1:80/serviceURL", NULL, "http://192.168.0.3:80/");
+    url = mupnp_service_mangleabsoluteurl("http://192.168.0.1:80/serviceURL", NULL, "http://192.168.0.3:80/");
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.1:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
 
     /* O:serviceURLStr O:baseURLStr O:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("http://192.168.0.1:80/serviceURL", "http://192.168.0.2:80/", "http://192.168.0.3:80/");
+    url = mupnp_service_mangleabsoluteurl("http://192.168.0.1:80/serviceURL", "http://192.168.0.2:80/", "http://192.168.0.3:80/");
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.1:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE(ServiceAbsoluteURL)
      ********************************************************************************/
 
     /* O:serviceURLStr X:baseURLStr X:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("/serviceURL", NULL, NULL);
+    url = mupnp_service_mangleabsoluteurl("/serviceURL", NULL, NULL);
     urlStr = mupnp_net_url_getvalue(url);
     // FIXME
     //BOOST_CHECK(strcmp(urlStr, "/serviceURL") == 0);
@@ -70,25 +70,25 @@ BOOST_AUTO_TEST_CASE(ServiceAbsoluteURL)
      ********************************************************************************/
     
     /* X:serviceURLStr O:baseURLStr -:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("/serviceURL", "http://192.168.0.2:80/", NULL);
+    url = mupnp_service_mangleabsoluteurl("/serviceURL", "http://192.168.0.2:80/", NULL);
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.2:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
 
     /* X:serviceURLStr O:baseURLStr -:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("serviceURL", "http://192.168.0.2:80", NULL);
+    url = mupnp_service_mangleabsoluteurl("serviceURL", "http://192.168.0.2:80", NULL);
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.2:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
 
     /* X:serviceURLStr O:baseURLStr -:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("serviceURL", "http://192.168.0.2:80/", NULL);
+    url = mupnp_service_mangleabsoluteurl("serviceURL", "http://192.168.0.2:80/", NULL);
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.2:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
 
     /* X:serviceURLStr O:baseURLStr -:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("/serviceURL", "http://192.168.0.2:80", NULL);
+    url = mupnp_service_mangleabsoluteurl("/serviceURL", "http://192.168.0.2:80", NULL);
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.2:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
@@ -98,13 +98,13 @@ BOOST_AUTO_TEST_CASE(ServiceAbsoluteURL)
      ********************************************************************************/
     
     /* X:serviceURLStr O:baseURLStr -:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("/serviceURL", "http://192.168.0.2:80/device/", NULL);
+    url = mupnp_service_mangleabsoluteurl("/serviceURL", "http://192.168.0.2:80/device/", NULL);
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.2:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
     
     /* X:serviceURLStr O:baseURLStr -:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("serviceURL", "http://192.168.0.2:80/device/", NULL);
+    url = mupnp_service_mangleabsoluteurl("serviceURL", "http://192.168.0.2:80/device/", NULL);
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.2:80/device/serviceURL") == 0);
     mupnp_net_url_delete(url);
@@ -114,25 +114,25 @@ BOOST_AUTO_TEST_CASE(ServiceAbsoluteURL)
      ********************************************************************************/
     
     /* X:serviceURLStr -:baseURLStr O:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("/serviceURL", NULL, "http://192.168.0.3:80/");
+    url = mupnp_service_mangleabsoluteurl("/serviceURL", NULL, "http://192.168.0.3:80/");
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.3:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
 
     /* X:serviceURLStr -:baseURLStr O:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("serviceURL", NULL, "http://192.168.0.3:80");
+    url = mupnp_service_mangleabsoluteurl("serviceURL", NULL, "http://192.168.0.3:80");
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.3:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
 
     /* X:serviceURLStr -:baseURLStr O:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("serviceURL", NULL, "http://192.168.0.3:80/");
+    url = mupnp_service_mangleabsoluteurl("serviceURL", NULL, "http://192.168.0.3:80/");
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.3:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
 
     /* X:serviceURLStr -:baseURLStr O:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("/serviceURL", NULL, "http://192.168.0.3:80");
+    url = mupnp_service_mangleabsoluteurl("/serviceURL", NULL, "http://192.168.0.3:80");
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.3:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
@@ -142,13 +142,13 @@ BOOST_AUTO_TEST_CASE(ServiceAbsoluteURL)
      ********************************************************************************/
     
     /* X:serviceURLStr -:baseURLStr O:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("/serviceURL", NULL, "http://192.168.0.3:80/device/");
+    url = mupnp_service_mangleabsoluteurl("/serviceURL", NULL, "http://192.168.0.3:80/device/");
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.3:80/serviceURL") == 0);
     mupnp_net_url_delete(url);
 
     /* X:serviceURLStr -:baseURLStr O:locationURLStr */
-    url = mupnp_upnp_service_mangleabsoluteurl("serviceURL", NULL, "http://192.168.0.3:80/device/");
+    url = mupnp_service_mangleabsoluteurl("serviceURL", NULL, "http://192.168.0.3:80/device/");
     urlStr = mupnp_net_url_getvalue(url);
     BOOST_CHECK(strcmp(urlStr, "http://192.168.0.3:80/device/serviceURL") == 0);
     mupnp_net_url_delete(url);

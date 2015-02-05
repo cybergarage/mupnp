@@ -19,80 +19,80 @@
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_upnp_service_notifymain
+* mupnp_service_notifymain
 ****************************************/
 
-static BOOL mupnp_upnp_service_notifymain(mUpnpUpnpService *service, mUpnpUpnpStateVariable *statVar)
+static BOOL mupnp_service_notifymain(mUpnpService *service, mUpnpStateVariable *statVar)
 {
-	mUpnpUpnpSubscriber *sub;
-	mUpnpUpnpSubscriber **subArray;
+	mUpnpSubscriber *sub;
+	mUpnpSubscriber **subArray;
 	int subArrayCnt;
 	int n;
 		
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_upnp_service_lock(service);
+	mupnp_service_lock(service);
 
 	/**** Remove expired subscribers ****/
-	subArrayCnt = mupnp_upnp_service_getnsubscribers(service);
-	subArray = (mUpnpUpnpSubscriber **)malloc(sizeof(mUpnpUpnpSubscriber *) * subArrayCnt);
+	subArrayCnt = mupnp_service_getnsubscribers(service);
+	subArray = (mUpnpSubscriber **)malloc(sizeof(mUpnpSubscriber *) * subArrayCnt);
 
 	if ( NULL == subArray )
 	{
 		mupnp_log_debug_s("Memory allocation problem!\n");
-		mupnp_upnp_service_unlock(service);
+		mupnp_service_unlock(service);
 		return FALSE;
 	}
 
-	sub = mupnp_upnp_service_getsubscribers(service);
+	sub = mupnp_service_getsubscribers(service);
 	for (n=0; n<subArrayCnt; n++) {
 		subArray[n] = sub;
-		sub = mupnp_upnp_subscriber_next(sub);
+		sub = mupnp_subscriber_next(sub);
 	}
 	for (n=0; n<subArrayCnt; n++) {
 		sub = subArray[n];
 		if (sub == NULL)
 			continue;
-		if (mupnp_upnp_subscriber_isexpired(sub) == TRUE)
-			mupnp_upnp_service_removesubscriber(service, sub);
+		if (mupnp_subscriber_isexpired(sub) == TRUE)
+			mupnp_service_removesubscriber(service, sub);
 	}
 	free(subArray);
 		
 	/**** Notify to subscribers ****/
-	subArrayCnt = mupnp_upnp_service_getnsubscribers(service);
-	subArray = (mUpnpUpnpSubscriber **)malloc(sizeof(mUpnpUpnpSubscriber *) * subArrayCnt);
+	subArrayCnt = mupnp_service_getnsubscribers(service);
+	subArray = (mUpnpSubscriber **)malloc(sizeof(mUpnpSubscriber *) * subArrayCnt);
 
 	if ( NULL == subArray ) {
 		mupnp_log_debug_s("Memory allocation problem!\n");
-		mupnp_upnp_service_unlock(service);
+		mupnp_service_unlock(service);
 		return FALSE;
 	}
 
-	sub = mupnp_upnp_service_getsubscribers(service);
+	sub = mupnp_service_getsubscribers(service);
 	for (n=0; n<subArrayCnt; n++) {
 		subArray[n] = sub;
-		sub = mupnp_upnp_subscriber_next(sub);
+		sub = mupnp_subscriber_next(sub);
 	}
 	for (n=0; n<subArrayCnt; n++) {
 		sub = subArray[n];
 		if (sub == NULL)
 			continue;
 		if (statVar) {
-			if (mupnp_upnp_subscriber_notify(sub, statVar) == FALSE) {
+			if (mupnp_subscriber_notify(sub, statVar) == FALSE) {
 				/**** remove invalid the subscriber but don't remove in NMPR specification ****/
-				mupnp_upnp_service_removesubscriber(service, sub);
+				mupnp_service_removesubscriber(service, sub);
 			}
 		}
 		else {
-			if (mupnp_upnp_subscriber_notifyall(sub, service) == FALSE) {
+			if (mupnp_subscriber_notifyall(sub, service) == FALSE) {
 				/**** remove invalid the subscriber but don't remove in NMPR specification ****/
-				mupnp_upnp_service_removesubscriber(service, sub);
+				mupnp_service_removesubscriber(service, sub);
 			}
 		}
 	}
 	free(subArray);
 	
-	mupnp_upnp_service_unlock(service);
+	mupnp_service_unlock(service);
 
 	mupnp_log_debug_l4("Leaving...\n");
 
@@ -100,40 +100,40 @@ static BOOL mupnp_upnp_service_notifymain(mUpnpUpnpService *service, mUpnpUpnpSt
 }
 
 /****************************************
-* mupnp_upnp_service_notify
+* mupnp_service_notify
 ****************************************/
 
-BOOL mupnp_upnp_service_notify(mUpnpUpnpService *service, mUpnpUpnpStateVariable *statVar)
+BOOL mupnp_service_notify(mUpnpService *service, mUpnpStateVariable *statVar)
 {
-	return mupnp_upnp_service_notifymain(service, statVar);
+	return mupnp_service_notifymain(service, statVar);
 }
 
 /****************************************
-* mupnp_upnp_service_notifyall
+* mupnp_service_notifyall
 ****************************************/
 
-BOOL mupnp_upnp_service_notifyallbracket(mUpnpUpnpService *service)
+BOOL mupnp_service_notifyallbracket(mUpnpService *service)
 {
-	return mupnp_upnp_service_notifymain(service, NULL);
+	return mupnp_service_notifymain(service, NULL);
 }
 
 /****************************************
-* mupnp_upnp_service_notifyall
+* mupnp_service_notifyall
 ****************************************/
 
-BOOL mupnp_upnp_service_notifyall(mUpnpUpnpService *service, BOOL doBracket)
+BOOL mupnp_service_notifyall(mUpnpService *service, BOOL doBracket)
 {
-	mUpnpUpnpStateVariable *statVar;
+	mUpnpStateVariable *statVar;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
 	if (doBracket) {
-		mupnp_upnp_service_notifyallbracket(service);
+		mupnp_service_notifyallbracket(service);
 	}
 	else {
-		for (statVar = mupnp_upnp_service_getstatevariables(service); statVar != NULL; statVar = mupnp_upnp_statevariable_next(statVar)) {
-			if (mupnp_upnp_statevariable_issendevents(statVar) == TRUE)
-				mupnp_upnp_service_notify(service, statVar);
+		for (statVar = mupnp_service_getstatevariables(service); statVar != NULL; statVar = mupnp_statevariable_next(statVar)) {
+			if (mupnp_statevariable_issendevents(statVar) == TRUE)
+				mupnp_service_notify(service, statVar);
 		}
 	}
 
@@ -143,24 +143,24 @@ BOOL mupnp_upnp_service_notifyall(mUpnpUpnpService *service, BOOL doBracket)
 }
 
 /****************************************
- * mupnp_upnp_service_notifyall
+ * mupnp_service_notifyall
  ****************************************/
 
-static void mupnp_upnp_service_notifyall_thread(mUpnpThread *thread)
+static void mupnp_service_notifyall_thread(mUpnpThread *thread)
 {
-	mUpnpUpnpService *service;
+	mUpnpService *service;
 	
-	service = (mUpnpUpnpService *)mupnp_thread_getuserdata(thread);
-	mupnp_upnp_service_notifyall(service, TRUE);
+	service = (mUpnpService *)mupnp_thread_getuserdata(thread);
+	mupnp_service_notifyall(service, TRUE);
 	mupnp_thread_delete(thread);	
 }
 
-void mupnp_upnp_service_createnotifyallthread(mUpnpUpnpService *service, mUpnpTime waitTime)
+void mupnp_service_createnotifyallthread(mUpnpService *service, mUpnpTime waitTime)
 {
 	mUpnpThread *thread;
 	
 	thread = mupnp_thread_new();
-	mupnp_thread_setaction(thread, mupnp_upnp_service_notifyall_thread);
+	mupnp_thread_setaction(thread, mupnp_service_notifyall_thread);
 	mupnp_thread_setuserdata(thread, service);
 	
 	mupnp_wait(waitTime);

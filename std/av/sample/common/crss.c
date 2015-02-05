@@ -25,7 +25,7 @@
 * mupnp_http_getrestresponse
 ************************************************************/
 
-mUpnpUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
+mUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
 {
 	mUpnpString *content_str;
 	char *content_string;
@@ -43,9 +43,9 @@ mUpnpUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
 	long contentSize;
 	int nContentent;
 	char *contentMimeType;
-	mUpnpUpnpMediaContent *content;
-	mUpnpUpnpMediaContent *container;
-	mUpnpUpnpMediaResource *res;
+	mUpnpMediaContent *content;
+	mUpnpMediaContent *container;
+	mUpnpMediaResource *res;
 
 	content_str = mupnp_string_new();
 
@@ -100,11 +100,11 @@ mUpnpUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
 		return NULL;
 	}
 
-	container = mupnp_upnp_media_content_new();
-	mupnp_upnp_media_content_settype(container, MUPNP_MEDIA_CONTENT_CONTAINER);
-	mupnp_upnp_media_content_settitle(container, container_title);
+	container = mupnp_media_content_new();
+	mupnp_media_content_settype(container, MUPNP_MEDIA_CONTENT_CONTAINER);
+	mupnp_media_content_settitle(container, container_title);
 	mupnp_str2md5(container_title, containerID);
-	mupnp_upnp_media_content_setid(container, containerID);
+	mupnp_media_content_setid(container, containerID);
 
 	/**** item ****/
 	for (node=mupnp_xml_node_getchildnodes(channelNode); node; node = mupnp_xml_node_next(node)) {
@@ -140,26 +140,26 @@ mUpnpUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
 		if (mupnp_strlen(content_title) <= 0 || mupnp_strlen(contentURL) <= 0)
 			continue;
 
-		content = mupnp_upnp_media_content_new();
-		mupnp_upnp_media_content_settype(content, MUPNP_MEDIA_CONTENT_ITEM);
+		content = mupnp_media_content_new();
+		mupnp_media_content_settype(content, MUPNP_MEDIA_CONTENT_ITEM);
 
 		/**** content name ****/
 		content_title = mupnp_strtrim(content_title, " ", 1);
 		if (mupnp_strlen(content_title) <= 0) {
 			continue;
 		}
-		mupnp_upnp_media_content_settitle(content, content_title);
+		mupnp_media_content_settitle(content, content_title);
 
 		/**** content id ****/
 		mupnp_str2md5(contentURL, contentID);
-		mupnp_upnp_media_content_setid(content, contentID);
-		mupnp_upnp_media_content_addchildcontent(container, content);
+		mupnp_media_content_setid(content, contentID);
+		mupnp_media_content_addchildcontent(container, content);
 
-		res = mupnp_upnp_media_resource_new();
-		mupnp_upnp_media_resource_setmimetype(res, contentMimeType);
-		mupnp_upnp_media_resource_seturl(res, contentURL);
-		mupnp_upnp_media_resource_setsize(res, contentSize);
-		mupnp_upnp_media_content_addresource(content, res);
+		res = mupnp_media_resource_new();
+		mupnp_media_resource_setmimetype(res, contentMimeType);
+		mupnp_media_resource_seturl(res, contentURL);
+		mupnp_media_resource_setsize(res, contentSize);
+		mupnp_media_content_addresource(content, res);
 
 		nContentent++;
 	}
