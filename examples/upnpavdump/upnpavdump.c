@@ -22,15 +22,15 @@
 // PrintContentDirectory
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintContentDirectory(CgUpnpAction *browseAction, int indent, const char *objectId)
+void PrintContentDirectory(mUpnpUpnpAction *browseAction, int indent, const char *objectId)
 {
 	int n;
 	char indentStr[128];
 	char *resultXml;
-	CgXmlParser *xmlParser;
-	CgXmlNodeList *rootNode;
-	CgXmlNode *didlNode;
-	CgXmlNode *cnode;
+	mUpnpXmlParser *xmlParser;
+	mUpnpXmlNodeList *rootNode;
+	mUpnpXmlNode *didlNode;
+	mUpnpXmlNode *cnode;
 	const char *id;
 	const char *title;
 	const char *url;
@@ -87,12 +87,12 @@ void PrintContentDirectory(CgUpnpAction *browseAction, int indent, const char *o
 // PrintDMSInfo
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintDMSInfo(CgUpnpDevice *dev, int dmsNum)
+void PrintDMSInfo(mUpnpUpnpDevice *dev, int dmsNum)
 {
-	CgUpnpService *conDirService;
-	CgUpnpAction *browseAction;
-	CgUpnpStateVariable *searchCap;
-	CgUpnpStateVariable *sorpCap;
+	mUpnpUpnpService *conDirService;
+	mUpnpUpnpAction *browseAction;
+	mUpnpUpnpStateVariable *searchCap;
+	mUpnpUpnpStateVariable *sorpCap;
 
 	if (!mupnp_upnp_device_isdevicetype(dev, UPNPAVDUMP_DMS_DEVICETYPE))
 		return;
@@ -126,9 +126,9 @@ void PrintDMSInfo(CgUpnpDevice *dev, int dmsNum)
 // PrintDMSInfos
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintDMSInfos(CgUpnpControlPoint *ctrlPoint)
+void PrintDMSInfos(mUpnpUpnpControlPoint *ctrlPoint)
 {
-	CgUpnpDevice *dev;
+	mUpnpUpnpDevice *dev;
 	int dmsNum;
 		
 	dmsNum = 0;
@@ -151,7 +151,7 @@ MBEG
 int main( int argc, char* argv[] )
 #endif
 {
-	CgUpnpControlPoint *ctrlPoint;
+	mUpnpUpnpControlPoint *ctrlPoint;
 
 	ctrlPoint = mupnp_upnp_controlpoint_new();
 	if (mupnp_upnp_controlpoint_start(ctrlPoint) == FALSE) {

@@ -19,8 +19,8 @@
 *	12-Jan-06 Heikki Junnila
 *		- Added API comments
 *	04/05/06 
-*		- changed timing values to type CgTime
-*		- added mupnp_upnp_subscriberlist_get(CgUpnpSubscriberList *subscriberList, char *sid)
+*		- changed timing values to type mUpnpTime
+*		- added mupnp_upnp_subscriberlist_get(mUpnpUpnpSubscriberList *subscriberList, char *sid)
 ******************************************************************/
 
 #ifndef _CG_UPNP_CSUBSCRIBER_H_
@@ -50,19 +50,19 @@ extern "C" {
 /**
  * The device-side structure for an event subscriber
  */
-typedef struct _CgUpnpSubscriber {
+typedef struct _mUpnpUpnpSubscriber {
 	BOOL headFlag;
-	struct _CgUpnpSubscriber *prev;
-	struct _CgUpnpSubscriber *next;
+	struct _mUpnpUpnpSubscriber *prev;
+	struct _mUpnpUpnpSubscriber *next;
 
-	CgString *sid;
-	CgString *ifAddr;
-	CgNetURL *deliveryURL;
+	mUpnpString *sid;
+	mUpnpString *ifAddr;
+	mUpnpNetURL *deliveryURL;
 	
-	CgTime timeout;
+	mUpnpTime timeout;
 	long notifyCount;
-	CgTime subscriptionTime;
-} CgUpnpSubscriber, CgUpnpSubscriberList;
+	mUpnpTime subscriptionTime;
+} mUpnpUpnpSubscriber, mUpnpUpnpSubscriberList;
 
 /****************************************
 * Function (Subscriber)
@@ -71,14 +71,14 @@ typedef struct _CgUpnpSubscriber {
 /**
  * Create a new event subscriber
  */
-CgUpnpSubscriber *mupnp_upnp_subscriber_new();
+mUpnpUpnpSubscriber *mupnp_upnp_subscriber_new();
 
 /**
  * Destroy an event subscriber
  *
  * @param sub The event subscriber
  */
-void mupnp_upnp_subscriber_delete(CgUpnpSubscriber *sub);
+void mupnp_upnp_subscriber_delete(mUpnpUpnpSubscriber *sub);
 
 /**
  * Clear the contents of an event subscriber
@@ -87,7 +87,7 @@ void mupnp_upnp_subscriber_delete(CgUpnpSubscriber *sub);
  *
  * @param sub The event subscriber
  */
-void mupnp_upnp_subscriber_clear(CgUpnpSubscriber *sub);
+void mupnp_upnp_subscriber_clear(mUpnpUpnpSubscriber *sub);
 
 /**
  * Renew a subscription. Essentially sets subscription time (duration) 
@@ -95,7 +95,7 @@ void mupnp_upnp_subscriber_clear(CgUpnpSubscriber *sub);
  *
  * @param sub The event subscriber
  */
-void mupnp_upnp_subscriber_renew(CgUpnpSubscriber *sub);
+void mupnp_upnp_subscriber_renew(mUpnpUpnpSubscriber *sub);
 
 /**
  * Get the next subscriber in a subscriber list. Use as an iterator.
@@ -103,14 +103,14 @@ void mupnp_upnp_subscriber_renew(CgUpnpSubscriber *sub);
  * @param sub The current event subscriber
  * @return Next subscriber or NULL
  */
-#define mupnp_upnp_subscriber_next(sub) (CgUpnpSubscriber *)mupnp_list_next((CgList *)sub)
+#define mupnp_upnp_subscriber_next(sub) (mUpnpUpnpSubscriber *)mupnp_list_next((mUpnpList *)sub)
 
 /**
  * Remove the event subscriber from a subscriber list.
  *
  * @param sub The event subscriber to remove
  */
-#define mupnp_upnp_subscriber_remove(sub) mupnp_list_remove((CgList *)sub)
+#define mupnp_upnp_subscriber_remove(sub) mupnp_list_remove((mUpnpList *)sub)
 
 /****************************************************************************
  * sid
@@ -198,7 +198,7 @@ void mupnp_upnp_subscriber_renew(CgUpnpSubscriber *sub);
  * @param sub The event subscriber
  * @return The new notify count
  */
-long mupnp_upnp_subscriber_incrementnotifycount(CgUpnpSubscriber *sub);
+long mupnp_upnp_subscriber_incrementnotifycount(mUpnpUpnpSubscriber *sub);
 
 /****************************************************************************
  * Delivery URL
@@ -239,7 +239,7 @@ long mupnp_upnp_subscriber_incrementnotifycount(CgUpnpSubscriber *sub);
  * @param sub The subscriber
  * @return TRUE if the subscription has been expired; otherwise FALSE
  */
-BOOL mupnp_upnp_subscriber_isexpired(CgUpnpSubscriber *sub);
+BOOL mupnp_upnp_subscriber_isexpired(mUpnpUpnpSubscriber *sub);
 
 /**
  * Post a notification to an event subscriber. This is called in a device.
@@ -248,7 +248,7 @@ BOOL mupnp_upnp_subscriber_isexpired(CgUpnpSubscriber *sub);
  * @param statVar The evented state variable
  * @return TRUE if succesful; otherwise FALSE
  */
-BOOL mupnp_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statVar);
+BOOL mupnp_upnp_subscriber_notify(mUpnpUpnpSubscriber *sub, mUpnpUpnpStateVariable *statVar);
 
 /**
  * Post a notification to an event subscriber. This is called in a device.
@@ -257,7 +257,7 @@ BOOL mupnp_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *st
  * @param service The evented service
  * @return TRUE if succesful; otherwise FALSE
  */
-BOOL mupnp_upnp_subscriber_notifyall(CgUpnpSubscriber *sub, void *service);
+BOOL mupnp_upnp_subscriber_notifyall(mUpnpUpnpSubscriber *sub, void *service);
 
 /****************************************
 * Function (SubscriberList)
@@ -266,35 +266,35 @@ BOOL mupnp_upnp_subscriber_notifyall(CgUpnpSubscriber *sub, void *service);
 /**
  * Create a new event subscriber list
  */
-CgUpnpSubscriberList *mupnp_upnp_subscriberlist_new();
+mUpnpUpnpSubscriberList *mupnp_upnp_subscriberlist_new();
 
 /**
  * Destroy an event subscriber list
  *
  * @param subscriberlist The list to destroy
  */
-void mupnp_upnp_subscriberlist_delete(CgUpnpSubscriberList *subscriberlist);
+void mupnp_upnp_subscriberlist_delete(mUpnpUpnpSubscriberList *subscriberlist);
 
 /**
  * Clear the contents of a subscriber list
  *
  * @param subList The subscriber list to clear
  */
-#define mupnp_upnp_subscriberlist_clear(subList) mupnp_list_clear((CgList *)subList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_subscriber_delete)
+#define mupnp_upnp_subscriberlist_clear(subList) mupnp_list_clear((mUpnpList *)subList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_subscriber_delete)
 
 /**
  * Get the size (node count) of a subscriber list
  *
  * @param subList The subscriber list to evaluate
  */
-#define mupnp_upnp_subscriberlist_size(subList) mupnp_list_size((CgList *)subList)
+#define mupnp_upnp_subscriberlist_size(subList) mupnp_list_size((mUpnpList *)subList)
 
 /**
  * Get the first item in a subscriber list (use as the first step in iteration).
  *
  * @param subList The subscriber list to evaluate
  */
-#define mupnp_upnp_subscriberlist_gets(subList) (CgUpnpSubscriber *)mupnp_list_next((CgList *)subList)
+#define mupnp_upnp_subscriberlist_gets(subList) (mUpnpUpnpSubscriber *)mupnp_list_next((mUpnpList *)subList)
 
 /**
  * Add a new event subscriber to a subscriber list
@@ -302,7 +302,7 @@ void mupnp_upnp_subscriberlist_delete(CgUpnpSubscriberList *subscriberlist);
  * @param subList The subscriber list to add to
  * @param sub The subscriber to add
  */
-#define mupnp_upnp_subscriberlist_add(subList, sub) mupnp_list_add((CgList *)subList, (CgList *)sub)
+#define mupnp_upnp_subscriberlist_add(subList, sub) mupnp_list_add((mUpnpList *)subList, (mUpnpList *)sub)
 
 #ifdef  __cplusplus
 }

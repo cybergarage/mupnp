@@ -25,13 +25,13 @@
 * mupnp_socket_datagram_packet_new
 ****************************************/
 
-CgDatagramPacket *mupnp_socket_datagram_packet_new()
+mUpnpDatagramPacket *mupnp_socket_datagram_packet_new()
 {
-	CgDatagramPacket *dgmPkt;
+	mUpnpDatagramPacket *dgmPkt;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	dgmPkt = (CgDatagramPacket *)malloc(sizeof(CgDatagramPacket));
+	dgmPkt = (mUpnpDatagramPacket *)malloc(sizeof(mUpnpDatagramPacket));
 
 	if ( NULL != dgmPkt )
 	{
@@ -52,7 +52,7 @@ CgDatagramPacket *mupnp_socket_datagram_packet_new()
 * mupnp_socket_datagram_packet_delete
 ****************************************/
 
-void mupnp_socket_datagram_packet_delete(CgDatagramPacket *dgmPkt)
+void mupnp_socket_datagram_packet_delete(mUpnpDatagramPacket *dgmPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -69,7 +69,7 @@ void mupnp_socket_datagram_packet_delete(CgDatagramPacket *dgmPkt)
 * mupnp_socket_datagram_packet_copy
 ****************************************/
 
-void mupnp_socket_datagram_packet_copy(CgDatagramPacket *dstDgmPkt, CgDatagramPacket *srcDgmPkt)
+void mupnp_socket_datagram_packet_copy(mUpnpDatagramPacket *dstDgmPkt, mUpnpDatagramPacket *srcDgmPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

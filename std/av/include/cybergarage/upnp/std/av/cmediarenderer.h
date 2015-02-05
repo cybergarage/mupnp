@@ -29,15 +29,15 @@ extern "C" {
 * Struct
 ****************************************/
 
-typedef struct _CgUpnpAvRenderer {
-CgMutex *mutex;
-CgUpnpDevice *dev;
+typedef struct _mUpnpUpnpAvRenderer {
+mUpnpMutex *mutex;
+mUpnpUpnpDevice *dev;
 CG_UPNPAV_HTTP_LISTENER httplistener;
 CG_UPNPAV_ACTION_LISTNER actionListner;
 CG_UPNPAV_STATEVARIABLE_LISTNER queryListner;
-CgUpnpAvProtocolInfoList *protocolInfoList;
+mUpnpUpnpAvProtocolInfoList *protocolInfoList;
 void *userData;
-} CgUpnpAvRenderer;
+} mUpnpUpnpAvRenderer;
 
 /****************************************
 * Constants (Media Server)
@@ -99,8 +99,8 @@ void *userData;
 * Public Functions
 ****************************************/
 
-CgUpnpAvRenderer *mupnp_upnpav_dmr_new();
-void mupnp_upnpav_dmr_delete(CgUpnpAvRenderer *dmr);
+mUpnpUpnpAvRenderer *mupnp_upnpav_dmr_new();
+void mupnp_upnpav_dmr_delete(mUpnpUpnpAvRenderer *dmr);
 
 #define mupnp_upnpav_dmr_getdevice(dmr) (dmr->dev)
 
@@ -128,23 +128,23 @@ void mupnp_upnpav_dmr_delete(CgUpnpAvRenderer *dmr);
 #define mupnp_upnpav_dmr_setuserdata(dmr,data) (dmr->userData = data)
 #define mupnp_upnpav_dmr_getuserdata(dmr) (dmr->userData)
 
-void mupnp_upnpav_dmr_addprotocolinfo(CgUpnpAvRenderer *dmr, CgUpnpAvProtocolInfo *info);
+void mupnp_upnpav_dmr_addprotocolinfo(mUpnpUpnpAvRenderer *dmr, mUpnpUpnpAvProtocolInfo *info);
 #define mupnp_upnpav_dmr_getprotocolinfos(dmr) mupnp_upnpav_protocolinfolist_gets(dmr->protocolInfoList)
 
-void mupnp_upnpav_dmr_setsinkprotocolinfo(CgUpnpAvRenderer *dmr, char *value);
-char *mupnp_upnpav_dmr_getsinkprotocolinfo(CgUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setsinkprotocolinfo(mUpnpUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getsinkprotocolinfo(mUpnpUpnpAvRenderer *dmr);
 
-void mupnp_upnpav_dmr_setsourceprotocolinfo(CgUpnpAvRenderer *dmr, char *value);
-char *mupnp_upnpav_dmr_getsourceprotocolinfo(CgUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setsourceprotocolinfo(mUpnpUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getsourceprotocolinfo(mUpnpUpnpAvRenderer *dmr);
 
-void mupnp_upnpav_dmr_setcurrentconnectionids(CgUpnpAvRenderer *dmr, char *value);
-char *mupnp_upnpav_dmr_getcurrentconnectionids(CgUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setcurrentconnectionids(mUpnpUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getcurrentconnectionids(mUpnpUpnpAvRenderer *dmr);
 
-void mupnp_upnpav_dmr_setavtransportlastchange(CgUpnpAvRenderer *dmr, char *value);
-char *mupnp_upnpav_dmr_getavtransportlastchange(CgUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setavtransportlastchange(mUpnpUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getavtransportlastchange(mUpnpUpnpAvRenderer *dmr);
 
-void mupnp_upnpav_dmr_setrenderingcontrollastchange(CgUpnpAvRenderer *dmr, char *value);
-char *mupnp_upnpav_dmr_getrenderingcontrollastchange(CgUpnpAvRenderer *dmr);
+void mupnp_upnpav_dmr_setrenderingcontrollastchange(mUpnpUpnpAvRenderer *dmr, char *value);
+char *mupnp_upnpav_dmr_getrenderingcontrollastchange(mUpnpUpnpAvRenderer *dmr);
 
 #ifdef  __cplusplus
 }

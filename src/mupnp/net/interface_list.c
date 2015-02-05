@@ -26,17 +26,17 @@
 * mupnp_net_interfacelist_new
 ****************************************/
 
-CgNetworkInterfaceList *mupnp_net_interfacelist_new()
+mUpnpNetworkInterfaceList *mupnp_net_interfacelist_new()
 {
-	CgNetworkInterfaceList *netIfList;
+	mUpnpNetworkInterfaceList *netIfList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	netIfList = (CgNetworkInterfaceList *)malloc(sizeof(CgNetworkInterfaceList));
+	netIfList = (mUpnpNetworkInterfaceList *)malloc(sizeof(mUpnpNetworkInterfaceList));
 
 	if ( NULL != netIfList )
 	{
-		mupnp_list_header_init((CgList *)netIfList);
+		mupnp_list_header_init((mUpnpList *)netIfList);
 		netIfList->name = NULL;
 		netIfList->ipaddr = NULL;
 	}
@@ -50,7 +50,7 @@ CgNetworkInterfaceList *mupnp_net_interfacelist_new()
 * mupnp_net_interfacelist_delete
 ****************************************/
 
-void mupnp_net_interfacelist_delete(CgNetworkInterfaceList *netIfList)
+void mupnp_net_interfacelist_delete(mUpnpNetworkInterfaceList *netIfList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -64,9 +64,9 @@ void mupnp_net_interfacelist_delete(CgNetworkInterfaceList *netIfList)
 * mupnp_net_interfacelist_getinterface
 ****************************************/
 
-CgNetworkInterface *mupnp_net_interfacelist_get(CgNetworkInterfaceList *netIfList, char *name)
+mUpnpNetworkInterface *mupnp_net_interfacelist_get(mUpnpNetworkInterfaceList *netIfList, char *name)
 {
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterface *netIf;
 	char *ifName;
 		
 	mupnp_log_debug_l4("Entering...\n");
@@ -91,12 +91,12 @@ CgNetworkInterface *mupnp_net_interfacelist_get(CgNetworkInterfaceList *netIfLis
 * mupnp_net_interfacelist_getchanges
 ****************************************/
 
-void mupnp_net_interfacelist_getchanges(CgNetworkInterfaceList *netIfListOld,
-				     CgNetworkInterfaceList *netIfListNew,
-				     CgNetworkInterfaceList *netIfListAdded,
-				     CgNetworkInterfaceList *netIfListRemoved)
+void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList *netIfListOld,
+				     mUpnpNetworkInterfaceList *netIfListNew,
+				     mUpnpNetworkInterfaceList *netIfListAdded,
+				     mUpnpNetworkInterfaceList *netIfListRemoved)
 {
-	CgNetworkInterface *netIfOld, *netIfNew, *tmp;
+	mUpnpNetworkInterface *netIfOld, *netIfNew, *tmp;
 	BOOL found;
 	
 	mupnp_log_debug_l4("Entering...\n");

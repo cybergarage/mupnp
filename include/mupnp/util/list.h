@@ -50,18 +50,18 @@ typedef void (*CG_LIST_DESTRUCTORFUNC)(void *);
  * Each struct in CyberLinkC, that is designed to be a part of
  * a list, must have these elements in their definition before the
  * actual struct definition. The struct pointers are then cast to
- * CgList* and operated with mupnp_list_* functions.
+ * mUpnpList* and operated with mupnp_list_* functions.
  */
-typedef struct _CgList {
+typedef struct _mUpnpList {
 
   /** Marks the beginning of a list */
   BOOL headFlag;
   /** Pointer to the next list node */
-  struct _CgList *prev;
+  struct _mUpnpList *prev;
   /** Pointer to the previous list node */
-  struct _CgList *next;
+  struct _mUpnpList *next;
 
-} CgList;
+} mUpnpList;
 
 /****************************************
  * Functions
@@ -72,14 +72,14 @@ typedef struct _CgList {
  *
  * \param list List node
  */
-void mupnp_list_header_init(CgList *list);
+void mupnp_list_header_init(mUpnpList *list);
 
 /**
  * Initialize a list node to act as a regular node, part of a list.
  *
  * \param list List node
  */
-void mupnp_list_node_init(CgList *list);
+void mupnp_list_node_init(mUpnpList *list);
 
 /**
  * Insert a list node or a complete list structure after the given node
@@ -87,14 +87,14 @@ void mupnp_list_node_init(CgList *list);
  * \param prevList Insert after this node
  * \param list List node or list structure to insert
  */
-void mupnp_list_insert(CgList *prevList, CgList *list);
+void mupnp_list_insert(mUpnpList *prevList, mUpnpList *list);
 
 /**
  * \todo This works essentially like insert, although it is more error-prone?!
  * \todo There might be a bug in this function.
  *
  */
-void mupnp_list_add(CgList *headList, CgList *list);
+void mupnp_list_add(mUpnpList *headList, mUpnpList *list);
 
 /**
  * Remove a node from a list. Does not free any memory, but only removes
@@ -102,7 +102,7 @@ void mupnp_list_add(CgList *headList, CgList *list);
  *
  * \param list List node to remove
  */
-void mupnp_list_remove(CgList *list);
+void mupnp_list_remove(mUpnpList *list);
 
 /**
  * Get the number of nodes in the current list structure. Counts forwards from the given
@@ -110,7 +110,7 @@ void mupnp_list_remove(CgList *list);
  *
  * \param headList List header
  */
-int mupnp_list_size(CgList *headList);
+int mupnp_list_size(mUpnpList *headList);
 
 /**
  * Get an item from the list by the item's index
@@ -118,7 +118,7 @@ int mupnp_list_size(CgList *headList);
  * \param headList List header
  * \param index The index of the item to get
  */
-CgList *mupnp_list_get(CgList *headList, int index);
+mUpnpList *mupnp_list_get(mUpnpList *headList, int index);
 
 /**
  * Get the previous node. Wrap around if the beginning has been reached.
@@ -126,28 +126,28 @@ CgList *mupnp_list_get(CgList *headList, int index);
  *
  * \param list Current node
  */
-CgList *mupnp_list_prev_circular(CgList *list);
+mUpnpList *mupnp_list_prev_circular(mUpnpList *list);
 
 /**
  * Get the previous node. Returns NULL if beginning has been reached
  *
  * \param list Current node
  */
-CgList *mupnp_list_prev(CgList *list);
+mUpnpList *mupnp_list_prev(mUpnpList *list);
 
 /**
  * Get the next node. Wrap around if the end has been reached.
  *
  * \param list Current node
  */
-CgList *mupnp_list_next_circular(CgList *list);
+mUpnpList *mupnp_list_next_circular(mUpnpList *list);
 
 /**
  * Get the next node. Returns NULL if end has been reached.
  *
  * \param list Current node
  */
-CgList *mupnp_list_next(CgList *list);
+mUpnpList *mupnp_list_next(mUpnpList *list);
 
 /**
  * Clear the list and delete all of its contents with \ref CG_LIST_DESTRUCTORFUNC
@@ -155,7 +155,7 @@ CgList *mupnp_list_next(CgList *list);
  * \param headList List header
  * \param destructorFunc Function pointer that clears the contents of individual nodes
  */
-void mupnp_list_clear(CgList *headList, CG_LIST_DESTRUCTORFUNC destructorFunc);
+void mupnp_list_clear(mUpnpList *headList, CG_LIST_DESTRUCTORFUNC destructorFunc);
 
 /**
  * Get the first actual item from a list for iteration

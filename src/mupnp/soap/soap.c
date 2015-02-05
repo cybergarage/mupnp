@@ -25,10 +25,10 @@
 * mupnp_soap_createenvelopebodynode
 ****************************************/
 
-CgXmlNode *mupnp_soap_createenvelopebodynode()
+mUpnpXmlNode *mupnp_soap_createenvelopebodynode()
 {
-	CgXmlNode *envNode;
-	CgXmlNode *bodyNode;
+	mUpnpXmlNode *envNode;
+	mUpnpXmlNode *bodyNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

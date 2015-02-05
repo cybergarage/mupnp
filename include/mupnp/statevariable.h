@@ -84,42 +84,42 @@ extern "C" {
 /**
   * Data type for allowed state variables allowed values table
   */
-typedef struct _CgUpnpAllowedValuesList {
+typedef struct _mUpnpUpnpAllowedValuesList {
 	BOOL headFlag;
-	struct _CgUpnpAllowedValuesList *prev;
-	struct _CgUpnpAllowedValuesList *next;
-	CgString *value;
-} CgUpnpAllowedValuesList, CgUpnpAllowedValue;
+	struct _mUpnpUpnpAllowedValuesList *prev;
+	struct _mUpnpUpnpAllowedValuesList *next;
+	mUpnpString *value;
+} mUpnpUpnpAllowedValuesList, mUpnpUpnpAllowedValue;
 
 	
 /**
  * Data type for state variable and state table
  */
-typedef struct _CgUpnpStateVariable {
+typedef struct _mUpnpUpnpStateVariable {
 	BOOL headFlag;
-	struct _CgUpnpStateVariable *prev;
-	struct _CgUpnpStateVariable *next;
-	CgUpnpAllowedValuesList* allowedValueList;
-	//tb: fixmelater verify type CgUpnpService* ???
+	struct _mUpnpUpnpStateVariable *prev;
+	struct _mUpnpUpnpStateVariable *next;
+	mUpnpUpnpAllowedValuesList* allowedValueList;
+	//tb: fixmelater verify type mUpnpUpnpService* ???
 	void *parentService;
-	CgXmlNode *stateVarNode;
+	mUpnpXmlNode *stateVarNode;
 	/* Dummy pointers to maintain ABI, Please remove during the
 	 * appropriate development stage */
 	void *dummy1;
 	void *dummy2;
 	/**** Execution Data ****/
-	CgString *value;
-	BOOL (*listener)(struct _CgUpnpStateVariable *);
-	CgUpnpStatus *upnpStatus;
+	mUpnpString *value;
+	BOOL (*listener)(struct _mUpnpUpnpStateVariable *);
+	mUpnpUpnpStatus *upnpStatus;
 	void *userData;
 	
-} CgUpnpStateVariable, CgUpnpServiceStateTable;
+} mUpnpUpnpStateVariable, mUpnpUpnpServiceStateTable;
 
 	
 /**
  * Type definition for state variable listener function
  */
-typedef BOOL (*CG_UPNP_STATEVARIABLE_LISTNER)(CgUpnpStateVariable *);
+typedef BOOL (*CG_UPNP_STATEVARIABLE_LISTNER)(mUpnpUpnpStateVariable *);
 
 /****************************************
 * Function (StateVariable)
@@ -128,21 +128,21 @@ typedef BOOL (*CG_UPNP_STATEVARIABLE_LISTNER)(CgUpnpStateVariable *);
 /**
  * Create new state variable object
  */
-CgUpnpStateVariable *mupnp_upnp_statevariable_new();
+mUpnpUpnpStateVariable *mupnp_upnp_statevariable_new();
 
 /**
  * Delete state variable object
  *
  * @param statVar state variable
  */
-void mupnp_upnp_statevariable_delete(CgUpnpStateVariable *statVar);
+void mupnp_upnp_statevariable_delete(mUpnpUpnpStateVariable *statVar);
 
 /**
  * Get next element from state variable list
  *
  * @param statVar state variable list node
  */
-#define mupnp_upnp_statevariable_next(statVar) (CgUpnpStateVariable *)mupnp_list_next((CgList *)statVar)
+#define mupnp_upnp_statevariable_next(statVar) (mUpnpUpnpStateVariable *)mupnp_list_next((mUpnpList *)statVar)
 
 /**
  * Check if XML node is state variable node
@@ -159,7 +159,7 @@ void mupnp_upnp_statevariable_delete(CgUpnpStateVariable *statVar);
  * @param statVar State variable
  * @param node XML node
  */
-void mupnp_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar, CgXmlNode *node);
+void mupnp_upnp_statevariable_setstatevariablenode(mUpnpUpnpStateVariable *statVar, mUpnpXmlNode *node);
 
 /**
  * Get XML node from this state variable
@@ -185,7 +185,7 @@ void mupnp_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar,
  *
  * @return UPnP service
  */
-#define mupnp_upnp_statevariable_getservice(statVar) ((CgUpnpService *)statVar->parentService)
+#define mupnp_upnp_statevariable_getservice(statVar) ((mUpnpUpnpService *)statVar->parentService)
 
 /**** allowedValueList ****/
 
@@ -196,7 +196,7 @@ void mupnp_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar,
  *
  * @return Allowed value list
  */
-CgUpnpAllowedValuesList*  mupnp_upnp_statevariable_getallowedvaluelist(CgUpnpStateVariable* statVar);
+mUpnpUpnpAllowedValuesList*  mupnp_upnp_statevariable_getallowedvaluelist(mUpnpUpnpStateVariable* statVar);
 
 /**
  * Check if state variable has allowed value list
@@ -215,13 +215,13 @@ CgUpnpAllowedValuesList*  mupnp_upnp_statevariable_getallowedvaluelist(CgUpnpSta
  *
  * @return 0 if it does allowed to receive value
 */
-int mupnp_upnp_statevariable_is_allowed_value(CgUpnpStateVariable* statVar, const char* value);
+int mupnp_upnp_statevariable_is_allowed_value(mUpnpUpnpStateVariable* statVar, const char* value);
 	
 	
 /**
  * Create new allowed state variable values list
  */
-CgUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new();
+mUpnpUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new();
 
 /**** allowedValueRange ****/
 
@@ -332,7 +332,7 @@ CgUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new();
  * @param statVar State variable
  * @param data New value associated with this state variable, and the value is send to other devices which subscribe the service.
  */
-void mupnp_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, const char *data);
+void mupnp_upnp_statevariable_setvalue(mUpnpUpnpStateVariable *statVar, const char *data);
 
 /**
  * Set state variable value
@@ -340,7 +340,7 @@ void mupnp_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, const char 
  * @param statVar State variable
  * @param data New value associated with this state variable
  */
-void mupnp_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, const char *data);
+void mupnp_upnp_statevariable_setvaluewithoutnotify(mUpnpUpnpStateVariable *statVar, const char *data);
 
 /**
  * Get value associated with this state variable
@@ -426,28 +426,28 @@ void mupnp_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar
 /**
  * Create service state table object
  */
-CgUpnpServiceStateTable *mupnp_upnp_servicestatetable_new();
+mUpnpUpnpServiceStateTable *mupnp_upnp_servicestatetable_new();
 
 /**
  * Delete service state table object
  *
  * @param servicestatetable Service state table
  */
-void mupnp_upnp_servicestatetable_delete(CgUpnpServiceStateTable *servicestatetable);
+void mupnp_upnp_servicestatetable_delete(mUpnpUpnpServiceStateTable *servicestatetable);
 
 /**
  * Clear service state table
  *
  * @param stateTable Service state table
  */
-#define mupnp_upnp_servicestatetable_clear(stateTable) mupnp_list_clear((CgList *)stateTable, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_statevariable_delete)
+#define mupnp_upnp_servicestatetable_clear(stateTable) mupnp_list_clear((mUpnpList *)stateTable, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_statevariable_delete)
 
 /**
  * Get size of service state table
  *
  * @param stateTable Service state table
  */
-#define mupnp_upnp_servicestatetable_size(stateTable) mupnp_list_size((CgList *)stateTable)
+#define mupnp_upnp_servicestatetable_size(stateTable) mupnp_list_size((mUpnpList *)stateTable)
 
 /**
  * Get next service state table from service state table list
@@ -456,7 +456,7 @@ void mupnp_upnp_servicestatetable_delete(CgUpnpServiceStateTable *servicestateta
  *
  * @return Service state table (node)
  */
-#define mupnp_upnp_servicestatetable_gets(stateTable) (CgUpnpStateVariable *)mupnp_list_next((CgList *)stateTable)
+#define mupnp_upnp_servicestatetable_gets(stateTable) (mUpnpUpnpStateVariable *)mupnp_list_next((mUpnpList *)stateTable)
 
 /**
  * Add new service state table into service state table list
@@ -464,7 +464,7 @@ void mupnp_upnp_servicestatetable_delete(CgUpnpServiceStateTable *servicestateta
  * @param stateTable Service state table
  * @param statVar State variable
  */
-#define mupnp_upnp_servicestatetable_add(stateTable, statVar) mupnp_list_add((CgList *)stateTable, (CgList *)statVar)
+#define mupnp_upnp_servicestatetable_add(stateTable, statVar) mupnp_list_add((mUpnpList *)stateTable, (mUpnpList *)statVar)
 
 #ifdef  __cplusplus
 }

@@ -21,7 +21,7 @@
 *  - WINCE support
 *  - added mupnp_strtrimwhite() - trims all whitespace, not just ' '
 * 03/18/07
-*  - Changed the following functions to use CgInt64.
+*  - Changed the following functions to use mUpnpInt64.
 *    mupnp_longlong2str()
 * 10/22/07 Aapo Makela
 *  - Added NULL check to mupnp_strtrimwhite()

@@ -61,15 +61,15 @@ extern "C" {
 /**
  * Data type definition for UPnP argument and UPnP argument list
  */
-typedef struct _CgUpnpArgument {
+typedef struct _mUpnpUpnpArgument {
 	BOOL headFlag;
-	struct _CgUpnpArgument *prev;
-	struct _CgUpnpArgument *next;
-	CgXmlNode *serviceNode;
-	CgXmlNode *argumentNode;
+	struct _mUpnpUpnpArgument *prev;
+	struct _mUpnpUpnpArgument *next;
+	mUpnpXmlNode *serviceNode;
+	mUpnpXmlNode *argumentNode;
 	/**** Execution Data ****/
-	CgString *value;
-} CgUpnpArgument, CgUpnpArgumentList;
+	mUpnpString *value;
+} mUpnpUpnpArgument, mUpnpUpnpArgumentList;
 
 /****************************************
 * Function (Argument)
@@ -78,21 +78,21 @@ typedef struct _CgUpnpArgument {
 /**
  * Create new argument
  */
-CgUpnpArgument *mupnp_upnp_argument_new();
+mUpnpUpnpArgument *mupnp_upnp_argument_new();
 
 /**
  * Delete argument
  *
  * @param dev Argument
  */
-void mupnp_upnp_argument_delete(CgUpnpArgument *dev);
+void mupnp_upnp_argument_delete(mUpnpUpnpArgument *dev);
 
 /**
  * Get next argument using argument as iterator
  *
  * @param arg Argument node
  */
-#define mupnp_upnp_argument_next(arg) (CgUpnpArgument *)mupnp_list_next((CgList *)arg)
+#define mupnp_upnp_argument_next(arg) (mUpnpUpnpArgument *)mupnp_list_next((mUpnpList *)arg)
 
 /**
  * Check if XML node is argument node
@@ -297,35 +297,35 @@ void mupnp_upnp_argument_delete(CgUpnpArgument *dev);
 /**
  * Create new argument list
  */
-CgUpnpArgumentList *mupnp_upnp_argumentlist_new();
+mUpnpUpnpArgumentList *mupnp_upnp_argumentlist_new();
 
 /**
  * Delete argument list
  *
  * @param argumentList Argument list
  */
-void mupnp_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList);
+void mupnp_upnp_argumentlist_delete(mUpnpUpnpArgumentList *argumentList);
 
 /**
  * Clear argument list
  *
  * @param argList Argument list
  */
-#define mupnp_upnp_argumentlist_clear(argList) mupnp_list_clear((CgList *)argList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_argument_delete)
+#define mupnp_upnp_argumentlist_clear(argList) mupnp_list_clear((mUpnpList *)argList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_argument_delete)
 
 /**
  * Get argument list size
  *
  * @param argList Argument list
  */
-#define mupnp_upnp_argumentlist_size(argList) mupnp_list_size((CgList *)argList)
+#define mupnp_upnp_argumentlist_size(argList) mupnp_list_size((mUpnpList *)argList)
 
 /**
  * Get next argument from argument list
  *
  * @param argList Argument list
  */
-#define mupnp_upnp_argumentlist_gets(argList) (CgUpnpArgument *)mupnp_list_next((CgList *)argList)
+#define mupnp_upnp_argumentlist_gets(argList) (mUpnpUpnpArgument *)mupnp_list_next((mUpnpList *)argList)
 
 /**
  * Add argument into argument list
@@ -333,7 +333,7 @@ void mupnp_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList);
  * @param argList Argument list
  * @param arg Argument
  */
-#define mupnp_upnp_argumentlist_add(argList, arg) mupnp_list_add((CgList *)argList, (CgList *)arg)
+#define mupnp_upnp_argumentlist_add(argList, arg) mupnp_list_add((mUpnpList *)argList, (mUpnpList *)arg)
 
 /**
  * Get argument from argument list based on argument name
@@ -343,7 +343,7 @@ void mupnp_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList);
  *
  * @return Argument
  */
-CgUpnpArgument *mupnp_upnp_argumentlist_get(CgUpnpArgumentList *argumentList, const char *name);
+mUpnpUpnpArgument *mupnp_upnp_argumentlist_get(mUpnpUpnpArgumentList *argumentList, const char *name);
 
 /**
  * Set argument values by using source argument list. If there is an argument with the 
@@ -353,7 +353,7 @@ CgUpnpArgument *mupnp_upnp_argumentlist_get(CgUpnpArgumentList *argumentList, co
  * @param argumentList Argument list
  * @param srcArgumentList Source argument list
  */
-void mupnp_upnp_argumentlist_set(CgUpnpArgumentList *argumentList, CgUpnpArgumentList *srcArgumentList);
+void mupnp_upnp_argumentlist_set(mUpnpUpnpArgumentList *argumentList, mUpnpUpnpArgumentList *srcArgumentList);
 
 #ifdef  __cplusplus
 }

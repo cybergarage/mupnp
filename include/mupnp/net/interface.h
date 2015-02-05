@@ -62,34 +62,34 @@ extern "C" {
 * Data Type
 ****************************************/
 
-typedef struct _CgNetworkInterface {
+typedef struct _mUpnpNetworkInterface {
 	BOOL headFlag;
-	struct _CgNetworkInterface *prev;
-	struct _CgNetworkInterface *next;
-	CgString *name;
-	CgString *ipaddr;
-	CgString *netmask;
-	CgByte macaddr[CG_NET_MACADDR_SIZE];
+	struct _mUpnpNetworkInterface *prev;
+	struct _mUpnpNetworkInterface *next;
+	mUpnpString *name;
+	mUpnpString *ipaddr;
+	mUpnpString *netmask;
+	mUpnpByte macaddr[CG_NET_MACADDR_SIZE];
 	int index;
-} CgNetworkInterface, CgNetworkInterfaceList;
+} mUpnpNetworkInterface, mUpnpNetworkInterfaceList;
 
 /****************************************
 * Function (NetworkInterface)
 ****************************************/
 
-CgNetworkInterface *mupnp_net_interface_new();
-void mupnp_net_interface_delete(CgNetworkInterface *netIf);
-CgNetworkInterface* mupnp_net_interface_getany();
+mUpnpNetworkInterface *mupnp_net_interface_new();
+void mupnp_net_interface_delete(mUpnpNetworkInterface *netIf);
+mUpnpNetworkInterface* mupnp_net_interface_getany();
 
-#define mupnp_net_interface_next(netIf) (CgNetworkInterface *)mupnp_list_next((CgList *)netIf)
-#define mupnp_net_interface_remove(netIf) mupnp_list_remove((CgList *)netIf)
+#define mupnp_net_interface_next(netIf) (mUpnpNetworkInterface *)mupnp_list_next((mUpnpList *)netIf)
+#define mupnp_net_interface_remove(netIf) mupnp_list_remove((mUpnpList *)netIf)
 
-void mupnp_net_interface_setname(CgNetworkInterface *netIf, char *name);
-char *mupnp_net_interface_getname(CgNetworkInterface *netIf);
-void mupnp_net_interface_setaddress(CgNetworkInterface *netIf, char *ipaddr);
-char *mupnp_net_interface_getaddress(CgNetworkInterface *netIf);
-void mupnp_net_interface_setnetmask(CgNetworkInterface *netIf, char *ipaddr);
-char *mupnp_net_interface_getnetmask(CgNetworkInterface *netIf);
+void mupnp_net_interface_setname(mUpnpNetworkInterface *netIf, char *name);
+char *mupnp_net_interface_getname(mUpnpNetworkInterface *netIf);
+void mupnp_net_interface_setaddress(mUpnpNetworkInterface *netIf, char *ipaddr);
+char *mupnp_net_interface_getaddress(mUpnpNetworkInterface *netIf);
+void mupnp_net_interface_setnetmask(mUpnpNetworkInterface *netIf, char *ipaddr);
+char *mupnp_net_interface_getnetmask(mUpnpNetworkInterface *netIf);
 char *mupnp_net_selectaddr(struct sockaddr *remoteaddr);
 
 #define mupnp_net_interface_setmacaddress(netIf, value) memcpy(netIf->macaddr, value, CG_NET_MACADDR_SIZE)
@@ -101,22 +101,22 @@ char *mupnp_net_selectaddr(struct sockaddr *remoteaddr);
 /**
  * Compares two interfaces based on IP-address.
  */
-int mupnp_net_interface_cmp(CgNetworkInterface *netIfA, 
-			 CgNetworkInterface *netIfB);
+int mupnp_net_interface_cmp(mUpnpNetworkInterface *netIfA, 
+			 mUpnpNetworkInterface *netIfB);
 
 /****************************************
 * Function (NetworkInterfaceList)
 ****************************************/
 
-CgNetworkInterfaceList *mupnp_net_interfacelist_new();
-void mupnp_net_interfacelist_delete(CgNetworkInterfaceList *netIfList);
+mUpnpNetworkInterfaceList *mupnp_net_interfacelist_new();
+void mupnp_net_interfacelist_delete(mUpnpNetworkInterfaceList *netIfList);
 
-#define mupnp_net_interfacelist_clear(netIfList) mupnp_list_clear((CgList *)netIfList, (CG_LIST_DESTRUCTORFUNC)mupnp_net_interface_delete)
-#define mupnp_net_interfacelist_size(netIfList) mupnp_list_size((CgList *)netIfList)
-#define mupnp_net_interfacelist_gets(netIfList) (CgNetworkInterface *)mupnp_list_next((CgList *)netIfList)
-#define mupnp_net_interfacelist_add(netIfList,netIf) mupnp_list_add((CgList *)netIfList, (CgList *)netIf)
+#define mupnp_net_interfacelist_clear(netIfList) mupnp_list_clear((mUpnpList *)netIfList, (CG_LIST_DESTRUCTORFUNC)mupnp_net_interface_delete)
+#define mupnp_net_interfacelist_size(netIfList) mupnp_list_size((mUpnpList *)netIfList)
+#define mupnp_net_interfacelist_gets(netIfList) (mUpnpNetworkInterface *)mupnp_list_next((mUpnpList *)netIfList)
+#define mupnp_net_interfacelist_add(netIfList,netIf) mupnp_list_add((mUpnpList *)netIfList, (mUpnpList *)netIf)
 
-CgNetworkInterface *mupnp_net_interfacelist_get(CgNetworkInterfaceList *netIfList, char *name);
+mUpnpNetworkInterface *mupnp_net_interfacelist_get(mUpnpNetworkInterfaceList *netIfList, char *name);
 
 /**
  * Gets changes in the two given (aka old and new) interface lists. Changes
@@ -129,10 +129,10 @@ CgNetworkInterface *mupnp_net_interfacelist_get(CgNetworkInterfaceList *netIfLis
  * @param netIfListRemoved List to store interfaces, which were in 
  *			   netIfListOld, but were not in netIfListNew.
  */
-void mupnp_net_interfacelist_getchanges(CgNetworkInterfaceList *netIfListOld,
-				     CgNetworkInterfaceList *netIfListNew,
-				     CgNetworkInterfaceList *netIfListAdded,
-				     CgNetworkInterfaceList *netIfListRemoved);
+void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList *netIfListOld,
+				     mUpnpNetworkInterfaceList *netIfListNew,
+				     mUpnpNetworkInterfaceList *netIfListAdded,
+				     mUpnpNetworkInterfaceList *netIfListRemoved);
 
 /****************************************
 * Function
@@ -142,7 +142,7 @@ void mupnp_net_interfacelist_getchanges(CgNetworkInterfaceList *netIfListOld,
 void mupnp_net_setinterface(const char *ifaddr);
 #endif
 
-int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList);
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList);
 
 BOOL mupnp_net_isipv6address(const char *addr);
 int mupnp_net_getipv6scopeid(const char *addr);

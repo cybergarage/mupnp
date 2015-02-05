@@ -26,13 +26,13 @@
 * mupnp_xml_parser_new
 ****************************************/
 
-CgXmlParser *mupnp_xml_parser_new()
+mUpnpXmlParser *mupnp_xml_parser_new()
 {
-	CgXmlParser *parser;
+	mUpnpXmlParser *parser;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	parser = (CgXmlParser *)malloc(sizeof(CgXmlParser));
+	parser = (mUpnpXmlParser *)malloc(sizeof(mUpnpXmlParser));
 
 	if ( NULL != parser )
 	{
@@ -47,7 +47,7 @@ CgXmlParser *mupnp_xml_parser_new()
 * mupnp_xml_parser_delete
 ****************************************/
 
-void mupnp_xml_parser_delete(CgXmlParser *parser)
+void mupnp_xml_parser_delete(mUpnpXmlParser *parser)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

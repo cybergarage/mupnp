@@ -25,17 +25,17 @@
 * mupnp_dictionary_new
 ****************************************/
 
-CgDictionary *mupnp_dictionary_new()
+mUpnpDictionary *mupnp_dictionary_new()
 {
-	CgDictionary *dictionaryList;
+	mUpnpDictionary *dictionaryList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	dictionaryList = (CgDictionary *)malloc(sizeof(CgDictionary));
+	dictionaryList = (mUpnpDictionary *)malloc(sizeof(mUpnpDictionary));
 
 	if ( NULL != dictionaryList )
 	{
-		mupnp_list_header_init((CgList *)dictionaryList);
+		mupnp_list_header_init((mUpnpList *)dictionaryList);
 		dictionaryList->key = NULL;
 		dictionaryList->value = NULL;
 	}
@@ -49,7 +49,7 @@ CgDictionary *mupnp_dictionary_new()
 * mupnp_dictionary_delete
 ****************************************/
 
-void mupnp_dictionary_delete(CgDictionary *dictionaryList)
+void mupnp_dictionary_delete(mUpnpDictionary *dictionaryList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -63,9 +63,9 @@ void mupnp_dictionary_delete(CgDictionary *dictionaryList)
 * mupnp_dictionary_getelement
 ****************************************/
 
-CgDictionaryElement *mupnp_dictionary_getelement(CgDictionary *dir, const char *key)
+mUpnpDictionaryElement *mupnp_dictionary_getelement(mUpnpDictionary *dir, const char *key)
 {
-	CgDictionaryElement *dirElem;
+	mUpnpDictionaryElement *dirElem;
 	char *dirElemKey;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -90,9 +90,9 @@ CgDictionaryElement *mupnp_dictionary_getelement(CgDictionary *dir, const char *
 * mupnp_dictionary_setvalue
 ****************************************/
 
-void mupnp_dictionary_setvalue(CgDictionary *dir, const char *key, const char *value)
+void mupnp_dictionary_setvalue(mUpnpDictionary *dir, const char *key, const char *value)
 {
-	CgDictionaryElement *dirElem;
+	mUpnpDictionaryElement *dirElem;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -111,9 +111,9 @@ void mupnp_dictionary_setvalue(CgDictionary *dir, const char *key, const char *v
 * mupnp_dictionary_getvalue
 ****************************************/
 
-const char *mupnp_dictionary_getvalue(CgDictionary *dir, const char *key)
+const char *mupnp_dictionary_getvalue(mUpnpDictionary *dir, const char *key)
 {
-	CgDictionaryElement *dirElem;
+	mUpnpDictionaryElement *dirElem;
 
 	mupnp_log_debug_l4("Entering...\n");
 

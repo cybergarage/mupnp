@@ -25,9 +25,9 @@
 * mupnp_upnp_ssdprequest_new
 ****************************************/
 
-CgUpnpSSDPRequest *mupnp_upnp_ssdprequest_new()
+mUpnpUpnpSSDPRequest *mupnp_upnp_ssdprequest_new()
 {
-	CgUpnpSSDPRequest *ssdpReq;
+	mUpnpUpnpSSDPRequest *ssdpReq;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -46,7 +46,7 @@ CgUpnpSSDPRequest *mupnp_upnp_ssdprequest_new()
 * mupnp_upnp_ssdprequest_delete
 ****************************************/
 
-void mupnp_upnp_ssdprequest_delete(CgUpnpSSDPRequest *ssdpReq)
+void mupnp_upnp_ssdprequest_delete(mUpnpUpnpSSDPRequest *ssdpReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -59,14 +59,14 @@ void mupnp_upnp_ssdprequest_delete(CgUpnpSSDPRequest *ssdpReq)
 * mupnp_upnp_ssdprequest_setleasetime
 ****************************************/
 
-void mupnp_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, CgTime value)
+void mupnp_upnp_ssdprequest_setleasetime(mUpnpUpnpSSDPRequest *ssdpReq, mUpnpTime value)
 {
 	char buf[sizeof(CG_HTTP_MAX_AGE) + 1 + CG_STRING_INTEGER_BUFLEN];
 	
 	mupnp_log_debug_l4("Entering...\n");
 
 	sprintf(buf, "%s=%ld", CG_HTTP_MAX_AGE, (long)value);
-	mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL, buf);
+	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL, buf);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -75,13 +75,13 @@ void mupnp_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, CgTime valu
 * mupnp_upnp_ssdprequest_getleasetime
 ****************************************/
 
-CgTime mupnp_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq)
+mUpnpTime mupnp_upnp_ssdprequest_getleasetime(mUpnpUpnpSSDPRequest *ssdpReq)
 {
 	const char *cacheCtrl;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	cacheCtrl = mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL);
+	cacheCtrl = mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL);
 	
 	return mupnp_upnp_ssdp_getleasetime(cacheCtrl);
 
@@ -92,9 +92,9 @@ CgTime mupnp_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq)
 * mupnp_upnp_ssdprequest_tostring
 ****************************************/
 
-char *mupnp_upnp_ssdprequest_tostring(CgUpnpSSDPRequest *ssdpReq, CgString *ssdpMsg)
+char *mupnp_upnp_ssdprequest_tostring(mUpnpUpnpSSDPRequest *ssdpReq, mUpnpString *ssdpMsg)
 {
-	CgHttpHeader *header;
+	mUpnpHttpHeader *header;
 	const char *name;
 	const char *value;
 	
@@ -107,7 +107,7 @@ char *mupnp_upnp_ssdprequest_tostring(CgUpnpSSDPRequest *ssdpReq, CgString *ssdp
 	mupnp_string_addvalue(ssdpMsg, mupnp_http_request_getversion(ssdpReq));
 	mupnp_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
 	
-	for (header = mupnp_http_packet_getheaders((CgHttpPacket *)ssdpReq); header != NULL; header = mupnp_http_header_next(header)) {
+	for (header = mupnp_http_packet_getheaders((mUpnpHttpPacket *)ssdpReq); header != NULL; header = mupnp_http_header_next(header)) {
 		name = mupnp_http_header_getname(header);
 		value = mupnp_http_header_getvalue(header);
 		mupnp_string_addvalue(ssdpMsg, name);

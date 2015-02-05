@@ -1051,7 +1051,7 @@ static char *CG_UPNP_AV_AVTRANSPORT_SERVICE_DESCRIPTION =
  * mupnp_upnp_service_getstddcp
  ****************************************/
 
-char *mupnp_upnp_service_getstddcp(CgUpnpService *service)
+char *mupnp_upnp_service_getstddcp(mUpnpUpnpService *service)
 {
 	char *serviceType = mupnp_upnp_service_getservicetype(service);
 	if (mupnp_streq(serviceType, "urn:schemas-upnp-org:service:ContentDirectory:1"))
@@ -1067,7 +1067,7 @@ char *mupnp_upnp_service_getstddcp(CgUpnpService *service)
  * mupnp_upnp_service_hasstddcp
  ****************************************/
 		
-BOOL mupnp_upnp_service_hasstddcp(CgUpnpService *service)
+BOOL mupnp_upnp_service_hasstddcp(mUpnpUpnpService *service)
 {
 	return (mupnp_upnp_service_getstddcp(service) != NULL) ? TRUE : FALSE;
 }		

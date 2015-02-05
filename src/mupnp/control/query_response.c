@@ -33,13 +33,13 @@
 * mupnp_upnp_control_query_response_new
 ****************************************/
 
-CgUpnpQueryResponse *mupnp_upnp_control_query_response_new()
+mUpnpUpnpQueryResponse *mupnp_upnp_control_query_response_new()
 {
-	CgUpnpQueryResponse *queryRes;
+	mUpnpUpnpQueryResponse *queryRes;
 	 
 	mupnp_log_debug_l4("Entering...\n");
 
-	queryRes = (CgUpnpQueryResponse *)malloc(sizeof(CgUpnpQueryResponse));
+	queryRes = (mUpnpUpnpQueryResponse *)malloc(sizeof(mUpnpUpnpQueryResponse));
 
 	if ( NULL != queryRes )
 	{
@@ -56,7 +56,7 @@ CgUpnpQueryResponse *mupnp_upnp_control_query_response_new()
 * mupnp_upnp_control_query_response_delete
 ****************************************/
 
-void mupnp_upnp_control_query_response_delete(CgUpnpQueryResponse *queryRes)
+void mupnp_upnp_control_query_response_delete(mUpnpUpnpQueryResponse *queryRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -74,7 +74,7 @@ void mupnp_upnp_control_query_response_delete(CgUpnpQueryResponse *queryRes)
 * mupnp_upnp_control_query_response_clear
 ****************************************/
 
-void mupnp_upnp_control_query_response_clear(CgUpnpQueryResponse *queryRes)
+void mupnp_upnp_control_query_response_clear(mUpnpUpnpQueryResponse *queryRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -90,7 +90,7 @@ void mupnp_upnp_control_query_response_clear(CgUpnpQueryResponse *queryRes)
 * mupnp_upnp_control_query_request_setsoaprequest
 ****************************************/
 
-void mupnp_upnp_control_query_response_setsoapresponse(CgUpnpQueryResponse *queryRes, CgSoapResponse *soapRes)
+void mupnp_upnp_control_query_response_setsoapresponse(mUpnpUpnpQueryResponse *queryRes, mUpnpSoapResponse *soapRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -106,10 +106,10 @@ void mupnp_upnp_control_query_response_setsoapresponse(CgUpnpQueryResponse *quer
 * mupnp_upnp_control_query_response_createresponsenode
 ****************************************/
 
-static CgXmlNode *mupnp_upnp_control_query_response_createresponsenode(CgUpnpStateVariable *statVar)
+static mUpnpXmlNode *mupnp_upnp_control_query_response_createresponsenode(mUpnpUpnpStateVariable *statVar)
 {
-	CgXmlNode *queryResNode;
-	CgXmlNode *returnNode;
+	mUpnpXmlNode *queryResNode;
+	mUpnpXmlNode *returnNode;
 	 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -131,13 +131,13 @@ static CgXmlNode *mupnp_upnp_control_query_response_createresponsenode(CgUpnpSta
 * mupnp_upnp_control_query_response_setresponse
 ****************************************/
 
-void mupnp_upnp_control_query_response_setresponse(CgUpnpQueryResponse *queryRes, CgUpnpStateVariable *statVar)
+void mupnp_upnp_control_query_response_setresponse(mUpnpUpnpQueryResponse *queryRes, mUpnpUpnpStateVariable *statVar)
 {
-	CgSoapResponse *soapRes;
-	CgHttpResponse *httpRes;
-	CgXmlNode *bodyNode;
-	CgXmlNode *resNode;
-	CgXmlNode *envNode;
+	mUpnpSoapResponse *soapRes;
+	mUpnpHttpResponse *httpRes;
+	mUpnpXmlNode *bodyNode;
+	mUpnpXmlNode *resNode;
+	mUpnpXmlNode *envNode;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -161,11 +161,11 @@ void mupnp_upnp_control_query_response_setresponse(CgUpnpQueryResponse *queryRes
 * mupnp_upnp_control_query_response_setresponse
 ****************************************/
 
-CgXmlNode *mupnp_upnp_control_query_response_getreturnnode(CgUpnpQueryResponse *queryRes)
+mUpnpXmlNode *mupnp_upnp_control_query_response_getreturnnode(mUpnpUpnpQueryResponse *queryRes)
 {
-	CgSoapResponse *soapRes;	
-	CgXmlNode *bodyNode;
-	CgXmlNode *queryResNode;
+	mUpnpSoapResponse *soapRes;	
+	mUpnpXmlNode *bodyNode;
+	mUpnpXmlNode *queryResNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -192,9 +192,9 @@ CgXmlNode *mupnp_upnp_control_query_response_getreturnnode(CgUpnpQueryResponse *
 * mupnp_upnp_control_query_response_setresponse
 ****************************************/
 
-char *mupnp_upnp_control_query_response_getreturnvalue(CgUpnpQueryResponse *queryRes)
+char *mupnp_upnp_control_query_response_getreturnvalue(mUpnpUpnpQueryResponse *queryRes)
 {
-	CgXmlNode *returnNode;
+	mUpnpXmlNode *returnNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

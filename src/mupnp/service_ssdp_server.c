@@ -28,9 +28,9 @@
 * mupnp_upnp_service_ssdpmessagereceived
 ****************************************/
 
-void mupnp_upnp_service_ssdpmessagereceived(CgUpnpService *service, CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_service_ssdpmessagereceived(mUpnpUpnpService *service, mUpnpUpnpSSDPPacket *ssdpPkt)
 {
-	CgUpnpDevice *dev;
+	mUpnpUpnpDevice *dev;
 	const char *ssdpST;
 	const char *serviceType;
 	char serviceNT[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];

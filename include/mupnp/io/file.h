@@ -71,59 +71,59 @@ extern "C" {
 * Data Type
 ****************************************/
 
-typedef struct _CgFile {
+typedef struct _mUpnpFile {
 	BOOL headFlag;
-	struct _CgFile *prev;
-	struct _CgFile *next;
-	CgString *name;
-	CgString *path;
+	struct _mUpnpFile *prev;
+	struct _mUpnpFile *next;
+	mUpnpString *name;
+	mUpnpString *path;
 	char *content;
 	FILE	*fp;
-} CgFile, CgFileList;
+} mUpnpFile, mUpnpFileList;
 
 /****************************************
 * Function
 ****************************************/
 
-CgFile *mupnp_file_new();
-void mupnp_file_delete(CgFile *file);
+mUpnpFile *mupnp_file_new();
+void mupnp_file_delete(mUpnpFile *file);
 
-#define mupnp_file_next(file) (CgFile *)mupnp_list_next((CgList *)file)
+#define mupnp_file_next(file) (mUpnpFile *)mupnp_list_next((mUpnpList *)file)
 
-void mupnp_file_setname(CgFile *file, char *name);
+void mupnp_file_setname(mUpnpFile *file, char *name);
 
 #define mupnp_file_setpath(file, value) mupnp_file_setname(file, value)
-void mupnp_file_setfilename(CgFile *file, char *value);
+void mupnp_file_setfilename(mUpnpFile *file, char *value);
 #define mupnp_file_addfilename(file, value) mupnp_file_setfilename(file, value)
 
-char *mupnp_file_getname(CgFile *file);
-long mupnp_file_getlength(CgFile *file);
+char *mupnp_file_getname(mUpnpFile *file);
+long mupnp_file_getlength(mUpnpFile *file);
 
-long mupnp_file_getlastmodified(CgFile *file);
-long mupnp_file_getlength(CgFile *file);
-BOOL mupnp_file_exists(CgFile *file);
-BOOL mupnp_file_remove(CgFile *file);
+long mupnp_file_getlastmodified(mUpnpFile *file);
+long mupnp_file_getlength(mUpnpFile *file);
+BOOL mupnp_file_exists(mUpnpFile *file);
+BOOL mupnp_file_remove(mUpnpFile *file);
 
-void mupnp_file_setcontent(CgFile *file, char *content);
-char *mupnp_file_getcontent(CgFile *file);
+void mupnp_file_setcontent(mUpnpFile *file, char *content);
+char *mupnp_file_getcontent(mUpnpFile *file);
 
-char *mupnp_file_getfilename(CgFile *file);
-char *mupnp_file_getpath(CgFile *file);
+char *mupnp_file_getfilename(mUpnpFile *file);
+char *mupnp_file_getpath(mUpnpFile *file);
 
-BOOL mupnp_file_load(CgFile *file);
-BOOL mupnp_file_save(CgFile *file);
+BOOL mupnp_file_load(mUpnpFile *file);
+BOOL mupnp_file_save(mUpnpFile *file);
 
-int mupnp_file_listfiles(CgFile *file, CgFileList *fileList);
+int mupnp_file_listfiles(mUpnpFile *file, mUpnpFileList *fileList);
 
 #define mupnp_file_isseparatorchar(c) ((CG_FILE_SEPARATOR_CHAR == c) ? TRUE : FALSE)
 #define mupnp_file_ispathseparatorchar(c) ((CG_FILE_PATH_SEPARATOR_CHAR == c) ? TRUE : FALSE)
 
 /* Raw Functions */
-BOOL mupnp_file_open(CgFile *file, int flag);
-BOOL mupnp_file_close(CgFile *file);
-BOOL mupnp_file_write(CgFile *file, CgByte *buf, int bufLen);
-BOOL mupnp_file_read(CgFile *file, CgByte *buf, int bufLen);
-BOOL mupnp_file_seek(CgFile *file, CgInt64, int whence); 
+BOOL mupnp_file_open(mUpnpFile *file, int flag);
+BOOL mupnp_file_close(mUpnpFile *file);
+BOOL mupnp_file_write(mUpnpFile *file, mUpnpByte *buf, int bufLen);
+BOOL mupnp_file_read(mUpnpFile *file, mUpnpByte *buf, int bufLen);
+BOOL mupnp_file_seek(mUpnpFile *file, mUpnpInt64, int whence); 
 
 /****************************************
 * Function (File List)
@@ -134,35 +134,35 @@ BOOL mupnp_file_seek(CgFile *file, CgInt64, int whence);
  *
  * \return File list
  */
-CgFileList *mupnp_filelist_new();
+mUpnpFileList *mupnp_filelist_new();
 
 /**
  * Destroy a file list
  *
  * \param fileList The file list in question
  */
-void mupnp_filelist_delete(CgFileList *fileList);
+void mupnp_filelist_delete(mUpnpFileList *fileList);
 
 /**
  * Clear the contents of a file list
  *
  * \param fileList File list in question
  */
-#define mupnp_filelist_clear(fileList) mupnp_list_clear((CgList *)fileList, (CG_LIST_DESTRUCTORFUNC)mupnp_file_delete)
+#define mupnp_filelist_clear(fileList) mupnp_list_clear((mUpnpList *)fileList, (CG_LIST_DESTRUCTORFUNC)mupnp_file_delete)
 
 /**
  * Get the size of a file list
  *
  * \param fileList The file list in question
  */
-#define mupnp_filelist_size(fileList) mupnp_list_size((CgList *)fileList)
+#define mupnp_filelist_size(fileList) mupnp_list_size((mUpnpList *)fileList)
 
 /**
  * Get the first actual item from a file list to use as an iterator
  *
  * \param fileList The file list in question
  */
-#define mupnp_filelist_gets(fileList) (CgFile *)mupnp_list_next((CgList *)fileList)
+#define mupnp_filelist_gets(fileList) (mUpnpFile *)mupnp_list_next((mUpnpList *)fileList)
 
 /**
  * Add a file into a file list
@@ -170,7 +170,7 @@ void mupnp_filelist_delete(CgFileList *fileList);
  * \param fileList The file list in question
  * \param file The file to add to the list
  */
-#define mupnp_filelist_add(fileList, file) mupnp_list_add((CgList *)fileList, (CgList *)file)
+#define mupnp_filelist_add(fileList, file) mupnp_list_add((mUpnpList *)fileList, (mUpnpList *)file)
 
 /**
  * Remove a file from file list
@@ -178,7 +178,7 @@ void mupnp_filelist_delete(CgFileList *fileList);
  * \param fileList The file list in question
  * \param file The file to be removed 
  */
-#define mupnp_filelist_remove(file) mupnp_list_remove((CgList *)file)
+#define mupnp_filelist_remove(file) mupnp_list_remove((mUpnpList *)file)
 
 #endif
 

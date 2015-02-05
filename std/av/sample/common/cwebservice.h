@@ -22,7 +22,7 @@ extern "C" {
 
 #include <mupnp/util/string.h>
 
-BOOL mupnp_http_getrestresponse(char *url, CgString *str);
+BOOL mupnp_http_getrestresponse(char *url, mUpnpString *str);
 BOOL mupnp_http_getredirecturl(char *orgURL, char *redirectURL, int redirectURLSize);
 
 #ifdef  __cplusplus

@@ -26,13 +26,13 @@
 * mupnp_upnp_status_new
 ****************************************/
 
-CgUpnpStatus *mupnp_upnp_status_new()
+mUpnpUpnpStatus *mupnp_upnp_status_new()
 {
-	CgUpnpStatus *upnpStat;
+	mUpnpUpnpStatus *upnpStat;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	upnpStat = (CgUpnpStatus *)malloc(sizeof(CgUpnpStatus));
+	upnpStat = (mUpnpUpnpStatus *)malloc(sizeof(mUpnpUpnpStatus));
 
 	if ( NULL != upnpStat )
 	{
@@ -49,7 +49,7 @@ CgUpnpStatus *mupnp_upnp_status_new()
 * mupnp_upnp_status_delete
 ****************************************/
 
-void mupnp_upnp_status_delete(CgUpnpStatus *upnpStat)
+void mupnp_upnp_status_delete(mUpnpUpnpStatus *upnpStat)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

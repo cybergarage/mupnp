@@ -25,9 +25,9 @@
 * mupnp_upnp_httpu_socket_recv
 ****************************************/
 
-ssize_t mupnp_upnp_httpu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt)
+ssize_t mupnp_upnp_httpu_socket_recv(mUpnpUpnpHttpMuSocket *sock, mUpnpUpnpSSDPPacket *ssdpPkt)
 {
-	CgDatagramPacket *dgmPkt;
+	mUpnpDatagramPacket *dgmPkt;
 	char *ssdpData;
 	ssize_t recvLen;
 	

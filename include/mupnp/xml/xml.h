@@ -46,90 +46,90 @@ typedef void (*CG_XML_NODE_USERDATA_DESTRUCTORFUNC)(void *);
 * Data Type
 ****************************************/
 
-typedef struct _CgXmlAttribute {
+typedef struct _mUpnpXmlAttribute {
 	BOOL headFlag;
-	struct _CgXmlAttribute *prev;
-	struct _CgXmlAttribute *next;
-	CgString *name;
-	CgString *value;
-} CgXmlAttribute, CgXmlAttributeList;
+	struct _mUpnpXmlAttribute *prev;
+	struct _mUpnpXmlAttribute *next;
+	mUpnpString *name;
+	mUpnpString *value;
+} mUpnpXmlAttribute, mUpnpXmlAttributeList;
 
-typedef struct _CgXmlNode {
+typedef struct _mUpnpXmlNode {
 	BOOL headFlag;
-	struct _CgXmlNode *prev;
-	struct _CgXmlNode *next;
-	CgString *name;
-	CgString *value;
-	struct _CgXmlAttribute *attrList;
-	struct _CgXmlNode *nodeList;
-	struct _CgXmlNode *parentNode;
+	struct _mUpnpXmlNode *prev;
+	struct _mUpnpXmlNode *next;
+	mUpnpString *name;
+	mUpnpString *value;
+	struct _mUpnpXmlAttribute *attrList;
+	struct _mUpnpXmlNode *nodeList;
+	struct _mUpnpXmlNode *parentNode;
 	void *userData;
 	CG_XML_NODE_USERDATA_DESTRUCTORFUNC userDataDestructorFunc;
-} CgXmlNode, CgXmlNodeList;
+} mUpnpXmlNode, mUpnpXmlNodeList;
 
-typedef struct _CgXmlParser {
+typedef struct _mUpnpXmlParser {
 	BOOL parseResult;
-} CgXmlParser;
+} mUpnpXmlParser;
 
 /****************************************
 * Function (AttribureList)
 ****************************************/
 
-CgXmlAttributeList *mupnp_xml_attributelist_new();
-void mupnp_xml_attributelist_delete(CgXmlAttributeList *attrList);
+mUpnpXmlAttributeList *mupnp_xml_attributelist_new();
+void mupnp_xml_attributelist_delete(mUpnpXmlAttributeList *attrList);
 
-#define mupnp_xml_attributelist_clear(attrList) mupnp_list_clear((CgList *)attrList, (CG_LIST_DESTRUCTORFUNC)mupnp_xml_attribute_delete)
-#define mupnp_xml_attributelist_size(attrList) mupnp_list_size((CgList *)attrList)
-#define mupnp_xml_attributelist_gets(attrList) (CgXmlAttribute *)mupnp_list_next((CgList *)attrList)
-#define mupnp_xml_attributelist_add(attrList, attr) mupnp_list_add((CgList *)attrList, (CgList *)attr)
+#define mupnp_xml_attributelist_clear(attrList) mupnp_list_clear((mUpnpList *)attrList, (CG_LIST_DESTRUCTORFUNC)mupnp_xml_attribute_delete)
+#define mupnp_xml_attributelist_size(attrList) mupnp_list_size((mUpnpList *)attrList)
+#define mupnp_xml_attributelist_gets(attrList) (mUpnpXmlAttribute *)mupnp_list_next((mUpnpList *)attrList)
+#define mupnp_xml_attributelist_add(attrList, attr) mupnp_list_add((mUpnpList *)attrList, (mUpnpList *)attr)
 
-void mupnp_xml_attributelist_set(CgXmlAttributeList *attrList, const char *name, const char *value);
-CgXmlAttribute *mupnp_xml_attributelist_get(CgXmlAttributeList *attrList, const char *name);
-const char *mupnp_xml_attributelist_getvalue(CgXmlAttributeList *attrList, const char *name);
+void mupnp_xml_attributelist_set(mUpnpXmlAttributeList *attrList, const char *name, const char *value);
+mUpnpXmlAttribute *mupnp_xml_attributelist_get(mUpnpXmlAttributeList *attrList, const char *name);
+const char *mupnp_xml_attributelist_getvalue(mUpnpXmlAttributeList *attrList, const char *name);
 
 /****************************************
 * Function (Attributes)
 ****************************************/
 
-CgXmlAttribute *mupnp_xml_attribute_new();
-void mupnp_xml_attribute_delete(CgXmlAttribute *attr);
+mUpnpXmlAttribute *mupnp_xml_attribute_new();
+void mupnp_xml_attribute_delete(mUpnpXmlAttribute *attr);
 
-#define mupnp_xml_attribute_next(attr) (CgXmlAttribute *)mupnp_list_next((CgList *)attr)
-#define mupnp_xml_attribute_remove(attr) mupnp_list_remove((CgList *)attr)
+#define mupnp_xml_attribute_next(attr) (mUpnpXmlAttribute *)mupnp_list_next((mUpnpList *)attr)
+#define mupnp_xml_attribute_remove(attr) mupnp_list_remove((mUpnpList *)attr)
 
-void mupnp_xml_attribute_setname(CgXmlAttribute *attr, const char *name);
-const char *mupnp_xml_attribute_getname(CgXmlAttribute *attr);
-BOOL mupnp_xml_attribute_isname(CgXmlAttribute *attr, const char *name);
+void mupnp_xml_attribute_setname(mUpnpXmlAttribute *attr, const char *name);
+const char *mupnp_xml_attribute_getname(mUpnpXmlAttribute *attr);
+BOOL mupnp_xml_attribute_isname(mUpnpXmlAttribute *attr, const char *name);
 
-void mupnp_xml_attribute_setvalue(CgXmlAttribute *attr, const char *value);
-const char *mupnp_xml_attribute_getvalue(CgXmlAttribute *attr);
+void mupnp_xml_attribute_setvalue(mUpnpXmlAttribute *attr, const char *value);
+const char *mupnp_xml_attribute_getvalue(mUpnpXmlAttribute *attr);
 
 /****************************************
 * Function (NodeList)
 ****************************************/
 
-CgXmlNodeList *mupnp_xml_nodelist_new();
-void mupnp_xml_nodelist_delete(CgXmlNodeList *nodeList);
+mUpnpXmlNodeList *mupnp_xml_nodelist_new();
+void mupnp_xml_nodelist_delete(mUpnpXmlNodeList *nodeList);
 
-#define mupnp_xml_nodelist_clear(nodeList) mupnp_list_clear((CgList *)(nodeList), (CG_LIST_DESTRUCTORFUNC)mupnp_xml_node_delete)
-#define mupnp_xml_nodelist_size(nodeList) mupnp_list_size((CgList *)(nodeList))
-#define mupnp_xml_nodelist_gets(nodeList) (CgXmlNode *)mupnp_list_next((CgList *)(nodeList))
-#define mupnp_xml_nodelist_add(nodeList, node) mupnp_list_add((CgList *)(nodeList), (CgList *)(node))
+#define mupnp_xml_nodelist_clear(nodeList) mupnp_list_clear((mUpnpList *)(nodeList), (CG_LIST_DESTRUCTORFUNC)mupnp_xml_node_delete)
+#define mupnp_xml_nodelist_size(nodeList) mupnp_list_size((mUpnpList *)(nodeList))
+#define mupnp_xml_nodelist_gets(nodeList) (mUpnpXmlNode *)mupnp_list_next((mUpnpList *)(nodeList))
+#define mupnp_xml_nodelist_add(nodeList, node) mupnp_list_add((mUpnpList *)(nodeList), (mUpnpList *)(node))
 
 /* Deprecated : Use mupnp_xml_nodelist_getbyname */
 #define mupnp_xml_nodelist_get(nodeList, name) mupnp_xml_nodelist_getbyname(nodeList, name)
-CgXmlNode *mupnp_xml_nodelist_getbyname(CgXmlNodeList *nodeList, const char *name);
-CgXmlNode *mupnp_xml_nodelist_getbyxpath(CgXmlNodeList *nodeList, const char *xpath);
+mUpnpXmlNode *mupnp_xml_nodelist_getbyname(mUpnpXmlNodeList *nodeList, const char *name);
+mUpnpXmlNode *mupnp_xml_nodelist_getbyxpath(mUpnpXmlNodeList *nodeList, const char *xpath);
 
 /****************************************
 * Function (Node)
 ****************************************/
 
-CgXmlNode *mupnp_xml_node_new();
-void mupnp_xml_node_delete(CgXmlNode *node);
+mUpnpXmlNode *mupnp_xml_node_new();
+void mupnp_xml_node_delete(mUpnpXmlNode *node);
 
-#define mupnp_xml_node_next(node) (CgXmlNode *)mupnp_list_next((CgList *)node)
-#define mupnp_xml_node_remove(node) mupnp_list_remove((CgList *)node)
+#define mupnp_xml_node_next(node) (mUpnpXmlNode *)mupnp_list_next((mUpnpList *)node)
+#define mupnp_xml_node_remove(node) mupnp_list_remove((mUpnpList *)node)
 
 #define mupnp_xml_node_setname(node, nodename) mupnp_string_setvalue(node->name, nodename)
 #define mupnp_xml_node_getname(node) mupnp_string_getvalue(node->name)
@@ -147,13 +147,13 @@ void mupnp_xml_node_delete(CgXmlNode *node);
 
 #define mupnp_xml_node_setparentnode(node, pnode) (node->parentNode = pnode)
 #define mupnp_xml_node_getparentnode(node) (node->parentNode)
-CgXmlNode *mupnp_xml_node_getrootnode(CgXmlNode *node);
+mUpnpXmlNode *mupnp_xml_node_getrootnode(mUpnpXmlNode *node);
 
 #define mupnp_xml_node_getchildnodelist(node) (node->nodeList)
-void mupnp_xml_node_addchildnode(CgXmlNode *node, CgXmlNode *cnode);
-void mupnp_xml_node_setchildnode(CgXmlNode *node, const char *name, const char *value);
-BOOL mupnp_xml_node_removechildnode(CgXmlNode *node, const char *name);
-const char *mupnp_xml_node_getchildnodevalue(CgXmlNode *node, const char *name);
+void mupnp_xml_node_addchildnode(mUpnpXmlNode *node, mUpnpXmlNode *cnode);
+void mupnp_xml_node_setchildnode(mUpnpXmlNode *node, const char *name, const char *value);
+BOOL mupnp_xml_node_removechildnode(mUpnpXmlNode *node, const char *name);
+const char *mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name);
 #define mupnp_xml_node_getchildnodeintvalue(node, name) mupnp_str2int(mupnp_xml_node_getchildnodevalue(node, name))
 #define mupnp_xml_node_getchildnodelongvalue(node, name) mupnp_str2long(mupnp_xml_node_getchildnodevalue(node, name))
 	
@@ -170,36 +170,36 @@ const char *mupnp_xml_node_getchildnodevalue(CgXmlNode *node, const char *name);
 
 /* Get childnode with some specific namespace prefix, or ignore namespace prefix.
    If ns is NULL, name string must match completely */
-CgXmlNode *mupnp_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *name, const char *ns, BOOL ignoreNs);
+mUpnpXmlNode *mupnp_xml_node_getchildnodewithnamespace(mUpnpXmlNode *node, const char *name, const char *ns, BOOL ignoreNs);
 
 #define mupnp_xml_node_getattributes(node) mupnp_xml_attributelist_gets(node->attrList)
 #define mupnp_xml_node_getattribute(node, name) mupnp_xml_attributelist_get(node->attrList,name)
 #define mupnp_xml_node_addattribute(node, attr) mupnp_xml_attributelist_add(node->attrList,attr)
 #define mupnp_xml_node_setattribute(node, name, value) mupnp_xml_attributelist_set(node->attrList,name,value)
 #define mupnp_xml_node_getattributevalue(node, name) mupnp_xml_attributelist_getvalue(node->attrList, name)
-BOOL mupnp_xml_node_removeattribute(CgXmlNode *node, const char *name);
+BOOL mupnp_xml_node_removeattribute(mUpnpXmlNode *node, const char *name);
 
 #define mupnp_xml_node_setnamespace(node, ns, value) mupnp_xml_node_setattribute(node, "xmlns:" ns , value)
 
-char *mupnp_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str);
-void  mupnp_xml_node_print(CgXmlNode *node);
+char *mupnp_xml_node_tostring(mUpnpXmlNode *node, BOOL withChildNode, mUpnpString *str);
+void  mupnp_xml_node_print(mUpnpXmlNode *node);
 
-void mupnp_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode);
+void mupnp_xml_node_copy(mUpnpXmlNode *dstNode, mUpnpXmlNode *srcNode);
 
 /****************************************
 * Function (Parser)
 ****************************************/
 
-CgXmlParser *mupnp_xml_parser_new();
-void mupnp_xml_parser_delete(CgXmlParser *parser);
-BOOL mupnp_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *data, size_t len);
+mUpnpXmlParser *mupnp_xml_parser_new();
+void mupnp_xml_parser_delete(mUpnpXmlParser *parser);
+BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const char *data, size_t len);
 
 /****************************************
 * Function (Other)
 ****************************************/
 
-char *mupnp_xml_escapechars(CgString *str);
-char *mupnp_xml_unescapechars(CgString *str);
+char *mupnp_xml_escapechars(mUpnpString *str);
+char *mupnp_xml_unescapechars(mUpnpString *str);
 
 
 #ifdef  __cplusplus

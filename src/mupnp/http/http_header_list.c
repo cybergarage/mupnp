@@ -25,17 +25,17 @@
 * mupnp_http_headerlist_new
 ****************************************/
 
-CgHttpHeaderList *mupnp_http_headerlist_new()
+mUpnpHttpHeaderList *mupnp_http_headerlist_new()
 {
-	CgHttpHeaderList *headerList;
+	mUpnpHttpHeaderList *headerList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	headerList = (CgHttpHeaderList *)malloc(sizeof(CgHttpHeaderList));
+	headerList = (mUpnpHttpHeaderList *)malloc(sizeof(mUpnpHttpHeaderList));
 
 	if ( NULL != headerList )
 	{
-		mupnp_list_header_init((CgList *)headerList);
+		mupnp_list_header_init((mUpnpList *)headerList);
 		headerList->name = NULL;
 		headerList->value = NULL;
 	}
@@ -49,7 +49,7 @@ CgHttpHeaderList *mupnp_http_headerlist_new()
 * mupnp_http_headerlist_delete
 ****************************************/
 
-void mupnp_http_headerlist_delete(CgHttpHeaderList *headerList)
+void mupnp_http_headerlist_delete(mUpnpHttpHeaderList *headerList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -63,9 +63,9 @@ void mupnp_http_headerlist_delete(CgHttpHeaderList *headerList)
 * mupnp_http_headerlist_getheader
 ****************************************/
 
-CgHttpHeader *mupnp_http_headerlist_get(CgHttpHeaderList *headerList, const char *name)
+mUpnpHttpHeader *mupnp_http_headerlist_get(mUpnpHttpHeaderList *headerList, const char *name)
 {
-	CgHttpHeader *header;
+	mUpnpHttpHeader *header;
 	const char *headerName;
 		
 	mupnp_log_debug_l4("Entering...\n");
@@ -90,9 +90,9 @@ CgHttpHeader *mupnp_http_headerlist_get(CgHttpHeaderList *headerList, const char
 * mupnp_http_headerlist_setheader
 ****************************************/
 
-void mupnp_http_headerlist_set(CgHttpHeaderList *headerList, const char *name, const char *value)
+void mupnp_http_headerlist_set(mUpnpHttpHeaderList *headerList, const char *name, const char *value)
 {
-	CgHttpHeader *header;
+	mUpnpHttpHeader *header;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -112,9 +112,9 @@ void mupnp_http_headerlist_set(CgHttpHeaderList *headerList, const char *name, c
 * mupnp_http_headerlist_setheader
 ****************************************/
 
-const char *mupnp_http_headerlist_getvalue(CgHttpHeaderList *headerList, const char *name)
+const char *mupnp_http_headerlist_getvalue(mUpnpHttpHeaderList *headerList, const char *name)
 {
-	CgHttpHeader *header;
+	mUpnpHttpHeader *header;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

@@ -82,17 +82,17 @@ struct stat {
 * mupnp_file_new
 ****************************************/
 
-CgFile *mupnp_file_new()
+mUpnpFile *mupnp_file_new()
 {
-	CgFile *file;
+	mUpnpFile *file;
 
 	mupnp_log_debug_l4("Entering...\n");
 	
-	file = (CgFile *)malloc(sizeof(CgFile));
+	file = (mUpnpFile *)malloc(sizeof(mUpnpFile));
 
 	if ( NULL != file )
 	{
-		mupnp_list_node_init((CgList *)file);
+		mupnp_list_node_init((mUpnpList *)file);
 		file->name = mupnp_string_new();
 		file->path = mupnp_string_new();
 		file->content = NULL;
@@ -108,11 +108,11 @@ CgFile *mupnp_file_new()
 * mupnp_file_delete
 ****************************************/
 
-void mupnp_file_delete(CgFile *file)
+void mupnp_file_delete(mUpnpFile *file)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_remove((CgList *)file);
+	mupnp_list_remove((mUpnpList *)file);
 
 	mupnp_string_delete(file->name);
 	mupnp_string_delete(file->path);
@@ -127,7 +127,7 @@ void mupnp_file_delete(CgFile *file)
 * mupnp_file_setname
 ****************************************/
 
-void mupnp_file_setname(CgFile *file, char *name)
+void mupnp_file_setname(mUpnpFile *file, char *name)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -140,7 +140,7 @@ void mupnp_file_setname(CgFile *file, char *name)
 * mupnp_file_getname
 ****************************************/
 
-char *mupnp_file_getname(CgFile *file)
+char *mupnp_file_getname(mUpnpFile *file)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -153,7 +153,7 @@ char *mupnp_file_getname(CgFile *file)
 * mupnp_file_getname
 ****************************************/
 
-long mupnp_file_getlastmodified(CgFile *file)
+long mupnp_file_getlastmodified(mUpnpFile *file)
 {
 	char *fileName;
 #if !defined (WINCE)
@@ -188,7 +188,7 @@ long mupnp_file_getlastmodified(CgFile *file)
 * mupnp_file_getname
 ****************************************/
 
-long mupnp_file_getlength(CgFile *file)
+long mupnp_file_getlength(mUpnpFile *file)
 {
 	char *fileName;
 #if !defined (WINCE)
@@ -221,7 +221,7 @@ long mupnp_file_getlength(CgFile *file)
 * mupnp_file_exists
 ****************************************/
 
-BOOL mupnp_file_exists(CgFile *file)
+BOOL mupnp_file_exists(mUpnpFile *file)
 {
 #if !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) 
 	FILE *fp;
@@ -255,7 +255,7 @@ BOOL mupnp_file_exists(CgFile *file)
 * mupnp_file_remove
 ****************************************/
 
-BOOL mupnp_file_remove(CgFile *file)
+BOOL mupnp_file_remove(mUpnpFile *file)
 {
 	char *fileName;
 	int removeSuccess = 0;
@@ -279,7 +279,7 @@ BOOL mupnp_file_remove(CgFile *file)
 * mupnp_file_setcontent
 ****************************************/
 
-void mupnp_file_setcontent(CgFile *file, char *content)
+void mupnp_file_setcontent(mUpnpFile *file, char *content)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -296,7 +296,7 @@ void mupnp_file_setcontent(CgFile *file, char *content)
 * mupnp_file_getcontent
 ****************************************/
 
-char *mupnp_file_getcontent(CgFile *file)
+char *mupnp_file_getcontent(mUpnpFile *file)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -309,7 +309,7 @@ char *mupnp_file_getcontent(CgFile *file)
 * mupnp_file_getfilename
 ****************************************/
 
-char *mupnp_file_getfilename(CgFile *file)
+char *mupnp_file_getfilename(mUpnpFile *file)
 {
 	char *fileName;
 	int sepIdx;
@@ -329,7 +329,7 @@ char *mupnp_file_getfilename(CgFile *file)
 * mupnp_file_getpath
 ****************************************/
 
-char *mupnp_file_getpath(CgFile *file)
+char *mupnp_file_getpath(mUpnpFile *file)
 {
 	char *path;
 	char *fileName;
@@ -367,7 +367,7 @@ char *mupnp_file_getpath(CgFile *file)
 * mupnp_file_load
 ****************************************/
 
-BOOL mupnp_file_load(CgFile *file)
+BOOL mupnp_file_load(mUpnpFile *file)
 {
 #if defined(WIN32) || defined(HAVE_FOPEN)
 	FILE *fp;
@@ -444,7 +444,7 @@ BOOL mupnp_file_load(CgFile *file)
 * mupnp_file_save
 ****************************************/
 
-BOOL mupnp_file_save(CgFile *file)
+BOOL mupnp_file_save(mUpnpFile *file)
 {
 #if defined(WIN32) || defined(HAVE_FOPEN)
 	FILE *fp;
@@ -509,14 +509,14 @@ BOOL mupnp_file_save(CgFile *file)
 * mupnp_file_listfiles
 ****************************************/
 
-int mupnp_file_listfiles(CgFile *file, CgFileList *fileList)
+int mupnp_file_listfiles(mUpnpFile *file, mUpnpFileList *fileList)
 {
 	char *dir;
 	char *fileName;
-	CgString *fullPathStr;
-	CgFile *childFile;
+	mUpnpString *fullPathStr;
+	mUpnpFile *childFile;
 #if defined(WIN32)
-	CgString *findDirStr;
+	mUpnpString *findDirStr;
 	#if defined(UNICODE)
 	TCHAR wCharBuf[MAX_PATH];
 	char mCharBuf[MAX_PATH];
@@ -603,7 +603,7 @@ int mupnp_file_listfiles(CgFile *file, CgFileList *fileList)
 * mupnp_file_listfiles
 ****************************************/
 
-BOOL mupnp_file_open(CgFile *file, int mode)
+BOOL mupnp_file_open(mUpnpFile *file, int mode)
 {
 	char *filename;
 	char *stdioMode;
@@ -631,7 +631,7 @@ BOOL mupnp_file_open(CgFile *file, int mode)
 * mupnp_file_listfiles
 ****************************************/
 
-BOOL mupnp_file_close(CgFile *file)
+BOOL mupnp_file_close(mUpnpFile *file)
 {
 	if (!file->fp)
 		return FALSE;
@@ -648,7 +648,7 @@ BOOL mupnp_file_close(CgFile *file)
 * mupnp_file_listfiles
 ****************************************/
 
-BOOL mupnp_file_write(CgFile *file, CgByte *buf, int bufLen)
+BOOL mupnp_file_write(mUpnpFile *file, mUpnpByte *buf, int bufLen)
 {
 	if (!file->fp)
 		return FALSE;
@@ -660,7 +660,7 @@ BOOL mupnp_file_write(CgFile *file, CgByte *buf, int bufLen)
 * mupnp_file_listfiles
 ****************************************/
 
-BOOL mupnp_file_read(CgFile *file, CgByte *buf, int bufLen)
+BOOL mupnp_file_read(mUpnpFile *file, mUpnpByte *buf, int bufLen)
 {
 	if (!file->fp)
 		return FALSE;
@@ -672,7 +672,7 @@ BOOL mupnp_file_read(CgFile *file, CgByte *buf, int bufLen)
 * mupnp_file_listfiles
 ****************************************/
 
-BOOL mupnp_file_seek(CgFile *file, CgInt64 offset, int whence)
+BOOL mupnp_file_seek(mUpnpFile *file, mUpnpInt64 offset, int whence)
 {
 	int stdioWhence;
 
@@ -700,7 +700,7 @@ BOOL mupnp_file_seek(CgFile *file, CgInt64 offset, int whence)
 * mupnp_file_setfilename
 ****************************************/
 
-void mupnp_file_setfilename(CgFile *file, char *name)
+void mupnp_file_setfilename(mUpnpFile *file, char *name)
 {
 	int nameLen;
 	char *pathName;

@@ -25,17 +25,17 @@
 * mupnp_xml_attributelist_new
 ****************************************/
 
-CgXmlAttributeList *mupnp_xml_attributelist_new()
+mUpnpXmlAttributeList *mupnp_xml_attributelist_new()
 {
-	CgXmlAttributeList *attrList;
+	mUpnpXmlAttributeList *attrList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	attrList = (CgXmlAttributeList *)malloc(sizeof(CgXmlAttributeList));
+	attrList = (mUpnpXmlAttributeList *)malloc(sizeof(mUpnpXmlAttributeList));
 
 	if ( NULL != attrList )
 	{
-		mupnp_list_header_init((CgList *)attrList);
+		mupnp_list_header_init((mUpnpList *)attrList);
 		attrList->name = NULL;
 		attrList->value = NULL;
 	}
@@ -49,7 +49,7 @@ CgXmlAttributeList *mupnp_xml_attributelist_new()
 * mupnp_xml_attributelist_delete
 ****************************************/
 
-void mupnp_xml_attributelist_delete(CgXmlAttributeList *attrList)
+void mupnp_xml_attributelist_delete(mUpnpXmlAttributeList *attrList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -63,9 +63,9 @@ void mupnp_xml_attributelist_delete(CgXmlAttributeList *attrList)
 * mupnp_xml_attributelist_getattribute
 ****************************************/
 
-CgXmlAttribute *mupnp_xml_attributelist_get(CgXmlAttributeList *attrList, const char *name)
+mUpnpXmlAttribute *mupnp_xml_attributelist_get(mUpnpXmlAttributeList *attrList, const char *name)
 {
-	CgXmlAttribute *attr;
+	mUpnpXmlAttribute *attr;
 	const char *attrName;
 		
 	mupnp_log_debug_l4("Entering...\n");
@@ -90,9 +90,9 @@ CgXmlAttribute *mupnp_xml_attributelist_get(CgXmlAttributeList *attrList, const 
 * mupnp_xml_attributelist_setattribute
 ****************************************/
 
-void mupnp_xml_attributelist_set(CgXmlAttributeList *attrList, const char *name, const char *value)
+void mupnp_xml_attributelist_set(mUpnpXmlAttributeList *attrList, const char *name, const char *value)
 {
-	CgXmlAttribute *attr;
+	mUpnpXmlAttribute *attr;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -112,9 +112,9 @@ void mupnp_xml_attributelist_set(CgXmlAttributeList *attrList, const char *name,
 * mupnp_xml_attributelist_getvalue
 ****************************************/
 
-const char *mupnp_xml_attributelist_getvalue(CgXmlAttributeList *attrList, const char *name)
+const char *mupnp_xml_attributelist_getvalue(mUpnpXmlAttributeList *attrList, const char *name)
 {
-	CgXmlAttribute *attr;
+	mUpnpXmlAttribute *attr;
 
 	mupnp_log_debug_l4("Entering...\n");
 

@@ -23,14 +23,14 @@
 extern "C" {
 #endif
 
-typedef struct _CgUpnpMediaFileSystemContentData {
+typedef struct _mUpnpUpnpMediaFileSystemContentData {
 	char *pubdir;
-} CgUpnpMediaFileSystemContentData;
+} mUpnpUpnpMediaFileSystemContentData;
 
 
-#define CgUpnpMediaServer CgUpnpAvServer
-#define CgUpnpMediaContent CgUpnpAvContent
-#define CgUpnpMediaContentList CgUpnpAvContentList
+#define mUpnpUpnpMediaServer mUpnpUpnpAvServer
+#define mUpnpUpnpMediaContent mUpnpUpnpAvContent
+#define mUpnpUpnpMediaContentList mUpnpUpnpAvContentList
 #define CG_UPNP_MEDIA_MIMETYPE_JPEG CG_UPNPAV_MIMETYPE_JPEG
 #define CG_UPNP_MEDIA_MIMETYPE_MPEG CG_UPNPAV_MIMETYPE_MPEG
 #define CG_UPNP_MEDIA_MIMETYPE_MP3  CG_UPNPAV_MIMETYPE_MP3
@@ -40,7 +40,7 @@ typedef struct _CgUpnpMediaFileSystemContentData {
 #define CG_UPNP_MEDIA_UPNPCLASS_PHOTO CG_UPNPAV_UPNPCLASS_PHOTO
 #define CG_UPNP_MEDIA_UPNPCLASS_MOVIE CG_UPNPAV_UPNPCLASS_MOVIE
 #define CG_UPNP_MEDIA_UPNPCLASS_MUSIC CG_UPNPAV_UPNPCLASS_MUSIC
-#define CgUpnpMediaResource CgUpnpAvResource
+#define mUpnpUpnpMediaResource mUpnpUpnpAvResource
 #define CG_UPNP_MEDIA_DLNAPN_MAXLEN CG_UPNPAV_DLNAATTR_MAXLEN
 #define mupnp_upnp_media_resource_new mupnp_upnpav_resource_new
 #define CG_UPNP_MEDIA_CONTENT_NONE 0
@@ -50,23 +50,23 @@ typedef struct _CgUpnpMediaFileSystemContentData {
 #define  CG_UPNPAV_FILESYS_RESURL_PATH "content"
 #define  CG_UPNPAV_FILESYS_RESURL_MAXLEN (CG_NET_IPV6_ADDRSTRING_MAXSIZE + CG_MD5_STRING_BUF_SIZE + 64)
 
-CgUpnpAvServer *mupnp_upnpav_dms_filesys_new();
-void mupnp_upnpav_dms_filesys_delete(CgUpnpAvServer *dms);
+mUpnpUpnpAvServer *mupnp_upnpav_dms_filesys_new();
+void mupnp_upnpav_dms_filesys_delete(mUpnpUpnpAvServer *dms);
 
 #define mupnp_upnpav_dms_filesys_start(dms) mupnp_upnpav_dms_start(dms)
 #define mupnp_upnpav_dms_filesys_stop(dms) mupnp_upnpav_dms_stop(dms)
 
 
-void mupnp_upnpav_dms_filesys_setpublicationdirectory(CgUpnpAvServer *dms, char *pubdir);
-char *mupnp_upnpav_dms_filesys_getpublicationdirectory(CgUpnpMediaServer *dms);
+void mupnp_upnpav_dms_filesys_setpublicationdirectory(mUpnpUpnpAvServer *dms, char *pubdir);
+char *mupnp_upnpav_dms_filesys_getpublicationdirectory(mUpnpUpnpMediaServer *dms);
 
-CgUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_data_new();
-void mupnp_upnpav_dms_filesys_content_data_delete(CgUpnpMediaFileSystemContentData *data);
-CgUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_getdata(CgUpnpAvContent *con);
-void mupnp_upnpav_dms_filesys_content_setpubicdirectory(CgUpnpMediaContent *con, char *dir);
-char *mupnp_upnpav_dms_filesys_content_getpubicdirectory(CgUpnpMediaContent *con);
+mUpnpUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_data_new();
+void mupnp_upnpav_dms_filesys_content_data_delete(mUpnpUpnpMediaFileSystemContentData *data);
+mUpnpUpnpMediaFileSystemContentData *mupnp_upnpav_dms_filesys_content_getdata(mUpnpUpnpAvContent *con);
+void mupnp_upnpav_dms_filesys_content_setpubicdirectory(mUpnpUpnpMediaContent *con, char *dir);
+char *mupnp_upnpav_dms_filesys_content_getpubicdirectory(mUpnpUpnpMediaContent *con);
 
-void mupnp_upnpav_dms_filesys_http_listener(CgHttpRequest *httpReq);
+void mupnp_upnpav_dms_filesys_http_listener(mUpnpHttpRequest *httpReq);
 
 #ifdef  __cplusplus
 }

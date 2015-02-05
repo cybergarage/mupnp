@@ -57,7 +57,7 @@
 #define CMD_NO_ALTERATIONS 1
 #define CMD_LOOP_ACTION_CALLS 2
 
-void ControlDeviceAlter(CgUpnpControlPoint *ctrlPoint, int alteration_mask);
+void ControlDeviceAlter(mUpnpUpnpControlPoint *ctrlPoint, int alteration_mask);
 
 /////////////////////////////////////////////////////////////////////////////////
 // PrintKeyMessage
@@ -90,7 +90,7 @@ void PrintKeyMessage()
 // Notify Listener
 /////////////////////////////////////////////////////////////////////////////////
 
-void SSDPNotifyListner(CgUpnpSSDPPacket *ssdpPkt)
+void SSDPNotifyListner(mUpnpUpnpSSDPPacket *ssdpPkt)
 {
 	if (mupnp_upnp_ssdp_packet_isdiscover(ssdpPkt) == TRUE) {
 		printf("ssdp:discover : ST = %s\n",
@@ -114,17 +114,17 @@ void SSDPNotifyListner(CgUpnpSSDPPacket *ssdpPkt)
 // Print Device
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintDeviceInfo(CgUpnpDevice *dev, int indent)
+void PrintDeviceInfo(mUpnpUpnpDevice *dev, int indent)
 {
 	char indentStr[128];
 	int n;
-	CgUpnpService *service;
+	mUpnpUpnpService *service;
 	int serviceCnt;
-	CgUpnpAction *action;
+	mUpnpUpnpAction *action;
 	int actionCnt;
-	CgUpnpArgumentList *arg;
+	mUpnpUpnpArgumentList *arg;
 	int argCnt;
-	CgUpnpStateVariable *stateVar;
+	mUpnpUpnpStateVariable *stateVar;
 	int stateVarCnt;
 	
 	for (n=0; n<indent && n<(sizeof(indentStr)-1); n++)
@@ -153,9 +153,9 @@ void PrintDeviceInfo(CgUpnpDevice *dev, int indent)
 	}
 }
 
-void PrintDevice(CgUpnpDevice *dev, int indent)
+void PrintDevice(mUpnpUpnpDevice *dev, int indent)
 {
-	CgUpnpDevice *childDev;
+	mUpnpUpnpDevice *childDev;
 	
 	PrintDeviceInfo(dev, indent);
 
@@ -164,9 +164,9 @@ void PrintDevice(CgUpnpDevice *dev, int indent)
 }
 
 
-void PrintControlPointDevice(CgUpnpControlPoint *ctrlPoint)
+void PrintControlPointDevice(mUpnpUpnpControlPoint *ctrlPoint)
 {
-	CgUpnpDevice *dev;
+	mUpnpUpnpDevice *dev;
 	int devCnt;
 		
 	printf("Device Num = %d\n", mupnp_upnp_controlpoint_getndevices(ctrlPoint));
@@ -182,9 +182,9 @@ void PrintControlPointDevice(CgUpnpControlPoint *ctrlPoint)
 // Select*
 /////////////////////////////////////////////////////////////////////////////////
 
-CgUpnpDevice *SelectDevice(CgUpnpControlPoint *ctrlPoint)
+mUpnpUpnpDevice *SelectDevice(mUpnpUpnpControlPoint *ctrlPoint)
 {
-	CgUpnpDevice *dev;
+	mUpnpUpnpDevice *dev;
 	int n;
 	char key;
 	int devNum;
@@ -215,9 +215,9 @@ CgUpnpDevice *SelectDevice(CgUpnpControlPoint *ctrlPoint)
 	return dev;
 }
 
-CgUpnpService *SelectService(CgUpnpDevice *dev)
+mUpnpUpnpService *SelectService(mUpnpUpnpDevice *dev)
 {
-	CgUpnpService *service;
+	mUpnpUpnpService *service;
 	int n;
 	char key;
 	int serviceNum;
@@ -246,9 +246,9 @@ CgUpnpService *SelectService(CgUpnpDevice *dev)
 	return service;
 }
 
-CgUpnpAction *SelectAction(CgUpnpService *service)
+mUpnpUpnpAction *SelectAction(mUpnpUpnpService *service)
 {
-	CgUpnpAction *action;
+	mUpnpUpnpAction *action;
 	int n;
 	char key;
 	int actionNum;
@@ -277,9 +277,9 @@ CgUpnpAction *SelectAction(CgUpnpService *service)
 	return action;
 }
 
-CgUpnpStateVariable *SelectStateVariable(CgUpnpService *service)
+mUpnpUpnpStateVariable *SelectStateVariable(mUpnpUpnpService *service)
 {
-	CgUpnpStateVariable *stateVar;
+	mUpnpUpnpStateVariable *stateVar;
 	int n;
 	char key;
 	int serviceNum;
@@ -314,18 +314,18 @@ CgUpnpStateVariable *SelectStateVariable(CgUpnpService *service)
 
 #if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
 
-void ControlDevice(CgUpnpControlPoint *ctrlPoint)
+void ControlDevice(mUpnpUpnpControlPoint *ctrlPoint)
 {
 	ControlDeviceAlter(ctrlPoint, CMD_NO_ALTERATIONS);
 }
 
-void ControlDeviceAlter(CgUpnpControlPoint *ctrlPoint, int alteration_mask)
+void ControlDeviceAlter(mUpnpUpnpControlPoint *ctrlPoint, int alteration_mask)
 {
-	CgUpnpDevice *selDev;
-	CgUpnpService *selService;
-	CgUpnpAction *selAction;
+	mUpnpUpnpDevice *selDev;
+	mUpnpUpnpService *selService;
+	mUpnpUpnpAction *selAction;
 	BOOL actionSuccess;
-	CgUpnpArgument *arg;
+	mUpnpUpnpArgument *arg;
 	char argValue[2048];
 	
 	printf("Control Device\n");
@@ -400,11 +400,11 @@ void ControlDeviceAlter(CgUpnpControlPoint *ctrlPoint, int alteration_mask)
 
 #if !defined(CG_UPNP_NOUSE_QUERYCTRL)
 
-void QueryDevice(CgUpnpControlPoint *ctrlPoint)
+void QueryDevice(mUpnpUpnpControlPoint *ctrlPoint)
 {
-	CgUpnpDevice *selDev;
-	CgUpnpService *selService;
-	CgUpnpStateVariable *selStateVar;
+	mUpnpUpnpDevice *selDev;
+	mUpnpUpnpService *selService;
+	mUpnpUpnpStateVariable *selStateVar;
 	BOOL querySuccess;
 	char *stateValue;
 	
@@ -437,10 +437,10 @@ void QueryDevice(CgUpnpControlPoint *ctrlPoint)
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 
-void SubscribeService(CgUpnpControlPoint *ctrlPoint)
+void SubscribeService(mUpnpUpnpControlPoint *ctrlPoint)
 {
-	CgUpnpDevice *selDev;
-	CgUpnpService *selService;
+	mUpnpUpnpDevice *selDev;
+	mUpnpUpnpService *selService;
 	BOOL subSuccess;
 	
 	printf("Subscribe Device\n");
@@ -475,10 +475,10 @@ void SubscribeService(CgUpnpControlPoint *ctrlPoint)
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 
-void UnsubscribeService(CgUpnpControlPoint *ctrlPoint)
+void UnsubscribeService(mUpnpUpnpControlPoint *ctrlPoint)
 {
-	CgUpnpDevice *selDev;
-	CgUpnpService *selService;
+	mUpnpUpnpDevice *selDev;
+	mUpnpUpnpService *selService;
 	BOOL subSuccess;
 	
 	printf("Query Device\n");
@@ -502,7 +502,7 @@ void UnsubscribeService(CgUpnpControlPoint *ctrlPoint)
 // Set MX value
 /////////////////////////////////////////////////////////////////////////////////
 
-void SetMXValue(CgUpnpControlPoint *ctrlPoint)
+void SetMXValue(mUpnpUpnpControlPoint *ctrlPoint)
 {
         unsigned int mxValue;
 
@@ -518,7 +518,7 @@ void SetMXValue(CgUpnpControlPoint *ctrlPoint)
 // Event
 /////////////////////////////////////////////////////////////////////////////////
 
-void EventListener(CgUpnpProperty *prop)
+void EventListener(mUpnpUpnpProperty *prop)
 {
 	printf("Property Changed (%s) = %s\n",
 		mupnp_upnp_property_getname(prop),
@@ -535,7 +535,7 @@ MBEG
 int main( int argc, char* argv[] )
 #endif
 {
-	CgUpnpControlPoint *ctrlPoint;
+	mUpnpUpnpControlPoint *ctrlPoint;
 	int key;
 	
 	ctrlPoint = mupnp_upnp_controlpoint_new();

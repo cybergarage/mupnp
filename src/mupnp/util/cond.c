@@ -33,13 +33,13 @@
 * mupnp_cond_new
 ****************************************/
 
-CgCond *mupnp_cond_new()
+mUpnpCond *mupnp_cond_new()
 {
-	CgCond *cond;
+	mUpnpCond *cond;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	cond = (CgCond *)malloc(sizeof(CgCond));
+	cond = (mUpnpCond *)malloc(sizeof(mUpnpCond));
 
 	if ( NULL != cond )
 	{
@@ -67,7 +67,7 @@ CgCond *mupnp_cond_new()
 * mupnp_cond_delete
 ****************************************/
 
-BOOL mupnp_cond_delete(CgCond *cond)
+BOOL mupnp_cond_delete(mUpnpCond *cond)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -95,7 +95,7 @@ BOOL mupnp_cond_delete(CgCond *cond)
 * mupnp_cond_lock
 ****************************************/
 
-BOOL mupnp_cond_wait(CgCond *cond, CgMutex *mutex, unsigned long timeout)
+BOOL mupnp_cond_wait(mUpnpCond *cond, mUpnpMutex *mutex, unsigned long timeout)
 {
 #if defined(WIN32) && !defined(ITRON)
 	DWORD timeout_s = (timeout == 0 ? INFINITE : timeout);
@@ -136,7 +136,7 @@ BOOL mupnp_cond_wait(CgCond *cond, CgMutex *mutex, unsigned long timeout)
 * mupnp_cond_unlock
 ****************************************/
 
-BOOL mupnp_cond_signal(CgCond *cond)
+BOOL mupnp_cond_signal(mUpnpCond *cond)
 {
 	BOOL success = FALSE;
 

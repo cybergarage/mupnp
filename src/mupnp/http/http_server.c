@@ -40,17 +40,17 @@
 * mupnp_http_server_new
 ****************************************/
 
-CgHttpServer *mupnp_http_server_new()
+mUpnpHttpServer *mupnp_http_server_new()
 {
-	CgHttpServer *httpServer;
+	mUpnpHttpServer *httpServer;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	httpServer = (CgHttpServer *)malloc(sizeof(CgHttpServer));
+	httpServer = (mUpnpHttpServer *)malloc(sizeof(mUpnpHttpServer));
 
 	if ( NULL != httpServer )
 	{
-		mupnp_list_node_init((CgList *)httpServer);
+		mupnp_list_node_init((mUpnpList *)httpServer);
 
 		httpServer->sock = NULL;
 		httpServer->acceptThread = NULL;
@@ -76,7 +76,7 @@ CgHttpServer *mupnp_http_server_new()
 * mupnp_http_server_delete
 ****************************************/
 
-void mupnp_http_server_delete(CgHttpServer *httpServer)
+void mupnp_http_server_delete(mUpnpHttpServer *httpServer)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -86,7 +86,7 @@ void mupnp_http_server_delete(CgHttpServer *httpServer)
 	if (httpServer->mutex)
 		mupnp_mutex_delete(httpServer->mutex);
 
-	mupnp_list_remove((CgList *)httpServer);
+	mupnp_list_remove((mUpnpList *)httpServer);
 
 	free(httpServer);
 
@@ -97,7 +97,7 @@ void mupnp_http_server_delete(CgHttpServer *httpServer)
 * mupnp_http_server_delete
 ****************************************/
 
-BOOL mupnp_http_server_open(CgHttpServer *httpServer, int bindPort, const char *bindAddr)
+BOOL mupnp_http_server_open(mUpnpHttpServer *httpServer, int bindPort, const char *bindAddr)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -125,7 +125,7 @@ BOOL mupnp_http_server_open(CgHttpServer *httpServer, int bindPort, const char *
 * mupnp_http_server_delete
 ****************************************/
 
-BOOL mupnp_http_server_close(CgHttpServer *httpServer)
+BOOL mupnp_http_server_close(mUpnpHttpServer *httpServer)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -146,18 +146,18 @@ BOOL mupnp_http_server_close(CgHttpServer *httpServer)
 * mupnp_http_server_thread
 ****************************************/
 
-typedef struct _CgHttpServerClientData {
-	CgSocket *clientSock;
-	CgHttpServer *httpServer;
-} CgHttpServerClientData;
+typedef struct _mUpnpHttpServerClientData {
+	mUpnpSocket *clientSock;
+	mUpnpHttpServer *httpServer;
+} mUpnpHttpServerClientData;
 
-static CgHttpServerClientData *mupnp_http_server_clientdata_new(CgHttpServer *httpServer, CgSocket *clientSock)
+static mUpnpHttpServerClientData *mupnp_http_server_clientdata_new(mUpnpHttpServer *httpServer, mUpnpSocket *clientSock)
 {
-	CgHttpServerClientData *clientData;
+	mUpnpHttpServerClientData *clientData;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	clientData = (CgHttpServerClientData *)malloc(sizeof(CgHttpServerClientData));
+	clientData = (mUpnpHttpServerClientData *)malloc(sizeof(mUpnpHttpServerClientData));
 
 	if ( NULL != clientData )
 	{
@@ -170,7 +170,7 @@ static CgHttpServerClientData *mupnp_http_server_clientdata_new(CgHttpServer *ht
 	return clientData;
 }
 
-static void mupnp_http_server_clientdata_delete(CgHttpServerClientData *clientData)
+static void mupnp_http_server_clientdata_delete(mUpnpHttpServerClientData *clientData)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -179,18 +179,18 @@ static void mupnp_http_server_clientdata_delete(CgHttpServerClientData *clientDa
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_http_server_clientthread(CgThread *thread)
+static void mupnp_http_server_clientthread(mUpnpThread *thread)
 {
-	CgHttpServerClientData *clientData;
-	CgHttpServer *httpServer;
-	CgSocket *clientSock;
+	mUpnpHttpServerClientData *clientData;
+	mUpnpHttpServer *httpServer;
+	mUpnpSocket *clientSock;
 	void *httpServerUserData;
-	CgHttpRequest *httpReq;
+	mUpnpHttpRequest *httpReq;
 	char *version = NULL;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	clientData = (CgHttpServerClientData *)mupnp_thread_getuserdata(thread);
+	clientData = (mUpnpHttpServerClientData *)mupnp_thread_getuserdata(thread);
 	httpServer = clientData->httpServer;
 	clientSock = clientData->clientSock;
 	httpServerUserData = mupnp_http_server_getuserdata(httpServer);
@@ -255,17 +255,17 @@ static void mupnp_http_server_clientthread(CgThread *thread)
 * mupnp_http_server_thread
 ****************************************/
 
-static void mupnp_http_server_thread(CgThread *thread)
+static void mupnp_http_server_thread(mUpnpThread *thread)
 {
-	CgHttpServer *httpServer;
-	CgThread *httpClientThread;
-	CgHttpServerClientData *clientData;
-	CgSocket *serverSock;
-	CgSocket *clientSock;
+	mUpnpHttpServer *httpServer;
+	mUpnpThread *httpClientThread;
+	mUpnpHttpServerClientData *clientData;
+	mUpnpSocket *serverSock;
+	mUpnpSocket *clientSock;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	httpServer = (CgHttpServer *)mupnp_thread_getuserdata(thread);
+	httpServer = (mUpnpHttpServer *)mupnp_thread_getuserdata(thread);
 
 	if (mupnp_http_server_isopened(httpServer) == FALSE)
 		return;
@@ -299,7 +299,7 @@ static void mupnp_http_server_thread(CgThread *thread)
 * mupnp_http_server_start
 ****************************************/
 
-BOOL mupnp_http_server_start(CgHttpServer *httpServer)
+BOOL mupnp_http_server_start(mUpnpHttpServer *httpServer)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -333,7 +333,7 @@ BOOL mupnp_http_server_start(CgHttpServer *httpServer)
 * mupnp_http_server_stop
 ****************************************/
 
-BOOL mupnp_http_server_stop(CgHttpServer *httpServer)
+BOOL mupnp_http_server_stop(mUpnpHttpServer *httpServer)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -358,7 +358,7 @@ BOOL mupnp_http_server_stop(CgHttpServer *httpServer)
 * mupnp_http_server_setlistener
 ****************************************/
 
-void mupnp_http_server_setlistener(CgHttpServer *httpServer, CG_HTTP_LISTENER listener)
+void mupnp_http_server_setlistener(mUpnpHttpServer *httpServer, CG_HTTP_LISTENER listener)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

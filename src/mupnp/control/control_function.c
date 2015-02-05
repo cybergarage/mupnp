@@ -73,10 +73,10 @@ const char *mupnp_upnp_usn_getudn(const char *usn, char *udnBuf, size_t udnBufLe
 * mupnp_upnp_control_soap_response_initializeenvelopenode
 ****************************************/
 
-void mupnp_upnp_control_soap_response_initializeenvelopenode(CgSoapResponse *soapRes)
+void mupnp_upnp_control_soap_response_initializeenvelopenode(mUpnpSoapResponse *soapRes)
 {
-	CgXmlNodeList *rootNodeList;
-	CgHttpResponse *httpRes;
+	mUpnpXmlNodeList *rootNodeList;
+	mUpnpHttpResponse *httpRes;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -93,10 +93,10 @@ void mupnp_upnp_control_soap_response_initializeenvelopenode(CgSoapResponse *soa
 * mupnp_upnp_control_soap_request_initializeenvelopenode
 ****************************************/
 
-void mupnp_upnp_control_soap_request_initializeenvelopenode(CgSoapRequest *soapReq)
+void mupnp_upnp_control_soap_request_initializeenvelopenode(mUpnpSoapRequest *soapReq)
 {
-	CgXmlNodeList *rootNodeList;
-	CgHttpRequest *httpReq;
+	mUpnpXmlNodeList *rootNodeList;
+	mUpnpHttpRequest *httpReq;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -113,15 +113,15 @@ void mupnp_upnp_control_soap_request_initializeenvelopenode(CgSoapRequest *soapR
 * mupnp_upnp_control_soap_response_createfaultresponsenode
 ****************************************/
 
-CgXmlNode *mupnp_upnp_control_soap_response_createfaultresponsenode(int errCode, char *errDescr)
+mUpnpXmlNode *mupnp_upnp_control_soap_response_createfaultresponsenode(int errCode, char *errDescr)
 {
-	CgXmlNode *faultNode;
-	CgXmlNode *faultCodeNode;
-	CgXmlNode *faultStringNode;
-	CgXmlNode *detailNode;
-	CgXmlNode *upnpErrorNode;
-	CgXmlNode *errorCodeNode;
-	CgXmlNode *errorDesctiprionNode;
+	mUpnpXmlNode *faultNode;
+	mUpnpXmlNode *faultCodeNode;
+	mUpnpXmlNode *faultStringNode;
+	mUpnpXmlNode *detailNode;
+	mUpnpXmlNode *upnpErrorNode;
+	mUpnpXmlNode *errorCodeNode;
+	mUpnpXmlNode *errorDesctiprionNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -175,12 +175,12 @@ CgXmlNode *mupnp_upnp_control_soap_response_createfaultresponsenode(int errCode,
 * mupnp_upnp_control_soap_response_setfaultresponse
 ****************************************/
 
-void mupnp_upnp_control_soap_response_setfaultresponse(CgSoapResponse *soapRes, int errCode, char *errDescr)
+void mupnp_upnp_control_soap_response_setfaultresponse(mUpnpSoapResponse *soapRes, int errCode, char *errDescr)
 {
-	CgHttpResponse *httpRes;
-	CgXmlNode *bodyNode;
-	CgXmlNode *faultNode;
-	CgXmlNode *envNode;
+	mUpnpHttpResponse *httpRes;
+	mUpnpXmlNode *bodyNode;
+	mUpnpXmlNode *faultNode;
+	mUpnpXmlNode *envNode;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -203,10 +203,10 @@ void mupnp_upnp_control_soap_response_setfaultresponse(CgSoapResponse *soapRes, 
 * mupnp_upnp_control_request_sethostfromservice
 ****************************************/
 
-void mupnp_upnp_control_request_sethostfromservice(CgSoapRequest *soapReq, CgUpnpService *service)
+void mupnp_upnp_control_request_sethostfromservice(mUpnpSoapRequest *soapReq, mUpnpUpnpService *service)
 {
-	CgHttpRequest *httpReq;
-	CgNetURL *ctrlURL;
+	mUpnpHttpRequest *httpReq;
+	mUpnpNetURL *ctrlURL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

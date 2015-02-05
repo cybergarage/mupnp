@@ -30,7 +30,7 @@
 *	01/16/07 Aapo Makela
 *		- Added URI escaping and unescaping functions
 *	03/20/07
-*		- Added a parameter, CgString, to return the result safety and the implementation without curl for the following functions.
+*		- Added a parameter, mUpnpString, to return the result safety and the implementation without curl for the following functions.
 *		  mupnp_net_uri_unescapestring() and mupnp_net_uri_escapestring().
 *		- Added a define, CG_USE_NET_URI_ESCAPESTRING_SKIP,in mupnp_net_uri_escapestring() and disabled the function not to skip only the first path.
 *		-Changed mupnp_upnp_device_httprequestrecieved() using the new mupnp_net_uri_unescapestring().
@@ -58,13 +58,13 @@
 * mupnp_net_uri_new
 ****************************************/
 
-CgNetURI *mupnp_net_uri_new()
+mUpnpNetURI *mupnp_net_uri_new()
 {
-	CgNetURI *uri;
+	mUpnpNetURI *uri;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	uri = (CgNetURI *)malloc(sizeof(CgNetURI));
+	uri = (mUpnpNetURI *)malloc(sizeof(mUpnpNetURI));
 
 	if  (NULL != uri)
 	{
@@ -93,7 +93,7 @@ CgNetURI *mupnp_net_uri_new()
 * mupnp_net_uri_delete
 ****************************************/
 
-void mupnp_net_uri_delete(CgNetURI *uri)
+void mupnp_net_uri_delete(mUpnpNetURI *uri)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -120,7 +120,7 @@ void mupnp_net_uri_delete(CgNetURI *uri)
 * mupnp_net_uri_clear
 ****************************************/
 
-void mupnp_net_uri_clear(CgNetURI *uri)
+void mupnp_net_uri_clear(mUpnpNetURI *uri)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -146,7 +146,7 @@ void mupnp_net_uri_clear(CgNetURI *uri)
 * mupnp_net_uri_set
 ****************************************/
 
-void mupnp_net_uri_setvalue(CgNetURI *uri, const char *value)
+void mupnp_net_uri_setvalue(mUpnpNetURI *uri, const char *value)
 {
 	char *protocol;
 	size_t uriLen;
@@ -157,8 +157,8 @@ void mupnp_net_uri_setvalue(CgNetURI *uri, const char *value)
 	ssize_t shashIdx;
 	char *host;
 	ssize_t eblacketIdx;
-	CgString *hostStr;
-	CgString *portStr;
+	mUpnpString *hostStr;
+	mUpnpString *portStr;
 	size_t hostLen;
 	ssize_t sharpIdx;
 	ssize_t questionIdx;
@@ -267,7 +267,7 @@ void mupnp_net_uri_setvalue(CgNetURI *uri, const char *value)
  * mupnp_net_uri_rebuild
  ****************************************/
 
-void mupnp_net_uri_rebuild(CgNetURI *uri)
+void mupnp_net_uri_rebuild(mUpnpNetURI *uri)
 {
 	char portStr[32];
 	char *path;
@@ -297,7 +297,7 @@ void mupnp_net_uri_rebuild(CgNetURI *uri)
  * mupnp_net_uri_getvalue
  ****************************************/
 
-const char *mupnp_net_uri_getvalue(CgNetURI *uri)
+const char *mupnp_net_uri_getvalue(mUpnpNetURI *uri)
 {
 	mupnp_net_uri_rebuild(uri);
 	return mupnp_string_getvalue(uri->uri);
@@ -307,7 +307,7 @@ const char *mupnp_net_uri_getvalue(CgNetURI *uri)
 * mupnp_net_uri_getrequest
 ****************************************/
 
-char *mupnp_net_uri_getrequest(CgNetURI *uri)
+char *mupnp_net_uri_getrequest(mUpnpNetURI *uri)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -333,7 +333,7 @@ char *mupnp_net_uri_getrequest(CgNetURI *uri)
 
 BOOL mupnp_net_uri_isequivalent(const char *url, const char *relative_url)
 {
-	CgNetURI *u;
+	mUpnpNetURI *u;
 	char *path;
 	BOOL ret;
 
@@ -384,7 +384,7 @@ BOOL mupnp_net_uri_isescapedstring(char *buf, size_t bufSize)
 * mupnp_net_uri_unescapestring
 ****************************************/
 
-char *mupnp_net_uri_escapestring(char *buf, size_t bufSize, CgString *retBuf)
+char *mupnp_net_uri_escapestring(char *buf, size_t bufSize, mUpnpString *retBuf)
 {
 #if defined(CG_HTTP_CURL)
 	char *tmp;
@@ -437,7 +437,7 @@ char *mupnp_net_uri_escapestring(char *buf, size_t bufSize, CgString *retBuf)
 * mupnp_net_uri_escapestring
 ****************************************/
 
-char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, CgString *retBuf)
+char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, mUpnpString *retBuf)
 {
 #if defined(CG_HTTP_CURL)
 	char *tmp;
@@ -511,7 +511,7 @@ char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, CgString *retBuf)
 * mupnp_net_uri_getupnpbasepath
 ****************************************/
 
-char *mupnp_net_uri_getupnpbasepath(CgNetURI *locationURL)
+char *mupnp_net_uri_getupnpbasepath(mUpnpNetURI *locationURL)
 {
   char *path, *c;
   ssize_t i;
@@ -598,13 +598,13 @@ BOOL mupnp_net_uri_isescapechar(char c)
 * mupnp_net_uri_getquerydictionary
 ****************************************/
 
-CgDictionary *mupnp_net_uri_getquerydictionary(CgNetURI *uri)
+mUpnpDictionary *mupnp_net_uri_getquerydictionary(mUpnpNetURI *uri)
 {
 	char *query;
 	size_t queryOffset;
 	ssize_t eqIdx, ampIdx;
-	CgString *paramName;
-	CgString *paramValue;
+	mUpnpString *paramName;
+	mUpnpString *paramValue;
 
 	if (NULL == uri->queryDictionary)
 		uri->queryDictionary = mupnp_dictionary_new();

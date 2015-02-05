@@ -34,39 +34,39 @@
 * prototype define for static functions
 ****************************************/
 
-static BOOL mupnp_upnp_device_ispresentationrequest(CgUpnpDevice *dev, CgHttpRequest *httpReq);
-static void mupnp_upnp_device_getrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq);
-static void mupnp_upnp_device_postrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq);
-static void mupnp_upnp_device_soapactionrecieved(CgUpnpDevice *dev, CgSoapRequest *soapReq);
+static BOOL mupnp_upnp_device_ispresentationrequest(mUpnpUpnpDevice *dev, mUpnpHttpRequest *httpReq);
+static void mupnp_upnp_device_getrequestrecieved(mUpnpUpnpDevice *dev, mUpnpHttpRequest *httpReq);
+static void mupnp_upnp_device_postrequestrecieved(mUpnpUpnpDevice *dev, mUpnpHttpRequest *httpReq);
+static void mupnp_upnp_device_soapactionrecieved(mUpnpUpnpDevice *dev, mUpnpSoapRequest *soapReq);
 
-static void mupnp_upnp_device_controlrequestrecieved(CgUpnpService *service, CgSoapRequest *soapReq);
+static void mupnp_upnp_device_controlrequestrecieved(mUpnpUpnpService *service, mUpnpSoapRequest *soapReq);
 #if !defined(CG_UPNP_NOUSE_ACTIONCTRL)
-static void mupnp_upnp_device_actioncontrolrequestrecieved(CgUpnpService *service, CgUpnpActionRequest *actionReq);
+static void mupnp_upnp_device_actioncontrolrequestrecieved(mUpnpUpnpService *service, mUpnpUpnpActionRequest *actionReq);
 #endif
 #if !defined(CG_UPNP_NOUSE_QUERYCTRL)
-static void mupnp_upnp_device_querycontrolrequestrecieved(CgUpnpService *service, CgUpnpQueryRequest *queryReq);
+static void mupnp_upnp_device_querycontrolrequestrecieved(mUpnpUpnpService *service, mUpnpUpnpQueryRequest *queryReq);
 #endif
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
-static void mupnp_upnp_device_subscriptionrecieved(CgUpnpDevice *dev, CgUpnpSubscriptionRequest *subReq);
-static void mupnp_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq);
-static void mupnp_upnp_device_renewsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq);
-static void mupnp_upnp_device_unsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq);
+static void mupnp_upnp_device_subscriptionrecieved(mUpnpUpnpDevice *dev, mUpnpUpnpSubscriptionRequest *subReq);
+static void mupnp_upnp_device_newsubscriptionrecieved(mUpnpUpnpService *service, mUpnpUpnpSubscriptionRequest *subReq);
+static void mupnp_upnp_device_renewsubscriptionrecieved(mUpnpUpnpService *service, mUpnpUpnpSubscriptionRequest *subReq);
+static void mupnp_upnp_device_unsubscriptionrecieved(mUpnpUpnpService *service, mUpnpUpnpSubscriptionRequest *subReq);
 #endif
 
 /****************************************
 * mupnp_upnp_device_httprequestrecieved
 ****************************************/
 
-void mupnp_upnp_device_httprequestrecieved(CgHttpRequest *httpReq)
+void mupnp_upnp_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 {
-	CgUpnpDevice *dev;
-	CgString *unescapedUrl;
+	mUpnpUpnpDevice *dev;
+	mUpnpString *unescapedUrl;
 	char *url;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	dev = (CgUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
+	dev = (mUpnpUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
 	
 	/* Unescape URI */
 	url = mupnp_http_request_geturi(httpReq);
@@ -113,7 +113,7 @@ void mupnp_upnp_device_httprequestrecieved(CgHttpRequest *httpReq)
  * mupnp_upnp_device_ispresentationrequest
  ****************************************/
 
-static BOOL mupnp_upnp_device_ispresentationrequest(CgUpnpDevice *dev, CgHttpRequest *httpReq)
+static BOOL mupnp_upnp_device_ispresentationrequest(mUpnpUpnpDevice *dev, mUpnpHttpRequest *httpReq)
 {
   const char *presentationURL;
   const char *requestURI;
@@ -143,10 +143,10 @@ static BOOL mupnp_upnp_device_ispresentationrequest(CgUpnpDevice *dev, CgHttpReq
 * mupnp_upnp_device_updateurlbase
 ****************************************/
 
-void mupnp_upnp_device_seturlbase(CgUpnpDevice *dev, char *value)
+void mupnp_upnp_device_seturlbase(mUpnpUpnpDevice *dev, char *value)
 {
-	CgXmlNode *rootNode;
-	CgXmlNode *node;
+	mUpnpXmlNode *rootNode;
+	mUpnpXmlNode *node;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -172,7 +172,7 @@ void mupnp_upnp_device_seturlbase(CgUpnpDevice *dev, char *value)
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_upnp_device_updateurlbase(CgUpnpDevice *dev, char *host)
+static void mupnp_upnp_device_updateurlbase(mUpnpUpnpDevice *dev, char *host)
 {
 	char urlBase[CG_UPNP_DEVICE_URLBASE_MAXLEN];
 
@@ -184,9 +184,9 @@ static void mupnp_upnp_device_updateurlbase(CgUpnpDevice *dev, char *host)
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static char *mupnp_upnp_device_getdescription(CgUpnpDevice *dev, char *ifAddr, CgString *descStr)
+static char *mupnp_upnp_device_getdescription(mUpnpUpnpDevice *dev, char *ifAddr, mUpnpString *descStr)
 {
-	CgXmlNode *rootNode;
+	mUpnpXmlNode *rootNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -210,14 +210,14 @@ static char *mupnp_upnp_device_getdescription(CgUpnpDevice *dev, char *ifAddr, C
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_upnp_device_getrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq)
+static void mupnp_upnp_device_getrequestrecieved(mUpnpUpnpDevice *dev, mUpnpHttpRequest *httpReq)
 {
-	CgString *descStr;
+	mUpnpString *descStr;
 	char *url;
 	char *ifAddr;
-	CgUpnpService *embService;
-	CgUpnpDevice *embDev;
-	CgHttpResponse *httpRes;
+	mUpnpUpnpService *embService;
+	mUpnpUpnpDevice *embDev;
+	mUpnpHttpResponse *httpRes;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -268,9 +268,9 @@ static void mupnp_upnp_device_getrequestrecieved(CgUpnpDevice *dev, CgHttpReques
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_upnp_device_postrequestrecieved(CgUpnpDevice *dev, CgHttpRequest *httpReq)
+static void mupnp_upnp_device_postrequestrecieved(mUpnpUpnpDevice *dev, mUpnpHttpRequest *httpReq)
 {
-	CgSoapRequest *soapReq;
+	mUpnpSoapRequest *soapReq;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -293,7 +293,7 @@ static void mupnp_upnp_device_postrequestrecieved(CgUpnpDevice *dev, CgHttpReque
 *
 ****************************************/
 
-static void mupnp_upnp_device_badsoapactionrecieved(CgHttpRequest *httpReq)
+static void mupnp_upnp_device_badsoapactionrecieved(mUpnpHttpRequest *httpReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -302,11 +302,11 @@ static void mupnp_upnp_device_badsoapactionrecieved(CgHttpRequest *httpReq)
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_upnp_device_invalidcontrolrecieved(CgSoapRequest *soapReq, int code)
+static void mupnp_upnp_device_invalidcontrolrecieved(mUpnpSoapRequest *soapReq, int code)
 {
-	CgHttpRequest *httpReq;
-	CgSoapResponse *soapRes;
-	CgHttpResponse *httpRes;
+	mUpnpHttpRequest *httpReq;
+	mUpnpSoapResponse *soapRes;
+	mUpnpHttpResponse *httpRes;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -321,10 +321,10 @@ static void mupnp_upnp_device_invalidcontrolrecieved(CgSoapRequest *soapReq, int
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_upnp_device_soapactionrecieved(CgUpnpDevice *dev, CgSoapRequest *soapReq)
+static void mupnp_upnp_device_soapactionrecieved(mUpnpUpnpDevice *dev, mUpnpSoapRequest *soapReq)
 {
-	CgHttpRequest *httpReq;
-	CgUpnpService *ctrlService;
+	mUpnpHttpRequest *httpReq;
+	mUpnpUpnpService *ctrlService;
 	char *url;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -345,11 +345,11 @@ static void mupnp_upnp_device_soapactionrecieved(CgUpnpDevice *dev, CgSoapReques
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_upnp_device_controlrequestrecieved(CgUpnpService *service, CgSoapRequest *soapReq)
+static void mupnp_upnp_device_controlrequestrecieved(mUpnpUpnpService *service, mUpnpSoapRequest *soapReq)
 {
-	CgHttpRequest *httpReq;
-	CgUpnpActionRequest *actionReq;
-	CgUpnpQueryRequest *queryReq;
+	mUpnpHttpRequest *httpReq;
+	mUpnpUpnpActionRequest *actionReq;
+	mUpnpUpnpQueryRequest *queryReq;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -390,12 +390,12 @@ static void mupnp_upnp_device_controlrequestrecieved(CgUpnpService *service, CgS
 
 #define mupnp_upnp_device_invalidactioncontrolrecieved(actionReq) mupnp_upnp_device_invalidcontrolrecieved(mupnp_upnp_control_action_request_getsoaprequest(actionReq), CG_UPNP_STATUS_INVALID_ACTION)
 
-static void mupnp_upnp_device_actioncontrolrequestrecieved(CgUpnpService *service, CgUpnpActionRequest *actionReq)
+static void mupnp_upnp_device_actioncontrolrequestrecieved(mUpnpUpnpService *service, mUpnpUpnpActionRequest *actionReq)
 {
 	char *actionName;
-	CgUpnpAction *action;
-	CgUpnpArgumentList *actionArgList;
-	CgUpnpArgumentList *actionReqArgList;
+	mUpnpUpnpAction *action;
+	mUpnpUpnpArgumentList *actionArgList;
+	mUpnpUpnpArgumentList *actionReqArgList;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -427,10 +427,10 @@ static void mupnp_upnp_device_actioncontrolrequestrecieved(CgUpnpService *servic
 
 #define mupnp_upnp_device_invalidquerycontrolrecieved(queryReq) mupnp_upnp_device_invalidcontrolrecieved(mupnp_upnp_control_query_request_getsoaprequest(queryReq), CG_UPNP_STATUS_INVALID_VAR)
 
-static void mupnp_upnp_device_querycontrolrequestrecieved(CgUpnpService *service, CgUpnpQueryRequest *queryReq)
+static void mupnp_upnp_device_querycontrolrequestrecieved(mUpnpUpnpService *service, mUpnpUpnpQueryRequest *queryReq)
 {
 	char *varName;
-	CgUpnpStateVariable *stateVar;
+	mUpnpUpnpStateVariable *stateVar;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -457,9 +457,9 @@ static void mupnp_upnp_device_querycontrolrequestrecieved(CgUpnpService *service
 
 #if !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 
-static void mupnp_upnp_device_badsubscriptionrecieved(CgUpnpSubscriptionRequest *subReq, int code)
+static void mupnp_upnp_device_badsubscriptionrecieved(mUpnpUpnpSubscriptionRequest *subReq, int code)
 {
-	CgUpnpSubscriptionResponse *subRes;
+	mUpnpUpnpSubscriptionResponse *subRes;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -471,10 +471,10 @@ static void mupnp_upnp_device_badsubscriptionrecieved(CgUpnpSubscriptionRequest 
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_upnp_device_subscriptionrecieved(CgUpnpDevice *dev, CgUpnpSubscriptionRequest *subReq)
+static void mupnp_upnp_device_subscriptionrecieved(mUpnpUpnpDevice *dev, mUpnpUpnpSubscriptionRequest *subReq)
 {
 	char *uri;
-	CgUpnpService *service;
+	mUpnpUpnpService *service;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -536,14 +536,14 @@ static void mupnp_upnp_device_subscriptionrecieved(CgUpnpDevice *dev, CgUpnpSubs
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_upnp_device_newsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
+static void mupnp_upnp_device_newsubscriptionrecieved(mUpnpUpnpService *service, mUpnpUpnpSubscriptionRequest *subReq)
 {
 	char *callback;
 	char *aux;
-	CgTime timeout;
+	mUpnpTime timeout;
 	char sid[CG_UPNP_SUBSCRIPTION_SID_SIZE];
-	CgUpnpSubscriber *sub;
-	CgUpnpSubscriptionResponse *subRes;
+	mUpnpUpnpSubscriber *sub;
+	mUpnpUpnpSubscriptionResponse *subRes;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -585,12 +585,12 @@ static void mupnp_upnp_device_newsubscriptionrecieved(CgUpnpService *service, Cg
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_upnp_device_renewsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
+static void mupnp_upnp_device_renewsubscriptionrecieved(mUpnpUpnpService *service, mUpnpUpnpSubscriptionRequest *subReq)
 {
-	CgUpnpSubscriber *sub;
+	mUpnpUpnpSubscriber *sub;
 	const char *sid;
 	long timeout;
-	CgUpnpSubscriptionResponse *subRes;
+	mUpnpUpnpSubscriptionResponse *subRes;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -626,11 +626,11 @@ static void mupnp_upnp_device_renewsubscriptionrecieved(CgUpnpService *service, 
 	mupnp_log_debug_l4("Leaving...\n");
 }		
 
-static void mupnp_upnp_device_unsubscriptionrecieved(CgUpnpService *service, CgUpnpSubscriptionRequest *subReq)
+static void mupnp_upnp_device_unsubscriptionrecieved(mUpnpUpnpService *service, mUpnpUpnpSubscriptionRequest *subReq)
 {
-	CgUpnpSubscriber *sub;
+	mUpnpUpnpSubscriber *sub;
 	const char *sid;
-	CgUpnpSubscriptionResponse *subRes;
+	mUpnpUpnpSubscriptionResponse *subRes;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

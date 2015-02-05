@@ -38,15 +38,15 @@
 
 #if !defined(CG_UPNP_NOUSE_CONTROLPOINT) && !defined(CG_UPNP_NOUSE_SUBSCRIPTION)
 
-CgUpnpService *mupnp_upnp_device_getfirstexpiratedservice(CgUpnpControlPoint *ctrlPoint,
-						       CgUpnpDevice *dev, 
-						       CgTime expirationTime)
+mUpnpUpnpService *mupnp_upnp_device_getfirstexpiratedservice(mUpnpUpnpControlPoint *ctrlPoint,
+						       mUpnpUpnpDevice *dev, 
+						       mUpnpTime expirationTime)
 {
-	CgUpnpDevice *childDev = NULL;
-	CgUpnpService *srv = NULL;
-	CgUpnpService *found_srv = NULL;
-	CgTime tmpTime;
-	CgTime currTime;
+	mUpnpUpnpDevice *childDev = NULL;
+	mUpnpUpnpService *srv = NULL;
+	mUpnpUpnpService *found_srv = NULL;
+	mUpnpTime tmpTime;
+	mUpnpTime currTime;
 	long timeout;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -103,20 +103,20 @@ CgUpnpService *mupnp_upnp_device_getfirstexpiratedservice(CgUpnpControlPoint *ct
 }
 
 
-void mupnp_upnp_controlpoint_expirationhandler(CgThread *thread)
+void mupnp_upnp_controlpoint_expirationhandler(mUpnpThread *thread)
 {
-	CgUpnpControlPoint *ctrlPoint;
-	CgUpnpDevice *dev, *tmpDev;
-	CgUpnpService *srv;
-	CgUpnpSSDPPacket *ssdpPkt;
-	CgTime currTime;
-	CgTime expirationTime;
-	CgTime tmpTime;
+	mUpnpUpnpControlPoint *ctrlPoint;
+	mUpnpUpnpDevice *dev, *tmpDev;
+	mUpnpUpnpService *srv;
+	mUpnpUpnpSSDPPacket *ssdpPkt;
+	mUpnpTime currTime;
+	mUpnpTime expirationTime;
+	mUpnpTime tmpTime;
 	long timeout;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	ctrlPoint = (CgUpnpControlPoint *)mupnp_thread_getuserdata(thread);
+	ctrlPoint = (mUpnpUpnpControlPoint *)mupnp_thread_getuserdata(thread);
 	mupnp_log_debug_s("CtrlPoint: %p\n", ctrlPoint);
 	
 	mupnp_mutex_lock(ctrlPoint->expMutex);
@@ -215,11 +215,11 @@ void mupnp_upnp_controlpoint_expirationhandler(CgThread *thread)
 * mupnp_upnp_controlpoint_resubscribe
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_resubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service, long timeout)
+BOOL mupnp_upnp_controlpoint_resubscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpService *service, long timeout)
 {
-	CgUpnpDevice *rootDev;
-	CgUpnpSubscriptionRequest *subReq;
-	CgUpnpSubscriptionResponse *subRes;
+	mUpnpUpnpDevice *rootDev;
+	mUpnpUpnpSubscriptionRequest *subReq;
+	mUpnpUpnpSubscriptionResponse *subRes;
 	BOOL isSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -255,12 +255,12 @@ BOOL mupnp_upnp_controlpoint_resubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpSe
 * mupnp_upnp_controlpoint_subscribe
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_subscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service, long timeout)
+BOOL mupnp_upnp_controlpoint_subscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpService *service, long timeout)
 {
-	CgUpnpDevice *rootDev;
+	mUpnpUpnpDevice *rootDev;
 	char *roodDevIfAddress;
-	CgUpnpSubscriptionRequest *subReq;
-	CgUpnpSubscriptionResponse *subRes;
+	mUpnpUpnpSubscriptionRequest *subReq;
+	mUpnpUpnpSubscriptionResponse *subRes;
 	char eventSubURL[CG_UPNP_CONTROLPOINT_EVENTSUBURL_MAX];
 	BOOL isSuccess;
 	
@@ -316,11 +316,11 @@ BOOL mupnp_upnp_controlpoint_subscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpServ
 * mupnp_upnp_event_subscription_request_setunsubscription
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_unsubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpService *service)
+BOOL mupnp_upnp_controlpoint_unsubscribe(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpService *service)
 {
-	CgUpnpDevice *rootDev;
-	CgUpnpSubscriptionRequest *subReq;
-	CgUpnpSubscriptionResponse *subRes;
+	mUpnpUpnpDevice *rootDev;
+	mUpnpUpnpSubscriptionRequest *subReq;
+	mUpnpUpnpSubscriptionResponse *subRes;
 	BOOL isSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -350,10 +350,10 @@ BOOL mupnp_upnp_controlpoint_unsubscribe(CgUpnpControlPoint *ctrlPoint, CgUpnpSe
 * mupnp_upnp_controlpoint_subscribeall
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_subscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevice *dev, long timeout)
+BOOL mupnp_upnp_controlpoint_subscribeall(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpDevice *dev, long timeout)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	BOOL isSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -379,10 +379,10 @@ BOOL mupnp_upnp_controlpoint_subscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpD
 * mupnp_upnp_controlpoint_resubscribeall
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_resubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevice *dev, long timeout)
+BOOL mupnp_upnp_controlpoint_resubscribeall(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpDevice *dev, long timeout)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	BOOL isSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -408,10 +408,10 @@ BOOL mupnp_upnp_controlpoint_resubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpn
 * mupnp_upnp_controlpoint_unsubscribeall
 ****************************************/
 
-BOOL mupnp_upnp_controlpoint_unsubscribeall(CgUpnpControlPoint *ctrlPoint, CgUpnpDevice *dev)
+BOOL mupnp_upnp_controlpoint_unsubscribeall(mUpnpUpnpControlPoint *ctrlPoint, mUpnpUpnpDevice *dev)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	BOOL isSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");

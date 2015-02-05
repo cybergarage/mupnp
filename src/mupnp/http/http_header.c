@@ -26,17 +26,17 @@
 * mupnp_http_header_new
 ****************************************/
 
-CgHttpHeader *mupnp_http_header_new()
+mUpnpHttpHeader *mupnp_http_header_new()
 {
-	CgHttpHeader *header;
+	mUpnpHttpHeader *header;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	header = (CgHttpHeader *)malloc(sizeof(CgHttpHeader));
+	header = (mUpnpHttpHeader *)malloc(sizeof(mUpnpHttpHeader));
 
 	if ( NULL != header )
 	{
-		mupnp_list_node_init((CgList *)header);
+		mupnp_list_node_init((mUpnpList *)header);
 		header->name = mupnp_string_new();
 		header->value = mupnp_string_new();
 	}
@@ -50,11 +50,11 @@ CgHttpHeader *mupnp_http_header_new()
 * mupnp_http_header_delete
 ****************************************/
 
-void mupnp_http_header_delete(CgHttpHeader *header)
+void mupnp_http_header_delete(mUpnpHttpHeader *header)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_remove((CgList *)header);
+	mupnp_list_remove((mUpnpList *)header);
 	mupnp_string_delete(header->name);
 	mupnp_string_delete(header->value);
 	free(header);
@@ -66,7 +66,7 @@ void mupnp_http_header_delete(CgHttpHeader *header)
 * mupnp_http_header_setname
 ****************************************/
 
-void mupnp_http_header_setname(CgHttpHeader *header, const char *name)
+void mupnp_http_header_setname(mUpnpHttpHeader *header, const char *name)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -79,7 +79,7 @@ void mupnp_http_header_setname(CgHttpHeader *header, const char *name)
 * mupnp_http_header_getname
 ****************************************/
 
-const char *mupnp_http_header_getname(CgHttpHeader *header)
+const char *mupnp_http_header_getname(mUpnpHttpHeader *header)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -92,7 +92,7 @@ const char *mupnp_http_header_getname(CgHttpHeader *header)
 * mupnp_http_header_setvalue
 ****************************************/
 
-void mupnp_http_header_setvalue(CgHttpHeader *header, const char *value)
+void mupnp_http_header_setvalue(mUpnpHttpHeader *header, const char *value)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -105,7 +105,7 @@ void mupnp_http_header_setvalue(CgHttpHeader *header, const char *value)
 * mupnp_http_header_getvalue
 ****************************************/
 
-const char *mupnp_http_header_getvalue(CgHttpHeader *header)
+const char *mupnp_http_header_getvalue(mUpnpHttpHeader *header)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

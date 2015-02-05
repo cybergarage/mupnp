@@ -115,7 +115,7 @@
 static int socketCnt = 0;
 
 #if defined(CG_NET_USE_SOCKET_LIST)
-static CgSocketList *socketList;
+static mUpnpSocketList *socketList;
 #endif
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
@@ -141,7 +141,7 @@ BOOL mupnp_socket_tosockaddrinfo(int sockType, const char *addr, int port, struc
 #endif
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
-BOOL mupnp_socket_setmulticastinterface(CgSocket *sock, char *ifaddr);
+BOOL mupnp_socket_setmulticastinterface(mUpnpSocket *sock, char *ifaddr);
 #endif
 
 #if defined(CG_NET_USE_SOCKET_LIST)
@@ -150,8 +150,8 @@ static int mupnp_socket_getavailableport();
 #endif
 
 #if defined(ITRON)
-BOOL mupnp_socket_initwindowbuffer(CgSocket *sock);
-BOOL mupnp_socket_freewindowbuffer(CgSocket *sock);
+BOOL mupnp_socket_initwindowbuffer(mUpnpSocket *sock);
+BOOL mupnp_socket_freewindowbuffer(mUpnpSocket *sock);
 static ER mupnp_socket_udp_callback(ID cepid, FN fncd, VP parblk);
 static ER mupnp_socket_tcp_callback(ID cepid, FN fncd, VP parblk);
 static BOOL mupnp_socket_getavailablelocaladdress(T_IPV4EP *localAddr);
@@ -251,15 +251,15 @@ void mupnp_socket_cleanup()
 * mupnp_socket_new
 ****************************************/
 
-CgSocket *mupnp_socket_new(int type)
+mUpnpSocket *mupnp_socket_new(int type)
 {
-	CgSocket *sock;
+	mUpnpSocket *sock;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_socket_startup();
 
-	sock = (CgSocket *)malloc(sizeof(CgSocket));
+	sock = (mUpnpSocket *)malloc(sizeof(mUpnpSocket));
 
 	if ( NULL != sock )
 	{
@@ -297,7 +297,7 @@ CgSocket *mupnp_socket_new(int type)
 * mupnp_socket_delete
 ****************************************/
 
-BOOL mupnp_socket_delete(CgSocket *sock)
+BOOL mupnp_socket_delete(mUpnpSocket *sock)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -318,7 +318,7 @@ BOOL mupnp_socket_delete(CgSocket *sock)
 * mupnp_socket_isbound
 ****************************************/
 
-BOOL mupnp_socket_isbound(CgSocket *sock)
+BOOL mupnp_socket_isbound(mUpnpSocket *sock)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -335,7 +335,7 @@ BOOL mupnp_socket_isbound(CgSocket *sock)
 * mupnp_socket_setid
 ****************************************/
 
-void mupnp_socket_setid(CgSocket *socket, SOCKET value)
+void mupnp_socket_setid(mUpnpSocket *socket, SOCKET value)
 {
 #if defined(WIN32) || defined(HAVE_IP_PKTINFO) || (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && defined(HAVE_SO_NOSIGPIPE)
 	int on=1;
@@ -361,7 +361,7 @@ void mupnp_socket_setid(CgSocket *socket, SOCKET value)
 * mupnp_socket_close
 ****************************************/
 
-BOOL mupnp_socket_close(CgSocket *sock)
+BOOL mupnp_socket_close(mUpnpSocket *sock)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -448,7 +448,7 @@ BOOL mupnp_socket_close(CgSocket *sock)
 * mupnp_socket_listen
 ****************************************/
 
-BOOL mupnp_socket_listen(CgSocket *sock)
+BOOL mupnp_socket_listen(mUpnpSocket *sock)
 {
 #if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
 	ERR ret = so_listen(sock->id, 10);
@@ -472,7 +472,7 @@ BOOL mupnp_socket_listen(CgSocket *sock)
 * mupnp_socket_bind
 ****************************************/
 
-BOOL mupnp_socket_bind(CgSocket *sock, int bindPort, const char *bindAddr, BOOL bindFlag, BOOL reuseFlag)
+BOOL mupnp_socket_bind(mUpnpSocket *sock, int bindPort, const char *bindAddr, BOOL bindFlag, BOOL reuseFlag)
 {
 #if defined(BTRON) || defined(TENGINE)
 	struct sockaddr_in sockaddr;
@@ -591,7 +591,7 @@ BOOL mupnp_socket_bind(CgSocket *sock, int bindPort, const char *bindAddr, BOOL 
 * mupnp_socket_accept
 ****************************************/
 
-BOOL mupnp_socket_accept(CgSocket *serverSock, CgSocket *clientSock)
+BOOL mupnp_socket_accept(mUpnpSocket *serverSock, mUpnpSocket *clientSock)
 {
 	struct sockaddr_in sockaddr;
 	socklen_t socklen;
@@ -657,7 +657,7 @@ mupnp_log_debug_s("clientSock->id = %d\n", mupnp_socket_getport(clientSock));
 * mupnp_socket_connect
 ****************************************/
 
-BOOL mupnp_socket_connect(CgSocket *sock, const char *addr, int port)
+BOOL mupnp_socket_connect(mUpnpSocket *sock, const char *addr, int port)
 {
 #if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
 	ERR ret;
@@ -737,7 +737,7 @@ BOOL mupnp_socket_connect(CgSocket *sock, const char *addr, int port)
 * mupnp_socket_read
 ****************************************/
 
-ssize_t mupnp_socket_read(CgSocket *sock, char *buffer, size_t bufferLen)
+ssize_t mupnp_socket_read(mUpnpSocket *sock, char *buffer, size_t bufferLen)
 {
 	ssize_t recvLen;
 
@@ -782,7 +782,7 @@ ssize_t mupnp_socket_read(CgSocket *sock, char *buffer, size_t bufferLen)
 #define CG_NET_SOCKET_SEND_RETRY_CNT 10
 #define CG_NET_SOCKET_SEND_RETRY_WAIT_MSEC 20
 
-size_t mupnp_socket_write(CgSocket *sock, const char *cmd, size_t cmdLen)
+size_t mupnp_socket_write(mUpnpSocket *sock, const char *cmd, size_t cmdLen)
 {
 	ssize_t nSent;
 	size_t nTotalSent = 0;
@@ -853,7 +853,7 @@ mupnp_log_debug_s("w %d : %s\n", nTotalSent, ((cmd != NULL) ? cmd : ""));
 * mupnp_socket_readline
 ****************************************/
 
-ssize_t mupnp_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen)
+ssize_t mupnp_socket_readline(mUpnpSocket *sock, char *buffer, size_t bufferLen)
 {
 	ssize_t readCnt;
 	ssize_t readLen;
@@ -888,7 +888,7 @@ ssize_t mupnp_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen)
 * mupnp_socket_skip
 ****************************************/
 
-size_t mupnp_socket_skip(CgSocket *sock, size_t skipLen)
+size_t mupnp_socket_skip(mUpnpSocket *sock, size_t skipLen)
 {
 	ssize_t readCnt;
 	ssize_t readLen;
@@ -913,7 +913,7 @@ size_t mupnp_socket_skip(CgSocket *sock, size_t skipLen)
 * mupnp_socket_sendto
 ****************************************/
 
-size_t mupnp_socket_sendto(CgSocket *sock, const char *addr, int port, const char *data, size_t dataLen)
+size_t mupnp_socket_sendto(mUpnpSocket *sock, const char *addr, int port, const char *data, size_t dataLen)
 {
 #if defined(BTRON) || defined(TENGINE)
 	struct sockaddr_in sockaddr;
@@ -994,7 +994,7 @@ mupnp_log_debug_s("sentLen : %d\n", sentLen);
 * mupnp_socket_recv
 ****************************************/
 
-ssize_t mupnp_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt)
+ssize_t mupnp_socket_recv(mUpnpSocket *sock, mUpnpDatagramPacket *dgmPkt)
 {
 	ssize_t recvLen = 0;
 	char recvBuf[CG_NET_SOCKET_DGRAM_RECV_BUFSIZE+1];
@@ -1068,7 +1068,7 @@ ssize_t mupnp_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt)
 * mupnp_socket_setreuseaddress
 ****************************************/
 
-BOOL mupnp_socket_setreuseaddress(CgSocket *sock, BOOL flag)
+BOOL mupnp_socket_setreuseaddress(mUpnpSocket *sock, BOOL flag)
 {
 	int sockOptRet;
 #if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
@@ -1113,7 +1113,7 @@ BOOL mupnp_socket_setreuseaddress(CgSocket *sock, BOOL flag)
 * mupnp_socket_setmulticastttl
 ****************************************/
 
-BOOL mupnp_socket_setmulticastttl(CgSocket *sock, int ttl)
+BOOL mupnp_socket_setmulticastttl(mUpnpSocket *sock, int ttl)
 {
 	int sockOptRet;
 	int ttl_;
@@ -1153,7 +1153,7 @@ BOOL mupnp_socket_setmulticastttl(CgSocket *sock, int ttl)
 * mupnp_socket_settimeout
 ****************************************/
 
-BOOL mupnp_socket_settimeout(CgSocket *sock, int sec)
+BOOL mupnp_socket_settimeout(mUpnpSocket *sock, int sec)
 {
 	int sockOptRet;
 #if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
@@ -1196,7 +1196,7 @@ BOOL mupnp_socket_settimeout(CgSocket *sock, int sec)
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
 
-BOOL mupnp_socket_joingroup(CgSocket *sock, const char *mcastAddr, const char *ifAddr)
+BOOL mupnp_socket_joingroup(mUpnpSocket *sock, const char *mcastAddr, const char *ifAddr)
 {
 	struct ip_mreq ipmr;
 	u_long ifInetAddr = ka_inet_addr(ifAddr);
@@ -1224,7 +1224,7 @@ BOOL mupnp_socket_joingroup(CgSocket *sock, const char *mcastAddr, const char *i
 
 #elif defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
 
-BOOL mupnp_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr)
+BOOL mupnp_socket_joingroup(mUpnpSocket *sock, char *mcastAddr, char *ifAddr)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1237,7 +1237,7 @@ BOOL mupnp_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr)
 
 #elif defined(ITRON)
 
-BOOL mupnp_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr)
+BOOL mupnp_socket_joingroup(mUpnpSocket *sock, char *mcastAddr, char *ifAddr)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1253,7 +1253,7 @@ BOOL mupnp_socket_joingroup(CgSocket *sock, char *mcastAddr, char *ifAddr)
 }
 #else
 
-BOOL mupnp_socket_joingroup(CgSocket *sock, const char *mcastAddr, const char *ifAddr)
+BOOL mupnp_socket_joingroup(mUpnpSocket *sock, const char *mcastAddr, const char *ifAddr)
 {
 	struct addrinfo hints;
 	struct addrinfo *mcastAddrInfo, *ifAddrInfo;
@@ -1451,13 +1451,13 @@ BOOL mupnp_socket_tosockaddrinfo(int sockType, const char *addr, int port, struc
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
 
-BOOL mupnp_socket_setmulticastinterface(CgSocket *sock, char *ifaddr)
+BOOL mupnp_socket_setmulticastinterface(mUpnpSocket *sock, char *ifaddr)
 {
 	struct sockaddr_in sockaddr;
 	BOOL sockAddrSuccess;
 	int optSuccess;
-	CgNetworkInterfaceList *netIfList;
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterfaceList *netIfList;
+	mUpnpNetworkInterface *netIf;
 	int netIfCnt;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -1499,7 +1499,7 @@ BOOL mupnp_socket_setmulticastinterface(CgSocket *sock, char *ifaddr)
 
 static int mupnp_socket_getavailableid(int type)
 {
-	CgSocket *sock;
+	mUpnpSocket *sock;
 	int id;
 	BOOL isIDUsed;
 
@@ -1536,7 +1536,7 @@ static int mupnp_socket_getavailableid(int type)
 
 static int mupnp_socket_getavailableport()
 {
-	CgSocket *sock;
+	mUpnpSocket *sock;
 	int port;
 	BOOL isPortUsed;
 
@@ -1567,7 +1567,7 @@ static int mupnp_socket_getavailableport()
 
 #if defined(ITRON)
 
-BOOL mupnp_socket_initwindowbuffer(CgSocket *sock)
+BOOL mupnp_socket_initwindowbuffer(mUpnpSocket *sock)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1587,7 +1587,7 @@ BOOL mupnp_socket_initwindowbuffer(CgSocket *sock)
 		return TRUE;
 }
 
-BOOL mupnp_socket_freewindowbuffer(CgSocket *sock)
+BOOL mupnp_socket_freewindowbuffer(mUpnpSocket *sock)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1641,8 +1641,8 @@ static BOOL mupnp_socket_getavailablelocaladdress(T_IPV4EP *localAddr)
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgNetworkInterfaceList *netIfList;
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterfaceList *netIfList;
+	mUpnpNetworkInterface *netIf;
 	int netIfCnt;
 	netIfList = mupnp_net_interfacelist_new();
 	netIfCnt = mupnp_net_gethostinterfaces(netIfList);

@@ -28,9 +28,9 @@
 * mupnp_upnp_ssdpresponse_new
 ****************************************/
 
-CgUpnpSSDPResponse *mupnp_upnp_ssdpresponse_new()
+mUpnpUpnpSSDPResponse *mupnp_upnp_ssdpresponse_new()
 {
-	CgUpnpSSDPResponse*ssdpRes;
+	mUpnpUpnpSSDPResponse*ssdpRes;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -48,7 +48,7 @@ CgUpnpSSDPResponse *mupnp_upnp_ssdpresponse_new()
 * mupnp_upnp_ssdpresponse_delete
 ****************************************/
 
-void mupnp_upnp_ssdpresponse_delete(CgUpnpSSDPResponse *ssdpRes)
+void mupnp_upnp_ssdpresponse_delete(mUpnpUpnpSSDPResponse *ssdpRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -61,14 +61,14 @@ void mupnp_upnp_ssdpresponse_delete(CgUpnpSSDPResponse *ssdpRes)
 * mupnp_upnp_ssdpresponse_setleasetime
 ****************************************/
 
-void mupnp_upnp_ssdpresponse_setleasetime(CgUpnpSSDPResponse *ssdpRes, CgTime value)
+void mupnp_upnp_ssdpresponse_setleasetime(mUpnpUpnpSSDPResponse *ssdpRes, mUpnpTime value)
 {
 	char buf[CG_UPNP_SSDP_MAXAGE_LEN + 1 + CG_STRING_INTEGER_BUFLEN];
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	sprintf(buf, "%s=%d", CG_HTTP_MAX_AGE, (int)value);
-	mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpRes, CG_HTTP_CACHE_CONTROL, buf);
+	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpRes, CG_HTTP_CACHE_CONTROL, buf);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -77,13 +77,13 @@ void mupnp_upnp_ssdpresponse_setleasetime(CgUpnpSSDPResponse *ssdpRes, CgTime va
 * mupnp_upnp_ssdpresponse_getleasetime
 ****************************************/
 
-int mupnp_upnp_ssdpresponse_getleasetime(CgUpnpSSDPResponse *ssdpRes)
+int mupnp_upnp_ssdpresponse_getleasetime(mUpnpUpnpSSDPResponse *ssdpRes)
 {
 	const char *cacheCtrl;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	cacheCtrl = mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpRes, CG_HTTP_CACHE_CONTROL);
+	cacheCtrl = mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpRes, CG_HTTP_CACHE_CONTROL);
 
 	mupnp_log_debug_l4("Leaving...\n");
   
@@ -94,9 +94,9 @@ int mupnp_upnp_ssdpresponse_getleasetime(CgUpnpSSDPResponse *ssdpRes)
 * mupnp_upnp_ssdpresponse_tostring
 ****************************************/
 
-char *mupnp_upnp_ssdpresponse_tostring(CgUpnpSSDPResponse *ssdpRes, CgString *ssdpMsg)
+char *mupnp_upnp_ssdpresponse_tostring(mUpnpUpnpSSDPResponse *ssdpRes, mUpnpString *ssdpMsg)
 {
-	CgHttpHeader *header;
+	mUpnpHttpHeader *header;
 	char statusCodeBuf[CG_STRING_INTEGER_BUFLEN];
 	const char *name;
 	const char *value;
@@ -110,7 +110,7 @@ char *mupnp_upnp_ssdpresponse_tostring(CgUpnpSSDPResponse *ssdpRes, CgString *ss
 	mupnp_string_addvalue(ssdpMsg, mupnp_http_response_getreasonphrase(ssdpRes));
 	mupnp_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
 	
-	for (header = mupnp_http_packet_getheaders((CgHttpPacket *)ssdpRes); header != NULL; header = mupnp_http_header_next(header)) {
+	for (header = mupnp_http_packet_getheaders((mUpnpHttpPacket *)ssdpRes); header != NULL; header = mupnp_http_header_next(header)) {
 		name = mupnp_http_header_getname(header);
 		value = mupnp_http_header_getvalue(header);
 		mupnp_string_addvalue(ssdpMsg, name);

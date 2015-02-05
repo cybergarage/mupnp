@@ -65,26 +65,26 @@
 * prototype define for static functions
 ****************************************/
 
-static void mupnp_upnp_service_initchildnodes(CgUpnpService *service);
-static void mupnp_upnp_service_initactionlist(CgUpnpService *service);
-static void mupnp_upnp_service_initservicestatetable(CgUpnpService *service);
-static CgNetURL *mupnp_upnp_service_mangleurl(CgUpnpService *service, char *type);
+static void mupnp_upnp_service_initchildnodes(mUpnpUpnpService *service);
+static void mupnp_upnp_service_initactionlist(mUpnpUpnpService *service);
+static void mupnp_upnp_service_initservicestatetable(mUpnpUpnpService *service);
+static mUpnpNetURL *mupnp_upnp_service_mangleurl(mUpnpUpnpService *service, char *type);
 
 /****************************************
 * mupnp_upnp_service_new
 ****************************************/
 
-CgUpnpService *mupnp_upnp_service_new()
+mUpnpUpnpService *mupnp_upnp_service_new()
 {
-	CgUpnpService *service;
+	mUpnpUpnpService *service;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	service = (CgUpnpService *)malloc(sizeof(CgUpnpService));
+	service = (mUpnpUpnpService *)malloc(sizeof(mUpnpUpnpService));
 
 	if ( NULL != service )
 	{
-		mupnp_list_node_init((CgList *)service);
+		mupnp_list_node_init((mUpnpList *)service);
 
 		service->scpdNodeList = NULL;
 		service->serviceNode = NULL;
@@ -119,11 +119,11 @@ CgUpnpService *mupnp_upnp_service_new()
 * mupnp_upnp_service_delete
 ****************************************/
 
-void mupnp_upnp_service_delete(CgUpnpService *service)
+void mupnp_upnp_service_delete(mUpnpUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_remove((CgList *)service);
+	mupnp_list_remove((mUpnpList *)service);
 	
 	mupnp_upnp_service_clear(service);
 
@@ -146,7 +146,7 @@ void mupnp_upnp_service_delete(CgUpnpService *service)
 * mupnp_upnp_service_clear
 ****************************************/
 
-void mupnp_upnp_service_clear(CgUpnpService *service)
+void mupnp_upnp_service_clear(mUpnpUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -177,9 +177,9 @@ void mupnp_upnp_service_clear(CgUpnpService *service)
  * @param url The URL (location) to compare
  * @return TRUE if location is found from URL; otherwise FALSE
  */
-BOOL mupnp_upnp_service_isscpdurl(CgUpnpService *service, const char *url)
+BOOL mupnp_upnp_service_isscpdurl(mUpnpUpnpService *service, const char *url)
 {
-	CgXmlNode *s = mupnp_upnp_service_getservicenode(service);
+	mUpnpXmlNode *s = mupnp_upnp_service_getservicenode(service);
 	const char *v = mupnp_xml_node_getchildnodevalue(s, CG_UPNP_SERVICE_SCPDURL);
 	return mupnp_net_uri_isequivalent(v, url);
 }
@@ -190,7 +190,7 @@ BOOL mupnp_upnp_service_isscpdurl(CgUpnpService *service, const char *url)
  * @param service The service in question
  * @return char*
  */
-CgNetURL *mupnp_upnp_service_geteventsuburl(CgUpnpService *service) 
+mUpnpNetURL *mupnp_upnp_service_geteventsuburl(mUpnpUpnpService *service) 
 {
 	return mupnp_upnp_service_mangleurl(service, CG_UPNP_SERVICE_EVENT_SUB_URL);
 }
@@ -200,7 +200,7 @@ CgNetURL *mupnp_upnp_service_geteventsuburl(CgUpnpService *service)
  * @param service The service in question
  * @return char*
  */
-CgNetURL *mupnp_upnp_service_getcontrolurl(CgUpnpService *service)
+mUpnpNetURL *mupnp_upnp_service_getcontrolurl(mUpnpUpnpService *service)
 { 
 	return mupnp_upnp_service_mangleurl(service, CG_UPNP_SERVICE_CONTROL_URL);
 }
@@ -209,9 +209,9 @@ CgNetURL *mupnp_upnp_service_getcontrolurl(CgUpnpService *service)
  * Get the service's SCPD (service description) URL
  *
  * @param service The service in question                                                                 
- * @return CgNetURL Pointer to URL/URI structure
+ * @return mUpnpNetURL Pointer to URL/URI structure
  */
-CgNetURL *mupnp_upnp_service_getscpdurl(CgUpnpService *service)
+mUpnpNetURL *mupnp_upnp_service_getscpdurl(mUpnpUpnpService *service)
 {
 	return mupnp_upnp_service_mangleurl(service, CG_UPNP_SERVICE_SCPDURL);
 }
@@ -222,11 +222,11 @@ CgNetURL *mupnp_upnp_service_getscpdurl(CgUpnpService *service)
 * mupnp_upnp_service_parsedescription
 ****************************************/
 
-BOOL mupnp_upnp_service_parsedescription(CgUpnpService *service, const char *desciption, size_t descriptionLen)
+BOOL mupnp_upnp_service_parsedescription(mUpnpUpnpService *service, const char *desciption, size_t descriptionLen)
 {
-	CgXmlParser *xmlParser;
+	mUpnpXmlParser *xmlParser;
 	BOOL xmlParseSuccess;
-	CgXmlNode *scpdNode;
+	mUpnpXmlNode *scpdNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -276,13 +276,13 @@ BOOL mupnp_upnp_service_parsedescription(CgUpnpService *service, const char *des
 * mupnp_upnp_service_parsedescriptionurl
 ****************************************/
 
-BOOL mupnp_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *url)
+BOOL mupnp_upnp_service_parsedescriptionurl(mUpnpUpnpService *service, mUpnpNetURL *url)
 {
 	char *host;
 	int port;
 	char *request;
-	CgHttpRequest *httpReq;
-	CgHttpResponse *httpRes;
+	mUpnpHttpRequest *httpReq;
+	mUpnpHttpResponse *httpRes;
 	char *content;
 	size_t contentLen;
 	BOOL parseSuccess;
@@ -330,9 +330,9 @@ BOOL mupnp_upnp_service_parsedescriptionurl(CgUpnpService *service, CgNetURL *ur
 * mupnp_upnp_service_getdescription
 ****************************************/
 
-char *mupnp_upnp_service_getdescription(CgUpnpService *service, CgString *descStr)
+char *mupnp_upnp_service_getdescription(mUpnpUpnpService *service, mUpnpString *descStr)
 {
-	CgXmlNode *scpdNode;
+	mUpnpXmlNode *scpdNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -778,7 +778,7 @@ const char* mupnp_upnp_servicetype_getversion(const char* serviceType)
 *
 ****************************************/
 
-char *mupnp_upnp_service_getnotifyservicetypent(CgUpnpService *service, char *buf, int bufSize)
+char *mupnp_upnp_service_getnotifyservicetypent(mUpnpUpnpService *service, char *buf, int bufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -790,9 +790,9 @@ char *mupnp_upnp_service_getnotifyservicetypent(CgUpnpService *service, char *bu
 	return buf;
 }
 
-char *mupnp_upnp_service_getnotifyservicetypeusn(CgUpnpService *service, char *buf, int bufSize)
+char *mupnp_upnp_service_getnotifyservicetypeusn(mUpnpUpnpService *service, char *buf, int bufSize)
 {
-	CgUpnpDevice *dev;
+	mUpnpUpnpDevice *dev;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -808,14 +808,14 @@ char *mupnp_upnp_service_getnotifyservicetypeusn(CgUpnpService *service, char *b
 	return buf;
 }
 
-BOOL mupnp_upnp_service_announcefrom(CgUpnpService *service, const char *bindAddr)
+BOOL mupnp_upnp_service_announcefrom(mUpnpUpnpService *service, const char *bindAddr)
 {
 	/**** uuid:device-UUID::urn:schemas-upnp-org:service:serviceType:v ****/
 	char ssdpLineBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
-	CgUpnpDevice *rootDev;
-	CgUpnpDevice *dev;
-	CgUpnpSSDPRequest *ssdpReq;
-	CgUpnpSSDPSocket *ssdpSock;
+	mUpnpUpnpDevice *rootDev;
+	mUpnpUpnpDevice *dev;
+	mUpnpUpnpSSDPRequest *ssdpReq;
+	mUpnpUpnpSSDPSocket *ssdpSock;
 	BOOL sentResult = TRUE;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -843,12 +843,12 @@ BOOL mupnp_upnp_service_announcefrom(CgUpnpService *service, const char *bindAdd
 	return sentResult;
 }
 
-BOOL mupnp_upnp_service_byebyefrom(CgUpnpService *service, const char *bindAddr)
+BOOL mupnp_upnp_service_byebyefrom(mUpnpUpnpService *service, const char *bindAddr)
 {
 	/**** uuid:device-UUID::urn:schemas-upnp-org:service:serviceType:v ****/
 	char ssdpLineBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
-	CgUpnpSSDPRequest *ssdpReq;
-	CgUpnpSSDPSocket *ssdpSock;
+	mUpnpUpnpSSDPRequest *ssdpReq;
+	mUpnpUpnpSSDPSocket *ssdpSock;
 	BOOL sentResult;
 		
 	mupnp_log_debug_l4("Entering...\n");
@@ -881,7 +881,7 @@ BOOL mupnp_upnp_service_byebyefrom(CgUpnpService *service, const char *bindAddr)
 * mupnp_upnp_service_initchildnodes
 ****************************************/
 
-static void mupnp_upnp_service_initchildnodes(CgUpnpService *service)
+static void mupnp_upnp_service_initchildnodes(mUpnpUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -901,13 +901,13 @@ static void mupnp_upnp_service_initchildnodes(CgUpnpService *service)
 * mupnp_upnp_service_initactionlist
 ****************************************/
 
-static void mupnp_upnp_service_initactionlist(CgUpnpService *service)
+static void mupnp_upnp_service_initactionlist(mUpnpUpnpService *service)
 {
-	CgXmlNode *scdpNode;
-	CgXmlNode *actionListNode;
-//	CgXmlNode *serviceNode;
-	CgXmlNode *childNode;
-	CgUpnpAction *action;
+	mUpnpXmlNode *scdpNode;
+	mUpnpXmlNode *actionListNode;
+//	mUpnpXmlNode *serviceNode;
+	mUpnpXmlNode *childNode;
+	mUpnpUpnpAction *action;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -938,10 +938,10 @@ static void mupnp_upnp_service_initactionlist(CgUpnpService *service)
 * mupnp_upnp_service_getactionbyname
 ****************************************/
 
-CgUpnpAction *mupnp_upnp_service_getactionbyname(CgUpnpService *service, const char *name)
+mUpnpUpnpAction *mupnp_upnp_service_getactionbyname(mUpnpUpnpService *service, const char *name)
 {
-	CgUpnpActionList *actionList;
-	CgUpnpAction *action;
+	mUpnpUpnpActionList *actionList;
+	mUpnpUpnpAction *action;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -973,13 +973,13 @@ CgUpnpAction *mupnp_upnp_service_getactionbyname(CgUpnpService *service, const c
 * mupnp_upnp_service_initservicestatetable
 ****************************************/
 
-static void mupnp_upnp_service_initservicestatetable(CgUpnpService *service)
+static void mupnp_upnp_service_initservicestatetable(mUpnpUpnpService *service)
 {
-	CgXmlNode *scdpNode;
-	CgXmlNode *stateTableNode;
-//	CgXmlNode *serviceNode;
-	CgXmlNode *childNode;
-	CgUpnpStateVariable *statVar;
+	mUpnpXmlNode *scdpNode;
+	mUpnpXmlNode *stateTableNode;
+//	mUpnpXmlNode *serviceNode;
+	mUpnpXmlNode *childNode;
+	mUpnpUpnpStateVariable *statVar;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1010,10 +1010,10 @@ static void mupnp_upnp_service_initservicestatetable(CgUpnpService *service)
 * mupnp_upnp_service_getstatevariablebyname
 ****************************************/
 
-CgUpnpStateVariable *mupnp_upnp_service_getstatevariablebyname(CgUpnpService *service, const char *name)
+mUpnpUpnpStateVariable *mupnp_upnp_service_getstatevariablebyname(mUpnpUpnpService *service, const char *name)
 {
-	CgUpnpServiceStateTable *stateTable;
-	CgUpnpStateVariable *stateVar;
+	mUpnpUpnpServiceStateTable *stateTable;
+	mUpnpUpnpStateVariable *stateVar;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1039,10 +1039,10 @@ CgUpnpStateVariable *mupnp_upnp_service_getstatevariablebyname(CgUpnpService *se
 * mupnp_upnp_service_setactionlistener
 ****************************************/
 
-void mupnp_upnp_service_setactionlistener(CgUpnpService *service, CG_UPNP_ACTION_LISTNER actionListener)
+void mupnp_upnp_service_setactionlistener(mUpnpUpnpService *service, CG_UPNP_ACTION_LISTNER actionListener)
 {
-	CgUpnpActionList *actionList;
-	CgUpnpAction *action;
+	mUpnpUpnpActionList *actionList;
+	mUpnpUpnpAction *action;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1057,10 +1057,10 @@ void mupnp_upnp_service_setactionlistener(CgUpnpService *service, CG_UPNP_ACTION
 * mupnp_upnp_service_setquerylistener
 ****************************************/
 
-void mupnp_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVARIABLE_LISTNER queryListener)
+void mupnp_upnp_service_setquerylistener(mUpnpUpnpService *service, CG_UPNP_STATEVARIABLE_LISTNER queryListener)
 {
-	CgUpnpServiceStateTable *stateTable;
-	CgUpnpStateVariable *stateVar;
+	mUpnpUpnpServiceStateTable *stateTable;
+	mUpnpUpnpStateVariable *stateVar;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1071,7 +1071,7 @@ void mupnp_upnp_service_setquerylistener(CgUpnpService *service, CG_UPNP_STATEVA
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-CgUpnpActionList *mupnp_upnp_service_getactionlist(CgUpnpService *service)
+mUpnpUpnpActionList *mupnp_upnp_service_getactionlist(mUpnpUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1084,7 +1084,7 @@ CgUpnpActionList *mupnp_upnp_service_getactionlist(CgUpnpService *service)
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-CgUpnpAction *mupnp_upnp_service_getactions(CgUpnpService *service)
+mUpnpUpnpAction *mupnp_upnp_service_getactions(mUpnpUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1097,7 +1097,7 @@ CgUpnpAction *mupnp_upnp_service_getactions(CgUpnpService *service)
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-CgUpnpServiceStateTable *mupnp_upnp_service_getservicestatetable(CgUpnpService *service)
+mUpnpUpnpServiceStateTable *mupnp_upnp_service_getservicestatetable(mUpnpUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1110,7 +1110,7 @@ CgUpnpServiceStateTable *mupnp_upnp_service_getservicestatetable(CgUpnpService *
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-CgUpnpStateVariable *mupnp_upnp_service_getstatevariables(CgUpnpService *service)
+mUpnpUpnpStateVariable *mupnp_upnp_service_getstatevariables(mUpnpUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1135,7 +1135,7 @@ CgUpnpStateVariable *mupnp_upnp_service_getstatevariables(CgUpnpService *service
 * mupnp_upnp_service_addsubscriber
 ****************************************/
 
-BOOL mupnp_upnp_service_addsubscriber(CgUpnpService *service, CgUpnpSubscriber *sub) 
+BOOL mupnp_upnp_service_addsubscriber(mUpnpUpnpService *service, mUpnpUpnpSubscriber *sub) 
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1150,7 +1150,7 @@ BOOL mupnp_upnp_service_addsubscriber(CgUpnpService *service, CgUpnpSubscriber *
 * mupnp_upnp_service_removesubscriber
 ****************************************/
 
-BOOL mupnp_upnp_service_removesubscriber(CgUpnpService *service, CgUpnpSubscriber *sub) 
+BOOL mupnp_upnp_service_removesubscriber(mUpnpUpnpService *service, mUpnpUpnpSubscriber *sub) 
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1166,9 +1166,9 @@ BOOL mupnp_upnp_service_removesubscriber(CgUpnpService *service, CgUpnpSubscribe
 * mupnp_upnp_service_getsubscriberbysid
 ****************************************/
 
-CgUpnpSubscriber *mupnp_upnp_service_getsubscriberbysid(CgUpnpService *service, const char *sid)
+mUpnpUpnpSubscriber *mupnp_upnp_service_getsubscriberbysid(mUpnpUpnpService *service, const char *sid)
 {
-	CgUpnpSubscriber *sub;
+	mUpnpUpnpSubscriber *sub;
 	char *subSid;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -1194,10 +1194,10 @@ CgUpnpSubscriber *mupnp_upnp_service_getsubscriberbysid(CgUpnpService *service, 
 
 /* Private helper functions */
 
-CgNetURL *mupnp_upnp_service_mangleabsoluteurl(const char *serviceURLStr, const char *baseURLStr, const char *locationURLStr)
+mUpnpNetURL *mupnp_upnp_service_mangleabsoluteurl(const char *serviceURLStr, const char *baseURLStr, const char *locationURLStr)
 {
-	CgNetURL *absServiceURL;
-	CgNetURL *serviceURL;
+	mUpnpNetURL *absServiceURL;
+	mUpnpNetURL *serviceURL;
   char *basePath;
   
 	if (mupnp_strlen(serviceURLStr) <= 0)
@@ -1284,12 +1284,12 @@ CgNetURL *mupnp_upnp_service_mangleabsoluteurl(const char *serviceURLStr, const 
     return absServiceURL;
 }
 
-static CgNetURL *mupnp_upnp_service_mangleurl(CgUpnpService *service, char *type)
+static mUpnpNetURL *mupnp_upnp_service_mangleurl(mUpnpUpnpService *service, char *type)
 {
   const char *serviceURLStr;
   const char *baseURLStr;
   const char *locationURLStr;
-	CgUpnpDevice *rootDev;
+	mUpnpUpnpDevice *rootDev;
 
 	serviceURLStr = mupnp_xml_node_getchildnodevalue(mupnp_upnp_service_getservicenode(service), type);
 

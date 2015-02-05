@@ -30,13 +30,13 @@
 * mupnp_upnp_ssdp_packet_new
 ****************************************/
 
-CgUpnpSSDPPacket *mupnp_upnp_ssdp_packet_new()
+mUpnpUpnpSSDPPacket *mupnp_upnp_ssdp_packet_new()
 {
-	CgUpnpSSDPPacket *ssdpPkt;
+	mUpnpUpnpSSDPPacket *ssdpPkt;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpPkt = (CgUpnpSSDPPacket *)malloc(sizeof(CgUpnpSSDPPacket));
+	ssdpPkt = (mUpnpUpnpSSDPPacket *)malloc(sizeof(mUpnpUpnpSSDPPacket));
 	
 	if ( NULL != ssdpPkt )
 	{
@@ -47,7 +47,7 @@ CgUpnpSSDPPacket *mupnp_upnp_ssdp_packet_new()
 		mupnp_upnp_ssdp_packet_setuserdata(ssdpPkt, NULL);
 		mupnp_upnp_ssdp_packet_settimestamp(ssdpPkt, mupnp_getcurrentsystemtime());
 
-		ssdpPkt->timestamps = (CgTime *)malloc(CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof(CgTime));
+		ssdpPkt->timestamps = (mUpnpTime *)malloc(CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof(mUpnpTime));
 	}
 	
 	return ssdpPkt;
@@ -59,7 +59,7 @@ CgUpnpSSDPPacket *mupnp_upnp_ssdp_packet_new()
 * mupnp_upnp_ssdp_packet_delete
 ****************************************/
 
-void mupnp_upnp_ssdp_packet_delete(CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_ssdp_packet_delete(mUpnpUpnpSSDPPacket *ssdpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -79,7 +79,7 @@ void mupnp_upnp_ssdp_packet_delete(CgUpnpSSDPPacket *ssdpPkt)
 * mupnp_upnp_ssdp_packet_clear
 ****************************************/
 
-void mupnp_upnp_ssdp_packet_clear(CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_ssdp_packet_clear(mUpnpUpnpSSDPPacket *ssdpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -93,7 +93,7 @@ void mupnp_upnp_ssdp_packet_clear(CgUpnpSSDPPacket *ssdpPkt)
 * mupnp_upnp_ssdp_packet_isrootdevice
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_packet_isrootdevice(CgUpnpSSDPPacket *ssdpPkt)
+BOOL mupnp_upnp_ssdp_packet_isrootdevice(mUpnpUpnpSSDPPacket *ssdpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -110,11 +110,11 @@ BOOL mupnp_upnp_ssdp_packet_isrootdevice(CgUpnpSSDPPacket *ssdpPkt)
 * mupnp_upnp_ssdp_packet_setheader
 ****************************************/
 
-void mupnp_upnp_ssdp_packet_setheader(CgUpnpSSDPPacket *ssdpPkt, char *ssdpMsg)
+void mupnp_upnp_ssdp_packet_setheader(mUpnpUpnpSSDPPacket *ssdpPkt, char *ssdpMsg)
 {
-	CgStringTokenizer *ssdpTok;
-	CgStringTokenizer *ssdpLineTok;
-	CgHttpHeader *header;
+	mUpnpStringTokenizer *ssdpTok;
+	mUpnpStringTokenizer *ssdpLineTok;
+	mUpnpHttpHeader *header;
 	char *lineMsg;
 	char *name;
 	char *value;
@@ -159,7 +159,7 @@ void mupnp_upnp_ssdp_packet_setheader(CgUpnpSSDPPacket *ssdpPkt, char *ssdpMsg)
  * mupnp_upnp_ssdp_packet_getmaxage
  ****************************************/
 
-long mupnp_upnp_ssdp_packet_getmaxage(CgUpnpSSDPPacket *ssdpPkt)
+long mupnp_upnp_ssdp_packet_getmaxage(mUpnpUpnpSSDPPacket *ssdpPkt)
 {
 	const char *cachecontrol = NULL;
 	ssize_t maxageIdx = 0;
@@ -186,10 +186,10 @@ long mupnp_upnp_ssdp_packet_getmaxage(CgUpnpSSDPPacket *ssdpPkt)
 * mupnp_upnp_ssdp_packet_copy
 ****************************************/
 
-void mupnp_upnp_ssdp_packet_copy(CgUpnpSSDPPacket *dstSsdpPkt, CgUpnpSSDPPacket *srcSsdpPkt)
+void mupnp_upnp_ssdp_packet_copy(mUpnpUpnpSSDPPacket *dstSsdpPkt, mUpnpUpnpSSDPPacket *srcSsdpPkt)
 {
-	CgHttpHeader *srcHeader;
-	CgHttpHeader *destHeader;
+	mUpnpHttpHeader *srcHeader;
+	mUpnpHttpHeader *destHeader;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -214,9 +214,9 @@ void mupnp_upnp_ssdp_packet_copy(CgUpnpSSDPPacket *dstSsdpPkt, CgUpnpSSDPPacket 
 * mupnp_upnp_ssdp_packet_print
 ****************************************/
 
-void mupnp_upnp_ssdp_packet_print(CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_ssdp_packet_print(mUpnpUpnpSSDPPacket *ssdpPkt)
 {
-	CgHttpHeader *header;
+	mUpnpHttpHeader *header;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

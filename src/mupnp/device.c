@@ -70,28 +70,28 @@
 * prototype define for static functions
 ****************************************/
 
-static void mupnp_upnp_device_initchildnodes(CgUpnpDevice *dev);
-static void mupnp_upnp_device_initdevicelist(CgUpnpDevice *dev);
-static void mupnp_upnp_device_initservicelist(CgUpnpDevice *dev);
-static void mupnp_upnp_device_initiconlist(CgUpnpDevice *dev);
+static void mupnp_upnp_device_initchildnodes(mUpnpUpnpDevice *dev);
+static void mupnp_upnp_device_initdevicelist(mUpnpUpnpDevice *dev);
+static void mupnp_upnp_device_initservicelist(mUpnpUpnpDevice *dev);
+static void mupnp_upnp_device_initiconlist(mUpnpUpnpDevice *dev);
 
-static void mupnp_upnp_device_notifywait(CgUpnpDevice *dev);
+static void mupnp_upnp_device_notifywait(mUpnpUpnpDevice *dev);
 
 /****************************************
 * mupnp_upnp_device_new
 ****************************************/
 
-CgUpnpDevice *mupnp_upnp_device_new()
+mUpnpUpnpDevice *mupnp_upnp_device_new()
 {
-	CgUpnpDevice *dev;
+	mUpnpUpnpDevice *dev;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	dev = (CgUpnpDevice *)malloc(sizeof(CgUpnpDevice));
+	dev = (mUpnpUpnpDevice *)malloc(sizeof(mUpnpUpnpDevice));
 
 	if  ( NULL != dev )
 	{
-		mupnp_list_node_init((CgList *)dev);
+		mupnp_list_node_init((mUpnpList *)dev);
 
 #ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS
 		mupnp_http_persistentconnection_init();
@@ -136,11 +136,11 @@ CgUpnpDevice *mupnp_upnp_device_new()
 * mupnp_upnp_device_delete
 ****************************************/
 
-void mupnp_upnp_device_delete(CgUpnpDevice *dev)
+void mupnp_upnp_device_delete(mUpnpUpnpDevice *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_remove((CgList *)dev);
+	mupnp_list_remove((mUpnpList *)dev);
 	
 	/* Delete cached interfaces */
 	if (dev->ifCache != NULL)
@@ -171,7 +171,7 @@ void mupnp_upnp_device_delete(CgUpnpDevice *dev)
 * mupnp_upnp_device_clear
 ****************************************/
 
-void mupnp_upnp_device_clear(CgUpnpDevice *dev)
+void mupnp_upnp_device_clear(mUpnpUpnpDevice *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -192,7 +192,7 @@ void mupnp_upnp_device_clear(CgUpnpDevice *dev)
 * mupnp_upnp_device_setdevicenode
 ****************************************/
 
-void mupnp_upnp_device_setdevicenode(CgUpnpDevice *dev, CgXmlNode *node)
+void mupnp_upnp_device_setdevicenode(mUpnpUpnpDevice *dev, mUpnpXmlNode *node)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -206,9 +206,9 @@ void mupnp_upnp_device_setdevicenode(CgUpnpDevice *dev, CgXmlNode *node)
 * mupnp_upnp_device_getrootdevice
 ****************************************/
 
-CgUpnpDevice *mupnp_upnp_device_getrootdevice(CgUpnpDevice *dev)
+mUpnpUpnpDevice *mupnp_upnp_device_getrootdevice(mUpnpUpnpDevice *dev)
 {
-	CgUpnpDevice *rootDev;
+	mUpnpUpnpDevice *rootDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -225,11 +225,11 @@ CgUpnpDevice *mupnp_upnp_device_getrootdevice(CgUpnpDevice *dev)
 * mupnp_upnp_device_parsedescription
 ****************************************/
 
-BOOL mupnp_upnp_device_parsedescription(CgUpnpDevice *dev, const char *desciption, size_t descriptionLen)
+BOOL mupnp_upnp_device_parsedescription(mUpnpUpnpDevice *dev, const char *desciption, size_t descriptionLen)
 {
-	CgXmlParser *xmlParser;
+	mUpnpXmlParser *xmlParser;
 	BOOL xmlParseSuccess;
-	CgXmlNode *rootNode;
+	mUpnpXmlNode *rootNode;
 	char uuidBuf[CG_UPNP_UUID_MAX_LEN];
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -274,13 +274,13 @@ BOOL mupnp_upnp_device_parsedescription(CgUpnpDevice *dev, const char *desciptio
 * mupnp_upnp_device_parsedescriptionurl
 ****************************************/
 
-BOOL mupnp_upnp_device_parsedescriptionurl(CgUpnpDevice *dev, CgNetURL *url)
+BOOL mupnp_upnp_device_parsedescriptionurl(mUpnpUpnpDevice *dev, mUpnpNetURL *url)
 {
 	char *host;
 	int port;
 	char *request;
-	CgHttpRequest *httpReq;
-	CgHttpResponse *httpRes;
+	mUpnpHttpRequest *httpReq;
+	mUpnpHttpResponse *httpRes;
 	/*int statusCode;*/
 	char *content;
 	ssize_t contentLen;
@@ -328,9 +328,9 @@ BOOL mupnp_upnp_device_parsedescriptionurl(CgUpnpDevice *dev, CgNetURL *url)
 
 #if defined(CG_USE_CFILE)
 
-BOOL mupnp_upnp_device_loaddescriptionfile(CgUpnpDevice *dev, char *fileName)
+BOOL mupnp_upnp_device_loaddescriptionfile(mUpnpUpnpDevice *dev, char *fileName)
 {
-	CgFile *file;
+	mUpnpFile *file;
 	char *description;
 	int descriptionLen;
 	BOOL parseSuccess;
@@ -365,15 +365,15 @@ BOOL mupnp_upnp_device_loaddescriptionfile(CgUpnpDevice *dev, char *fileName)
  * @param ssdpPkt The SSDP packet to make decisions on
  * @return TRUE if the device was updated; otherwise FALSE
  */
-BOOL mupnp_upnp_device_updatefromssdppacket(CgUpnpDevice* dev,
-					 CgUpnpSSDPPacket* ssdpPkt)
+BOOL mupnp_upnp_device_updatefromssdppacket(mUpnpUpnpDevice* dev,
+					 mUpnpUpnpSSDPPacket* ssdpPkt)
 {
 	const char *usn = NULL;
 	char udn[CG_UPNP_UDN_LEN_MAX];
-	CgUpnpSSDPPacket *tmpSsdpPkt = NULL;
+	mUpnpUpnpSSDPPacket *tmpSsdpPkt = NULL;
 	const char* oldLocation = NULL;
 	const char* newLocation = NULL;
-	CgNetURL *url = NULL;
+	mUpnpNetURL *url = NULL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -874,7 +874,7 @@ char* mupnp_upnp_devicetype_getversion(const char* deviceType)
 * mupnp_upnp_device_initchildnodes
 ****************************************/
 
-static void mupnp_upnp_device_initchildnodes(CgUpnpDevice *dev)
+static void mupnp_upnp_device_initchildnodes(mUpnpUpnpDevice *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -895,12 +895,12 @@ static void mupnp_upnp_device_initchildnodes(CgUpnpDevice *dev)
 * mupnp_upnp_device_initdevicelist
 ****************************************/
 
-static void mupnp_upnp_device_initdevicelist(CgUpnpDevice *dev)
+static void mupnp_upnp_device_initdevicelist(mUpnpUpnpDevice *dev)
 {
-	CgXmlNode *devNode;
-	CgXmlNode *devListNode;
-	CgXmlNode *childNode;
-	CgUpnpDevice *childDev;
+	mUpnpXmlNode *devNode;
+	mUpnpXmlNode *devListNode;
+	mUpnpXmlNode *childNode;
+	mUpnpUpnpDevice *childDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -945,10 +945,10 @@ static void mupnp_upnp_device_initdevicelist(CgUpnpDevice *dev)
  * \param type Type of the device
  *
  */
-CgUpnpDevice *mupnp_upnp_device_getdevicebytype(CgUpnpDevice *dev, char *type)
+mUpnpUpnpDevice *mupnp_upnp_device_getdevicebytype(mUpnpUpnpDevice *dev, char *type)
 {
-	CgUpnpDevice *childDev = NULL;
-	CgUpnpDevice *moreChildDev = NULL;
+	mUpnpUpnpDevice *childDev = NULL;
+	mUpnpUpnpDevice *moreChildDev = NULL;
 	const char* typeString = NULL;
 	char* part = NULL;
 	
@@ -1001,11 +1001,11 @@ CgUpnpDevice *mupnp_upnp_device_getdevicebytype(CgUpnpDevice *dev, char *type)
  * \param exacttype Type of the device
  * 
  */
-CgUpnpDevice* mupnp_upnp_device_getdevicebyexacttype(CgUpnpDevice* dev,
+mUpnpUpnpDevice* mupnp_upnp_device_getdevicebyexacttype(mUpnpUpnpDevice* dev,
 						  char* exacttype)
 {
-	CgUpnpDevice *childDev = NULL;
-	CgUpnpDevice *moreChildDev = NULL;
+	mUpnpUpnpDevice *childDev = NULL;
+	mUpnpUpnpDevice *moreChildDev = NULL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1044,10 +1044,10 @@ CgUpnpDevice* mupnp_upnp_device_getdevicebyexacttype(CgUpnpDevice* dev,
  * \param udn Type of the device
  *
  */
-CgUpnpDevice *mupnp_upnp_device_getdevicebyudn(CgUpnpDevice *dev, char *udn)
+mUpnpUpnpDevice *mupnp_upnp_device_getdevicebyudn(mUpnpUpnpDevice *dev, char *udn)
 {
-	CgUpnpDevice *childDev = NULL;
-	CgUpnpDevice *moreChildDev = NULL;
+	mUpnpUpnpDevice *childDev = NULL;
+	mUpnpUpnpDevice *moreChildDev = NULL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1081,10 +1081,10 @@ CgUpnpDevice *mupnp_upnp_device_getdevicebyudn(CgUpnpDevice *dev, char *udn)
 * mupnp_upnp_device_getdevicebydescriptionuri
 ****************************************/
 
-CgUpnpDevice *mupnp_upnp_device_getdevicebydescriptionuri(CgUpnpDevice *dev, char *url)
+mUpnpUpnpDevice *mupnp_upnp_device_getdevicebydescriptionuri(mUpnpUpnpDevice *dev, char *url)
 {
-	CgUpnpDevice *childDev;
-	CgUpnpDevice *moreChildDev;
+	mUpnpUpnpDevice *childDev;
+	mUpnpUpnpDevice *moreChildDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1114,7 +1114,7 @@ CgUpnpDevice *mupnp_upnp_device_getdevicebydescriptionuri(CgUpnpDevice *dev, cha
 * mupnp_upnp_device_notifywait
 ****************************************/
 
-static void mupnp_upnp_device_notifywait(CgUpnpDevice *dev)
+static void mupnp_upnp_device_notifywait(mUpnpUpnpDevice *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1127,7 +1127,7 @@ static void mupnp_upnp_device_notifywait(CgUpnpDevice *dev)
 * mupnp_upnp_device_getlocationurl
 ****************************************/
 
-const char *mupnp_upnp_device_getlocationurl(CgUpnpDevice *dev, const char *host, char *buf, int bufSize)
+const char *mupnp_upnp_device_getlocationurl(mUpnpUpnpDevice *dev, const char *host, char *buf, int bufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1145,7 +1145,7 @@ const char *mupnp_upnp_device_getlocationurl(CgUpnpDevice *dev, const char *host
 * mupnp_upnp_device_getnotifydevicent
 ****************************************/
 
-char *mupnp_upnp_device_getnotifydevicent(CgUpnpDevice *dev, char *buf, int bufSize)
+char *mupnp_upnp_device_getnotifydevicent(mUpnpUpnpDevice *dev, char *buf, int bufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1171,7 +1171,7 @@ char *mupnp_upnp_device_getnotifydevicent(CgUpnpDevice *dev, char *buf, int bufS
 * mupnp_upnp_device_getnotifydeviceusn
 ****************************************/
 
-char *mupnp_upnp_device_getnotifydeviceusn(CgUpnpDevice *dev, char *buf, int bufSize)
+char *mupnp_upnp_device_getnotifydeviceusn(mUpnpUpnpDevice *dev, char *buf, int bufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1199,7 +1199,7 @@ char *mupnp_upnp_device_getnotifydeviceusn(CgUpnpDevice *dev, char *buf, int buf
 * mupnp_upnp_device_getnotifydevicetypent
 ****************************************/
 
-char *mupnp_upnp_device_getnotifydevicetypent(CgUpnpDevice *dev, char *buf, int bufSize)
+char *mupnp_upnp_device_getnotifydevicetypent(mUpnpUpnpDevice *dev, char *buf, int bufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1218,7 +1218,7 @@ char *mupnp_upnp_device_getnotifydevicetypent(CgUpnpDevice *dev, char *buf, int 
 * mupnp_upnp_device_getnotifydevicetypeusn
 ****************************************/
 
-char *mupnp_upnp_device_getnotifydevicetypeusn(CgUpnpDevice *dev, char *buf, int bufSize)
+char *mupnp_upnp_device_getnotifydevicetypeusn(mUpnpUpnpDevice *dev, char *buf, int bufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1237,15 +1237,15 @@ char *mupnp_upnp_device_getnotifydevicetypeusn(CgUpnpDevice *dev, char *buf, int
 * mupnp_upnp_device_announcefrom
 ****************************************/
 
-BOOL mupnp_upnp_device_announcefrom(CgUpnpDevice *dev, char *bindAddr)
+BOOL mupnp_upnp_device_announcefrom(mUpnpUpnpDevice *dev, char *bindAddr)
 {
 	char ssdpLineBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
-	CgUpnpServiceList *serviceList;
-	CgUpnpService *service;
-	CgUpnpDeviceList *devList;
-	CgUpnpDevice *childDev;
-	CgUpnpSSDPRequest *ssdpReq;
-	CgUpnpSSDPSocket *ssdpSock;
+	mUpnpUpnpServiceList *serviceList;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDeviceList *devList;
+	mUpnpUpnpDevice *childDev;
+	mUpnpUpnpSSDPRequest *ssdpReq;
+	mUpnpUpnpSSDPSocket *ssdpSock;
 	BOOL sentResult;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -1305,10 +1305,10 @@ BOOL mupnp_upnp_device_announcefrom(CgUpnpDevice *dev, char *bindAddr)
 * mupnp_upnp_device_announce
 ****************************************/
 
-void mupnp_upnp_device_announce(CgUpnpDevice *dev)
+void mupnp_upnp_device_announce(mUpnpUpnpDevice *dev)
 {
-	CgNetworkInterfaceList *netIfList;
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterfaceList *netIfList;
+	mUpnpNetworkInterface *netIf;
 	char *bindAddr;
 	int ssdpCount, i;
 		
@@ -1339,15 +1339,15 @@ void mupnp_upnp_device_announce(CgUpnpDevice *dev)
 * mupnp_upnp_device_byebyefrom
 ****************************************/
 
-BOOL mupnp_upnp_device_byebyefrom(CgUpnpDevice *dev, char *bindAddr)
+BOOL mupnp_upnp_device_byebyefrom(mUpnpUpnpDevice *dev, char *bindAddr)
 {
 	char ssdpLineBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
-	CgUpnpServiceList *serviceList;
-	CgUpnpService *service;
-	CgUpnpDeviceList *devList;
-	CgUpnpDevice *childDev;
-	CgUpnpSSDPRequest *ssdpReq;
-	CgUpnpSSDPSocket *ssdpSock;
+	mUpnpUpnpServiceList *serviceList;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDeviceList *devList;
+	mUpnpUpnpDevice *childDev;
+	mUpnpUpnpSSDPRequest *ssdpReq;
+	mUpnpUpnpSSDPSocket *ssdpSock;
 	BOOL sentResult;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -1395,10 +1395,10 @@ BOOL mupnp_upnp_device_byebyefrom(CgUpnpDevice *dev, char *bindAddr)
 * mupnp_upnp_device_byebye
 ****************************************/
 
-void mupnp_upnp_device_byebye(CgUpnpDevice *dev)
+void mupnp_upnp_device_byebye(mUpnpUpnpDevice *dev)
 {
-	CgNetworkInterfaceList *netIfList;
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterfaceList *netIfList;
+	mUpnpNetworkInterface *netIf;
 	char *bindAddr;
 	int ssdpCount, i;
 		
@@ -1427,10 +1427,10 @@ void mupnp_upnp_device_byebye(CgUpnpDevice *dev)
 * mupnp_upnp_device_postsearchresponse
 ****************************************/
 
-BOOL mupnp_upnp_device_postsearchresponse(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt, const char *st, const char *usn)
+BOOL mupnp_upnp_device_postsearchresponse(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPacket *ssdpPkt, const char *st, const char *usn)
 {
-	CgUpnpDevice *rootDev;
-	CgUpnpSSDPResponse *ssdpRes;
+	mUpnpUpnpDevice *rootDev;
+	mUpnpUpnpSSDPResponse *ssdpRes;
 	char httpDateStr[CG_HTTP_DATE_MAXLEN];
 	char *localAddr;
 	char *remoteAddr;
@@ -1438,7 +1438,7 @@ BOOL mupnp_upnp_device_postsearchresponse(CgUpnpDevice *dev, CgUpnpSSDPPacket *s
 	char rootDevLocation[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
 	char serverBuf[CG_UPNP_SSDP_HEADER_LINE_MAXSIZE];
 	int ssdpCount;
-	CgUpnpSSDPSocket *ssdpSock;
+	mUpnpUpnpSSDPSocket *ssdpSock;
 	int n;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -1493,7 +1493,7 @@ BOOL mupnp_upnp_device_postsearchresponse(CgUpnpDevice *dev, CgUpnpSSDPPacket *s
 * mupnp_upnp_device_start
 ****************************************/
 
-BOOL mupnp_upnp_device_start(CgUpnpDevice *dev)
+BOOL mupnp_upnp_device_start(mUpnpUpnpDevice *dev)
 {
 	CG_HTTP_LISTENER httpListener;
 	int httpPort;
@@ -1547,7 +1547,7 @@ BOOL mupnp_upnp_device_start(CgUpnpDevice *dev)
 * mupnp_upnp_device_ipchanged
 ****************************************/
 
-BOOL mupnp_upnp_device_ipchanged(CgUpnpDevice *dev)
+BOOL mupnp_upnp_device_ipchanged(mUpnpUpnpDevice *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1560,7 +1560,7 @@ BOOL mupnp_upnp_device_ipchanged(CgUpnpDevice *dev)
 * mupnp_upnp_device_stop
 ****************************************/
 
-BOOL mupnp_upnp_device_stop(CgUpnpDevice *dev)
+BOOL mupnp_upnp_device_stop(mUpnpUpnpDevice *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1596,7 +1596,7 @@ BOOL mupnp_upnp_device_stop(CgUpnpDevice *dev)
  * mupnp_upnp_device_isrunning
  ****************************************/
 
-BOOL mupnp_upnp_device_isrunning(CgUpnpDevice *dev)
+BOOL mupnp_upnp_device_isrunning(mUpnpUpnpDevice *dev)
 {
 	return mupnp_upnp_device_advertiser_isrunning(dev);
 }
@@ -1611,12 +1611,12 @@ BOOL mupnp_upnp_device_isrunning(CgUpnpDevice *dev)
 * mupnp_upnp_device_initservicelist
 ****************************************/
 
-static void mupnp_upnp_device_initservicelist(CgUpnpDevice *dev)
+static void mupnp_upnp_device_initservicelist(mUpnpUpnpDevice *dev)
 {
-	CgXmlNode *devNode;
-	CgXmlNode *serviceListNode;
-	CgXmlNode *childNode;
-	CgUpnpService *childService;
+	mUpnpXmlNode *devNode;
+	mUpnpXmlNode *serviceListNode;
+	mUpnpXmlNode *childNode;
+	mUpnpUpnpService *childService;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1643,10 +1643,10 @@ static void mupnp_upnp_device_initservicelist(CgUpnpDevice *dev)
 }
 
 
-CgUpnpService *mupnp_upnp_device_getservicebyserviceid(CgUpnpDevice *dev, const char *serviceId)
+mUpnpUpnpService *mupnp_upnp_device_getservicebyserviceid(mUpnpUpnpDevice *dev, const char *serviceId)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1697,10 +1697,10 @@ CgUpnpService *mupnp_upnp_device_getservicebyserviceid(CgUpnpDevice *dev, const 
  * \param type Type of the service
  * 
  */
-CgUpnpService* mupnp_upnp_device_getservicebyexacttype(CgUpnpDevice* dev, const char* type)
+mUpnpUpnpService* mupnp_upnp_device_getservicebyexacttype(mUpnpUpnpDevice* dev, const char* type)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1751,10 +1751,10 @@ CgUpnpService* mupnp_upnp_device_getservicebyexacttype(CgUpnpDevice* dev, const 
  * \param type Type of the service
  *
  */
-CgUpnpService *mupnp_upnp_device_getservicebytype(CgUpnpDevice *dev, const char *type)
+mUpnpUpnpService *mupnp_upnp_device_getservicebytype(mUpnpUpnpDevice *dev, const char *type)
 {
-	CgUpnpService *service = NULL;
-	CgUpnpDevice *childDev = NULL;
+	mUpnpUpnpService *service = NULL;
+	mUpnpUpnpDevice *childDev = NULL;
 	const char* typeString = NULL;
 	char* part = NULL;
 	
@@ -1811,10 +1811,10 @@ CgUpnpService *mupnp_upnp_device_getservicebytype(CgUpnpDevice *dev, const char 
 * mupnp_upnp_device_getservicebyscpdurl
 ****************************************/
 
-CgUpnpService *mupnp_upnp_device_getservicebyscpdurl(CgUpnpDevice *dev, const char *url)
+mUpnpUpnpService *mupnp_upnp_device_getservicebyscpdurl(mUpnpUpnpDevice *dev, const char *url)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1842,11 +1842,11 @@ CgUpnpService *mupnp_upnp_device_getservicebyscpdurl(CgUpnpDevice *dev, const ch
 * mupnp_upnp_device_getservicebycontrolurl
 ****************************************/
 
-CgUpnpService *mupnp_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, const char *url)
+mUpnpUpnpService *mupnp_upnp_device_getservicebycontrolurl(mUpnpUpnpDevice *dev, const char *url)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
-	CgNetURL* service_url;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
+	mUpnpNetURL* service_url;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1888,10 +1888,10 @@ CgUpnpService *mupnp_upnp_device_getservicebycontrolurl(CgUpnpDevice *dev, const
 * mupnp_upnp_device_getservicebysid
 ****************************************/
 
-CgUpnpService *mupnp_upnp_device_getservicebysid(CgUpnpDevice *dev, const char *sid)
+mUpnpUpnpService *mupnp_upnp_device_getservicebysid(mUpnpUpnpDevice *dev, const char *sid)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1925,10 +1925,10 @@ CgUpnpService *mupnp_upnp_device_getservicebysid(CgUpnpDevice *dev, const char *
 * mupnp_upnp_device_setactionlistener
 ****************************************/
 
-void mupnp_upnp_device_setactionlistener(CgUpnpDevice *dev, CG_UPNP_ACTION_LISTNER actionListner)
+void mupnp_upnp_device_setactionlistener(mUpnpUpnpDevice *dev, CG_UPNP_ACTION_LISTNER actionListner)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1945,10 +1945,10 @@ void mupnp_upnp_device_setactionlistener(CgUpnpDevice *dev, CG_UPNP_ACTION_LISTN
 * mupnp_upnp_device_setquerylistener
 ****************************************/
 
-void mupnp_upnp_device_setquerylistener(CgUpnpDevice *dev, CG_UPNP_STATEVARIABLE_LISTNER queryListner)
+void mupnp_upnp_device_setquerylistener(mUpnpUpnpDevice *dev, CG_UPNP_STATEVARIABLE_LISTNER queryListner)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1965,10 +1965,10 @@ void mupnp_upnp_device_setquerylistener(CgUpnpDevice *dev, CG_UPNP_STATEVARIABLE
 * mupnp_upnp_device_getservicebyeventsuburl
 ****************************************/
 
-CgUpnpService *mupnp_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, const char *url)
+mUpnpUpnpService *mupnp_upnp_device_getservicebyeventsuburl(mUpnpUpnpDevice *dev, const char *url)
 {
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1995,10 +1995,10 @@ CgUpnpService *mupnp_upnp_device_getservicebyeventsuburl(CgUpnpDevice *dev, cons
  * mupnp_upnp_device_getsmallesticonbymimetype
  ****************************************/
 
-CgUpnpIcon *mupnp_upnp_device_getsmallesticonbymimetype(CgUpnpDevice *dev, const char *mimeType)
+mUpnpUpnpIcon *mupnp_upnp_device_getsmallesticonbymimetype(mUpnpUpnpDevice *dev, const char *mimeType)
 {
-	CgUpnpIcon *icon;
-	CgUpnpIcon *smallestIcon;
+	mUpnpUpnpIcon *icon;
+	mUpnpUpnpIcon *smallestIcon;
 	
 	smallestIcon = NULL;
 	for (icon = mupnp_upnp_device_geticons(dev); icon; icon = mupnp_upnp_icon_next(icon)) {
@@ -2021,7 +2021,7 @@ CgUpnpIcon *mupnp_upnp_device_getsmallesticonbymimetype(CgUpnpDevice *dev, const
 * mupnp_upnp_device_getsmallesticon
 ****************************************/
 				
-CgUpnpIcon *mupnp_upnp_device_getsmallesticon(CgUpnpDevice *dev)
+mUpnpUpnpIcon *mupnp_upnp_device_getsmallesticon(mUpnpUpnpDevice *dev)
 {
 	return mupnp_upnp_device_getsmallesticonbymimetype(dev, "");
 }
@@ -2030,11 +2030,11 @@ CgUpnpIcon *mupnp_upnp_device_getsmallesticon(CgUpnpDevice *dev)
  * mupnp_upnp_device_getabsoluteiconurl
  ****************************************/
 
-BOOL mupnp_upnp_device_getabsoluteiconurl(CgUpnpDevice *dev, CgUpnpIcon *icon, CgString *buf)
+BOOL mupnp_upnp_device_getabsoluteiconurl(mUpnpUpnpDevice *dev, mUpnpUpnpIcon *icon, mUpnpString *buf)
 {
-	CgNetURI *uri;
-	CgNetURI *ssdpUri;
-	CgUpnpDevice *rootDev;
+	mUpnpNetURI *uri;
+	mUpnpNetURI *ssdpUri;
+	mUpnpUpnpDevice *rootDev;
 	const char *ssdplocation;
 	
 	uri = mupnp_net_uri_new();
@@ -2075,11 +2075,11 @@ BOOL mupnp_upnp_device_getabsoluteiconurl(CgUpnpDevice *dev, CgUpnpIcon *icon, C
 * mupnp_upnp_device_getactionbyname
 ****************************************/
 
-CgUpnpAction *mupnp_upnp_device_getactionbyname(CgUpnpDevice *dev, const char *name)
+mUpnpUpnpAction *mupnp_upnp_device_getactionbyname(mUpnpUpnpDevice *dev, const char *name)
 {
-	CgUpnpService *service;
-	CgUpnpAction *action;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpAction *action;
+	mUpnpUpnpDevice *childDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -2113,11 +2113,11 @@ CgUpnpAction *mupnp_upnp_device_getactionbyname(CgUpnpDevice *dev, const char *n
 * mupnp_upnp_device_getstatevariablebyname
 ****************************************/
 
-CgUpnpStateVariable *mupnp_upnp_device_getstatevariablebyname(CgUpnpDevice *dev, const char *name)
+mUpnpUpnpStateVariable *mupnp_upnp_device_getstatevariablebyname(mUpnpUpnpDevice *dev, const char *name)
 {
-	CgUpnpService *service;
-	CgUpnpStateVariable *statVar;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpStateVariable *statVar;
+	mUpnpUpnpDevice *childDev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -2151,12 +2151,12 @@ CgUpnpStateVariable *mupnp_upnp_device_getstatevariablebyname(CgUpnpDevice *dev,
 * mupnp_upnp_device_initiconlist
 ****************************************/
 
-static void mupnp_upnp_device_initiconlist(CgUpnpDevice *dev)
+static void mupnp_upnp_device_initiconlist(mUpnpUpnpDevice *dev)
 {
-	CgXmlNode *devNode;
-	CgXmlNode *iconListNode;
-	CgXmlNode *childNode;
-	CgUpnpIcon *childIcon;
+	mUpnpXmlNode *devNode;
+	mUpnpXmlNode *iconListNode;
+	mUpnpXmlNode *childNode;
+	mUpnpUpnpIcon *childIcon;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -2185,13 +2185,13 @@ static void mupnp_upnp_device_initiconlist(CgUpnpDevice *dev)
  * mupnp_upnp_device_addicon
  ****************************************/
 
-BOOL mupnp_upnp_device_addicon(CgUpnpDevice *dev, CgUpnpIcon *icon)
+BOOL mupnp_upnp_device_addicon(mUpnpUpnpDevice *dev, mUpnpUpnpIcon *icon)
 {
-	CgXmlNode *devNode;
-	CgXmlNode *iconListNode;
-	CgXmlNode *iconNode;
-	CgXmlNode *copyIconNode;
-	CgUpnpIcon *copyIcon;
+	mUpnpXmlNode *devNode;
+	mUpnpXmlNode *iconListNode;
+	mUpnpXmlNode *iconNode;
+	mUpnpXmlNode *copyIconNode;
+	mUpnpUpnpIcon *copyIcon;
 
 	iconNode = mupnp_upnp_icon_geticonnode(icon);
 	if (iconNode == NULL)
@@ -2223,7 +2223,7 @@ BOOL mupnp_upnp_device_addicon(CgUpnpDevice *dev, CgUpnpIcon *icon)
  * mupnp_upnp_device_updateudn
  ****************************************/
 
-void mupnp_upnp_device_updateudn(CgUpnpDevice *dev)
+void mupnp_upnp_device_updateudn(mUpnpUpnpDevice *dev)
 {
 	char uuid[CG_UPNP_UUID_MAX_LEN];
 	mupnp_upnp_createuuid(uuid, sizeof(uuid));
@@ -2234,7 +2234,7 @@ void mupnp_upnp_device_updateudn(CgUpnpDevice *dev)
  * mupnp_upnp_device_setpresentationlistener
  ****************************************/
 
-void mupnp_upnp_device_setpresentationlistener(CgUpnpDevice *dev, CG_UPNP_PRESENTATION_LISTNER func)
+void mupnp_upnp_device_setpresentationlistener(mUpnpUpnpDevice *dev, CG_UPNP_PRESENTATION_LISTNER func)
 {
   mupnp_upnp_device_removepresentationurl(dev);
   if (func)

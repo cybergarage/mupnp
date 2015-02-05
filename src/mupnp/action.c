@@ -25,24 +25,24 @@
 * prototype define for static functions
 ****************************************/
 
-static void mupnp_upnp_action_initchildnodes(CgUpnpAction *action);
-static void mupnp_upnp_action_initargumentlist(CgUpnpAction *action);
+static void mupnp_upnp_action_initchildnodes(mUpnpUpnpAction *action);
+static void mupnp_upnp_action_initargumentlist(mUpnpUpnpAction *action);
 
 /****************************************
 * mupnp_upnp_action_new
 ****************************************/
 
-CgUpnpAction *mupnp_upnp_action_new()
+mUpnpUpnpAction *mupnp_upnp_action_new()
 {
-	CgUpnpAction *action;
+	mUpnpUpnpAction *action;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	action = (CgUpnpAction *)malloc(sizeof(CgUpnpAction));
+	action = (mUpnpUpnpAction *)malloc(sizeof(mUpnpUpnpAction));
 
 	if ( NULL != action )
 	{
-		mupnp_list_node_init((CgList *)action);
+		mupnp_list_node_init((mUpnpList *)action);
 		
 		action->parentService = NULL;
 		action->actionNode = NULL;
@@ -63,7 +63,7 @@ CgUpnpAction *mupnp_upnp_action_new()
 * mupnp_upnp_action_delete
 ****************************************/
 
-void mupnp_upnp_action_delete(CgUpnpAction *action)
+void mupnp_upnp_action_delete(mUpnpUpnpAction *action)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -71,7 +71,7 @@ void mupnp_upnp_action_delete(CgUpnpAction *action)
 	
 	mupnp_upnp_status_delete(action->upnpStatus);
 	
-	mupnp_list_remove((CgList *)action);
+	mupnp_list_remove((mUpnpList *)action);
 	free(action);
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -81,7 +81,7 @@ void mupnp_upnp_action_delete(CgUpnpAction *action)
 * mupnp_upnp_action_setactionnode
 ****************************************/
 
-void mupnp_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node)
+void mupnp_upnp_action_setactionnode(mUpnpUpnpAction *action, mUpnpXmlNode *node)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -101,7 +101,7 @@ void mupnp_upnp_action_setactionnode(CgUpnpAction *action, CgXmlNode *node)
 * mupnp_upnp_action_initchildnodes
 ****************************************/
 
-static void mupnp_upnp_action_initchildnodes(CgUpnpAction *action)
+static void mupnp_upnp_action_initchildnodes(mUpnpUpnpAction *action)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -120,12 +120,12 @@ static void mupnp_upnp_action_initchildnodes(CgUpnpAction *action)
 * mupnp_upnp_action_initargumentlist
 ****************************************/
 
-static void mupnp_upnp_action_initargumentlist(CgUpnpAction *action)
+static void mupnp_upnp_action_initargumentlist(mUpnpUpnpAction *action)
 {
-	CgXmlNode *actionNode;
-	CgXmlNode *argumentListNode;
-	CgXmlNode *childNode;
-	CgUpnpArgument *arg;
+	mUpnpXmlNode *actionNode;
+	mUpnpXmlNode *argumentListNode;
+	mUpnpXmlNode *childNode;
+	mUpnpUpnpArgument *arg;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -154,10 +154,10 @@ static void mupnp_upnp_action_initargumentlist(CgUpnpAction *action)
 * mupnp_upnp_action_getargumentbyname
 ****************************************/
 
-CgUpnpArgument *mupnp_upnp_action_getargumentbyname(CgUpnpAction *action, const char *name)
+mUpnpUpnpArgument *mupnp_upnp_action_getargumentbyname(mUpnpUpnpAction *action, const char *name)
 {
-	CgUpnpArgumentList *argList;
-	CgUpnpArgument *arg;
+	mUpnpUpnpArgumentList *argList;
+	mUpnpUpnpArgument *arg;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -179,9 +179,9 @@ CgUpnpArgument *mupnp_upnp_action_getargumentbyname(CgUpnpAction *action, const 
 * mupnp_upnp_action_getargumentvaluebyname
 ****************************************/
 
-char *mupnp_upnp_action_getargumentvaluebyname(CgUpnpAction *action, const char *name)
+char *mupnp_upnp_action_getargumentvaluebyname(mUpnpUpnpAction *action, const char *name)
 {
-	CgUpnpArgument *arg;
+	mUpnpUpnpArgument *arg;
 
 	arg = mupnp_upnp_action_getargumentbyname(action, name);
 	if (!arg)
@@ -193,9 +193,9 @@ char *mupnp_upnp_action_getargumentvaluebyname(CgUpnpAction *action, const char 
 * mupnp_upnp_action_setargumentvaluebyname
 ****************************************/
 
-BOOL mupnp_upnp_action_setargumentvaluebyname(CgUpnpAction *action, const char *name, const char *value)
+BOOL mupnp_upnp_action_setargumentvaluebyname(mUpnpUpnpAction *action, const char *name, const char *value)
 {
-	CgUpnpArgument *arg;
+	mUpnpUpnpArgument *arg;
 
 	arg = mupnp_upnp_action_getargumentbyname(action, name);
 	if (!arg)

@@ -78,15 +78,15 @@ extern long int mupnp_total_elapsed_time;
 * mupnp_xml_parse (Expat)
 ****************************************/
 
-typedef struct _CgExpatData {
-	CgXmlNode *rootNode;
-	CgXmlNode *currNode;
-} CgExpatData;
+typedef struct _mUpnpExpatData {
+	mUpnpXmlNode *rootNode;
+	mUpnpXmlNode *currNode;
+} mUpnpExpatData;
 
 static void XMLCALL mupnp_expat_element_start(void *userData, const char *el, const char **attr)
 {
-	CgExpatData *expatData;
-	CgXmlNode *node;
+	mUpnpExpatData *expatData;
+	mUpnpXmlNode *node;
 	int n;
 #if defined DEBUG_XML
 	int out,j;
@@ -112,7 +112,7 @@ static void XMLCALL mupnp_expat_element_start(void *userData, const char *el, co
 #endif
 	//memdiags_memlist_report_unmarkedsize();
 
-	expatData = (CgExpatData *)userData;
+	expatData = (mUpnpExpatData *)userData;
 
 	node = mupnp_xml_node_new();
 	mupnp_xml_node_setname(node, (char *)el);
@@ -136,11 +136,11 @@ static void XMLCALL mupnp_expat_element_start(void *userData, const char *el, co
 
 static void XMLCALL mupnp_expat_element_end(void *userData, const char *el)
 {
-	CgExpatData *expatData;
+	mUpnpExpatData *expatData;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	expatData = (CgExpatData *)userData;
+	expatData = (mUpnpExpatData *)userData;
 
 #if defined DEBUG_XML
 	//printf("%8x XML end %s\n",userData,el);
@@ -155,7 +155,7 @@ static void XMLCALL mupnp_expat_element_end(void *userData, const char *el)
 
 static void XMLCALL mupnp_expat_character_data(void *userData, const XML_Char *s, int len)
 {
-	CgExpatData *expatData;
+	mUpnpExpatData *expatData;
 #if defined XML_IGNORE_WHITESPACE
 	int i;
 #endif
@@ -168,7 +168,7 @@ static void XMLCALL mupnp_expat_character_data(void *userData, const XML_Char *s
 	for (i=0;i<len;i++){
 		if (!isspace((char)s[i])) {
 #endif
-			expatData = (CgExpatData *)userData;
+			expatData = (mUpnpExpatData *)userData;
 			if (expatData->currNode != NULL)
 				mupnp_xml_node_naddvalue(expatData->currNode, (char *)s, len);
 #if defined XML_IGNORE_WHITESPACE
@@ -178,13 +178,13 @@ static void XMLCALL mupnp_expat_character_data(void *userData, const XML_Char *s
 #endif
 }
 
-BOOL mupnp_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *data, size_t len)
+BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const char *data, size_t len)
 {
 #if defined DEBUG_XML_RESULT
-	CgString* resdata = NULL;
+	mUpnpString* resdata = NULL;
 #endif
 	XML_Parser p;
-	CgExpatData expatData;
+	mUpnpExpatData expatData;
 #ifdef CG_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
 #endif	

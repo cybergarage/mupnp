@@ -111,10 +111,10 @@ BOOL IsInterfaceAddressInitialized = FALSE;
 
 #pragma message ("******** WIN32 && !WINCE selected!")
 
-int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 {
 #if !defined(CG_USE_WIN32_GETHOSTADDRESSES) && !defined(CG_USE_WIN32_GETADAPTERSINFO)
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterface *netIf;
 	SOCKET sd;
 	int nNumInterfaces;
 	INTERFACE_INFO InterfaceList[20];
@@ -166,7 +166,7 @@ int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 #elif defined(CG_USE_WIN32_GETADAPTERSINFO)
 	#pragma comment(lib, "Iphlpapi.lib")
 
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterface *netIf;
 	PIP_ADAPTER_INFO  pAdapterInfo=NULL, pAdapter=NULL;
 	ULONG            ulOutBufLen;
 	DWORD            dwRetVal;
@@ -212,7 +212,7 @@ int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 	char port[NI_MAXSERV];
 	int namInfoRet;
 	int ifIdx;
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterface *netIf;
 
 	mupnp_socket_startup();
 	mupnp_net_interfacelist_clear(netIfList);
@@ -280,9 +280,9 @@ int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 * mupnp_net_gethostinterfaces (WINCE)
 ****************************************/
 
-int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 {
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterface *netIf;
 
 	//iphelper API vars
 	PIP_ADAPTER_INFO  pAdapterInfo=NULL, pAdapter=NULL;
@@ -375,9 +375,9 @@ int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 
 #if defined(HAVE_IFADDRS_H) 
 
-int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 {
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterface *netIf;
 	struct ifaddrs *ifaddr;
 	char addr[NI_MAXHOST+1];
 	char netmask[NI_MAXHOST+1];
@@ -457,11 +457,11 @@ DELETE END Fabrice Fontaine Orange 16/04/2007 */
 
 static const char *PATH_PROC_NET_DEV = "/proc/net/dev";
 
-int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterface *netIf;
 	FILE *fd;
 	int s;
 	char buffer[256+1];
@@ -522,11 +522,11 @@ int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 
 #if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
 
-int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterface *netIf;
 	struct hostent hostEnt;
 	B buf[HBUFLEN];
 	ERR err;
@@ -559,11 +559,11 @@ int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 
 #if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
 
-int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterface *netIf;
     struct in_addr inAddr;
     char ipaddr[CG_NET_IPV6_ADDRSTRING_MAXSIZE];
 	int kaRet;
@@ -605,9 +605,9 @@ void mupnp_net_setinterface(const char *ifaddr)
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 {
-	CgNetworkInterface *netIf;
+	mUpnpNetworkInterface *netIf;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -633,9 +633,9 @@ int mupnp_net_gethostinterfaces(CgNetworkInterfaceList *netIfList)
 #if !defined(HAVE_IFADDRS_H) || defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR)
 char *mupnp_net_selectaddr(struct sockaddr *remoteaddr)
 {
-	CgNetworkInterfaceList *netIfList;
-	CgNetworkInterface *netIf;
-	CgNetworkInterface *selectNetIf;
+	mUpnpNetworkInterfaceList *netIfList;
+	mUpnpNetworkInterface *netIf;
+	mUpnpNetworkInterface *selectNetIf;
 	char *selectNetIfAddr;
 	u_long laddr, lmask, raddr;
 	struct addrinfo hints;

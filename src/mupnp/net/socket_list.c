@@ -27,14 +27,14 @@
 * mupnp_socketlist_new
 ****************************************/
 
-CgSocketList *mupnp_socketlist_new()
+mUpnpSocketList *mupnp_socketlist_new()
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgSocketList *socketList = (CgSocketList *)malloc(sizeof(CgSocketList));
+	mUpnpSocketList *socketList = (mUpnpSocketList *)malloc(sizeof(mUpnpSocketList));
 
 	if ( NULL != socketList )
-		mupnp_list_header_init((CgList *)socketList);
+		mupnp_list_header_init((mUpnpList *)socketList);
 
 	return socketList;
 
@@ -45,7 +45,7 @@ CgSocketList *mupnp_socketlist_new()
 * mupnp_socketlist_delete
 ****************************************/
 
-void mupnp_socketlist_delete(CgSocketList *socketList)
+void mupnp_socketlist_delete(mUpnpSocketList *socketList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

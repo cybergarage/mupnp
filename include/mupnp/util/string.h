@@ -93,13 +93,13 @@ const char *mupnp_ssizet2str(ssize_t value, char *buf, size_t bufSize);
 * Data Type
 ****************************************/
 	
-typedef struct _CgString {
+typedef struct _mUpnpString {
 	char *value;
 	size_t memSize;
 	size_t valueSize;
-} CgString;
+} mUpnpString;
 	
-typedef struct _CgStringTokenizer {
+typedef struct _mUpnpStringTokenizer {
 	char *value;
 	char *delim;
 	size_t delimCnt;
@@ -109,52 +109,52 @@ typedef struct _CgStringTokenizer {
 	char *nextToken;
 	char repToken;
 	BOOL hasNextTokens;
-} CgStringTokenizer;
+} mUpnpStringTokenizer;
 	
 /****************************************
 * Function (StringTokenizer)
 ****************************************/
 	
-CgStringTokenizer *mupnp_string_tokenizer_new(const char *str, const char *delim);
-void mupnp_string_tokenizer_delete(CgStringTokenizer *strToken);
-BOOL mupnp_string_tokenizer_hasmoretoken(CgStringTokenizer *strToken);
-char *mupnp_string_tokenizer_nexttoken(CgStringTokenizer *strToken);
-char *mupnp_string_tokenizer_nextalltoken(CgStringTokenizer *strToken);
+mUpnpStringTokenizer *mupnp_string_tokenizer_new(const char *str, const char *delim);
+void mupnp_string_tokenizer_delete(mUpnpStringTokenizer *strToken);
+BOOL mupnp_string_tokenizer_hasmoretoken(mUpnpStringTokenizer *strToken);
+char *mupnp_string_tokenizer_nexttoken(mUpnpStringTokenizer *strToken);
+char *mupnp_string_tokenizer_nextalltoken(mUpnpStringTokenizer *strToken);
 	
-void mupnp_string_tokenizer_print(CgStringTokenizer *strToken);
+void mupnp_string_tokenizer_print(mUpnpStringTokenizer *strToken);
 	
 /****************************************
 * Function (String)
 ****************************************/
 
-CgString *mupnp_string_new();
-void mupnp_string_delete(CgString *str);
-void mupnp_string_clear(CgString *str);
+mUpnpString *mupnp_string_new();
+void mupnp_string_delete(mUpnpString *str);
+void mupnp_string_clear(mUpnpString *str);
 
-void mupnp_string_setvalue(CgString *str, const char *value);
-void mupnp_string_setintvalue(CgString *str, int value);
-void mupnp_string_setlongvalue(CgString *str, long value);
-void mupnp_string_setfloatvalue(CgString *str, float value);
-void mupnp_string_setdoublevalue(CgString *str, double value);
-void mupnp_string_setnvalue(CgString *str, const char *value, size_t len);
-void mupnp_string_setpointervalue(CgString *str, char *value, size_t len);
+void mupnp_string_setvalue(mUpnpString *str, const char *value);
+void mupnp_string_setintvalue(mUpnpString *str, int value);
+void mupnp_string_setlongvalue(mUpnpString *str, long value);
+void mupnp_string_setfloatvalue(mUpnpString *str, float value);
+void mupnp_string_setdoublevalue(mUpnpString *str, double value);
+void mupnp_string_setnvalue(mUpnpString *str, const char *value, size_t len);
+void mupnp_string_setpointervalue(mUpnpString *str, char *value, size_t len);
 
-char *mupnp_string_getvalue(CgString *str);
+char *mupnp_string_getvalue(mUpnpString *str);
 #define mupnp_string_getintvalue(str) mupnp_str2int(mupnp_string_getvalue(str))
 #define mupnp_string_getlongvalue(str) mupnp_str2long(mupnp_string_getvalue(str))
 #define mupnp_string_getfloatvalue(str) mupnp_str2float(mupnp_string_getvalue(str))
 #define mupnp_string_getdoublevalue(str) mupnp_str2double(mupnp_string_getvalue(str))
 	
-size_t mupnp_string_length(CgString *str);
+size_t mupnp_string_length(mUpnpString *str);
 
-char *mupnp_string_addvalue(CgString *str, const char *value);
-char *mupnp_string_naddvalue(CgString *str, const char *value, size_t valueLen);
-char *mupnp_string_addrepvalue(CgString *str, const char *value, size_t repeatCnt);
-char *mupnp_string_naddrepvalue(CgString *str, const char *value, size_t valueLen, size_t repeatCnt);
+char *mupnp_string_addvalue(mUpnpString *str, const char *value);
+char *mupnp_string_naddvalue(mUpnpString *str, const char *value, size_t valueLen);
+char *mupnp_string_addrepvalue(mUpnpString *str, const char *value, size_t repeatCnt);
+char *mupnp_string_naddrepvalue(mUpnpString *str, const char *value, size_t valueLen, size_t repeatCnt);
 
-char *mupnp_string_replace(CgString *str, char *fromStr[], char *toStr[], size_t fromStrCnt);
+char *mupnp_string_replace(mUpnpString *str, char *fromStr[], char *toStr[], size_t fromStrCnt);
 
-size_t mupnp_string_getmemorysize(CgString *str);
+size_t mupnp_string_getmemorysize(mUpnpString *str);
 
 #ifdef  __cplusplus
 }

@@ -59,7 +59,7 @@ static struct fd_list *descriptor_list = NULL; /* Contains logging targets (sing
 static int initialized = 0;
 static char *separator = NULL; /* Log item separator */
 
-static CgMutex *(print_mutex) = NULL;
+static mUpnpMutex *(print_mutex) = NULL;
 
 /* Local helper functions */
 

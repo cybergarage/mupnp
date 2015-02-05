@@ -39,7 +39,7 @@ void PrintKeyMessage()
 
 int main(int argc, char *argv[])
 {
-	CgUpnpMediaServer *dms;
+	mUpnpUpnpMediaServer *dms;
 	char *pubDir;
 	int programNameIdx;
 	int key;
@@ -80,13 +80,13 @@ int main(int argc, char *argv[])
 	dms = mupnp_upnpav_dms_filesys_new();
 	mupnp_upnpav_dms_filesys_setpublicationdirectory(dms, pubDir);
 
-    // Demonstrate how to use CgUpnpAvProtocolInfo to register protocolinfo.
+    // Demonstrate how to use mUpnpUpnpAvProtocolInfo to register protocolinfo.
     // Which is required for some devices to work, like Sony Bravia TV.
     // (Bravia actually also needs additionalinfo set to "DLNA.ORG_PN=MP3" etc)
     {
         char *protocols[] = {"*", "video/*", "audio/*", "image/*", NULL};
         int i;
-        CgUpnpAvProtocolInfo *info;
+        mUpnpUpnpAvProtocolInfo *info;
         for (i = 0; protocols[i]; i++) {
             if ((info = mupnp_upnpav_protocolinfo_new())) {
                 mupnp_upnpav_protocolinfo_setprotocol(info, "http-get");

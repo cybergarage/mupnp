@@ -25,17 +25,17 @@
 * mupnp_upnp_argument_new
 ****************************************/
 
-CgUpnpArgument *mupnp_upnp_argument_new()
+mUpnpUpnpArgument *mupnp_upnp_argument_new()
 {
-	CgUpnpArgument *arg;
+	mUpnpUpnpArgument *arg;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	arg = (CgUpnpArgument *)malloc(sizeof(CgUpnpArgument));
+	arg = (mUpnpUpnpArgument *)malloc(sizeof(mUpnpUpnpArgument));
 
 	if ( NULL != arg )
 	{
-		mupnp_list_node_init((CgList *)arg);
+		mupnp_list_node_init((mUpnpList *)arg);
 		
 		arg->serviceNode = NULL;
 		arg->argumentNode = NULL;
@@ -52,11 +52,11 @@ CgUpnpArgument *mupnp_upnp_argument_new()
 * mupnp_upnp_argument_delete
 ****************************************/
 
-void mupnp_upnp_argument_delete(CgUpnpArgument *arg)
+void mupnp_upnp_argument_delete(mUpnpUpnpArgument *arg)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_remove((CgList *)arg);
+	mupnp_list_remove((mUpnpList *)arg);
 	
 	mupnp_string_delete(arg->value);
 	

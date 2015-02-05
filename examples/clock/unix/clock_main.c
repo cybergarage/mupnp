@@ -39,7 +39,7 @@
 #endif
 #endif
 
-CgUpnpDevice *clockDev;
+mUpnpUpnpDevice *clockDev;
 
 ////////////////////////////////////////////////////////// 
 //  InitApp

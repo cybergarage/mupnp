@@ -32,14 +32,14 @@
 * mupnp_upnp_event_subscription_subscriberesponse_setresponse
 ****************************************/
 
-void mupnp_upnp_event_subscription_subscriberesponse_setresponse(CgUpnpSubscriptionResponse *subRes, int code)
+void mupnp_upnp_event_subscription_subscriberesponse_setresponse(mUpnpUpnpSubscriptionResponse *subRes, int code)
 {
   char server[CG_UPNP_SEVERNAME_MAXLEN];
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_http_response_setstatuscode(subRes, code);
   mupnp_upnp_getservername(server, sizeof(server));
-  mupnp_http_packet_setheadervalue(((CgHttpPacket*)subRes),
+  mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subRes),
                                   CG_HTTP_SERVER,
                                   server);
 	mupnp_http_response_setcontentlength(subRes, 0);
@@ -51,9 +51,9 @@ void mupnp_upnp_event_subscription_subscriberesponse_setresponse(CgUpnpSubscript
 * mupnp_upnp_event_subscription_response_setsid
 ****************************************/
 
-void mupnp_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *subRes, const char *sid)
+void mupnp_upnp_event_subscription_response_setsid(mUpnpUpnpSubscriptionResponse *subRes, const char *sid)
 {
-	CgString *headerSID;
+	mUpnpString *headerSID;
 	ssize_t uuidIdx;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -65,7 +65,7 @@ void mupnp_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *s
 		mupnp_string_addvalue(headerSID, CG_UPNP_ST_UUID_DEVICE ":");
 	mupnp_string_addvalue(headerSID, sid);
 
-	mupnp_http_packet_setheadervalue(((CgHttpPacket*)subRes), CG_HTTP_SID, mupnp_string_getvalue(headerSID));
+	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subRes), CG_HTTP_SID, mupnp_string_getvalue(headerSID));
 
 	mupnp_string_delete(headerSID);
 
@@ -76,14 +76,14 @@ void mupnp_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *s
 * mupnp_upnp_event_subscription_response_settimeout
 ****************************************/
 
-void mupnp_upnp_event_subscription_response_settimeout(CgUpnpSubscriptionResponse *subRes, long value)
+void mupnp_upnp_event_subscription_response_settimeout(mUpnpUpnpSubscriptionResponse *subRes, long value)
 {
-	CgString *buf;
+	mUpnpString *buf;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	buf = mupnp_string_new();
-	mupnp_http_packet_setheadervalue((CgHttpPacket*)subRes, CG_HTTP_TIMEOUT, mupnp_upnp_event_subscription_totimeoutheaderstring(value, buf));
+	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)subRes, CG_HTTP_TIMEOUT, mupnp_upnp_event_subscription_totimeoutheaderstring(value, buf));
 	mupnp_string_delete(buf);
 
 	mupnp_log_debug_l4("Leaving...\n");

@@ -25,17 +25,17 @@
 * mupnp_threadlist_new
 ****************************************/
 
-CgThreadList *mupnp_threadlist_new()
+mUpnpThreadList *mupnp_threadlist_new()
 {
-	CgThreadList *threadList;
+	mUpnpThreadList *threadList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	threadList = (CgThreadList *)malloc(sizeof(CgThreadList));
+	threadList = (mUpnpThreadList *)malloc(sizeof(mUpnpThreadList));
 
 	if ( NULL != threadList )
 	{
-		mupnp_list_header_init((CgList *)threadList);
+		mupnp_list_header_init((mUpnpList *)threadList);
 		threadList->runnableFlag = FALSE;
 		threadList->action = NULL;
 		threadList->userData = NULL;
@@ -50,7 +50,7 @@ CgThreadList *mupnp_threadlist_new()
 * mupnp_threadlist_delete
 ****************************************/
 
-void mupnp_threadlist_delete(CgThreadList *threadList)
+void mupnp_threadlist_delete(mUpnpThreadList *threadList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -64,9 +64,9 @@ void mupnp_threadlist_delete(CgThreadList *threadList)
 * mupnp_threadlist_start
 ****************************************/
 
-BOOL mupnp_threadlist_start(CgThreadList *threadList)
+BOOL mupnp_threadlist_start(mUpnpThreadList *threadList)
 {
-	CgThreadList *thread;
+	mUpnpThreadList *thread;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -82,9 +82,9 @@ BOOL mupnp_threadlist_start(CgThreadList *threadList)
 * mupnp_threadlist_stop
 ****************************************/
 
-BOOL mupnp_threadlist_stop(CgThreadList *threadList)
+BOOL mupnp_threadlist_stop(mUpnpThreadList *threadList)
 {
-	CgThreadList *thread;
+	mUpnpThreadList *thread;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

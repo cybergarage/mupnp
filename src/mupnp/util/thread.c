@@ -54,11 +54,11 @@ static void sig_handler(int sign);
 #if defined(WIN32) && !defined (WINCE) && !defined(ITRON)
 static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 {
-	CgThread *thread;
+	mUpnpThread *thread;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	thread = (CgThread *)lpParam;
+	thread = (mUpnpThread *)lpParam;
 	if (thread->action != NULL)
 		thread->action(thread);
 	
@@ -67,7 +67,7 @@ static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 #elif defined(WINCE)
 static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 {
-	CgThread *thread = (CgThread *)lpParam;
+	mUpnpThread *thread = (mUpnpThread *)lpParam;
 
 	//Theo Beisch: make sure we're runnable
 	//thread->runnableFlag = TRUE;
@@ -104,7 +104,7 @@ static VOID BTronTaskProc(W param)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgThread *thread = (CgThread *)param;
+	mUpnpThread *thread = (mUpnpThread *)param;
 	if (thread->action != NULL)
 		thread->action(thread);
 	ext_tsk();
@@ -117,10 +117,10 @@ static TASK ITronTaskProc(int param)
 	mupnp_log_debug_l4("Entering...\n");
 
 	T_RTSK rtsk;
-	CgThread *thread;
+	mUpnpThread *thread;
 	if (ref_tsk(TSK_SELF, &rtsk) != E_OK)
 		return;
-	thread = (CgThread *)rtsk.exinf;
+	thread = (mUpnpThread *)rtsk.exinf;
 	if (thread->action != NULL)
 		thread->action(thread);
 	exd_tsk();
@@ -132,7 +132,7 @@ static VOID TEngineTaskProc(INT stacd, VP param)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgThread *thread = (CgThread *)param;
+	mUpnpThread *thread = (mUpnpThread *)param;
 	if (thread->action != NULL)
 		thread->action(thread);
 	tk_exd_tsk();
@@ -144,7 +144,7 @@ static VOID TEngineProcessBasedTaskProc(W param)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgThread *thread = (CgThread *)param;
+	mUpnpThread *thread = (mUpnpThread *)param;
 	if (thread->action != NULL)
 		thread->action(thread);
 	b_ext_tsk();
@@ -162,9 +162,9 @@ static void mupnp_thread_createkey()
 	pthread_key_create(&mupnp_thread_self_ref, NULL);
 }
 
-CgThread *mupnp_thread_self()
+mUpnpThread *mupnp_thread_self()
 {
-	return (CgThread *)pthread_getspecific(mupnp_thread_self_ref);
+	return (mUpnpThread *)pthread_getspecific(mupnp_thread_self_ref);
 }
 
 static void *PosixThreadProc(void *param)
@@ -173,7 +173,7 @@ static void *PosixThreadProc(void *param)
 
 	sigset_t set;
 	struct sigaction actions;
-	CgThread *thread = (CgThread *)param;
+	mUpnpThread *thread = (mUpnpThread *)param;
 
 	/* SIGQUIT is used in thread deletion routine
 	 * to force accept and recvmsg to return during thread
@@ -204,19 +204,19 @@ static void *PosixThreadProc(void *param)
 * mupnp_thread_new
 ****************************************/
 
-CgThread *mupnp_thread_new()
+mUpnpThread *mupnp_thread_new()
 {
-	CgThread *thread;
+	mUpnpThread *thread;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	thread = (CgThread *)malloc(sizeof(CgThread));
+	thread = (mUpnpThread *)malloc(sizeof(mUpnpThread));
 
 	mupnp_log_debug_s("Creating thread data into %p\n", thread);
 
 	if ( NULL != thread )
 	{
-		mupnp_list_node_init((CgList *)thread);
+		mupnp_list_node_init((mUpnpList *)thread);
 		
 		thread->runnableFlag = FALSE;
 		thread->action = NULL;
@@ -242,7 +242,7 @@ CgThread *mupnp_thread_new()
 * mupnp_thread_delete
 ****************************************/
 
-BOOL mupnp_thread_delete(CgThread *thread)
+BOOL mupnp_thread_delete(mUpnpThread *thread)
 {
 #if defined WINCE
 	BOOL stop = FALSE;
@@ -259,7 +259,7 @@ BOOL mupnp_thread_delete(CgThread *thread)
 #endif				
 
 		if (thread->hThread!=NULL) CloseHandle(thread->hThread);
-		mupnp_list_remove((CgList *)thread);
+		mupnp_list_remove((mUpnpList *)thread);
 #if defined DEBUG_MEM
 		memdiags_tlist_removethread(thread);
 #endif
@@ -298,7 +298,7 @@ BOOL mupnp_thread_delete(CgThread *thread)
 * mupnp_thread_start
 ****************************************/
 
-BOOL mupnp_thread_start(CgThread *thread)
+BOOL mupnp_thread_start(mUpnpThread *thread)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -401,12 +401,12 @@ BOOL mupnp_thread_start(CgThread *thread)
 * mupnp_thread_stop
 ****************************************/
 
-BOOL mupnp_thread_stop(CgThread *thread)
+BOOL mupnp_thread_stop(mUpnpThread *thread)
 {
 	return mupnp_thread_stop_with_cond(thread, NULL);
 }
 
-BOOL mupnp_thread_stop_with_cond(CgThread *thread, CgCond *cond)
+BOOL mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
 {
 #if defined (WINCE)
 	int i, j;
@@ -502,8 +502,8 @@ BOOL mupnp_thread_stop_with_cond(CgThread *thread, CgCond *cond)
 // by having a finer timer tick granularity
 
 #if defined (WINCE)
-void mupnp_thread_sleep(CgThread *thread) {
-	CgTime until;
+void mupnp_thread_sleep(mUpnpThread *thread) {
+	mUpnpTime until;
 #if defined DEBUG_MEM
 	printf("###### Going to sleep - elapsed since last sleep = %d\n",memdiags_getelapsedtime(thread->hThread));
 #endif
@@ -530,7 +530,7 @@ VOID mupnp_thread_exit(DWORD exitCode) {
 * mupnp_thread_restart
 ****************************************/
 
-BOOL mupnp_thread_restart(CgThread *thread)
+BOOL mupnp_thread_restart(mUpnpThread *thread)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -545,7 +545,7 @@ BOOL mupnp_thread_restart(CgThread *thread)
 * mupnp_thread_isrunnable
 ****************************************/
 
-BOOL mupnp_thread_isrunnable(CgThread *thread)
+BOOL mupnp_thread_isrunnable(mUpnpThread *thread)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -562,7 +562,7 @@ BOOL mupnp_thread_isrunnable(CgThread *thread)
 * mupnp_thread_setaction
 ****************************************/
 
-void mupnp_thread_setaction(CgThread *thread, CG_THREAD_FUNC func)
+void mupnp_thread_setaction(mUpnpThread *thread, CG_THREAD_FUNC func)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -575,7 +575,7 @@ void mupnp_thread_setaction(CgThread *thread, CG_THREAD_FUNC func)
 * mupnp_thread_setuserdata
 ****************************************/
 
-void mupnp_thread_setuserdata(CgThread *thread, void *value)
+void mupnp_thread_setuserdata(mUpnpThread *thread, void *value)
 {
 	mupnp_log_debug_l4("Entering...\n");
 	
@@ -588,7 +588,7 @@ void mupnp_thread_setuserdata(CgThread *thread, void *value)
 * mupnp_thread_getuserdata
 ****************************************/
 
-void *mupnp_thread_getuserdata(CgThread *thread)
+void *mupnp_thread_getuserdata(mUpnpThread *thread)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

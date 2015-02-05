@@ -31,10 +31,10 @@
 * mupnp_upnp_service_notifymain
 ****************************************/
 
-static BOOL mupnp_upnp_service_notifymain(CgUpnpService *service, CgUpnpStateVariable *statVar)
+static BOOL mupnp_upnp_service_notifymain(mUpnpUpnpService *service, mUpnpUpnpStateVariable *statVar)
 {
-	CgUpnpSubscriber *sub;
-	CgUpnpSubscriber **subArray;
+	mUpnpUpnpSubscriber *sub;
+	mUpnpUpnpSubscriber **subArray;
 	int subArrayCnt;
 	int n;
 		
@@ -44,7 +44,7 @@ static BOOL mupnp_upnp_service_notifymain(CgUpnpService *service, CgUpnpStateVar
 
 	/**** Remove expired subscribers ****/
 	subArrayCnt = mupnp_upnp_service_getnsubscribers(service);
-	subArray = (CgUpnpSubscriber **)malloc(sizeof(CgUpnpSubscriber *) * subArrayCnt);
+	subArray = (mUpnpUpnpSubscriber **)malloc(sizeof(mUpnpUpnpSubscriber *) * subArrayCnt);
 
 	if ( NULL == subArray )
 	{
@@ -69,7 +69,7 @@ static BOOL mupnp_upnp_service_notifymain(CgUpnpService *service, CgUpnpStateVar
 		
 	/**** Notify to subscribers ****/
 	subArrayCnt = mupnp_upnp_service_getnsubscribers(service);
-	subArray = (CgUpnpSubscriber **)malloc(sizeof(CgUpnpSubscriber *) * subArrayCnt);
+	subArray = (mUpnpUpnpSubscriber **)malloc(sizeof(mUpnpUpnpSubscriber *) * subArrayCnt);
 
 	if ( NULL == subArray ) {
 		mupnp_log_debug_s("Memory allocation problem!\n");
@@ -112,7 +112,7 @@ static BOOL mupnp_upnp_service_notifymain(CgUpnpService *service, CgUpnpStateVar
 * mupnp_upnp_service_notify
 ****************************************/
 
-BOOL mupnp_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *statVar)
+BOOL mupnp_upnp_service_notify(mUpnpUpnpService *service, mUpnpUpnpStateVariable *statVar)
 {
 	return mupnp_upnp_service_notifymain(service, statVar);
 }
@@ -121,7 +121,7 @@ BOOL mupnp_upnp_service_notify(CgUpnpService *service, CgUpnpStateVariable *stat
 * mupnp_upnp_service_notifyall
 ****************************************/
 
-BOOL mupnp_upnp_service_notifyallbracket(CgUpnpService *service)
+BOOL mupnp_upnp_service_notifyallbracket(mUpnpUpnpService *service)
 {
 	return mupnp_upnp_service_notifymain(service, NULL);
 }
@@ -130,9 +130,9 @@ BOOL mupnp_upnp_service_notifyallbracket(CgUpnpService *service)
 * mupnp_upnp_service_notifyall
 ****************************************/
 
-BOOL mupnp_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket)
+BOOL mupnp_upnp_service_notifyall(mUpnpUpnpService *service, BOOL doBracket)
 {
-	CgUpnpStateVariable *statVar;
+	mUpnpUpnpStateVariable *statVar;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -155,18 +155,18 @@ BOOL mupnp_upnp_service_notifyall(CgUpnpService *service, BOOL doBracket)
  * mupnp_upnp_service_notifyall
  ****************************************/
 
-static void mupnp_upnp_service_notifyall_thread(CgThread *thread)
+static void mupnp_upnp_service_notifyall_thread(mUpnpThread *thread)
 {
-	CgUpnpService *service;
+	mUpnpUpnpService *service;
 	
-	service = (CgUpnpService *)mupnp_thread_getuserdata(thread);
+	service = (mUpnpUpnpService *)mupnp_thread_getuserdata(thread);
 	mupnp_upnp_service_notifyall(service, TRUE);
 	mupnp_thread_delete(thread);	
 }
 
-void mupnp_upnp_service_createnotifyallthread(CgUpnpService *service, CgTime waitTime)
+void mupnp_upnp_service_createnotifyallthread(mUpnpUpnpService *service, mUpnpTime waitTime)
 {
-	CgThread *thread;
+	mUpnpThread *thread;
 	
 	thread = mupnp_thread_new();
 	mupnp_thread_setaction(thread, mupnp_upnp_service_notifyall_thread);

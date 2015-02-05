@@ -36,13 +36,13 @@
 * mupnp_string_new
 ****************************************/
 
-CgString *mupnp_string_new()
+mUpnpString *mupnp_string_new()
 {
-	CgString *str;
+	mUpnpString *str;
 
 	mupnp_log_debug_l5("Entering...\n");
 
-	str = (CgString *)malloc(sizeof(CgString));
+	str = (mUpnpString *)malloc(sizeof(mUpnpString));
 
 	if (NULL != str) {
 		str->value = NULL;
@@ -59,7 +59,7 @@ CgString *mupnp_string_new()
 * mupnp_string_delete
 ****************************************/
 
-void mupnp_string_delete(CgString *str)
+void mupnp_string_delete(mUpnpString *str)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -75,7 +75,7 @@ void mupnp_string_delete(CgString *str)
 * mupnp_string_delete
 ****************************************/
 
-void mupnp_string_clear(CgString *str)
+void mupnp_string_clear(mUpnpString *str)
 {
 	mupnp_log_debug_l5("Entering...\n");
 	
@@ -95,7 +95,7 @@ void mupnp_string_clear(CgString *str)
 * mupnp_string_setvalue
 ****************************************/
 
-void mupnp_string_setvalue(CgString *str, const char *value)
+void mupnp_string_setvalue(mUpnpString *str, const char *value)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -111,7 +111,7 @@ void mupnp_string_setvalue(CgString *str, const char *value)
 * mupnp_string_setintvalue
 ****************************************/
 
-void mupnp_string_setintvalue(CgString *str, int value)
+void mupnp_string_setintvalue(mUpnpString *str, int value)
 {
 	char buf[CG_STRING_INTEGER_BUFLEN];
 
@@ -126,7 +126,7 @@ void mupnp_string_setintvalue(CgString *str, int value)
 * mupnp_string_setlongvalue
 ****************************************/
 
-void mupnp_string_setlongvalue(CgString *str, long value)
+void mupnp_string_setlongvalue(mUpnpString *str, long value)
 {
 	char buf[CG_STRING_LONG_BUFLEN];
 
@@ -141,7 +141,7 @@ void mupnp_string_setlongvalue(CgString *str, long value)
 * mupnp_string_setnvalue
 ****************************************/
 
-void mupnp_string_setnvalue(CgString *str, const char *value, size_t len)
+void mupnp_string_setnvalue(mUpnpString *str, const char *value, size_t len)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -170,7 +170,7 @@ void mupnp_string_setnvalue(CgString *str, const char *value, size_t len)
 * mupnp_string_setpointervalue
 ****************************************/
 
-void mupnp_string_setpointervalue(CgString *str, char *value, size_t len)
+void mupnp_string_setpointervalue(mUpnpString *str, char *value, size_t len)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -188,7 +188,7 @@ void mupnp_string_setpointervalue(CgString *str, char *value, size_t len)
 * mupnp_string_getvalue
 ****************************************/
 
-char *mupnp_string_getvalue(CgString *str)
+char *mupnp_string_getvalue(mUpnpString *str)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -201,7 +201,7 @@ char *mupnp_string_getvalue(CgString *str)
 * mupnp_string_getmemorysize
 ****************************************/
 
-size_t mupnp_string_getmemorysize(CgString *str)
+size_t mupnp_string_getmemorysize(mUpnpString *str)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -217,7 +217,7 @@ size_t mupnp_string_getmemorysize(CgString *str)
 * mupnp_string_length
 ****************************************/
 
-size_t mupnp_string_length(CgString *str)
+size_t mupnp_string_length(mUpnpString *str)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -236,7 +236,7 @@ size_t mupnp_string_length(CgString *str)
 * mupnp_string_add
 ****************************************/
 
-char *mupnp_string_addvalue(CgString *str, const char *value)
+char *mupnp_string_addvalue(mUpnpString *str, const char *value)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -249,7 +249,7 @@ char *mupnp_string_addvalue(CgString *str, const char *value)
 * mupnp_string_add
 ****************************************/
 
-char *mupnp_string_naddvalue(CgString *str, const char *value, size_t valueLen)
+char *mupnp_string_naddvalue(mUpnpString *str, const char *value, size_t valueLen)
 {
 	char *newValue = NULL;
 	size_t newMemSize = 0;
@@ -301,7 +301,7 @@ char *mupnp_string_naddvalue(CgString *str, const char *value, size_t valueLen)
 * mupnp_string_addrep
 ****************************************/
 
-char *mupnp_string_addrepvalue(CgString *str, const char *value, size_t repeatCnt)
+char *mupnp_string_addrepvalue(mUpnpString *str, const char *value, size_t repeatCnt)
 {
 	int n;
 	mupnp_log_debug_l5("Entering...\n");
@@ -318,7 +318,7 @@ char *mupnp_string_addrepvalue(CgString *str, const char *value, size_t repeatCn
 * mupnp_string_naddrep
 ****************************************/
 
-char *mupnp_string_naddrepvalue(CgString *str, const char *value, size_t valueLen, size_t repeatCnt)
+char *mupnp_string_naddrepvalue(mUpnpString *str, const char *value, size_t valueLen, size_t repeatCnt)
 {
 	int n;
 
@@ -336,14 +336,14 @@ char *mupnp_string_naddrepvalue(CgString *str, const char *value, size_t valueLe
 * mupnp_string_replace
 ****************************************/
 
-char *mupnp_string_replace(CgString *str, char *fromStr[], char *toStr[], size_t fromStrCnt)
+char *mupnp_string_replace(mUpnpString *str, char *fromStr[], char *toStr[], size_t fromStrCnt)
 {
 	char *orgValue = NULL;
 	size_t orgValueLen = 0;
 	int n = 0;
 	int copyPos = 0;
 	size_t *fromStrLen = NULL;
-	CgString *repValue = NULL;
+	mUpnpString *repValue = NULL;
 	BOOL isReplaced = FALSE;
 
 	mupnp_log_debug_l5("Entering...\n");

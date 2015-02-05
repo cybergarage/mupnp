@@ -98,10 +98,10 @@ static void mupnp_libxml2_end_element(void *user_data,
 
 static void mupnp_xml_force_utf8(char *data, size_t len);
 
-typedef struct _CgLibxml2Data {
-	CgXmlNode *rootNode;
-	CgXmlNode *currNode;
-} CgLibxml2Data;
+typedef struct _mUpnpLibxml2Data {
+	mUpnpXmlNode *rootNode;
+	mUpnpXmlNode *currNode;
+} mUpnpLibxml2Data;
 
 enum
 {
@@ -123,11 +123,11 @@ static void mupnp_libxml2_start_element(void *user_data,
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgLibxml2Data *libxml2Data;
-	CgXmlNode *node;
+	mUpnpLibxml2Data *libxml2Data;
+	mUpnpXmlNode *node;
 	int n;
 
-	libxml2Data = (CgLibxml2Data *)user_data;
+	libxml2Data = (mUpnpLibxml2Data *)user_data;
 
 	node = mupnp_xml_node_new();
 	if (node == NULL)
@@ -164,7 +164,7 @@ static void mupnp_libxml2_end_element(void *user_data,
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgLibxml2Data *libxml2Data = (CgLibxml2Data *)user_data;
+	mUpnpLibxml2Data *libxml2Data = (mUpnpLibxml2Data *)user_data;
 	if (libxml2Data->currNode != NULL)
 		libxml2Data->currNode = mupnp_xml_node_getparentnode(libxml2Data->currNode);
 
@@ -177,9 +177,9 @@ static void mupnp_libxml2_characters(void *user_data,
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgLibxml2Data *libxml2Data;
+	mUpnpLibxml2Data *libxml2Data;
 
-	libxml2Data = (CgLibxml2Data *)user_data;
+	libxml2Data = (mUpnpLibxml2Data *)user_data;
 
 	if (libxml2Data->currNode != NULL)
 		mupnp_xml_node_naddvalue(libxml2Data->currNode, (char *)ch, len);
@@ -314,11 +314,11 @@ static void mupnp_xml_force_utf8(char *data, size_t len)
         }
 }
 
-BOOL mupnp_xml_parse(CgXmlParser *parser, CgXmlNodeList *nodeList, const char *parseData, size_t len)
+BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const char *parseData, size_t len)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	CgLibxml2Data libxml2Data;
+	mUpnpLibxml2Data libxml2Data;
 	int retval;
 #ifdef CG_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;

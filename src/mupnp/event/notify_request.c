@@ -16,7 +16,7 @@
 *	07/07/05
 *		- first revision
 *	03/13/08
-*		- Changed mupnp_upnp_event_notify_request_setpropertysetnode() using void parameter instead of CgService not to conflict the prototype defines.
+*		- Changed mupnp_upnp_event_notify_request_setpropertysetnode() using void parameter instead of mUpnpService not to conflict the prototype defines.
 *
 ******************************************************************/
 
@@ -38,18 +38,18 @@
 * Static Function Prototype
 ****************************************/
 
-static CgXmlNode *mupnp_upnp_event_notify_request_createpropertysetnode(CgUpnpService* service, CgUpnpStateVariable *statVar);
+static mUpnpXmlNode *mupnp_upnp_event_notify_request_createpropertysetnode(mUpnpUpnpService* service, mUpnpUpnpStateVariable *statVar);
 
-#define mupnp_upnp_event_notify_request_getpropertylistonly(notifyReq) ((CgUpnpPropertyList *)mupnp_soap_request_getuserdata(notifyReq))
+#define mupnp_upnp_event_notify_request_getpropertylistonly(notifyReq) ((mUpnpUpnpPropertyList *)mupnp_soap_request_getuserdata(notifyReq))
 
 /****************************************
 * mupnp_upnp_event_notify_request_new
 ****************************************/
 
-CgUpnpNotifyRequest *mupnp_upnp_event_notify_request_new()
+mUpnpUpnpNotifyRequest *mupnp_upnp_event_notify_request_new()
 {
-	CgUpnpNotifyRequest *notifyReq;
-	CgUpnpPropertyList *propList;
+	mUpnpUpnpNotifyRequest *notifyReq;
+	mUpnpUpnpPropertyList *propList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -67,9 +67,9 @@ CgUpnpNotifyRequest *mupnp_upnp_event_notify_request_new()
 * mupnp_upnp_event_notify_request_delete
 ****************************************/
 
-void mupnp_upnp_event_notify_request_delete(CgUpnpNotifyRequest *notifyReq)
+void mupnp_upnp_event_notify_request_delete(mUpnpUpnpNotifyRequest *notifyReq)
 {
-	CgUpnpPropertyList *propList;
+	mUpnpUpnpPropertyList *propList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -85,9 +85,9 @@ void mupnp_upnp_event_notify_request_delete(CgUpnpNotifyRequest *notifyReq)
 * mupnp_upnp_event_notify_request_clear
 ****************************************/
 
-void mupnp_upnp_event_notify_request_clear(CgUpnpNotifyRequest *notifyReq)
+void mupnp_upnp_event_notify_request_clear(mUpnpUpnpNotifyRequest *notifyReq)
 {
-	CgUpnpPropertyList *propList;
+	mUpnpUpnpPropertyList *propList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -103,13 +103,13 @@ void mupnp_upnp_event_notify_request_clear(CgUpnpNotifyRequest *notifyReq)
 * mupnp_upnp_event_notify_request_setsid
 ****************************************/
 
-void mupnp_upnp_event_notify_request_setsid(CgUpnpNotifyRequest *soapReq, char *sid)
+void mupnp_upnp_event_notify_request_setsid(mUpnpUpnpNotifyRequest *soapReq, char *sid)
 {
 	char buf[CG_UPNP_SUBSCRIPTION_SID_HEADER_SIZE];
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_http_packet_setheadervalue((CgHttpPacket*)(soapReq->httpReq), CG_HTTP_SID, mupnp_upnp_event_subscription_tosidheaderstring(sid, buf, sizeof(buf)));
+	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SID, mupnp_upnp_event_subscription_tosidheaderstring(sid, buf, sizeof(buf)));
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -117,16 +117,16 @@ void mupnp_upnp_event_notify_request_setsid(CgUpnpNotifyRequest *soapReq, char *
 /****************************************
 * mupnp_upnp_event_notify_request_setpropertysetnode
 ****************************************/
-BOOL mupnp_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *notifyReq, CgUpnpSubscriber *sub, /* CgUpnpService */void *pservice, CgUpnpStateVariable *statVar)
+BOOL mupnp_upnp_event_notify_request_setpropertysetnode(mUpnpUpnpNotifyRequest *notifyReq, mUpnpUpnpSubscriber *sub, /* mUpnpUpnpService */void *pservice, mUpnpUpnpStateVariable *statVar)
 {
-	CgHttpRequest *httpReq;
-	CgXmlNode *propSetNode;
-	CgUpnpService* service;
+	mUpnpHttpRequest *httpReq;
+	mUpnpXmlNode *propSetNode;
+	mUpnpUpnpService* service;
   char server[CG_UPNP_SEVERNAME_MAXLEN];
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	service = (CgUpnpService *)pservice;
+	service = (mUpnpUpnpService *)pservice;
 
 	httpReq = mupnp_soap_request_gethttprequest(notifyReq);
 
@@ -135,7 +135,7 @@ BOOL mupnp_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *not
 	mupnp_http_request_seturi(httpReq, mupnp_upnp_subscriber_getdeliverypath(sub));
 	mupnp_http_request_sethost(httpReq, mupnp_upnp_subscriber_getdeliveryhost(sub), mupnp_upnp_subscriber_getdeliveryport(sub));
   mupnp_upnp_getservername(server, sizeof(server));
-  mupnp_http_packet_setheadervalue((CgHttpPacket*)httpReq,
+  mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpReq,
                                   CG_HTTP_SERVER,
                                   server);
 	mupnp_upnp_event_notify_request_setnt(notifyReq, CG_UPNP_NT_EVENT);
@@ -156,11 +156,11 @@ BOOL mupnp_upnp_event_notify_request_setpropertysetnode(CgUpnpNotifyRequest *not
 * mupnp_upnp_event_notify_request_createpropertysetnode
 ****************************************/
 
-static CgXmlNode *mupnp_upnp_event_notify_request_createpropertysetnode(CgUpnpService* service, CgUpnpStateVariable *statVar)
+static mUpnpXmlNode *mupnp_upnp_event_notify_request_createpropertysetnode(mUpnpUpnpService* service, mUpnpUpnpStateVariable *statVar)
 {
-	CgXmlNode *propSetNode;
-	CgXmlNode *propNode;
-	CgXmlNode *varNode;
+	mUpnpXmlNode *propSetNode;
+	mUpnpXmlNode *propNode;
+	mUpnpXmlNode *varNode;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -212,10 +212,10 @@ static CgXmlNode *mupnp_upnp_event_notify_request_createpropertysetnode(CgUpnpSe
 * mupnp_upnp_event_notify_request_getvariablenode
 ****************************************/
 
-CgXmlNode *mupnp_upnp_event_notify_request_getvariablenode(CgUpnpNotifyRequest *nofityReq)
+mUpnpXmlNode *mupnp_upnp_event_notify_request_getvariablenode(mUpnpUpnpNotifyRequest *nofityReq)
 {
-	CgXmlNode *propSetNode;
-	CgXmlNode *propNode;
+	mUpnpXmlNode *propSetNode;
+	mUpnpXmlNode *propNode;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -240,9 +240,9 @@ CgXmlNode *mupnp_upnp_event_notify_request_getvariablenode(CgUpnpNotifyRequest *
 * mupnp_upnp_property_createfromnode
 ****************************************/
 
-static CgUpnpProperty *mupnp_upnp_property_createfromnode(CgXmlNode *varNode)
+static mUpnpUpnpProperty *mupnp_upnp_property_createfromnode(mUpnpXmlNode *varNode)
 {
-	CgUpnpProperty *prop;
+	mUpnpUpnpProperty *prop;
 	char *varName;
 	char *varValue;
 	ssize_t colonIdx;
@@ -271,13 +271,13 @@ static CgUpnpProperty *mupnp_upnp_property_createfromnode(CgXmlNode *varNode)
 * mupnp_upnp_event_notify_request_getpropertylist
 ****************************************/
 
-CgUpnpPropertyList *mupnp_upnp_event_notify_request_getpropertylist(CgUpnpNotifyRequest *notifyReq)
+mUpnpUpnpPropertyList *mupnp_upnp_event_notify_request_getpropertylist(mUpnpUpnpNotifyRequest *notifyReq)
 {
-	CgUpnpPropertyList *propList;
-	CgXmlNode *propSetNode;
-	CgXmlNode *propNode;
-	CgXmlNode *varNode;
-	CgUpnpProperty *prop;
+	mUpnpUpnpPropertyList *propList;
+	mUpnpXmlNode *propSetNode;
+	mUpnpXmlNode *propNode;
+	mUpnpXmlNode *varNode;
+	mUpnpUpnpProperty *prop;
 	const char *sid;
 	size_t seq;
 

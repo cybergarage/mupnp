@@ -25,7 +25,7 @@
 * mupnp_upnp_httpmu_socket_bind
 ****************************************/
 
-BOOL mupnp_upnp_httpmu_socket_bind(CgUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr)
+BOOL mupnp_upnp_httpmu_socket_bind(mUpnpUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -46,9 +46,9 @@ BOOL mupnp_upnp_httpmu_socket_bind(CgUpnpHttpMuSocket *sock, const char *mcastAd
 * mupnp_upnp_httpmu_socket_recv
 ****************************************/
 
-ssize_t mupnp_upnp_httpmu_socket_recv(CgUpnpHttpMuSocket *sock, CgUpnpSSDPPacket *ssdpPkt)
+ssize_t mupnp_upnp_httpmu_socket_recv(mUpnpUpnpHttpMuSocket *sock, mUpnpUpnpSSDPPacket *ssdpPkt)
 {
-	CgDatagramPacket *dgmPkt;
+	mUpnpDatagramPacket *dgmPkt;
 	char *ssdpData;
 	ssize_t recvLen;
 	

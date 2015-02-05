@@ -54,7 +54,7 @@ extern "C" {
  * This wrapper has been created to enable 100% code
  * compatibility for different platforms (Linux, Win32 etc..)
  */
-typedef struct _CgMutex {
+typedef struct _mUpnpMutex {
 #if defined(WIN32) && !defined(ITRON)
 	HANDLE	mutexID;
 #elif defined(BTRON)
@@ -69,18 +69,18 @@ typedef struct _CgMutex {
 	/** The mutex entity */
 	pthread_mutex_t mutexID;
 #endif
-} CgMutex;
+} mUpnpMutex;
 
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
 #include <stdlib.h>
 
-typedef struct _CgLockInfo
+typedef struct _mUpnpLockInfo
 {
-	struct _CgLockInfo *next;
+	struct _mUpnpLockInfo *next;
 	pthread_t thread_id;
 	char *file, *function;
 	int line, mutex_id;
-} CgLockInfo;
+} mUpnpLockInfo;
 #endif
 
 /****************************************
@@ -90,14 +90,14 @@ typedef struct _CgLockInfo
 /** 
  * Create a new mutex
  */
-CgMutex *mupnp_mutex_new();
+mUpnpMutex *mupnp_mutex_new();
 
 /** 
  * Destroy a mutex
  *
  * \param mutex The mutex to destroy
  */
-BOOL mupnp_mutex_delete(CgMutex *mutex);
+BOOL mupnp_mutex_delete(mUpnpMutex *mutex);
 
 /** 
  * Acquire a mutex lock
@@ -108,7 +108,7 @@ BOOL mupnp_mutex_delete(CgMutex *mutex);
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
 #	define mupnp_mutex_lock(mutex) mupnp_mutex_lock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, mutex)
 #else
-	BOOL mupnp_mutex_lock(CgMutex *mutex);
+	BOOL mupnp_mutex_lock(mUpnpMutex *mutex);
 #endif
 
 /** 
@@ -119,7 +119,7 @@ BOOL mupnp_mutex_delete(CgMutex *mutex);
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
 #       define mupnp_mutex_unlock(mutex) mupnp_mutex_unlock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, mutex)
 #else
-	BOOL mupnp_mutex_unlock(CgMutex *mutex);
+	BOOL mupnp_mutex_unlock(mUpnpMutex *mutex);
 #endif
 
 #ifdef  __cplusplus

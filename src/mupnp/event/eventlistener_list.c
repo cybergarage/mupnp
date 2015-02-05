@@ -27,16 +27,16 @@
  * Create a new event listener list
  *
  */
-CgUpnpEventListenerList *mupnp_upnp_eventlistenerlist_new()
+mUpnpUpnpEventListenerList *mupnp_upnp_eventlistenerlist_new()
 {
-	CgUpnpEventListenerList *eventListenerList;
+	mUpnpUpnpEventListenerList *eventListenerList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	eventListenerList = (CgUpnpEventListenerList *)malloc(sizeof(CgUpnpEventListenerList));
+	eventListenerList = (mUpnpUpnpEventListenerList *)malloc(sizeof(mUpnpUpnpEventListenerList));
 
 	if ( NULL != eventListenerList )
-		mupnp_list_header_init((CgList *)eventListenerList);
+		mupnp_list_header_init((mUpnpList *)eventListenerList);
 
 	return eventListenerList;
 
@@ -49,7 +49,7 @@ CgUpnpEventListenerList *mupnp_upnp_eventlistenerlist_new()
  * @param eventListenerList The event listener list to delete
  *
  */
-void mupnp_upnp_eventlistenerlist_delete(CgUpnpEventListenerList *eventListenerList)
+void mupnp_upnp_eventlistenerlist_delete(mUpnpUpnpEventListenerList *eventListenerList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -66,9 +66,9 @@ void mupnp_upnp_eventlistenerlist_delete(CgUpnpEventListenerList *eventListenerL
  * @param listener The listener to remove
  *
  */
-void mupnp_upnp_eventlistenerlist_remove(CgUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener)
+void mupnp_upnp_eventlistenerlist_remove(mUpnpUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener)
 {
-	CgUpnpEventListenerList *list_node = NULL;
+	mUpnpUpnpEventListenerList *list_node = NULL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -80,7 +80,7 @@ void mupnp_upnp_eventlistenerlist_remove(CgUpnpEventListenerList* eventListenerL
 	{
 		if (list_node->listener == listener)
 		{
-			mupnp_list_remove((CgList*)list_node);
+			mupnp_list_remove((mUpnpList*)list_node);
 			free(list_node);
 			break;
 		}
@@ -97,22 +97,22 @@ void mupnp_upnp_eventlistenerlist_remove(CgUpnpEventListenerList* eventListenerL
  * @param listener The listener to add
  *
  */
-void mupnp_upnp_eventlistenerlist_add(CgUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener)
+void mupnp_upnp_eventlistenerlist_add(mUpnpUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener)
 {
-	CgUpnpEventListenerList *list_node;
+	mUpnpUpnpEventListenerList *list_node;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
 	if (listener == NULL) return;
 	
-	list_node = (CgUpnpEventListenerList*)malloc(sizeof(CgUpnpEventListenerList));
+	list_node = (mUpnpUpnpEventListenerList*)malloc(sizeof(mUpnpUpnpEventListenerList));
 
 	if ( NULL != list_node )
 	{	
-		memset(list_node, 0, sizeof(CgUpnpEventListenerList));
+		memset(list_node, 0, sizeof(mUpnpUpnpEventListenerList));
 		list_node->listener = listener;
-		mupnp_list_node_init((CgList *)list_node);
-		mupnp_list_add((CgList*)eventListenerList, (CgList*)list_node);
+		mupnp_list_node_init((mUpnpList *)list_node);
+		mupnp_list_add((mUpnpList*)eventListenerList, (mUpnpList*)list_node);
 	}
 	else
 		mupnp_log_debug_s("Memory allocation failure!\n");
@@ -126,9 +126,9 @@ void mupnp_upnp_eventlistenerlist_add(CgUpnpEventListenerList* eventListenerList
  * @param eventListenerList The list to iterate thru
  * @param property The property that has been evented
  */
-void mupnp_upnp_eventlistenerlist_notify(CgUpnpEventListenerList* eventListenerList, CgUpnpProperty *property)
+void mupnp_upnp_eventlistenerlist_notify(mUpnpUpnpEventListenerList* eventListenerList, mUpnpUpnpProperty *property)
 {
-	CgUpnpEventListenerList *list_node = NULL;
+	mUpnpUpnpEventListenerList *list_node = NULL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

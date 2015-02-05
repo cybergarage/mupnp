@@ -28,17 +28,17 @@
 * mupnp_filelist_new
 ****************************************/
 
-CgFileList *mupnp_filelist_new()
+mUpnpFileList *mupnp_filelist_new()
 {
-	CgFileList *fileList;
+	mUpnpFileList *fileList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	fileList = (CgFileList *)malloc(sizeof(CgFileList));
+	fileList = (mUpnpFileList *)malloc(sizeof(mUpnpFileList));
 
 	if ( NULL != fileList )
 	{
-		mupnp_list_header_init((CgList *)fileList);
+		mupnp_list_header_init((mUpnpList *)fileList);
 		fileList->name = NULL;
 		fileList->path = NULL;
 		fileList->content = NULL;
@@ -53,7 +53,7 @@ CgFileList *mupnp_filelist_new()
 * mupnp_filelist_delete
 ****************************************/
 
-void mupnp_filelist_delete(CgFileList *fileList)
+void mupnp_filelist_delete(mUpnpFileList *fileList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

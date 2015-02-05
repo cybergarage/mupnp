@@ -34,9 +34,9 @@ extern "C" {
 ****************************************/
 
 #if defined(BTRON) || defined(ITRON) 
-typedef size_t CgTime;
+typedef size_t mUpnpTime;
 #else
-typedef long CgTime;
+typedef long mUpnpTime;
 #endif
 
 /****************************************
@@ -45,13 +45,13 @@ typedef long CgTime;
 
 float mupnp_random();
 
-void mupnp_wait(CgTime mtime);
-void mupnp_waitrandom(CgTime mtime);
+void mupnp_wait(mUpnpTime mtime);
+void mupnp_waitrandom(mUpnpTime mtime);
 
 #define mupnp_sleep(val) mupnp_wait(val)
 #define mupnp_sleeprandom(val) mupnp_waitrandom(val)
 
-CgTime mupnp_getcurrentsystemtime();
+mUpnpTime mupnp_getcurrentsystemtime();
 
 #ifdef  __cplusplus
 }

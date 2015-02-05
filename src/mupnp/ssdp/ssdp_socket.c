@@ -29,9 +29,9 @@
 * mupnp_upnp_ssdp_socket_notify
 ****************************************/
 
-static BOOL mupnp_upnp_ssdp_socket_notify(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPRequest *ssdpReq, const char *ssdpAddr)
+static BOOL mupnp_upnp_ssdp_socket_notify(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUpnpSSDPRequest *ssdpReq, const char *ssdpAddr)
 {
-	CgString *ssdpMsg;
+	mUpnpString *ssdpMsg;
 	size_t sentLen;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -53,7 +53,7 @@ static BOOL mupnp_upnp_ssdp_socket_notify(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDP
 * mupnp_upnp_ssdp_socket_notifyfrom
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_socket_notifyfrom(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPRequest *ssdpReq, const char *bindAddr)
+BOOL mupnp_upnp_ssdp_socket_notifyfrom(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUpnpSSDPRequest *ssdpReq, const char *bindAddr)
 {
 	const char *ssdpAddr;
 	
@@ -71,9 +71,9 @@ BOOL mupnp_upnp_ssdp_socket_notifyfrom(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPReq
 * mupnp_upnp_ssdp_socket_postresponse
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_socket_postresponse(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPResponse *ssdpRes, const char *host, int port)
+BOOL mupnp_upnp_ssdp_socket_postresponse(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUpnpSSDPResponse *ssdpRes, const char *host, int port)
 {
-	CgString *ssdpMsg;
+	mUpnpString *ssdpMsg;
   size_t ssdpMsgLen;
 	BOOL postSuccess;
 

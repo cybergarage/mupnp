@@ -50,12 +50,12 @@ extern "C" {
 /**
  * The generic icon struct
  */
-typedef struct _CgUpnpIcon {
+typedef struct _mUpnpUpnpIcon {
 	BOOL headFlag;
-	struct _CgUpnpIcon *prev;
-	struct _CgUpnpIcon *next;
-	CgXmlNode *iconNode;
-} CgUpnpIcon, CgUpnpIconList;
+	struct _mUpnpUpnpIcon *prev;
+	struct _mUpnpUpnpIcon *next;
+	mUpnpXmlNode *iconNode;
+} mUpnpUpnpIcon, mUpnpUpnpIconList;
 
 /****************************************
 * Function (Icon)
@@ -64,21 +64,21 @@ typedef struct _CgUpnpIcon {
 /**
  * Create a new icon struct
  */
-CgUpnpIcon *mupnp_upnp_icon_new();
+mUpnpUpnpIcon *mupnp_upnp_icon_new();
 
 /**
  * Delete an icon struct
  *
  * \param dev Icon to delete
  */
-void mupnp_upnp_icon_delete(CgUpnpIcon *dev);
+void mupnp_upnp_icon_delete(mUpnpUpnpIcon *dev);
 
 /**
  * Get the next icon in list. Use as an iterator.
  * 
  * \param icon Node in a list of icons
  */
-#define mupnp_upnp_icon_next(icon) (CgUpnpIcon *)mupnp_list_next((CgList *)icon)
+#define mupnp_upnp_icon_next(icon) (mUpnpUpnpIcon *)mupnp_list_next((mUpnpList *)icon)
 
 /**
  * Check whether the given node is a member of an icon list
@@ -200,35 +200,35 @@ void mupnp_upnp_icon_delete(CgUpnpIcon *dev);
  * Create a new list of icons
  * 
  */
-CgUpnpIconList *mupnp_upnp_iconlist_new();
+mUpnpUpnpIconList *mupnp_upnp_iconlist_new();
 
 /**
  * Delete a list of icons
  * 
  * \param iconList List of icons
  */
-void mupnp_upnp_iconlist_delete(CgUpnpIconList *iconList);
+void mupnp_upnp_iconlist_delete(mUpnpUpnpIconList *iconList);
 
 /**
  * Clear the contents of an icon list
  * 
  * \param iconList List of icons
  */
-#define mupnp_upnp_iconlist_clear(iconList) mupnp_list_clear((CgList *)iconList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_icon_delete)
+#define mupnp_upnp_iconlist_clear(iconList) mupnp_list_clear((mUpnpList *)iconList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_icon_delete)
 
 /**
  * Get the size (number of elements) of an icon list
  * 
  * \param iconList List of icons
  */
-#define mupnp_upnp_iconlist_size(iconList) mupnp_list_size((CgList *)iconList)
+#define mupnp_upnp_iconlist_size(iconList) mupnp_list_size((mUpnpList *)iconList)
 
 /**
  * \todo Get the first icon from the list for iteration
  * 
  * \param iconList List of icons
  */
-#define mupnp_upnp_iconlist_gets(iconList) (CgUpnpIcon *)mupnp_list_next((CgList *)iconList)
+#define mupnp_upnp_iconlist_gets(iconList) (mUpnpUpnpIcon *)mupnp_list_next((mUpnpList *)iconList)
 
 /**
  * Add an icon to an icon list
@@ -236,7 +236,7 @@ void mupnp_upnp_iconlist_delete(CgUpnpIconList *iconList);
  * \param iconList List of icons
  * \param icon Icon to add
  */
-#define mupnp_upnp_iconlist_add(iconList, icon) mupnp_list_add((CgList *)iconList, (CgList *)icon)
+#define mupnp_upnp_iconlist_add(iconList, icon) mupnp_list_add((mUpnpList *)iconList, (mUpnpList *)icon)
 
 #ifdef  __cplusplus
 

@@ -51,7 +51,7 @@
 * mupnp_time_wait
 ****************************************/
 
-void mupnp_wait(CgTime mtime)
+void mupnp_wait(mUpnpTime mtime)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -76,7 +76,7 @@ void mupnp_wait(CgTime mtime)
 * mupnp_time_wait
 ****************************************/
 
-void mupnp_waitrandom(CgTime mtime)
+void mupnp_waitrandom(mUpnpTime mtime)
 {
 	double factor;
 	long waitTime;
@@ -94,15 +94,15 @@ void mupnp_waitrandom(CgTime mtime)
 * mupnp_time_wait
 ****************************************/
 
-CgTime mupnp_getcurrentsystemtime()
+mUpnpTime mupnp_getcurrentsystemtime()
 {
 #if defined(BTRON)
-	STIME CgTime;
+	STIME mUpnpTime;
 	TIMEZONE tz;
 	STIME localtime;
-	if (get_tim(&CgTime, &tz) != 0)
+	if (get_tim(&mUpnpTime, &tz) != 0)
 		return 0;
-	localtime = CgTime - tz.adjust + (tz.dst_flg ? (tz.dst_adj*60): 0);
+	localtime = mUpnpTime - tz.adjust + (tz.dst_flg ? (tz.dst_adj*60): 0);
 #elif defined(ITRON)
 	static BOOL initialized = FALSE;
 	SYSTIM sysTim;

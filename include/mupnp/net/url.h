@@ -38,7 +38,7 @@ extern "C" {
 * Data Type
 ****************************************/
 
-typedef struct _CgNetURI CgNetURL;
+typedef struct _mUpnpNetURI mUpnpNetURL;
 
 /****************************************
 * Function

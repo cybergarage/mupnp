@@ -111,31 +111,31 @@ extern "C" {
 /**
  * Type definition for subsription request
  */
-typedef CgHttpRequest CgUpnpSubscriptionRequest;
+typedef mUpnpHttpRequest mUpnpUpnpSubscriptionRequest;
 
 /**
  * Type definition for subsrciption response
  */
-typedef CgHttpResponse CgUpnpSubscriptionResponse;
+typedef mUpnpHttpResponse mUpnpUpnpSubscriptionResponse;
 
 /**
  * Type definition for event listener callback
  */
-typedef void (*CG_UPNP_EVENT_LISTENER)(CgUpnpProperty *);
+typedef void (*CG_UPNP_EVENT_LISTENER)(mUpnpUpnpProperty *);
 
 /**
  * Type definition for event listener list
  */
-typedef struct _CgUpnpEventListenerList {
+typedef struct _mUpnpUpnpEventListenerList {
 	/** Used by mupnp_list_* functions to indicate start of list */
 	BOOL headFlag;
 	/** Used by mupnp_list_* functions to point to the previous item in list */
-	struct _CgUpnpEventListenerList *prev;
+	struct _mUpnpUpnpEventListenerList *prev;
 	/** Used by mupnp_list_* functions to point to the next item in list */
-	struct _CgUpnpEventListenerList *next;
+	struct _mUpnpUpnpEventListenerList *next;
  
 	CG_UPNP_EVENT_LISTENER listener;
-} CgUpnpEventListenerList;
+} mUpnpUpnpEventListenerList;
  
 /****************************************
 * Function
@@ -149,7 +149,7 @@ typedef struct _CgUpnpEventListenerList {
  *
  * @return Timeout header C string
  */
-const char *mupnp_upnp_event_subscription_totimeoutheaderstring(CgTime time, CgString *buf);
+const char *mupnp_upnp_event_subscription_totimeoutheaderstring(mUpnpTime time, mUpnpString *buf);
 
 /**
  * Get event subscription timeout
@@ -158,7 +158,7 @@ const char *mupnp_upnp_event_subscription_totimeoutheaderstring(CgTime time, CgS
  *
  * @return Timeout
  */
-CgTime mupnp_upnp_event_subscription_gettimeout(const char *headerValue);
+mUpnpTime mupnp_upnp_event_subscription_gettimeout(const char *headerValue);
 
 /**
  * Create SID for subscription
@@ -234,7 +234,7 @@ const char *mupnp_upnp_event_subscription_getsid(const char *headerValue);
  * @param subReq Subscription request
  * @param sid SID (Subscription id)
  */
-void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *subReq, const char *sid);
+void mupnp_upnp_event_subscription_request_setsid(mUpnpUpnpSubscriptionRequest *subReq, const char *sid);
 
 /**
  * Get sid from subscription request
@@ -243,7 +243,7 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
  *
  * @return Character array containing the requested SID
  */
-#define mupnp_upnp_event_subscription_request_getsid(subReq) mupnp_upnp_event_subscription_getsid(mupnp_http_packet_getheadervalue(((CgHttpPacket*)subReq), CG_HTTP_SID))
+#define mupnp_upnp_event_subscription_request_getsid(subReq) mupnp_upnp_event_subscription_getsid(mupnp_http_packet_getheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_SID))
 
 /**
  * Checks if subscription object has SID
@@ -252,7 +252,7 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
  *
  * @return True if subscription has SID, false otherwise
  */
-#define mupnp_upnp_event_subscription_request_hassid(subReq) mupnp_http_packet_hasheader(((CgHttpPacket*)subReq), CG_HTTP_SID)
+#define mupnp_upnp_event_subscription_request_hassid(subReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)subReq), CG_HTTP_SID)
 
 /**** NT ****/
 
@@ -262,7 +262,7 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
  * @param subReq Subscription request
  * @param value Notification type
  */
-#define mupnp_upnp_event_subscription_request_setnt(subReq, value) mupnp_http_packet_setheadervalue(((CgHttpPacket*)subReq), CG_HTTP_NT, value)
+#define mupnp_upnp_event_subscription_request_setnt(subReq, value) mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_NT, value)
 
 /**
  * Get NT from subscription request
@@ -271,7 +271,7 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
  *
  * @return Character array containing the NT header value
  */
-#define mupnp_upnp_event_subscription_request_getnt(subReq) mupnp_http_packet_getheadervalue(((CgHttpPacket*)subReq), CG_HTTP_NT)
+#define mupnp_upnp_event_subscription_request_getnt(subReq) mupnp_http_packet_getheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_NT)
 
 /**
  * Checks if subscription request has NT
@@ -280,7 +280,7 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
  *
  * @return True if subscription request contains NT, false otherwise
  */
-#define mupnp_upnp_event_subscription_request_hasnt(subReq) mupnp_http_packet_hasheader(((CgHttpPacket*)subReq), CG_HTTP_NT)
+#define mupnp_upnp_event_subscription_request_hasnt(subReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)subReq), CG_HTTP_NT)
 
 /**** Callback ****/
 
@@ -290,7 +290,7 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
  * @param subReq Subscription request
  * @param value Callback URL string
  */
-#define mupnp_upnp_event_subscription_request_setcallback(subReq, value) mupnp_http_packet_setheadervalue(((CgHttpPacket*)subReq), CG_HTTP_CALLBACK, value)
+#define mupnp_upnp_event_subscription_request_setcallback(subReq, value) mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_CALLBACK, value)
 
 /**
  * Get subscription callback URL
@@ -299,7 +299,7 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
  *
  * @return Character array containing the callback URL
  */
-#define mupnp_upnp_event_subscription_request_getcallback(subReq) mupnp_http_packet_getheadervalue(((CgHttpPacket*)subReq), CG_HTTP_CALLBACK)
+#define mupnp_upnp_event_subscription_request_getcallback(subReq) mupnp_http_packet_getheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_CALLBACK)
 
 /**
  * Checks if subscription request has callback URL
@@ -308,7 +308,7 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
  *
  * @return True if subscription request has callback URL, false otherwise
  */
-#define mupnp_upnp_event_subscription_request_hascallback(subReq) mupnp_http_packet_hasheader(((CgHttpPacket*)subReq), CG_HTTP_CALLBACK)
+#define mupnp_upnp_event_subscription_request_hascallback(subReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)subReq), CG_HTTP_CALLBACK)
 
 /**** Timeout ****/
 
@@ -318,14 +318,14 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
  * @param subReq Subscription request
  * @param timeout Timeout value for subscription request
  */
-void mupnp_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest *subReq, CgTime timeout);
+void mupnp_upnp_event_subscription_request_settimeout(mUpnpUpnpSubscriptionRequest *subReq, mUpnpTime timeout);
 
 /**
  * Get timeout value from subscription request
  *
  * @param subReq Subscription request
  */
-#define mupnp_upnp_event_subscription_request_gettimeout(subReq) mupnp_upnp_event_subscription_gettimeout(mupnp_http_packet_getheadervalue(((CgHttpPacket*)subReq), CG_HTTP_TIMEOUT))
+#define mupnp_upnp_event_subscription_request_gettimeout(subReq) mupnp_upnp_event_subscription_gettimeout(mupnp_http_packet_getheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_TIMEOUT))
 
 /**** Subscription Content ****/
 
@@ -337,7 +337,7 @@ void mupnp_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest 
  * @param callback URL to be called when service state changes
  * @param timeout Subscription timeout
  */
-void mupnp_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, const char *callback, CgTime timeout);
+void mupnp_upnp_event_subscription_request_setnewsubscription(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service, const char *callback, mUpnpTime timeout);
 
 /**
  * (Re)initializes subscription request to be renewal request
@@ -347,7 +347,7 @@ void mupnp_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscription
  * @param uuid Devices unique identification string
  * @param timeout Subscription timeout
  */
-void mupnp_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, const char *uuid, CgTime timeout);
+void mupnp_upnp_event_subscription_request_setrenewsubscription(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service, const char *uuid, mUpnpTime timeout);
 
 /**
  * (Re)initializes subscription request to be unsubscription request
@@ -355,7 +355,7 @@ void mupnp_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscripti
  * @param subReq Subscription request
  * @param service Service where to be unsubscribed
  */
-void mupnp_upnp_event_subscription_request_setunsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service);
+void mupnp_upnp_event_subscription_request_setunsubscription(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service);
 
 /**** Host ****/
 
@@ -365,14 +365,14 @@ void mupnp_upnp_event_subscription_request_setunsubscription(CgUpnpSubscriptionR
  * @param subReq Subscription request
  * @param value HTTP Host: header content
  */
-#define mupnp_upnp_event_subscription_request_sethost(subReq, value) mupnp_http_packet_setheadervalue(((CgHttpPacket*)subReq), CG_HTTP_HOST, value)
+#define mupnp_upnp_event_subscription_request_sethost(subReq, value) mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_HOST, value)
 
 /**
  * Get host header value from subscription request
  *
  * @param subReq Subscription request
  */
-#define mupnp_upnp_event_subscription_request_gethost(subReq) mupnp_http_packet_getheadervalue(((CgHttpPacket*)subReq), CG_HTTP_HOST)
+#define mupnp_upnp_event_subscription_request_gethost(subReq) mupnp_http_packet_getheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_HOST)
 
 /**
  * Send subscription request to device
@@ -442,7 +442,7 @@ void mupnp_upnp_event_subscription_request_setunsubscription(CgUpnpSubscriptionR
  * @param subRes Subscription response
  * @param sid Subscription ID
  */
-void mupnp_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *subRes, const char *sid);
+void mupnp_upnp_event_subscription_response_setsid(mUpnpUpnpSubscriptionResponse *subRes, const char *sid);
 
 /**
  * Get SID
@@ -451,7 +451,7 @@ void mupnp_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *s
  *
  * @return C string containing SID
  */
-#define mupnp_upnp_event_subscription_response_getsid(subRes) mupnp_upnp_event_subscription_getsid(mupnp_http_packet_getheadervalue(((CgHttpPacket*)subRes), CG_HTTP_SID))
+#define mupnp_upnp_event_subscription_response_getsid(subRes) mupnp_upnp_event_subscription_getsid(mupnp_http_packet_getheadervalue(((mUpnpHttpPacket*)subRes), CG_HTTP_SID))
 
 /**** Timeout ****/
 
@@ -461,7 +461,7 @@ void mupnp_upnp_event_subscription_response_setsid(CgUpnpSubscriptionResponse *s
  * @param subRes Subscription response
  * @param value Timeout
  */
-void mupnp_upnp_event_subscription_response_settimeout(CgUpnpSubscriptionResponse *subRes, long value);
+void mupnp_upnp_event_subscription_response_settimeout(mUpnpUpnpSubscriptionResponse *subRes, long value);
 
 /**
  * Get timeout value from subscription response
@@ -470,7 +470,7 @@ void mupnp_upnp_event_subscription_response_settimeout(CgUpnpSubscriptionRespons
  *
  * @return C string containing the timeout
  */
-#define mupnp_upnp_event_subscription_response_gettimeout(subRes) mupnp_upnp_event_subscription_gettimeout(mupnp_http_packet_getheadervalue(((CgHttpPacket*)subRes), CG_HTTP_TIMEOUT))
+#define mupnp_upnp_event_subscription_response_gettimeout(subRes) mupnp_upnp_event_subscription_gettimeout(mupnp_http_packet_getheadervalue(((mUpnpHttpPacket*)subRes), CG_HTTP_TIMEOUT))
 
 /**
  * Set response code for subscription response
@@ -478,7 +478,7 @@ void mupnp_upnp_event_subscription_response_settimeout(CgUpnpSubscriptionRespons
  * @param subRes Subscription response
  * @param code Response code
  */
-void mupnp_upnp_event_subscription_subscriberesponse_setresponse(CgUpnpSubscriptionResponse *subRes, int code);
+void mupnp_upnp_event_subscription_subscriberesponse_setresponse(mUpnpUpnpSubscriptionResponse *subRes, int code);
 /* TODO getter? */
 
 /****************************************
@@ -489,7 +489,7 @@ void mupnp_upnp_event_subscription_subscriberesponse_setresponse(CgUpnpSubscript
 * Create a new event listener list
 *
 */
-CgUpnpEventListenerList *mupnp_upnp_eventlistenerlist_new();
+mUpnpUpnpEventListenerList *mupnp_upnp_eventlistenerlist_new();
  
 /**
 * Delete a event listener list.
@@ -497,7 +497,7 @@ CgUpnpEventListenerList *mupnp_upnp_eventlistenerlist_new();
 * \param eventListenerList The event listener list to delete
 *
 */
-void mupnp_upnp_eventlistenerlist_delete(CgUpnpEventListenerList *eventListenerList);
+void mupnp_upnp_eventlistenerlist_delete(mUpnpUpnpEventListenerList *eventListenerList);
  
 /**
 * Clear the contents of a event listener list.
@@ -505,7 +505,7 @@ void mupnp_upnp_eventlistenerlist_delete(CgUpnpEventListenerList *eventListenerL
 * \param eventListenerList The device list to clear
 *
 */
-#define mupnp_upnp_eventlistenerlist_clear(eventListenerList) mupnp_list_clear((CgList *)eventListenerList, (CG_LIST_DESTRUCTORFUNC)free)
+#define mupnp_upnp_eventlistenerlist_clear(eventListenerList) mupnp_list_clear((mUpnpList *)eventListenerList, (CG_LIST_DESTRUCTORFUNC)free)
  
 /**
 * Get the size of the device list
@@ -513,21 +513,21 @@ void mupnp_upnp_eventlistenerlist_delete(CgUpnpEventListenerList *eventListenerL
 * \param eventListenerList The device list
 *
 */
-#define mupnp_upnp_eventlistenerlist_size(eventListenerList) mupnp_list_size((CgList *)eventListenerList)
+#define mupnp_upnp_eventlistenerlist_size(eventListenerList) mupnp_list_size((mUpnpList *)eventListenerList)
  
 /**
 * Fetches next list element from event listener list
 *
 * @param eventListenerList Event listener list
 */
-#define mupnp_upnp_eventlistenerlist_gets(eventListenerList) (CgUpnpEventListenerList*)mupnp_list_next((CgList *)eventListenerList)
+#define mupnp_upnp_eventlistenerlist_gets(eventListenerList) (mUpnpUpnpEventListenerList*)mupnp_list_next((mUpnpList *)eventListenerList)
 
 /**
 * Fetches next list element from event listener list
 *
 * @param eventListenerList Event listener list
 */
-#define mupnp_upnp_eventlistenerlist_next(eventListenerList) (CgUpnpEventListenerList*)mupnp_list_next((CgList *)eventListenerList)
+#define mupnp_upnp_eventlistenerlist_next(eventListenerList) (mUpnpUpnpEventListenerList*)mupnp_list_next((mUpnpList *)eventListenerList)
  
 /**
 * Remove a listener from the event listener list
@@ -536,7 +536,7 @@ void mupnp_upnp_eventlistenerlist_delete(CgUpnpEventListenerList *eventListenerL
 * \param listener The listener to remove
 *
 */
-void mupnp_upnp_eventlistenerlist_remove(CgUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener);
+void mupnp_upnp_eventlistenerlist_remove(mUpnpUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener);
  
 /**
 * Add a listener to the event listener list
@@ -545,7 +545,7 @@ void mupnp_upnp_eventlistenerlist_remove(CgUpnpEventListenerList* eventListenerL
 * \param listener The listener to add
 *
 */
-void mupnp_upnp_eventlistenerlist_add(CgUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener);
+void mupnp_upnp_eventlistenerlist_add(mUpnpUpnpEventListenerList* eventListenerList, CG_UPNP_EVENT_LISTENER listener);
  
 /**
  * Call all event listeners in the list with the given data.
@@ -553,7 +553,7 @@ void mupnp_upnp_eventlistenerlist_add(CgUpnpEventListenerList* eventListenerList
  * @param eventListenerList The list to iterate thru
  * @param property The property that has been evented
  */
-void mupnp_upnp_eventlistenerlist_notify(CgUpnpEventListenerList* eventListenerList, CgUpnpProperty *property);
+void mupnp_upnp_eventlistenerlist_notify(mUpnpUpnpEventListenerList* eventListenerList, mUpnpUpnpProperty *property);
 
 
 #ifdef  __cplusplus

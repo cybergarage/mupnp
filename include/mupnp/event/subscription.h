@@ -41,7 +41,7 @@ extern "C" {
 /**
  * Data type for subscription request
  */
-typedef CgHttpRequest CgUpnpSubscriptionRequest;
+typedef mUpnpHttpRequest mUpnpUpnpSubscriptionRequest;
 
 /****************************************
 * Function (Request)
@@ -50,7 +50,7 @@ typedef CgHttpRequest CgUpnpSubscriptionRequest;
 /**
  * Create new subscription request
  */
-CgUpnpSubscriptionRequest *mupnp_upnp_event_subscription_request_new();
+mUpnpUpnpSubscriptionRequest *mupnp_upnp_event_subscription_request_new();
 
 /**
  * Delete subscription request
@@ -148,7 +148,7 @@ CgUpnpSubscriptionRequest *mupnp_upnp_event_subscription_request_new();
  * @param subReq Subscription request
  * @param timeout Timeout
  */
-void mupnp_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest *subReq, long timeout);
+void mupnp_upnp_event_subscription_request_settimeout(mUpnpUpnpSubscriptionRequest *subReq, long timeout);
 
 /**
  * Get timeout value from subscription request
@@ -157,7 +157,7 @@ void mupnp_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest 
  *
  * @return Timeout
  */
-long mupnp_upnp_event_subscription_request_gettimeout(CgUpnpSubscriptionRequest *subReq);
+long mupnp_upnp_event_subscription_request_gettimeout(mUpnpUpnpSubscriptionRequest *subReq);
 
 #ifdef  __cplusplus
 }

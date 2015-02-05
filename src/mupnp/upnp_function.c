@@ -195,7 +195,7 @@ BOOL mupnp_upnp_isnmprmode()
 
 int mupnp_upnp_createbootid()
 {
-  CgTime currentTime;
+  mUpnpTime currentTime;
 
 	mupnp_log_debug_l4("Entering...\n");
 

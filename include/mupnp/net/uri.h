@@ -59,30 +59,30 @@ extern "C" {
 * Data Type
 ****************************************/
 
-typedef struct _CgNetURI {
-	CgString *uri;
-	CgString *protocol;
-	CgString *user;
-	CgString *password;
-	CgString *host;
+typedef struct _mUpnpNetURI {
+	mUpnpString *uri;
+	mUpnpString *protocol;
+	mUpnpString *user;
+	mUpnpString *password;
+	mUpnpString *host;
 	int port;
-	CgString *path;
-	CgString *query;
-	CgString *fragment;
-	CgString *request;
-	CgDictionary *queryDictionary;
-} CgNetURI;
+	mUpnpString *path;
+	mUpnpString *query;
+	mUpnpString *fragment;
+	mUpnpString *request;
+	mUpnpDictionary *queryDictionary;
+} mUpnpNetURI;
 
 /****************************************
 * Function
 ****************************************/
 
-CgNetURI *mupnp_net_uri_new();
-void mupnp_net_uri_delete(CgNetURI *uri);
-void mupnp_net_uri_clear(CgNetURI *uri);
-void mupnp_net_uri_setvalue(CgNetURI *uri, const char *value);
-void mupnp_net_uri_rebuild(CgNetURI *uri);
-const char *mupnp_net_uri_getvalue(CgNetURI *uri);
+mUpnpNetURI *mupnp_net_uri_new();
+void mupnp_net_uri_delete(mUpnpNetURI *uri);
+void mupnp_net_uri_clear(mUpnpNetURI *uri);
+void mupnp_net_uri_setvalue(mUpnpNetURI *uri, const char *value);
+void mupnp_net_uri_rebuild(mUpnpNetURI *uri);
+const char *mupnp_net_uri_getvalue(mUpnpNetURI *uri);
 
 #define mupnp_net_uri_set(urip, value) mupnp_net_uri_setvalue(urip, value)
 	
@@ -107,8 +107,8 @@ const char *mupnp_net_uri_getvalue(CgNetURI *uri);
 #define mupnp_net_uri_getquery(urip) mupnp_string_getvalue(urip->query)
 #define mupnp_net_uri_getfragment(urip) mupnp_string_getvalue(urip->fragment)
 
-char *mupnp_net_uri_getrequest(CgNetURI *uri);
-char *mupnp_net_uri_getupnpbasepath(CgNetURI *locationURL);
+char *mupnp_net_uri_getrequest(mUpnpNetURI *uri);
+char *mupnp_net_uri_getupnpbasepath(mUpnpNetURI *locationURL);
 
 #define mupnp_net_uri_hasuri(urip) ((0 < mupnp_string_length(urip->uri)) ? TRUE : FALSE)
 #define mupnp_net_uri_hasprotocol(urip) ((0 < mupnp_string_length(urip->protocol)) ? TRUE : FALSE)
@@ -133,11 +133,11 @@ BOOL mupnp_net_uri_isescapechar(char c);
 BOOL mupnp_net_uri_isalphanumchar(char c);
 
 BOOL mupnp_net_uri_isescapedstring(char *buf, size_t bufSize);
-char *mupnp_net_uri_escapestring(char *buf, size_t bufSize, CgString *retBuf);
-char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, CgString *retBuf);
+char *mupnp_net_uri_escapestring(char *buf, size_t bufSize, mUpnpString *retBuf);
+char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, mUpnpString *retBuf);
 BOOL mupnp_net_uri_isequivalent(const char *url, const char *relative_url);
 
-CgDictionary *mupnp_net_uri_getquerydictionary(CgNetURI *uri);
+mUpnpDictionary *mupnp_net_uri_getquerydictionary(mUpnpNetURI *uri);
 
 #ifdef  __cplusplus
 }

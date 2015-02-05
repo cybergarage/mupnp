@@ -43,7 +43,7 @@
 * mupnp_upnp_event_subscription_totimeoutheaderstring
 ****************************************/
 
-const char *mupnp_upnp_event_subscription_totimeoutheaderstring(CgTime time, CgString *buf)
+const char *mupnp_upnp_event_subscription_totimeoutheaderstring(mUpnpTime time, mUpnpString *buf)
 {
 	char timeBuf[CG_STRING_LONG_BUFLEN];
 	
@@ -64,7 +64,7 @@ const char *mupnp_upnp_event_subscription_totimeoutheaderstring(CgTime time, CgS
 * mupnp_upnp_event_subscription_gettimeout
 ****************************************/
 
-CgTime mupnp_upnp_event_subscription_gettimeout(const char *headerValue)
+mUpnpTime mupnp_upnp_event_subscription_gettimeout(const char *headerValue)
 {
 	ssize_t minusIdx;
 	long timeout;

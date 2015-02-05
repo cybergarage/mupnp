@@ -22,7 +22,7 @@ extern "C" {
 
 #include <mupnp/std/av/ccontent.h>
 
-CgUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL);
+mUpnpUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL);
 
 #ifdef  __cplusplus
 }

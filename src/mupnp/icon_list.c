@@ -25,16 +25,16 @@
 * mupnp_upnp_iconr_new
 ****************************************/
 
-CgUpnpIconList *mupnp_upnp_iconlist_new()
+mUpnpUpnpIconList *mupnp_upnp_iconlist_new()
 {
-	CgUpnpIcon *iconList;
+	mUpnpUpnpIcon *iconList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	iconList = (CgUpnpIcon *)malloc(sizeof(CgUpnpIcon));
+	iconList = (mUpnpUpnpIcon *)malloc(sizeof(mUpnpUpnpIcon));
 
 	if ( NULL != iconList )
-		mupnp_list_header_init((CgList *)iconList);
+		mupnp_list_header_init((mUpnpList *)iconList);
 
 	return iconList;
 
@@ -45,11 +45,11 @@ CgUpnpIconList *mupnp_upnp_iconlist_new()
 * mupnp_upnp_iconr_delete
 ****************************************/
 
-void mupnp_upnp_iconlist_delete(CgUpnpIconList *iconList)
+void mupnp_upnp_iconlist_delete(mUpnpUpnpIconList *iconList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_remove((CgList *)iconList);
+	mupnp_list_remove((mUpnpList *)iconList);
 	free(iconList);
 
 	mupnp_log_debug_l4("Leaving...\n");

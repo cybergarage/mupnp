@@ -32,13 +32,13 @@
 * mupnp_upnp_control_query_request_new
 ****************************************/
 
-CgUpnpQueryRequest *mupnp_upnp_control_query_request_new()
+mUpnpUpnpQueryRequest *mupnp_upnp_control_query_request_new()
 {
-	CgUpnpQueryRequest *queryReq;
+	mUpnpUpnpQueryRequest *queryReq;
 	 
 	mupnp_log_debug_l4("Entering...\n");
 
-	queryReq = (CgUpnpQueryRequest *)malloc(sizeof(CgUpnpQueryRequest));
+	queryReq = (mUpnpUpnpQueryRequest *)malloc(sizeof(mUpnpUpnpQueryRequest));
 
 	if ( NULL != queryReq )
 	{	
@@ -71,7 +71,7 @@ CgUpnpQueryRequest *mupnp_upnp_control_query_request_new()
 * mupnp_upnp_control_query_request_delete
 ****************************************/
 
-void mupnp_upnp_control_query_request_delete(CgUpnpQueryRequest *queryReq)
+void mupnp_upnp_control_query_request_delete(mUpnpUpnpQueryRequest *queryReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -91,7 +91,7 @@ void mupnp_upnp_control_query_request_delete(CgUpnpQueryRequest *queryReq)
 * mupnp_upnp_control_query_request_clear
 ****************************************/
 
-void mupnp_upnp_control_query_request_clear(CgUpnpQueryRequest *queryReq)
+void mupnp_upnp_control_query_request_clear(mUpnpUpnpQueryRequest *queryReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -107,7 +107,7 @@ void mupnp_upnp_control_query_request_clear(CgUpnpQueryRequest *queryReq)
 * mupnp_upnp_control_query_request_setsoaprequest
 ****************************************/
 
-void mupnp_upnp_control_query_request_setsoaprequest(CgUpnpQueryRequest *queryReq, CgSoapRequest *soapReq)
+void mupnp_upnp_control_query_request_setsoaprequest(mUpnpUpnpQueryRequest *queryReq, mUpnpSoapRequest *soapReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -123,11 +123,11 @@ void mupnp_upnp_control_query_request_setsoaprequest(CgUpnpQueryRequest *queryRe
 * mupnp_upnp_control_query_request_getvarnamenode
 ****************************************/
 
-CgXmlNode *mupnp_upnp_control_query_request_getvarnamenode(CgUpnpQueryRequest *queryReq)
+mUpnpXmlNode *mupnp_upnp_control_query_request_getvarnamenode(mUpnpUpnpQueryRequest *queryReq)
 {
-	CgSoapRequest *soapReq;	
-	CgXmlNode *bodyNode;
-	CgXmlNode *queryStateVarNode;
+	mUpnpSoapRequest *soapReq;	
+	mUpnpXmlNode *bodyNode;
+	mUpnpXmlNode *queryStateVarNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -154,9 +154,9 @@ CgXmlNode *mupnp_upnp_control_query_request_getvarnamenode(CgUpnpQueryRequest *q
 * mupnp_upnp_control_query_request_getqueryname
 ****************************************/
 
-char *mupnp_upnp_control_query_request_getvarname(CgUpnpQueryRequest *queryReq)
+char *mupnp_upnp_control_query_request_getvarname(mUpnpUpnpQueryRequest *queryReq)
 {
-	CgXmlNode *node;
+	mUpnpXmlNode *node;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -173,10 +173,10 @@ char *mupnp_upnp_control_query_request_getvarname(CgUpnpQueryRequest *queryReq)
 * mupnp_upnp_control_query_request_cratestatevariablenode
 ****************************************/
 
-CgXmlNode *mupnp_upnp_control_query_request_cratestatevariablenode(CgUpnpStateVariable *statVar)
+mUpnpXmlNode *mupnp_upnp_control_query_request_cratestatevariablenode(mUpnpUpnpStateVariable *statVar)
 {
-	CgXmlNode *queryVarNode;
-	CgXmlNode *varNode;
+	mUpnpXmlNode *queryVarNode;
+	mUpnpXmlNode *varNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -199,12 +199,12 @@ CgXmlNode *mupnp_upnp_control_query_request_cratestatevariablenode(CgUpnpStateVa
 * mupnp_upnp_control_query_request_setstatevariable
 ****************************************/
 
-void mupnp_upnp_control_query_request_setstatevariable(CgUpnpQueryRequest *queryReq, CgUpnpStateVariable *statVar)
+void mupnp_upnp_control_query_request_setstatevariable(mUpnpUpnpQueryRequest *queryReq, mUpnpUpnpStateVariable *statVar)
 {
-	CgUpnpService *service;
-	CgSoapRequest *soapReq;
-	CgXmlNode *bodyNode;
-	CgXmlNode *queryNode;
+	mUpnpUpnpService *service;
+	mUpnpSoapRequest *soapReq;
+	mUpnpXmlNode *bodyNode;
+	mUpnpXmlNode *queryNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -229,13 +229,13 @@ void mupnp_upnp_control_query_request_setstatevariable(CgUpnpQueryRequest *query
 * mupnp_upnp_control_query_request_post
 ****************************************/
 
-CgUpnpQueryResponse *mupnp_upnp_control_query_request_post(CgUpnpQueryRequest *queryReq)
+mUpnpUpnpQueryResponse *mupnp_upnp_control_query_request_post(mUpnpUpnpQueryRequest *queryReq)
 {
-	CgSoapRequest *soapReq;
-	CgSoapResponse *soapRes;
-	CgUpnpQueryResponse *queryRes;
-	CgHttpRequest *httpReq;
-	CgNetURL *postURL;
+	mUpnpSoapRequest *soapReq;
+	mUpnpSoapResponse *soapRes;
+	mUpnpUpnpQueryResponse *queryRes;
+	mUpnpHttpRequest *httpReq;
+	mUpnpNetURL *postURL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

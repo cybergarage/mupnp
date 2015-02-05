@@ -86,7 +86,7 @@ static char *to_week_string(int value)
 
 #if !defined(ITRON)
 
-const char *mupnp_http_getdate(CgTime sysTime, char *buf, size_t bufSize)
+const char *mupnp_http_getdate(mUpnpTime sysTime, char *buf, size_t bufSize)
 {
 #if defined(HAVE_GMTIME_R)
 	struct tm gmTimeBuf;
@@ -167,7 +167,7 @@ static BOOL IsLeapYear(int year)
 	mupnp_log_debug_l4("Leaving...\n");
 }
 
-char *mupnp_http_getdate(CgTime sysTime, char *buf, int bufSize)
+char *mupnp_http_getdate(mUpnpTime sysTime, char *buf, int bufSize)
 {
 	SYSTIM systim;
 	long uxtime;

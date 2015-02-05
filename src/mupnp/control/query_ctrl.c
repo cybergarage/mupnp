@@ -31,12 +31,12 @@
 * mupnp_upnp_action_performlistener
 ****************************************/
 
-BOOL mupnp_upnp_statevariable_performlistner(CgUpnpStateVariable *statVar, CgUpnpQueryRequest *queryReq)
+BOOL mupnp_upnp_statevariable_performlistner(mUpnpUpnpStateVariable *statVar, mUpnpUpnpQueryRequest *queryReq)
 {
 	CG_UPNP_STATEVARIABLE_LISTNER	 listener;
-	CgUpnpQueryResponse *queryRes;
-	CgHttpRequest *queryReqHttpReq;
-	CgHttpResponse *queryResHttpRes;
+	mUpnpUpnpQueryResponse *queryRes;
+	mUpnpHttpRequest *queryReqHttpReq;
+	mUpnpHttpResponse *queryResHttpRes;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -70,10 +70,10 @@ BOOL mupnp_upnp_statevariable_performlistner(CgUpnpStateVariable *statVar, CgUpn
 * mupnp_upnp_statevariable_post
 ****************************************/
 
-BOOL mupnp_upnp_statevariable_post(CgUpnpStateVariable *statVar)
+BOOL mupnp_upnp_statevariable_post(mUpnpUpnpStateVariable *statVar)
 {
-	CgUpnpQueryRequest *queryReq;
-	CgUpnpQueryResponse *queryRes;
+	mUpnpUpnpQueryRequest *queryReq;
+	mUpnpUpnpQueryResponse *queryRes;
 	BOOL querySuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");

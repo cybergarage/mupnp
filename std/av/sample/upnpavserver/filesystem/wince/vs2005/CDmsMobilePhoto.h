@@ -25,11 +25,11 @@
 
 class CCDmsMobilePhotoApp : public CWinApp
 {
-	CgUpnpMediaServer *dms;
+	mUpnpUpnpMediaServer *dms;
 
-	CgString *shideShowRoot;
-	CgFileList *slideShowFileList;
-	CgFile* nextSlideShowFile;
+	mUpnpString *shideShowRoot;
+	mUpnpFileList *slideShowFileList;
+	mUpnpFile* nextSlideShowFile;
 
 public:
 	CCDmsMobilePhotoApp();
@@ -61,12 +61,12 @@ public:
 		return mupnp_string_getvalue(shideShowRoot);
 	}
 
-	CgUpnpMediaServer *GetDMS()
+	mUpnpUpnpMediaServer *GetDMS()
 	{
 		return dms;
 	}
 
-	CgFile *GetNextSlideShowFIle();
+	mUpnpFile *GetNextSlideShowFIle();
 
 	int GetUpdateInterval()
 	{

@@ -23,7 +23,7 @@ const char szTitle[] = "CyberLink Clock Device";
 
 LONG WINAPI WndProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
-CgUpnpDevice *clockDev; 
+mUpnpUpnpDevice *clockDev; 
 
 ////////////////////////////////////////////////////////// 
 //  InitApp
@@ -122,7 +122,7 @@ void OnPaint(HWND hWnd)
 	HFONT oldFont;
 	HBRUSH barBrush;
 	RECT rect;
-	CgSysTime currTime;
+	mUpnpSysTime currTime;
 	char textBuf[SYSTEM_TIME_BUF_LEN];
 	int timeStrX = 60;
 	int timeStrY = 80;

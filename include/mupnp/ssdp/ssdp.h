@@ -84,10 +84,10 @@ extern "C" {
 * Data Type
 ****************************************/
 
-typedef CgHttpResponse CgUpnpSSDPResponse;
-typedef CgHttpRequest CgUpnpSSDPRequest;
+typedef mUpnpHttpResponse mUpnpUpnpSSDPResponse;
+typedef mUpnpHttpRequest mUpnpUpnpSSDPRequest;
 
-typedef CgSocket CgUpnpSSDPSocket;
+typedef mUpnpSocket mUpnpUpnpSSDPSocket;
 
 /****************************************
 * Function
@@ -107,8 +107,8 @@ const char *mupnp_upnp_ssdp_gethostaddress(const char *ifAddr);
 * Function (SSDPRequest)
 ****************************************/
 
-CgUpnpSSDPRequest *mupnp_upnp_ssdprequest_new();
-void mupnp_upnp_ssdprequest_delete(CgUpnpSSDPRequest *ssdpReq);
+mUpnpUpnpSSDPRequest *mupnp_upnp_ssdprequest_new();
+void mupnp_upnp_ssdprequest_delete(mUpnpUpnpSSDPRequest *ssdpReq);
 
 /**** Method ****/
 #define mupnp_upnp_ssdprequest_setmethod(ssdpReq,value) mupnp_http_request_setmethod(ssdpReq,value)
@@ -119,51 +119,51 @@ void mupnp_upnp_ssdprequest_delete(CgUpnpSSDPRequest *ssdpReq);
 #define mupnp_upnp_ssdprequest_geturi(ssdpReq) mupnp_http_request_geturi(ssdpReq)
 
 /**** HOST ****/
-#define mupnp_upnp_ssdprequest_sethost(ssdpReq,addr,port) mupnp_http_packet_sethost((CgHttpPacket*)ssdpReq, addr, port)
-#define mupnp_upnp_ssdprequest_gethost(ssdpReq) mupnp_http_packet_gethost((CgHttpPacket*)ssdpReq)
+#define mupnp_upnp_ssdprequest_sethost(ssdpReq,addr,port) mupnp_http_packet_sethost((mUpnpHttpPacket*)ssdpReq, addr, port)
+#define mupnp_upnp_ssdprequest_gethost(ssdpReq) mupnp_http_packet_gethost((mUpnpHttpPacket*)ssdpReq)
 
 /**** Server ****/
-#define mupnp_upnp_ssdprequest_setserver(ssdpReq,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_HTTP_SERVER, value)
-#define mupnp_upnp_ssdprequest_getserver(ssdpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpReq,CG_HTTP_SERVER)
+#define mupnp_upnp_ssdprequest_setserver(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_HTTP_SERVER, value)
+#define mupnp_upnp_ssdprequest_getserver(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,CG_HTTP_SERVER)
 
 /**** ST ****/
-#define mupnp_upnp_ssdprequest_setst(ssdpReq,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_UPNP_SSDP_ST, value)
-#define mupnp_upnp_ssdprequest_getst(ssdpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpReq,CG_UPNP_SSDP_ST)
+#define mupnp_upnp_ssdprequest_setst(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_UPNP_SSDP_ST, value)
+#define mupnp_upnp_ssdprequest_getst(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,CG_UPNP_SSDP_ST)
 
 /**** NT ****/
-#define mupnp_upnp_ssdprequest_setnt(ssdpReq,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_UPNP_SSDP_NT, value)
-#define mupnp_upnp_ssdprequest_getnt(ssdpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpReq,CG_UPNP_SSDP_NT)
+#define mupnp_upnp_ssdprequest_setnt(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_UPNP_SSDP_NT, value)
+#define mupnp_upnp_ssdprequest_getnt(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,CG_UPNP_SSDP_NT)
 
 /**** NTS ****/
-#define mupnp_upnp_ssdprequest_setnts(ssdpReq,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_UPNP_SSDP_NTS, value)
-#define mupnp_upnp_ssdprequest_getnts(ssdpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpReq,CG_UPNP_SSDP_NTS)
+#define mupnp_upnp_ssdprequest_setnts(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_UPNP_SSDP_NTS, value)
+#define mupnp_upnp_ssdprequest_getnts(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,CG_UPNP_SSDP_NTS)
 
 /**** Location ****/
-#define mupnp_upnp_ssdprequest_setlocation(ssdpReq,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_HTTP_LOCATION, value)
-#define mupnp_upnp_ssdprequest_getlocation(ssdpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpReq,CG_HTTP_LOCATION)
+#define mupnp_upnp_ssdprequest_setlocation(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_HTTP_LOCATION, value)
+#define mupnp_upnp_ssdprequest_getlocation(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,CG_HTTP_LOCATION)
 
 /**** USN ****/
-#define mupnp_upnp_ssdprequest_setusn(ssdpReq,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_UPNP_SSDP_USN, value)
-#define mupnp_upnp_ssdprequest_getusn(ssdpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpReq,CG_UPNP_SSDP_USN)
+#define mupnp_upnp_ssdprequest_setusn(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_UPNP_SSDP_USN, value)
+#define mupnp_upnp_ssdprequest_getusn(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,CG_UPNP_SSDP_USN)
 
 /**** MX ****/
-#define mupnp_upnp_ssdprequest_setmx(ssdpReq,value) mupnp_http_packet_setheaderinteger((CgHttpPacket*)ssdpReq, CG_UPNP_SSDP_MX, value)
-#define mupnp_upnp_ssdprequest_getmx(ssdpReq) mupnp_http_packet_getheaderinteger((CgHttpPacket*)ssdpReq,CG_UPNP_SSDP_MX)
+#define mupnp_upnp_ssdprequest_setmx(ssdpReq,value) mupnp_http_packet_setheaderinteger((mUpnpHttpPacket*)ssdpReq, CG_UPNP_SSDP_MX, value)
+#define mupnp_upnp_ssdprequest_getmx(ssdpReq) mupnp_http_packet_getheaderinteger((mUpnpHttpPacket*)ssdpReq,CG_UPNP_SSDP_MX)
 
 /**** MAN ****/
-#define mupnp_upnp_ssdprequest_setman(ssdpReq,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpReq, CG_UPNP_SSDP_MAN, value)
-#define mupnp_upnp_ssdprequest_getman(ssdpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpReq,CG_UPNP_SSDP_MAN)
+#define mupnp_upnp_ssdprequest_setman(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_UPNP_SSDP_MAN, value)
+#define mupnp_upnp_ssdprequest_getman(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,CG_UPNP_SSDP_MAN)
 
 /**** BOOTID.UPNP.ORG ****/
-#define mupnp_upnp_ssdprequest_setbootid(ssdpReq,value) mupnp_http_packet_setheaderinteger((CgHttpPacket*)ssdpReq, CG_UPNP_SSDP_BOOTID_UPNP_ORG, value)
-#define mupnp_upnp_ssdprequest_getbootid(ssdpReq) mupnp_http_packet_getheaderinteger((CgHttpPacket*)ssdpReq,CG_UPNP_SSDP_BOOTID_UPNP_ORG)
+#define mupnp_upnp_ssdprequest_setbootid(ssdpReq,value) mupnp_http_packet_setheaderinteger((mUpnpHttpPacket*)ssdpReq, CG_UPNP_SSDP_BOOTID_UPNP_ORG, value)
+#define mupnp_upnp_ssdprequest_getbootid(ssdpReq) mupnp_http_packet_getheaderinteger((mUpnpHttpPacket*)ssdpReq,CG_UPNP_SSDP_BOOTID_UPNP_ORG)
 
 /**** CacheControl ****/
-void mupnp_upnp_ssdprequest_setleasetime(CgUpnpSSDPRequest *ssdpReq, CgTime value);
-CgTime mupnp_upnp_ssdprequest_getleasetime(CgUpnpSSDPRequest *ssdpReq);
+void mupnp_upnp_ssdprequest_setleasetime(mUpnpUpnpSSDPRequest *ssdpReq, mUpnpTime value);
+mUpnpTime mupnp_upnp_ssdprequest_getleasetime(mUpnpUpnpSSDPRequest *ssdpReq);
 
 /**** toString ****/
-char *mupnp_upnp_ssdprequest_tostring(CgUpnpSSDPRequest *ssdpReq, CgString *ssdpMsg);
+char *mupnp_upnp_ssdprequest_tostring(mUpnpUpnpSSDPRequest *ssdpReq, mUpnpString *ssdpMsg);
 
 /**** Print ****/
 #define mupnp_upnp_ssdprequest_print(ssdpReq) mupnp_http_request_print(ssdpReq)
@@ -172,41 +172,41 @@ char *mupnp_upnp_ssdprequest_tostring(CgUpnpSSDPRequest *ssdpReq, CgString *ssdp
 * Function (SSDPResponse)
 ****************************************/
 
-CgUpnpSSDPResponse *mupnp_upnp_ssdpresponse_new();
-void mupnp_upnp_ssdpresponse_delete(CgUpnpSSDPResponse *ssdpRes);
+mUpnpUpnpSSDPResponse *mupnp_upnp_ssdpresponse_new();
+void mupnp_upnp_ssdpresponse_delete(mUpnpUpnpSSDPResponse *ssdpRes);
 
 /**** ST ****/
-#define mupnp_upnp_ssdpresponse_setst(ssdpRes,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpRes, CG_UPNP_SSDP_ST, value)
-#define mupnp_upnp_ssdpresponse_getst(ssdpRes) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpRes,CG_UPNP_SSDP_ST)
+#define mupnp_upnp_ssdpresponse_setst(ssdpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpRes, CG_UPNP_SSDP_ST, value)
+#define mupnp_upnp_ssdpresponse_getst(ssdpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpRes,CG_UPNP_SSDP_ST)
 
 /**** EXT ****/
-#define mupnp_upnp_ssdpresponse_setext(ssdpRes) mupnp_http_packet_setheadervalue((CgHttpPacket*) ssdpRes, CG_UPNP_SSDP_EXT, "")
+#define mupnp_upnp_ssdpresponse_setext(ssdpRes) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*) ssdpRes, CG_UPNP_SSDP_EXT, "")
 
 /**** SERVER ****/
-#define mupnp_upnp_ssdpresponse_setserver(ssdpRes, value) mupnp_http_packet_setheadervalue((CgHttpPacket*) ssdpRes, CG_UPNP_SSDP_SERVER, value)
+#define mupnp_upnp_ssdpresponse_setserver(ssdpRes, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*) ssdpRes, CG_UPNP_SSDP_SERVER, value)
 
 /**** Location ****/
-#define mupnp_upnp_ssdpresponse_setlocation(ssdpRes,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpRes, CG_HTTP_LOCATION, value)
-#define mupnp_upnp_ssdpresponse_getlocation(ssdpRes) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpRes,CG_HTTP_LOCATION)
+#define mupnp_upnp_ssdpresponse_setlocation(ssdpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpRes, CG_HTTP_LOCATION, value)
+#define mupnp_upnp_ssdpresponse_getlocation(ssdpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpRes,CG_HTTP_LOCATION)
 
 /**** USN ****/
-#define mupnp_upnp_ssdpresponse_setusn(ssdpRes,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpRes, CG_UPNP_SSDP_USN, value)
-#define mupnp_upnp_ssdpresponse_getusn(ssdpRes) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpRes,CG_UPNP_SSDP_USN)
+#define mupnp_upnp_ssdpresponse_setusn(ssdpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpRes, CG_UPNP_SSDP_USN, value)
+#define mupnp_upnp_ssdpresponse_getusn(ssdpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpRes,CG_UPNP_SSDP_USN)
 
 /**** CacheControl ****/
-void mupnp_upnp_ssdpresponse_setleasetime(CgUpnpSSDPResponse *ssdpRes, CgTime value);
-int mupnp_upnp_ssdpresponse_getleasetime(CgUpnpSSDPResponse *ssdpRes);
+void mupnp_upnp_ssdpresponse_setleasetime(mUpnpUpnpSSDPResponse *ssdpRes, mUpnpTime value);
+int mupnp_upnp_ssdpresponse_getleasetime(mUpnpUpnpSSDPResponse *ssdpRes);
 
 /**** Date ****/
-#define mupnp_upnp_ssdpresponse_setdate(ssdpRes,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)ssdpRes, CG_HTTP_DATE, value)
-#define mupnp_upnp_ssdpresponse_getdate(ssdpRes) mupnp_http_packet_getheadervalue((CgHttpPacket*)ssdpRes,CG_HTTP_DATE)
+#define mupnp_upnp_ssdpresponse_setdate(ssdpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpRes, CG_HTTP_DATE, value)
+#define mupnp_upnp_ssdpresponse_getdate(ssdpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpRes,CG_HTTP_DATE)
 
 /**** BOOTID.UPNP.ORG ****/
-#define mupnp_upnp_ssdpresponse_setbootid(ssdpRes,value) mupnp_http_packet_setheaderinteger((CgHttpPacket*)ssdpRes, CG_UPNP_SSDP_BOOTID_UPNP_ORG, value)
-#define mupnp_upnp_ssdpresponse_getbootid(ssdpRes) mupnp_http_packet_getheaderinteger((CgHttpPacket*)ssdpRes,CG_UPNP_SSDP_BOOTID_UPNP_ORG)
+#define mupnp_upnp_ssdpresponse_setbootid(ssdpRes,value) mupnp_http_packet_setheaderinteger((mUpnpHttpPacket*)ssdpRes, CG_UPNP_SSDP_BOOTID_UPNP_ORG, value)
+#define mupnp_upnp_ssdpresponse_getbootid(ssdpRes) mupnp_http_packet_getheaderinteger((mUpnpHttpPacket*)ssdpRes,CG_UPNP_SSDP_BOOTID_UPNP_ORG)
 
 /**** toString ****/
-char *mupnp_upnp_ssdpresponse_tostring(CgUpnpSSDPResponse *ssdpRes, CgString *ssdpMsg);
+char *mupnp_upnp_ssdpresponse_tostring(mUpnpUpnpSSDPResponse *ssdpRes, mUpnpString *ssdpMsg);
 
 /**** Print ****/
 #define mupnp_upnp_ssdpresponse_print(ssdpReq) mupnp_http_response_print(ssdpReq)
@@ -219,8 +219,8 @@ char *mupnp_upnp_ssdpresponse_tostring(CgUpnpSSDPResponse *ssdpRes, CgString *ss
 #define mupnp_upnp_ssdp_socket_delete(socket) mupnp_socket_delete(socket)
 #define mupnp_upnp_ssdp_socket_close(socket) mupnp_socket_close(socket)
 
-BOOL mupnp_upnp_ssdp_socket_notifyfrom(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPRequest *ssdpReq, const char *bindAddr);
-BOOL mupnp_upnp_ssdp_socket_postresponse(CgUpnpSSDPSocket *ssdpSock, CgUpnpSSDPResponse *ssdpReq, const char *host, int port);
+BOOL mupnp_upnp_ssdp_socket_notifyfrom(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUpnpSSDPRequest *ssdpReq, const char *bindAddr);
+BOOL mupnp_upnp_ssdp_socket_postresponse(mUpnpUpnpSSDPSocket *ssdpSock, mUpnpUpnpSSDPResponse *ssdpReq, const char *host, int port);
 
 #ifdef  __cplusplus
 }

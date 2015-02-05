@@ -25,7 +25,7 @@
 *		- Fixed iskeepaliveconnection to check "Connection:close"
 *		- Added M-POST specific stuff
 *	04/03/06 Theo Beisch
-*		- added (CgHttpHeaderList*) cast (see below)
+*		- added (mUpnpHttpHeaderList*) cast (see below)
 *		- added LONGLONG macro for platform independence
 *		- some re-sorting of get/set macros (see below)
 ******************************************************************/
@@ -189,57 +189,57 @@ extern "C" {
 * Data Type
 ****************************************/
 
-typedef struct _CgHttpHeader {
+typedef struct _mUpnpHttpHeader {
 	BOOL headFlag;
-	struct _CgHttpHeader *prev;
-	struct _CgHttpHeader *next;
-	CgString *name;
-	CgString *value;
-} CgHttpHeader, CgHttpHeaderList;
+	struct _mUpnpHttpHeader *prev;
+	struct _mUpnpHttpHeader *next;
+	mUpnpString *name;
+	mUpnpString *value;
+} mUpnpHttpHeader, mUpnpHttpHeaderList;
 
-typedef struct _CgHttpPacket {
-	CgHttpHeaderList *headerList;
-	CgString *content;
-} CgHttpPacket;
+typedef struct _mUpnpHttpPacket {
+	mUpnpHttpHeaderList *headerList;
+	mUpnpString *content;
+} mUpnpHttpPacket;
 
-typedef struct _CgHttpResponse {
-	CgHttpHeaderList *headerList;
-	CgString *content;
-	CgString *version;
+typedef struct _mUpnpHttpResponse {
+	mUpnpHttpHeaderList *headerList;
+	mUpnpString *content;
+	mUpnpString *version;
 	int statusCode;
-	CgString *reasonPhrase;
+	mUpnpString *reasonPhrase;
 	void *userData;
 	int timeout;
-} CgHttpResponse;
+} mUpnpHttpResponse;
 
-typedef struct _CgHttpRequest {
-	CgHttpHeaderList *headerList;
-	CgString *content;
-	CgString *method;
-	CgString *uri;
-	CgString *version;
-	CgString *userAgent;
-	CgHttpResponse *httpRes;
-	CgSocket *sock;
-	CgNetURL *postURL;
+typedef struct _mUpnpHttpRequest {
+	mUpnpHttpHeaderList *headerList;
+	mUpnpString *content;
+	mUpnpString *method;
+	mUpnpString *uri;
+	mUpnpString *version;
+	mUpnpString *userAgent;
+	mUpnpHttpResponse *httpRes;
+	mUpnpSocket *sock;
+	mUpnpNetURL *postURL;
 	void *userData;
 	int timeout;
-} CgHttpRequest;
+} mUpnpHttpRequest;
 
-typedef void (*CG_HTTP_LISTENER)(CgHttpRequest *);
+typedef void (*CG_HTTP_LISTENER)(mUpnpHttpRequest *);
 
-typedef struct _CgHttpServer {
+typedef struct _mUpnpHttpServer {
 	BOOL headFlag;
-	struct _CgHttpServer *prev;
-	struct _CgHttpServer *next;
-	CgSocket *sock;
-	CgThread *acceptThread;
-	CgThreadList *clientThreads;
+	struct _mUpnpHttpServer *prev;
+	struct _mUpnpHttpServer *next;
+	mUpnpSocket *sock;
+	mUpnpThread *acceptThread;
+	mUpnpThreadList *clientThreads;
 	CG_HTTP_LISTENER listener;
 	void *userData;
 	int timeout;
-	CgMutex *mutex;
-} CgHttpServer, CgHttpServerList;
+	mUpnpMutex *mutex;
+} mUpnpHttpServer, mUpnpHttpServerList;
 
 /****************************************
 * Function 
@@ -257,65 +257,65 @@ const char *mupnp_http_statuscode2reasonphrase(const int code);
 * Function (Header)
 ****************************************/
 
-CgHttpHeader *mupnp_http_header_new();
-void mupnp_http_header_delete(CgHttpHeader *header);
+mUpnpHttpHeader *mupnp_http_header_new();
+void mupnp_http_header_delete(mUpnpHttpHeader *header);
 
-#define mupnp_http_header_next(header) (CgHttpHeader *)mupnp_list_next((CgList *)header)
+#define mupnp_http_header_next(header) (mUpnpHttpHeader *)mupnp_list_next((mUpnpList *)header)
           
-void mupnp_http_header_setname(CgHttpHeader *header, const char *name);
-const char *mupnp_http_header_getname(CgHttpHeader *header);
-void mupnp_http_header_setvalue(CgHttpHeader *header, const char *value);
-const char *mupnp_http_header_getvalue(CgHttpHeader *header);
+void mupnp_http_header_setname(mUpnpHttpHeader *header, const char *name);
+const char *mupnp_http_header_getname(mUpnpHttpHeader *header);
+void mupnp_http_header_setvalue(mUpnpHttpHeader *header, const char *value);
+const char *mupnp_http_header_getvalue(mUpnpHttpHeader *header);
 
 /****************************************
 * Function (Header List)
 ****************************************/
 
-CgHttpHeaderList *mupnp_http_headerlist_new();
-void mupnp_http_headerlist_delete(CgHttpHeaderList *headerList);
+mUpnpHttpHeaderList *mupnp_http_headerlist_new();
+void mupnp_http_headerlist_delete(mUpnpHttpHeaderList *headerList);
 
-#define mupnp_http_headerlist_clear(headerList) mupnp_list_clear((CgList *)headerList, (CG_LIST_DESTRUCTORFUNC)mupnp_http_header_delete)
-#define mupnp_http_headerlist_size(headerList) mupnp_list_size((CgList *)headerList)
-#define mupnp_http_headerlist_gets(headerList) (CgHttpHeader *)mupnp_list_next((CgList *)headerList)
-#define mupnp_http_headerlist_add(headerList, header) mupnp_list_add((CgList *)headerList, (CgList *)header)
+#define mupnp_http_headerlist_clear(headerList) mupnp_list_clear((mUpnpList *)headerList, (CG_LIST_DESTRUCTORFUNC)mupnp_http_header_delete)
+#define mupnp_http_headerlist_size(headerList) mupnp_list_size((mUpnpList *)headerList)
+#define mupnp_http_headerlist_gets(headerList) (mUpnpHttpHeader *)mupnp_list_next((mUpnpList *)headerList)
+#define mupnp_http_headerlist_add(headerList, header) mupnp_list_add((mUpnpList *)headerList, (mUpnpList *)header)
 
-CgHttpHeader *mupnp_http_headerlist_get(CgHttpHeaderList *headerList, const char *name);
-void mupnp_http_headerlist_set(CgHttpHeaderList *headerList, const char *name, const char *value);
-const char *mupnp_http_headerlist_getvalue(CgHttpHeaderList *headerList, const char *name);
+mUpnpHttpHeader *mupnp_http_headerlist_get(mUpnpHttpHeaderList *headerList, const char *name);
+void mupnp_http_headerlist_set(mUpnpHttpHeaderList *headerList, const char *name, const char *value);
+const char *mupnp_http_headerlist_getvalue(mUpnpHttpHeaderList *headerList, const char *name);
 
 /****************************************
 * Function (Packet)
 ****************************************/
 
-CgHttpPacket *mupnp_http_packet_new();
-void mupnp_http_packet_delete(CgHttpPacket *httpPkt);
-void mupnp_http_packet_init(CgHttpPacket *httpPkt);
-void mupnp_http_packet_clean(CgHttpPacket *httpPkt);
-void mupnp_http_packet_clear(CgHttpPacket *httpPkt);
+mUpnpHttpPacket *mupnp_http_packet_new();
+void mupnp_http_packet_delete(mUpnpHttpPacket *httpPkt);
+void mupnp_http_packet_init(mUpnpHttpPacket *httpPkt);
+void mupnp_http_packet_clean(mUpnpHttpPacket *httpPkt);
+void mupnp_http_packet_clear(mUpnpHttpPacket *httpPkt);
 
 #define mupnp_http_packet_deleteallheaders(httpPkt) mupnp_http_headerlist_gets(httpPkt->headerList)
 #define mupnp_http_packet_getnheaders(httpPkt) mupnp_http_headerlist_size(httpPkt->headerList)
 #define mupnp_http_packet_getheaders(httpPkt) mupnp_http_headerlist_gets(httpPkt->headerList)
-//Theo Beisch - added (CgHttpHeaderList*) cast - as _get is function call
-#define mupnp_http_packet_getheader(httpPkt, name) mupnp_http_headerlist_get((CgHttpHeaderList*)httpPkt->headerList, name)
-#define mupnp_http_packet_hasheader(httpPkt, name) ((mupnp_http_headerlist_get((CgHttpHeaderList*)httpPkt->headerList, name) != NULL) ? TRUE : FALSE)
+//Theo Beisch - added (mUpnpHttpHeaderList*) cast - as _get is function call
+#define mupnp_http_packet_getheader(httpPkt, name) mupnp_http_headerlist_get((mUpnpHttpHeaderList*)httpPkt->headerList, name)
+#define mupnp_http_packet_hasheader(httpPkt, name) ((mupnp_http_headerlist_get((mUpnpHttpHeaderList*)httpPkt->headerList, name) != NULL) ? TRUE : FALSE)
 
-#define mupnp_http_packet_hasheadervalue(httpPkt, header, value) (mupnp_streq(mupnp_http_packet_getheadervalue((CgHttpPacket*)httpPkt, header),value))
+#define mupnp_http_packet_hasheadervalue(httpPkt, header, value) (mupnp_streq(mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpPkt, header),value))
 
 #define mupnp_http_packet_addheader(httpPkt, header) mupnp_http_headerlist_add(httpPkt->headerList, header)
 
-void mupnp_http_packet_setheadervalue(CgHttpPacket *httpPkt, const char* name, const char *value);
-void mupnp_http_packet_setheaderinteger(CgHttpPacket *httpPkt, const char* name, int value);
-void mupnp_http_packet_setheaderlong(CgHttpPacket *httpPkt, const char* name, long value);
-void mupnp_http_packet_setheadersizet(CgHttpPacket *httpPkt, const char* name, size_t value);
-void mupnp_http_packet_setheaderssizet(CgHttpPacket *httpPkt, const char* name, ssize_t value);
+void mupnp_http_packet_setheadervalue(mUpnpHttpPacket *httpPkt, const char* name, const char *value);
+void mupnp_http_packet_setheaderinteger(mUpnpHttpPacket *httpPkt, const char* name, int value);
+void mupnp_http_packet_setheaderlong(mUpnpHttpPacket *httpPkt, const char* name, long value);
+void mupnp_http_packet_setheadersizet(mUpnpHttpPacket *httpPkt, const char* name, size_t value);
+void mupnp_http_packet_setheaderssizet(mUpnpHttpPacket *httpPkt, const char* name, ssize_t value);
 
-const char *mupnp_http_packet_getheadervalue(CgHttpPacket *httpPkt, const char* name);
-int mupnp_http_packet_getheaderinteger(CgHttpPacket *httpPkt, const char* name);
-long mupnp_http_packet_getheaderlong(CgHttpPacket *httpPkt, const char* name);
-size_t mupnp_http_packet_getheadersizet(CgHttpPacket *httpPkt, const char* name);
-ssize_t mupnp_http_packet_getheaderssizet(CgHttpPacket *httpPkt, const char* name);
-size_t mupnp_http_packet_getheadersize(CgHttpPacket *httpPkt);
+const char *mupnp_http_packet_getheadervalue(mUpnpHttpPacket *httpPkt, const char* name);
+int mupnp_http_packet_getheaderinteger(mUpnpHttpPacket *httpPkt, const char* name);
+long mupnp_http_packet_getheaderlong(mUpnpHttpPacket *httpPkt, const char* name);
+size_t mupnp_http_packet_getheadersizet(mUpnpHttpPacket *httpPkt, const char* name);
+ssize_t mupnp_http_packet_getheaderssizet(mUpnpHttpPacket *httpPkt, const char* name);
+size_t mupnp_http_packet_getheadersize(mUpnpHttpPacket *httpPkt);
 
 #define mupnp_http_packet_setcontent(httpPkt, value) mupnp_string_setvalue(httpPkt->content, value)
 #define mupnp_http_packet_setncontent(httpPkt, value, len) mupnp_string_setnvalue(httpPkt->content, value, len)
@@ -323,10 +323,10 @@ size_t mupnp_http_packet_getheadersize(CgHttpPacket *httpPkt);
 #define mupnp_http_packet_setcontentpointer(httpPkt, value, len) mupnp_string_setpointervalue(httpPkt->content, value, len)
 #define mupnp_http_packet_getcontent(httpPkt) mupnp_string_getvalue(httpPkt->content)
 
-void mupnp_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock);
-void mupnp_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize);
-BOOL mupnp_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize);
-BOOL mupnp_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader, char *lineBuf, size_t lineBufSize);
+void mupnp_http_packet_post(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock);
+void mupnp_http_packet_read_headers(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, char *lineBuf, size_t lineBufSize);
+BOOL mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, char *lineBuf, size_t lineBufSize);
+BOOL mupnp_http_packet_read(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, BOOL onlyHeader, char *lineBuf, size_t lineBufSize);
 
 #define mupnp_http_packet_setcontentlength(httpPkt,value) mupnp_http_packet_setheaderssizet(httpPkt,CG_HTTP_CONTENT_LENGTH,value)
 #define mupnp_http_packet_getcontentlength(httpPkt) mupnp_http_packet_getheaderssizet(httpPkt,CG_HTTP_CONTENT_LENGTH)
@@ -342,45 +342,45 @@ BOOL mupnp_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHead
 #define mupnp_http_packet_ischunked(httpPkt) mupnp_strcaseeq(mupnp_http_packet_gettransferencoding(httpPkt), CG_HTTP_CHUNKED)
 
 /**** Host ****/
-void mupnp_http_packet_sethost(CgHttpPacket *httpPkt, const char *addr, int port);
+void mupnp_http_packet_sethost(mUpnpHttpPacket *httpPkt, const char *addr, int port);
 #define mupnp_http_packet_gethost(httpPkt) mupnp_http_packet_getheaderlong(httpPkt,CG_HTTP_HOST)
 
 /**** Copy ****/
-void mupnp_http_packet_copy(CgHttpPacket *destHttpPkt, CgHttpPacket *srcHttpPkt);
+void mupnp_http_packet_copy(mUpnpHttpPacket *destHttpPkt, mUpnpHttpPacket *srcHttpPkt);
 
 /**** Print ****/
-void mupnp_http_packet_print(CgHttpPacket *httpPkt);
+void mupnp_http_packet_print(mUpnpHttpPacket *httpPkt);
 
 /****************************************
 * Function (Request)
 ****************************************/
 
-CgHttpRequest *mupnp_http_request_new();
-void mupnp_http_request_delete(CgHttpRequest *httpReq);
-void mupnp_http_request_clear(CgHttpRequest *httpReq);
-void mupnp_http_request_setmethod(CgHttpRequest *httpReq, const char *method);
-char *mupnp_http_request_getmethod(CgHttpRequest *httpReq);
-void mupnp_http_request_setversion(CgHttpRequest *httpReq, const char *version);
-char *mupnp_http_request_getversion(CgHttpRequest *httpReqest);
-void mupnp_http_request_setuseragent(CgHttpRequest *httpReq, const char *version);
-char *mupnp_http_request_getuseragent(CgHttpRequest *httpReqest);
-void mupnp_http_request_addtouseragent(CgHttpRequest *httpReq, const char *value);
-void mupnp_http_request_seturi(CgHttpRequest *httpReq, const char *uri);
-char *mupnp_http_request_geturi(CgHttpRequest *httpReq);
-void mupnp_http_request_setsocket(CgHttpRequest *httpReq, CgSocket *sock);
-CgSocket *mupnp_http_request_getsocket(CgHttpRequest *httpReq);
+mUpnpHttpRequest *mupnp_http_request_new();
+void mupnp_http_request_delete(mUpnpHttpRequest *httpReq);
+void mupnp_http_request_clear(mUpnpHttpRequest *httpReq);
+void mupnp_http_request_setmethod(mUpnpHttpRequest *httpReq, const char *method);
+char *mupnp_http_request_getmethod(mUpnpHttpRequest *httpReq);
+void mupnp_http_request_setversion(mUpnpHttpRequest *httpReq, const char *version);
+char *mupnp_http_request_getversion(mUpnpHttpRequest *httpReqest);
+void mupnp_http_request_setuseragent(mUpnpHttpRequest *httpReq, const char *version);
+char *mupnp_http_request_getuseragent(mUpnpHttpRequest *httpReqest);
+void mupnp_http_request_addtouseragent(mUpnpHttpRequest *httpReq, const char *value);
+void mupnp_http_request_seturi(mUpnpHttpRequest *httpReq, const char *uri);
+char *mupnp_http_request_geturi(mUpnpHttpRequest *httpReq);
+void mupnp_http_request_setsocket(mUpnpHttpRequest *httpReq, mUpnpSocket *sock);
+mUpnpSocket *mupnp_http_request_getsocket(mUpnpHttpRequest *httpReq);
 #define mupnp_http_request_closesocket(httpReq) mupnp_socket_close(mupnp_http_request_getsocket(httpReq))
-CgHttpResponse *mupnp_http_request_post(CgHttpRequest *httpReq, const char *ipaddr, int port);
+mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, const char *ipaddr, int port);
 #if defined(CG_USE_OPENSSL)
-CgHttpResponse *mupnp_https_request_post(CgHttpRequest *httpReq, const char *ipaddr, int port);
+mUpnpHttpResponse *mupnp_https_request_post(mUpnpHttpRequest *httpReq, const char *ipaddr, int port);
 #endif
-BOOL mupnp_http_request_read(CgHttpRequest *httpReq, CgSocket *sock);
-BOOL mupnp_http_request_postresponse(CgHttpRequest *httpReq, CgHttpResponse *httpRes);
-BOOL mupnp_http_request_poststatuscode(CgHttpRequest *httpReq, int httpStatCode);
-BOOL mupnp_http_request_postdata(CgHttpRequest *httpReq, void *data, int dataLen);
-BOOL mupnp_http_request_postchunkedsize(CgHttpRequest *httpReq, int dataLen);
-BOOL mupnp_http_request_postchunkeddata(CgHttpRequest *httpReq, void *data, int dataLen);
-BOOL mupnp_http_request_postlastchunk(CgHttpRequest *httpReq);
+BOOL mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock);
+BOOL mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpResponse *httpRes);
+BOOL mupnp_http_request_poststatuscode(mUpnpHttpRequest *httpReq, int httpStatCode);
+BOOL mupnp_http_request_postdata(mUpnpHttpRequest *httpReq, void *data, int dataLen);
+BOOL mupnp_http_request_postchunkedsize(mUpnpHttpRequest *httpReq, int dataLen);
+BOOL mupnp_http_request_postchunkeddata(mUpnpHttpRequest *httpReq, void *data, int dataLen);
+BOOL mupnp_http_request_postlastchunk(mUpnpHttpRequest *httpReq);
 #define mupnp_http_request_poststring(httpReq, data) mupnp_http_request_postdata(httpReq, data, mupnp_strlen(data))
 #define mupnp_http_request_postchunkedstring(httpReq, data) mupnp_http_request_postchunkeddata(httpReq, data, mupnp_strlen(data))
 
@@ -394,21 +394,21 @@ BOOL mupnp_http_request_postlastchunk(CgHttpRequest *httpReq);
 #define mupnp_http_request_issubscriberequest(httpReq) mupnp_streq(mupnp_http_request_getmethod(httpReq), CG_HTTP_SUBSCRIBE)
 #define mupnp_http_request_isunsubscriberequest(httpReq) mupnp_streq(mupnp_http_request_getmethod(httpReq), CG_HTTP_UNSUBSCRIBE)
 #define mupnp_http_request_isnotifyrequest(httpReq) mupnp_streq(mupnp_http_request_getmethod(httpReq), CG_HTTP_NOTIFY)
-#define mupnp_http_request_issoapaction(httpReq) (mupnp_http_packet_hasheader(((CgHttpPacket*)httpReq), CG_HTTP_SOAP_ACTION) || mupnp_streq(mupnp_http_request_getmethod(httpReq), CG_HTTP_MPOST))
+#define mupnp_http_request_issoapaction(httpReq) (mupnp_http_packet_hasheader(((mUpnpHttpPacket*)httpReq), CG_HTTP_SOAP_ACTION) || mupnp_streq(mupnp_http_request_getmethod(httpReq), CG_HTTP_MPOST))
 
-#define mupnp_http_request_setcontent(httpReq,value) mupnp_http_packet_setcontent(((CgHttpPacket*)httpReq),value)
-#define mupnp_http_request_setncontent(httpReq,value,len) mupnp_http_packet_setcontent(((CgHttpPacket*)httpReq),value,len)
+#define mupnp_http_request_setcontent(httpReq,value) mupnp_http_packet_setcontent(((mUpnpHttpPacket*)httpReq),value)
+#define mupnp_http_request_setncontent(httpReq,value,len) mupnp_http_packet_setcontent(((mUpnpHttpPacket*)httpReq),value,len)
 #define mupnp_http_request_appendncontent(httpPkt, value, len) mupnp_http_packet_appendncontent(httpPkt, value, len)
-#define mupnp_http_request_setcontentpointer(httpReq,value, len) mupnp_http_packet_setcontentpointer(((CgHttpPacket*)httpReq),value, len)
-#define mupnp_http_request_getcontent(httpReq) mupnp_http_packet_getcontent(((CgHttpPacket*)httpReq))
-#define mupnp_http_request_getheaders(httpReq) mupnp_http_packet_getheaders((CgHttpPacket*)httpReq)
-#define mupnp_http_request_getheader(httpReq,name) mupnp_http_packet_getheader((CgHttpPacket*)httpReq,name)
-#define mupnp_http_request_setheadervalue(httpReq,name,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)httpReq,name,value)
-#define mupnp_http_request_setheaderinteger(httpReq,name,value)  mupnp_http_packet_setheaderinteger((CgHttpPacket*)httpReq,name,value)
-#define mupnp_http_request_setheaderlong(httpReq,name,value)  mupnp_http_packet_setheaderlong((CgHttpPacket*)httpReq,name,value)
-#define mupnp_http_request_getheadervalue(httpReq,name) mupnp_http_packet_getheadervalue((CgHttpPacket*)httpReq,name)
-#define mupnp_http_request_getheaderinteger(httpReq,name) mupnp_http_packet_getheaderinteger((CgHttpPacket*)httpReq,name)
-#define mupnp_http_request_getheaderlong(httpReq,name) mupnp_http_packet_getheaderlong((CgHttpPacket*)httpReq,name)
+#define mupnp_http_request_setcontentpointer(httpReq,value, len) mupnp_http_packet_setcontentpointer(((mUpnpHttpPacket*)httpReq),value, len)
+#define mupnp_http_request_getcontent(httpReq) mupnp_http_packet_getcontent(((mUpnpHttpPacket*)httpReq))
+#define mupnp_http_request_getheaders(httpReq) mupnp_http_packet_getheaders((mUpnpHttpPacket*)httpReq)
+#define mupnp_http_request_getheader(httpReq,name) mupnp_http_packet_getheader((mUpnpHttpPacket*)httpReq,name)
+#define mupnp_http_request_setheadervalue(httpReq,name,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpReq,name,value)
+#define mupnp_http_request_setheaderinteger(httpReq,name,value)  mupnp_http_packet_setheaderinteger((mUpnpHttpPacket*)httpReq,name,value)
+#define mupnp_http_request_setheaderlong(httpReq,name,value)  mupnp_http_packet_setheaderlong((mUpnpHttpPacket*)httpReq,name,value)
+#define mupnp_http_request_getheadervalue(httpReq,name) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpReq,name)
+#define mupnp_http_request_getheaderinteger(httpReq,name) mupnp_http_packet_getheaderinteger((mUpnpHttpPacket*)httpReq,name)
+#define mupnp_http_request_getheaderlong(httpReq,name) mupnp_http_packet_getheaderlong((mUpnpHttpPacket*)httpReq,name)
 
 #define mupnp_http_request_setuserdata(httpReq, value) (httpReq->userData = value)
 #define mupnp_http_request_getuserdata(httpReq) (httpReq->userData)
@@ -418,39 +418,39 @@ BOOL mupnp_http_request_postlastchunk(CgHttpRequest *httpReq);
 #define mupnp_http_request_getlocalport(httpReq) mupnp_socket_getport(httpReq->sock)
 
 /**** Content-Length ****/
-#define mupnp_http_request_setcontentlength(httpReq,value) mupnp_http_packet_setcontentlength((CgHttpPacket*)httpReq, value)
-#define mupnp_http_request_getcontentlength(httpReq) mupnp_http_packet_getcontentlength((CgHttpPacket*)httpReq)
+#define mupnp_http_request_setcontentlength(httpReq,value) mupnp_http_packet_setcontentlength((mUpnpHttpPacket*)httpReq, value)
+#define mupnp_http_request_getcontentlength(httpReq) mupnp_http_packet_getcontentlength((mUpnpHttpPacket*)httpReq)
 
 /**** Content-Type ****/
-#define mupnp_http_request_setcontenttype(httpReq,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)httpReq,CG_HTTP_CONTENT_TYPE,value)
-#define mupnp_http_request_getcontenttype(httpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)httpReq,CG_HTTP_CONTENT_TYPE)
+#define mupnp_http_request_setcontenttype(httpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpReq,CG_HTTP_CONTENT_TYPE,value)
+#define mupnp_http_request_getcontenttype(httpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpReq,CG_HTTP_CONTENT_TYPE)
 
 /**** Connection ****/
-#define mupnp_http_request_setconnection(httpReq, value) mupnp_http_packet_setheadervalue((CgHttpPacket*)httpReq,CG_HTTP_CONNECTION, value)
-#define mupnp_http_request_getconnection(httpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)httpReq,CG_HTTP_CONNECTION)
-#define mupnp_http_request_iskeepaliveconnection(httpReq) mupnp_http_packet_iskeepaliveconnection((CgHttpPacket*)httpReq)
+#define mupnp_http_request_setconnection(httpReq, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpReq,CG_HTTP_CONNECTION, value)
+#define mupnp_http_request_getconnection(httpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpReq,CG_HTTP_CONNECTION)
+#define mupnp_http_request_iskeepaliveconnection(httpReq) mupnp_http_packet_iskeepaliveconnection((mUpnpHttpPacket*)httpReq)
 
 /**** Transfer-Encoding ****/
-#define mupnp_http_request_settransferencoding(httpReq, value) mupnp_http_packet_settransferencoding((CgHttpPacket*)httpReq, value)
-#define mupnp_http_request_gettransferencoding(httpReq) mupnp_http_packet_gettransferencoding((CgHttpPacket*)httpReq)
-#define mupnp_http_request_ischunked(httpReq) mupnp_http_packet_ischunked((CgHttpPacket*)httpReq)
+#define mupnp_http_request_settransferencoding(httpReq, value) mupnp_http_packet_settransferencoding((mUpnpHttpPacket*)httpReq, value)
+#define mupnp_http_request_gettransferencoding(httpReq) mupnp_http_packet_gettransferencoding((mUpnpHttpPacket*)httpReq)
+#define mupnp_http_request_ischunked(httpReq) mupnp_http_packet_ischunked((mUpnpHttpPacket*)httpReq)
 
 /**** Host ****/
-#define mupnp_http_request_sethost(httpReq,addr,port) mupnp_http_packet_sethost((CgHttpPacket*)httpReq,addr,port)
-#define mupnp_http_request_gethost(httpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)httpReq,CG_HTTP_HOST)
+#define mupnp_http_request_sethost(httpReq,addr,port) mupnp_http_packet_sethost((mUpnpHttpPacket*)httpReq,addr,port)
+#define mupnp_http_request_gethost(httpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpReq,CG_HTTP_HOST)
 
 /**** Date ****/
-#define mupnp_http_request_setdate(httpReq,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)httpReq,CG_HTTP_DATE,value)
-#define mupnp_http_request_getdate(httpReq) mupnp_http_packet_getheadervalue((CgHttpPacket*)httpReq,CG_HTTP_DATE)
+#define mupnp_http_request_setdate(httpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpReq,CG_HTTP_DATE,value)
+#define mupnp_http_request_getdate(httpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpReq,CG_HTTP_DATE)
 
 /**** Copy ****/
-void mupnp_http_request_copy(CgHttpRequest *destHttpReq, CgHttpRequest *srcHttpReq);
+void mupnp_http_request_copy(mUpnpHttpRequest *destHttpReq, mUpnpHttpRequest *srcHttpReq);
 
 /*** PostURL ****/
 #define mupnp_http_request_getposturl(httpReq) (httpReq->postURL)
 
 /**** Print ****/
-void mupnp_http_request_print(CgHttpRequest *httpReq);
+void mupnp_http_request_print(mUpnpHttpRequest *httpReq);
 
 /**** Timeout ****/
 #define mupnp_http_request_settimeout(httpReq,value) (httpReq->timeout = value)
@@ -460,68 +460,68 @@ void mupnp_http_request_print(CgHttpRequest *httpReq);
 * Function (Response)
 ****************************************/
 
-CgHttpResponse *mupnp_http_response_new();
-void mupnp_http_response_delete(CgHttpResponse *httpRes);
-void mupnp_http_response_clear(CgHttpResponse *httpRes);
-void mupnp_http_response_setversion(CgHttpResponse *httpRes, const char *version);
-char *mupnp_http_response_getversion(CgHttpResponse *httpRes);
-void mupnp_http_response_setreasonphrase(CgHttpResponse *httpRes, const char *value);
-char *mupnp_http_response_getreasonphrase(CgHttpResponse *httpRes);
-void mupnp_http_response_setstatuscode(CgHttpResponse *httpRes, int code);
-int mupnp_http_response_getstatuscode(CgHttpResponse *httpRes);
-BOOL mupnp_http_response_read(CgHttpResponse *httpRes, CgSocket *sock, BOOL onlyHeader);
+mUpnpHttpResponse *mupnp_http_response_new();
+void mupnp_http_response_delete(mUpnpHttpResponse *httpRes);
+void mupnp_http_response_clear(mUpnpHttpResponse *httpRes);
+void mupnp_http_response_setversion(mUpnpHttpResponse *httpRes, const char *version);
+char *mupnp_http_response_getversion(mUpnpHttpResponse *httpRes);
+void mupnp_http_response_setreasonphrase(mUpnpHttpResponse *httpRes, const char *value);
+char *mupnp_http_response_getreasonphrase(mUpnpHttpResponse *httpRes);
+void mupnp_http_response_setstatuscode(mUpnpHttpResponse *httpRes, int code);
+int mupnp_http_response_getstatuscode(mUpnpHttpResponse *httpRes);
+BOOL mupnp_http_response_read(mUpnpHttpResponse *httpRes, mUpnpSocket *sock, BOOL onlyHeader);
 
 /*#define mupnp_http_response_issuccessful(httpRes) ((mupnp_http_response_getstatuscode(httpRes) == CG_HTTP_STATUS_OK) ? TRUE : FALSE)*/
 #define mupnp_http_response_issuccessful(httpRes) (mupnp_http_response_getstatuscode(httpRes) >= 200 && mupnp_http_response_getstatuscode(httpRes) < 300 )
 
-#define mupnp_http_response_setcontent(httpRes,value) mupnp_http_packet_setcontent(((CgHttpPacket*)httpRes),value)
-#define mupnp_http_response_setncontent(httpRes,value, len) mupnp_http_packet_setncontent(((CgHttpPacket*)httpRes),value, len)
-#define mupnp_http_response_appendncontent(httpRes, value, len) mupnp_http_packet_appendncontent(((CgHttpPacket*) httpRes), value, len)
+#define mupnp_http_response_setcontent(httpRes,value) mupnp_http_packet_setcontent(((mUpnpHttpPacket*)httpRes),value)
+#define mupnp_http_response_setncontent(httpRes,value, len) mupnp_http_packet_setncontent(((mUpnpHttpPacket*)httpRes),value, len)
+#define mupnp_http_response_appendncontent(httpRes, value, len) mupnp_http_packet_appendncontent(((mUpnpHttpPacket*) httpRes), value, len)
 
-#define mupnp_http_response_setcontentpointer(httpRes,value,len) mupnp_http_packet_setcontentpointer(((CgHttpPacket*)httpRes),value,len)
-#define mupnp_http_response_getcontent(httpRes) mupnp_http_packet_getcontent(((CgHttpPacket*)httpRes))
-#define mupnp_http_response_getheaders(p) mupnp_http_packet_getheaders((CgHttpPacket*)p)
-#define mupnp_http_response_getheader(p,n) mupnp_http_packet_getheader((CgHttpPacket*)p,n)
-#define mupnp_http_response_setheadervalue(httpRes,n,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)httpRes,n,value)
-#define mupnp_http_response_setheaderinteger(httpRes,n,value)  mupnp_http_packet_setheaderinteger((CgHttpPacket*)httpRes,n,value)
-#define mupnp_http_response_setheaderlong(httpRes,n,value)  mupnp_http_packet_setheaderlong((CgHttpPacket*)httpRes,n,value)
-#define mupnp_http_response_getheadervalue(httpRes,n) mupnp_http_packet_getheadervalue((CgHttpPacket*)httpRes,n)
-#define mupnp_http_response_getheaderinteger(httpRes,n) mupnp_http_packet_getheaderinteger((CgHttpPacket*)httpRes,n)
-#define mupnp_http_response_getheaderlong(httpRes,n) mupnp_http_packet_getheaderlong((CgHttpPacket*)httpRes,n)
+#define mupnp_http_response_setcontentpointer(httpRes,value,len) mupnp_http_packet_setcontentpointer(((mUpnpHttpPacket*)httpRes),value,len)
+#define mupnp_http_response_getcontent(httpRes) mupnp_http_packet_getcontent(((mUpnpHttpPacket*)httpRes))
+#define mupnp_http_response_getheaders(p) mupnp_http_packet_getheaders((mUpnpHttpPacket*)p)
+#define mupnp_http_response_getheader(p,n) mupnp_http_packet_getheader((mUpnpHttpPacket*)p,n)
+#define mupnp_http_response_setheadervalue(httpRes,n,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpRes,n,value)
+#define mupnp_http_response_setheaderinteger(httpRes,n,value)  mupnp_http_packet_setheaderinteger((mUpnpHttpPacket*)httpRes,n,value)
+#define mupnp_http_response_setheaderlong(httpRes,n,value)  mupnp_http_packet_setheaderlong((mUpnpHttpPacket*)httpRes,n,value)
+#define mupnp_http_response_getheadervalue(httpRes,n) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpRes,n)
+#define mupnp_http_response_getheaderinteger(httpRes,n) mupnp_http_packet_getheaderinteger((mUpnpHttpPacket*)httpRes,n)
+#define mupnp_http_response_getheaderlong(httpRes,n) mupnp_http_packet_getheaderlong((mUpnpHttpPacket*)httpRes,n)
 
 #define mupnp_http_response_setuserdata(httpRes, value) (httpRes->userData = value)
 #define mupnp_http_response_getuserdata(httpRes) (httpRes->userData)
 
 /**** Content-Length ****/
-#define mupnp_http_response_setcontentlength(httpRes,value) mupnp_http_packet_setcontentlength((CgHttpPacket*)httpRes, value)
-#define mupnp_http_response_getcontentlength(httpRes) mupnp_http_packet_getcontentlength((CgHttpPacket*)httpRes)
+#define mupnp_http_response_setcontentlength(httpRes,value) mupnp_http_packet_setcontentlength((mUpnpHttpPacket*)httpRes, value)
+#define mupnp_http_response_getcontentlength(httpRes) mupnp_http_packet_getcontentlength((mUpnpHttpPacket*)httpRes)
 
 /**** Content-Type ****/
-#define mupnp_http_response_setcontenttype(httpRes,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)httpRes,CG_HTTP_CONTENT_TYPE,value)
-#define mupnp_http_response_getcontenttype(httpRes) mupnp_http_packet_getheadervalue((CgHttpPacket*)httpRes,CG_HTTP_CONTENT_TYPE)
+#define mupnp_http_response_setcontenttype(httpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpRes,CG_HTTP_CONTENT_TYPE,value)
+#define mupnp_http_response_getcontenttype(httpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpRes,CG_HTTP_CONTENT_TYPE)
 
 /**** connection ****/
-#define mupnp_http_response_setconnection(httpRes, value) mupnp_http_packet_setheadervalue((CgHttpPacket*)httpRes,CG_HTTP_CONNECTION, value)
-#define mupnp_http_response_getconnection(httpRes) mupnp_http_packet_getheadervalue((CgHttpPacket*)httpRes, CG_HTTP_CONNECTION)
-#define mupnp_http_response_iskeepaliveconnection(httpRes) mupnp_http_packet_iskeepaliveconnection((CgHttpPacket*)httpRes)
+#define mupnp_http_response_setconnection(httpRes, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpRes,CG_HTTP_CONNECTION, value)
+#define mupnp_http_response_getconnection(httpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpRes, CG_HTTP_CONNECTION)
+#define mupnp_http_response_iskeepaliveconnection(httpRes) mupnp_http_packet_iskeepaliveconnection((mUpnpHttpPacket*)httpRes)
 
 /**** Host ****/
-#define mupnp_http_response_sethost(httpRes,addr,port) mupnp_http_packet_sethost((CgHttpPacket*)httpRes,addr,port)
-#define mupnp_http_response_gethost(httpRes) mupnp_http_packet_getheadervalue((CgHttpPacket*)httpRes,CG_HTTP_HOST)
+#define mupnp_http_response_sethost(httpRes,addr,port) mupnp_http_packet_sethost((mUpnpHttpPacket*)httpRes,addr,port)
+#define mupnp_http_response_gethost(httpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpRes,CG_HTTP_HOST)
 
 /**** Date ****/
-#define mupnp_http_response_setdate(httpRes,value) mupnp_http_packet_setheadervalue((CgHttpPacket*)httpRes,CG_HTTP_DATE,value)
-#define mupnp_http_response_getdate(httpRes) mupnp_http_packet_getheadervalue((CgHttpPacket*)httpRes,CG_HTTP_DATE)
+#define mupnp_http_response_setdate(httpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpRes,CG_HTTP_DATE,value)
+#define mupnp_http_response_getdate(httpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpRes,CG_HTTP_DATE)
 
 /**** Transfer-Encoding ****/
-#define mupnp_http_response_settransferencoding(httpReq, value) mupnp_http_packet_settransferencoding((CgHttpPacket*)httpReq, value)
-#define mupnp_http_response_gettransferencoding(httpReq) mupnp_http_packet_gettransferencoding((CgHttpPacket*)httpReq)
+#define mupnp_http_response_settransferencoding(httpReq, value) mupnp_http_packet_settransferencoding((mUpnpHttpPacket*)httpReq, value)
+#define mupnp_http_response_gettransferencoding(httpReq) mupnp_http_packet_gettransferencoding((mUpnpHttpPacket*)httpReq)
 	
 /**** Copy ****/
-void mupnp_http_response_copy(CgHttpResponse *destHttpRes, CgHttpResponse *srcHttpRes);
+void mupnp_http_response_copy(mUpnpHttpResponse *destHttpRes, mUpnpHttpResponse *srcHttpRes);
 
 /**** Print ****/
-void mupnp_http_response_print(CgHttpResponse *httpRes);
+void mupnp_http_response_print(mUpnpHttpResponse *httpRes);
 
 /**** Timeout ****/
 #define mupnp_http_response_settimeout(httpRes,value) (httpRes->timeout = value)
@@ -531,16 +531,16 @@ void mupnp_http_response_print(CgHttpResponse *httpRes);
 * Function (Server)
 ****************************************/
 
-CgHttpServer *mupnp_http_server_new();
-void mupnp_http_server_delete(CgHttpServer *httpServer);
-BOOL mupnp_http_server_open(CgHttpServer *httpServer, int bindPort, const char *bindAddr);
-BOOL mupnp_http_server_close(CgHttpServer *httpServer);
-BOOL mupnp_http_server_accept(CgHttpServer *httpServer);
-BOOL mupnp_http_server_start(CgHttpServer *httpServer);
-BOOL mupnp_http_server_stop(CgHttpServer *httpServer);
-void mupnp_http_server_setlistener(CgHttpServer *httpServer, CG_HTTP_LISTENER listener);
+mUpnpHttpServer *mupnp_http_server_new();
+void mupnp_http_server_delete(mUpnpHttpServer *httpServer);
+BOOL mupnp_http_server_open(mUpnpHttpServer *httpServer, int bindPort, const char *bindAddr);
+BOOL mupnp_http_server_close(mUpnpHttpServer *httpServer);
+BOOL mupnp_http_server_accept(mUpnpHttpServer *httpServer);
+BOOL mupnp_http_server_start(mUpnpHttpServer *httpServer);
+BOOL mupnp_http_server_stop(mUpnpHttpServer *httpServer);
+void mupnp_http_server_setlistener(mUpnpHttpServer *httpServer, CG_HTTP_LISTENER listener);
 
-#define mupnp_http_server_next(httpServer) (CgHttpServer *)mupnp_list_next((CgList *)httpServer)
+#define mupnp_http_server_next(httpServer) (mUpnpHttpServer *)mupnp_list_next((mUpnpList *)httpServer)
 
 #define mupnp_http_server_getsocket(httpServer) (httpServer->sock)
 #define mupnp_http_server_isopened(httpServer) ((httpServer->sock != NULL) ? TRUE : FALSE)
@@ -562,26 +562,26 @@ const char *mupnp_http_getservername(char *buf, size_t bufSize);
 * Function (Server List)
 ****************************************/
 
-CgHttpServerList *mupnp_http_serverlist_new();
-void mupnp_http_serverlist_delete(CgHttpServerList *httpServerList);
+mUpnpHttpServerList *mupnp_http_serverlist_new();
+void mupnp_http_serverlist_delete(mUpnpHttpServerList *httpServerList);
 
-#define mupnp_http_serverlist_clear(httpServerList) mupnp_list_clear((CgList *)httpServerList, (CG_LIST_DESTRUCTORFUNC)mupnp_http_server_delete)
-#define mupnp_http_serverlist_size(httpServerList) mupnp_list_size((CgList *)httpServerList)
-#define mupnp_http_serverlist_gets(httpServerList) (CgHttpServer *)mupnp_list_next((CgList *)httpServerList)
-#define mupnp_http_serverlist_add(httpServerList, httpServer) mupnp_list_add((CgList *)httpServerList, (CgList *)httpServer)
+#define mupnp_http_serverlist_clear(httpServerList) mupnp_list_clear((mUpnpList *)httpServerList, (CG_LIST_DESTRUCTORFUNC)mupnp_http_server_delete)
+#define mupnp_http_serverlist_size(httpServerList) mupnp_list_size((mUpnpList *)httpServerList)
+#define mupnp_http_serverlist_gets(httpServerList) (mUpnpHttpServer *)mupnp_list_next((mUpnpList *)httpServerList)
+#define mupnp_http_serverlist_add(httpServerList, httpServer) mupnp_list_add((mUpnpList *)httpServerList, (mUpnpList *)httpServer)
 
-BOOL mupnp_http_serverlist_open(CgHttpServerList *httpServerList, int port);
-BOOL mupnp_http_serverlist_close(CgHttpServerList *httpServerList);
-BOOL mupnp_http_serverlist_start(CgHttpServerList *httpServerList);
-BOOL mupnp_http_serverlist_stop(CgHttpServerList *httpServerList);
-void mupnp_http_serverlist_setlistener(CgHttpServerList *httpServerList, CG_HTTP_LISTENER listener);
-void mupnp_http_serverlist_setuserdata(CgHttpServerList *httpServerList, void *value);
+BOOL mupnp_http_serverlist_open(mUpnpHttpServerList *httpServerList, int port);
+BOOL mupnp_http_serverlist_close(mUpnpHttpServerList *httpServerList);
+BOOL mupnp_http_serverlist_start(mUpnpHttpServerList *httpServerList);
+BOOL mupnp_http_serverlist_stop(mUpnpHttpServerList *httpServerList);
+void mupnp_http_serverlist_setlistener(mUpnpHttpServerList *httpServerList, CG_HTTP_LISTENER listener);
+void mupnp_http_serverlist_setuserdata(mUpnpHttpServerList *httpServerList, void *value);
 
 /****************************************
 * Function (Date)
 ****************************************/
 
-const char *mupnp_http_getdate(CgTime sysTime, char *buf, size_t bufSize);
+const char *mupnp_http_getdate(mUpnpTime sysTime, char *buf, size_t bufSize);
 
 /****************************************
 * Persistent connection cache

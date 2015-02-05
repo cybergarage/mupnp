@@ -39,13 +39,13 @@
 * mupnp_upnp_control_action_request_new
 ****************************************/
 
-CgUpnpActionRequest *mupnp_upnp_control_action_request_new()
+mUpnpUpnpActionRequest *mupnp_upnp_control_action_request_new()
 {
-	CgUpnpActionRequest *actionReq;
+	mUpnpUpnpActionRequest *actionReq;
 	 
 	mupnp_log_debug_l4("Entering...\n");
 
-	actionReq = (CgUpnpActionRequest *)malloc(sizeof(CgUpnpActionRequest));
+	actionReq = (mUpnpUpnpActionRequest *)malloc(sizeof(mUpnpUpnpActionRequest));
 	
 	if ( NULL != actionReq )
 	{
@@ -65,7 +65,7 @@ CgUpnpActionRequest *mupnp_upnp_control_action_request_new()
 * mupnp_upnp_control_action_request_delete
 ****************************************/
 
-void mupnp_upnp_control_action_request_delete(CgUpnpActionRequest *actionReq)
+void mupnp_upnp_control_action_request_delete(mUpnpUpnpActionRequest *actionReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -87,7 +87,7 @@ void mupnp_upnp_control_action_request_delete(CgUpnpActionRequest *actionReq)
 * mupnp_upnp_control_action_request_clear
 ****************************************/
 
-void mupnp_upnp_control_action_request_clear(CgUpnpActionRequest *actionReq)
+void mupnp_upnp_control_action_request_clear(mUpnpUpnpActionRequest *actionReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -105,11 +105,11 @@ void mupnp_upnp_control_action_request_clear(CgUpnpActionRequest *actionReq)
 * mupnp_upnp_control_action_request_setsoaprequest
 ****************************************/
 
-void mupnp_upnp_control_action_request_setsoaprequest(CgUpnpActionRequest *actionReq, CgSoapRequest *soapReq)
+void mupnp_upnp_control_action_request_setsoaprequest(mUpnpUpnpActionRequest *actionReq, mUpnpSoapRequest *soapReq)
 {
-	CgXmlNode *actionNode;
-	CgXmlNode *argNode;
-	CgUpnpArgument *arg;
+	mUpnpXmlNode *actionNode;
+	mUpnpXmlNode *argNode;
+	mUpnpUpnpArgument *arg;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -141,10 +141,10 @@ void mupnp_upnp_control_action_request_setsoaprequest(CgUpnpActionRequest *actio
 * mupnp_upnp_control_action_request_getactionnode
 ****************************************/
 
-CgXmlNode *mupnp_upnp_control_action_request_getactionnode(CgUpnpActionRequest *actionReq)
+mUpnpXmlNode *mupnp_upnp_control_action_request_getactionnode(mUpnpUpnpActionRequest *actionReq)
 {
-	CgSoapRequest *soapReq;	
-	CgXmlNode *bodyNode;
+	mUpnpSoapRequest *soapReq;	
+	mUpnpXmlNode *bodyNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -166,9 +166,9 @@ CgXmlNode *mupnp_upnp_control_action_request_getactionnode(CgUpnpActionRequest *
 * mupnp_upnp_control_action_request_getactionname
 ****************************************/
 
-char *mupnp_upnp_control_action_request_getactionname(CgUpnpActionRequest *actionReq)
+char *mupnp_upnp_control_action_request_getactionname(mUpnpUpnpActionRequest *actionReq)
 {
-	CgXmlNode *node;
+	mUpnpXmlNode *node;
 	char *name;
 	ssize_t urnDelimIdx;
 	
@@ -195,13 +195,13 @@ char *mupnp_upnp_control_action_request_getactionname(CgUpnpActionRequest *actio
 * mupnp_upnp_control_action_request_createactionnode
 ****************************************/
 
-CgXmlNode *mupnp_upnp_control_action_request_createactionnode(CgUpnpAction *action)
+mUpnpXmlNode *mupnp_upnp_control_action_request_createactionnode(mUpnpUpnpAction *action)
 {
-	CgUpnpService *service;
-	CgXmlNode *actionNode;
-	CgUpnpArgument *arg;
-	CgXmlNode *argNode;
-	CgString *nameWithNamespace;
+	mUpnpUpnpService *service;
+	mUpnpXmlNode *actionNode;
+	mUpnpUpnpArgument *arg;
+	mUpnpXmlNode *argNode;
+	mUpnpString *nameWithNamespace;
 		
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -234,13 +234,13 @@ CgXmlNode *mupnp_upnp_control_action_request_createactionnode(CgUpnpAction *acti
 * mupnp_upnp_control_action_setrequest
 ****************************************/
 	
-void mupnp_upnp_control_action_request_setaction(CgUpnpActionRequest *actionReq, CgUpnpAction *action)
+void mupnp_upnp_control_action_request_setaction(mUpnpUpnpActionRequest *actionReq, mUpnpUpnpAction *action)
 {
-	CgUpnpService *service;
-	CgSoapRequest *soapReq;
-	CgString *soapAction;	
-	CgXmlNode *bodyNode;
-	CgXmlNode *contentNode;
+	mUpnpUpnpService *service;
+	mUpnpSoapRequest *soapReq;
+	mUpnpString *soapAction;	
+	mUpnpXmlNode *bodyNode;
+	mUpnpXmlNode *contentNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -272,13 +272,13 @@ void mupnp_upnp_control_action_request_setaction(CgUpnpActionRequest *actionReq,
 * mupnp_upnp_control_action_request_post
 ****************************************/
 
-CgUpnpActionResponse *mupnp_upnp_control_action_request_post(CgUpnpActionRequest *actionReq)
+mUpnpUpnpActionResponse *mupnp_upnp_control_action_request_post(mUpnpUpnpActionRequest *actionReq)
 {
-	CgSoapRequest *soapReq;
-	CgSoapResponse *soapRes;
-	CgUpnpActionResponse *actionRes;
-	CgHttpRequest *httpReq;
-	CgNetURL *postURL;
+	mUpnpSoapRequest *soapReq;
+	mUpnpSoapResponse *soapRes;
+	mUpnpUpnpActionResponse *actionRes;
+	mUpnpHttpRequest *httpReq;
+	mUpnpNetURL *postURL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

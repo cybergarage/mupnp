@@ -48,13 +48,13 @@ extern "C" {
 /**
  * UPnP status struct used in action and state operations
  */
-typedef struct _CgUpnpStatus {
+typedef struct _mUpnpUpnpStatus {
 	/** Status code */
 	int code;
 
 	/** Status description */
-	CgString *description;
-} CgUpnpStatus;
+	mUpnpString *description;
+} mUpnpUpnpStatus;
 
 /******************************************************************************
  * Function
@@ -64,14 +64,14 @@ typedef struct _CgUpnpStatus {
  * Create a new status struct
  *
  */
-CgUpnpStatus *mupnp_upnp_status_new();
+mUpnpUpnpStatus *mupnp_upnp_status_new();
 
 /**
  * Delete a status struct
  *
  * \param upnpStat Status struct to delete
  */
-void mupnp_upnp_status_delete(CgUpnpStatus *upnpStat);
+void mupnp_upnp_status_delete(mUpnpUpnpStatus *upnpStat);
 
 /**
  * Set status code for status struct

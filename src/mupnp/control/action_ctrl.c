@@ -36,10 +36,10 @@
 * mupnp_upnp_action_clearoutputargumentvalues
 ****************************************/
 
-void mupnp_upnp_action_clearoutputargumentvalues(CgUpnpAction *action)
+void mupnp_upnp_action_clearoutputargumentvalues(mUpnpUpnpAction *action)
 {
-	CgUpnpArgumentList *argList;
-	CgUpnpArgument *arg;
+	mUpnpUpnpArgumentList *argList;
+	mUpnpUpnpArgument *arg;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -56,12 +56,12 @@ void mupnp_upnp_action_clearoutputargumentvalues(CgUpnpAction *action)
 * mupnp_upnp_action_performlistener
 ****************************************/
 
-BOOL mupnp_upnp_action_performlistner(CgUpnpAction *action, CgUpnpActionRequest *actionReq)
+BOOL mupnp_upnp_action_performlistner(mUpnpUpnpAction *action, mUpnpUpnpActionRequest *actionReq)
 {
 	CG_UPNP_ACTION_LISTNER listener;
-	CgUpnpActionResponse *actionRes;
-	CgHttpRequest *actionReqHttpReq;
-	CgHttpResponse *actionResHttpRes;
+	mUpnpUpnpActionResponse *actionRes;
+	mUpnpHttpRequest *actionReqHttpReq;
+	mUpnpHttpResponse *actionResHttpRes;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -96,10 +96,10 @@ BOOL mupnp_upnp_action_performlistner(CgUpnpAction *action, CgUpnpActionRequest 
 * mupnp_upnp_action_post
 ****************************************/
 
-BOOL mupnp_upnp_action_post(CgUpnpAction *action)
+BOOL mupnp_upnp_action_post(mUpnpUpnpAction *action)
 {
-	CgUpnpActionRequest *actionReq;
-	CgUpnpActionResponse *actionRes;
+	mUpnpUpnpActionRequest *actionReq;
+	mUpnpUpnpActionResponse *actionRes;
 	BOOL actionSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");

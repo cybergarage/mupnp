@@ -36,16 +36,16 @@
 * mupnp_upnp_subscriberlist_new
 ****************************************/
 
-CgUpnpSubscriberList *mupnp_upnp_subscriberlist_new()
+mUpnpUpnpSubscriberList *mupnp_upnp_subscriberlist_new()
 {
-	CgUpnpSubscriberList *subscriberList;
+	mUpnpUpnpSubscriberList *subscriberList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	subscriberList = (CgUpnpSubscriberList *)malloc(sizeof(CgUpnpSubscriberList));
+	subscriberList = (mUpnpUpnpSubscriberList *)malloc(sizeof(mUpnpUpnpSubscriberList));
 
 	if ( NULL != subscriberList )
-		mupnp_list_header_init((CgList *)subscriberList);
+		mupnp_list_header_init((mUpnpList *)subscriberList);
 
 	return subscriberList;
 
@@ -56,7 +56,7 @@ CgUpnpSubscriberList *mupnp_upnp_subscriberlist_new()
 * mupnp_upnp_subscriberlist_delete
 ****************************************/
 
-void mupnp_upnp_subscriberlist_delete(CgUpnpSubscriberList *subscriberList)
+void mupnp_upnp_subscriberlist_delete(mUpnpUpnpSubscriberList *subscriberList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -70,9 +70,9 @@ void mupnp_upnp_subscriberlist_delete(CgUpnpSubscriberList *subscriberList)
 * mupnp_upnp_subscriberlist_get
 ****************************************/
 
-CgUpnpSubscriber *mupnp_upnp_subscriberlist_get(CgUpnpSubscriberList *subscriberList, char *sid)
+mUpnpUpnpSubscriber *mupnp_upnp_subscriberlist_get(mUpnpUpnpSubscriberList *subscriberList, char *sid)
 {
-	CgUpnpSubscriber *sub;
+	mUpnpUpnpSubscriber *sub;
 	ssize_t uuidIdx;
 
 	if (mupnp_strlen(sid) <= 0)

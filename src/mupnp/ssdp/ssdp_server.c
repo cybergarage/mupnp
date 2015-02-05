@@ -26,17 +26,17 @@
 * mupnp_upnp_ssdp_server_new
 ****************************************/
 
-CgUpnpSSDPServer *mupnp_upnp_ssdp_server_new()
+mUpnpUpnpSSDPServer *mupnp_upnp_ssdp_server_new()
 {
-	CgUpnpSSDPServer *server;
+	mUpnpUpnpSSDPServer *server;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	server = (CgUpnpSSDPServer *)malloc(sizeof(CgUpnpSSDPServer));
+	server = (mUpnpUpnpSSDPServer *)malloc(sizeof(mUpnpUpnpSSDPServer));
 
 	if ( NULL != server )
 	{
-		mupnp_list_node_init((CgList *)server);
+		mupnp_list_node_init((mUpnpList *)server);
 
 		server->httpmuSock = NULL;
 		server->recvThread = NULL;
@@ -54,14 +54,14 @@ CgUpnpSSDPServer *mupnp_upnp_ssdp_server_new()
 * mupnp_upnp_ssdp_server_delete
 ****************************************/
 
-void mupnp_upnp_ssdp_server_delete(CgUpnpSSDPServer *server)
+void mupnp_upnp_ssdp_server_delete(mUpnpUpnpSSDPServer *server)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_upnp_ssdp_server_stop(server);
 	mupnp_upnp_ssdp_server_close(server);
 	
-	mupnp_list_remove((CgList *)server);
+	mupnp_list_remove((mUpnpList *)server);
 
 	free(server);
 
@@ -72,7 +72,7 @@ void mupnp_upnp_ssdp_server_delete(CgUpnpSSDPServer *server)
 * mupnp_upnp_ssdp_server_open
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_server_open(CgUpnpSSDPServer *server, char *bindAddr)
+BOOL mupnp_upnp_ssdp_server_open(mUpnpUpnpSSDPServer *server, char *bindAddr)
 {
 	const char *ssdpAddr = CG_UPNP_SSDP_ADDRESS;
 
@@ -100,7 +100,7 @@ BOOL mupnp_upnp_ssdp_server_open(CgUpnpSSDPServer *server, char *bindAddr)
 * mupnp_upnp_ssdp_server_close
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_server_close(CgUpnpSSDPServer *server)
+BOOL mupnp_upnp_ssdp_server_close(mUpnpUpnpSSDPServer *server)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -120,7 +120,7 @@ BOOL mupnp_upnp_ssdp_server_close(CgUpnpSSDPServer *server)
 * mupnp_upnp_ssdp_server_performlistener
 ****************************************/
 
-void mupnp_upnp_ssdp_server_performlistener(CgUpnpSSDPServer *server, CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_ssdp_server_performlistener(mUpnpUpnpSSDPServer *server, mUpnpUpnpSSDPPacket *ssdpPkt)
 {
 	CG_UPNP_SSDP_LISTNER listener;
 
@@ -138,15 +138,15 @@ void mupnp_upnp_ssdp_server_performlistener(CgUpnpSSDPServer *server, CgUpnpSSDP
 * mupnp_upnp_ssdp_server_thread
 ****************************************/
 
-static void mupnp_upnp_ssdp_server_thread(CgThread *thread)
+static void mupnp_upnp_ssdp_server_thread(mUpnpThread *thread)
 {
-	CgUpnpSSDPServer *server;
-	CgUpnpSSDPPacket *ssdpPkt;
+	mUpnpUpnpSSDPServer *server;
+	mUpnpUpnpSSDPPacket *ssdpPkt;
 	void *userData;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	server = (CgUpnpSSDPServer *)mupnp_thread_getuserdata(thread);
+	server = (mUpnpUpnpSSDPServer *)mupnp_thread_getuserdata(thread);
 	userData = mupnp_upnp_ssdp_server_getuserdata(server);
 	
 	if (mupnp_upnp_ssdp_server_isopened(server) == FALSE)
@@ -172,7 +172,7 @@ static void mupnp_upnp_ssdp_server_thread(CgThread *thread)
 * mupnp_upnp_ssdp_server_start
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_server_start(CgUpnpSSDPServer *server)
+BOOL mupnp_upnp_ssdp_server_start(mUpnpUpnpSSDPServer *server)
 {
 	if (server->recvThread != NULL)
 		return FALSE;
@@ -197,7 +197,7 @@ BOOL mupnp_upnp_ssdp_server_start(CgUpnpSSDPServer *server)
 * mupnp_upnp_ssdp_server_stop
 ****************************************/
 
-BOOL mupnp_upnp_ssdp_server_stop(CgUpnpSSDPServer *server)
+BOOL mupnp_upnp_ssdp_server_stop(mUpnpUpnpSSDPServer *server)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

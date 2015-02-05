@@ -23,13 +23,13 @@
 // PrintIGDInfo
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintIGDInfo(CgUpnpDevice *dev, int igdNum)
+void PrintIGDInfo(mUpnpUpnpDevice *dev, int igdNum)
 {
-	CgUpnpService *ipConService;
-	CgUpnpAction *extIpAddrAction;
-	CgUpnpService *wanComIfCfgService;
-	CgUpnpAction *totalBytesSentAction;
-	CgUpnpAction *totalBytesRecvAction;
+	mUpnpUpnpService *ipConService;
+	mUpnpUpnpAction *extIpAddrAction;
+	mUpnpUpnpService *wanComIfCfgService;
+	mUpnpUpnpAction *totalBytesSentAction;
+	mUpnpUpnpAction *totalBytesRecvAction;
 
 	if (!mupnp_upnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE))
 		return;
@@ -64,9 +64,9 @@ void PrintIGDInfo(CgUpnpDevice *dev, int igdNum)
 // PrintIGDInfos
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintIGDInfos(CgUpnpControlPoint *ctrlPoint)
+void PrintIGDInfos(mUpnpUpnpControlPoint *ctrlPoint)
 {
-	CgUpnpDevice *dev;
+	mUpnpUpnpDevice *dev;
 	int igdNum;
 		
 	igdNum = 0;
@@ -89,7 +89,7 @@ MBEG
 int main( int argc, char* argv[] )
 #endif
 {
-	CgUpnpControlPoint *ctrlPoint;
+	mUpnpUpnpControlPoint *ctrlPoint;
 
 	ctrlPoint = mupnp_upnp_controlpoint_new();
 	if (mupnp_upnp_controlpoint_start(ctrlPoint) == FALSE) {

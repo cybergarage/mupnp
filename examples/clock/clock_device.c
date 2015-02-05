@@ -127,13 +127,13 @@ char *CLOCK_SERVICE_DESCRIPTION =
 * upnp_clock_actionreceived
 ****************************************/
 
-BOOL upnp_clock_actionreceived(CgUpnpAction *action)
+BOOL upnp_clock_actionreceived(mUpnpUpnpAction *action)
 {
-	CgTime currTime;
+	mUpnpTime currTime;
 	const char *actionName;
-	CgUpnpArgument *currTimeArg;
+	mUpnpUpnpArgument *currTimeArg;
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
-	CgUpnpArgument *newTimeArg, *resultArg;
+	mUpnpUpnpArgument *newTimeArg, *resultArg;
 
 	currTime = mupnp_getcurrentsystemtime();
 	
@@ -158,10 +158,10 @@ BOOL upnp_clock_actionreceived(CgUpnpAction *action)
 * upnp_clock_queryreceived
 ****************************************/
 
-BOOL upnp_clock_queryreceived(CgUpnpStateVariable *statVar)
+BOOL upnp_clock_queryreceived(mUpnpUpnpStateVariable *statVar)
 {
 	const char *varName;
-	CgTime currTime;
+	mUpnpTime currTime;
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	
 	varName = mupnp_upnp_statevariable_getname(statVar);
@@ -179,18 +179,18 @@ BOOL upnp_clock_queryreceived(CgUpnpStateVariable *statVar)
 * upnp_clock_device_httprequestrecieved
 ****************************************/
 
-void upnp_clock_device_httprequestrecieved(CgHttpRequest *httpReq)
+void upnp_clock_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 {
-	CgTime currTime;
-	CgUpnpDevice *dev;
+	mUpnpTime currTime;
+	mUpnpUpnpDevice *dev;
 	char *uri;
 	char content[2048];
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	char serverName[CG_UPNP_SEVERNAME_MAXLEN];
-	CgHttpResponse *httpRes;
+	mUpnpHttpResponse *httpRes;
 	BOOL postRet;
 	
-	dev = (CgUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
+	dev = (mUpnpUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
 
 	uri = mupnp_http_request_geturi(httpReq);
 	if (strcmp(uri, "/presentation") != 0) {
@@ -256,10 +256,10 @@ void upnp_clock_device_httprequestrecieved(CgHttpRequest *httpReq)
 * upnp_clock_device_new
 ****************************************/
 
-CgUpnpDevice *upnp_clock_device_new()
+mUpnpUpnpDevice *upnp_clock_device_new()
 {
-	CgUpnpDevice *clockDev;
-	CgUpnpService *timeService;
+	mUpnpUpnpDevice *clockDev;
+	mUpnpUpnpService *timeService;
 	 
 	clockDev = mupnp_upnp_device_new();
 	
@@ -290,11 +290,11 @@ CgUpnpDevice *upnp_clock_device_new()
 * upnp_clock_device_update
 ****************************************/
 
-void upnp_clock_device_update(CgUpnpDevice *clockDev)
+void upnp_clock_device_update(mUpnpUpnpDevice *clockDev)
 {
-	CgTime currTime;
-	CgUpnpService *timeService;
-	CgUpnpStateVariable *timeState;
+	mUpnpTime currTime;
+	mUpnpUpnpService *timeService;
+	mUpnpUpnpStateVariable *timeState;
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	
 	timeService = mupnp_upnp_device_getservicebyexacttype(clockDev, "urn:schemas-upnp-org:service:timer:1");

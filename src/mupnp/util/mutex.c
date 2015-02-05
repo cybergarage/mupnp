@@ -34,13 +34,13 @@
 * mupnp_mutex_new
 ****************************************/
 
-CgMutex *mupnp_mutex_new()
+mUpnpMutex *mupnp_mutex_new()
 {
-	CgMutex *mutex;
+	mUpnpMutex *mutex;
 
 	mupnp_log_debug_l4("Entering...\n");
 	
-	mutex = (CgMutex *)malloc(sizeof(CgMutex));
+	mutex = (mUpnpMutex *)malloc(sizeof(mUpnpMutex));
 
 	if ( NULL != mutex )
 	{
@@ -78,7 +78,7 @@ CgMutex *mupnp_mutex_new()
 * mupnp_mutex_delete
 ****************************************/
 
-BOOL mupnp_mutex_delete(CgMutex *mutex)
+BOOL mupnp_mutex_delete(mUpnpMutex *mutex)
 {
 	if (!mutex)
 		return FALSE;
@@ -115,7 +115,7 @@ BOOL mupnp_mutex_delete(CgMutex *mutex)
 /* Contains record for every thread which has lock or is
  * waiting for lock
  */
-CgLockInfo *mupnp_tlt_list = NULL;
+mUpnpLockInfo *mupnp_tlt_list = NULL;
 
 /* Used to synchronize the thread lock record db access.
  */
@@ -124,11 +124,11 @@ pthread_mutex_t tlt_mutex = PTHREAD_MUTEX_INITIALIZER;
 BOOL mupnp_mutex_lock_trace(	const char *file, 
 				int line, 
 				const char *function,
-				CgMutex *mutex)
+				mUpnpMutex *mutex)
 {
 	pthread_t thid;
 	int found;
-	CgLockInfo *temp;
+	mUpnpLockInfo *temp;
 
 	if (!mutex)
 		return FALSE;
@@ -177,7 +177,7 @@ BOOL mupnp_mutex_lock_trace(	const char *file,
 	/* No locks found for this thread, inserting new record.
 	 */
 
-	temp = malloc(sizeof(CgLockInfo));
+	temp = malloc(sizeof(mUpnpLockInfo));
 	temp->thread_id = thid;
         temp->file = strdup(file);
         temp->line = line;
@@ -235,11 +235,11 @@ BOOL mupnp_mutex_lock_trace(	const char *file,
 BOOL mupnp_mutex_unlock_trace(	const char *file, 
 				int line, 
 				const char *function,
-				CgMutex *mutex)
+				mUpnpMutex *mutex)
 {
         pthread_t thid;
         int found;
-        CgLockInfo *temp, *ptemp;
+        mUpnpLockInfo *temp, *ptemp;
 
 		if (!mutex)
 			return FALSE;
@@ -302,7 +302,7 @@ BOOL mupnp_mutex_unlock_trace(	const char *file,
 	return TRUE;
 }
 #else
-BOOL mupnp_mutex_lock(CgMutex *mutex)
+BOOL mupnp_mutex_lock(mUpnpMutex *mutex)
 {
 	if (!mutex)
 		return FALSE;
@@ -332,7 +332,7 @@ BOOL mupnp_mutex_lock(CgMutex *mutex)
 * mupnp_mutex_unlock
 ****************************************/
 
-BOOL mupnp_mutex_unlock(CgMutex *mutex)
+BOOL mupnp_mutex_unlock(mUpnpMutex *mutex)
 {
 	if (!mutex)
 		return FALSE;

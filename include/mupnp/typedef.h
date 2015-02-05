@@ -14,9 +14,9 @@
 *  - Thanks for Theo Beisch <theo.beisch@gmx.de>
 *  - Added support for WindowsCE platform.
 * 03/18/07
-*  - Added CgInt64 to <typedef.h>
+*  - Added mUpnpInt64 to <typedef.h>
 * 06/24/07
-*  - Added CgByte to <typedef.h>
+*  - Added mUpnpByte to <typedef.h>
 * 03/18/08
 *  - Changed not to define BOOL type using XCode.
 * 09/03/08
@@ -80,7 +80,7 @@ typedef int BOOL;
 #endif
 #endif
 	
-typedef unsigned char CgByte;
+typedef unsigned char mUpnpByte;
 
 #ifdef  __cplusplus
 }

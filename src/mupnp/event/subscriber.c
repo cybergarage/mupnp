@@ -25,7 +25,7 @@
 *		- subscriber clear does reset notifyCount
 *		- expiry check is by [s] (removed *1000 factor)
 *	03/13/08
-*		- Changed mupnp_upnp_subscriber_notifyall() using void parameter instead of CgService not to conflict the prototype defines.
+*		- Changed mupnp_upnp_subscriber_notifyall() using void parameter instead of mUpnpService not to conflict the prototype defines.
 *
 ******************************************************************/
 
@@ -44,17 +44,17 @@
 /**
  * Create a new event subscriber
  */
-CgUpnpSubscriber *mupnp_upnp_subscriber_new()
+mUpnpUpnpSubscriber *mupnp_upnp_subscriber_new()
 {
-	CgUpnpSubscriber *sub;
+	mUpnpUpnpSubscriber *sub;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	sub = (CgUpnpSubscriber *)malloc(sizeof(CgUpnpSubscriber));
+	sub = (mUpnpUpnpSubscriber *)malloc(sizeof(mUpnpUpnpSubscriber));
 
 	if ( NULL != sub )
 	{
-		mupnp_list_node_init((CgList *)sub);
+		mupnp_list_node_init((mUpnpList *)sub);
 		
 		sub->sid = mupnp_string_new();
 		sub->ifAddr = mupnp_string_new();
@@ -75,12 +75,12 @@ CgUpnpSubscriber *mupnp_upnp_subscriber_new()
  *
  * @param sub The event subscriber
  */
-void mupnp_upnp_subscriber_delete(CgUpnpSubscriber *sub)
+void mupnp_upnp_subscriber_delete(mUpnpUpnpSubscriber *sub)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_upnp_subscriber_clear(sub);
-	mupnp_list_remove((CgList *)sub);
+	mupnp_list_remove((mUpnpList *)sub);
 
 	mupnp_string_delete(sub->sid);
 	mupnp_string_delete(sub->ifAddr);
@@ -98,7 +98,7 @@ void mupnp_upnp_subscriber_delete(CgUpnpSubscriber *sub)
  *
  * @param sub The event subscriber
  */
-void mupnp_upnp_subscriber_clear(CgUpnpSubscriber *sub)
+void mupnp_upnp_subscriber_clear(mUpnpUpnpSubscriber *sub)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -111,7 +111,7 @@ void mupnp_upnp_subscriber_clear(CgUpnpSubscriber *sub)
  *
  * @param sub The event subscriber
  */
-void mupnp_upnp_subscriber_renew(CgUpnpSubscriber *sub)
+void mupnp_upnp_subscriber_renew(mUpnpUpnpSubscriber *sub)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -127,7 +127,7 @@ void mupnp_upnp_subscriber_renew(CgUpnpSubscriber *sub)
  * @param sub The event subscriber
  * @return The new notify count
  */
-long mupnp_upnp_subscriber_incrementnotifycount(CgUpnpSubscriber *sub)
+long mupnp_upnp_subscriber_incrementnotifycount(mUpnpUpnpSubscriber *sub)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -146,11 +146,11 @@ long mupnp_upnp_subscriber_incrementnotifycount(CgUpnpSubscriber *sub)
  * @param sub The subscriber
  * @return TRUE if the subscription has been expired; otherwise FALSE
  */
-BOOL mupnp_upnp_subscriber_isexpired(CgUpnpSubscriber *sub)
+BOOL mupnp_upnp_subscriber_isexpired(mUpnpUpnpSubscriber *sub)
 {
-	CgTime currTime;
-	CgTime timeout;
-	CgTime expiredTime;
+	mUpnpTime currTime;
+	mUpnpTime timeout;
+	mUpnpTime expiredTime;
 	
 	timeout = mupnp_upnp_subscriber_gettimeout(sub);
 	if(timeout == CG_UPNP_SUBSCRIPTION_INFINITE_VALUE) 
@@ -174,12 +174,12 @@ BOOL mupnp_upnp_subscriber_isexpired(CgUpnpSubscriber *sub)
  * @param statVar The evented state variable
  * @return TRUE if succesful; otherwise FALSE
  */
-static BOOL mupnp_upnp_subscriber_notifymain(CgUpnpSubscriber *sub, CgUpnpService *service, CgUpnpStateVariable *statVar)
+static BOOL mupnp_upnp_subscriber_notifymain(mUpnpUpnpSubscriber *sub, mUpnpUpnpService *service, mUpnpUpnpStateVariable *statVar)
 {
 	char *host;
 	int port;
-	CgUpnpNotifyRequest *notifyReq;
-	CgUpnpNotifyResponse *notifyRes;
+	mUpnpUpnpNotifyRequest *notifyReq;
+	mUpnpUpnpNotifyResponse *notifyRes;
 	BOOL notifySuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -214,7 +214,7 @@ static BOOL mupnp_upnp_subscriber_notifymain(CgUpnpSubscriber *sub, CgUpnpServic
  * @param statVar The evented state variable
  * @return TRUE if succesful; otherwise FALSE
  */
-BOOL mupnp_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *statVar)
+BOOL mupnp_upnp_subscriber_notify(mUpnpUpnpSubscriber *sub, mUpnpUpnpStateVariable *statVar)
 {
 	return mupnp_upnp_subscriber_notifymain(sub, NULL, statVar);
 }
@@ -226,9 +226,9 @@ BOOL mupnp_upnp_subscriber_notify(CgUpnpSubscriber *sub, CgUpnpStateVariable *st
  * @param service The evented service
  * @return TRUE if succesful; otherwise FALSE
  */
-BOOL mupnp_upnp_subscriber_notifyall(CgUpnpSubscriber *sub, /* CgUpnpService */ void *service)
+BOOL mupnp_upnp_subscriber_notifyall(mUpnpUpnpSubscriber *sub, /* mUpnpUpnpService */ void *service)
 {
-	return mupnp_upnp_subscriber_notifymain(sub, (CgUpnpService *)service, NULL);
+	return mupnp_upnp_subscriber_notifymain(sub, (mUpnpUpnpService *)service, NULL);
 }
 
 /****************************************

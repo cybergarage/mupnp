@@ -28,7 +28,7 @@
 * mupnp_xml_escapechars
 ****************************************/
 
-char *mupnp_xml_escapechars(CgString *str)
+char *mupnp_xml_escapechars(mUpnpString *str)
 {
 	char *fromChars[5];
 	char *toChars[5];
@@ -52,7 +52,7 @@ char *mupnp_xml_escapechars(CgString *str)
 	return mupnp_string_replace(str, fromChars, toChars, (sizeof(fromChars)/sizeof(fromChars[0])));
 }
 
-char *mupnp_xml_unescapechars(CgString *str)
+char *mupnp_xml_unescapechars(mUpnpString *str)
 {
 	char *fromChars[5];
 	char *toChars[5];

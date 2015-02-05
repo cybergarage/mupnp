@@ -35,7 +35,7 @@
 *		- Fixed mupnp_http_request_post() not to hung up when the request method is HEAD.
 *		- Added a onlyHeader parameter to mupnp_http_response_read() and mupnp_http_response_packet().
 *	03/18/07
-*		- Changed the following functions to use CgInt64.
+*		- Changed the following functions to use mUpnpInt64.
 *		  mupnp_http_packet_setheaderlonglong()
 *		  mupnp_http_packet_getheaderlonglong()
 *	11/16\07  Satoshi Konno <skonno@cybergarage.org>
@@ -62,13 +62,13 @@
 * mupnp_http_packet_new
 ****************************************/
 
-CgHttpPacket *mupnp_http_packet_new()
+mUpnpHttpPacket *mupnp_http_packet_new()
 {
-	CgHttpPacket *httpPkt;
+	mUpnpHttpPacket *httpPkt;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	httpPkt= (CgHttpPacket *)malloc(sizeof(CgHttpPacket));
+	httpPkt= (mUpnpHttpPacket *)malloc(sizeof(mUpnpHttpPacket));
 
 	if ( NULL != httpPkt )
 	{
@@ -84,7 +84,7 @@ CgHttpPacket *mupnp_http_packet_new()
 * mupnp_http_packet_delete
 ****************************************/
 
-void mupnp_http_packet_delete(CgHttpPacket *httpPkt)
+void mupnp_http_packet_delete(mUpnpHttpPacket *httpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -98,7 +98,7 @@ void mupnp_http_packet_delete(CgHttpPacket *httpPkt)
 * mupnp_http_packet_init
 ****************************************/
 
-void mupnp_http_packet_init(CgHttpPacket *httpPkt)
+void mupnp_http_packet_init(mUpnpHttpPacket *httpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -112,7 +112,7 @@ void mupnp_http_packet_init(CgHttpPacket *httpPkt)
 * mupnp_http_packet_clean
 ****************************************/
 
-void mupnp_http_packet_clean(CgHttpPacket *httpPkt)
+void mupnp_http_packet_clean(mUpnpHttpPacket *httpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -126,7 +126,7 @@ void mupnp_http_packet_clean(CgHttpPacket *httpPkt)
 * mupnp_http_packet_clear
 ****************************************/
 
-void mupnp_http_packet_clear(CgHttpPacket *httpPkt)
+void mupnp_http_packet_clear(mUpnpHttpPacket *httpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -140,7 +140,7 @@ void mupnp_http_packet_clear(CgHttpPacket *httpPkt)
 * mupnp_http_packet_setheader
 ****************************************/
 
-void mupnp_http_packet_setheadervalue(CgHttpPacket *httpPkt, const char* name, const char *value)
+void mupnp_http_packet_setheadervalue(mUpnpHttpPacket *httpPkt, const char* name, const char *value)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -153,7 +153,7 @@ void mupnp_http_packet_setheadervalue(CgHttpPacket *httpPkt, const char* name, c
 * mupnp_http_packet_setheaderinteger
 ****************************************/
 
-void mupnp_http_packet_setheaderinteger(CgHttpPacket *httpPkt, const char* name, int value)
+void mupnp_http_packet_setheaderinteger(mUpnpHttpPacket *httpPkt, const char* name, int value)
 {
 	char svalue[CG_STRING_INTEGER_BUFLEN];
 
@@ -168,7 +168,7 @@ void mupnp_http_packet_setheaderinteger(CgHttpPacket *httpPkt, const char* name,
 * mupnp_http_packet_setheaderlong
 ****************************************/
 
-void mupnp_http_packet_setheaderlong(CgHttpPacket *httpPkt, const char* name, long value)
+void mupnp_http_packet_setheaderlong(mUpnpHttpPacket *httpPkt, const char* name, long value)
 {
 	char svalue[CG_STRING_LONG_BUFLEN];
 
@@ -183,7 +183,7 @@ void mupnp_http_packet_setheaderlong(CgHttpPacket *httpPkt, const char* name, lo
  * mupnp_http_packet_setheadersizet
  ****************************************/
 
-void mupnp_http_packet_setheadersizet(CgHttpPacket *httpPkt, const char* name, size_t value)
+void mupnp_http_packet_setheadersizet(mUpnpHttpPacket *httpPkt, const char* name, size_t value)
 {
 	char svalue[CG_STRING_LONG_BUFLEN];
   
@@ -198,7 +198,7 @@ void mupnp_http_packet_setheadersizet(CgHttpPacket *httpPkt, const char* name, s
  * mupnp_http_packet_setheaderssizet
  ****************************************/
 
-void mupnp_http_packet_setheaderssizet(CgHttpPacket *httpPkt, const char* name, ssize_t value)
+void mupnp_http_packet_setheaderssizet(mUpnpHttpPacket *httpPkt, const char* name, ssize_t value)
 {
 	char svalue[CG_STRING_LONG_BUFLEN];
   
@@ -214,7 +214,7 @@ void mupnp_http_packet_setheaderssizet(CgHttpPacket *httpPkt, const char* name, 
 * mupnp_http_packet_getheadervalue
 ****************************************/
 
-const char *mupnp_http_packet_getheadervalue(CgHttpPacket *httpPkt, const char* name)
+const char *mupnp_http_packet_getheadervalue(mUpnpHttpPacket *httpPkt, const char* name)
 {
 	return mupnp_http_headerlist_getvalue(httpPkt->headerList, name);
 }
@@ -223,7 +223,7 @@ const char *mupnp_http_packet_getheadervalue(CgHttpPacket *httpPkt, const char* 
 * mupnp_http_packet_getheadervalue
 ****************************************/
 
-int mupnp_http_packet_getheaderinteger(CgHttpPacket *httpPkt, const char* name)
+int mupnp_http_packet_getheaderinteger(mUpnpHttpPacket *httpPkt, const char* name)
 {
 	const char *value;
 
@@ -240,7 +240,7 @@ int mupnp_http_packet_getheaderinteger(CgHttpPacket *httpPkt, const char* name)
 * mupnp_http_packet_getheadervalue
 ****************************************/
 
-long mupnp_http_packet_getheaderlong(CgHttpPacket *httpPkt, const char* name)
+long mupnp_http_packet_getheaderlong(mUpnpHttpPacket *httpPkt, const char* name)
 {
 	const char *value;
 
@@ -257,7 +257,7 @@ long mupnp_http_packet_getheaderlong(CgHttpPacket *httpPkt, const char* name)
  * mupnp_http_packet_getheadersizet
  ****************************************/
 
-size_t mupnp_http_packet_getheadersizet(CgHttpPacket *httpPkt, const char* name)
+size_t mupnp_http_packet_getheadersizet(mUpnpHttpPacket *httpPkt, const char* name)
 {
 	const char *value;
   
@@ -274,7 +274,7 @@ size_t mupnp_http_packet_getheadersizet(CgHttpPacket *httpPkt, const char* name)
  * mupnp_http_packet_getheadersizet
  ****************************************/
 
-ssize_t mupnp_http_packet_getheaderssizet(CgHttpPacket *httpPkt, const char* name)
+ssize_t mupnp_http_packet_getheaderssizet(mUpnpHttpPacket *httpPkt, const char* name)
 {
 	const char *value;
   
@@ -291,7 +291,7 @@ ssize_t mupnp_http_packet_getheaderssizet(CgHttpPacket *httpPkt, const char* nam
 * mupnp_http_packet_getheadervalue
 ****************************************/
 
-void mupnp_http_packet_sethost(CgHttpPacket *httpPkt, const char *addr, int port)
+void mupnp_http_packet_sethost(mUpnpHttpPacket *httpPkt, const char *addr, int port)
 {
 	char *host;
 	size_t hostMaxLen;
@@ -347,9 +347,9 @@ void mupnp_http_packet_sethost(CgHttpPacket *httpPkt, const char *addr, int port
 * mupnp_http_packet_post
 ****************************************/
 
-void mupnp_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock)
+void mupnp_http_packet_post(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock)
 {
-	CgHttpHeader *header;
+	mUpnpHttpHeader *header;
 	const char *name, *value;
 	char *content;
 	size_t contentLen;
@@ -384,10 +384,10 @@ void mupnp_http_packet_post(CgHttpPacket *httpPkt, CgSocket *sock)
 * mupnp_http_packet_read_headers
 ****************************************/
 
-void mupnp_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize)
+void mupnp_http_packet_read_headers(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, char *lineBuf, size_t lineBufSize)
 {
-	CgStringTokenizer *strTok;
-	CgHttpHeader *header;
+	mUpnpStringTokenizer *strTok;
+	mUpnpHttpHeader *header;
 	ssize_t readLen;
 	char *name, *value;
 	
@@ -424,7 +424,7 @@ void mupnp_http_packet_read_headers(CgHttpPacket *httpPkt, CgSocket *sock, char 
 * mupnp_http_packet_read_chunk
 ****************************************/
 
-size_t mupnp_http_packet_read_chunk(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize)
+size_t mupnp_http_packet_read_chunk(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, char *lineBuf, size_t lineBufSize)
 {
 	ssize_t readLen = 0;
 	ssize_t conLen = 0;
@@ -476,7 +476,7 @@ size_t mupnp_http_packet_read_chunk(CgHttpPacket *httpPkt, CgSocket *sock, char 
 * mupnp_http_packet_read_body
 ****************************************/
 
-BOOL mupnp_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *lineBuf, size_t lineBufSize)
+BOOL mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, char *lineBuf, size_t lineBufSize)
 {
 	ssize_t readLen;
 	ssize_t conLen;
@@ -551,7 +551,7 @@ BOOL mupnp_http_packet_read_body(CgHttpPacket *httpPkt, CgSocket *sock, char *li
 * mupnp_http_packet_read
 ****************************************/
 
-BOOL mupnp_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHeader, char *lineBuf, size_t lineBufSize)
+BOOL mupnp_http_packet_read(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, BOOL onlyHeader, char *lineBuf, size_t lineBufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -570,9 +570,9 @@ BOOL mupnp_http_packet_read(CgHttpPacket *httpPkt, CgSocket *sock, BOOL onlyHead
 * mupnp_http_packet_getheadersize
 ****************************************/
 
-size_t mupnp_http_packet_getheadersize(CgHttpPacket *httpPkt)
+size_t mupnp_http_packet_getheadersize(mUpnpHttpPacket *httpPkt)
 {
-	CgHttpHeader *header;
+	mUpnpHttpHeader *header;
 	size_t headerSize;
 	const char *name;
 	const char *value;
@@ -600,10 +600,10 @@ size_t mupnp_http_packet_getheadersize(CgHttpPacket *httpPkt)
 * mupnp_http_packet_copy
 ****************************************/
 
-void mupnp_http_packet_copy(CgHttpPacket *destHttpPkt, CgHttpPacket *srcHttpPkt)
+void mupnp_http_packet_copy(mUpnpHttpPacket *destHttpPkt, mUpnpHttpPacket *srcHttpPkt)
 {
-	CgHttpHeader *srcHeader;
-	CgHttpHeader *destHeader;
+	mUpnpHttpHeader *srcHeader;
+	mUpnpHttpHeader *destHeader;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -627,9 +627,9 @@ void mupnp_http_packet_copy(CgHttpPacket *destHttpPkt, CgHttpPacket *srcHttpPkt)
 * mupnp_http_packet_print
 ****************************************/
 
-void mupnp_http_packet_print(CgHttpPacket *httpPkt)
+void mupnp_http_packet_print(mUpnpHttpPacket *httpPkt)
 {
-	CgHttpHeader *header;
+	mUpnpHttpHeader *header;
 	char *content;
 	long contentLen;
 

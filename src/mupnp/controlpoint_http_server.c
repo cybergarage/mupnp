@@ -38,23 +38,23 @@
  *
  * @param httpReq The received HTTP request
  */
-void mupnp_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq)
+void mupnp_upnp_controlpoint_httprequestreceived(mUpnpHttpRequest *httpReq)
 {
-	CgUpnpControlPoint *ctrlPoint = NULL;
-	CgUpnpNotifyRequest *notifyReq = NULL;
-	CgUpnpPropertyList *propList = NULL;
-	CgUpnpProperty *prop = NULL;
-	CgUpnpEventListenerList *eventListeners = NULL;
+	mUpnpUpnpControlPoint *ctrlPoint = NULL;
+	mUpnpUpnpNotifyRequest *notifyReq = NULL;
+	mUpnpUpnpPropertyList *propList = NULL;
+	mUpnpUpnpProperty *prop = NULL;
+	mUpnpUpnpEventListenerList *eventListeners = NULL;
 	const char *sid = NULL;
 	long seq = 0;
 	long timeout = 0;
-	CgUpnpDevice *dev = NULL;
-	CgUpnpService *service = NULL;
+	mUpnpUpnpDevice *dev = NULL;
+	mUpnpUpnpService *service = NULL;
 	int notifyListeners = 0;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	ctrlPoint = (CgUpnpControlPoint *)mupnp_http_request_getuserdata(httpReq);
+	ctrlPoint = (mUpnpUpnpControlPoint *)mupnp_http_request_getuserdata(httpReq);
 
 	mupnp_upnp_controlpoint_lock(ctrlPoint);
 
@@ -137,10 +137,10 @@ void mupnp_upnp_controlpoint_httprequestreceived(CgHttpRequest *httpReq)
  * @param service The service, whose state table to update
  * @param prop The evented property from which to update
  */
-void mupnp_upnp_controlpoint_updatestatetablefromproperty(CgUpnpService* service,
-						       CgUpnpProperty* prop)
+void mupnp_upnp_controlpoint_updatestatetablefromproperty(mUpnpUpnpService* service,
+						       mUpnpUpnpProperty* prop)
 {
-	CgUpnpStateVariable* var = NULL;
+	mUpnpUpnpStateVariable* var = NULL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

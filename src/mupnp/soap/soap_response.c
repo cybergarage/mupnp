@@ -26,13 +26,13 @@
 * mupnp_soap_response_new
 ****************************************/
 
-CgSoapResponse *mupnp_soap_response_new()
+mUpnpSoapResponse *mupnp_soap_response_new()
 {
-	CgSoapResponse *soapRes;
+	mUpnpSoapResponse *soapRes;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	soapRes = (CgSoapResponse *)malloc(sizeof(CgSoapResponse));
+	soapRes = (mUpnpSoapResponse *)malloc(sizeof(mUpnpSoapResponse));
 
 	if ( NULL != soapRes )
 	{
@@ -53,7 +53,7 @@ CgSoapResponse *mupnp_soap_response_new()
 * mupnp_soap_response_delete
 ****************************************/
 
-void mupnp_soap_response_delete(CgSoapResponse *soapRes)
+void mupnp_soap_response_delete(mUpnpSoapResponse *soapRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -72,7 +72,7 @@ void mupnp_soap_response_delete(CgSoapResponse *soapRes)
 * mupnp_soap_response_clear
 ****************************************/
 
-void mupnp_soap_response_clear(CgSoapResponse *soapRes)
+void mupnp_soap_response_clear(mUpnpSoapResponse *soapRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -90,9 +90,9 @@ void mupnp_soap_response_clear(CgSoapResponse *soapRes)
 * mupnp_soap_request_getbodynode
 ****************************************/
 
-CgXmlNode *mupnp_soap_response_getbodynode(CgSoapResponse *soapRes)
+mUpnpXmlNode *mupnp_soap_response_getbodynode(mUpnpSoapResponse *soapRes)
 {
-	CgXmlNode *envNode;
+	mUpnpXmlNode *envNode;
 	 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -110,7 +110,7 @@ CgXmlNode *mupnp_soap_response_getbodynode(CgSoapResponse *soapRes)
 * mupnp_soap_response_sethttpresponse
 ****************************************/
 
-void mupnp_soap_response_sethttpresponse(CgSoapResponse *soapRes, CgHttpResponse *httpRes)
+void mupnp_soap_response_sethttpresponse(mUpnpSoapResponse *soapRes, mUpnpHttpResponse *httpRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -126,9 +126,9 @@ void mupnp_soap_response_sethttpresponse(CgSoapResponse *soapRes, CgHttpResponse
 * mupnp_soap_response_setcontent
 ****************************************/
 
-void mupnp_soap_response_setcontent(CgSoapResponse *soapReq, CgXmlNode *node)
+void mupnp_soap_response_setcontent(mUpnpSoapResponse *soapReq, mUpnpXmlNode *node)
 {
-	CgHttpResponse *httpRes;
+	mUpnpHttpResponse *httpRes;
 		
 	mupnp_log_debug_l4("Entering...\n");
 

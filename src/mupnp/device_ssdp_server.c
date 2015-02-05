@@ -33,14 +33,14 @@
 #include <ctype.h>
 #include <string.h>
 
-static int filter_duplicate_m_search(CgUpnpSSDPPacket *ssdpPkt);
+static int filter_duplicate_m_search(mUpnpUpnpSSDPPacket *ssdpPkt);
 static int simple_string_hash(char *str, int table_size);
 
 /****************************************
 * mupnp_upnp_device_ssdpmessagereceived
 ****************************************/
 
-void mupnp_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *ssdpPkt, int filter)
+void mupnp_upnp_device_ssdpmessagereceived(mUpnpUpnpDevice *dev, mUpnpUpnpSSDPPacket *ssdpPkt, int filter)
 {
 	BOOL isRootDev;
 	const char *ssdpST;
@@ -52,8 +52,8 @@ void mupnp_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *
 #else
 	int n;
 #endif
-	CgUpnpService *service;
-	CgUpnpDevice *childDev;
+	mUpnpUpnpService *service;
+	mUpnpUpnpDevice *childDev;
 	const char *ssdpMXString;
 	int ssdpMX;
 	const char *ssdpTargetAddr;
@@ -174,13 +174,13 @@ void mupnp_upnp_device_ssdpmessagereceived(CgUpnpDevice *dev, CgUpnpSSDPPacket *
 * mupnp_upnp_device_ssdplistener
 ****************************************/
 
-void mupnp_upnp_device_ssdplistener(CgUpnpSSDPPacket *ssdpPkt)
+void mupnp_upnp_device_ssdplistener(mUpnpUpnpSSDPPacket *ssdpPkt)
 {
-	CgUpnpDevice *dev;
+	mUpnpUpnpDevice *dev;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	dev = (CgUpnpDevice *)mupnp_upnp_ssdp_packet_getuserdata(ssdpPkt);
+	dev = (mUpnpUpnpDevice *)mupnp_upnp_ssdp_packet_getuserdata(ssdpPkt);
 	mupnp_upnp_device_ssdpmessagereceived(dev, ssdpPkt, TRUE);
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -188,21 +188,21 @@ void mupnp_upnp_device_ssdplistener(CgUpnpSSDPPacket *ssdpPkt)
 
 /* private methods */
 
-static int filter_duplicate_m_search(CgUpnpSSDPPacket *ssdpPkt)
+static int filter_duplicate_m_search(mUpnpUpnpSSDPPacket *ssdpPkt)
 {
-	CgTime *timestamps = ssdpPkt->timestamps;
+	mUpnpTime *timestamps = ssdpPkt->timestamps;
 	size_t s_length;
 	int loc;
   const char *st;
 	char *id_string, *r_address, port[6];
-	CgTime curr_time;
+	mUpnpTime curr_time;
 
 	mupnp_log_debug_l4("Entering...\n");
 	
 	/* Initializing hash table to zero */
 	if (!ssdpPkt->initialized) {
 		ssdpPkt->initialized = 1;
-		memset(timestamps, '\0', CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof( CgTime ));
+		memset(timestamps, '\0', CG_UPNP_SSDP_FILTER_TABLE_SIZE * sizeof( mUpnpTime ));
 	}
 
 	r_address = mupnp_string_getvalue(ssdpPkt->dgmPkt->remoteAddress);

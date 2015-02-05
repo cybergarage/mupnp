@@ -36,18 +36,18 @@
  *
  * \param thread The thread context that this function is running in
  */
-static void mupnp_upnp_device_advertiser_action(CgThread *thread) 
+static void mupnp_upnp_device_advertiser_action(mUpnpThread *thread) 
 {
-	CgUpnpDevice *dev;
-	CgTime leaseTime;
-	CgTime notifyInterval;
+	mUpnpUpnpDevice *dev;
+	mUpnpTime leaseTime;
+	mUpnpTime notifyInterval;
   
 	mupnp_log_debug_l4("Entering...\n");
 
   /**
    * Get the device struct that this function is advertising.
    */
-  dev = (CgUpnpDevice *)mupnp_thread_getuserdata(thread);
+  dev = (mUpnpUpnpDevice *)mupnp_thread_getuserdata(thread);
 
   /**
    * Lease time
@@ -80,9 +80,9 @@ static void mupnp_upnp_device_advertiser_action(CgThread *thread)
  *
  * \param dev The device that is to be advertised
  */
-BOOL mupnp_upnp_device_advertiser_start(CgUpnpDevice *dev)
+BOOL mupnp_upnp_device_advertiser_start(mUpnpUpnpDevice *dev)
 {
-	CgThread *advertiser;
+	mUpnpThread *advertiser;
   
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -108,9 +108,9 @@ BOOL mupnp_upnp_device_advertiser_start(CgUpnpDevice *dev)
  *
  * \param dev Device that is being advertised
  */
-BOOL mupnp_upnp_device_advertiser_stop(CgUpnpDevice *dev)
+BOOL mupnp_upnp_device_advertiser_stop(mUpnpUpnpDevice *dev)
 {
-	CgThread *advertiser;
+	mUpnpThread *advertiser;
   
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -130,9 +130,9 @@ BOOL mupnp_upnp_device_advertiser_stop(CgUpnpDevice *dev)
  *
  * \param dev Device that is being advertised
  */
-BOOL mupnp_upnp_device_advertiser_isrunning(CgUpnpDevice *dev)
+BOOL mupnp_upnp_device_advertiser_isrunning(mUpnpUpnpDevice *dev)
 {
-	CgThread *advertiser;
+	mUpnpThread *advertiser;
 	
 	mupnp_log_debug_l4("Entering...\n");
 	

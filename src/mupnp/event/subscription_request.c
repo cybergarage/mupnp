@@ -46,9 +46,9 @@
 * mupnp_upnp_event_subscription_request_setsid
 ****************************************/
 
-void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *subReq, const char *sid)
+void mupnp_upnp_event_subscription_request_setsid(mUpnpUpnpSubscriptionRequest *subReq, const char *sid)
 {
-	CgString *headerSID;
+	mUpnpString *headerSID;
 	ssize_t uuidIdx;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -60,7 +60,7 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
 		mupnp_string_addvalue(headerSID, CG_UPNP_ST_UUID_DEVICE ":");
 	mupnp_string_addvalue(headerSID, sid);
 	
-	mupnp_http_packet_setheadervalue(((CgHttpPacket*)subReq), CG_HTTP_SID, mupnp_string_getvalue(headerSID));
+	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_SID, mupnp_string_getvalue(headerSID));
 
 	mupnp_string_delete(headerSID);
 
@@ -71,14 +71,14 @@ void mupnp_upnp_event_subscription_request_setsid(CgUpnpSubscriptionRequest *sub
 * mupnp_upnp_event_subscription_request_settimeout
 ****************************************/
 
-void mupnp_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest *subReq, long timeout)
+void mupnp_upnp_event_subscription_request_settimeout(mUpnpUpnpSubscriptionRequest *subReq, long timeout)
 {
-	CgString *timeoutBuf;
+	mUpnpString *timeoutBuf;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	timeoutBuf = mupnp_string_new();
-	mupnp_http_packet_setheadervalue(((CgHttpPacket*)subReq), CG_HTTP_TIMEOUT, mupnp_upnp_event_subscription_totimeoutheaderstring(timeout, timeoutBuf));
+	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_TIMEOUT, mupnp_upnp_event_subscription_totimeoutheaderstring(timeout, timeoutBuf));
 	mupnp_string_delete(timeoutBuf);
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -88,9 +88,9 @@ void mupnp_upnp_event_subscription_request_settimeout(CgUpnpSubscriptionRequest 
 * mupnp_upnp_event_subscription_request_setservice
 ****************************************/
 
-static void mupnp_upnp_event_subscription_request_setservice(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service)
+static void mupnp_upnp_event_subscription_request_setservice(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service)
 {
-	CgNetURL *eventSubURL;
+	mUpnpNetURL *eventSubURL;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -108,7 +108,7 @@ static void mupnp_upnp_event_subscription_request_setservice(CgUpnpSubscriptionR
 * mupnp_upnp_event_subscription_request_setnewsubscription
 ****************************************/
 
-void mupnp_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, const char *callback, CgTime timeout)
+void mupnp_upnp_event_subscription_request_setnewsubscription(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service, const char *callback, mUpnpTime timeout)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -124,7 +124,7 @@ void mupnp_upnp_event_subscription_request_setnewsubscription(CgUpnpSubscription
 * mupnp_upnp_event_subscription_request_setrenewsubscription
 ****************************************/
 
-void mupnp_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service, const char *uuid, CgTime timeout)
+void mupnp_upnp_event_subscription_request_setrenewsubscription(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service, const char *uuid, mUpnpTime timeout)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -139,7 +139,7 @@ void mupnp_upnp_event_subscription_request_setrenewsubscription(CgUpnpSubscripti
 * mupnp_upnp_event_subscription_request_setunsubscription
 ****************************************/
 
-void mupnp_upnp_event_subscription_request_setunsubscription(CgUpnpSubscriptionRequest *subReq, CgUpnpService *service)
+void mupnp_upnp_event_subscription_request_setunsubscription(mUpnpUpnpSubscriptionRequest *subReq, mUpnpUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

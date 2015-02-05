@@ -26,17 +26,17 @@
 * mupnp_http_response_new
 ****************************************/
 
-CgHttpResponse *mupnp_http_response_new()
+mUpnpHttpResponse *mupnp_http_response_new()
 {
-	CgHttpResponse *httpRes;
+	mUpnpHttpResponse *httpRes;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	httpRes = (CgHttpResponse *)malloc(sizeof(CgHttpResponse));
+	httpRes = (mUpnpHttpResponse *)malloc(sizeof(mUpnpHttpResponse));
 	
 	if ( NULL != httpRes )
 	{
-		mupnp_http_packet_init((CgHttpPacket *)httpRes);
+		mupnp_http_packet_init((mUpnpHttpPacket *)httpRes);
 		httpRes->version = mupnp_string_new();
 		httpRes->reasonPhrase = mupnp_string_new();
 		
@@ -56,11 +56,11 @@ CgHttpResponse *mupnp_http_response_new()
 * mupnp_http_response_delete
 ****************************************/
 
-void mupnp_http_response_delete(CgHttpResponse *httpRes)
+void mupnp_http_response_delete(mUpnpHttpResponse *httpRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_http_packet_clean((CgHttpPacket *)httpRes);
+	mupnp_http_packet_clean((mUpnpHttpPacket *)httpRes);
 	mupnp_string_delete(httpRes->version);
 	mupnp_string_delete(httpRes->reasonPhrase);
 	free(httpRes);
@@ -72,11 +72,11 @@ void mupnp_http_response_delete(CgHttpResponse *httpRes)
 * mupnp_http_response_clear
 ****************************************/
 
-void mupnp_http_response_clear(CgHttpResponse *httpRes)
+void mupnp_http_response_clear(mUpnpHttpResponse *httpRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_http_packet_clear((CgHttpPacket *)httpRes);
+	mupnp_http_packet_clear((mUpnpHttpPacket *)httpRes);
 	mupnp_http_response_setversion(httpRes, NULL);
 	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_INTERNAL_SERVER_ERROR);
 	mupnp_http_response_setreasonphrase(httpRes, NULL);
@@ -89,7 +89,7 @@ void mupnp_http_response_clear(CgHttpResponse *httpRes)
 * mupnp_http_response_setversion
 ****************************************/
 
-void mupnp_http_response_setversion(CgHttpResponse *httpRes, const char *value)
+void mupnp_http_response_setversion(mUpnpHttpResponse *httpRes, const char *value)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -102,7 +102,7 @@ void mupnp_http_response_setversion(CgHttpResponse *httpRes, const char *value)
 * mupnp_http_response_getversion
 ****************************************/
 
-char *mupnp_http_response_getversion(CgHttpResponse *httpRes)
+char *mupnp_http_response_getversion(mUpnpHttpResponse *httpRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -115,7 +115,7 @@ char *mupnp_http_response_getversion(CgHttpResponse *httpRes)
 * mupnp_http_response_setstatuscode
 ****************************************/
 
-void mupnp_http_response_setstatuscode(CgHttpResponse *httpRes, int value)
+void mupnp_http_response_setstatuscode(mUpnpHttpResponse *httpRes, int value)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -130,7 +130,7 @@ void mupnp_http_response_setstatuscode(CgHttpResponse *httpRes, int value)
 * mupnp_http_response_getstatuscode
 ****************************************/
 
-int mupnp_http_response_getstatuscode(CgHttpResponse *httpRes)
+int mupnp_http_response_getstatuscode(mUpnpHttpResponse *httpRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -143,7 +143,7 @@ int mupnp_http_response_getstatuscode(CgHttpResponse *httpRes)
 * mupnp_http_response_setreasonphrase
 ****************************************/
 
-void mupnp_http_response_setreasonphrase(CgHttpResponse *httpRes, const char *value)
+void mupnp_http_response_setreasonphrase(mUpnpHttpResponse *httpRes, const char *value)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -156,7 +156,7 @@ void mupnp_http_response_setreasonphrase(CgHttpResponse *httpRes, const char *va
 * mupnp_http_response_getreasonphrase
 ****************************************/
 
-char *mupnp_http_response_getreasonphrase(CgHttpResponse *httpRes)
+char *mupnp_http_response_getreasonphrase(mUpnpHttpResponse *httpRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -169,10 +169,10 @@ char *mupnp_http_response_getreasonphrase(CgHttpResponse *httpRes)
 * mupnp_http_response_read
 ****************************************/
 
-BOOL mupnp_http_response_read(CgHttpResponse *httpRes, CgSocket *sock, BOOL onlyHeader)
+BOOL mupnp_http_response_read(mUpnpHttpResponse *httpRes, mUpnpSocket *sock, BOOL onlyHeader)
 {
 	char lineBuf[CG_HTTP_READLINE_BUFSIZE];
-	CgStringTokenizer *strTok;
+	mUpnpStringTokenizer *strTok;
 	char *token;
 	ssize_t readLen;
 	
@@ -196,7 +196,7 @@ BOOL mupnp_http_response_read(CgHttpResponse *httpRes, CgSocket *sock, BOOL only
 	}
 	mupnp_string_tokenizer_delete(strTok);
 
-	mupnp_http_packet_read((CgHttpPacket *)httpRes, sock, onlyHeader, lineBuf, sizeof(lineBuf));
+	mupnp_http_packet_read((mUpnpHttpPacket *)httpRes, sock, onlyHeader, lineBuf, sizeof(lineBuf));
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
@@ -207,7 +207,7 @@ BOOL mupnp_http_response_read(CgHttpResponse *httpRes, CgSocket *sock, BOOL only
 * mupnp_http_response_copy
 ****************************************/
 
-void mupnp_http_response_copy(CgHttpResponse *destHttpRes, CgHttpResponse *srcHttpRes)
+void mupnp_http_response_copy(mUpnpHttpResponse *destHttpRes, mUpnpHttpResponse *srcHttpRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -215,7 +215,7 @@ void mupnp_http_response_copy(CgHttpResponse *destHttpRes, CgHttpResponse *srcHt
 	mupnp_http_response_setstatuscode(destHttpRes, mupnp_http_response_getstatuscode(srcHttpRes));
 	mupnp_http_response_setreasonphrase(destHttpRes, mupnp_http_response_getreasonphrase(srcHttpRes));
 
-	mupnp_http_packet_copy((CgHttpPacket *)destHttpRes, (CgHttpPacket *)srcHttpRes);
+	mupnp_http_packet_copy((mUpnpHttpPacket *)destHttpRes, (mUpnpHttpPacket *)srcHttpRes);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -224,7 +224,7 @@ void mupnp_http_response_copy(CgHttpResponse *destHttpRes, CgHttpResponse *srcHt
 * mupnp_http_response_print
 ****************************************/
 
-void mupnp_http_response_print(CgHttpResponse *httpRes)
+void mupnp_http_response_print(mUpnpHttpResponse *httpRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 	
@@ -233,7 +233,7 @@ void mupnp_http_response_print(CgHttpResponse *httpRes)
 		mupnp_http_response_getstatuscode(httpRes),
 		mupnp_http_response_getreasonphrase(httpRes));
 
-	mupnp_http_packet_print((CgHttpPacket *)httpRes);
+	mupnp_http_packet_print((mUpnpHttpPacket *)httpRes);
 	
 	mupnp_log_debug_l4("Leaving...\n");
 }

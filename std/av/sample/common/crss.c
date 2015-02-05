@@ -25,16 +25,16 @@
 * mupnp_http_getrestresponse
 ************************************************************/
 
-CgUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
+mUpnpUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
 {
-	CgString *content_str;
+	mUpnpString *content_str;
 	char *content_string;
-	CgXmlParser *xmlParser;
-	CgXmlNodeList *nodeList;
-	CgXmlNode *rootNode;
-	CgXmlNode *channelNode;
-	CgXmlNode *node;
-	CgXmlNode *childNode;
+	mUpnpXmlParser *xmlParser;
+	mUpnpXmlNodeList *nodeList;
+	mUpnpXmlNode *rootNode;
+	mUpnpXmlNode *channelNode;
+	mUpnpXmlNode *node;
+	mUpnpXmlNode *childNode;
 	char *container_title;
 	char *content_title;
 	char *contentURL;
@@ -43,9 +43,9 @@ CgUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
 	long contentSize;
 	int nContentent;
 	char *contentMimeType;
-	CgUpnpMediaContent *content;
-	CgUpnpMediaContent *container;
-	CgUpnpMediaResource *res;
+	mUpnpUpnpMediaContent *content;
+	mUpnpUpnpMediaContent *container;
+	mUpnpUpnpMediaResource *res;
 
 	content_str = mupnp_string_new();
 

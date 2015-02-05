@@ -29,7 +29,7 @@
 * mupnp_list_header_init
 ****************************************/
 
-void mupnp_list_header_init(CgList *list)
+void mupnp_list_header_init(mUpnpList *list)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -46,7 +46,7 @@ void mupnp_list_header_init(CgList *list)
 * mupnp_list_node_init
 ****************************************/
 
-void mupnp_list_node_init(CgList *list)
+void mupnp_list_node_init(mUpnpList *list)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -63,9 +63,9 @@ void mupnp_list_node_init(CgList *list)
 * mupnp_list_size
 ****************************************/
 
-int mupnp_list_size(CgList *headList)
+int mupnp_list_size(mUpnpList *headList)
 {
-	CgList *list;
+	mUpnpList *list;
 	int listCnt;
 	
 	mupnp_log_debug_l5("Entering...\n");
@@ -86,9 +86,9 @@ int mupnp_list_size(CgList *headList)
 * mupnp_list_get
 ****************************************/
 
-CgList *mupnp_list_get(CgList *headList, int index)
+mUpnpList *mupnp_list_get(mUpnpList *headList, int index)
 {
-	CgList *list;
+	mUpnpList *list;
 	int n;
 	
 	mupnp_log_debug_l5("Entering...\n");
@@ -113,8 +113,8 @@ CgList *mupnp_list_get(CgList *headList, int index)
 ****************************************/
 
 void mupnp_list_insert(
-CgList *prevList,
-CgList *list)
+mUpnpList *prevList,
+mUpnpList *list)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -134,8 +134,8 @@ CgList *list)
 ****************************************/
 
 void mupnp_list_add(
-CgList *headList,
-CgList *list)
+mUpnpList *headList,
+mUpnpList *list)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -154,7 +154,7 @@ CgList *list)
 * mupnp_list_remove
 ****************************************/
 
-void mupnp_list_remove(CgList *list)
+void mupnp_list_remove(mUpnpList *list)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -175,8 +175,8 @@ void mupnp_list_remove(CgList *list)
 * mupnp_list_prev_circular
 ****************************************/
 
-CgList *mupnp_list_prev_circular (
-CgList *list)
+mUpnpList *mupnp_list_prev_circular (
+mUpnpList *list)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -198,8 +198,8 @@ CgList *list)
 * mupnp_list_prev
 ****************************************/
 
-CgList *mupnp_list_prev(
-CgList *list)
+mUpnpList *mupnp_list_prev(
+mUpnpList *list)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -221,8 +221,8 @@ CgList *list)
 * mupnp_list_next_circular
 ****************************************/
 
-CgList *mupnp_list_next_circular(
-CgList *list)
+mUpnpList *mupnp_list_next_circular(
+mUpnpList *list)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -244,8 +244,8 @@ CgList *list)
 * mupnp_list_next
 ****************************************/
 
-CgList *mupnp_list_next(
-CgList *list)
+mUpnpList *mupnp_list_next(
+mUpnpList *list)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -267,9 +267,9 @@ CgList *list)
 * mupnp_list_clear
 ****************************************/
 
-void mupnp_list_clear(CgList *headList, CG_LIST_DESTRUCTORFUNC destructorFunc)
+void mupnp_list_clear(mUpnpList *headList, CG_LIST_DESTRUCTORFUNC destructorFunc)
 {
-	CgList *list;
+	mUpnpList *list;
 
 	mupnp_log_debug_l5("Entering...\n");
 

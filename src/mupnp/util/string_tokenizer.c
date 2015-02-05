@@ -25,13 +25,13 @@
 * mupnp_string_tokenizer_new
 ****************************************/
 
-CgStringTokenizer *mupnp_string_tokenizer_new(const char *value, const char *delim)
+mUpnpStringTokenizer *mupnp_string_tokenizer_new(const char *value, const char *delim)
 {
-	CgStringTokenizer *strToken;
+	mUpnpStringTokenizer *strToken;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	strToken = (CgStringTokenizer *)malloc(sizeof(CgStringTokenizer));
+	strToken = (mUpnpStringTokenizer *)malloc(sizeof(mUpnpStringTokenizer));
 
 	if ( NULL != strToken )
 	{
@@ -54,7 +54,7 @@ CgStringTokenizer *mupnp_string_tokenizer_new(const char *value, const char *del
 * mupnp_string_tokenizer_delete
 ****************************************/
 
-void mupnp_string_tokenizer_delete(CgStringTokenizer *strToken)
+void mupnp_string_tokenizer_delete(mUpnpStringTokenizer *strToken)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -69,7 +69,7 @@ void mupnp_string_tokenizer_delete(CgStringTokenizer *strToken)
 * mupnp_string_tokenizer_hasmoretoken
 ****************************************/
 
-BOOL mupnp_string_tokenizer_hasmoretoken(CgStringTokenizer *strToken)
+BOOL mupnp_string_tokenizer_hasmoretoken(mUpnpStringTokenizer *strToken)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -82,7 +82,7 @@ BOOL mupnp_string_tokenizer_hasmoretoken(CgStringTokenizer *strToken)
 * mupnp_string_tokenizer_nexttoken
 ****************************************/
 
-char *mupnp_string_tokenizer_nexttoken(CgStringTokenizer *strToken)
+char *mupnp_string_tokenizer_nexttoken(mUpnpStringTokenizer *strToken)
 {
 	size_t tokenCnt;
 	size_t i, j;
@@ -132,7 +132,7 @@ char *mupnp_string_tokenizer_nexttoken(CgStringTokenizer *strToken)
 * mupnp_string_tokenizer_nextalltoken
 ****************************************/
 
-char *mupnp_string_tokenizer_nextalltoken(CgStringTokenizer *strToken)
+char *mupnp_string_tokenizer_nextalltoken(mUpnpStringTokenizer *strToken)
 {
 	size_t nextTokenLen;
 
@@ -152,7 +152,7 @@ char *mupnp_string_tokenizer_nextalltoken(CgStringTokenizer *strToken)
 * mupnp_string_tokenizer_print
 ****************************************/
 
-void mupnp_string_tokenizer_print(CgStringTokenizer *strToken)
+void mupnp_string_tokenizer_print(mUpnpStringTokenizer *strToken)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

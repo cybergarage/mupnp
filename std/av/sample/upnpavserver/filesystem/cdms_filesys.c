@@ -67,15 +67,15 @@ char *mupnp_upnpav_dms_filesys_getupnpclass(char *ext)
 * mupnp_upnpav_dms_filesys_updatecontentlist
 ****************************************/
 
-void mupnp_upnpav_dms_filesys_updatecontentlist(CgUpnpMediaServer *dms, CgUpnpMediaContentList *parentCon, char *pubdir)
+void mupnp_upnpav_dms_filesys_updatecontentlist(mUpnpUpnpMediaServer *dms, mUpnpUpnpMediaContentList *parentCon, char *pubdir)
 {
-	CgUpnpMediaContent *con;
-	CgUpnpMediaResource *res;
-	CgNetworkInterfaceList *netIfList;
-	CgNetworkInterfaceList *netIf;
+	mUpnpUpnpMediaContent *con;
+	mUpnpUpnpMediaResource *res;
+	mUpnpNetworkInterfaceList *netIfList;
+	mUpnpNetworkInterfaceList *netIf;
 	int conType;
 	char *fileName;
-	CgString *fullPathStr;
+	mUpnpString *fullPathStr;
 	int fileExtIdx;
 	char *fileExt;
 	char idmd5[CG_MD5_STRING_BUF_SIZE];
@@ -83,7 +83,7 @@ void mupnp_upnpav_dms_filesys_updatecontentlist(CgUpnpMediaServer *dms, CgUpnpMe
 	char resURL[1024];
 	char *mimeType;
 	char *upnpClass;
-	CgUpnpMediaFileSystemContentData *conData;
+	mUpnpUpnpMediaFileSystemContentData *conData;
 	char dlnaAttr[CG_UPNPAV_DLNAATTR_MAXLEN];
 #if !defined(WINCE)
 	struct stat fileStat;
@@ -93,7 +93,7 @@ void mupnp_upnpav_dms_filesys_updatecontentlist(CgUpnpMediaServer *dms, CgUpnpMe
 	FILE *fp;
 #endif
 #if defined(WIN32)
-	CgString *findDirStr;
+	mUpnpString *findDirStr;
 	#if defined(UNICODE)
 	TCHAR wCharBuf[MAX_PATH];
 	char mCharBuf[MAX_PATH];
@@ -263,10 +263,10 @@ void mupnp_upnpav_dms_filesys_updatecontentlist(CgUpnpMediaServer *dms, CgUpnpMe
 * mupnp_upnpav_dms_filesys_updaterootcontentlist
 ****************************************/
 
-void mupnp_upnpav_dms_filesys_updaterootcontentlist(CgUpnpMediaServer *dms)
+void mupnp_upnpav_dms_filesys_updaterootcontentlist(mUpnpUpnpMediaServer *dms)
 {
 	char *pubdir;
-	CgUpnpMediaContent *rootContent;
+	mUpnpUpnpMediaContent *rootContent;
 
 	pubdir = mupnp_upnpav_dms_filesys_getpublicationdirectory(dms);
 	if (!pubdir)
@@ -288,9 +288,9 @@ void mupnp_upnpav_dms_filesys_updaterootcontentlist(CgUpnpMediaServer *dms)
 * mupnp_upnpav_dms_filesys_setpublicationdirectory
 ****************************************/
 
-void mupnp_upnpav_dms_filesys_setpublicationdirectory(CgUpnpMediaServer *dms, char *pubdir)
+void mupnp_upnpav_dms_filesys_setpublicationdirectory(mUpnpUpnpMediaServer *dms, char *pubdir)
 {
-	CgUpnpMediaContent *rootContent;
+	mUpnpUpnpMediaContent *rootContent;
 
 	rootContent = mupnp_upnpav_dms_getrootcontent(dms);
 	if (!rootContent)
@@ -303,9 +303,9 @@ void mupnp_upnpav_dms_filesys_setpublicationdirectory(CgUpnpMediaServer *dms, ch
 * mupnp_upnpav_dms_filesys_getpublicationdirectory
 ****************************************/
 
-char *mupnp_upnpav_dms_filesys_getpublicationdirectory(CgUpnpMediaServer *dms)
+char *mupnp_upnpav_dms_filesys_getpublicationdirectory(mUpnpUpnpMediaServer *dms)
 {
-	CgUpnpMediaContent *rootContent;
+	mUpnpUpnpMediaContent *rootContent;
 
 	rootContent = mupnp_upnpav_dms_getrootcontent(dms);
 	if (!rootContent)
@@ -318,12 +318,12 @@ char *mupnp_upnpav_dms_filesys_getpublicationdirectory(CgUpnpMediaServer *dms)
 * mupnp_upnpav_dms_filesys_actionlistner
 ****************************************/
 
-BOOL mupnp_upnpav_dms_filesys_actionlistner(CgUpnpAction *action)
+BOOL mupnp_upnpav_dms_filesys_actionlistner(mUpnpUpnpAction *action)
 {
-	CgUpnpMediaServer *dms;
-	CgUpnpDevice *dev;
+	mUpnpUpnpMediaServer *dms;
+	mUpnpUpnpDevice *dev;
 	char *contentID;
-	CgUpnpMediaContent *content;
+	mUpnpUpnpMediaContent *content;
 	char *contentDir;
 	char *actionName;
 
@@ -341,7 +341,7 @@ BOOL mupnp_upnpav_dms_filesys_actionlistner(CgUpnpAction *action)
 		if (!dev)
 			return FALSE;
 
-		dms = (CgUpnpMediaServer *)mupnp_upnp_device_getuserdata(dev);
+		dms = (mUpnpUpnpMediaServer *)mupnp_upnp_device_getuserdata(dev);
 		if (!dms)
 			return FALSE;
 
@@ -371,9 +371,9 @@ BOOL mupnp_upnpav_dms_filesys_actionlistner(CgUpnpAction *action)
 * mupnp_upnpav_dms_filesys_new
 ****************************************/
 
-CgUpnpMediaServer *mupnp_upnpav_dms_filesys_new()
+mUpnpUpnpMediaServer *mupnp_upnpav_dms_filesys_new()
 {
-	CgUpnpMediaServer *dms;
+	mUpnpUpnpMediaServer *dms;
 
 	dms = mupnp_upnpav_dms_new();
 
@@ -387,7 +387,7 @@ CgUpnpMediaServer *mupnp_upnpav_dms_filesys_new()
 * mupnp_upnpav_dms_filesys_delete
 ****************************************/
 
-void mupnp_upnpav_dms_filesys_delete(CgUpnpMediaServer *dms)
+void mupnp_upnpav_dms_filesys_delete(mUpnpUpnpMediaServer *dms)
 {
 	mupnp_upnpav_dms_delete(dms);
 }

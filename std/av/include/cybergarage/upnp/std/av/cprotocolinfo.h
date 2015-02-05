@@ -41,16 +41,16 @@ extern "C" {
 /**
  * The generic protocolinfo struct
  */
-typedef struct _CgUpnpAvProtocolInfo {
+typedef struct _mUpnpUpnpAvProtocolInfo {
 	BOOL headFlag;
-	struct _CgUpnpAvProtocolInfo *prev;
-	struct _CgUpnpAvProtocolInfo *next;
-	CgString *protocol;
-	CgString *network;
-	CgString *mimeType;
-	CgString *additionalInfo;
-	CgString *string;
-} CgUpnpAvProtocolInfo, CgUpnpAvProtocolInfoList;
+	struct _mUpnpUpnpAvProtocolInfo *prev;
+	struct _mUpnpUpnpAvProtocolInfo *next;
+	mUpnpString *protocol;
+	mUpnpString *network;
+	mUpnpString *mimeType;
+	mUpnpString *additionalInfo;
+	mUpnpString *string;
+} mUpnpUpnpAvProtocolInfo, mUpnpUpnpAvProtocolInfoList;
 
 /****************************************
 * Function (ProtocolInfo)
@@ -59,21 +59,21 @@ typedef struct _CgUpnpAvProtocolInfo {
 /**
  * Create a new protocolinfo struct
  */
-CgUpnpAvProtocolInfo *mupnp_upnpav_protocolinfo_new();
+mUpnpUpnpAvProtocolInfo *mupnp_upnpav_protocolinfo_new();
 
 /**
  * Delete an protocolinfo struct
  *
  * \param dev ProtocolInfo to delete
  */
-void mupnp_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
+void mupnp_upnpav_protocolinfo_delete(mUpnpUpnpAvProtocolInfo *protocolinfo);
 
 /**
  * Get the next protocolinfo in list. Use as an iterator.
  *
  * \param protocolinfo Node in a list of protocolinfos
  */
-#define mupnp_upnpav_protocolinfo_next(protocolinfo) (CgUpnpAvProtocolInfo *)mupnp_list_next((CgList *)protocolinfo)
+#define mupnp_upnpav_protocolinfo_next(protocolinfo) (mUpnpUpnpAvProtocolInfo *)mupnp_list_next((mUpnpList *)protocolinfo)
 
 /*****************************************************************************
  * Protocol
@@ -157,7 +157,7 @@ void mupnp_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *protocolinfo);
  * Get the protocolinfo's string
  *
  */
-char *mupnp_upnpav_protocolinfo_getstring(CgUpnpAvProtocolInfo *protocolinfo);
+char *mupnp_upnpav_protocolinfo_getstring(mUpnpUpnpAvProtocolInfo *protocolinfo);
 
 /*****************************************************************************
  * Function (ProtocolInfoList)
@@ -167,35 +167,35 @@ char *mupnp_upnpav_protocolinfo_getstring(CgUpnpAvProtocolInfo *protocolinfo);
  * Create a new list of protocolinfos
  *
  */
-CgUpnpAvProtocolInfoList *mupnp_upnpav_protocolinfolist_new();
+mUpnpUpnpAvProtocolInfoList *mupnp_upnpav_protocolinfolist_new();
 
 /**
  * Delete a list of protocolinfos
  *
  * \param protocolinfoList List of protocolinfos
  */
-void mupnp_upnpav_protocolinfolist_delete(CgUpnpAvProtocolInfoList *protocolinfoList);
+void mupnp_upnpav_protocolinfolist_delete(mUpnpUpnpAvProtocolInfoList *protocolinfoList);
 
 /**
  * Clear the contents of an protocolinfo list
  *
  * \param protocolinfoList List of protocolinfos
  */
-#define mupnp_upnpav_protocolinfolist_clear(protocolinfoList) mupnp_list_clear((CgList *)protocolinfoList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnpav_protocolinfo_delete)
+#define mupnp_upnpav_protocolinfolist_clear(protocolinfoList) mupnp_list_clear((mUpnpList *)protocolinfoList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnpav_protocolinfo_delete)
 
 /**
  * Get the size (number of elements) of an protocolinfo list
  *
  * \param protocolinfoList List of protocolinfos
  */
-#define mupnp_upnpav_protocolinfolist_size(protocolinfoList) mupnp_list_size((CgList *)protocolinfoList)
+#define mupnp_upnpav_protocolinfolist_size(protocolinfoList) mupnp_list_size((mUpnpList *)protocolinfoList)
 
 /**
  * \todo Get the first protocolinfo from the list for iteration
  *
  * \param protocolinfoList List of protocolinfos
  */
-#define mupnp_upnpav_protocolinfolist_gets(protocolinfoList) (CgUpnpAvProtocolInfo *)mupnp_list_next((CgList *)protocolinfoList)
+#define mupnp_upnpav_protocolinfolist_gets(protocolinfoList) (mUpnpUpnpAvProtocolInfo *)mupnp_list_next((mUpnpList *)protocolinfoList)
 
 /**
  * Add an protocolinfo to an protocolinfo list
@@ -203,7 +203,7 @@ void mupnp_upnpav_protocolinfolist_delete(CgUpnpAvProtocolInfoList *protocolinfo
  * \param protocolinfoList List of protocolinfos
  * \param protocolinfo ProtocolInfo to add
  */
-#define mupnp_upnpav_protocolinfolist_add(protocolinfoList, protocolinfo) mupnp_list_add((CgList *)protocolinfoList, (CgList *)protocolinfo)
+#define mupnp_upnpav_protocolinfolist_add(protocolinfoList, protocolinfo) mupnp_list_add((mUpnpList *)protocolinfoList, (mUpnpList *)protocolinfo)
 
 #ifdef  __cplusplus
 

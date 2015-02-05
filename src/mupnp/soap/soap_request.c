@@ -28,13 +28,13 @@
 * mupnp_soap_request_new
 ****************************************/
 
-CgSoapRequest *mupnp_soap_request_new()
+mUpnpSoapRequest *mupnp_soap_request_new()
 {
-	CgSoapRequest *soapReq;
+	mUpnpSoapRequest *soapReq;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	soapReq = (CgSoapRequest *)malloc(sizeof(CgSoapRequest));
+	soapReq = (mUpnpSoapRequest *)malloc(sizeof(mUpnpSoapRequest));
 
 	if ( NULL != soapReq )
 	{
@@ -58,7 +58,7 @@ CgSoapRequest *mupnp_soap_request_new()
 * mupnp_soap_request_delete
 ****************************************/
 
-void mupnp_soap_request_delete(CgSoapRequest *soapReq)
+void mupnp_soap_request_delete(mUpnpSoapRequest *soapReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -79,7 +79,7 @@ void mupnp_soap_request_delete(CgSoapRequest *soapReq)
 * mupnp_soap_request_clear
 ****************************************/
 
-void mupnp_soap_request_clear(CgSoapRequest *soapReq)
+void mupnp_soap_request_clear(mUpnpSoapRequest *soapReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -100,13 +100,13 @@ void mupnp_soap_request_clear(CgSoapRequest *soapReq)
 * mupnp_soap_request_getbodynode
 ****************************************/
 
-CgXmlNode *mupnp_soap_request_getbodynode(CgSoapRequest *soapReq)
+mUpnpXmlNode *mupnp_soap_request_getbodynode(mUpnpSoapRequest *soapReq)
 {
-	CgXmlNode *envNode;
-	CgXmlNode *bodyNode = NULL;
-  CgXmlAttribute *attr;
+	mUpnpXmlNode *envNode;
+	mUpnpXmlNode *bodyNode = NULL;
+  mUpnpXmlAttribute *attr;
   char *name;
-  CgStringTokenizer *tok;
+  mUpnpStringTokenizer *tok;
   char *nsPrefix;
   size_t bodyLen;
   char *body;
@@ -181,7 +181,7 @@ CgXmlNode *mupnp_soap_request_getbodynode(CgSoapRequest *soapReq)
 * mupnp_soap_request_sethttprequest
 ****************************************/
 
-BOOL mupnp_soap_request_sethttprequest(CgSoapRequest *soapReq, CgHttpRequest *httpReq)
+BOOL mupnp_soap_request_sethttprequest(mUpnpSoapRequest *soapReq, mUpnpHttpRequest *httpReq)
 {
 	char *content;
 	size_t contentLen;
@@ -208,9 +208,9 @@ BOOL mupnp_soap_request_sethttprequest(CgSoapRequest *soapReq, CgHttpRequest *ht
 * mupnp_soap_request_parsemessage
 ****************************************/
 
-BOOL mupnp_soap_request_parsemessage(CgSoapRequest *soapReq, char *msg, size_t msgLen)
+BOOL mupnp_soap_request_parsemessage(mUpnpSoapRequest *soapReq, char *msg, size_t msgLen)
 {
-	CgXmlParser *xmlParser;
+	mUpnpXmlParser *xmlParser;
 	BOOL parseRet;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -231,13 +231,13 @@ BOOL mupnp_soap_request_parsemessage(CgSoapRequest *soapReq, char *msg, size_t m
 * mupnp_soap_request_post
 ****************************************/
 
-CgSoapResponse *mupnp_soap_request_post(CgSoapRequest *soapReq, const char *ipaddr, int port)
+mUpnpSoapResponse *mupnp_soap_request_post(mUpnpSoapRequest *soapReq, const char *ipaddr, int port)
 {
-	CgHttpResponse *httpRes;
+	mUpnpHttpResponse *httpRes;
 	char *content;
 	size_t contentLen;
-	CgXmlParser *xmlParser;
-	CgHttpHeader *header = NULL;
+	mUpnpXmlParser *xmlParser;
+	mUpnpHttpHeader *header = NULL;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -253,10 +253,10 @@ CgSoapResponse *mupnp_soap_request_post(CgSoapRequest *soapReq, const char *ipad
 		header = mupnp_http_header_new();
 		mupnp_http_header_setname(header, CG_HTTP_MAN);
 		mupnp_http_header_setvalue(header, CG_HTTP_SOAP_MAN_VALUE);
-		mupnp_http_packet_addheader((CgHttpPacket*)soapReq->httpReq, header);
+		mupnp_http_packet_addheader((mUpnpHttpPacket*)soapReq->httpReq, header);
 		
 		/* Change soapaction header name to include namespace */
-		header = mupnp_http_packet_getheader((CgHttpPacket*)soapReq->httpReq, 
+		header = mupnp_http_packet_getheader((mUpnpHttpPacket*)soapReq->httpReq, 
 						  CG_HTTP_SOAP_ACTION);
 		if (header != NULL)
 		{
@@ -287,9 +287,9 @@ CgSoapResponse *mupnp_soap_request_post(CgSoapRequest *soapReq, const char *ipad
 * mupnp_soap_request_setcontent
 ****************************************/
 
-void mupnp_soap_request_setcontent(CgSoapRequest *soapReq, CgXmlNode *node)
+void mupnp_soap_request_setcontent(mUpnpSoapRequest *soapReq, mUpnpXmlNode *node)
 {
-	CgHttpRequest *httpReq;
+	mUpnpHttpRequest *httpReq;
 		
 	mupnp_log_debug_l4("Entering...\n");
 

@@ -21,11 +21,11 @@
 
 #define CG_HTTP_URLLEN_MAX 512
 
-BOOL mupnp_http_getrestresponse(char *url, CgString *str)
+BOOL mupnp_http_getrestresponse(char *url, mUpnpString *str)
 {
-	CgNetURL *netUrl;
-	CgHttpRequest *httpReq;
-	CgHttpResponse *httpRes;
+	mUpnpNetURL *netUrl;
+	mUpnpHttpRequest *httpReq;
+	mUpnpHttpResponse *httpRes;
 	int statusCode;
 	char *content;
 	long contentLen;
@@ -72,12 +72,12 @@ BOOL mupnp_http_getrestresponse(char *url, CgString *str)
 
 BOOL mupnp_http_getredirecturl(char *orgURL, char *redirectURL, int redirectURLSize)
 {
-	CgNetURL *netUrl;
-	CgString *postUri;
-	CgHttpRequest *httpReq;
-	CgHttpResponse *httpRes;
+	mUpnpNetURL *netUrl;
+	mUpnpString *postUri;
+	mUpnpHttpRequest *httpReq;
+	mUpnpHttpResponse *httpRes;
 	int statusCode;
-	CgHttpHeader *locationHeader;
+	mUpnpHttpHeader *locationHeader;
 	char *locationVal;
 
 	/**** Redirect URL ****/

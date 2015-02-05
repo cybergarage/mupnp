@@ -25,16 +25,16 @@
 * mupnp_upnp_icon_new
 ****************************************/
 
-CgUpnpIcon *mupnp_upnp_icon_new()
+mUpnpUpnpIcon *mupnp_upnp_icon_new()
 {
-	CgUpnpIcon *dev;
+	mUpnpUpnpIcon *dev;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	dev = (CgUpnpIcon *)malloc(sizeof(CgUpnpIcon));
+	dev = (mUpnpUpnpIcon *)malloc(sizeof(mUpnpUpnpIcon));
 
 	if  ( NULL != dev )
-		mupnp_list_node_init((CgList *)dev);
+		mupnp_list_node_init((mUpnpList *)dev);
 
 	mupnp_log_debug_l4("Leaving...\n");
 
@@ -45,11 +45,11 @@ CgUpnpIcon *mupnp_upnp_icon_new()
 * mupnp_upnp_icon_delete
 ****************************************/
 
-void mupnp_upnp_icon_delete(CgUpnpIcon *dev)
+void mupnp_upnp_icon_delete(mUpnpUpnpIcon *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_remove((CgList *)dev);
+	mupnp_list_remove((mUpnpList *)dev);
 	free(dev);
 
 	mupnp_log_debug_l4("Leaving...\n");

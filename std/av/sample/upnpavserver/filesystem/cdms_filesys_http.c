@@ -25,18 +25,18 @@
 * mupnp_upnp_dms_filesys_http_listener
 **********************************************************************/
 
-void mupnp_upnpav_dms_filesys_http_listener(CgHttpRequest *httpReq)
+void mupnp_upnpav_dms_filesys_http_listener(mUpnpHttpRequest *httpReq)
 {
-	CgUpnpMediaServer *dms;
-	CgUpnpDevice *dev;
+	mUpnpUpnpMediaServer *dms;
+	mUpnpUpnpDevice *dev;
 	char *httpURI;
 	int contentMD5Idx;
 	char *contentMd5;
-	CgUpnpMediaContent *content;
-	CgUpnpMediaResource *resource;
+	mUpnpUpnpMediaContent *content;
+	mUpnpUpnpMediaResource *resource;
 	char *pubDir;
-	CgHttpResponse *httpRes;
-	CgSocket *sock;
+	mUpnpHttpResponse *httpRes;
+	mUpnpSocket *sock;
 	char chunkedChar[32];
 	BOOL isHeadRequest;
 #if !defined(WINCE)
@@ -52,13 +52,13 @@ void mupnp_upnpav_dms_filesys_http_listener(CgHttpRequest *httpReq)
 	TCHAR wCharBuf[MAX_PATH];
 #endif
 
-	dev = (CgUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
+	dev = (mUpnpUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
 	if (!dev) {
 		mupnp_http_request_postbadrequest(httpReq);
 		return;
 	}
 
-	dms = (CgUpnpMediaServer *)mupnp_upnp_device_getuserdata(dev);
+	dms = (mUpnpUpnpMediaServer *)mupnp_upnp_device_getuserdata(dev);
 	if (!dms) {
 		mupnp_http_request_postbadrequest(httpReq);
 		return;
@@ -140,7 +140,7 @@ void mupnp_upnpav_dms_filesys_http_listener(CgHttpRequest *httpReq)
 #endif
 
 #if defined(CG_USE_CHUNKED_STREAM)
-	mupnp_http_packet_setheadervalue((CgHttpPacket*)httpRes, "Transfer-Encoding", "chunked");
+	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpRes, "Transfer-Encoding", "chunked");
 #else
 	mupnp_http_response_setcontentlength(httpRes, fileSize);
 #endif

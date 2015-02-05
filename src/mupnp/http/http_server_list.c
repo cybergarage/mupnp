@@ -28,17 +28,17 @@
 * mupnp_http_serverlist_new
 ****************************************/
 
-CgHttpServerList *mupnp_http_serverlist_new()
+mUpnpHttpServerList *mupnp_http_serverlist_new()
 {
-	CgHttpServerList *httpServerList;
+	mUpnpHttpServerList *httpServerList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	httpServerList = (CgHttpServerList *)malloc(sizeof(CgHttpServerList));
+	httpServerList = (mUpnpHttpServerList *)malloc(sizeof(mUpnpHttpServerList));
 
 	if ( NULL != httpServerList )
 	{
-		mupnp_list_header_init((CgList *)httpServerList);
+		mupnp_list_header_init((mUpnpList *)httpServerList);
 		
 		httpServerList->sock = NULL;
 		httpServerList->acceptThread = NULL;
@@ -56,7 +56,7 @@ CgHttpServerList *mupnp_http_serverlist_new()
 * mupnp_http_serverlist_delete
 ****************************************/
 
-void mupnp_http_serverlist_delete(CgHttpServerList *httpServerList)
+void mupnp_http_serverlist_delete(mUpnpHttpServerList *httpServerList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -70,11 +70,11 @@ void mupnp_http_serverlist_delete(CgHttpServerList *httpServerList)
 * mupnp_http_serverlist_open
 ****************************************/
 
-BOOL mupnp_http_serverlist_open(CgHttpServerList *httpServerList, int port)
+BOOL mupnp_http_serverlist_open(mUpnpHttpServerList *httpServerList, int port)
 {
-	CgNetworkInterfaceList *netIfList;
-	CgNetworkInterface *netIf;
-	CgHttpServer *httpServer;
+	mUpnpNetworkInterfaceList *netIfList;
+	mUpnpNetworkInterface *netIf;
+	mUpnpHttpServer *httpServer;
 	char *bindAddr;
 	BOOL result =FALSE;
 	
@@ -114,9 +114,9 @@ BOOL mupnp_http_serverlist_open(CgHttpServerList *httpServerList, int port)
 * mupnp_http_serverlist_close
 ****************************************/
 
-BOOL mupnp_http_serverlist_close(CgHttpServerList *httpServerList)
+BOOL mupnp_http_serverlist_close(mUpnpHttpServerList *httpServerList)
 {
-	CgHttpServer *httpServer;
+	mUpnpHttpServer *httpServer;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -132,9 +132,9 @@ BOOL mupnp_http_serverlist_close(CgHttpServerList *httpServerList)
 * mupnp_http_serverlist_start
 ****************************************/
 
-BOOL mupnp_http_serverlist_start(CgHttpServerList *httpServerList)
+BOOL mupnp_http_serverlist_start(mUpnpHttpServerList *httpServerList)
 {
-	CgHttpServer *httpServer;
+	mUpnpHttpServer *httpServer;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -150,9 +150,9 @@ BOOL mupnp_http_serverlist_start(CgHttpServerList *httpServerList)
 * mupnp_http_serverlist_stop
 ****************************************/
 
-BOOL mupnp_http_serverlist_stop(CgHttpServerList *httpServerList)
+BOOL mupnp_http_serverlist_stop(mUpnpHttpServerList *httpServerList)
 {
-	CgHttpServer *httpServer;
+	mUpnpHttpServer *httpServer;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -168,9 +168,9 @@ BOOL mupnp_http_serverlist_stop(CgHttpServerList *httpServerList)
 * mupnp_http_serverlist_setlistener
 ****************************************/
 
-void mupnp_http_serverlist_setlistener(CgHttpServerList *httpServerList, CG_HTTP_LISTENER listener)
+void mupnp_http_serverlist_setlistener(mUpnpHttpServerList *httpServerList, CG_HTTP_LISTENER listener)
 {
-	CgHttpServer *httpServer;
+	mUpnpHttpServer *httpServer;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -184,9 +184,9 @@ void mupnp_http_serverlist_setlistener(CgHttpServerList *httpServerList, CG_HTTP
 * mupnp_http_serverlist_setuserdata
 ****************************************/
 
-void mupnp_http_serverlist_setuserdata(CgHttpServerList *httpServerList, void *value)
+void mupnp_http_serverlist_setuserdata(mUpnpHttpServerList *httpServerList, void *value)
 {
-	CgHttpServer *httpServer;
+	mUpnpHttpServer *httpServer;
 	
 	mupnp_log_debug_l4("Entering...\n");
 

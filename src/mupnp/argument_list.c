@@ -25,16 +25,16 @@
 * mupnp_upnp_argument_new
 ****************************************/
 
-CgUpnpArgumentList *mupnp_upnp_argumentlist_new()
+mUpnpUpnpArgumentList *mupnp_upnp_argumentlist_new()
 {
-	CgUpnpArgument *argumentList;
+	mUpnpUpnpArgument *argumentList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	argumentList = (CgUpnpArgument *)malloc(sizeof(CgUpnpArgument));
+	argumentList = (mUpnpUpnpArgument *)malloc(sizeof(mUpnpUpnpArgument));
 
 	if ( NULL != argumentList )
-		mupnp_list_header_init((CgList *)argumentList);
+		mupnp_list_header_init((mUpnpList *)argumentList);
 
 	return argumentList;
 
@@ -45,11 +45,11 @@ CgUpnpArgumentList *mupnp_upnp_argumentlist_new()
 * mupnp_upnp_argument_delete
 ****************************************/
 
-void mupnp_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList)
+void mupnp_upnp_argumentlist_delete(mUpnpUpnpArgumentList *argumentList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_clear((CgList*)argumentList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_argument_delete);
+	mupnp_list_clear((mUpnpList*)argumentList, (CG_LIST_DESTRUCTORFUNC)mupnp_upnp_argument_delete);
 	free(argumentList);
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -59,9 +59,9 @@ void mupnp_upnp_argumentlist_delete(CgUpnpArgumentList *argumentList)
 * mupnp_upnp_argumentlist_get
 ****************************************/
 
-CgUpnpArgument *mupnp_upnp_argumentlist_get(CgUpnpArgumentList *argList, const char *name)
+mUpnpUpnpArgument *mupnp_upnp_argumentlist_get(mUpnpUpnpArgumentList *argList, const char *name)
 {
-	CgUpnpArgument *arg;
+	mUpnpUpnpArgument *arg;
 	const char *argName;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -86,10 +86,10 @@ CgUpnpArgument *mupnp_upnp_argumentlist_get(CgUpnpArgumentList *argList, const c
 * mupnp_upnp_argumentlist_set
 ****************************************/
 
-void mupnp_upnp_argumentlist_set(CgUpnpArgumentList *argList, CgUpnpArgumentList *srcArgList)
+void mupnp_upnp_argumentlist_set(mUpnpUpnpArgumentList *argList, mUpnpUpnpArgumentList *srcArgList)
 {
-	CgUpnpArgument *arg;
-	CgUpnpArgument *srcArg;
+	mUpnpUpnpArgument *arg;
+	mUpnpUpnpArgument *srcArg;
 	const char *srcArgName;
 	
 	mupnp_log_debug_l4("Entering...\n");

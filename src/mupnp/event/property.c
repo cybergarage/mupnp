@@ -35,17 +35,17 @@
 * mupnp_upnp_property_new
 ****************************************/
 
-CgUpnpProperty *mupnp_upnp_property_new()
+mUpnpUpnpProperty *mupnp_upnp_property_new()
 {
-	CgUpnpProperty *prop;
+	mUpnpUpnpProperty *prop;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	prop = (CgUpnpProperty *)malloc(sizeof(CgUpnpProperty));
+	prop = (mUpnpUpnpProperty *)malloc(sizeof(mUpnpUpnpProperty));
 
 	if ( NULL != prop )
 	{
-		mupnp_list_node_init((CgList *)prop);
+		mupnp_list_node_init((mUpnpList *)prop);
 		
 		prop->name = mupnp_string_new();
 		prop->value = mupnp_string_new();
@@ -63,12 +63,12 @@ CgUpnpProperty *mupnp_upnp_property_new()
 * mupnp_upnp_property_delete
 ****************************************/
 
-void mupnp_upnp_property_delete(CgUpnpProperty *prop)
+void mupnp_upnp_property_delete(mUpnpUpnpProperty *prop)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_upnp_property_clear(prop);
-	mupnp_list_remove((CgList *)prop);
+	mupnp_list_remove((mUpnpList *)prop);
 
 	mupnp_string_delete(prop->name);
 	mupnp_string_delete(prop->value);
@@ -83,7 +83,7 @@ void mupnp_upnp_property_delete(CgUpnpProperty *prop)
 * mupnp_upnp_property_clear
 ****************************************/
 
-void mupnp_upnp_property_clear(CgUpnpProperty *prop)
+void mupnp_upnp_property_clear(mUpnpUpnpProperty *prop)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

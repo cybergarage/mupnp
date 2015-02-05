@@ -25,17 +25,17 @@
 * mupnp_xml_nodelist_new
 ****************************************/
 
-CgXmlNodeList *mupnp_xml_nodelist_new()
+mUpnpXmlNodeList *mupnp_xml_nodelist_new()
 {
-	CgXmlNodeList *nodeList;
+	mUpnpXmlNodeList *nodeList;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	nodeList = (CgXmlNodeList *)malloc(sizeof(CgXmlNodeList));
+	nodeList = (mUpnpXmlNodeList *)malloc(sizeof(mUpnpXmlNodeList));
 
 	if ( NULL != nodeList )
 	{
-		mupnp_list_header_init((CgList *)nodeList);
+		mupnp_list_header_init((mUpnpList *)nodeList);
 
 		nodeList->name = NULL;
 		nodeList->value = NULL;
@@ -55,7 +55,7 @@ CgXmlNodeList *mupnp_xml_nodelist_new()
 * mupnp_xml_nodelist_delete
 ****************************************/
 
-void mupnp_xml_nodelist_delete(CgXmlNodeList *nodeList)
+void mupnp_xml_nodelist_delete(mUpnpXmlNodeList *nodeList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -69,9 +69,9 @@ void mupnp_xml_nodelist_delete(CgXmlNodeList *nodeList)
 * mupnp_xml_nodelist_getbyname
 ****************************************/
 
-CgXmlNode *mupnp_xml_nodelist_getbyname(CgXmlNodeList *nodeList, const char *name)
+mUpnpXmlNode *mupnp_xml_nodelist_getbyname(mUpnpXmlNodeList *nodeList, const char *name)
 {
-	CgXmlNode *node;
+	mUpnpXmlNode *node;
 	char *nodeName;
 		
 	mupnp_log_debug_l4("Entering...\n");
@@ -96,9 +96,9 @@ CgXmlNode *mupnp_xml_nodelist_getbyname(CgXmlNodeList *nodeList, const char *nam
 * mupnp_xml_nodelist_getbyxpath
 ****************************************/
 
-CgXmlNode *mupnp_xml_nodelist_getbyxpath(CgXmlNodeList *nodeList, const char *name)
+mUpnpXmlNode *mupnp_xml_nodelist_getbyxpath(mUpnpXmlNodeList *nodeList, const char *name)
 {
-	CgXmlNode *node;
+	mUpnpXmlNode *node;
 	char *nodeName;
 		
 	mupnp_log_debug_l4("Entering...\n");

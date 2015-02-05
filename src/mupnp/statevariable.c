@@ -28,17 +28,17 @@
 * mupnp_upnp_statevariable_new
 ****************************************/
 
-CgUpnpStateVariable *mupnp_upnp_statevariable_new()
+mUpnpUpnpStateVariable *mupnp_upnp_statevariable_new()
 {
-	CgUpnpStateVariable *statVar;
+	mUpnpUpnpStateVariable *statVar;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	statVar = (CgUpnpStateVariable *)malloc(sizeof(CgUpnpStateVariable));
+	statVar = (mUpnpUpnpStateVariable *)malloc(sizeof(mUpnpUpnpStateVariable));
 
 	if ( NULL != statVar )
 	{
-		mupnp_list_node_init((CgList *)statVar);
+		mupnp_list_node_init((mUpnpList *)statVar);
 
 		statVar->parentService = NULL;
 		statVar->stateVarNode = NULL;
@@ -61,17 +61,17 @@ CgUpnpStateVariable *mupnp_upnp_statevariable_new()
 * mupnp_upnp_statevariable_delete
 ****************************************/
 
-void mupnp_upnp_statevariable_delete(CgUpnpStateVariable *statVar)
+void mupnp_upnp_statevariable_delete(mUpnpUpnpStateVariable *statVar)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_remove((CgList *)statVar);
+	mupnp_list_remove((mUpnpList *)statVar);
 
 	mupnp_string_delete(statVar->value);
 	mupnp_upnp_status_delete(statVar->upnpStatus);
 	if (statVar->allowedValueList)
 	{
-		mupnp_list_remove((CgList *)statVar->allowedValueList);
+		mupnp_list_remove((mUpnpList *)statVar->allowedValueList);
 	}
 
 	free(statVar);
@@ -83,7 +83,7 @@ void mupnp_upnp_statevariable_delete(CgUpnpStateVariable *statVar)
 * mupnp_upnp_statevariable_setstatevariablenode
 ****************************************/
 
-void mupnp_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar, CgXmlNode *node)
+void mupnp_upnp_statevariable_setstatevariablenode(mUpnpUpnpStateVariable *statVar, mUpnpXmlNode *node)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -96,9 +96,9 @@ void mupnp_upnp_statevariable_setstatevariablenode(CgUpnpStateVariable *statVar,
 * mupnp_upnp_statevariable_setvaluewithnotify
 ****************************************/
 
-static void mupnp_upnp_statevariable_setvaluewithnotify(CgUpnpStateVariable *statVar, const char *data, BOOL doNotify)
+static void mupnp_upnp_statevariable_setvaluewithnotify(mUpnpUpnpStateVariable *statVar, const char *data, BOOL doNotify)
 {
-	CgUpnpService *service;
+	mUpnpUpnpService *service;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -125,7 +125,7 @@ static void mupnp_upnp_statevariable_setvaluewithnotify(CgUpnpStateVariable *sta
 * mupnp_upnp_statevariable_setvalue
 ****************************************/
 
-void mupnp_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, const char *data)
+void mupnp_upnp_statevariable_setvalue(mUpnpUpnpStateVariable *statVar, const char *data)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -138,7 +138,7 @@ void mupnp_upnp_statevariable_setvalue(CgUpnpStateVariable *statVar, const char 
 * mupnp_upnp_statevariable_setvaluewithoutnotify
 ****************************************/
 
-void mupnp_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar, const char *data)
+void mupnp_upnp_statevariable_setvaluewithoutnotify(mUpnpUpnpStateVariable *statVar, const char *data)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -151,14 +151,14 @@ void mupnp_upnp_statevariable_setvaluewithoutnotify(CgUpnpStateVariable *statVar
  * mupnp_upnp_allowedvaluelist_new
  ****************************************/
 
-CgUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new()
+mUpnpUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new()
 {
-	CgUpnpAllowedValuesList* allowedValueList = (CgUpnpAllowedValuesList *)malloc(sizeof(CgUpnpAllowedValuesList));
+	mUpnpUpnpAllowedValuesList* allowedValueList = (mUpnpUpnpAllowedValuesList *)malloc(sizeof(mUpnpUpnpAllowedValuesList));
 
 
 	if ( NULL != allowedValueList )
 	{
-		mupnp_list_header_init((CgList *)allowedValueList);
+		mupnp_list_header_init((mUpnpList *)allowedValueList);
 		allowedValueList->value = mupnp_string_new();
 		return allowedValueList;
 	}
@@ -170,29 +170,29 @@ CgUpnpAllowedValuesList* mupnp_upnp_allowedvaluelist_new()
 /****************************************
  * mupnp_upnp_statevariable_getallowedvaluelist
  ****************************************/
-CgUpnpAllowedValuesList*  mupnp_upnp_statevariable_getallowedvaluelist(CgUpnpStateVariable* statVar)
+mUpnpUpnpAllowedValuesList*  mupnp_upnp_statevariable_getallowedvaluelist(mUpnpUpnpStateVariable* statVar)
 {
 	if (!statVar->allowedValueList)
 	{
-		CgXmlNode* allowedValuesNode = mupnp_xml_node_getchildnodebyname(mupnp_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_ALLOWEDVALUELIST);
+		mUpnpXmlNode* allowedValuesNode = mupnp_xml_node_getchildnodebyname(mupnp_upnp_statevariable_getstatevariablenode(statVar), CG_UPNP_STATEVARIABLE_ALLOWEDVALUELIST);
 
 		if (allowedValuesNode) {
-			CgXmlNode* cnode;
+			mUpnpXmlNode* cnode;
 			for (cnode = mupnp_xml_node_getchildnodes(allowedValuesNode); cnode; cnode=mupnp_xml_node_next(cnode)) {
 				if (!statVar->allowedValueList)
 				{
-					statVar->allowedValueList = (CgUpnpAllowedValuesList *)malloc(sizeof(CgUpnpAllowedValuesList));
-					mupnp_list_header_init((CgList *)statVar->allowedValueList);
+					statVar->allowedValueList = (mUpnpUpnpAllowedValuesList *)malloc(sizeof(mUpnpUpnpAllowedValuesList));
+					mupnp_list_header_init((mUpnpList *)statVar->allowedValueList);
 					statVar->allowedValueList->value = mupnp_string_new();
 					mupnp_string_setvalue(statVar->allowedValueList->value, mupnp_xml_node_getvalue(cnode));
 				}
 				else {
-					CgUpnpAllowedValue* allowed_value;
-					allowed_value = (CgUpnpAllowedValue *)malloc(sizeof(CgUpnpAllowedValue));
-					mupnp_list_node_init((CgList*)allowed_value);
+					mUpnpUpnpAllowedValue* allowed_value;
+					allowed_value = (mUpnpUpnpAllowedValue *)malloc(sizeof(mUpnpUpnpAllowedValue));
+					mupnp_list_node_init((mUpnpList*)allowed_value);
 					allowed_value->value = mupnp_string_new();
 					mupnp_string_setvalue(allowed_value->value, mupnp_xml_node_getvalue(cnode));
-					mupnp_list_insert((CgList *)statVar->allowedValueList, (CgList *)allowed_value);
+					mupnp_list_insert((mUpnpList *)statVar->allowedValueList, (mUpnpList *)allowed_value);
 				}
 			}
 		}
@@ -203,7 +203,7 @@ CgUpnpAllowedValuesList*  mupnp_upnp_statevariable_getallowedvaluelist(CgUpnpSta
 /****************************************
  * mupnp_upnp_statevariable_is_allowed_value
  ****************************************/
-int mupnp_upnp_statevariable_is_allowed_value(CgUpnpStateVariable* statVar, const char* value)
+int mupnp_upnp_statevariable_is_allowed_value(mUpnpUpnpStateVariable* statVar, const char* value)
 {
 	if (!statVar->allowedValueList)
 	{
@@ -212,8 +212,8 @@ int mupnp_upnp_statevariable_is_allowed_value(CgUpnpStateVariable* statVar, cons
 
 	if (statVar->allowedValueList)
 	{
-		CgUpnpAllowedValue *allowedValue;
-		for (allowedValue = (CgUpnpAllowedValue*)mupnp_list_next((CgList*)statVar->allowedValueList); allowedValue != NULL; allowedValue = (CgUpnpAllowedValue*)mupnp_list_next((CgList*)allowedValue))
+		mUpnpUpnpAllowedValue *allowedValue;
+		for (allowedValue = (mUpnpUpnpAllowedValue*)mupnp_list_next((mUpnpList*)statVar->allowedValueList); allowedValue != NULL; allowedValue = (mUpnpUpnpAllowedValue*)mupnp_list_next((mUpnpList*)allowedValue))
 		{
 			if (mupnp_strcasecmp((char *)value, mupnp_string_getvalue(allowedValue->value)) == 0)
 			{

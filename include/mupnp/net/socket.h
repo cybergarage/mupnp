@@ -86,16 +86,16 @@ typedef int SOCKET;
 #include <mupnp/util/list.h>
 #endif
 
-typedef struct _CgSocket {
+typedef struct _mUpnpSocket {
 #if defined(CG_NET_USE_SOCKET_LIST)
 	BOOL headFlag;
-	struct _CgSocket *prev;
-	struct _CgSocket *next;
+	struct _mUpnpSocket *prev;
+	struct _mUpnpSocket *next;
 #endif
 	SOCKET id;
 	int type;
 	int direction;
-	CgString *ipaddr;
+	mUpnpString *ipaddr;
 	int port;
 #if defined(ITRON)
 	UH *sendWinBuf;
@@ -105,15 +105,15 @@ typedef struct _CgSocket {
 	SSL_CTX* ctx;
 	SSL* ssl;
 #endif
-} CgSocket, CgSocketList;
+} mUpnpSocket, mUpnpSocketList;
 
-typedef struct _CgDatagramPacket {
-	CgString *data;
-	CgString *localAddress;
+typedef struct _mUpnpDatagramPacket {
+	mUpnpString *data;
+	mUpnpString *localAddress;
 	int localPort;
-	CgString *remoteAddress;
+	mUpnpString *remoteAddress;
 	int remotePort;
-} CgDatagramPacket;
+} mUpnpDatagramPacket;
 
 /****************************************
 * Function (Socket)
@@ -122,12 +122,12 @@ typedef struct _CgDatagramPacket {
 void mupnp_socket_startup();
 void mupnp_socket_cleanup();
 
-CgSocket *mupnp_socket_new(int type);
+mUpnpSocket *mupnp_socket_new(int type);
 #define mupnp_socket_stream_new() mupnp_socket_new(CG_NET_SOCKET_STREAM)
 #define mupnp_socket_dgram_new() mupnp_socket_new(CG_NET_SOCKET_DGRAM)
-BOOL mupnp_socket_delete(CgSocket *socket);
+BOOL mupnp_socket_delete(mUpnpSocket *socket);
 
-void mupnp_socket_setid(CgSocket *socket, SOCKET value);
+void mupnp_socket_setid(mUpnpSocket *socket, SOCKET value);
 #define mupnp_socket_getid(socket) (socket->id)
 
 #define mupnp_socket_settype(socket, value) (socket->type = value)
@@ -145,21 +145,21 @@ void mupnp_socket_setid(CgSocket *socket, SOCKET value);
 #define mupnp_socket_getaddress(socket) mupnp_string_getvalue(socket->ipaddr)
 #define mupnp_socket_getport(socket) (socket->port)
 
-BOOL mupnp_socket_isbound(CgSocket *socket);
-BOOL mupnp_socket_close(CgSocket *socket);
+BOOL mupnp_socket_isbound(mUpnpSocket *socket);
+BOOL mupnp_socket_close(mUpnpSocket *socket);
 
-BOOL mupnp_socket_listen(CgSocket *socket);
+BOOL mupnp_socket_listen(mUpnpSocket *socket);
 
-BOOL mupnp_socket_bind(CgSocket *sock, int bindPort, const char *bindAddr, BOOL bindFlag, BOOL reuseFlag);
-BOOL mupnp_socket_accept(CgSocket *sock, CgSocket *clientSock);
-BOOL mupnp_socket_connect(CgSocket *sock, const char *addr, int port);
-ssize_t mupnp_socket_read(CgSocket *sock, char *buffer, size_t bufferLen);
-size_t mupnp_socket_write(CgSocket *sock, const char *buffer, size_t bufferLen);
-ssize_t mupnp_socket_readline(CgSocket *sock, char *buffer, size_t bufferLen);
-size_t mupnp_socket_skip(CgSocket *sock, size_t skipLen);
+BOOL mupnp_socket_bind(mUpnpSocket *sock, int bindPort, const char *bindAddr, BOOL bindFlag, BOOL reuseFlag);
+BOOL mupnp_socket_accept(mUpnpSocket *sock, mUpnpSocket *clientSock);
+BOOL mupnp_socket_connect(mUpnpSocket *sock, const char *addr, int port);
+ssize_t mupnp_socket_read(mUpnpSocket *sock, char *buffer, size_t bufferLen);
+size_t mupnp_socket_write(mUpnpSocket *sock, const char *buffer, size_t bufferLen);
+ssize_t mupnp_socket_readline(mUpnpSocket *sock, char *buffer, size_t bufferLen);
+size_t mupnp_socket_skip(mUpnpSocket *sock, size_t skipLen);
 
-size_t mupnp_socket_sendto(CgSocket *sock, const char *addr, int port, const char *data, size_t dataeLen);
-ssize_t mupnp_socket_recv(CgSocket *sock, CgDatagramPacket *dgmPkt);
+size_t mupnp_socket_sendto(mUpnpSocket *sock, const char *addr, int port, const char *data, size_t dataeLen);
+ssize_t mupnp_socket_recv(mUpnpSocket *sock, mUpnpDatagramPacket *dgmPkt);
 
 int mupnp_socket_getlasterror();
 
@@ -167,22 +167,22 @@ int mupnp_socket_getlasterror();
 * Function (Multicast)
 ****************************************/
 
-BOOL mupnp_socket_joingroup(CgSocket *sock, const char *mcastAddr, const char *ifAddr);
+BOOL mupnp_socket_joingroup(mUpnpSocket *sock, const char *mcastAddr, const char *ifAddr);
 
 /****************************************
 * Function (Option)
 ****************************************/
 
-BOOL mupnp_socket_setreuseaddress(CgSocket *socket, BOOL flag);
-BOOL mupnp_socket_setmulticastttl(CgSocket *sock,  int ttl);
-BOOL mupnp_socket_settimeout(CgSocket *sock, int sec);
+BOOL mupnp_socket_setreuseaddress(mUpnpSocket *socket, BOOL flag);
+BOOL mupnp_socket_setmulticastttl(mUpnpSocket *sock,  int ttl);
+BOOL mupnp_socket_settimeout(mUpnpSocket *sock, int sec);
 
 /****************************************
 * Function (DatagramPacket)
 ****************************************/
 
-CgDatagramPacket *mupnp_socket_datagram_packet_new();
-void mupnp_socket_datagram_packet_delete(CgDatagramPacket *dgmPkt);
+mUpnpDatagramPacket *mupnp_socket_datagram_packet_new();
+void mupnp_socket_datagram_packet_delete(mUpnpDatagramPacket *dgmPkt);
 
 #define mupnp_socket_datagram_packet_setdata(dgmPkt, value) mupnp_string_setvalue(dgmPkt->data, value)
 #define mupnp_socket_datagram_packet_getdata(dgmPkt) mupnp_string_getvalue(dgmPkt->data)
@@ -196,7 +196,7 @@ void mupnp_socket_datagram_packet_delete(CgDatagramPacket *dgmPkt);
 #define mupnp_socket_datagram_packet_setremoteport(dgmPkt, port) (dgmPkt->remotePort = port)
 #define mupnp_socket_datagram_packet_getremoteport(dgmPkt) (dgmPkt->remotePort)
 
-void mupnp_socket_datagram_packet_copy(CgDatagramPacket *dstDgmPkt, CgDatagramPacket *srcDgmPkt);
+void mupnp_socket_datagram_packet_copy(mUpnpDatagramPacket *dstDgmPkt, mUpnpDatagramPacket *srcDgmPkt);
 
 /****************************************
 * Function (SSLSocket)
@@ -214,15 +214,15 @@ void mupnp_socket_datagram_packet_copy(CgDatagramPacket *dstDgmPkt, CgDatagramPa
 
 #if defined(CG_NET_USE_SOCKET_LIST)
 
-#define mupnp_socket_next(sock) (CgSocket *)mupnp_list_next((CgList *)sock)
+#define mupnp_socket_next(sock) (mUpnpSocket *)mupnp_list_next((mUpnpList *)sock)
 
-CgSocketList *mupnp_socketlist_new();
-void mupnp_socketlist_delete(CgSocketList *sockList);
+mUpnpSocketList *mupnp_socketlist_new();
+void mupnp_socketlist_delete(mUpnpSocketList *sockList);
 
-#define mupnp_socketlist_clear(sockList) mupnp_list_clear((CgList *)sockList, (CG_LIST_DESTRUCTORFUNC)mupnp_socket_delete)
-#define mupnp_socketlist_size(sockList) mupnp_list_size((CgList *)sockList)
-#define mupnp_socketlist_gets(sockList) (CgSocket *)mupnp_list_next((CgList *)sockList)
-#define mupnp_socketlist_add(sockList, sock) mupnp_list_add((CgList *)sockList, (CgList *)sock)
+#define mupnp_socketlist_clear(sockList) mupnp_list_clear((mUpnpList *)sockList, (CG_LIST_DESTRUCTORFUNC)mupnp_socket_delete)
+#define mupnp_socketlist_size(sockList) mupnp_list_size((mUpnpList *)sockList)
+#define mupnp_socketlist_gets(sockList) (mUpnpSocket *)mupnp_list_next((mUpnpList *)sockList)
+#define mupnp_socketlist_add(sockList, sock) mupnp_list_add((mUpnpList *)sockList, (mUpnpList *)sock)
 
 #endif
 

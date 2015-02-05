@@ -64,8 +64,8 @@ extern "C" {
 * Struct
 ****************************************/
 
-typedef CgXmlNode CgUpnpAvContent;
-typedef CgXmlNodeList CgUpnpAvContentList;
+typedef mUpnpXmlNode mUpnpUpnpAvContent;
+typedef mUpnpXmlNodeList mUpnpUpnpAvContentList;
 
 /****************************************
 * Content
@@ -80,15 +80,15 @@ typedef CgXmlNodeList CgUpnpAvContentList;
 
 #define mupnp_upnpav_content_new() mupnp_xml_node_new()
 #define mupnp_upnpav_content_delete(con) mupnp_xml_node_delete(con)
-CgUpnpAvContent *mupnp_upnpav_content_next(CgUpnpAvContent *con);
+mUpnpUpnpAvContent *mupnp_upnpav_content_next(mUpnpUpnpAvContent *con);
 #define mupnp_upnpav_content_remove(con) mupnp_xml_node_remove(con)
 
-void mupnp_upnpav_content_copy(CgUpnpAvContent *destContent, CgUpnpAvContent *srcContent);
+void mupnp_upnpav_content_copy(mUpnpUpnpAvContent *destContent, mUpnpUpnpAvContent *srcContent);
 
-void mupnp_upnpav_content_addchildcontent(CgUpnpAvContent *con, CgUpnpAvContent *childCon);
-int mupnp_upnpav_content_getnchildcontents(CgUpnpAvContent *con);
-CgUpnpAvContent *mupnp_upnpav_content_getchildcontents(CgUpnpAvContent *con);
-BOOL mupnp_upnpav_content_haschildcontents(CgUpnpAvContent *con);
+void mupnp_upnpav_content_addchildcontent(mUpnpUpnpAvContent *con, mUpnpUpnpAvContent *childCon);
+int mupnp_upnpav_content_getnchildcontents(mUpnpUpnpAvContent *con);
+mUpnpUpnpAvContent *mupnp_upnpav_content_getchildcontents(mUpnpUpnpAvContent *con);
+BOOL mupnp_upnpav_content_haschildcontents(mUpnpUpnpAvContent *con);
 #define mupnp_upnpav_content_clearchildcontents(con) mupnp_xml_nodelist_clear(mupnp_xml_node_getchildnodelist(con))
 
 #define mupnp_upnpav_content_setid(con, val) mupnp_xml_node_setattribute(con, CG_UPNPAV_CONTENT_ID, val)
@@ -106,19 +106,19 @@ BOOL mupnp_upnpav_content_haschildcontents(CgUpnpAvContent *con);
 #define mupnp_upnpav_content_setupnpalbumarturi(con, val) mupnp_xml_node_setchildnode(con, CG_UPNPAV_CONTENT_UPNPALBUMARTURI, val)
 #define mupnp_upnpav_content_getupnpalbumarturi(con) mupnp_xml_node_getchildnodevalue(con, CG_UPNPAV_CONTENT_UPNPALBUMARTURI)
 
-void mupnp_upnpav_content_settype(CgUpnpAvContent *con, int type);
-int mupnp_upnpav_content_gettype(CgUpnpAvContent *con);
+void mupnp_upnpav_content_settype(mUpnpUpnpAvContent *con, int type);
+int mupnp_upnpav_content_gettype(mUpnpUpnpAvContent *con);
 
 #define mupnp_upnpav_content_isitemnode(node) (mupnp_upnpav_content_gettype(node) == CG_UPNPAV_CONTENT_ITEM ? TRUE : FALSE)
 #define mupnp_upnpav_content_iscontainernode(node) (mupnp_upnpav_content_gettype(node) == CG_UPNPAV_CONTENT_CONTAINER ? TRUE : FALSE)
-BOOL mupnp_upnpav_content_iscontentnode(CgXmlNode *node);
+BOOL mupnp_upnpav_content_iscontentnode(mUpnpXmlNode *node);
 
 #define mupnp_upnpav_content_setuserdata(con, data) mupnp_xml_node_setuserdata(con, data)
 #define mupnp_upnpav_content_getuserdata(con) mupnp_xml_node_getuserdata(con)
 
-typedef BOOL (*CG_UPNPAV_CONTENT_COMPARE_FUNC)(CgUpnpAvContent *con, void *userData);
-CgUpnpAvContent *mupnp_upnpav_content_getbyid(CgUpnpAvContent *con, char *id);
-CgUpnpAvContent *mupnp_upnpav_content_getbytitle(CgUpnpAvContent *con, char *title);
+typedef BOOL (*CG_UPNPAV_CONTENT_COMPARE_FUNC)(mUpnpUpnpAvContent *con, void *userData);
+mUpnpUpnpAvContent *mupnp_upnpav_content_getbyid(mUpnpUpnpAvContent *con, char *id);
+mUpnpUpnpAvContent *mupnp_upnpav_content_getbytitle(mUpnpUpnpAvContent *con, char *title);
 
 #define mupnp_upnpav_content_addresource(con, res) mupnp_xml_node_addchildnode(con, res)
 #define mupnp_upnpav_content_getresources(con) mupnp_xml_node_getchildnode(con, CG_UPNPAV_RESOURCE_NAME)

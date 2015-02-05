@@ -32,17 +32,17 @@
 * mupnp_xml_node_new
 ****************************************/
 
-CgXmlNode *mupnp_xml_node_new()
+mUpnpXmlNode *mupnp_xml_node_new()
 {
-	CgXmlNode *node;
+	mUpnpXmlNode *node;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	node = (CgXmlNode *)malloc(sizeof(CgXmlNode));
+	node = (mUpnpXmlNode *)malloc(sizeof(mUpnpXmlNode));
 
 	if ( NULL != node )
 	{
-		mupnp_list_node_init((CgList *)node);
+		mupnp_list_node_init((mUpnpList *)node);
 
 		node->name = mupnp_string_new();
 		node->value = mupnp_string_new();
@@ -62,11 +62,11 @@ CgXmlNode *mupnp_xml_node_new()
 * mupnp_xml_node_delete
 ****************************************/
 
-void mupnp_xml_node_delete(CgXmlNode *node)
+void mupnp_xml_node_delete(mUpnpXmlNode *node)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_remove((CgList *)node);
+	mupnp_list_remove((mUpnpList *)node);
 	mupnp_string_delete(node->name);
 	mupnp_string_delete(node->value);
 	mupnp_xml_attributelist_delete(node->attrList);
@@ -82,10 +82,10 @@ void mupnp_xml_node_delete(CgXmlNode *node)
 * mupnp_xml_node_setparentnode
 ****************************************/
 
-CgXmlNode *mupnp_xml_node_getrootnode(CgXmlNode *node)
+mUpnpXmlNode *mupnp_xml_node_getrootnode(mUpnpXmlNode *node)
 {
-	CgXmlNode *rootNode;
-	CgXmlNode *parentNode;
+	mUpnpXmlNode *rootNode;
+	mUpnpXmlNode *parentNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -105,7 +105,7 @@ CgXmlNode *mupnp_xml_node_getrootnode(CgXmlNode *node)
 * mupnp_xml_node_addchildnode
 ****************************************/
 
-void mupnp_xml_node_addchildnode(CgXmlNode *node, CgXmlNode *cnode)
+void mupnp_xml_node_addchildnode(mUpnpXmlNode *node, mUpnpXmlNode *cnode)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -119,9 +119,9 @@ void mupnp_xml_node_addchildnode(CgXmlNode *node, CgXmlNode *cnode)
 * mupnp_xml_node_setchildnode
 ****************************************/
 
-void mupnp_xml_node_setchildnode(CgXmlNode *node, const char *name, const char *value)
+void mupnp_xml_node_setchildnode(mUpnpXmlNode *node, const char *name, const char *value)
 {
-	CgXmlNode *childNode;
+	mUpnpXmlNode *childNode;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -143,9 +143,9 @@ void mupnp_xml_node_setchildnode(CgXmlNode *node, const char *name, const char *
  * mupnp_xml_node_removechildnode
  ****************************************/
 
-BOOL mupnp_xml_node_removechildnode(CgXmlNode *node, const char *name)
+BOOL mupnp_xml_node_removechildnode(mUpnpXmlNode *node, const char *name)
 {
-	CgXmlNode *childNode;
+	mUpnpXmlNode *childNode;
   
 	mupnp_log_debug_l4("Entering...\n");
   
@@ -163,13 +163,13 @@ BOOL mupnp_xml_node_removechildnode(CgXmlNode *node, const char *name)
 * If ns is NULL, name string must match completely
 *****************************************************************************/
 
-CgXmlNode *mupnp_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char *name, const char *ns, BOOL ignoreNs)
+mUpnpXmlNode *mupnp_xml_node_getchildnodewithnamespace(mUpnpXmlNode *node, const char *name, const char *ns, BOOL ignoreNs)
 {
 	char *nameWithPrefix = NULL;
 	size_t nameLen = 0;
 	ssize_t nameIdx;
-	CgXmlNode *result = NULL;
-	CgXmlNode *child = NULL;
+	mUpnpXmlNode *result = NULL;
+	mUpnpXmlNode *child = NULL;
 	char *nodeName = NULL;
 
 	mupnp_log_debug_l4("Entering...\n");
@@ -236,9 +236,9 @@ CgXmlNode *mupnp_xml_node_getchildnodewithnamespace(CgXmlNode *node, const char 
 * mupnp_xml_node_getchildnodevalue
 ****************************************/
 
-const char *mupnp_xml_node_getchildnodevalue(CgXmlNode *node, const char *name)
+const char *mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name)
 {
-	CgXmlNode *childNode;
+	mUpnpXmlNode *childNode;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -255,9 +255,9 @@ const char *mupnp_xml_node_getchildnodevalue(CgXmlNode *node, const char *name)
 * mupnp_xml_node_removeattribute
 ****************************************/
 
-BOOL mupnp_xml_node_removeattribute(CgXmlNode *node, const char *name)
+BOOL mupnp_xml_node_removeattribute(mUpnpXmlNode *node, const char *name)
 {
-	CgXmlAttribute *attr;
+	mUpnpXmlAttribute *attr;
 
 	if (!node || !name)
 		return FALSE;
@@ -275,11 +275,11 @@ BOOL mupnp_xml_node_removeattribute(CgXmlNode *node, const char *name)
  * mupnp_xml_node_copy
  ****************************************/
 
-void mupnp_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode)
+void mupnp_xml_node_copy(mUpnpXmlNode *dstNode, mUpnpXmlNode *srcNode)
 {
-	CgXmlAttribute *attr;
-	CgXmlNode *dstChildNode;
-	CgXmlNode *srcChildNode;
+	mUpnpXmlAttribute *attr;
+	mUpnpXmlNode *dstChildNode;
+	mUpnpXmlNode *srcChildNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 	
@@ -305,12 +305,12 @@ void mupnp_xml_node_copy(CgXmlNode *dstNode, CgXmlNode *srcNode)
 * mupnp_xml_node_attribute_tostring
 ****************************************/
 
-static char *mupnp_xml_node_attribute_tostring(CgXmlNode *node, CgString *str)
+static char *mupnp_xml_node_attribute_tostring(mUpnpXmlNode *node, mUpnpString *str)
 {
-	CgXmlAttribute *attr;
+	mUpnpXmlAttribute *attr;
 	const char *name;
 	const char *value;
-	CgString *valueStr;
+	mUpnpString *valueStr;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -348,12 +348,12 @@ static char *mupnp_xml_node_attribute_tostring(CgXmlNode *node, CgString *str)
 * mupnp_xml_node_tostring_indent
 ****************************************/
 
-static char *mupnp_xml_node_tostring_indent(CgXmlNode *node, int indentLevel, BOOL withChildNode, CgString *str)
+static char *mupnp_xml_node_tostring_indent(mUpnpXmlNode *node, int indentLevel, BOOL withChildNode, mUpnpString *str)
 {
 	char *name;
 	char *value;
-	CgString *valueStr;
-	CgXmlNode *childNode;
+	mUpnpString *valueStr;
+	mUpnpXmlNode *childNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -424,7 +424,7 @@ static char *mupnp_xml_node_tostring_indent(CgXmlNode *node, int indentLevel, BO
 * mupnp_xml_node_tostring
 ****************************************/
 
-char *mupnp_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str)
+char *mupnp_xml_node_tostring(mUpnpXmlNode *node, BOOL withChildNode, mUpnpString *str)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -437,9 +437,9 @@ char *mupnp_xml_node_tostring(CgXmlNode *node, BOOL withChildNode, CgString *str
  * mupnp_xml_node_print
  ****************************************/
 
-void  mupnp_xml_node_print(CgXmlNode *node)
+void  mupnp_xml_node_print(mUpnpXmlNode *node)
 {
-	CgString *str = mupnp_string_new();
+	mUpnpString *str = mupnp_string_new();
 	mupnp_xml_node_tostring(node, TRUE, str);
 	printf("%s", mupnp_string_getvalue(str));
 	mupnp_string_delete(str);
