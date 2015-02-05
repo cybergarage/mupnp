@@ -1,2 +1,0 @@
-#!/bin/bash
-./configure CPPFLAGS="-I/opt/local/include/" LDFLAGS="-L/opt/local/lib" $@

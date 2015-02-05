@@ -30,7 +30,6 @@
 #define MUPNP_NAME "mUPnP"
 #define MUPNP_VER
 
-#define MUPNP_VER "1.0"
 #define MUPNP_DLNA_VER "1.50"
 
 #define MUPNP_XML_DECLARATION "<?xml version=\"1.0\"?>"

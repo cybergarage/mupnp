@@ -24,9 +24,8 @@ print<<FOTTER;
 
 
 mupnp/upnp.h: \$(top_builddir)/config.h
-	mkdir -p mupnp/upnp
 	sed -e "s/MUPNP_VER/MUPNP_VER \\"\$(PACKAGE_VERSION)\\"/" \\
-	\$(srcdir)/mupnp/mupnp.h.in > \$(srcdir)/mupnp/mupnp.h
+	\$(srcdir)/mupnp/upnp.h.in > \$(srcdir)/mupnp/upnp.h
 
 nobase_include_HEADERS = \\
 	\$(mupnp_headers)

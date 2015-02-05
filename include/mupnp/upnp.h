@@ -1,13 +1,13 @@
 /******************************************************************
- *
- * mUPnP for C
- *
- * Copyright (C) Satoshi Konno 2005
- * Copyright (C) 2006 Nokia Corporation. All rights reserved.
- *
- * This is licensed under BSD-style license, see file COPYING.
- *
- ******************************************************************/
+*
+* mUPnP for C
+*
+* Copyright (C) Satoshi Konno 2005
+* Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*
+* This is licensed under BSD-style license, see file COPYING.
+*
+******************************************************************/
 
 #ifndef _MUPNP_UPNP_H_
 #define _MUPNP_UPNP_H_
@@ -28,9 +28,8 @@
 ****************************************/
 
 #define MUPNP_NAME "mUPnP"
-#define MUPNP_VER "3.0"
+#define MUPNP_VER "1.2.3"
 
-#define MUPNP_VER "1.0"
 #define MUPNP_DLNA_VER "1.50"
 
 #define MUPNP_XML_DECLARATION "<?xml version=\"1.0\"?>"

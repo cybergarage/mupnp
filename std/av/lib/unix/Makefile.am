@@ -1,7 +1,7 @@
 #if HAVE_LIBTOOL
-#lib_LTLIBRARIES = libclinkcav.la
+#lib_LTLIBRARIES = libmupnpav.la
 #else
-lib_LIBRARIES = libclinkcav.a
+lib_LIBRARIES = libmupnpav.a
 #endif
 
 AM_CPPFLAGS = -I$(top_srcdir)/include
@@ -31,18 +31,18 @@ clinkcav_source = ../../src/cybergarage/upnp/std/av/ccontent.c \
 # Library
 ########################################
 
-libclinkcavincludedir = $(includedir)/cybergarage
-nobase_libclinkcavinclude_HEADERS =  \
+libmupnpavincludedir = $(includedir)/cybergarage
+nobase_libmupnpavinclude_HEADERS =  \
         $(clinkcav_header)
 
 #if HAVE_LIBTOOL
-#libclinkcav_la_SOURCES = \
+#libmupnpav_la_SOURCES = \
 #        $(clinkcav_source)
-#libclinkcav_a_CFLAGS = $(AM_CFLAGS)
-#libclinkcav_la_LIBADD =
+#libmupnpav_a_CFLAGS = $(AM_CFLAGS)
+#libmupnpav_la_LIBADD =
 #else
-libclinkcav_a_SOURCES = \
+libmupnpav_a_SOURCES = \
         $(clinkcav_source)
-libclinkcav_a_CFLAGS = $(AM_CFLAGS)
-libclinkcav_a_LIBADD =
+libmupnpav_a_CFLAGS = $(AM_CFLAGS)
+libmupnpav_a_LIBADD =
 #endif

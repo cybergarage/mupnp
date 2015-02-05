@@ -16,7 +16,7 @@ upnpclock_SOURCES = \
 	../../common/kb_util.c
 
 #if HAVE_LIBTOOL
-#upnpclock_LDADD = ../../../lib/unix/libclinkc.la @XML_LIBS@
+#upnpclock_LDADD = ../../../lib/unix/libmupnp.la @XML_LIBS@
 #else
-upnpclock_LDADD = ../../../lib/unix/libclinkc.a @XML_LIBS@
+upnpclock_LDADD = ../../../lib/unix/libmupnp.a @XML_LIBS@
 #endif

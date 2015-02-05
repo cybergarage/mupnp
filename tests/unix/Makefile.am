@@ -11,23 +11,24 @@ noinst_PROGRAMS = clinkctestunit
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../
 
 noinst_HEADERS = \
-	../TestDevice.h \
-	../ClinkUnitTest.h
+	..//ClinkUnitTest.h \
+	..//TestDevice.h
 
 clinkctestunit_SOURCES = \
-	../ClinkTestCaseHttp.cpp \
-	../ClinkTestCaseNetwork.cpp \
-	../TestDevice.c \
-	../ClinkTestCaseControlPoint.cpp \
-	../ClinkTestMain.cpp \
-	../ClinkTestCaseDictionary.cpp \
-	../ClinkTestCaseService.cpp \
-	../ClinkTestCaseURI.cpp \
-	../ClinkTestCaseStateVariable.cpp \
-	../ClinkTestCaseString.cpp \
-	../ClinkTestCaseSubscription.cpp \
-	../ClinkTestCaseUPnPFunc.cpp \
-	../ClinkTestCaseDevice.cpp
+	..//ControlPointTest.cpp \
+	..//DeviceTest.cpp \
+	..//DictionaryTest.cpp \
+	..//HttpTest.cpp \
+	..//mUpnpTestMain.cpp \
+	..//NetworkTest.cpp \
+	..//ServiceTest.cpp \
+	..//StateVariableTest.cpp \
+	..//StringTest.cpp \
+	..//SubscriptionTest.cpp \
+	..//TestDevice.c \
+	..//UPnPFuncTest.cpp \
+	..//URITest.cpp \
+	..//XMLTest.cpp
 #if HAVE_LIBTOOL
 #clinkctestunit_LDADD = ../../lib/unix/libclinkc.la -lcppunit @XML_LIBS@
 #else
