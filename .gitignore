@@ -1,10 +1,46 @@
-Makefile
-config
-config.*
+# Compiled Object files
+*.slo
+*.lo
 *.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
 *.a
-*.po
-*.dirstamp
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# MacOSX
 .DS_Store
+project.xcworkspace/
 xcuserdata/
+
+# Java
+*.class
+
+# Automake
+aclocal.m4
+autom4te.cache/
+config/
 .deps/
+*.Po
+.dirstamp
+Makefile
+Makefile.in
