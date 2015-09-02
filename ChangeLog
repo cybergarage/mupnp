@@ -3,6 +3,7 @@
 	* Renamed project name as `mupnp` from `CyberLink`.
 	* Renamed cg_* into mupnp_*.
 	* Renamed CG_* into MUPNP_*.
+        * Changed to use <stdbool.h>
 
 2013-12-21 Satoshi Konno <skonno@cybergarage.org>
 	* 2.4.1
