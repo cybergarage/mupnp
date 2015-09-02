@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#ifndef _CG_TEST_DEVICE_H_
-#define _CG_TEST_DEVICE_H_
+#ifndef _MUPNP_TEST_DEVICE_H_
+#define _MUPNP_TEST_DEVICE_H_
 
 #include <mupnp/upnp.h>
 

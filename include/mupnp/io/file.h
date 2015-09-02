@@ -27,36 +27,36 @@ extern "C" {
 #endif
 
 #if defined(WIN32) || defined(WINCE)
-#define CG_USE_CFILE 1
+#define MUPNP_USE_CFILE 1
 #endif
 
-#if defined(CG_USE_CFILE)
+#if defined(MUPNP_USE_CFILE)
 
 /****************************************
 * Define
 ****************************************/
 
 #if defined(WIN32)
-#define CG_FILE_SEPARATOR_CHAR '\\'
-#define CG_FILE_PATH_SEPARATOR_CHAR ';'
-#define CG_FILE_SEPARATOR "\\"
-#define CG_FILE_PATH_SEPARATOR ";"
+#define MUPNP_FILE_SEPARATOR_CHAR '\\'
+#define MUPNP_FILE_PATH_SEPARATOR_CHAR ';'
+#define MUPNP_FILE_SEPARATOR "\\"
+#define MUPNP_FILE_PATH_SEPARATOR ";"
 #else
-#define CG_FILE_SEPARATOR_CHAR '/'
-#define CG_FILE_PATH_SEPARATOR_CHAR ':'
-#define CG_FILE_SEPARATOR "/"
-#define CG_FILE_PATH_SEPARATOR ":"
+#define MUPNP_FILE_SEPARATOR_CHAR '/'
+#define MUPNP_FILE_PATH_SEPARATOR_CHAR ':'
+#define MUPNP_FILE_SEPARATOR "/"
+#define MUPNP_FILE_PATH_SEPARATOR ":"
 #endif
 	
-#define CG_FILE_READ_CHUNK_SIZE 1024
+#define MUPNP_FILE_READ_CHUNK_SIZE 1024
 
-#define CG_FILE_OPEN_READ		0x01
-#define CG_FILE_OPEN_WRITE		0x02
-#define CG_FILE_OPEN_CREATE	0x04
+#define MUPNP_FILE_OPEN_READ		0x01
+#define MUPNP_FILE_OPEN_WRITE		0x02
+#define MUPNP_FILE_OPEN_CREATE	0x04
 
-#define CG_FILE_SEEK_SET			0x01
-#define CG_FILE_SEEK_CUR			0x02
-#define CG_FILE_SEEK_END			0x04
+#define MUPNP_FILE_SEEK_SET			0x01
+#define MUPNP_FILE_SEEK_CUR			0x02
+#define MUPNP_FILE_SEEK_END			0x04
 
 /****************************************
 * Data Type
@@ -106,8 +106,8 @@ BOOL mupnp_file_save(mUpnpFile *file);
 
 int mupnp_file_listfiles(mUpnpFile *file, mUpnpFileList *fileList);
 
-#define mupnp_file_isseparatorchar(c) ((CG_FILE_SEPARATOR_CHAR == c) ? TRUE : FALSE)
-#define mupnp_file_ispathseparatorchar(c) ((CG_FILE_PATH_SEPARATOR_CHAR == c) ? TRUE : FALSE)
+#define mupnp_file_isseparatorchar(c) ((MUPNP_FILE_SEPARATOR_CHAR == c) ? TRUE : FALSE)
+#define mupnp_file_ispathseparatorchar(c) ((MUPNP_FILE_PATH_SEPARATOR_CHAR == c) ? TRUE : FALSE)
 
 /* Raw Functions */
 BOOL mupnp_file_open(mUpnpFile *file, int flag);
@@ -139,7 +139,7 @@ void mupnp_filelist_delete(mUpnpFileList *fileList);
  *
  * \param fileList File list in question
  */
-#define mupnp_filelist_clear(fileList) mupnp_list_clear((mUpnpList *)fileList, (CG_LIST_DESTRUCTORFUNC)mupnp_file_delete)
+#define mupnp_filelist_clear(fileList) mupnp_list_clear((mUpnpList *)fileList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_file_delete)
 
 /**
  * Get the size of a file list

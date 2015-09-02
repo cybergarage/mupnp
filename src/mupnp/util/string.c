@@ -16,7 +16,7 @@
 
 /* Define amount of extra characters allocated on each realloc, with this we
    can avoid many small subsequent reallocs, which takes lots of time */
-#define CG_STRING_REALLOC_EXTRA		16
+#define MUPNP_STRING_REALLOC_EXTRA		16
 
 /****************************************
 * mupnp_string_new
@@ -99,7 +99,7 @@ void mupnp_string_setvalue(mUpnpString *str, const char *value)
 
 void mupnp_string_setintvalue(mUpnpString *str, int value)
 {
-	char buf[CG_STRING_INTEGER_BUFLEN];
+	char buf[MUPNP_STRING_INTEGER_BUFLEN];
 
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -114,7 +114,7 @@ void mupnp_string_setintvalue(mUpnpString *str, int value)
 
 void mupnp_string_setlongvalue(mUpnpString *str, long value)
 {
-	char buf[CG_STRING_LONG_BUFLEN];
+	char buf[MUPNP_STRING_LONG_BUFLEN];
 
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -256,7 +256,7 @@ char *mupnp_string_naddvalue(mUpnpString *str, const char *value, size_t valueLe
 	if (newMemSize > str->memSize || str->value == NULL)
 	{
 		/* realloc also some extra in order to avoid multiple reallocs */
-		newMemSize += CG_STRING_REALLOC_EXTRA;
+		newMemSize += MUPNP_STRING_REALLOC_EXTRA;
 		newValue = realloc(str->value, newMemSize * sizeof(char));
 
 		if (newValue == NULL)

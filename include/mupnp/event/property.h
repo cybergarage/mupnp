@@ -156,7 +156,7 @@ void mupnp_propertylist_delete(mUpnpPropertyList *propertylist);
  *
  * @param propList UPnP property list
  */
-#define mupnp_propertylist_clear(propList) mupnp_list_clear((mUpnpList *)propList, (CG_LIST_DESTRUCTORFUNC)mupnp_property_delete)
+#define mupnp_propertylist_clear(propList) mupnp_list_clear((mUpnpList *)propList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_property_delete)
 
 /**
  * Get size of property list

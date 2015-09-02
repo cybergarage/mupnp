@@ -15,7 +15,7 @@
 #include <mupnp/typedef.h>
 #include <mupnp/util/string.h>
 
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 #include <openssl/ssl.h>
 #endif
 
@@ -27,16 +27,16 @@ extern "C" {
 * Define
 ****************************************/
 
-#define CG_NET_SOCKET_NONE 0
+#define MUPNP_NET_SOCKET_NONE 0
 
-#define CG_NET_SOCKET_STREAM 0x01
-#define CG_NET_SOCKET_DGRAM 0x02
+#define MUPNP_NET_SOCKET_STREAM 0x01
+#define MUPNP_NET_SOCKET_DGRAM 0x02
 
-#define CG_NET_SOCKET_CLIENT 1
-#define CG_NET_SOCKET_SERVER 2
+#define MUPNP_NET_SOCKET_CLIENT 1
+#define MUPNP_NET_SOCKET_SERVER 2
 
-#define CG_NET_SOCKET_MAXHOST 32
-#define CG_NET_SOCKET_MAXSERV 32
+#define MUPNP_NET_SOCKET_MAXHOST 32
+#define MUPNP_NET_SOCKET_MAXSERV 32
 
 #if defined(BTRON) || defined(TENGINE)
 typedef W SOCKET;
@@ -46,16 +46,16 @@ typedef ER SOCKET;
 typedef int SOCKET;
 #endif
 
-#define CG_SOCKET_LF '\n'
+#define MUPNP_SOCKET_LF '\n'
 
-#define CG_NET_SOCKET_DGRAM_RECV_BUFSIZE 512
-#define CG_NET_SOCKET_DGRAM_ANCILLARY_BUFSIZE 512
-#define CG_NET_SOCKET_MULTICAST_DEFAULT_TTL 4
-#define CG_NET_SOCKET_AUTO_IP_NET 0xa9fe0000
-#define CG_NET_SOCKET_AUTO_IP_MASK 0xffff0000 
+#define MUPNP_NET_SOCKET_DGRAM_RECV_BUFSIZE 512
+#define MUPNP_NET_SOCKET_DGRAM_ANCILLARY_BUFSIZE 512
+#define MUPNP_NET_SOCKET_MULTICAST_DEFAULT_TTL 4
+#define MUPNP_NET_SOCKET_AUTO_IP_NET 0xa9fe0000
+#define MUPNP_NET_SOCKET_AUTO_IP_MASK 0xffff0000 
 
 #if defined(ITRON)
-#define CG_NET_SOCKET_WINDOW_BUFSIZE 4096
+#define MUPNP_NET_SOCKET_WINDOW_BUFSIZE 4096
 #endif
 
 /****************************************
@@ -63,19 +63,19 @@ typedef int SOCKET;
 ****************************************/
 
 #if defined(ITRON)
-#define CG_NET_USE_SOCKET_LIST 1
+#define MUPNP_NET_USE_SOCKET_LIST 1
 #endif
 
 /****************************************
 * Data Type
 ****************************************/
 
-#if defined(CG_NET_USE_SOCKET_LIST)
+#if defined(MUPNP_NET_USE_SOCKET_LIST)
 #include <mupnp/util/list.h>
 #endif
 
 typedef struct _mUpnpSocket {
-#if defined(CG_NET_USE_SOCKET_LIST)
+#if defined(MUPNP_NET_USE_SOCKET_LIST)
 	BOOL headFlag;
 	struct _mUpnpSocket *prev;
 	struct _mUpnpSocket *next;
@@ -89,7 +89,7 @@ typedef struct _mUpnpSocket {
 	UH *sendWinBuf;
 	UH *recvWinBuf;
 #endif
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 	SSL_CTX* ctx;
 	SSL* ssl;
 #endif
@@ -111,8 +111,8 @@ void mupnp_socket_startup();
 void mupnp_socket_cleanup();
 
 mUpnpSocket *mupnp_socket_new(int type);
-#define mupnp_socket_stream_new() mupnp_socket_new(CG_NET_SOCKET_STREAM)
-#define mupnp_socket_dgram_new() mupnp_socket_new(CG_NET_SOCKET_DGRAM)
+#define mupnp_socket_stream_new() mupnp_socket_new(MUPNP_NET_SOCKET_STREAM)
+#define mupnp_socket_dgram_new() mupnp_socket_new(MUPNP_NET_SOCKET_DGRAM)
 BOOL mupnp_socket_delete(mUpnpSocket *socket);
 
 void mupnp_socket_setid(mUpnpSocket *socket, SOCKET value);
@@ -120,13 +120,13 @@ void mupnp_socket_setid(mUpnpSocket *socket, SOCKET value);
 
 #define mupnp_socket_settype(socket, value) (socket->type = value)
 #define mupnp_socket_gettype(socket) (socket->type)
-#define mupnp_socket_issocketstream(socket) ((socket->type & CG_NET_SOCKET_STREAM) ? TRUE : FALSE)
-#define mupnp_socket_isdatagramstream(socket) ((socket->type & CG_NET_SOCKET_DGRAM) ? TRUE : FALSE)
+#define mupnp_socket_issocketstream(socket) ((socket->type & MUPNP_NET_SOCKET_STREAM) ? TRUE : FALSE)
+#define mupnp_socket_isdatagramstream(socket) ((socket->type & MUPNP_NET_SOCKET_DGRAM) ? TRUE : FALSE)
 
 #define mupnp_socket_setdirection(socket, value) (socket->direction = value)
 #define mupnp_socket_getdirection(socket) (socket->direction)
-#define mupnp_socket_isclient(socket) ((socket->direction == CG_NET_SOCKET_CLIENT) ? TRUE : FALSE)
-#define mupnp_socket_isserver(socket) ((socket->direction == CG_NET_SOCKET_SERVER) ? TRUE : FALSE)
+#define mupnp_socket_isclient(socket) ((socket->direction == MUPNP_NET_SOCKET_CLIENT) ? TRUE : FALSE)
+#define mupnp_socket_isserver(socket) ((socket->direction == MUPNP_NET_SOCKET_SERVER) ? TRUE : FALSE)
 
 #define mupnp_socket_setaddress(socket, value) mupnp_string_setvalue(socket->ipaddr, value)
 #define mupnp_socket_setport(socket, value) (socket->port = value)
@@ -190,24 +190,24 @@ void mupnp_socket_datagram_packet_copy(mUpnpDatagramPacket *dstDgmPkt, mUpnpData
 * Function (SSLSocket)
 ****************************************/
 
-#if defined(CG_USE_OPENSSL)
-#define CG_NET_SOCKET_SSL 0x0100
-#define mupnp_socket_ssl_new() mupnp_socket_new(CG_NET_SOCKET_STREAM | CG_NET_SOCKET_SSL)
-#define mupnp_socket_isssl(socket) ((socket->type & CG_NET_SOCKET_SSL) ? TRUE : FALSE)
+#if defined(MUPNP_USE_OPENSSL)
+#define MUPNP_NET_SOCKET_SSL 0x0100
+#define mupnp_socket_ssl_new() mupnp_socket_new(MUPNP_NET_SOCKET_STREAM | MUPNP_NET_SOCKET_SSL)
+#define mupnp_socket_isssl(socket) ((socket->type & MUPNP_NET_SOCKET_SSL) ? TRUE : FALSE)
 #endif
 
 /****************************************
 * Function (SocketList)
 ****************************************/
 
-#if defined(CG_NET_USE_SOCKET_LIST)
+#if defined(MUPNP_NET_USE_SOCKET_LIST)
 
 #define mupnp_socket_next(sock) (mUpnpSocket *)mupnp_list_next((mUpnpList *)sock)
 
 mUpnpSocketList *mupnp_socketlist_new();
 void mupnp_socketlist_delete(mUpnpSocketList *sockList);
 
-#define mupnp_socketlist_clear(sockList) mupnp_list_clear((mUpnpList *)sockList, (CG_LIST_DESTRUCTORFUNC)mupnp_socket_delete)
+#define mupnp_socketlist_clear(sockList) mupnp_list_clear((mUpnpList *)sockList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_socket_delete)
 #define mupnp_socketlist_size(sockList) mupnp_list_size((mUpnpList *)sockList)
 #define mupnp_socketlist_gets(sockList) (mUpnpSocket *)mupnp_list_next((mUpnpList *)sockList)
 #define mupnp_socketlist_add(sockList, sock) mupnp_list_add((mUpnpList *)sockList, (mUpnpList *)sock)

@@ -108,7 +108,7 @@ am_mupnptest_OBJECTS = ..//ControlPointTest.$(OBJEXT) \
 	..//UPnPFuncTest.$(OBJEXT) ..//URITest.$(OBJEXT) \
 	..//XMLTest.$(OBJEXT)
 mupnptest_OBJECTS = $(am_mupnptest_OBJECTS)
-mupnptest_DEPENDENCIES = ../../lib/unix/libclinkc.a
+mupnptest_DEPENDENCIES = ../../lib/unix/libmupnp.a
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -297,9 +297,9 @@ mupnptest_SOURCES = \
 	..//XMLTest.cpp
 
 #if HAVE_LIBTOOL
-#mupnptest_LDADD = ../../lib/unix/libclinkc.la @XML_LIBS@
+#mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@
 #else
-mupnptest_LDADD = ../../lib/unix/libclinkc.a @XML_LIBS@
+mupnptest_LDADD = ../../lib/unix/libmupnp.a @XML_LIBS@
 all: all-am
 
 .SUFFIXES:

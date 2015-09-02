@@ -32,7 +32,7 @@
 
 const char *mupnp_event_subscription_totimeoutheaderstring(mUpnpTime time, mUpnpString *buf)
 {
-	char timeBuf[CG_STRING_LONG_BUFLEN];
+	char timeBuf[MUPNP_STRING_LONG_BUFLEN];
 	
 	mupnp_log_debug_l4("Entering...\n");
 

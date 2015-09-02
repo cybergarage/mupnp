@@ -11,7 +11,7 @@
 
 #include <mupnp/io/file.h>
 
-#if defined(CG_USE_CFILE)
+#if defined(MUPNP_USE_CFILE)
 
 #include <mupnp/util/log.h>
 

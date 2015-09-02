@@ -152,7 +152,7 @@ typedef struct _mUpnpDevice
   mUpnpThread *advertiser;
   
   /** HTTP request listener */
-  CG_HTTP_LISTENER httpListener;
+  MUPNP_HTTP_LISTENER httpListener;
   
   /** Presentation listener */
   MUPNP_PRESENTATION_LISTNER presentationListener;
@@ -294,7 +294,7 @@ BOOL mupnp_device_parsedescription(mUpnpDevice *dev, const char *desciption, siz
 BOOL mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url);
 
 
-#if defined(CG_USE_CFILE)
+#if defined(MUPNP_USE_CFILE)
 /**
  * Load and parse the device description from an XML file.
  * Not available for T-Engine, ITron and BTron platforms.
@@ -1268,7 +1268,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList *devList);
  * \param devList The device list to clear
  *
  */
-#define mupnp_devicelist_clear(devList) mupnp_list_clear((mUpnpList *)devList, (CG_LIST_DESTRUCTORFUNC)mupnp_device_delete)
+#define mupnp_devicelist_clear(devList) mupnp_list_clear((mUpnpList *)devList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_device_delete)
 
 /**
  * Get the size of the device list

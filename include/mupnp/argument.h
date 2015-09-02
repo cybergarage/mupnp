@@ -302,7 +302,7 @@ void mupnp_argumentlist_delete(mUpnpArgumentList *argumentList);
  *
  * @param argList Argument list
  */
-#define mupnp_argumentlist_clear(argList) mupnp_list_clear((mUpnpList *)argList, (CG_LIST_DESTRUCTORFUNC)mupnp_argument_delete)
+#define mupnp_argumentlist_clear(argList) mupnp_list_clear((mUpnpList *)argList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_argument_delete)
 
 /**
  * Get argument list size

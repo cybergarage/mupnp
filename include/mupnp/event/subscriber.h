@@ -266,7 +266,7 @@ void mupnp_subscriberlist_delete(mUpnpSubscriberList *subscriberlist);
  *
  * @param subList The subscriber list to clear
  */
-#define mupnp_subscriberlist_clear(subList) mupnp_list_clear((mUpnpList *)subList, (CG_LIST_DESTRUCTORFUNC)mupnp_subscriber_delete)
+#define mupnp_subscriberlist_clear(subList) mupnp_list_clear((mUpnpList *)subList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_subscriber_delete)
 
 /**
  * Get the size (node count) of a subscriber list

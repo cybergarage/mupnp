@@ -31,11 +31,11 @@ mUpnpHttpResponse *mupnp_http_response_new()
 		httpRes->version = mupnp_string_new();
 		httpRes->reasonPhrase = mupnp_string_new();
 		
-		mupnp_http_response_setversion(httpRes, CG_HTTP_VER11);
-		mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_BAD_REQUEST);
+		mupnp_http_response_setversion(httpRes, MUPNP_HTTP_VER11);
+		mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_BAD_REQUEST);
 		mupnp_http_response_setuserdata(httpRes, NULL);
 
-		mupnp_http_response_settimeout(httpRes, CG_HTTP_CONN_TIMEOUT);
+		mupnp_http_response_settimeout(httpRes, MUPNP_HTTP_CONN_TIMEOUT);
 	}
 	
 	return httpRes;
@@ -69,7 +69,7 @@ void mupnp_http_response_clear(mUpnpHttpResponse *httpRes)
 
 	mupnp_http_packet_clear((mUpnpHttpPacket *)httpRes);
 	mupnp_http_response_setversion(httpRes, NULL);
-	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_INTERNAL_SERVER_ERROR);
+	mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_INTERNAL_SERVER_ERROR);
 	mupnp_http_response_setreasonphrase(httpRes, NULL);
 	mupnp_http_response_setuserdata(httpRes, NULL);
 
@@ -162,7 +162,7 @@ char *mupnp_http_response_getreasonphrase(mUpnpHttpResponse *httpRes)
 
 BOOL mupnp_http_response_read(mUpnpHttpResponse *httpRes, mUpnpSocket *sock, BOOL onlyHeader)
 {
-	char lineBuf[CG_HTTP_READLINE_BUFSIZE];
+	char lineBuf[MUPNP_HTTP_READLINE_BUFSIZE];
 	mUpnpStringTokenizer *strTok;
 	char *token;
 	ssize_t readLen;
@@ -175,14 +175,14 @@ BOOL mupnp_http_response_read(mUpnpHttpResponse *httpRes, mUpnpSocket *sock, BOO
 	if (readLen <= 0)
 		return FALSE;
 
-	strTok = mupnp_string_tokenizer_new(lineBuf, CG_HTTP_STATUSLINE_DELIM);
+	strTok = mupnp_string_tokenizer_new(lineBuf, MUPNP_HTTP_STATUSLINE_DELIM);
 	if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
 		mupnp_http_response_setversion(httpRes, mupnp_string_tokenizer_nexttoken(strTok));
 	if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
 		mupnp_http_response_setstatuscode(httpRes, atoi(mupnp_string_tokenizer_nexttoken(strTok)));
 	if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE) {
 		token = mupnp_string_tokenizer_nextalltoken(strTok);
-		mupnp_strrtrim(token, CG_HTTP_STATUSLINE_DELIM, mupnp_strlen(CG_HTTP_STATUSLINE_DELIM));
+		mupnp_strrtrim(token, MUPNP_HTTP_STATUSLINE_DELIM, mupnp_strlen(MUPNP_HTTP_STATUSLINE_DELIM));
 		mupnp_http_response_setreasonphrase(httpRes, token);
 	}
 	mupnp_string_tokenizer_delete(strTok);

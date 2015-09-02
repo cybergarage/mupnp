@@ -25,7 +25,7 @@
 #include <string.h>
 
 #if defined(WIN32)
-#define CG_USE_WIN32_GETADAPTERSINFO 1
+#define MUPNP_USE_WIN32_GETADAPTERSINFO 1
 #endif
 
 #if defined(__APPLE_CC__) && !defined(HAVE_IFADDRS_H)
@@ -39,12 +39,12 @@
 	#include <winsock2.h>
 	#include <ws2tcpip.h>
 	#include <iphlpapi.h>
-#elif defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#elif defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	#include <net/sock_com.h>
 	#include <btron/bsocket.h>
 #elif defined(ITRON)
 	#include <kernel.h>
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	#include <tk/tkernel.h>
 	#include <btron/kasago.h>
 	#include <sys/svc/ifkasago.h>
@@ -65,12 +65,12 @@
 	#include <arpa/inet.h>
 #endif
 
-#if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 extern ttUserInterface kaInterfaceHandle;
 #endif
 
 #if defined(ITRON)
-char InterfaceAddress[CG_NET_IPV6_ADDRSTRING_MAXSIZE];
+char InterfaceAddress[MUPNP_NET_IPV6_ADDRSTRING_MAXSIZE];
 BOOL IsInterfaceAddressInitialized = FALSE;
 #endif
 
@@ -85,7 +85,7 @@ BOOL IsInterfaceAddressInitialized = FALSE;
 
 int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 {
-#if !defined(CG_USE_WIN32_GETHOSTADDRESSES) && !defined(CG_USE_WIN32_GETADAPTERSINFO)
+#if !defined(MUPNP_USE_WIN32_GETHOSTADDRESSES) && !defined(MUPNP_USE_WIN32_GETADAPTERSINFO)
 	mUpnpNetworkInterface *netIf;
 	SOCKET sd;
 	int nNumInterfaces;
@@ -135,7 +135,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 		mupnp_net_interfacelist_add(netIfList, netIf);
 	}
 
-#elif defined(CG_USE_WIN32_GETADAPTERSINFO)
+#elif defined(MUPNP_USE_WIN32_GETADAPTERSINFO)
 	#pragma comment(lib, "Iphlpapi.lib")
 
 	mUpnpNetworkInterface *netIf;
@@ -163,14 +163,14 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 			netIf = mupnp_net_interface_new();
 			mupnp_net_interface_setaddress(netIf, pAdapter->IpAddressList.IpAddress.String);
 			mupnp_net_interface_setnetmask(netIf, pAdapter->IpAddressList.IpMask.String);
-			if (pAdapter->AddressLength  == CG_NET_MACADDR_SIZE)
+			if (pAdapter->AddressLength  == MUPNP_NET_MACADDR_SIZE)
 				mupnp_net_interface_setmacaddress(netIf, pAdapter->Address);
 			mupnp_net_interfacelist_add(netIfList, netIf);
 		}
 	} 
 	free(pAdapterInfo);
 
-#elif defined(CG_USE_WIN32_GETHOSTADDRESSES)
+#elif defined(MUPNP_USE_WIN32_GETHOSTADDRESSES)
 	#pragma comment(lib, "Iphlpapi.lib")
 
 	IP_ADAPTER_ADDRESSES *pAdapterAddresses, *ai;
@@ -226,7 +226,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 						ifIdx = mupnp_net_getipv6scopeid(addr);
 					netIf = mupnp_net_interface_new();
 					mupnp_net_interface_setaddress(netIf, addr);
-					if (ai->PhysicalAddressLength  == CG_NET_MACADDR_SIZE)
+					if (ai->PhysicalAddressLength  == MUPNP_NET_MACADDR_SIZE)
 						mupnp_net_interface_setmacaddress(netIf, ai->PhysicalAddress);
 					mupnp_net_interface_setindex(netIf, ifIdx);
 					mupnp_net_interfacelist_add(netIfList, netIf);
@@ -332,7 +332,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 	if (i==0) {
 		printf("* no Adapters found - try at least localhost\n");
 		netIf = mupnp_net_interface_new();
-		mupnp_net_interface_setaddress(netIf, CG_NET_IPV4_LOOPBACK);
+		mupnp_net_interface_setaddress(netIf, MUPNP_NET_IPV4_LOOPBACK);
 		mupnp_net_interfacelist_add(netIfList, netIf);
 	}
 
@@ -492,7 +492,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 * mupnp_net_gethostinterfaces (BTRON)
 ****************************************/
 
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 
 int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 {
@@ -502,7 +502,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 	struct hostent hostEnt;
 	B buf[HBUFLEN];
 	ERR err;
-	char *ifname = CG_NET_DEFAULT_IFNAME;
+	char *ifname = MUPNP_NET_DEFAULT_IFNAME;
 	char ifaddr[32];
 
 	mupnp_net_interfacelist_clear(netIfList);
@@ -529,7 +529,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 * mupnp_net_gethostinterfaces (TENGINE-KASAGO)
 ****************************************/
 
-#if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 
 int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 {
@@ -537,7 +537,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 
 	mUpnpNetworkInterface *netIf;
     struct in_addr inAddr;
-    char ipaddr[CG_NET_IPV6_ADDRSTRING_MAXSIZE];
+    char ipaddr[MUPNP_NET_IPV6_ADDRSTRING_MAXSIZE];
 	int kaRet;
 	
 	mupnp_socket_startup();
@@ -550,7 +550,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
     ka_tfInetToAscii((unsigned long)inAddr.s_addr, ipaddr);
 	
 	netIf = mupnp_net_interface_new();
-	mupnp_net_interface_setname(netIf, CG_NET_DEFAULT_IFNAME);
+	mupnp_net_interface_setname(netIf, MUPNP_NET_DEFAULT_IFNAME);
 	mupnp_net_interface_setaddress(netIf, ipaddr);
 	mupnp_net_interfacelist_add(netIfList, netIf);
 	
@@ -700,7 +700,7 @@ char *mupnp_net_selectaddr(struct sockaddr *remoteaddr)
 		}
 
 		/* Checking if we have and auto ip address */
-		if ( ( laddr & lmask ) == CG_NET_SOCKET_AUTO_IP_NET ) {
+		if ( ( laddr & lmask ) == MUPNP_NET_SOCKET_AUTO_IP_NET ) {
 			mupnp_log_debug_s("Found auto ip address. Selecting it for second address candidate (%u)\n", laddr);
 			if ( NULL != auto_ip_address_candidate ) free(auto_ip_address_candidate);
 			auto_ip_address_candidate = mupnp_strdup(

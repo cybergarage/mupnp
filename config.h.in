@@ -1,14 +1,5 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* LIBCURL */
-#undef CG_HTTP_CURL
-
-/* EXPAT */
-#undef CG_XMLPARSER_EXPAT
-
-/* LIBXML2 */
-#undef CG_XMLPARSER_LIBXML2
-
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #undef HAVE_ARPA_INET_H
 
@@ -150,6 +141,15 @@
 
 /* Define to 1 if you have the <uuid/uuid.h> header file. */
 #undef HAVE_UUID_UUID_H
+
+/* LIBCURL */
+#undef MUPNP_HTTP_CURL
+
+/* EXPAT */
+#undef MUPNP_XMLPARSER_EXPAT
+
+/* LIBXML2 */
+#undef MUPNP_XMLPARSER_LIBXML2
 
 /* Name of package */
 #undef PACKAGE

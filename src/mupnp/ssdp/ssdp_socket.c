@@ -27,7 +27,7 @@ static BOOL mupnp_ssdp_socket_notify(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPRequest
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_ssdprequest_setmethod(ssdpReq, CG_HTTP_NOTIFY);
+	mupnp_ssdprequest_setmethod(ssdpReq, MUPNP_HTTP_NOTIFY);
 	
 	ssdpMsg = mupnp_string_new();
 	mupnp_ssdprequest_tostring(ssdpReq, ssdpMsg);

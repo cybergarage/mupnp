@@ -112,18 +112,18 @@ void mupnp_ssdp_packet_setheader(mUpnpSSDPPacket *ssdpPkt, char *ssdpMsg);
 #define mupnp_ssdp_packet_addheader(ssdpPkt, header) mupnp_http_headerlist_add(ssdpPkt->headerList, header)
 #define mupnp_ssdp_packet_getheaders(ssdpPkt) mupnp_http_headerlist_gets(ssdpPkt->headerList)
 
-#define mupnp_ssdp_packet_gethost(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_HOST)
-#define mupnp_ssdp_packet_getserver(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_SERVER)
-#define mupnp_ssdp_packet_getcachecontrol(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_CACHE_CONTROL)
-#define mupnp_ssdp_packet_getdate(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_DATE)
-#define mupnp_ssdp_packet_getext(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_EXT)
-#define mupnp_ssdp_packet_getlocation(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_LOCATION)
-#define mupnp_ssdp_packet_getst(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_ST)
-#define mupnp_ssdp_packet_getusn(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_USN)
-#define mupnp_ssdp_packet_getmx(ssdpPkt) mupnp_str2int(mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_MX))
-#define mupnp_ssdp_packet_getman(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_MAN)
-#define mupnp_ssdp_packet_getnt(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_NT)
-#define mupnp_ssdp_packet_getnts(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_NTS)
+#define mupnp_ssdp_packet_gethost(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_HOST)
+#define mupnp_ssdp_packet_getserver(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_SERVER)
+#define mupnp_ssdp_packet_getcachecontrol(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_CACHE_CONTROL)
+#define mupnp_ssdp_packet_getdate(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_DATE)
+#define mupnp_ssdp_packet_getext(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_EXT)
+#define mupnp_ssdp_packet_getlocation(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_LOCATION)
+#define mupnp_ssdp_packet_getst(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_ST)
+#define mupnp_ssdp_packet_getusn(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_USN)
+#define mupnp_ssdp_packet_getmx(ssdpPkt) mupnp_str2int(mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_MX))
+#define mupnp_ssdp_packet_getman(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_MAN)
+#define mupnp_ssdp_packet_getnt(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_NT)
+#define mupnp_ssdp_packet_getnts(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_NTS)
 long mupnp_ssdp_packet_getmaxage(mUpnpSSDPPacket *ssdpPkt);
 
 #define mupnp_ssdp_packet_isdiscover(ssdpPkt) mupnp_man_isdiscover(mupnp_ssdp_packet_getman(ssdpPkt))
@@ -172,7 +172,7 @@ BOOL mupnp_ssdp_server_stop(mUpnpSSDPServer *server);
 mUpnpSSDPServerList *mupnp_ssdp_serverlist_new();
 void mupnp_ssdp_serverlist_delete(mUpnpSSDPServerList *serverList);
 
-#define mupnp_ssdp_serverlist_clear(serverList) mupnp_list_clear((mUpnpList *)serverList, (CG_LIST_DESTRUCTORFUNC)mupnp_ssdp_server_delete)
+#define mupnp_ssdp_serverlist_clear(serverList) mupnp_list_clear((mUpnpList *)serverList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_ssdp_server_delete)
 #define mupnp_ssdp_serverlist_size(serverList) mupnp_list_size((mUpnpList *)serverList)
 #define mupnp_ssdp_serverlist_gets(serverList) (mUpnpSSDPServer *)mupnp_list_next((mUpnpList *)serverList)
 #define mupnp_ssdp_serverlist_add(serverList, server) mupnp_list_add((mUpnpList *)serverList, (mUpnpList *)server)
@@ -218,7 +218,7 @@ BOOL mupnp_ssdpresponse_server_post(mUpnpSSDPResponseServer *server, mUpnpSSDPRe
 mUpnpSSDPResponseServerList *mupnp_ssdpresponse_serverlist_new();
 void mupnp_ssdpresponse_serverlist_delete(mUpnpSSDPResponseServerList *serverList);
 
-#define mupnp_ssdpresponse_serverlist_clear(serverList) mupnp_list_clear((mUpnpList *)serverList, (CG_LIST_DESTRUCTORFUNC)mupnp_ssdpresponse_server_delete)
+#define mupnp_ssdpresponse_serverlist_clear(serverList) mupnp_list_clear((mUpnpList *)serverList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_ssdpresponse_server_delete)
 #define mupnp_ssdpresponse_serverlist_size(serverList) mupnp_list_size((mUpnpList *)serverList)
 #define mupnp_ssdpresponse_serverlist_gets(serverList) (mUpnpSSDPResponseServer *)mupnp_list_next((mUpnpList *)serverList)
 #define mupnp_ssdpresponse_serverlist_add(serverList, server) mupnp_list_add((mUpnpList *)serverList, (mUpnpList *)server)

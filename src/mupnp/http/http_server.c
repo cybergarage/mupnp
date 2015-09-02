@@ -47,7 +47,7 @@ mUpnpHttpServer *mupnp_http_server_new()
 
 		mupnp_http_server_setuserdata(httpServer, NULL);
 
-		mupnp_http_server_settimeout(httpServer, CG_HTTP_SERVER_READ_TIMEOUT);
+		mupnp_http_server_settimeout(httpServer, MUPNP_HTTP_SERVER_READ_TIMEOUT);
 
 		/* Mutex */
 		httpServer->mutex = mupnp_mutex_new();
@@ -188,7 +188,7 @@ static void mupnp_http_server_clientthread(mUpnpThread *thread)
 	while (mupnp_http_request_read(httpReq, clientSock) == TRUE && mupnp_thread_isrunnable(thread) == TRUE) {
 		/* Check some validity of the request */
 		version = mupnp_http_request_getversion(httpReq);
-		if (mupnp_strcmp(version, CG_HTTP_VER11) == 0)
+		if (mupnp_strcmp(version, MUPNP_HTTP_VER11) == 0)
 		{
 			/* According to HTTP/1.1 spec, we must not tolerate
 			   HTTP/1.1 request without HOST-header */
@@ -205,7 +205,7 @@ static void mupnp_http_server_clientthread(mUpnpThread *thread)
 		}
 
 		/* Close connection according to HTTP version and headers */
-		if (mupnp_strcmp(version, CG_HTTP_VER10) == 0)
+		if (mupnp_strcmp(version, MUPNP_HTTP_VER10) == 0)
 		{
 			/* Terminate connection after HTTP/1.0 request */
 			break;
@@ -344,7 +344,7 @@ BOOL mupnp_http_server_stop(mUpnpHttpServer *httpServer)
 * mupnp_http_server_setlistener
 ****************************************/
 
-void mupnp_http_server_setlistener(mUpnpHttpServer *httpServer, CG_HTTP_LISTENER listener)
+void mupnp_http_server_setlistener(mUpnpHttpServer *httpServer, MUPNP_HTTP_LISTENER listener)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

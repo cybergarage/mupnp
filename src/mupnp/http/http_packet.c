@@ -119,7 +119,7 @@ void mupnp_http_packet_setheadervalue(mUpnpHttpPacket *httpPkt, const char* name
 
 void mupnp_http_packet_setheaderinteger(mUpnpHttpPacket *httpPkt, const char* name, int value)
 {
-	char svalue[CG_STRING_INTEGER_BUFLEN];
+	char svalue[MUPNP_STRING_INTEGER_BUFLEN];
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -134,7 +134,7 @@ void mupnp_http_packet_setheaderinteger(mUpnpHttpPacket *httpPkt, const char* na
 
 void mupnp_http_packet_setheaderlong(mUpnpHttpPacket *httpPkt, const char* name, long value)
 {
-	char svalue[CG_STRING_LONG_BUFLEN];
+	char svalue[MUPNP_STRING_LONG_BUFLEN];
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -149,7 +149,7 @@ void mupnp_http_packet_setheaderlong(mUpnpHttpPacket *httpPkt, const char* name,
 
 void mupnp_http_packet_setheadersizet(mUpnpHttpPacket *httpPkt, const char* name, size_t value)
 {
-	char svalue[CG_STRING_LONG_BUFLEN];
+	char svalue[MUPNP_STRING_LONG_BUFLEN];
   
 	mupnp_log_debug_l4("Entering...\n");
   
@@ -164,7 +164,7 @@ void mupnp_http_packet_setheadersizet(mUpnpHttpPacket *httpPkt, const char* name
 
 void mupnp_http_packet_setheaderssizet(mUpnpHttpPacket *httpPkt, const char* name, ssize_t value)
 {
-	char svalue[CG_STRING_LONG_BUFLEN];
+	char svalue[MUPNP_STRING_LONG_BUFLEN];
   
 	mupnp_log_debug_l4("Entering...\n");
   
@@ -265,7 +265,7 @@ void mupnp_http_packet_sethost(mUpnpHttpPacket *httpPkt, const char *addr, int p
 	if (addr == NULL)
 		return;
 
-	hostMaxLen = mupnp_strlen(addr) + CG_NET_IPV6_ADDRSTRING_MAXSIZE + CG_STRING_INTEGER_BUFLEN;
+	hostMaxLen = mupnp_strlen(addr) + MUPNP_NET_IPV6_ADDRSTRING_MAXSIZE + MUPNP_STRING_INTEGER_BUFLEN;
 	host = malloc(sizeof(char) * hostMaxLen);
 
 	if (host == NULL)
@@ -273,7 +273,7 @@ void mupnp_http_packet_sethost(mUpnpHttpPacket *httpPkt, const char *addr, int p
 		return;
 
 #if defined(HAVE_SNPRINTF)
-	if (0 < port && port != CG_HTTP_DEFAULT_PORT) {
+	if (0 < port && port != MUPNP_HTTP_DEFAULT_PORT) {
 		if (mupnp_net_isipv6address(addr) == TRUE)
 			snprintf(host, hostMaxLen, "[%s]:%d", addr, port);
 		else
@@ -286,7 +286,7 @@ void mupnp_http_packet_sethost(mUpnpHttpPacket *httpPkt, const char *addr, int p
 			snprintf(host, hostMaxLen, "%s", addr);
 	}
 #else	
-	if (0 < port && port != CG_HTTP_DEFAULT_PORT) {
+	if (0 < port && port != MUPNP_HTTP_DEFAULT_PORT) {
 		if (mupnp_net_isipv6address(addr) == TRUE)
 			sprintf(host, "[%s]:%d", addr, port);
 		else
@@ -300,7 +300,7 @@ void mupnp_http_packet_sethost(mUpnpHttpPacket *httpPkt, const char *addr, int p
 	}
 #endif
 
-	mupnp_http_packet_setheadervalue(httpPkt, CG_HTTP_HOST, host);
+	mupnp_http_packet_setheadervalue(httpPkt, MUPNP_HTTP_HOST, host);
 
 	free(host);
 
@@ -326,14 +326,14 @@ void mupnp_http_packet_post(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock)
 		if (name == NULL)
 			continue;
 		mupnp_socket_write(sock, name, mupnp_strlen(name));
-		mupnp_socket_write(sock, CG_HTTP_COLON, sizeof(CG_HTTP_COLON)-1);
-		mupnp_socket_write(sock, CG_HTTP_SP, sizeof(CG_HTTP_SP)-1);
+		mupnp_socket_write(sock, MUPNP_HTTP_COLON, sizeof(MUPNP_HTTP_COLON)-1);
+		mupnp_socket_write(sock, MUPNP_HTTP_SP, sizeof(MUPNP_HTTP_SP)-1);
 		value = mupnp_http_header_getvalue(header);
 		if (value != NULL)
 			mupnp_socket_write(sock, value, mupnp_strlen(value));
-		mupnp_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
+		mupnp_socket_write(sock, MUPNP_HTTP_CRLF, sizeof(MUPNP_HTTP_CRLF)-1);
 	}
-	mupnp_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
+	mupnp_socket_write(sock, MUPNP_HTTP_CRLF, sizeof(MUPNP_HTTP_CRLF)-1);
 	
 	/**** send content ****/
 	content = mupnp_http_packet_getcontent(httpPkt);
@@ -363,12 +363,12 @@ void mupnp_http_packet_read_headers(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock,
 			break;
 		name = NULL;
 		value = NULL;
-		strTok = mupnp_string_tokenizer_new(lineBuf, CG_HTTP_HEADERLINE_DELIM);
+		strTok = mupnp_string_tokenizer_new(lineBuf, MUPNP_HTTP_HEADERLINE_DELIM);
 		if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
 			name = mupnp_string_tokenizer_nexttoken(strTok);
 		if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE) {
 			value = mupnp_string_tokenizer_nextalltoken(strTok);
-			mupnp_strrtrim(value, CG_HTTP_HEADERLINE_DELIM, mupnp_strlen(CG_HTTP_HEADERLINE_DELIM));
+			mupnp_strrtrim(value, MUPNP_HTTP_HEADERLINE_DELIM, mupnp_strlen(MUPNP_HTTP_HEADERLINE_DELIM));
 		}
 		if (0 < mupnp_strlen(name)) {
 			if (mupnp_strlen(value) == 0)
@@ -478,7 +478,7 @@ BOOL mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, ch
 		mupnp_http_packet_setcontentpointer(httpPkt, content, readLen);
 	}
 	else if (mupnp_http_packet_getheadervalue(httpPkt, 
-					CG_HTTP_CONTENT_LENGTH) == NULL)
+					MUPNP_HTTP_CONTENT_LENGTH) == NULL)
 	{
 		/* header existance must be checked! otherwise packets which
 		   rightly report 0 as content length, will jam the http */
@@ -548,12 +548,12 @@ size_t mupnp_http_packet_getheadersize(mUpnpHttpPacket *httpPkt)
 		name = mupnp_http_header_getname(header);
 		value = mupnp_http_header_getvalue(header);
 		headerSize += mupnp_strlen(name); 
-		headerSize += sizeof(CG_HTTP_COLON)-1; 
-		headerSize += sizeof(CG_HTTP_SP)-1; 
+		headerSize += sizeof(MUPNP_HTTP_COLON)-1; 
+		headerSize += sizeof(MUPNP_HTTP_SP)-1; 
 		headerSize += mupnp_strlen(value); 
-		headerSize += sizeof(CG_HTTP_CRLF)-1; 
+		headerSize += sizeof(MUPNP_HTTP_CRLF)-1; 
 	}
-	headerSize += sizeof(CG_HTTP_CRLF)-1; 
+	headerSize += sizeof(MUPNP_HTTP_CRLF)-1; 
 
 	mupnp_log_debug_l4("Leaving...\n");
 

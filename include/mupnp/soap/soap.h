@@ -24,31 +24,31 @@ extern "C" {
 * Define
 ****************************************/
 
-#define CG_SOAP_VERSION_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+#define MUPNP_SOAP_VERSION_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
 
-#define CG_HTTP_SOAP_ACTION "SOAPACTION"
-#define CG_HTTP_SOAP_URN_DELIM ":"
+#define MUPNP_HTTP_SOAP_ACTION "SOAPACTION"
+#define MUPNP_HTTP_SOAP_URN_DELIM ":"
 
-#define CG_SOAP_ENVELOPE "Envelope"
-#define CG_SOAP_BODY "Body"
-#define CG_SOAP_RESPONSE "Response"
-#define CG_SOAP_FAULT "Fault"
-#define CG_SOAP_FAULT_CODE "faultcode"
-#define CG_SOAP_FAULT_STRING "faultstring"
-#define CG_SOAP_FAULTACTOR "faultactor"
-#define CG_SOAP_DETAIL "detail"
+#define MUPNP_SOAP_ENVELOPE "Envelope"
+#define MUPNP_SOAP_BODY "Body"
+#define MUPNP_SOAP_RESPONSE "Response"
+#define MUPNP_SOAP_FAULT "Fault"
+#define MUPNP_SOAP_FAULT_CODE "faultcode"
+#define MUPNP_SOAP_FAULT_STRING "faultstring"
+#define MUPNP_SOAP_FAULTACTOR "faultactor"
+#define MUPNP_SOAP_DETAIL "detail"
 
-#define CG_SOAP_ATTRIBUTE_XMLNS "xmlns"
+#define MUPNP_SOAP_ATTRIBUTE_XMLNS "xmlns"
 
-#define CG_SOAP_XMLNS "s"
-#define CG_SOAP_METHODNS "u"
-#define CG_SOAP_DELIM ":"
+#define MUPNP_SOAP_XMLNS "s"
+#define MUPNP_SOAP_METHODNS "u"
+#define MUPNP_SOAP_DELIM ":"
 
-#define CG_SOAP_XMLNS_URL "http://schemas.xmlsoap.org/soap/envelope/"
-#define CG_SOAP_ENCSTYLE_URL "http://schemas.xmlsoap.org/soap/encoding/"
+#define MUPNP_SOAP_XMLNS_URL "http://schemas.xmlsoap.org/soap/envelope/"
+#define MUPNP_SOAP_ENCSTYLE_URL "http://schemas.xmlsoap.org/soap/encoding/"
 	
-#define CG_SOAP_CONTENT_TYPE "text/xml; charset=\"utf-8\""
-#define CG_SOAP_ENCORDING "encodingStyle"
+#define MUPNP_SOAP_CONTENT_TYPE "text/xml; charset=\"utf-8\""
+#define MUPNP_SOAP_ENCORDING "encodingStyle"
 
 /****************************************
 * Data Type
@@ -80,9 +80,9 @@ void mupnp_soap_request_clear(mUpnpSoapRequest *soapReq);
 BOOL mupnp_soap_request_sethttprequest(mUpnpSoapRequest *soapReq, mUpnpHttpRequest *httpReq);
 #define mupnp_soap_request_gethttprequest(soapReq) (soapReq->httpReq)
 
-#define mupnp_soap_request_setsoapaction(soapReq, name) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SOAP_ACTION, name)
-#define mupnp_soap_request_getsoapaction(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SOAP_ACTION)
-#define mupnp_soap_request_getsoapactionwithns(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SOAP_ACTION_WITH_NS)
+#define mupnp_soap_request_setsoapaction(soapReq, name) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SOAP_ACTION, name)
+#define mupnp_soap_request_getsoapaction(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SOAP_ACTION)
+#define mupnp_soap_request_getsoapactionwithns(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SOAP_ACTION_WITH_NS)
 
 BOOL mupnp_soap_request_parsemessage(mUpnpSoapRequest *soapReq, char *msg, size_t msgLen);
 mUpnpSoapResponse *mupnp_soap_request_post(mUpnpSoapRequest *soapReq, const char *ipaddr, int port);

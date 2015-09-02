@@ -27,12 +27,12 @@
 #if (defined(WIN32) || defined(__CYGWIN__)) && !defined (ITRON)
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 #pragma comment(lib, "libeay32MD.lib")
 #pragma comment(lib, "ssleay32MD.lib")
 #endif
 #else
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 #include <typedef.h>
 #include <net/sock_com.h>
 #include <btron/bsocket.h>
@@ -42,7 +42,7 @@
 	#if defined(NORTiAPI)
 	#include <nonet.h>
 	#endif
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 #include <tk/tkernel.h>
 #include <btron/kasago.h>
 #include <sys/svc/ifkasago.h>
@@ -69,11 +69,11 @@
 
 static int socketCnt = 0;
 
-#if defined(CG_NET_USE_SOCKET_LIST)
+#if defined(MUPNP_NET_USE_SOCKET_LIST)
 static mUpnpSocketList *socketList;
 #endif
 
-#if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 ttUserInterface kaInterfaceHandle;
 #endif
 
@@ -89,17 +89,17 @@ BOOL mupnp_socket_tosockaddrin(const char *addr, int port, struct sockaddr_in *s
 BOOL mupnp_socket_tosockaddrinfo(int sockType, const char *addr, int port, struct addrinfo **addrInfo, BOOL isBindAddr);
 #endif
 
-#define mupnp_socket_getrawtype(socket) (((socket->type & CG_NET_SOCKET_STREAM) == CG_NET_SOCKET_STREAM) ? SOCK_STREAM : SOCK_DGRAM)
+#define mupnp_socket_getrawtype(socket) (((socket->type & MUPNP_NET_SOCKET_STREAM) == MUPNP_NET_SOCKET_STREAM) ? SOCK_STREAM : SOCK_DGRAM)
 
-#if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
-#define mupnp_socket_getprototype(socket) ((socket->type == CG_NET_SOCKET_STREAM) ? IPPROTO_TCP : IPPROTO_UDP)
+#if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
+#define mupnp_socket_getprototype(socket) ((socket->type == MUPNP_NET_SOCKET_STREAM) ? IPPROTO_TCP : IPPROTO_UDP)
 #endif
 
-#if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 BOOL mupnp_socket_setmulticastinterface(mUpnpSocket *sock, char *ifaddr);
 #endif
 
-#if defined(CG_NET_USE_SOCKET_LIST)
+#if defined(MUPNP_NET_USE_SOCKET_LIST)
 static int mupnp_socket_getavailableid(int type);
 static int mupnp_socket_getavailableport();
 #endif
@@ -153,8 +153,8 @@ void mupnp_socket_startup()
 #endif // WINCE
 #elif defined(ITRON) && defined(NORTiAPI)
 		tcp_ini();
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
-		kaInterfaceHandle = ka_tfAddInterface(CG_NET_DEFAULT_IFNAME);
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
+		kaInterfaceHandle = ka_tfAddInterface(MUPNP_NET_DEFAULT_IFNAME);
 #endif
 
 #if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
@@ -162,11 +162,11 @@ void mupnp_socket_startup()
 		signal(SIGPIPE,SIG_IGN);
 #endif
 
-#if defined(CG_NET_USE_SOCKET_LIST)
+#if defined(MUPNP_NET_USE_SOCKET_LIST)
 		socketList = mupnp_socketlist_new();
 #endif	
 
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 		SSL_library_init(); 
 #endif
 	}
@@ -194,7 +194,7 @@ void mupnp_socket_cleanup()
 		signal(SIGPIPE,SIG_DFL);
 #endif
 
-#if defined(CG_NET_USE_SOCKET_LIST)
+#if defined(MUPNP_NET_USE_SOCKET_LIST)
 		mupnp_socketlist_delete(socketList);
 #endif
 	}
@@ -225,7 +225,7 @@ mUpnpSocket *mupnp_socket_new(int type)
 #endif
 
 		mupnp_socket_settype(sock, type);
-		mupnp_socket_setdirection(sock, CG_NET_SOCKET_NONE);
+		mupnp_socket_setdirection(sock, MUPNP_NET_SOCKET_NONE);
 
 		sock->ipaddr = mupnp_string_new();
 
@@ -237,7 +237,7 @@ mUpnpSocket *mupnp_socket_new(int type)
 		sock->recvWinBuf = NULL;
 #endif
 
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 		sock->ctx = NULL;
 		sock->ssl = NULL;
 #endif
@@ -301,7 +301,7 @@ void mupnp_socket_setid(mUpnpSocket *socket, SOCKET value)
 	socket->id=value;
 
 #if defined(WIN32) || defined(HAVE_IP_PKTINFO)
-	if ( CG_NET_SOCKET_DGRAM == mupnp_socket_gettype(socket) ) 
+	if ( MUPNP_NET_SOCKET_DGRAM == mupnp_socket_gettype(socket) ) 
 		setsockopt(socket->id, IPPROTO_IP, IP_PKTINFO,  &on, sizeof(on));
 #endif
 
@@ -323,7 +323,7 @@ BOOL mupnp_socket_close(mUpnpSocket *sock)
 	if (mupnp_socket_isbound(sock) == FALSE)
 		return TRUE;
 
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 	if (mupnp_socket_isssl(sock) == TRUE) {
 		if (sock->ctx) {
 			SSL_shutdown(sock->ssl); 
@@ -364,10 +364,10 @@ BOOL mupnp_socket_close(mUpnpSocket *sock)
 	sock->id = -1;
 	#endif
 #else
-	#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+	#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	so_shutdown(sock->id, 2);
 	so_close(sock->id);
-	#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+	#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	ka_tfClose(sock->id);
 	#elif defined(ITRON)
 	if (mupnp_socket_issocketstream(sock) == TRUE) {
@@ -405,9 +405,9 @@ BOOL mupnp_socket_close(mUpnpSocket *sock)
 
 BOOL mupnp_socket_listen(mUpnpSocket *sock)
 {
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	ERR ret = so_listen(sock->id, 10);
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	ERR ret = ka_listen(sock->id, 10);
 #elif defined(ITRON)
 	/**** Not Supported ****/
@@ -435,7 +435,7 @@ BOOL mupnp_socket_bind(mUpnpSocket *sock, int bindPort, const char *bindAddr, BO
 #elif defined(ITRON)
 	T_UDP_CCEP udpccep = { 0, { IPV4_ADDRANY, UDP_PORTANY }, (FP)mupnp_socket_udp_callback };
 	T_TCP_CREP tcpcrep = { 0, { IPV4_ADDRANY, 0 } };
-	T_TCP_CCEP tcpccep = { 0, sock->sendWinBuf, CG_NET_SOCKET_WINDOW_BUFSIZE, sock->recvWinBuf, CG_NET_SOCKET_WINDOW_BUFSIZE, (FP)mupnp_socket_tcp_callback };
+	T_TCP_CCEP tcpccep = { 0, sock->sendWinBuf, MUPNP_NET_SOCKET_WINDOW_BUFSIZE, sock->recvWinBuf, MUPNP_NET_SOCKET_WINDOW_BUFSIZE, (FP)mupnp_socket_tcp_callback };
 #else
 	struct addrinfo *addrInfo;
 	int ret;
@@ -446,7 +446,7 @@ BOOL mupnp_socket_bind(mUpnpSocket *sock, int bindPort, const char *bindAddr, BO
 	if (bindPort <= 0 /* || bindAddr == NULL*/)
 		return FALSE;
 
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	if (mupnp_socket_tosockaddrin(bindAddr, bindPort, &sockaddr, bindFlag) == FALSE)
 		return FALSE;
    	mupnp_socket_setid(sock, so_socket(PF_INET, mupnp_socket_getrawtype(sock), 0));
@@ -463,7 +463,7 @@ BOOL mupnp_socket_bind(mUpnpSocket *sock, int bindPort, const char *bindAddr, BO
 		mupnp_socket_close(sock);
 		return FALSE;
 	}
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	if (mupnp_socket_tosockaddrin(bindAddr, bindPort, &sockaddr, bindFlag) == FALSE)
 		return FALSE;
 	mupnp_socket_setid(sock, ka_socket( PF_INET, mupnp_socket_getrawtype(sock), mupnp_socket_getprototype(sock)));
@@ -533,7 +533,7 @@ BOOL mupnp_socket_bind(mUpnpSocket *sock, int bindPort, const char *bindAddr, BO
 		return FALSE;
 #endif
 
-	mupnp_socket_setdirection(sock, CG_NET_SOCKET_SERVER);
+	mupnp_socket_setdirection(sock, MUPNP_NET_SOCKET_SERVER);
 	mupnp_socket_setaddress(sock, bindAddr);
 	mupnp_socket_setport(sock, bindPort);
 
@@ -550,13 +550,13 @@ BOOL mupnp_socket_accept(mUpnpSocket *serverSock, mUpnpSocket *clientSock)
 {
 	struct sockaddr_in sockaddr;
 	socklen_t socklen;
-	char localAddr[CG_NET_SOCKET_MAXHOST];
-	char localPort[CG_NET_SOCKET_MAXSERV];
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+	char localAddr[MUPNP_NET_SOCKET_MAXHOST];
+	char localPort[MUPNP_NET_SOCKET_MAXSERV];
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	struct sockaddr_in sockaddr;
 	W nLength = sizeof(struct sockaddr_in);
 	mupnp_socket_setid(clientSock, so_accept(serverSock->id, (SOCKADDR *)&sockaddr, &nLength));
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	struct sockaddr_in sockaddr;
 	int nLength = sizeof(struct sockaddr_in);
 	mupnp_socket_setid(clientSock, ka_accept(serverSock->id, (struct sockaddr *)&sockaddr, &nLength));
@@ -614,7 +614,7 @@ mupnp_log_debug_s("clientSock->id = %d\n", mupnp_socket_getport(clientSock));
 
 BOOL mupnp_socket_connect(mUpnpSocket *sock, const char *addr, int port)
 {
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	ERR ret;
 	struct sockaddr_in sockaddr;
 	if (mupnp_socket_tosockaddrin(addr, port, &sockaddr, TRUE) == FALSE)
@@ -622,7 +622,7 @@ BOOL mupnp_socket_connect(mUpnpSocket *sock, const char *addr, int port)
 	if (mupnp_socket_isbound(sock) == FALSE)
 	   	mupnp_socket_setid(sock, so_socket(PF_INET, mupnp_socket_getrawtype(sock), 0));
 	ret = so_connect(sock->id, (SOCKADDR *)&sockaddr, sizeof(struct sockaddr_in));
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	ERR ret;
 	struct sockaddr_in sockaddr;
 	if (mupnp_socket_tosockaddrin(addr, port, &sockaddr, TRUE) == FALSE)
@@ -631,7 +631,7 @@ BOOL mupnp_socket_connect(mUpnpSocket *sock, const char *addr, int port)
 	   	mupnp_socket_setid(sock, ka_socket(PF_INET, mupnp_socket_getrawtype(sock), mupnp_socket_getprototype(sock)));
 	ret = ka_connect(sock->id, (struct sockaddr *)&sockaddr, sizeof(struct sockaddr_in));
 #elif defined(ITRON)
-	T_TCP_CCEP tcpccep = { 0, sock->sendWinBuf, CG_NET_SOCKET_WINDOW_BUFSIZE, sock->recvWinBuf, CG_NET_SOCKET_WINDOW_BUFSIZE, (FP)mupnp_socket_tcp_callback };
+	T_TCP_CCEP tcpccep = { 0, sock->sendWinBuf, MUPNP_NET_SOCKET_WINDOW_BUFSIZE, sock->recvWinBuf, MUPNP_NET_SOCKET_WINDOW_BUFSIZE, (FP)mupnp_socket_tcp_callback };
 	T_IPV4EP localAddr;
 	T_IPV4EP dstAddr;
 	ER ret;
@@ -666,9 +666,9 @@ BOOL mupnp_socket_connect(mUpnpSocket *sock, const char *addr, int port)
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_socket_setdirection(sock, CG_NET_SOCKET_CLIENT);
+	mupnp_socket_setdirection(sock, MUPNP_NET_SOCKET_CLIENT);
 
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 	if (mupnp_socket_isssl(sock) == TRUE) {
 		sock->ctx = SSL_CTX_new( SSLv23_client_method());
 		sock->ssl = SSL_new(sock->ctx);
@@ -696,13 +696,13 @@ ssize_t mupnp_socket_read(mUpnpSocket *sock, char *buffer, size_t bufferLen)
 {
 	ssize_t recvLen;
 
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 	if (mupnp_socket_isssl(sock) == FALSE) {
 #endif
 
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	recvLen = so_recv(sock->id, buffer, bufferLen, 0);
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	recvLen = ka_recv(sock->id, buffer, bufferLen, 0);
 #elif defined(ITRON)
 	recvLen = tcp_rcv_dat(sock->id, buffer, bufferLen, TMO_FEVR);
@@ -710,7 +710,7 @@ ssize_t mupnp_socket_read(mUpnpSocket *sock, char *buffer, size_t bufferLen)
 	recvLen = recv(sock->id, buffer, bufferLen, 0);
 #endif
 
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 	}
 	else {
 		recvLen = SSL_read(sock->ssl, buffer, bufferLen);
@@ -734,8 +734,8 @@ ssize_t mupnp_socket_read(mUpnpSocket *sock, char *buffer, size_t bufferLen)
 * mupnp_socket_write
 ****************************************/
 
-#define CG_NET_SOCKET_SEND_RETRY_CNT 10
-#define CG_NET_SOCKET_SEND_RETRY_WAIT_MSEC 20
+#define MUPNP_NET_SOCKET_SEND_RETRY_CNT 10
+#define MUPNP_NET_SOCKET_SEND_RETRY_WAIT_MSEC 20
 
 size_t mupnp_socket_write(mUpnpSocket *sock, const char *cmd, size_t cmdLen)
 {
@@ -750,13 +750,13 @@ size_t mupnp_socket_write(mUpnpSocket *sock, const char *cmd, size_t cmdLen)
 		return 0;
 
 	do {
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 		if (mupnp_socket_isssl(sock) == FALSE) {
 #endif
 
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 		nSent = so_send(sock->id, (B*)(cmd + cmdPos), cmdLen, 0);
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 		nSent = ka_send(sock->id, (B*)(cmd + cmdPos), cmdLen, 0);
 #elif defined(ITRON)
 		nSent = tcp_snd_dat(sock->id, cmd + cmdPos, cmdLen, TMO_FEVR);
@@ -764,7 +764,7 @@ size_t mupnp_socket_write(mUpnpSocket *sock, const char *cmd, size_t cmdLen)
 		nSent = send(sock->id, cmd + cmdPos, cmdLen, 0);
 #endif
 			
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 		}
 		else {
 			nSent = SSL_write(sock->ssl, cmd + cmdPos, cmdLen);
@@ -775,7 +775,7 @@ size_t mupnp_socket_write(mUpnpSocket *sock, const char *cmd, size_t cmdLen)
 		if (nSent <= 0)
 		{
 			retryCnt++;
-			if (CG_NET_SOCKET_SEND_RETRY_CNT < retryCnt)
+			if (MUPNP_NET_SOCKET_SEND_RETRY_CNT < retryCnt)
 			{
 				/* Must reset this because otherwise return
 				   value is interpreted as something else than
@@ -784,7 +784,7 @@ size_t mupnp_socket_write(mUpnpSocket *sock, const char *cmd, size_t cmdLen)
 				break;
 			}
 
-			mupnp_wait(CG_NET_SOCKET_SEND_RETRY_WAIT_MSEC);
+			mupnp_wait(MUPNP_NET_SOCKET_SEND_RETRY_WAIT_MSEC);
 		}
 		else
 		{
@@ -822,16 +822,16 @@ ssize_t mupnp_socket_readline(mUpnpSocket *sock, char *buffer, size_t bufferLen)
 		if (readLen <= 0)
 			return -1;
 		readCnt++;
-		if (buffer[readCnt-1] == CG_SOCKET_LF)
+		if (buffer[readCnt-1] == MUPNP_SOCKET_LF)
 			break;
 	}
 	buffer[readCnt] = '\0';
-	if (buffer[readCnt-1] != CG_SOCKET_LF) {
+	if (buffer[readCnt-1] != MUPNP_SOCKET_LF) {
 		do {
 			readLen = mupnp_socket_read(sock, &c, sizeof(char));
 			if (readLen <= 0)
 				break;
-		} while (c != CG_SOCKET_LF);
+		} while (c != MUPNP_SOCKET_LF);
 	}
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -892,14 +892,14 @@ size_t mupnp_socket_sendto(mUpnpSocket *sock, const char *addr, int port, const 
 
 	isBoundFlag = mupnp_socket_isbound(sock);
 	sentLen = -1;
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	if (mupnp_socket_tosockaddrin(addr, port, &sockaddr, TRUE) == FALSE)
 		return -1;
 	if (isBoundFlag == FALSE)
 	   	mupnp_socket_setid(sock, so_socket(PF_INET, mupnp_socket_getrawtype(sock), 0));
 	if (0 <= sock->id)
 		sentLen = so_sendto(sock->id, (B*)data, dataLen, 0, (SOCKADDR*)&sockaddr, sizeof(struct sockaddr_in));
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	if (mupnp_socket_tosockaddrin(addr, port, &sockaddr, TRUE) == FALSE)
 		return -1;
 	if (isBoundFlag == FALSE) {
@@ -926,7 +926,7 @@ size_t mupnp_socket_sendto(mUpnpSocket *sock, const char *addr, int port, const 
 		mupnp_socket_setid(sock, socket(addrInfo->ai_family, addrInfo->ai_socktype, 0));
 	
 	/* Setting multicast time to live in any case to default */
-	mupnp_socket_setmulticastttl(sock, CG_NET_SOCKET_MULTICAST_DEFAULT_TTL);
+	mupnp_socket_setmulticastttl(sock, MUPNP_NET_SOCKET_MULTICAST_DEFAULT_TTL);
 	
 	if (0 <= sock->id)
 		sentLen = sendto(sock->id, data, dataLen, 0, addrInfo->ai_addr, addrInfo->ai_addrlen);
@@ -952,16 +952,16 @@ mupnp_log_debug_s("sentLen : %d\n", sentLen);
 ssize_t mupnp_socket_recv(mUpnpSocket *sock, mUpnpDatagramPacket *dgmPkt)
 {
 	ssize_t recvLen = 0;
-	char recvBuf[CG_NET_SOCKET_DGRAM_RECV_BUFSIZE+1];
-	char remoteAddr[CG_NET_SOCKET_MAXHOST];
-	char remotePort[CG_NET_SOCKET_MAXSERV];
+	char recvBuf[MUPNP_NET_SOCKET_DGRAM_RECV_BUFSIZE+1];
+	char remoteAddr[MUPNP_NET_SOCKET_MAXHOST];
+	char remotePort[MUPNP_NET_SOCKET_MAXSERV];
 	char *localAddr;
 
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	struct sockaddr_in from;
 	W fromLen = sizeof(from);
 	recvLen = so_recvfrom(sock->id, recvBuf, sizeof(recvBuf)-1, 0, (struct sockaddr *)&from, &fromLen);
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	struct sockaddr_in from;
 	int fromLen = sizeof(from);
 	recvLen = ka_recvfrom(sock->id, recvBuf, sizeof(recvBuf)-1, 0, (struct sockaddr *)&from, &fromLen);
@@ -986,11 +986,11 @@ ssize_t mupnp_socket_recv(mUpnpSocket *sock, mUpnpDatagramPacket *dgmPkt)
 	mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, "");
 	mupnp_socket_datagram_packet_setremoteport(dgmPkt, 0);
 
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	mupnp_socket_datagram_packet_setlocaladdress(dgmPkt, mupnp_socket_getaddress(sock));
 	mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, inet_ntoa(from.sin_addr));
 	mupnp_socket_datagram_packet_setremoteport(dgmPkt, ntohl(from.sin_port));
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	mupnp_socket_datagram_packet_setlocaladdress(dgmPkt, mupnp_socket_getaddress(sock));
 	ka_tfInetToAscii((unsigned long)from.sin_addr.s_addr, remoteAddr);
 	mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, remoteAddr);
@@ -1026,9 +1026,9 @@ ssize_t mupnp_socket_recv(mUpnpSocket *sock, mUpnpDatagramPacket *dgmPkt)
 BOOL mupnp_socket_setreuseaddress(mUpnpSocket *sock, BOOL flag)
 {
 	int sockOptRet;
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	B optval
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	int optval;
 #elif defined (WIN32)
 	BOOL optval;
@@ -1038,10 +1038,10 @@ BOOL mupnp_socket_setreuseaddress(mUpnpSocket *sock, BOOL flag)
 
 	mupnp_log_debug_l4("Entering...\n");
 
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	optval = (flag == TRUE) ? 1 : 0;
 	sockOptRet = so_setsockopt(sock->id, SOL_SOCKET, SO_REUSEADDR, (B *)&optval, sizeof(optval));
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	optval = (flag == TRUE) ? 1 : 0;
 	sockOptRet = ka_setsockopt(sock->id, SOL_SOCKET, SO_REUSEADDR, (const char *)&optval, sizeof(optval));
 #elif defined (ITRON)
@@ -1076,9 +1076,9 @@ BOOL mupnp_socket_setmulticastttl(mUpnpSocket *sock, int ttl)
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	sockOptRet = so_setsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_TTL, (B *)&ttl, sizeof(ttl));
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	sockOptRet = ka_setsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_TTL, (const char *)&ttl, sizeof(ttl));
 #elif defined (ITRON)
 	/**** Not Implemented for NORTi ***/
@@ -1111,9 +1111,9 @@ BOOL mupnp_socket_setmulticastttl(mUpnpSocket *sock, int ttl)
 BOOL mupnp_socket_settimeout(mUpnpSocket *sock, int sec)
 {
 	int sockOptRet;
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 	sockOptRet = -1; /* TODO: Implement this */
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	sockOptRet = -1; /* TODO: Implement this */
 #elif defined (ITRON)
 	/**** Not Implemented for NORTi ***/
@@ -1149,7 +1149,7 @@ BOOL mupnp_socket_settimeout(mUpnpSocket *sock, int sec)
 * mupnp_socket_joingroup
 ****************************************/
 
-#if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 
 BOOL mupnp_socket_joingroup(mUpnpSocket *sock, const char *mcastAddr, const char *ifAddr)
 {
@@ -1177,7 +1177,7 @@ BOOL mupnp_socket_joingroup(mUpnpSocket *sock, const char *mcastAddr, const char
 	return joinSuccess;
 }
 
-#elif defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#elif defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 
 BOOL mupnp_socket_joingroup(mUpnpSocket *sock, char *mcastAddr, char *ifAddr)
 {
@@ -1296,7 +1296,7 @@ BOOL mupnp_socket_tosockaddrin(const char *addr, int port, struct sockaddr_in *s
 
 	memset(sockaddr, 0, sizeof(struct sockaddr_in));
 
-#if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	sockaddr->sin_family = AF_INET;
 	sockaddr->sin_addr.s_addr = ka_htonl(INADDR_ANY);
 	sockaddr->sin_port = ka_htons((unsigned short)port);
@@ -1307,7 +1307,7 @@ BOOL mupnp_socket_tosockaddrin(const char *addr, int port, struct sockaddr_in *s
 #endif
 
 	if (isBindAddr == TRUE) {
-#if defined(BTRON) || (defined(TENGINE) && !defined(CG_TENGINE_NET_KASAGO))
+#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 		sockaddr->sin_addr.s_addr = inet_addr(addr);
 		if (sockaddr->sin_addr.s_addr == -1 /*INADDR_NONE*/) {
 			struct hostent hent;
@@ -1316,7 +1316,7 @@ BOOL mupnp_socket_tosockaddrin(const char *addr, int port, struct sockaddr_in *s
 				return FALSE;
 			memcpy(&(sockaddr->sin_addr), hent.h_addr, hent.h_length);
 		}
-#elif defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 		sockaddr->sin_addr.s_addr = ka_inet_addr(addr);
 #else
 		sockaddr->sin_addr.s_addr = inet_addr(addr);
@@ -1343,7 +1343,7 @@ BOOL mupnp_socket_tosockaddrin(const char *addr, int port, struct sockaddr_in *s
 
 BOOL mupnp_socket_tosockaddrinfo(int sockType, const char *addr, int port, struct addrinfo **addrInfo, BOOL isBindAddr)
 {
-#if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	struct addrinfo hints;
 	char portStr[32];
 #else
@@ -1356,7 +1356,7 @@ BOOL mupnp_socket_tosockaddrinfo(int sockType, const char *addr, int port, struc
 
 	mupnp_socket_startup();
 
-#if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 	memset(&hints, 0, sizeof(struct addrinfo));
 	hints.ai_socktype = sockType;
 	hints.ai_flags= 0; /*AI_NUMERICHOST | AI_PASSIVE*/;
@@ -1404,7 +1404,7 @@ BOOL mupnp_socket_tosockaddrinfo(int sockType, const char *addr, int port, struc
 * mupnp_socket_setmulticastinterface
 ****************************************/
 
-#if defined(TENGINE) && defined(CG_TENGINE_NET_KASAGO)
+#if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 
 BOOL mupnp_socket_setmulticastinterface(mUpnpSocket *sock, char *ifaddr)
 {
@@ -1450,7 +1450,7 @@ BOOL mupnp_socket_setmulticastinterface(mUpnpSocket *sock, char *ifaddr)
 * mupnp_socket_getavailableid
 ****************************************/
 
-#if defined(CG_NET_USE_SOCKET_LIST)
+#if defined(MUPNP_NET_USE_SOCKET_LIST)
 
 static int mupnp_socket_getavailableid(int type)
 {
@@ -1485,9 +1485,9 @@ static int mupnp_socket_getavailableid(int type)
 * mupnp_socket_getavailableid
 ****************************************/
 
-#if defined(CG_NET_USE_SOCKET_LIST)
+#if defined(MUPNP_NET_USE_SOCKET_LIST)
 
-#define CG_NET_SOCKET_MIN_SOCKET_PORT 50000
+#define MUPNP_NET_SOCKET_MIN_SOCKET_PORT 50000
 
 static int mupnp_socket_getavailableport()
 {
@@ -1497,7 +1497,7 @@ static int mupnp_socket_getavailableport()
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	port = CG_NET_SOCKET_MIN_SOCKET_PORT - 1;
+	port = MUPNP_NET_SOCKET_MIN_SOCKET_PORT - 1;
 	do {
 		port++;
 		isPortUsed = FALSE;
@@ -1527,9 +1527,9 @@ BOOL mupnp_socket_initwindowbuffer(mUpnpSocket *sock)
 	mupnp_log_debug_l4("Entering...\n");
 
 	if (sock->sendWinBuf == NULL)
-		sock->sendWinBuf = (char *)malloc(sizeof(UH) * CG_NET_SOCKET_WINDOW_BUFSIZE);
+		sock->sendWinBuf = (char *)malloc(sizeof(UH) * MUPNP_NET_SOCKET_WINDOW_BUFSIZE);
 	if (sock->sendWinBuf == NULL)
-		sock->recvWinBuf = (char *)malloc(sizeof(UH) * CG_NET_SOCKET_WINDOW_BUFSIZE);
+		sock->recvWinBuf = (char *)malloc(sizeof(UH) * MUPNP_NET_SOCKET_WINDOW_BUFSIZE);
 	
 	mupnp_log_debug_l4("Leaving...\n");
 

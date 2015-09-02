@@ -25,26 +25,26 @@ extern "C" {
 * Define
 ****************************************/
 
-#define CG_NET_URI_KNKOWN_PORT (-1)
-#define CG_NET_URI_DEFAULT_HTTP_PORT 80
-#define CG_NET_URI_DEFAULT_FTP_PORT 21
-#define CG_NET_URI_DEFAULT_PATH "/"
-#define CG_NET_URI_MAXLEN 256
+#define MUPNP_NET_URI_KNKOWN_PORT (-1)
+#define MUPNP_NET_URI_DEFAULT_HTTP_PORT 80
+#define MUPNP_NET_URI_DEFAULT_FTP_PORT 21
+#define MUPNP_NET_URI_DEFAULT_PATH "/"
+#define MUPNP_NET_URI_MAXLEN 256
 
-#define CG_NET_URI_PROTOCOL_DELIM "://"
-#define CG_NET_URI_USER_DELIM "@"
-#define CG_NET_URI_COLON_DELIM ":"
-#define CG_NET_URI_SLASH_DELIM "/"
-#define CG_NET_URI_SBLACET_DELIM "["
-#define CG_NET_URI_EBLACET_DELIM "]"
-#define CG_NET_URI_SHARP_DELIM "#"
-#define CG_NET_URI_QUESTION_DELIM "?"
-#define CG_NET_URI_ESCAPING_CHAR "%"
-#define CG_NET_URI_AMP_DELIM "&"
-#define CG_NET_URI_EQ_DELIM "="
+#define MUPNP_NET_URI_PROTOCOL_DELIM "://"
+#define MUPNP_NET_URI_USER_DELIM "@"
+#define MUPNP_NET_URI_COLON_DELIM ":"
+#define MUPNP_NET_URI_SLASH_DELIM "/"
+#define MUPNP_NET_URI_SBLACET_DELIM "["
+#define MUPNP_NET_URI_EBLACET_DELIM "]"
+#define MUPNP_NET_URI_SHARP_DELIM "#"
+#define MUPNP_NET_URI_QUESTION_DELIM "?"
+#define MUPNP_NET_URI_ESCAPING_CHAR "%"
+#define MUPNP_NET_URI_AMP_DELIM "&"
+#define MUPNP_NET_URI_EQ_DELIM "="
 
-#define CG_NET_URI_PROTOCOL_HTTP "http"
-#define CG_NET_URI_PROTOCOL_FTP "ftp"
+#define MUPNP_NET_URI_PROTOCOL_HTTP "http"
+#define MUPNP_NET_URI_PROTOCOL_FTP "ftp"
 
 /****************************************
 * Data Type
@@ -112,7 +112,7 @@ char *mupnp_net_uri_getupnpbasepath(mUpnpNetURI *locationURL);
 #define mupnp_net_uri_hasfragment(urip) ((0 < mupnp_string_length(urip->fragment)) ? TRUE : FALSE)
 #define mupnp_net_uri_hasrequest(urip) mupnp_net_uri_haspath(urip)
 
-#define mupnp_net_uri_ishttpprotocol(urip) mupnp_streq(mupnp_string_getvalue(urip->protocol), CG_NET_URI_PROTOCOL_HTTP)
+#define mupnp_net_uri_ishttpprotocol(urip) mupnp_streq(mupnp_string_getvalue(urip->protocol), MUPNP_NET_URI_PROTOCOL_HTTP)
 
 #define mupnp_net_uri_isabsolute(urip) mupnp_net_uri_hasprotocol(urip)
 #define mupnp_net_uri_isabsolutepath(uripath) (( *uripath == '/' ) ? TRUE : FALSE )

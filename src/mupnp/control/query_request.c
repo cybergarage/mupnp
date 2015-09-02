@@ -172,11 +172,11 @@ mUpnpXmlNode *mupnp_control_query_request_cratestatevariablenode(mUpnpStateVaria
 	mupnp_log_debug_l4("Entering...\n");
 
 	queryVarNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(queryVarNode, MUPNP_CONTROL_NS  CG_SOAP_DELIM MUPNP_CONTROL_QUERY_STATE_VARIABLE);
+	mupnp_xml_node_setname(queryVarNode, MUPNP_CONTROL_NS  MUPNP_SOAP_DELIM MUPNP_CONTROL_QUERY_STATE_VARIABLE);
 	mupnp_xml_node_setnamespace(queryVarNode, MUPNP_CONTROL_NS, MUPNP_CONTROL_XMLNS);
 	
 	varNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(varNode, MUPNP_CONTROL_NS CG_SOAP_DELIM MUPNP_CONTROL_VAR_NAME);
+	mupnp_xml_node_setname(varNode, MUPNP_CONTROL_NS MUPNP_SOAP_DELIM MUPNP_CONTROL_VAR_NAME);
 	mupnp_xml_node_setvalue(varNode, mupnp_statevariable_getname(statVar));
 	
 	mupnp_xml_node_addchildnode(queryVarNode, varNode);

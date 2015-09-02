@@ -75,7 +75,7 @@ BOOL mupnp_ssdpresponse_serverlist_open(mUpnpSSDPResponseServerList *ssdpServerL
 	mupnp_log_debug_l4("Entering...\n");
 
 	netIfList = mupnp_net_interfacelist_new();
-#ifndef CG_NET_USE_ANYADDR
+#ifndef MUPNP_NET_USE_ANYADDR
 	mupnp_net_gethostinterfaces(netIfList);
 #else
 	netIf = mupnp_net_interface_getany();

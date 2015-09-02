@@ -165,7 +165,7 @@ char *mupnp_control_action_request_getactionname(mUpnpActionRequest *actionReq)
 	if (name == NULL)
 		return "";	
 		
-	urnDelimIdx = mupnp_strstr(name, CG_HTTP_SOAP_URN_DELIM);
+	urnDelimIdx = mupnp_strstr(name, MUPNP_HTTP_SOAP_URN_DELIM);
 	if (urnDelimIdx < 0)
 		return "";
 		

@@ -19,7 +19,7 @@
 * Compiler Switch (BEGIN)
 ****************************************/
 
-#if defined(CG_XMLPARSER_LIBXML2) || (!defined(HAVE_CONFIG_H) && defined(TARGET_OS_IPHONE))
+#if defined(MUPNP_XMLPARSER_LIBXML2) || (!defined(HAVE_CONFIG_H) && defined(TARGET_OS_IPHONE))
 
 /****************************************
 * Header Files
@@ -31,7 +31,7 @@
 #include <libxml/tree.h>
 #include <libxml/parserInternals.h>
 
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 #include <sys/time.h>
 #include <time.h>
 
@@ -299,11 +299,11 @@ BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const c
 
 	mUpnpLibxml2Data libxml2Data;
 	int retval;
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
 #endif
 	
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 	gettimeofday(&start_time, NULL);
 #endif
 
@@ -352,7 +352,7 @@ BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const c
 
 	mupnp_xml_nodelist_add(nodeList, libxml2Data.rootNode);
 	
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 	gettimeofday(&end_time, NULL);
 	timersub(&end_time, &start_time, &elapsed_time);
   mupnp_log_debug_s("Parsing XML completed. Elapsed time: "

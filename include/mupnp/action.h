@@ -323,7 +323,7 @@ void mupnp_actionlist_delete(mUpnpActionList *actionList);
  *
  * @param actionList The list of actions to clear
  */
-#define mupnp_actionlist_clear(actionList) mupnp_list_clear((mUpnpList *)actionList, (CG_LIST_DESTRUCTORFUNC)mupnp_action_delete)
+#define mupnp_actionlist_clear(actionList) mupnp_list_clear((mUpnpList *)actionList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_action_delete)
 
 /**
  * Get the number of actions in a list of actions

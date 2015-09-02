@@ -13,7 +13,7 @@
 #include <mupnp/util/string.h>
 #include <mupnp/util/log.h>
 
-#if defined(CG_HTTP_CURL)
+#if defined(MUPNP_HTTP_CURL)
 #include <curl/curl.h>
 #endif
 
@@ -44,7 +44,7 @@ mUpnpNetURI *mupnp_net_uri_new()
 		uri->queryDictionary = NULL;
 		
 		/**** Thanks for Theo Beisch (2005/08/25) ****/
-		mupnp_string_setvalue(uri->path, CG_NET_URI_DEFAULT_PATH);
+		mupnp_string_setvalue(uri->path, MUPNP_NET_URI_DEFAULT_PATH);
 	}
 		
 	mupnp_log_debug_l4("Leaving...\n");
@@ -136,16 +136,16 @@ void mupnp_net_uri_setvalue(mUpnpNetURI *uri, const char *value)
 	currIdx = 0;
 	
 	/*** Protocol ****/
-	protoIdx = mupnp_strstr(value, CG_NET_URI_PROTOCOL_DELIM);
+	protoIdx = mupnp_strstr(value, MUPNP_NET_URI_PROTOCOL_DELIM);
 	if (0 < protoIdx) {
 		mupnp_string_setnvalue(uri->protocol, value,  protoIdx);
-		currIdx += protoIdx + mupnp_strlen(CG_NET_URI_PROTOCOL_DELIM);
+		currIdx += protoIdx + mupnp_strlen(MUPNP_NET_URI_PROTOCOL_DELIM);
 	}
 
 	/*** User (Password) ****/
-	atIdx = mupnp_strstr(value+currIdx, CG_NET_URI_USER_DELIM);
+	atIdx = mupnp_strstr(value+currIdx, MUPNP_NET_URI_USER_DELIM);
 	if (0 < atIdx) {
-		colonIdx = mupnp_strstr(value+currIdx, CG_NET_URI_COLON_DELIM);
+		colonIdx = mupnp_strstr(value+currIdx, MUPNP_NET_URI_COLON_DELIM);
 		/**** Thanks for Theo Beisch (2005/08/25) ****/
 		if (0 < colonIdx && colonIdx<atIdx) {
 			mupnp_string_setnvalue(uri->user, value+currIdx,  colonIdx);
@@ -157,7 +157,7 @@ void mupnp_net_uri_setvalue(mUpnpNetURI *uri, const char *value)
 	}
 
 	/*** Host (Port) ****/
-	shashIdx = mupnp_strstr(value+currIdx, CG_NET_URI_SLASH_DELIM);
+	shashIdx = mupnp_strstr(value+currIdx, MUPNP_NET_URI_SLASH_DELIM);
 	if (0 < shashIdx) {
 		mupnp_string_setnvalue(uri->host, value+currIdx, shashIdx);
         currIdx += shashIdx;
@@ -167,8 +167,8 @@ void mupnp_net_uri_setvalue(mUpnpNetURI *uri, const char *value)
         currIdx += mupnp_strlen(value) - currIdx;
     }
 	host = mupnp_net_uri_gethost(uri);
-	colonIdx = mupnp_strrchr(host, CG_NET_URI_COLON_DELIM, 1);
-	eblacketIdx = mupnp_strrchr(host, CG_NET_URI_EBLACET_DELIM, 1);
+	colonIdx = mupnp_strrchr(host, MUPNP_NET_URI_COLON_DELIM, 1);
+	eblacketIdx = mupnp_strrchr(host, MUPNP_NET_URI_EBLACET_DELIM, 1);
 	if (0 < colonIdx && eblacketIdx < colonIdx) {
 		hostStr = mupnp_string_new();
 		mupnp_string_setvalue(hostStr, host);
@@ -188,12 +188,12 @@ void mupnp_net_uri_setvalue(mUpnpNetURI *uri, const char *value)
 		mupnp_string_delete(hostStr);
 	}
 	else {
-		uri->port = CG_NET_URI_KNKOWN_PORT;
+		uri->port = MUPNP_NET_URI_KNKOWN_PORT;
 		protocol = mupnp_net_uri_getprotocol(uri);
-		if (mupnp_strcmp(protocol, CG_NET_URI_PROTOCOL_HTTP) == 0)
-			uri->port = CG_NET_URI_DEFAULT_HTTP_PORT;
-		if (mupnp_strcmp(protocol, CG_NET_URI_PROTOCOL_FTP) == 0)
-			uri->port = CG_NET_URI_DEFAULT_FTP_PORT;
+		if (mupnp_strcmp(protocol, MUPNP_NET_URI_PROTOCOL_HTTP) == 0)
+			uri->port = MUPNP_NET_URI_DEFAULT_HTTP_PORT;
+		if (mupnp_strcmp(protocol, MUPNP_NET_URI_PROTOCOL_FTP) == 0)
+			uri->port = MUPNP_NET_URI_DEFAULT_FTP_PORT;
 	}
 	
 	/*
@@ -209,12 +209,12 @@ void mupnp_net_uri_setvalue(mUpnpNetURI *uri, const char *value)
 	}
 		
 	/**** Path (Query/Fragment) ****/
-	sharpIdx = mupnp_strstr(value+currIdx, CG_NET_URI_SHARP_DELIM);
+	sharpIdx = mupnp_strstr(value+currIdx, MUPNP_NET_URI_SHARP_DELIM);
 	if (0 < sharpIdx) {
 		mupnp_string_setnvalue(uri->path, value+currIdx,  sharpIdx);
 		mupnp_string_setnvalue(uri->fragment, value+currIdx+sharpIdx+1,  uriLen-(currIdx+sharpIdx+1));
 	}
-	questionIdx = mupnp_strstr(value+currIdx, CG_NET_URI_QUESTION_DELIM);
+	questionIdx = mupnp_strstr(value+currIdx, MUPNP_NET_URI_QUESTION_DELIM);
 	if (0 < questionIdx) {
 		mupnp_string_setnvalue(uri->path, value+currIdx,  questionIdx);
 		queryLen = uriLen-(currIdx+questionIdx+1);
@@ -238,17 +238,17 @@ void mupnp_net_uri_rebuild(mUpnpNetURI *uri)
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_string_setvalue(uri->uri, mupnp_net_uri_getprotocol(uri));
-	mupnp_string_addvalue(uri->uri, CG_NET_URI_PROTOCOL_DELIM);
+	mupnp_string_addvalue(uri->uri, MUPNP_NET_URI_PROTOCOL_DELIM);
 	mupnp_string_addvalue(uri->uri, mupnp_net_uri_gethost(uri));
-	mupnp_string_addvalue(uri->uri, CG_NET_URI_COLON_DELIM);
+	mupnp_string_addvalue(uri->uri, MUPNP_NET_URI_COLON_DELIM);
 	mupnp_string_addvalue(uri->uri, mupnp_int2str(mupnp_net_uri_getport(uri), portStr, sizeof(portStr)));
 	if (0 < mupnp_strlen(mupnp_net_uri_getpath(uri))) {
 		path = mupnp_net_uri_getpath(uri);
 		if (path[0] != '/')
-			mupnp_string_addvalue(uri->uri, CG_NET_URI_SLASH_DELIM);
+			mupnp_string_addvalue(uri->uri, MUPNP_NET_URI_SLASH_DELIM);
 		mupnp_string_addvalue(uri->uri, mupnp_net_uri_getpath(uri));
 		if (mupnp_strchr(mupnp_net_uri_getpath(uri), "?", 1) == -1 && 0 < mupnp_strlen(mupnp_net_uri_getquery(uri))) {
-			mupnp_string_addvalue(uri->uri, CG_NET_URI_QUESTION_DELIM);
+			mupnp_string_addvalue(uri->uri, MUPNP_NET_URI_QUESTION_DELIM);
 			mupnp_string_addvalue(uri->uri, mupnp_net_uri_getquery(uri));
 		}
 	}
@@ -282,7 +282,7 @@ char *mupnp_net_uri_getrequest(mUpnpNetURI *uri)
 	if (uri->request == NULL) uri->request = mupnp_string_new();
 
 	mupnp_string_setvalue(uri->request, mupnp_net_uri_getpath(uri));
-	mupnp_string_addvalue(uri->request, CG_NET_URI_QUESTION_DELIM);
+	mupnp_string_addvalue(uri->request, MUPNP_NET_URI_QUESTION_DELIM);
 	mupnp_string_addvalue(uri->request, mupnp_net_uri_getquery(uri));
 	
 	mupnp_log_debug_l4("Leaving...\n");
@@ -326,7 +326,7 @@ BOOL mupnp_net_uri_isescapedstring(char *buf, size_t bufSize)
 	   escaped character */
 	
 	/* First check that there is escaping character */
-	idx = mupnp_strstr(buf, CG_NET_URI_ESCAPING_CHAR);
+	idx = mupnp_strstr(buf, MUPNP_NET_URI_ESCAPING_CHAR);
 	if (idx < 0 || idx > bufSize - 4) return FALSE;
 	
 	/* Check that the next two characters are HEX */
@@ -349,7 +349,7 @@ BOOL mupnp_net_uri_isescapedstring(char *buf, size_t bufSize)
 
 char *mupnp_net_uri_escapestring(char *buf, size_t bufSize, mUpnpString *retBuf)
 {
-#if defined(CG_HTTP_CURL)
+#if defined(MUPNP_HTTP_CURL)
 	char *tmp;
 #else
 	int n;
@@ -362,7 +362,7 @@ char *mupnp_net_uri_escapestring(char *buf, size_t bufSize, mUpnpString *retBuf)
 	if (!retBuf)
 		return NULL;
 
-#if defined(CG_HTTP_CURL)
+#if defined(MUPNP_HTTP_CURL)
 	tmp = (bufSize < 1)?curl_escape(buf, 0):curl_escape(buf, bufSize);
 	if (tmp == NULL)
 	{
@@ -402,7 +402,7 @@ char *mupnp_net_uri_escapestring(char *buf, size_t bufSize, mUpnpString *retBuf)
 
 char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, mUpnpString *retBuf)
 {
-#if defined(CG_HTTP_CURL)
+#if defined(MUPNP_HTTP_CURL)
 	char *tmp;
 #else
 	int n;
@@ -411,7 +411,7 @@ char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, mUpnpString *retBu
 	unsigned char c;
 #endif
 	int idx = 0;
-#if defined(CG_USE_NET_URI_ESCAPESTRING_SKIP)
+#if defined(MUPNP_USE_NET_URI_ESCAPESTRING_SKIP)
 	int tmpIdx = 0;
 #endif
 	
@@ -425,14 +425,14 @@ char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, mUpnpString *retBu
 		return buf;
 	
 	/* We can safely assume that the non-path part is already escaped */
-#if defined(CG_USE_NET_URI_ESCAPESTRING_SKIP)
-	idx = mupnp_strstr(buf, CG_NET_URI_PROTOCOL_DELIM);
+#if defined(MUPNP_USE_NET_URI_ESCAPESTRING_SKIP)
+	idx = mupnp_strstr(buf, MUPNP_NET_URI_PROTOCOL_DELIM);
 	if (idx > 0)
 	{
-		idx = idx + mupnp_strlen(CG_NET_URI_PROTOCOL_DELIM);
-		tmpIdx = mupnp_strstr(buf + idx, CG_NET_URI_SLASH_DELIM);
+		idx = idx + mupnp_strlen(MUPNP_NET_URI_PROTOCOL_DELIM);
+		tmpIdx = mupnp_strstr(buf + idx, MUPNP_NET_URI_SLASH_DELIM);
 		if (tmpIdx > 0)
-			idx += tmpIdx + mupnp_strlen(CG_NET_URI_SLASH_DELIM);
+			idx += tmpIdx + mupnp_strlen(MUPNP_NET_URI_SLASH_DELIM);
 	} else {
 		idx = 0;
 	}
@@ -441,7 +441,7 @@ char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, mUpnpString *retBu
 	if (bufSize < 1)
 		bufSize = mupnp_strlen(buf) + 1;	
 	
-#if defined(CG_HTTP_CURL)
+#if defined(MUPNP_HTTP_CURL)
 	tmp = curl_unescape(buf + idx, 0);
 	if (tmp == NULL)
 		return NULL;

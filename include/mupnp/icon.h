@@ -203,7 +203,7 @@ void mupnp_iconlist_delete(mUpnpIconList *iconList);
  * 
  * \param iconList List of icons
  */
-#define mupnp_iconlist_clear(iconList) mupnp_list_clear((mUpnpList *)iconList, (CG_LIST_DESTRUCTORFUNC)mupnp_icon_delete)
+#define mupnp_iconlist_clear(iconList) mupnp_list_clear((mUpnpList *)iconList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_icon_delete)
 
 /**
  * Get the size (number of elements) of an icon list

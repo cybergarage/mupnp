@@ -19,7 +19,7 @@
 *	Compiler Switch (BEGIN)
 ****************************************/
 
-#if defined(CG_XMLPARSER_EXPAT) || (!defined(HAVE_CONFIG_H) && !defined(TARGET_OS_IPHONE))
+#if defined(MUPNP_XMLPARSER_EXPAT) || (!defined(HAVE_CONFIG_H) && !defined(TARGET_OS_IPHONE))
 
 /****************************************
 * Header Files
@@ -46,7 +46,7 @@
 static int indent = 0;
 #endif
 
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 #include <sys/time.h>
 #include <time.h>
 
@@ -164,13 +164,13 @@ BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const c
 #endif
 	XML_Parser p;
 	mUpnpExpatData expatData;
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
 #endif	
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 	gettimeofday(&start_time, NULL);
 #endif	
 
@@ -208,7 +208,7 @@ BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const c
 
 	mupnp_xml_nodelist_add(nodeList, expatData.rootNode);
 
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 	gettimeofday(&end_time, NULL);
 	timersub(&end_time, &start_time, &elapsed_time);
 mupnp_log_debug_s("Parsing XML completed. Elapsed time: "

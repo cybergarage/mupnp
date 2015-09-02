@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE(URI)
                         MUPNP_TESTCASE_NET_URI_PATH);
 	BOOST_CHECK(mupnp_streq(mupnp_net_uri_getprotocol(uri), MUPNP_TESTCASE_NET_URI_PROTOCOL));
 	BOOST_CHECK(mupnp_streq(mupnp_net_uri_gethost(uri), MUPNP_TESTCASE_NET_URI_HOST));
-	BOOST_CHECK(mupnp_net_uri_getport(uri) == CG_NET_URI_DEFAULT_HTTP_PORT);
+	BOOST_CHECK(mupnp_net_uri_getport(uri) == MUPNP_NET_URI_DEFAULT_HTTP_PORT);
 	BOOST_CHECK(mupnp_streq(mupnp_net_uri_getpath(uri), MUPNP_TESTCASE_NET_URI_PATH));
     
   //////////////////////////////////////////////////
@@ -63,7 +63,7 @@ BOOST_AUTO_TEST_CASE(URI)
                         MUPNP_TESTCASE_NET_URI_PATH);
 	BOOST_CHECK(mupnp_streq(mupnp_net_uri_getprotocol(uri), MUPNP_TESTCASE_NET_URI_PROTOCOL_FTP));
 	BOOST_CHECK(mupnp_streq(mupnp_net_uri_gethost(uri), MUPNP_TESTCASE_NET_URI_HOST));
-	BOOST_CHECK(mupnp_net_uri_getport(uri) == CG_NET_URI_DEFAULT_FTP_PORT);
+	BOOST_CHECK(mupnp_net_uri_getport(uri) == MUPNP_NET_URI_DEFAULT_FTP_PORT);
 	BOOST_CHECK(mupnp_streq(mupnp_net_uri_getpath(uri), MUPNP_TESTCASE_NET_URI_PATH));
 	mupnp_net_uri_delete(uri);
 

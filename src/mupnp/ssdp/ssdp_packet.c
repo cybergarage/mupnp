@@ -109,7 +109,7 @@ void mupnp_ssdp_packet_setheader(mUpnpSSDPPacket *ssdpPkt, char *ssdpMsg)
 		
 	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpTok = mupnp_string_tokenizer_new(ssdpMsg, CG_HTTP_CRLF);
+	ssdpTok = mupnp_string_tokenizer_new(ssdpMsg, MUPNP_HTTP_CRLF);
 
 	/**** skip the first line ****/	
 	if (mupnp_string_tokenizer_hasmoretoken(ssdpTok) == FALSE)
@@ -120,12 +120,12 @@ void mupnp_ssdp_packet_setheader(mUpnpSSDPPacket *ssdpPkt, char *ssdpMsg)
 		lineMsg = mupnp_string_tokenizer_nexttoken(ssdpTok);
 		name = NULL;
 		value = NULL;
-		ssdpLineTok = mupnp_string_tokenizer_new(lineMsg, CG_HTTP_HEADERLINE_DELIM);
+		ssdpLineTok = mupnp_string_tokenizer_new(lineMsg, MUPNP_HTTP_HEADERLINE_DELIM);
 		if (mupnp_string_tokenizer_hasmoretoken(ssdpLineTok) == TRUE)
 			name = mupnp_string_tokenizer_nexttoken(ssdpLineTok);
 		if (mupnp_string_tokenizer_hasmoretoken(ssdpLineTok) == TRUE) {
 			value = mupnp_string_tokenizer_nextalltoken(ssdpLineTok);
-			mupnp_strrtrim(value, CG_HTTP_HEADERLINE_DELIM, mupnp_strlen(CG_HTTP_HEADERLINE_DELIM));
+			mupnp_strrtrim(value, MUPNP_HTTP_HEADERLINE_DELIM, mupnp_strlen(MUPNP_HTTP_HEADERLINE_DELIM));
 		}
 		if (name != NULL) {
 			if (value == NULL)
@@ -157,7 +157,7 @@ long mupnp_ssdp_packet_getmaxage(mUpnpSSDPPacket *ssdpPkt)
 	cachecontrol = mupnp_ssdp_packet_getcachecontrol(ssdpPkt);
 	if (cachecontrol == NULL) return 0;
 	
-	maxageIdx = mupnp_strstr(cachecontrol, CG_HTTP_MAX_AGE);
+	maxageIdx = mupnp_strstr(cachecontrol, MUPNP_HTTP_MAX_AGE);
 	if (maxageIdx < 0) return 0;
 		
 	maxageIdx = mupnp_strstr(cachecontrol+maxageIdx, "=");

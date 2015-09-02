@@ -23,7 +23,7 @@
 #include <mupnp/net/url.h>
 #include <mupnp/net/uri.h>
 
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 #include <mupnp/controlpoint.h>
 #endif
 
@@ -62,7 +62,7 @@ mUpnpService *mupnp_service_new()
 		service->subscriberList = mupnp_subscriberlist_new();
 #endif
 	
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 		service->parsed = FALSE;
 #endif
 
@@ -199,7 +199,7 @@ BOOL mupnp_service_parsedescription(mUpnpService *service, const char *desciptio
 	mupnp_service_lock(service);
 	mupnp_service_clear(service);
 
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 	service->parsed = FALSE;
 #endif	
 	service->scpdNodeList = mupnp_xml_nodelist_new();
@@ -228,7 +228,7 @@ BOOL mupnp_service_parsedescription(mUpnpService *service, const char *desciptio
 		
 	mupnp_service_initchildnodes(service);
 
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 	service->parsed = TRUE;
 #endif
 	mupnp_service_unlock(service);
@@ -261,20 +261,20 @@ BOOL mupnp_service_parsedescriptionurl(mUpnpService *service, mUpnpNetURL *url)
 	host = mupnp_net_url_gethost(url);
 	port = mupnp_net_url_getport(url);
 	if (port <= 0)
-		port = CG_HTTP_DEFAULT_PORT;
+		port = MUPNP_HTTP_DEFAULT_PORT;
 	/**** Thanks for Theo Beisch (08/16/05) ****/
 	request = mupnp_net_url_getrequest(url);
 	if (mupnp_strlen(request) <= 0)
 		request = "/";
 
 	httpReq = mupnp_http_request_new();
-	mupnp_http_request_setmethod(httpReq, CG_HTTP_GET);
+	mupnp_http_request_setmethod(httpReq, MUPNP_HTTP_GET);
 	mupnp_http_request_seturi(httpReq, request);
 	mupnp_http_request_setcontentlength(httpReq, 0);
 	httpRes = mupnp_http_request_post(httpReq, host, port);
 	
 	/*statusCode = mupnp_http_response_getstatuscode(httpRes);
-          if (statusCode != CG_HTTP_STATUS_OK) {*/
+          if (statusCode != MUPNP_HTTP_STATUS_OK) {*/
         if ( !mupnp_http_response_issuccessful(httpRes) ) {
 		mupnp_http_request_delete(httpReq);
 		return FALSE;
@@ -914,7 +914,7 @@ mUpnpAction *mupnp_service_getactionbyname(mUpnpService *service, const char *na
 	if (mupnp_strlen(name) <= 0)
 		return NULL;
 			
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 	if (mupnp_service_isparsed(service) == FALSE)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
@@ -986,7 +986,7 @@ mUpnpStateVariable *mupnp_service_getstatevariablebyname(mUpnpService *service, 
 	if (mupnp_strlen(name) <= 0)
 		return NULL;
 			
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 	if (mupnp_service_isparsed(service) == FALSE)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
@@ -1041,7 +1041,7 @@ mUpnpActionList *mupnp_service_getactionlist(mUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 	if (mupnp_service_isparsed(service) == FALSE)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
@@ -1054,7 +1054,7 @@ mUpnpAction *mupnp_service_getactions(mUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 	if (mupnp_service_isparsed(service) == FALSE)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
@@ -1067,7 +1067,7 @@ mUpnpServiceStateTable *mupnp_service_getservicestatetable(mUpnpService *service
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 	if (mupnp_service_isparsed(service) == FALSE)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
@@ -1080,7 +1080,7 @@ mUpnpStateVariable *mupnp_service_getstatevariables(mUpnpService *service)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 	if (mupnp_service_isparsed(service) == FALSE)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif

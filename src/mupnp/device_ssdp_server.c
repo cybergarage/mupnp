@@ -44,7 +44,7 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	ssdpMXString = mupnp_http_headerlist_getvalue(ssdpPkt->headerList, CG_HTTP_MX);
+	ssdpMXString = mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_MX);
 	ssdpST = mupnp_ssdp_packet_getst(ssdpPkt);
 
 	/* Check if this ssdp packet has already been checked + filtered */
@@ -57,13 +57,13 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt
 		 * checks for the presence of the strings and not the order.
 		 ***************************************/
 		/**** check for M-SEARCH and return if not found ****/
-		if (mupnp_strstr(mupnp_string_getvalue(ssdpPkt->dgmPkt->data), CG_HTTP_MSEARCH) < 0)
+		if (mupnp_strstr(mupnp_string_getvalue(ssdpPkt->dgmPkt->data), MUPNP_HTTP_MSEARCH) < 0)
 			return;
 		/**** check for * and return if not found ****/
 		if (mupnp_strstr(mupnp_string_getvalue(ssdpPkt->dgmPkt->data), "*") < 0)
 			return;
 		/**** check HTTP version and return if not found ****/
-		if (mupnp_strstr(mupnp_string_getvalue(ssdpPkt->dgmPkt->data),  CG_HTTP_VER11) < 0)
+		if (mupnp_strstr(mupnp_string_getvalue(ssdpPkt->dgmPkt->data),  MUPNP_HTTP_VER11) < 0)
 			return;
 
 		/****************************************

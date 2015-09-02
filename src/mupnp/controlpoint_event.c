@@ -253,7 +253,7 @@ BOOL mupnp_controlpoint_subscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *se
 	if (rootDev == NULL)
 		return FALSE;
 
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 	if (mupnp_service_isparsed(service) == FALSE)
 				mupnp_controlpoint_parsescservicescpd(service); 
 #endif

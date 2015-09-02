@@ -77,7 +77,7 @@ typedef struct _mUpnpNetURI mUpnpNetURL;
 #define mupnp_net_url_hasfragment(urip) ((0 < mupnp_string_length(urip->fragment)) ? TRUE : FALSE)
 #define mupnp_net_url_hasrequest(urip) mupnp_net_uri_hasrequest(urip)
 
-#define mupnp_net_url_ishttpprotocol(urip) mupnp_streq(mupnp_string_getvalue(urip->protocol), CG_NET_URI_PROTOCOL_HTTP)
+#define mupnp_net_url_ishttpprotocol(urip) mupnp_streq(mupnp_string_getvalue(urip->protocol), MUPNP_NET_URI_PROTOCOL_HTTP)
 
 #define mupnp_net_url_isabsolute(uripath) mupnp_net_uri_hasprotocol(uripath)
 #define mupnp_net_url_isrelative(urip) ((mupnp_net_uri_hasprotocol(urip) == TRUE) ? FALSE : TRUE)

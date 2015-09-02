@@ -11,7 +11,7 @@
 
 #include <mupnp/io/file.h>
 
-#if defined(CG_USE_CFILE)
+#if defined(MUPNP_USE_CFILE)
 
 #include <mupnp/util/log.h>
 #include <stdio.h>
@@ -295,7 +295,7 @@ char *mupnp_file_getfilename(mUpnpFile *file)
 	mupnp_log_debug_l4("Entering...\n");
 
 	fileName = mupnp_file_getname(file);	
-	sepIdx = mupnp_strrchr(fileName, CG_FILE_SEPARATOR, 1);
+	sepIdx = mupnp_strrchr(fileName, MUPNP_FILE_SEPARATOR, 1);
 	if (0 < sepIdx)
 		return (fileName + sepIdx + 1);
 	return NULL;
@@ -320,7 +320,7 @@ char *mupnp_file_getpath(mUpnpFile *file)
 		return path;
 		
 	fileName = mupnp_file_getname(file);	
-	sepIdx = mupnp_strrchr(fileName, CG_FILE_SEPARATOR, 1);
+	sepIdx = mupnp_strrchr(fileName, MUPNP_FILE_SEPARATOR, 1);
 	
 	if (0 < sepIdx) {
 		path = (char *)malloc(sizeof(char)*(sepIdx+1));
@@ -391,7 +391,7 @@ BOOL mupnp_file_load(mUpnpFile *file)
 	readCnt = 0;
 	do {
 		int remaining  = fileLen - readCnt;
-		int chunkSize = remaining < CG_FILE_READ_CHUNK_SIZE ? remaining : CG_FILE_READ_CHUNK_SIZE;
+		int chunkSize = remaining < MUPNP_FILE_READ_CHUNK_SIZE ? remaining : MUPNP_FILE_READ_CHUNK_SIZE;
 		nRead = fread((file->content)+readCnt, sizeof(char), chunkSize, fp);
 		readCnt += nRead;
 	} while (0 < nRead);
@@ -403,10 +403,10 @@ BOOL mupnp_file_load(mUpnpFile *file)
 		return FALSE;
 	}
 	readCnt = 0;
-	nRead = read(fd, (file->content)+readCnt, CG_FILE_READ_CHUNK_SIZE);
+	nRead = read(fd, (file->content)+readCnt, MUPNP_FILE_READ_CHUNK_SIZE);
 	while (0 < nRead) {
 		readCnt += nRead;
-		nRead = read(fd, (file->content)+readCnt, CG_FILE_READ_CHUNK_SIZE);
+		nRead = read(fd, (file->content)+readCnt, MUPNP_FILE_READ_CHUNK_SIZE);
 	}
 	close(fd);
 #endif
@@ -591,13 +591,13 @@ BOOL mupnp_file_open(mUpnpFile *file, int mode)
 		return FALSE;
 
 	stdioMode = "";
-	if (mode & CG_FILE_OPEN_WRITE) {
-		if (mode & CG_FILE_OPEN_CREATE)
+	if (mode & MUPNP_FILE_OPEN_WRITE) {
+		if (mode & MUPNP_FILE_OPEN_CREATE)
 			stdioMode = "w+b";
 		else
 			stdioMode = "r+b";
 	}
-	else if (mode & CG_FILE_OPEN_READ)
+	else if (mode & MUPNP_FILE_OPEN_READ)
 		stdioMode = "rb";
 
 	file->fp = fopen(filename, stdioMode);
@@ -658,13 +658,13 @@ BOOL mupnp_file_seek(mUpnpFile *file, mUpnpInt64 offset, int whence)
 		return FALSE;
 
 	switch (whence) {
-	case CG_FILE_SEEK_SET:
+	case MUPNP_FILE_SEEK_SET:
 		stdioWhence = SEEK_SET;
 		break;
-	case CG_FILE_SEEK_CUR:
+	case MUPNP_FILE_SEEK_CUR:
 		stdioWhence = SEEK_CUR;
 		break;
-	case CG_FILE_SEEK_END:
+	case MUPNP_FILE_SEEK_END:
 		stdioWhence = SEEK_END;
 		break;
 	default:
@@ -695,9 +695,9 @@ void mupnp_file_setfilename(mUpnpFile *file, char *name)
 		return;
 	}
 
-	if (pathName[pathNameLen-1] != CG_FILE_SEPARATOR_CHAR) {
-		if (name[nameLen-1] != CG_FILE_SEPARATOR_CHAR)
-			mupnp_string_addvalue(file->name, CG_FILE_SEPARATOR);
+	if (pathName[pathNameLen-1] != MUPNP_FILE_SEPARATOR_CHAR) {
+		if (name[nameLen-1] != MUPNP_FILE_SEPARATOR_CHAR)
+			mupnp_string_addvalue(file->name, MUPNP_FILE_SEPARATOR);
 	}
 
 	mupnp_string_addvalue(file->name, name);

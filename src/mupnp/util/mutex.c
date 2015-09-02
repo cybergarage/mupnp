@@ -16,7 +16,7 @@
 #include <errno.h>
 #endif
 
-#if !defined(CG_MUTEX_LOG_ENABLED)
+#if !defined(MUPNP_MUTEX_LOG_ENABLED)
 #undef mupnp_log_debug_l4
 #define mupnp_log_debug_l4(msg)
 #endif

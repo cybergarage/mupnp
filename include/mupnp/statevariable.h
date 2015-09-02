@@ -431,7 +431,7 @@ void mupnp_servicestatetable_delete(mUpnpServiceStateTable *servicestatetable);
  *
  * @param stateTable Service state table
  */
-#define mupnp_servicestatetable_clear(stateTable) mupnp_list_clear((mUpnpList *)stateTable, (CG_LIST_DESTRUCTORFUNC)mupnp_statevariable_delete)
+#define mupnp_servicestatetable_clear(stateTable) mupnp_list_clear((mUpnpList *)stateTable, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_statevariable_delete)
 
 /**
  * Get size of service state table

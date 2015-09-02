@@ -27,7 +27,7 @@ void ClinkTestcaseHttpRequestRecieved(mUpnpHttpRequest *httpReq)
 	mUpnpHttpResponse *httpRes;
 
 	httpRes = mupnp_http_response_new();
-	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
+	mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_OK);
 	mupnp_http_response_setcontent(httpRes, MUPNP_TESTCASE_HTTP_PAGE);
 	mupnp_http_response_setcontenttype(httpRes, "text/html");
 	mupnp_http_response_setcontentlength(httpRes, strlen(MUPNP_TESTCASE_HTTP_PAGE));
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE(HttpServer)
 	for (int n=0; n<MUPNP_TESTCASE_HTTP_LOOP; n++) {
 		mUpnpHttpRequest *httpReq = mupnp_http_request_new();
 		BOOST_CHECK(httpReq);
-		mupnp_http_request_setmethod(httpReq, CG_HTTP_GET);
+		mupnp_http_request_setmethod(httpReq, MUPNP_HTTP_GET);
 		mupnp_http_request_seturi(httpReq, MUPNP_TESTCASE_HTTP_URL);
 		mupnp_http_request_setcontentlength(httpReq, 0);
 		mUpnpHttpResponse *httpRes = mupnp_http_request_post(httpReq, "localhost", MUPNP_TESTCASE_HTTP_PORT);

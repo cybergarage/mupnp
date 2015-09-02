@@ -20,12 +20,12 @@
 #include "config.h"
 #endif
 
-#ifdef CG_HTTP_CURL
+#ifdef MUPNP_HTTP_CURL
 #include <curl/curl.h>
 #endif
 
-#define CG_HTTP_PERSISTENT_CACHE_SIZE  5
-#define CG_HTTP_PERSISTENT_TIMEOUT_PERIOD 60
+#define MUPNP_HTTP_PERSISTENT_CACHE_SIZE  5
+#define MUPNP_HTTP_PERSISTENT_TIMEOUT_PERIOD 60
 
 
 typedef struct _mUpnpHttpPersistentConnection {
@@ -134,7 +134,7 @@ void mupnp_http_persistentconnection_delete(mUpnpHttpPersistentConnection *node)
        mupnp_string_delete(node->host);
 
        /* Terminate and delete connection according libcurl usage */
-#if !defined(CG_HTTP_CURL)
+#if !defined(MUPNP_HTTP_CURL)
        mupnp_socket_close((mUpnpSocket *)node->cacheData);
        mupnp_socket_delete((mUpnpSocket *)node->cacheData);
 #else
@@ -171,7 +171,7 @@ mupnp_log_debug_l4("Entering...\n");
                     node != NULL;
                     node = (mUpnpHttpPersistentConnection*)mupnp_list_next((mUpnpList*)node))
                {
-                       if (sys_time > node->timestamp + CG_HTTP_PERSISTENT_TIMEOUT_PERIOD)
+                       if (sys_time > node->timestamp + MUPNP_HTTP_PERSISTENT_TIMEOUT_PERIOD)
                        {
 			      mupnp_log_debug_s("Timeout for persistent HTTP Connection to %s:%d "
 				       "(timestamp: %d)\n",
@@ -259,7 +259,7 @@ BOOL mupnp_http_persistentconnection_put(char *host, int port, void *data)
        if (new_node == NULL)
        {
                /* Check if we have already too many cached things */
-               if (mupnp_list_size((mUpnpList*)cache) >= CG_HTTP_PERSISTENT_CACHE_SIZE)
+               if (mupnp_list_size((mUpnpList*)cache) >= MUPNP_HTTP_PERSISTENT_CACHE_SIZE)
                {
                        /* Take last node (not refreshed for a long time) */
                        new_node = (mUpnpHttpPersistentConnection *)mupnp_list_next((mUpnpList *)cache);
@@ -314,7 +314,7 @@ void mupnp_http_persistentconnection_clear(void)
        if (cache == NULL) return;
 
        mupnp_http_persistentconnection_lock();
-       mupnp_list_clear((mUpnpList*)cache, (CG_LIST_DESTRUCTORFUNC)mupnp_http_persistentconnection_delete);
+       mupnp_list_clear((mUpnpList*)cache, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_http_persistentconnection_delete);
        free(cache);
        cache = NULL;
        mupnp_http_persistentconnection_unlock();

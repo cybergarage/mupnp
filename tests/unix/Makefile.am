@@ -30,7 +30,7 @@ mupnptest_SOURCES = \
 	..//URITest.cpp \
 	..//XMLTest.cpp
 #if HAVE_LIBTOOL
-#mupnptest_LDADD = ../../lib/unix/libclinkc.la @XML_LIBS@
+#mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@
 #else
-mupnptest_LDADD = ../../lib/unix/libclinkc.a @XML_LIBS@
+mupnptest_LDADD = ../../lib/unix/libmupnp.a @XML_LIBS@
 #endif

@@ -200,7 +200,7 @@ mUpnpThread *mupnp_thread_new()
 #if defined (WINCE)
 	thread->hThread = NULL;
 	//WINCE trial result: default sleep value to keep system load down
-	thread->sleep = CG_THREAD_MIN_SLEEP;
+	thread->sleep = MUPNP_THREAD_MIN_SLEEP;
 	thread->isRunning = FALSE;
 	thread->deletePending = FALSE;
 #if defined DEBUG
@@ -409,7 +409,7 @@ BOOL mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
 		// so we can only mark the mupnp_thread (context) for later deletion and 
 		// do the delete(thread) cleanup on return of the Win32ThreadProc.
 		// Accordingly we simulate the OK exit here as a "look ahead" (what a hack ;-) )
-		for (i=0; i<CG_THREAD_SHUTDOWN_ATTEMPTS; ++i){
+		for (i=0; i<MUPNP_THREAD_SHUTDOWN_ATTEMPTS; ++i){
 #if defined (DEBUG)
 			printf("# thread stop mainloop %X %s %d. try\n",thread,thread->friendlyName,i+1);
 #endif
@@ -422,7 +422,7 @@ BOOL mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
 					return TRUE;
 				} 
 			}
-			mupnp_wait(CG_THREAD_MIN_SLEEP);
+			mupnp_wait(MUPNP_THREAD_MIN_SLEEP);
 		}
 		// ok - if everything up to here failed
 #if defined DEBUG
@@ -458,7 +458,7 @@ BOOL mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
 		pthread_join(thread->pThread, NULL);
 		mupnp_log_debug_s("Thread %p joined.\n", thread); */
 		/* Now we wait one second for thread termination instead of using pthread_join */
-		mupnp_sleep(CG_THREAD_MIN_SLEEP);
+		mupnp_sleep(MUPNP_THREAD_MIN_SLEEP);
 		/* MODIFICATION END Fabrice Fontaine Orange 24/04/2007 */
 #endif
 	}
@@ -536,7 +536,7 @@ BOOL mupnp_thread_isrunnable(mUpnpThread *thread)
 * mupnp_thread_setaction
 ****************************************/
 
-void mupnp_thread_setaction(mUpnpThread *thread, CG_THREAD_FUNC func)
+void mupnp_thread_setaction(mUpnpThread *thread, MUPNP_THREAD_FUNC func)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

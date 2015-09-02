@@ -25,7 +25,7 @@ mUpnpSSDPRequest *mupnp_ssdprequest_new()
 	ssdpReq = mupnp_http_request_new();
 	
 	mupnp_http_request_seturi(ssdpReq, "*");
-	mupnp_http_request_setversion(ssdpReq, CG_HTTP_VER11);
+	mupnp_http_request_setversion(ssdpReq, MUPNP_HTTP_VER11);
 	mupnp_http_request_setcontentlength(ssdpReq, 0);
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -52,12 +52,12 @@ void mupnp_ssdprequest_delete(mUpnpSSDPRequest *ssdpReq)
 
 void mupnp_ssdprequest_setleasetime(mUpnpSSDPRequest *ssdpReq, mUpnpTime value)
 {
-	char buf[sizeof(CG_HTTP_MAX_AGE) + 1 + CG_STRING_INTEGER_BUFLEN];
+	char buf[sizeof(MUPNP_HTTP_MAX_AGE) + 1 + MUPNP_STRING_INTEGER_BUFLEN];
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	sprintf(buf, "%s=%ld", CG_HTTP_MAX_AGE, (long)value);
-	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL, buf);
+	sprintf(buf, "%s=%ld", MUPNP_HTTP_MAX_AGE, (long)value);
+	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, MUPNP_HTTP_CACHE_CONTROL, buf);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -72,7 +72,7 @@ mUpnpTime mupnp_ssdprequest_getleasetime(mUpnpSSDPRequest *ssdpReq)
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	cacheCtrl = mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq, CG_HTTP_CACHE_CONTROL);
+	cacheCtrl = mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq, MUPNP_HTTP_CACHE_CONTROL);
 	
 	return mupnp_ssdp_getleasetime(cacheCtrl);
 
@@ -92,22 +92,22 @@ char *mupnp_ssdprequest_tostring(mUpnpSSDPRequest *ssdpReq, mUpnpString *ssdpMsg
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_string_addvalue(ssdpMsg, mupnp_http_request_getmethod(ssdpReq));
-	mupnp_string_addvalue(ssdpMsg, CG_HTTP_SP);
+	mupnp_string_addvalue(ssdpMsg, MUPNP_HTTP_SP);
 	mupnp_string_addvalue(ssdpMsg, mupnp_http_request_geturi(ssdpReq));
-	mupnp_string_addvalue(ssdpMsg, CG_HTTP_SP);
+	mupnp_string_addvalue(ssdpMsg, MUPNP_HTTP_SP);
 	mupnp_string_addvalue(ssdpMsg, mupnp_http_request_getversion(ssdpReq));
-	mupnp_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
+	mupnp_string_addvalue(ssdpMsg, MUPNP_HTTP_CRLF);
 	
 	for (header = mupnp_http_packet_getheaders((mUpnpHttpPacket *)ssdpReq); header != NULL; header = mupnp_http_header_next(header)) {
 		name = mupnp_http_header_getname(header);
 		value = mupnp_http_header_getvalue(header);
 		mupnp_string_addvalue(ssdpMsg, name);
-		mupnp_string_addvalue(ssdpMsg, CG_HTTP_COLON);
-		mupnp_string_addvalue(ssdpMsg, CG_HTTP_SP);
+		mupnp_string_addvalue(ssdpMsg, MUPNP_HTTP_COLON);
+		mupnp_string_addvalue(ssdpMsg, MUPNP_HTTP_SP);
 		mupnp_string_addvalue(ssdpMsg, value);
-		mupnp_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
+		mupnp_string_addvalue(ssdpMsg, MUPNP_HTTP_CRLF);
 	}
-	mupnp_string_addvalue(ssdpMsg, CG_HTTP_CRLF);
+	mupnp_string_addvalue(ssdpMsg, MUPNP_HTTP_CRLF);
 	
 	return mupnp_string_getvalue(ssdpMsg);
 

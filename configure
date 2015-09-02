@@ -4525,7 +4525,7 @@ else
 fi
 
 if  test $with_timings = yes ; then
-  CFLAGS="$CFLAGS -DCG_SHOW_TIMINGS"
+  CFLAGS="$CFLAGS -DMUPNP_SHOW_TIMINGS"
 fi
 
 ##############################
@@ -5000,7 +5000,7 @@ $as_echo "$ac_cv_lib_xml2_xmlSAXUserParseMemory" >&6; }
 if test "x$ac_cv_lib_xml2_xmlSAXUserParseMemory" = xyes; then :
 
 
-$as_echo "#define CG_XMLPARSER_LIBXML2 1" >>confdefs.h
+$as_echo "#define MUPNP_XMLPARSER_LIBXML2 1" >>confdefs.h
 
 
 		XML_CFLAGS=`pkg-config libxml-2.0 --cflags`
@@ -5079,7 +5079,7 @@ $as_echo "$ac_cv_lib_expat_main" >&6; }
 if test "x$ac_cv_lib_expat_main" = xyes; then :
 
 
-$as_echo "#define CG_XMLPARSER_EXPAT 1" >>confdefs.h
+$as_echo "#define MUPNP_XMLPARSER_EXPAT 1" >>confdefs.h
 
 		XML_LIBS="-lexpat"
 
@@ -5234,12 +5234,12 @@ fi
 if test "${enable_persistent_connections+set}" = set; then :
   enableval=$enable_persistent_connections;
 		if test $enableval = yes; then
-			CFLAGS="$CFLAGS -DCG_HTTP_USE_PERSISTENT_CONNECTIONS"
+			CFLAGS="$CFLAGS -DMUPNP_HTTP_USE_PERSISTENT_CONNECTIONS"
 		fi
 
 else
 
-		CFLAGS="$CFLAGS -DCG_HTTP_USE_PERSISTENT_CONNECTIONS"
+		CFLAGS="$CFLAGS -DMUPNP_HTTP_USE_PERSISTENT_CONNECTIONS"
 
 
 fi
@@ -5253,7 +5253,7 @@ fi
 if test "${enable_optimized_cp+set}" = set; then :
   enableval=$enable_optimized_cp;
 		if test $enableval = yes; then
-			CFLAGS="$CFLAGS -DCG_OPTIMIZED_CP_MODE"
+			CFLAGS="$CFLAGS -DMUPNP_OPTIMIZED_CP_MODE"
 		fi
 
 fi
@@ -5263,7 +5263,7 @@ fi
 if test "${enable_anyaddr+set}" = set; then :
   enableval=$enable_anyaddr;
 		if test $enableval = yes; then
-			CFLAGS="$CFLAGS -DCG_NET_USE_ANYADDR"
+			CFLAGS="$CFLAGS -DMUPNP_NET_USE_ANYADDR"
 		fi
 
 fi
@@ -5277,7 +5277,7 @@ fi
 if test "${enable_cfile+set}" = set; then :
   enableval=$enable_cfile;
                 if test $enableval = yes; then
-                        CFLAGS="$CFLAGS -DCG_USE_CFILE"
+                        CFLAGS="$CFLAGS -DMUPNP_USE_CFILE"
                 fi
 
 fi
@@ -5291,7 +5291,7 @@ fi
 if test "${enable_openssl+set}" = set; then :
   enableval=$enable_openssl;
                 if test $enableval = yes; then
-                        CFLAGS="$CFLAGS -DCG_USE_OPENSSL"
+                        CFLAGS="$CFLAGS -DMUPNP_USE_OPENSSL"
                 fi
 
 fi
@@ -5358,7 +5358,7 @@ $as_echo "$ac_cv_lib_curl_curl_easy_perform" >&6; }
 if test "x$ac_cv_lib_curl_curl_easy_perform" = xyes; then :
 
 
-$as_echo "#define CG_HTTP_CURL 1" >>confdefs.h
+$as_echo "#define MUPNP_HTTP_CURL 1" >>confdefs.h
 
 
 		HTTP_CFLAGS=`curl-config --cflags`

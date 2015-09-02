@@ -77,7 +77,7 @@ mUpnpControlPoint *mupnp_controlpoint_new()
 
 	if ( NULL != ctrlPoint )
 	{
-#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS	
+#ifdef MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS	
 		mupnp_http_persistentconnection_init();
 #endif
 		ctrlPoint->mutex = mupnp_mutex_new();
@@ -145,7 +145,7 @@ void mupnp_controlpoint_delete(mUpnpControlPoint *ctrlPoint)
 	mupnp_string_delete(ctrlPoint->httpEventURI);
 	mupnp_eventlistenerlist_delete(ctrlPoint->eventListeners);	
 
-#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS	
+#ifdef MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS	
 	mupnp_http_persistentconnection_clear();
 #endif
 	free(ctrlPoint);
@@ -165,7 +165,7 @@ void mupnp_controlpoint_delete(mUpnpControlPoint *ctrlPoint)
 BOOL mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint)
 {
 	mUpnpHttpServerList *httpServerList;
-	CG_HTTP_LISTENER httpListener;
+	MUPNP_HTTP_LISTENER httpListener;
 	int httpEventPort;
 	mUpnpSSDPServerList *ssdpServerList;
 	mUpnpSSDPResponseServerList *ssdpResServerList;
@@ -630,7 +630,7 @@ static mUpnpDevice *mupnp_controlpoint_createdevicefromssdkpacket(mUpnpSSDPPacke
 
 	mupnp_device_setssdppacket(dev, ssdpPkt);
 
-#ifndef CG_OPTIMIZED_CP_MODE
+#ifndef MUPNP_OPTIMIZED_CP_MODE
 	if (mupnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == FALSE)
 	{
 		mupnp_device_delete(dev);
@@ -774,7 +774,7 @@ BOOL mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target)
 	mupnp_log_debug_l4("Entering...\n");
 
 	ssdpReq = mupnp_ssdprequest_new();
-	mupnp_ssdprequest_setmethod(ssdpReq, CG_HTTP_MSEARCH);
+	mupnp_ssdprequest_setmethod(ssdpReq, MUPNP_HTTP_MSEARCH);
 	mupnp_ssdprequest_setst(ssdpReq, target);
 	mupnp_ssdprequest_setmx(ssdpReq, mupnp_controlpoint_getssdpsearchmx(ctrlPoint));
 	mupnp_ssdprequest_setman(ssdpReq, MUPNP_MAN_DISCOVER);

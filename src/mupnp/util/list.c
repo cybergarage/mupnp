@@ -254,7 +254,7 @@ mUpnpList *list)
 * mupnp_list_clear
 ****************************************/
 
-void mupnp_list_clear(mUpnpList *headList, CG_LIST_DESTRUCTORFUNC destructorFunc)
+void mupnp_list_clear(mUpnpList *headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc)
 {
 	mUpnpList *list;
 

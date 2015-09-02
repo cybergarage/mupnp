@@ -105,7 +105,7 @@ static mUpnpXmlNode *mupnp_control_query_response_createresponsenode(mUpnpStateV
 	mupnp_log_debug_l4("Entering...\n");
 
 	queryResNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(queryResNode, MUPNP_CONTROL_NS CG_SOAP_DELIM MUPNP_CONTROL_QUERY_STATE_VARIABLE_RESPONSE);
+	mupnp_xml_node_setname(queryResNode, MUPNP_CONTROL_NS MUPNP_SOAP_DELIM MUPNP_CONTROL_QUERY_STATE_VARIABLE_RESPONSE);
 	mupnp_xml_node_setnamespace(queryResNode, MUPNP_CONTROL_NS, MUPNP_CONTROL_XMLNS);
 	
 	returnNode = mupnp_xml_node_new();
@@ -135,7 +135,7 @@ void mupnp_control_query_response_setresponse(mUpnpQueryResponse *queryRes, mUpn
 	soapRes = mupnp_control_query_response_getsoapresponse(queryRes);
 	httpRes = mupnp_soap_response_gethttpresponse(soapRes);
 
-	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
+	mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_OK);
 	mupnp_control_soap_response_initializeenvelopenode(soapRes);
 
 	bodyNode = mupnp_soap_response_getbodynode(soapRes);

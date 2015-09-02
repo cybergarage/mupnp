@@ -70,7 +70,7 @@ void mupnp_control_soap_response_initializeenvelopenode(mUpnpSoapResponse *soapR
 	mupnp_xml_nodelist_add(rootNodeList, mupnp_soap_createenvelopebodynode());
 
 	httpRes = mupnp_soap_response_gethttpresponse(soapRes);
-	mupnp_http_request_setcontenttype(httpRes, CG_SOAP_CONTENT_TYPE);
+	mupnp_http_request_setcontenttype(httpRes, MUPNP_SOAP_CONTENT_TYPE);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -90,7 +90,7 @@ void mupnp_control_soap_request_initializeenvelopenode(mUpnpSoapRequest *soapReq
 	mupnp_xml_nodelist_add(rootNodeList, mupnp_soap_createenvelopebodynode());
 
 	httpReq = mupnp_soap_request_gethttprequest(soapReq);
-	mupnp_http_request_setcontenttype(httpReq, CG_SOAP_CONTENT_TYPE);
+	mupnp_http_request_setcontenttype(httpReq, MUPNP_SOAP_CONTENT_TYPE);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -113,30 +113,30 @@ mUpnpXmlNode *mupnp_control_soap_response_createfaultresponsenode(int errCode, c
 
 	/**** <s:Fault> ****/
 	faultNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(faultNode, CG_SOAP_XMLNS CG_SOAP_DELIM CG_SOAP_FAULT);
+	mupnp_xml_node_setname(faultNode, MUPNP_SOAP_XMLNS MUPNP_SOAP_DELIM MUPNP_SOAP_FAULT);
 	
 	/**** <faultcode>s:Client</faultcode> ****/
 	faultCodeNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(faultCodeNode, CG_SOAP_FAULT_CODE);
-	mupnp_xml_node_setvalue(faultCodeNode, CG_SOAP_XMLNS CG_SOAP_DELIM MUPNP_CONTROL_FAULT_CODE);
+	mupnp_xml_node_setname(faultCodeNode, MUPNP_SOAP_FAULT_CODE);
+	mupnp_xml_node_setvalue(faultCodeNode, MUPNP_SOAP_XMLNS MUPNP_SOAP_DELIM MUPNP_CONTROL_FAULT_CODE);
 	mupnp_xml_node_addchildnode(faultNode, faultCodeNode);
 		
 	/**** <faultstring>UPnPError</faultstring> ****/
 	faultStringNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(faultStringNode, CG_SOAP_FAULT_STRING);
+	mupnp_xml_node_setname(faultStringNode, MUPNP_SOAP_FAULT_STRING);
 	mupnp_xml_node_setvalue(faultStringNode, MUPNP_CONTROL_FAULT_STRING);
 	mupnp_xml_node_addchildnode(faultNode, faultStringNode);
 
 	/**** <detail> ****/
 	detailNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(detailNode, CG_SOAP_DETAIL);
+	mupnp_xml_node_setname(detailNode, MUPNP_SOAP_DETAIL);
 	mupnp_xml_node_addchildnode(faultNode, detailNode);
 
 	/**** <UPnPError xmlns="urn:schemas-upnp-org:control-1-0"> ****/
 	upnpErrorNode = mupnp_xml_node_new();
 	mupnp_xml_node_setname(upnpErrorNode, MUPNP_CONTROL_FAULT_STRING);
 	/**** Thanks for Visa Smolander (09/11/2005) ****/
-	mupnp_xml_node_setattribute(upnpErrorNode, CG_SOAP_ATTRIBUTE_XMLNS, MUPNP_CONTROL_XMLNS);
+	mupnp_xml_node_setattribute(upnpErrorNode, MUPNP_SOAP_ATTRIBUTE_XMLNS, MUPNP_CONTROL_XMLNS);
 	mupnp_xml_node_addchildnode(detailNode, upnpErrorNode);
 
 	/**** <errorCode>error code</errorCode> ****/
@@ -172,7 +172,7 @@ void mupnp_control_soap_response_setfaultresponse(mUpnpSoapResponse *soapRes, in
 
 	httpRes = mupnp_soap_response_gethttpresponse(soapRes);
 
-	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_INTERNAL_SERVER_ERROR);
+	mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_INTERNAL_SERVER_ERROR);
 	mupnp_control_soap_response_initializeenvelopenode(soapRes);
 
 	bodyNode = mupnp_soap_response_getbodynode(soapRes);

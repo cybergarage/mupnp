@@ -131,16 +131,16 @@ mUpnpPropertyList *mupnp_event_notify_request_getpropertylist(mUpnpNotifyRequest
  * @param soapReq Notification request
  * @param value Notification type
  */
-#define mupnp_event_notify_request_setnt(soapReq, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NT, value)
+#define mupnp_event_notify_request_setnt(soapReq, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_NT, value)
 
 /**
  * Get NT from notification request
  *
  * @param soapReq Notification request
  */
-#define mupnp_event_notify_request_getnt(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NT)
+#define mupnp_event_notify_request_getnt(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_NT)
 //Theo Beisch
-#define mupnp_event_notify_request_hasnt(soapReq) mupnp_http_packet_hasheader((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NT)
+#define mupnp_event_notify_request_hasnt(soapReq) mupnp_http_packet_hasheader((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_NT)
 
 /**** NTS ****/
 
@@ -150,16 +150,16 @@ mUpnpPropertyList *mupnp_event_notify_request_getpropertylist(mUpnpNotifyRequest
  * @param soapReq Notification request
  * @param value NTS
  */
-#define mupnp_event_notify_request_setnts(soapReq, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NTS, value)
+#define mupnp_event_notify_request_setnts(soapReq, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_NTS, value)
 
 /**
  * Get NTS from notification request
  *
  * @param soapReq Notification request
  */
-#define mupnp_event_notify_request_getnts(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_NTS)
+#define mupnp_event_notify_request_getnts(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_NTS)
 //Theo Beisch
-#define mupnp_event_notify_request_hasnts(soapReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)soapReq->httpReq), CG_HTTP_NTS)
+#define mupnp_event_notify_request_hasnts(soapReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)soapReq->httpReq), MUPNP_HTTP_NTS)
 
 /**** SID ****/
 
@@ -176,9 +176,9 @@ void mupnp_event_notify_request_setsid(mUpnpNotifyRequest *soapReq, char *sid);
  *
  * @param soapReq Notification request
  */
-#define mupnp_event_notify_request_getsid(soapReq) mupnp_event_subscription_getsid(mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SID))
+#define mupnp_event_notify_request_getsid(soapReq) mupnp_event_subscription_getsid(mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SID))
 //Theo Beisch
-#define mupnp_event_notify_request_hassid(soapReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)(soapReq->httpReq)), CG_HTTP_SID)
+#define mupnp_event_notify_request_hassid(soapReq) mupnp_http_packet_hasheader(((mUpnpHttpPacket*)(soapReq->httpReq)), MUPNP_HTTP_SID)
 
 /**** SEQ ****/
 
@@ -188,14 +188,14 @@ void mupnp_event_notify_request_setsid(mUpnpNotifyRequest *soapReq, char *sid);
  * @param soapReq Notification request
  * @param value Sequence number
  */
-#define mupnp_event_notify_request_setseq(soapReq, value) mupnp_http_packet_setheaderlong((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SEQ, value)
+#define mupnp_event_notify_request_setseq(soapReq, value) mupnp_http_packet_setheaderlong((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SEQ, value)
 
 /**
  * Get sequence number from notification request
  *
  * @param soapReq Notification request
  */
-#define mupnp_event_notify_request_getseq(soapReq) mupnp_http_packet_getheadersizet((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SEQ)
+#define mupnp_event_notify_request_getseq(soapReq) mupnp_http_packet_getheadersizet((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SEQ)
 
 /** 
  * \todo Check what this does exactly...

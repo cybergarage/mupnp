@@ -98,7 +98,7 @@ void mupnp_event_notify_request_setsid(mUpnpNotifyRequest *soapReq, char *sid)
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), CG_HTTP_SID, mupnp_event_subscription_tosidheaderstring(sid, buf, sizeof(buf)));
+	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SID, mupnp_event_subscription_tosidheaderstring(sid, buf, sizeof(buf)));
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -119,13 +119,13 @@ BOOL mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest *notifyReq
 
 	httpReq = mupnp_soap_request_gethttprequest(notifyReq);
 
-	mupnp_http_request_setmethod(httpReq, CG_HTTP_NOTIFY);
-	mupnp_http_request_setconnection(httpReq, CG_HTTP_CLOSE);
+	mupnp_http_request_setmethod(httpReq, MUPNP_HTTP_NOTIFY);
+	mupnp_http_request_setconnection(httpReq, MUPNP_HTTP_CLOSE);
 	mupnp_http_request_seturi(httpReq, mupnp_subscriber_getdeliverypath(sub));
 	mupnp_http_request_sethost(httpReq, mupnp_subscriber_getdeliveryhost(sub), mupnp_subscriber_getdeliveryport(sub));
   mupnp_getservername(server, sizeof(server));
   mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpReq,
-                                  CG_HTTP_SERVER,
+                                  MUPNP_HTTP_SERVER,
                                   server);
 	mupnp_event_notify_request_setnt(notifyReq, MUPNP_NT_EVENT);
 	mupnp_event_notify_request_setnts(notifyReq, MUPNP_NTS_PROPCHANGE);
@@ -154,7 +154,7 @@ static mUpnpXmlNode *mupnp_event_notify_request_createpropertysetnode(mUpnpServi
 	mupnp_log_debug_l4("Entering...\n");
 
 	propSetNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(propSetNode, MUPNP_NOTIFY_XMLNS CG_SOAP_DELIM MUPNP_NOTIFY_PROPERTYSET);
+	mupnp_xml_node_setname(propSetNode, MUPNP_NOTIFY_XMLNS MUPNP_SOAP_DELIM MUPNP_NOTIFY_PROPERTYSET);
 	mupnp_xml_node_setnamespace(propSetNode, MUPNP_NOTIFY_XMLNS, MUPNP_SUBSCRIPTION_XMLNS);
 
 	if (service) {
@@ -164,7 +164,7 @@ static mUpnpXmlNode *mupnp_event_notify_request_createpropertysetnode(mUpnpServi
 			propNode = mupnp_xml_node_new();
 			if (!propNode)
 				continue;
-			mupnp_xml_node_setname(propNode, MUPNP_NOTIFY_XMLNS CG_SOAP_DELIM MUPNP_NOTIFY_PROPERTY);
+			mupnp_xml_node_setname(propNode, MUPNP_NOTIFY_XMLNS MUPNP_SOAP_DELIM MUPNP_NOTIFY_PROPERTY);
 			mupnp_xml_node_addchildnode(propSetNode, propNode);
 			varNode = mupnp_xml_node_new();
 			if (!varNode) {
@@ -179,7 +179,7 @@ static mUpnpXmlNode *mupnp_event_notify_request_createpropertysetnode(mUpnpServi
 	else if (statVar) {
 		propNode = mupnp_xml_node_new();
 		if (propNode) {
-			mupnp_xml_node_setname(propNode, MUPNP_NOTIFY_XMLNS CG_SOAP_DELIM MUPNP_NOTIFY_PROPERTY);
+			mupnp_xml_node_setname(propNode, MUPNP_NOTIFY_XMLNS MUPNP_SOAP_DELIM MUPNP_NOTIFY_PROPERTY);
 			mupnp_xml_node_addchildnode(propSetNode, propNode);
 			varNode = mupnp_xml_node_new();
 			if (varNode) {

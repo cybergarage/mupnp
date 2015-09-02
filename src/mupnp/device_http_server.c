@@ -228,14 +228,14 @@ static void mupnp_device_getrequestrecieved(mUpnpDevice *dev, mUpnpHttpRequest *
 		mupnp_device_getdescription(embDev, ifAddr, descStr);
 	} else {
 		/* Here we should handle Not Found case */
-		mupnp_http_request_poststatuscode(httpReq, CG_HTTP_STATUS_NOT_FOUND);
+		mupnp_http_request_poststatuscode(httpReq, MUPNP_HTTP_STATUS_NOT_FOUND);
 		mupnp_string_delete(descStr);
 		return;
 	}
 	
 	httpRes = mupnp_http_response_new();
-	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
-	mupnp_http_response_setcontenttype(httpRes, CG_XML_CONTENT_TYPE);
+	mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_OK);
+	mupnp_http_response_setcontenttype(httpRes, MUPNP_XML_CONTENT_TYPE);
 	mupnp_http_response_setcontent(httpRes, mupnp_string_getvalue(descStr));
 	mupnp_http_response_setcontentlength(httpRes, mupnp_string_length(descStr));
 	
@@ -467,36 +467,36 @@ static void mupnp_device_subscriptionrecieved(mUpnpDevice *dev, mUpnpSubscriptio
 
 	uri = mupnp_http_request_geturi(subReq);
 	if (mupnp_strlen(uri) <= 0) {
-		mupnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+		mupnp_device_badsubscriptionrecieved(subReq, MUPNP_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
 	service = mupnp_device_getservicebyeventsuburl(dev, uri);
 	if (service == NULL) {
-		mupnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+		mupnp_device_badsubscriptionrecieved(subReq, MUPNP_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
 		
 	if (mupnp_event_subscription_request_hascallback(subReq) == FALSE && mupnp_event_subscription_request_hassid(subReq) == FALSE) {
-		mupnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+		mupnp_device_badsubscriptionrecieved(subReq, MUPNP_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
 
         if (mupnp_event_subscription_request_hascallback(subReq) &&
             mupnp_strlen(mupnp_event_subscription_request_getcallback(subReq)) <= 0) {
-		mupnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+		mupnp_device_badsubscriptionrecieved(subReq, MUPNP_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
 
         if (mupnp_event_subscription_request_hassid(subReq) && 
             (mupnp_event_subscription_request_hascallback(subReq) ||
              mupnp_event_subscription_request_hasnt(subReq))) {
-                mupnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_BAD_REQUEST);
+                mupnp_device_badsubscriptionrecieved(subReq, MUPNP_HTTP_STATUS_BAD_REQUEST);
 		return;
         }
 
 	if (mupnp_event_subscription_request_hasnt(subReq) &&
             (mupnp_strcmp(mupnp_event_subscription_request_getnt(subReq), MUPNP_NT_EVENT) != 0)) {
-                mupnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+                mupnp_device_badsubscriptionrecieved(subReq, MUPNP_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
         }
 
@@ -518,7 +518,7 @@ static void mupnp_device_subscriptionrecieved(mUpnpDevice *dev, mUpnpSubscriptio
 		return;
 	}
 
-	mupnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+	mupnp_device_badsubscriptionrecieved(subReq, MUPNP_HTTP_STATUS_PRECONDITION_FAILED);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -561,7 +561,7 @@ static void mupnp_device_newsubscriptionrecieved(mUpnpService *service, mUpnpSub
 	mupnp_service_addsubscriber(service, sub);
 
 	subRes = mupnp_event_subscription_response_new();
-	mupnp_event_subscription_subscriberesponse_setresponse(subRes, CG_HTTP_STATUS_OK);
+	mupnp_event_subscription_subscriberesponse_setresponse(subRes, MUPNP_HTTP_STATUS_OK);
 	mupnp_event_subscription_response_setsid(subRes, sid);
 	mupnp_event_subscription_response_settimeout(subRes, timeout);
 	mupnp_event_subscription_request_postresponse(subReq, subRes);
@@ -585,7 +585,7 @@ static void mupnp_device_renewsubscriptionrecieved(mUpnpService *service, mUpnpS
 	sub = mupnp_service_getsubscriberbysid(service, sid);
 
 	if (sub == NULL) {
-		mupnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+		mupnp_device_badsubscriptionrecieved(subReq, MUPNP_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
 	
@@ -604,7 +604,7 @@ static void mupnp_device_renewsubscriptionrecieved(mUpnpService *service, mUpnpS
 	mupnp_subscriber_renew(sub);
 
 	subRes = mupnp_event_subscription_response_new();
-	mupnp_event_subscription_subscriberesponse_setresponse(subRes, CG_HTTP_STATUS_OK);
+	mupnp_event_subscription_subscriberesponse_setresponse(subRes, MUPNP_HTTP_STATUS_OK);
 	mupnp_event_subscription_response_setsid(subRes, sid);
 	mupnp_event_subscription_response_settimeout(subRes, timeout);
 	mupnp_event_subscription_request_postresponse(subReq, subRes);
@@ -626,7 +626,7 @@ static void mupnp_device_unsubscriptionrecieved(mUpnpService *service, mUpnpSubs
 	sub = mupnp_service_getsubscriberbysid(service, sid);
 
 	if (sub == NULL) {
-		mupnp_device_badsubscriptionrecieved(subReq, CG_HTTP_STATUS_PRECONDITION_FAILED);
+		mupnp_device_badsubscriptionrecieved(subReq, MUPNP_HTTP_STATUS_PRECONDITION_FAILED);
 		mupnp_service_unlock(service);
 		return;
 	}
@@ -635,7 +635,7 @@ static void mupnp_device_unsubscriptionrecieved(mUpnpService *service, mUpnpSubs
 	mupnp_service_unlock(service);
 	
 	subRes = mupnp_event_subscription_response_new();
-	mupnp_event_subscription_subscriberesponse_setresponse(subRes, CG_HTTP_STATUS_OK);
+	mupnp_event_subscription_subscriberesponse_setresponse(subRes, MUPNP_HTTP_STATUS_OK);
 	mupnp_event_subscription_request_postresponse(subReq, subRes);
 	mupnp_event_subscription_response_delete(subRes);
 

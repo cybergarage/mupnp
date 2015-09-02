@@ -31,8 +31,8 @@ extern "C" {
 
 #define MUPNP_SSDP_MULTICAST_ADDRESS "239.255.255.250:1900"
 
-#define CG_AUTO_IP_NET 0xa9fe0000
-#define CG_AUTO_IP_MASK 0xffff0000
+#define MUPNP_AUTO_IP_NET 0xa9fe0000
+#define MUPNP_AUTO_IP_MASK 0xffff0000
 
 /* Default time to live specified in UPnP DA spec */
 #define MUPNP_SSDP_MULTICAST_DEFAULT_TTL 4
@@ -111,8 +111,8 @@ void mupnp_ssdprequest_delete(mUpnpSSDPRequest *ssdpReq);
 #define mupnp_ssdprequest_gethost(ssdpReq) mupnp_http_packet_gethost((mUpnpHttpPacket*)ssdpReq)
 
 /**** Server ****/
-#define mupnp_ssdprequest_setserver(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_HTTP_SERVER, value)
-#define mupnp_ssdprequest_getserver(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,CG_HTTP_SERVER)
+#define mupnp_ssdprequest_setserver(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, MUPNP_HTTP_SERVER, value)
+#define mupnp_ssdprequest_getserver(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,MUPNP_HTTP_SERVER)
 
 /**** ST ****/
 #define mupnp_ssdprequest_setst(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, MUPNP_SSDP_ST, value)
@@ -127,8 +127,8 @@ void mupnp_ssdprequest_delete(mUpnpSSDPRequest *ssdpReq);
 #define mupnp_ssdprequest_getnts(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,MUPNP_SSDP_NTS)
 
 /**** Location ****/
-#define mupnp_ssdprequest_setlocation(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, CG_HTTP_LOCATION, value)
-#define mupnp_ssdprequest_getlocation(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,CG_HTTP_LOCATION)
+#define mupnp_ssdprequest_setlocation(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, MUPNP_HTTP_LOCATION, value)
+#define mupnp_ssdprequest_getlocation(ssdpReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpReq,MUPNP_HTTP_LOCATION)
 
 /**** USN ****/
 #define mupnp_ssdprequest_setusn(ssdpReq,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpReq, MUPNP_SSDP_USN, value)
@@ -174,8 +174,8 @@ void mupnp_ssdpresponse_delete(mUpnpSSDPResponse *ssdpRes);
 #define mupnp_ssdpresponse_setserver(ssdpRes, value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*) ssdpRes, MUPNP_SSDP_SERVER, value)
 
 /**** Location ****/
-#define mupnp_ssdpresponse_setlocation(ssdpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpRes, CG_HTTP_LOCATION, value)
-#define mupnp_ssdpresponse_getlocation(ssdpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpRes,CG_HTTP_LOCATION)
+#define mupnp_ssdpresponse_setlocation(ssdpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpRes, MUPNP_HTTP_LOCATION, value)
+#define mupnp_ssdpresponse_getlocation(ssdpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpRes,MUPNP_HTTP_LOCATION)
 
 /**** USN ****/
 #define mupnp_ssdpresponse_setusn(ssdpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpRes, MUPNP_SSDP_USN, value)
@@ -186,8 +186,8 @@ void mupnp_ssdpresponse_setleasetime(mUpnpSSDPResponse *ssdpRes, mUpnpTime value
 int mupnp_ssdpresponse_getleasetime(mUpnpSSDPResponse *ssdpRes);
 
 /**** Date ****/
-#define mupnp_ssdpresponse_setdate(ssdpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpRes, CG_HTTP_DATE, value)
-#define mupnp_ssdpresponse_getdate(ssdpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpRes,CG_HTTP_DATE)
+#define mupnp_ssdpresponse_setdate(ssdpRes,value) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)ssdpRes, MUPNP_HTTP_DATE, value)
+#define mupnp_ssdpresponse_getdate(ssdpRes) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)ssdpRes,MUPNP_HTTP_DATE)
 
 /**** BOOTID.UPNP.ORG ****/
 #define mupnp_ssdpresponse_setbootid(ssdpRes,value) mupnp_http_packet_setheaderinteger((mUpnpHttpPacket*)ssdpRes, MUPNP_SSDP_BOOTID_UPNP_ORG, value)
@@ -203,7 +203,7 @@ char *mupnp_ssdpresponse_tostring(mUpnpSSDPResponse *ssdpRes, mUpnpString *ssdpM
 * Function (SSDPSocket)
 ****************************************/
 
-#define mupnp_ssdp_socket_new() mupnp_socket_new(CG_NET_SOCKET_DGRAM)
+#define mupnp_ssdp_socket_new() mupnp_socket_new(MUPNP_NET_SOCKET_DGRAM)
 #define mupnp_ssdp_socket_delete(socket) mupnp_socket_delete(socket)
 #define mupnp_ssdp_socket_close(socket) mupnp_socket_close(socket)
 

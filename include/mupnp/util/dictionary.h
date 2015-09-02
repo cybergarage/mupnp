@@ -112,7 +112,7 @@ void mupnp_dictionary_delete(mUpnpDictionary *dir);
  *
  * \param dir Dictionary list in question
  */
-#define mupnp_dictionary_clear(dir) mupnp_list_clear((mUpnpList *)dir, (CG_LIST_DESTRUCTORFUNC)mupnp_dictionary_element_delete)
+#define mupnp_dictionary_clear(dir) mupnp_list_clear((mUpnpList *)dir, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_dictionary_element_delete)
 
 /**
  * Get the size of a dictionary list

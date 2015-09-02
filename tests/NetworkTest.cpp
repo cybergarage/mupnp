@@ -20,9 +20,9 @@
 BOOST_AUTO_TEST_CASE(NetworkInterface)
 {
 #if defined(HAVE_SOCKADDR_DL) || defined(HAVE_SIOCGIFHWADDR)
-	mUpnpByte macAddr[CG_NET_MACADDR_SIZE];
-	mUpnpByte nullMacAddr[CG_NET_MACADDR_SIZE];
-	memset(nullMacAddr, 0, CG_NET_MACADDR_SIZE);
+	mUpnpByte macAddr[MUPNP_NET_MACADDR_SIZE];
+	mUpnpByte nullMacAddr[MUPNP_NET_MACADDR_SIZE];
+	memset(nullMacAddr, 0, MUPNP_NET_MACADDR_SIZE);
 #endif
 
 	mUpnpNetworkInterfaceList *netIfList = mupnp_net_interfacelist_new();
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE(NetworkInterface)
 		BOOST_CHECK(mupnp_streq(ipaddr, "0.0.0.0") == FALSE);
 #if defined(HAVE_SOCKADDR_DL) || defined(HAVE_SIOCGIFHWADDR)
 		mupnp_net_interface_getmacaddress(netIf, macAddr);
-		BOOST_CHECK(memcmp(macAddr, nullMacAddr, CG_NET_MACADDR_SIZE) != 0);
+		BOOST_CHECK(memcmp(macAddr, nullMacAddr, MUPNP_NET_MACADDR_SIZE) != 0);
 #endif
 		//BOOST_CHECK(0 < mupnp_strlen(mupnp_net_interface_getname(netIf)));
 		//BOOST_CHECK(0 < mupnp_strlen(mupnp_net_interface_getnetmask(netIf)));

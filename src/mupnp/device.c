@@ -50,7 +50,7 @@ mUpnpDevice *mupnp_device_new()
 	{
 		mupnp_list_node_init((mUpnpList *)dev);
 
-#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS
+#ifdef MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS
 		mupnp_http_persistentconnection_init();
 #endif
 
@@ -251,17 +251,17 @@ BOOL mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url)
 	host = mupnp_net_url_gethost(url);
 	port = mupnp_net_url_getport(url);
 	if (port <= 0)
-		port = CG_HTTP_DEFAULT_PORT;
+		port = MUPNP_HTTP_DEFAULT_PORT;
 	request = mupnp_net_url_getrequest(url);
 	
 	httpReq = mupnp_http_request_new();
-	mupnp_http_request_setmethod(httpReq, CG_HTTP_GET);
+	mupnp_http_request_setmethod(httpReq, MUPNP_HTTP_GET);
 	mupnp_http_request_seturi(httpReq, request);
 	mupnp_http_request_setcontentlength(httpReq, 0);
 	httpRes = mupnp_http_request_post(httpReq, host, port);
 
 	/*statusCode = mupnp_http_response_getstatuscode(httpRes);
-          if (statusCode != CG_HTTP_STATUS_OK) {*/
+          if (statusCode != MUPNP_HTTP_STATUS_OK) {*/
 	if ( !mupnp_http_response_issuccessful(httpRes)) {
 		mupnp_http_request_delete(httpReq);
 		return FALSE;
@@ -283,7 +283,7 @@ BOOL mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url)
 * mupnp_device_loaddescriptionfile
 ****************************************/
 
-#if defined(CG_USE_CFILE)
+#if defined(MUPNP_USE_CFILE)
 
 BOOL mupnp_device_loaddescriptionfile(mUpnpDevice *dev, char *fileName)
 {
@@ -379,7 +379,7 @@ BOOL mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
 /* Bug correction : Solving compilation issue when using DMUPNP_NOUSE_CONTROLPOINT flag */
 #ifndef MUPNP_NOUSE_CONTROLPOINT
 /* ADD END Fabrice Fontaine Orange 16/04/2007 */
-#ifndef CG_OPTIMIZED_CP_MODE
+#ifndef MUPNP_OPTIMIZED_CP_MODE
 		if (mupnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == FALSE)
 		{
 			mupnp_device_delete(dev);
@@ -1388,7 +1388,7 @@ BOOL mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt,
 {
 	mUpnpDevice *rootDev;
 	mUpnpSSDPResponse *ssdpRes;
-	char httpDateStr[CG_HTTP_DATE_MAXLEN];
+	char httpDateStr[MUPNP_HTTP_DATE_MAXLEN];
 	char *localAddr;
 	char *remoteAddr;
 	int remotePort;
@@ -1452,7 +1452,7 @@ BOOL mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt,
 
 BOOL mupnp_device_start(mUpnpDevice *dev)
 {
-	CG_HTTP_LISTENER httpListener;
+	MUPNP_HTTP_LISTENER httpListener;
 	int httpPort;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -1619,7 +1619,7 @@ mUpnpService *mupnp_device_getservicebyserviceid(mUpnpDevice *dev, const char *s
 		if (mupnp_strcmp(mupnp_service_getserviceid(service),
 			      serviceId) == 0)
 		{
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 			if (mupnp_service_isparsed(service) == FALSE)
 				mupnp_controlpoint_parsescservicescpd(service);
 #endif
@@ -1673,7 +1673,7 @@ mUpnpService* mupnp_device_getservicebyexacttype(mUpnpDevice* dev, const char* t
 		if (mupnp_strcmp(mupnp_service_getservicetype(service),
 			      type) == 0)
 		{
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 		if (mupnp_service_isparsed(service) == FALSE)
 			mupnp_controlpoint_parsescservicescpd(service);
 #endif
@@ -1735,7 +1735,7 @@ mUpnpService *mupnp_device_getservicebytype(mUpnpDevice *dev, const char *type)
 			if (mupnp_strcmp(part, type) == 0)
 			{
 				free(part);
-#ifdef CG_OPTIMIZED_CP_MODE
+#ifdef MUPNP_OPTIMIZED_CP_MODE
 				if (mupnp_service_isparsed(service) == FALSE)
 					mupnp_controlpoint_parsescservicescpd(service);
 #endif

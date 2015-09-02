@@ -40,7 +40,7 @@ void mupnp_argumentlist_delete(mUpnpArgumentList *argumentList)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_clear((mUpnpList*)argumentList, (CG_LIST_DESTRUCTORFUNC)mupnp_argument_delete);
+	mupnp_list_clear((mUpnpList*)argumentList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_argument_delete);
 	free(argumentList);
 
 	mupnp_log_debug_l4("Leaving...\n");

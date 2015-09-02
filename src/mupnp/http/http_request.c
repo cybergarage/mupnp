@@ -22,11 +22,11 @@
 #include "config.h"
 #endif
 
-#ifdef CG_HTTP_CURL
+#ifdef MUPNP_HTTP_CURL
 #include <curl/curl.h>
 #endif
 
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 #include <sys/time.h>
 #include <time.h>
 
@@ -55,13 +55,13 @@ mUpnpHttpRequest *mupnp_http_request_new()
 		httpReq->httpRes = mupnp_http_response_new();
 		httpReq->postURL = mupnp_net_url_new();
 		
-		mupnp_http_request_setversion(httpReq, CG_HTTP_VER11);
-		mupnp_http_request_setuseragent(httpReq, CG_HTTP_USERAGENT_DEFAULT);
+		mupnp_http_request_setversion(httpReq, MUPNP_HTTP_VER11);
+		mupnp_http_request_setuseragent(httpReq, MUPNP_HTTP_USERAGENT_DEFAULT);
 
 		mupnp_http_request_setsocket(httpReq, NULL);
 		mupnp_http_request_setuserdata(httpReq, NULL);
 
-		mupnp_http_request_settimeout(httpReq, CG_HTTP_CONN_TIMEOUT);
+		mupnp_http_request_settimeout(httpReq, MUPNP_HTTP_CONN_TIMEOUT);
 	}
 	
 	mupnp_log_debug_l4("Leaving...\n");
@@ -257,20 +257,20 @@ mUpnpSocket *mupnp_http_request_getsocket(mUpnpHttpRequest *httpReq)
 * mupnp_http_request_post
 ****************************************/
 
-#if !defined(CG_HTTP_CURL)
+#if !defined(MUPNP_HTTP_CURL)
 
 mUpnpHttpResponse *mupnp_http_request_post_main(mUpnpHttpRequest *httpReq, const char *ipaddr, int port, BOOL isSecure)
 {
 	mUpnpSocket *sock;
 	char *method, *uri, *version;
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
 #endif		
 	mUpnpString *firstLine;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 	gettimeofday(&start_time, NULL);
 #endif		
 
@@ -279,7 +279,7 @@ mUpnpHttpResponse *mupnp_http_request_post_main(mUpnpHttpRequest *httpReq, const
 	mupnp_log_debug_s("(HTTP) Posting:\n");
 	mupnp_http_request_print(httpReq);
 
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 	if (isSecure == FALSE)
 		sock = mupnp_socket_stream_new();
 	else
@@ -295,7 +295,7 @@ mUpnpHttpResponse *mupnp_http_request_post_main(mUpnpHttpRequest *httpReq, const
 	}
 	
 	mupnp_http_request_sethost(httpReq, ipaddr, port);
-	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpReq, CG_HTTP_USERAGENT, mupnp_http_request_getuseragent(httpReq));
+	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)httpReq, MUPNP_HTTP_USERAGENT, mupnp_http_request_getuseragent(httpReq));
 
 	method = mupnp_http_request_getmethod(httpReq);
 	uri = mupnp_http_request_geturi(httpReq);
@@ -307,17 +307,17 @@ mUpnpHttpResponse *mupnp_http_request_post_main(mUpnpHttpRequest *httpReq, const
 		return httpReq->httpRes;		
 	}	
 	
-#ifdef CG_SHOW_TIMINGS	
-mupnp_log_debug_s("\nRequest: %s%s%s:%d%s%s%s\n", method, CG_HTTP_SP, ipaddr, port, uri, CG_HTTP_SP, version);
+#ifdef MUPNP_SHOW_TIMINGS	
+mupnp_log_debug_s("\nRequest: %s%s%s:%d%s%s%s\n", method, MUPNP_HTTP_SP, ipaddr, port, uri, MUPNP_HTTP_SP, version);
 #endif
 	/**** send first line ****/
 	firstLine = mupnp_string_new();
 	mupnp_string_addvalue(firstLine, method);
-	mupnp_string_addvalue(firstLine, CG_HTTP_SP);
+	mupnp_string_addvalue(firstLine, MUPNP_HTTP_SP);
 	mupnp_string_addvalue(firstLine, uri);
-	mupnp_string_addvalue(firstLine, CG_HTTP_SP);
+	mupnp_string_addvalue(firstLine, MUPNP_HTTP_SP);
 	mupnp_string_addvalue(firstLine, version);
-	mupnp_string_addvalue(firstLine, CG_HTTP_CRLF);
+	mupnp_string_addvalue(firstLine, MUPNP_HTTP_CRLF);
 	mupnp_socket_write(sock, mupnp_string_getvalue(firstLine), mupnp_string_length(firstLine));
 	mupnp_string_delete(firstLine);
 	
@@ -327,7 +327,7 @@ mupnp_log_debug_s("\nRequest: %s%s%s:%d%s%s%s\n", method, CG_HTTP_SP, ipaddr, po
 	/**** read response ****/
 	mupnp_http_response_read(httpReq->httpRes, sock, mupnp_http_request_isheadrequest(httpReq));
 
-#ifdef CG_SHOW_TIMINGS	
+#ifdef MUPNP_SHOW_TIMINGS	
 	gettimeofday(&end_time, NULL);
 	timersub(&end_time, &start_time, &elapsed_time);
 mupnp_log_debug_s("Getting HTTP-response completed. Elapsed time: "
@@ -351,7 +351,7 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, const char
 	return mupnp_http_request_post_main(httpReq, ipaddr, port, FALSE);
 }
 
-#if defined(CG_USE_OPENSSL)
+#if defined(MUPNP_USE_OPENSSL)
 mUpnpHttpResponse *mupnp_https_request_post(mUpnpHttpRequest *httpReq, const char *ipaddr, int port)
 {
 	return mupnp_http_request_post_main(httpReq, ipaddr, port, TRUE);
@@ -364,7 +364,7 @@ mUpnpHttpResponse *mupnp_https_request_post(mUpnpHttpRequest *httpReq, const cha
 * mupnp_http_request_post (libcurl)
 ****************************************/
 
-#if defined(CG_HTTP_CURL)
+#if defined(MUPNP_HTTP_CURL)
 
 /**
  * Callback function for CURL to read each HTTP header line
@@ -394,12 +394,12 @@ static size_t mupnp_http_request_header_callback(void *ptr, size_t size, size_t 
 	headerLine = (char*) ptr;
 	
 	/* Read header items */
-	if (mupnp_strncmp(headerLine, CG_HTTP_VER11, mupnp_strlen(CG_HTTP_VER11)) == 0
+	if (mupnp_strncmp(headerLine, MUPNP_HTTP_VER11, mupnp_strlen(MUPNP_HTTP_VER11)) == 0
 	    ||
-	    mupnp_strncmp(headerLine, CG_HTTP_VER10, mupnp_strlen(CG_HTTP_VER10)) == 0)
+	    mupnp_strncmp(headerLine, MUPNP_HTTP_VER10, mupnp_strlen(MUPNP_HTTP_VER10)) == 0)
 	{
 		/* <HTTP/version> <status code> <reason phrase> */
-		strTok = mupnp_string_tokenizer_new(headerLine, CG_HTTP_STATUSLINE_DELIM);
+		strTok = mupnp_string_tokenizer_new(headerLine, MUPNP_HTTP_STATUSLINE_DELIM);
 		if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
 		{
 			mupnp_http_response_setversion(httpRes, mupnp_string_tokenizer_nexttoken(strTok));
@@ -413,7 +413,7 @@ static size_t mupnp_http_request_header_callback(void *ptr, size_t size, size_t 
 		if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
 		{
 			value = mupnp_string_tokenizer_nextalltoken(strTok);
-			mupnp_strrtrim(value, CG_HTTP_STATUSLINE_DELIM, mupnp_strlen(CG_HTTP_STATUSLINE_DELIM));
+			mupnp_strrtrim(value, MUPNP_HTTP_STATUSLINE_DELIM, mupnp_strlen(MUPNP_HTTP_STATUSLINE_DELIM));
 			mupnp_http_response_setreasonphrase(httpRes, value);
 		}
 		
@@ -551,15 +551,15 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, char *ipad
 	mUpnpString *headerStr;
 	CURLcode res;
 	char *uri, *method;
-	char url[CG_NET_URI_MAXLEN];
+	char url[MUPNP_NET_URI_MAXLEN];
 	long retcode;
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 	struct timeval start_time, end_time, elapsed_time;
 #endif		
 
 	mupnp_log_debug_l4("Entering...\n");
 
-#ifdef CG_SHOW_TIMINGS
+#ifdef MUPNP_SHOW_TIMINGS
 	gettimeofday(&start_time, NULL);
 #endif		
 
@@ -573,7 +573,7 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, char *ipad
 	mupnp_http_request_print(httpReq);
 
 	mupnp_http_persistentconnection_lock();	
-#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS
+#ifdef MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS
 	mupnp_log_debug_s("Looking for persistent connection to %s, port %d\n", ipaddr, port);
 	curl = (CURL*)mupnp_http_persistentconnection_get(ipaddr, port);
 	
@@ -587,7 +587,7 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, char *ipad
 			mupnp_http_persistentconnection_unlock();
 			return httpReq->httpRes;		
 		}
-#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS
+#ifdef MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS
 		newCurl = TRUE;
 	}
 #endif	
@@ -598,7 +598,7 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, char *ipad
 	curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, method);
 
 	/**** url ****/
-	if (uri && mupnp_strstr(uri, CG_NET_URI_PROTOCOL_DELIM) > 0)
+	if (uri && mupnp_strstr(uri, MUPNP_NET_URI_PROTOCOL_DELIM) > 0)
 	{
 		curl_easy_setopt(curl, CURLOPT_URL, uri);
 	}
@@ -614,7 +614,7 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, char *ipad
 	headerStr = mupnp_string_new();
 	for (reqHeader = mupnp_http_request_getheaders(httpReq); reqHeader; reqHeader = mupnp_http_header_next(reqHeader)) {
 		mupnp_string_setvalue(headerStr, mupnp_http_header_getname(reqHeader));
-		if (mupnp_string_addvalue(headerStr, CG_HTTP_COLON CG_HTTP_SP) &&
+		if (mupnp_string_addvalue(headerStr, MUPNP_HTTP_COLON MUPNP_HTTP_SP) &&
 		    mupnp_string_addvalue(headerStr, mupnp_http_header_getvalue(reqHeader)))
 			curlHeaderList = curl_slist_append(curlHeaderList, mupnp_string_getvalue(headerStr));
 	}
@@ -661,11 +661,11 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, char *ipad
 	
 	/**** Set the connection timeout so we don't wait forever ****/
 	curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 
-			       CG_HTTP_CURL_CONNECTTIMEOUT);
+			       MUPNP_HTTP_CURL_CONNECTTIMEOUT);
         curl_easy_setopt(curl, CURLOPT_TIMEOUT,
-                               CG_HTTP_CONN_TIMEOUT);
-#ifdef CG_SHOW_TIMINGS
-mupnp_log_debug_s("\nRequest: %s%s%s\n", method, CG_HTTP_SP, url);
+                               MUPNP_HTTP_CONN_TIMEOUT);
+#ifdef MUPNP_SHOW_TIMINGS
+mupnp_log_debug_s("\nRequest: %s%s%s\n", method, MUPNP_HTTP_SP, url);
 #endif
 	
 	/* Get the XML document with CURL */
@@ -686,7 +686,7 @@ mupnp_log_debug_s("\nRequest: %s%s%s\n", method, CG_HTTP_SP, url);
 	curl_easy_getinfo (curl, CURLINFO_HTTP_CODE, &retcode);
 	mupnp_http_response_setstatuscode(httpRes, retcode);
 
-#ifdef CG_SHOW_TIMINGS	
+#ifdef MUPNP_SHOW_TIMINGS	
 	gettimeofday(&end_time, NULL);
 	timersub(&end_time, &start_time, &elapsed_time);
 mupnp_log_debug_s("Getting HTTP-response completed. Elapsed time: "
@@ -696,7 +696,7 @@ mupnp_log_debug_s("Getting HTTP-response completed. Elapsed time: "
 				 (elapsed_time.tv_usec);
 #endif
 
-#ifdef CG_HTTP_USE_PERSISTENT_CONNECTIONS
+#ifdef MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS
 	if (newCurl)
 	{
 		mupnp_log_debug_s("Putting new connection into cache: %s %d\n", ipaddr, port);
@@ -723,7 +723,7 @@ mupnp_log_debug_s("Getting HTTP-response completed. Elapsed time: "
 
 BOOL mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock)
 {
-	char lineBuf[CG_HTTP_READLINE_BUFSIZE];
+	char lineBuf[MUPNP_HTTP_READLINE_BUFSIZE];
 	mUpnpStringTokenizer *strTok;
 	ssize_t readLen;
 	mUpnpNetURI *uri = NULL;
@@ -741,7 +741,7 @@ BOOL mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock)
 	if (readLen <= 0)
 		return FALSE;
 
-	strTok = mupnp_string_tokenizer_new(lineBuf, CG_HTTP_STATUSLINE_DELIM);
+	strTok = mupnp_string_tokenizer_new(lineBuf, MUPNP_HTTP_STATUSLINE_DELIM);
 	if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
 		mupnp_http_request_setmethod(httpReq, mupnp_string_tokenizer_nexttoken(strTok));
 	else
@@ -780,8 +780,8 @@ BOOL mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock)
 	
 	/* HTTP-request must have Content-Length or Transfer-Encoding header
 	   in order to have body */
-	if (mupnp_http_packet_hasheader((mUpnpHttpPacket *)httpReq, CG_HTTP_CONTENT_LENGTH) ||
-	    mupnp_http_packet_hasheader((mUpnpHttpPacket *)httpReq, CG_HTTP_TRANSFER_ENCODING))
+	if (mupnp_http_packet_hasheader((mUpnpHttpPacket *)httpReq, MUPNP_HTTP_CONTENT_LENGTH) ||
+	    mupnp_http_packet_hasheader((mUpnpHttpPacket *)httpReq, MUPNP_HTTP_TRANSFER_ENCODING))
 		mupnp_http_packet_read_body((mUpnpHttpPacket *)httpReq, sock, lineBuf, sizeof(lineBuf));
 	
 	mupnp_log_debug_l4("Leaving...\n");
@@ -796,10 +796,10 @@ BOOL mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock)
 BOOL mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpResponse *httpRes)
 {
 	mUpnpSocket *sock;
-	char httpDate[CG_HTTP_DATE_MAXLEN];
+	char httpDate[MUPNP_HTTP_DATE_MAXLEN];
 	char *version, *reasonPhrase;
 	int statusCode;
-	char statusCodeBuf[CG_STRING_INTEGER_BUFLEN];
+	char statusCodeBuf[MUPNP_STRING_INTEGER_BUFLEN];
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -821,11 +821,11 @@ BOOL mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpRespons
 		
 	/**** send first line ****/
 	mupnp_socket_write(sock, version, mupnp_strlen(version));
-	mupnp_socket_write(sock, CG_HTTP_SP, sizeof(CG_HTTP_SP)-1);
+	mupnp_socket_write(sock, MUPNP_HTTP_SP, sizeof(MUPNP_HTTP_SP)-1);
 	mupnp_socket_write(sock, statusCodeBuf, mupnp_strlen(statusCodeBuf));
-	mupnp_socket_write(sock, CG_HTTP_SP, sizeof(CG_HTTP_SP)-1);
+	mupnp_socket_write(sock, MUPNP_HTTP_SP, sizeof(MUPNP_HTTP_SP)-1);
 	mupnp_socket_write(sock, reasonPhrase, mupnp_strlen(reasonPhrase));
-	mupnp_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
+	mupnp_socket_write(sock, MUPNP_HTTP_CRLF, sizeof(MUPNP_HTTP_CRLF)-1);
 	
 	mupnp_log_debug_s("Posting response:\n");
 	mupnp_http_response_print(httpRes);
@@ -881,13 +881,13 @@ BOOL mupnp_http_request_postdata(mUpnpHttpRequest *httpReq, void *data, int data
 BOOL mupnp_http_request_postchunkedsize(mUpnpHttpRequest *httpReq, int dataLen)
 {
 	mUpnpSocket *sock;
-	char chunkedChar[CG_STRING_LONG_BUFLEN+2];
+	char chunkedChar[MUPNP_STRING_LONG_BUFLEN+2];
 
 	sock = mupnp_http_request_getsocket(httpReq);
 #if defined(HAVE_SNPRINTF)
-	snprintf(chunkedChar, sizeof(chunkedChar), "%x%s", dataLen, CG_HTTP_CRLF);
+	snprintf(chunkedChar, sizeof(chunkedChar), "%x%s", dataLen, MUPNP_HTTP_CRLF);
 #else
-	sprintf(chunkedChar, "%x%s", dataLen, CG_HTTP_CRLF);
+	sprintf(chunkedChar, "%x%s", dataLen, MUPNP_HTTP_CRLF);
 #endif
 	mupnp_socket_write(sock, chunkedChar, mupnp_strlen(chunkedChar));
 
@@ -908,7 +908,7 @@ BOOL mupnp_http_request_postchunkeddata(mUpnpHttpRequest *httpReq, void *data, i
 	mupnp_http_request_postchunkedsize(httpReq, dataLen);
 	sock = mupnp_http_request_getsocket(httpReq);
 	mupnp_socket_write(sock, data, dataLen);
-	mupnp_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
+	mupnp_socket_write(sock, MUPNP_HTTP_CRLF, sizeof(MUPNP_HTTP_CRLF)-1);
 	
 	return TRUE;
 }
@@ -923,7 +923,7 @@ BOOL mupnp_http_request_postlastchunk(mUpnpHttpRequest *httpReq)
 	
 	mupnp_http_request_postchunkedsize(httpReq, 0);
 	sock = mupnp_http_request_getsocket(httpReq);
-	mupnp_socket_write(sock, CG_HTTP_CRLF, sizeof(CG_HTTP_CRLF)-1);
+	mupnp_socket_write(sock, MUPNP_HTTP_CRLF, sizeof(MUPNP_HTTP_CRLF)-1);
 	
 	return TRUE;
 }

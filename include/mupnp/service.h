@@ -742,7 +742,7 @@ void mupnp_servicelist_delete(mUpnpServiceList *serviceList);
  *
  * @param serviceList The list of services to clear
  */
-#define mupnp_servicelist_clear(serviceList) mupnp_list_clear((mUpnpList *)serviceList, (CG_LIST_DESTRUCTORFUNC)mupnp_service_delete)
+#define mupnp_servicelist_clear(serviceList) mupnp_list_clear((mUpnpList *)serviceList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_service_delete)
 
 /**
  * Get the number of services in a list of services

@@ -70,7 +70,7 @@ BOOL mupnp_http_serverlist_open(mUpnpHttpServerList *httpServerList, int port)
 	mupnp_log_debug_l4("Entering...\n");
 
 	netIfList = mupnp_net_interfacelist_new();
-#ifndef CG_NET_USE_ANYADDR
+#ifndef MUPNP_NET_USE_ANYADDR
 	mupnp_net_gethostinterfaces(netIfList);
 #else
 	netIf = mupnp_net_interface_getany();
@@ -157,7 +157,7 @@ BOOL mupnp_http_serverlist_stop(mUpnpHttpServerList *httpServerList)
 * mupnp_http_serverlist_setlistener
 ****************************************/
 
-void mupnp_http_serverlist_setlistener(mUpnpHttpServerList *httpServerList, CG_HTTP_LISTENER listener)
+void mupnp_http_serverlist_setlistener(mUpnpHttpServerList *httpServerList, MUPNP_HTTP_LISTENER listener)
 {
 	mUpnpHttpServer *httpServer;
 	

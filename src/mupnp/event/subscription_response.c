@@ -31,7 +31,7 @@ void mupnp_event_subscription_subscriberesponse_setresponse(mUpnpSubscriptionRes
 	mupnp_http_response_setstatuscode(subRes, code);
   mupnp_getservername(server, sizeof(server));
   mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subRes),
-                                  CG_HTTP_SERVER,
+                                  MUPNP_HTTP_SERVER,
                                   server);
 	mupnp_http_response_setcontentlength(subRes, 0);
 
@@ -56,7 +56,7 @@ void mupnp_event_subscription_response_setsid(mUpnpSubscriptionResponse *subRes,
 		mupnp_string_addvalue(headerSID, MUPNP_ST_UUID_DEVICE ":");
 	mupnp_string_addvalue(headerSID, sid);
 
-	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subRes), CG_HTTP_SID, mupnp_string_getvalue(headerSID));
+	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subRes), MUPNP_HTTP_SID, mupnp_string_getvalue(headerSID));
 
 	mupnp_string_delete(headerSID);
 
@@ -74,7 +74,7 @@ void mupnp_event_subscription_response_settimeout(mUpnpSubscriptionResponse *sub
 	mupnp_log_debug_l4("Entering...\n");
 
 	buf = mupnp_string_new();
-	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)subRes, CG_HTTP_TIMEOUT, mupnp_event_subscription_totimeoutheaderstring(value, buf));
+	mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)subRes, MUPNP_HTTP_TIMEOUT, mupnp_event_subscription_totimeoutheaderstring(value, buf));
 	mupnp_string_delete(buf);
 
 	mupnp_log_debug_l4("Leaving...\n");

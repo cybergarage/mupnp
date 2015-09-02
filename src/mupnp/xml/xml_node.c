@@ -345,7 +345,7 @@ static char *mupnp_xml_node_tostring_indent(mUpnpXmlNode *node, int indentLevel,
 	value = mupnp_xml_node_getvalue(node);
 
 	if (mupnp_xml_node_haschildnodes(node) == FALSE || withChildNode == FALSE) {
-		mupnp_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
+		mupnp_string_addrepvalue(str, MUPNP_XML_INDENT_STRING, indentLevel);
 		if (!mupnp_string_naddvalue(str, "<", 1) ||
 		    !mupnp_string_addvalue(str, name) ||
 		    !mupnp_xml_node_attribute_tostring(node, str))
@@ -377,7 +377,7 @@ static char *mupnp_xml_node_tostring_indent(mUpnpXmlNode *node, int indentLevel,
 		return mupnp_string_getvalue(str);
 	}
 
-	mupnp_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
+	mupnp_string_addrepvalue(str, MUPNP_XML_INDENT_STRING, indentLevel);
 	if (!mupnp_string_naddvalue(str, "<", 1) ||
 	    !mupnp_string_addvalue(str, name) ||
 	    !mupnp_xml_node_attribute_tostring(node, str) ||
@@ -391,7 +391,7 @@ static char *mupnp_xml_node_tostring_indent(mUpnpXmlNode *node, int indentLevel,
 			/* Memory allocation failed */
 			return NULL;
 
-	mupnp_string_addrepvalue(str, CG_XML_INDENT_STRING, indentLevel);
+	mupnp_string_addrepvalue(str, MUPNP_XML_INDENT_STRING, indentLevel);
 	if (!mupnp_string_naddvalue(str, "</", 2) ||
 	    !mupnp_string_addvalue(str, name) ||
 	    !mupnp_string_naddvalue(str, ">", 1) ||

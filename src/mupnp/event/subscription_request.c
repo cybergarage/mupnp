@@ -38,7 +38,7 @@ void mupnp_event_subscription_request_setsid(mUpnpSubscriptionRequest *subReq, c
 		mupnp_string_addvalue(headerSID, MUPNP_ST_UUID_DEVICE ":");
 	mupnp_string_addvalue(headerSID, sid);
 	
-	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_SID, mupnp_string_getvalue(headerSID));
+	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), MUPNP_HTTP_SID, mupnp_string_getvalue(headerSID));
 
 	mupnp_string_delete(headerSID);
 
@@ -56,7 +56,7 @@ void mupnp_event_subscription_request_settimeout(mUpnpSubscriptionRequest *subRe
 	mupnp_log_debug_l4("Entering...\n");
 
 	timeoutBuf = mupnp_string_new();
-	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), CG_HTTP_TIMEOUT, mupnp_event_subscription_totimeoutheaderstring(timeout, timeoutBuf));
+	mupnp_http_packet_setheadervalue(((mUpnpHttpPacket*)subReq), MUPNP_HTTP_TIMEOUT, mupnp_event_subscription_totimeoutheaderstring(timeout, timeoutBuf));
 	mupnp_string_delete(timeoutBuf);
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -90,7 +90,7 @@ void mupnp_event_subscription_request_setnewsubscription(mUpnpSubscriptionReques
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_http_request_setmethod(subReq, CG_HTTP_SUBSCRIBE);
+	mupnp_http_request_setmethod(subReq, MUPNP_HTTP_SUBSCRIBE);
 	mupnp_event_subscription_request_setservice(subReq, service);
 	mupnp_event_subscription_request_setcallback(subReq, callback);
 	mupnp_event_subscription_request_setnt(subReq, MUPNP_NT_EVENT);
@@ -106,7 +106,7 @@ void mupnp_event_subscription_request_setrenewsubscription(mUpnpSubscriptionRequ
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_http_request_setmethod(subReq, CG_HTTP_SUBSCRIBE);
+	mupnp_http_request_setmethod(subReq, MUPNP_HTTP_SUBSCRIBE);
 	mupnp_event_subscription_request_setservice(subReq, service);
 	mupnp_event_subscription_request_setsid(subReq, uuid);
 	mupnp_event_subscription_request_settimeout(subReq, timeout);
@@ -121,7 +121,7 @@ void mupnp_event_subscription_request_setunsubscription(mUpnpSubscriptionRequest
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_http_request_setmethod(subReq, CG_HTTP_UNSUBSCRIBE);
+	mupnp_http_request_setmethod(subReq, MUPNP_HTTP_UNSUBSCRIBE);
 	mupnp_event_subscription_request_setservice(subReq, service);
 	mupnp_event_subscription_request_setsid(subReq, mupnp_service_getsubscriptionsid(service));
 	mupnp_log_debug_l4("Leaving...\n");

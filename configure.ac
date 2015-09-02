@@ -88,7 +88,7 @@ AC_ARG_WITH(timings,
 		       [],
 		       [with_timings=no])
 if [ test $with_timings = yes ]; then
-  CFLAGS="$CFLAGS -DCG_SHOW_TIMINGS"
+  CFLAGS="$CFLAGS -DMUPNP_SHOW_TIMINGS"
 fi
 
 ##############################
@@ -119,7 +119,7 @@ AC_ARG_ENABLE(libxml2,
 if [ test $USE_LIBXML2 = yes ]; then
 	AC_CHECK_LIB(xml2, xmlSAXUserParseMemory,
 	[
-		AC_DEFINE([CG_XMLPARSER_LIBXML2],1,[LIBXML2])
+		AC_DEFINE([MUPNP_XMLPARSER_LIBXML2],1,[LIBXML2])
 
 		XML_CFLAGS=`pkg-config libxml-2.0 --cflags`
 		AC_SUBST(XML_CFLAGS)
@@ -140,7 +140,7 @@ if [ test $USE_LIBXML2 != yes ]; then
 	AC_CHECK_HEADERS([expat.h])
 	AC_CHECK_LIB([expat],[main],
   [
-    AC_DEFINE([CG_XMLPARSER_EXPAT],1,[EXPAT])
+    AC_DEFINE([MUPNP_XMLPARSER_EXPAT],1,[EXPAT])
 		XML_LIBS="-lexpat"
 		AC_SUBST(XML_LIBS)
   ],[
@@ -273,10 +273,10 @@ AC_ARG_ENABLE(persistent-connections,
 			[enable persistent connections support (default = yes)]),
 	[
 		if test $enableval = yes; then
-			CFLAGS="$CFLAGS -DCG_HTTP_USE_PERSISTENT_CONNECTIONS"
+			CFLAGS="$CFLAGS -DMUPNP_HTTP_USE_PERSISTENT_CONNECTIONS"
 		fi
 	],[
-		CFLAGS="$CFLAGS -DCG_HTTP_USE_PERSISTENT_CONNECTIONS"
+		CFLAGS="$CFLAGS -DMUPNP_HTTP_USE_PERSISTENT_CONNECTIONS"
 	]
 )
 
@@ -289,7 +289,7 @@ AC_ARG_ENABLE(optimized-cp,
 			[enable optimized control point mode (default = no)]),
 	[
 		if test $enableval = yes; then
-			CFLAGS="$CFLAGS -DCG_OPTIMIZED_CP_MODE"
+			CFLAGS="$CFLAGS -DMUPNP_OPTIMIZED_CP_MODE"
 		fi
 	],
 )
@@ -301,7 +301,7 @@ AC_ARG_ENABLE(anyaddr,
 			 interface (default = yes)]),
 	[
 		if test $enableval = yes; then
-			CFLAGS="$CFLAGS -DCG_NET_USE_ANYADDR"
+			CFLAGS="$CFLAGS -DMUPNP_NET_USE_ANYADDR"
 		fi
 	],
 )
@@ -315,7 +315,7 @@ AC_ARG_ENABLE(cfile,
                         [enable file functions (default = no)]),
         [
                 if test $enableval = yes; then
-                        CFLAGS="$CFLAGS -DCG_USE_CFILE"
+                        CFLAGS="$CFLAGS -DMUPNP_USE_CFILE"
                 fi
         ],
 )
@@ -329,7 +329,7 @@ AC_ARG_ENABLE(openssl,
                         [enable file functions (default = no)]),
         [
                 if test $enableval = yes; then
-                        CFLAGS="$CFLAGS -DCG_USE_OPENSSL"
+                        CFLAGS="$CFLAGS -DMUPNP_USE_OPENSSL"
                 fi
         ],
 )
@@ -355,7 +355,7 @@ AC_ARG_ENABLE(libcurl,
 if [ test $USE_LIBCURL = yes ]; then
 	AC_CHECK_LIB(curl, curl_easy_perform,
 	[
-		AC_DEFINE([CG_HTTP_CURL],1,[LIBCURL])
+		AC_DEFINE([MUPNP_HTTP_CURL],1,[LIBCURL])
 
 		HTTP_CFLAGS=`curl-config --cflags`
 		AC_SUBST(HTTP_CFLAGS)

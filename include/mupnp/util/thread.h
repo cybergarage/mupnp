@@ -41,13 +41,13 @@ extern "C" {
  ****************************************/
 
 #if defined (WINCE)
-#define CG_THREAD_SHUTDOWN_ATTEMPTS 10
-#define CG_THREAD_MIN_SLEEP 1000
+#define MUPNP_THREAD_SHUTDOWN_ATTEMPTS 10
+#define MUPNP_THREAD_MIN_SLEEP 1000
 /* ADD Fabrice Fontaine Orange 24/04/2007 */
 /* Bug correction : Variable used to wait for thread termination by sleeping */
 /* instead of joining */
 #else
-#define CG_THREAD_MIN_SLEEP 1000
+#define MUPNP_THREAD_MIN_SLEEP 1000
 /* ADD END Fabrice Fontaine Orange 24/04/2007 */ 
 #endif
 
@@ -107,7 +107,7 @@ typedef struct _mUpnpThread {
 /**
  * Prototype for the threads' worker functions 
  */
-typedef void (*CG_THREAD_FUNC)(mUpnpThread *);
+typedef void (*MUPNP_THREAD_FUNC)(mUpnpThread *);
 
 /****************************************
 * Function
@@ -170,7 +170,7 @@ BOOL mupnp_thread_isrunnable(mUpnpThread *thread);
  * \param thread Thread struct
  * \param actionFunc Function pointer to set as the worker function
  */
-void mupnp_thread_setaction(mUpnpThread *thread, CG_THREAD_FUNC actionFunc);
+void mupnp_thread_setaction(mUpnpThread *thread, MUPNP_THREAD_FUNC actionFunc);
 
 /**
  * Set the user data pointer
@@ -221,7 +221,7 @@ void mupnp_threadlist_delete(mUpnpThreadList *threadList);
  *
  * \param threadList Thread list in question
  */
-#define mupnp_threadlist_clear(threadList) mupnp_list_clear((mUpnpList *)threadList, (CG_LIST_DESTRUCTORFUNC)mupnp_thread_delete)
+#define mupnp_threadlist_clear(threadList) mupnp_list_clear((mUpnpList *)threadList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_thread_delete)
 
 /**
  * Get the size of a thread list

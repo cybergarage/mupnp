@@ -12,7 +12,7 @@
 #include <mupnp/net/socket.h>
 #include <mupnp/util/log.h>
 
-#if defined(CG_NET_USE_SOCKET_LIST)
+#if defined(MUPNP_NET_USE_SOCKET_LIST)
 
 /****************************************
 * mupnp_socketlist_new

@@ -106,8 +106,8 @@ void mupnp_control_action_response_setsoapresponse(mUpnpActionResponse *actionRe
 static mUpnpXmlNode *mupnp_control_action_response_createresponsenode(mUpnpAction *action)
 {
 	mUpnpXmlNode *actionNameResNode;
-	char nodeName[MUPNP_ACTOINNAME_LEN_MAX + sizeof(CG_SOAP_METHODNS) + sizeof(CG_SOAP_DELIM) + sizeof(CG_SOAP_RESPONSE) + 1];
-	char attrName[sizeof(CG_SOAP_ATTRIBUTE_XMLNS) + sizeof(CG_SOAP_DELIM) + sizeof(CG_SOAP_METHODNS) + 1];
+	char nodeName[MUPNP_ACTOINNAME_LEN_MAX + sizeof(MUPNP_SOAP_METHODNS) + sizeof(MUPNP_SOAP_DELIM) + sizeof(MUPNP_SOAP_RESPONSE) + 1];
+	char attrName[sizeof(MUPNP_SOAP_ATTRIBUTE_XMLNS) + sizeof(MUPNP_SOAP_DELIM) + sizeof(MUPNP_SOAP_METHODNS) + 1];
 	const char *actionName;
 	mUpnpXmlNode *serviceNode;
 	mUpnpService *service;
@@ -121,10 +121,10 @@ static mUpnpXmlNode *mupnp_control_action_response_createresponsenode(mUpnpActio
 
 	/* action name */
 	actionName = mupnp_action_getname(action);
-	mupnp_strcpy(nodeName, CG_SOAP_METHODNS);
-	mupnp_strcat(nodeName, CG_SOAP_DELIM);
+	mupnp_strcpy(nodeName, MUPNP_SOAP_METHODNS);
+	mupnp_strcat(nodeName, MUPNP_SOAP_DELIM);
 	mupnp_strncat(nodeName, actionName, MUPNP_ACTOINNAME_LEN_MAX);
-	mupnp_strcat(nodeName, CG_SOAP_RESPONSE);
+	mupnp_strcat(nodeName, MUPNP_SOAP_RESPONSE);
 	mupnp_xml_node_setname(actionNameResNode, nodeName);
 
 	/* service attribute */
@@ -132,9 +132,9 @@ static mUpnpXmlNode *mupnp_control_action_response_createresponsenode(mUpnpActio
 	if (serviceNode != NULL) {
 		service = mupnp_service_new();
 		mupnp_service_setservicenode(service, serviceNode);
-		mupnp_strcpy(attrName, CG_SOAP_ATTRIBUTE_XMLNS);
-		mupnp_strcat(attrName, CG_SOAP_DELIM);
-		mupnp_strcat(attrName, CG_SOAP_METHODNS);
+		mupnp_strcpy(attrName, MUPNP_SOAP_ATTRIBUTE_XMLNS);
+		mupnp_strcat(attrName, MUPNP_SOAP_DELIM);
+		mupnp_strcat(attrName, MUPNP_SOAP_METHODNS);
 		mupnp_xml_node_setattribute(actionNameResNode, attrName, mupnp_service_getservicetype(service));
 		mupnp_service_delete(service);
 	}
@@ -172,7 +172,7 @@ void mupnp_control_action_response_setresponse(mUpnpActionResponse *actionRes, m
 	soapRes = mupnp_control_action_response_getsoapresponse(actionRes);
 	httpRes = mupnp_soap_response_gethttpresponse(soapRes);
 
-	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
+	mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_OK);
 	mupnp_control_soap_response_initializeenvelopenode(soapRes);
 
 	bodyNode = mupnp_soap_response_getbodynode(soapRes);
@@ -261,7 +261,7 @@ BOOL mupnp_control_action_response_geterror(mUpnpActionResponse *actionRes, mUpn
 		
 	/* Response node is FAULT node, there will be no output args,
 	   but set action status and description */
-	upnpErrorNode = mupnp_xml_node_getchildnodewithnamespace(resNode, CG_SOAP_DETAIL, NULL, TRUE);
+	upnpErrorNode = mupnp_xml_node_getchildnodewithnamespace(resNode, MUPNP_SOAP_DETAIL, NULL, TRUE);
 
 	if (upnpErrorNode == NULL) return FALSE;
 		

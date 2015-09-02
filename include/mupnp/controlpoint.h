@@ -91,7 +91,7 @@ typedef struct _mUpnpControlPoint {
 	mUpnpSSDPResponseServerList *ssdpResServerList;
 	mUpnpHttpServerList *httpServerList;
 	void (*deviceListener)(struct _mUpnpControlPoint *, const char*, mUpnpDeviceStatus); /* MUPNP_DEVICE_LISTENER */
-	CG_HTTP_LISTENER httpListener;
+	MUPNP_HTTP_LISTENER httpListener;
 	MUPNP_SSDP_LISTNER ssdpListener;
 	MUPNP_SSDP_RESPONSE_LISTNER ssdpResListener;
 	mUpnpEventListenerList* eventListeners;
@@ -464,7 +464,7 @@ BOOL mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target)
  * get HTTP requests to user-space applications.
  *
  * @param ctrlPoint The control point in question
- * @param func The listener function, that is of type @ref CG_HTTP_LISTENER
+ * @param func The listener function, that is of type @ref MUPNP_HTTP_LISTENER
  */
 #define mupnp_controlpoint_sethttplistener(ctrlPoint, func) (ctrlPoint->httpListener = func)
 
@@ -472,7 +472,7 @@ BOOL mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target)
  * Get the HTTP listener function for the control point.
  *
  * @param ctrlPoint The control point in question
- * @return The listener function, that is of type @ref CG_HTTP_LISTENER
+ * @return The listener function, that is of type @ref MUPNP_HTTP_LISTENER
  */
 #define mupnp_controlpoint_gethttplistener(ctrlPoint) (ctrlPoint->httpListener)
 

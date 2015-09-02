@@ -26,7 +26,7 @@ extern "C" {
  * Prototype for individual list node destructor functions
  *
  */
-typedef void (*CG_LIST_DESTRUCTORFUNC)(void *);
+typedef void (*MUPNP_LIST_DESTRUCTORFUNC)(void *);
 
 /****************************************
  * Data Type
@@ -138,12 +138,12 @@ mUpnpList *mupnp_list_next_circular(mUpnpList *list);
 mUpnpList *mupnp_list_next(mUpnpList *list);
 
 /**
- * Clear the list and delete all of its contents with \ref CG_LIST_DESTRUCTORFUNC
+ * Clear the list and delete all of its contents with \ref MUPNP_LIST_DESTRUCTORFUNC
  *
  * \param headList List header
  * \param destructorFunc Function pointer that clears the contents of individual nodes
  */
-void mupnp_list_clear(mUpnpList *headList, CG_LIST_DESTRUCTORFUNC destructorFunc);
+void mupnp_list_clear(mUpnpList *headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc);
 
 /**
  * Get the first actual item from a list for iteration

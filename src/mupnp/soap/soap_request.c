@@ -32,8 +32,8 @@ mUpnpSoapRequest *mupnp_soap_request_new()
 
 		soapReq->httpReq = mupnp_http_request_new();
 		soapReq->isHttpReqCreated = TRUE;
-		mupnp_http_request_setcontenttype(soapReq->httpReq, CG_SOAP_CONTENT_TYPE);
-		mupnp_http_request_setmethod(soapReq->httpReq, CG_HTTP_POST);
+		mupnp_http_request_setcontenttype(soapReq->httpReq, MUPNP_SOAP_CONTENT_TYPE);
+		mupnp_http_request_setmethod(soapReq->httpReq, MUPNP_HTTP_POST);
 	
 		mupnp_soap_request_setuserdata(soapReq, NULL);
 	}
@@ -79,8 +79,8 @@ void mupnp_soap_request_clear(mUpnpSoapRequest *soapReq)
 
 	soapReq->httpReq = mupnp_http_request_new();
 	soapReq->isHttpReqCreated = TRUE;
-	mupnp_http_request_setcontenttype(soapReq->httpReq, CG_SOAP_CONTENT_TYPE);
-	mupnp_http_request_setmethod(soapReq->httpReq, CG_HTTP_POST);
+	mupnp_http_request_setcontenttype(soapReq->httpReq, MUPNP_SOAP_CONTENT_TYPE);
+	mupnp_http_request_setmethod(soapReq->httpReq, MUPNP_HTTP_POST);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -122,15 +122,15 @@ mUpnpXmlNode *mupnp_soap_request_getbodynode(mUpnpSoapRequest *soapReq)
                 if ( -1 != mupnp_strstr(nsPrefix, "xmlns")) {
                         /* This attribute is a namespace declaration. Check is 
                            it the one defined for SOAP. */
-                        if (mupnp_strcmp(mupnp_xml_attribute_getvalue(attr), CG_SOAP_XMLNS_URL) == 0) {
+                        if (mupnp_strcmp(mupnp_xml_attribute_getvalue(attr), MUPNP_SOAP_XMLNS_URL) == 0) {
                                 /* This namespace declaration is correct. 
                                    Use it to find the body node... */
                                 if (mupnp_string_tokenizer_hasmoretoken(tok)) {
                                         /* There is a prefix */
                                         nsPrefix = mupnp_string_tokenizer_nexttoken(tok);
                                         bodyLen = mupnp_strlen(nsPrefix) + 
-                                                mupnp_strlen(CG_SOAP_DELIM) + 
-                                                mupnp_strlen(CG_SOAP_BODY) + 1; /* +1 for trailing '\0'*/
+                                                mupnp_strlen(MUPNP_SOAP_DELIM) + 
+                                                mupnp_strlen(MUPNP_SOAP_BODY) + 1; /* +1 for trailing '\0'*/
                                         body = (char*)malloc(bodyLen);
 
 					if ( NULL == body )
@@ -140,16 +140,16 @@ mUpnpXmlNode *mupnp_soap_request_getbodynode(mUpnpSoapRequest *soapReq)
 					}
 #if defined(HAVE_SNPRINTF)
                                         snprintf(body, bodyLen, "%s%s%s", nsPrefix, 
-                                                 CG_SOAP_DELIM, CG_SOAP_BODY);
+                                                 MUPNP_SOAP_DELIM, MUPNP_SOAP_BODY);
 #else
-                                        sprintf(body, "%s%s%s", nsPrefix, CG_SOAP_DELIM, CG_SOAP_BODY);
+                                        sprintf(body, "%s%s%s", nsPrefix, MUPNP_SOAP_DELIM, MUPNP_SOAP_BODY);
 #endif
                                         bodyNode = mupnp_xml_node_getchildnode(envNode, body);
                                         free(body);
                                 }
                                 else {
                                         /* No prefix */
-                                        bodyNode = mupnp_xml_node_getchildnode(envNode, CG_SOAP_BODY);
+                                        bodyNode = mupnp_xml_node_getchildnode(envNode, MUPNP_SOAP_BODY);
                                 }
                                 /* Free memory before leaving the loop */
                                 mupnp_string_tokenizer_delete(tok);
@@ -233,23 +233,23 @@ mUpnpSoapResponse *mupnp_soap_request_post(mUpnpSoapRequest *soapReq, const char
 	httpRes = mupnp_http_request_post(soapReq->httpReq, ipaddr, port);
 	
 	/* Check for HTTP response 405 Method Not Allowed */
-	if (mupnp_http_response_getstatuscode(httpRes) == CG_HTTP_STATUS_METHOD_NOT_ALLOWED)
+	if (mupnp_http_response_getstatuscode(httpRes) == MUPNP_HTTP_STATUS_METHOD_NOT_ALLOWED)
 	{
 		/* Status code implies that we need to use M-POST */
-		mupnp_http_request_setmethod(soapReq->httpReq, CG_HTTP_MPOST);
+		mupnp_http_request_setmethod(soapReq->httpReq, MUPNP_HTTP_MPOST);
 		
 		/* Add MAN header */
 		header = mupnp_http_header_new();
-		mupnp_http_header_setname(header, CG_HTTP_MAN);
-		mupnp_http_header_setvalue(header, CG_HTTP_SOAP_MAN_VALUE);
+		mupnp_http_header_setname(header, MUPNP_HTTP_MAN);
+		mupnp_http_header_setvalue(header, MUPNP_HTTP_SOAP_MAN_VALUE);
 		mupnp_http_packet_addheader((mUpnpHttpPacket*)soapReq->httpReq, header);
 		
 		/* Change soapaction header name to include namespace */
 		header = mupnp_http_packet_getheader((mUpnpHttpPacket*)soapReq->httpReq, 
-						  CG_HTTP_SOAP_ACTION);
+						  MUPNP_HTTP_SOAP_ACTION);
 		if (header != NULL)
 		{
-			mupnp_http_header_setname(header, CG_HTTP_SOAP_ACTION_WITH_NS);
+			mupnp_http_header_setname(header, MUPNP_HTTP_SOAP_ACTION_WITH_NS);
 		}
 		
 		/* New attempt */
@@ -285,13 +285,13 @@ void mupnp_soap_request_setcontent(mUpnpSoapRequest *soapReq, mUpnpXmlNode *node
 	httpReq = mupnp_soap_request_gethttprequest(soapReq);
 	
 	/**** content type ****/
-	mupnp_http_request_setcontenttype(httpReq, CG_XML_CONTENT_TYPE);
+	mupnp_http_request_setcontenttype(httpReq, MUPNP_XML_CONTENT_TYPE);
 	
 	/**** content ****/
-	mupnp_http_request_appendncontent(httpReq, CG_SOAP_VERSION_HEADER,
-					mupnp_strlen(CG_SOAP_VERSION_HEADER));
-	mupnp_http_request_appendncontent(httpReq, CG_XML_CONTENT_LF,
-					mupnp_strlen(CG_XML_CONTENT_LF));
+	mupnp_http_request_appendncontent(httpReq, MUPNP_SOAP_VERSION_HEADER,
+					mupnp_strlen(MUPNP_SOAP_VERSION_HEADER));
+	mupnp_http_request_appendncontent(httpReq, MUPNP_XML_CONTENT_LF,
+					mupnp_strlen(MUPNP_XML_CONTENT_LF));
 	mupnp_xml_node_tostring(node, TRUE, httpReq->content);
 		
 	/**** content length ****/

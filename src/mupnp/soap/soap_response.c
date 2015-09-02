@@ -126,13 +126,13 @@ void mupnp_soap_response_setcontent(mUpnpSoapResponse *soapReq, mUpnpXmlNode *no
 	httpRes = mupnp_soap_response_gethttpresponse(soapReq);
 
 	/**** content type ****/
-	mupnp_http_response_setcontenttype(httpRes, CG_XML_CONTENT_TYPE);
+	mupnp_http_response_setcontenttype(httpRes, MUPNP_XML_CONTENT_TYPE);
 	
 	/**** content ****/
-	mupnp_http_response_appendncontent(httpRes, CG_SOAP_VERSION_HEADER,
-					mupnp_strlen(CG_SOAP_VERSION_HEADER));
-	mupnp_http_response_appendncontent(httpRes, CG_XML_CONTENT_LF,
-					mupnp_strlen(CG_XML_CONTENT_LF));
+	mupnp_http_response_appendncontent(httpRes, MUPNP_SOAP_VERSION_HEADER,
+					mupnp_strlen(MUPNP_SOAP_VERSION_HEADER));
+	mupnp_http_response_appendncontent(httpRes, MUPNP_XML_CONTENT_LF,
+					mupnp_strlen(MUPNP_XML_CONTENT_LF));
 	mupnp_xml_node_tostring(node, TRUE, httpRes->content);
 	
 	/**** content length ****/

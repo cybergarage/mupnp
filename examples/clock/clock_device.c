@@ -244,7 +244,7 @@ void upnp_clock_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 		mupnp_getservername(serverName, sizeof(serverName)));
 
 	httpRes = mupnp_http_response_new();
-	mupnp_http_response_setstatuscode(httpRes, CG_HTTP_STATUS_OK);
+	mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_OK);
 	mupnp_http_response_setcontent(httpRes, content);
 	mupnp_http_response_setcontenttype(httpRes, "text/html");
 	mupnp_http_response_setcontentlength(httpRes, strlen(content));

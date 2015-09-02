@@ -24,12 +24,12 @@ extern "C" {
 * Define
 ****************************************/
 
-#define CG_XML_INDENT_STRING " "
-#define CG_XML_VERSION_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-#define CG_XML_CONTENT_TYPE "text/xml; charset=\"utf-8\""
-#define CG_XML_CONTENT_LF "\n"
+#define MUPNP_XML_INDENT_STRING " "
+#define MUPNP_XML_VERSION_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+#define MUPNP_XML_CONTENT_TYPE "text/xml; charset=\"utf-8\""
+#define MUPNP_XML_CONTENT_LF "\n"
 
-typedef void (*CG_XML_NODE_USERDATA_DESTRUCTORFUNC)(void *);
+typedef void (*MUPNP_XML_NODE_USERDATA_DESTRUCTORFUNC)(void *);
 
 /****************************************
 * Data Type
@@ -53,7 +53,7 @@ typedef struct _mUpnpXmlNode {
 	struct _mUpnpXmlNode *nodeList;
 	struct _mUpnpXmlNode *parentNode;
 	void *userData;
-	CG_XML_NODE_USERDATA_DESTRUCTORFUNC userDataDestructorFunc;
+	MUPNP_XML_NODE_USERDATA_DESTRUCTORFUNC userDataDestructorFunc;
 } mUpnpXmlNode, mUpnpXmlNodeList;
 
 typedef struct _mUpnpXmlParser {
@@ -67,7 +67,7 @@ typedef struct _mUpnpXmlParser {
 mUpnpXmlAttributeList *mupnp_xml_attributelist_new();
 void mupnp_xml_attributelist_delete(mUpnpXmlAttributeList *attrList);
 
-#define mupnp_xml_attributelist_clear(attrList) mupnp_list_clear((mUpnpList *)attrList, (CG_LIST_DESTRUCTORFUNC)mupnp_xml_attribute_delete)
+#define mupnp_xml_attributelist_clear(attrList) mupnp_list_clear((mUpnpList *)attrList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_xml_attribute_delete)
 #define mupnp_xml_attributelist_size(attrList) mupnp_list_size((mUpnpList *)attrList)
 #define mupnp_xml_attributelist_gets(attrList) (mUpnpXmlAttribute *)mupnp_list_next((mUpnpList *)attrList)
 #define mupnp_xml_attributelist_add(attrList, attr) mupnp_list_add((mUpnpList *)attrList, (mUpnpList *)attr)
@@ -100,7 +100,7 @@ const char *mupnp_xml_attribute_getvalue(mUpnpXmlAttribute *attr);
 mUpnpXmlNodeList *mupnp_xml_nodelist_new();
 void mupnp_xml_nodelist_delete(mUpnpXmlNodeList *nodeList);
 
-#define mupnp_xml_nodelist_clear(nodeList) mupnp_list_clear((mUpnpList *)(nodeList), (CG_LIST_DESTRUCTORFUNC)mupnp_xml_node_delete)
+#define mupnp_xml_nodelist_clear(nodeList) mupnp_list_clear((mUpnpList *)(nodeList), (MUPNP_LIST_DESTRUCTORFUNC)mupnp_xml_node_delete)
 #define mupnp_xml_nodelist_size(nodeList) mupnp_list_size((mUpnpList *)(nodeList))
 #define mupnp_xml_nodelist_gets(nodeList) (mUpnpXmlNode *)mupnp_list_next((mUpnpList *)(nodeList))
 #define mupnp_xml_nodelist_add(nodeList, node) mupnp_list_add((mUpnpList *)(nodeList), (mUpnpList *)(node))

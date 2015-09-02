@@ -30,15 +30,15 @@ extern "C" {
 * Define
 ****************************************/
 
-#define CG_NET_IPV4_ADDRSTRING_MAXSIZE ((3*4)+(1*3)+1)
-#define CG_NET_IPV6_ADDRSTRING_MAXSIZE (1+(8*4)+(1*7)+1+1)
+#define MUPNP_NET_IPV4_ADDRSTRING_MAXSIZE ((3*4)+(1*3)+1)
+#define MUPNP_NET_IPV6_ADDRSTRING_MAXSIZE (1+(8*4)+(1*7)+1+1)
 
-#define CG_NET_IPV4_LOOPBACK "127.0.0.1"
-#define CG_NET_IPV6_LOOPBACK "fixmelater"
-#define CG_NET_MACADDR_SIZE 6
+#define MUPNP_NET_IPV4_LOOPBACK "127.0.0.1"
+#define MUPNP_NET_IPV6_LOOPBACK "fixmelater"
+#define MUPNP_NET_MACADDR_SIZE 6
 
 #if defined(BTRON) || defined(TENGINE)
-#define CG_NET_DEFAULT_IFNAME "Neta"
+#define MUPNP_NET_DEFAULT_IFNAME "Neta"
 #endif
 
 /****************************************
@@ -52,7 +52,7 @@ typedef struct _mUpnpNetworkInterface {
 	mUpnpString *name;
 	mUpnpString *ipaddr;
 	mUpnpString *netmask;
-	mUpnpByte macaddr[CG_NET_MACADDR_SIZE];
+	mUpnpByte macaddr[MUPNP_NET_MACADDR_SIZE];
 	int index;
 } mUpnpNetworkInterface, mUpnpNetworkInterfaceList;
 
@@ -75,8 +75,8 @@ void mupnp_net_interface_setnetmask(mUpnpNetworkInterface *netIf, char *ipaddr);
 char *mupnp_net_interface_getnetmask(mUpnpNetworkInterface *netIf);
 char *mupnp_net_selectaddr(struct sockaddr *remoteaddr);
 
-#define mupnp_net_interface_setmacaddress(netIf, value) memcpy(netIf->macaddr, value, CG_NET_MACADDR_SIZE)
-#define mupnp_net_interface_getmacaddress(netIf, buf) memcpy(buf, netIf->macaddr, CG_NET_MACADDR_SIZE)
+#define mupnp_net_interface_setmacaddress(netIf, value) memcpy(netIf->macaddr, value, MUPNP_NET_MACADDR_SIZE)
+#define mupnp_net_interface_getmacaddress(netIf, buf) memcpy(buf, netIf->macaddr, MUPNP_NET_MACADDR_SIZE)
 
 #define mupnp_net_interface_setindex(netIf, value) (netIf->index = value)
 #define mupnp_net_interface_getindex(netIf, buf) (netIf->index)
@@ -94,7 +94,7 @@ int mupnp_net_interface_cmp(mUpnpNetworkInterface *netIfA,
 mUpnpNetworkInterfaceList *mupnp_net_interfacelist_new();
 void mupnp_net_interfacelist_delete(mUpnpNetworkInterfaceList *netIfList);
 
-#define mupnp_net_interfacelist_clear(netIfList) mupnp_list_clear((mUpnpList *)netIfList, (CG_LIST_DESTRUCTORFUNC)mupnp_net_interface_delete)
+#define mupnp_net_interfacelist_clear(netIfList) mupnp_list_clear((mUpnpList *)netIfList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_net_interface_delete)
 #define mupnp_net_interfacelist_size(netIfList) mupnp_list_size((mUpnpList *)netIfList)
 #define mupnp_net_interfacelist_gets(netIfList) (mUpnpNetworkInterface *)mupnp_list_next((mUpnpList *)netIfList)
 #define mupnp_net_interfacelist_add(netIfList,netIf) mupnp_list_add((mUpnpList *)netIfList, (mUpnpList *)netIf)

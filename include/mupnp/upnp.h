@@ -28,7 +28,7 @@
 ****************************************/
 
 #define MUPNP_NAME "mUPnP"
-#define MUPNP_VER "1.2.3"
+#define MUPNP_VER "3.0"
 
 #define MUPNP_DLNA_VER "1.50"
 
