@@ -20,7 +20,6 @@ mupnp_headers = \
 	./mupnp/http/http.h \
 	./mupnp/icon.h \
 	./mupnp/io/file.h \
-	./mupnp/mupnp.h \
 	./mupnp/net/interface.h \
 	./mupnp/net/socket.h \
 	./mupnp/net/uri.h \

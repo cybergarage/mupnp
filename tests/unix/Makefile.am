@@ -6,7 +6,7 @@
 #
 ############################################################
 
-noinst_PROGRAMS = clinkctestunit
+noinst_PROGRAMS = mupnptest
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../
 
@@ -14,7 +14,7 @@ noinst_HEADERS = \
 	..//ClinkUnitTest.h \
 	..//TestDevice.h
 
-clinkctestunit_SOURCES = \
+mupnptest_SOURCES = \
 	..//ControlPointTest.cpp \
 	..//DeviceTest.cpp \
 	..//DictionaryTest.cpp \
@@ -30,7 +30,7 @@ clinkctestunit_SOURCES = \
 	..//URITest.cpp \
 	..//XMLTest.cpp
 #if HAVE_LIBTOOL
-#clinkctestunit_LDADD = ../../lib/unix/libclinkc.la -lcppunit @XML_LIBS@
+#mupnptest_LDADD = ../../lib/unix/libclinkc.la @XML_LIBS@
 #else
-clinkctestunit_LDADD = ../../lib/unix/libclinkc.a  -lcppunit @XML_LIBS@
+mupnptest_LDADD = ../../lib/unix/libclinkc.a @XML_LIBS@
 #endif
