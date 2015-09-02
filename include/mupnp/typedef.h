@@ -42,26 +42,28 @@ extern "C" {
 #endif
 
 /****************************************
-* Data Type
-****************************************/
-
-#if !defined(BOOL) && !defined(BTRON) && !defined(TENGINE) && !defined(__OBJC__)
-typedef int BOOL;
+ * Compiler
+ ****************************************/
+  
+#if __STDC_VERSION__ >= 199901L
+#define C99
 #endif
-
-#if !defined(TRUE)
-#if defined(__OBJC__)
-#define TRUE YES
+  
+/****************************************
+ * Data Type
+ ****************************************/
+  
+#if defined(C99) || defined(HAVE_STDBOOL_H)
+#include <stdbool.h>
 #else
-#define TRUE (1)
+#if !defined(bool)
+#define bool int
 #endif
+#if !defined(true)
+#define true 1
 #endif
-
-#if !defined(FALSE)
-#if defined(__OBJC__)
-#define FALSE NO
-#else
-#define FALSE (0)
+#if !defined(false)
+#define false 0
 #endif
 #endif
 	

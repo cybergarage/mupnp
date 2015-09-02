@@ -76,7 +76,7 @@ extern "C" {
   * Data type for allowed state variables allowed values table
   */
 typedef struct _mUpnpAllowedValuesList {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpAllowedValuesList *prev;
 	struct _mUpnpAllowedValuesList *next;
 	mUpnpString *value;
@@ -87,7 +87,7 @@ typedef struct _mUpnpAllowedValuesList {
  * Data type for state variable and state table
  */
 typedef struct _mUpnpStateVariable {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpStateVariable *prev;
 	struct _mUpnpStateVariable *next;
 	mUpnpAllowedValuesList* allowedValueList;
@@ -100,7 +100,7 @@ typedef struct _mUpnpStateVariable {
 	void *dummy2;
 	/**** Execution Data ****/
 	mUpnpString *value;
-	BOOL (*listener)(struct _mUpnpStateVariable *);
+	bool (*listener)(struct _mUpnpStateVariable *);
 	mUpnpStatus *upnpStatus;
 	void *userData;
 	
@@ -110,7 +110,7 @@ typedef struct _mUpnpStateVariable {
 /**
  * Type definition for state variable listener function
  */
-typedef BOOL (*MUPNP_STATEVARIABLE_LISTNER)(mUpnpStateVariable *);
+typedef bool (*MUPNP_STATEVARIABLE_LISTNER)(mUpnpStateVariable *);
 
 /****************************************
 * Function (StateVariable)
@@ -232,7 +232,7 @@ mUpnpAllowedValuesList* mupnp_allowedvaluelist_new();
  *
  * @return True if allowed value range exists, false otherwise
  */
-#define mupnp_statevariable_hasallowedvaluerange(statVar) ((statVar->allowedValueRange != NULL) ? TRUE : FALSE)
+#define mupnp_statevariable_hasallowedvaluerange(statVar) ((statVar->allowedValueRange != NULL) ? true : false)
 
 /**** name ****/
 

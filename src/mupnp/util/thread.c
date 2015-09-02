@@ -44,10 +44,10 @@ static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 	mUpnpThread *thread = (mUpnpThread *)lpParam;
 
 	//Theo Beisch: make sure we're runnable
-	//thread->runnableFlag = TRUE;
+	//thread->runnableFlag = true;
 	//(moved to start() with Visa Smolander's mod)
 
-	thread->isRunning = TRUE;
+	thread->isRunning = true;
 
 #if defined DEBUG_LOCKS
 	memdiags_tlist_addthread(thread);
@@ -64,7 +64,7 @@ static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 		printf ("*2 Thread ret4close 0x%Xh\n",GetCurrentThreadId());
 		printf ("*3 Thread %X %s \n",thread, thread->friendlyName);
 #endif
-	thread->isRunning = FALSE;
+	thread->isRunning = false;
 	if (thread->deletePending) {
 		mupnp_thread_delete(thread);
 	}
@@ -192,7 +192,7 @@ mUpnpThread *mupnp_thread_new()
 	{
 		mupnp_list_node_init((mUpnpList *)thread);
 		
-		thread->runnableFlag = FALSE;
+		thread->runnableFlag = false;
 		thread->action = NULL;
 		thread->userData = NULL;
 	}
@@ -201,8 +201,8 @@ mUpnpThread *mupnp_thread_new()
 	thread->hThread = NULL;
 	//WINCE trial result: default sleep value to keep system load down
 	thread->sleep = MUPNP_THREAD_MIN_SLEEP;
-	thread->isRunning = FALSE;
-	thread->deletePending = FALSE;
+	thread->isRunning = false;
+	thread->deletePending = false;
 #if defined DEBUG
 	strcpy(thread->friendlyName,"-");
 #endif //DEBUG
@@ -216,16 +216,16 @@ mUpnpThread *mupnp_thread_new()
 * mupnp_thread_delete
 ****************************************/
 
-BOOL mupnp_thread_delete(mUpnpThread *thread)
+bool mupnp_thread_delete(mUpnpThread *thread)
 {
 #if defined WINCE
-	BOOL stop = FALSE;
+	bool stop = false;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	if ((thread->hThread==NULL) ||
-		((thread->isRunning) && (stop = mupnp_thread_stop(thread) == TRUE)) ||	
-		(thread->isRunning == FALSE)) {
+		((thread->isRunning) && (stop = mupnp_thread_stop(thread) == true)) ||	
+		(thread->isRunning == false)) {
 
 #if defined DEBUG
 		printf("***** Delete entered handle=%x isRunning=%d stopResult=%d \n",thread->hThread, thread->isRunning, stop);
@@ -238,24 +238,24 @@ BOOL mupnp_thread_delete(mUpnpThread *thread)
 		memdiags_tlist_removethread(thread);
 #endif
 		free(thread);
-		return TRUE;
+		return true;
 	}
 
 #if defined DEBUG
 	printf("***** Stop failed for Thread %X %s - marking thread for selfDelete\n",thread, thread->friendlyName);
 #endif
 	//setting this will cause the real thread exit to call delete() again
-	thread->deletePending = TRUE;
+	thread->deletePending = true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return FALSE;
+	return false;
 } //WINCE
 #else //all except WINCE
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (thread->runnableFlag == TRUE) 
+	if (thread->runnableFlag == true) 
 		mupnp_thread_stop(thread);
 
 	mupnp_thread_remove(thread);
@@ -264,7 +264,7 @@ BOOL mupnp_thread_delete(mUpnpThread *thread)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 #endif
 
@@ -272,12 +272,12 @@ BOOL mupnp_thread_delete(mUpnpThread *thread)
 * mupnp_thread_start
 ****************************************/
 
-BOOL mupnp_thread_start(mUpnpThread *thread)
+bool mupnp_thread_start(mUpnpThread *thread)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	/**** Thanks for Visa Smolander (09/11/2005) ****/
-	thread->runnableFlag = TRUE;
+	thread->runnableFlag = true;
 
 #if defined(WIN32) && !defined(WINCE) && !defined(ITRON)
 	thread->hThread = CreateThread(NULL, 0, Win32ThreadProc, (LPVOID)thread, 0, &thread->threadID);
@@ -286,9 +286,9 @@ BOOL mupnp_thread_start(mUpnpThread *thread)
 
 	SECURITY_ATTRIBUTES saAttr;
 	saAttr.nLength = sizeof(SECURITY_ATTRIBUTES);
-	saAttr.bInheritHandle = TRUE;
+	saAttr.bInheritHandle = true;
 	saAttr.lpSecurityDescriptor = NULL;
-	thread->deletePending = FALSE;
+	thread->deletePending = false;
 	thread->hThread = CreateThread(&saAttr, 0, Win32ThreadProc, (LPVOID)thread, 0, &thread->threadID);
 	}
 #elif defined(BTRON)
@@ -296,46 +296,46 @@ BOOL mupnp_thread_start(mUpnpThread *thread)
 	prc_sts(0, &pstate, NULL);
 	thread->taskID = cre_tsk(BTronTaskProc, pstate.priority, (W)thread);
 	if (thread->taskID < 0) {
-		thread->runnableFlag = FALSE;
-		return FALSE;
+		thread->runnableFlag = false;
+		return false;
 	}
 #elif defined(ITRON)
 	T_CTSK ctsk = {TA_HLNG,  (VP_INT)thread, ITronTaskProc, 6, 512, NULL, NULL};
 	thread->taskID = acre_tsk(&ctsk);
 	if (thread->taskID < 0) {
-		thread->runnableFlag = FALSE;
-		return FALSE;
+		thread->runnableFlag = false;
+		return false;
 	}
 	if (sta_tsk(thread->taskID, 0) != E_OK) {
-		thread->runnableFlag = FALSE;
+		thread->runnableFlag = false;
 		del_tsk(thread->taskID);
-		return FALSE;
+		return false;
 	}
 #elif defined(TENGINE) && !defined(PROCESS_BASE)
 	T_CTSK ctsk = {(VP)thread, TA_HLNG, TEngineTaskProc,10, 2048};
 	thread->taskID = tk_cre_tsk(&ctsk);
 	if (thread->taskID < E_OK) {
-		thread->runnableFlag = FALSE;
-		return FALSE;
+		thread->runnableFlag = false;
+		return false;
 	}
 	if (tk_sta_tsk(thread->taskID, 0) < E_OK) {
-		thread->runnableFlag = FALSE;
+		thread->runnableFlag = false;
 		tk_del_tsk(thread->taskID);
-		return FALSE;
+		return false;
 	}
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 	P_STATE pstate;
 	b_prc_sts(0, &pstate, NULL);
 	thread->taskID = b_cre_tsk(TEngineProcessBasedTaskProc, pstate.priority, (W)thread);
 	if (thread->taskID < 0) {
-		thread->runnableFlag = FALSE;
-		return FALSE;
+		thread->runnableFlag = false;
+		return false;
 	}
 #else
 	pthread_attr_t thread_attr;
 	if (pthread_attr_init(&thread_attr) != 0) {
-		thread->runnableFlag = FALSE;
-    return FALSE;
+		thread->runnableFlag = false;
+    return false;
   }
 	/* MODIFICATION Fabrice Fontaine Orange 24/04/2007
 	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE); */
@@ -344,47 +344,47 @@ BOOL mupnp_thread_start(mUpnpThread *thread)
 	/* So, they are kept alive until the end of the program. By creating them */
 	/* in detached state, they are correctly clean up */
 	if (pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED) !=0) {
-		thread->runnableFlag = FALSE;
+		thread->runnableFlag = false;
 		pthread_attr_destroy(&thread_attr);
-		return FALSE;
+		return false;
   }
 #ifdef STACK_SIZE
 	/* Optimization : not we can set STACK_SIZE attribute at compilation time */
 	/* to specify thread stack size */
   if (pthread_attr_setstacksize (&thread_attr,STACK_SIZE) != 0) {
-		thread->runnableFlag = FALSE;
+		thread->runnableFlag = false;
 		pthread_attr_destroy(&thread_attr);
-		return FALSE;
+		return false;
   }
 #endif
 	/* MODIFICATION END Fabrice Fontaine Orange 24/04/2007 */
 	if (pthread_create(&thread->pThread, &thread_attr, PosixThreadProc, thread) != 0) {
-		thread->runnableFlag = FALSE;
+		thread->runnableFlag = false;
 		pthread_attr_destroy(&thread_attr);
-		return FALSE;
+		return false;
 	}
 	pthread_attr_destroy(&thread_attr);
 #endif
 	
 	mupnp_log_debug_l4("Leaving...\n");
 	
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_thread_stop
 ****************************************/
 
-BOOL mupnp_thread_stop(mUpnpThread *thread)
+bool mupnp_thread_stop(mUpnpThread *thread)
 {
 	return mupnp_thread_stop_with_cond(thread, NULL);
 }
 
-BOOL mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
+bool mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
 {
 #if defined (WINCE)
 	int i, j;
-	BOOL result;
+	bool result;
 	DWORD dwExitCode;
 #endif
 
@@ -392,8 +392,8 @@ BOOL mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
 
 	mupnp_log_debug_s("Stopping thread %p\n", thread);
 
-	if (thread->runnableFlag == TRUE) {
-		thread->runnableFlag = FALSE;
+	if (thread->runnableFlag == true) {
+		thread->runnableFlag = false;
 		if (cond != NULL) {
 			mupnp_cond_signal(cond);
 		}
@@ -419,7 +419,7 @@ BOOL mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
 #if defined (DEBUG)
 					printf("Thread %X %s ended graceful: xCode=%d\n",thread,thread->friendlyName,dwExitCode);
 #endif
-					return TRUE;
+					return true;
 				} 
 			}
 			mupnp_wait(MUPNP_THREAD_MIN_SLEEP);
@@ -432,9 +432,9 @@ BOOL mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
 #endif
 
 		if (dwExitCode)
-			return FALSE;
+			return false;
 
-		return TRUE;
+		return true;
 		//end WINCE
 #elif defined(BTRON)
 		ter_tsk(thread->taskID);
@@ -465,7 +465,7 @@ BOOL mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
@@ -504,13 +504,13 @@ VOID mupnp_thread_exit(DWORD exitCode) {
 * mupnp_thread_restart
 ****************************************/
 
-BOOL mupnp_thread_restart(mUpnpThread *thread)
+bool mupnp_thread_restart(mUpnpThread *thread)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_thread_stop(thread);
 	mupnp_thread_start(thread);
-	return TRUE;
+	return true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -519,7 +519,7 @@ BOOL mupnp_thread_restart(mUpnpThread *thread)
 * mupnp_thread_isrunnable
 ****************************************/
 
-BOOL mupnp_thread_isrunnable(mUpnpThread *thread)
+bool mupnp_thread_isrunnable(mUpnpThread *thread)
 {
 	mupnp_log_debug_l4("Entering...\n");
 

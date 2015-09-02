@@ -149,7 +149,7 @@ char *TEST_SERVICE_DESCRIPTION =
 * upnp_test_actionreceived
 ****************************************/
 
-BOOL upnp_test_actionreceived(mUpnpAction *action)
+bool upnp_test_actionreceived(mUpnpAction *action)
 {
 /*
 	mUpnpTime currTime;
@@ -166,24 +166,24 @@ BOOL upnp_test_actionreceived(mUpnpAction *action)
 		GetSystemTimeString(currTime, sysTimeStr);
 		currTimeArg = mupnp_action_getargumentbyname(action, "CurrentTime");
 		mupnp_argument_setvalue(currTimeArg, sysTimeStr);
-		return TRUE;
+		return true;
 	}
 	if (strcmp(actionName, "SetTime") == 0) {
 		newTimeArg = mupnp_action_getargumentbyname(action, "NewTime");
 		resultArg = mupnp_action_getargumentbyname(action, "Result");
 		mupnp_argument_setvalue(resultArg, "Not implemented");
-		return TRUE;
+		return true;
 	}
 */
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
 * upnp_test_queryreceived
 ****************************************/
 
-BOOL upnp_test_queryreceived(mUpnpStateVariable *statVar)
+bool upnp_test_queryreceived(mUpnpStateVariable *statVar)
 {
   /*
 	char *varName;
@@ -196,11 +196,11 @@ BOOL upnp_test_queryreceived(mUpnpStateVariable *statVar)
 		currTime = mupnp_getcurrentsystemtime();
 		GetSystemTimeString(currTime, sysTimeStr);
 		mupnp_statevariable_setvalue(statVar, sysTimeStr);
-		return TRUE;
+		return true;
 	}
 */
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
@@ -218,7 +218,7 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
  char serverName[MUPNP_SEVERNAME_MAXLEN];
 */
 	mUpnpHttpResponse *httpRes;
-	BOOL postRet;
+	bool postRet;
 	
 	dev = (mUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
 
@@ -295,7 +295,7 @@ mUpnpDevice *upnp_test_device_new()
 	 
 	testDev = mupnp_device_new();
 	
-	if (mupnp_device_parsedescription(testDev, TEST_DEVICE_DESCRIPTION, strlen(TEST_DEVICE_DESCRIPTION)) == FALSE) {
+	if (mupnp_device_parsedescription(testDev, TEST_DEVICE_DESCRIPTION, strlen(TEST_DEVICE_DESCRIPTION)) == false) {
 		mupnp_device_delete(testDev);
 		return NULL;
 	}
@@ -306,7 +306,7 @@ mUpnpDevice *upnp_test_device_new()
 		return NULL;
 	}
 	
-	if (mupnp_service_parsedescription(testService, TEST_SERVICE_DESCRIPTION, strlen(TEST_SERVICE_DESCRIPTION)) == FALSE) {
+	if (mupnp_service_parsedescription(testService, TEST_SERVICE_DESCRIPTION, strlen(TEST_SERVICE_DESCRIPTION)) == false) {
 		mupnp_device_delete(testDev);
 		return NULL;
 	}

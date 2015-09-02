@@ -169,7 +169,7 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpHttpHeader {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpHttpHeader *prev;
 	struct _mUpnpHttpHeader *next;
 	mUpnpString *name;
@@ -208,7 +208,7 @@ typedef struct _mUpnpHttpRequest {
 typedef void (*MUPNP_HTTP_LISTENER)(mUpnpHttpRequest *);
 
 typedef struct _mUpnpHttpServer {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpHttpServer *prev;
 	struct _mUpnpHttpServer *next;
 	mUpnpSocket *sock;
@@ -277,7 +277,7 @@ void mupnp_http_packet_clear(mUpnpHttpPacket *httpPkt);
 #define mupnp_http_packet_getheaders(httpPkt) mupnp_http_headerlist_gets(httpPkt->headerList)
 //Theo Beisch - added (mUpnpHttpHeaderList*) cast - as _get is function call
 #define mupnp_http_packet_getheader(httpPkt, name) mupnp_http_headerlist_get((mUpnpHttpHeaderList*)httpPkt->headerList, name)
-#define mupnp_http_packet_hasheader(httpPkt, name) ((mupnp_http_headerlist_get((mUpnpHttpHeaderList*)httpPkt->headerList, name) != NULL) ? TRUE : FALSE)
+#define mupnp_http_packet_hasheader(httpPkt, name) ((mupnp_http_headerlist_get((mUpnpHttpHeaderList*)httpPkt->headerList, name) != NULL) ? true : false)
 
 #define mupnp_http_packet_hasheadervalue(httpPkt, header, value) (mupnp_streq(mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)httpPkt, header),value))
 
@@ -304,8 +304,8 @@ size_t mupnp_http_packet_getheadersize(mUpnpHttpPacket *httpPkt);
 
 void mupnp_http_packet_post(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock);
 void mupnp_http_packet_read_headers(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, char *lineBuf, size_t lineBufSize);
-BOOL mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, char *lineBuf, size_t lineBufSize);
-BOOL mupnp_http_packet_read(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, BOOL onlyHeader, char *lineBuf, size_t lineBufSize);
+bool mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, char *lineBuf, size_t lineBufSize);
+bool mupnp_http_packet_read(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, bool onlyHeader, char *lineBuf, size_t lineBufSize);
 
 #define mupnp_http_packet_setcontentlength(httpPkt,value) mupnp_http_packet_setheaderssizet(httpPkt,MUPNP_HTTP_CONTENT_LENGTH,value)
 #define mupnp_http_packet_getcontentlength(httpPkt) mupnp_http_packet_getheaderssizet(httpPkt,MUPNP_HTTP_CONTENT_LENGTH)
@@ -313,7 +313,7 @@ BOOL mupnp_http_packet_read(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, BOOL on
 /**** Connection ****/
 #define mupnp_http_packet_setconnection(httpPkt, value) mupnp_http_packet_setheadervalue(httpPkt,MUPNP_HTTP_CONNECTION, value)
 #define mupnp_http_packet_getconnection(httpPkt) mupnp_http_packet_getheadervalue(httpPkt,MUPNP_HTTP_CONNECTION)
-#define mupnp_http_packet_iskeepaliveconnection(httpPkt) (mupnp_strcaseeq(mupnp_http_packet_getconnection(httpPkt), MUPNP_HTTP_CLOSE) == FALSE)
+#define mupnp_http_packet_iskeepaliveconnection(httpPkt) (mupnp_strcaseeq(mupnp_http_packet_getconnection(httpPkt), MUPNP_HTTP_CLOSE) == false)
 
 /**** Transfer-Encoding ****/
 #define mupnp_http_packet_settransferencoding(httpPkt, value) mupnp_http_packet_setheadervalue(httpPkt,MUPNP_HTTP_TRANSFER_ENCODING, value)
@@ -353,13 +353,13 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, const char
 #if defined(MUPNP_USE_OPENSSL)
 mUpnpHttpResponse *mupnp_https_request_post(mUpnpHttpRequest *httpReq, const char *ipaddr, int port);
 #endif
-BOOL mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock);
-BOOL mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpResponse *httpRes);
-BOOL mupnp_http_request_poststatuscode(mUpnpHttpRequest *httpReq, int httpStatCode);
-BOOL mupnp_http_request_postdata(mUpnpHttpRequest *httpReq, void *data, int dataLen);
-BOOL mupnp_http_request_postchunkedsize(mUpnpHttpRequest *httpReq, int dataLen);
-BOOL mupnp_http_request_postchunkeddata(mUpnpHttpRequest *httpReq, void *data, int dataLen);
-BOOL mupnp_http_request_postlastchunk(mUpnpHttpRequest *httpReq);
+bool mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock);
+bool mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpResponse *httpRes);
+bool mupnp_http_request_poststatuscode(mUpnpHttpRequest *httpReq, int httpStatCode);
+bool mupnp_http_request_postdata(mUpnpHttpRequest *httpReq, void *data, int dataLen);
+bool mupnp_http_request_postchunkedsize(mUpnpHttpRequest *httpReq, int dataLen);
+bool mupnp_http_request_postchunkeddata(mUpnpHttpRequest *httpReq, void *data, int dataLen);
+bool mupnp_http_request_postlastchunk(mUpnpHttpRequest *httpReq);
 #define mupnp_http_request_poststring(httpReq, data) mupnp_http_request_postdata(httpReq, data, mupnp_strlen(data))
 #define mupnp_http_request_postchunkedstring(httpReq, data) mupnp_http_request_postchunkeddata(httpReq, data, mupnp_strlen(data))
 
@@ -448,9 +448,9 @@ void mupnp_http_response_setreasonphrase(mUpnpHttpResponse *httpRes, const char 
 char *mupnp_http_response_getreasonphrase(mUpnpHttpResponse *httpRes);
 void mupnp_http_response_setstatuscode(mUpnpHttpResponse *httpRes, int code);
 int mupnp_http_response_getstatuscode(mUpnpHttpResponse *httpRes);
-BOOL mupnp_http_response_read(mUpnpHttpResponse *httpRes, mUpnpSocket *sock, BOOL onlyHeader);
+bool mupnp_http_response_read(mUpnpHttpResponse *httpRes, mUpnpSocket *sock, bool onlyHeader);
 
-/*#define mupnp_http_response_issuccessful(httpRes) ((mupnp_http_response_getstatuscode(httpRes) == MUPNP_HTTP_STATUS_OK) ? TRUE : FALSE)*/
+/*#define mupnp_http_response_issuccessful(httpRes) ((mupnp_http_response_getstatuscode(httpRes) == MUPNP_HTTP_STATUS_OK) ? true : false)*/
 #define mupnp_http_response_issuccessful(httpRes) (mupnp_http_response_getstatuscode(httpRes) >= 200 && mupnp_http_response_getstatuscode(httpRes) < 300 )
 
 #define mupnp_http_response_setcontent(httpRes,value) mupnp_http_packet_setcontent(((mUpnpHttpPacket*)httpRes),value)
@@ -512,17 +512,17 @@ void mupnp_http_response_print(mUpnpHttpResponse *httpRes);
 
 mUpnpHttpServer *mupnp_http_server_new();
 void mupnp_http_server_delete(mUpnpHttpServer *httpServer);
-BOOL mupnp_http_server_open(mUpnpHttpServer *httpServer, int bindPort, const char *bindAddr);
-BOOL mupnp_http_server_close(mUpnpHttpServer *httpServer);
-BOOL mupnp_http_server_accept(mUpnpHttpServer *httpServer);
-BOOL mupnp_http_server_start(mUpnpHttpServer *httpServer);
-BOOL mupnp_http_server_stop(mUpnpHttpServer *httpServer);
+bool mupnp_http_server_open(mUpnpHttpServer *httpServer, int bindPort, const char *bindAddr);
+bool mupnp_http_server_close(mUpnpHttpServer *httpServer);
+bool mupnp_http_server_accept(mUpnpHttpServer *httpServer);
+bool mupnp_http_server_start(mUpnpHttpServer *httpServer);
+bool mupnp_http_server_stop(mUpnpHttpServer *httpServer);
 void mupnp_http_server_setlistener(mUpnpHttpServer *httpServer, MUPNP_HTTP_LISTENER listener);
 
 #define mupnp_http_server_next(httpServer) (mUpnpHttpServer *)mupnp_list_next((mUpnpList *)httpServer)
 
 #define mupnp_http_server_getsocket(httpServer) (httpServer->sock)
-#define mupnp_http_server_isopened(httpServer) ((httpServer->sock != NULL) ? TRUE : FALSE)
+#define mupnp_http_server_isopened(httpServer) ((httpServer->sock != NULL) ? true : false)
 
 #define mupnp_http_server_setuserdata(httpServer, value) (httpServer->userData = value)
 #define mupnp_http_server_getuserdata(httpServer) (httpServer->userData)
@@ -549,10 +549,10 @@ void mupnp_http_serverlist_delete(mUpnpHttpServerList *httpServerList);
 #define mupnp_http_serverlist_gets(httpServerList) (mUpnpHttpServer *)mupnp_list_next((mUpnpList *)httpServerList)
 #define mupnp_http_serverlist_add(httpServerList, httpServer) mupnp_list_add((mUpnpList *)httpServerList, (mUpnpList *)httpServer)
 
-BOOL mupnp_http_serverlist_open(mUpnpHttpServerList *httpServerList, int port);
-BOOL mupnp_http_serverlist_close(mUpnpHttpServerList *httpServerList);
-BOOL mupnp_http_serverlist_start(mUpnpHttpServerList *httpServerList);
-BOOL mupnp_http_serverlist_stop(mUpnpHttpServerList *httpServerList);
+bool mupnp_http_serverlist_open(mUpnpHttpServerList *httpServerList, int port);
+bool mupnp_http_serverlist_close(mUpnpHttpServerList *httpServerList);
+bool mupnp_http_serverlist_start(mUpnpHttpServerList *httpServerList);
+bool mupnp_http_serverlist_stop(mUpnpHttpServerList *httpServerList);
 void mupnp_http_serverlist_setlistener(mUpnpHttpServerList *httpServerList, MUPNP_HTTP_LISTENER listener);
 void mupnp_http_serverlist_setuserdata(mUpnpHttpServerList *httpServerList, void *value);
 
@@ -567,7 +567,7 @@ const char *mupnp_http_getdate(mUpnpTime sysTime, char *buf, size_t bufSize);
 ****************************************/
 
 /** Initialize persistent connection cache. Can be called many times */
-BOOL mupnp_http_persistentconnection_init(void);
+bool mupnp_http_persistentconnection_init(void);
 /** Clear persistent connection cache and free all memory */
 void mupnp_http_persistentconnection_clear(void);
 /** Lock persistent connection cache. Required for getting, putting and using
@@ -578,7 +578,7 @@ void mupnp_http_persistentconnection_unlock(void);
 /** Get persistent connection from cache */
 void *mupnp_http_persistentconnection_get(char *host, int port);
 /** Put connection to persistent connection cache */
-BOOL mupnp_http_persistentconnection_put(char *host, int port, void *data);
+bool mupnp_http_persistentconnection_put(char *host, int port, void *data);
 
 #ifdef  __cplusplus
 }

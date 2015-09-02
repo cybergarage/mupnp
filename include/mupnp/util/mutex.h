@@ -85,7 +85,7 @@ mUpnpMutex *mupnp_mutex_new();
  *
  * \param mutex The mutex to destroy
  */
-BOOL mupnp_mutex_delete(mUpnpMutex *mutex);
+bool mupnp_mutex_delete(mUpnpMutex *mutex);
 
 /** 
  * Acquire a mutex lock
@@ -96,7 +96,7 @@ BOOL mupnp_mutex_delete(mUpnpMutex *mutex);
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
 #	define mupnp_mutex_lock(mutex) mupnp_mutex_lock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, mutex)
 #else
-	BOOL mupnp_mutex_lock(mUpnpMutex *mutex);
+	bool mupnp_mutex_lock(mUpnpMutex *mutex);
 #endif
 
 /** 
@@ -107,7 +107,7 @@ BOOL mupnp_mutex_delete(mUpnpMutex *mutex);
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
 #       define mupnp_mutex_unlock(mutex) mupnp_mutex_unlock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, mutex)
 #else
-	BOOL mupnp_mutex_unlock(mUpnpMutex *mutex);
+	bool mupnp_mutex_unlock(mUpnpMutex *mutex);
 #endif
 
 #ifdef  __cplusplus

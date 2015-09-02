@@ -34,11 +34,11 @@ BOOST_AUTO_TEST_CASE(ControlPointTest)
 	int devCnt = mupnp_controlpoint_getndevices(testCp);
 	BOOST_CHECK(0 < devCnt);
 
-	BOOL testDevFound = FALSE;
+	bool testDevFound = false;
 	for (int n=0; n<devCnt; n++) {
 		mUpnpDevice *dev = mupnp_controlpoint_getdevice(testCp, n);
 		if (strcmp(mupnp_device_getdevicetype(dev), TEST_DEVICE_DEVICE_TYPE) == 0) {
-			testDevFound = TRUE;
+			testDevFound = true;
 			break;
 		}
 	}

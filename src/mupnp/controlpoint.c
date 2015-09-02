@@ -27,7 +27,7 @@
 
 #if defined(MUPNP_USE_STDDCP)
 char *mupnp_service_getstddcp(mUpnpService *service);
-BOOL mupnp_service_hasstddcp(mUpnpService *service);
+bool mupnp_service_hasstddcp(mUpnpService *service);
 #endif
 
 /****************************************
@@ -159,10 +159,10 @@ void mupnp_controlpoint_delete(mUpnpControlPoint *ctrlPoint)
  *
  * @param ctrlPoint The control point to start
  *
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  *
  */
-BOOL mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint)
+bool mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint)
 {
 	mUpnpHttpServerList *httpServerList;
 	MUPNP_HTTP_LISTENER httpListener;
@@ -186,7 +186,7 @@ BOOL mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint)
 	httpEventPort = mupnp_controlpoint_geteventport(ctrlPoint);
 	httpServerList = mupnp_controlpoint_gethttpserverlist(ctrlPoint);
 	/* Opening HTTP server may fail, so try many ports */
-	while(mupnp_http_serverlist_open(httpServerList, httpEventPort) == FALSE) {
+	while(mupnp_http_serverlist_open(httpServerList, httpEventPort) == false) {
 		mupnp_controlpoint_seteventport(ctrlPoint, httpEventPort + 1);
 		httpEventPort = mupnp_controlpoint_geteventport(ctrlPoint);
 	}
@@ -199,12 +199,12 @@ BOOL mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint)
 
 	/**** SSDP Server ****/
 	ssdpServerList = mupnp_controlpoint_getssdpserverlist(ctrlPoint);
-	if (mupnp_ssdp_serverlist_open(ssdpServerList) == FALSE)
-		return FALSE;
+	if (mupnp_ssdp_serverlist_open(ssdpServerList) == false)
+		return false;
 	mupnp_ssdp_serverlist_setlistener(ssdpServerList, mupnp_controlpoint_ssdplistner);
 	mupnp_ssdp_serverlist_setuserdata(ssdpServerList, ctrlPoint);
-	if (mupnp_ssdp_serverlist_start(ssdpServerList) == FALSE)
-		return FALSE;
+	if (mupnp_ssdp_serverlist_start(ssdpServerList) == false)
+		return false;
 
 	/**** SSDP Response Server ****/
 	ssdpResPort = mupnp_controlpoint_getssdpresponseport(ctrlPoint);
@@ -212,19 +212,19 @@ BOOL mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint)
 	ssdpMaxResPort = ssdpResPort + MUPNP_CONTROLPOINT_SSDP_RESPONSE_PORT_MAX_TRIES_INDEX;
 	ssdpResServerList = mupnp_controlpoint_getssdpresponseserverlist(ctrlPoint);
 	/* Opening SSDP response server may fail, so try many ports */
-	while(mupnp_ssdpresponse_serverlist_open(ssdpResServerList, ssdpResPort) == FALSE &&
+	while(mupnp_ssdpresponse_serverlist_open(ssdpResServerList, ssdpResPort) == false &&
 		(ssdpResPort < ssdpMaxResPort) ) {
 		mupnp_controlpoint_setssdpresponseport(ctrlPoint, ssdpResPort + 1);
 		ssdpResPort = mupnp_controlpoint_getssdpresponseport(ctrlPoint);
 	}
 	mupnp_ssdpresponse_serverlist_setlistener(ssdpResServerList, mupnp_controlpoint_ssdpresponselistner);
 	mupnp_ssdpresponse_serverlist_setuserdata(ssdpResServerList, ctrlPoint);
-	if (mupnp_ssdpresponse_serverlist_start(ssdpResServerList) == FALSE)
-		return FALSE;
+	if (mupnp_ssdpresponse_serverlist_start(ssdpResServerList) == false)
+		return false;
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /**
@@ -232,10 +232,10 @@ BOOL mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint)
  *
  * @param ctrlPoint The control point to stop
  *
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  *
  */
-BOOL mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint)
+bool mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint)
 {
 	mUpnpDevice *dev = NULL;
 	mUpnpSSDPServerList *ssdpServerList;
@@ -307,7 +307,7 @@ BOOL mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint)
 		
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /**
@@ -315,27 +315,27 @@ BOOL mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint)
  *
  * @param ctrlPoint The control point to stop
  *
- * @return TRUE if running; otherwise FALSE
+ * @return true if running; otherwise false
  *
  */
-BOOL mupnp_controlpoint_isrunning(mUpnpControlPoint *ctrlPoint);
+bool mupnp_controlpoint_isrunning(mUpnpControlPoint *ctrlPoint);
 /**
  * Check if  the control point is activated.
  *
  * @param ctrlPoint The control point to stop
  *
- * @return TRUE if running; otherwise FALSE
+ * @return true if running; otherwise false
  *
  */
-BOOL mupnp_controlpoint_isrunning(mUpnpControlPoint *ctrlPoint)
+bool mupnp_controlpoint_isrunning(mUpnpControlPoint *ctrlPoint)
 {
 	mUpnpHttpServerList *httpServerList;
 	
 	httpServerList = mupnp_controlpoint_gethttpserverlist(ctrlPoint);
 	if (mupnp_http_serverlist_size(httpServerList) == 0)
-		return FALSE;
+		return false;
 	
-	return TRUE;
+	return true;
 }
 
 /****************************************************************************
@@ -357,7 +357,7 @@ BOOL mupnp_controlpoint_isrunning(mUpnpControlPoint *ctrlPoint)
  * @param ctrlPoint The control point in question
  */
 #ifndef WITH_THREAD_LOCK_TRACE
-BOOL mupnp_controlpoint_lock(mUpnpControlPoint *ctrlPoint)
+bool mupnp_controlpoint_lock(mUpnpControlPoint *ctrlPoint)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -373,7 +373,7 @@ BOOL mupnp_controlpoint_lock(mUpnpControlPoint *ctrlPoint)
  *
  * @param ctrlPoint The control point in question
  */
-BOOL mupnp_controlpoint_unlock(mUpnpControlPoint *ctrlPoint)
+bool mupnp_controlpoint_unlock(mUpnpControlPoint *ctrlPoint)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -539,26 +539,26 @@ mUpnpDevice *mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint *ctrlPoint,
  * this from user applications.
  * 
  * @param service The service in question
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  */
-BOOL mupnp_controlpoint_parsescservicescpd(mUpnpService *service)
+bool mupnp_controlpoint_parsescservicescpd(mUpnpService *service)
 {
 	mUpnpNetURL *scpdURL;
-	BOOL scpdParseSuccess;
+	bool scpdParseSuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
 	scpdURL = mupnp_service_getscpdurl(service); 
 
 	if ( NULL == scpdURL )		
-		return FALSE;
+		return false;
 	
 	mupnp_log_debug_s("SCPD URL: %s\n", mupnp_net_url_getrequest(scpdURL));
 	scpdParseSuccess = mupnp_service_parsedescriptionurl(service, scpdURL);
 	
 	mupnp_net_url_delete(scpdURL);
-	if (scpdParseSuccess == TRUE)
-		return TRUE;
+	if (scpdParseSuccess == true)
+		return true;
 
 #if defined(MUPNP_USE_STDDCP)
 	if (mupnp_service_hasstddcp(service)) {
@@ -576,7 +576,7 @@ BOOL mupnp_controlpoint_parsescservicescpd(mUpnpService *service)
 * mupnp_controlpoint_parseservicesfordevice
 ****************************************/
 
-BOOL mupnp_controlpoint_parseservicesfordevice(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt)
+bool mupnp_controlpoint_parseservicesfordevice(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt)
 {
 	mUpnpService *service;
 	mUpnpDevice *childDev;
@@ -584,23 +584,23 @@ BOOL mupnp_controlpoint_parseservicesfordevice(mUpnpDevice *dev, mUpnpSSDPPacket
 	mupnp_log_debug_l4("Entering...\n");
 
 	for (service=mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
-		if (mupnp_controlpoint_parsescservicescpd(service) == FALSE) {
-			return FALSE;
+		if (mupnp_controlpoint_parsescservicescpd(service) == false) {
+			return false;
 		}
 	}
 	
 	/* Now only root SCPDs for root services are parsed, but also child 
 	   devices' services have to be parsed, so parse them */
 	for (childDev=mupnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_device_next(childDev)) {
-		if (mupnp_controlpoint_parseservicesfordevice(childDev, ssdpPkt) == FALSE)
+		if (mupnp_controlpoint_parseservicesfordevice(childDev, ssdpPkt) == false)
 		{
-			return FALSE;
+			return false;
 		}
 	}
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 static mUpnpDevice *mupnp_controlpoint_createdevicefromssdkpacket(mUpnpSSDPPacket *ssdpPkt)
@@ -608,7 +608,7 @@ static mUpnpDevice *mupnp_controlpoint_createdevicefromssdkpacket(mUpnpSSDPPacke
 	const char *location;
 	mUpnpNetURL *url;
 	mUpnpDevice *dev;
-	BOOL parseSuccess;
+	bool parseSuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -623,7 +623,7 @@ static mUpnpDevice *mupnp_controlpoint_createdevicefromssdkpacket(mUpnpSSDPPacke
 	parseSuccess =  mupnp_device_parsedescriptionurl(dev, url);
 	mupnp_net_url_delete(url);
 	
-	if (parseSuccess == FALSE) {
+	if (parseSuccess == false) {
 		mupnp_device_delete(dev);
 		return NULL;
 	}
@@ -631,7 +631,7 @@ static mUpnpDevice *mupnp_controlpoint_createdevicefromssdkpacket(mUpnpSSDPPacke
 	mupnp_device_setssdppacket(dev, ssdpPkt);
 
 #ifndef MUPNP_OPTIMIZED_CP_MODE
-	if (mupnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == FALSE)
+	if (mupnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == false)
 	{
 		mupnp_device_delete(dev);
 		return NULL;
@@ -669,7 +669,7 @@ void mupnp_controlpoint_adddevicebyssdppacket(mUpnpControlPoint *ctrlPoint, mUpn
 	if (dev != NULL)
 	{
 		/* Device was found from local cache */
-		if (mupnp_device_updatefromssdppacket(dev, ssdpPkt) == TRUE)
+		if (mupnp_device_updatefromssdppacket(dev, ssdpPkt) == true)
 		{
 			mupnp_mutex_lock(ctrlPoint->expMutex);
 			mupnp_cond_signal(ctrlPoint->expCond);
@@ -764,12 +764,12 @@ void mupnp_controlpoint_removedevicebyssdppacket(mUpnpControlPoint *ctrlPoint, m
  * @param ctrlPoint The control point in question
  * @param target The Search Target parameter (ex. "ssdp:all")
  */
-BOOL mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target)
+bool mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target)
 {
 	mUpnpSSDPRequest *ssdpReq;
 	mUpnpSSDPResponseServerList *ssdpResServerList;
 	int i = 0;
-	BOOL retval = FALSE;
+	bool retval = false;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -800,7 +800,7 @@ BOOL mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target)
 * mupnp_controlpoint_ipchanged
 ****************************************/
 
-BOOL mupnp_controlpoint_ipchanged(mUpnpControlPoint *ctrlPoint)
+bool mupnp_controlpoint_ipchanged(mUpnpControlPoint *ctrlPoint)
 {
 	mUpnpNetworkInterfaceList *current, *added, *removed;
 	mUpnpNetworkInterface *netIf;
@@ -819,7 +819,7 @@ BOOL mupnp_controlpoint_ipchanged(mUpnpControlPoint *ctrlPoint)
 		if (current != NULL) mupnp_net_interfacelist_delete(current);
 		if (added != NULL) mupnp_net_interfacelist_delete(added);
 		if (removed != NULL) mupnp_net_interfacelist_delete(removed);
-		return FALSE;
+		return false;
 	}
 	
 	/* Get Interface changes */
@@ -866,7 +866,7 @@ BOOL mupnp_controlpoint_ipchanged(mUpnpControlPoint *ctrlPoint)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
@@ -887,10 +887,10 @@ static void mupnp_controlpoint_ssdplistner(mUpnpSSDPPacket *ssdpPkt)
 	/* We filter out all but rootdevice, since it must be advertized by all
 	 * devices. This way we avoid lots of device updates during advertizement
 	 * cycle. */
-	if (mupnp_ssdp_packet_isrootdevice(ssdpPkt) == TRUE) {
-		if (mupnp_ssdp_packet_isalive(ssdpPkt) == TRUE)
+	if (mupnp_ssdp_packet_isrootdevice(ssdpPkt) == true) {
+		if (mupnp_ssdp_packet_isalive(ssdpPkt) == true)
 			mupnp_controlpoint_adddevicebyssdppacket(ctrlPoint, ssdpPkt);
-		else if (mupnp_ssdp_packet_isbyebye(ssdpPkt) == TRUE)
+		else if (mupnp_ssdp_packet_isbyebye(ssdpPkt) == true)
 			mupnp_controlpoint_removedevicebyssdppacket(ctrlPoint, ssdpPkt);
 	}
 				

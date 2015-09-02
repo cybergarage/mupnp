@@ -26,7 +26,7 @@ static int simple_string_hash(char *str, int table_size);
 
 void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt, int filter)
 {
-	BOOL isRootDev;
+	bool isRootDev;
 	const char *ssdpST;
 	const char *devUDN, *devType;
 	char ssdpMsg[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
@@ -76,7 +76,7 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt
 		/****************************************
 		 * check MAN header, return if incorrect
 		 ***************************************/
-		if (mupnp_ssdp_packet_isdiscover(ssdpPkt) == FALSE)
+		if (mupnp_ssdp_packet_isdiscover(ssdpPkt) == false)
 			return;
 
 		/****************************************
@@ -110,9 +110,9 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt
 
 	isRootDev = mupnp_device_isrootdevice(dev);
 	
-	if (mupnp_st_isalldevice(ssdpST) == TRUE) {
+	if (mupnp_st_isalldevice(ssdpST) == true) {
 		/* for root device only */
-		if (isRootDev == TRUE) {
+		if (isRootDev == true) {
 			mupnp_device_getnotifydevicent(dev, ssdpMsg, sizeof(ssdpMsg));
 			mupnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
 			mupnp_device_postsearchresponse(dev, ssdpPkt, ssdpMsg, deviceUSN);
@@ -125,20 +125,20 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt
 		/* device UUID */
 		mupnp_device_postsearchresponse(dev, ssdpPkt, mupnp_device_getudn(dev), mupnp_device_getudn(dev));
 	}
-	else if (mupnp_st_isrootdevice(ssdpST)  == TRUE) {
-		if (isRootDev == TRUE) {
+	else if (mupnp_st_isrootdevice(ssdpST)  == true) {
+		if (isRootDev == true) {
 			mupnp_device_getnotifydeviceusn(dev, deviceUSN, sizeof(deviceUSN));
 			mupnp_device_postsearchresponse(dev, ssdpPkt, MUPNP_ST_ROOT_DEVICE, deviceUSN);
 		}
 	}
-	else if (mupnp_st_isuuiddevice(ssdpST)  == TRUE) {
+	else if (mupnp_st_isuuiddevice(ssdpST)  == true) {
 		devUDN = mupnp_device_getudn(dev);
-		if (mupnp_streq(ssdpST, devUDN) == TRUE)
+		if (mupnp_streq(ssdpST, devUDN) == true)
 			mupnp_device_postsearchresponse(dev, ssdpPkt, devUDN, devUDN);
 	}
-	else if (mupnp_st_isurn(ssdpST)  == TRUE) {
+	else if (mupnp_st_isurn(ssdpST)  == true) {
 		devType = mupnp_device_getdevicetype(dev);
-		if (mupnp_streq(ssdpST, devType) == TRUE) {
+		if (mupnp_streq(ssdpST, devType) == true) {
 			mupnp_device_getnotifydevicetypeusn(dev, deviceUSN, sizeof(deviceUSN));
 			mupnp_device_postsearchresponse(dev, ssdpPkt, devType, deviceUSN);
 		}
@@ -148,7 +148,7 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt
 		mupnp_service_ssdpmessagereceived(service, ssdpPkt);
 
 	for (childDev = mupnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_device_next(childDev))
-		mupnp_device_ssdpmessagereceived(childDev, ssdpPkt, FALSE);
+		mupnp_device_ssdpmessagereceived(childDev, ssdpPkt, false);
 	
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -165,7 +165,7 @@ void mupnp_device_ssdplistener(mUpnpSSDPPacket *ssdpPkt)
 	mupnp_log_debug_l4("Entering...\n");
 
 	dev = (mUpnpDevice *)mupnp_ssdp_packet_getuserdata(ssdpPkt);
-	mupnp_device_ssdpmessagereceived(dev, ssdpPkt, TRUE);
+	mupnp_device_ssdpmessagereceived(dev, ssdpPkt, true);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -200,7 +200,7 @@ static int filter_duplicate_m_search(mUpnpSSDPPacket *ssdpPkt)
 	if ( NULL == id_string )
 	{
 		mupnp_log_debug_s("Memory allocation problem!\n");
-		return FALSE;
+		return false;
 	}
 
 	memset(id_string, '\0', s_length + 1);
@@ -220,17 +220,17 @@ static int filter_duplicate_m_search(mUpnpSSDPPacket *ssdpPkt)
 	if ( 0 == timestamps[loc] ) {
 		timestamps[loc] = curr_time;
 		mupnp_log_debug("First packet... Updating hash table.\n");
-		return FALSE;
+		return false;
 	}	
 	else if ( ( curr_time - timestamps[loc] ) < MUPNP_DEVICE_M_SEARCH_FILTER_INTERVAL ) {
 		mupnp_log_debug("Filtering packet!\n");
 		timestamps[loc] = curr_time;
-		return TRUE;
+		return true;
 	}
 	else {
 		timestamps[loc] = curr_time;
 		mupnp_log_debug("Old timestamp found, just updating it.\n");
-		return FALSE;
+		return false;
 	}
 	
 	mupnp_log_debug_l4("Leaving...\n");

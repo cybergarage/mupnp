@@ -182,10 +182,10 @@ mUpnpDevice *mupnp_device_getrootdevice(mUpnpDevice *dev)
 * mupnp_device_parsedescription
 ****************************************/
 
-BOOL mupnp_device_parsedescription(mUpnpDevice *dev, const char *desciption, size_t descriptionLen)
+bool mupnp_device_parsedescription(mUpnpDevice *dev, const char *desciption, size_t descriptionLen)
 {
 	mUpnpXmlParser *xmlParser;
-	BOOL xmlParseSuccess;
+	bool xmlParseSuccess;
 	mUpnpXmlNode *rootNode;
 	char uuidBuf[MUPNP_UUID_MAX_LEN];
 	
@@ -197,41 +197,41 @@ BOOL mupnp_device_parsedescription(mUpnpDevice *dev, const char *desciption, siz
 	xmlParser = mupnp_xml_parser_new();
 	xmlParseSuccess = mupnp_xml_parse(xmlParser, dev->rootNodeList, desciption, descriptionLen);
 	mupnp_xml_parser_delete(xmlParser);
-	if (xmlParseSuccess == FALSE)
-		return FALSE;
+	if (xmlParseSuccess == false)
+		return false;
 
 	if (mupnp_xml_nodelist_size(dev->rootNodeList) <= 0) {
 		mupnp_device_clear(dev);
-		return FALSE;
+		return false;
 	}
 
 	rootNode = mupnp_device_getrootnode(dev);
 	if (rootNode == NULL) {
 		mupnp_device_clear(dev);
-		return FALSE;
+		return false;
 	}
 		
 	dev->deviceNode = mupnp_xml_node_getchildnode(rootNode, MUPNP_DEVICE_ELEM_NAME);
 	if (dev->deviceNode == NULL) {
 		mupnp_device_clear(dev);
-		return FALSE;
+		return false;
 	}
 
-	if (mupnp_device_hasudn(dev) == FALSE)
+	if (mupnp_device_hasudn(dev) == false)
 		mupnp_device_setudn(dev, mupnp_createuuid(uuidBuf, sizeof(uuidBuf)));
 	
 	mupnp_device_initchildnodes(dev);
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_device_parsedescriptionurl
 ****************************************/
 
-BOOL mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url)
+bool mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url)
 {
 	char *host;
 	int port;
@@ -241,12 +241,12 @@ BOOL mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url)
 	/*int statusCode;*/
 	char *content;
 	ssize_t contentLen;
-	BOOL parseSuccess;
+	bool parseSuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_net_url_ishttpprotocol(url) == FALSE)
-		return FALSE;
+	if (mupnp_net_url_ishttpprotocol(url) == false)
+		return false;
 		
 	host = mupnp_net_url_gethost(url);
 	port = mupnp_net_url_getport(url);
@@ -264,7 +264,7 @@ BOOL mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url)
           if (statusCode != MUPNP_HTTP_STATUS_OK) {*/
 	if ( !mupnp_http_response_issuccessful(httpRes)) {
 		mupnp_http_request_delete(httpReq);
-		return FALSE;
+		return false;
 	}
 	
 	content = mupnp_http_response_getcontent(httpRes);
@@ -285,20 +285,20 @@ BOOL mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url)
 
 #if defined(MUPNP_USE_CFILE)
 
-BOOL mupnp_device_loaddescriptionfile(mUpnpDevice *dev, char *fileName)
+bool mupnp_device_loaddescriptionfile(mUpnpDevice *dev, char *fileName)
 {
 	mUpnpFile *file;
 	char *description;
 	int descriptionLen;
-	BOOL parseSuccess;
+	bool parseSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	file = mupnp_file_new();
 	mupnp_file_setname(file, fileName);
-	if (mupnp_file_load(file) == FALSE) {
+	if (mupnp_file_load(file) == false) {
 		mupnp_file_delete(file);
-		return FALSE;
+		return false;
 	}
 
 	description = mupnp_file_getcontent(file);
@@ -320,9 +320,9 @@ BOOL mupnp_device_loaddescriptionfile(mUpnpDevice *dev, char *fileName)
  *
  * @param dev The device to potentially update
  * @param ssdpPkt The SSDP packet to make decisions on
- * @return TRUE if the device was updated; otherwise FALSE
+ * @return true if the device was updated; otherwise false
  */
-BOOL mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
+bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
 					 mUpnpSSDPPacket* ssdpPkt)
 {
 	const char *usn = NULL;
@@ -340,20 +340,20 @@ BOOL mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
 	tmpSsdpPkt = mupnp_device_getssdppacket(dev);
 	if (tmpSsdpPkt == NULL)
 	{
-		return FALSE;
+		return false;
 	}
 		
 	/* Here we check, if the location of the device has changed */
 	oldLocation = mupnp_ssdp_packet_getlocation(tmpSsdpPkt);
 	newLocation = mupnp_ssdp_packet_getlocation(ssdpPkt);
 
-	if (mupnp_streq(oldLocation, newLocation) == TRUE)
+	if (mupnp_streq(oldLocation, newLocation) == true)
 	{
 		/* The device's location has not changed, just update
 		   the SSDP packet */
 		mupnp_device_setssdppacket(dev, ssdpPkt);
 		
-		return TRUE;
+		return true;
 	}
 	else
 	{
@@ -364,7 +364,7 @@ BOOL mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
 		url = mupnp_net_url_new();
 		if (url == NULL)
 		{
-			return FALSE;
+			return false;
 		}
 		
 		/* Use the new location as the description URL */
@@ -380,10 +380,10 @@ BOOL mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
 #ifndef MUPNP_NOUSE_CONTROLPOINT
 /* ADD END Fabrice Fontaine Orange 16/04/2007 */
 #ifndef MUPNP_OPTIMIZED_CP_MODE
-		if (mupnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == FALSE)
+		if (mupnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == false)
 		{
 			mupnp_device_delete(dev);
-			return FALSE;
+			return false;
 		}
 #endif
 /* ADD Fabrice Fontaine Orange 16/04/2007 */
@@ -393,7 +393,7 @@ BOOL mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /*****************************************************************************
@@ -872,7 +872,7 @@ static void mupnp_device_initdevicelist(mUpnpDevice *dev)
 		return;
 	
 	for (childNode = mupnp_xml_node_getchildnodes(devListNode); childNode != NULL; childNode = mupnp_xml_node_next(childNode)) {
-		if (mupnp_device_isdevicenode(childNode) == FALSE)
+		if (mupnp_device_isdevicenode(childNode) == false)
 			continue;
 		childDev = mupnp_device_new();
 		/* Propagate "lease-time" from parent device to the child-devices; call "setleasetime"
@@ -1049,7 +1049,7 @@ mUpnpDevice *mupnp_device_getdevicebydescriptionuri(mUpnpDevice *dev, char *url)
 		return NULL;
 			
 	for (childDev = mupnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_device_next(childDev)) {
-		if (mupnp_device_isdescriptionuri(dev, url) == TRUE)
+		if (mupnp_device_isdescriptionuri(dev, url) == true)
 			return dev;
 		moreChildDev = mupnp_device_getdevicebydescriptionuri(childDev, url);
 		if (moreChildDev != NULL)
@@ -1106,7 +1106,7 @@ char *mupnp_device_getnotifydevicent(mUpnpDevice *dev, char *buf, int bufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_device_isrootdevice(dev) == FALSE) {
+	if (mupnp_device_isrootdevice(dev) == false) {
 #if defined(HAVE_SNPRINTF)
 		snprintf(buf, bufSize, "%s", mupnp_device_getudn(dev));
 #else
@@ -1132,7 +1132,7 @@ char *mupnp_device_getnotifydeviceusn(mUpnpDevice *dev, char *buf, int bufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_device_isrootdevice(dev) == TRUE) {
+	if (mupnp_device_isrootdevice(dev) == true) {
 #if defined(HAVE_SNPRINTF)
 		snprintf(buf, bufSize, "%s::%s", mupnp_device_getudn(dev), MUPNP_DEVICE_UPNP_ROOTDEVICE);
 #else
@@ -1194,7 +1194,7 @@ char *mupnp_device_getnotifydevicetypeusn(mUpnpDevice *dev, char *buf, int bufSi
 * mupnp_device_announcefrom
 ****************************************/
 
-BOOL mupnp_device_announcefrom(mUpnpDevice *dev, char *bindAddr)
+bool mupnp_device_announcefrom(mUpnpDevice *dev, char *bindAddr)
 {
 	char ssdpLineBuf[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 	mUpnpServiceList *serviceList;
@@ -1203,7 +1203,7 @@ BOOL mupnp_device_announcefrom(mUpnpDevice *dev, char *bindAddr)
 	mUpnpDevice *childDev;
 	mUpnpSSDPRequest *ssdpReq;
 	mUpnpSSDPSocket *ssdpSock;
-	BOOL sentResult;
+	bool sentResult;
 	
 	mupnp_log_debug_l4("Entering...\n");
 	mupnp_log_debug_s("Announcing from %s\n", bindAddr);
@@ -1218,7 +1218,7 @@ BOOL mupnp_device_announcefrom(mUpnpDevice *dev, char *bindAddr)
 	mupnp_ssdprequest_setbootid(ssdpReq, mupnp_device_getbootid(dev));
 
 	/**** uuid:device-UUID(::upnp:rootdevice) ****/
-	if (mupnp_device_isrootdevice(dev) == TRUE) {
+	if (mupnp_device_isrootdevice(dev) == true) {
 		mupnp_ssdprequest_setnt(ssdpReq, mupnp_device_getnotifydevicent(dev, ssdpLineBuf, sizeof(ssdpLineBuf)));
 		mupnp_ssdprequest_setusn(ssdpReq, mupnp_device_getnotifydeviceusn(dev, ssdpLineBuf, sizeof(ssdpLineBuf)));
 		mupnp_ssdp_socket_notifyfrom(ssdpSock, ssdpReq, bindAddr);
@@ -1296,7 +1296,7 @@ void mupnp_device_announce(mUpnpDevice *dev)
 * mupnp_device_byebyefrom
 ****************************************/
 
-BOOL mupnp_device_byebyefrom(mUpnpDevice *dev, char *bindAddr)
+bool mupnp_device_byebyefrom(mUpnpDevice *dev, char *bindAddr)
 {
 	char ssdpLineBuf[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 	mUpnpServiceList *serviceList;
@@ -1305,7 +1305,7 @@ BOOL mupnp_device_byebyefrom(mUpnpDevice *dev, char *bindAddr)
 	mUpnpDevice *childDev;
 	mUpnpSSDPRequest *ssdpReq;
 	mUpnpSSDPSocket *ssdpSock;
-	BOOL sentResult;
+	bool sentResult;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1315,7 +1315,7 @@ BOOL mupnp_device_byebyefrom(mUpnpDevice *dev, char *bindAddr)
 	mupnp_ssdprequest_setnts(ssdpReq, MUPNP_SSDP_NTS_BYEBYE);
 
 	/**** uuid:device-UUID(::upnp:rootdevice) ****/
-	if (mupnp_device_isrootdevice(dev) == TRUE) {
+	if (mupnp_device_isrootdevice(dev) == true) {
 		mupnp_ssdprequest_setnt(ssdpReq, mupnp_device_getnotifydevicent(dev, ssdpLineBuf, sizeof(ssdpLineBuf)));
 		mupnp_ssdprequest_setusn(ssdpReq, mupnp_device_getnotifydeviceusn(dev, ssdpLineBuf, sizeof(ssdpLineBuf)));
 		mupnp_ssdp_socket_notifyfrom(ssdpSock, ssdpReq, bindAddr);
@@ -1384,7 +1384,7 @@ void mupnp_device_byebye(mUpnpDevice *dev)
 * mupnp_device_postsearchresponse
 ****************************************/
 
-BOOL mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt, const char *st, const char *usn)
+bool mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt, const char *st, const char *usn)
 {
 	mUpnpDevice *rootDev;
 	mUpnpSSDPResponse *ssdpRes;
@@ -1437,7 +1437,7 @@ BOOL mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt,
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
@@ -1450,7 +1450,7 @@ BOOL mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt,
 * mupnp_device_start
 ****************************************/
 
-BOOL mupnp_device_start(mUpnpDevice *dev)
+bool mupnp_device_start(mUpnpDevice *dev)
 {
 	MUPNP_HTTP_LISTENER httpListener;
 	int httpPort;
@@ -1467,7 +1467,7 @@ BOOL mupnp_device_start(mUpnpDevice *dev)
 	/**** HTTP Server ****/
 	httpPort = mupnp_device_gethttpport(dev);
 	/* Opening HTTP server may fail, so try many ports */
-	while(mupnp_http_serverlist_open(dev->httpServerList, httpPort) == FALSE)
+	while(mupnp_http_serverlist_open(dev->httpServerList, httpPort) == false)
 	{
 		mupnp_device_sethttpport(dev, httpPort + 1);
 		httpPort = mupnp_device_gethttpport(dev);
@@ -1480,8 +1480,8 @@ BOOL mupnp_device_start(mUpnpDevice *dev)
 	mupnp_http_serverlist_start(dev->httpServerList);
 
 	/**** SSDP Server ****/
-	if (mupnp_ssdp_serverlist_open(dev->ssdpServerList) == FALSE)
-		return FALSE;
+	if (mupnp_ssdp_serverlist_open(dev->ssdpServerList) == false)
+		return false;
   mupnp_ssdp_serverlist_setlistener(dev->ssdpServerList, mupnp_device_ssdplistener);
 	mupnp_ssdp_serverlist_setuserdata(dev->ssdpServerList, dev);
 	mupnp_ssdp_serverlist_start(dev->ssdpServerList);
@@ -1497,27 +1497,27 @@ BOOL mupnp_device_start(mUpnpDevice *dev)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 	
 /****************************************
 * mupnp_device_ipchanged
 ****************************************/
 
-BOOL mupnp_device_ipchanged(mUpnpDevice *dev)
+bool mupnp_device_ipchanged(mUpnpDevice *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
 * mupnp_device_stop
 ****************************************/
 
-BOOL mupnp_device_stop(mUpnpDevice *dev)
+bool mupnp_device_stop(mUpnpDevice *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1546,14 +1546,14 @@ BOOL mupnp_device_stop(mUpnpDevice *dev)
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
  * mupnp_device_isrunning
  ****************************************/
 
-BOOL mupnp_device_isrunning(mUpnpDevice *dev)
+bool mupnp_device_isrunning(mUpnpDevice *dev)
 {
 	return mupnp_device_advertiser_isrunning(dev);
 }
@@ -1588,7 +1588,7 @@ static void mupnp_device_initservicelist(mUpnpDevice *dev)
 		return;
 		
 	for (childNode = mupnp_xml_node_getchildnodes(serviceListNode); childNode != NULL; childNode = mupnp_xml_node_next(childNode)) {
-		if (mupnp_service_isservicenode(childNode) == FALSE)
+		if (mupnp_service_isservicenode(childNode) == false)
 			continue;
 		childService = mupnp_service_new();
 		mupnp_service_setservicenode(childService, childNode);
@@ -1620,7 +1620,7 @@ mUpnpService *mupnp_device_getservicebyserviceid(mUpnpDevice *dev, const char *s
 			      serviceId) == 0)
 		{
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-			if (mupnp_service_isparsed(service) == FALSE)
+			if (mupnp_service_isparsed(service) == false)
 				mupnp_controlpoint_parsescservicescpd(service);
 #endif
 			return service;
@@ -1674,7 +1674,7 @@ mUpnpService* mupnp_device_getservicebyexacttype(mUpnpDevice* dev, const char* t
 			      type) == 0)
 		{
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-		if (mupnp_service_isparsed(service) == FALSE)
+		if (mupnp_service_isparsed(service) == false)
 			mupnp_controlpoint_parsescservicescpd(service);
 #endif
 		return service;
@@ -1736,7 +1736,7 @@ mUpnpService *mupnp_device_getservicebytype(mUpnpDevice *dev, const char *type)
 			{
 				free(part);
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-				if (mupnp_service_isparsed(service) == FALSE)
+				if (mupnp_service_isparsed(service) == false)
 					mupnp_controlpoint_parsescservicescpd(service);
 #endif
 				return service;
@@ -1780,7 +1780,7 @@ mUpnpService *mupnp_device_getservicebyscpdurl(mUpnpDevice *dev, const char *url
 			
 	for (service=mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
 		mupnp_log_debug_s("Child node v: %s\n", mupnp_xml_node_getchildnodevalue(mupnp_service_getservicenode(service), MUPNP_SERVICE_SCPDURL));
-		if (mupnp_service_isscpdurl(service, url) == TRUE)
+		if (mupnp_service_isscpdurl(service, url) == true)
 			return service;
 	}
 		
@@ -1859,7 +1859,7 @@ mUpnpService *mupnp_device_getservicebysid(mUpnpDevice *dev, const char *sid)
 		if (mupnp_service_getsubscriberbysid(service, sid) != NULL)
 		{
 			return service;
-		} else if (mupnp_service_issubscribed(service) == TRUE &&
+		} else if (mupnp_service_issubscribed(service) == true &&
 			   mupnp_strcmp(mupnp_service_getsubscriptionsid(service), sid) == 0)
 		{
 			return service;
@@ -1933,7 +1933,7 @@ mUpnpService *mupnp_device_getservicebyeventsuburl(mUpnpDevice *dev, const char 
 		return NULL;
 			
 	for (service=mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
-		if (mupnp_streq(mupnp_net_url_getpath(mupnp_service_geteventsuburl(service)), url) == TRUE)
+		if (mupnp_streq(mupnp_net_url_getpath(mupnp_service_geteventsuburl(service)), url) == true)
 			return service;
 	}
 		
@@ -1987,7 +1987,7 @@ mUpnpIcon *mupnp_device_getsmallesticon(mUpnpDevice *dev)
  * mupnp_device_getabsoluteiconurl
  ****************************************/
 
-BOOL mupnp_device_getabsoluteiconurl(mUpnpDevice *dev, mUpnpIcon *icon, mUpnpString *buf)
+bool mupnp_device_getabsoluteiconurl(mUpnpDevice *dev, mUpnpIcon *icon, mUpnpString *buf)
 {
 	mUpnpNetURI *uri;
 	mUpnpNetURI *ssdpUri;
@@ -2000,7 +2000,7 @@ BOOL mupnp_device_getabsoluteiconurl(mUpnpDevice *dev, mUpnpIcon *icon, mUpnpStr
 	if (mupnp_net_uri_isabsolute(uri)) {
 		mupnp_string_setvalue(buf, mupnp_net_uri_geturi(uri));
 		mupnp_net_uri_delete(uri);
-		return TRUE;
+		return true;
 	}
 	
 	rootDev = mupnp_device_getrootdevice(dev);
@@ -2012,14 +2012,14 @@ BOOL mupnp_device_getabsoluteiconurl(mUpnpDevice *dev, mUpnpIcon *icon, mUpnpStr
 			mupnp_net_uri_setpath(uri, mupnp_icon_geturl(icon));
 			mupnp_string_setvalue(buf, mupnp_net_uri_getvalue(uri));
 			mupnp_net_uri_delete(uri);
-			return TRUE;
+			return true;
 		}
 		mupnp_net_uri_delete(ssdpUri);
 	}
 	
 	mupnp_net_uri_delete(uri);
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
@@ -2128,7 +2128,7 @@ static void mupnp_device_initiconlist(mUpnpDevice *dev)
 		return;
 		
 	for (childNode = mupnp_xml_node_getchildnodes(iconListNode); childNode != NULL; childNode = mupnp_xml_node_next(childNode)) {
-		if (mupnp_icon_isiconnode(childNode) == FALSE)
+		if (mupnp_icon_isiconnode(childNode) == false)
 			continue;
 		childIcon = mupnp_icon_new();
 		mupnp_icon_seticonnode(childIcon, childNode);
@@ -2142,7 +2142,7 @@ static void mupnp_device_initiconlist(mUpnpDevice *dev)
  * mupnp_device_addicon
  ****************************************/
 
-BOOL mupnp_device_addicon(mUpnpDevice *dev, mUpnpIcon *icon)
+bool mupnp_device_addicon(mUpnpDevice *dev, mUpnpIcon *icon)
 {
 	mUpnpXmlNode *devNode;
 	mUpnpXmlNode *iconListNode;
@@ -2152,11 +2152,11 @@ BOOL mupnp_device_addicon(mUpnpDevice *dev, mUpnpIcon *icon)
 
 	iconNode = mupnp_icon_geticonnode(icon);
 	if (iconNode == NULL)
-		return FALSE;
+		return false;
 	
 	devNode = mupnp_device_getdevicenode(dev);
 	if (devNode == NULL)
-		return FALSE;
+		return false;
 
 	iconListNode = mupnp_xml_node_getchildnode(devNode, MUPNP_ICONLIST_ELEM_NAME);
 	if (iconListNode == NULL) {
@@ -2173,7 +2173,7 @@ BOOL mupnp_device_addicon(mUpnpDevice *dev, mUpnpIcon *icon)
 	mupnp_icon_seticonnode(copyIcon, copyIconNode);
 	mupnp_iconlist_add(dev->iconList, copyIcon);
 	
-	return TRUE;
+	return true;
 }
 
 /****************************************

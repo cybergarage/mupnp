@@ -16,21 +16,21 @@
 * mupnp_httpmu_socket_bind
 ****************************************/
 
-BOOL mupnp_httpmu_socket_bind(mUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr)
+bool mupnp_httpmu_socket_bind(mUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_socket_bind(sock, port, bindAddr, FALSE, TRUE) == FALSE)
-		return FALSE;
+	if (mupnp_socket_bind(sock, port, bindAddr, false, true) == false)
+		return false;
 		
-	if (mupnp_socket_joingroup(sock, mcastAddr, bindAddr) == FALSE) {
+	if (mupnp_socket_joingroup(sock, mcastAddr, bindAddr) == false) {
 		mupnp_socket_close(sock);
-		return FALSE;
+		return false;
 	}
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************

@@ -130,7 +130,7 @@ static void mupnp_action_initargumentlist(mUpnpAction *action)
 
 	for (childNode = mupnp_xml_node_getchildnodes(argumentListNode); childNode != NULL; childNode = mupnp_xml_node_next(childNode)) {
 	
-		if (mupnp_argument_isargumentnode(childNode) == FALSE)
+		if (mupnp_argument_isargumentnode(childNode) == false)
 			continue;
 			
 		arg = mupnp_argument_new();
@@ -157,7 +157,7 @@ mUpnpArgument *mupnp_action_getargumentbyname(mUpnpAction *action, const char *n
 			
 	argList = mupnp_action_getargumentlist(action);
 	for (arg=mupnp_argumentlist_gets(argList); arg != NULL; arg = mupnp_argument_next(arg)) {
-		if (mupnp_argument_isname(arg, name) == TRUE)
+		if (mupnp_argument_isname(arg, name) == true)
 			return arg;
 	}
 	
@@ -184,13 +184,13 @@ char *mupnp_action_getargumentvaluebyname(mUpnpAction *action, const char *name)
 * mupnp_action_setargumentvaluebyname
 ****************************************/
 
-BOOL mupnp_action_setargumentvaluebyname(mUpnpAction *action, const char *name, const char *value)
+bool mupnp_action_setargumentvaluebyname(mUpnpAction *action, const char *name, const char *value)
 {
 	mUpnpArgument *arg;
 
 	arg = mupnp_action_getargumentbyname(action, name);
 	if (!arg)
-		return FALSE;
+		return false;
 	mupnp_argument_setvalue(arg, value);
-	return TRUE;
+	return true;
 }

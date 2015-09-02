@@ -106,7 +106,7 @@ void mupnp_event_notify_request_setsid(mUpnpNotifyRequest *soapReq, char *sid)
 /****************************************
 * mupnp_event_notify_request_setpropertysetnode
 ****************************************/
-BOOL mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest *notifyReq, mUpnpSubscriber *sub, /* mUpnpService */void *pservice, mUpnpStateVariable *statVar)
+bool mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest *notifyReq, mUpnpSubscriber *sub, /* mUpnpService */void *pservice, mUpnpStateVariable *statVar)
 {
 	mUpnpHttpRequest *httpReq;
 	mUpnpXmlNode *propSetNode;
@@ -138,7 +138,7 @@ BOOL mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest *notifyReq
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
@@ -211,13 +211,13 @@ mUpnpXmlNode *mupnp_event_notify_request_getvariablenode(mUpnpNotifyRequest *nof
 	propSetNode = mupnp_event_notify_request_getpropertysetnode(nofityReq);
 	if (propSetNode == NULL)
 		return NULL;
-	if (mupnp_xml_node_haschildnodes(propSetNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(propSetNode) == false)
 		return NULL;
 
 	propNode = mupnp_xml_node_getchildnodes(propSetNode);
 	if (propNode == NULL)
 		return NULL;
-	if (mupnp_xml_node_haschildnodes(propNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(propNode) == false)
 		return NULL;
 
 	mupnp_log_debug_l4("Leaving...\n");

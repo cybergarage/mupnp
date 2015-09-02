@@ -56,14 +56,14 @@ extern "C" {
 
 typedef struct _mUpnpSoapResponse {
 	mUpnpHttpResponse *httpRes;
-	BOOL isHttpResCreated;
+	bool isHttpResCreated;
 	mUpnpXmlNodeList *rootNodeList;
 	void *userData;
 } mUpnpSoapResponse;
 
 typedef struct _mUpnpSoapRequest{
 	mUpnpHttpRequest *httpReq;
-	BOOL isHttpReqCreated;
+	bool isHttpReqCreated;
 	mUpnpXmlNode *rootNodeList;
 	mUpnpSoapResponse *soapRes;
 	void *userData;
@@ -77,14 +77,14 @@ mUpnpSoapRequest *mupnp_soap_request_new();
 void mupnp_soap_request_delete(mUpnpSoapRequest *soapReq);
 void mupnp_soap_request_clear(mUpnpSoapRequest *soapReq);
 
-BOOL mupnp_soap_request_sethttprequest(mUpnpSoapRequest *soapReq, mUpnpHttpRequest *httpReq);
+bool mupnp_soap_request_sethttprequest(mUpnpSoapRequest *soapReq, mUpnpHttpRequest *httpReq);
 #define mupnp_soap_request_gethttprequest(soapReq) (soapReq->httpReq)
 
 #define mupnp_soap_request_setsoapaction(soapReq, name) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SOAP_ACTION, name)
 #define mupnp_soap_request_getsoapaction(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SOAP_ACTION)
 #define mupnp_soap_request_getsoapactionwithns(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SOAP_ACTION_WITH_NS)
 
-BOOL mupnp_soap_request_parsemessage(mUpnpSoapRequest *soapReq, char *msg, size_t msgLen);
+bool mupnp_soap_request_parsemessage(mUpnpSoapRequest *soapReq, char *msg, size_t msgLen);
 mUpnpSoapResponse *mupnp_soap_request_post(mUpnpSoapRequest *soapReq, const char *ipaddr, int port);
 #define mupnp_soap_request_getsoapresponse(soapReq) (soapReq->soapRes)
 

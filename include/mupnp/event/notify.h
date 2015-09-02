@@ -200,7 +200,7 @@ void mupnp_event_notify_request_setsid(mUpnpNotifyRequest *soapReq, char *sid);
 /** 
  * \todo Check what this does exactly...
  */
-BOOL mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest *notifyReq, mUpnpSubscriber *sub, /* mUpnpService */void *service, mUpnpStateVariable *statVar);
+bool mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest *notifyReq, mUpnpSubscriber *sub, /* mUpnpService */void *service, mUpnpStateVariable *statVar);
 
 /****************************************
 * Function (Response)

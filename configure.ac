@@ -9,7 +9,7 @@
 AC_CONFIG_AUX_DIR(config)
 AM_CONFIG_HEADER(config.h)
 
-AC_INIT([mupnp], [3.0])
+AC_INIT([mupnp], [2.4])
 AC_CONFIG_SRCDIR([include/mupnp/typedef.h])
 AM_INIT_AUTOMAKE([subdir-objects])
 
@@ -40,6 +40,12 @@ AC_PROG_AWK
 AC_PROG_RANLIB
 AC_LANG_CPLUSPLUS
 AM_PROG_CC_C_O
+
+##############################
+# Checks for header files.
+##############################
+
+AC_CHECK_HEADERS([stdbool.h])
 
 ##############################
 # Checks for Long Long

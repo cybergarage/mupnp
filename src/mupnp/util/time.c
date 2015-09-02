@@ -95,9 +95,9 @@ mUpnpTime mupnp_getcurrentsystemtime()
 		return 0;
 	localtime = mUpnpTime - tz.adjust + (tz.dst_flg ? (tz.dst_adj*60): 0);
 #elif defined(ITRON)
-	static BOOL initialized = FALSE;
+	static bool initialized = false;
 	SYSTIM sysTim;
-	if (initialized == FALSE) {
+	if (initialized == false) {
 		sysTim.utime = 0;
 		sysTim.ltime = 0;
 		set_tim(&sysTim);
@@ -124,13 +124,13 @@ mUpnpTime mupnp_getcurrentsystemtime()
 
 float mupnp_random()
 {
-	static BOOL seedDone = FALSE;
+	static bool seedDone = false;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (seedDone == FALSE) {
+	if (seedDone == false) {
 		srand((int)(mupnp_getcurrentsystemtime() % INT_MAX));
-		seedDone = TRUE;
+		seedDone = true;
 	}
 	
 	mupnp_log_debug_l4("Leaving...\n");

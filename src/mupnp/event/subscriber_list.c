@@ -70,7 +70,7 @@ mUpnpSubscriber *mupnp_subscriberlist_get(mUpnpSubscriberList *subscriberList, c
 		sid += (uuidIdx + mupnp_strlen(MUPNP_ST_UUID_DEVICE) + 1);
 
 	for (sub = mupnp_subscriberlist_gets(subscriberList); sub != NULL; sub = mupnp_subscriber_next(sub)) {
-		if (mupnp_streq(sid, mupnp_subscriber_getsid(sub)) == TRUE)
+		if (mupnp_streq(sid, mupnp_subscriber_getsid(sub)) == true)
 			return sub;
 	}
 	

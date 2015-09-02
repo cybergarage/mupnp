@@ -88,7 +88,7 @@ void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList *netIfListOld,
 				     mUpnpNetworkInterfaceList *netIfListRemoved)
 {
 	mUpnpNetworkInterface *netIfOld, *netIfNew, *tmp;
-	BOOL found;
+	bool found;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -98,19 +98,19 @@ void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList *netIfListOld,
 	{
 		netIfOld = tmp; tmp = mupnp_net_interface_next(netIfOld);
 		
-		found = FALSE;
+		found = false;
 		for (netIfNew = mupnp_net_interfacelist_gets(netIfListNew); netIfNew != NULL;
 		     netIfNew = mupnp_net_interface_next(netIfNew))
 		{
 			if (mupnp_net_interface_cmp(netIfOld, netIfNew) == 0)
 			{
-				found = TRUE;
+				found = true;
 				break;
 			}
 		}
 		
 		/* Old interface was not found in new ones, so it's removed */
-		if (found == FALSE)
+		if (found == false)
 		{
 			mupnp_net_interface_remove(netIfOld);
 			if (netIfListRemoved != NULL)
@@ -126,19 +126,19 @@ void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList *netIfListOld,
 	{
 		netIfNew = tmp; tmp = mupnp_net_interface_next(netIfNew);
 		
-		found = FALSE;
+		found = false;
 		for (netIfOld = mupnp_net_interfacelist_gets(netIfListOld); netIfOld != NULL;
 		     netIfOld = mupnp_net_interface_next(netIfOld))
 		{
 			if (mupnp_net_interface_cmp(netIfOld, netIfNew) == 0)
 			{
-				found = TRUE;
+				found = true;
 				break;
 			}
 		}
 		
 		/* New interface was not found in old ones, so it's added */
-		if (found == FALSE)
+		if (found == false)
 		{
 			mupnp_net_interface_remove(netIfNew);
 			if (netIfListAdded != NULL)

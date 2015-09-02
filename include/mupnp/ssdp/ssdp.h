@@ -207,8 +207,8 @@ char *mupnp_ssdpresponse_tostring(mUpnpSSDPResponse *ssdpRes, mUpnpString *ssdpM
 #define mupnp_ssdp_socket_delete(socket) mupnp_socket_delete(socket)
 #define mupnp_ssdp_socket_close(socket) mupnp_socket_close(socket)
 
-BOOL mupnp_ssdp_socket_notifyfrom(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPRequest *ssdpReq, const char *bindAddr);
-BOOL mupnp_ssdp_socket_postresponse(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPResponse *ssdpReq, const char *host, int port);
+bool mupnp_ssdp_socket_notifyfrom(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPRequest *ssdpReq, const char *bindAddr);
+bool mupnp_ssdp_socket_postresponse(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPResponse *ssdpReq, const char *host, int port);
 
 #ifdef  __cplusplus
 }

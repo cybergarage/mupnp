@@ -46,7 +46,7 @@ void mupnp_controlpoint_httprequestreceived(mUpnpHttpRequest *httpReq)
 	mupnp_controlpoint_lock(ctrlPoint);
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
-	if (mupnp_http_request_isnotifyrequest(httpReq) == TRUE) {	
+	if (mupnp_http_request_isnotifyrequest(httpReq) == true) {	
 		notifyReq = mupnp_event_notify_request_new();
 		mupnp_event_notify_request_sethttprequest(notifyReq, httpReq);
 

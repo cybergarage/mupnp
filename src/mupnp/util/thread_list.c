@@ -27,7 +27,7 @@ mUpnpThreadList *mupnp_threadlist_new()
 	if ( NULL != threadList )
 	{
 		mupnp_list_header_init((mUpnpList *)threadList);
-		threadList->runnableFlag = FALSE;
+		threadList->runnableFlag = false;
 		threadList->action = NULL;
 		threadList->userData = NULL;
 	}
@@ -55,7 +55,7 @@ void mupnp_threadlist_delete(mUpnpThreadList *threadList)
 * mupnp_threadlist_start
 ****************************************/
 
-BOOL mupnp_threadlist_start(mUpnpThreadList *threadList)
+bool mupnp_threadlist_start(mUpnpThreadList *threadList)
 {
 	mUpnpThreadList *thread;
 	
@@ -64,7 +64,7 @@ BOOL mupnp_threadlist_start(mUpnpThreadList *threadList)
 	for (thread = mupnp_threadlist_gets(threadList); thread != NULL; thread = mupnp_thread_next(thread))
 		mupnp_thread_start(thread);
 
-	return TRUE;
+	return true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -73,7 +73,7 @@ BOOL mupnp_threadlist_start(mUpnpThreadList *threadList)
 * mupnp_threadlist_stop
 ****************************************/
 
-BOOL mupnp_threadlist_stop(mUpnpThreadList *threadList)
+bool mupnp_threadlist_stop(mUpnpThreadList *threadList)
 {
 	mUpnpThreadList *thread;
 	
@@ -82,7 +82,7 @@ BOOL mupnp_threadlist_stop(mUpnpThreadList *threadList)
 	for (thread = mupnp_threadlist_gets(threadList); thread != NULL; thread = mupnp_thread_next(thread))
 		mupnp_thread_stop(thread);
 
-	return TRUE;
+	return true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }

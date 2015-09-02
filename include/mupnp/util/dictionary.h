@@ -35,7 +35,7 @@ extern "C" {
  * compatibility between different platforms (Linux, Win32 etc..)
  */
 typedef struct _mUpnpDictionary {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpDictionary *prev;
 	struct _mUpnpDictionary *next;
 	mUpnpString *key;
@@ -56,7 +56,7 @@ mUpnpDictionaryElement *mupnp_dictionary_element_new();
  *
  * \param dirElem Dictionary to destroy
  */
-BOOL mupnp_dictionary_element_delete(mUpnpDictionaryElement *dirElem);
+bool mupnp_dictionary_element_delete(mUpnpDictionaryElement *dirElem);
 
 /**
  * Set a key

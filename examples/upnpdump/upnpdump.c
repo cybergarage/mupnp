@@ -92,17 +92,17 @@ void PrintKeyMessage()
 
 void SSDPNotifyListner(mUpnpSSDPPacket *ssdpPkt)
 {
-	if (mupnp_ssdp_packet_isdiscover(ssdpPkt) == TRUE) {
+	if (mupnp_ssdp_packet_isdiscover(ssdpPkt) == true) {
 		printf("ssdp:discover : ST = %s\n",
 			mupnp_ssdp_packet_getst(ssdpPkt)); 
 	}
-	else if (mupnp_ssdp_packet_isalive(ssdpPkt) == TRUE) {
+	else if (mupnp_ssdp_packet_isalive(ssdpPkt) == true) {
 		printf("ssdp:alive : uuid = %s, NT = %s, location = %s\n",
 			mupnp_ssdp_packet_getusn(ssdpPkt), 
 			mupnp_ssdp_packet_getnt(ssdpPkt), 
 			mupnp_ssdp_packet_getlocation(ssdpPkt)); 
 	}
-	else if (mupnp_ssdp_packet_isbyebye(ssdpPkt) == TRUE) {
+	else if (mupnp_ssdp_packet_isbyebye(ssdpPkt) == true) {
 		printf("ssdp:byebye : uuid = %s, NT = %s\n",
 			mupnp_ssdp_packet_getusn(ssdpPkt), 
 			mupnp_ssdp_packet_getnt(ssdpPkt));
@@ -324,7 +324,7 @@ void ControlDeviceAlter(mUpnpControlPoint *ctrlPoint, int alteration_mask)
 	mUpnpDevice *selDev;
 	mUpnpService *selService;
 	mUpnpAction *selAction;
-	BOOL actionSuccess;
+	bool actionSuccess;
 	mUpnpArgument *arg;
 	char argValue[2048];
 	
@@ -341,7 +341,7 @@ void ControlDeviceAlter(mUpnpControlPoint *ctrlPoint, int alteration_mask)
 		return;
 	
 	for (arg = mupnp_action_getarguments(selAction); arg; arg = mupnp_argument_next(arg)) {
-		if (mupnp_argument_isindirection(arg) == TRUE) {
+		if (mupnp_argument_isindirection(arg) == true) {
 			printf("%s : ", mupnp_argument_getname(arg));
 			if (scanf("%s", argValue) == 1)
 				mupnp_argument_setvalue(arg, argValue);
@@ -370,7 +370,7 @@ void ControlDeviceAlter(mUpnpControlPoint *ctrlPoint, int alteration_mask)
 				arg; 
 				arg = mupnp_argument_next(arg)) 
 			{
-				if (mupnp_argument_isoutdirection(arg) == TRUE)
+				if (mupnp_argument_isoutdirection(arg) == true)
 					printf(" %s = %s\n", 
 							mupnp_argument_getname(arg), 
 							mupnp_argument_getvalue(arg));
@@ -386,7 +386,7 @@ void ControlDeviceAlter(mUpnpControlPoint *ctrlPoint, int alteration_mask)
 		
 		printf("Control Result(%d)\n", (int)actionSuccess);
 		for (arg = mupnp_action_getarguments(selAction); arg; arg = mupnp_argument_next(arg)) {
-			if (mupnp_argument_isoutdirection(arg) == TRUE)
+			if (mupnp_argument_isoutdirection(arg) == true)
 				printf(" %s = %s\n", mupnp_argument_getname(arg), mupnp_argument_getvalue(arg));
 		}
 	}
@@ -405,7 +405,7 @@ void QueryDevice(mUpnpControlPoint *ctrlPoint)
 	mUpnpDevice *selDev;
 	mUpnpService *selService;
 	mUpnpStateVariable *selStateVar;
-	BOOL querySuccess;
+	bool querySuccess;
 	char *stateValue;
 	
 	printf("Query Device\n");
@@ -441,7 +441,7 @@ void SubscribeService(mUpnpControlPoint *ctrlPoint)
 {
 	mUpnpDevice *selDev;
 	mUpnpService *selService;
-	BOOL subSuccess;
+	bool subSuccess;
 	
 	printf("Subscribe Device\n");
 	
@@ -462,7 +462,7 @@ void SubscribeService(mUpnpControlPoint *ctrlPoint)
 	
 	printf("Subscribe Result(%d) = %s\n",
 		(int)subSuccess, 
-		(subSuccess == TRUE) ? mupnp_service_getsubscriptionsid(selService) : "");
+		(subSuccess == true) ? mupnp_service_getsubscriptionsid(selService) : "");
 	mupnp_controlpoint_unlock(ctrlPoint);
 	
 }
@@ -479,7 +479,7 @@ void UnsubscribeService(mUpnpControlPoint *ctrlPoint)
 {
 	mUpnpDevice *selDev;
 	mUpnpService *selService;
-	BOOL subSuccess;
+	bool subSuccess;
 	
 	printf("Query Device\n");
 	
@@ -541,7 +541,7 @@ int main( int argc, char* argv[] )
 	ctrlPoint = mupnp_controlpoint_new();
 	mupnp_controlpoint_setssdplistener(ctrlPoint, SSDPNotifyListner);
 	mupnp_controlpoint_seteventlistener(ctrlPoint, EventListener);
-	if (mupnp_controlpoint_start(ctrlPoint) == FALSE) {
+	if (mupnp_controlpoint_start(ctrlPoint) == false) {
 		printf("Couldn't start this control point !!");
 		exit(1);
 	}

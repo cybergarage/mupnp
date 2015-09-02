@@ -58,7 +58,7 @@ void mupnp_ssdp_serverlist_delete(mUpnpSSDPServerList *ssdpServerList)
 * mupnp_ssdp_serverlist_open
 ****************************************/
 
-BOOL mupnp_ssdp_serverlist_open(mUpnpSSDPServerList *ssdpServerList)
+bool mupnp_ssdp_serverlist_open(mUpnpSSDPServerList *ssdpServerList)
 {
 	mUpnpNetworkInterfaceList *netIfList;
 	mUpnpNetworkInterface *netIf;
@@ -79,7 +79,7 @@ BOOL mupnp_ssdp_serverlist_open(mUpnpSSDPServerList *ssdpServerList)
 		if (mupnp_strlen(bindAddr) <= 0)
 			continue;
 		ssdpServer = mupnp_ssdp_server_new();
-		if (mupnp_ssdp_server_open(ssdpServer, bindAddr) == FALSE) {
+		if (mupnp_ssdp_server_open(ssdpServer, bindAddr) == false) {
 			mupnp_ssdp_server_delete(ssdpServer);
 			continue;
 		}
@@ -90,14 +90,14 @@ BOOL mupnp_ssdp_serverlist_open(mUpnpSSDPServerList *ssdpServerList)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;	
+	return true;	
 }
 
 /****************************************
 * mupnp_ssdp_serverlist_close
 ****************************************/
 
-BOOL mupnp_ssdp_serverlist_close(mUpnpSSDPServerList *ssdpServerList)
+bool mupnp_ssdp_serverlist_close(mUpnpSSDPServerList *ssdpServerList)
 {
 	mUpnpSSDPServer *ssdpServer;
 	
@@ -108,14 +108,14 @@ BOOL mupnp_ssdp_serverlist_close(mUpnpSSDPServerList *ssdpServerList)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_ssdp_serverlist_start
 ****************************************/
 
-BOOL mupnp_ssdp_serverlist_start(mUpnpSSDPServerList *ssdpServerList)
+bool mupnp_ssdp_serverlist_start(mUpnpSSDPServerList *ssdpServerList)
 {
 	mUpnpSSDPServer *ssdpServer;
 	
@@ -126,14 +126,14 @@ BOOL mupnp_ssdp_serverlist_start(mUpnpSSDPServerList *ssdpServerList)
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_ssdp_serverlist_stop
 ****************************************/
 
-BOOL mupnp_ssdp_serverlist_stop(mUpnpSSDPServerList *ssdpServerList)
+bool mupnp_ssdp_serverlist_stop(mUpnpSSDPServerList *ssdpServerList)
 {
 	mUpnpSSDPServer *ssdpServer;
 	
@@ -144,7 +144,7 @@ BOOL mupnp_ssdp_serverlist_stop(mUpnpSSDPServerList *ssdpServerList)
 		
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************

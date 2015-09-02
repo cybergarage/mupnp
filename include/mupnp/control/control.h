@@ -170,7 +170,7 @@ extern "C" {
  */
 typedef struct _mUpnpActionResponse {
 	mUpnpSoapResponse *soapRes;
-	BOOL isSoapResCreated;
+	bool isSoapResCreated;
 	mUpnpArgumentList *argList;
 } mUpnpActionResponse;
 
@@ -179,7 +179,7 @@ typedef struct _mUpnpActionResponse {
  */
 typedef struct _mUpnpActionRequest{
 	mUpnpSoapRequest *soapReq;
-	BOOL isSoapReqCreated;
+	bool isSoapReqCreated;
 	mUpnpArgumentList *argList;
 	mUpnpActionResponse *actionRes;
 } mUpnpActionRequest;
@@ -191,7 +191,7 @@ typedef struct _mUpnpActionRequest{
  */
 typedef struct _mUpnpQueryResponse {
 	mUpnpSoapResponse *soapRes;
-	BOOL isSoapResCreated;
+	bool isSoapResCreated;
 } mUpnpQueryResponse;
 
 /**
@@ -199,7 +199,7 @@ typedef struct _mUpnpQueryResponse {
  */
 typedef struct _mUpnpQueryRequest{
 	mUpnpSoapRequest *soapReq;
-	BOOL isSoapReqCreated;
+	bool isSoapReqCreated;
 	mUpnpQueryResponse *queryRes;
 } mUpnpQueryRequest;
 
@@ -218,7 +218,7 @@ typedef struct _mUpnpQueryRequest{
  *
  * @return True if request is UPnP query request, false othewise
  */
-#define mupnp_control_isqueryrequest(httpReq) ( ((0 <= mupnp_strstr(mupnp_soap_request_getsoapaction(httpReq), MUPNP_CONTROL_QUERY_SOAPACTION)) ? TRUE : FALSE) || ((0 <= mupnp_strstr(mupnp_soap_request_getsoapactionwithns(httpReq), MUPNP_CONTROL_QUERY_SOAPACTION)) ? TRUE : FALSE) )
+#define mupnp_control_isqueryrequest(httpReq) ( ((0 <= mupnp_strstr(mupnp_soap_request_getsoapaction(httpReq), MUPNP_CONTROL_QUERY_SOAPACTION)) ? true : false) || ((0 <= mupnp_strstr(mupnp_soap_request_getsoapactionwithns(httpReq), MUPNP_CONTROL_QUERY_SOAPACTION)) ? true : false) )
 
 /* Check if HTTP request is UPnP action request
  *
@@ -226,7 +226,7 @@ typedef struct _mUpnpQueryRequest{
  * 
  * @return True if request is UPnP action request, false otherwise
  */
-#define mupnp_control_isactionrequest(httpReq) ((mupnp_control_isqueryrequest(httpReq) == TRUE) ? FALSE : TRUE)
+#define mupnp_control_isactionrequest(httpReq) ((mupnp_control_isqueryrequest(httpReq) == true) ? false : true)
 
 /**
  * Initializes soap requests envelope node
@@ -258,7 +258,7 @@ void mupnp_control_soap_response_setfaultresponse(mUpnpSoapResponse *soapRes, in
  * @param action Action
  * @param actionReq Action request
  */
-BOOL mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *actionReq);
+bool mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *actionReq);
 
 /**
  * Perform query listener
@@ -266,7 +266,7 @@ BOOL mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *action
  * @param statVar State variable
  * @param queryReq Query request
  */
-BOOL mupnp_statevariable_performlistner(mUpnpStateVariable *statVar, mUpnpQueryRequest *queryReq);
+bool mupnp_statevariable_performlistner(mUpnpStateVariable *statVar, mUpnpQueryRequest *queryReq);
 
 /**
  * Set host from service
@@ -440,7 +440,7 @@ mUpnpXmlNode *mupnp_control_action_response_getactionresponsenode(mUpnpActionRes
  * @param actionRes Action response
  * @param action UPnP action
  */
-BOOL mupnp_control_action_response_getresult(mUpnpActionResponse *actionRes, mUpnpAction *action);
+bool mupnp_control_action_response_getresult(mUpnpActionResponse *actionRes, mUpnpAction *action);
 
 /**
  * Get error associated to action response
@@ -448,7 +448,7 @@ BOOL mupnp_control_action_response_getresult(mUpnpActionResponse *actionRes, mUp
  * @param actionRes Action response
  * @param action UPnP action
  */
-BOOL mupnp_control_action_response_geterror(mUpnpActionResponse *actionRes, mUpnpAction *action);
+bool mupnp_control_action_response_geterror(mUpnpActionResponse *actionRes, mUpnpAction *action);
 
 /****************************************
 * Function (QueryRequest)
@@ -619,7 +619,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if string is exactly the required one, false otherwise
  */
-#define mupnp_man_isdiscover(str) ((0 == mupnp_strstr(str, MUPNP_MAN_DISCOVER)) ? TRUE : FALSE)
+#define mupnp_man_isdiscover(str) ((0 == mupnp_strstr(str, MUPNP_MAN_DISCOVER)) ? true : false)
 
 /****************************************
 * Function (ST)
@@ -632,7 +632,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  * 
  * @return True if device type is "all", false otherwise
  */
-#define mupnp_st_isalldevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_ALL_DEVICE)) ? TRUE : FALSE)
+#define mupnp_st_isalldevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_ALL_DEVICE)) ? true : false)
 
 /**
  * Check if device string is from root device
@@ -641,7 +641,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if string is from device type "root device", false otherwise
  */
-#define mupnp_st_isrootdevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_ROOT_DEVICE)) ? TRUE : FALSE)
+#define mupnp_st_isrootdevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_ROOT_DEVICE)) ? true : false)
 
 /**
  * Check if string is from uuid device
@@ -650,7 +650,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if string is from uuid device, false otherwise
  */
-#define mupnp_st_isuuiddevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_UUID_DEVICE)) ? TRUE : FALSE)
+#define mupnp_st_isuuiddevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_UUID_DEVICE)) ? true : false)
 
 /**
  * Check if string is from urn
@@ -659,7 +659,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if string is from urn, false otherwise
  */
-#define mupnp_st_isurn(str) ((0 <= mupnp_strstr(str, MUPNP_ST_URN)) ? TRUE : FALSE)
+#define mupnp_st_isurn(str) ((0 <= mupnp_strstr(str, MUPNP_ST_URN)) ? true : false)
 
 /**
  * Check if string is from urn device
@@ -668,7 +668,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if string is from urn device, false otherwise
  */
-#define mupnp_st_isurndevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_URN_DEVICE)) ? TRUE : FALSE)
+#define mupnp_st_isurndevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_URN_DEVICE)) ? true : false)
 
 /**
  * Check if string is from urn service
@@ -677,7 +677,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if string is from urn service, false otherwise
  */
-#define mupnp_st_isurnservice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_URN_SERVICE)) ? TRUE : FALSE)
+#define mupnp_st_isurnservice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_URN_SERVICE)) ? true : false)
 
 /****************************************
 * Function (NT)
@@ -690,7 +690,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if NT is for root device, false otherwise
  */
-#define mupnp_nt_isrootdevice(str) ((0 <= mupnp_strstr(str, MUPNP_NT_ROOTDEVICE)) ? TRUE : FALSE)
+#define mupnp_nt_isrootdevice(str) ((0 <= mupnp_strstr(str, MUPNP_NT_ROOTDEVICE)) ? true : false)
 
 /****************************************
 * Function (NTS)
@@ -703,7 +703,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if string is of type "alive", false otherwise
  */
-#define mupnp_nts_isalive(str) ((0 <= mupnp_strstr(str, MUPNP_NTS_ALIVE)) ? TRUE : FALSE)
+#define mupnp_nts_isalive(str) ((0 <= mupnp_strstr(str, MUPNP_NTS_ALIVE)) ? true : false)
 
 /**
  * Check if string type is "byebye"
@@ -712,7 +712,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if string is of type "byebye", false othewise
  */
-#define mupnp_nts_isbyebye(str) ((0 <= mupnp_strstr(str, MUPNP_NTS_BYEBYE)) ? TRUE : FALSE)
+#define mupnp_nts_isbyebye(str) ((0 <= mupnp_strstr(str, MUPNP_NTS_BYEBYE)) ? true : false)
 
 /**
  * Check if string type is "property change"
@@ -721,7 +721,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if string type is "property change"
  */
-#define mupnp_nts_ispropchange(str) ((0 <= mupnp_strstr(str, MUPNP_NTS_PROPCHANGE)) ? TRUE : FALSE)
+#define mupnp_nts_ispropchange(str) ((0 <= mupnp_strstr(str, MUPNP_NTS_PROPCHANGE)) ? true : false)
 
 /****************************************
 * Function (USN)
@@ -734,7 +734,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return True if usn associates to root device, false otherwise
  */
-#define mupnp_usn_isrootdevice(str) ((0 <= mupnp_strstr(str, MUPNP_USN_ROOTDEVICE)) ? TRUE : FALSE)
+#define mupnp_usn_isrootdevice(str) ((0 <= mupnp_strstr(str, MUPNP_USN_ROOTDEVICE)) ? true : false)
 
 /**
  * Get udn from usn
@@ -756,7 +756,7 @@ const char *mupnp_usn_getudn(const char *usn, char *udnBuf, size_t udnBufLen);
  *
  * @param action Action
  */
-BOOL mupnp_action_post(mUpnpAction *action);
+bool mupnp_action_post(mUpnpAction *action);
 
 /****************************************
 * Function (Query)
@@ -767,7 +767,7 @@ BOOL mupnp_action_post(mUpnpAction *action);
  *
  * @param statVar State variable
  */
-BOOL mupnp_statevariable_post(mUpnpStateVariable *statVar);
+bool mupnp_statevariable_post(mUpnpStateVariable *statVar);
 
 #ifdef  __cplusplus
 }

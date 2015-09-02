@@ -62,16 +62,16 @@ extern "C" {
  * compatibility between different platforms (Linux, Win32 etc..)
  */
 typedef struct _mUpnpThread {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpThread *prev;
 	struct _mUpnpThread *next;
 		
 	/** Indicates whether this thread is ready to run */
-	BOOL runnableFlag;
+	bool runnableFlag;
 #if defined WINCE
 	/** serves as look ahead to have the thread manage its own delete(thread) on exit */
-	BOOL isRunning;
-	BOOL deletePending;
+	bool isRunning;
+	bool deletePending;
 	mUpnpTime sleep;
 #endif //WINCE
 
@@ -129,40 +129,40 @@ mUpnpThread *mupnp_thread_self();
  *
  * \param thread Thread to destroy
  */
-BOOL mupnp_thread_delete(mUpnpThread *thread);
+bool mupnp_thread_delete(mUpnpThread *thread);
 
 /**
  * Start a thread (must be created first with ch_thread_new())
  *
  * \param thread Thread to start
  */
-BOOL mupnp_thread_start(mUpnpThread *thread);
+bool mupnp_thread_start(mUpnpThread *thread);
 
 /**
  * Stop a running thread.
  *
  * \param thread Thread to stop
  */
-BOOL mupnp_thread_stop(mUpnpThread *thread);
+bool mupnp_thread_stop(mUpnpThread *thread);
 
 /**
  * Stop the running thread and signal the given CGCond.
  */
-BOOL mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond);
+bool mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond);
 
 /**
  * Restart a thread. Essentially calls mupnp_thread_stop() and mupnp_thread_start()
  *
  * \param thread Thread to restart
  */
-BOOL mupnp_thread_restart(mUpnpThread *thread);
+bool mupnp_thread_restart(mUpnpThread *thread);
 
 /**
  * Check if a thread has been started
  *
  * \param thread Thread to check
  */
-BOOL mupnp_thread_isrunnable(mUpnpThread *thread);
+bool mupnp_thread_isrunnable(mUpnpThread *thread);
 
 /**
  * Set the thread's worker function.
@@ -259,14 +259,14 @@ void mupnp_threadlist_delete(mUpnpThreadList *threadList);
  *
  * \param threadList The thread list in question
  */
-BOOL mupnp_threadlist_start(mUpnpThreadList *threadList);
+bool mupnp_threadlist_start(mUpnpThreadList *threadList);
 
 /**
  * Stop all threads in the thread list
  *
  * \param threadList The thread list in question
  */
-BOOL mupnp_threadlist_stop(mUpnpThreadList *threadList);
+bool mupnp_threadlist_stop(mUpnpThreadList *threadList);
 
 #ifdef  __cplusplus
 

@@ -28,7 +28,7 @@ extern "C" {
  * Type definition for UPnP property
  */
 typedef struct _mUpnpProperty {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpProperty *prev;
 	struct _mUpnpProperty *next;
 

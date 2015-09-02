@@ -9,9 +9,9 @@
  *
  ******************************************************************/
 
-#include <mupnp/net/interface.h>
-
 #include <boost/test/unit_test.hpp>
+
+#include <mupnp/net/interface.h>
 
 ////////////////////////////////////////
 // testNetworkInterface
@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE(NetworkInterface)
 	for (mUpnpNetworkInterface *netIf=mupnp_net_interfacelist_gets(netIfList); netIf; netIf=mupnp_net_interface_next(netIf)) {
 		char *ipaddr = mupnp_net_interface_getaddress(netIf);
 		BOOST_CHECK(0 < mupnp_strlen(ipaddr));
-		BOOST_CHECK(mupnp_streq(ipaddr, "0.0.0.0") == FALSE);
+		BOOST_CHECK(mupnp_streq(ipaddr, "0.0.0.0") == false);
 #if defined(HAVE_SOCKADDR_DL) || defined(HAVE_SIOCGIFHWADDR)
 		mupnp_net_interface_getmacaddress(netIf, macAddr);
 		BOOST_CHECK(memcmp(macAddr, nullMacAddr, MUPNP_NET_MACADDR_SIZE) != 0);

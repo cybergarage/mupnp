@@ -31,7 +31,7 @@ mUpnpSoapRequest *mupnp_soap_request_new()
 		soapReq->soapRes = mupnp_soap_response_new();
 
 		soapReq->httpReq = mupnp_http_request_new();
-		soapReq->isHttpReqCreated = TRUE;
+		soapReq->isHttpReqCreated = true;
 		mupnp_http_request_setcontenttype(soapReq->httpReq, MUPNP_SOAP_CONTENT_TYPE);
 		mupnp_http_request_setmethod(soapReq->httpReq, MUPNP_HTTP_POST);
 	
@@ -54,7 +54,7 @@ void mupnp_soap_request_delete(mUpnpSoapRequest *soapReq)
 	mupnp_soap_request_clear(soapReq);
 	mupnp_xml_nodelist_delete(soapReq->rootNodeList);	
 
-	if (soapReq->isHttpReqCreated == TRUE)
+	if (soapReq->isHttpReqCreated == true)
 		mupnp_http_request_delete(soapReq->httpReq);
 
 	mupnp_soap_response_delete(soapReq->soapRes);
@@ -74,11 +74,11 @@ void mupnp_soap_request_clear(mUpnpSoapRequest *soapReq)
 
 	mupnp_xml_nodelist_clear(soapReq->rootNodeList);
 
-	if (soapReq->isHttpReqCreated == TRUE)
+	if (soapReq->isHttpReqCreated == true)
 		mupnp_http_request_delete(soapReq->httpReq);
 
 	soapReq->httpReq = mupnp_http_request_new();
-	soapReq->isHttpReqCreated = TRUE;
+	soapReq->isHttpReqCreated = true;
 	mupnp_http_request_setcontenttype(soapReq->httpReq, MUPNP_SOAP_CONTENT_TYPE);
 	mupnp_http_request_setmethod(soapReq->httpReq, MUPNP_HTTP_POST);
 
@@ -105,7 +105,7 @@ mUpnpXmlNode *mupnp_soap_request_getbodynode(mUpnpSoapRequest *soapReq)
 	envNode = mupnp_soap_request_getenvelopenode(soapReq);
 	if (envNode == NULL)
 		return NULL;
-	if (mupnp_xml_node_haschildnodes(envNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(envNode) == false)
 		return NULL;
 
         /* We cannot assume the namespace prefix for Body is 's'. 
@@ -170,23 +170,23 @@ mUpnpXmlNode *mupnp_soap_request_getbodynode(mUpnpSoapRequest *soapReq)
 * mupnp_soap_request_sethttprequest
 ****************************************/
 
-BOOL mupnp_soap_request_sethttprequest(mUpnpSoapRequest *soapReq, mUpnpHttpRequest *httpReq)
+bool mupnp_soap_request_sethttprequest(mUpnpSoapRequest *soapReq, mUpnpHttpRequest *httpReq)
 {
 	char *content;
 	size_t contentLen;
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (soapReq->isHttpReqCreated == TRUE)
+	if (soapReq->isHttpReqCreated == true)
 		mupnp_http_request_delete(soapReq->httpReq);
 	soapReq->httpReq = httpReq;
-	soapReq->isHttpReqCreated = FALSE;
+	soapReq->isHttpReqCreated = false;
 
 	content = mupnp_http_request_getcontent(httpReq);
 	contentLen = mupnp_http_request_getcontentlength(httpReq);
 
 	if (content == NULL || contentLen <=0)
-		return FALSE;
+		return false;
 
 	mupnp_log_debug_l4("Leaving...\n");
 	
@@ -197,15 +197,15 @@ BOOL mupnp_soap_request_sethttprequest(mUpnpSoapRequest *soapReq, mUpnpHttpReque
 * mupnp_soap_request_parsemessage
 ****************************************/
 
-BOOL mupnp_soap_request_parsemessage(mUpnpSoapRequest *soapReq, char *msg, size_t msgLen)
+bool mupnp_soap_request_parsemessage(mUpnpSoapRequest *soapReq, char *msg, size_t msgLen)
 {
 	mUpnpXmlParser *xmlParser;
-	BOOL parseRet;
+	bool parseRet;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 	if (msgLen<= 0)
-		return FALSE;
+		return false;
 
 	xmlParser = mupnp_xml_parser_new();
 	parseRet = mupnp_xml_parse(xmlParser, soapReq->rootNodeList, msg, msgLen);
@@ -292,7 +292,7 @@ void mupnp_soap_request_setcontent(mUpnpSoapRequest *soapReq, mUpnpXmlNode *node
 					mupnp_strlen(MUPNP_SOAP_VERSION_HEADER));
 	mupnp_http_request_appendncontent(httpReq, MUPNP_XML_CONTENT_LF,
 					mupnp_strlen(MUPNP_XML_CONTENT_LF));
-	mupnp_xml_node_tostring(node, TRUE, httpReq->content);
+	mupnp_xml_node_tostring(node, true, httpReq->content);
 		
 	/**** content length ****/
 	mupnp_http_request_setcontentlength(httpReq,

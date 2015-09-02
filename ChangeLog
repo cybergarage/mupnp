@@ -1,3 +1,9 @@
+2015-09-02 Satoshi Konno <skonno@cybergarage.org>
+	* 3.0.0
+	* Renamed project name as `mupnp` from `CyberLink`.
+	* Renamed cg_* into mupnp_*.
+	* Renamed CG_* into MUPNP_*.
+
 2013-12-21 Satoshi Konno <skonno@cybergarage.org>
 	* 2.4.1
 	* Updated all functions using 'const' keyword in C99.

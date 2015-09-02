@@ -122,7 +122,7 @@ typedef void (*MUPNP_PRESENTATION_LISTNER)(mUpnpHttpRequest *);
 typedef struct _mUpnpDevice
 {
   /** Used by mupnp_list_* functions to indicate start of list */
-  BOOL headFlag;
+  bool headFlag;
   /** Used by mupnp_list_* functions to point to the previous item in list */
   struct _mUpnpDevice *prev;
   /** Used by mupnp_list_* functions to point to the next item in list */
@@ -248,7 +248,7 @@ void mupnp_device_setdevicenode(mUpnpDevice *dev, mUpnpXmlNode *node);
  *
  * \param dev Device in question
  */
-#define mupnp_device_isrootdevice(dev) ((dev->rootNodeList != NULL) ? TRUE : FALSE)
+#define mupnp_device_isrootdevice(dev) ((dev->rootNodeList != NULL) ? true : false)
 
 /**
  * Set a parent device for the given child device
@@ -279,9 +279,9 @@ mUpnpDevice *mupnp_device_getrootdevice(mUpnpDevice *dev);
  * \param description Buffer containing the device description in XML format
  * \param descriptionLen Buffer length
  *
- * \return TRUE, if the buffer was successfully parsed; otherwise FALSE
+ * \return true, if the buffer was successfully parsed; otherwise false
  */
-BOOL mupnp_device_parsedescription(mUpnpDevice *dev, const char *desciption, size_t descriptionLen);
+bool mupnp_device_parsedescription(mUpnpDevice *dev, const char *desciption, size_t descriptionLen);
 
 /**
  * Fetch and parse the device description XML file, located in the given URL.
@@ -289,9 +289,9 @@ BOOL mupnp_device_parsedescription(mUpnpDevice *dev, const char *desciption, siz
  * \param dev Device in question
  * \param url An internet resource
  *
- * \return TRUE, if the buffer was successfully parsed; otherwise FALSE
+ * \return true, if the buffer was successfully parsed; otherwise false
  */
-BOOL mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url);
+bool mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url);
 
 
 #if defined(MUPNP_USE_CFILE)
@@ -302,9 +302,9 @@ BOOL mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url);
  * \param dev Device in question
  * \param fileName The file name containing the device description XML document
  *
- * \return TRUE, if the buffer was successfully parsed; otherwise FALSE
+ * \return true, if the buffer was successfully parsed; otherwise false
  */
-BOOL mupnp_device_loaddescriptionfile(mUpnpDevice *dev, char *fileName);
+bool mupnp_device_loaddescriptionfile(mUpnpDevice *dev, char *fileName);
 #endif
 
 /****************************************************************************
@@ -316,9 +316,9 @@ BOOL mupnp_device_loaddescriptionfile(mUpnpDevice *dev, char *fileName);
  *
  * @param dev The device to potentially update
  * @param ssdpPkt The SSDP packet to make decisions on
- * @return TRUE if the device was updated; otherwise FALSE
+ * @return true if the device was updated; otherwise false
  */
-BOOL mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
+bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
 					 mUpnpSSDPPacket* ssdpPkt);
 
 /*****************************************************************************
@@ -348,7 +348,7 @@ BOOL mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
  * \param dev Device in question
  * @param value Device type
  *
- * \return BOOL: TRUE if device matches given type; otherwise FALSE
+ * \return bool: true if device matches given type; otherwise false
  */
 #define mupnp_device_isdevicetype(dev, value) mupnp_streq(mupnp_device_getdevicetype(dev), value)
 
@@ -616,9 +616,9 @@ char* mupnp_devicetype_getversion(const char* deviceType);
  *
  * \param dev Device in question
  *
- * \return TRUE if the device has a UDN; otherwise FALSE
+ * \return true if the device has a UDN; otherwise false
  */
-#define mupnp_device_hasudn(dev) ((0 < mupnp_strlen(mupnp_device_getudn(dev))) ? TRUE : FALSE)
+#define mupnp_device_hasudn(dev) ((0 < mupnp_strlen(mupnp_device_getudn(dev))) ? true : false)
 
 /**
  * Update new Unique Device Name (UDN)
@@ -757,7 +757,7 @@ void mupnp_device_seturlbase(mUpnpDevice *dev, char *value);
  * \param dev Device in question
  *
  */
-BOOL mupnp_device_start(mUpnpDevice *dev);
+bool mupnp_device_start(mUpnpDevice *dev);
 
 /**
  * Stop the device. This concerns:
@@ -769,14 +769,14 @@ BOOL mupnp_device_start(mUpnpDevice *dev);
  * \param dev Device in question
  *
  */
-BOOL mupnp_device_stop(mUpnpDevice *dev);
+bool mupnp_device_stop(mUpnpDevice *dev);
 
 /**
  * Check if the device] has been started
  *
  * \param dev Device that is being advertised
  */
-BOOL mupnp_device_isrunning(mUpnpDevice *dev);
+bool mupnp_device_isrunning(mUpnpDevice *dev);
 	
 /*****************************************************************************
  * URL
@@ -828,7 +828,7 @@ void mupnp_device_byebye(mUpnpDevice *dev);
 #define mupnp_device_lock(dev) mupnp_mutex_lock(dev->mutex)
 
 /**
- * Lock the device's mutex with timeout, return TRUE if exclusive access is gained 
+ * Lock the device's mutex with timeout, return true if exclusive access is gained 
  * Release lock with  \ref mupnp_device_unlock is called.
  *
  * \param dev Device in question
@@ -1204,9 +1204,9 @@ mUpnpIcon *mupnp_device_getsmallesticonbymimetype(mUpnpDevice *dev, const char *
  * \param icon Icon in question
  * \param buf Buffer to return the full icon's url
  *
- * \return TRUE if the absolute url is created, otherwise FALSE.
+ * \return true if the absolute url is created, otherwise false.
  */
-BOOL mupnp_device_getabsoluteiconurl(mUpnpDevice *dev, mUpnpIcon *icon, mUpnpString *buf);
+bool mupnp_device_getabsoluteiconurl(mUpnpDevice *dev, mUpnpIcon *icon, mUpnpString *buf);
 
 /**
 * Get a smallest icon
@@ -1215,7 +1215,7 @@ BOOL mupnp_device_getabsoluteiconurl(mUpnpDevice *dev, mUpnpIcon *icon, mUpnpStr
  * \param icon Icon to add
  *
  */
-BOOL mupnp_device_addicon(mUpnpDevice *dev, mUpnpIcon *icon);
+bool mupnp_device_addicon(mUpnpDevice *dev, mUpnpIcon *icon);
 	
 /*****************************************************************************
  * Embedded Action
@@ -1475,7 +1475,7 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt
  * \param usn Unique Service Name (USN)
  *
  */
-BOOL mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt, const char *st, const char *usn);
+bool mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt, const char *st, const char *usn);
 
 /**
  * Notify device that IP address of the host has been changed.
@@ -1483,7 +1483,7 @@ BOOL mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt,
  * \param dev dev The device in question
  * \return success of changing used interfaces
  */
-BOOL mupnp_device_ipchanged(mUpnpDevice *dev);
+bool mupnp_device_ipchanged(mUpnpDevice *dev);
 
 /*****************************************************************************
  * Function (SSDPPacket)
@@ -1531,21 +1531,21 @@ BOOL mupnp_device_ipchanged(mUpnpDevice *dev);
  *
  * \param dev The device in question
  */
-BOOL mupnp_device_advertiser_start(mUpnpDevice *dev);
+bool mupnp_device_advertiser_start(mUpnpDevice *dev);
 
 /**
  * Stop the advertiser thread for the given device
  *
  * \param dev The device in question
  */
-BOOL mupnp_device_advertiser_stop(mUpnpDevice *dev);
+bool mupnp_device_advertiser_stop(mUpnpDevice *dev);
 
 /**
  * Check if the advertiser has been started
  *
  * \param dev Device that is being advertised
  */
-BOOL mupnp_device_advertiser_isrunning(mUpnpDevice *dev);
+bool mupnp_device_advertiser_isrunning(mUpnpDevice *dev);
 	
 /**
  * Get the advertiser thread from the device

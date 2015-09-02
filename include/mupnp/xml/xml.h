@@ -36,7 +36,7 @@ typedef void (*MUPNP_XML_NODE_USERDATA_DESTRUCTORFUNC)(void *);
 ****************************************/
 
 typedef struct _mUpnpXmlAttribute {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpXmlAttribute *prev;
 	struct _mUpnpXmlAttribute *next;
 	mUpnpString *name;
@@ -44,7 +44,7 @@ typedef struct _mUpnpXmlAttribute {
 } mUpnpXmlAttribute, mUpnpXmlAttributeList;
 
 typedef struct _mUpnpXmlNode {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpXmlNode *prev;
 	struct _mUpnpXmlNode *next;
 	mUpnpString *name;
@@ -57,7 +57,7 @@ typedef struct _mUpnpXmlNode {
 } mUpnpXmlNode, mUpnpXmlNodeList;
 
 typedef struct _mUpnpXmlParser {
-	BOOL parseResult;
+	bool parseResult;
 } mUpnpXmlParser;
 
 /****************************************
@@ -88,7 +88,7 @@ void mupnp_xml_attribute_delete(mUpnpXmlAttribute *attr);
 
 void mupnp_xml_attribute_setname(mUpnpXmlAttribute *attr, const char *name);
 const char *mupnp_xml_attribute_getname(mUpnpXmlAttribute *attr);
-BOOL mupnp_xml_attribute_isname(mUpnpXmlAttribute *attr, const char *name);
+bool mupnp_xml_attribute_isname(mUpnpXmlAttribute *attr, const char *name);
 
 void mupnp_xml_attribute_setvalue(mUpnpXmlAttribute *attr, const char *value);
 const char *mupnp_xml_attribute_getvalue(mUpnpXmlAttribute *attr);
@@ -122,7 +122,7 @@ void mupnp_xml_node_delete(mUpnpXmlNode *node);
 
 #define mupnp_xml_node_setname(node, nodename) mupnp_string_setvalue(node->name, nodename)
 #define mupnp_xml_node_getname(node) mupnp_string_getvalue(node->name)
-#define mupnp_xml_node_isname(node, nodename) (mupnp_strcmp(mupnp_xml_node_getname(node), nodename) == 0 ? TRUE : FALSE)
+#define mupnp_xml_node_isname(node, nodename) (mupnp_strcmp(mupnp_xml_node_getname(node), nodename) == 0 ? true : false)
 
 #define mupnp_xml_node_setvalue(node, nodevalue) mupnp_string_setvalue(node->value, nodevalue)
 #define mupnp_xml_node_setintvalue(node, nodevalue) mupnp_string_setintvalue(node->value, nodevalue)
@@ -141,7 +141,7 @@ mUpnpXmlNode *mupnp_xml_node_getrootnode(mUpnpXmlNode *node);
 #define mupnp_xml_node_getchildnodelist(node) (node->nodeList)
 void mupnp_xml_node_addchildnode(mUpnpXmlNode *node, mUpnpXmlNode *cnode);
 void mupnp_xml_node_setchildnode(mUpnpXmlNode *node, const char *name, const char *value);
-BOOL mupnp_xml_node_removechildnode(mUpnpXmlNode *node, const char *name);
+bool mupnp_xml_node_removechildnode(mUpnpXmlNode *node, const char *name);
 const char *mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name);
 #define mupnp_xml_node_getchildnodeintvalue(node, name) mupnp_str2int(mupnp_xml_node_getchildnodevalue(node, name))
 #define mupnp_xml_node_getchildnodelongvalue(node, name) mupnp_str2long(mupnp_xml_node_getchildnodevalue(node, name))
@@ -151,7 +151,7 @@ const char *mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *nam
 #define mupnp_xml_node_setuserdatadestructor(node, func) (node->userDataDestructorFunc = func)
 
 #define mupnp_xml_node_getchildnodes(node) mupnp_xml_nodelist_gets(node->nodeList)
-#define mupnp_xml_node_haschildnodes(node) ((mupnp_xml_node_getchildnodes(node) != NULL) ? TRUE : FALSE) 
+#define mupnp_xml_node_haschildnodes(node) ((mupnp_xml_node_getchildnodes(node) != NULL) ? true : false) 
 /* Deprecated : Use mupnp_xml_node_getchildnodebyname */
 #define mupnp_xml_node_getchildnode(node,name) ((node != NULL) ? mupnp_xml_nodelist_getbyname(node->nodeList,name) : NULL)
 #define mupnp_xml_node_getchildnodebyname(node,name) ((node != NULL) ? mupnp_xml_nodelist_getbyname(node->nodeList,name) : NULL)
@@ -159,18 +159,18 @@ const char *mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *nam
 
 /* Get childnode with some specific namespace prefix, or ignore namespace prefix.
    If ns is NULL, name string must match completely */
-mUpnpXmlNode *mupnp_xml_node_getchildnodewithnamespace(mUpnpXmlNode *node, const char *name, const char *ns, BOOL ignoreNs);
+mUpnpXmlNode *mupnp_xml_node_getchildnodewithnamespace(mUpnpXmlNode *node, const char *name, const char *ns, bool ignoreNs);
 
 #define mupnp_xml_node_getattributes(node) mupnp_xml_attributelist_gets(node->attrList)
 #define mupnp_xml_node_getattribute(node, name) mupnp_xml_attributelist_get(node->attrList,name)
 #define mupnp_xml_node_addattribute(node, attr) mupnp_xml_attributelist_add(node->attrList,attr)
 #define mupnp_xml_node_setattribute(node, name, value) mupnp_xml_attributelist_set(node->attrList,name,value)
 #define mupnp_xml_node_getattributevalue(node, name) mupnp_xml_attributelist_getvalue(node->attrList, name)
-BOOL mupnp_xml_node_removeattribute(mUpnpXmlNode *node, const char *name);
+bool mupnp_xml_node_removeattribute(mUpnpXmlNode *node, const char *name);
 
 #define mupnp_xml_node_setnamespace(node, ns, value) mupnp_xml_node_setattribute(node, "xmlns:" ns , value)
 
-char *mupnp_xml_node_tostring(mUpnpXmlNode *node, BOOL withChildNode, mUpnpString *str);
+char *mupnp_xml_node_tostring(mUpnpXmlNode *node, bool withChildNode, mUpnpString *str);
 void  mupnp_xml_node_print(mUpnpXmlNode *node);
 
 void mupnp_xml_node_copy(mUpnpXmlNode *dstNode, mUpnpXmlNode *srcNode);
@@ -181,7 +181,7 @@ void mupnp_xml_node_copy(mUpnpXmlNode *dstNode, mUpnpXmlNode *srcNode);
 
 mUpnpXmlParser *mupnp_xml_parser_new();
 void mupnp_xml_parser_delete(mUpnpXmlParser *parser);
-BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const char *data, size_t len);
+bool mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const char *data, size_t len);
 
 /****************************************
 * Function (Other)

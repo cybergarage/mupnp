@@ -162,7 +162,7 @@ void mupnp_net_uri_setvalue(mUpnpNetURI *uri, const char *value)
 		mupnp_string_setnvalue(uri->host, value+currIdx, shashIdx);
         currIdx += shashIdx;
     }
-	else if (mupnp_net_uri_isabsolute(uri) == TRUE) {
+	else if (mupnp_net_uri_isabsolute(uri) == true) {
 		mupnp_string_setnvalue(uri->host, value+currIdx, mupnp_strlen(value) - currIdx);
         currIdx += mupnp_strlen(value) - currIdx;
     }
@@ -199,7 +199,7 @@ void mupnp_net_uri_setvalue(mUpnpNetURI *uri, const char *value)
 	/*
 		Handle relative URL
 	*/
-	if (mupnp_net_uri_isabsolute(uri) == FALSE)
+	if (mupnp_net_uri_isabsolute(uri) == false)
 	{
 		mupnp_string_addvalue(uri->path, value);
 		
@@ -274,7 +274,7 @@ char *mupnp_net_uri_getrequest(mUpnpNetURI *uri)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_net_uri_hasquery(uri) == FALSE)
+	if (mupnp_net_uri_hasquery(uri) == false)
 	{
 		return mupnp_net_uri_getpath(uri);
 	}
@@ -294,11 +294,11 @@ char *mupnp_net_uri_getrequest(mUpnpNetURI *uri)
 * mupnp_net_uri_isequivalent
 ****************************************/
 
-BOOL mupnp_net_uri_isequivalent(const char *url, const char *relative_url)
+bool mupnp_net_uri_isequivalent(const char *url, const char *relative_url)
 {
 	mUpnpNetURI *u;
 	char *path;
-	BOOL ret;
+	bool ret;
 
 	u = mupnp_net_uri_new();
 	mupnp_net_uri_set(u, url);
@@ -314,7 +314,7 @@ BOOL mupnp_net_uri_isequivalent(const char *url, const char *relative_url)
 * mupnp_net_uri_isescapedstring
 ****************************************/
 
-BOOL mupnp_net_uri_isescapedstring(char *buf, size_t bufSize)
+bool mupnp_net_uri_isescapedstring(char *buf, size_t bufSize)
 {
 	ssize_t idx;
 
@@ -327,7 +327,7 @@ BOOL mupnp_net_uri_isescapedstring(char *buf, size_t bufSize)
 	
 	/* First check that there is escaping character */
 	idx = mupnp_strstr(buf, MUPNP_NET_URI_ESCAPING_CHAR);
-	if (idx < 0 || idx > bufSize - 4) return FALSE;
+	if (idx < 0 || idx > bufSize - 4) return false;
 	
 	/* Check that the next two characters are HEX */
 	if (((buf[idx+1] >= '0' && buf[idx+1] <= '9') ||
@@ -336,11 +336,11 @@ BOOL mupnp_net_uri_isescapedstring(char *buf, size_t bufSize)
 	    ((buf[idx+2] >= '0' && buf[idx+2] <= '9') ||
 	     (buf[idx+2] >= 'a' && buf[idx+2] <= 'f') ||
 	     (buf[idx+2] >= 'A' && buf[idx+2] <= 'F')))
-		return TRUE;
+		return true;
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
@@ -421,7 +421,7 @@ char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, mUpnpString *retBu
 		return NULL;
 
 	/* Check if URI is already escaped */
-	if (mupnp_net_uri_isescapedstring(buf + idx, bufSize) == TRUE) 
+	if (mupnp_net_uri_isescapedstring(buf + idx, bufSize) == true) 
 		return buf;
 	
 	/* We can safely assume that the non-path part is already escaped */
@@ -509,52 +509,52 @@ char *mupnp_net_uri_getupnpbasepath(mUpnpNetURI *locationURL)
 * mupnp_net_uri_isreservedchar
 ****************************************/
 
-BOOL mupnp_net_uri_isreservedchar(char c)
+bool mupnp_net_uri_isreservedchar(char c)
 {
 	if (c == ';' || c ==  '/' || c == '?' || c == ':' || c == '@' || c ==  '&' || c ==  '=' || c ==  '+' || c == '$' || c ==  ',')
-		return TRUE;
-	return FALSE;
+		return true;
+	return false;
 }
 
 /****************************************
 * mupnp_net_uri_isalphanumchar
 ****************************************/
 
-BOOL mupnp_net_uri_isalphanumchar(char c)
+bool mupnp_net_uri_isalphanumchar(char c)
 {
 	if ('a' <= c && c <= 'z')
-		return TRUE;
+		return true;
 	if ('A' <= c && c <= 'Z')
-		return TRUE;
+		return true;
 	if ('0' <= c && c <= '9')
-		return TRUE;
-	return FALSE;
+		return true;
+	return false;
 }
 
 /****************************************
 * mupnp_net_uri_isunreservedchar
 ****************************************/
 
-BOOL mupnp_net_uri_isunreservedchar(char c)
+bool mupnp_net_uri_isunreservedchar(char c)
 {
 	if (mupnp_net_uri_isalphanumchar(c))
-		return TRUE;
+		return true;
 	if (c == '-' || c == '_' || c == '.' || c == '!' || c == '~' || c == '*' || c == '^' || c == '(' || c == ')')
-		return TRUE;
-	return FALSE;
+		return true;
+	return false;
 }
 
 /****************************************
 * mupnp_net_uri_isescapedchar
 ****************************************/
 
-BOOL mupnp_net_uri_isescapechar(char c)
+bool mupnp_net_uri_isescapechar(char c)
 {
 	if (mupnp_net_uri_isreservedchar(c))
-		return FALSE;
+		return false;
 	if (mupnp_net_uri_isunreservedchar(c))
-		return FALSE;
-	return TRUE;
+		return false;
+	return true;
 }
 
 /****************************************

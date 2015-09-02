@@ -36,7 +36,7 @@ mUpnpMutex *mupnp_mutex_new()
 	if ( NULL != mutex )
 	{
 #if defined(WIN32) && !defined(ITRON)
-		mutex->mutexID = CreateMutex(NULL, FALSE, NULL);
+		mutex->mutexID = CreateMutex(NULL, false, NULL);
 #elif defined(BTRON)
 		mutex->mutexID = cre_sem(1, SEM_EXCL);
 #elif defined(ITRON) 
@@ -69,10 +69,10 @@ mUpnpMutex *mupnp_mutex_new()
 * mupnp_mutex_delete
 ****************************************/
 
-BOOL mupnp_mutex_delete(mUpnpMutex *mutex)
+bool mupnp_mutex_delete(mUpnpMutex *mutex)
 {
 	if (!mutex)
-		return FALSE;
+		return false;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -93,7 +93,7 @@ BOOL mupnp_mutex_delete(mUpnpMutex *mutex)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
@@ -112,7 +112,7 @@ mUpnpLockInfo *mupnp_tlt_list = NULL;
  */
 pthread_mutex_t tlt_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-BOOL mupnp_mutex_lock_trace(	const char *file, 
+bool mupnp_mutex_lock_trace(	const char *file, 
 				int line, 
 				const char *function,
 				mUpnpMutex *mutex)
@@ -122,7 +122,7 @@ BOOL mupnp_mutex_lock_trace(	const char *file,
 	mUpnpLockInfo *temp;
 
 	if (!mutex)
-		return FALSE;
+		return false;
 
 	thid = pthread_self();
 	pthread_mutex_lock(&tlt_mutex);
@@ -220,10 +220,10 @@ BOOL mupnp_mutex_lock_trace(	const char *file,
 		pthread_mutex_lock(&mutex->mutexID);
 	}
 
-	return TRUE;
+	return true;
 }
 
-BOOL mupnp_mutex_unlock_trace(	const char *file, 
+bool mupnp_mutex_unlock_trace(	const char *file, 
 				int line, 
 				const char *function,
 				mUpnpMutex *mutex)
@@ -233,7 +233,7 @@ BOOL mupnp_mutex_unlock_trace(	const char *file,
         mUpnpLockInfo *temp, *ptemp;
 
 		if (!mutex)
-			return FALSE;
+			return false;
 
         thid = pthread_self();
         pthread_mutex_lock(&tlt_mutex);
@@ -290,13 +290,13 @@ BOOL mupnp_mutex_unlock_trace(	const char *file,
 
 	pthread_mutex_unlock(&mutex->mutexID);
 
-	return TRUE;
+	return true;
 }
 #else
-BOOL mupnp_mutex_lock(mUpnpMutex *mutex)
+bool mupnp_mutex_lock(mUpnpMutex *mutex)
 {
 	if (!mutex)
-		return FALSE;
+		return false;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -316,17 +316,17 @@ BOOL mupnp_mutex_lock(mUpnpMutex *mutex)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_mutex_unlock
 ****************************************/
 
-BOOL mupnp_mutex_unlock(mUpnpMutex *mutex)
+bool mupnp_mutex_unlock(mUpnpMutex *mutex)
 {
 	if (!mutex)
-		return FALSE;
+		return false;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -343,7 +343,7 @@ BOOL mupnp_mutex_unlock(mUpnpMutex *mutex)
 #else
 	pthread_mutex_unlock(&mutex->mutexID);
 #endif
-	return TRUE;
+	return true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }

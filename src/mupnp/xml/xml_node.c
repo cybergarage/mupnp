@@ -127,7 +127,7 @@ void mupnp_xml_node_setchildnode(mUpnpXmlNode *node, const char *name, const cha
  * mupnp_xml_node_removechildnode
  ****************************************/
 
-BOOL mupnp_xml_node_removechildnode(mUpnpXmlNode *node, const char *name)
+bool mupnp_xml_node_removechildnode(mUpnpXmlNode *node, const char *name)
 {
 	mUpnpXmlNode *childNode;
   
@@ -135,11 +135,11 @@ BOOL mupnp_xml_node_removechildnode(mUpnpXmlNode *node, const char *name)
   
 	childNode = mupnp_xml_node_getchildnode(node, name);
 	if (!childNode)
-    return FALSE;
+    return false;
 
   mupnp_xml_node_remove(childNode);
   
-  return TRUE;
+  return true;
 }
 
 /***************************************************************************** 
@@ -147,7 +147,7 @@ BOOL mupnp_xml_node_removechildnode(mUpnpXmlNode *node, const char *name)
 * If ns is NULL, name string must match completely
 *****************************************************************************/
 
-mUpnpXmlNode *mupnp_xml_node_getchildnodewithnamespace(mUpnpXmlNode *node, const char *name, const char *ns, BOOL ignoreNs)
+mUpnpXmlNode *mupnp_xml_node_getchildnodewithnamespace(mUpnpXmlNode *node, const char *name, const char *ns, bool ignoreNs)
 {
 	char *nameWithPrefix = NULL;
 	size_t nameLen = 0;
@@ -164,7 +164,7 @@ mUpnpXmlNode *mupnp_xml_node_getchildnodewithnamespace(mUpnpXmlNode *node, const
 	if (name == NULL)
 		return NULL;
 
-	if (ignoreNs == TRUE)
+	if (ignoreNs == true)
 	{
 		for (child = mupnp_xml_node_getchildnodelist(node); child != NULL; child = mupnp_xml_node_next(child))
 		{
@@ -239,20 +239,20 @@ const char *mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *nam
 * mupnp_xml_node_removeattribute
 ****************************************/
 
-BOOL mupnp_xml_node_removeattribute(mUpnpXmlNode *node, const char *name)
+bool mupnp_xml_node_removeattribute(mUpnpXmlNode *node, const char *name)
 {
 	mUpnpXmlAttribute *attr;
 
 	if (!node || !name)
-		return FALSE;
+		return false;
 
 	attr = mupnp_xml_node_getattribute(node, name);
 	if (!attr)
-		return FALSE;
+		return false;
 
 	mupnp_xml_attribute_remove(attr);
   
-  return TRUE;
+  return true;
 }
 
 /****************************************
@@ -332,7 +332,7 @@ static char *mupnp_xml_node_attribute_tostring(mUpnpXmlNode *node, mUpnpString *
 * mupnp_xml_node_tostring_indent
 ****************************************/
 
-static char *mupnp_xml_node_tostring_indent(mUpnpXmlNode *node, int indentLevel, BOOL withChildNode, mUpnpString *str)
+static char *mupnp_xml_node_tostring_indent(mUpnpXmlNode *node, int indentLevel, bool withChildNode, mUpnpString *str)
 {
 	char *name;
 	char *value;
@@ -344,7 +344,7 @@ static char *mupnp_xml_node_tostring_indent(mUpnpXmlNode *node, int indentLevel,
 	name = mupnp_xml_node_getname(node);
 	value = mupnp_xml_node_getvalue(node);
 
-	if (mupnp_xml_node_haschildnodes(node) == FALSE || withChildNode == FALSE) {
+	if (mupnp_xml_node_haschildnodes(node) == false || withChildNode == false) {
 		mupnp_string_addrepvalue(str, MUPNP_XML_INDENT_STRING, indentLevel);
 		if (!mupnp_string_naddvalue(str, "<", 1) ||
 		    !mupnp_string_addvalue(str, name) ||
@@ -387,7 +387,7 @@ static char *mupnp_xml_node_tostring_indent(mUpnpXmlNode *node, int indentLevel,
 		return NULL;
 
 	for (childNode = mupnp_xml_node_getchildnodes(node); childNode != NULL; childNode = mupnp_xml_node_next(childNode))
-		if (!mupnp_xml_node_tostring_indent(childNode, indentLevel+1, TRUE, str))
+		if (!mupnp_xml_node_tostring_indent(childNode, indentLevel+1, true, str))
 			/* Memory allocation failed */
 			return NULL;
 
@@ -408,7 +408,7 @@ static char *mupnp_xml_node_tostring_indent(mUpnpXmlNode *node, int indentLevel,
 * mupnp_xml_node_tostring
 ****************************************/
 
-char *mupnp_xml_node_tostring(mUpnpXmlNode *node, BOOL withChildNode, mUpnpString *str)
+char *mupnp_xml_node_tostring(mUpnpXmlNode *node, bool withChildNode, mUpnpString *str)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -424,7 +424,7 @@ char *mupnp_xml_node_tostring(mUpnpXmlNode *node, BOOL withChildNode, mUpnpStrin
 void  mupnp_xml_node_print(mUpnpXmlNode *node)
 {
 	mUpnpString *str = mupnp_string_new();
-	mupnp_xml_node_tostring(node, TRUE, str);
+	mupnp_xml_node_tostring(node, true, str);
 	printf("%s", mupnp_string_getvalue(str));
 	mupnp_string_delete(str);
 }

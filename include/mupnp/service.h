@@ -49,7 +49,7 @@ extern "C" {
 *****************************************************************************/
 
 typedef struct _mUpnpService {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpService *prev;
 	struct _mUpnpService *next;
 	mUpnpXmlNodeList *scpdNodeList;
@@ -61,7 +61,7 @@ typedef struct _mUpnpService {
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 	mUpnpSubscriberList *subscriberList;
 #endif
-	BOOL parsed;
+	bool parsed;
 	/**** Execution Data ****/
 	mUpnpString *subscriptionSid;
 	mUpnpTime subscriptionTimeout;
@@ -105,7 +105,7 @@ void mupnp_service_clear(mUpnpService *service);
  * Check, whether the given XML node is a service root node
  *
  * @param node mUpnpXmlNode*
- * @return TRUE if the node is a service root node; otherwise FALSE
+ * @return true if the node is a service root node; otherwise false
  */
 #define mupnp_service_isservicenode(node) mupnp_xml_node_isname(node, MUPNP_SERVICE_ELEM_NAME)
 
@@ -145,7 +145,7 @@ void mupnp_service_clear(mUpnpService *service);
  * @param description The XML document to parse
  * @param descriptionLen The length of the XML document
  */
-BOOL mupnp_service_parsedescription(mUpnpService *service, const char *description, size_t descriptionLen);
+bool mupnp_service_parsedescription(mUpnpService *service, const char *description, size_t descriptionLen);
 
 /**
  * Create the service's contents from the given URL. Gets the XML document
@@ -154,7 +154,7 @@ BOOL mupnp_service_parsedescription(mUpnpService *service, const char *descripti
  * @param service The service to create
  * @param url The URL of the document to parse
  */
-BOOL mupnp_service_parsedescriptionurl(mUpnpService *service, mUpnpNetURL *url);
+bool mupnp_service_parsedescriptionurl(mUpnpService *service, mUpnpNetURL *url);
 
 /**
  * Get the service's description XML nodes as a string
@@ -301,9 +301,9 @@ mUpnpNetURL *mupnp_service_getscpdurl(mUpnpService *service);
  * 
  * @param service The service in question
  * @param url The URL (location) to compare
- * @return TRUE if location is found from URL; otherwise FALSE
+ * @return true if location is found from URL; otherwise false
  */
-BOOL mupnp_service_isscpdurl(mUpnpService *service, const char *url);
+bool mupnp_service_isscpdurl(mUpnpService *service, const char *url);
 
 /****************************************************************************
  * controlURL
@@ -379,7 +379,7 @@ mUpnpAction *mupnp_service_getactionbyname(mUpnpService *service, const char *na
  * @param service The service in question
  * @param name The name of the action
  */
-#define mupnp_service_hasactionbyname(service, name) ((mupnp_service_getactionbyname(service,name) != NULL) ? TRUE : FALSE)
+#define mupnp_service_hasactionbyname(service, name) ((mupnp_service_getactionbyname(service,name) != NULL) ? true : false)
 
 /****************************************************************************
  * ServiceStateTable
@@ -414,9 +414,9 @@ mUpnpStateVariable *mupnp_service_getstatevariablebyname(mUpnpService *service, 
  *
  * @param service The service in question
  * @param name The name of the state variable
- * @return TRUE if found; otherwise FALSE
+ * @return true if found; otherwise false
  */
-#define mupnp_service_hasstatevariablebyname(service, name) ((mupnp_service_getstatevariablebyname(service,name) != NULL) ? TRUE : FALSE)
+#define mupnp_service_hasstatevariablebyname(service, name) ((mupnp_service_getstatevariablebyname(service,name) != NULL) ? true : false)
 
 /****************************************************************************
  * Advertisement
@@ -428,7 +428,7 @@ mUpnpStateVariable *mupnp_service_getstatevariablebyname(mUpnpService *service, 
  * @param service The service to advertise
  * @param bindAddr The address to attach to the announcement
  */
-BOOL mupnp_service_announcefrom(mUpnpService *service, const char *bindAddr);
+bool mupnp_service_announcefrom(mUpnpService *service, const char *bindAddr);
 
 /**
  * Send a byebye announcement (i.e. a cancelling advertisement) from the given
@@ -437,7 +437,7 @@ BOOL mupnp_service_announcefrom(mUpnpService *service, const char *bindAddr);
  * @param service The service to announce from
  * @param bindAddr The address to attach to the announcement
  */
-BOOL mupnp_service_byebyefrom(mUpnpService *service, const char *bindAddr);
+bool mupnp_service_byebyefrom(mUpnpService *service, const char *bindAddr);
 
 /****************************************************************************
  * Listener 
@@ -517,7 +517,7 @@ void mupnp_service_setquerylistener(mUpnpService *service, MUPNP_STATEVARIABLE_L
  * @param service The service in question
  * @param sub The subscriber
  */
-BOOL mupnp_service_addsubscriber(mUpnpService *service, mUpnpSubscriber *sub);
+bool mupnp_service_addsubscriber(mUpnpService *service, mUpnpSubscriber *sub);
 
 /**
  * Remove a subscriber from the service
@@ -525,7 +525,7 @@ BOOL mupnp_service_addsubscriber(mUpnpService *service, mUpnpSubscriber *sub);
  * @param service The service in question
  * @param sub The subscriber to remove
  */
-BOOL mupnp_service_removesubscriber(mUpnpService *service, mUpnpSubscriber *sub);
+bool mupnp_service_removesubscriber(mUpnpService *service, mUpnpSubscriber *sub);
 
 /**
  * Find a subscriber from the service's list of subscribers by its SID
@@ -553,14 +553,14 @@ char *mupnp_service_getnotifyservicetypeusn(mUpnpService *service, char *buf, in
  * @param service The service in question
  * @param statVar The changed state variable
  */
-BOOL mupnp_service_notify(mUpnpService *service, mUpnpStateVariable *statVar);
+bool mupnp_service_notify(mUpnpService *service, mUpnpStateVariable *statVar);
 
 /**
  * Send a notification message to all of the service's subscribers
  *
  * @param service The service in question
  */
-BOOL mupnp_service_notifyall(mUpnpService *service, BOOL doBracket );
+bool mupnp_service_notifyall(mUpnpService *service, bool doBracket );
 
 /**
 * Create a new thread to send a notification message to all of the service's subscribers
@@ -576,7 +576,7 @@ void mupnp_service_createnotifyallthread(mUpnpService *service, mUpnpTime waitTi
  * @param service The service in question
  * @deprecated Use mupnp_service_notifyall().
  */
-#define mupnp_service_notifyallstatevariables(service) mupnp_service_notifyall(service, FALSE);
+#define mupnp_service_notifyallstatevariables(service) mupnp_service_notifyall(service, false);
 
 /****************************************************************************
  * Mutex
@@ -620,9 +620,9 @@ void mupnp_service_createnotifyallthread(mUpnpService *service, mUpnpTime waitTi
  * Check, whether the service has any subscribers
  *
  * @param service The service in question
- * @return TRUE if at least one subscriber is found; otherwise FALSE
+ * @return true if at least one subscriber is found; otherwise false
  */
-#define mupnp_service_issubscribed(service) ((0 < mupnp_string_length(service->subscriptionSid)) ? TRUE : FALSE)
+#define mupnp_service_issubscribed(service) ((0 < mupnp_string_length(service->subscriptionSid)) ? true : false)
 
 /**
  * Clear (i.e. empty) the service's SID (subscription ID)

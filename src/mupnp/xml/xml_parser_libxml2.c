@@ -293,7 +293,7 @@ static void mupnp_xml_force_utf8(char *data, size_t len)
         }
 }
 
-BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const char *parseData, size_t len)
+bool mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const char *parseData, size_t len)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -309,7 +309,7 @@ BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const c
 
   char *data = mupnp_strdup(parseData);
   if (!data)
-    return FALSE;
+    return false;
   
 	libxml2Data.rootNode = NULL;
 	libxml2Data.currNode = NULL;
@@ -347,7 +347,7 @@ BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const c
 		if (libxml2Data.rootNode != NULL)
 			mupnp_xml_node_delete(libxml2Data.rootNode);
     free(data);
-		return FALSE;
+		return false;
 	}
 
 	mupnp_xml_nodelist_add(nodeList, libxml2Data.rootNode);
@@ -367,7 +367,7 @@ BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const c
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 static int mupnp_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void *user_data, const char *buffer, size_t size, int flags)

@@ -63,7 +63,7 @@ mUpnpService *mupnp_service_new()
 #endif
 	
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-		service->parsed = FALSE;
+		service->parsed = false;
 #endif
 
 		service->mutex = mupnp_mutex_new();
@@ -141,9 +141,9 @@ void mupnp_service_clear(mUpnpService *service)
  * 
  * @param service The service in question
  * @param url The URL (location) to compare
- * @return TRUE if location is found from URL; otherwise FALSE
+ * @return true if location is found from URL; otherwise false
  */
-BOOL mupnp_service_isscpdurl(mUpnpService *service, const char *url)
+bool mupnp_service_isscpdurl(mUpnpService *service, const char *url)
 {
 	mUpnpXmlNode *s = mupnp_service_getservicenode(service);
 	const char *v = mupnp_xml_node_getchildnodevalue(s, MUPNP_SERVICE_SCPDURL);
@@ -188,10 +188,10 @@ mUpnpNetURL *mupnp_service_getscpdurl(mUpnpService *service)
 * mupnp_service_parsedescription
 ****************************************/
 
-BOOL mupnp_service_parsedescription(mUpnpService *service, const char *desciption, size_t descriptionLen)
+bool mupnp_service_parsedescription(mUpnpService *service, const char *desciption, size_t descriptionLen)
 {
 	mUpnpXmlParser *xmlParser;
-	BOOL xmlParseSuccess;
+	bool xmlParseSuccess;
 	mUpnpXmlNode *scpdNode;
 	
 	mupnp_log_debug_l4("Entering...\n");
@@ -200,49 +200,49 @@ BOOL mupnp_service_parsedescription(mUpnpService *service, const char *desciptio
 	mupnp_service_clear(service);
 
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-	service->parsed = FALSE;
+	service->parsed = false;
 #endif	
 	service->scpdNodeList = mupnp_xml_nodelist_new();
 
 	xmlParser = mupnp_xml_parser_new();
 	xmlParseSuccess = mupnp_xml_parse(xmlParser, service->scpdNodeList, desciption, descriptionLen);
 	mupnp_xml_parser_delete(xmlParser);
-	if (xmlParseSuccess == FALSE)
+	if (xmlParseSuccess == false)
 	{
 		mupnp_service_unlock(service);
-		return FALSE;
+		return false;
 	}
 	
 	if (mupnp_xml_nodelist_size(service->scpdNodeList) <= 0) {
 		mupnp_service_clear(service);
 		mupnp_service_unlock(service);
-		return FALSE;
+		return false;
 	}
 
 	scpdNode = mupnp_service_getscpdnode(service);
 	if (scpdNode == NULL) {
 		mupnp_service_clear(service);
 		mupnp_service_unlock(service);
-		return FALSE;
+		return false;
 	}
 		
 	mupnp_service_initchildnodes(service);
 
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-	service->parsed = TRUE;
+	service->parsed = true;
 #endif
 	mupnp_service_unlock(service);
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_service_parsedescriptionurl
 ****************************************/
 
-BOOL mupnp_service_parsedescriptionurl(mUpnpService *service, mUpnpNetURL *url)
+bool mupnp_service_parsedescriptionurl(mUpnpService *service, mUpnpNetURL *url)
 {
 	char *host;
 	int port;
@@ -251,12 +251,12 @@ BOOL mupnp_service_parsedescriptionurl(mUpnpService *service, mUpnpNetURL *url)
 	mUpnpHttpResponse *httpRes;
 	char *content;
 	size_t contentLen;
-	BOOL parseSuccess;
+	bool parseSuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_net_url_ishttpprotocol(url) == FALSE)
-		return FALSE;
+	if (mupnp_net_url_ishttpprotocol(url) == false)
+		return false;
 		
 	host = mupnp_net_url_gethost(url);
 	port = mupnp_net_url_getport(url);
@@ -277,7 +277,7 @@ BOOL mupnp_service_parsedescriptionurl(mUpnpService *service, mUpnpNetURL *url)
           if (statusCode != MUPNP_HTTP_STATUS_OK) {*/
         if ( !mupnp_http_response_issuccessful(httpRes) ) {
 		mupnp_http_request_delete(httpReq);
-		return FALSE;
+		return false;
 	}
 	
 	content = mupnp_http_response_getcontent(httpRes);
@@ -306,7 +306,7 @@ char *mupnp_service_getdescription(mUpnpService *service, mUpnpString *descStr)
 	if (scpdNode != NULL) {
 		mupnp_string_addvalue(descStr, MUPNP_XML_DECLARATION);
 		mupnp_string_addvalue(descStr, "\n");
-		mupnp_xml_node_tostring(scpdNode, TRUE, descStr);
+		mupnp_xml_node_tostring(scpdNode, true, descStr);
 	}
 	
 	mupnp_log_debug_l4("Leaving...\n");
@@ -774,7 +774,7 @@ char *mupnp_service_getnotifyservicetypeusn(mUpnpService *service, char *buf, in
 	return buf;
 }
 
-BOOL mupnp_service_announcefrom(mUpnpService *service, const char *bindAddr)
+bool mupnp_service_announcefrom(mUpnpService *service, const char *bindAddr)
 {
 	/**** uuid:device-UUID::urn:schemas-upnp-org:service:serviceType:v ****/
 	char ssdpLineBuf[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
@@ -782,7 +782,7 @@ BOOL mupnp_service_announcefrom(mUpnpService *service, const char *bindAddr)
 	mUpnpDevice *dev;
 	mUpnpSSDPRequest *ssdpReq;
 	mUpnpSSDPSocket *ssdpSock;
-	BOOL sentResult = TRUE;
+	bool sentResult = true;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -809,13 +809,13 @@ BOOL mupnp_service_announcefrom(mUpnpService *service, const char *bindAddr)
 	return sentResult;
 }
 
-BOOL mupnp_service_byebyefrom(mUpnpService *service, const char *bindAddr)
+bool mupnp_service_byebyefrom(mUpnpService *service, const char *bindAddr)
 {
 	/**** uuid:device-UUID::urn:schemas-upnp-org:service:serviceType:v ****/
 	char ssdpLineBuf[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 	mUpnpSSDPRequest *ssdpReq;
 	mUpnpSSDPSocket *ssdpSock;
-	BOOL sentResult;
+	bool sentResult;
 		
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -889,7 +889,7 @@ static void mupnp_service_initactionlist(mUpnpService *service)
 		
 	//serviceNode = mupnp_service_getservicenode(service);
 	for (childNode = mupnp_xml_node_getchildnodes(actionListNode); childNode != NULL; childNode = mupnp_xml_node_next(childNode)) {
-		if (mupnp_action_isactionnode(childNode) == FALSE)
+		if (mupnp_action_isactionnode(childNode) == false)
 			continue;
 		action = mupnp_action_new();
 		mupnp_action_setservice(action, service);
@@ -915,12 +915,12 @@ mUpnpAction *mupnp_service_getactionbyname(mUpnpService *service, const char *na
 		return NULL;
 			
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-	if (mupnp_service_isparsed(service) == FALSE)
+	if (mupnp_service_isparsed(service) == false)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
 	actionList = mupnp_service_getactionlist(service);
 	for (action=mupnp_actionlist_gets(actionList); action != NULL; action = mupnp_action_next(action)) {
-		if (mupnp_action_isname(action, name) == TRUE)
+		if (mupnp_action_isname(action, name) == true)
 			return action;
 	}
 	
@@ -961,7 +961,7 @@ static void mupnp_service_initservicestatetable(mUpnpService *service)
 		
 //	serviceNode = mupnp_service_getservicenode(service);
 	for (childNode = mupnp_xml_node_getchildnodes(stateTableNode); childNode != NULL; childNode = mupnp_xml_node_next(childNode)) {
-		if (mupnp_statevariable_isstatevariablenode(childNode) == FALSE)
+		if (mupnp_statevariable_isstatevariablenode(childNode) == false)
 			continue;
 		statVar = mupnp_statevariable_new();
 		mupnp_statevariable_setservice(statVar, service);
@@ -987,12 +987,12 @@ mUpnpStateVariable *mupnp_service_getstatevariablebyname(mUpnpService *service, 
 		return NULL;
 			
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-	if (mupnp_service_isparsed(service) == FALSE)
+	if (mupnp_service_isparsed(service) == false)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
 	stateTable = mupnp_service_getservicestatetable(service);
 	for (stateVar=mupnp_servicestatetable_gets(stateTable); stateVar != NULL; stateVar = mupnp_statevariable_next(stateVar)) {
-		if (mupnp_statevariable_isname(stateVar, name) == TRUE)
+		if (mupnp_statevariable_isname(stateVar, name) == true)
 			return stateVar;
 	}
 	
@@ -1042,7 +1042,7 @@ mUpnpActionList *mupnp_service_getactionlist(mUpnpService *service)
 	mupnp_log_debug_l4("Entering...\n");
 
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-	if (mupnp_service_isparsed(service) == FALSE)
+	if (mupnp_service_isparsed(service) == false)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
 	return service->actionList;
@@ -1055,7 +1055,7 @@ mUpnpAction *mupnp_service_getactions(mUpnpService *service)
 	mupnp_log_debug_l4("Entering...\n");
 
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-	if (mupnp_service_isparsed(service) == FALSE)
+	if (mupnp_service_isparsed(service) == false)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
 	return mupnp_actionlist_gets(service->actionList);
@@ -1068,7 +1068,7 @@ mUpnpServiceStateTable *mupnp_service_getservicestatetable(mUpnpService *service
 	mupnp_log_debug_l4("Entering...\n");
 
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-	if (mupnp_service_isparsed(service) == FALSE)
+	if (mupnp_service_isparsed(service) == false)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
 	return service->serviceStateTable;
@@ -1081,7 +1081,7 @@ mUpnpStateVariable *mupnp_service_getstatevariables(mUpnpService *service)
 	mupnp_log_debug_l4("Entering...\n");
 
 #ifdef MUPNP_OPTIMIZED_CP_MODE
-	if (mupnp_service_isparsed(service) == FALSE)
+	if (mupnp_service_isparsed(service) == false)
 		mupnp_controlpoint_parsescservicescpd(service);
 #endif
 	return mupnp_servicestatetable_gets(service->serviceStateTable);
@@ -1101,7 +1101,7 @@ mUpnpStateVariable *mupnp_service_getstatevariables(mUpnpService *service)
 * mupnp_service_addsubscriber
 ****************************************/
 
-BOOL mupnp_service_addsubscriber(mUpnpService *service, mUpnpSubscriber *sub) 
+bool mupnp_service_addsubscriber(mUpnpService *service, mUpnpSubscriber *sub) 
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1109,14 +1109,14 @@ BOOL mupnp_service_addsubscriber(mUpnpService *service, mUpnpSubscriber *sub)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_service_removesubscriber
 ****************************************/
 
-BOOL mupnp_service_removesubscriber(mUpnpService *service, mUpnpSubscriber *sub) 
+bool mupnp_service_removesubscriber(mUpnpService *service, mUpnpSubscriber *sub) 
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -1125,7 +1125,7 @@ BOOL mupnp_service_removesubscriber(mUpnpService *service, mUpnpSubscriber *sub)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
@@ -1149,7 +1149,7 @@ mUpnpSubscriber *mupnp_service_getsubscriberbysid(mUpnpService *service, const c
 		subSid = mupnp_subscriber_getsid(sub);
 		if (0 <= mupnp_strstr(subSid, MUPNP_ST_UUID_DEVICE))
 			subSid += mupnp_strlen(MUPNP_ST_UUID_DEVICE) + 1;
-		if (mupnp_streq(sid, subSid) == TRUE)
+		if (mupnp_streq(sid, subSid) == true)
 			return sub;
 	}
 	
@@ -1174,7 +1174,7 @@ mUpnpNetURL *mupnp_service_mangleabsoluteurl(const char *serviceURLStr, const ch
 	mupnp_net_url_set(absServiceURL, serviceURLStr);
     
 	/* Absolute URL case */
-	if (mupnp_net_url_isabsolute(absServiceURL) == TRUE) {
+	if (mupnp_net_url_isabsolute(absServiceURL) == true) {
 		mupnp_log_debug_s("Mangled URL: %s\n", mupnp_net_url_getrequest(absServiceURL));
 		return absServiceURL;
 	}

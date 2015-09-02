@@ -3,7 +3,7 @@
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-PROJECT_NAME           = "CyberLink for C"
+PROJECT_NAME           = "mUPnP for C"
 PROJECT_NUMBER         = 
 OUTPUT_DIRECTORY       = ./doxygen
 CREATE_SUBDIRS         = NO

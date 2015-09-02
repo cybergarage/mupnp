@@ -136,30 +136,30 @@ void mupnp_controlpoint_delete(mUpnpControlPoint *ctrlPoint);
  *
  * @param ctrlPoint The control point to start
  *
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  *
  */
-BOOL mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint);
+bool mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint);
 
 /**
  * Stop the control point. Stops sending/receiveing/responding to any messages.
  *
  * @param ctrlPoint The control point to stop
  *
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  *
  */
-BOOL mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint);
+bool mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint);
 
 /**
 * Check if  the control point is activated.
 *
 * @param ctrlPoint The control point to stop
 *
-* @return TRUE if running; otherwise FALSE
+* @return true if running; otherwise false
 *
 */
-BOOL mupnp_controlpoint_isrunning(mUpnpControlPoint *ctrlPoint);
+bool mupnp_controlpoint_isrunning(mUpnpControlPoint *ctrlPoint);
 	
 /****************************************************************************
  * Control Point locking
@@ -184,7 +184,7 @@ BOOL mupnp_controlpoint_isrunning(mUpnpControlPoint *ctrlPoint);
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
 #define mupnp_controlpoint_lock(ctrlPoint) mupnp_mutex_lock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, ctrlPoint->mutex)
 #else
-BOOL mupnp_controlpoint_lock(mUpnpControlPoint *ctrlPoint);
+bool mupnp_controlpoint_lock(mUpnpControlPoint *ctrlPoint);
 #endif
 /**
  * Release a previously locked control point mutex.
@@ -196,7 +196,7 @@ BOOL mupnp_controlpoint_lock(mUpnpControlPoint *ctrlPoint);
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
 #define mupnp_controlpoint_unlock(ctrlPoint) mupnp_mutex_unlock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, ctrlPoint->mutex)
 #else
-BOOL mupnp_controlpoint_unlock(mUpnpControlPoint *ctrlPoint);
+bool mupnp_controlpoint_unlock(mUpnpControlPoint *ctrlPoint);
 #endif
 
 /****************************************************************************
@@ -436,7 +436,7 @@ mUpnpDevice *mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param target The Search Target parameter (ex. "ssdp:all")
  */
-BOOL mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target);
+bool mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target);
 
 /**
  * Set the MX-parameter used for SSDP searches i.e. Set the time to wait 
@@ -523,9 +523,9 @@ void mupnp_controlpoint_updatestatetablefromproperty(mUpnpService* service,
  * this from user applications.
  * 
  * @param service The service in question
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  */
-BOOL mupnp_controlpoint_parsescservicescpd(mUpnpService *service);
+bool mupnp_controlpoint_parsescservicescpd(mUpnpService *service);
 
 /**
  * Parse the device's services using the received SSDP packet. Do not call this
@@ -534,7 +534,7 @@ BOOL mupnp_controlpoint_parsescservicescpd(mUpnpService *service);
  * @param dev The device in question
  * @param ssdpPkt An SSDP packet
  */
-BOOL mupnp_controlpoint_parseservicesfordevice(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt);
+bool mupnp_controlpoint_parseservicesfordevice(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt);
 
 /****************************************************************************
  * Device adding/removal by SSDP packets
@@ -570,9 +570,9 @@ void mupnp_controlpoint_removedevicebyssdppacket(mUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in use
  * @param service The service to subscribe to
  * @param timeout Timeout for subscription expiration/renewal
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  */
-BOOL mupnp_controlpoint_subscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service, long timeout);
+bool mupnp_controlpoint_subscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service, long timeout);
 
 /**
  * Re-subscribe to a service's events (i.e. renew subscription)
@@ -580,18 +580,18 @@ BOOL mupnp_controlpoint_subscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *se
  * @param ctrlPoint The control point in use
  * @param service The service to subscribe to
  * @param timeout Timeout for subscription expiration/renewal
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  */
-BOOL mupnp_controlpoint_resubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service, long timeout);
+bool mupnp_controlpoint_resubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service, long timeout);
 
 /**
  * Unsubscribe to a service's events (i.e. cancel subscription)
  * 
  * @param ctrlPoint The control point in use
  * @param service The service to unsubscribe to
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  */
-BOOL mupnp_controlpoint_unsubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service);
+bool mupnp_controlpoint_unsubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service);
 
 /**
  * Subscribe to all of the device's services' events
@@ -599,9 +599,9 @@ BOOL mupnp_controlpoint_unsubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *
  * @param ctrlPoint The control point in use
  * @param dev The device to subscribe to
  * @param timeout Timeout for subscription expiration/renewal
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  */
-BOOL mupnp_controlpoint_subscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev, long timeout);
+bool mupnp_controlpoint_subscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev, long timeout);
 
 /**
  * Re-subscribe to all of the device's services' events (i.e. renew subscription)
@@ -609,18 +609,18 @@ BOOL mupnp_controlpoint_subscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *
  * @param ctrlPoint The control point in use
  * @param dev The device to subscribe to
  * @param timeout Timeout for subscription expiration/renewal
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  */
-BOOL mupnp_controlpoint_resubscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev, long timeout);
+bool mupnp_controlpoint_resubscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev, long timeout);
 
 /**
  * Unsubscribe to all of the device's services' events (i.e. cancel subscription)
  * 
  * @param ctrlPoint The control point in use
  * @param dev The device to unsubscribe to
- * @return TRUE if successful; otherwise FALSE
+ * @return true if successful; otherwise false
  */
-BOOL mupnp_controlpoint_unsubscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev);
+bool mupnp_controlpoint_unsubscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev);
 
 /****************************************
  * Function (DeviceList)
@@ -677,7 +677,7 @@ void mupnp_controlpoint_expirationhandler(mUpnpThread *thread);
  * \param ctrlpoint The control point in use
  * \return success of changing used interfaces
  */
-BOOL mupnp_controlpoint_ipchanged(mUpnpControlPoint *ctrlpoint);
+bool mupnp_controlpoint_ipchanged(mUpnpControlPoint *ctrlpoint);
 
 
 /**

@@ -46,7 +46,7 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpNetworkInterface {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpNetworkInterface *prev;
 	struct _mUpnpNetworkInterface *next;
 	mUpnpString *name;
@@ -127,7 +127,7 @@ void mupnp_net_setinterface(const char *ifaddr);
 
 int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList);
 
-BOOL mupnp_net_isipv6address(const char *addr);
+bool mupnp_net_isipv6address(const char *addr);
 int mupnp_net_getipv6scopeid(const char *addr);
 
 #ifdef  __cplusplus

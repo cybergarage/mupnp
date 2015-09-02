@@ -81,11 +81,11 @@ const char *mupnp_xml_attribute_getname(mUpnpXmlAttribute *attr)
 * mupnp_xml_attribute_isname
 ****************************************/
 
-BOOL mupnp_xml_attribute_isname(mUpnpXmlAttribute *attr, const char *name)
+bool mupnp_xml_attribute_isname(mUpnpXmlAttribute *attr, const char *name)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	return ((mupnp_strcmp(mupnp_xml_attribute_getname(attr), name) == 0) ? TRUE : FALSE);
+	return ((mupnp_strcmp(mupnp_xml_attribute_getname(attr), name) == 0) ? true : false);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }

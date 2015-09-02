@@ -23,7 +23,7 @@ void mupnp_list_header_init(mUpnpList *list)
 	if (NULL == list)
 		return;
 
-	list->headFlag = TRUE;			
+	list->headFlag = true;			
 	list->prev = list->next = list;
 
 	mupnp_log_debug_l5("Leaving...\n");
@@ -40,7 +40,7 @@ void mupnp_list_node_init(mUpnpList *list)
 	if (NULL == list)
 		return;
 
-	list->headFlag = FALSE;			
+	list->headFlag = false;			
 	list->prev = list->next = list;
 
 	mupnp_log_debug_l5("Leaving...\n");
@@ -196,7 +196,7 @@ mUpnpList *list)
 	if (NULL == list->prev)
 		return NULL;
 	
-	if (list->prev->headFlag == TRUE)
+	if (list->prev->headFlag == true)
 		return NULL;
 	
 	mupnp_log_debug_l5("Leaving...\n");
@@ -219,7 +219,7 @@ mUpnpList *list)
 	if (NULL == list->next)
 		return NULL;
 	
-	if (list->next->headFlag == TRUE)
+	if (list->next->headFlag == true)
 		list = list->next;
 
 	mupnp_log_debug_l5("Leaving...\n");
@@ -242,7 +242,7 @@ mUpnpList *list)
 	if (NULL == list->next)
 		return NULL;
 	
-	if (list->next->headFlag == TRUE)
+	if (list->next->headFlag == true)
 		return NULL;
 
 	mupnp_log_debug_l5("Leaving...\n");

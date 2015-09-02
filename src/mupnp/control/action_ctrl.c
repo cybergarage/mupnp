@@ -31,7 +31,7 @@ void mupnp_action_clearoutputargumentvalues(mUpnpAction *action)
 
 	argList = mupnp_action_getargumentlist(action);
 	for (arg=mupnp_argumentlist_gets(argList); arg != NULL; arg = mupnp_argument_next(arg)) {
-		if (mupnp_argument_isoutdirection(arg) == TRUE)
+		if (mupnp_argument_isoutdirection(arg) == true)
 			mupnp_argument_setvalue(arg, "");
 	}
 
@@ -42,7 +42,7 @@ void mupnp_action_clearoutputargumentvalues(mUpnpAction *action)
 * mupnp_action_performlistener
 ****************************************/
 
-BOOL mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *actionReq)
+bool mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *actionReq)
 {
 	MUPNP_ACTION_LISTNER listener;
 	mUpnpActionResponse *actionRes;
@@ -53,7 +53,7 @@ BOOL mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *action
 
 	listener = mupnp_action_getlistner(action);
 	if (listener == NULL)
-		return FALSE;
+		return false;
 
 	actionRes = mupnp_control_action_response_new();
 	
@@ -62,7 +62,7 @@ BOOL mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *action
 
 	mupnp_action_clearoutputargumentvalues(action);
 	
-	if (listener(action) == TRUE)
+	if (listener(action) == true)
 		mupnp_control_action_response_setresponse(actionRes, action);
 	else
 		mupnp_control_soap_response_setfaultresponse(mupnp_control_action_response_getsoapresponse(actionRes), mupnp_action_getstatuscode(action), mupnp_action_getstatusdescription(action));
@@ -75,18 +75,18 @@ BOOL mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *action
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_action_post
 ****************************************/
 
-BOOL mupnp_action_post(mUpnpAction *action)
+bool mupnp_action_post(mUpnpAction *action)
 {
 	mUpnpActionRequest *actionReq;
 	mUpnpActionResponse *actionRes;
-	BOOL actionSuccess;
+	bool actionSuccess;
 
 	mupnp_log_debug_l4("Entering...\n");
 	
@@ -95,11 +95,11 @@ BOOL mupnp_action_post(mUpnpAction *action)
 	mupnp_control_action_request_setaction(actionReq, action);
 	actionRes = mupnp_control_action_request_post(actionReq);
 	actionSuccess = mupnp_control_action_response_issuccessful(actionRes);
-	if (actionSuccess == TRUE) {
+	if (actionSuccess == true) {
                 /* Reset status code to 0 (otherwise latest error stays in action) */
                 mupnp_action_setstatuscode(action, 0);
-		if (mupnp_control_action_response_getresult(actionRes, action) == FALSE) {
-			actionSuccess = FALSE;
+		if (mupnp_control_action_response_getresult(actionRes, action) == false) {
+			actionSuccess = false;
 		}
 	} else {
 		/* Action was unsuccesful, but put the error to the action */

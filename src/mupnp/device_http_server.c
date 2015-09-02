@@ -21,7 +21,7 @@
 * prototype define for static functions
 ****************************************/
 
-static BOOL mupnp_device_ispresentationrequest(mUpnpDevice *dev, mUpnpHttpRequest *httpReq);
+static bool mupnp_device_ispresentationrequest(mUpnpDevice *dev, mUpnpHttpRequest *httpReq);
 static void mupnp_device_getrequestrecieved(mUpnpDevice *dev, mUpnpHttpRequest *httpReq);
 static void mupnp_device_postrequestrecieved(mUpnpDevice *dev, mUpnpHttpRequest *httpReq);
 static void mupnp_device_soapactionrecieved(mUpnpDevice *dev, mUpnpSoapRequest *soapReq);
@@ -65,7 +65,7 @@ void mupnp_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 		mupnp_string_delete(unescapedUrl);
 	}
 	
-  if (mupnp_device_ispresentationrequest(dev, httpReq) == TRUE) {
+  if (mupnp_device_ispresentationrequest(dev, httpReq) == true) {
     MUPNP_PRESENTATION_LISTNER presentationListener = mupnp_device_getpresentationlistener(dev);
     if (presentationListener) {
       presentationListener(httpReq);
@@ -73,19 +73,19 @@ void mupnp_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
     }
   }
   
-	if (mupnp_http_request_isgetrequest(httpReq) == TRUE ||
-	    mupnp_http_request_isheadrequest(httpReq) == TRUE) {
+	if (mupnp_http_request_isgetrequest(httpReq) == true ||
+	    mupnp_http_request_isheadrequest(httpReq) == true) {
 		mupnp_device_getrequestrecieved(dev, httpReq);
 		return;
 	}
 
-	if (mupnp_http_request_ispostrequest(httpReq) == TRUE) {
+	if (mupnp_http_request_ispostrequest(httpReq) == true) {
 		mupnp_device_postrequestrecieved(dev, httpReq);
 		return;
 	}
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
-	if (mupnp_http_request_issubscriberequest(httpReq) == TRUE || mupnp_http_request_isunsubscriberequest(httpReq) == TRUE) {
+	if (mupnp_http_request_issubscriberequest(httpReq) == true || mupnp_http_request_isunsubscriberequest(httpReq) == true) {
 		mupnp_device_subscriptionrecieved(dev, httpReq);
 		return;
 	}
@@ -100,23 +100,23 @@ void mupnp_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
  * mupnp_device_ispresentationrequest
  ****************************************/
 
-static BOOL mupnp_device_ispresentationrequest(mUpnpDevice *dev, mUpnpHttpRequest *httpReq)
+static bool mupnp_device_ispresentationrequest(mUpnpDevice *dev, mUpnpHttpRequest *httpReq)
 {
   const char *presentationURL;
   const char *requestURI;
   
 	if (!mupnp_http_request_isgetrequest(httpReq))
-    return FALSE;
+    return false;
   
   presentationURL = mupnp_device_getpresentationurl(dev);
   if (!presentationURL)
-    return FALSE;
+    return false;
   
   requestURI = mupnp_http_request_geturi(httpReq);
   if (!requestURI)
-    return FALSE;
+    return false;
   
-  return (0 < mupnp_strstr(requestURI, presentationURL)) ? TRUE : FALSE;
+  return (0 < mupnp_strstr(requestURI, presentationURL)) ? true : false;
 }
 
 
@@ -137,7 +137,7 @@ void mupnp_device_seturlbase(mUpnpDevice *dev, char *value)
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_device_isrootdevice(dev) == FALSE)
+	if (mupnp_device_isrootdevice(dev) == false)
 		return;
 	
 	rootNode = mupnp_device_getrootnode(dev);
@@ -179,7 +179,7 @@ static char *mupnp_device_getdescription(mUpnpDevice *dev, char *ifAddr, mUpnpSt
 
 	mupnp_device_lock(dev);
 	
-	if (mupnp_isnmprmode() == FALSE)
+	if (mupnp_isnmprmode() == false)
 		mupnp_device_updateurlbase(dev, ifAddr);
 	
 	rootNode = mupnp_device_getrootnode(dev);
@@ -187,7 +187,7 @@ static char *mupnp_device_getdescription(mUpnpDevice *dev, char *ifAddr, mUpnpSt
 	if (rootNode != NULL) {
 		mupnp_string_addvalue(descStr, MUPNP_XML_DECLARATION);
 		mupnp_string_addvalue(descStr, "\n");
-		mupnp_xml_node_tostring(rootNode, TRUE, descStr);	
+		mupnp_xml_node_tostring(rootNode, true, descStr);	
 	}
 	
 	mupnp_device_unlock(dev);
@@ -218,7 +218,7 @@ static void mupnp_device_getrequestrecieved(mUpnpDevice *dev, mUpnpHttpRequest *
 	ifAddr = mupnp_http_request_getlocaladdress(httpReq);
 
 	mupnp_log_debug_s("Requested: |%s|, description: |%s|\n", url, mupnp_string_getvalue(dev->descriptionURI));
-	if (mupnp_device_isdescriptionuri(dev, url) == TRUE) {
+	if (mupnp_device_isdescriptionuri(dev, url) == true) {
 		mupnp_device_getdescription(dev, ifAddr, descStr);
 	}
 	else if ((embService = mupnp_device_getservicebyscpdurl(dev, url)) != NULL) {
@@ -239,7 +239,7 @@ static void mupnp_device_getrequestrecieved(mUpnpDevice *dev, mUpnpHttpRequest *
 	mupnp_http_response_setcontent(httpRes, mupnp_string_getvalue(descStr));
 	mupnp_http_response_setcontentlength(httpRes, mupnp_string_length(descStr));
 	
-	if (mupnp_http_request_isheadrequest(httpReq) == TRUE)
+	if (mupnp_http_request_isheadrequest(httpReq) == true)
 	{
 		/* If the request is head request, then clear message body */
 		mupnp_http_response_setcontent(httpRes, NULL);
@@ -261,7 +261,7 @@ static void mupnp_device_postrequestrecieved(mUpnpDevice *dev, mUpnpHttpRequest 
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_http_request_issoapaction(httpReq) == TRUE) {
+	if (mupnp_http_request_issoapaction(httpReq) == true) {
 		soapReq = mupnp_soap_request_new();
 		mupnp_soap_request_sethttprequest(soapReq, httpReq);
 		mupnp_device_soapactionrecieved(dev, soapReq);
@@ -343,7 +343,7 @@ static void mupnp_device_controlrequestrecieved(mUpnpService *service, mUpnpSoap
 	httpReq = mupnp_soap_request_gethttprequest(soapReq);
 	
 #if !defined(MUPNP_NOUSE_QUERYCTRL)
-	if (mupnp_control_isqueryrequest(soapReq) == TRUE) {
+	if (mupnp_control_isqueryrequest(soapReq) == true) {
 		queryReq = mupnp_control_query_request_new();
 		mupnp_control_query_request_setsoaprequest(queryReq, soapReq);
 		mupnp_device_querycontrolrequestrecieved(service, queryReq);
@@ -353,7 +353,7 @@ static void mupnp_device_controlrequestrecieved(mUpnpService *service, mUpnpSoap
 #endif
 	
 #if !defined(MUPNP_NOUSE_ACTIONCTRL)
-	if (mupnp_control_isactionrequest(soapReq) == TRUE) {
+	if (mupnp_control_isactionrequest(soapReq) == true) {
 		actionReq = mupnp_control_action_request_new();
 		mupnp_control_action_request_setsoaprequest(actionReq, soapReq);
 		mupnp_device_actioncontrolrequestrecieved(service, actionReq);
@@ -396,7 +396,7 @@ static void mupnp_device_actioncontrolrequestrecieved(mUpnpService *service, mUp
 	actionArgList = mupnp_action_getargumentlist(action);
 	actionReqArgList = mupnp_control_action_request_getargumentlist(actionReq);
 	mupnp_argumentlist_set(actionArgList, actionReqArgList);
-	if (mupnp_action_performlistner(action, actionReq) == FALSE)
+	if (mupnp_action_performlistner(action, actionReq) == false)
 		mupnp_device_invalidactioncontrolrecieved(actionReq);
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -422,13 +422,13 @@ static void mupnp_device_querycontrolrequestrecieved(mUpnpService *service, mUpn
 	mupnp_log_debug_l4("Entering...\n");
 
 	varName = mupnp_control_query_request_getvarname(queryReq);
-	if (mupnp_service_hasstatevariablebyname(service, varName) == FALSE) {
+	if (mupnp_service_hasstatevariablebyname(service, varName) == false) {
 		mupnp_device_invalidquerycontrolrecieved(queryReq);
 		return;
 	}
 
 	stateVar = mupnp_service_getstatevariablebyname(service, varName);
-	if (mupnp_statevariable_performlistner(stateVar, queryReq) == FALSE)
+	if (mupnp_statevariable_performlistner(stateVar, queryReq) == false)
 		mupnp_device_invalidquerycontrolrecieved(queryReq);
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -476,7 +476,7 @@ static void mupnp_device_subscriptionrecieved(mUpnpDevice *dev, mUpnpSubscriptio
 		return;
 	}
 		
-	if (mupnp_event_subscription_request_hascallback(subReq) == FALSE && mupnp_event_subscription_request_hassid(subReq) == FALSE) {
+	if (mupnp_event_subscription_request_hascallback(subReq) == false && mupnp_event_subscription_request_hassid(subReq) == false) {
 		mupnp_device_badsubscriptionrecieved(subReq, MUPNP_HTTP_STATUS_PRECONDITION_FAILED);
 		return;
 	}
@@ -501,19 +501,19 @@ static void mupnp_device_subscriptionrecieved(mUpnpDevice *dev, mUpnpSubscriptio
         }
 
 	/**** UNSUBSCRIBE ****/
-	if (mupnp_event_subscription_isunsubscriberequest(subReq) == TRUE) {
+	if (mupnp_event_subscription_isunsubscriberequest(subReq) == true) {
 		mupnp_device_unsubscriptionrecieved(service, subReq);
 		return;
 	}
 
 	/**** SUBSCRIBE (NEW) ****/
-	if (mupnp_event_subscription_request_hascallback(subReq) == TRUE) {
+	if (mupnp_event_subscription_request_hascallback(subReq) == true) {
 		mupnp_device_newsubscriptionrecieved(service, subReq);
 		return;
 	}
 		
 	/**** SUBSCRIBE (RENEW) ****/
-	if (mupnp_event_subscription_request_hassid(subReq) == TRUE) {
+	if (mupnp_event_subscription_request_hassid(subReq) == true) {
 		mupnp_device_renewsubscriptionrecieved(service, subReq);
 		return;
 	}

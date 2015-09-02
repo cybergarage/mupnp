@@ -33,7 +33,7 @@ mUpnpActionRequest *mupnp_control_action_request_new()
 	if ( NULL != actionReq )
 	{
 		actionReq->soapReq = mupnp_soap_request_new();
-		actionReq->isSoapReqCreated = TRUE;
+		actionReq->isSoapReqCreated = true;
 		actionReq->actionRes = mupnp_control_action_response_new();
 		
 		actionReq->argList = mupnp_argumentlist_new();
@@ -54,7 +54,7 @@ void mupnp_control_action_request_delete(mUpnpActionRequest *actionReq)
 
 	mupnp_control_action_request_clear(actionReq);
 
-	if (actionReq->isSoapReqCreated == TRUE)
+	if (actionReq->isSoapReqCreated == true)
 		mupnp_soap_request_delete(actionReq->soapReq);
 
 	mupnp_control_action_response_delete(actionReq->actionRes);
@@ -74,10 +74,10 @@ void mupnp_control_action_request_clear(mUpnpActionRequest *actionReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (actionReq->isSoapReqCreated == TRUE)
+	if (actionReq->isSoapReqCreated == true)
 		mupnp_soap_request_delete(actionReq->soapReq);
 	actionReq->soapReq = mupnp_soap_request_new();
-	actionReq->isSoapReqCreated = TRUE;
+	actionReq->isSoapReqCreated = true;
 	
 	mupnp_argumentlist_clear(actionReq->argList);
 
@@ -96,10 +96,10 @@ void mupnp_control_action_request_setsoaprequest(mUpnpActionRequest *actionReq, 
 	
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (actionReq->isSoapReqCreated == TRUE)
+	if (actionReq->isSoapReqCreated == true)
 		mupnp_soap_request_delete(actionReq->soapReq);
 	actionReq->soapReq = soapReq;
-	actionReq->isSoapReqCreated = FALSE;
+	actionReq->isSoapReqCreated = false;
 	
 	mupnp_argumentlist_clear(actionReq->argList);
 	
@@ -137,7 +137,7 @@ mUpnpXmlNode *mupnp_control_action_request_getactionnode(mUpnpActionRequest *act
 	if (bodyNode == NULL)
 		return NULL;
 	
-	if (mupnp_xml_node_haschildnodes(bodyNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(bodyNode) == false)
 		return NULL;
 
 	return mupnp_xml_node_getchildnodes(bodyNode);		
@@ -200,7 +200,7 @@ mUpnpXmlNode *mupnp_control_action_request_createactionnode(mUpnpAction *action)
 	mupnp_xml_node_setnamespace(actionNode, MUPNP_CONTROL_NS, mupnp_service_getservicetype(service));
 	
 	for (arg = mupnp_action_getarguments(action); arg; arg = mupnp_argument_next(arg)) {
-		if (mupnp_argument_isindirection(arg) == FALSE)
+		if (mupnp_argument_isindirection(arg) == false)
 			continue;
 		argNode = mupnp_xml_node_new();
 		mupnp_xml_node_setname(argNode, mupnp_argument_getname(arg));			

@@ -156,13 +156,13 @@ int mupnp_strcasecmp(const char *str1, const char *str2)
 * mupnp_streq
 ****************************************/
 
-BOOL mupnp_streq(const char *str1, const char *str2)
+bool mupnp_streq(const char *str1, const char *str2)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
-	if (str1 == NULL || str2 == NULL) return FALSE;
+	if (str1 == NULL || str2 == NULL) return false;
 	
-	return ((mupnp_strcmp(str1, str2) == 0) ? TRUE : FALSE);
+	return ((mupnp_strcmp(str1, str2) == 0) ? true : false);
 
 	mupnp_log_debug_l5("Leaving...\n");
 }
@@ -171,13 +171,13 @@ BOOL mupnp_streq(const char *str1, const char *str2)
 * mupnp_strcaseeq
 ****************************************/
 
-BOOL mupnp_strcaseeq(const char *str1, const char *str2)
+bool mupnp_strcaseeq(const char *str1, const char *str2)
 {
 	mupnp_log_debug_l5("Entering...\n");
 
-	if (str1 == NULL || str2 == NULL) return FALSE;
+	if (str1 == NULL || str2 == NULL) return false;
 	
-	return ((mupnp_strcasecmp(str1, str2) == 0) ? TRUE : FALSE);
+	return ((mupnp_strcasecmp(str1, str2) == 0) ? true : false);
 
 	mupnp_log_debug_l5("Leaving...\n");
 }
@@ -309,14 +309,14 @@ char *mupnp_strltrim(char *str, char *delim, size_t ndelim)
 
 	strLen = mupnp_strlen(str);
 	for (i=0; i<strLen; i++) {
-		BOOL hasDelim = FALSE;
+		bool hasDelim = false;
 		for (j=0; j<ndelim; j++) {
 			if (str[i] == delim[j]) {
-				hasDelim = TRUE;
+				hasDelim = true;
 				break;
 			}
 		}
-		if (hasDelim == FALSE)
+		if (hasDelim == false)
 			return (str + i);
 	}
 	
@@ -338,15 +338,15 @@ char *mupnp_strrtrim(char *str, char *delim, size_t ndelim)
 
 	strLen = mupnp_strlen(str);
 	for (i=(strLen-1); 0<=i; i--) {
-		BOOL hasDelim = FALSE;
+		bool hasDelim = false;
 		for (j=0; j<ndelim; j++) {
 			if (str[i] == delim[j]) {
-				hasDelim = TRUE;
+				hasDelim = true;
 				str[i] = '\0';
 				break;
 			}
 		}
-		if (hasDelim == FALSE)
+		if (hasDelim == false)
 			break;
 	}
 	

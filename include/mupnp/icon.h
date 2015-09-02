@@ -40,7 +40,7 @@ extern "C" {
  * The generic icon struct
  */
 typedef struct _mUpnpIcon {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpIcon *prev;
 	struct _mUpnpIcon *next;
 	mUpnpXmlNode *iconNode;

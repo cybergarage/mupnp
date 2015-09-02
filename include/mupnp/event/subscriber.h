@@ -37,7 +37,7 @@ extern "C" {
  * The device-side structure for an event subscriber
  */
 typedef struct _mUpnpSubscriber {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpSubscriber *prev;
 	struct _mUpnpSubscriber *next;
 
@@ -223,27 +223,27 @@ long mupnp_subscriber_incrementnotifycount(mUpnpSubscriber *sub);
  * Check, whether a subscriber's event subscription has been expired
  *
  * @param sub The subscriber
- * @return TRUE if the subscription has been expired; otherwise FALSE
+ * @return true if the subscription has been expired; otherwise false
  */
-BOOL mupnp_subscriber_isexpired(mUpnpSubscriber *sub);
+bool mupnp_subscriber_isexpired(mUpnpSubscriber *sub);
 
 /**
  * Post a notification to an event subscriber. This is called in a device.
  *
  * @param sub The event subscriber
  * @param statVar The evented state variable
- * @return TRUE if succesful; otherwise FALSE
+ * @return true if succesful; otherwise false
  */
-BOOL mupnp_subscriber_notify(mUpnpSubscriber *sub, mUpnpStateVariable *statVar);
+bool mupnp_subscriber_notify(mUpnpSubscriber *sub, mUpnpStateVariable *statVar);
 
 /**
  * Post a notification to an event subscriber. This is called in a device.
  *
  * @param sub The event subscriber
  * @param service The evented service
- * @return TRUE if succesful; otherwise FALSE
+ * @return true if succesful; otherwise false
  */
-BOOL mupnp_subscriber_notifyall(mUpnpSubscriber *sub, void *service);
+bool mupnp_subscriber_notifyall(mUpnpSubscriber *sub, void *service);
 
 /****************************************
 * Function (SubscriberList)

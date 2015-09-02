@@ -20,26 +20,26 @@
 * global variables
 ****************************************/
 
-static BOOL MUPNP_NET_USE_ONLY_IPV4_ADDR = FALSE;
-static BOOL MUPNP_NET_USE_ONLY_IPV6_ADDR = FALSE;
+static bool MUPNP_NET_USE_ONLY_IPV4_ADDR = false;
+static bool MUPNP_NET_USE_ONLY_IPV6_ADDR = false;
 
 ////////////////////////////////////////////////
 //	mupnp_net_isuseaddress
 ////////////////////////////////////////////////
 
-BOOL mupnp_net_isuseaddress(char *addr)
+bool mupnp_net_isuseaddress(char *addr)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (MUPNP_NET_USE_ONLY_IPV6_ADDR == TRUE) {
-		if (mupnp_net_isipv6address(addr) == FALSE)
-			return FALSE;
+	if (MUPNP_NET_USE_ONLY_IPV6_ADDR == true) {
+		if (mupnp_net_isipv6address(addr) == false)
+			return false;
 	}
-	if (MUPNP_NET_USE_ONLY_IPV4_ADDR == TRUE) {
-		if (mupnp_net_isipv6address(addr) == TRUE)
-			return FALSE;
+	if (MUPNP_NET_USE_ONLY_IPV4_ADDR == true) {
+		if (mupnp_net_isipv6address(addr) == true)
+			return false;
 	}
-	return TRUE;
+	return true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -48,15 +48,15 @@ BOOL mupnp_net_isuseaddress(char *addr)
 //	mupnp_net_getipv6address
 ////////////////////////////////////////////////
 
-BOOL mupnp_net_isipv6address(const char *addr)
+bool mupnp_net_isipv6address(const char *addr)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	if (addr == NULL)
-		return FALSE;
+		return false;
 	if (0 < mupnp_strchr(addr, ":", 1))
-		return TRUE;
-	return FALSE;
+		return true;
+	return false;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -73,7 +73,7 @@ int mupnp_net_getipv6scopeid(const char *addr)
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_net_isipv6address(addr) == FALSE)
+	if (mupnp_net_isipv6address(addr) == false)
 		return 0;
 	addrLen = mupnp_strlen(addr);
 	perIdx = mupnp_strchr(addr, "%", 1);

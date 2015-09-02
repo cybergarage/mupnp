@@ -45,12 +45,12 @@ mUpnpDevice *clockDev;
 //  InitApp
 ////////////////////////////////////////////////////////// 
 
-BOOL InitApp( int cacheControl )
+bool InitApp( int cacheControl )
 {
 	clockDev = upnp_clock_device_new();
         mupnp_device_setleasetime( clockDev, cacheControl );
 	mupnp_device_start(clockDev);
-	return TRUE;
+	return true;
 }
 
 void ExitApp()
@@ -86,7 +86,7 @@ int main( int argc, char* argv[] )
 
         printf( "Using CACHE-CONTROL value: %d sec\n", cacheControl );
 
-	if (InitApp( cacheControl ) == FALSE) {
+	if (!InitApp( cacheControl )) {
 		fprintf(stderr, "Couldn't create this clock device !!\n");
 		exit(0);
 	}

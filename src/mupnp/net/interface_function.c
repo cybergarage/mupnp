@@ -71,7 +71,7 @@ extern ttUserInterface kaInterfaceHandle;
 
 #if defined(ITRON)
 char InterfaceAddress[MUPNP_NET_IPV6_ADDRSTRING_MAXSIZE];
-BOOL IsInterfaceAddressInitialized = FALSE;
+bool IsInterfaceAddressInitialized = false;
 #endif
 
 /****************************************
@@ -222,7 +222,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 			if (namInfoRet == 0) {
 				//if (IsUseAddress(addr) == true) {
 					ifIdx = 0;
-					if (mupnp_net_isipv6address(addr) == TRUE)
+					if (mupnp_net_isipv6address(addr) == true)
 						ifIdx = mupnp_net_getipv6scopeid(addr);
 					netIf = mupnp_net_interface_new();
 					mupnp_net_interface_setaddress(netIf, addr);
@@ -572,7 +572,7 @@ void mupnp_net_setinterface(const char *ifaddr)
 	mupnp_log_debug_l4("Entering...\n");
 
 	mupnp_strcpy(InterfaceAddress, ifaddr);
-	IsInterfaceAddressInitialized = TRUE;
+	IsInterfaceAddressInitialized = true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -583,7 +583,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList)
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (IsInterfaceAddressInitialized == FALSE)
+	if (IsInterfaceAddressInitialized == false)
 			return 0;
 
 	netIf = mupnp_net_interface_new();

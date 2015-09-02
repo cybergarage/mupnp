@@ -53,7 +53,7 @@ void uuid_unparse_lower (uuid_t uu, char *out)
 * Static
 ****************************************/
 
-static BOOL isUpnpNMPRMode = FALSE;
+static bool isUpnpNMPRMode = false;
 
 /****************************************
 * mupnp_createuuid
@@ -154,7 +154,7 @@ const char *mupnp_getservername(char *buf, size_t bufSize)
 * mupnp_setnmprmode
 ****************************************/
 
-void mupnp_setnmprmode(BOOL onFlag)
+void mupnp_setnmprmode(bool onFlag)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -167,7 +167,7 @@ void mupnp_setnmprmode(BOOL onFlag)
 * mupnp_isnmprmode
 ****************************************/
 
-BOOL mupnp_isnmprmode()
+bool mupnp_isnmprmode()
 {
 	mupnp_log_debug_l4("Entering...\n");
 

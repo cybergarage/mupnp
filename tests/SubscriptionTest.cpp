@@ -9,9 +9,9 @@
  *
  ******************************************************************/
 
+#include <boost/test/unit_test.hpp>
 #include <string.h>
 
-#include <boost/test/unit_test.hpp>
 #include "TestDevice.h"
 
 ////////////////////////////////////////

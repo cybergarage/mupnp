@@ -21,7 +21,7 @@
 
 const char *mupnp_net_getmodifierhosturl(const char *host, int port, const char *uri, const char *begin, const char *end, char *buf, size_t bufSize)
 {
-	BOOL isIPv6Host;
+	bool isIPv6Host;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -34,9 +34,9 @@ const char *mupnp_net_getmodifierhosturl(const char *host, int port, const char 
 #endif
 		"%shttp://%s%s%s:%d%s%s",
 		begin,
-		((isIPv6Host == TRUE) ? "[" : ""),
+		((isIPv6Host == true) ? "[" : ""),
 		host,
-		((isIPv6Host == TRUE) ? "]" : ""),
+		((isIPv6Host == true) ? "]" : ""),
 		port,
 		uri,
 		end);

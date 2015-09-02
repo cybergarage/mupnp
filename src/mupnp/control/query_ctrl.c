@@ -22,7 +22,7 @@
 * mupnp_action_performlistener
 ****************************************/
 
-BOOL mupnp_statevariable_performlistner(mUpnpStateVariable *statVar, mUpnpQueryRequest *queryReq)
+bool mupnp_statevariable_performlistner(mUpnpStateVariable *statVar, mUpnpQueryRequest *queryReq)
 {
 	MUPNP_STATEVARIABLE_LISTNER	 listener;
 	mUpnpQueryResponse *queryRes;
@@ -33,7 +33,7 @@ BOOL mupnp_statevariable_performlistner(mUpnpStateVariable *statVar, mUpnpQueryR
 
 	listener = mupnp_statevariable_getlistener(statVar);
 	if (listener == NULL)
-		return FALSE;
+		return false;
 	
 	queryRes = mupnp_control_query_response_new();
 
@@ -41,7 +41,7 @@ BOOL mupnp_statevariable_performlistner(mUpnpStateVariable *statVar, mUpnpQueryR
 	mupnp_statevariable_setstatusdescription(statVar, mupnp_status_code2string(MUPNP_STATUS_INVALID_ACTION));
 	mupnp_statevariable_setvalue(statVar, "");
 	
-	if (listener(statVar) == TRUE)
+	if (listener(statVar) == true)
 		mupnp_control_query_response_setresponse(queryRes, statVar);
 	else
 		mupnp_control_soap_response_setfaultresponse(mupnp_control_query_response_getsoapresponse(queryRes), mupnp_statevariable_getstatuscode(statVar), mupnp_statevariable_getstatusdescription(statVar));
@@ -54,18 +54,18 @@ BOOL mupnp_statevariable_performlistner(mUpnpStateVariable *statVar, mUpnpQueryR
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_statevariable_post
 ****************************************/
 
-BOOL mupnp_statevariable_post(mUpnpStateVariable *statVar)
+bool mupnp_statevariable_post(mUpnpStateVariable *statVar)
 {
 	mUpnpQueryRequest *queryReq;
 	mUpnpQueryResponse *queryRes;
-	BOOL querySuccess;
+	bool querySuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -74,7 +74,7 @@ BOOL mupnp_statevariable_post(mUpnpStateVariable *statVar)
 	mupnp_control_query_request_setstatevariable(queryReq, statVar);
 	queryRes = mupnp_control_query_request_post(queryReq);
 	querySuccess = mupnp_control_query_response_issuccessful(queryRes);
-	mupnp_statevariable_setvalue(statVar, (querySuccess == TRUE) ? mupnp_control_query_response_getreturnvalue(queryRes) : "");
+	mupnp_statevariable_setvalue(statVar, (querySuccess == true) ? mupnp_control_query_response_getreturnvalue(queryRes) : "");
 	
 	mupnp_control_query_request_delete(queryReq);
 	

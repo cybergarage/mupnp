@@ -55,17 +55,17 @@ const char *mupnp_getservername(char *buf, size_t bufSize);
 /**
  * Enable/disable NMPR (Intel Networked Media Product Requirements) mode.
  *
- * \param onFlag TRUE: enable; FALSE: disable
+ * \param onFlag true: enable; false: disable
  */
-void mupnp_setnmprmode(BOOL onFlag);
+void mupnp_setnmprmode(bool onFlag);
 
 /**
  * Check whether NMPR (Intel Networked Media Product Requirements) mode is on.
  * 
  *
- * \return TRUE if on; otherwise FALSE
+ * \return true if on; otherwise false
  */
-BOOL mupnp_isnmprmode();
+bool mupnp_isnmprmode();
 
 /**
  * Generate a integer id of BOOTID.UPNP.ORG.

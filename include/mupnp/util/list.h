@@ -43,7 +43,7 @@ typedef void (*MUPNP_LIST_DESTRUCTORFUNC)(void *);
 typedef struct _mUpnpList {
 
   /** Marks the beginning of a list */
-  BOOL headFlag;
+  bool headFlag;
   /** Pointer to the next list node */
   struct _mUpnpList *prev;
   /** Pointer to the previous list node */

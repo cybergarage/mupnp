@@ -68,7 +68,7 @@ mUpnpDictionaryElement *mupnp_dictionary_getelement(mUpnpDictionary *dir, const 
 			dirElemKey = mupnp_dictionary_element_getkey(dirElem);
 			if (mupnp_strlen(dirElemKey) <= 0)
 				continue;
-			if (mupnp_streq(dirElemKey, key) == TRUE)
+			if (mupnp_streq(dirElemKey, key) == true)
 				return dirElem;
 	}
 

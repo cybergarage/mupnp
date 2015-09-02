@@ -274,26 +274,26 @@ void mupnp_http_packet_sethost(mUpnpHttpPacket *httpPkt, const char *addr, int p
 
 #if defined(HAVE_SNPRINTF)
 	if (0 < port && port != MUPNP_HTTP_DEFAULT_PORT) {
-		if (mupnp_net_isipv6address(addr) == TRUE)
+		if (mupnp_net_isipv6address(addr) == true)
 			snprintf(host, hostMaxLen, "[%s]:%d", addr, port);
 		else
 			snprintf(host, hostMaxLen, "%s:%d", addr, port);
 	}
 	else {
-		if (mupnp_net_isipv6address(addr) == TRUE)
+		if (mupnp_net_isipv6address(addr) == true)
 			snprintf(host, hostMaxLen, "[%s]", addr);
 		else
 			snprintf(host, hostMaxLen, "%s", addr);
 	}
 #else	
 	if (0 < port && port != MUPNP_HTTP_DEFAULT_PORT) {
-		if (mupnp_net_isipv6address(addr) == TRUE)
+		if (mupnp_net_isipv6address(addr) == true)
 			sprintf(host, "[%s]:%d", addr, port);
 		else
 			sprintf(host, "%s:%d", addr, port);
 	}
 	else {
-		if (mupnp_net_isipv6address(addr) == TRUE)
+		if (mupnp_net_isipv6address(addr) == true)
 			sprintf(host, "[%s]", addr);
 		else
 			sprintf(host, "%s", addr);
@@ -364,9 +364,9 @@ void mupnp_http_packet_read_headers(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock,
 		name = NULL;
 		value = NULL;
 		strTok = mupnp_string_tokenizer_new(lineBuf, MUPNP_HTTP_HEADERLINE_DELIM);
-		if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
+		if (mupnp_string_tokenizer_hasmoretoken(strTok) == true)
 			name = mupnp_string_tokenizer_nexttoken(strTok);
-		if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE) {
+		if (mupnp_string_tokenizer_hasmoretoken(strTok) == true) {
 			value = mupnp_string_tokenizer_nextalltoken(strTok);
 			mupnp_strrtrim(value, MUPNP_HTTP_HEADERLINE_DELIM, mupnp_strlen(MUPNP_HTTP_HEADERLINE_DELIM));
 		}
@@ -440,7 +440,7 @@ size_t mupnp_http_packet_read_chunk(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock,
 * mupnp_http_packet_read_body
 ****************************************/
 
-BOOL mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, char *lineBuf, size_t lineBufSize)
+bool mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, char *lineBuf, size_t lineBufSize)
 {
 	ssize_t readLen;
 	ssize_t conLen;
@@ -457,7 +457,7 @@ BOOL mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, ch
 		if (content == NULL)
 		{
 			mupnp_log_debug_s("Memory allocation problem!\n");
-			return FALSE;
+			return false;
 		}
 		
 		content[0] = '\0';
@@ -473,7 +473,7 @@ BOOL mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, ch
 		}
 		
 		if (readLen <= 0)
-			return TRUE;
+			return true;
 		content[readLen] = '\0';
 		mupnp_http_packet_setcontentpointer(httpPkt, content, readLen);
 	}
@@ -484,7 +484,7 @@ BOOL mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, ch
 		   rightly report 0 as content length, will jam the http */
 		
 		/* Check if we read chunked encoding */
-		if (mupnp_http_packet_ischunked(httpPkt) == TRUE)
+		if (mupnp_http_packet_ischunked(httpPkt) == true)
 		{
 			conLen = 0;
 			do {
@@ -508,14 +508,14 @@ BOOL mupnp_http_packet_read_body(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, ch
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_http_packet_read
 ****************************************/
 
-BOOL mupnp_http_packet_read(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, BOOL onlyHeader, char *lineBuf, size_t lineBufSize)
+bool mupnp_http_packet_read(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, bool onlyHeader, char *lineBuf, size_t lineBufSize)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -525,7 +525,7 @@ BOOL mupnp_http_packet_read(mUpnpHttpPacket *httpPkt, mUpnpSocket *sock, BOOL on
 	mupnp_log_debug_l4("Leaving...\n");
 
 	if (onlyHeader)
-		return TRUE;
+		return true;
 
 	return mupnp_http_packet_read_body(httpPkt, sock, lineBuf, lineBufSize);
 }

@@ -113,7 +113,7 @@ typedef void (*MUPNP_EVENT_LISTENER)(mUpnpProperty *);
  */
 typedef struct _mUpnpEventListenerList {
 	/** Used by mupnp_list_* functions to indicate start of list */
-	BOOL headFlag;
+	bool headFlag;
 	/** Used by mupnp_list_* functions to point to the previous item in list */
 	struct _mUpnpEventListenerList *prev;
 	/** Used by mupnp_list_* functions to point to the next item in list */

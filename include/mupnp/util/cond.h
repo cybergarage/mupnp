@@ -74,7 +74,7 @@ mUpnpCond *mupnp_cond_new();
  *
  * \param cond The cond to destroy
  */
-BOOL mupnp_cond_delete(mUpnpCond *cond);
+bool mupnp_cond_delete(mUpnpCond *cond);
 
 /** 
  * Wait for condition variable to be signalled.
@@ -83,14 +83,14 @@ BOOL mupnp_cond_delete(mUpnpCond *cond);
  * \param mutex Mutex used for synchronization
  * \param timeout Maximum time in seconds to wait, 0 to wait forever
  */
-BOOL mupnp_cond_wait(mUpnpCond *cond, mUpnpMutex *mutex, unsigned long timeout);
+bool mupnp_cond_wait(mUpnpCond *cond, mUpnpMutex *mutex, unsigned long timeout);
 
 /** 
  * Signal a condition variable
  *
  * \param cond Cond to be signalled
  */
-BOOL mupnp_cond_signal(mUpnpCond *cond);
+bool mupnp_cond_signal(mUpnpCond *cond);
 
 #ifdef  __cplusplus
 

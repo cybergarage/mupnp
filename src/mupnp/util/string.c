@@ -330,7 +330,7 @@ char *mupnp_string_replace(mUpnpString *str, char *fromStr[], char *toStr[], siz
 	int copyPos = 0;
 	size_t *fromStrLen = NULL;
 	mUpnpString *repValue = NULL;
-	BOOL isReplaced = FALSE;
+	bool isReplaced = false;
 
 	mupnp_log_debug_l5("Entering...\n");
 
@@ -356,16 +356,16 @@ char *mupnp_string_replace(mUpnpString *str, char *fromStr[], char *toStr[], siz
 	
 	copyPos = 0;
 	while (copyPos<orgValueLen) {
-		isReplaced = FALSE;
+		isReplaced = false;
 		for (n=0; n<fromStrCnt; n++) {
 			if (strncmp(fromStr[n], orgValue + copyPos,  fromStrLen[n]) == 0) {
 				mupnp_string_addvalue(repValue, toStr[n]);
 				copyPos += fromStrLen[n];
-				isReplaced = TRUE;
+				isReplaced = true;
 				continue;
 			}
 		}
-		if (isReplaced == TRUE)
+		if (isReplaced == true)
 			continue;
 		mupnp_string_naddvalue(repValue, orgValue + copyPos, 1);
 		copyPos++;

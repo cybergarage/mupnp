@@ -259,7 +259,7 @@ mUpnpSocket *mupnp_http_request_getsocket(mUpnpHttpRequest *httpReq)
 
 #if !defined(MUPNP_HTTP_CURL)
 
-mUpnpHttpResponse *mupnp_http_request_post_main(mUpnpHttpRequest *httpReq, const char *ipaddr, int port, BOOL isSecure)
+mUpnpHttpResponse *mupnp_http_request_post_main(mUpnpHttpRequest *httpReq, const char *ipaddr, int port, bool isSecure)
 {
 	mUpnpSocket *sock;
 	char *method, *uri, *version;
@@ -280,7 +280,7 @@ mUpnpHttpResponse *mupnp_http_request_post_main(mUpnpHttpRequest *httpReq, const
 	mupnp_http_request_print(httpReq);
 
 #if defined(MUPNP_USE_OPENSSL)
-	if (isSecure == FALSE)
+	if (isSecure == false)
 		sock = mupnp_socket_stream_new();
 	else
 		sock = mupnp_socket_ssl_new();
@@ -289,7 +289,7 @@ mUpnpHttpResponse *mupnp_http_request_post_main(mUpnpHttpRequest *httpReq, const
 #endif
 
 	mupnp_socket_settimeout(sock, mupnp_http_request_gettimeout(httpReq));
-	if (mupnp_socket_connect(sock, ipaddr, port) == FALSE) {
+	if (mupnp_socket_connect(sock, ipaddr, port) == false) {
 		mupnp_socket_delete(sock);
 		return httpReq->httpRes;		
 	}
@@ -348,13 +348,13 @@ mupnp_log_debug_s("Getting HTTP-response completed. Elapsed time: "
 
 mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, const char *ipaddr, int port)
 {
-	return mupnp_http_request_post_main(httpReq, ipaddr, port, FALSE);
+	return mupnp_http_request_post_main(httpReq, ipaddr, port, false);
 }
 
 #if defined(MUPNP_USE_OPENSSL)
 mUpnpHttpResponse *mupnp_https_request_post(mUpnpHttpRequest *httpReq, const char *ipaddr, int port)
 {
-	return mupnp_http_request_post_main(httpReq, ipaddr, port, TRUE);
+	return mupnp_http_request_post_main(httpReq, ipaddr, port, true);
 }
 #endif
 
@@ -400,17 +400,17 @@ static size_t mupnp_http_request_header_callback(void *ptr, size_t size, size_t 
 	{
 		/* <HTTP/version> <status code> <reason phrase> */
 		strTok = mupnp_string_tokenizer_new(headerLine, MUPNP_HTTP_STATUSLINE_DELIM);
-		if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
+		if (mupnp_string_tokenizer_hasmoretoken(strTok) == true)
 		{
 			mupnp_http_response_setversion(httpRes, mupnp_string_tokenizer_nexttoken(strTok));
 		}
 		
-		if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
+		if (mupnp_string_tokenizer_hasmoretoken(strTok) == true)
 		{
 			mupnp_http_response_setstatuscode(httpRes, atoi(mupnp_string_tokenizer_nexttoken(strTok)));
 		}
 		
-		if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
+		if (mupnp_string_tokenizer_hasmoretoken(strTok) == true)
 		{
 			value = mupnp_string_tokenizer_nextalltoken(strTok);
 			mupnp_strrtrim(value, MUPNP_HTTP_STATUSLINE_DELIM, mupnp_strlen(MUPNP_HTTP_STATUSLINE_DELIM));
@@ -535,16 +535,16 @@ static int mupnp_http_request_progress_callback(void *ptr, double dltotal, doubl
 	if ( ( NULL != self ) && !mupnp_thread_isrunnable(self))
 	{
 		mupnp_log_debug_s("Thread is not runnable anymore! Informing libcurl to abort\n");
-		return TRUE;
+		return true;
 	}
 		
-	return FALSE;
+	return false;
 }
 
 mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, char *ipaddr, int port)
 {
 	mUpnpHttpResponse *httpRes;
-	BOOL newCurl = FALSE;
+	bool newCurl = false;
 	CURL *curl;
 	mUpnpHttpHeader *reqHeader;
 	struct curl_slist *curlHeaderList; 
@@ -588,7 +588,7 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, char *ipad
 			return httpReq->httpRes;		
 		}
 #ifdef MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS
-		newCurl = TRUE;
+		newCurl = true;
 	}
 #endif	
 	method = mupnp_http_request_getmethod(httpReq);
@@ -624,7 +624,7 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, char *ipad
 	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, curlHeaderList);
 
 	/**** content ****/
-	/*if (mupnp_http_request_ispostrequest(httpReq) == TRUE) {*/
+	/*if (mupnp_http_request_ispostrequest(httpReq) == true) {*/
 	if (mupnp_http_request_getcontentlength(httpReq) > 0) {
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, mupnp_http_request_getcontent(httpReq));
 		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, mupnp_http_request_getcontentlength(httpReq));
@@ -637,7 +637,7 @@ mUpnpHttpResponse *mupnp_http_request_post(mUpnpHttpRequest *httpReq, char *ipad
 
 	/* This has to be enabled for progress callback to be called */
 	curl_easy_setopt(curl, CURLOPT_NOPROGRESS,
-			FALSE);
+			false);
 
 	/* Used for checking stack state during curl easy perform */
 	curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION,
@@ -721,13 +721,13 @@ mupnp_log_debug_s("Getting HTTP-response completed. Elapsed time: "
 * mupnp_http_request_read
 ****************************************/
 
-BOOL mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock)
+bool mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock)
 {
 	char lineBuf[MUPNP_HTTP_READLINE_BUFSIZE];
 	mUpnpStringTokenizer *strTok;
 	ssize_t readLen;
 	mUpnpNetURI *uri = NULL;
-	BOOL failed = FALSE;
+	bool failed = false;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -739,24 +739,24 @@ BOOL mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock)
 	} while (readLen >= 1 && readLen <=2);
 	
 	if (readLen <= 0)
-		return FALSE;
+		return false;
 
 	strTok = mupnp_string_tokenizer_new(lineBuf, MUPNP_HTTP_STATUSLINE_DELIM);
-	if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
+	if (mupnp_string_tokenizer_hasmoretoken(strTok) == true)
 		mupnp_http_request_setmethod(httpReq, mupnp_string_tokenizer_nexttoken(strTok));
 	else
-		failed = TRUE;
-	if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
+		failed = true;
+	if (mupnp_string_tokenizer_hasmoretoken(strTok) == true)
 		mupnp_http_request_seturi(httpReq, mupnp_string_tokenizer_nexttoken(strTok));
 	else 
-		failed = TRUE;
-	if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
+		failed = true;
+	if (mupnp_string_tokenizer_hasmoretoken(strTok) == true)
 		mupnp_http_request_setversion(httpReq, mupnp_string_tokenizer_nexttoken(strTok));
 	else 
-		failed = TRUE;
+		failed = true;
 	mupnp_string_tokenizer_delete(strTok);
 
-	if (failed == TRUE) return FALSE;
+	if (failed == true) return false;
 	
 	/* We could do some further validation for the HTTP-request? */
 	
@@ -765,7 +765,7 @@ BOOL mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock)
 	if (uri != NULL)
 	{
 		mupnp_net_uri_set(uri, mupnp_http_request_geturi(httpReq));
-		if (mupnp_net_uri_isabsolute(uri) == TRUE && 
+		if (mupnp_net_uri_isabsolute(uri) == true && 
 		    mupnp_net_uri_getrequest(uri) != NULL)
 		{
 			mupnp_http_request_seturi(httpReq, 
@@ -786,14 +786,14 @@ BOOL mupnp_http_request_read(mUpnpHttpRequest *httpReq, mUpnpSocket *sock)
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_http_response_postresponse
 ****************************************/
 
-BOOL mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpResponse *httpRes)
+bool mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpResponse *httpRes)
 {
 	mUpnpSocket *sock;
 	char httpDate[MUPNP_HTTP_DATE_MAXLEN];
@@ -815,7 +815,7 @@ BOOL mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpRespons
 	reasonPhrase = mupnp_http_response_getreasonphrase(httpRes);
 
 	if (version == NULL || reasonPhrase == NULL)
-		return FALSE;		
+		return false;		
 
 	mupnp_int2str(statusCode, statusCodeBuf, sizeof(statusCodeBuf));
 		
@@ -835,17 +835,17 @@ BOOL mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpRespons
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_http_request_poststatuscode
 ****************************************/
 
-BOOL mupnp_http_request_poststatuscode(mUpnpHttpRequest *httpReq, int httpStatCode)
+bool mupnp_http_request_poststatuscode(mUpnpHttpRequest *httpReq, int httpStatCode)
 {
 	mUpnpHttpResponse *httpRes;
-	BOOL postRet;
+	bool postRet;
 
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -864,21 +864,21 @@ BOOL mupnp_http_request_poststatuscode(mUpnpHttpRequest *httpReq, int httpStatCo
  * mupnp_http_request_postdata
  ****************************************/
 
-BOOL mupnp_http_request_postdata(mUpnpHttpRequest *httpReq, void *data, int dataLen)
+bool mupnp_http_request_postdata(mUpnpHttpRequest *httpReq, void *data, int dataLen)
 {
 	if (dataLen <= 0)
-		return TRUE;
+		return true;
 	
 	mupnp_socket_write(mupnp_http_request_getsocket(httpReq), data, dataLen);
 	
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_http_request_postchunkedsize
 ****************************************/
 
-BOOL mupnp_http_request_postchunkedsize(mUpnpHttpRequest *httpReq, int dataLen)
+bool mupnp_http_request_postchunkedsize(mUpnpHttpRequest *httpReq, int dataLen)
 {
 	mUpnpSocket *sock;
 	char chunkedChar[MUPNP_STRING_LONG_BUFLEN+2];
@@ -891,33 +891,33 @@ BOOL mupnp_http_request_postchunkedsize(mUpnpHttpRequest *httpReq, int dataLen)
 #endif
 	mupnp_socket_write(sock, chunkedChar, mupnp_strlen(chunkedChar));
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_http_request_postchunkeddata
 ****************************************/
 
-BOOL mupnp_http_request_postchunkeddata(mUpnpHttpRequest *httpReq, void *data, int dataLen)
+bool mupnp_http_request_postchunkeddata(mUpnpHttpRequest *httpReq, void *data, int dataLen)
 {
 	mUpnpSocket *sock;
 
 	if (dataLen <= 0)
-		return TRUE;
+		return true;
 	
 	mupnp_http_request_postchunkedsize(httpReq, dataLen);
 	sock = mupnp_http_request_getsocket(httpReq);
 	mupnp_socket_write(sock, data, dataLen);
 	mupnp_socket_write(sock, MUPNP_HTTP_CRLF, sizeof(MUPNP_HTTP_CRLF)-1);
 	
-	return TRUE;
+	return true;
 }
 
 /****************************************
  * mupnp_http_request_postlastchunk
  ****************************************/
 
-BOOL mupnp_http_request_postlastchunk(mUpnpHttpRequest *httpReq)
+bool mupnp_http_request_postlastchunk(mUpnpHttpRequest *httpReq)
 {
 	mUpnpSocket *sock;
 	
@@ -925,7 +925,7 @@ BOOL mupnp_http_request_postlastchunk(mUpnpHttpRequest *httpReq)
 	sock = mupnp_http_request_getsocket(httpReq);
 	mupnp_socket_write(sock, MUPNP_HTTP_CRLF, sizeof(MUPNP_HTTP_CRLF)-1);
 	
-	return TRUE;
+	return true;
 }
 
 /****************************************

@@ -22,7 +22,7 @@
 * mupnp_service_notifymain
 ****************************************/
 
-static BOOL mupnp_service_notifymain(mUpnpService *service, mUpnpStateVariable *statVar)
+static bool mupnp_service_notifymain(mUpnpService *service, mUpnpStateVariable *statVar)
 {
 	mUpnpSubscriber *sub;
 	mUpnpSubscriber **subArray;
@@ -41,7 +41,7 @@ static BOOL mupnp_service_notifymain(mUpnpService *service, mUpnpStateVariable *
 	{
 		mupnp_log_debug_s("Memory allocation problem!\n");
 		mupnp_service_unlock(service);
-		return FALSE;
+		return false;
 	}
 
 	sub = mupnp_service_getsubscribers(service);
@@ -53,7 +53,7 @@ static BOOL mupnp_service_notifymain(mUpnpService *service, mUpnpStateVariable *
 		sub = subArray[n];
 		if (sub == NULL)
 			continue;
-		if (mupnp_subscriber_isexpired(sub) == TRUE)
+		if (mupnp_subscriber_isexpired(sub) == true)
 			mupnp_service_removesubscriber(service, sub);
 	}
 	free(subArray);
@@ -65,7 +65,7 @@ static BOOL mupnp_service_notifymain(mUpnpService *service, mUpnpStateVariable *
 	if ( NULL == subArray ) {
 		mupnp_log_debug_s("Memory allocation problem!\n");
 		mupnp_service_unlock(service);
-		return FALSE;
+		return false;
 	}
 
 	sub = mupnp_service_getsubscribers(service);
@@ -78,13 +78,13 @@ static BOOL mupnp_service_notifymain(mUpnpService *service, mUpnpStateVariable *
 		if (sub == NULL)
 			continue;
 		if (statVar) {
-			if (mupnp_subscriber_notify(sub, statVar) == FALSE) {
+			if (mupnp_subscriber_notify(sub, statVar) == false) {
 				/**** remove invalid the subscriber but don't remove in NMPR specification ****/
 				mupnp_service_removesubscriber(service, sub);
 			}
 		}
 		else {
-			if (mupnp_subscriber_notifyall(sub, service) == FALSE) {
+			if (mupnp_subscriber_notifyall(sub, service) == false) {
 				/**** remove invalid the subscriber but don't remove in NMPR specification ****/
 				mupnp_service_removesubscriber(service, sub);
 			}
@@ -96,14 +96,14 @@ static BOOL mupnp_service_notifymain(mUpnpService *service, mUpnpStateVariable *
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_service_notify
 ****************************************/
 
-BOOL mupnp_service_notify(mUpnpService *service, mUpnpStateVariable *statVar)
+bool mupnp_service_notify(mUpnpService *service, mUpnpStateVariable *statVar)
 {
 	return mupnp_service_notifymain(service, statVar);
 }
@@ -112,7 +112,7 @@ BOOL mupnp_service_notify(mUpnpService *service, mUpnpStateVariable *statVar)
 * mupnp_service_notifyall
 ****************************************/
 
-BOOL mupnp_service_notifyallbracket(mUpnpService *service)
+bool mupnp_service_notifyallbracket(mUpnpService *service)
 {
 	return mupnp_service_notifymain(service, NULL);
 }
@@ -121,7 +121,7 @@ BOOL mupnp_service_notifyallbracket(mUpnpService *service)
 * mupnp_service_notifyall
 ****************************************/
 
-BOOL mupnp_service_notifyall(mUpnpService *service, BOOL doBracket)
+bool mupnp_service_notifyall(mUpnpService *service, bool doBracket)
 {
 	mUpnpStateVariable *statVar;
 	
@@ -132,14 +132,14 @@ BOOL mupnp_service_notifyall(mUpnpService *service, BOOL doBracket)
 	}
 	else {
 		for (statVar = mupnp_service_getstatevariables(service); statVar != NULL; statVar = mupnp_statevariable_next(statVar)) {
-			if (mupnp_statevariable_issendevents(statVar) == TRUE)
+			if (mupnp_statevariable_issendevents(statVar) == true)
 				mupnp_service_notify(service, statVar);
 		}
 	}
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
@@ -151,7 +151,7 @@ static void mupnp_service_notifyall_thread(mUpnpThread *thread)
 	mUpnpService *service;
 	
 	service = (mUpnpService *)mupnp_thread_getuserdata(thread);
-	mupnp_service_notifyall(service, TRUE);
+	mupnp_service_notifyall(service, true);
 	mupnp_thread_delete(thread);	
 }
 

@@ -48,8 +48,8 @@ char *mupnp_strcat(char *dest, const char *src);
 int mupnp_strcmp(const char *str1, const char *str2);
 int mupnp_strncmp(const char *str1, const char *str2, int nchars);
 int mupnp_strcasecmp(const char *str1, const char *str2);
-BOOL mupnp_streq(const char *str1, const char *str2);
-BOOL mupnp_strcaseeq(const char *str1, const char *str2);
+bool mupnp_streq(const char *str1, const char *str2);
+bool mupnp_strcaseeq(const char *str1, const char *str2);
 ssize_t mupnp_strchr(const char *str, const char *chars, size_t nchars);
 ssize_t mupnp_strrchr(const char *str, const char *chars, size_t nchars);
 ssize_t mupnp_strstr(const char *haystack, const char *needle);
@@ -95,7 +95,7 @@ typedef struct _mUpnpStringTokenizer {
 	char *currToken;
 	char *nextToken;
 	char repToken;
-	BOOL hasNextTokens;
+	bool hasNextTokens;
 } mUpnpStringTokenizer;
 	
 /****************************************
@@ -104,7 +104,7 @@ typedef struct _mUpnpStringTokenizer {
 	
 mUpnpStringTokenizer *mupnp_string_tokenizer_new(const char *str, const char *delim);
 void mupnp_string_tokenizer_delete(mUpnpStringTokenizer *strToken);
-BOOL mupnp_string_tokenizer_hasmoretoken(mUpnpStringTokenizer *strToken);
+bool mupnp_string_tokenizer_hasmoretoken(mUpnpStringTokenizer *strToken);
 char *mupnp_string_tokenizer_nexttoken(mUpnpStringTokenizer *strToken);
 char *mupnp_string_tokenizer_nextalltoken(mUpnpStringTokenizer *strToken);
 	

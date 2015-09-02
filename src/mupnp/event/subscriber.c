@@ -124,9 +124,9 @@ long mupnp_subscriber_incrementnotifycount(mUpnpSubscriber *sub)
  * Check, whether a subscriber's event subscription has been expired
  *
  * @param sub The subscriber
- * @return TRUE if the subscription has been expired; otherwise FALSE
+ * @return true if the subscription has been expired; otherwise false
  */
-BOOL mupnp_subscriber_isexpired(mUpnpSubscriber *sub)
+bool mupnp_subscriber_isexpired(mUpnpSubscriber *sub)
 {
 	mUpnpTime currTime;
 	mUpnpTime timeout;
@@ -134,15 +134,15 @@ BOOL mupnp_subscriber_isexpired(mUpnpSubscriber *sub)
 	
 	timeout = mupnp_subscriber_gettimeout(sub);
 	if(timeout == MUPNP_SUBSCRIPTION_INFINITE_VALUE) 
-		return FALSE; 
+		return false; 
 			
 	//Theo Beisch - use clinkc function 
 	currTime = mupnp_getcurrentsystemtime(); //returns time in s 
 	expiredTime = mupnp_subscriber_getsubscriptiontime(sub) + (timeout); //tb: removed( *1000);
 	if (expiredTime < currTime)
-		return TRUE;
+		return true;
 			
-	return FALSE;
+	return false;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -152,15 +152,15 @@ BOOL mupnp_subscriber_isexpired(mUpnpSubscriber *sub)
  *
  * @param sub The event subscriber
  * @param statVar The evented state variable
- * @return TRUE if succesful; otherwise FALSE
+ * @return true if succesful; otherwise false
  */
-static BOOL mupnp_subscriber_notifymain(mUpnpSubscriber *sub, mUpnpService *service, mUpnpStateVariable *statVar)
+static bool mupnp_subscriber_notifymain(mUpnpSubscriber *sub, mUpnpService *service, mUpnpStateVariable *statVar)
 {
 	char *host;
 	int port;
 	mUpnpNotifyRequest *notifyReq;
 	mUpnpNotifyResponse *notifyRes;
-	BOOL notifySuccess;
+	bool notifySuccess;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -177,14 +177,14 @@ static BOOL mupnp_subscriber_notifymain(mUpnpSubscriber *sub, mUpnpService *serv
 	
 	mupnp_event_notify_request_delete(notifyReq);
 
-	if (notifySuccess == FALSE)
-		return FALSE;
+	if (notifySuccess == false)
+		return false;
 		
 	mupnp_subscriber_incrementnotifycount(sub);
 			
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /**
@@ -192,9 +192,9 @@ static BOOL mupnp_subscriber_notifymain(mUpnpSubscriber *sub, mUpnpService *serv
  *
  * @param sub The event subscriber
  * @param statVar The evented state variable
- * @return TRUE if succesful; otherwise FALSE
+ * @return true if succesful; otherwise false
  */
-BOOL mupnp_subscriber_notify(mUpnpSubscriber *sub, mUpnpStateVariable *statVar)
+bool mupnp_subscriber_notify(mUpnpSubscriber *sub, mUpnpStateVariable *statVar)
 {
 	return mupnp_subscriber_notifymain(sub, NULL, statVar);
 }
@@ -204,9 +204,9 @@ BOOL mupnp_subscriber_notify(mUpnpSubscriber *sub, mUpnpStateVariable *statVar)
  *
  * @param sub The event subscriber
  * @param service The evented service
- * @return TRUE if succesful; otherwise FALSE
+ * @return true if succesful; otherwise false
  */
-BOOL mupnp_subscriber_notifyall(mUpnpSubscriber *sub, /* mUpnpService */ void *service)
+bool mupnp_subscriber_notifyall(mUpnpSubscriber *sub, /* mUpnpService */ void *service)
 {
 	return mupnp_subscriber_notifymain(sub, (mUpnpService *)service, NULL);
 }

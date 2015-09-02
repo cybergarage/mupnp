@@ -60,7 +60,7 @@ void mupnp_string_tokenizer_delete(mUpnpStringTokenizer *strToken)
 * mupnp_string_tokenizer_hasmoretoken
 ****************************************/
 
-BOOL mupnp_string_tokenizer_hasmoretoken(mUpnpStringTokenizer *strToken)
+bool mupnp_string_tokenizer_hasmoretoken(mUpnpStringTokenizer *strToken)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -82,34 +82,34 @@ char *mupnp_string_tokenizer_nexttoken(mUpnpStringTokenizer *strToken)
 
 	strToken->currToken = strToken->nextToken;
 	strToken->nextToken = NULL;
-	strToken->hasNextTokens = FALSE;
+	strToken->hasNextTokens = false;
 	strToken->repToken = '\0';
 	
 	tokenCnt = 0;
 	for (i=strToken->nextStartPos; i<=strToken->lastPos; i++) {
-		BOOL isDelimChar = FALSE;
+		bool isDelimChar = false;
 		for (j=0; j<strToken->delimCnt; j++) {
 			if (strToken->value[i] == strToken->delim[j]) {
-				isDelimChar = TRUE;
+				isDelimChar = true;
 				if (tokenCnt == 0) {
 					strToken->nextStartPos = i + 1;
 					break;
 				}
-				strToken->hasNextTokens = TRUE;
+				strToken->hasNextTokens = true;
 				strToken->repToken = strToken->value[i];
 				strToken->value[i] = '\0';
 				strToken->nextToken = strToken->value + strToken->nextStartPos;
 				strToken->nextStartPos = i + 1;
 			}
 		}
-		if (strToken->hasNextTokens == TRUE)
+		if (strToken->hasNextTokens == true)
 			break;
-		if (isDelimChar == FALSE)
+		if (isDelimChar == false)
 			tokenCnt++;
 	}
 	
-	if (strToken->hasNextTokens == FALSE && 0 < tokenCnt) {
-		strToken->hasNextTokens = TRUE;
+	if (strToken->hasNextTokens == false && 0 < tokenCnt) {
+		strToken->hasNextTokens = true;
 		strToken->nextToken = strToken->value + strToken->nextStartPos;
 		strToken->nextStartPos = strToken->lastPos + 1;
 	}
@@ -133,7 +133,7 @@ char *mupnp_string_tokenizer_nextalltoken(mUpnpStringTokenizer *strToken)
 	strToken->nextToken[nextTokenLen] = strToken->repToken;
 	strToken->currToken = strToken->nextToken;
 	strToken->nextToken = NULL;
-	strToken->hasNextTokens = FALSE;
+	strToken->hasNextTokens = false;
 	return strToken->currToken;
 
 	mupnp_log_debug_l4("Leaving...\n");

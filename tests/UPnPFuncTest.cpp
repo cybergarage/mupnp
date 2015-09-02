@@ -9,11 +9,9 @@
  *
  ******************************************************************/
 
-#include <limits.h>
-
-#include <mupnp/upnp_function.h>
-
 #include <boost/test/unit_test.hpp>
+#include <limits.h>
+#include <mupnp/upnp_function.h>
 
 ////////////////////////////////////////
 // BootID

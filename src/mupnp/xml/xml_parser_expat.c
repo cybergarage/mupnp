@@ -157,7 +157,7 @@ static void XMLCALL mupnp_expat_character_data(void *userData, const XML_Char *s
 #endif
 }
 
-BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const char *data, size_t len)
+bool mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const char *data, size_t len)
 {
 #if defined DEBUG_XML_RESULT
 	mUpnpString* resdata = NULL;
@@ -175,11 +175,11 @@ BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const c
 #endif	
 
 	if (!data || len <= 0)
-		return FALSE;
+		return false;
 
 	p = XML_ParserCreate(NULL);
 	if (!p)
-		return FALSE;
+		return false;
 	/* Fix to get expat parser to work with DLink-routers */
 	if (data[len-1] == 0) len--;
 	
@@ -203,7 +203,7 @@ BOOL mupnp_xml_parse(mUpnpXmlParser *parser, mUpnpXmlNodeList *nodeList, const c
 				time(NULL)-startTime);
 			mupnp_string_delete(resdata);
 #endif
-			return FALSE;
+			return false;
 	}
 
 	mupnp_xml_nodelist_add(nodeList, expatData.rootNode);
@@ -226,7 +226,7 @@ mupnp_log_debug_s("Total elapsed time: %ld msec\n", mupnp_total_elapsed_time / 1
 			mupnp_string_delete(resdata);
 #endif
 
-	return TRUE;
+	return true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }

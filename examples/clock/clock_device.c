@@ -127,7 +127,7 @@ char *CLOCK_SERVICE_DESCRIPTION =
 * upnp_clock_actionreceived
 ****************************************/
 
-BOOL upnp_clock_actionreceived(mUpnpAction *action)
+bool upnp_clock_actionreceived(mUpnpAction *action)
 {
 	mUpnpTime currTime;
 	const char *actionName;
@@ -142,23 +142,23 @@ BOOL upnp_clock_actionreceived(mUpnpAction *action)
 		GetSystemTimeString(currTime, sysTimeStr);
 		currTimeArg = mupnp_action_getargumentbyname(action, "CurrentTime");
 		mupnp_argument_setvalue(currTimeArg, sysTimeStr);
-		return TRUE;
+		return true;
 	}
 	if (strcmp(actionName, "SetTime") == 0) {
 		newTimeArg = mupnp_action_getargumentbyname(action, "NewTime");
 		resultArg = mupnp_action_getargumentbyname(action, "Result");
 		mupnp_argument_setvalue(resultArg, "Not implemented");
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
 * upnp_clock_queryreceived
 ****************************************/
 
-BOOL upnp_clock_queryreceived(mUpnpStateVariable *statVar)
+bool upnp_clock_queryreceived(mUpnpStateVariable *statVar)
 {
 	const char *varName;
 	mUpnpTime currTime;
@@ -169,10 +169,10 @@ BOOL upnp_clock_queryreceived(mUpnpStateVariable *statVar)
 		currTime = mupnp_getcurrentsystemtime();
 		GetSystemTimeString(currTime, sysTimeStr);
 		mupnp_statevariable_setvalue(statVar, sysTimeStr);
-		return TRUE;
+		return true;
 	}
 	
-	return FALSE;
+	return false;
 }
 
 /****************************************
@@ -188,7 +188,7 @@ void upnp_clock_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
 	char serverName[MUPNP_SEVERNAME_MAXLEN];
 	mUpnpHttpResponse *httpRes;
-	BOOL postRet;
+	bool postRet;
 	
 	dev = (mUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
 
@@ -263,7 +263,7 @@ mUpnpDevice *upnp_clock_device_new()
 	 
 	clockDev = mupnp_device_new();
 	
-	if (mupnp_device_parsedescription(clockDev, CLOCK_DEVICE_DESCRIPTION, strlen(CLOCK_DEVICE_DESCRIPTION)) == FALSE) {
+	if (mupnp_device_parsedescription(clockDev, CLOCK_DEVICE_DESCRIPTION, strlen(CLOCK_DEVICE_DESCRIPTION)) == false) {
 		mupnp_device_delete(clockDev);
 		return NULL;
 	}
@@ -274,7 +274,7 @@ mUpnpDevice *upnp_clock_device_new()
 		return NULL;
 	}
 	
-	if (mupnp_service_parsedescription(timeService, CLOCK_SERVICE_DESCRIPTION, strlen(CLOCK_SERVICE_DESCRIPTION)) == FALSE) {
+	if (mupnp_service_parsedescription(timeService, CLOCK_SERVICE_DESCRIPTION, strlen(CLOCK_SERVICE_DESCRIPTION)) == false) {
 		mupnp_device_delete(clockDev);
 		return NULL;
 	}

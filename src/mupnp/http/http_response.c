@@ -160,7 +160,7 @@ char *mupnp_http_response_getreasonphrase(mUpnpHttpResponse *httpRes)
 * mupnp_http_response_read
 ****************************************/
 
-BOOL mupnp_http_response_read(mUpnpHttpResponse *httpRes, mUpnpSocket *sock, BOOL onlyHeader)
+bool mupnp_http_response_read(mUpnpHttpResponse *httpRes, mUpnpSocket *sock, bool onlyHeader)
 {
 	char lineBuf[MUPNP_HTTP_READLINE_BUFSIZE];
 	mUpnpStringTokenizer *strTok;
@@ -173,14 +173,14 @@ BOOL mupnp_http_response_read(mUpnpHttpResponse *httpRes, mUpnpSocket *sock, BOO
 
 	readLen = mupnp_socket_readline(sock, lineBuf, sizeof(lineBuf));
 	if (readLen <= 0)
-		return FALSE;
+		return false;
 
 	strTok = mupnp_string_tokenizer_new(lineBuf, MUPNP_HTTP_STATUSLINE_DELIM);
-	if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
+	if (mupnp_string_tokenizer_hasmoretoken(strTok) == true)
 		mupnp_http_response_setversion(httpRes, mupnp_string_tokenizer_nexttoken(strTok));
-	if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE)
+	if (mupnp_string_tokenizer_hasmoretoken(strTok) == true)
 		mupnp_http_response_setstatuscode(httpRes, atoi(mupnp_string_tokenizer_nexttoken(strTok)));
-	if (mupnp_string_tokenizer_hasmoretoken(strTok) == TRUE) {
+	if (mupnp_string_tokenizer_hasmoretoken(strTok) == true) {
 		token = mupnp_string_tokenizer_nextalltoken(strTok);
 		mupnp_strrtrim(token, MUPNP_HTTP_STATUSLINE_DELIM, mupnp_strlen(MUPNP_HTTP_STATUSLINE_DELIM));
 		mupnp_http_response_setreasonphrase(httpRes, token);
@@ -191,7 +191,7 @@ BOOL mupnp_http_response_read(mUpnpHttpResponse *httpRes, mUpnpSocket *sock, BOO
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************

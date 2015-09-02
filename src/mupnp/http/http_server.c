@@ -83,35 +83,35 @@ void mupnp_http_server_delete(mUpnpHttpServer *httpServer)
 * mupnp_http_server_delete
 ****************************************/
 
-BOOL mupnp_http_server_open(mUpnpHttpServer *httpServer, int bindPort, const char *bindAddr)
+bool mupnp_http_server_open(mUpnpHttpServer *httpServer, int bindPort, const char *bindAddr)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_http_server_isopened(httpServer) == TRUE)
-		return FALSE;
+	if (mupnp_http_server_isopened(httpServer) == true)
+		return false;
 
 	httpServer->sock = mupnp_socket_stream_new();
-	if (mupnp_socket_bind(httpServer->sock, bindPort, bindAddr, TRUE, FALSE) == FALSE) {
+	if (mupnp_socket_bind(httpServer->sock, bindPort, bindAddr, true, false) == false) {
 		mupnp_socket_delete(httpServer->sock);
 		httpServer->sock = NULL;
-		return FALSE;
+		return false;
 	}
-	if (mupnp_socket_listen(httpServer->sock) == FALSE) {
+	if (mupnp_socket_listen(httpServer->sock) == false) {
 		mupnp_socket_delete(httpServer->sock);
 		httpServer->sock = NULL;
-		return FALSE;
+		return false;
 	}
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_http_server_delete
 ****************************************/
 
-BOOL mupnp_http_server_close(mUpnpHttpServer *httpServer)
+bool mupnp_http_server_close(mUpnpHttpServer *httpServer)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -125,7 +125,7 @@ BOOL mupnp_http_server_close(mUpnpHttpServer *httpServer)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
@@ -185,7 +185,7 @@ static void mupnp_http_server_clientthread(mUpnpThread *thread)
 	mupnp_http_request_setsocket(httpReq, clientSock);
 
 	/**** Thanks for Makela Aapo (10/31/05) ****/
-	while (mupnp_http_request_read(httpReq, clientSock) == TRUE && mupnp_thread_isrunnable(thread) == TRUE) {
+	while (mupnp_http_request_read(httpReq, clientSock) == true && mupnp_thread_isrunnable(thread) == true) {
 		/* Check some validity of the request */
 		version = mupnp_http_request_getversion(httpReq);
 		if (mupnp_strcmp(version, MUPNP_HTTP_VER11) == 0)
@@ -212,7 +212,7 @@ static void mupnp_http_server_clientthread(mUpnpThread *thread)
 		}
 
 		/* We are having HTTP/1.1 or better => terminate, if requested */
-		if (mupnp_http_request_iskeepaliveconnection(httpReq) == FALSE)
+		if (mupnp_http_request_iskeepaliveconnection(httpReq) == false)
 		{
 			break;
 		}
@@ -253,13 +253,13 @@ static void mupnp_http_server_thread(mUpnpThread *thread)
 
 	httpServer = (mUpnpHttpServer *)mupnp_thread_getuserdata(thread);
 
-	if (mupnp_http_server_isopened(httpServer) == FALSE)
+	if (mupnp_http_server_isopened(httpServer) == false)
 		return;
 
 	serverSock = httpServer->sock;
-	while (mupnp_thread_isrunnable(thread) == TRUE) {
+	while (mupnp_thread_isrunnable(thread) == true) {
 		clientSock = mupnp_socket_stream_new();
-		if (mupnp_socket_accept(serverSock, clientSock) == FALSE) {
+		if (mupnp_socket_accept(serverSock, clientSock) == false) {
 			mupnp_socket_delete(clientSock);
 			break;
 		}
@@ -285,12 +285,12 @@ static void mupnp_http_server_thread(mUpnpThread *thread)
 * mupnp_http_server_start
 ****************************************/
 
-BOOL mupnp_http_server_start(mUpnpHttpServer *httpServer)
+bool mupnp_http_server_start(mUpnpHttpServer *httpServer)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
 	if (httpServer->acceptThread != NULL)
-		return FALSE;
+		return false;
 
 	httpServer->acceptThread = mupnp_thread_new();
 	mupnp_thread_setaction(httpServer->acceptThread, mupnp_http_server_thread);
@@ -299,7 +299,7 @@ BOOL mupnp_http_server_start(mUpnpHttpServer *httpServer)
 	/**** Thanks for Makela Aapo (10/31/05) ****/
 	httpServer->clientThreads = mupnp_threadlist_new();
 
-	if (mupnp_thread_start(httpServer->acceptThread) == FALSE) {
+	if (mupnp_thread_start(httpServer->acceptThread) == false) {
 		mupnp_thread_delete(httpServer->acceptThread);
 		httpServer->acceptThread = NULL;
 
@@ -307,19 +307,19 @@ BOOL mupnp_http_server_start(mUpnpHttpServer *httpServer)
 		mupnp_threadlist_delete(httpServer->clientThreads);
 		httpServer->clientThreads = NULL;
 
-		return FALSE;
+		return false;
 	}
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_http_server_stop
 ****************************************/
 
-BOOL mupnp_http_server_stop(mUpnpHttpServer *httpServer)
+bool mupnp_http_server_stop(mUpnpHttpServer *httpServer)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -337,7 +337,7 @@ BOOL mupnp_http_server_stop(mUpnpHttpServer *httpServer)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************

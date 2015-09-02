@@ -59,13 +59,13 @@ void mupnp_http_serverlist_delete(mUpnpHttpServerList *httpServerList)
 * mupnp_http_serverlist_open
 ****************************************/
 
-BOOL mupnp_http_serverlist_open(mUpnpHttpServerList *httpServerList, int port)
+bool mupnp_http_serverlist_open(mUpnpHttpServerList *httpServerList, int port)
 {
 	mUpnpNetworkInterfaceList *netIfList;
 	mUpnpNetworkInterface *netIf;
 	mUpnpHttpServer *httpServer;
 	char *bindAddr;
-	BOOL result =FALSE;
+	bool result =false;
 	
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -82,18 +82,18 @@ BOOL mupnp_http_serverlist_open(mUpnpHttpServerList *httpServerList, int port)
 			continue;
 		httpServer = mupnp_http_server_new();
 
-		if (mupnp_http_server_open(httpServer, port, bindAddr) == FALSE) {
+		if (mupnp_http_server_open(httpServer, port, bindAddr) == false) {
 			/* Theo Beisch - why break off, 
 			   we may be running ok on at least some IF??? 
 			   (at least WINCE does...) */
 			continue;
 		}
 		mupnp_http_serverlist_add(httpServerList, httpServer);
-		result = TRUE; //at least one IF found ok
+		result = true; //at least one IF found ok
 	}
 
 	
-	if (result==FALSE) mupnp_http_serverlist_clear(httpServerList);
+	if (result==false) mupnp_http_serverlist_clear(httpServerList);
 	mupnp_net_interfacelist_delete(netIfList);
 
 	return result;	
@@ -103,7 +103,7 @@ BOOL mupnp_http_serverlist_open(mUpnpHttpServerList *httpServerList, int port)
 * mupnp_http_serverlist_close
 ****************************************/
 
-BOOL mupnp_http_serverlist_close(mUpnpHttpServerList *httpServerList)
+bool mupnp_http_serverlist_close(mUpnpHttpServerList *httpServerList)
 {
 	mUpnpHttpServer *httpServer;
 	
@@ -112,7 +112,7 @@ BOOL mupnp_http_serverlist_close(mUpnpHttpServerList *httpServerList)
 	for (httpServer = mupnp_http_serverlist_gets(httpServerList); httpServer != NULL; httpServer = mupnp_http_server_next(httpServer))
 		mupnp_http_server_close(httpServer);
 
-	return TRUE;
+	return true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -121,7 +121,7 @@ BOOL mupnp_http_serverlist_close(mUpnpHttpServerList *httpServerList)
 * mupnp_http_serverlist_start
 ****************************************/
 
-BOOL mupnp_http_serverlist_start(mUpnpHttpServerList *httpServerList)
+bool mupnp_http_serverlist_start(mUpnpHttpServerList *httpServerList)
 {
 	mUpnpHttpServer *httpServer;
 	
@@ -132,14 +132,14 @@ BOOL mupnp_http_serverlist_start(mUpnpHttpServerList *httpServerList)
 	
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_http_serverlist_stop
 ****************************************/
 
-BOOL mupnp_http_serverlist_stop(mUpnpHttpServerList *httpServerList)
+bool mupnp_http_serverlist_stop(mUpnpHttpServerList *httpServerList)
 {
 	mUpnpHttpServer *httpServer;
 	
@@ -150,7 +150,7 @@ BOOL mupnp_http_serverlist_stop(mUpnpHttpServerList *httpServerList)
 		
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************

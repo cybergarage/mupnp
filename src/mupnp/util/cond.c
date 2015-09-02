@@ -33,7 +33,7 @@ mUpnpCond *mupnp_cond_new()
 	if ( NULL != cond )
 	{
 #if defined(WIN32) && !defined(ITRON)
-		cond->condID = CreateEvent(NULL, FALSE, FALSE, NULL);
+		cond->condID = CreateEvent(NULL, false, false, NULL);
 #elif defined(BTRON)
 	/* TODO: Add implementation */
 #elif defined(ITRON) 
@@ -56,7 +56,7 @@ mUpnpCond *mupnp_cond_new()
 * mupnp_cond_delete
 ****************************************/
 
-BOOL mupnp_cond_delete(mUpnpCond *cond)
+bool mupnp_cond_delete(mUpnpCond *cond)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -77,14 +77,14 @@ BOOL mupnp_cond_delete(mUpnpCond *cond)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_cond_lock
 ****************************************/
 
-BOOL mupnp_cond_wait(mUpnpCond *cond, mUpnpMutex *mutex, unsigned long timeout)
+bool mupnp_cond_wait(mUpnpCond *cond, mUpnpMutex *mutex, unsigned long timeout)
 {
 #if defined(WIN32) && !defined(ITRON)
 	DWORD timeout_s = (timeout == 0 ? INFINITE : timeout);
@@ -118,22 +118,22 @@ BOOL mupnp_cond_wait(mUpnpCond *cond, mUpnpMutex *mutex, unsigned long timeout)
 #endif
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
 * mupnp_cond_unlock
 ****************************************/
 
-BOOL mupnp_cond_signal(mUpnpCond *cond)
+bool mupnp_cond_signal(mUpnpCond *cond)
 {
-	BOOL success = FALSE;
+	bool success = false;
 
 	mupnp_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
 	/* TODO: Add implementation */
-	/* success = (SignalObjectAndWait(cond->condID, NULL, INFINITE, FALSE) != WAIT_FAILED); */
+	/* success = (SignalObjectAndWait(cond->condID, NULL, INFINITE, false) != WAIT_FAILED); */
 	/* success = (WaitForSingleObject(cond->condID, INFINITE) != WAIT_FAILED); */
 	success = SetEvent(cond->condID);
 #elif defined(BTRON)

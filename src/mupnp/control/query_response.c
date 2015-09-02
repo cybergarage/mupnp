@@ -35,7 +35,7 @@ mUpnpQueryResponse *mupnp_control_query_response_new()
 	if ( NULL != queryRes )
 	{
 		queryRes->soapRes = mupnp_soap_response_new();
-		queryRes->isSoapResCreated = TRUE;
+		queryRes->isSoapResCreated = true;
 	}
 
 	return queryRes;
@@ -53,7 +53,7 @@ void mupnp_control_query_response_delete(mUpnpQueryResponse *queryRes)
 
 	mupnp_control_query_response_clear(queryRes);
 	
-	if (queryRes->isSoapResCreated == TRUE)
+	if (queryRes->isSoapResCreated == true)
 		mupnp_soap_response_delete(queryRes->soapRes);
 	
 	free(queryRes);
@@ -69,10 +69,10 @@ void mupnp_control_query_response_clear(mUpnpQueryResponse *queryRes)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (queryRes->isSoapResCreated == TRUE)
+	if (queryRes->isSoapResCreated == true)
 		mupnp_soap_response_delete(queryRes->soapRes);
 	queryRes->soapRes = mupnp_soap_response_new();
-	queryRes->isSoapResCreated = TRUE;
+	queryRes->isSoapResCreated = true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -85,10 +85,10 @@ void mupnp_control_query_response_setsoapresponse(mUpnpQueryResponse *queryRes, 
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (queryRes->isSoapResCreated == TRUE)
+	if (queryRes->isSoapResCreated == true)
 		mupnp_soap_response_delete(queryRes->soapRes);
 	queryRes->soapRes = soapRes;
-	queryRes->isSoapResCreated = FALSE;
+	queryRes->isSoapResCreated = false;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -165,13 +165,13 @@ mUpnpXmlNode *mupnp_control_query_response_getreturnnode(mUpnpQueryResponse *que
 	bodyNode = mupnp_soap_response_getbodynode(soapRes);
 	if (bodyNode == NULL)
 		return NULL;
-	if (mupnp_xml_node_haschildnodes(bodyNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(bodyNode) == false)
 		return NULL;
 
 	queryResNode = mupnp_xml_node_getchildnodes(bodyNode);		
 	if (queryResNode == NULL)
 		return NULL;
-	if (mupnp_xml_node_haschildnodes(queryResNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(queryResNode) == false)
 		return NULL;
 		
 	return mupnp_xml_node_getchildnodes(queryResNode);		

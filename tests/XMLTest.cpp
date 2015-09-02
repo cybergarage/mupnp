@@ -9,11 +9,9 @@
  *
  ******************************************************************/
 
-#include <limits.h>
-
-#include <mupnp/xml/xml.h>
-
 #include <boost/test/unit_test.hpp>
+#include <limits.h>
+#include <mupnp/xml/xml.h>
 
 ////////////////////////////////////////
 // XML
@@ -40,5 +38,5 @@ BOOST_AUTO_TEST_CASE(XMLChildNode)
   // Remove child node
   
   BOOST_CHECK(mupnp_xml_node_removechildnode(parentNode, XML_CHILD_NODE_NAME));
-  BOOST_CHECK(!mupnp_xml_node_getchildnode(parentNode, XML_CHILD_NODE_NAME));
+  BOOST_CHECK(mupnp_xml_node_getchildnode(parentNode, XML_CHILD_NODE_NAME) != NULL);
 }

@@ -27,7 +27,7 @@ mUpnpXmlParser *mupnp_xml_parser_new()
 
 	if ( NULL != parser )
 	{
-		parser->parseResult = FALSE;
+		parser->parseResult = false;
 	}
 	return parser;
 

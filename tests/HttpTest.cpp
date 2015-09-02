@@ -9,9 +9,9 @@
  *
  ******************************************************************/
 
-#include <mupnp/http/http.h>
-
 #include <boost/test/unit_test.hpp>
+
+#include <mupnp/http/http.h>
 
 ////////////////////////////////////////
 // testHttpServer

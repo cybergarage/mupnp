@@ -101,32 +101,32 @@ const char *mupnp_net_uri_getvalue(mUpnpNetURI *uri);
 char *mupnp_net_uri_getrequest(mUpnpNetURI *uri);
 char *mupnp_net_uri_getupnpbasepath(mUpnpNetURI *locationURL);
 
-#define mupnp_net_uri_hasuri(urip) ((0 < mupnp_string_length(urip->uri)) ? TRUE : FALSE)
-#define mupnp_net_uri_hasprotocol(urip) ((0 < mupnp_string_length(urip->protocol)) ? TRUE : FALSE)
-#define mupnp_net_uri_hasuser(urip) ((0 < mupnp_string_length(urip->user)) ? TRUE : FALSE)
-#define mupnp_net_uri_haspassword(urip) ((0 < mupnp_string_length(urip->password)) ? TRUE : FALSE)
-#define mupnp_net_uri_hashost(urip) ((0 < mupnp_string_length(urip->host)) ? TRUE : FALSE)
-#define mupnp_net_uri_hasport(urip) ((0 < urip->port) ? TRUE : FALSE)
-#define mupnp_net_uri_haspath(urip) ((0 < mupnp_string_length(urip->path)) ? TRUE : FALSE)
-#define mupnp_net_uri_hasquery(urip) ((0 < mupnp_string_length(urip->query)) ? TRUE : FALSE)
-#define mupnp_net_uri_hasfragment(urip) ((0 < mupnp_string_length(urip->fragment)) ? TRUE : FALSE)
+#define mupnp_net_uri_hasuri(urip) ((0 < mupnp_string_length(urip->uri)) ? true : false)
+#define mupnp_net_uri_hasprotocol(urip) ((0 < mupnp_string_length(urip->protocol)) ? true : false)
+#define mupnp_net_uri_hasuser(urip) ((0 < mupnp_string_length(urip->user)) ? true : false)
+#define mupnp_net_uri_haspassword(urip) ((0 < mupnp_string_length(urip->password)) ? true : false)
+#define mupnp_net_uri_hashost(urip) ((0 < mupnp_string_length(urip->host)) ? true : false)
+#define mupnp_net_uri_hasport(urip) ((0 < urip->port) ? true : false)
+#define mupnp_net_uri_haspath(urip) ((0 < mupnp_string_length(urip->path)) ? true : false)
+#define mupnp_net_uri_hasquery(urip) ((0 < mupnp_string_length(urip->query)) ? true : false)
+#define mupnp_net_uri_hasfragment(urip) ((0 < mupnp_string_length(urip->fragment)) ? true : false)
 #define mupnp_net_uri_hasrequest(urip) mupnp_net_uri_haspath(urip)
 
 #define mupnp_net_uri_ishttpprotocol(urip) mupnp_streq(mupnp_string_getvalue(urip->protocol), MUPNP_NET_URI_PROTOCOL_HTTP)
 
 #define mupnp_net_uri_isabsolute(urip) mupnp_net_uri_hasprotocol(urip)
-#define mupnp_net_uri_isabsolutepath(uripath) (( *uripath == '/' ) ? TRUE : FALSE )
-#define mupnp_net_uri_isrelative(urip) ((mupnp_net_uri_hasprotocol(urip) == TRUE) ? FALSE : TRUE)
+#define mupnp_net_uri_isabsolutepath(uripath) (( *uripath == '/' ) ? true : false )
+#define mupnp_net_uri_isrelative(urip) ((mupnp_net_uri_hasprotocol(urip) == true) ? false : true)
 
-BOOL mupnp_net_uri_isreservedchar(char c);
-BOOL mupnp_net_uri_isunreservedchar(char c);
-BOOL mupnp_net_uri_isescapechar(char c);
-BOOL mupnp_net_uri_isalphanumchar(char c);
+bool mupnp_net_uri_isreservedchar(char c);
+bool mupnp_net_uri_isunreservedchar(char c);
+bool mupnp_net_uri_isescapechar(char c);
+bool mupnp_net_uri_isalphanumchar(char c);
 
-BOOL mupnp_net_uri_isescapedstring(char *buf, size_t bufSize);
+bool mupnp_net_uri_isescapedstring(char *buf, size_t bufSize);
 char *mupnp_net_uri_escapestring(char *buf, size_t bufSize, mUpnpString *retBuf);
 char *mupnp_net_uri_unescapestring(char *buf, size_t bufSize, mUpnpString *retBuf);
-BOOL mupnp_net_uri_isequivalent(const char *url, const char *relative_url);
+bool mupnp_net_uri_isequivalent(const char *url, const char *relative_url);
 
 mUpnpDictionary *mupnp_net_uri_getquerydictionary(mUpnpNetURI *uri);
 

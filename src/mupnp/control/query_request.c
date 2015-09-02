@@ -41,7 +41,7 @@ mUpnpQueryRequest *mupnp_control_query_request_new()
 			return NULL;
 		}
 
-		queryReq->isSoapReqCreated = TRUE;
+		queryReq->isSoapReqCreated = true;
 		
 		queryReq->queryRes = mupnp_control_query_response_new();
 		if (queryReq->queryRes == NULL)
@@ -68,7 +68,7 @@ void mupnp_control_query_request_delete(mUpnpQueryRequest *queryReq)
 
 	mupnp_control_query_request_clear(queryReq);
 
-	if (queryReq->isSoapReqCreated == TRUE)
+	if (queryReq->isSoapReqCreated == true)
 		mupnp_soap_request_delete(queryReq->soapReq);
 
 	mupnp_control_query_response_delete(queryReq->queryRes);
@@ -86,10 +86,10 @@ void mupnp_control_query_request_clear(mUpnpQueryRequest *queryReq)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (queryReq->isSoapReqCreated == TRUE)
+	if (queryReq->isSoapReqCreated == true)
 		mupnp_soap_request_delete(queryReq->soapReq);
 	queryReq->soapReq = mupnp_soap_request_new();
-	queryReq->isSoapReqCreated = TRUE;
+	queryReq->isSoapReqCreated = true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -102,10 +102,10 @@ void mupnp_control_query_request_setsoaprequest(mUpnpQueryRequest *queryReq, mUp
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (queryReq->isSoapReqCreated == TRUE)
+	if (queryReq->isSoapReqCreated == true)
 		mupnp_soap_request_delete(queryReq->soapReq);
 	queryReq->soapReq = soapReq;
-	queryReq->isSoapReqCreated = FALSE;
+	queryReq->isSoapReqCreated = false;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -127,13 +127,13 @@ mUpnpXmlNode *mupnp_control_query_request_getvarnamenode(mUpnpQueryRequest *quer
 	bodyNode = mupnp_soap_request_getbodynode(soapReq);
 	if (bodyNode == NULL)
 		return NULL;
-	if (mupnp_xml_node_haschildnodes(bodyNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(bodyNode) == false)
 		return NULL;
 
 	queryStateVarNode = mupnp_xml_node_getchildnodes(bodyNode);		
 	if (queryStateVarNode == NULL)
 		return NULL;
-	if (mupnp_xml_node_haschildnodes(queryStateVarNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(queryStateVarNode) == false)
 		return NULL;
 		
 	return mupnp_xml_node_getchildnodes(queryStateVarNode);		

@@ -47,7 +47,7 @@ typedef struct _mUpnpSSDPPacket {
 typedef void (*MUPNP_SSDP_LISTNER)(mUpnpSSDPPacket *);
 
 typedef struct _mUpnpSSDPServer {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpSSDPServer *prev;
 	struct _mUpnpSSDPServer *next;
 	mUpnpHttpMuSocket *httpmuSock;
@@ -59,7 +59,7 @@ typedef struct _mUpnpSSDPServer {
 typedef void (*MUPNP_SSDP_RESPONSE_LISTNER)(mUpnpSSDPPacket *);
 
 typedef struct _mUpnpSSDPResponseServer {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpSSDPServer *prev;
 	struct _mUpnpSSDPServer *next;
 	mUpnpHttpUSocket *httpuSock;
@@ -76,7 +76,7 @@ typedef struct _mUpnpSSDPResponseServer {
 #define mupnp_httpmu_socket_delete(sock) mupnp_socket_delete(sock)
 #define mupnp_httpmu_socket_close(sock) mupnp_socket_close(sock)
 
-BOOL mupnp_httpmu_socket_bind(mUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr);
+bool mupnp_httpmu_socket_bind(mUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr);
 ssize_t mupnp_httpmu_socket_recv(mUpnpHttpMuSocket *sock, mUpnpSSDPPacket *ssdpPkt);
 
 /****************************************
@@ -87,7 +87,7 @@ ssize_t mupnp_httpmu_socket_recv(mUpnpHttpMuSocket *sock, mUpnpSSDPPacket *ssdpP
 #define mupnp_httpu_socket_delete(sock) mupnp_socket_delete(sock)
 #define mupnp_httpu_socket_close(sock) mupnp_socket_close(sock)
 #define mupnp_httpu_socket_new() mupnp_socket_dgram_new()
-#define mupnp_httpu_socket_bind(sock, bindPort, bindAddr) mupnp_socket_bind(sock, bindPort, bindAddr, FALSE, FALSE)
+#define mupnp_httpu_socket_bind(sock, bindPort, bindAddr) mupnp_socket_bind(sock, bindPort, bindAddr, false, false)
 ssize_t mupnp_httpu_socket_recv(mUpnpHttpUSocket *sock, mUpnpSSDPPacket *ssdpPkt);
 
 /****************************************
@@ -130,7 +130,7 @@ long mupnp_ssdp_packet_getmaxage(mUpnpSSDPPacket *ssdpPkt);
 #define mupnp_ssdp_packet_isalive(ssdpPkt) mupnp_nts_isalive(mupnp_ssdp_packet_getnts(ssdpPkt))
 #define mupnp_ssdp_packet_isbyebye(ssdpPkt) mupnp_nts_isbyebye(mupnp_ssdp_packet_getnts(ssdpPkt))
 
-BOOL mupnp_ssdp_packet_isrootdevice(mUpnpSSDPPacket *ssdpPkt);
+bool mupnp_ssdp_packet_isrootdevice(mUpnpSSDPPacket *ssdpPkt);
 
 #define mupnp_ssdp_packet_getlocaladdress(ssdpPkt) mupnp_socket_datagram_packet_getlocaladdress(ssdpPkt->dgmPkt)
 #define mupnp_ssdp_packet_getlocalport(ssdpPkt) mupnp_socket_datagram_packet_getlocalport(ssdpPkt->dgmPkt)
@@ -149,10 +149,10 @@ void mupnp_ssdp_server_delete(mUpnpSSDPServer *server);
 
 #define mupnp_ssdp_server_next(server) (mUpnpSSDPServer *)mupnp_list_next((mUpnpList *)server)
 
-BOOL mupnp_ssdp_server_open(mUpnpSSDPServer *server, char *bindAddr);
-BOOL mupnp_ssdp_server_close(mUpnpSSDPServer *server);
+bool mupnp_ssdp_server_open(mUpnpSSDPServer *server, char *bindAddr);
+bool mupnp_ssdp_server_close(mUpnpSSDPServer *server);
 
-#define mupnp_ssdp_server_isopened(server) ((server->httpmuSock != NULL) ? TRUE : FALSE)
+#define mupnp_ssdp_server_isopened(server) ((server->httpmuSock != NULL) ? true : false)
 #define mupnp_ssdp_server_getsocket(server) (server->httpmuSock)
 
 #define mupnp_ssdp_server_setlistener(server, func) (server->listener = func)
@@ -162,8 +162,8 @@ void mupnp_ssdp_server_performlistener(mUpnpSSDPServer *server, mUpnpSSDPPacket 
 #define mupnp_ssdp_server_setuserdata(server, data) (server->userData = data)
 #define mupnp_ssdp_server_getuserdata(server) (server->userData)
 
-BOOL mupnp_ssdp_server_start(mUpnpSSDPServer *server);
-BOOL mupnp_ssdp_server_stop(mUpnpSSDPServer *server);
+bool mupnp_ssdp_server_start(mUpnpSSDPServer *server);
+bool mupnp_ssdp_server_stop(mUpnpSSDPServer *server);
 
 /****************************************
 * Function (SSDPServerList)
@@ -177,10 +177,10 @@ void mupnp_ssdp_serverlist_delete(mUpnpSSDPServerList *serverList);
 #define mupnp_ssdp_serverlist_gets(serverList) (mUpnpSSDPServer *)mupnp_list_next((mUpnpList *)serverList)
 #define mupnp_ssdp_serverlist_add(serverList, server) mupnp_list_add((mUpnpList *)serverList, (mUpnpList *)server)
 
-BOOL mupnp_ssdp_serverlist_open(mUpnpSSDPServerList *ssdpServerList);
-BOOL mupnp_ssdp_serverlist_close(mUpnpSSDPServerList *ssdpServerList);
-BOOL mupnp_ssdp_serverlist_start(mUpnpSSDPServerList *ssdpServerList);
-BOOL mupnp_ssdp_serverlist_stop(mUpnpSSDPServerList *ssdpServerList);
+bool mupnp_ssdp_serverlist_open(mUpnpSSDPServerList *ssdpServerList);
+bool mupnp_ssdp_serverlist_close(mUpnpSSDPServerList *ssdpServerList);
+bool mupnp_ssdp_serverlist_start(mUpnpSSDPServerList *ssdpServerList);
+bool mupnp_ssdp_serverlist_stop(mUpnpSSDPServerList *ssdpServerList);
 void mupnp_ssdp_serverlist_setlistener(mUpnpSSDPServerList *ssdpServerList, MUPNP_SSDP_LISTNER listener);
 void mupnp_ssdp_serverlist_setuserdata(mUpnpSSDPServerList *ssdpServerList, void *data);
 
@@ -193,10 +193,10 @@ void mupnp_ssdpresponse_server_delete(mUpnpSSDPResponseServer *server);
 
 #define mupnp_ssdpresponse_server_next(server) (mUpnpSSDPResponseServer *)mupnp_list_next((mUpnpList *)server)
 
-BOOL mupnp_ssdpresponse_server_open(mUpnpSSDPResponseServer *server, int bindPort, char *bindAddr);
-BOOL mupnp_ssdpresponse_server_close(mUpnpSSDPResponseServer *server);
+bool mupnp_ssdpresponse_server_open(mUpnpSSDPResponseServer *server, int bindPort, char *bindAddr);
+bool mupnp_ssdpresponse_server_close(mUpnpSSDPResponseServer *server);
 
-#define mupnp_ssdpresponse_server_isopened(server) ((server->httpuSock != NULL) ? TRUE : FALSE)
+#define mupnp_ssdpresponse_server_isopened(server) ((server->httpuSock != NULL) ? true : false)
 #define mupnp_ssdpresponse_server_getsocket(server) (server->httpuSock)
 
 #define mupnp_ssdpresponse_server_setlistener(server, func) (server->listener = func)
@@ -206,10 +206,10 @@ void mupnp_ssdpresponse_server_performlistener(mUpnpSSDPResponseServer *server, 
 #define mupnp_ssdpresponse_server_setuserdata(server, data) (server->userData = data)
 #define mupnp_ssdpresponse_server_getuserdata(server) (server->userData)
 
-BOOL mupnp_ssdpresponse_server_start(mUpnpSSDPResponseServer *server);
-BOOL mupnp_ssdpresponse_server_stop(mUpnpSSDPResponseServer *server);
+bool mupnp_ssdpresponse_server_start(mUpnpSSDPResponseServer *server);
+bool mupnp_ssdpresponse_server_stop(mUpnpSSDPResponseServer *server);
 
-BOOL mupnp_ssdpresponse_server_post(mUpnpSSDPResponseServer *server, mUpnpSSDPRequest *ssdpReq);
+bool mupnp_ssdpresponse_server_post(mUpnpSSDPResponseServer *server, mUpnpSSDPRequest *ssdpReq);
 
 /****************************************
 * Function (SSDPResponseServerList)
@@ -223,13 +223,13 @@ void mupnp_ssdpresponse_serverlist_delete(mUpnpSSDPResponseServerList *serverLis
 #define mupnp_ssdpresponse_serverlist_gets(serverList) (mUpnpSSDPResponseServer *)mupnp_list_next((mUpnpList *)serverList)
 #define mupnp_ssdpresponse_serverlist_add(serverList, server) mupnp_list_add((mUpnpList *)serverList, (mUpnpList *)server)
 
-BOOL mupnp_ssdpresponse_serverlist_open(mUpnpSSDPResponseServerList *ssdpServerList, int bindPort);
-BOOL mupnp_ssdpresponse_serverlist_close(mUpnpSSDPResponseServerList *ssdpServerList);
-BOOL mupnp_ssdpresponse_serverlist_start(mUpnpSSDPResponseServerList *ssdpServerList);
-BOOL mupnp_ssdpresponse_serverlist_stop(mUpnpSSDPResponseServerList *ssdpServerList);
+bool mupnp_ssdpresponse_serverlist_open(mUpnpSSDPResponseServerList *ssdpServerList, int bindPort);
+bool mupnp_ssdpresponse_serverlist_close(mUpnpSSDPResponseServerList *ssdpServerList);
+bool mupnp_ssdpresponse_serverlist_start(mUpnpSSDPResponseServerList *ssdpServerList);
+bool mupnp_ssdpresponse_serverlist_stop(mUpnpSSDPResponseServerList *ssdpServerList);
 void mupnp_ssdpresponse_serverlist_setlistener(mUpnpSSDPResponseServerList *ssdpServerList, MUPNP_SSDP_LISTNER listener);
 void mupnp_ssdpresponse_serverlist_setuserdata(mUpnpSSDPResponseServerList *ssdpServerList, void *data);
-BOOL mupnp_ssdpresponse_serverlist_post(mUpnpSSDPResponseServerList *ssdpServerList, mUpnpSSDPRequest *ssdpReq);
+bool mupnp_ssdpresponse_serverlist_post(mUpnpSSDPResponseServerList *ssdpServerList, mUpnpSSDPRequest *ssdpReq);
 
 #ifdef  __cplusplus
 }

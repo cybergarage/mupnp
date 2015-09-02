@@ -66,21 +66,21 @@ typedef struct _mUpnpNetURI mUpnpNetURL;
 #define mupnp_net_url_getfragment(urip) mupnp_string_getvalue(urip->fragment)
 #define mupnp_net_url_getrequest(urip) mupnp_net_uri_getrequest(urip)
 
-#define mupnp_net_url_hasuri(urip) ((0 < mupnp_string_length(urip->uri)) ? TRUE : FALSE)
-#define mupnp_net_url_hasprotocol(urip) ((0 < mupnp_string_length(urip->protocol)) ? TRUE : FALSE)
-#define mupnp_net_url_hasuser(urip) ((0 < mupnp_string_length(urip->user)) ? TRUE : FALSE)
-#define mupnp_net_url_haspassword(urip) ((0 < mupnp_string_length(urip->password)) ? TRUE : FALSE)
-#define mupnp_net_url_hashost(urip) ((0 < mupnp_string_length(urip->host)) ? TRUE : FALSE)
-#define mupnp_net_url_hasport(urip) ((0 < urip->port) ? TRUE : FALSE)
-#define mupnp_net_url_haspath(urip) ((0 < mupnp_string_length(urip->path)) ? TRUE : FALSE)
-#define mupnp_net_url_hasquery(urip) ((0 < mupnp_string_length(urip->query)) ? TRUE : FALSE)
-#define mupnp_net_url_hasfragment(urip) ((0 < mupnp_string_length(urip->fragment)) ? TRUE : FALSE)
+#define mupnp_net_url_hasuri(urip) ((0 < mupnp_string_length(urip->uri)) ? true : false)
+#define mupnp_net_url_hasprotocol(urip) ((0 < mupnp_string_length(urip->protocol)) ? true : false)
+#define mupnp_net_url_hasuser(urip) ((0 < mupnp_string_length(urip->user)) ? true : false)
+#define mupnp_net_url_haspassword(urip) ((0 < mupnp_string_length(urip->password)) ? true : false)
+#define mupnp_net_url_hashost(urip) ((0 < mupnp_string_length(urip->host)) ? true : false)
+#define mupnp_net_url_hasport(urip) ((0 < urip->port) ? true : false)
+#define mupnp_net_url_haspath(urip) ((0 < mupnp_string_length(urip->path)) ? true : false)
+#define mupnp_net_url_hasquery(urip) ((0 < mupnp_string_length(urip->query)) ? true : false)
+#define mupnp_net_url_hasfragment(urip) ((0 < mupnp_string_length(urip->fragment)) ? true : false)
 #define mupnp_net_url_hasrequest(urip) mupnp_net_uri_hasrequest(urip)
 
 #define mupnp_net_url_ishttpprotocol(urip) mupnp_streq(mupnp_string_getvalue(urip->protocol), MUPNP_NET_URI_PROTOCOL_HTTP)
 
 #define mupnp_net_url_isabsolute(uripath) mupnp_net_uri_hasprotocol(uripath)
-#define mupnp_net_url_isrelative(urip) ((mupnp_net_uri_hasprotocol(urip) == TRUE) ? FALSE : TRUE)
+#define mupnp_net_url_isrelative(urip) ((mupnp_net_uri_hasprotocol(urip) == true) ? false : true)
 #define mupnp_net_url_isabsolutepath(uripath) mupnp_net_uri_isabsolutepath(uripath)
 
 #define mupnp_net_url_getupnpbasepath(urip) mupnp_net_uri_getupnpbasepath(urip);

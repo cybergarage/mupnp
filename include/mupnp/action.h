@@ -38,19 +38,19 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpAction {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpAction *prev;
 	struct _mUpnpAction *next;
 	void *parentService;
 	mUpnpXmlNode *actionNode;
 	mUpnpArgumentList *argumentList;
 	/**** Execution Data ****/
-	BOOL (*listener)(struct _mUpnpAction *);
+	bool (*listener)(struct _mUpnpAction *);
 	mUpnpStatus *upnpStatus;
 	void *userData;
 } mUpnpAction, mUpnpActionList;
 
-typedef BOOL (*MUPNP_ACTION_LISTNER)(mUpnpAction *);
+typedef bool (*MUPNP_ACTION_LISTNER)(mUpnpAction *);
 
 /****************************************************************************
  * Function (Action)
@@ -187,9 +187,9 @@ mUpnpArgument *mupnp_action_getargumentbyname(mUpnpAction *action, const char *n
  *
  * @param action The action in question
  * @param name The name to look for
- * @return TRUE if the action has the argument; otherwise FALSE
+ * @return true if the action has the argument; otherwise false
  */
-#define mupnp_action_hasargumentbyname(action,name) ((mupnp_action_getargumentbyname(action,name) != NULL) ? TRUE : FALSE)
+#define mupnp_action_hasargumentbyname(action,name) ((mupnp_action_getargumentbyname(action,name) != NULL) ? true : false)
 
 /**
  * Get a value of the specified argument from the action by the argument's name directly.
@@ -206,9 +206,9 @@ char *mupnp_action_getargumentvaluebyname(mUpnpAction *action, const char *name)
  * @param action The action in question
  * @param name The name of the argument to look for
  * @param value The value to set
- * @return TRUE if successfull; otherwise NO
+ * @return true if successfull; otherwise NO
  */
-BOOL mupnp_action_setargumentvaluebyname(mUpnpAction *action, const char *name, const char *value);
+bool mupnp_action_setargumentvaluebyname(mUpnpAction *action, const char *name, const char *value);
 
 /****************************************************************************
  * Function (Action - Execution Data)
@@ -258,7 +258,7 @@ BOOL mupnp_action_setargumentvaluebyname(mUpnpAction *action, const char *name, 
  * Set the action's listener function
  *
  * @param action The action in question
- * @param func The listener function of type: BOOL (*MUPNP_ACTION_LISTNER)(mUpnpAction *)
+ * @param func The listener function of type: bool (*MUPNP_ACTION_LISTNER)(mUpnpAction *)
  */
 #define mupnp_action_setlistener(action, func) (action->listener = func)
 
@@ -266,7 +266,7 @@ BOOL mupnp_action_setargumentvaluebyname(mUpnpAction *action, const char *name, 
  * Get the action's listener function
  *
  * @param action The action in question
- * @return BOOL (*MUPNP_ACTION_LISTNER)(mUpnpAction *)
+ * @return bool (*MUPNP_ACTION_LISTNER)(mUpnpAction *)
  */
 #define mupnp_action_getlistener(action) (action->listener)
 

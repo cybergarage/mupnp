@@ -63,7 +63,7 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpFile {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpFile *prev;
 	struct _mUpnpFile *next;
 	mUpnpString *name;
@@ -92,8 +92,8 @@ long mupnp_file_getlength(mUpnpFile *file);
 
 long mupnp_file_getlastmodified(mUpnpFile *file);
 long mupnp_file_getlength(mUpnpFile *file);
-BOOL mupnp_file_exists(mUpnpFile *file);
-BOOL mupnp_file_remove(mUpnpFile *file);
+bool mupnp_file_exists(mUpnpFile *file);
+bool mupnp_file_remove(mUpnpFile *file);
 
 void mupnp_file_setcontent(mUpnpFile *file, char *content);
 char *mupnp_file_getcontent(mUpnpFile *file);
@@ -101,20 +101,20 @@ char *mupnp_file_getcontent(mUpnpFile *file);
 char *mupnp_file_getfilename(mUpnpFile *file);
 char *mupnp_file_getpath(mUpnpFile *file);
 
-BOOL mupnp_file_load(mUpnpFile *file);
-BOOL mupnp_file_save(mUpnpFile *file);
+bool mupnp_file_load(mUpnpFile *file);
+bool mupnp_file_save(mUpnpFile *file);
 
 int mupnp_file_listfiles(mUpnpFile *file, mUpnpFileList *fileList);
 
-#define mupnp_file_isseparatorchar(c) ((MUPNP_FILE_SEPARATOR_CHAR == c) ? TRUE : FALSE)
-#define mupnp_file_ispathseparatorchar(c) ((MUPNP_FILE_PATH_SEPARATOR_CHAR == c) ? TRUE : FALSE)
+#define mupnp_file_isseparatorchar(c) ((MUPNP_FILE_SEPARATOR_CHAR == c) ? true : false)
+#define mupnp_file_ispathseparatorchar(c) ((MUPNP_FILE_PATH_SEPARATOR_CHAR == c) ? true : false)
 
 /* Raw Functions */
-BOOL mupnp_file_open(mUpnpFile *file, int flag);
-BOOL mupnp_file_close(mUpnpFile *file);
-BOOL mupnp_file_write(mUpnpFile *file, mUpnpByte *buf, int bufLen);
-BOOL mupnp_file_read(mUpnpFile *file, mUpnpByte *buf, int bufLen);
-BOOL mupnp_file_seek(mUpnpFile *file, mUpnpInt64, int whence); 
+bool mupnp_file_open(mUpnpFile *file, int flag);
+bool mupnp_file_close(mUpnpFile *file);
+bool mupnp_file_write(mUpnpFile *file, mUpnpByte *buf, int bufLen);
+bool mupnp_file_read(mUpnpFile *file, mUpnpByte *buf, int bufLen);
+bool mupnp_file_seek(mUpnpFile *file, mUpnpInt64, int whence); 
 
 /****************************************
 * Function (File List)

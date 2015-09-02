@@ -76,7 +76,7 @@ typedef int SOCKET;
 
 typedef struct _mUpnpSocket {
 #if defined(MUPNP_NET_USE_SOCKET_LIST)
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpSocket *prev;
 	struct _mUpnpSocket *next;
 #endif
@@ -113,34 +113,34 @@ void mupnp_socket_cleanup();
 mUpnpSocket *mupnp_socket_new(int type);
 #define mupnp_socket_stream_new() mupnp_socket_new(MUPNP_NET_SOCKET_STREAM)
 #define mupnp_socket_dgram_new() mupnp_socket_new(MUPNP_NET_SOCKET_DGRAM)
-BOOL mupnp_socket_delete(mUpnpSocket *socket);
+bool mupnp_socket_delete(mUpnpSocket *socket);
 
 void mupnp_socket_setid(mUpnpSocket *socket, SOCKET value);
 #define mupnp_socket_getid(socket) (socket->id)
 
 #define mupnp_socket_settype(socket, value) (socket->type = value)
 #define mupnp_socket_gettype(socket) (socket->type)
-#define mupnp_socket_issocketstream(socket) ((socket->type & MUPNP_NET_SOCKET_STREAM) ? TRUE : FALSE)
-#define mupnp_socket_isdatagramstream(socket) ((socket->type & MUPNP_NET_SOCKET_DGRAM) ? TRUE : FALSE)
+#define mupnp_socket_issocketstream(socket) ((socket->type & MUPNP_NET_SOCKET_STREAM) ? true : false)
+#define mupnp_socket_isdatagramstream(socket) ((socket->type & MUPNP_NET_SOCKET_DGRAM) ? true : false)
 
 #define mupnp_socket_setdirection(socket, value) (socket->direction = value)
 #define mupnp_socket_getdirection(socket) (socket->direction)
-#define mupnp_socket_isclient(socket) ((socket->direction == MUPNP_NET_SOCKET_CLIENT) ? TRUE : FALSE)
-#define mupnp_socket_isserver(socket) ((socket->direction == MUPNP_NET_SOCKET_SERVER) ? TRUE : FALSE)
+#define mupnp_socket_isclient(socket) ((socket->direction == MUPNP_NET_SOCKET_CLIENT) ? true : false)
+#define mupnp_socket_isserver(socket) ((socket->direction == MUPNP_NET_SOCKET_SERVER) ? true : false)
 
 #define mupnp_socket_setaddress(socket, value) mupnp_string_setvalue(socket->ipaddr, value)
 #define mupnp_socket_setport(socket, value) (socket->port = value)
 #define mupnp_socket_getaddress(socket) mupnp_string_getvalue(socket->ipaddr)
 #define mupnp_socket_getport(socket) (socket->port)
 
-BOOL mupnp_socket_isbound(mUpnpSocket *socket);
-BOOL mupnp_socket_close(mUpnpSocket *socket);
+bool mupnp_socket_isbound(mUpnpSocket *socket);
+bool mupnp_socket_close(mUpnpSocket *socket);
 
-BOOL mupnp_socket_listen(mUpnpSocket *socket);
+bool mupnp_socket_listen(mUpnpSocket *socket);
 
-BOOL mupnp_socket_bind(mUpnpSocket *sock, int bindPort, const char *bindAddr, BOOL bindFlag, BOOL reuseFlag);
-BOOL mupnp_socket_accept(mUpnpSocket *sock, mUpnpSocket *clientSock);
-BOOL mupnp_socket_connect(mUpnpSocket *sock, const char *addr, int port);
+bool mupnp_socket_bind(mUpnpSocket *sock, int bindPort, const char *bindAddr, bool bindFlag, bool reuseFlag);
+bool mupnp_socket_accept(mUpnpSocket *sock, mUpnpSocket *clientSock);
+bool mupnp_socket_connect(mUpnpSocket *sock, const char *addr, int port);
 ssize_t mupnp_socket_read(mUpnpSocket *sock, char *buffer, size_t bufferLen);
 size_t mupnp_socket_write(mUpnpSocket *sock, const char *buffer, size_t bufferLen);
 ssize_t mupnp_socket_readline(mUpnpSocket *sock, char *buffer, size_t bufferLen);
@@ -155,15 +155,15 @@ int mupnp_socket_getlasterror();
 * Function (Multicast)
 ****************************************/
 
-BOOL mupnp_socket_joingroup(mUpnpSocket *sock, const char *mcastAddr, const char *ifAddr);
+bool mupnp_socket_joingroup(mUpnpSocket *sock, const char *mcastAddr, const char *ifAddr);
 
 /****************************************
 * Function (Option)
 ****************************************/
 
-BOOL mupnp_socket_setreuseaddress(mUpnpSocket *socket, BOOL flag);
-BOOL mupnp_socket_setmulticastttl(mUpnpSocket *sock,  int ttl);
-BOOL mupnp_socket_settimeout(mUpnpSocket *sock, int sec);
+bool mupnp_socket_setreuseaddress(mUpnpSocket *socket, bool flag);
+bool mupnp_socket_setmulticastttl(mUpnpSocket *sock,  int ttl);
+bool mupnp_socket_settimeout(mUpnpSocket *sock, int sec);
 
 /****************************************
 * Function (DatagramPacket)
@@ -193,7 +193,7 @@ void mupnp_socket_datagram_packet_copy(mUpnpDatagramPacket *dstDgmPkt, mUpnpData
 #if defined(MUPNP_USE_OPENSSL)
 #define MUPNP_NET_SOCKET_SSL 0x0100
 #define mupnp_socket_ssl_new() mupnp_socket_new(MUPNP_NET_SOCKET_STREAM | MUPNP_NET_SOCKET_SSL)
-#define mupnp_socket_isssl(socket) ((socket->type & MUPNP_NET_SOCKET_SSL) ? TRUE : FALSE)
+#define mupnp_socket_isssl(socket) ((socket->type & MUPNP_NET_SOCKET_SSL) ? true : false)
 #endif
 
 /****************************************

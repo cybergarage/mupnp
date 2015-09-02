@@ -42,7 +42,7 @@ mUpnpDictionaryElement *mupnp_dictionary_element_new()
 * mupnp_dictionary_element_delete
 ****************************************/
 
-BOOL mupnp_dictionary_element_delete(mUpnpDictionaryElement *dirElem)
+bool mupnp_dictionary_element_delete(mUpnpDictionaryElement *dirElem)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
@@ -56,5 +56,5 @@ BOOL mupnp_dictionary_element_delete(mUpnpDictionaryElement *dirElem)
 
 	mupnp_log_debug_l4("Leaving...\n");
 
-	return TRUE;
+	return true;
 }

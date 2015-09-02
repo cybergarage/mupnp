@@ -87,7 +87,7 @@ void mupnp_statevariable_setstatevariablenode(mUpnpStateVariable *statVar, mUpnp
 * mupnp_statevariable_setvaluewithnotify
 ****************************************/
 
-static void mupnp_statevariable_setvaluewithnotify(mUpnpStateVariable *statVar, const char *data, BOOL doNotify)
+static void mupnp_statevariable_setvaluewithnotify(mUpnpStateVariable *statVar, const char *data, bool doNotify)
 {
 	mUpnpService *service;
 
@@ -98,7 +98,7 @@ static void mupnp_statevariable_setvaluewithnotify(mUpnpStateVariable *statVar, 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 	/**** notify event ****/
 	if (doNotify) {
-		if (mupnp_statevariable_issendevents(statVar) == FALSE)
+		if (mupnp_statevariable_issendevents(statVar) == false)
 			return;
 
 		service = mupnp_statevariable_getservice(statVar);
@@ -120,7 +120,7 @@ void mupnp_statevariable_setvalue(mUpnpStateVariable *statVar, const char *data)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_statevariable_setvaluewithnotify(statVar, data, TRUE);
+	mupnp_statevariable_setvaluewithnotify(statVar, data, true);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -133,7 +133,7 @@ void mupnp_statevariable_setvaluewithoutnotify(mUpnpStateVariable *statVar, cons
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_statevariable_setvaluewithnotify(statVar, data, FALSE);
+	mupnp_statevariable_setvaluewithnotify(statVar, data, false);
 
 	mupnp_log_debug_l4("Leaving...\n");
 }

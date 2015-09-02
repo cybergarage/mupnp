@@ -40,7 +40,7 @@ static void mupnp_device_advertiser_action(mUpnpThread *thread)
   leaseTime = mupnp_device_getleasetime(dev);
   
   /* Run this thread until it is stopped from outside */
-    while ( mupnp_thread_isrunnable(thread) == TRUE )
+    while ( mupnp_thread_isrunnable(thread) == true )
     {
       notifyInterval = (leaseTime/4) + (long)((float)leaseTime * (mupnp_random() * 0.25f));
       notifyInterval *= 1000;
@@ -49,7 +49,7 @@ static void mupnp_device_advertiser_action(mUpnpThread *thread)
       mupnp_wait(notifyInterval); 
 
       /* Check if we must exit before sending new announce */
-      if ( mupnp_thread_isrunnable(thread) == FALSE ) break;
+      if ( mupnp_thread_isrunnable(thread) == false ) break;
 
       /* Initiate advertise routine after sleeping */
       mupnp_device_announce(dev);
@@ -65,7 +65,7 @@ static void mupnp_device_advertiser_action(mUpnpThread *thread)
  *
  * \param dev The device that is to be advertised
  */
-BOOL mupnp_device_advertiser_start(mUpnpDevice *dev)
+bool mupnp_device_advertiser_start(mUpnpDevice *dev)
 {
 	mUpnpThread *advertiser;
   
@@ -93,7 +93,7 @@ BOOL mupnp_device_advertiser_start(mUpnpDevice *dev)
  *
  * \param dev Device that is being advertised
  */
-BOOL mupnp_device_advertiser_stop(mUpnpDevice *dev)
+bool mupnp_device_advertiser_stop(mUpnpDevice *dev)
 {
 	mUpnpThread *advertiser;
   
@@ -105,7 +105,7 @@ BOOL mupnp_device_advertiser_stop(mUpnpDevice *dev)
 	//Theo Beisch 
 	if (advertiser != NULL)
  		return mupnp_thread_stop(advertiser);
-	return FALSE;
+	return false;
 }
 
 /**
@@ -115,7 +115,7 @@ BOOL mupnp_device_advertiser_stop(mUpnpDevice *dev)
  *
  * \param dev Device that is being advertised
  */
-BOOL mupnp_device_advertiser_isrunning(mUpnpDevice *dev)
+bool mupnp_device_advertiser_isrunning(mUpnpDevice *dev)
 {
 	mUpnpThread *advertiser;
 	
@@ -125,5 +125,5 @@ BOOL mupnp_device_advertiser_isrunning(mUpnpDevice *dev)
 	if (advertiser != NULL)
  		return mupnp_thread_isrunnable(advertiser);
 
-	return FALSE;
+	return false;
 }

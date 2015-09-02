@@ -199,7 +199,7 @@ long mupnp_file_getlength(mUpnpFile *file)
 * mupnp_file_exists
 ****************************************/
 
-BOOL mupnp_file_exists(mUpnpFile *file)
+bool mupnp_file_exists(mUpnpFile *file)
 {
 #if !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) 
 	FILE *fp;
@@ -215,15 +215,15 @@ BOOL mupnp_file_exists(mUpnpFile *file)
 #if !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) 
 	fp = fopen(fileName, "r");
 	if (fp == NULL)
-		return FALSE;
+		return false;
 	fclose(fp);
-	return TRUE;
+	return true;
 #else
 	fd = open(fileName, O_RDONLY);
 	if (fd == -1)
-		return FALSE;
+		return false;
 	close(fd);
-	return TRUE;
+	return true;
 #endif
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -233,7 +233,7 @@ BOOL mupnp_file_exists(mUpnpFile *file)
 * mupnp_file_remove
 ****************************************/
 
-BOOL mupnp_file_remove(mUpnpFile *file)
+bool mupnp_file_remove(mUpnpFile *file)
 {
 	char *fileName;
 	int removeSuccess = 0;
@@ -248,7 +248,7 @@ BOOL mupnp_file_remove(mUpnpFile *file)
 	removeSuccess = remove(fileName);
 #endif
 	
-	return (removeSuccess == 0) ? TRUE : FALSE;
+	return (removeSuccess == 0) ? true : false;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -345,7 +345,7 @@ char *mupnp_file_getpath(mUpnpFile *file)
 * mupnp_file_load
 ****************************************/
 
-BOOL mupnp_file_load(mUpnpFile *file)
+bool mupnp_file_load(mUpnpFile *file)
 {
 #if defined(WIN32) || defined(HAVE_FOPEN)
 	FILE *fp;
@@ -362,7 +362,7 @@ BOOL mupnp_file_load(mUpnpFile *file)
 	mupnp_log_debug_l4("Entering...\n");
 
 	if ( NULL == file )
-		return FALSE;
+		return false;
 	
 	if (file->content != NULL) {
 		free(file->content);
@@ -371,7 +371,7 @@ BOOL mupnp_file_load(mUpnpFile *file)
 	
 	fileLen = mupnp_file_getlength(file);
 	if (fileLen <= 0)
-		return FALSE;
+		return false;
 		
 	fileName = mupnp_file_getname(file);
 	file->content = (char *)malloc(fileLen + 1);		
@@ -379,14 +379,14 @@ BOOL mupnp_file_load(mUpnpFile *file)
 	if ( NULL == file->content )
 	{
 		mupnp_log_debug("Memory allocation failure!\n");
-		return FALSE;
+		return false;
 	}
 	
 #if defined(WIN32) || defined(HAVE_FOPEN)
 	fp = fopen(fileName, "r");
 	if (fp == NULL) {
 		file->content[0] = '\0';
-		return FALSE;
+		return false;
 	}
 	readCnt = 0;
 	do {
@@ -400,7 +400,7 @@ BOOL mupnp_file_load(mUpnpFile *file)
 	fd = open(fileName, O_RDONLY);
 	if (fd == -1) {
 		file->content[0] = '\0';
-		return FALSE;
+		return false;
 	}
 	readCnt = 0;
 	nRead = read(fd, (file->content)+readCnt, MUPNP_FILE_READ_CHUNK_SIZE);
@@ -413,7 +413,7 @@ BOOL mupnp_file_load(mUpnpFile *file)
 
 	file->content[readCnt] = '\0';
 	
-	return TRUE;
+	return true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -422,7 +422,7 @@ BOOL mupnp_file_load(mUpnpFile *file)
 * mupnp_file_save
 ****************************************/
 
-BOOL mupnp_file_save(mUpnpFile *file)
+bool mupnp_file_save(mUpnpFile *file)
 {
 #if defined(WIN32) || defined(HAVE_FOPEN)
 	FILE *fp;
@@ -441,19 +441,19 @@ BOOL mupnp_file_save(mUpnpFile *file)
 
 	fileName = mupnp_file_getname(file);
 	if (fileName == NULL)
-		return FALSE;
+		return false;
 		
 	if (file->content == NULL)
-		return FALSE;
+		return false;
 	
 	contentLen = mupnp_strlen(file->content);
 	if (contentLen <= 0)
-		return FALSE;
+		return false;
 	
 #if defined(WIN32) || defined(HAVE_FOPEN)
 	fp = fopen(fileName, "w");
 	if (fp == NULL)
-		return FALSE;
+		return false;
 	writeCnt = 0;
 	nWrite = fwrite((file->content)+writeCnt, sizeof(char), contentLen-writeCnt, fp);
 	while (0 < nWrite) {
@@ -466,7 +466,7 @@ BOOL mupnp_file_save(mUpnpFile *file)
 #else
 	fd = open(fileName, O_WRONLY);
 	if (fd == -1)
-		return FALSE;
+		return false;
 	writeCnt = 0;
 	nWrite = write(fd, (file->content)+writeCnt, contentLen-writeCnt);
 	while (0 < nWrite) {
@@ -478,7 +478,7 @@ BOOL mupnp_file_save(mUpnpFile *file)
 	close(fd);
 #endif
 
-	return TRUE;
+	return true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -562,7 +562,7 @@ int mupnp_file_listfiles(mUpnpFile *file, mUpnpFileList *fileList)
 				
 #if defined(WIN32)
 			}
-		} while(FindNextFile(hFind,&fd) != FALSE);
+		} while(FindNextFile(hFind,&fd) != false);
 		FindClose(hFind);
 	}
 	mupnp_string_delete(findDirStr);
@@ -581,14 +581,14 @@ int mupnp_file_listfiles(mUpnpFile *file, mUpnpFileList *fileList)
 * mupnp_file_listfiles
 ****************************************/
 
-BOOL mupnp_file_open(mUpnpFile *file, int mode)
+bool mupnp_file_open(mUpnpFile *file, int mode)
 {
 	char *filename;
 	char *stdioMode;
 
 	filename = mupnp_file_getname(file);
 	if (mupnp_strlen(filename) <= 0)
-		return FALSE;
+		return false;
 
 	stdioMode = "";
 	if (mode & MUPNP_FILE_OPEN_WRITE) {
@@ -602,60 +602,60 @@ BOOL mupnp_file_open(mUpnpFile *file, int mode)
 
 	file->fp = fopen(filename, stdioMode);
 	
-	return (file->fp) ? TRUE : FALSE;
+	return (file->fp) ? true : false;
 }
 
 /****************************************
 * mupnp_file_listfiles
 ****************************************/
 
-BOOL mupnp_file_close(mUpnpFile *file)
+bool mupnp_file_close(mUpnpFile *file)
 {
 	if (!file->fp)
-		return FALSE;
+		return false;
 
 	if (fclose(file->fp) == 0) {
 		file->fp = NULL;
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
 * mupnp_file_listfiles
 ****************************************/
 
-BOOL mupnp_file_write(mUpnpFile *file, mUpnpByte *buf, int bufLen)
+bool mupnp_file_write(mUpnpFile *file, mUpnpByte *buf, int bufLen)
 {
 	if (!file->fp)
-		return FALSE;
+		return false;
 
-	return (fwrite(buf, 1, bufLen, file->fp) == bufLen) ? TRUE : FALSE;
+	return (fwrite(buf, 1, bufLen, file->fp) == bufLen) ? true : false;
 }
 
 /****************************************
 * mupnp_file_listfiles
 ****************************************/
 
-BOOL mupnp_file_read(mUpnpFile *file, mUpnpByte *buf, int bufLen)
+bool mupnp_file_read(mUpnpFile *file, mUpnpByte *buf, int bufLen)
 {
 	if (!file->fp)
-		return FALSE;
+		return false;
 
-	return (fread(buf, 1, bufLen, file->fp) == bufLen) ? TRUE : FALSE;
+	return (fread(buf, 1, bufLen, file->fp) == bufLen) ? true : false;
 }
 
 /****************************************
 * mupnp_file_listfiles
 ****************************************/
 
-BOOL mupnp_file_seek(mUpnpFile *file, mUpnpInt64 offset, int whence)
+bool mupnp_file_seek(mUpnpFile *file, mUpnpInt64 offset, int whence)
 {
 	int stdioWhence;
 
 	if (!file->fp)
-		return FALSE;
+		return false;
 
 	switch (whence) {
 	case MUPNP_FILE_SEEK_SET:
@@ -671,7 +671,7 @@ BOOL mupnp_file_seek(mUpnpFile *file, mUpnpInt64 offset, int whence)
 		stdioWhence = 0;
 	}
 
-	return (fseek(file->fp, (long)offset, stdioWhence) == 0) ? TRUE : FALSE;
+	return (fseek(file->fp, (long)offset, stdioWhence) == 0) ? true : false;
 }
 
 /****************************************

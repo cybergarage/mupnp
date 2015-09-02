@@ -98,7 +98,7 @@ const char *mupnp_ssdp_gethostaddress(const char *ifAddr)
 
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_net_isipv6address(ifAddr) == TRUE)
+	if (mupnp_net_isipv6address(ifAddr) == true)
 		ssdpAddr = mupnp_ssdp_getipv6address();
 	return ssdpAddr;
 

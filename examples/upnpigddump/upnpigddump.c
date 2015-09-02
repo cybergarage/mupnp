@@ -92,7 +92,7 @@ int main( int argc, char* argv[] )
 	mUpnpControlPoint *ctrlPoint;
 
 	ctrlPoint = mupnp_controlpoint_new();
-	if (mupnp_controlpoint_start(ctrlPoint) == FALSE) {
+	if (!mupnp_controlpoint_start(ctrlPoint)) {
 		printf("Couldn't start this control point !!");
 		exit(1);
 	}

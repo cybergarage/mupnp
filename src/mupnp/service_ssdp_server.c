@@ -38,12 +38,12 @@ void mupnp_service_ssdpmessagereceived(mUpnpService *service, mUpnpSSDPPacket *s
 	mupnp_service_getnotifyservicetypent(service, serviceNT, sizeof(serviceNT));
 	mupnp_service_getnotifyservicetypeusn(service, serviceUSN, sizeof(serviceUSN));
 	
-	if (mupnp_st_isalldevice(ssdpST) == TRUE) {
+	if (mupnp_st_isalldevice(ssdpST) == true) {
 			mupnp_device_postsearchresponse(dev, ssdpPkt, serviceNT, serviceUSN);
 	}
-	else if (mupnp_st_isurn(ssdpST)  == TRUE) {
+	else if (mupnp_st_isurn(ssdpST)  == true) {
 		serviceType = mupnp_service_getservicetype(service);
-		if (mupnp_streq(ssdpST, serviceType) == TRUE)
+		if (mupnp_streq(ssdpST, serviceType) == true)
 			mupnp_device_postsearchresponse(dev, ssdpPkt, serviceType, serviceUSN);
 	}
 

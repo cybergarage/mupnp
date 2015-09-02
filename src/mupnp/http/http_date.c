@@ -147,13 +147,13 @@ static const int dayLearYear[ ] = {
 	31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
 };
 
-static BOOL IsLeapYear(int year)
+static bool IsLeapYear(int year)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
     if (!(year % 4) && ((year % 100) || !(year % 400)))
-        return TRUE;
-	return FALSE;
+        return true;
+	return false;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }

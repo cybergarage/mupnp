@@ -30,7 +30,7 @@ mUpnpSoapResponse *mupnp_soap_response_new()
 		soapRes->rootNodeList = mupnp_xml_nodelist_new();
 
 		soapRes->httpRes = mupnp_http_response_new();
-		soapRes->isHttpResCreated = TRUE;
+		soapRes->isHttpResCreated = true;
 	
 		mupnp_soap_response_setuserdata(soapRes, NULL);
 	}
@@ -51,7 +51,7 @@ void mupnp_soap_response_delete(mUpnpSoapResponse *soapRes)
 	mupnp_soap_response_clear(soapRes);
 	mupnp_xml_nodelist_delete(soapRes->rootNodeList);
 
-	if (soapRes->isHttpResCreated == TRUE)
+	if (soapRes->isHttpResCreated == true)
 		mupnp_http_response_delete(soapRes->httpRes);
 
 	free(soapRes);
@@ -69,10 +69,10 @@ void mupnp_soap_response_clear(mUpnpSoapResponse *soapRes)
 
 	mupnp_xml_nodelist_clear(soapRes->rootNodeList);
 
-	if (soapRes->isHttpResCreated == TRUE)
+	if (soapRes->isHttpResCreated == true)
 		mupnp_http_response_delete(soapRes->httpRes);
 	soapRes->httpRes = mupnp_http_response_new();
-	soapRes->isHttpResCreated = TRUE;
+	soapRes->isHttpResCreated = true;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -90,7 +90,7 @@ mUpnpXmlNode *mupnp_soap_response_getbodynode(mUpnpSoapResponse *soapRes)
 	envNode = mupnp_soap_response_getenvelopenode(soapRes);
 	if (envNode == NULL)
 		return NULL;
-	if (mupnp_xml_node_haschildnodes(envNode) == FALSE)
+	if (mupnp_xml_node_haschildnodes(envNode) == false)
 		return NULL;
 	return mupnp_xml_node_getchildnodes(envNode);
 
@@ -105,10 +105,10 @@ void mupnp_soap_response_sethttpresponse(mUpnpSoapResponse *soapRes, mUpnpHttpRe
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (soapRes->isHttpResCreated == TRUE)
+	if (soapRes->isHttpResCreated == true)
 		mupnp_http_response_delete(soapRes->httpRes);
 	soapRes->httpRes = httpRes;
-	soapRes->isHttpResCreated = FALSE;
+	soapRes->isHttpResCreated = false;
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
@@ -133,7 +133,7 @@ void mupnp_soap_response_setcontent(mUpnpSoapResponse *soapReq, mUpnpXmlNode *no
 					mupnp_strlen(MUPNP_SOAP_VERSION_HEADER));
 	mupnp_http_response_appendncontent(httpRes, MUPNP_XML_CONTENT_LF,
 					mupnp_strlen(MUPNP_XML_CONTENT_LF));
-	mupnp_xml_node_tostring(node, TRUE, httpRes->content);
+	mupnp_xml_node_tostring(node, true, httpRes->content);
 	
 	/**** content length ****/
 	mupnp_http_response_setcontentlength(httpRes, 

@@ -81,14 +81,14 @@ void mupnp_ssdp_packet_clear(mUpnpSSDPPacket *ssdpPkt)
 * mupnp_ssdp_packet_isrootdevice
 ****************************************/
 
-BOOL mupnp_ssdp_packet_isrootdevice(mUpnpSSDPPacket *ssdpPkt)
+bool mupnp_ssdp_packet_isrootdevice(mUpnpSSDPPacket *ssdpPkt)
 {
 	mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_nt_isrootdevice(mupnp_ssdp_packet_getnt(ssdpPkt)) == TRUE)
-		return TRUE;
-	if (mupnp_st_isrootdevice(mupnp_ssdp_packet_getst(ssdpPkt)) == TRUE)
-		return TRUE;
+	if (mupnp_nt_isrootdevice(mupnp_ssdp_packet_getnt(ssdpPkt)) == true)
+		return true;
+	if (mupnp_st_isrootdevice(mupnp_ssdp_packet_getst(ssdpPkt)) == true)
+		return true;
 	return mupnp_usn_isrootdevice(mupnp_ssdp_packet_getusn(ssdpPkt));
 
 	mupnp_log_debug_l4("Leaving...\n");
@@ -112,18 +112,18 @@ void mupnp_ssdp_packet_setheader(mUpnpSSDPPacket *ssdpPkt, char *ssdpMsg)
 	ssdpTok = mupnp_string_tokenizer_new(ssdpMsg, MUPNP_HTTP_CRLF);
 
 	/**** skip the first line ****/	
-	if (mupnp_string_tokenizer_hasmoretoken(ssdpTok) == FALSE)
+	if (mupnp_string_tokenizer_hasmoretoken(ssdpTok) == false)
 		return;
 	lineMsg = mupnp_string_tokenizer_nexttoken(ssdpTok);
 	
-	while (mupnp_string_tokenizer_hasmoretoken(ssdpTok) == TRUE) {
+	while (mupnp_string_tokenizer_hasmoretoken(ssdpTok) == true) {
 		lineMsg = mupnp_string_tokenizer_nexttoken(ssdpTok);
 		name = NULL;
 		value = NULL;
 		ssdpLineTok = mupnp_string_tokenizer_new(lineMsg, MUPNP_HTTP_HEADERLINE_DELIM);
-		if (mupnp_string_tokenizer_hasmoretoken(ssdpLineTok) == TRUE)
+		if (mupnp_string_tokenizer_hasmoretoken(ssdpLineTok) == true)
 			name = mupnp_string_tokenizer_nexttoken(ssdpLineTok);
-		if (mupnp_string_tokenizer_hasmoretoken(ssdpLineTok) == TRUE) {
+		if (mupnp_string_tokenizer_hasmoretoken(ssdpLineTok) == true) {
 			value = mupnp_string_tokenizer_nextalltoken(ssdpLineTok);
 			mupnp_strrtrim(value, MUPNP_HTTP_HEADERLINE_DELIM, mupnp_strlen(MUPNP_HTTP_HEADERLINE_DELIM));
 		}

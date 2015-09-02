@@ -1058,9 +1058,9 @@ char *mupnp_service_getstddcp(mUpnpService *service)
  * mupnp_service_hasstddcp
  ****************************************/
 		
-BOOL mupnp_service_hasstddcp(mUpnpService *service)
+bool mupnp_service_hasstddcp(mUpnpService *service)
 {
-	return (mupnp_service_getstddcp(service) != NULL) ? TRUE : FALSE;
+	return (mupnp_service_getstddcp(service) != NULL) ? true : false;
 }		
 		
 /****************************************
