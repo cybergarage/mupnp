@@ -14,7 +14,7 @@ cdms_filesys_SOURCES = \
 	../cdms_filesys_main.c
 
 if HAVE_LIBTOOL
-cdms_filesys_LDADD = -lclinkc ../../../../lib/unix/libmupnpav.la
+cdms_filesys_LDADD = -lmupnp ../../../../lib/unix/libmupnpav.la
 else
-cdms_filesys_LDADD = -lclinkc ../../../../lib/unix/libmupnpav.a
+cdms_filesys_LDADD = -lmupnp ../../../../lib/unix/libmupnpav.a
 endif

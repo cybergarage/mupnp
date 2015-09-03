@@ -3,9 +3,9 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: clinkc
-Description: CyberLink for C UPnP library
+Name: mupnp
+Description: mUPnP for C
 Version: @VERSION@
 Requires:
-Libs: -L@libdir@ -lclinkc
+Libs: -L@libdir@ -lmupnp
 Cflags: -I${includedir}

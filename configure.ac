@@ -569,7 +569,7 @@ fi
 ##############################
 
 AC_OUTPUT([
-clinkc.pc
+mupnp.pc
 Makefile
 include/Makefile
 lib/Makefile

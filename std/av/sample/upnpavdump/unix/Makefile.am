@@ -10,7 +10,7 @@ upnpavdump_SOURCES = \
 	../upnpavdump.c
 
 if HAVE_LIBTOOL
-upnpavdump_LDADD = -lclinkc ../../../lib/unix/libmupnpav.la
+upnpavdump_LDADD = -lmupnp ../../../lib/unix/libmupnpav.la
 else
-upnpavdump_LDADD = -lclinkc ../../../lib/unix/libmupnpav.a
+upnpavdump_LDADD = -lmupnp ../../../lib/unix/libmupnpav.a
 endif

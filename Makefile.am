@@ -18,7 +18,7 @@ EXTRA_DIST = debian/changelog \
 	include/cybergarage/upnp/cupnp.h.in
 
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = clinkc.pc
+pkgconfig_DATA = mupnp.pc
 
 dist_docs_DATA = \
 	COPYING
@@ -28,9 +28,11 @@ dist_devdocs_DATA = \
 	COPYING \
 	Doxyfile
 
-nobase_devdocs_DATA = \
-	doxygen/html/* \
-	doxygen-objc/html/*
+#nobase_devdocs_DATA = \
+#	doxygen/html/* \
+#	doxygen-objc/html/*
+
+doxygen: doxygen/html/* doxygen/html/*
 
 doxygen/html/*:
 	cd $(srcdir) && doxygen Doxyfile
