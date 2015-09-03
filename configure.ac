@@ -555,13 +555,28 @@ AC_SEARCH_LIBS([gethostbyname], [nsl])
 AC_SEARCH_LIBS([socket], [socket inet])
 
 ##############################
+# Examples
+##############################
+
+AC_ARG_ENABLE(
+  [examples],
+  AC_HELP_STRING([--enable-examples],
+  [ build examples (default = yes) ]),
+  [case "${enableval}" in
+    yes | no ) build_examples="${enableval}" ;;
+  esac],
+  [build_examples="yes"]
+)
+AM_CONDITIONAL(MUPNP_ENABLE_EXAMPLES,test "$build_examples" = yes)
+
+##############################
 # Testing
 ##############################
 
 AC_ARG_ENABLE([tests], AC_HELP_STRING([--enable-tests], [ build tests (default = no) ]), [build_tests="yes"], [])
-AM_CONDITIONAL(UNITTESTS,test "$build_tests" = yes)
+AM_CONDITIONAL(MUPNP_ENABLE_TESTS,test "$build_tests" = yes)
 if [ test "$build_tests" = yes ]; then
-        AC_CHECK_LIB([boost_unit_test_framework-mt],[main],,[AC_MSG_ERROR(uHTTP unittests need boost::unit_test_framework)])
+        AC_CHECK_LIB([boost_unit_test_framework-mt],[main],,[AC_MSG_ERROR(mUPnP unittests need boost::unit_test_framework)])
 fi
 
 ##############################

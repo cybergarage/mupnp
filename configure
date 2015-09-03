@@ -623,8 +623,10 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
-UNITTESTS_FALSE
-UNITTESTS_TRUE
+MUPNP_ENABLE_TESTS_FALSE
+MUPNP_ENABLE_TESTS_TRUE
+MUPNP_ENABLE_EXAMPLES_FALSE
+MUPNP_ENABLE_EXAMPLES_TRUE
 HTTP_LIBS
 HTTP_CFLAGS
 CLOG_DEBUG_FLAGS
@@ -745,6 +747,7 @@ enable_cfile
 enable_openssl
 enable_libcurl
 enable_mudflap_debug
+enable_examples
 enable_tests
 '
       ac_precious_vars='build_alias
@@ -1400,6 +1403,7 @@ Optional Features:
   --enable-openssl        enable file functions (default = no)
   --enable-libcurl        enable Libcurl support (default = no)
   --enable-mudflap-debug  enable libmudflap debug (default = no)
+  --enable-examples       build examples (default = yes)
   --enable-tests          build tests (default = no)
 
 Optional Packages:
@@ -6357,6 +6361,29 @@ fi
 
 
 ##############################
+# Examples
+##############################
+
+# Check whether --enable-examples was given.
+if test "${enable_examples+set}" = set; then :
+  enableval=$enable_examples; case "${enableval}" in
+    yes | no ) build_examples="${enableval}" ;;
+  esac
+else
+  build_examples="yes"
+
+fi
+
+ if test "$build_examples" = yes; then
+  MUPNP_ENABLE_EXAMPLES_TRUE=
+  MUPNP_ENABLE_EXAMPLES_FALSE='#'
+else
+  MUPNP_ENABLE_EXAMPLES_TRUE='#'
+  MUPNP_ENABLE_EXAMPLES_FALSE=
+fi
+
+
+##############################
 # Testing
 ##############################
 
@@ -6366,11 +6393,11 @@ if test "${enable_tests+set}" = set; then :
 fi
 
  if test "$build_tests" = yes; then
-  UNITTESTS_TRUE=
-  UNITTESTS_FALSE='#'
+  MUPNP_ENABLE_TESTS_TRUE=
+  MUPNP_ENABLE_TESTS_FALSE='#'
 else
-  UNITTESTS_TRUE='#'
-  UNITTESTS_FALSE=
+  MUPNP_ENABLE_TESTS_TRUE='#'
+  MUPNP_ENABLE_TESTS_FALSE=
 fi
 
 if  test "$build_tests" = yes ; then
@@ -6412,7 +6439,7 @@ _ACEOF
   LIBS="-lboost_unit_test_framework-mt $LIBS"
 
 else
-  as_fn_error $? "uHTTP unittests need boost::unit_test_framework" "$LINENO" 5
+  as_fn_error $? "mUPnP unittests need boost::unit_test_framework" "$LINENO" 5
 fi
 
 fi
@@ -6563,8 +6590,12 @@ if test -z "${HAVE_LIBTOOL_TRUE}" && test -z "${HAVE_LIBTOOL_FALSE}"; then
   as_fn_error $? "conditional \"HAVE_LIBTOOL\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${UNITTESTS_TRUE}" && test -z "${UNITTESTS_FALSE}"; then
-  as_fn_error $? "conditional \"UNITTESTS\" was never defined.
+if test -z "${MUPNP_ENABLE_EXAMPLES_TRUE}" && test -z "${MUPNP_ENABLE_EXAMPLES_FALSE}"; then
+  as_fn_error $? "conditional \"MUPNP_ENABLE_EXAMPLES\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${MUPNP_ENABLE_TESTS_TRUE}" && test -z "${MUPNP_ENABLE_TESTS_FALSE}"; then
+  as_fn_error $? "conditional \"MUPNP_ENABLE_TESTS\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

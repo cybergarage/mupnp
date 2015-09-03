@@ -1,7 +1,9 @@
-if UNITTESTS 
-SUBDIRS = include lib examples tests
-else
-SUBDIRS = include lib examples 
+SUBDIRS = include lib
+if MUPNP_ENABLE_EXAMPLES
+SUBDIRS += examples
+endif
+if MUPNP_ENABLE_TESTS
+SUBDIRS += tests
 endif
 
 devdocsdir = $(datadir)/doc/clinkc-dev
