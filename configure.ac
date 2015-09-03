@@ -133,7 +133,7 @@ if [ test $USE_LIBXML2 = yes ]; then
 		XML_LIBS=`pkg-config libxml-2.0 --libs`
 		AC_SUBST(XML_LIBS)
 	],[
-		AC_MSG_ERROR(CyberLink needs libxml2-dev >= $LIBXML2_VERSION)
+		AC_MSG_ERROR(mUPnP needs libxml2-dev >= $LIBXML2_VERSION)
 	])
 fi
 
@@ -150,7 +150,7 @@ if [ test $USE_LIBXML2 != yes ]; then
 		XML_LIBS="-lexpat"
 		AC_SUBST(XML_LIBS)
   ],[
-    AC_MSG_ERROR(CyberLink needs Expat >= $EXPAT_VERSION)
+    AC_MSG_ERROR(mUPnP needs Expat >= $EXPAT_VERSION)
   ])
 fi
 
@@ -369,7 +369,7 @@ if [ test $USE_LIBCURL = yes ]; then
 		HTTP_LIBS=`curl-config --libs`
 		AC_SUBST(HTTP_LIBS)
 	],[
-		AC_MSG_ERROR(CyberLink needs libcurl3-dev >= $LIBCURL_VERSION)
+		AC_MSG_ERROR(mUPnP needs libcurl3-dev >= $LIBCURL_VERSION)
 	])
 fi
 
@@ -385,7 +385,7 @@ AC_CHECK_LIB([iconv],[main])
 # Checks for pthread
 ##############################
 
-AC_CHECK_HEADERS([pthread.h],,[AC_MSG_ERROR(CyberLink needs POSIX thread library)])
+AC_CHECK_HEADERS([pthread.h],,[AC_MSG_ERROR(mUPnP needs POSIX thread library)])
 AC_CHECK_LIB([pthread],[main])
 
 ##############################

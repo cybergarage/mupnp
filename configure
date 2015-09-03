@@ -5141,7 +5141,7 @@ $as_echo "#define MUPNP_XMLPARSER_LIBXML2 1" >>confdefs.h
 
 else
 
-		as_fn_error $? "CyberLink needs libxml2-dev >= $LIBXML2_VERSION" "$LINENO" 5
+		as_fn_error $? "mUPnP needs libxml2-dev >= $LIBXML2_VERSION" "$LINENO" 5
 
 fi
 
@@ -5216,7 +5216,7 @@ $as_echo "#define MUPNP_XMLPARSER_EXPAT 1" >>confdefs.h
 
 else
 
-    as_fn_error $? "CyberLink needs Expat >= $EXPAT_VERSION" "$LINENO" 5
+    as_fn_error $? "mUPnP needs Expat >= $EXPAT_VERSION" "$LINENO" 5
 
 fi
 
@@ -5499,7 +5499,7 @@ $as_echo "#define MUPNP_HTTP_CURL 1" >>confdefs.h
 
 else
 
-		as_fn_error $? "CyberLink needs libcurl3-dev >= $LIBCURL_VERSION" "$LINENO" 5
+		as_fn_error $? "mUPnP needs libcurl3-dev >= $LIBCURL_VERSION" "$LINENO" 5
 
 fi
 
@@ -5585,7 +5585,7 @@ if test "x$ac_cv_header_pthread_h" = xyes; then :
 _ACEOF
 
 else
-  as_fn_error $? "CyberLink needs POSIX thread library" "$LINENO" 5
+  as_fn_error $? "mUPnP needs POSIX thread library" "$LINENO" 5
 fi
 
 done
