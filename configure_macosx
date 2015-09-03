@@ -1,2 +1,2 @@
 #!/bin/bash
-./configure CPPFLAGS="-I/usr/local/include/" LDFLAGS="-L/usr/local/lib" $@
+./configure CPPFLAGS="-I/usr/local/include/" LDFLAGS="-L/usr/local/lib" MKDIR_P='mkdir -p' $@
