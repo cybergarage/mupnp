@@ -169,9 +169,8 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpHttpHeader {
-	bool headFlag;
-	struct _mUpnpHttpHeader *prev;
-	struct _mUpnpHttpHeader *next;
+  MUPNP_LIST_MEMBERS
+  
 	mUpnpString *name;
 	mUpnpString *value;
 } mUpnpHttpHeader, mUpnpHttpHeaderList;
@@ -208,9 +207,8 @@ typedef struct _mUpnpHttpRequest {
 typedef void (*MUPNP_HTTP_LISTENER)(mUpnpHttpRequest *);
 
 typedef struct _mUpnpHttpServer {
-	bool headFlag;
-	struct _mUpnpHttpServer *prev;
-	struct _mUpnpHttpServer *next;
+  MUPNP_LIST_MEMBERS
+  
 	mUpnpSocket *sock;
 	mUpnpThread *acceptThread;
 	mUpnpThreadList *clientThreads;

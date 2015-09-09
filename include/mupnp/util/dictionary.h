@@ -35,9 +35,8 @@ extern "C" {
  * compatibility between different platforms (Linux, Win32 etc..)
  */
 typedef struct _mUpnpDictionary {
-	bool headFlag;
-	struct _mUpnpDictionary *prev;
-	struct _mUpnpDictionary *next;
+  MUPNP_LIST_MEMBERS
+  
 	mUpnpString *key;
 	mUpnpString *value;
 } mUpnpDictionaryElement, mUpnpDictionary;

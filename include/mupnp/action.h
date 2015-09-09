@@ -38,9 +38,8 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpAction {
-	bool headFlag;
-	struct _mUpnpAction *prev;
-	struct _mUpnpAction *next;
+  MUPNP_LIST_MEMBERS
+  
 	void *parentService;
 	mUpnpXmlNode *actionNode;
 	mUpnpArgumentList *argumentList;

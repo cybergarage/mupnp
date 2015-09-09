@@ -40,9 +40,8 @@ extern "C" {
  * The generic icon struct
  */
 typedef struct _mUpnpIcon {
-	bool headFlag;
-	struct _mUpnpIcon *prev;
-	struct _mUpnpIcon *next;
+  MUPNP_LIST_MEMBERS
+
 	mUpnpXmlNode *iconNode;
 } mUpnpIcon, mUpnpIconList;
 

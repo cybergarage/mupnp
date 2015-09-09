@@ -76,9 +76,7 @@ typedef int SOCKET;
 
 typedef struct _mUpnpSocket {
 #if defined(MUPNP_NET_USE_SOCKET_LIST)
-	bool headFlag;
-	struct _mUpnpSocket *prev;
-	struct _mUpnpSocket *next;
+  MUPNP_LIST_MEMBERS
 #endif
 	SOCKET id;
 	int type;

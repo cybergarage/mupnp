@@ -49,9 +49,8 @@ extern "C" {
 *****************************************************************************/
 
 typedef struct _mUpnpService {
-	bool headFlag;
-	struct _mUpnpService *prev;
-	struct _mUpnpService *next;
+  MUPNP_LIST_MEMBERS
+
 	mUpnpXmlNodeList *scpdNodeList;
 	mUpnpXmlNode *serviceNode;
 	mUpnpActionList *actionList;

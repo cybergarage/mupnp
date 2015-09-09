@@ -63,9 +63,8 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpFile {
-	bool headFlag;
-	struct _mUpnpFile *prev;
-	struct _mUpnpFile *next;
+  MUPNP_LIST_MEMBERS
+  
 	mUpnpString *name;
 	mUpnpString *path;
 	char *content;

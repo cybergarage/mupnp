@@ -53,9 +53,8 @@ extern "C" {
  * Data type definition for UPnP argument and UPnP argument list
  */
 typedef struct _mUpnpArgument {
-	bool headFlag;
-	struct _mUpnpArgument *prev;
-	struct _mUpnpArgument *next;
+  MUPNP_LIST_MEMBERS
+  
 	mUpnpXmlNode *serviceNode;
 	mUpnpXmlNode *argumentNode;
 	/**** Execution Data ****/

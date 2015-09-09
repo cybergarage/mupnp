@@ -62,10 +62,8 @@ extern "C" {
  * compatibility between different platforms (Linux, Win32 etc..)
  */
 typedef struct _mUpnpThread {
-	bool headFlag;
-	struct _mUpnpThread *prev;
-	struct _mUpnpThread *next;
-		
+  MUPNP_LIST_MEMBERS
+
 	/** Indicates whether this thread is ready to run */
 	bool runnableFlag;
 #if defined WINCE

@@ -47,9 +47,8 @@ typedef struct _mUpnpSSDPPacket {
 typedef void (*MUPNP_SSDP_LISTNER)(mUpnpSSDPPacket *);
 
 typedef struct _mUpnpSSDPServer {
-	bool headFlag;
-	struct _mUpnpSSDPServer *prev;
-	struct _mUpnpSSDPServer *next;
+  MUPNP_LIST_MEMBERS
+  
 	mUpnpHttpMuSocket *httpmuSock;
 	mUpnpThread *recvThread;
 	MUPNP_SSDP_LISTNER listener;
@@ -59,9 +58,8 @@ typedef struct _mUpnpSSDPServer {
 typedef void (*MUPNP_SSDP_RESPONSE_LISTNER)(mUpnpSSDPPacket *);
 
 typedef struct _mUpnpSSDPResponseServer {
-	bool headFlag;
-	struct _mUpnpSSDPServer *prev;
-	struct _mUpnpSSDPServer *next;
+  MUPNP_LIST_MEMBERS
+
 	mUpnpHttpUSocket *httpuSock;
 	mUpnpThread *recvThread;
 	MUPNP_SSDP_RESPONSE_LISTNER listener;

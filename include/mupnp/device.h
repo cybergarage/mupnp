@@ -121,12 +121,7 @@ typedef void (*MUPNP_PRESENTATION_LISTNER)(mUpnpHttpRequest *);
  */
 typedef struct _mUpnpDevice
 {
-  /** Used by mupnp_list_* functions to indicate start of list */
-  bool headFlag;
-  /** Used by mupnp_list_* functions to point to the previous item in list */
-  struct _mUpnpDevice *prev;
-  /** Used by mupnp_list_* functions to point to the next item in list */
-  struct _mUpnpDevice *next;
+  MUPNP_LIST_MEMBERS
   
   /** List of XML root nodes */
   mUpnpXmlNodeList *rootNodeList;

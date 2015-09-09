@@ -46,9 +46,8 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpNetworkInterface {
-	bool headFlag;
-	struct _mUpnpNetworkInterface *prev;
-	struct _mUpnpNetworkInterface *next;
+  MUPNP_LIST_MEMBERS
+
 	mUpnpString *name;
 	mUpnpString *ipaddr;
 	mUpnpString *netmask;
