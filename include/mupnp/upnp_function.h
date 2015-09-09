@@ -44,7 +44,7 @@ extern "C" {
 const char *mupnp_createuuid(char *uuidBuf, size_t uuidBufSize);
 
 /**
- * Get the server name ("OSname/OSversion/UPnP/<version> CyberLinkC/<version>")
+ * Get the server name ("OSname/OSversion/UPnP/<version> mUPnP/<version>")
  *
  * \param buf Buffer to store the server name
  * \param bufSize Buffer length

@@ -28,14 +28,27 @@ extern "C" {
  */
 typedef void (*MUPNP_LIST_DESTRUCTORFUNC)(void *);
 
+/**
+ * Macro for list node members
+ *
+ */
+
+#define MUPNP_LIST_MEMBERS \
+  /** Marks the beginning of a list */ \
+  bool headFlag; \
+  /** Pointer to the next list node */ \
+  struct _mUpnpList *prev; \
+  /** Pointer to the previous list node */ \
+  struct _mUpnpList *next;
+  
 /****************************************
  * Data Type
  ****************************************/
 
 /**
- * \brief The generic list interface in CyberLinkC.
+ * \brief The generic list interface in mUPnP.
  *
- * Each struct in CyberLinkC, that is designed to be a part of
+ * Each struct in mUPnP, that is designed to be a part of
  * a list, must have these elements in their definition before the
  * actual struct definition. The struct pointers are then cast to
  * mUpnpList* and operated with mupnp_list_* functions.

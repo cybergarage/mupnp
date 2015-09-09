@@ -37,7 +37,7 @@ extern "C" {
  ****************************************/
 
 /**
- * \brief The generic wrapper struct for CyberLinkC's mutexes.
+ * \brief The generic wrapper struct for mUPnP's mutexes.
  *
  * This wrapper has been created to enable 100% code
  * compatibility for different platforms (Linux, Win32 etc..)

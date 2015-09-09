@@ -56,7 +56,7 @@ extern "C" {
  ****************************************/
 
 /**
- * \brief The generic wrapper struct for CyberLinkC's threads.
+ * \brief The generic wrapper struct for mUPnP's threads.
  *
  * This wrapper has been created to enable 100% code
  * compatibility between different platforms (Linux, Win32 etc..)
