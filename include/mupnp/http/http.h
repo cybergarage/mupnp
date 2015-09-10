@@ -169,7 +169,7 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpHttpHeader {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
   
 	mUpnpString *name;
 	mUpnpString *value;
@@ -207,7 +207,7 @@ typedef struct _mUpnpHttpRequest {
 typedef void (*MUPNP_HTTP_LISTENER)(mUpnpHttpRequest *);
 
 typedef struct _mUpnpHttpServer {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
   
 	mUpnpSocket *sock;
 	mUpnpThread *acceptThread;

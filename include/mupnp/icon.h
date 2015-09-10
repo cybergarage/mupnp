@@ -40,7 +40,7 @@ extern "C" {
  * The generic icon struct
  */
 typedef struct _mUpnpIcon {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
 
 	mUpnpXmlNode *iconNode;
 } mUpnpIcon, mUpnpIconList;

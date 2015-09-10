@@ -76,7 +76,7 @@ extern "C" {
   * Data type for allowed state variables allowed values table
   */
 typedef struct _mUpnpAllowedValuesList {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
 
 	mUpnpString *value;
 } mUpnpAllowedValuesList, mUpnpAllowedValue;
@@ -86,7 +86,7 @@ typedef struct _mUpnpAllowedValuesList {
  * Data type for state variable and state table
  */
 typedef struct _mUpnpStateVariable {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
 
 	mUpnpAllowedValuesList* allowedValueList;
 	//tb: fixmelater verify type mUpnpService* ???

@@ -63,7 +63,7 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpFile {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
   
 	mUpnpString *name;
 	mUpnpString *path;

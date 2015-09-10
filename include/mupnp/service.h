@@ -49,7 +49,7 @@ extern "C" {
 *****************************************************************************/
 
 typedef struct _mUpnpService {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
 
 	mUpnpXmlNodeList *scpdNodeList;
 	mUpnpXmlNode *serviceNode;

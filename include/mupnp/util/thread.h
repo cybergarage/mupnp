@@ -62,7 +62,7 @@ extern "C" {
  * compatibility between different platforms (Linux, Win32 etc..)
  */
 typedef struct _mUpnpThread {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
 
 	/** Indicates whether this thread is ready to run */
 	bool runnableFlag;

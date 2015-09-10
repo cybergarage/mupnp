@@ -28,7 +28,7 @@ extern "C" {
  * Type definition for UPnP property
  */
 typedef struct _mUpnpProperty {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
 
 	mUpnpString *name;
 	mUpnpString *value;

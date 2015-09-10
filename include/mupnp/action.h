@@ -38,7 +38,7 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpAction {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
   
 	void *parentService;
 	mUpnpXmlNode *actionNode;

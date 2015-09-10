@@ -121,7 +121,7 @@ typedef void (*MUPNP_PRESENTATION_LISTNER)(mUpnpHttpRequest *);
  */
 typedef struct _mUpnpDevice
 {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
   
   /** List of XML root nodes */
   mUpnpXmlNodeList *rootNodeList;

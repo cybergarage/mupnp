@@ -112,7 +112,7 @@ typedef void (*MUPNP_EVENT_LISTENER)(mUpnpProperty *);
  * Type definition for event listener list
  */
 typedef struct _mUpnpEventListenerList {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
  
 	MUPNP_EVENT_LISTENER listener;
 } mUpnpEventListenerList;

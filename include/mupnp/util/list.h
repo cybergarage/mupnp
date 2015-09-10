@@ -33,7 +33,7 @@ typedef void (*MUPNP_LIST_DESTRUCTORFUNC)(void *);
  *
  */
 
-#define MUPNP_LIST_MEMBERS \
+#define MUPNP_LIST_STRUCT_MEMBERS \
   /** Marks the beginning of a list */ \
   bool headFlag; \
   /** Pointer to the next list node */ \
@@ -54,7 +54,7 @@ typedef void (*MUPNP_LIST_DESTRUCTORFUNC)(void *);
  * mUpnpList* and operated with mupnp_list_* functions.
  */
 typedef struct _mUpnpList {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
 } mUpnpList;
 
 /****************************************

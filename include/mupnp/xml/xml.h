@@ -36,14 +36,14 @@ typedef void (*MUPNP_XML_NODE_USERDATA_DESTRUCTORFUNC)(void *);
 ****************************************/
 
 typedef struct _mUpnpXmlAttribute {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
   
 	mUpnpString *name;
 	mUpnpString *value;
 } mUpnpXmlAttribute, mUpnpXmlAttributeList;
 
 typedef struct _mUpnpXmlNode {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
 
 	mUpnpString *name;
 	mUpnpString *value;

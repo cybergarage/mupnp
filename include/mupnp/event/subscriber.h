@@ -37,7 +37,7 @@ extern "C" {
  * The device-side structure for an event subscriber
  */
 typedef struct _mUpnpSubscriber {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
 
 	mUpnpString *sid;
 	mUpnpString *ifAddr;

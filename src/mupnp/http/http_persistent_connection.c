@@ -29,7 +29,7 @@
 
 
 typedef struct _mUpnpHttpPersistentConnection {
-  MUPNP_LIST_MEMBERS
+  MUPNP_LIST_STRUCT_MEMBERS
 
   mUpnpString *host;
   int port;
