@@ -14,6 +14,7 @@
 #import "CGUpnpService.h"
 #import "CGUpnpAction.h"
 #import "CGUpnpStateVariable.h"
+#import <Foundation/Foundation.h>
 
 @implementation CGUpnpService
 

@@ -12,6 +12,7 @@
 #include <mupnp/control/control.h>
 #import "CGUpnpControlPoint.h"
 #import "CGUpnpDevice.h"
+#import <Foundation/Foundation.h>
 
 static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const char* udn, mUpnpDeviceStatus status);
 

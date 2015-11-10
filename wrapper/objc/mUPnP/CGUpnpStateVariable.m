@@ -11,6 +11,8 @@
 #include <mupnp/statevariable.h>
 #include <mupnp/control/control.h>
 #import "CGUpnpStateVariable.h"
+#import <Foundation/Foundation.h>
+#import <Foundation/Foundation.h>
 
 @implementation CGUpnpStateVariable
 

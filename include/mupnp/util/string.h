@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#ifndef _MUPNP_UTIL_STRING_H_
-#define _MUPNP_UTIL_STRING_H_
+#ifndef _MUPNP_UTIL_STRING_H_A_
+#define _MUPNP_UTIL_STRING_H_A_
 
 #include <mupnp/typedef.h>
 #include <stdlib.h>

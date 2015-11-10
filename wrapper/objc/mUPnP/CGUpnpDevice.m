@@ -16,6 +16,7 @@
 #import "CGUpnpService.h"
 #import "CGUpnpAction.h"
 #import "CGUpnpIcon.h"
+#import <Foundation/Foundation.h>
 
 static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 
