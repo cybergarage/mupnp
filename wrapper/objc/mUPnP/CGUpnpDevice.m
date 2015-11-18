@@ -33,7 +33,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	if (!cObject)
 		return nil;
 	isCObjectCreated = YES;
-	mupnp_device_setuserdata(cObject, self);
+	mupnp_device_setuserdata(cObject, (__bridge void *)(self));
 	mupnp_device_setactionlistener(cObject, CGUpnpDeviceActionListener);
 	return self;
 }
@@ -73,7 +73,6 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 		mupnp_device_delete(cObject);
 		cObject = NULL;
 	}
-	[super dealloc];
 }
 
 - (NSString *)friendlyName
@@ -154,7 +153,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	const char *cUrlBase = mupnp_device_geturlbase(cObject);
 	if (!cUrlBase)
 		return [NSString string];
-	return [[[NSString alloc] initWithUTF8String:cUrlBase] autorelease];
+	return [[NSString alloc] initWithUTF8String:cUrlBase];
 }
 
 - (NSString *)descriptionURL;
@@ -164,7 +163,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	const char *cDescrUrl = mupnp_device_getdescriptionuri(cObject);
 	if (!cDescrUrl)
 		return [NSString string];
-	return [[[NSString alloc] initWithUTF8String:cDescrUrl] autorelease];
+	return [[NSString alloc] initWithUTF8String:cDescrUrl];
 }
 
 - (NSString *)locationURL;
@@ -174,7 +173,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	const char *cLocationUrl = mupnp_device_getlocationfromssdppacket(cObject);
 	if (!cLocationUrl)
 		return [NSString string];
-	return [[[NSString alloc] initWithUTF8String:cLocationUrl] autorelease];
+	return [[NSString alloc] initWithUTF8String:cLocationUrl];
 }
 
 - (NSString *)presentationURL;
@@ -184,7 +183,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	const char *cPresentatilnURL = mupnp_device_getpresentationurl(cObject);
 	if (!cPresentatilnURL)
 		return [NSString string];
-	return [[[NSString alloc] initWithUTF8String:cPresentatilnURL] autorelease];
+	return [[NSString alloc] initWithUTF8String:cPresentatilnURL];
 }
 
 -(void)setDeviceType:(NSString *)aType
@@ -230,7 +229,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	NSMutableArray *serviceArray = [NSMutableArray array];
 	mUpnpService *cService;
 	for (cService = mupnp_device_getservices(cObject); cService; cService = mupnp_service_next(cService)) {
-		CGUpnpService *service = [[[CGUpnpService alloc] initWithCObject:(void *)cService] autorelease];
+		CGUpnpService *service = [[CGUpnpService alloc] initWithCObject:(void *)cService];
 		[serviceArray addObject:service];
 	}
 	return serviceArray;
@@ -243,7 +242,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	mUpnpService *foundService = mupnp_device_getservicebyserviceid(cObject, (char *)[serviceId UTF8String]);
 	if (!foundService)
 		return nil;
-	return [[[CGUpnpService alloc] initWithCObject:(void *)foundService] autorelease];
+	return [[CGUpnpService alloc] initWithCObject:(void *)foundService];
 }
 
 - (CGUpnpService *)getServiceForType:(NSString *)serviceType
@@ -253,7 +252,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	mUpnpService *foundService = mupnp_device_getservicebytype(cObject, (char *)[serviceType UTF8String]);
 	if (!foundService)
 		return nil;
-	return [[[CGUpnpService alloc] initWithCObject:(void *)foundService] autorelease];
+	return [[CGUpnpService alloc] initWithCObject:(void *)foundService];
 }
 
 - (NSArray *)icons
@@ -265,7 +264,6 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	for (cIcon = mupnp_device_geticons(cObject); cIcon; cIcon = mupnp_icon_next(cIcon)) {
 		CGUpnpIcon *icon = [[CGUpnpIcon alloc] initWithCObject:(void *)cIcon];
 		[iconArray addObject:icon];
-        [icon release];
 	}
 	return iconArray;
 }
@@ -329,7 +327,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	if (0 < mupnp_strlen(location_str)) {
 		mUpnpNetURL *url = mupnp_net_url_new();
 		mupnp_net_url_set(url, location_str);
-		ipaddr = [[[NSString alloc] initWithUTF8String:mupnp_net_url_gethost(url)] autorelease];
+		ipaddr = [[NSString alloc] initWithUTF8String:mupnp_net_url_gethost(url)];
 		mupnp_net_url_delete(url);
 	}
 	
@@ -343,7 +341,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	mUpnpIcon *cIcon = mupnp_device_getsmallesticon(cObject);
 	if (!cIcon)
 		return nil;
-	return [[[CGUpnpIcon alloc] initWithCObject:(void *)cIcon] autorelease];
+	return [[CGUpnpIcon alloc] initWithCObject:(void *)cIcon];
 }
 
 - (CGUpnpIcon *)smallestIconWithMimeType:(NSString *)mimeType;
@@ -353,7 +351,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	mUpnpIcon *cIcon = mupnp_device_getsmallesticonbymimetype(cObject, (char *)[mimeType UTF8String]);
 	if (!cIcon)
 		return nil;
-	return [[[CGUpnpIcon alloc] initWithCObject:(void *)cIcon] autorelease];
+	return [[CGUpnpIcon alloc] initWithCObject:(void *)cIcon];
 }
 
 - (NSString *)absoluteIconUrl:(CGUpnpIcon *)anIcon
@@ -385,16 +383,15 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *cUpnpAction)
 	if (!cUpnpDevice)
 		return NO;
 	
-	CGUpnpDevice *upnpDevice = mupnp_device_getuserdata(cUpnpDevice);
+	CGUpnpDevice *upnpDevice = (__bridge CGUpnpDevice *)mupnp_device_getuserdata(cUpnpDevice);
 	if (upnpDevice == nil)
 		return NO;
 	
 	if ([[upnpDevice delegate] respondsToSelector:@selector(device:service:actionReceived:)]) {
 		CGUpnpService *upnpService = [[CGUpnpService alloc] initWithCObject:(void *)cUpnpService];
-		CGUpnpAction *upnpAction = [[CGUpnpAction alloc] initWithCObject:(void *)upnpAction];
+		CGUpnpAction *upnpAction = [[CGUpnpAction alloc] initWithCObject:(void *)cUpnpAction];
 		BOOL doActionResult = [[upnpDevice delegate] device:upnpDevice service:upnpService actionReceived:upnpAction];
-		[upnpAction release];
-		[upnpService release];
+        
 		return doActionResult;
 	}
 		

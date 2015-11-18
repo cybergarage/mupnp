@@ -12,116 +12,116 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/std/av/cresource.h>
-#include <cybergarage/upnp/std/av/ccontent.h>
-#include <cybergarage/util/cstring.h>
+#include <mupnp/std/av/cresource.h>
+#include <mupnp/std/av/ccontent.h>
+#include <mupnp/util/string.h>
 
 /****************************************
-* cg_upnpav_resource_new
+* mupnp_upnpav_resource_new
 ****************************************/
 
-CgUpnpAvResource *cg_upnpav_resource_new()
+mUpnpAvResource *mupnp_upnpav_resource_new()
 {
-	CgUpnpAvResource *node;
-	CgUpnpAvResourceData *nodeData;
+	mUpnpAvResource *node;
+	mUpnpAvResourceData *nodeData;
 	
-	node = cg_xml_node_new();
+	node = mupnp_xml_node_new();
 
-	cg_xml_node_setname(node, CG_UPNPAV_RESOURCE_NAME);
+	mupnp_xml_node_setname(node, CG_UPNPAV_RESOURCE_NAME);
 
-	nodeData = cg_upnpav_resource_data_new();
-	cg_xml_node_setuserdata(node, nodeData);
+	nodeData = mupnp_upnpav_resource_data_new();
+	mupnp_xml_node_setuserdata(node, nodeData);
 
 	return node;
 }
 
 /****************************************
-* cg_upnpav_resource_delete
+* mupnp_upnpav_resource_delete
 ****************************************/
 
-void cg_upnpav_resource_delete(CgUpnpAvResource *res)
+void mupnp_upnpav_resource_delete(mUpnpAvResource *res)
 {
-	CgUpnpAvResourceData *nodeData;
+	mUpnpAvResourceData *nodeData;
 
-	nodeData = cg_xml_node_getuserdata(res);
-	cg_upnpav_resource_data_new(nodeData);
+	nodeData = mupnp_xml_node_getuserdata(res);
+	mupnp_upnpav_resource_data_new(nodeData);
 	free(nodeData);
 
-	cg_xml_node_delete(res);
+	mupnp_xml_node_delete(res);
 }
 
 /****************************************
-* cg_upnpav_content_copy
+* mupnp_upnpav_content_copy
 ****************************************/
 
-void cg_upnpav_resource_copy(CgUpnpAvResource *destRes, CgUpnpAvResource *srcRes)
+void mupnp_upnpav_resource_copy(mUpnpAvResource *destRes, mUpnpAvResource *srcRes)
 {
-	CgXmlAttribute *attr;
+	mUpnpXmlAttribute *attr;
 
-	cg_xml_node_setname(destRes, cg_xml_node_getname(srcRes));
-	cg_xml_node_setvalue(destRes, cg_xml_node_getvalue(srcRes));
-	for (attr=cg_xml_node_getattributes(srcRes); attr; attr=cg_xml_attribute_next(attr))
-		cg_xml_node_setattribute(destRes, cg_xml_attribute_getname(attr), cg_xml_attribute_getvalue(attr));
-	cg_upnpav_resource_data_copy((CgUpnpAvResourceData *)cg_xml_node_getuserdata(destRes), (CgUpnpAvResourceData *)cg_xml_node_getuserdata(srcRes));
+	mupnp_xml_node_setname(destRes, mupnp_xml_node_getname(srcRes));
+	mupnp_xml_node_setvalue(destRes, mupnp_xml_node_getvalue(srcRes));
+	for (attr=mupnp_xml_node_getattributes(srcRes); attr; attr=mupnp_xml_attribute_next(attr))
+		mupnp_xml_node_setattribute(destRes, mupnp_xml_attribute_getname(attr), mupnp_xml_attribute_getvalue(attr));
+	mupnp_upnpav_resource_data_copy((mUpnpAvResourceData *)mupnp_xml_node_getuserdata(destRes), (mUpnpAvResourceData *)mupnp_xml_node_getuserdata(srcRes));
 }
 
 /****************************************
-* cg_upnpav_resource_updateattributes
+* mupnp_upnpav_resource_updateattributes
 ****************************************/
 
-void cg_upnpav_resource_updateattributes(CgUpnpAvResource *res)
+void mupnp_upnpav_resource_updateattributes(mUpnpAvResource *res)
 {
-	CgUpnpAvResourceData *nodeData;
-	CgString *resAttr;
+	mUpnpAvResourceData *nodeData;
+	mUpnpString *resAttr;
 	char *mimeType;
 	char *dlnaAttr;
 
-	nodeData = (CgUpnpAvResourceData *)cg_xml_node_getuserdata(res);
-	mimeType = (0 < cg_string_length(nodeData->mimeType)) ? cg_string_getvalue(nodeData->mimeType) : "*/*";
-	dlnaAttr = (0 < cg_string_length(nodeData->dlnaAttr)) ? cg_string_getvalue(nodeData->dlnaAttr) : "*";
+	nodeData = (mUpnpAvResourceData *)mupnp_xml_node_getuserdata(res);
+	mimeType = (0 < mupnp_string_length(nodeData->mimeType)) ? mupnp_string_getvalue(nodeData->mimeType) : "*/*";
+	dlnaAttr = (0 < mupnp_string_length(nodeData->dlnaAttr)) ? mupnp_string_getvalue(nodeData->dlnaAttr) : "*";
 
-	resAttr = cg_string_new();
-	cg_string_addvalue(resAttr, "http-get:*:");
-	cg_string_addvalue(resAttr, mimeType);
-	cg_string_addvalue(resAttr, ":");
-	cg_string_addvalue(resAttr, dlnaAttr);
-	cg_xml_node_setattribute(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO, cg_string_getvalue(resAttr));
-	cg_string_delete(resAttr);
+	resAttr = mupnp_string_new();
+	mupnp_string_addvalue(resAttr, "http-get:*:");
+	mupnp_string_addvalue(resAttr, mimeType);
+	mupnp_string_addvalue(resAttr, ":");
+	mupnp_string_addvalue(resAttr, dlnaAttr);
+	mupnp_xml_node_setattribute(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO, mupnp_string_getvalue(resAttr));
+	mupnp_string_delete(resAttr);
 }
 
 /****************************************
-* cg_upnpav_resource_setmimetype
+* mupnp_upnpav_resource_setmimetype
 ****************************************/
 
-void cg_upnpav_resource_setmimetype(CgUpnpAvResource *res, char *mimeType)
+void mupnp_upnpav_resource_setmimetype(mUpnpAvResource *res, char *mimeType)
 {
-	CgUpnpAvResourceData *nodeData;
+	mUpnpAvResourceData *nodeData;
 
-	nodeData = (CgUpnpAvResourceData *)cg_xml_node_getuserdata(res);
-	cg_string_setvalue(nodeData->mimeType, mimeType);
+	nodeData = (mUpnpAvResourceData *)mupnp_xml_node_getuserdata(res);
+	mupnp_string_setvalue(nodeData->mimeType, mimeType);
 
-	cg_upnpav_resource_updateattributes(res);
+	mupnp_upnpav_resource_updateattributes(res);
 }
 
 /****************************************
-* cg_upnpav_resource_setdlnaattribute
+* mupnp_upnpav_resource_setdlnaattribute
 ****************************************/
 
-void cg_upnpav_resource_setdlnaattribute(CgUpnpAvResource *res, char *attr)
+void mupnp_upnpav_resource_setdlnaattribute(mUpnpAvResource *res, char *attr)
 {
-	CgUpnpAvResourceData *nodeData;
+	mUpnpAvResourceData *nodeData;
 
-	nodeData = (CgUpnpAvResourceData *)cg_xml_node_getuserdata(res);
-	cg_string_setvalue(nodeData->dlnaAttr, attr);
+	nodeData = (mUpnpAvResourceData *)mupnp_xml_node_getuserdata(res);
+	mupnp_string_setvalue(nodeData->dlnaAttr, attr);
 
-	cg_upnpav_resource_updateattributes(res);
+	mupnp_upnpav_resource_updateattributes(res);
 }
 
 /****************************************
-* cg_upnpav_resource_getdlnaattributesbymimetype
+* mupnp_upnpav_resource_getdlnaattributesbymimetype
 ****************************************/
 
-char *cg_upnpav_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaAttr, int dlnaAttrSize)
+char *mupnp_upnpav_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaAttr, int dlnaAttrSize)
 {
 	char *dlnaOrgOp;
 	char *dlnaOrgCi;
@@ -133,19 +133,19 @@ char *cg_upnpav_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaA
 	dlnaOrgPn = "*";
 	dlnaOrgFlags = "00000000000000000000000000000000";
 	
-	if (cg_strcaseeq(mimeType, CG_UPNPAV_MIMETYPE_JPEG)) {
+	if (mupnp_strcaseeq(mimeType, CG_UPNPAV_MIMETYPE_JPEG)) {
 		dlnaOrgPn = CG_UPNPAV_DLNA_PN_JPEG_LRG;
 		dlnaOrgFlags = "00200000000000000000000000000000";
 		dlnaOrgCi = "0";
 		dlnaOrgOp = "00";
 	}
-	else if (cg_strcaseeq(mimeType, CG_UPNPAV_MIMETYPE_AVC)) {
+	else if (mupnp_strcaseeq(mimeType, CG_UPNPAV_MIMETYPE_AVC)) {
 		dlnaOrgPn = CG_UPNPAV_DLNA_PN_AVC;
 		dlnaOrgFlags = "00200000000000000000000000000000";
 		dlnaOrgCi = "0";
 		dlnaOrgOp = "01";
 	}
-	else if (cg_strcaseeq(mimeType, CG_UPNPAV_MIMETYPE_MP3)) {
+	else if (mupnp_strcaseeq(mimeType, CG_UPNPAV_MIMETYPE_MP3)) {
 		dlnaOrgPn = CG_UPNPAV_DLNA_PN_MP3;
 		dlnaOrgFlags = "00200000000000000000000000000000";
 		dlnaOrgCi = "0";
@@ -167,25 +167,25 @@ char *cg_upnpav_resource_getdlnaattributesbymimetype(char *mimeType, char *dlnaA
 }
 
 /****************************************
-* cg_upnpav_resource_getdlnaattributes
+* mupnp_upnpav_resource_getdlnaattributes
 ****************************************/
 
-char *cg_upnpav_resource_getdlnaattributes(CgUpnpAvResource *res, char *dlnaAttr, int dlnaAttrSize)
+char *mupnp_upnpav_resource_getdlnaattributes(mUpnpAvResource *res, char *dlnaAttr, int dlnaAttrSize)
 {
-	return cg_upnpav_resource_getdlnaattributesbymimetype(cg_upnpav_resource_getmimetype(res), dlnaAttr, dlnaAttrSize);
+	return mupnp_upnpav_resource_getdlnaattributesbymimetype(mupnp_upnpav_resource_getmimetype(res), dlnaAttr, dlnaAttrSize);
 }
 
 /****************************************
-* cg_upnpav_resource_setsize
+* mupnp_upnpav_resource_setsize
 ****************************************/
 
-void cg_upnpav_resource_setsize(CgUpnpAvResource *res, long value)
+void mupnp_upnpav_resource_setsize(mUpnpAvResource *res, long value)
 {
-	char strBuf[CG_STRING_LONG_BUFLEN];
+	char strBuf[MUPNP_STRING_LONG_BUFLEN];
 
 	if (value <= 0) {
-		cg_xml_node_removeattribute(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE);
+		mupnp_xml_node_removeattribute(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE);
 		return;
 	}
-	cg_xml_node_setattribute(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE, cg_long2str(value, strBuf, (CG_STRING_LONG_BUFLEN-1)));
+	mupnp_xml_node_setattribute(res, CG_UPNPAV_RESOURCE_PROTOCOLINFO_SIZE, mupnp_long2str(value, strBuf, (MUPNP_STRING_LONG_BUFLEN-1)));
 }

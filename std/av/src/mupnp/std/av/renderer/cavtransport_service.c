@@ -16,7 +16,7 @@
 #  include "config.h"
 #endif
 
-#include <cybergarage/upnp/std/av/cmediarenderer.h>
+#include <mupnp/std/av/cmediarenderer.h>
 
 /****************************************
 * Service Description (AVTransport)
@@ -1178,111 +1178,111 @@ static char *CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION =
 #endif
 
 /****************************************
-* cg_upnpav_dmr_avtransport_actionreceived
+* mupnp_upnpav_dmr_avtransport_actionreceived
 ****************************************/
 
-BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action)
+bool mupnp_upnpav_dmr_avtransport_actionreceived(mUpnpAction *action)
 {
-	CgUpnpAvRenderer *dmr;
-	CgUpnpDevice *dev;
+	mUpnpAvRenderer *dmr;
+	mUpnpDevice *dev;
 	char *actionName;
-	CgUpnpArgument *arg;
+	mUpnpArgument *arg;
 
-	actionName = (char*)cg_upnp_action_getname(action);
-	if (cg_strlen(actionName) <= 0)
-		return FALSE;
+	actionName = (char*)mupnp_action_getname(action);
+	if (mupnp_strlen(actionName) <= 0)
+		return false;
 
-	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(cg_upnp_action_getservice(action));
+	dev = (mUpnpDevice *)mupnp_service_getdevice(mupnp_action_getservice(action));
 	if (!dev)
-		return FALSE;
+		return false;
 
-	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
+	dmr = (mUpnpAvRenderer *)mupnp_device_getuserdata(dev);
 	if (!dmr)
-		return FALSE;
+		return false;
 
 	/* GetTransportInfo*/
-	if (cg_streq(actionName, CG_UPNPAV_DMR_AVTRANSPORT_GETTRANSPORTINFO)) {
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATE);
+	if (mupnp_streq(actionName, CG_UPNPAV_DMR_AVTRANSPORT_GETTRANSPORTINFO)) {
+		arg = mupnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATE);
 		if (!arg)
-			return FALSE;
-		cg_upnp_argument_setvalue(arg, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATE_NOMEDIAPRESENT);
+			return false;
+		mupnp_argument_setvalue(arg, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATE_NOMEDIAPRESENT);
 
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS);
+		arg = mupnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS);
 		if (!arg)
-			return FALSE;
-		cg_upnp_argument_setvalue(arg, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS_OK);
+			return false;
+		mupnp_argument_setvalue(arg, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS_OK);
 
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTSPEED);
+		arg = mupnp_action_getargumentbyname(action, CG_UPNPAV_DMR_AVTRANSPORT_CURRENTSPEED);
 		if (!arg)
-			return FALSE;
-		cg_upnp_argument_setvalue(arg, "1");
-		return TRUE;
+			return false;
+		mupnp_argument_setvalue(arg, "1");
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
- * cg_upnpav_dmr_avtransport_queryreceived
+ * mupnp_upnpav_dmr_avtransport_queryreceived
  ****************************************/
 
-BOOL cg_upnpav_dmr_avtransport_queryreceived(CgUpnpStateVariable *statVar)
+bool mupnp_upnpav_dmr_avtransport_queryreceived(mUpnpStateVariable *statVar)
 {
-	return FALSE;
+	return false;
 }
 
 /****************************************
-* cg_upnpav_dmr_avtransport_init
+* mupnp_upnpav_dmr_avtransport_init
 ****************************************/
 
-BOOL cg_upnpav_dmr_avtransport_init(CgUpnpAvRenderer *dmr)
+bool mupnp_upnpav_dmr_avtransport_init(mUpnpAvRenderer *dmr)
 {
-	CgUpnpDevice *dev;
-	CgUpnpService *service;
-	CgUpnpAction *action;
+	mUpnpDevice *dev;
+	mUpnpService *service;
+	mUpnpAction *action;
 
-	dev = cg_upnpav_dmr_getdevice(dmr);
+	dev = mupnp_upnpav_dmr_getdevice(dmr);
 	if (!dev)
-		return FALSE;
+		return false;
 
-	service = cg_upnp_device_getservicebytype(dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	service = mupnp_device_getservicebytype(dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
 	if (!service)
-		return FALSE;
+		return false;
 
-	if (cg_upnp_service_parsedescription(service, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION)) == FALSE)
-		return FALSE;
+	if (mupnp_service_parsedescription(service, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION, mupnp_strlen(CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION)) == false)
+		return false;
 
-	cg_upnp_service_setuserdata(service, dmr);
-	for (action=cg_upnp_service_getactions(service); action; action=cg_upnp_action_next(action))
-		cg_upnp_action_setuserdata(action, dmr);
+	mupnp_service_setuserdata(service, dmr);
+	for (action=mupnp_service_getactions(service); action; action=mupnp_action_next(action))
+		mupnp_action_setuserdata(action, dmr);
 
-	return TRUE;
+	return true;
 }
 
 /****************************************
- * cg_upnpav_dmr_setavtransportlastchange
+ * mupnp_upnpav_dmr_setavtransportlastchange
  ****************************************/
 
-void cg_upnpav_dmr_setavtransportlastchange(CgUpnpAvRenderer *dmr, char *value)
+void mupnp_upnpav_dmr_setavtransportlastchange(mUpnpAvRenderer *dmr, char *value)
 {
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
+	mUpnpService *service;
+	mUpnpStateVariable *stateVar;
 
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
-	cg_upnp_statevariable_setvalue(stateVar, value);
+	service = mupnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	stateVar = mupnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
+	mupnp_statevariable_setvalue(stateVar, value);
 }
 
 /****************************************
- * cg_upnpav_dmr_getavtransportlastchange
+ * mupnp_upnpav_dmr_getavtransportlastchange
  ****************************************/
 
-char *cg_upnpav_dmr_getavtransportlastchange(CgUpnpAvRenderer *dmr)
+char *mupnp_upnpav_dmr_getavtransportlastchange(mUpnpAvRenderer *dmr)
 {
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
+	mUpnpService *service;
+	mUpnpStateVariable *stateVar;
 
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
-	return cg_upnp_statevariable_getvalue(stateVar);
+	service = mupnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	stateVar = mupnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_AVTRANSPORT_LASTCHANGE);
+	return mupnp_statevariable_getvalue(stateVar);
 }

@@ -21,7 +21,7 @@ documentation and/or software.
 
 #include <stdio.h>
 #include <string.h>
-#include <cybergarage/util/cstring.h>
+#include <mupnp/util/string.h>
 
 #ifndef PROTOTYPES
 #define PROTOTYPES 0
@@ -395,7 +395,7 @@ unsigned int len;
  ((char *)output)[i] = (char)value;
 }
 
-char *cg_str2md5(
+char *mupnp_str2md5(
 char *string,
 char *md5buf)
 {
@@ -403,7 +403,7 @@ char *md5buf)
   unsigned char digest[16];
   unsigned int len;
 
-  len = cg_strlen(string);
+  len = mupnp_strlen(string);
 
   MD5Init(&context);
   MD5Update(&context, string,len);

@@ -42,7 +42,7 @@ extern "C" {
  * The generic protocolinfo struct
  */
 typedef struct _mUpnpAvProtocolInfo {
-	BOOL headFlag;
+	bool headFlag;
 	struct _mUpnpAvProtocolInfo *prev;
 	struct _mUpnpAvProtocolInfo *next;
 	mUpnpString *protocol;

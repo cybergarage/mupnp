@@ -12,5 +12,5 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/std/av/cresource.h>
+#include <mupnp/std/av/cresource.h>
 

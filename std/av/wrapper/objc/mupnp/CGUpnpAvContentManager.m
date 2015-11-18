@@ -20,14 +20,13 @@
 { 
 	if ((self = [super init]) == nil)
 		return nil;
-	self.rootObj = [[[CGUpnpAvRoot alloc] init] autorelease];
+	self.rootObj = [[CGUpnpAvRoot alloc] init];
 	return self;
 }
 
 - (void)dealloc
 {
     self.rootObj = nil;
-	[super dealloc];
 }
 
 - (CGUpnpAvObject *)objectForId:(NSString *)aObjectId

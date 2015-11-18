@@ -18,71 +18,71 @@
 *
 ******************************************************************/
 
-#include <cybergarage/upnp/std/av/cprotocolinfo.h>
-#include <cybergarage/util/clog.h>
+#include <mupnp/std/av/cprotocolinfo.h>
+#include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnpav_protocolinfo_new
+* mupnp_upnpav_protocolinfo_new
 ****************************************/
 
-CgUpnpAvProtocolInfo *cg_upnpav_protocolinfo_new()
+mUpnpAvProtocolInfo *mupnp_upnpav_protocolinfo_new()
 {
-	CgUpnpAvProtocolInfo *info;
+	mUpnpAvProtocolInfo *info;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	info = (CgUpnpAvProtocolInfo *)malloc(sizeof(CgUpnpAvProtocolInfo));
+	info = (mUpnpAvProtocolInfo *)malloc(sizeof(mUpnpAvProtocolInfo));
 
 	if  ( NULL != info ) {
-		cg_list_node_init((CgList *)info);
+		mupnp_list_node_init((mUpnpList *)info);
 
-		info->protocol = cg_string_new();
-		info->network = cg_string_new();
-		info->mimeType = cg_string_new();
-		info->additionalInfo = cg_string_new();
-		info->string = cg_string_new();
+		info->protocol = mupnp_string_new();
+		info->network = mupnp_string_new();
+		info->mimeType = mupnp_string_new();
+		info->additionalInfo = mupnp_string_new();
+		info->string = mupnp_string_new();
 
-		cg_upnpav_protocolinfo_setprotocol(info, "*");
-		cg_upnpav_protocolinfo_setnetwork(info, "*");
-		cg_upnpav_protocolinfo_setmimetype(info, "*");
-		cg_upnpav_protocolinfo_setadditionainfo(info, "*");
+		mupnp_upnpav_protocolinfo_setprotocol(info, "*");
+		mupnp_upnpav_protocolinfo_setnetwork(info, "*");
+		mupnp_upnpav_protocolinfo_setmimetype(info, "*");
+		mupnp_upnpav_protocolinfo_setadditionainfo(info, "*");
     }
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 
 	return info;
 }
 
 /****************************************
-* cg_upnpav_protocolinfo_delete
+* mupnp_upnpav_protocolinfo_delete
 ****************************************/
 
-void cg_upnpav_protocolinfo_delete(CgUpnpAvProtocolInfo *info)
+void mupnp_upnpav_protocolinfo_delete(mUpnpAvProtocolInfo *info)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)info);
+	mupnp_list_remove((mUpnpList *)info);
 
 	if (info->protocol)
-		cg_string_delete(info->protocol);
+		mupnp_string_delete(info->protocol);
 	if (info->network)
-		cg_string_delete(info->network);
+		mupnp_string_delete(info->network);
 	if (info->mimeType)
-		cg_string_delete(info->mimeType);
+		mupnp_string_delete(info->mimeType);
 	if (info->additionalInfo)
-		cg_string_delete(info->additionalInfo);
+		mupnp_string_delete(info->additionalInfo);
 	if (info->string)
-		cg_string_delete(info->string);
+		mupnp_string_delete(info->string);
 
 	free(info);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnpav_protocolinfo_getstring
+* mupnp_upnpav_protocolinfo_getstring
 ****************************************/
 
-char *cg_upnpav_protocolinfo_getstring(CgUpnpAvProtocolInfo *info)
+char *mupnp_upnpav_protocolinfo_getstring(mUpnpAvProtocolInfo *info)
 {
 	char protocolInfoBuf[CG_UPNPAV_PROTOCOLINFO_MAXSIZE];
 
@@ -94,12 +94,12 @@ char *cg_upnpav_protocolinfo_getstring(CgUpnpAvProtocolInfo *info)
 			protocolInfoBuf,
 			sizeof(protocolInfoBuf),
 			"%s:%s:%s:%s",
-		cg_upnpav_protocolinfo_getprotocol(info),
-		cg_upnpav_protocolinfo_getnetwork(info),
-		cg_upnpav_protocolinfo_getmimetype(info),
-		cg_upnpav_protocolinfo_getadditionainfo(info));
+		mupnp_upnpav_protocolinfo_getprotocol(info),
+		mupnp_upnpav_protocolinfo_getnetwork(info),
+		mupnp_upnpav_protocolinfo_getmimetype(info),
+		mupnp_upnpav_protocolinfo_getadditionainfo(info));
 
-	cg_string_setvalue(info->string, protocolInfoBuf);
+	mupnp_string_setvalue(info->string, protocolInfoBuf);
 
-	return cg_string_getvalue(info->string);
+	return mupnp_string_getvalue(info->string);
 }

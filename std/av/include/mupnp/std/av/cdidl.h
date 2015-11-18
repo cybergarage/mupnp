@@ -28,7 +28,7 @@ extern "C" {
 mUpnpXmlNode *mupnp_upnpav_didl_node_new();
 
 #define mupnp_upnpav_didl_node_delete(node) mupnp_xml_node_delete(node)
-#define mupnp_upnpav_didl_node_tostring(node, str) mupnp_xml_node_tostring(node, TRUE, str)
+#define mupnp_upnpav_didl_node_tostring(node, str) mupnp_xml_node_tostring(node, true, str)
 
 #ifdef __cplusplus
 }

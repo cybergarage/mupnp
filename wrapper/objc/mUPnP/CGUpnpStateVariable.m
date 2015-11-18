@@ -23,7 +23,7 @@
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cobj;
-	mupnp_statevariable_setuserdata(cObject, self);
+	mupnp_statevariable_setuserdata(cObject, (__bridge void *)self);
 	return self;
 }
 
@@ -36,32 +36,31 @@
 
 - (void) dealloc
 {
-	[super dealloc];
 }
 
 - (NSString *)name
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:mupnp_statevariable_getname(cObject)] autorelease];
+	return [[NSString alloc] initWithUTF8String:mupnp_statevariable_getname(cObject)];
 }
 
 - (NSString *)value
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:mupnp_statevariable_getvalue(cObject)] autorelease];
+	return [[NSString alloc] initWithUTF8String:mupnp_statevariable_getvalue(cObject)];
 }
 
 - (NSArray *)allowedValues
 {
 	if (!cObject)
-		return [[[NSArray alloc] init] autorelease];
-	NSMutableArray *valuesArray = [[[NSMutableArray alloc] init] autorelease];
+		return [[NSArray alloc] init];
+	NSMutableArray *valuesArray = [[NSMutableArray alloc] init];
 	
 	mUpnpAllowedValue *cAllowedValue;
 	for (cAllowedValue = mupnp_statevariable_getallowedvaluelist(cObject); cAllowedValue; cAllowedValue = (mUpnpAllowedValue*)mupnp_list_next((mUpnpList*)cAllowedValue)) {
-		NSString *value = [[[NSString alloc] initWithUTF8String:mupnp_string_getvalue(cAllowedValue->value)] autorelease];
+		NSString *value = [[NSString alloc] initWithUTF8String:mupnp_string_getvalue(cAllowedValue->value)];
 		[valuesArray addObject:value];
 	}
 	return valuesArray;

@@ -6,8 +6,8 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/xml/cxml.h>
-#include <cybergarage/upnp/std/av/cupnpav.h>
+#include <mupnp/xml/xml.h>
+#include <mupnp/std/av/cupnpav.h>
 
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
@@ -56,36 +56,35 @@
 	[xmlDoc release];
 #else
 	char *resultXml;
-	CgXmlParser *xmlParser;
-	CgXmlNodeList *rootNode;
-	CgXmlNode *didlNode;
-	CgXmlNode *cnode;
-	CgXmlNode *rnode;
+	mUpnpXmlParser *xmlParser;
+	mUpnpXmlNodeList *rootNode;
+	mUpnpXmlNode *didlNode;
+	mUpnpXmlNode *cnode;
+	mUpnpXmlNode *rnode;
 	
 	resultXml = (char *)[aXmlString UTF8String];
-	if (cg_strlen(resultXml) <= 0)
+	if (mupnp_strlen(resultXml) <= 0)
 		return nil;
 	
 	NSMutableArray *avObjArray = [NSMutableArray array];
 	
-	rootNode = cg_xml_nodelist_new();
-	xmlParser = cg_xml_parser_new();
-	if (cg_xml_parse(xmlParser, rootNode, resultXml, cg_strlen(resultXml))) {
-		didlNode = cg_xml_nodelist_getbyname(rootNode, "DIDL-Lite");
+	rootNode = mupnp_xml_nodelist_new();
+	xmlParser = mupnp_xml_parser_new();
+	if (mupnp_xml_parse(xmlParser, rootNode, resultXml, mupnp_strlen(resultXml))) {
+		didlNode = mupnp_xml_nodelist_getbyname(rootNode, "DIDL-Lite");
 		if (didlNode) {
-			for (cnode=cg_xml_node_getchildnodes(didlNode); cnode; cnode=cg_xml_node_next(cnode)) {
+			for (cnode=mupnp_xml_node_getchildnodes(didlNode); cnode; cnode=mupnp_xml_node_next(cnode)) {
 				CGUpnpAvObject *avObj = nil;
-				if (cg_xml_node_isname(cnode, "container")) {
+				if (mupnp_xml_node_isname(cnode, "container")) {
 					CGUpnpAvContainer *avCon = [[CGUpnpAvContainer alloc] initWithXMLNode:cnode];
 					avObj = avCon;
 				}
-				else if (cg_xml_node_isname(cnode, "item")) {
+				else if (mupnp_xml_node_isname(cnode, "item")) {
 					CGUpnpAvItem *avItem = [[CGUpnpAvItem alloc] initWithXMLNode:cnode];
-					for (rnode=cg_xml_node_getchildnodes(cnode); rnode; rnode=cg_xml_node_next(rnode)) {
-						if (cg_xml_node_isname(rnode, "res")) {
+					for (rnode=mupnp_xml_node_getchildnodes(cnode); rnode; rnode=mupnp_xml_node_next(rnode)) {
+						if (mupnp_xml_node_isname(rnode, "res")) {
 							CGUpnpAvResource *avRes = [[CGUpnpAvResource alloc] initWithXMLNode:rnode];
 							[avItem addResource:avRes];
-                            [avRes release];
 						}
 					}
 					avObj = avItem;
@@ -93,12 +92,11 @@
 				if (avObj == nil)
 					continue;
 				[avObjArray addObject:avObj];
-                [avObj release];
 			}
 		}
 	}
-	cg_xml_nodelist_delete(rootNode);
-	cg_xml_parser_delete(xmlParser);
+	mupnp_xml_nodelist_delete(rootNode);
+	mupnp_xml_parser_delete(xmlParser);
 #endif
 	
 	return avObjArray;
@@ -114,7 +112,7 @@
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode
+- (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode
 #endif
 {
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
@@ -123,7 +121,7 @@
 }
 
 #if  defined(TARGET_OS_IPHONE)
-- (id)initWithMediaContent:(CgUpnpAvContent *)aMediaContent
+- (id)initWithMediaContent:(mUpnpAvContent *)aMediaContent
 {
 	if ((self = [super initWithXMLNode:aMediaContent]) == nil)
 		return nil;
@@ -135,7 +133,6 @@
 {
     self.parent = nil;
     self.userInfo = nil;
-	[super dealloc];
 }
 
 - (BOOL)isEqual:(id)anObject
@@ -176,7 +173,7 @@
 
 - (NSUInteger)childCount;
 {
-	return cg_str2int([[self attributeValueForName:@CG_UPNPAV_OBJECT_ID] UTF8String]);
+	return mupnp_str2int([[self attributeValueForName:@CG_UPNPAV_OBJECT_ID] UTF8String]);
 }
 
 - (NSString *)title;

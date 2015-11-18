@@ -9,14 +9,13 @@
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
 
-#import <CyberLink/UPnP.h>
-#import <CyberLink/CGUpnpAVPositionInfo.h>
+#import <mUPnP/CGUPnPDevice.h>
+#import <mUPnP/CGUpnpAVPositionInfo.h>
 
-@class CGUpnpAvRenderer;
 @class CGUpnpAVPositionInfo;
 
 #if !defined(_CG_CLINKCAV_MEDIARENDERER_H_)
-typedef void CgUpnpAvRenderer;
+typedef void mUpnpAvRenderer;
 #endif
 
 /**
@@ -25,9 +24,9 @@ typedef void CgUpnpAvRenderer;
 @interface CGUpnpAvRenderer : CGUpnpDevice
 {
 }
-@property(assign,readonly) CgUpnpAvRenderer *cAvObject;
+@property(assign,readonly) mUpnpAvRenderer *cAvObject;
 - (id)init;
-- (id)initWithCObject:(CgUpnpDevice *)cobj;
+- (id)initWithCObject:(mUpnpDevice *)cobj;
 - (BOOL)setAVTransportURI:(NSString *)aURI;
 - (BOOL)play;
 - (BOOL)stop;

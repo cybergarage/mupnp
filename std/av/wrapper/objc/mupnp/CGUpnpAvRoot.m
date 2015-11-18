@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <cybergarage/upnp/std/av/cupnpav.h>
+#import <mupnp/std/av/cupnpav.h>
 
 #import "CGUpnpAvConstants.h"
 #import "CGXmlNode.h"
@@ -27,7 +27,7 @@
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode
+- (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode
 #endif
 {
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
@@ -37,7 +37,6 @@
 
 - (void)dealloc
 {
-	[super dealloc];
 }
 
 @end

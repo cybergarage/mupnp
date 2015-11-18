@@ -36,22 +36,20 @@
 - (void) dealloc
 {
 	self.resourceName = nil;
-    
-	[super dealloc];
 }
 
 - (NSString *)url
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:mupnp_icon_geturl(cObject)] autorelease];
+	return [[NSString alloc] initWithUTF8String:mupnp_icon_geturl(cObject)];
 }
 
 - (NSString *)mimeType
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:mupnp_icon_getmimetype(cObject)] autorelease];
+	return [[NSString alloc] initWithUTF8String:mupnp_icon_getmimetype(cObject)];
 }
 
 - (NSInteger)width

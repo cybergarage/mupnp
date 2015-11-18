@@ -12,7 +12,7 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/std/av/cdidl.h>
+#include <mupnp/std/av/cdidl.h>
 
 /****************************************
 * Constants
@@ -29,20 +29,20 @@
 #define CG_UPNPAV_DMS_DIDL_XMLNS_DLNA_URL "urn:schemas-dlna-org:metadata-1-0/"
 
 /****************************************
-* cg_upnpav_didl_node_new
+* mupnp_upnpav_didl_node_new
 ****************************************/
 
-CgXmlNode *cg_upnpav_didl_node_new()
+mUpnpXmlNode *mupnp_upnpav_didl_node_new()
 {
-	CgXmlNode *node;
+	mUpnpXmlNode *node;
 	
-	node = cg_xml_node_new();
+	node = mupnp_xml_node_new();
 
-	cg_xml_node_setname(node, CG_UPNPAV_DMS_DIDL_NAME);
-	cg_xml_node_setattribute(node, CG_UPNPAV_DMS_DIDL_XMLNS, CG_UPNPAV_DMS_DIDL_XMLNS_URL);
-	cg_xml_node_setattribute(node, CG_UPNPAV_DMS_DIDL_XMLNS_DC, CG_UPNPAV_DMS_DIDL_XMLNS_DC_URL);
-	cg_xml_node_setattribute(node, CG_UPNPAV_DMS_DIDL_XMLNS_UPNP, CG_UPNPAV_DMS_DIDL_XMLNS_UPNP_URL);
-	cg_xml_node_setattribute(node, CG_UPNPAV_DMS_DIDL_XMLNS_DLNA, CG_UPNPAV_DMS_DIDL_XMLNS_DLNA_URL);
+	mupnp_xml_node_setname(node, CG_UPNPAV_DMS_DIDL_NAME);
+	mupnp_xml_node_setattribute(node, CG_UPNPAV_DMS_DIDL_XMLNS, CG_UPNPAV_DMS_DIDL_XMLNS_URL);
+	mupnp_xml_node_setattribute(node, CG_UPNPAV_DMS_DIDL_XMLNS_DC, CG_UPNPAV_DMS_DIDL_XMLNS_DC_URL);
+	mupnp_xml_node_setattribute(node, CG_UPNPAV_DMS_DIDL_XMLNS_UPNP, CG_UPNPAV_DMS_DIDL_XMLNS_UPNP_URL);
+	mupnp_xml_node_setattribute(node, CG_UPNPAV_DMS_DIDL_XMLNS_DLNA, CG_UPNPAV_DMS_DIDL_XMLNS_DLNA_URL);
 
 	return node;
 }

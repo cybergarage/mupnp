@@ -6,10 +6,21 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#if  defined(TARGET_OS_IPHONE)
-#import <cybergarage/xml/cxml.h>
+#if defined(TARGET_OS_IPHONE)
+//#import <mupnp/upnp.h>
+//#include <mupnp/xml/xml.h>
+//#include <mupnp/action.h>
+//#include <mupnp/std/av/cresource.h>
 #endif
-#import <cybergarage/util/cstring.h>
+
+#import <mupnp/upnp.h>
+#include <mupnp/xml/xml.h>
+#include <mupnp/action.h>
+#include <mupnp/std/av/cresource.h>
+
+#import <mupnp/util/string.h>
+
+
 
 #import "CGXmlNode.h"
 
@@ -91,29 +102,27 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	self.cXmlNode = cg_xml_node_new();
+	cXmlNode = mupnp_xml_node_new();
 	return self;
 }
 
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode
+- (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode
 {
 	if ((self = [super init]) == nil)
 		return nil;
         
-	self.cXmlNode = cg_xml_node_new();
-	cg_xml_node_copy(cXmlNode, aXmlNode);
+	cXmlNode = mupnp_xml_node_new();
+	mupnp_xml_node_copy(cXmlNode, aXmlNode);
 
 	return self;
 }
 
 - (void)dealloc
 {
-	cg_xml_node_delete([self cXmlNode]);
+	mupnp_xml_node_delete([self cXmlNode]);
     
     [self setUserInfo:nil];
     [self setCXmlNode:nil];
-    
-	[super dealloc];
 }
 
 - (NSString *)attributeValueForName:(NSString *)aName
@@ -123,20 +132,20 @@
         
     NSString *attributeValueString = nil;
 	const char* attributeName = [aName UTF8String];
-	const char* attributeValue = cg_xml_node_getattributevalue(cXmlNode, (char *)attributeName);
+	const char* attributeValue = mupnp_xml_node_getattributevalue(cXmlNode, (char *)attributeName);
 	if (attributeValue)
 		attributeValueString = [NSString stringWithUTF8String:attributeValue];
-	return [[attributeValueString retain] autorelease];
+	return attributeValueString;
 }
 
 - (NSString *)elementValueForName:(NSString *)aName
 {
 	if (!cXmlNode)
 		return nil;
-	CgXmlNode *elemNode = cg_xml_node_getchildnode(cXmlNode, (char *)[aName UTF8String]);
+	mUpnpXmlNode *elemNode = mupnp_xml_node_getchildnode(cXmlNode, (char *)[aName UTF8String]);
 	if (!elemNode)
 		return nil;
-	const char* nodeValue = cg_xml_node_getvalue(elemNode);
+	const char* nodeValue = mupnp_xml_node_getvalue(elemNode);
 	if (nodeValue)
 	{
 		return [NSString stringWithUTF8String:nodeValue];
@@ -147,7 +156,7 @@
 {
 	if (!cXmlNode)
 		return nil;
-	const char* nodeValue = cg_xml_node_getvalue(cXmlNode);
+	const char* nodeValue = mupnp_xml_node_getvalue(cXmlNode);
 	if (nodeValue)
 	{
 		return [NSString stringWithUTF8String:nodeValue];
@@ -159,14 +168,14 @@
 {
 	if (!cXmlNode)
 		return;
-	cg_xml_node_setvalue(cXmlNode, (char *)[aValue UTF8String]);
+	mupnp_xml_node_setvalue(cXmlNode, (char *)[aValue UTF8String]);
 }
 
 - (void)setAttributeWithName:(NSString *)aName stringValue:(NSString *)aValue
 {
 	if (!cXmlNode)
 		return;
-	cg_xml_node_setattribute(cXmlNode, (char *)[aName UTF8String], (char *)[aValue UTF8String]);
+	mupnp_xml_node_setattribute(cXmlNode, (char *)[aName UTF8String], (char *)[aValue UTF8String]);
 }
 
 #endif

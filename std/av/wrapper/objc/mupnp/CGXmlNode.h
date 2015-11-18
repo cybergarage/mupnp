@@ -13,8 +13,8 @@
 #import <Foundation/Foundation.h>
 #endif
 
-#if defined(TARGET_OS_IPHONE) && !defined(_CG_XML_CXML_H_)
-typedef void CgXmlNode;
+#if defined(TARGET_OS_IPHONE) && !defined(_MUPNP_XML_XML_H_)
+typedef void mUpnpXmlNode;
 #endif
 
 /**
@@ -24,22 +24,27 @@ typedef void CgXmlNode;
 {
 	id	userInfo;
 }
-#if !defined(TARGET_OS_IPHONE)
-@property(retain) NSXMLElement *xmlNode;
+
+#if defined(TARGET_OS_IPHONE)
+@property(assign) mUpnpXmlNode *cXmlNode;
 #else
-@property(assign) CgXmlNode *cXmlNode;
+@property(retain) NSXMLElement *xmlNode;
 #endif
+
 @property(retain) id userInfo;
 - (id)init;
+
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
+- (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode;
 #endif
+
 - (NSString *)attributeValueForName:(NSString *)aName;
 - (NSString *)elementValueForName:(NSString *)aName;
 - (NSString *)stringValue;
 - (void)setStringValue:(NSString *)aValue;
 - (void)setAttributeWithName:(NSString *)aName stringValue:(NSString *)aValue;
+
 @end
 

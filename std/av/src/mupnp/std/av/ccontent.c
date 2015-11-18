@@ -12,95 +12,95 @@
 *
 ************************************************************/
 
-#include <cybergarage/upnp/std/av/ccontent.h>
-#include <cybergarage/util/cstring.h>
+#include <mupnp/std/av/ccontent.h>
+#include <mupnp/util/string.h>
 
 #define CG_UPNPAV_CONTENT_CONTAINER_STRING "container"
 #define CG_UPNPAV_CONTENT_ITEM_STRING "item"
 
 /****************************************
-* cg_upnpav_content_settype
+* mupnp_upnpav_content_settype
 ****************************************/
 
-void cg_upnpav_content_settype(CgUpnpAvContent *con, int type)
+void mupnp_upnpav_content_settype(mUpnpAvContent *con, int type)
 {
 	switch (type) {
 	case CG_UPNPAV_CONTENT_CONTAINER:
 		{
-			cg_xml_node_setname(con, CG_UPNPAV_CONTENT_CONTAINER_STRING);
-			cg_upnpav_content_setupnpclass(con, CG_UPNPAV_UPNPCLASS_CONTAINER);
+			mupnp_xml_node_setname(con, CG_UPNPAV_CONTENT_CONTAINER_STRING);
+			mupnp_upnpav_content_setupnpclass(con, CG_UPNPAV_UPNPCLASS_CONTAINER);
 		}
 		break;
 	case CG_UPNPAV_CONTENT_ITEM:
 		{
-			cg_xml_node_setname(con, CG_UPNPAV_CONTENT_ITEM_STRING);
+			mupnp_xml_node_setname(con, CG_UPNPAV_CONTENT_ITEM_STRING);
 		}
 		break;
 	}
 }
 
 /****************************************
-* cg_upnpav_content_gettype
+* mupnp_upnpav_content_gettype
 ****************************************/
 
-int cg_upnpav_content_gettype(CgUpnpAvContent *con)
+int mupnp_upnpav_content_gettype(mUpnpAvContent *con)
 {
-	if (cg_streq(cg_xml_node_getname(con), CG_UPNPAV_CONTENT_ITEM_STRING))
+	if (mupnp_streq(mupnp_xml_node_getname(con), CG_UPNPAV_CONTENT_ITEM_STRING))
 		return CG_UPNPAV_CONTENT_ITEM;
-	if (cg_streq(cg_xml_node_getname(con), CG_UPNPAV_CONTENT_CONTAINER_STRING))
+	if (mupnp_streq(mupnp_xml_node_getname(con), CG_UPNPAV_CONTENT_CONTAINER_STRING))
 		return CG_UPNPAV_CONTENT_CONTAINER;
 	return CG_UPNPAV_CONTENT_NONE;
 }
 
 /****************************************
-* cg_upnpav_content_copy
+* mupnp_upnpav_content_copy
 ****************************************/
 
-void cg_upnpav_content_copy(CgUpnpAvContent *destContent, CgUpnpAvContent *srcContent)
+void mupnp_upnpav_content_copy(mUpnpAvContent *destContent, mUpnpAvContent *srcContent)
 {
-	CgXmlAttribute *attr;
-	CgUpnpAvContent *destNode;
-	CgUpnpAvContent *srcNode;
+	mUpnpXmlAttribute *attr;
+	mUpnpAvContent *destNode;
+	mUpnpAvContent *srcNode;
 
-	cg_xml_node_setname(destContent, cg_xml_node_getname(srcContent));
-	cg_xml_node_setvalue(destContent, cg_xml_node_getvalue(srcContent));
-	for (attr=cg_xml_node_getattributes(srcContent); attr; attr=cg_xml_attribute_next(attr))
-		cg_xml_node_setattribute(destContent, cg_xml_attribute_getname(attr), cg_xml_attribute_getvalue(attr));
+	mupnp_xml_node_setname(destContent, mupnp_xml_node_getname(srcContent));
+	mupnp_xml_node_setvalue(destContent, mupnp_xml_node_getvalue(srcContent));
+	for (attr=mupnp_xml_node_getattributes(srcContent); attr; attr=mupnp_xml_attribute_next(attr))
+		mupnp_xml_node_setattribute(destContent, mupnp_xml_attribute_getname(attr), mupnp_xml_attribute_getvalue(attr));
 
-	for (srcNode=cg_xml_node_getchildnodes(srcContent); srcNode; srcNode=cg_xml_node_next(srcNode)) {
-		if (cg_upnpav_content_gettype(srcNode) != CG_UPNPAV_CONTENT_NONE)
+	for (srcNode=mupnp_xml_node_getchildnodes(srcContent); srcNode; srcNode=mupnp_xml_node_next(srcNode)) {
+		if (mupnp_upnpav_content_gettype(srcNode) != CG_UPNPAV_CONTENT_NONE)
 			continue;
-		if (cg_streq(cg_xml_node_getname(srcNode), CG_UPNPAV_RESOURCE_NAME)) {
-			destNode = cg_upnpav_resource_new();
-			cg_upnpav_resource_copy(destNode, srcNode);
+		if (mupnp_streq(mupnp_xml_node_getname(srcNode), CG_UPNPAV_RESOURCE_NAME)) {
+			destNode = mupnp_upnpav_resource_new();
+			mupnp_upnpav_resource_copy(destNode, srcNode);
 		}
 		else {
-			destNode = cg_upnpav_content_new();
-			cg_xml_node_setname(destNode, cg_xml_node_getname(srcNode));
-			cg_xml_node_setvalue(destNode, cg_xml_node_getvalue(srcNode));
-			for (attr=cg_xml_node_getattributes(srcNode); attr; attr=cg_xml_attribute_next(attr))
-				cg_xml_node_setattribute(destNode, cg_xml_attribute_getname(attr), cg_xml_attribute_getvalue(attr));
+			destNode = mupnp_upnpav_content_new();
+			mupnp_xml_node_setname(destNode, mupnp_xml_node_getname(srcNode));
+			mupnp_xml_node_setvalue(destNode, mupnp_xml_node_getvalue(srcNode));
+			for (attr=mupnp_xml_node_getattributes(srcNode); attr; attr=mupnp_xml_attribute_next(attr))
+				mupnp_xml_node_setattribute(destNode, mupnp_xml_attribute_getname(attr), mupnp_xml_attribute_getvalue(attr));
 		}
-		cg_xml_node_addchildnode(destContent, destNode);
+		mupnp_xml_node_addchildnode(destContent, destNode);
 	}
 }
 
 /****************************************
-* cg_upnpav_content_findbyuserfunc
+* mupnp_upnpav_content_findbyuserfunc
 ****************************************/
 
-CgUpnpAvContent *cg_upnpav_content_findbyuserfunc(CgUpnpAvContent *con, CG_UPNPAV_CONTENT_COMPARE_FUNC userFunc, void *userData)
+mUpnpAvContent *mupnp_upnpav_content_findbyuserfunc(mUpnpAvContent *con, CG_UPNPAV_CONTENT_COMPARE_FUNC userFunc, void *userData)
 {
-	CgUpnpAvContent *childCon, *lower;
+	mUpnpAvContent *childCon, *lower;
 
 	if (userFunc(con, userData))
 		return con;
 
-	for (childCon=cg_upnpav_content_getchildcontents(con); childCon; childCon=cg_upnpav_content_next(childCon)) {
+	for (childCon=mupnp_upnpav_content_getchildcontents(con); childCon; childCon=mupnp_upnpav_content_next(childCon)) {
 		if (userFunc(childCon, userData))
 			return childCon;
-        if (cg_upnpav_content_haschildcontents(childCon))
-            if ((lower = cg_upnpav_content_findbyuserfunc(childCon,
+        if (mupnp_upnpav_content_haschildcontents(childCon))
+            if ((lower = mupnp_upnpav_content_findbyuserfunc(childCon,
                                                  userFunc,
                                                           userData)))
                 return lower;
@@ -110,115 +110,115 @@ CgUpnpAvContent *cg_upnpav_content_findbyuserfunc(CgUpnpAvContent *con, CG_UPNPA
 }
 
 /****************************************
-* cg_upnpav_content_getbyobjectid
+* mupnp_upnpav_content_getbyobjectid
 ****************************************/
 
-static BOOL cg_upnpav_content_comparebyid(CgUpnpAvContent *con, void *userData)
+static bool mupnp_upnpav_content_comparebyid(mUpnpAvContent *con, void *userData)
 {
 	if (!userData)
-		return FALSE;
-	return cg_streq(cg_upnpav_content_getid(con), (char *)userData);
+		return false;
+	return mupnp_streq(mupnp_upnpav_content_getid(con), (char *)userData);
 }
 
-CgUpnpAvContent *cg_upnpav_content_getbyid(CgUpnpAvContent *con, char *id)
+mUpnpAvContent *mupnp_upnpav_content_getbyid(mUpnpAvContent *con, char *id)
 {
-	return cg_upnpav_content_findbyuserfunc(con, cg_upnpav_content_comparebyid, id);
+	return mupnp_upnpav_content_findbyuserfunc(con, mupnp_upnpav_content_comparebyid, id);
 }
 
 /****************************************
-* cg_upnpav_content_getbytitle
+* mupnp_upnpav_content_getbytitle
 ****************************************/
 
-static BOOL cg_upnpav_content_comparebytitle(CgUpnpAvContent *con, void *userData)
+static bool mupnp_upnpav_content_comparebytitle(mUpnpAvContent *con, void *userData)
 {
 	if (!userData)
-		return FALSE;
-	return cg_streq(cg_upnpav_content_gettitle(con), (char *)userData);
+		return false;
+	return mupnp_streq(mupnp_upnpav_content_gettitle(con), (char *)userData);
 }
 
-CgUpnpAvContent *cg_upnpav_content_getbytitle(CgUpnpAvContent *con, char *title)
+mUpnpAvContent *mupnp_upnpav_content_getbytitle(mUpnpAvContent *con, char *title)
 {
-	return cg_upnpav_content_findbyuserfunc(con, cg_upnpav_content_comparebytitle, title);
-}
-
-/****************************************
-* cg_upnpav_content_addchildcontent
-****************************************/
-
-void cg_upnpav_content_addchildcontent(CgUpnpAvContent *con, CgUpnpAvContent *childCon)
-{
-	cg_xml_node_addchildnode(con, childCon);
-	cg_upnpav_content_setparentid(childCon, cg_upnpav_content_getid(con));
+	return mupnp_upnpav_content_findbyuserfunc(con, mupnp_upnpav_content_comparebytitle, title);
 }
 
 /****************************************
-* cg_upnpav_content_istitlenode
+* mupnp_upnpav_content_addchildcontent
 ****************************************/
 
-BOOL cg_upnpav_content_iscontentnode(CgXmlNode *node)
+void mupnp_upnpav_content_addchildcontent(mUpnpAvContent *con, mUpnpAvContent *childCon)
 {
-	if (cg_upnpav_content_isitemnode(node))
-		return TRUE;
-	if (cg_upnpav_content_iscontainernode(node))
-		return TRUE;
-	return FALSE;
+	mupnp_xml_node_addchildnode(con, childCon);
+	mupnp_upnpav_content_setparentid(childCon, mupnp_upnpav_content_getid(con));
 }
 
 /****************************************
-* cg_upnpav_content_getnchildcontents
+* mupnp_upnpav_content_istitlenode
 ****************************************/
 
-int cg_upnpav_content_getnchildcontents(CgUpnpAvContent *con)
+bool mupnp_upnpav_content_iscontentnode(mUpnpXmlNode *node)
 {
-	CgXmlNode *childNode;
+	if (mupnp_upnpav_content_isitemnode(node))
+		return true;
+	if (mupnp_upnpav_content_iscontainernode(node))
+		return true;
+	return false;
+}
+
+/****************************************
+* mupnp_upnpav_content_getnchildcontents
+****************************************/
+
+int mupnp_upnpav_content_getnchildcontents(mUpnpAvContent *con)
+{
+	mUpnpXmlNode *childNode;
 	int contentNodeCnt;
 	contentNodeCnt = 0;
-	for (childNode = cg_xml_node_getchildnodes(con); childNode; childNode=cg_xml_node_next(childNode)) {
-		if (cg_upnpav_content_iscontentnode(childNode))
+	for (childNode = mupnp_xml_node_getchildnodes(con); childNode; childNode=mupnp_xml_node_next(childNode)) {
+		if (mupnp_upnpav_content_iscontentnode(childNode))
 			contentNodeCnt++;
 	}
 	return contentNodeCnt;
 }
 /****************************************
-* cg_upnpav_content_getchildcontents
+* mupnp_upnpav_content_getchildcontents
 ****************************************/
 
-CgUpnpAvContent *cg_upnpav_content_getchildcontents(CgUpnpAvContent *con)
+mUpnpAvContent *mupnp_upnpav_content_getchildcontents(mUpnpAvContent *con)
 {
-	CgXmlNode *childNode;
-	for (childNode = cg_xml_node_getchildnodes(con); childNode; childNode=cg_xml_node_next(childNode)) {
-		if (cg_upnpav_content_iscontentnode(childNode))
+	mUpnpXmlNode *childNode;
+	for (childNode = mupnp_xml_node_getchildnodes(con); childNode; childNode=mupnp_xml_node_next(childNode)) {
+		if (mupnp_upnpav_content_iscontentnode(childNode))
 			return childNode;
 	}
 	return NULL;
 }
 
 /****************************************
-* cg_upnpav_content_istitlenode
+* mupnp_upnpav_content_istitlenode
 ****************************************/
 
-BOOL cg_upnpav_content_haschildcontents(CgUpnpAvContent *con)
+bool mupnp_upnpav_content_haschildcontents(mUpnpAvContent *con)
 {
-	CgXmlNode *childNode;
-	for (childNode = cg_xml_node_getchildnodes(con); childNode; childNode=cg_xml_node_next(childNode)) {
-		if (cg_upnpav_content_iscontentnode(childNode))
-			return TRUE;
+	mUpnpXmlNode *childNode;
+	for (childNode = mupnp_xml_node_getchildnodes(con); childNode; childNode=mupnp_xml_node_next(childNode)) {
+		if (mupnp_upnpav_content_iscontentnode(childNode))
+			return true;
 	}
-	return FALSE;
+	return false;
 }
 
 /****************************************
-* cg_upnpav_content_next
+* mupnp_upnpav_content_next
 ****************************************/
 
-CgUpnpAvContent *cg_upnpav_content_next(CgUpnpAvContent *con)
+mUpnpAvContent *mupnp_upnpav_content_next(mUpnpAvContent *con)
 {
-	CgXmlNode *nextNode;
-	nextNode = cg_xml_node_next(con);
+	mUpnpXmlNode *nextNode;
+	nextNode = mupnp_xml_node_next(con);
 	while (nextNode) {
-		if (cg_upnpav_content_iscontentnode(nextNode))
+		if (mupnp_upnpav_content_iscontentnode(nextNode))
 			return nextNode;
-		nextNode = cg_xml_node_next(con);
+		nextNode = mupnp_xml_node_next(con);
 	}
 	return NULL;
 }

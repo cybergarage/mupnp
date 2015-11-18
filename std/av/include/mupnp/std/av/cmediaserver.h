@@ -181,7 +181,7 @@ mUpnpAvContent *mupnp_upnpav_dms_findcontentbyid(mUpnpAvServer *dms, char *objec
 * Connection Manager
 ****************************************/
 
-BOOL mupnp_upnpav_dms_conmgr_init(mUpnpAvServer *dms);
+bool mupnp_upnpav_dms_conmgr_init(mUpnpAvServer *dms);
 
 /****************************************
 * Network Interface
@@ -190,14 +190,14 @@ BOOL mupnp_upnpav_dms_conmgr_init(mUpnpAvServer *dms);
 #define mupnp_upnpav_dms_getnetworkinterfaces(dms) mupnp_net_interfacelist_gets(dms->networkInterfaceList)
 #define mupnp_upnpav_dms_getnnetworkinterfaces(dms) mupnp_net_interfacelist_size(dms->networkInterfaceList)
 
-BOOL mupnp_upnpav_dms_updatenetworkinterfaces(mUpnpAvServer *dms);
+bool mupnp_upnpav_dms_updatenetworkinterfaces(mUpnpAvServer *dms);
 mUpnpNetworkInterface *mupnp_upnpav_dms_getnetworkinterface(mUpnpAvServer *dms);
 
 /****************************************
 * Content Directory
 ****************************************/
 
-BOOL mupnp_upnpav_dms_condir_init(mUpnpAvServer *dms);
+bool mupnp_upnpav_dms_condir_init(mUpnpAvServer *dms);
 
 void mupnp_upnpav_dms_condir_setsystemupdateid(mUpnpAvServer *dms, int id);
 int mupnp_upnpav_dms_condir_getsystemupdateid(mUpnpAvServer *dms);
@@ -207,7 +207,7 @@ void mupnp_upnpav_dms_condir_updatesystemupdateid(mUpnpAvServer *dms);
 * Media Receiveer
 ****************************************/
 
-BOOL mupnp_upnpav_dms_medrec_init(mUpnpAvServer *dms);
+bool mupnp_upnpav_dms_medrec_init(mUpnpAvServer *dms);
 
 
 #ifdef  __cplusplus

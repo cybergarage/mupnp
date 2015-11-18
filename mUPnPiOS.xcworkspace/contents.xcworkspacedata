@@ -2,13 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:lib/mupnpiOS/mupnpiOS.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:wrapper/objc/iOS/mUPnP/mUPnP.xcodeproj">
    </FileRef>
-   <Group
-      location = "group:lib/mupnpiOS"
-      name = "mupnpiOS">
-      <FileRef
-         location = "group:mupnpiOS.xcodeproj">
-      </FileRef>
-   </Group>
 </Workspace>

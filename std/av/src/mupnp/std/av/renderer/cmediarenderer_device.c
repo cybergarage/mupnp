@@ -16,7 +16,7 @@
 #  include "config.h"
 #endif
 
-#include <cybergarage/upnp/std/av/cmediarenderer.h>
+#include <mupnp/std/av/cmediarenderer.h>
 
 /****************************************
 * Device Description
@@ -70,250 +70,250 @@ static char *CG_UPNPAV_DMR_DEVICE_DESCRIPTION =
 * Functions
 ****************************************/
 
-BOOL cg_upnpav_dmr_conmgr_init(CgUpnpAvRenderer *dmr);
-BOOL cg_upnpav_dmr_avtransport_init(CgUpnpAvRenderer *dmr);
-BOOL cg_upnpav_dmr_renderingctrl_init(CgUpnpAvRenderer *dmr);
+bool mupnp_upnpav_dmr_conmgr_init(mUpnpAvRenderer *dmr);
+bool mupnp_upnpav_dmr_avtransport_init(mUpnpAvRenderer *dmr);
+bool mupnp_upnpav_dmr_renderingctrl_init(mUpnpAvRenderer *dmr);
 
-BOOL cg_upnpav_dmr_conmgr_actionreceived(CgUpnpAction *action);
-BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction *action);
-BOOL cg_upnpav_dmr_renderingctrl_actionreceived(CgUpnpAction *action);
+bool mupnp_upnpav_dmr_conmgr_actionreceived(mUpnpAction *action);
+bool mupnp_upnpav_dmr_avtransport_actionreceived(mUpnpAction *action);
+bool mupnp_upnpav_dmr_renderingctrl_actionreceived(mUpnpAction *action);
 
-BOOL cg_upnpav_dmr_conmgr_queryreceived(CgUpnpStateVariable *statVar);
-BOOL cg_upnpav_dmr_avtransport_queryreceived(CgUpnpStateVariable *statVar);
-BOOL cg_upnpav_dmr_renderingctrl_queryreceived(CgUpnpStateVariable *statVar);
+bool mupnp_upnpav_dmr_conmgr_queryreceived(mUpnpStateVariable *statVar);
+bool mupnp_upnpav_dmr_avtransport_queryreceived(mUpnpStateVariable *statVar);
+bool mupnp_upnpav_dmr_renderingctrl_queryreceived(mUpnpStateVariable *statVar);
 
 /****************************************
- * cg_upnpav_dmr_addprotocolinfo
+ * mupnp_upnpav_dmr_addprotocolinfo
  ****************************************/
 
-void cg_upnpav_dmr_addprotocolinfo(CgUpnpAvRenderer *dmr, CgUpnpAvProtocolInfo *info)
+void mupnp_upnpav_dmr_addprotocolinfo(mUpnpAvRenderer *dmr, mUpnpAvProtocolInfo *info)
 {
-	CgString *protocolInfos;
-	CgUpnpAvProtocolInfo *protocolInfo;
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
+	mUpnpString *protocolInfos;
+	mUpnpAvProtocolInfo *protocolInfo;
+	mUpnpService *service;
+	mUpnpStateVariable *stateVar;
 
-	cg_upnpav_protocolinfolist_add(dmr->protocolInfoList, info);
+	mupnp_upnpav_protocolinfolist_add(dmr->protocolInfoList, info);
 
-	protocolInfos = cg_string_new();
-	for (protocolInfo = cg_upnpav_dmr_getprotocolinfos(dmr); protocolInfo; protocolInfo = cg_upnpav_protocolinfo_next(protocolInfo)) {
-		if (0 < cg_string_length(protocolInfos))
-			cg_string_addvalue(protocolInfos, ",");
-		cg_string_addvalue(protocolInfos, cg_upnpav_protocolinfo_getstring(protocolInfo));
+	protocolInfos = mupnp_string_new();
+	for (protocolInfo = mupnp_upnpav_dmr_getprotocolinfos(dmr); protocolInfo; protocolInfo = mupnp_upnpav_protocolinfo_next(protocolInfo)) {
+		if (0 < mupnp_string_length(protocolInfos))
+			mupnp_string_addvalue(protocolInfos, ",");
+		mupnp_string_addvalue(protocolInfos, mupnp_upnpav_protocolinfo_getstring(protocolInfo));
 	}
 
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO);
-	cg_upnp_statevariable_setvalue(stateVar, cg_string_getvalue(protocolInfos));
+	service = mupnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	stateVar = mupnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO);
+	mupnp_statevariable_setvalue(stateVar, mupnp_string_getvalue(protocolInfos));
 
-	cg_string_delete(protocolInfos);
+	mupnp_string_delete(protocolInfos);
 }
 
 /****************************************
- * cg_upnpav_dmr_setcurrentconnectionids
+ * mupnp_upnpav_dmr_setcurrentconnectionids
  ****************************************/
 
-void cg_upnpav_dmr_setcurrentconnectionids(CgUpnpAvRenderer *dmr, char *value)
+void mupnp_upnpav_dmr_setcurrentconnectionids(mUpnpAvRenderer *dmr, char *value)
 {
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
+	mUpnpService *service;
+	mUpnpStateVariable *stateVar;
 
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_CURRENTCONNECTIONIDS);
-	cg_upnp_statevariable_setvalue(stateVar, value);
+	service = mupnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	stateVar = mupnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_CURRENTCONNECTIONIDS);
+	mupnp_statevariable_setvalue(stateVar, value);
 }
 
 /****************************************
- * cg_upnpav_dmr_getcurrentconnectionids
+ * mupnp_upnpav_dmr_getcurrentconnectionids
  ****************************************/
 
-char *cg_upnpav_dmr_getcurrentconnectionids(CgUpnpAvRenderer *dmr)
+char *mupnp_upnpav_dmr_getcurrentconnectionids(mUpnpAvRenderer *dmr)
 {
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
+	mUpnpService *service;
+	mUpnpStateVariable *stateVar;
 
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_CURRENTCONNECTIONIDS);
-	return cg_upnp_statevariable_getvalue(stateVar);
+	service = mupnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	stateVar = mupnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_CURRENTCONNECTIONIDS);
+	return mupnp_statevariable_getvalue(stateVar);
 }
 
 /****************************************
-* cg_upnpav_dmr_actionreceived
+* mupnp_upnpav_dmr_actionreceived
 ****************************************/
 
-BOOL cg_upnpav_dmr_actionreceived(CgUpnpAction *action)
+bool mupnp_upnpav_dmr_actionreceived(mUpnpAction *action)
 {
-	CgUpnpDevice *dev;
-	CgUpnpService *service;
-	CgUpnpAvRenderer *dmr;
+	mUpnpDevice *dev;
+	mUpnpService *service;
+	mUpnpAvRenderer *dmr;
 	CG_UPNPAV_ACTION_LISTNER userActionListener;
 
-	service = cg_upnp_action_getservice(action);
+	service = mupnp_action_getservice(action);
 	if (!service)
-		return FALSE;
+		return false;
 
-	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(service);
+	dev = (mUpnpDevice *)mupnp_service_getdevice(service);
 	if (!dev)
-		return FALSE;
+		return false;
 
-	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
+	dmr = (mUpnpAvRenderer *)mupnp_device_getuserdata(dev);
 	if (!dmr)
-		return FALSE;
+		return false;
 
-	userActionListener = cg_upnpav_dmr_getactionlistener(dmr);
+	userActionListener = mupnp_upnpav_dmr_getactionlistener(dmr);
 	if (userActionListener) {
 		if (userActionListener(action))
-			return TRUE;
+			return true;
 	}
 
-	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE))
-		return cg_upnpav_dmr_avtransport_actionreceived(action);
+	if (mupnp_streq(mupnp_service_getservicetype(service), CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE))
+		return mupnp_upnpav_dmr_avtransport_actionreceived(action);
 
-	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_TYPE))
-		return cg_upnpav_dmr_renderingctrl_actionreceived(action);
+	if (mupnp_streq(mupnp_service_getservicetype(service), CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_TYPE))
+		return mupnp_upnpav_dmr_renderingctrl_actionreceived(action);
 
-	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE))
-		return cg_upnpav_dmr_conmgr_actionreceived(action);
+	if (mupnp_streq(mupnp_service_getservicetype(service), CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE))
+		return mupnp_upnpav_dmr_conmgr_actionreceived(action);
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
-* cg_upnpav_dmr_queryreceived
+* mupnp_upnpav_dmr_queryreceived
 ****************************************/
 
-BOOL cg_upnpav_dmr_queryreceived(CgUpnpStateVariable *statVar)
+bool mupnp_upnpav_dmr_queryreceived(mUpnpStateVariable *statVar)
 {
-	CgUpnpDevice *dev;
-	CgUpnpService *service;
-	CgUpnpAvRenderer *dmr;
+	mUpnpDevice *dev;
+	mUpnpService *service;
+	mUpnpAvRenderer *dmr;
 	CG_UPNPAV_STATEVARIABLE_LISTNER userQueryListener;
 
-	service = cg_upnp_statevariable_getservice(statVar);
+	service = mupnp_statevariable_getservice(statVar);
 	if (!service)
-		return FALSE;
+		return false;
 
-	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(service);
+	dev = (mUpnpDevice *)mupnp_service_getdevice(service);
 	if (!dev)
-		return FALSE;
+		return false;
 
-	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
+	dmr = (mUpnpAvRenderer *)mupnp_device_getuserdata(dev);
 	if (!dmr)
-		return FALSE;
+		return false;
 
-	userQueryListener = cg_upnpav_dmr_getquerylistener(dmr);
+	userQueryListener = mupnp_upnpav_dmr_getquerylistener(dmr);
 	if (userQueryListener) {
 		if (userQueryListener(statVar))
-			return TRUE;
+			return true;
 	}
 
-	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE))
-		return cg_upnpav_dmr_avtransport_queryreceived(statVar);
+	if (mupnp_streq(mupnp_service_getservicetype(service), CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE))
+		return mupnp_upnpav_dmr_avtransport_queryreceived(statVar);
 
-	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_TYPE))
-		return cg_upnpav_dmr_renderingctrl_queryreceived(statVar);
+	if (mupnp_streq(mupnp_service_getservicetype(service), CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_TYPE))
+		return mupnp_upnpav_dmr_renderingctrl_queryreceived(statVar);
 
-	if (cg_streq(cg_upnp_service_getservicetype(service), CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE))
-		return cg_upnpav_dmr_conmgr_queryreceived(statVar);
+	if (mupnp_streq(mupnp_service_getservicetype(service), CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE))
+		return mupnp_upnpav_dmr_conmgr_queryreceived(statVar);
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
-* cg_upnpav_dmr_device_httprequestrecieved
+* mupnp_upnpav_dmr_device_httprequestrecieved
 ****************************************/
 
-void cg_upnpav_dmr_device_httprequestrecieved(CgHttpRequest *httpReq)
+void mupnp_upnpav_dmr_device_httprequestrecieved(mUpnpHttpRequest *httpReq)
 {
-	CgUpnpAvRenderer *dmr;
-	CgUpnpDevice *dev;
+	mUpnpAvRenderer *dmr;
+	mUpnpDevice *dev;
 	CG_UPNPAV_HTTP_LISTENER userHttpListener;
 
-	dev = (CgUpnpDevice *)cg_http_request_getuserdata(httpReq);
+	dev = (mUpnpDevice *)mupnp_http_request_getuserdata(httpReq);
 	if (!dev) {
-		cg_upnp_device_httprequestrecieved(httpReq);
+		mupnp_device_httprequestrecieved(httpReq);
 		return;
 	}
 
-	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
+	dmr = (mUpnpAvRenderer *)mupnp_device_getuserdata(dev);
 	if (!dmr) {
-		cg_upnp_device_httprequestrecieved(httpReq);
+		mupnp_device_httprequestrecieved(httpReq);
 		return;
 	}
 
-	userHttpListener = cg_upnpav_dmr_gethttplistener(dmr);
+	userHttpListener = mupnp_upnpav_dmr_gethttplistener(dmr);
 	if (userHttpListener) {
 		if (userHttpListener(httpReq))
 			return;
 	}
 
-	cg_upnp_device_httprequestrecieved(httpReq);
+	mupnp_device_httprequestrecieved(httpReq);
 }
 
 /****************************************
-* cg_upnpav_dmr_new
+* mupnp_upnpav_dmr_new
 ****************************************/
 
-CgUpnpAvRenderer *cg_upnpav_dmr_new()
+mUpnpAvRenderer *mupnp_upnpav_dmr_new()
 {
-	CgUpnpAvRenderer *dmr;
+	mUpnpAvRenderer *dmr;
 	char *lastChange;
 
-	dmr = (CgUpnpAvRenderer *)malloc(sizeof(CgUpnpAvRenderer));
+	dmr = (mUpnpAvRenderer *)malloc(sizeof(mUpnpAvRenderer));
 
-	dmr->dev = cg_upnp_device_new();
+	dmr->dev = mupnp_device_new();
 	if (!dmr->dev) {
 		free(dmr);
 		return NULL;
 	}
 
-	if (cg_upnp_device_parsedescription(dmr->dev, CG_UPNPAV_DMR_DEVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMR_DEVICE_DESCRIPTION)) == FALSE) {
-		cg_upnp_device_delete(dmr->dev);
+	if (mupnp_device_parsedescription(dmr->dev, CG_UPNPAV_DMR_DEVICE_DESCRIPTION, mupnp_strlen(CG_UPNPAV_DMR_DEVICE_DESCRIPTION)) == false) {
+		mupnp_device_delete(dmr->dev);
 		free(dmr);
 		return NULL;
 	}
 
-	if (cg_upnpav_dmr_conmgr_init(dmr) == FALSE) {
-		cg_upnp_device_delete(dmr->dev);
+	if (mupnp_upnpav_dmr_conmgr_init(dmr) == false) {
+		mupnp_device_delete(dmr->dev);
 		free(dmr);
 		return NULL;
 	}
 
-	if (cg_upnpav_dmr_renderingctrl_init(dmr) == FALSE) {
-		cg_upnp_device_delete(dmr->dev);
+	if (mupnp_upnpav_dmr_renderingctrl_init(dmr) == false) {
+		mupnp_device_delete(dmr->dev);
 		free(dmr);
 		return NULL;
 	}
 
-	if (cg_upnpav_dmr_avtransport_init(dmr) == FALSE) {
-		cg_upnp_device_delete(dmr->dev);
+	if (mupnp_upnpav_dmr_avtransport_init(dmr) == false) {
+		mupnp_device_delete(dmr->dev);
 		free(dmr);
 		return NULL;
 	}
 
-	dmr->mutex = cg_mutex_new();
+	dmr->mutex = mupnp_mutex_new();
 	if (!dmr->mutex) {
-		cg_upnpav_dmr_delete(dmr);
+		mupnp_upnpav_dmr_delete(dmr);
 		return NULL;
 	}
 
-	cg_upnp_device_setactionlistener(dmr->dev, cg_upnpav_dmr_actionreceived);
-	cg_upnp_device_setquerylistener(dmr->dev, cg_upnpav_dmr_queryreceived);
-	cg_upnp_device_sethttplistener(dmr->dev, cg_upnpav_dmr_device_httprequestrecieved);
+	mupnp_device_setactionlistener(dmr->dev, mupnp_upnpav_dmr_actionreceived);
+	mupnp_device_setquerylistener(dmr->dev, mupnp_upnpav_dmr_queryreceived);
+	mupnp_device_sethttplistener(dmr->dev, mupnp_upnpav_dmr_device_httprequestrecieved);
 
-	cg_upnpav_dmr_setactionlistener(dmr, NULL);
-	cg_upnpav_dmr_setquerylistener(dmr, NULL);
-	cg_upnpav_dmr_sethttplistener(dmr, NULL);
+	mupnp_upnpav_dmr_setactionlistener(dmr, NULL);
+	mupnp_upnpav_dmr_setquerylistener(dmr, NULL);
+	mupnp_upnpav_dmr_sethttplistener(dmr, NULL);
 
-	cg_upnp_device_setuserdata(dmr->dev, dmr);
-	cg_upnp_device_updateudn(dmr->dev);
+	mupnp_device_setuserdata(dmr->dev, dmr);
+	mupnp_device_updateudn(dmr->dev);
 
-	dmr->protocolInfoList = cg_upnpav_protocolinfolist_new();
+	dmr->protocolInfoList = mupnp_upnpav_protocolinfolist_new();
 
-	cg_upnpav_dmr_setavtransportlastchange(dmr,  "&lt;Event xmlns = &quot;urn:schemas-upnp-org:metadata-1-0/AVT/&quot;/&gt;");
+	mupnp_upnpav_dmr_setavtransportlastchange(dmr,  "&lt;Event xmlns = &quot;urn:schemas-upnp-org:metadata-1-0/AVT/&quot;/&gt;");
 
-	cg_upnpav_dmr_setsourceprotocolinfo(dmr, "");
-	cg_upnpav_dmr_setcurrentconnectionids(dmr, "0");
+	mupnp_upnpav_dmr_setsourceprotocolinfo(dmr, "");
+	mupnp_upnpav_dmr_setcurrentconnectionids(dmr, "0");
 
 	lastChange = "&lt;Event xmlns = &quot;urn:schemas-upnp-org:metadata-1-0/RCS/&quot;&gt;"
 	"&lt;InstanceID val=&quot;0&quot;&gt;"
@@ -322,27 +322,27 @@ CgUpnpAvRenderer *cg_upnpav_dmr_new()
 	"&lt;/InstanceID&gt;"
 	"&lt;/Event&gt;";
 
-	cg_upnpav_dmr_setrenderingcontrollastchange(dmr, lastChange);
+	mupnp_upnpav_dmr_setrenderingcontrollastchange(dmr, lastChange);
 
 	return dmr;
 }
 
 /****************************************
-* cg_upnpav_dmr_delete
+* mupnp_upnpav_dmr_delete
 ****************************************/
 
-void cg_upnpav_dmr_delete(CgUpnpAvRenderer *dmr)
+void mupnp_upnpav_dmr_delete(mUpnpAvRenderer *dmr)
 {
 	if (dmr == NULL)
 		return;
 
 	if (dmr->mutex)
-		cg_mutex_delete(dmr->mutex);
+		mupnp_mutex_delete(dmr->mutex);
 
 	if (dmr->protocolInfoList)
-		cg_upnpav_protocolinfolist_delete(dmr->protocolInfoList);
+		mupnp_upnpav_protocolinfolist_delete(dmr->protocolInfoList);
 
-	cg_upnp_device_delete(dmr->dev);
+	mupnp_device_delete(dmr->dev);
 
 	free(dmr);
 }

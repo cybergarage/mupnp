@@ -32,9 +32,9 @@ extern "C" {
 #define CG_UPNPAV_OBJECT_ALBUMARTURI "upnp:albumArtURI"
 #define CG_UPNPAV_OBJECT_ROOT_ID "0"
 
-typedef BOOL (*CG_UPNPAV_HTTP_LISTENER)(mUpnpHttpRequest *);
-typedef BOOL (*CG_UPNPAV_ACTION_LISTNER)(mUpnpAction *);
-typedef BOOL (*CG_UPNPAV_STATEVARIABLE_LISTNER)(mUpnpStateVariable *);
+typedef bool (*CG_UPNPAV_HTTP_LISTENER)(mUpnpHttpRequest *);
+typedef bool (*CG_UPNPAV_ACTION_LISTNER)(mUpnpAction *);
+typedef bool (*CG_UPNPAV_STATEVARIABLE_LISTNER)(mUpnpStateVariable *);
 
 #ifdef __cplusplus
 }

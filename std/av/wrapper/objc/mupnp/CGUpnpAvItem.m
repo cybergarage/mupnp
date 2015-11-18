@@ -42,7 +42,7 @@
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode
+- (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode
 #endif
 {
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
@@ -57,8 +57,6 @@
 #if defined(TARGET_OS_IPHONE)
     self.thumbnailImage = nil;
 #endif
-    
-	[super dealloc];
 }
 
 - (void)addResource:(CGUpnpAvResource *)res
@@ -132,7 +130,7 @@
 {
 	for (CGUpnpAvResource *res in [self resourcesWithMimeTypes:mimeTypes]) {
 		if ([res isSmallImage])
-			return [[res retain] autorelease];
+			return res;
 	}
 	return nil;
 }
@@ -146,7 +144,7 @@
 {
 	for (CGUpnpAvResource *res in [self resourcesWithMimeTypes:mimeTypes]) {
 		if ([res isMediumImage])
-			return [[res retain] autorelease];
+			return res;
 	}
 	return nil;
 }
@@ -160,7 +158,7 @@
 {
 	for (CGUpnpAvResource *res in [self resourcesWithMimeTypes:mimeTypes]) {
 		if ([res isLargeImage])
-			return [[res retain] autorelease];
+			return res;
 	}
 	return nil;
 }
@@ -258,42 +256,42 @@
 {
 	NSString *tbUrl = [self albumArtURI];
 	if (tbUrl && 0 < [tbUrl length])
-		return [[tbUrl retain] autorelease];
+		return tbUrl;
 	for (CGUpnpAvResource *res in [self resources]) {
 		if ([res isThumbnail])
-			return [[[res url] retain] autorelease];
+			return [res url];
 	}
 	return nil;
 }
 
 - (NSString *)smallImageUrl
 {
-	return [[[[self smallImageResource] url] retain] autorelease];
+	return [[self smallImageResource] url];
 }
 
 - (NSString *)mediumImageUrl
 {
-	return [[[[self mediumImageResource] url] retain] autorelease];
+	return [[self mediumImageResource] url];
 }
 
 - (NSString *)largeImageUrl
 {
-	return [[[[self largeImageResource] url] retain] autorelease];
+	return [[self largeImageResource] url];
 }
 
 - (NSString *)lowestImageUrl
 {
-	return [[[[self lowestImageResource] url] retain] autorelease];
+	return [[self lowestImageResource] url];
 }
 
 - (NSString *)highestImageUrl
 {
-	return [[[[self highestImageResource] url] retain] autorelease];
+	return [[self highestImageResource] url];
 }
 
 - (NSString *)applicableImageUrlBySize:(CGSize)size
 {
-	return [[[[self applicableImageResourceBySize:size] url] retain] autorelease];
+	return [[self applicableImageResourceBySize:size] url];
 }
 
 - (CGUpnpAvResource *)movieResource

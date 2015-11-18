@@ -26,7 +26,7 @@
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode
+- (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode
 #endif
 {
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
@@ -39,7 +39,6 @@
 {
 	[self removeAllChildren];
     self.childArray = nil;
-	[super dealloc];
 }
 
 - (void)addChild:(CGUpnpAvObject *)obj
@@ -129,7 +128,8 @@
 	CGUpnpAvObject *lastObject = isAbsolutePath ? [self ancestor] : self;
 	int pathIndex = 0;
 	for (NSString *title in titleArray) {
-		title = [CGXml unescapestring:title];
+#warning TODO check if need to be upeascape
+//		title = [CGXml unescapestring:title];
 		pathIndex++;
 		if (pathIndex == 1) {
 			if (isAbsolutePath)
@@ -149,7 +149,7 @@
 			return nil;
 		lastObject = foundObj;
 	}
-	return [[lastObject retain] autorelease];
+	return lastObject;
 }
 
 @end

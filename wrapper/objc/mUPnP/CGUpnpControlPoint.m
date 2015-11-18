@@ -28,7 +28,7 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const
 	cObject = mupnp_controlpoint_new();
 	if (cObject) {
 		mupnp_controlpoint_setdevicelistener(cObject, CGUpnpControlPointDeviceListener);
-		mupnp_controlpoint_setuserdata(cObject, self);
+		mupnp_controlpoint_setuserdata(cObject, (__bridge void *)self);
 		if (![self start])
 			self = nil;
 	}
@@ -41,7 +41,6 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const
 {
 	if (cObject)
 		mupnp_controlpoint_delete(cObject);
-	[super dealloc];
 }
 
 - (BOOL)start
@@ -104,7 +103,7 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const
 	NSMutableArray *devArray = [NSMutableArray array];
 	mUpnpDevice *cDevice;
 	for (cDevice = mupnp_controlpoint_getdevices(cObject); cDevice; cDevice = mupnp_device_next(cDevice)) {
-		CGUpnpDevice *device = [[[CGUpnpDevice alloc] initWithCObject:cDevice] autorelease];
+		CGUpnpDevice *device = [[CGUpnpDevice alloc] initWithCObject:cDevice];
 		[devArray addObject:device];
 	}
 	return devArray;
@@ -117,7 +116,7 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const
 	mUpnpDevice *cDevice;
 	for (cDevice = mupnp_controlpoint_getdevices(cObject); cDevice; cDevice = mupnp_device_next(cDevice)) {
 		if (mupnp_strcmp(mupnp_device_getudn(cDevice), (char *)[udn UTF8String]) == 0) 
-			return [[[CGUpnpDevice alloc] initWithCObject:cDevice] autorelease];
+			return [[CGUpnpDevice alloc] initWithCObject:cDevice];
 	}
 	return nil;
 }
@@ -126,14 +125,12 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const
 
 static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *cCtrlPoint, const char* udn, mUpnpDeviceStatus status)
 {
-	CGUpnpControlPoint *ctrlPoint = mupnp_controlpoint_getuserdata(cCtrlPoint);
+	CGUpnpControlPoint *ctrlPoint = (__bridge CGUpnpControlPoint *)mupnp_controlpoint_getuserdata(cCtrlPoint);
 	if (ctrlPoint == nil)
 		return;
 	
 	if ([ctrlPoint delegate] == nil)
 		return;
-
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
 	NSString *deviceUdn = [[NSString alloc] initWithUTF8String:udn];
 	
@@ -165,9 +162,5 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *cCtrlPoint, cons
 		default:
 			break;
 	}
-	
-	[deviceUdn release];
-    
-    [pool drain];
 }
 

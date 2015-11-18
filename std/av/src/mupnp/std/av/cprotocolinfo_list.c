@@ -18,39 +18,39 @@
 *
 ******************************************************************/
 
-#include <cybergarage/upnp/std/av/cprotocolinfo.h>
-#include <cybergarage/util/clog.h>
+#include <mupnp/std/av/cprotocolinfo.h>
+#include <mupnp/util/log.h>
 
 /****************************************
-* cg_upnp_protocolinflist_new
+* mupnp_upnp_protocolinflist_new
 ****************************************/
 
-CgUpnpAvProtocolInfoList *cg_upnpav_protocolinfolist_new()
+mUpnpAvProtocolInfoList *mupnp_upnpav_protocolinfolist_new()
 {
-	CgUpnpAvProtocolInfo *protocolinfoList;
+	mUpnpAvProtocolInfo *protocolinfoList;
 
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	protocolinfoList = (CgUpnpAvProtocolInfo *)malloc(sizeof(CgUpnpAvProtocolInfo));
+	protocolinfoList = (mUpnpAvProtocolInfo *)malloc(sizeof(mUpnpAvProtocolInfo));
 
 	if ( NULL != protocolinfoList )
-		cg_list_header_init((CgList *)protocolinfoList);
+		mupnp_list_header_init((mUpnpList *)protocolinfoList);
 
 	return protocolinfoList;
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
-* cg_upnpav_protocolinfor_delete
+* mupnp_upnpav_protocolinfor_delete
 ****************************************/
 
-void cg_upnpav_protocolinfolist_delete(CgUpnpAvProtocolInfoList *protocolinfoList)
+void mupnp_upnpav_protocolinfolist_delete(mUpnpAvProtocolInfoList *protocolinfoList)
 {
-	cg_log_debug_l4("Entering...\n");
+	mupnp_log_debug_l4("Entering...\n");
 
-	cg_list_remove((CgList *)protocolinfoList);
+	mupnp_list_remove((mUpnpList *)protocolinfoList);
 	free(protocolinfoList);
 
-	cg_log_debug_l4("Leaving...\n");
+	mupnp_log_debug_l4("Leaving...\n");
 }

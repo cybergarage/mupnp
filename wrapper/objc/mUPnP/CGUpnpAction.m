@@ -16,7 +16,7 @@ static BOOL CGUpnpActionListener(mUpnpAction *cAction)
 {
 	if (!cAction)
 		return FALSE;
-	CGUpnpAction *objcAction = (CGUpnpAction *)mupnp_action_getuserdata(cAction);
+	CGUpnpAction *objcAction = (__bridge CGUpnpAction *)mupnp_action_getuserdata(cAction);
 	if (!objcAction)
 		return FALSE;
 	SEL actionReceived = @selector(actionReceived);		
@@ -37,7 +37,7 @@ static BOOL CGUpnpActionListener(mUpnpAction *cAction)
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cobj;
-	mupnp_action_setuserdata(cObject, self);
+	mupnp_action_setuserdata(cObject, (__bridge void *)(self));
 	mupnp_action_setlistener(cObject, CGUpnpActionListener);
 	return self;
 }
@@ -51,14 +51,13 @@ static BOOL CGUpnpActionListener(mUpnpAction *cAction)
 
 - (void) dealloc
 {
-	[super dealloc];
 }
 
 - (NSString *)name
 {
 	if (!cObject)
 		return nil;
-	return [[[NSString alloc] initWithUTF8String:mupnp_action_getname(cObject)] autorelease];
+	return [[NSString alloc] initWithUTF8String:mupnp_action_getname(cObject)];
 }
 
 - (NSDictionary *)arguments
@@ -73,8 +72,6 @@ static BOOL CGUpnpActionListener(mUpnpAction *cAction)
 		NSString *obj = [[NSString alloc] initWithUTF8String:(value ? value : "")];
 		NSString *key = [[NSString alloc] initWithUTF8String:name];
 		[argDir setObject:obj forKey:key];
-		[obj release];
-		[key release];
 	}
 	return argDir;
 }
@@ -121,7 +118,7 @@ static BOOL CGUpnpActionListener(mUpnpAction *cAction)
 	NSString *name;
 
 	for (name in arguments) {
-		NSString *value = [arguments valueForKey:name];
+		NSString *value = [arguments objectForKey:name];
 		[self setArgumentValue:value forName:name];
 	}
 	return [self post];

@@ -6,10 +6,13 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/std/av/cmediarenderer.h>
+#include <mupnp/std/av/cmediarenderer.h>
 
 #import "CGUpnpAvRenderer.h"
 #import "CGUpnpAVPositionInfo.h"
+#import "CGUpnpAVPositionInfo.h"
+#import "CGUpnpService.h"
+#import "CGUpnpAction.h"
 
 @interface CGUpnpAvRenderer()
 @property (assign) int currentPlayMode;
@@ -31,15 +34,15 @@ enum {
 	if ((self = [super init]) == nil)
 		return nil;
 
-	cAvObject = cg_upnpav_dmr_new();
-	[self setCObject:cg_upnpav_dmr_getdevice(cAvObject)];
+	cAvObject = mupnp_upnpav_dmr_new();
+	[self setCObject:mupnp_upnpav_dmr_getdevice(cAvObject)];
 	
 	[self setCurrentPlayMode:CGUpnpAvRendererPlayModeStop];
 	
 	return self;
 }
 
-- (id) initWithCObject:(CgUpnpDevice *)cobj
+- (id) initWithCObject:(mUpnpDevice *)cobj
 {
 	if ((self = [super initWithCObject:cobj]) == nil)
 		return nil;
@@ -157,7 +160,7 @@ enum {
 	if (![action post])
 		return nil;
 	
-	return [[[CGUpnpAVPositionInfo alloc] initWithAction:action] autorelease];
+	return [[CGUpnpAVPositionInfo alloc] initWithAction:action];
 }
 
 /*

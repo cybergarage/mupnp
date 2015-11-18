@@ -22,7 +22,7 @@
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode
+- (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode
 #endif
 {
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
@@ -32,7 +32,6 @@
 
 - (void)dealloc
 {
-	[super dealloc];
 }
 
 - (NSString *)url
@@ -58,7 +57,7 @@
 	NSArray *protocols = [protocolInfo componentsSeparatedByString:@":"];
 	if ([protocols count] <= anIndex)
 		return nil;
-	return [[[protocols objectAtIndex:anIndex] retain] autorelease];
+	return [protocols objectAtIndex:anIndex];
 }
 
 - (NSString *)protocol
@@ -93,7 +92,7 @@
 			if ([tokens count] < 2)
 				continue;
 			NSString *value = [tokens objectAtIndex:1];
-			return[[value retain] autorelease];
+			return value;
 		}
 	}
 	return nil;

@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import <CyberLink/CGUpnpAvObject.h>
+#import <mupnp/CGUpnpAvObject.h>
 
 /**
  * The CGUpnpAvContainer class is a container of UPnP/AV container.
@@ -19,7 +19,7 @@
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
+- (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode;
 #endif
 - (void)addChild:(CGUpnpAvObject *)obj;
 - (void)addChildren:(NSArray *)objArray;

@@ -20,14 +20,13 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
-	self.contentMgr = [[[CGUpnpAvContentManager alloc] init] autorelease];
+	self.contentMgr = [[CGUpnpAvContentManager alloc] init];
 	return self;
 }
 
 - (void)dealloc
 {
     self.contentMgr = nil;
-	[super dealloc];
 }
 
 - (CGUpnpAvContainer *)rootObject

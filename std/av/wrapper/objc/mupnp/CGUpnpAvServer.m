@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/std/av/cmediaserver.h>
+#include <mupnp/std/av/cmediaserver.h>
 
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
@@ -15,6 +15,8 @@
 #import "CGUpnpAvResource.h"
 #import "CGUpnpAvContentDirectory.h"
 #import "CGUpnpAvServer.h"
+#import "CGUpnpService.h"
+#import "CGUpnpAction.h"
 
 #define CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT 999
 
@@ -35,21 +37,21 @@
 	if ((self = [super init]) == nil)
 		return nil;
 
-	cAvObject = cg_upnpav_dms_new();
-	[self setCObject:cg_upnpav_dms_getdevice(cAvObject)];
+	cAvObject = mupnp_upnpav_dms_new();
+	[self setCObject:cAvObject];
 	
 	self.contentDirectory = nil;
 
 	return self;
 }
 
-- (id) initWithCObject:(CgUpnpDevice *)cobj
+- (id) initWithCObject:(mUpnpDevice *)cobj
 {
 	if ((self = [super initWithCObject:cobj]) == nil)
 		return nil;
 	
 	cAvObject = NULL;
-	self.contentDirectory = [[[CGUpnpAvContentDirectory alloc] init] autorelease];
+	self.contentDirectory = [[CGUpnpAvContentDirectory alloc] init];
     
 	return self;
 }
@@ -67,7 +69,7 @@
 #if defined(CGUPNPAVSERVER_ENABLED_USEROBJECT_RETAIN)
 		[aUserObj retain];
 #endif
-		[self setUserData:aUserObj];
+		[self setUserData:(__bridge void *)(aUserObj)];
 	}
 }
 
@@ -76,7 +78,7 @@
 	void *userData = [self userData];
 	if (!userData)
 		return nil;
-	return (id)userData;
+	return (__bridge id)userData;
 }
 
 - (void)dealloc
@@ -95,9 +97,7 @@
     }
 
 	if (cAvObject)
-		cg_upnpav_dms_delete(cAvObject);
-        
-	[super dealloc];
+		mupnp_upnpav_dms_delete(cAvObject);
 }
 
 - (CGUpnpAvContainer *)rootObject
@@ -380,9 +380,6 @@
 	[searchObjectIds addObject:objectId];
     
 	while (0 < [searchObjectIds count]) {
-    
-    	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-        
     	NSString *searchObjectId = [searchObjectIds objectAtIndex:0];
 		NSArray *childAvObjs = [self browseDirectChildren:searchObjectId];
         
@@ -400,8 +397,6 @@
                 }
             }
         }
-        
-        [pool drain];
     }
     
 	return avObjs;
@@ -419,28 +414,28 @@
 {
 	if (!cAvObject)
 		return NO;
-	return cg_upnpav_dms_start(cAvObject);
+	return mupnp_upnpav_dms_start(cAvObject);
 }
 
 - (BOOL)stop
 {
 	if (!cAvObject)
 		return NO;
-	return cg_upnpav_dms_stop(cAvObject);
+	return mupnp_upnpav_dms_stop(cAvObject);
 }
 
 - (void)lock
 {
 	if (!cAvObject)
 		return;
-	cg_upnpav_dms_lock(cAvObject);
+	mupnp_upnpav_dms_lock(cAvObject);
 }
 
 - (void)unlock
 {
 	if (!cAvObject)
 		return;
-	cg_upnpav_dms_unlock(cAvObject);
+	mupnp_upnpav_dms_unlock(cAvObject);
 }
 
 @end

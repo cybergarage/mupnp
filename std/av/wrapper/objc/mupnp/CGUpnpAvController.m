@@ -6,8 +6,8 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/ssdp/cssdp.h>
-#include <cybergarage/upnp/std/av/cmediaserver.h>
+#include <mupnp/ssdp/ssdp.h>
+#include <mupnp/std/av/cmediaserver.h>
 
 #import "CGUpnpAvController.h"
 #import "CGUpnpAvServer.h"
@@ -32,7 +32,6 @@
 
 - (void)dealloc
 {
-	[super dealloc];
 }
 
 ////////////////////////////////////////////////////////////
@@ -42,7 +41,7 @@
 - (NSArray *)servers;
 {
 	NSArray *devices = [self devices];
-	NSMutableArray *serverArray = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray *serverArray = [[NSMutableArray alloc] init];
 
 	for (CGUpnpDevice *dev in devices) {
 		if (![dev isDeviceType:@CG_UPNPAV_DMS_DEVICE_TYPE])
@@ -50,14 +49,14 @@
 		CGUpnpAvServer *server = nil;		
 		void *devData = [dev userData];
 		if (!devData) {
-			CgUpnpDevice *cDevice = [dev cObject];
+			mUpnpDevice *cDevice = [dev cObject];
 			if (!cDevice)
 				continue;
-			server = [[[CGUpnpAvServer alloc] initWithCObject:cDevice] autorelease];
+			server = [[CGUpnpAvServer alloc] initWithCObject:(__bridge CgUpnpDevice *)(cDevice)];
 			[server setUserObject:server];
 		}
-		else 
-			server = (CGUpnpAvServer *)((id)devData);
+		else
+			server = (CGUpnpAvServer *)((__bridge id)devData);
 		if (server == nil)
 			continue;
 		[serverArray addObject:server];
@@ -72,7 +71,7 @@
 	NSArray *servers = [self servers];
 	for (CGUpnpAvServer *server in servers) {
 		if ([server isUDN:aUdn])
-			return [[server retain] autorelease];
+			return server;
 	}
 	return nil;
 }
@@ -84,7 +83,7 @@
 	NSArray *servers = [self servers];
 	for (CGUpnpAvServer *server in servers) {
 		if ([server isFriendlyName:aFriendlyName])
-			return [[server retain] autorelease];
+			return server;
 	}
 	return nil;
 }
@@ -128,7 +127,7 @@
 	NSString *titlePath = [NSString pathWithComponents:titlePathArray];
 	CGUpnpAvObject *avObj = [avSrv objectForTitlePath:titlePath];
 	
-	return [[avObj retain] autorelease];
+	return avObj;
 }
 
 - (CGUpnpAvObject *)objectForIndexPath:(NSIndexPath *)aServerAndTitleIndexPath
@@ -156,7 +155,7 @@
 	}
 	
 	
-	return [[avObj retain] autorelease];
+	return avObj;
 }
 
 - (NSArray *)browseDirectChildrenWithTitlePath:(NSString *)aServerAndTitlePath
@@ -192,15 +191,15 @@
 - (NSArray *)renderers;
 {
 	NSArray *devices = [self devices];
-	NSMutableArray *rendererrArray = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray *rendererrArray = [[NSMutableArray alloc] init];
 	
 	for (CGUpnpDevice *dev in devices) {
 		if (![dev isDeviceType:@CG_UPNPAV_DMR_DEVICE_TYPE])
 			continue;
-		CgUpnpDevice *cDevice = [dev cObject];
+		mUpnpDevice *cDevice = [dev cObject];
 		if (!cDevice)
 			continue;
-		CGUpnpAvRenderer *renderer = [[[CGUpnpAvRenderer alloc] initWithCObject:cDevice] autorelease];
+		CGUpnpAvRenderer *renderer = [[CGUpnpAvRenderer alloc] initWithCObject:cDevice];
 		if (renderer == nil)
 			continue;
 		[rendererrArray addObject:renderer];
@@ -215,7 +214,7 @@
 	NSArray *renderers = [self renderers];
 	for (CGUpnpAvRenderer *renderer in renderers) {
 		if ([renderer isUDN:aUdn])
-			return [[renderer retain] autorelease];
+			return renderer;
 	}
 	return nil;
 }

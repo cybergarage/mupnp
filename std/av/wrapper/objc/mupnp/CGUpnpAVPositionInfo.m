@@ -7,6 +7,7 @@
 //
 
 #import "CGUpnpAVPositionInfo.h"
+#import "CGUpnpAction.h"
 
 @implementation CGUpnpAVPositionInfo
 
@@ -23,8 +24,6 @@
 - (void) dealloc
 {
 	self.upnpAction = nil;
-    
-	[super dealloc];
 }
 
 -(float)trackDuration

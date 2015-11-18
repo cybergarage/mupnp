@@ -13,15 +13,19 @@
 #import <Foundation/NSString.h>
 #endif
 
-#import <CyberLink/UPnP.h>
+#import <mUPnP/UPnP.h>
+#import <mUPnP/CGUpnpDevice.h>
 
 @class CGUpnpAvContentDirectory;
 @class CGUpnpAvObject;
 @class CGUpnpAvContainer;
 @class CGUpnpAvServer;
+@class CGUpnpAction;
+@class CgUpnpDevice;
+@class CgUpnpAvServer;
 
 #if !defined(_CG_CLINKCAV_SERVER_H_)
-typedef void CgUpnpAvServer;
+typedef void mUpnpAvServer;
 #endif
 
 @protocol CGUpnpAvServerDelegate <NSObject>
@@ -37,7 +41,7 @@ typedef void CgUpnpAvServer;
 {
 }
 @property(retain) CGUpnpAvContentDirectory *contentDirectory;
-@property(assign) CgUpnpAvServer *cAvObject;
+@property(assign) mUpnpAvServer *cAvObject;
 @property(assign) id<CGUpnpAvServerDelegate> delegateServer;
 
 #if defined(TARGET_OS_IPHONE)

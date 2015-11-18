@@ -16,9 +16,9 @@
 #  include "config.h"
 #endif
 
-#include <cybergarage/upnp/std/av/cmediarenderer.h>
-#include <cybergarage/upnp/std/av/ccontent.h>
-#include <cybergarage/upnp/std/av/cresource.h>
+#include <mupnp/std/av/cmediarenderer.h>
+#include <mupnp/std/av/ccontent.h>
+#include <mupnp/std/av/cresource.h>
 
 /****************************************
 * Service Description (Connection Manager)
@@ -294,139 +294,139 @@ static char *CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_DESCRIPTION =
 #endif
 
 /****************************************
-* cg_upnpav_dmr_conmgr_actionreceived
+* mupnp_upnpav_dmr_conmgr_actionreceived
 ****************************************/
 
-BOOL cg_upnpav_dmr_conmgr_actionreceived(CgUpnpAction *action)
+bool mupnp_upnpav_dmr_conmgr_actionreceived(mUpnpAction *action)
 {
-	CgUpnpAvRenderer *dmr;
-	CgUpnpDevice *dev;
+	mUpnpAvRenderer *dmr;
+	mUpnpDevice *dev;
 	char *actionName;
-	CgUpnpArgument *arg;
-	CgString *protocolInfos;
-	CgUpnpAvProtocolInfo *protocolInfo;
+	mUpnpArgument *arg;
+	mUpnpString *protocolInfos;
+	mUpnpAvProtocolInfo *protocolInfo;
 	
-	actionName = (char*)cg_upnp_action_getname(action);
-	if (cg_strlen(actionName) <= 0)
-		return FALSE;
+	actionName = (char*)mupnp_action_getname(action);
+	if (mupnp_strlen(actionName) <= 0)
+		return false;
 
-	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(cg_upnp_action_getservice(action));
+	dev = (mUpnpDevice *)mupnp_service_getdevice(mupnp_action_getservice(action));
 	if (!dev) 
-		return FALSE;
+		return false;
 
-	dmr = (CgUpnpAvRenderer *)cg_upnp_device_getuserdata(dev);
+	dmr = (mUpnpAvRenderer *)mupnp_device_getuserdata(dev);
 	if (!dmr)
-		return FALSE;
+		return false;
 	
 	/* GetProtocolInfo*/
-	if (cg_streq(actionName, CG_UPNPAV_DMR_CONNECTIONMANAGER_GET_PROTOCOL_INFO)) {
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINK);
+	if (mupnp_streq(actionName, CG_UPNPAV_DMR_CONNECTIONMANAGER_GET_PROTOCOL_INFO)) {
+		arg = mupnp_action_getargumentbyname(action, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINK);
 		if (!arg)
-			return FALSE;
-		protocolInfos = cg_string_new();
-		for (protocolInfo = cg_upnpav_dmr_getprotocolinfos(dmr); protocolInfo; protocolInfo = cg_upnpav_protocolinfo_next(protocolInfo)) {
-			if (0 < cg_string_length(protocolInfos))
-				cg_string_addvalue(protocolInfos, ",");
-			cg_string_addvalue(protocolInfos, cg_upnpav_protocolinfo_getstring(protocolInfo));
+			return false;
+		protocolInfos = mupnp_string_new();
+		for (protocolInfo = mupnp_upnpav_dmr_getprotocolinfos(dmr); protocolInfo; protocolInfo = mupnp_upnpav_protocolinfo_next(protocolInfo)) {
+			if (0 < mupnp_string_length(protocolInfos))
+				mupnp_string_addvalue(protocolInfos, ",");
+			mupnp_string_addvalue(protocolInfos, mupnp_upnpav_protocolinfo_getstring(protocolInfo));
 		}
-		cg_upnp_argument_setvalue(arg, cg_string_getvalue(protocolInfos));
-		cg_string_delete(protocolInfos);
-		return TRUE;
+		mupnp_argument_setvalue(arg, mupnp_string_getvalue(protocolInfos));
+		mupnp_string_delete(protocolInfos);
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
- * cg_upnpav_dmr_conmgr_queryreceived
+ * mupnp_upnpav_dmr_conmgr_queryreceived
  ****************************************/
 
-BOOL cg_upnpav_dmr_conmgr_queryreceived(CgUpnpStateVariable *statVar)
+bool mupnp_upnpav_dmr_conmgr_queryreceived(mUpnpStateVariable *statVar)
 {
-	return FALSE;
+	return false;
 }
 
 /****************************************
-* cg_upnpav_dmr_conmgr_init
+* mupnp_upnpav_dmr_conmgr_init
 ****************************************/
 
-BOOL cg_upnpav_dmr_conmgr_init(CgUpnpAvRenderer *dmr)
+bool mupnp_upnpav_dmr_conmgr_init(mUpnpAvRenderer *dmr)
 {
-	CgUpnpDevice *dev;
-	CgUpnpService *service;
-	CgUpnpAction *action;
+	mUpnpDevice *dev;
+	mUpnpService *service;
+	mUpnpAction *action;
 
-	dev = cg_upnpav_dmr_getdevice(dmr);
+	dev = mupnp_upnpav_dmr_getdevice(dmr);
 	if (!dev)
-		return FALSE;
+		return false;
 
-	service = cg_upnp_device_getservicebytype(dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	service = mupnp_device_getservicebytype(dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
 	if (!service)
-		return FALSE;
+		return false;
 	
-	if (cg_upnp_service_parsedescription(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_DESCRIPTION)) == FALSE)
-		return FALSE;
+	if (mupnp_service_parsedescription(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_DESCRIPTION, mupnp_strlen(CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_DESCRIPTION)) == false)
+		return false;
 
-	cg_upnp_service_setuserdata(service, dmr);
-	for (action=cg_upnp_service_getactions(service); action; action=cg_upnp_action_next(action))
-		cg_upnp_action_setuserdata(action, dmr);
+	mupnp_service_setuserdata(service, dmr);
+	for (action=mupnp_service_getactions(service); action; action=mupnp_action_next(action))
+		mupnp_action_setuserdata(action, dmr);
 
-	return TRUE;
+	return true;
 }
 
 
 /****************************************
- * cg_upnpav_dmr_setsinkprotocolinfo
+ * mupnp_upnpav_dmr_setsinkprotocolinfo
  ****************************************/
 
-void cg_upnpav_dmr_setsinkprotocolinfo(CgUpnpAvRenderer *dmr, char *value)
+void mupnp_upnpav_dmr_setsinkprotocolinfo(mUpnpAvRenderer *dmr, char *value)
 {
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
+	mUpnpService *service;
+	mUpnpStateVariable *stateVar;
 	
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO);
-	cg_upnp_statevariable_setvalue(stateVar, value);
+	service = mupnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	stateVar = mupnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO);
+	mupnp_statevariable_setvalue(stateVar, value);
 }
 
 /****************************************
- * cg_upnpav_dmr_getsinkprotocolinfo
+ * mupnp_upnpav_dmr_getsinkprotocolinfo
  ****************************************/
 
-char *cg_upnpav_dmr_getsinkprotocolinfo(CgUpnpAvRenderer *dmr)
+char *mupnp_upnpav_dmr_getsinkprotocolinfo(mUpnpAvRenderer *dmr)
 {
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
+	mUpnpService *service;
+	mUpnpStateVariable *stateVar;
 	
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO);
-	return cg_upnp_statevariable_getvalue(stateVar);
+	service = mupnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE);
+	stateVar = mupnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO);
+	return mupnp_statevariable_getvalue(stateVar);
 }
 
 /****************************************
- * cg_upnpav_dmr_setsourceprotocolinfo
+ * mupnp_upnpav_dmr_setsourceprotocolinfo
  ****************************************/
 
-void cg_upnpav_dmr_setsourceprotocolinfo(CgUpnpAvRenderer *dmr, char *value)
+void mupnp_upnpav_dmr_setsourceprotocolinfo(mUpnpAvRenderer *dmr, char *value)
 {
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
+	mUpnpService *service;
+	mUpnpStateVariable *stateVar;
 	
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SOURCEPROTOCOLINFO);
-	cg_upnp_statevariable_setvalue(stateVar, value);
+	service = mupnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	stateVar = mupnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SOURCEPROTOCOLINFO);
+	mupnp_statevariable_setvalue(stateVar, value);
 }
 
 /****************************************
- * cg_upnpav_dmr_getsourceprotocolinfo
+ * mupnp_upnpav_dmr_getsourceprotocolinfo
  ****************************************/
 
-char *cg_upnpav_dmr_getsourceprotocolinfo(CgUpnpAvRenderer *dmr)
+char *mupnp_upnpav_dmr_getsourceprotocolinfo(mUpnpAvRenderer *dmr)
 {
-	CgUpnpService *service;
-	CgUpnpStateVariable *stateVar;
+	mUpnpService *service;
+	mUpnpStateVariable *stateVar;
 	
-	service = cg_upnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
-	stateVar = cg_upnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SOURCEPROTOCOLINFO);
-	return cg_upnp_statevariable_getvalue(stateVar);
+	service = mupnp_device_getservicebyexacttype(dmr->dev, CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE);
+	stateVar = mupnp_service_getstatevariablebyname(service, CG_UPNPAV_DMR_CONNECTIONMANAGER_SOURCEPROTOCOLINFO);
+	return mupnp_statevariable_getvalue(stateVar);
 }

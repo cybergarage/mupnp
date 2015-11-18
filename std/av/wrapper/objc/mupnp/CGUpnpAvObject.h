@@ -10,10 +10,10 @@
 #import <UIKit/UIKit.h>
 #endif
 
-#import <CyberLink/CGXmlNode.h>
+#import <mupnp/CGXmlNode.h>
 
 #if  !defined(_CG_CLINKCAV_CONTENT_H_)
-typedef void CgUpnpAvContent;
+typedef void mUpnpAvContent;
 #endif
 
 /**
@@ -34,8 +34,8 @@ typedef void CgUpnpAvContent;
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
-- (id)initWithMediaContent:(CgUpnpAvContent *)aMediaContent;
+- (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode;
+- (id)initWithMediaContent:(mUpnpAvContent *)aMediaContent;
 #endif
 - (BOOL)isEqual:(id)anObject;
 - (BOOL)isContainer;

@@ -16,7 +16,7 @@
 #  include "config.h"
 #endif
 
-#include <cybergarage/upnp/std/av/cmediaserver.h>
+#include <mupnp/std/av/cmediaserver.h>
 
 /****************************************
 * Service Description (Connection Manager)
@@ -157,73 +157,73 @@ static char *CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION =
 "</scpd>\n";
 
 /****************************************
-* cg_upnpav_dms_conmgr_actionreceived
+* mupnp_upnpav_dms_conmgr_actionreceived
 ****************************************/
 
-BOOL cg_upnpav_dms_conmgr_actionreceived(CgUpnpAction *action)
+bool mupnp_upnpav_dms_conmgr_actionreceived(mUpnpAction *action)
 {
-	CgUpnpAvServer *dms;
-	CgUpnpDevice *dev;
+	mUpnpAvServer *dms;
+	mUpnpDevice *dev;
 	char *actionName;
-	CgUpnpArgument *arg;
-	CgString *protocolInfos;
-	CgUpnpAvProtocolInfo *protocolInfo;
+	mUpnpArgument *arg;
+	mUpnpString *protocolInfos;
+	mUpnpAvProtocolInfo *protocolInfo;
 
-	actionName = (char*)cg_upnp_action_getname(action);
-	if (cg_strlen(actionName) <= 0)
-		return FALSE;
+	actionName = (char*)mupnp_action_getname(action);
+	if (mupnp_strlen(actionName) <= 0)
+		return false;
 
-	dev = (CgUpnpDevice *)cg_upnp_service_getdevice(cg_upnp_action_getservice(action));
+	dev = (mUpnpDevice *)mupnp_service_getdevice(mupnp_action_getservice(action));
 	if (!dev) 
-		return FALSE;
+		return false;
 
-	dms = (CgUpnpAvServer *)cg_upnp_device_getuserdata(dev);
+	dms = (mUpnpAvServer *)mupnp_device_getuserdata(dev);
 	if (!dms)
-		return FALSE;
+		return false;
 
 	/* GetProtocolInfo*/
-	if (cg_streq(actionName, CG_UPNPAV_DMS_CONNECTIONMANAGER_GET_PROTOCOL_INFO)) {
-		arg = cg_upnp_action_getargumentbyname(action, CG_UPNPAV_DMS_CONNECTIONMANAGER_SOURCE);
+	if (mupnp_streq(actionName, CG_UPNPAV_DMS_CONNECTIONMANAGER_GET_PROTOCOL_INFO)) {
+		arg = mupnp_action_getargumentbyname(action, CG_UPNPAV_DMS_CONNECTIONMANAGER_SOURCE);
 		if (!arg)
-			return FALSE;
-		protocolInfos = cg_string_new();
-		for (protocolInfo = cg_upnpav_dms_getprotocolinfos(dms); protocolInfo; protocolInfo = cg_upnpav_protocolinfo_next(protocolInfo)) {
-			if (0 < cg_string_length(protocolInfos))
-				cg_string_addvalue(protocolInfos, ",");
-			cg_string_addvalue(protocolInfos, cg_upnpav_protocolinfo_getstring(protocolInfo));
+			return false;
+		protocolInfos = mupnp_string_new();
+		for (protocolInfo = mupnp_upnpav_dms_getprotocolinfos(dms); protocolInfo; protocolInfo = mupnp_upnpav_protocolinfo_next(protocolInfo)) {
+			if (0 < mupnp_string_length(protocolInfos))
+				mupnp_string_addvalue(protocolInfos, ",");
+			mupnp_string_addvalue(protocolInfos, mupnp_upnpav_protocolinfo_getstring(protocolInfo));
 		}
-		cg_upnp_argument_setvalue(arg, cg_string_getvalue(protocolInfos));
-		cg_string_delete(protocolInfos);
-		return TRUE;
+		mupnp_argument_setvalue(arg, mupnp_string_getvalue(protocolInfos));
+		mupnp_string_delete(protocolInfos);
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 /****************************************
-* cg_upnpav_dms_conmgr_init
+* mupnp_upnpav_dms_conmgr_init
 ****************************************/
 
-BOOL cg_upnpav_dms_conmgr_init(CgUpnpAvServer *dms)
+bool mupnp_upnpav_dms_conmgr_init(mUpnpAvServer *dms)
 {
-	CgUpnpDevice *dev;
-	CgUpnpService *service;
-	CgUpnpAction *action;
+	mUpnpDevice *dev;
+	mUpnpService *service;
+	mUpnpAction *action;
 
-	dev = cg_upnpav_dms_getdevice(dms);
+	dev = mupnp_upnpav_dms_getdevice(dms);
 	if (!dev)
-		return FALSE;
+		return false;
 
-	service = cg_upnp_device_getservicebytype(dev, CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_TYPE);
+	service = mupnp_device_getservicebytype(dev, CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_TYPE);
 	if (!service)
-		return FALSE;
+		return false;
 	
-	if (cg_upnp_service_parsedescription(service, CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION, cg_strlen(CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION)) == FALSE)
-		return FALSE;
+	if (mupnp_service_parsedescription(service, CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION, mupnp_strlen(CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION)) == false)
+		return false;
 
-	cg_upnp_service_setuserdata(service, dms);
-	for (action=cg_upnp_service_getactions(service); action; action=cg_upnp_action_next(action))
-		cg_upnp_action_setuserdata(action, dms);
+	mupnp_service_setuserdata(service, dms);
+	for (action=mupnp_service_getactions(service); action; action=mupnp_action_next(action))
+		mupnp_action_setuserdata(action, dms);
 
-	return TRUE;
+	return true;
 }

@@ -8,8 +8,10 @@
 
 #import <Foundation/NSArray.h>
 #import <Foundation/NSString.h>
+#import <Foundation/NSIndexPath.h>
 
-#import <CyberLink/UPnP.h>
+#import <mUPnP/UPnP.h>
+#import <mUPnP/CGUpnpControlPoint.h>
 
 @class CGUpnpAvServer;
 @class CGUpnpAvObject;
