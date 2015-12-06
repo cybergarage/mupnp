@@ -448,11 +448,7 @@ bool mupnp_thread_stop_with_cond(mUpnpThread *thread, mUpnpCond *cond)
 		b_ter_tsk(thread->taskID);
 #else
 		mupnp_log_debug_s("Killing thread %p\n", thread);
-		#if  defined(TARGET_OS_MAC) || defined(TARGET_OS_IPHONE)
 		pthread_kill(thread->pThread, 0);
-		#else
-		 pthread_kill(thread->pThread, SIGQUIT);
-		#endif
 		/* MODIFICATION Fabrice Fontaine Orange 24/04/2007
 		mupnp_log_debug_s("Thread %p signalled, joining.\n", thread);
 		pthread_join(thread->pThread, NULL);
