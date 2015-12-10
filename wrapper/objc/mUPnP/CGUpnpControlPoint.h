@@ -11,6 +11,9 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSArray.h>
 
+#define CG_UPNPAV_DMR_DEVICE_TYPE "urn:schemas-upnp-org:device:MediaRenderer:1"
+#define CG_UPNPAV_DMS_DEVICE_TYPE "urn:schemas-upnp-org:device:MediaServer:1"
+
 #if !defined(_MUPNP_CONTROLPOINT_H_)
 typedef void mUpnpControlPoint;
 #endif

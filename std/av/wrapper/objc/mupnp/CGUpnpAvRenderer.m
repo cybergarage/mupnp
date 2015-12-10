@@ -14,6 +14,17 @@
 #import "CGUpnpService.h"
 #import "CGUpnpAction.h"
 
+#define AUDIO_PROTOCOL_M4A @"http-get:*:audio/mp4:*;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
+#define AUDIO_PROTOCOL_MP3 @"http-get:*:audio/mpeg:DLNA.ORG_PN=MP3;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
+#define AUDIO_PROTOCOL_WAV @"http-get:*:audio/wav:*;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
+#define AUDIO_PROTOCOL_AIFF @"http-get:*:audio/x-aiff:*;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
+
+
+@implementation DMRMediaItem
+
+@end
+
+
 @interface CGUpnpAvRenderer()
 @property (assign) int currentPlayMode;
 @end
@@ -66,7 +77,7 @@ enum {
 	CGUpnpAction *action = [self actionOfTransportServiceForName:@"SetAVTransportURI"];
 	if (!action)
 		return NO;
-
+    
 	[action setArgumentValue:@"0" forName:@"InstanceID"];
 	[action setArgumentValue:aURL forName:@"CurrentURI"];
 	[action setArgumentValue:@"" forName:@"CurrentURIMetaData"];
@@ -178,5 +189,53 @@ enum {
 	return cg_upnpav_dms_stop(cAvObject);
 }
 */
+
+#pragma mark Wrap the render with necessary infomation for playing
+
+- (void)setNowPlayingItem:(DMRMediaItem *)nowPlayingItem {
+    _nowPlayingItem = nowPlayingItem;
+    if ([self setAVTransportURI:nowPlayingItem.assetURL]) {
+        [self play];
+    }
+}
+
+- (void)setPlayerItemCollection:(NSArray<DMRMediaItem *> *)playerItemCollection {
+    _playerItemCollection = playerItemCollection;
+}
+
+- (void)playMusicWithIndex:(NSInteger)index {
+    if (index < [self.playerItemCollection count]) {
+        DMRMediaItem *item = [self.playerItemCollection objectAtIndex:index];
+        [self setNowPlayingItem:item];
+    }
+}
+
+- (DMRMediaItem *)itemAtIndex:(NSInteger)index {
+    DMRMediaItem *item = nil;
+    if (index < [self.playerItemCollection count]) {
+        item = [self.playerItemCollection objectAtIndex:index];
+    }
+    return item;
+}
+
+- (void)skipToNextItem {
+    
+}
+
+- (void)skipToBeginning {
+    
+}
+
+- (void)skipToPreviousItem {
+    
+}
+
+- (void)beginGeneratingPlaybackNotifications {
+    
+}
+
+- (void)endGeneratingPlaybackNotifications {
+    
+}
 
 @end
