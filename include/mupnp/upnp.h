@@ -13,6 +13,7 @@
 #define _MUPNP_UPNP_H_
 
 #include <mupnp/typedef.h>
+#include <mupnp/version.h>
 
 #include <mupnp/upnp_function.h>
 #include <mupnp/upnp_status.h>
@@ -28,7 +29,6 @@
 ****************************************/
 
 #define MUPNP_NAME "mUPnP"
-#define MUPNP_VER "2.4"
 
 #define MUPNP_DLNA_VER "1.50"
 

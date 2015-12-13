@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+print<<HEADER;
+/******************************************************************
+*
+* mUPnP for C
+*
+* Copyright (C) Satoshi Konno 2005
+* Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*
+* This is licensed under BSD-style license, see file COPYING.
+*
+******************************************************************/
+
+#ifndef _MUPNP_VERSION_H_
+#define _MUPNP_VERSION_H_
+
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
+/****************************************
+* Define
+****************************************/
+
+HEADER
+
+$ver = `grep AC_INIT ../../configure.ac | awk -F "[][]" '{print \$4;}'`;
+print "#define MUPNP_VER $ver";
+
+print<<FOTTER;
+
+#ifdef  __cplusplus
+} /* extern C */
+#endif
+
+#endif
+FOTTER

@@ -9,7 +9,7 @@
 AC_CONFIG_AUX_DIR(config)
 AM_CONFIG_HEADER(config.h)
 
-AC_INIT([mupnp], [2.4])
+AC_INIT([mupnp],[3.0.2])
 AC_CONFIG_SRCDIR([include/mupnp/typedef.h])
 AM_INIT_AUTOMAKE([subdir-objects])
 
