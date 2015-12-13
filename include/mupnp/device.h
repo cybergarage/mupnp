@@ -990,8 +990,7 @@ void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER
  * \param exacttype Type of the device
  *
  */
-mUpnpDevice *mupnp_device_getdevicebyexacttype(mUpnpDevice* dev,
-						   char *exacttype);
+mUpnpDevice *mupnp_device_getdevicebyexacttype(mUpnpDevice* dev, const char *exacttype);
 
 /**
  * Find a device from the device's children by the type of the device.
@@ -1004,7 +1003,7 @@ mUpnpDevice *mupnp_device_getdevicebyexacttype(mUpnpDevice* dev,
  * \param type Type of the device
  *
  */
-mUpnpDevice *mupnp_device_getdevicebytype(mUpnpDevice *dev, char *type);
+mUpnpDevice *mupnp_device_getdevicebytype(mUpnpDevice *dev, const char *type);
 
 /**
  * Find a device from the device's children by the UDN of the device.
@@ -1013,7 +1012,7 @@ mUpnpDevice *mupnp_device_getdevicebytype(mUpnpDevice *dev, char *type);
  * \param type Type of the device
  *
  */
-mUpnpDevice *mupnp_device_getdevicebyudn(mUpnpDevice *dev, char *udn);
+mUpnpDevice *mupnp_device_getdevicebyudn(mUpnpDevice *dev, const char *udn);
 
 /**
  * Find a child device by its description URI.
@@ -1022,7 +1021,7 @@ mUpnpDevice *mupnp_device_getdevicebyudn(mUpnpDevice *dev, char *udn);
  * \param url Description URI
  *
  */
-mUpnpDevice *mupnp_device_getdevicebydescriptionuri(mUpnpDevice *dev, char *url);
+mUpnpDevice *mupnp_device_getdevicebydescriptionuri(mUpnpDevice *dev, const char *url);
 
 /*****************************************************************************
  * Embedded ServiceList

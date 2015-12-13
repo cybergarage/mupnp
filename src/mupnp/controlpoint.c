@@ -397,8 +397,7 @@ bool mupnp_controlpoint_unlock(mUpnpControlPoint *ctrlPoint)
  * \param exacttype Type of the device
  *
  */
-mUpnpDevice *mupnp_controlpoint_getdevicebyexacttype(mUpnpControlPoint *ctrlPoint,
-						   char *exacttype)
+mUpnpDevice *mupnp_controlpoint_getdevicebyexacttype(mUpnpControlPoint *ctrlPoint, const char *exacttype)
 {
 	mUpnpDevice *dev = NULL;
 	mUpnpDevice *childDev = NULL;
@@ -443,8 +442,7 @@ mUpnpDevice *mupnp_controlpoint_getdevicebyexacttype(mUpnpControlPoint *ctrlPoin
  * \param type Type of the device
  *
  */
-mUpnpDevice *mupnp_controlpoint_getdevicebytype(mUpnpControlPoint *ctrlPoint,
-						   char *type)
+mUpnpDevice *mupnp_controlpoint_getdevicebytype(mUpnpControlPoint *ctrlPoint, const char *type)
 {
 	mUpnpDevice *dev = NULL;
 	mUpnpDevice *childDev = NULL;
@@ -497,8 +495,7 @@ mUpnpDevice *mupnp_controlpoint_getdevicebytype(mUpnpControlPoint *ctrlPoint,
  * \param udn Type of the device
  *
  */
-mUpnpDevice *mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint *ctrlPoint,
-						  char *udn)
+mUpnpDevice *mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint *ctrlPoint, const char *udn)
 {
 	mUpnpDevice *dev = NULL;
 	mUpnpDevice *childDev = NULL;
