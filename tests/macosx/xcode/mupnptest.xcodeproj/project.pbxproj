@@ -21,7 +21,6 @@
 		21AA0F131331226600A2338F /* SubscriptionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F071331226600A2338F /* SubscriptionTest.cpp */; };
 		21AA0F141331226600A2338F /* URITest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F081331226600A2338F /* URITest.cpp */; };
 		21AA0F191331227300A2338F /* TestDevice.c in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F171331227300A2338F /* TestDevice.c */; };
-		21AA0F201331790D00A2338F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 21AA0F1F1331790D00A2338F /* libxml2.dylib */; };
 		21E12B051924F3C0005D4F50 /* mUpnpTestMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E12B041924F3C0005D4F50 /* mUpnpTestMain.cpp */; };
 /* End PBXBuildFile section */
 
@@ -71,7 +70,6 @@
 		21AA0F081331226600A2338F /* URITest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = URITest.cpp; path = ../../URITest.cpp; sourceTree = "<group>"; };
 		21AA0F171331227300A2338F /* TestDevice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TestDevice.c; path = ../../TestDevice.c; sourceTree = "<group>"; };
 		21AA0F181331227300A2338F /* TestDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestDevice.h; path = ../../TestDevice.h; sourceTree = "<group>"; };
-		21AA0F1F1331790D00A2338F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		21E12B041924F3C0005D4F50 /* mUpnpTestMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mUpnpTestMain.cpp; path = ../../mUpnpTestMain.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,7 +79,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2121F3081A83D83900930B36 /* liblibmupnp.a in Frameworks */,
-				21AA0F201331790D00A2338F /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +135,6 @@
 		21C42077133121CA00F2428B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				21AA0F1F1331790D00A2338F /* libxml2.dylib */,
 				212321671A83C528002AA265 /* libmupnp.xcodeproj */,
 			);
 			name = Frameworks;
@@ -171,7 +167,7 @@
 		2152CB851331206A00229C13 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = 2152CB881331206A00229C13 /* Build configuration list for PBXProject "mupnptest" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -252,6 +248,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -274,7 +271,10 @@
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-lboost_unit_test_framework-mt",
+					"-lxml2",
+				);
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -310,7 +310,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = (
+					"-lboost_unit_test_framework-mt",
+					"-lxml2",
+				);
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -328,7 +331,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				OTHER_LDFLAGS = "-lboost_unit_test_framework-mt";
+				OTHER_LDFLAGS = (
+					"-lboost_unit_test_framework-mt",
+					"-lxml2",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -346,7 +352,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				OTHER_LDFLAGS = "-lboost_unit_test_framework-mt";
+				OTHER_LDFLAGS = (
+					"-lboost_unit_test_framework-mt",
+					"-lxml2",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

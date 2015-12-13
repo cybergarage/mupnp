@@ -138,7 +138,6 @@
 		216F03851A83C58E00165CB3 /* xml_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 216F03261A83C58E00165CB3 /* xml_parser.c */; };
 		216F03861A83C58E00165CB3 /* xml_parser_expat.c in Sources */ = {isa = PBXBuildFile; fileRef = 216F03271A83C58E00165CB3 /* xml_parser_expat.c */; };
 		216F03871A83C58E00165CB3 /* xml_parser_libxml2.c in Sources */ = {isa = PBXBuildFile; fileRef = 216F03281A83C58E00165CB3 /* xml_parser_libxml2.c */; };
-		21AA0F221331794D00A2338F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 21AA0F211331794D00A2338F /* libxml2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -283,7 +282,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21AA0F221331794D00A2338F /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,7 +686,7 @@
 		210AF40F1331182E00A2EB09 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = 210AF4121331182E00A2EB09 /* Build configuration list for PBXProject "libmupnp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -826,6 +824,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
