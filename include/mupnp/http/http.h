@@ -13,6 +13,7 @@
 #define _MUPNP_HTTP_HTTP_H_
 
 #include <mupnp/typedef.h>
+#include <mupnp/version.h>
 #include <mupnp/util/string.h>
 #include <mupnp/util/list.h>
 #include <mupnp/util/thread.h>
@@ -48,9 +49,9 @@ extern "C" {
 #define MUPNP_HTTP_VER11 "HTTP/1.1"
 
 #if !defined(MUPNP_HTTP_CURL)
-#define MUPNP_HTTP_USERAGENT_DEFAULT "CyberGarage-HTTP/1.0"
+#define MUPNP_HTTP_USERAGENT_DEFAULT "mUPnP-HTTP/" MUPNP_VER
 #else
-#define MUPNP_HTTP_USERAGENT_DEFAULT "libcurl-agent/1.0 (Cyberlink for C)"
+#define MUPNP_HTTP_USERAGENT_DEFAULT "mUPnP-HTTP(libcurl)/" MUPNP_VER
 #endif
 
 #define MUPNP_HTTP_DEFAULT_PORT 80
