@@ -41,6 +41,7 @@ typedef void mUpnpXmlNode;
 #endif
 
 - (NSString *)attributeValueForName:(NSString *)aName;
+- (CGXmlNode *)elementForName:(NSString *)aName;
 - (NSString *)elementValueForName:(NSString *)aName;
 - (NSString *)stringValue;
 - (void)setStringValue:(NSString *)aValue;

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C33E3A41C1C30370054F6E4 /* CGUpnpAvEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C33E3A21C1C30370054F6E4 /* CGUpnpAvEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2C33E3A51C1C30370054F6E4 /* CGUpnpAvEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C33E3A31C1C30370054F6E4 /* CGUpnpAvEvent.m */; };
+		2C33E3A81C1C3D1E0054F6E4 /* CGUpnpEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C33E3A61C1C3D1E0054F6E4 /* CGUpnpEvent.h */; };
+		2C33E3A91C1C3D1E0054F6E4 /* CGUpnpEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C33E3A71C1C3D1E0054F6E4 /* CGUpnpEvent.m */; };
 		2C9DD3411BF1B74000D222B5 /* CGUpnpControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DD3341BF1B74000D222B5 /* CGUpnpControlPoint.m */; };
 		2C9DD3421BF1B74000D222B5 /* CGUpnpDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DD3351BF1B74000D222B5 /* CGUpnpDevice.m */; };
 		2C9DD3431BF1B74000D222B5 /* CGUpnpIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9DD3361BF1B74000D222B5 /* CGUpnpIcon.m */; };
@@ -53,6 +57,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C33E3A21C1C30370054F6E4 /* CGUpnpAvEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvEvent.h; sourceTree = "<group>"; };
+		2C33E3A31C1C30370054F6E4 /* CGUpnpAvEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvEvent.m; sourceTree = "<group>"; };
+		2C33E3A61C1C3D1E0054F6E4 /* CGUpnpEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpEvent.h; path = ../../../mUPnP/CGUpnpEvent.h; sourceTree = "<group>"; };
+		2C33E3A71C1C3D1E0054F6E4 /* CGUpnpEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpEvent.m; path = ../../../mUPnP/CGUpnpEvent.m; sourceTree = "<group>"; };
 		2C9DD3291BF1B65500D222B5 /* mUPnP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = mUPnP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C9DD32E1BF1B65500D222B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C9DD3341BF1B74000D222B5 /* CGUpnpControlPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CGUpnpControlPoint.m; path = ../../../mUPnP/CGUpnpControlPoint.m; sourceTree = "<group>"; };
@@ -158,6 +166,8 @@
 				2C9DD33D1BF1B74000D222B5 /* CGUpnpIcon.h */,
 				2C9DD33E1BF1B74000D222B5 /* CGUpnpService.h */,
 				2C9DD33F1BF1B74000D222B5 /* CGUpnpStateVariable.h */,
+				2C33E3A61C1C3D1E0054F6E4 /* CGUpnpEvent.h */,
+				2C33E3A71C1C3D1E0054F6E4 /* CGUpnpEvent.m */,
 			);
 			name = UPnP;
 			sourceTree = "<group>";
@@ -188,6 +198,8 @@
 				2CEFC4901BFAF41900082C1D /* CGUpnpAvRoot.m */,
 				2CEFC4911BFAF41900082C1D /* CGUpnpAvServer.h */,
 				2CEFC4921BFAF41900082C1D /* CGUpnpAvServer.m */,
+				2C33E3A21C1C30370054F6E4 /* CGUpnpAvEvent.h */,
+				2C33E3A31C1C30370054F6E4 /* CGUpnpAvEvent.m */,
 				2CEFC4931BFAF41900082C1D /* CGXml.h */,
 				2CEFC4941BFAF41900082C1D /* CGXml.m */,
 				2CEFC4951BFAF41900082C1D /* CGXmlNode.h */,
@@ -206,6 +218,7 @@
 			files = (
 				2C9DD34A1BF1B74000D222B5 /* CGUpnpIcon.h in Headers */,
 				2C9DD3481BF1B74000D222B5 /* CGUpnpControlPoint.h in Headers */,
+				2C33E3A81C1C3D1E0054F6E4 /* CGUpnpEvent.h in Headers */,
 				2CEFC4A51BFAF41900082C1D /* CGUpnpAVPositionInfo.h in Headers */,
 				2CEFC4A91BFAF41900082C1D /* CGUpnpAvResource.h in Headers */,
 				2CEFC4AB1BFAF41900082C1D /* CGUpnpAvRoot.h in Headers */,
@@ -224,6 +237,7 @@
 				2C9DD34D1BF1B74000D222B5 /* UPnP.h in Headers */,
 				2C9DD3491BF1B74000D222B5 /* CGUpnpDevice.h in Headers */,
 				2C9DD34C1BF1B74000D222B5 /* CGUpnpStateVariable.h in Headers */,
+				2C33E3A41C1C30370054F6E4 /* CGUpnpAvEvent.h in Headers */,
 				2C9DD34B1BF1B74000D222B5 /* CGUpnpService.h in Headers */,
 				2C9DD3461BF1B74000D222B5 /* CGUpnpAction.h in Headers */,
 			);
@@ -304,6 +318,7 @@
 				2CEFC49E1BFAF41900082C1D /* CGUpnpAvContentManager.m in Sources */,
 				2CEFC49C1BFAF41900082C1D /* CGUpnpAvContentDirectory.m in Sources */,
 				2C9DD3471BF1B74000D222B5 /* CGUpnpAction.m in Sources */,
+				2C33E3A51C1C30370054F6E4 /* CGUpnpAvEvent.m in Sources */,
 				2C9DD3441BF1B74000D222B5 /* CGUpnpService.m in Sources */,
 				2C9DD3431BF1B74000D222B5 /* CGUpnpIcon.m in Sources */,
 				2C9DD3451BF1B74000D222B5 /* CGUpnpStateVariable.m in Sources */,
@@ -312,6 +327,7 @@
 				2CEFC4A21BFAF41900082C1D /* CGUpnpAvItem.m in Sources */,
 				2CEFC4A41BFAF41900082C1D /* CGUpnpAvObject.m in Sources */,
 				2CEFC4B01BFAF41900082C1D /* CGXml.m in Sources */,
+				2C33E3A91C1C3D1E0054F6E4 /* CGUpnpEvent.m in Sources */,
 				2C9DD3411BF1B74000D222B5 /* CGUpnpControlPoint.m in Sources */,
 				2CEFC4B21BFAF41900082C1D /* CGXmlNode.m in Sources */,
 				2CEFC4AE1BFAF41900082C1D /* CGUpnpAvServer.m in Sources */,

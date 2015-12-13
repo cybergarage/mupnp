@@ -9,6 +9,7 @@
  *
  ******************************************************************/
 
+#include <mupnp/controlpoint.h>
 #include <mupnp/event/event.h>
 #include <mupnp/util/log.h>
 
@@ -117,7 +118,7 @@ void mupnp_eventlistenerlist_add(mUpnpEventListenerList* eventListenerList, MUPN
  * @param eventListenerList The list to iterate thru
  * @param property The property that has been evented
  */
-void mupnp_eventlistenerlist_notify(mUpnpEventListenerList* eventListenerList, mUpnpProperty *property)
+void mupnp_eventlistenerlist_notify(void *ctrlPoint, mUpnpEventListenerList* eventListenerList, mUpnpProperty *property)
 {
 	mUpnpEventListenerList *list_node = NULL;
 	
@@ -129,7 +130,7 @@ void mupnp_eventlistenerlist_notify(mUpnpEventListenerList* eventListenerList, m
 	{
 		if (list_node->listener != NULL)
 		{
-			list_node->listener(property);
+			list_node->listener(ctrlPoint, property);
 		}
 	}
 

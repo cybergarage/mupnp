@@ -18,6 +18,7 @@
 #define AUDIO_PROTOCOL_MP3 @"http-get:*:audio/mpeg:DLNA.ORG_PN=MP3;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
 #define AUDIO_PROTOCOL_WAV @"http-get:*:audio/wav:*;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
 #define AUDIO_PROTOCOL_AIFF @"http-get:*:audio/x-aiff:*;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
+#define IMAGE_PROTOCOL_JPEG @"http-get:*:image/jpeg:DLNA.ORG_PN=JPEG_LRG;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
 
 
 @implementation DMRMediaItem
@@ -25,9 +26,14 @@
 @end
 
 
-@interface CGUpnpAvRenderer()
+@interface CGUpnpAvRenderer() {
+    
+}
+
 @property (assign) int currentPlayMode;
+
 @end
+
 
 enum {
 	CGUpnpAvRendererPlayModePlay,
@@ -172,6 +178,24 @@ enum {
 		return nil;
 	
 	return [[CGUpnpAVPositionInfo alloc] initWithAction:action];
+}
+
+- (CGUpnpService *)renderControlService
+{
+    CGUpnpService *avRenderControlService = [self getServiceForType:@"urn:schemas-upnp-org:service:RenderingControl:1"];
+    return avRenderControlService;
+}
+
+- (CGUpnpService *)transportService
+{
+    CGUpnpService *avTransportService = [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
+    return avTransportService;
+}
+
+- (CGUpnpService *)connectionManagerService
+{
+    CGUpnpService *avConnectManagerService = [self getServiceForType:@"urn:schemas-upnp-org:service:ConnectionManager:1"];
+    return avConnectManagerService;
 }
 
 /*

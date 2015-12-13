@@ -18,7 +18,12 @@
 typedef void mUpnpControlPoint;
 #endif
 
+#ifndef _MUPNP_PROPERTY_H_
+typedef void mUpnpProperty;
+#endif
+
 @class CGUpnpDevice;
+@class CGUpnpService;
 @class CGUpnpControlPoint;
 
 @protocol CGUpnpControlPointDelegate <NSObject>
@@ -27,6 +32,9 @@ typedef void mUpnpControlPoint;
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(NSString *)deviceUdn;
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceRemoved:(NSString *)deviceUdn;
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceInvalid:(NSString *)deviceUdn;
+
+- (void)controlPoint:(CGUpnpControlPoint *)controlPoint eventNotified:(mUpnpProperty *)eventProperty;
+
 @end
 
 /**
@@ -100,4 +108,8 @@ typedef void mUpnpControlPoint;
  * @return CGUpnpDevice when the specified device is found, otherwise nil.
  */
 - (CGUpnpDevice *)deviceForUDN:(NSString *)udn;
+
+- (BOOL)subscribeEventNotificationFromService:(CGUpnpService *)service;
+- (BOOL)unsubscribeEventNotificationFromService:(CGUpnpService *)service;
+
 @end

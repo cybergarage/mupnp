@@ -13,7 +13,6 @@
 #define _MUPNP_EVENT_H_
 
 #include <mupnp/typedef.h>
-
 #include <mupnp/http/http.h>
 #include <mupnp/util/string.h>
 #include <mupnp/util/list.h>
@@ -106,14 +105,16 @@ typedef mUpnpHttpResponse mUpnpSubscriptionResponse;
 /**
  * Type definition for event listener callback
  */
-typedef void (*MUPNP_EVENT_LISTENER)(mUpnpProperty *);
+typedef void (*MUPNP_EVENT_LISTENER)(void *, mUpnpProperty *);
 
 /**
  * Type definition for event listener list
  */
 typedef struct _mUpnpEventListenerList {
-  MUPNP_LIST_STRUCT_MEMBERS
- 
+//  MUPNP_LIST_STRUCT_MEMBERS
+    bool headFlag;
+    struct _mUpnpEventListenerList *prev;
+    struct _mUpnpEventListenerList *next;
 	MUPNP_EVENT_LISTENER listener;
 } mUpnpEventListenerList;
  
@@ -533,8 +534,7 @@ void mupnp_eventlistenerlist_add(mUpnpEventListenerList* eventListenerList, MUPN
  * @param eventListenerList The list to iterate thru
  * @param property The property that has been evented
  */
-void mupnp_eventlistenerlist_notify(mUpnpEventListenerList* eventListenerList, mUpnpProperty *property);
-
+void mupnp_eventlistenerlist_notify(void *ctrlPoint, mUpnpEventListenerList* eventListenerList, mUpnpProperty *property);
 
 #ifdef  __cplusplus
 }

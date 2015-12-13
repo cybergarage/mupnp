@@ -100,7 +100,8 @@ void mupnp_controlpoint_httprequestreceived(mUpnpHttpRequest *httpReq)
 			     prop != NULL; 
 			     prop = mupnp_property_next(prop)) 
 			{
-				mupnp_eventlistenerlist_notify(eventListeners, prop);
+//                printf("\n%s\n%s\n%s\n", prop->name->value, prop->sid->value, prop->value->value);
+				mupnp_eventlistenerlist_notify(ctrlPoint, eventListeners, prop);
 			}
 		}
 

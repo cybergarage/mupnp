@@ -203,6 +203,7 @@
 		if (renderer == nil)
 			continue;
 		[rendererrArray addObject:renderer];
+        [self subscribeEventNotificationFromDevice:renderer];
 	}
 	return rendererrArray;
 }
@@ -230,6 +231,50 @@
 	[super searchWithST:[NSString stringWithUTF8String:CG_UPNPAV_DMS_DEVICE_TYPE]];
 	[super searchWithST:[NSString stringWithUTF8String:CG_UPNPAV_DMR_DEVICE_TYPE]];
 #endif
+}
+
+- (BOOL)subscribeEventNotificationFromDevice:(CGUpnpAvRenderer *)renderer
+{
+    BOOL bRet = YES;
+    
+    CGUpnpService *renderingControlService = [renderer renderControlService];
+    if (renderingControlService) {
+        bRet &= [super subscribeEventNotificationFromService:renderingControlService];
+    }
+    
+    CGUpnpService *transportService = [renderer transportService];
+    if (transportService) {
+        bRet &= [super subscribeEventNotificationFromService:transportService];
+    }
+    
+    CGUpnpService *connectionManagerService = [renderer connectionManagerService];
+    if (connectionManagerService) {
+        bRet &= [super subscribeEventNotificationFromService:connectionManagerService];
+    }
+    
+    return bRet;
+}
+
+- (BOOL)unsubscribeEventNotificationFromDevice:(CGUpnpAvRenderer *)renderer
+{
+    BOOL bRet = YES;
+    
+    CGUpnpService *renderingControlService = [renderer renderControlService];
+    if (renderingControlService) {
+        bRet &= [super unsubscribeEventNotificationFromService:renderingControlService];
+    }
+    
+    CGUpnpService *transportService = [renderer transportService];
+    if (transportService) {
+        bRet &= [super unsubscribeEventNotificationFromService:transportService];
+    }
+    
+    CGUpnpService *connectionManagerService = [renderer connectionManagerService];
+    if (connectionManagerService) {
+        bRet &= [super unsubscribeEventNotificationFromService:connectionManagerService];
+    }
+    
+    return bRet;
 }
 
 @end

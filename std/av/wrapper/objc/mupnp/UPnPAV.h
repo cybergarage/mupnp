@@ -17,3 +17,4 @@
 #import <mUPnP/CGUpnpAvServer.h>
 #import <mUPnP/CGUpnpAvController.h>
 #import <mUPnP/CGUpnpAvRenderer.h>
+#import <mUPnP/CGUpnpAvEvent.h>

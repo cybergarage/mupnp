@@ -81,6 +81,9 @@ typedef void mUpnpAvRenderer;
 - (BOOL)stop
 */
 - (CGUpnpAVPositionInfo *)positionInfo;
+- (CGUpnpService *)renderControlService;
+- (CGUpnpService *)transportService;
+- (CGUpnpService *)connectionManagerService;
 
 /**
  * Wrap the render with necessary infomation for playing by jink2005@163.com

@@ -8,13 +8,15 @@
  *
  ******************************************************************/
 
+#import <Foundation/Foundation.h>
 #include <mupnp/controlpoint.h>
 #include <mupnp/control/control.h>
 #import "CGUpnpControlPoint.h"
 #import "CGUpnpDevice.h"
-#import <Foundation/Foundation.h>
+#import "CGUpnpService.h"
 
 static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const char* udn, mUpnpDeviceStatus status);
+static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnpProperty *property);
 
 @implementation CGUpnpControlPoint
 
@@ -28,6 +30,7 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const
 	cObject = mupnp_controlpoint_new();
 	if (cObject) {
 		mupnp_controlpoint_setdevicelistener(cObject, CGUpnpControlPointDeviceListener);
+        mupnp_controlpoint_seteventlistener(cObject, CGUpnpControlPointEventListener);
 		mupnp_controlpoint_setuserdata(cObject, (__bridge void *)self);
 		if (![self start])
 			self = nil;
@@ -121,6 +124,24 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const
 	return nil;
 }
 
+- (BOOL)subscribeEventNotificationFromService:(CGUpnpService *)service
+{
+    if (cObject && service.cObject)
+    {
+        return mupnp_controlpoint_subscribe(cObject, service.cObject, 200);
+    }
+    return NO;
+}
+
+- (BOOL)unsubscribeEventNotificationFromService:(CGUpnpService *)service
+{
+    if (cObject && service.cObject)
+    {
+        return mupnp_controlpoint_unsubscribe(cObject, service.cObject);
+    }
+    return NO;
+}
+
 @end
 
 static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *cCtrlPoint, const char* udn, mUpnpDeviceStatus status)
@@ -164,3 +185,15 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *cCtrlPoint, cons
 	}
 }
 
+static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnpProperty *property)
+{
+    CGUpnpControlPoint *ctrlPoint = (__bridge CGUpnpControlPoint *)mupnp_controlpoint_getuserdata(cCtrlPoint);
+    if (ctrlPoint == nil)
+        return;
+    
+    if ([ctrlPoint delegate] == nil)
+        return;
+    
+    if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:eventNotified:)])
+        [[ctrlPoint delegate] controlPoint:ctrlPoint eventNotified:property];
+}

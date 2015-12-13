@@ -47,5 +47,7 @@
 - (CGUpnpAvRenderer *)rendererForUDN:(NSString *)aUdn;
 
 - (void)search;
+- (BOOL)subscribeEventNotificationFromDevice:(CGUpnpAvRenderer *)renderer;
+- (BOOL)unsubscribeEventNotificationFromDevice:(CGUpnpAvRenderer *)renderer;
 
 @end

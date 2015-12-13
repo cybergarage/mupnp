@@ -138,6 +138,17 @@
 	return attributeValueString;
 }
 
+- (CGXmlNode *)elementForName:(NSString *)aName
+{
+    if (!cXmlNode)
+        return nil;
+    mUpnpXmlNode *elemNode = mupnp_xml_node_getchildnode(cXmlNode, (char *)[aName UTF8String]);
+    if (!elemNode)
+        return nil;
+    
+    return [[CGXmlNode alloc] initWithXMLNode:elemNode];
+}
+
 - (NSString *)elementValueForName:(NSString *)aName
 {
 	if (!cXmlNode)
