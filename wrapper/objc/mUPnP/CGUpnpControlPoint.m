@@ -18,6 +18,15 @@
 static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const char* udn, mUpnpDeviceStatus status);
 static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnpProperty *property);
 
+
+@interface CGUpnpControlPoint()
+{
+    NSArray<CGUpnpDevice *> *deviceArray;
+}
+
+@end
+
+
 @implementation CGUpnpControlPoint
 
 @synthesize cObject;
@@ -27,6 +36,7 @@ static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnp
 {
 	if ((self = [super init]) == nil)
 		return nil;
+    
 	cObject = mupnp_controlpoint_new();
 	if (cObject) {
 		mupnp_controlpoint_setdevicelistener(cObject, CGUpnpControlPointDeviceListener);
@@ -106,10 +116,15 @@ static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnp
 	NSMutableArray *devArray = [NSMutableArray array];
 	mUpnpDevice *cDevice;
 	for (cDevice = mupnp_controlpoint_getdevices(cObject); cDevice; cDevice = mupnp_device_next(cDevice)) {
-		CGUpnpDevice *device = [[CGUpnpDevice alloc] initWithCObject:cDevice];
-		[devArray addObject:device];
+        CGUpnpDevice *device = [self deviceWithCObject:cDevice];
+        if (nil == device) {
+            device = [[CGUpnpDevice alloc] initWithCObject:cDevice];
+        }
+        [devArray addObject:device];
 	}
-	return devArray;
+    deviceArray = devArray;
+    
+	return deviceArray;
 }
 
 - (CGUpnpDevice *)deviceForUDN:(NSString *)udn
@@ -118,10 +133,29 @@ static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnp
 		return nil;
 	mUpnpDevice *cDevice;
 	for (cDevice = mupnp_controlpoint_getdevices(cObject); cDevice; cDevice = mupnp_device_next(cDevice)) {
-		if (mupnp_strcmp(mupnp_device_getudn(cDevice), (char *)[udn UTF8String]) == 0) 
-			return [[CGUpnpDevice alloc] initWithCObject:cDevice];
+		if (mupnp_strcmp(mupnp_device_getudn(cDevice), (char *)[udn UTF8String]) == 0)
+        {
+            CGUpnpDevice *device = [self deviceWithCObject:cDevice];
+            if (nil == device)
+            {
+                device = [[CGUpnpDevice alloc] initWithCObject:cDevice];
+            }
+            return device;
+        }
 	}
 	return nil;
+}
+
+- (CGUpnpDevice *)deviceWithCObject:(mUpnpDevice *)cDevice
+{
+    __block CGUpnpDevice *device = nil;
+    [deviceArray enumerateObjectsUsingBlock:^(CGUpnpDevice * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.cObject == cDevice) {
+            device = obj;
+            *stop = YES;
+        }
+    }];
+    return device;
 }
 
 - (BOOL)subscribeEventNotificationFromService:(CGUpnpService *)service

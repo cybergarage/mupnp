@@ -255,6 +255,23 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	return [[CGUpnpService alloc] initWithCObject:(void *)foundService];
 }
 
+- (CGUpnpService *)getServiceWithSubscriptionID:(NSString *)sid
+{
+    if (! cObject)
+    {
+        return nil;
+    }
+    
+    const char *cSid = [sid UTF8String];
+    mUpnpService *foundService = mupnp_device_getservicebysid(cObject, cSid);
+    if (! foundService)
+    {
+        return nil;
+    }
+    
+    return [[CGUpnpService alloc] initWithCObject:foundService];
+}
+
 - (NSArray *)icons
 {
 	if (!cObject)

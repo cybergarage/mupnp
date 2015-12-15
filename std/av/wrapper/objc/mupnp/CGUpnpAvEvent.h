@@ -17,6 +17,7 @@ typedef enum : NSUInteger {
     EVENT_AVT_TRANSITIONING,
     EVENT_AVT_PLAYING,
     EVENT_AVT_STOPPED,
+    EVENT_AVT_TRACKURI,
     EVENT_AVT_DURATION,
     // AV Renderer Control State
     EVENT_RCS_VOLUME,
@@ -25,7 +26,7 @@ typedef enum : NSUInteger {
 @interface CGUpnpAvEvent : NSObject
 
 @property (nonatomic, retain) NSString *eventName;
-@property (nonatomic, retain) NSString *serviceID;
+@property (nonatomic, retain) NSString *subscriptionID;
 @property (nonatomic, assign) EventType eventType;
 @property (nonatomic, assign) NSInteger duration;
 @property (nonatomic, assign) NSInteger volume;

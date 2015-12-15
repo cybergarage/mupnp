@@ -18,6 +18,14 @@
 #import "CGUpnpAvContainer.h"
 #import "CGUpnpAvRenderer.h"
 
+
+@interface CGUpnpAvController() {
+    NSArray<CGUpnpAvRenderer *> *rendererArray;
+    NSArray<CGUpnpAvServer *> *serverArray;
+}
+
+@end
+
 @implementation CGUpnpAvController
 
 - (id)init
@@ -41,7 +49,7 @@
 - (NSArray *)servers;
 {
 	NSArray *devices = [self devices];
-	NSMutableArray *serverArray = [[NSMutableArray alloc] init];
+	NSMutableArray *tempServerArray = [[NSMutableArray alloc] init];
 
 	for (CGUpnpDevice *dev in devices) {
 		if (![dev isDeviceType:@CG_UPNPAV_DMS_DEVICE_TYPE])
@@ -52,15 +60,21 @@
 			mUpnpDevice *cDevice = [dev cObject];
 			if (!cDevice)
 				continue;
-			server = [[CGUpnpAvServer alloc] initWithCObject:(__bridge CgUpnpDevice *)(cDevice)];
+            
+            server = [self serverWithCObject:cDevice];
+            if (nil == server) {
+                server = [[CGUpnpAvServer alloc] initWithCObject:(__bridge CgUpnpDevice *)(cDevice)];
+            }
+			
 			[server setUserObject:server];
 		}
 		else
 			server = (CGUpnpAvServer *)((__bridge id)devData);
 		if (server == nil)
 			continue;
-		[serverArray addObject:server];
+		[tempServerArray addObject:server];
 	}
+    serverArray = tempServerArray;
 	return serverArray;
 }
 
@@ -68,24 +82,45 @@
 {
 	if (aUdn == nil)
 		return nil;
-	NSArray *servers = [self servers];
-	for (CGUpnpAvServer *server in servers) {
-		if ([server isUDN:aUdn])
-			return server;
-	}
-	return nil;
+	
+    __block CGUpnpAvServer *server = nil;
+    [serverArray enumerateObjectsUsingBlock:^(CGUpnpAvServer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isUDN:aUdn])
+        {
+            server = obj;
+            *stop = YES;
+        }
+    }];
+    return server;
+}
+
+- (CGUpnpAvServer *)serverWithCObject:(mUpnpDevice *)cDevice
+{
+    __block CGUpnpAvServer *server = nil;
+    [serverArray enumerateObjectsUsingBlock:^(CGUpnpAvServer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.cObject == cDevice)
+        {
+            server = obj;
+            *stop = YES;
+        }
+    }];
+    return server;
 }
 
 - (CGUpnpAvServer *)serverForFriendlyName:(NSString *)aFriendlyName
 {
 	if (aFriendlyName == nil)
 		return nil;
-	NSArray *servers = [self servers];
-	for (CGUpnpAvServer *server in servers) {
-		if ([server isFriendlyName:aFriendlyName])
-			return server;
-	}
-	return nil;
+    
+    __block CGUpnpAvServer *server = nil;
+    [serverArray enumerateObjectsUsingBlock:^(CGUpnpAvServer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isFriendlyName:aFriendlyName])
+        {
+            server = obj;
+            *stop = YES;
+        }
+    }];
+    return server;
 }
 
 - (CGUpnpAvServer *)serverForPath:(NSString *)aPath;
@@ -191,7 +226,7 @@
 - (NSArray *)renderers;
 {
 	NSArray *devices = [self devices];
-	NSMutableArray *rendererrArray = [[NSMutableArray alloc] init];
+	NSMutableArray *tempRendererArray = [[NSMutableArray alloc] init];
 	
 	for (CGUpnpDevice *dev in devices) {
 		if (![dev isDeviceType:@CG_UPNPAV_DMR_DEVICE_TYPE])
@@ -199,25 +234,70 @@
 		mUpnpDevice *cDevice = [dev cObject];
 		if (!cDevice)
 			continue;
-		CGUpnpAvRenderer *renderer = [[CGUpnpAvRenderer alloc] initWithCObject:cDevice];
+        
+        CGUpnpAvRenderer *renderer = [self rendererWithCObject:cDevice];
+        if (nil == renderer)
+        {
+            renderer = [[CGUpnpAvRenderer alloc] initWithCObject:cDevice];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [self subscribeEventNotificationFromDevice:renderer];
+            });
+        }
+        
 		if (renderer == nil)
 			continue;
-		[rendererrArray addObject:renderer];
-        [self subscribeEventNotificationFromDevice:renderer];
+		[tempRendererArray addObject:renderer];
 	}
-	return rendererrArray;
+    rendererArray = tempRendererArray;
+    
+	return rendererArray;
 }
 
 - (CGUpnpAvRenderer *)rendererForUDN:(NSString *)aUdn
 {
 	if (aUdn == nil)
 		return nil;
-	NSArray *renderers = [self renderers];
-	for (CGUpnpAvRenderer *renderer in renderers) {
-		if ([renderer isUDN:aUdn])
-			return renderer;
-	}
-	return nil;
+    
+    __block CGUpnpAvRenderer *renderer = nil;
+	[rendererArray enumerateObjectsUsingBlock:^(CGUpnpAvRenderer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isUDN:aUdn]) {
+            renderer = obj;
+            *stop = YES;
+        }
+    }];
+    
+    return renderer;
+}
+
+- (CGUpnpAvRenderer *)rendererWithCObject:(mUpnpDevice *)cDevice
+{
+    __block CGUpnpAvRenderer *renderer = nil;
+    [rendererArray enumerateObjectsUsingBlock:^(CGUpnpAvRenderer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.cObject == cDevice)
+        {
+            renderer = obj;
+            *stop = YES;
+        }
+    }];
+    return renderer;
+}
+
+- (CGUpnpAvRenderer *)rendererWithSubscriptionID:(NSString *)sid
+{
+    if (nil == sid)
+    {
+        return nil;
+    }
+    
+    __block CGUpnpAvRenderer *renderer = nil;
+    [rendererArray enumerateObjectsUsingBlock:^(CGUpnpAvRenderer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (nil != [obj serviceWithSubscriptionID:sid])
+        {
+            renderer = obj;
+            *stop = YES;
+        }
+    }];
+    return renderer;
 }
 
 ////////////////////////////////////////////////////////////

@@ -30,7 +30,7 @@
     self = [super init];
     if (nil != self)
     {
-        _serviceID = [NSString stringWithCString:property->sid->value encoding:NSUTF8StringEncoding];
+        _subscriptionID = [NSString stringWithCString:property->sid->value encoding:NSUTF8StringEncoding];
         _eventName = [NSString stringWithCString:property->name->value encoding:NSUTF8StringEncoding];
         
         char *resultXml;
@@ -96,10 +96,12 @@
         }
         else if (nil != trackURINote)
         {
+            _eventType = EVENT_AVT_TRACKURI;
             _trackURI = [trackURINote attributeValueForName:@"val"];
         }
         else if (nil != trackDurationNote)
         {
+            _eventType = EVENT_AVT_DURATION;
             NSString *durationValue = [trackDurationNote attributeValueForName:@"val"];
             NSArray *tempArray = [durationValue componentsSeparatedByString:@":"];
             _duration = [tempArray[2] integerValue] + [tempArray[1] integerValue] * 60 + [tempArray[0] integerValue] * 60 * 60;
@@ -110,6 +112,7 @@
         CGXmlNode *volumeNote = [instanceNote elementForName:@"Volume"];
         if (nil != volumeNote)
         {
+            _eventType = EVENT_RCS_VOLUME;
             NSString *value = [volumeNote attributeValueForName:@"val"];
             _volume = [value integerValue];
         }

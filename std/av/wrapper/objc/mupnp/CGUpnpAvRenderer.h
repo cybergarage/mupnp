@@ -18,6 +18,7 @@
 
 typedef enum : NSUInteger {
     DMRMusicPlaybackStateStopped,
+    DMRMusicPlaybackStateTransitioning,
     DMRMusicPlaybackStatePlaying,
     DMRMusicPlaybackStatePaused,
     DMRMusicPlaybackStateInterrupted,
@@ -64,8 +65,15 @@ typedef void mUpnpAvRenderer;
 @property(nonatomic, retain) NSArray<DMRMediaItem *> *playerItemCollection;
 @property (nonatomic, retain) DMRMediaItem *nowPlayingItem;
 @property (nonatomic, readonly) NSUInteger indexOfNowPlayingItem; // return NSNotFound if the index is not valid
-@property (nonatomic) float volume;
-@property (nonatomic, readonly) DMRMusicPlaybackState playbackState;
+
+@property (nonatomic, retain) NSString *currentTrackName;
+@property (nonatomic, retain) NSString *currentTrackArtist;
+@property (nonatomic, retain) UIImage *currentTrackThumbnail;
+@property (nonatomic, retain) NSString *trackURI;
+@property (nonatomic) float currentVolume;
+@property (nonatomic) float trackDuration;
+@property (nonatomic) float currentPlaybackTime;
+@property (nonatomic) DMRMusicPlaybackState playbackState;
 @property (nonatomic) DMRMusicRepeatMode repeatMode;
 @property (nonatomic) DMRMusicShuffleMode shuffleMode;
 
@@ -76,6 +84,7 @@ typedef void mUpnpAvRenderer;
 - (BOOL)pause;
 - (BOOL)seek:(float)absTime;
 - (BOOL)isPlaying;
+- (BOOL)setVolume:(NSInteger)volume;
 /*
 - (BOOL)start
 - (BOOL)stop
@@ -84,6 +93,7 @@ typedef void mUpnpAvRenderer;
 - (CGUpnpService *)renderControlService;
 - (CGUpnpService *)transportService;
 - (CGUpnpService *)connectionManagerService;
+- (CGUpnpService *)serviceWithSubscriptionID:(NSString *)sid;
 
 /**
  * Wrap the render with necessary infomation for playing by jink2005@163.com

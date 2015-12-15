@@ -45,6 +45,7 @@
 
 - (NSArray *)renderers;
 - (CGUpnpAvRenderer *)rendererForUDN:(NSString *)aUdn;
+- (CGUpnpAvRenderer *)rendererWithSubscriptionID:(NSString *)sid;
 
 - (void)search;
 - (BOOL)subscribeEventNotificationFromDevice:(CGUpnpAvRenderer *)renderer;

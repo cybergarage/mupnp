@@ -26,8 +26,10 @@
 @end
 
 
-@interface CGUpnpAvRenderer() {
-    
+@interface CGUpnpAvRenderer() {    
+    CGUpnpService *avRenderControlService;
+    CGUpnpService *avTransportService;
+    CGUpnpService *avConnectManagerService;
 }
 
 @property (assign) int currentPlayMode;
@@ -63,10 +65,18 @@ enum {
 {
 	if ((self = [super initWithCObject:cobj]) == nil)
 		return nil;
-
+    
+    [self getDeviceServices];
 	cAvObject = NULL;
 
 	return self;
+}
+
+- (void)getDeviceServices
+{
+    avRenderControlService = [self getServiceForType:@"urn:schemas-upnp-org:service:RenderingControl:1"];
+    avTransportService = [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
+    avConnectManagerService = [self getServiceForType:@"urn:schemas-upnp-org:service:ConnectionManager:1"];
 }
 
 - (CGUpnpAction *)actionOfTransportServiceForName:(NSString *)serviceName
@@ -182,20 +192,28 @@ enum {
 
 - (CGUpnpService *)renderControlService
 {
-    CGUpnpService *avRenderControlService = [self getServiceForType:@"urn:schemas-upnp-org:service:RenderingControl:1"];
     return avRenderControlService;
 }
 
 - (CGUpnpService *)transportService
 {
-    CGUpnpService *avTransportService = [self getServiceForType:@"urn:schemas-upnp-org:service:AVTransport:1"];
     return avTransportService;
 }
 
 - (CGUpnpService *)connectionManagerService
 {
-    CGUpnpService *avConnectManagerService = [self getServiceForType:@"urn:schemas-upnp-org:service:ConnectionManager:1"];
     return avConnectManagerService;
+}
+
+- (CGUpnpService *)serviceWithSubscriptionID:(NSString *)sid
+{
+    if (nil == sid)
+    {
+        return nil;
+    }
+    
+    CGUpnpService *service = [self getServiceWithSubscriptionID:sid];
+    return service;
 }
 
 /*
@@ -215,6 +233,25 @@ enum {
 */
 
 #pragma mark Wrap the render with necessary infomation for playing
+
+- (BOOL)setVolume:(NSInteger)volume {
+    if (nil == avRenderControlService) {
+        return NO;
+    }
+    
+    CGUpnpAction *action = [avRenderControlService getActionForName:@"SetVolume"];
+    if (!action)
+        return NO;
+    
+    [action setArgumentValue:@"0" forName:@"InstanceID"];
+    [action setArgumentValue:@"Master" forName:@"Channel"];
+    [action setArgumentValue:[NSString stringWithFormat:@"%ld", (long)volume] forName:@"DesiredVolume"];
+    
+    if (![action post])
+        return NO;
+    
+    return YES;
+}
 
 - (void)setNowPlayingItem:(DMRMediaItem *)nowPlayingItem {
     _nowPlayingItem = nowPlayingItem;

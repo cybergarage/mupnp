@@ -188,6 +188,8 @@ typedef void mUpnpDevice;
  * @return The CGUpnpService if the specified service is found; otherwise nil.
  */
 - (CGUpnpService *)getServiceForType:(NSString *)serviceType;
+
+- (CGUpnpService *)getServiceWithSubscriptionID:(NSString *)sid;
 /**
  * Get all icons in the device as a NSArray object. The array has the services as instances of CGUpnpIconIcon.
  *
