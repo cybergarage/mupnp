@@ -17,6 +17,9 @@
 @class CGUpnpAvObject;
 @class CGUpnpAvRenderer;
 
+
+@protocol CGUpnpAvControllerDelegate;
+
 /**
  * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
  * program using only Objective-C directly on MacOSX.
@@ -25,6 +28,7 @@
 @interface CGUpnpAvController : CGUpnpControlPoint 
 {
 }
+
 /**
  * Activate some background threads of the control point such as SSDP and 
  * HTTP servers to listen messages and events of UPnP. You must call this 
@@ -50,5 +54,13 @@
 - (void)search;
 - (BOOL)subscribeEventNotificationFromDevice:(CGUpnpAvRenderer *)renderer;
 - (BOOL)unsubscribeEventNotificationFromDevice:(CGUpnpAvRenderer *)renderer;
+
+@end
+
+
+@protocol CGUpnpAvControllerDelegate <NSObject, CGUpnpControlPointDelegate>
+
+@optional
+- (void)upnpAvController:(CGUpnpAvController *)controller   DidRenderPositionInfoUpdated:(CGUpnpAvRenderer *)renderer;
 
 @end

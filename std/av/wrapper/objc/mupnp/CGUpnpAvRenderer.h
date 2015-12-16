@@ -49,6 +49,9 @@ typedef enum : NSUInteger {
 @end
 
 
+@protocol CGUpnpAvRenderDelegate;
+
+
 #if !defined(_CG_CLINKCAV_MEDIARENDERER_H_)
 typedef void mUpnpAvRenderer;
 #endif
@@ -61,6 +64,7 @@ typedef void mUpnpAvRenderer;
 }
 
 @property (assign,readonly) mUpnpAvRenderer *cAvObject;
+@property (nonatomic, weak) id<CGUpnpAvRenderDelegate> delegate;
 
 @property(nonatomic, retain) NSArray<DMRMediaItem *> *playerItemCollection;
 @property (nonatomic, retain) DMRMediaItem *nowPlayingItem;
@@ -89,7 +93,7 @@ typedef void mUpnpAvRenderer;
 - (BOOL)start
 - (BOOL)stop
 */
-- (CGUpnpAVPositionInfo *)positionInfo;
+
 - (CGUpnpService *)renderControlService;
 - (CGUpnpService *)transportService;
 - (CGUpnpService *)connectionManagerService;
@@ -110,5 +114,12 @@ typedef void mUpnpAvRenderer;
 - (void)beginGeneratingPlaybackNotifications;
 - (void)endGeneratingPlaybackNotifications;
 
+@end
+
+
+@protocol CGUpnpAvRenderDelegate <NSObject>
+
+@optional
+- (void)upnpAvRenderDidPositionInfoUpdated:(CGUpnpAvRenderer *)renderer;
 
 @end

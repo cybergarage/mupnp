@@ -30,6 +30,7 @@
     CGUpnpService *avRenderControlService;
     CGUpnpService *avTransportService;
     CGUpnpService *avConnectManagerService;
+    BOOL bGeneratingPositionInfoNotifications;
 }
 
 @property (assign) int currentPlayMode;
@@ -70,6 +71,15 @@ enum {
 	cAvObject = NULL;
 
 	return self;
+}
+
+- (NSUInteger)indexOfNowPlayingItem {
+    NSUInteger index = NSNotFound;
+    if (nil != self.nowPlayingItem) {
+        index = [self.playerItemCollection indexOfObject:self.nowPlayingItem];
+    }
+    
+    return index;
 }
 
 - (void)getDeviceServices
@@ -280,7 +290,10 @@ enum {
 }
 
 - (void)skipToNextItem {
-    
+    NSUInteger index = [self indexOfNowPlayingItem];
+    if (++ index < [self.playerItemCollection count]) {
+        [self playMusicWithIndex:index];
+    }
 }
 
 - (void)skipToBeginning {
@@ -288,15 +301,33 @@ enum {
 }
 
 - (void)skipToPreviousItem {
-    
+    NSUInteger index = [self indexOfNowPlayingItem];
+    if (index > 0) {
+        [self playMusicWithIndex:-- index];
+    }
 }
 
 - (void)beginGeneratingPlaybackNotifications {
-    
+    if (! bGeneratingPositionInfoNotifications) {
+        bGeneratingPositionInfoNotifications = YES;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            while (bGeneratingPositionInfoNotifications) {
+                sleep(1);
+                CGUpnpAVPositionInfo *positionInfo = [self positionInfo];
+                self.currentPlaybackTime = positionInfo.relTime;
+                self.trackDuration = positionInfo.trackDuration;
+                
+                if ([self.delegate respondsToSelector:@selector(upnpAvRenderDidPositionInfoUpdated:)])
+                {
+                    [self.delegate upnpAvRenderDidPositionInfoUpdated:self];
+                }
+            }
+        });
+    }
 }
 
 - (void)endGeneratingPlaybackNotifications {
-    
+    bGeneratingPositionInfoNotifications = NO;
 }
 
 @end

@@ -89,6 +89,10 @@
             {
                 _eventType = EVENT_AVT_PLAYING;
             }
+            else if ([stateValue isEqualToString:@"PAUSED_PLAYBACK"])
+            {
+                _eventType = EVENT_AVT_PAUSED;
+            }
             else if ([stateValue isEqualToString:@"STOPPED"])
             {
                 _eventType = EVENT_AVT_STOPPED;

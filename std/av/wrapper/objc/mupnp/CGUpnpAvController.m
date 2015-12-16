@@ -19,9 +19,10 @@
 #import "CGUpnpAvRenderer.h"
 
 
-@interface CGUpnpAvController() {
+@interface CGUpnpAvController() <CGUpnpAvRenderDelegate> {
     NSArray<CGUpnpAvRenderer *> *rendererArray;
     NSArray<CGUpnpAvServer *> *serverArray;
+    id<CGUpnpAvControllerDelegate> avDelegate;
 }
 
 @end
@@ -40,6 +41,11 @@
 
 - (void)dealloc
 {
+}
+
+- (void)setDelegate:(id<CGUpnpControlPointDelegate>)delegate {
+    [super setDelegate:delegate];
+    avDelegate = delegate;
 }
 
 ////////////////////////////////////////////////////////////
@@ -239,6 +245,7 @@
         if (nil == renderer)
         {
             renderer = [[CGUpnpAvRenderer alloc] initWithCObject:cDevice];
+            [renderer setDelegate:self];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [self subscribeEventNotificationFromDevice:renderer];
             });
@@ -355,6 +362,14 @@
     }
     
     return bRet;
+}
+
+#pragma mark CGUpnpAvRenderDelegate
+
+- (void)upnpAvRenderDidPositionInfoUpdated:(CGUpnpAvRenderer *)renderer {
+    if ([avDelegate respondsToSelector:@selector(upnpAvController:DidRenderPositionInfoUpdated:)]) {
+        [avDelegate upnpAvController:self DidRenderPositionInfoUpdated:renderer];
+    }
 }
 
 @end
