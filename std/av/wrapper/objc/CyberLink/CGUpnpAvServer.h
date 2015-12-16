@@ -26,22 +26,21 @@ typedef void CgUpnpAvServer;
 
 @protocol CGUpnpAvServerDelegate <NSObject>
 @optional
-- (void)upnpAvServer:(CGUpnpAvServer *)upnpAvServer browse:(CGUpnpAction *)browseAction avObject:(CGUpnpAvObject *)avObject;
-- (void)upnpAvServer:(CGUpnpAvServer *)upnpAvServer search:(CGUpnpAction *)searchAction avObject:(CGUpnpAvObject *)avObject;
+- (void)upnpAvServer:(CGUpnpAvServer*)upnpAvServer browse:(CGUpnpAction*)browseAction avObject:(CGUpnpAvObject*)avObject;
+- (void)upnpAvServer:(CGUpnpAvServer*)upnpAvServer search:(CGUpnpAction*)searchAction avObject:(CGUpnpAvObject*)avObject;
 @end
 
 /**
  * The CGUpnpAvServer class is a UPnP/AV media server class.
  */
-@interface CGUpnpAvServer : CGUpnpDevice
-{
+@interface CGUpnpAvServer : CGUpnpDevice {
 }
-@property(retain) CGUpnpAvContentDirectory *contentDirectory;
-@property(assign) CgUpnpAvServer *cAvObject;
-@property(assign) id<CGUpnpAvServerDelegate> delegateServer;
+@property (retain) CGUpnpAvContentDirectory* contentDirectory;
+@property (assign) CgUpnpAvServer* cAvObject;
+@property (assign) id<CGUpnpAvServerDelegate> delegateServer;
 
 #if defined(TARGET_OS_IPHONE)
-@property(retain) UIImage *thumbnailImage;
+@property (retain) UIImage* thumbnailImage;
 #endif
 
 /*
@@ -55,22 +54,22 @@ typedef void CgUpnpAvServer;
  * 
  * @return New instance if successfull; otherwise nil.
  */
-- (id)initWithCObject:(CgUpnpDevice *)cobj;
+- (id)initWithCObject:(CgUpnpDevice*)cobj;
 - (void)setUserObject:(id)aUserObj;
 - (id)userObject;
-- (BOOL)browse:(NSString *)aObjectId browseFlag:(NSString *)aBrowseFlag options:(NSDictionary *)options;
-- (CGUpnpAvObject *)browseMetadata:(NSString *)aObjectId;
-- (NSArray *)browseDirectChildren:(NSString *)aObjectId;
-- (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger) aRequestedCount;
-- (NSArray *)browseDirectChildren:(NSString *)aObjectId requestedCount:(NSUInteger)aRequestedCount startingIndex:(NSUInteger)aStartingIndex;
-- (CGUpnpAction *)browseAction;
-- (NSArray *)search:(NSString *)aSearchCriteria;
-- (NSArray *)searchByBrowse:(NSString *)aSearchCriteria;
-- (NSArray *)searchByBrowse:(NSString *)aSearchCriteria objectId:(NSString *)objectId;
-- (CGUpnpAction *)searchAction;
-- (CGUpnpAvContainer *)rootObject;
-- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
+- (BOOL)browse:(NSString*)aObjectId browseFlag:(NSString*)aBrowseFlag options:(NSDictionary*)options;
+- (CGUpnpAvObject*)browseMetadata:(NSString*)aObjectId;
+- (NSArray*)browseDirectChildren:(NSString*)aObjectId;
+- (NSArray*)browseDirectChildren:(NSString*)aObjectId requestedCount:(NSUInteger)aRequestedCount;
+- (NSArray*)browseDirectChildren:(NSString*)aObjectId requestedCount:(NSUInteger)aRequestedCount startingIndex:(NSUInteger)aStartingIndex;
+- (CGUpnpAction*)browseAction;
+- (NSArray*)search:(NSString*)aSearchCriteria;
+- (NSArray*)searchByBrowse:(NSString*)aSearchCriteria;
+- (NSArray*)searchByBrowse:(NSString*)aSearchCriteria objectId:(NSString*)objectId;
+- (CGUpnpAction*)searchAction;
+- (CGUpnpAvContainer*)rootObject;
+- (CGUpnpAvObject*)objectForId:(NSString*)aObjectId;
+- (CGUpnpAvObject*)objectForTitlePath:(NSString*)aTitlePath;
 - (BOOL)start;
 - (BOOL)stop;
 - (void)lock;

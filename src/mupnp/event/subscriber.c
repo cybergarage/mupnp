@@ -24,30 +24,29 @@
 /**
  * Create a new event subscriber
  */
-mUpnpSubscriber *mupnp_subscriber_new()
+mUpnpSubscriber* mupnp_subscriber_new()
 {
-	mUpnpSubscriber *sub;
+  mUpnpSubscriber* sub;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	sub = (mUpnpSubscriber *)malloc(sizeof(mUpnpSubscriber));
+  sub = (mUpnpSubscriber*)malloc(sizeof(mUpnpSubscriber));
 
-	if ( NULL != sub )
-	{
-		mupnp_list_node_init((mUpnpList *)sub);
-		
-		sub->sid = mupnp_string_new();
-		sub->ifAddr = mupnp_string_new();
-		sub->deliveryURL = mupnp_net_url_new();
-		
-		mupnp_subscriber_settimeout(sub, 0);
-		mupnp_subscriber_renew(sub);
-		mupnp_subscriber_setnotifycount(sub, 0);
-	}
-	
-	mupnp_log_debug_l4("Leaving...\n");
+  if (NULL != sub) {
+    mupnp_list_node_init((mUpnpList*)sub);
 
-	return sub;
+    sub->sid = mupnp_string_new();
+    sub->ifAddr = mupnp_string_new();
+    sub->deliveryURL = mupnp_net_url_new();
+
+    mupnp_subscriber_settimeout(sub, 0);
+    mupnp_subscriber_renew(sub);
+    mupnp_subscriber_setnotifycount(sub, 0);
+  }
+
+  mupnp_log_debug_l4("Leaving...\n");
+
+  return sub;
 }
 
 /**
@@ -55,20 +54,20 @@ mUpnpSubscriber *mupnp_subscriber_new()
  *
  * @param sub The event subscriber
  */
-void mupnp_subscriber_delete(mUpnpSubscriber *sub)
+void mupnp_subscriber_delete(mUpnpSubscriber* sub)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_subscriber_clear(sub);
-	mupnp_list_remove((mUpnpList *)sub);
+  mupnp_subscriber_clear(sub);
+  mupnp_list_remove((mUpnpList*)sub);
 
-	mupnp_string_delete(sub->sid);
-	mupnp_string_delete(sub->ifAddr);
-	mupnp_net_url_delete(sub->deliveryURL);
-	
-	free(sub);
+  mupnp_string_delete(sub->sid);
+  mupnp_string_delete(sub->ifAddr);
+  mupnp_net_url_delete(sub->deliveryURL);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  free(sub);
+
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -78,11 +77,11 @@ void mupnp_subscriber_delete(mUpnpSubscriber *sub)
  *
  * @param sub The event subscriber
  */
-void mupnp_subscriber_clear(mUpnpSubscriber *sub)
+void mupnp_subscriber_clear(mUpnpSubscriber* sub)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -91,14 +90,14 @@ void mupnp_subscriber_clear(mUpnpSubscriber *sub)
  *
  * @param sub The event subscriber
  */
-void mupnp_subscriber_renew(mUpnpSubscriber *sub)
+void mupnp_subscriber_renew(mUpnpSubscriber* sub)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	//Theo Beisch use clinkc time
-	mupnp_subscriber_setsubscriptiontime(sub, mupnp_getcurrentsystemtime());
+  //Theo Beisch use clinkc time
+  mupnp_subscriber_setsubscriptiontime(sub, mupnp_getcurrentsystemtime());
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -107,17 +106,17 @@ void mupnp_subscriber_renew(mUpnpSubscriber *sub)
  * @param sub The event subscriber
  * @return The new notify count
  */
-long mupnp_subscriber_incrementnotifycount(mUpnpSubscriber *sub)
+long mupnp_subscriber_incrementnotifycount(mUpnpSubscriber* sub)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	if (MUPNP_NOTIFY_COUNT_MAX <= sub->notifyCount)
-		sub->notifyCount = 0;
-	sub->notifyCount++;
+  if (MUPNP_NOTIFY_COUNT_MAX <= sub->notifyCount)
+    sub->notifyCount = 0;
+  sub->notifyCount++;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 
-	return sub->notifyCount;
+  return sub->notifyCount;
 }
 
 /**
@@ -126,25 +125,25 @@ long mupnp_subscriber_incrementnotifycount(mUpnpSubscriber *sub)
  * @param sub The subscriber
  * @return true if the subscription has been expired; otherwise false
  */
-bool mupnp_subscriber_isexpired(mUpnpSubscriber *sub)
+bool mupnp_subscriber_isexpired(mUpnpSubscriber* sub)
 {
-	mUpnpTime currTime;
-	mUpnpTime timeout;
-	mUpnpTime expiredTime;
-	
-	timeout = mupnp_subscriber_gettimeout(sub);
-	if(timeout == MUPNP_SUBSCRIPTION_INFINITE_VALUE) 
-		return false; 
-			
-	//Theo Beisch - use clinkc function 
-	currTime = mupnp_getcurrentsystemtime(); //returns time in s 
-	expiredTime = mupnp_subscriber_getsubscriptiontime(sub) + (timeout); //tb: removed( *1000);
-	if (expiredTime < currTime)
-		return true;
-			
-	return false;
+  mUpnpTime currTime;
+  mUpnpTime timeout;
+  mUpnpTime expiredTime;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  timeout = mupnp_subscriber_gettimeout(sub);
+  if (timeout == MUPNP_SUBSCRIPTION_INFINITE_VALUE)
+    return false;
+
+  //Theo Beisch - use clinkc function
+  currTime = mupnp_getcurrentsystemtime(); //returns time in s
+  expiredTime = mupnp_subscriber_getsubscriptiontime(sub) + (timeout); //tb: removed( *1000);
+  if (expiredTime < currTime)
+    return true;
+
+  return false;
+
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -154,37 +153,37 @@ bool mupnp_subscriber_isexpired(mUpnpSubscriber *sub)
  * @param statVar The evented state variable
  * @return true if succesful; otherwise false
  */
-static bool mupnp_subscriber_notifymain(mUpnpSubscriber *sub, mUpnpService *service, mUpnpStateVariable *statVar)
+static bool mupnp_subscriber_notifymain(mUpnpSubscriber* sub, mUpnpService* service, mUpnpStateVariable* statVar)
 {
-	char *host;
-	int port;
-	mUpnpNotifyRequest *notifyReq;
-	mUpnpNotifyResponse *notifyRes;
-	bool notifySuccess;
-	
-	mupnp_log_debug_l4("Entering...\n");
+  char* host;
+  int port;
+  mUpnpNotifyRequest* notifyReq;
+  mUpnpNotifyResponse* notifyRes;
+  bool notifySuccess;
 
-	host = mupnp_subscriber_getdeliveryhost(sub);
-	port = mupnp_subscriber_getdeliveryport(sub);
+  mupnp_log_debug_l4("Entering...\n");
 
-	notifyReq = mupnp_event_notify_request_new();
-	mupnp_event_notify_request_setpropertysetnode(notifyReq, sub, service, statVar);
-	notifyRes = mupnp_event_notify_request_post(notifyReq, host, port);
-	notifySuccess = mupnp_event_notify_response_issuccessful(notifyRes);
+  host = mupnp_subscriber_getdeliveryhost(sub);
+  port = mupnp_subscriber_getdeliveryport(sub);
 
-	mupnp_http_request_print(notifyReq->httpReq);
-	mupnp_http_response_print(notifyRes->httpRes);
-	
-	mupnp_event_notify_request_delete(notifyReq);
+  notifyReq = mupnp_event_notify_request_new();
+  mupnp_event_notify_request_setpropertysetnode(notifyReq, sub, service, statVar);
+  notifyRes = mupnp_event_notify_request_post(notifyReq, host, port);
+  notifySuccess = mupnp_event_notify_response_issuccessful(notifyRes);
 
-	if (notifySuccess == false)
-		return false;
-		
-	mupnp_subscriber_incrementnotifycount(sub);
-			
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_http_request_print(notifyReq->httpReq);
+  mupnp_http_response_print(notifyRes->httpRes);
 
-	return true;
+  mupnp_event_notify_request_delete(notifyReq);
+
+  if (notifySuccess == false)
+    return false;
+
+  mupnp_subscriber_incrementnotifycount(sub);
+
+  mupnp_log_debug_l4("Leaving...\n");
+
+  return true;
 }
 
 /**
@@ -194,9 +193,9 @@ static bool mupnp_subscriber_notifymain(mUpnpSubscriber *sub, mUpnpService *serv
  * @param statVar The evented state variable
  * @return true if succesful; otherwise false
  */
-bool mupnp_subscriber_notify(mUpnpSubscriber *sub, mUpnpStateVariable *statVar)
+bool mupnp_subscriber_notify(mUpnpSubscriber* sub, mUpnpStateVariable* statVar)
 {
-	return mupnp_subscriber_notifymain(sub, NULL, statVar);
+  return mupnp_subscriber_notifymain(sub, NULL, statVar);
 }
 
 /**
@@ -206,9 +205,9 @@ bool mupnp_subscriber_notify(mUpnpSubscriber *sub, mUpnpStateVariable *statVar)
  * @param service The evented service
  * @return true if succesful; otherwise false
  */
-bool mupnp_subscriber_notifyall(mUpnpSubscriber *sub, /* mUpnpService */ void *service)
+bool mupnp_subscriber_notifyall(mUpnpSubscriber* sub, /* mUpnpService */ void* service)
 {
-	return mupnp_subscriber_notifymain(sub, (mUpnpService *)service, NULL);
+  return mupnp_subscriber_notifymain(sub, (mUpnpService*)service, NULL);
 }
 
 /****************************************

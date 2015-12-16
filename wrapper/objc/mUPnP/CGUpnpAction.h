@@ -18,23 +18,22 @@ typedef void mUpnpAction;
 /**
  * The CGUpnpAction class is a wrapper class for mUpnpAction of CyberLink for C.
  */
-@interface CGUpnpAction : NSObject 
-{
+@interface CGUpnpAction : NSObject {
 }
-@property(assign, readonly) mUpnpAction *cObject;
-- (id)initWithCObject:(mUpnpAction *)cobj;
+@property (assign, readonly) mUpnpAction* cObject;
+- (id)initWithCObject:(mUpnpAction*)cobj;
 /**
  * Get the name of the action.
  * 
  * @return The name.
  */
-- (NSString *)name;
+- (NSString*)name;
 /**
  * Get all arguments in the action as a NSDictionary object.
  *
  * @return NSDictionary of the arguments.
  */
-- (NSDictionary *)arguments;
+- (NSDictionary*)arguments;
 /**
  * Set a value of the specified argument from the action by the argument's name directly.
  *
@@ -42,14 +41,14 @@ typedef void mUpnpAction;
  * @param name The name of the argument to look for
  * @return YES if successfull; otherwise NO
  */
-- (BOOL)setArgumentValue:(NSString *)value forName:(NSString *)name;
+- (BOOL)setArgumentValue:(NSString*)value forName:(NSString*)name;
 /**
  * Get a value of the specified argument from the action by the argument's name directly.
  *
  * @param name The name of the argument to look for
  * @return The target value if successfull; otherwise NULL
  */
-- (NSString *)argumentValueForName:(NSString *)name;
+- (NSString*)argumentValueForName:(NSString*)name;
 /**
  * Send action
  *
@@ -63,7 +62,7 @@ typedef void mUpnpAction;
  *
  * @return YES if successfull; otherwise NO
  */
-- (BOOL)postWithArguments:(NSDictionary *)arguments;
+- (BOOL)postWithArguments:(NSDictionary*)arguments;
 /**
  * Get a states code of the last post. 
  *

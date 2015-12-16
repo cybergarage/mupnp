@@ -15,7 +15,7 @@
 #include <mupnp/typedef.h>
 #include <mupnp/util/string.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -37,11 +37,11 @@ extern "C" {
  * UPnP status struct used in action and state operations
  */
 typedef struct _mUpnpStatus {
-	/** Status code */
-	int code;
+  /** Status code */
+  int code;
 
-	/** Status description */
-	mUpnpString *description;
+  /** Status description */
+  mUpnpString* description;
 } mUpnpStatus;
 
 /******************************************************************************
@@ -52,14 +52,14 @@ typedef struct _mUpnpStatus {
  * Create a new status struct
  *
  */
-mUpnpStatus *mupnp_status_new();
+mUpnpStatus* mupnp_status_new();
 
 /**
  * Delete a status struct
  *
  * \param upnpStat Status struct to delete
  */
-void mupnp_status_delete(mUpnpStatus *upnpStat);
+void mupnp_status_delete(mUpnpStatus* upnpStat);
 
 /**
  * Set status code for status struct
@@ -97,9 +97,9 @@ void mupnp_status_delete(mUpnpStatus *upnpStat);
  * \param code Code to convert into a description
  * \return Status description
  */
-char *mupnp_status_code2string(int code);
+char* mupnp_status_code2string(int code);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 
 } /* extern "C" */
 

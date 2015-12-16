@@ -18,23 +18,22 @@ typedef void mUpnpIcon;
 /**
  * The CGUpnpIcon class is a wrapper class for mUpnpIcon of CyberLink for C.
  */
-@interface CGUpnpIcon : NSObject
-{
+@interface CGUpnpIcon : NSObject {
 #if defined(TARGET_OS_IPHONE)
-	NSString *resourceName;
+  NSString* resourceName;
 #endif
 }
-@property(assign, readonly) mUpnpIcon *cObject;
+@property (assign, readonly) mUpnpIcon* cObject;
 #if defined(TARGET_OS_IPHONE)
-@property(readonly) NSString *resourceName;
+@property (readonly) NSString* resourceName;
 #endif
-- (id)initWithCObject:(mUpnpIcon *)cobj;
+- (id)initWithCObject:(mUpnpIcon*)cobj;
 /**
  * Get the url of the icon.
  * 
  * @return The url.
  */
-- (NSString *)url;
+- (NSString*)url;
 /**
  * Get the url of the width.
  * 
@@ -54,7 +53,6 @@ typedef void mUpnpIcon;
  */
 - (NSInteger)depth;
 #if defined(TARGET_OS_IPHONE)
-- (void)setResourceName:(NSString *) aResourceName;
+- (void)setResourceName:(NSString*)aResourceName;
 #endif
 @end
-

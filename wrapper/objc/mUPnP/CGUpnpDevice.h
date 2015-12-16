@@ -25,117 +25,116 @@ typedef void mUpnpDevice;
  */
 @protocol CGUpnpDeviceDelegate <NSObject>
 @optional
-- (BOOL)device:(CGUpnpDevice *)device service:(CGUpnpService *)service actionReceived:(CGUpnpAction *)action;
+- (BOOL)device:(CGUpnpDevice*)device service:(CGUpnpService*)service actionReceived:(CGUpnpAction*)action;
 @end
 
 /**
  * The CGUpnpDevice class is a wrapper class for mUpnpDevice of CyberLink for C.
  */
-@interface CGUpnpDevice : NSObject 
-{
-	BOOL isCObjectCreated;
+@interface CGUpnpDevice : NSObject {
+  BOOL isCObjectCreated;
 }
-@property(assign) mUpnpDevice *cObject;
-@property(assign) id<CGUpnpDeviceDelegate> delegate;
+@property (assign) mUpnpDevice* cObject;
+@property (assign) id<CGUpnpDeviceDelegate> delegate;
 /**
  * Create a new UPnP device.
  * 
  * @return New instance if successfull; otherwise nil.
  */
-- (id) init;
+- (id)init;
 /**
  * Create a new UPnP device with the C instance.
  * 
  * @return New instance if successfull; otherwise nil.
  */
-- (id) initWithCObject:(mUpnpDevice *)cobj;
+- (id)initWithCObject:(mUpnpDevice*)cobj;
 /**
  * Create a new UPnP device with the XML descriptioin.
  * 
  * @return New instance if successfull; otherwise nil.
  */
-- (id) initWithXMLDescription:(NSString *)xmlDesc;
+- (id)initWithXMLDescription:(NSString*)xmlDesc;
 /**
  * Parse the specified XML description.
  * 
  * @return YES if successfull; otherwise nui.
  */
-- (BOOL) parseXMLDescription:(NSString *)xmlDesc;
+- (BOOL)parseXMLDescription:(NSString*)xmlDesc;
 /**
  * Get the friendly name of the device.
  * 
  * @return Friendly name.
  */
-- (NSString *)friendlyName;
+- (NSString*)friendlyName;
 /**
  * Get the device type of the device.
  * 
  * @return Device Type.
  */
-- (NSString *)deviceType;
+- (NSString*)deviceType;
 /**
  * Get the UDN of the device.
  * 
  * @return UDN of the specified device.
  */
-- (NSString *)udn;
+- (NSString*)udn;
 /**
  * Return a manufacture.
  *
  * @return Manufacture of the device.
  */
-- (NSString *)manufacturer;
+- (NSString*)manufacturer;
 
 /**
  * Return a model number.
  *
  * @return Model number of the device.
  */
-- (NSString *)modelNumber;
+- (NSString*)modelNumber;
 
 /**
  * Return a model name.
  *
  * @return Model name of the device.
  */
-- (NSString *)modelName;
+- (NSString*)modelName;
 
 /**
  * Return a urlBase
  *
  * @return URLBase of the device.
  */
-- (NSString *)urlBase;
+- (NSString*)urlBase;
 /**
  * Return a descrition URL
  *
  * @return Descripton URL of the device.
  */
-- (NSString *)descriptionURL;
+- (NSString*)descriptionURL;
 /**
  * Return a location URL
  *
  * @return Location URL of the device.
  */
-- (NSString *)locationURL;
+- (NSString*)locationURL;
 /**
  * Set a device type of the device.
  * 
  * @param aType Device type to set.
  */
--(void)setDeviceType:(NSString *)aType;
+- (void)setDeviceType:(NSString*)aType;
 /**
  * Set a friendly name of the device.
  * 
  * @param aName Friendly name to set.
  */
--(void)setFriendlyName:(NSString *)aName;
+- (void)setFriendlyName:(NSString*)aName;
 /**
  * Set a udn of the device.
  * 
  * @param aUdn UDN to set.
  */
--(void)setUdn:(NSString *)aUdn;
+- (void)setUdn:(NSString*)aUdn;
 /**
  * Check whether the device type is the specified type.
  *
@@ -143,7 +142,7 @@ typedef void mUpnpDevice;
  * 
  * @return YES if the specified type is same as the device type; otherwise NO.
  */
-- (BOOL)isDeviceType:(NSString *)aType;
+- (BOOL)isDeviceType:(NSString*)aType;
 /**
  * Check whether the device's UDN is the specified UDN.
  *
@@ -151,7 +150,7 @@ typedef void mUpnpDevice;
  * 
  * @return YES if the specified UDN is same as the device' UDN; otherwise NO.
  */
-- (BOOL)isUDN:(NSString *)aUDN;
+- (BOOL)isUDN:(NSString*)aUDN;
 /**
  * Check whether the device's friendly name is the specified name.
  *
@@ -159,19 +158,19 @@ typedef void mUpnpDevice;
  * 
  * @return YES if the specified friendly name is same as the device' friendly name; otherwise NO.
  */
-- (BOOL)isFriendlyName:(NSString *)aFriendlyName;
+- (BOOL)isFriendlyName:(NSString*)aFriendlyName;
 /**
  * Return a presentationURL
  *
  * @return presentationURL of the device.
  */
-- (NSString *)presentationURL;
+- (NSString*)presentationURL;
 /**
  * Get all services in the device as a NSArray object. The array has the services as instances of CGUpnpService.
  *
  * @return NSArray of CGUpnpService.
  */
-- (NSArray *)services;
+- (NSArray*)services;
 /**
  * Get a service in the device by the specified service ID.
  *
@@ -179,7 +178,7 @@ typedef void mUpnpDevice;
  *
  * @return The CGUpnpService if the specified service is found; otherwise nil.
  */
-- (CGUpnpService *)getServiceForID:(NSString *)serviceId;
+- (CGUpnpService*)getServiceForID:(NSString*)serviceId;
 /**
  * Get a service in the device by the specified service type.
  *
@@ -187,13 +186,13 @@ typedef void mUpnpDevice;
  *
  * @return The CGUpnpService if the specified service is found; otherwise nil.
  */
-- (CGUpnpService *)getServiceForType:(NSString *)serviceType;
+- (CGUpnpService*)getServiceForType:(NSString*)serviceType;
 /**
  * Get all icons in the device as a NSArray object. The array has the services as instances of CGUpnpIconIcon.
  *
  * @return NSArray of CGUpnpIcon.
  */
-- (NSArray *)icons;
+- (NSArray*)icons;
 /**
  * Start the device.
  *
@@ -225,31 +224,31 @@ typedef void mUpnpDevice;
  *
  * @return The CGUpnpService if the specified service is found; otherwise nil.
  */
-- (void)setUserData:(void *)aUserData;
+- (void)setUserData:(void*)aUserData;
 /**
  * Get a stored user data.
  *
  * @return A stored user data.
  */
-- (void *)userData;
+- (void*)userData;
 /**
  * Return a IP address.
  *
  * @return IP address of the device.
  */
-- (NSString *)ipaddress;
+- (NSString*)ipaddress;
 /**
  * Return a most smallest icon.
  *
  * @return Smallest Icon.
  */
-- (CGUpnpIcon *)smallestIcon;
+- (CGUpnpIcon*)smallestIcon;
 /**
  * Return a most smallest icon with a specified mime type.
  *
  * @return Smallest Icon.
  */
-- (CGUpnpIcon *)smallestIconWithMimeType:(NSString *)mimeType;
+- (CGUpnpIcon*)smallestIconWithMimeType:(NSString*)mimeType;
 /**
  * Return a absolute url of the specified icon.
  *
@@ -257,5 +256,5 @@ typedef void mUpnpDevice;
  *
  * @return Absolute url of the specified icon.
  */
-- (NSString *)absoluteIconUrl:(CGUpnpIcon *)anIcon;
+- (NSString*)absoluteIconUrl:(CGUpnpIcon*)anIcon;
 @end

@@ -16,32 +16,32 @@
 * mupnp_devicelist_new
 ****************************************/
 
-mUpnpDeviceList *mupnp_devicelist_new()
+mUpnpDeviceList* mupnp_devicelist_new()
 {
-	mUpnpDeviceList *devList;
+  mUpnpDeviceList* devList;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	devList = (mUpnpDeviceList *)malloc(sizeof(mUpnpDeviceList));
+  devList = (mUpnpDeviceList*)malloc(sizeof(mUpnpDeviceList));
 
-	if ( NULL != devList )
-		mupnp_list_header_init((mUpnpList *)devList);
+  if (NULL != devList)
+    mupnp_list_header_init((mUpnpList*)devList);
 
-	return devList;
+  return devList;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_devicelist_delete
 ****************************************/
 
-void mupnp_devicelist_delete(mUpnpDeviceList *devList)
+void mupnp_devicelist_delete(mUpnpDeviceList* devList)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_devicelist_clear(devList);
-	free(devList);
+  mupnp_devicelist_clear(devList);
+  free(devList);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }

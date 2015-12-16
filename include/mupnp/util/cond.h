@@ -29,7 +29,7 @@
 #include <pthread.h>
 #endif
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -45,18 +45,18 @@ extern "C" {
  */
 typedef struct _mUpnpCond {
 #if defined(WIN32) && !defined(ITRON)
-	HANDLE	condID;
+  HANDLE condID;
 #elif defined(BTRON)
-	WERR	condID;
+  WERR condID;
 #elif defined(ITRON)
-	ER_ID	condID;
+  ER_ID condID;
 #elif defined(TENGINE) && !defined(PROCESS_BASE)
-	ID condID;
+  ID condID;
 #elif defined(TENGINE) && defined(PROCESS_BASE)
-	WERR	condID;
+  WERR condID;
 #else
-	/** The cond entity */
-	pthread_cond_t condID;
+  /** The cond entity */
+  pthread_cond_t condID;
 #endif
 } mUpnpCond;
 
@@ -67,14 +67,14 @@ typedef struct _mUpnpCond {
 /** 
  * Create a new condition variable
  */
-mUpnpCond *mupnp_cond_new();
+mUpnpCond* mupnp_cond_new();
 
 /** 
  * Destroy a condition variable
  *
  * \param cond The cond to destroy
  */
-bool mupnp_cond_delete(mUpnpCond *cond);
+bool mupnp_cond_delete(mUpnpCond* cond);
 
 /** 
  * Wait for condition variable to be signalled.
@@ -83,16 +83,16 @@ bool mupnp_cond_delete(mUpnpCond *cond);
  * \param mutex Mutex used for synchronization
  * \param timeout Maximum time in seconds to wait, 0 to wait forever
  */
-bool mupnp_cond_wait(mUpnpCond *cond, mUpnpMutex *mutex, unsigned long timeout);
+bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout);
 
 /** 
  * Signal a condition variable
  *
  * \param cond Cond to be signalled
  */
-bool mupnp_cond_signal(mUpnpCond *cond);
+bool mupnp_cond_signal(mUpnpCond* cond);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 
 } /* extern "C" */
 

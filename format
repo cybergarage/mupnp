@@ -1,0 +1,2 @@
+#!/bin/bash
+find . \( -name *.h -or -name *.c -or -name *.cpp \) -print | xargs clang-format -i

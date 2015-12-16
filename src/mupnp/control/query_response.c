@@ -24,177 +24,176 @@
 * mupnp_control_query_response_new
 ****************************************/
 
-mUpnpQueryResponse *mupnp_control_query_response_new()
+mUpnpQueryResponse* mupnp_control_query_response_new()
 {
-	mUpnpQueryResponse *queryRes;
-	 
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpQueryResponse* queryRes;
 
-	queryRes = (mUpnpQueryResponse *)malloc(sizeof(mUpnpQueryResponse));
+  mupnp_log_debug_l4("Entering...\n");
 
-	if ( NULL != queryRes )
-	{
-		queryRes->soapRes = mupnp_soap_response_new();
-		queryRes->isSoapResCreated = true;
-	}
+  queryRes = (mUpnpQueryResponse*)malloc(sizeof(mUpnpQueryResponse));
 
-	return queryRes;
+  if (NULL != queryRes) {
+    queryRes->soapRes = mupnp_soap_response_new();
+    queryRes->isSoapResCreated = true;
+  }
 
-	mupnp_log_debug_l4("Leaving...\n");
+  return queryRes;
+
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_control_query_response_delete
 ****************************************/
 
-void mupnp_control_query_response_delete(mUpnpQueryResponse *queryRes)
+void mupnp_control_query_response_delete(mUpnpQueryResponse* queryRes)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_control_query_response_clear(queryRes);
-	
-	if (queryRes->isSoapResCreated == true)
-		mupnp_soap_response_delete(queryRes->soapRes);
-	
-	free(queryRes);
+  mupnp_control_query_response_clear(queryRes);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  if (queryRes->isSoapResCreated == true)
+    mupnp_soap_response_delete(queryRes->soapRes);
+
+  free(queryRes);
+
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_control_query_response_clear
 ****************************************/
 
-void mupnp_control_query_response_clear(mUpnpQueryResponse *queryRes)
+void mupnp_control_query_response_clear(mUpnpQueryResponse* queryRes)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	if (queryRes->isSoapResCreated == true)
-		mupnp_soap_response_delete(queryRes->soapRes);
-	queryRes->soapRes = mupnp_soap_response_new();
-	queryRes->isSoapResCreated = true;
+  if (queryRes->isSoapResCreated == true)
+    mupnp_soap_response_delete(queryRes->soapRes);
+  queryRes->soapRes = mupnp_soap_response_new();
+  queryRes->isSoapResCreated = true;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_control_query_request_setsoaprequest
 ****************************************/
 
-void mupnp_control_query_response_setsoapresponse(mUpnpQueryResponse *queryRes, mUpnpSoapResponse *soapRes)
+void mupnp_control_query_response_setsoapresponse(mUpnpQueryResponse* queryRes, mUpnpSoapResponse* soapRes)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	if (queryRes->isSoapResCreated == true)
-		mupnp_soap_response_delete(queryRes->soapRes);
-	queryRes->soapRes = soapRes;
-	queryRes->isSoapResCreated = false;
+  if (queryRes->isSoapResCreated == true)
+    mupnp_soap_response_delete(queryRes->soapRes);
+  queryRes->soapRes = soapRes;
+  queryRes->isSoapResCreated = false;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_control_query_response_createresponsenode
 ****************************************/
 
-static mUpnpXmlNode *mupnp_control_query_response_createresponsenode(mUpnpStateVariable *statVar)
+static mUpnpXmlNode* mupnp_control_query_response_createresponsenode(mUpnpStateVariable* statVar)
 {
-	mUpnpXmlNode *queryResNode;
-	mUpnpXmlNode *returnNode;
-	 
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpXmlNode* queryResNode;
+  mUpnpXmlNode* returnNode;
 
-	queryResNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(queryResNode, MUPNP_CONTROL_NS MUPNP_SOAP_DELIM MUPNP_CONTROL_QUERY_STATE_VARIABLE_RESPONSE);
-	mupnp_xml_node_setnamespace(queryResNode, MUPNP_CONTROL_NS, MUPNP_CONTROL_XMLNS);
-	
-	returnNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(returnNode, MUPNP_CONTROL_RETURN);
-	mupnp_xml_node_setvalue(returnNode, mupnp_statevariable_getvalue(statVar));
-	mupnp_xml_node_addchildnode(queryResNode, returnNode);
-			
-	return queryResNode;
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_log_debug_l4("Leaving...\n");
+  queryResNode = mupnp_xml_node_new();
+  mupnp_xml_node_setname(queryResNode, MUPNP_CONTROL_NS MUPNP_SOAP_DELIM MUPNP_CONTROL_QUERY_STATE_VARIABLE_RESPONSE);
+  mupnp_xml_node_setnamespace(queryResNode, MUPNP_CONTROL_NS, MUPNP_CONTROL_XMLNS);
+
+  returnNode = mupnp_xml_node_new();
+  mupnp_xml_node_setname(returnNode, MUPNP_CONTROL_RETURN);
+  mupnp_xml_node_setvalue(returnNode, mupnp_statevariable_getvalue(statVar));
+  mupnp_xml_node_addchildnode(queryResNode, returnNode);
+
+  return queryResNode;
+
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_control_query_response_setresponse
 ****************************************/
 
-void mupnp_control_query_response_setresponse(mUpnpQueryResponse *queryRes, mUpnpStateVariable *statVar)
+void mupnp_control_query_response_setresponse(mUpnpQueryResponse* queryRes, mUpnpStateVariable* statVar)
 {
-	mUpnpSoapResponse *soapRes;
-	mUpnpHttpResponse *httpRes;
-	mUpnpXmlNode *bodyNode;
-	mUpnpXmlNode *resNode;
-	mUpnpXmlNode *envNode;
+  mUpnpSoapResponse* soapRes;
+  mUpnpHttpResponse* httpRes;
+  mUpnpXmlNode* bodyNode;
+  mUpnpXmlNode* resNode;
+  mUpnpXmlNode* envNode;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	soapRes = mupnp_control_query_response_getsoapresponse(queryRes);
-	httpRes = mupnp_soap_response_gethttpresponse(soapRes);
+  soapRes = mupnp_control_query_response_getsoapresponse(queryRes);
+  httpRes = mupnp_soap_response_gethttpresponse(soapRes);
 
-	mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_OK);
-	mupnp_control_soap_response_initializeenvelopenode(soapRes);
+  mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_OK);
+  mupnp_control_soap_response_initializeenvelopenode(soapRes);
 
-	bodyNode = mupnp_soap_response_getbodynode(soapRes);
-	resNode = mupnp_control_query_response_createresponsenode(statVar);
-	mupnp_xml_node_addchildnode(bodyNode, resNode);
-	
-	envNode = mupnp_soap_response_getenvelopenode(soapRes);
-	mupnp_soap_response_setcontent(soapRes, envNode);
+  bodyNode = mupnp_soap_response_getbodynode(soapRes);
+  resNode = mupnp_control_query_response_createresponsenode(statVar);
+  mupnp_xml_node_addchildnode(bodyNode, resNode);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  envNode = mupnp_soap_response_getenvelopenode(soapRes);
+  mupnp_soap_response_setcontent(soapRes, envNode);
+
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_control_query_response_setresponse
 ****************************************/
 
-mUpnpXmlNode *mupnp_control_query_response_getreturnnode(mUpnpQueryResponse *queryRes)
+mUpnpXmlNode* mupnp_control_query_response_getreturnnode(mUpnpQueryResponse* queryRes)
 {
-	mUpnpSoapResponse *soapRes;	
-	mUpnpXmlNode *bodyNode;
-	mUpnpXmlNode *queryResNode;
-	
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpSoapResponse* soapRes;
+  mUpnpXmlNode* bodyNode;
+  mUpnpXmlNode* queryResNode;
 
-	soapRes = mupnp_control_query_response_getsoapresponse(queryRes);
-	
-	bodyNode = mupnp_soap_response_getbodynode(soapRes);
-	if (bodyNode == NULL)
-		return NULL;
-	if (mupnp_xml_node_haschildnodes(bodyNode) == false)
-		return NULL;
+  mupnp_log_debug_l4("Entering...\n");
 
-	queryResNode = mupnp_xml_node_getchildnodes(bodyNode);		
-	if (queryResNode == NULL)
-		return NULL;
-	if (mupnp_xml_node_haschildnodes(queryResNode) == false)
-		return NULL;
-		
-	return mupnp_xml_node_getchildnodes(queryResNode);		
+  soapRes = mupnp_control_query_response_getsoapresponse(queryRes);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  bodyNode = mupnp_soap_response_getbodynode(soapRes);
+  if (bodyNode == NULL)
+    return NULL;
+  if (mupnp_xml_node_haschildnodes(bodyNode) == false)
+    return NULL;
+
+  queryResNode = mupnp_xml_node_getchildnodes(bodyNode);
+  if (queryResNode == NULL)
+    return NULL;
+  if (mupnp_xml_node_haschildnodes(queryResNode) == false)
+    return NULL;
+
+  return mupnp_xml_node_getchildnodes(queryResNode);
+
+  mupnp_log_debug_l4("Leaving...\n");
 }
-	
+
 /****************************************
 * mupnp_control_query_response_setresponse
 ****************************************/
 
-char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes)
+char* mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse* queryRes)
 {
-	mUpnpXmlNode *returnNode;
-	
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpXmlNode* returnNode;
 
-	returnNode = mupnp_control_query_response_getreturnnode(queryRes);
-	if (returnNode == NULL)
-		return "";
-	return mupnp_xml_node_getvalue(returnNode);
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_log_debug_l4("Leaving...\n");
+  returnNode = mupnp_control_query_response_getreturnnode(queryRes);
+  if (returnNode == NULL)
+    return "";
+  return mupnp_xml_node_getvalue(returnNode);
+
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************

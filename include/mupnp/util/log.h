@@ -12,10 +12,10 @@
 #ifndef _MUPNP_UTIL_LOG_H_
 #define _MUPNP_UTIL_LOG_H_
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
-	
+
 #define MAX_LOG_STRING 2048
 
 /* Message masks and descriptions */
@@ -30,7 +30,7 @@ extern "C" {
 #define SEV_INFO 4
 #define SEV_INFO_S "Info"
 
-#define SEV_DEBUG_L1 8 
+#define SEV_DEBUG_L1 8
 #define SEV_DEBUG_L1_S "Debug (general)"
 
 #define SEV_DEBUG_L2 16
@@ -50,33 +50,33 @@ extern "C" {
 #define SEV_DEBUG_L5_S "Debug (low level L5)"
 
 /* Mask for all message types */
-#define SEV_ALL ( SEV_ERROR | SEV_WARNING | SEV_INFO | SEV_DEBUG_L1 | SEV_DEBUG_L2 | SEV_DEBUG_L3 | SEV_DEBUG_L4 | SEV_DEBUG_L5 )
+#define SEV_ALL (SEV_ERROR | SEV_WARNING | SEV_INFO | SEV_DEBUG_L1 | SEV_DEBUG_L2 | SEV_DEBUG_L3 | SEV_DEBUG_L4 | SEV_DEBUG_L5)
 
 /* Filename, line_n and unique build number can be used to give unique id tag
  * to all messages.
  */
-void mupnp_log_print(int severity, const char *file, int line_n, const char *function, const char *format, ...);
-void mupnp_log_set_separator(char *s);
+void mupnp_log_print(int severity, const char* file, int line_n, const char* function, const char* format, ...);
+void mupnp_log_set_separator(char* s);
 
 /* Target defines a file or stdout/stderr, in future it may also
  * contain special targets like network addresses etc.
  */
-int mupnp_log_add_target(char *target, int severity_mask);
+int mupnp_log_add_target(char* target, int severity_mask);
 int mupnp_log_clear_targets();
 
 /* Standard error handling */
 #if defined(__USE_ISOC99)
-#define mupnp_log_error(format, ...) mupnp_log_print(SEV_ERROR, __FILE__,  __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#define mupnp_log_error(format, ...) mupnp_log_print(SEV_ERROR, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32) || defined(WINCE)
-void mupnp_log_error(const char *format, ...);
+void mupnp_log_error(const char* format, ...);
 #else
-#define mupnp_log_error(format...) mupnp_log_print(SEV_ERROR, __FILE__,  __LINE__, __PRETTY_FUNCTION__, format)
+#define mupnp_log_error(format...) mupnp_log_print(SEV_ERROR, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
 
 #if defined(__USE_ISOC99)
 #define mupnp_log_warning(format, ...) mupnp_log_print(SEV_WARNING, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32) || defined(WINCE)
-void mupnp_log_warning(const char *format, ...);
+void mupnp_log_warning(const char* format, ...);
 #else
 #define mupnp_log_warning(format...) mupnp_log_print(SEV_WARNING, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
@@ -84,7 +84,7 @@ void mupnp_log_warning(const char *format, ...);
 #if defined(__USE_ISOC99)
 #define mupnp_log_info(format, ...) mupnp_log_print(SEV_INFO, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32) || defined(WINCE)
-void mupnp_log_info(const char *format, ...);
+void mupnp_log_info(const char* format, ...);
 #else
 #define mupnp_log_info(format...) mupnp_log_print(SEV_INFO, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
@@ -92,73 +92,73 @@ void mupnp_log_info(const char *format, ...);
 /* General and low level debug */
 #ifdef CLOG_DEBUG
 #if defined(__USE_ISOC99)
-#	define mupnp_log_debug(format, ...) mupnp_log_print(SEV_DEBUG_L1, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
-#	define mupnp_log_debug_l4(format, ...) mupnp_log_print(SEV_DEBUG_L4, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
-#	define mupnp_log_debug_l5(format, ...) mupnp_log_print(SEV_DEBUG_L5, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#define mupnp_log_debug(format, ...) mupnp_log_print(SEV_DEBUG_L1, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#define mupnp_log_debug_l4(format, ...) mupnp_log_print(SEV_DEBUG_L4, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#define mupnp_log_debug_l5(format, ...) mupnp_log_print(SEV_DEBUG_L5, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32)
-void mupnp_log_debug(const char *format, ...);
-void mupnp_log_debug_l4(const char *format, ...);
-void mupnp_log_debug_l5(const char *format, ...);
+void mupnp_log_debug(const char* format, ...);
+void mupnp_log_debug_l4(const char* format, ...);
+void mupnp_log_debug_l5(const char* format, ...);
 #else
-#	define mupnp_log_debug(format...) mupnp_log_print(SEV_DEBUG_L1, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
-#	define mupnp_log_debug_l4(format...) mupnp_log_print(SEV_DEBUG_L4, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
-#	define mupnp_log_debug_l5(format...) mupnp_log_print(SEV_DEBUG_L5, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#define mupnp_log_debug(format...) mupnp_log_print(SEV_DEBUG_L1, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#define mupnp_log_debug_l4(format...) mupnp_log_print(SEV_DEBUG_L4, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#define mupnp_log_debug_l5(format...) mupnp_log_print(SEV_DEBUG_L5, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
 #else
 #if defined(__USE_ISOC99)
-#	define mupnp_log_debug(format, ...)
-#	define mupnp_log_debug_l4(format, ...)
-#	define mupnp_log_debug_l5(format, ...)
+#define mupnp_log_debug(format, ...)
+#define mupnp_log_debug_l4(format, ...)
+#define mupnp_log_debug_l5(format, ...)
 #elif defined(WIN32) || defined(WINCE)
-void mupnp_log_debug(const char *format, ...);
-void mupnp_log_debug_l4(const char *format, ...);
-void mupnp_log_debug_l5(const char *format, ...);
+void mupnp_log_debug(const char* format, ...);
+void mupnp_log_debug_l4(const char* format, ...);
+void mupnp_log_debug_l5(const char* format, ...);
 #else
-#	define mupnp_log_debug(format...)
-#	define mupnp_log_debug_l4(format...)
-#	define mupnp_log_debug_l5(format...)
+#define mupnp_log_debug(format...)
+#define mupnp_log_debug_l4(format...)
+#define mupnp_log_debug_l5(format...)
 #endif
 #endif
 
 /* Debug messages coming from stack */
 #ifdef CLOG_DEBUG_STACK
 #if defined(__USE_ISOC99)
-#	define mupnp_log_debug_s(format, ...) mupnp_log_print(SEV_DEBUG_L2, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#define mupnp_log_debug_s(format, ...) mupnp_log_print(SEV_DEBUG_L2, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32)
-void mupnp_log_debug_s(const char *format, ...);
+void mupnp_log_debug_s(const char* format, ...);
 #else
-#	define mupnp_log_debug_s(format...) mupnp_log_print(SEV_DEBUG_L2, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#define mupnp_log_debug_s(format...) mupnp_log_print(SEV_DEBUG_L2, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
 #else
 #if defined(__USE_ISOC99)
-#	define mupnp_log_debug_s(format, ...)
+#define mupnp_log_debug_s(format, ...)
 #elif defined(WIN32) || defined(WINCE)
-void mupnp_log_debug_s(const char *format, ...);
+void mupnp_log_debug_s(const char* format, ...);
 #else
-#	define mupnp_log_debug_s(format...)
+#define mupnp_log_debug_s(format...)
 #endif
 #endif
 
 /* Debug messages coming from application */
 #ifdef CLOG_DEBUG_APPLICATION
 #if defined(__USE_ISOC99)
-#	define mupnp_log_debug_a(format...) mupnp_log_print(SEV_DEBUG_L3, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
+#define mupnp_log_debug_a(format...) mupnp_log_print(SEV_DEBUG_L3, __FILE__, __LINE__, __PRETTY_FUNCTION__, format, __VA_ARGS__)
 #elif defined(WIN32)
-void mupnp_log_debug_a(const char *format, ...);
+void mupnp_log_debug_a(const char* format, ...);
 #else
-#	define mupnp_log_debug_a(format...) mupnp_log_print(SEV_DEBUG_L3, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
+#define mupnp_log_debug_a(format...) mupnp_log_print(SEV_DEBUG_L3, __FILE__, __LINE__, __PRETTY_FUNCTION__, format)
 #endif
 #else
 #if defined(__USE_ISOC99)
-#	define mupnp_log_debug_a(format, ...)
+#define mupnp_log_debug_a(format, ...)
 #elif defined(WIN32) || defined(WINCE)
-void mupnp_log_debug_a(const char *format, ...);
+void mupnp_log_debug_a(const char* format, ...);
 #else
-#	define mupnp_log_debug_a(format...)
+#define mupnp_log_debug_a(format...)
 #endif
 #endif
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 } /* extern "C" */
 #endif
 

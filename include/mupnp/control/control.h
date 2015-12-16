@@ -21,7 +21,7 @@
 #include <mupnp/argument.h>
 #include <mupnp/statevariable.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -82,7 +82,7 @@ extern "C" {
  */
 #define MUPNP_ST_UUID_DEVICE "uuid"
 
-	/**
+/**
  * Definition for URN device
  */
 #define MUPNP_ST_URN "urn"
@@ -169,19 +169,19 @@ extern "C" {
  * Data type definition for action response
  */
 typedef struct _mUpnpActionResponse {
-	mUpnpSoapResponse *soapRes;
-	bool isSoapResCreated;
-	mUpnpArgumentList *argList;
+  mUpnpSoapResponse* soapRes;
+  bool isSoapResCreated;
+  mUpnpArgumentList* argList;
 } mUpnpActionResponse;
 
 /**
  * Data type definition for action request
  */
-typedef struct _mUpnpActionRequest{
-	mUpnpSoapRequest *soapReq;
-	bool isSoapReqCreated;
-	mUpnpArgumentList *argList;
-	mUpnpActionResponse *actionRes;
+typedef struct _mUpnpActionRequest {
+  mUpnpSoapRequest* soapReq;
+  bool isSoapReqCreated;
+  mUpnpArgumentList* argList;
+  mUpnpActionResponse* actionRes;
 } mUpnpActionRequest;
 
 /**** Query ****/
@@ -190,17 +190,17 @@ typedef struct _mUpnpActionRequest{
  * Data type definition for query response
  */
 typedef struct _mUpnpQueryResponse {
-	mUpnpSoapResponse *soapRes;
-	bool isSoapResCreated;
+  mUpnpSoapResponse* soapRes;
+  bool isSoapResCreated;
 } mUpnpQueryResponse;
 
 /**
  * Data type definition for query request
  */
-typedef struct _mUpnpQueryRequest{
-	mUpnpSoapRequest *soapReq;
-	bool isSoapReqCreated;
-	mUpnpQueryResponse *queryRes;
+typedef struct _mUpnpQueryRequest {
+  mUpnpSoapRequest* soapReq;
+  bool isSoapReqCreated;
+  mUpnpQueryResponse* queryRes;
 } mUpnpQueryRequest;
 
 /****************************************
@@ -218,7 +218,7 @@ typedef struct _mUpnpQueryRequest{
  *
  * @return True if request is UPnP query request, false othewise
  */
-#define mupnp_control_isqueryrequest(httpReq) ( ((0 <= mupnp_strstr(mupnp_soap_request_getsoapaction(httpReq), MUPNP_CONTROL_QUERY_SOAPACTION)) ? true : false) || ((0 <= mupnp_strstr(mupnp_soap_request_getsoapactionwithns(httpReq), MUPNP_CONTROL_QUERY_SOAPACTION)) ? true : false) )
+#define mupnp_control_isqueryrequest(httpReq) (((0 <= mupnp_strstr(mupnp_soap_request_getsoapaction(httpReq), MUPNP_CONTROL_QUERY_SOAPACTION)) ? true : false) || ((0 <= mupnp_strstr(mupnp_soap_request_getsoapactionwithns(httpReq), MUPNP_CONTROL_QUERY_SOAPACTION)) ? true : false))
 
 /* Check if HTTP request is UPnP action request
  *
@@ -233,15 +233,15 @@ typedef struct _mUpnpQueryRequest{
  *
  * @param soapReq Soap request
  */
-void mupnp_control_soap_request_initializeenvelopenode(mUpnpSoapRequest *soapReq);
+void mupnp_control_soap_request_initializeenvelopenode(mUpnpSoapRequest* soapReq);
 
 /**
  * Initialize soap responses envelope node
  *
  * @param soapRes Soap response
  */
-void mupnp_control_soap_response_initializeenvelopenode(mUpnpSoapResponse *soapRes);
-mUpnpXmlNode *mupnp_control_soap_response_createfaultresponsenode(int errCode, char *errDescr);
+void mupnp_control_soap_response_initializeenvelopenode(mUpnpSoapResponse* soapRes);
+mUpnpXmlNode* mupnp_control_soap_response_createfaultresponsenode(int errCode, char* errDescr);
 
 /**
  * Set failed response data
@@ -250,7 +250,7 @@ mUpnpXmlNode *mupnp_control_soap_response_createfaultresponsenode(int errCode, c
  * @param errCode Error code
  * @param errDescr Error description
  */
-void mupnp_control_soap_response_setfaultresponse(mUpnpSoapResponse *soapRes, int errCode, char *errDescr);
+void mupnp_control_soap_response_setfaultresponse(mUpnpSoapResponse* soapRes, int errCode, char* errDescr);
 
 /**
  * Perform action listener
@@ -258,7 +258,7 @@ void mupnp_control_soap_response_setfaultresponse(mUpnpSoapResponse *soapRes, in
  * @param action Action
  * @param actionReq Action request
  */
-bool mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *actionReq);
+bool mupnp_action_performlistner(mUpnpAction* action, mUpnpActionRequest* actionReq);
 
 /**
  * Perform query listener
@@ -266,7 +266,7 @@ bool mupnp_action_performlistner(mUpnpAction *action, mUpnpActionRequest *action
  * @param statVar State variable
  * @param queryReq Query request
  */
-bool mupnp_statevariable_performlistner(mUpnpStateVariable *statVar, mUpnpQueryRequest *queryReq);
+bool mupnp_statevariable_performlistner(mUpnpStateVariable* statVar, mUpnpQueryRequest* queryReq);
 
 /**
  * Set host from service
@@ -274,7 +274,7 @@ bool mupnp_statevariable_performlistner(mUpnpStateVariable *statVar, mUpnpQueryR
  * @param soapReq Soap request
  * @param service UPnP service
  */
-void mupnp_control_request_sethostfromservice(mUpnpSoapRequest *soapReq, mUpnpService *service);
+void mupnp_control_request_sethostfromservice(mUpnpSoapRequest* soapReq, mUpnpService* service);
 
 /****************************************
 * Function (ActionRequest)
@@ -283,21 +283,21 @@ void mupnp_control_request_sethostfromservice(mUpnpSoapRequest *soapReq, mUpnpSe
 /**
  * Create new action request object
  */
-mUpnpActionRequest *mupnp_control_action_request_new();
+mUpnpActionRequest* mupnp_control_action_request_new();
 
 /**
  * Delete action request object
  *
  * @param actionReq Action request
  */
-void mupnp_control_action_request_delete(mUpnpActionRequest *actionReq);
+void mupnp_control_action_request_delete(mUpnpActionRequest* actionReq);
 
 /**
  * Clear action request
  *
  * @param actionReq Clear Action request
  */
-void mupnp_control_action_request_clear(mUpnpActionRequest *actionReq);
+void mupnp_control_action_request_clear(mUpnpActionRequest* actionReq);
 
 /**
  * Set soap request associated with action request
@@ -305,7 +305,7 @@ void mupnp_control_action_request_clear(mUpnpActionRequest *actionReq);
  * @param actionReq Action request
  * @param soapReq Soap request
  */
-void mupnp_control_action_request_setsoaprequest(mUpnpActionRequest *actionReq, mUpnpSoapRequest *soapReq);
+void mupnp_control_action_request_setsoaprequest(mUpnpActionRequest* actionReq, mUpnpSoapRequest* soapReq);
 
 /**
  * Get soap request associated with action request
@@ -332,7 +332,7 @@ void mupnp_control_action_request_setsoaprequest(mUpnpActionRequest *actionReq, 
  *
  * @return Action request XML node
  */
-mUpnpXmlNode *mupnp_control_action_request_getactionnode(mUpnpActionRequest *actionReq);
+mUpnpXmlNode* mupnp_control_action_request_getactionnode(mUpnpActionRequest* actionReq);
 
 /**
  * Get action name from action request
@@ -341,7 +341,7 @@ mUpnpXmlNode *mupnp_control_action_request_getactionnode(mUpnpActionRequest *act
  *
  * @return Action name
  */
-char *mupnp_control_action_request_getactionname(mUpnpActionRequest *actionReq);
+char* mupnp_control_action_request_getactionname(mUpnpActionRequest* actionReq);
 
 /**
  * Set action to action request
@@ -349,7 +349,7 @@ char *mupnp_control_action_request_getactionname(mUpnpActionRequest *actionReq);
  * @param actionReq Action request
  * @param action UPnP action
  */
-void mupnp_control_action_request_setaction(mUpnpActionRequest *actionReq, mUpnpAction *action);
+void mupnp_control_action_request_setaction(mUpnpActionRequest* actionReq, mUpnpAction* action);
 
 /**
  * Get action response from action request
@@ -365,7 +365,7 @@ void mupnp_control_action_request_setaction(mUpnpActionRequest *actionReq, mUpnp
  *
  * @param actionReq Action request
  */
-mUpnpActionResponse *mupnp_control_action_request_post(mUpnpActionRequest *actionReq);
+mUpnpActionResponse* mupnp_control_action_request_post(mUpnpActionRequest* actionReq);
 
 /****************************************
 * Function (ActionResponse)
@@ -374,21 +374,21 @@ mUpnpActionResponse *mupnp_control_action_request_post(mUpnpActionRequest *actio
 /**
  * Create new action response
  */
-mUpnpActionResponse *mupnp_control_action_response_new();
+mUpnpActionResponse* mupnp_control_action_response_new();
 
 /**
  * Delete action response
  *
  * @param actionReq Action response
  */
-void mupnp_control_action_response_delete(mUpnpActionResponse *actionReq);
+void mupnp_control_action_response_delete(mUpnpActionResponse* actionReq);
 
 /**
  * Clear action response
  *
  * @param actionReq Action response
  */
-void mupnp_control_action_response_clear(mUpnpActionResponse *actionReq);
+void mupnp_control_action_response_clear(mUpnpActionResponse* actionReq);
 
 /**
  * Set soap response to action response
@@ -396,7 +396,7 @@ void mupnp_control_action_response_clear(mUpnpActionResponse *actionReq);
  * @param actionRes Action response
  * @param soapRes Soap reaponse
  */
-void mupnp_control_action_response_setsoapresponse(mUpnpActionResponse *actionRes, mUpnpSoapResponse *soapRes);
+void mupnp_control_action_response_setsoapresponse(mUpnpActionResponse* actionRes, mUpnpSoapResponse* soapRes);
 
 /**
  * Get soap response from action response
@@ -413,7 +413,7 @@ void mupnp_control_action_response_setsoapresponse(mUpnpActionResponse *actionRe
  * @param actionRes Action response
  * @param action UPnP action
  */
-void mupnp_control_action_response_setresponse(mUpnpActionResponse *actionRes, mUpnpAction *action);
+void mupnp_control_action_response_setresponse(mUpnpActionResponse* actionRes, mUpnpAction* action);
 
 /**
  * Check if action response indicates that action invoke was successfull
@@ -431,7 +431,7 @@ void mupnp_control_action_response_setresponse(mUpnpActionResponse *actionRes, m
  *
  * @return Action response XML node
  */
-mUpnpXmlNode *mupnp_control_action_response_getactionresponsenode(mUpnpActionResponse *actionRes);
+mUpnpXmlNode* mupnp_control_action_response_getactionresponsenode(mUpnpActionResponse* actionRes);
 
 /**
  * Get result from action response
@@ -440,7 +440,7 @@ mUpnpXmlNode *mupnp_control_action_response_getactionresponsenode(mUpnpActionRes
  * @param actionRes Action response
  * @param action UPnP action
  */
-bool mupnp_control_action_response_getresult(mUpnpActionResponse *actionRes, mUpnpAction *action);
+bool mupnp_control_action_response_getresult(mUpnpActionResponse* actionRes, mUpnpAction* action);
 
 /**
  * Get error associated to action response
@@ -448,7 +448,7 @@ bool mupnp_control_action_response_getresult(mUpnpActionResponse *actionRes, mUp
  * @param actionRes Action response
  * @param action UPnP action
  */
-bool mupnp_control_action_response_geterror(mUpnpActionResponse *actionRes, mUpnpAction *action);
+bool mupnp_control_action_response_geterror(mUpnpActionResponse* actionRes, mUpnpAction* action);
 
 /****************************************
 * Function (QueryRequest)
@@ -457,21 +457,21 @@ bool mupnp_control_action_response_geterror(mUpnpActionResponse *actionRes, mUpn
 /**
  * Create new query request object
  */
-mUpnpQueryRequest *mupnp_control_query_request_new();
+mUpnpQueryRequest* mupnp_control_query_request_new();
 
 /**
  * Delete query request
  *
  * @param queryReq Query request
  */
-void mupnp_control_query_request_delete(mUpnpQueryRequest *queryReq);
+void mupnp_control_query_request_delete(mUpnpQueryRequest* queryReq);
 
 /**
  * Clear query request
  *
  * @param queryReq Query request
  */
-void mupnp_control_query_request_clear(mUpnpQueryRequest *queryReq);
+void mupnp_control_query_request_clear(mUpnpQueryRequest* queryReq);
 
 /**
  * Set soap request for query request
@@ -479,7 +479,7 @@ void mupnp_control_query_request_clear(mUpnpQueryRequest *queryReq);
  * @param queryReq Query request
  * @param soapReq Soap request
  */
-void mupnp_control_query_request_setsoaprequest(mUpnpQueryRequest *queryReq, mUpnpSoapRequest *soapReq);
+void mupnp_control_query_request_setsoaprequest(mUpnpQueryRequest* queryReq, mUpnpSoapRequest* soapReq);
 
 /**
  * Get soap request from query request
@@ -497,7 +497,7 @@ void mupnp_control_query_request_setsoaprequest(mUpnpQueryRequest *queryReq, mUp
  *
  * @return State variable XML node
  */
-mUpnpXmlNode *mupnp_control_query_request_getvarnamenode(mUpnpQueryRequest *queryReq);
+mUpnpXmlNode* mupnp_control_query_request_getvarnamenode(mUpnpQueryRequest* queryReq);
 
 /**
  * Get state variable name associated with this query request
@@ -506,7 +506,7 @@ mUpnpXmlNode *mupnp_control_query_request_getvarnamenode(mUpnpQueryRequest *quer
  *
  * @return State variable variable name
  */
-char *mupnp_control_query_request_getvarname(mUpnpQueryRequest *queryReq);
+char* mupnp_control_query_request_getvarname(mUpnpQueryRequest* queryReq);
 
 /**
  * Set state variable to query request
@@ -514,7 +514,7 @@ char *mupnp_control_query_request_getvarname(mUpnpQueryRequest *queryReq);
  * @param queryReq Query request
  * @param statVar State variable
  */
-void mupnp_control_query_request_setstatevariable(mUpnpQueryRequest *queryReq, mUpnpStateVariable *statVar);
+void mupnp_control_query_request_setstatevariable(mUpnpQueryRequest* queryReq, mUpnpStateVariable* statVar);
 
 /**
  * Get response from query request
@@ -532,7 +532,7 @@ void mupnp_control_query_request_setstatevariable(mUpnpQueryRequest *queryReq, m
  *
  * @return Query response
  */
-mUpnpQueryResponse *mupnp_control_query_request_post(mUpnpQueryRequest *queryReq);
+mUpnpQueryResponse* mupnp_control_query_request_post(mUpnpQueryRequest* queryReq);
 
 /****************************************
 * Function (QueryResponse)
@@ -541,21 +541,21 @@ mUpnpQueryResponse *mupnp_control_query_request_post(mUpnpQueryRequest *queryReq
 /**
  * Create new query response
  */
-mUpnpQueryResponse *mupnp_control_query_response_new();
+mUpnpQueryResponse* mupnp_control_query_response_new();
 
 /**
  * Delete query response
  *
  * @param queryReq Query request
  */
-void mupnp_control_query_response_delete(mUpnpQueryResponse *queryReq);
+void mupnp_control_query_response_delete(mUpnpQueryResponse* queryReq);
 
 /**
  * Clear query response
  *
  * @param queryReq Query request
  */
-void mupnp_control_query_response_clear(mUpnpQueryResponse *queryReq);
+void mupnp_control_query_response_clear(mUpnpQueryResponse* queryReq);
 
 /**
  * Set soap response for query response
@@ -563,7 +563,7 @@ void mupnp_control_query_response_clear(mUpnpQueryResponse *queryReq);
  * @param queryRes Query response
  * @param soapRes Soap response
  */
-void mupnp_control_query_response_setsoapresponse(mUpnpQueryResponse *queryRes, mUpnpSoapResponse *soapRes);
+void mupnp_control_query_response_setsoapresponse(mUpnpQueryResponse* queryRes, mUpnpSoapResponse* soapRes);
 
 /**
  * Get soap response from query response
@@ -580,7 +580,7 @@ void mupnp_control_query_response_setsoapresponse(mUpnpQueryResponse *queryRes, 
  * @param queryRes Query response
  * @param statVar State variable
  */
-void mupnp_control_query_response_setresponse(mUpnpQueryResponse *queryRes, mUpnpStateVariable *statVar);
+void mupnp_control_query_response_setresponse(mUpnpQueryResponse* queryRes, mUpnpStateVariable* statVar);
 
 /**
  * Check if query response indicates that query request has succeeded
@@ -596,7 +596,7 @@ void mupnp_control_query_response_setresponse(mUpnpQueryResponse *queryRes, mUpn
  *
  * @return XML return node
  */
-mUpnpXmlNode *mupnp_control_query_response_getreturnnode(mUpnpQueryResponse *queryRes);
+mUpnpXmlNode* mupnp_control_query_response_getreturnnode(mUpnpQueryResponse* queryRes);
 
 /**
  * Get return valuse from query response
@@ -605,7 +605,7 @@ mUpnpXmlNode *mupnp_control_query_response_getreturnnode(mUpnpQueryResponse *que
  *
  * @return UPnP return value
  */
-char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
+char* mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse* queryRes);
 
 /****************************************
 * Function (MAN)
@@ -745,7 +745,7 @@ char *mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse *queryRes);
  *
  * @return Pointer to beginning of udnBuf.
  */
-const char *mupnp_usn_getudn(const char *usn, char *udnBuf, size_t udnBufLen);
+const char* mupnp_usn_getudn(const char* usn, char* udnBuf, size_t udnBufLen);
 
 /****************************************
 * Function (Action)
@@ -756,7 +756,7 @@ const char *mupnp_usn_getudn(const char *usn, char *udnBuf, size_t udnBufLen);
  *
  * @param action Action
  */
-bool mupnp_action_post(mUpnpAction *action);
+bool mupnp_action_post(mUpnpAction* action);
 
 /****************************************
 * Function (Query)
@@ -767,9 +767,9 @@ bool mupnp_action_post(mUpnpAction *action);
  *
  * @param statVar State variable
  */
-bool mupnp_statevariable_post(mUpnpStateVariable *statVar);
+bool mupnp_statevariable_post(mUpnpStateVariable* statVar);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

@@ -16,15 +16,15 @@
 #ifndef _CG_UPNPAV_RSS_H_
 #define _CG_UPNPAV_RSS_H_
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
 #include <mupnp/std/av/ccontent.h>
 
-mUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL);
+mUpnpMediaContent* mupnp_http_getrsscontents(char* rssURL);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

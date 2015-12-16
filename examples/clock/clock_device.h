@@ -17,7 +17,7 @@
 
 #include <mupnp/upnp.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -25,10 +25,10 @@ extern "C" {
 * Function
 ****************************************/
 
-mUpnpDevice *upnp_clock_device_new();
-void upnp_clock_device_update(mUpnpDevice *dev);
+mUpnpDevice* upnp_clock_device_new();
+void upnp_clock_device_update(mUpnpDevice* dev);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

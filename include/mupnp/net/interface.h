@@ -22,7 +22,7 @@
 #include <arpa/inet.h>
 #endif
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -30,8 +30,8 @@ extern "C" {
 * Define
 ****************************************/
 
-#define MUPNP_NET_IPV4_ADDRSTRING_MAXSIZE ((3*4)+(1*3)+1)
-#define MUPNP_NET_IPV6_ADDRSTRING_MAXSIZE (1+(8*4)+(1*7)+1+1)
+#define MUPNP_NET_IPV4_ADDRSTRING_MAXSIZE ((3 * 4) + (1 * 3) + 1)
+#define MUPNP_NET_IPV6_ADDRSTRING_MAXSIZE (1 + (8 * 4) + (1 * 7) + 1 + 1)
 
 #define MUPNP_NET_IPV4_LOOPBACK "127.0.0.1"
 #define MUPNP_NET_IPV6_LOOPBACK "fixmelater"
@@ -48,31 +48,31 @@ extern "C" {
 typedef struct _mUpnpNetworkInterface {
   MUPNP_LIST_STRUCT_MEMBERS
 
-	mUpnpString *name;
-	mUpnpString *ipaddr;
-	mUpnpString *netmask;
-	mUpnpByte macaddr[MUPNP_NET_MACADDR_SIZE];
-	int index;
+  mUpnpString* name;
+  mUpnpString* ipaddr;
+  mUpnpString* netmask;
+  mUpnpByte macaddr[MUPNP_NET_MACADDR_SIZE];
+  int index;
 } mUpnpNetworkInterface, mUpnpNetworkInterfaceList;
 
 /****************************************
 * Function (NetworkInterface)
 ****************************************/
 
-mUpnpNetworkInterface *mupnp_net_interface_new();
-void mupnp_net_interface_delete(mUpnpNetworkInterface *netIf);
+mUpnpNetworkInterface* mupnp_net_interface_new();
+void mupnp_net_interface_delete(mUpnpNetworkInterface* netIf);
 mUpnpNetworkInterface* mupnp_net_interface_getany();
 
-#define mupnp_net_interface_next(netIf) (mUpnpNetworkInterface *)mupnp_list_next((mUpnpList *)netIf)
-#define mupnp_net_interface_remove(netIf) mupnp_list_remove((mUpnpList *)netIf)
+#define mupnp_net_interface_next(netIf) (mUpnpNetworkInterface*) mupnp_list_next((mUpnpList*)netIf)
+#define mupnp_net_interface_remove(netIf) mupnp_list_remove((mUpnpList*)netIf)
 
-void mupnp_net_interface_setname(mUpnpNetworkInterface *netIf, char *name);
-char *mupnp_net_interface_getname(mUpnpNetworkInterface *netIf);
-void mupnp_net_interface_setaddress(mUpnpNetworkInterface *netIf, char *ipaddr);
-char *mupnp_net_interface_getaddress(mUpnpNetworkInterface *netIf);
-void mupnp_net_interface_setnetmask(mUpnpNetworkInterface *netIf, char *ipaddr);
-char *mupnp_net_interface_getnetmask(mUpnpNetworkInterface *netIf);
-char *mupnp_net_selectaddr(struct sockaddr *remoteaddr);
+void mupnp_net_interface_setname(mUpnpNetworkInterface* netIf, char* name);
+char* mupnp_net_interface_getname(mUpnpNetworkInterface* netIf);
+void mupnp_net_interface_setaddress(mUpnpNetworkInterface* netIf, char* ipaddr);
+char* mupnp_net_interface_getaddress(mUpnpNetworkInterface* netIf);
+void mupnp_net_interface_setnetmask(mUpnpNetworkInterface* netIf, char* ipaddr);
+char* mupnp_net_interface_getnetmask(mUpnpNetworkInterface* netIf);
+char* mupnp_net_selectaddr(struct sockaddr* remoteaddr);
 
 #define mupnp_net_interface_setmacaddress(netIf, value) memcpy(netIf->macaddr, value, MUPNP_NET_MACADDR_SIZE)
 #define mupnp_net_interface_getmacaddress(netIf, buf) memcpy(buf, netIf->macaddr, MUPNP_NET_MACADDR_SIZE)
@@ -83,22 +83,22 @@ char *mupnp_net_selectaddr(struct sockaddr *remoteaddr);
 /**
  * Compares two interfaces based on IP-address.
  */
-int mupnp_net_interface_cmp(mUpnpNetworkInterface *netIfA, 
-			 mUpnpNetworkInterface *netIfB);
+int mupnp_net_interface_cmp(mUpnpNetworkInterface* netIfA,
+    mUpnpNetworkInterface* netIfB);
 
 /****************************************
 * Function (NetworkInterfaceList)
 ****************************************/
 
-mUpnpNetworkInterfaceList *mupnp_net_interfacelist_new();
-void mupnp_net_interfacelist_delete(mUpnpNetworkInterfaceList *netIfList);
+mUpnpNetworkInterfaceList* mupnp_net_interfacelist_new();
+void mupnp_net_interfacelist_delete(mUpnpNetworkInterfaceList* netIfList);
 
-#define mupnp_net_interfacelist_clear(netIfList) mupnp_list_clear((mUpnpList *)netIfList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_net_interface_delete)
-#define mupnp_net_interfacelist_size(netIfList) mupnp_list_size((mUpnpList *)netIfList)
-#define mupnp_net_interfacelist_gets(netIfList) (mUpnpNetworkInterface *)mupnp_list_next((mUpnpList *)netIfList)
-#define mupnp_net_interfacelist_add(netIfList,netIf) mupnp_list_add((mUpnpList *)netIfList, (mUpnpList *)netIf)
+#define mupnp_net_interfacelist_clear(netIfList) mupnp_list_clear((mUpnpList*)netIfList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_net_interface_delete)
+#define mupnp_net_interfacelist_size(netIfList) mupnp_list_size((mUpnpList*)netIfList)
+#define mupnp_net_interfacelist_gets(netIfList) (mUpnpNetworkInterface*) mupnp_list_next((mUpnpList*)netIfList)
+#define mupnp_net_interfacelist_add(netIfList, netIf) mupnp_list_add((mUpnpList*)netIfList, (mUpnpList*)netIf)
 
-mUpnpNetworkInterface *mupnp_net_interfacelist_get(mUpnpNetworkInterfaceList *netIfList, char *name);
+mUpnpNetworkInterface* mupnp_net_interfacelist_get(mUpnpNetworkInterfaceList* netIfList, char* name);
 
 /**
  * Gets changes in the two given (aka old and new) interface lists. Changes
@@ -111,27 +111,26 @@ mUpnpNetworkInterface *mupnp_net_interfacelist_get(mUpnpNetworkInterfaceList *ne
  * @param netIfListRemoved List to store interfaces, which were in 
  *			   netIfListOld, but were not in netIfListNew.
  */
-void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList *netIfListOld,
-				     mUpnpNetworkInterfaceList *netIfListNew,
-				     mUpnpNetworkInterfaceList *netIfListAdded,
-				     mUpnpNetworkInterfaceList *netIfListRemoved);
+void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList* netIfListOld,
+    mUpnpNetworkInterfaceList* netIfListNew,
+    mUpnpNetworkInterfaceList* netIfListAdded,
+    mUpnpNetworkInterfaceList* netIfListRemoved);
 
 /****************************************
 * Function
 ****************************************/
 
 #if defined(ITRON)
-void mupnp_net_setinterface(const char *ifaddr);
+void mupnp_net_setinterface(const char* ifaddr);
 #endif
 
-int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList *netIfList);
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList);
 
-bool mupnp_net_isipv6address(const char *addr);
-int mupnp_net_getipv6scopeid(const char *addr);
+bool mupnp_net_isipv6address(const char* addr);
+int mupnp_net_getipv6scopeid(const char* addr);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 
 #endif
-

@@ -14,7 +14,7 @@
 
 #include <mupnp/typedef.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -26,21 +26,21 @@ extern "C" {
  * Prototype for individual list node destructor functions
  *
  */
-typedef void (*MUPNP_LIST_DESTRUCTORFUNC)(void *);
+typedef void (*MUPNP_LIST_DESTRUCTORFUNC)(void*);
 
 /**
  * Macro for list node members
  *
  */
 
-#define MUPNP_LIST_STRUCT_MEMBERS \
-  /** Marks the beginning of a list */ \
-  bool headFlag; \
-  /** Pointer to the next list node */ \
-  struct _mUpnpList *prev; \
+#define MUPNP_LIST_STRUCT_MEMBERS          \
+  /** Marks the beginning of a list */     \
+  bool headFlag;                           \
+  /** Pointer to the next list node */     \
+  struct _mUpnpList* prev;                 \
   /** Pointer to the previous list node */ \
-  struct _mUpnpList *next;
-  
+  struct _mUpnpList* next;
+
 /****************************************
  * Data Type
  ****************************************/
@@ -66,14 +66,14 @@ typedef struct _mUpnpList {
  *
  * \param list List node
  */
-void mupnp_list_header_init(mUpnpList *list);
+void mupnp_list_header_init(mUpnpList* list);
 
 /**
  * Initialize a list node to act as a regular node, part of a list.
  *
  * \param list List node
  */
-void mupnp_list_node_init(mUpnpList *list);
+void mupnp_list_node_init(mUpnpList* list);
 
 /**
  * Insert a list node or a complete list structure after the given node
@@ -81,14 +81,14 @@ void mupnp_list_node_init(mUpnpList *list);
  * \param prevList Insert after this node
  * \param list List node or list structure to insert
  */
-void mupnp_list_insert(mUpnpList *prevList, mUpnpList *list);
+void mupnp_list_insert(mUpnpList* prevList, mUpnpList* list);
 
 /**
  * \todo This works essentially like insert, although it is more error-prone?!
  * \todo There might be a bug in this function.
  *
  */
-void mupnp_list_add(mUpnpList *headList, mUpnpList *list);
+void mupnp_list_add(mUpnpList* headList, mUpnpList* list);
 
 /**
  * Remove a node from a list. Does not free any memory, but only removes
@@ -96,7 +96,7 @@ void mupnp_list_add(mUpnpList *headList, mUpnpList *list);
  *
  * \param list List node to remove
  */
-void mupnp_list_remove(mUpnpList *list);
+void mupnp_list_remove(mUpnpList* list);
 
 /**
  * Get the number of nodes in the current list structure. Counts forwards from the given
@@ -104,7 +104,7 @@ void mupnp_list_remove(mUpnpList *list);
  *
  * \param headList List header
  */
-int mupnp_list_size(mUpnpList *headList);
+int mupnp_list_size(mUpnpList* headList);
 
 /**
  * Get an item from the list by the item's index
@@ -112,7 +112,7 @@ int mupnp_list_size(mUpnpList *headList);
  * \param headList List header
  * \param index The index of the item to get
  */
-mUpnpList *mupnp_list_get(mUpnpList *headList, int index);
+mUpnpList* mupnp_list_get(mUpnpList* headList, int index);
 
 /**
  * Get the previous node. Wrap around if the beginning has been reached.
@@ -120,28 +120,28 @@ mUpnpList *mupnp_list_get(mUpnpList *headList, int index);
  *
  * \param list Current node
  */
-mUpnpList *mupnp_list_prev_circular(mUpnpList *list);
+mUpnpList* mupnp_list_prev_circular(mUpnpList* list);
 
 /**
  * Get the previous node. Returns NULL if beginning has been reached
  *
  * \param list Current node
  */
-mUpnpList *mupnp_list_prev(mUpnpList *list);
+mUpnpList* mupnp_list_prev(mUpnpList* list);
 
 /**
  * Get the next node. Wrap around if the end has been reached.
  *
  * \param list Current node
  */
-mUpnpList *mupnp_list_next_circular(mUpnpList *list);
+mUpnpList* mupnp_list_next_circular(mUpnpList* list);
 
 /**
  * Get the next node. Returns NULL if end has been reached.
  *
  * \param list Current node
  */
-mUpnpList *mupnp_list_next(mUpnpList *list);
+mUpnpList* mupnp_list_next(mUpnpList* list);
 
 /**
  * Clear the list and delete all of its contents with \ref MUPNP_LIST_DESTRUCTORFUNC
@@ -149,7 +149,7 @@ mUpnpList *mupnp_list_next(mUpnpList *list);
  * \param headList List header
  * \param destructorFunc Function pointer that clears the contents of individual nodes
  */
-void mupnp_list_clear(mUpnpList *headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc);
+void mupnp_list_clear(mUpnpList* headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc);
 
 /**
  * Get the first actual item from a list for iteration
@@ -158,7 +158,7 @@ void mupnp_list_clear(mUpnpList *headList, MUPNP_LIST_DESTRUCTORFUNC destructorF
  */
 #define mupnp_list_gets(headList) mupnp_list_next(headList)
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 } /* extern "C" */
 #endif
 

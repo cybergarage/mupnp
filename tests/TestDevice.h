@@ -14,7 +14,7 @@
 
 #include <mupnp/upnp.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -32,9 +32,9 @@ extern "C" {
 * Function
 ****************************************/
 
-mUpnpDevice *upnp_test_device_new();
+mUpnpDevice* upnp_test_device_new();
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

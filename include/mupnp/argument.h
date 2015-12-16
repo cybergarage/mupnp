@@ -16,7 +16,7 @@
 #include <mupnp/xml/xml.h>
 #include <mupnp/util/list.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -54,11 +54,11 @@ extern "C" {
  */
 typedef struct _mUpnpArgument {
   MUPNP_LIST_STRUCT_MEMBERS
-  
-	mUpnpXmlNode *serviceNode;
-	mUpnpXmlNode *argumentNode;
-	/**** Execution Data ****/
-	mUpnpString *value;
+
+  mUpnpXmlNode* serviceNode;
+  mUpnpXmlNode* argumentNode;
+  /**** Execution Data ****/
+  mUpnpString* value;
 } mUpnpArgument, mUpnpArgumentList;
 
 /****************************************
@@ -68,21 +68,21 @@ typedef struct _mUpnpArgument {
 /**
  * Create new argument
  */
-mUpnpArgument *mupnp_argument_new();
+mUpnpArgument* mupnp_argument_new();
 
 /**
  * Delete argument
  *
  * @param dev Argument
  */
-void mupnp_argument_delete(mUpnpArgument *dev);
+void mupnp_argument_delete(mUpnpArgument* dev);
 
 /**
  * Get next argument using argument as iterator
  *
  * @param arg Argument node
  */
-#define mupnp_argument_next(arg) (mUpnpArgument *)mupnp_list_next((mUpnpList *)arg)
+#define mupnp_argument_next(arg) (mUpnpArgument*) mupnp_list_next((mUpnpList*)arg)
 
 /**
  * Check if XML node is argument node
@@ -99,7 +99,7 @@ void mupnp_argument_delete(mUpnpArgument *dev);
  * @param arg Argument
  * @param node XML service node
  */
-#define mupnp_argument_setservicenode(arg,node) (arg->serviceNode = node)
+#define mupnp_argument_setservicenode(arg, node) (arg->serviceNode = node)
 
 /**
  * Get service node from argument
@@ -114,7 +114,7 @@ void mupnp_argument_delete(mUpnpArgument *dev);
  * @param arg Argument
  * @param node XML argument node
  */
-#define mupnp_argument_setargumentnode(arg,node) (arg->argumentNode = node)
+#define mupnp_argument_setargumentnode(arg, node) (arg->argumentNode = node)
 
 /**
  * Get XML argument node from argument
@@ -218,7 +218,7 @@ void mupnp_argument_delete(mUpnpArgument *dev);
  * @param arg Argument
  * @param data Argument value
  */
-#define mupnp_argument_setvalue(arg,data) mupnp_string_setvalue(arg->value, data)
+#define mupnp_argument_setvalue(arg, data) mupnp_string_setvalue(arg->value, data)
 
 /**
  * Get argument value
@@ -235,7 +235,7 @@ void mupnp_argument_delete(mUpnpArgument *dev);
  * @param arg Argument
  * @param data Argument value
  */
-#define mupnp_argument_setintvalue(arg,data) mupnp_string_setintvalue(arg->value, data)
+#define mupnp_argument_setintvalue(arg, data) mupnp_string_setintvalue(arg->value, data)
 
 /**
  * Get argument value
@@ -252,7 +252,7 @@ void mupnp_argument_delete(mUpnpArgument *dev);
  * @param arg Argument
  * @param data Argument value
  */
-#define mupnp_argument_setfloatvalue(arg,data) mupnp_string_setfloatvalue(arg->value, data)
+#define mupnp_argument_setfloatvalue(arg, data) mupnp_string_setfloatvalue(arg->value, data)
 
 /**
  * Get argument value
@@ -269,7 +269,7 @@ void mupnp_argument_delete(mUpnpArgument *dev);
  * @param arg Argument
  * @param data Argument value
  */
-#define mupnp_argument_setdoublevalue(arg,data) mupnp_string_setdoublevalue(arg->value, data)
+#define mupnp_argument_setdoublevalue(arg, data) mupnp_string_setdoublevalue(arg->value, data)
 
 /**
  * Get argument value
@@ -287,35 +287,35 @@ void mupnp_argument_delete(mUpnpArgument *dev);
 /**
  * Create new argument list
  */
-mUpnpArgumentList *mupnp_argumentlist_new();
+mUpnpArgumentList* mupnp_argumentlist_new();
 
 /**
  * Delete argument list
  *
  * @param argumentList Argument list
  */
-void mupnp_argumentlist_delete(mUpnpArgumentList *argumentList);
+void mupnp_argumentlist_delete(mUpnpArgumentList* argumentList);
 
 /**
  * Clear argument list
  *
  * @param argList Argument list
  */
-#define mupnp_argumentlist_clear(argList) mupnp_list_clear((mUpnpList *)argList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_argument_delete)
+#define mupnp_argumentlist_clear(argList) mupnp_list_clear((mUpnpList*)argList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_argument_delete)
 
 /**
  * Get argument list size
  *
  * @param argList Argument list
  */
-#define mupnp_argumentlist_size(argList) mupnp_list_size((mUpnpList *)argList)
+#define mupnp_argumentlist_size(argList) mupnp_list_size((mUpnpList*)argList)
 
 /**
  * Get next argument from argument list
  *
  * @param argList Argument list
  */
-#define mupnp_argumentlist_gets(argList) (mUpnpArgument *)mupnp_list_next((mUpnpList *)argList)
+#define mupnp_argumentlist_gets(argList) (mUpnpArgument*) mupnp_list_next((mUpnpList*)argList)
 
 /**
  * Add argument into argument list
@@ -323,7 +323,7 @@ void mupnp_argumentlist_delete(mUpnpArgumentList *argumentList);
  * @param argList Argument list
  * @param arg Argument
  */
-#define mupnp_argumentlist_add(argList, arg) mupnp_list_add((mUpnpList *)argList, (mUpnpList *)arg)
+#define mupnp_argumentlist_add(argList, arg) mupnp_list_add((mUpnpList*)argList, (mUpnpList*)arg)
 
 /**
  * Get argument from argument list based on argument name
@@ -333,7 +333,7 @@ void mupnp_argumentlist_delete(mUpnpArgumentList *argumentList);
  *
  * @return Argument
  */
-mUpnpArgument *mupnp_argumentlist_get(mUpnpArgumentList *argumentList, const char *name);
+mUpnpArgument* mupnp_argumentlist_get(mUpnpArgumentList* argumentList, const char* name);
 
 /**
  * Set argument values by using source argument list. If there is an argument with the 
@@ -343,9 +343,9 @@ mUpnpArgument *mupnp_argumentlist_get(mUpnpArgumentList *argumentList, const cha
  * @param argumentList Argument list
  * @param srcArgumentList Source argument list
  */
-void mupnp_argumentlist_set(mUpnpArgumentList *argumentList, mUpnpArgumentList *srcArgumentList);
+void mupnp_argumentlist_set(mUpnpArgumentList* argumentList, mUpnpArgumentList* srcArgumentList);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

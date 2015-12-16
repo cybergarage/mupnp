@@ -3,12 +3,12 @@
 #pragma once
 
 #ifndef __AFXWIN_H__
-	#error "include 'stdafx.h' before including this file for PCH"
+#error "include 'stdafx.h' before including this file for PCH"
 #endif
 
 #ifdef POCKETPC2003_UI_MODEL
 #include "resourceppc.h"
-#endif 
+#endif
 #ifdef SMARTPHONE2003_UI_MODEL
 #include "resourcesp.h"
 #endif
@@ -23,66 +23,63 @@
 #define CDMS_MOBILE_PHOTO_TIMER (10 * 1000)
 #define CDMS_MOBILE_PHOTO_APPNAME "Cyber Media Gate for Windows Mobile"
 
-class CCDmsMobilePhotoApp : public CWinApp
-{
-	mUpnpMediaServer *dms;
+class CCDmsMobilePhotoApp : public CWinApp {
+  mUpnpMediaServer* dms;
 
-	mUpnpString *shideShowRoot;
-	mUpnpFileList *slideShowFileList;
-	mUpnpFile* nextSlideShowFile;
+  mUpnpString* shideShowRoot;
+  mUpnpFileList* slideShowFileList;
+  mUpnpFile* nextSlideShowFile;
 
-public:
-	CCDmsMobilePhotoApp();
-	~CCDmsMobilePhotoApp();
+  public:
+  CCDmsMobilePhotoApp();
+  ~CCDmsMobilePhotoApp();
 
-// Overrides
-public:
-	virtual BOOL InitInstance();
+  // Overrides
+  public:
+  virtual BOOL InitInstance();
 
-// Implementation
-public:
+  // Implementation
+  public:
 #ifndef WIN32_PLATFORM_WFSP
-	afx_msg void OnAppAbout();
+  afx_msg void OnAppAbout();
 #endif // !WIN32_PLATFORM_WFSP
 
-	afx_msg void OnAppOption();
+  afx_msg void OnAppOption();
 
-	DECLARE_MESSAGE_MAP()
+  DECLARE_MESSAGE_MAP()
 
-public:
+  public:
+  void SetSlideShowRoot(char* dir)
+  {
+    mupnp_string_setvalue(shideShowRoot, dir);
+  }
 
-	void SetSlideShowRoot(char *dir)
-	{
-		mupnp_string_setvalue(shideShowRoot, dir);
-	}
+  char* GetSlideShowRoot()
+  {
+    return mupnp_string_getvalue(shideShowRoot);
+  }
 
-	char *GetSlideShowRoot()
-	{
-		return mupnp_string_getvalue(shideShowRoot);
-	}
+  mUpnpMediaServer* GetDMS()
+  {
+    return dms;
+  }
 
-	mUpnpMediaServer *GetDMS()
-	{
-		return dms;
-	}
+  mUpnpFile* GetNextSlideShowFIle();
 
-	mUpnpFile *GetNextSlideShowFIle();
+  int GetUpdateInterval()
+  {
+    return CDMS_MOBILE_PHOTO_TIMER;
+  }
 
-	int GetUpdateInterval()
-	{
-		return CDMS_MOBILE_PHOTO_TIMER;
-	}
+  void SetUpdateTimer()
+  {
+    m_pMainWnd->SetTimer(CDMS_MOBILE_PHOTO_TIMER, GetUpdateInterval(), 0);
+  }
 
-	void SetUpdateTimer()
-	{
-		m_pMainWnd->SetTimer(CDMS_MOBILE_PHOTO_TIMER, GetUpdateInterval(), 0);
-	}
-
-	void KillUpdateTimer()
-	{
-		m_pMainWnd->KillTimer(CDMS_MOBILE_PHOTO_TIMER);
-	}
-
+  void KillUpdateTimer()
+  {
+    m_pMainWnd->KillTimer(CDMS_MOBILE_PHOTO_TIMER);
+  }
 };
 
 extern CCDmsMobilePhotoApp theApp;

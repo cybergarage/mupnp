@@ -10,7 +10,7 @@
  ******************************************************************/
 
 #ifdef HAVE_CONFIG_H
-#  include "config.h"
+#include "config.h"
 #endif
 
 #include <mupnp/http/http.h>
@@ -22,27 +22,27 @@
 ****************************************/
 
 static char MONTH_STRING[][4] = {
-	"Jan",
-	"Feb",
-	"Mar",
-	"Apr",
-	"May",
-	"Jun",
-	"Jul",
-	"Aug",
-	"Sep",
-	"Oct",
-	"Nov",
-	"Dec",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 };
 
-static char *to_month_string(int value)
+static char* to_month_string(int value)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	if (0 <= value && value < 12)
-		return MONTH_STRING[value];
-	return "";
+  if (0 <= value && value < 12)
+    return MONTH_STRING[value];
+  return "";
 }
 
 /****************************************
@@ -50,25 +50,24 @@ static char *to_month_string(int value)
 ****************************************/
 
 static char WEEK_STRING[][4] = {
-	"Sun",
-	"Mon",
-	"Tue",
-	"Wed",
-	"Thu",
-	"Fri",
-	"Sat",
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
 };
 
-	
-static char *to_week_string(int value)
+static char* to_week_string(int value)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	if (0 <= value && value < 7)
-		return WEEK_STRING[value];
-	return "";
+  if (0 <= value && value < 7)
+    return WEEK_STRING[value];
+  return "";
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
@@ -77,25 +76,25 @@ static char *to_week_string(int value)
 
 #if !defined(ITRON)
 
-const char *mupnp_http_getdate(mUpnpTime sysTime, char *buf, size_t bufSize)
+const char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, size_t bufSize)
 {
 #if defined(HAVE_GMTIME_R)
-	struct tm gmTimeBuf;
-	struct tm *gmTime = &gmTimeBuf;
+  struct tm gmTimeBuf;
+  struct tm* gmTime = &gmTimeBuf;
 #elif defined(WINCE)
-	SYSTEMTIME systemTime;
+  SYSTEMTIME systemTime;
 #else
-	struct tm *gmTime;
+  struct tm* gmTime;
 #endif
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
 #if defined(HAVE_GMTIME_R)
-	gmtime_r(&sysTime, &gmTimeBuf);
+  gmtime_r(&sysTime, &gmTimeBuf);
 #elif defined(WINCE)
-	GetSystemTime(&systemTime);
+  GetSystemTime(&systemTime);
 #else
-	gmTime = gmtime(&sysTime);
+  gmTime = gmtime(&sysTime);
 #endif
 
   /*
@@ -125,10 +124,10 @@ const char *mupnp_http_getdate(mUpnpTime sysTime, char *buf, size_t bufSize)
 		systemTime.wSecond);
 #endif
    */
-  
-	mupnp_log_debug_l4("Leaving...\n");
 
-	return buf;
+  mupnp_log_debug_l4("Leaving...\n");
+
+  return buf;
 }
 
 #endif
@@ -139,94 +138,95 @@ const char *mupnp_http_getdate(mUpnpTime sysTime, char *buf, size_t bufSize)
 
 #if defined(ITRON)
 
-static const int dayYear[ ] = {
-    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+static const int dayYear[] = {
+  31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
 };
 
-static const int dayLearYear[ ] = {
-	31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+static const int dayLearYear[] = {
+  31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
 };
 
 static bool IsLeapYear(int year)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-    if (!(year % 4) && ((year % 100) || !(year % 400)))
-        return true;
-	return false;
+  if (!(year % 4) && ((year % 100) || !(year % 400)))
+    return true;
+  return false;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
-char *mupnp_http_getdate(mUpnpTime sysTime, char *buf, int bufSize)
+char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, int bufSize)
 {
-	SYSTIM systim;
-	long uxtime;
-	int year, month, day, hour, min, sec, week;
+  SYSTIM systim;
+  long uxtime;
+  int year, month, day, hour, min, sec, week;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	get_tim(&systim);
+  get_tim(&systim);
 
-	uxtime = (systim.ltime / 1000) + ((systim.utime / 1000) << 32);
+  uxtime = (systim.ltime / 1000) + ((systim.utime / 1000) << 32);
 
-	sec = uxtime % 60;
-	uxtime -= sec;
-	uxtime /= 60;
+  sec = uxtime % 60;
+  uxtime -= sec;
+  uxtime /= 60;
 
-	min = uxtime % 60;
-	uxtime -= min;
-	uxtime /= 60;
+  min = uxtime % 60;
+  uxtime -= min;
+  uxtime /= 60;
 
-	hour = uxtime % 24;
-	uxtime -= hour;
-	uxtime /= 24;
+  hour = uxtime % 24;
+  uxtime -= hour;
+  uxtime /= 24;
 
-	week = uxtime % 7;
+  week = uxtime % 7;
 
-	year = 1970;
-	day = uxtime;
-	while (day > 366) {
-		if (IsLeapYear(year))
-			day -= 366;
-		else
-			day -= 365;
-		year++;
+  year = 1970;
+  day = uxtime;
+  while (day > 366) {
+    if (IsLeapYear(year))
+      day -= 366;
+    else
+      day -= 365;
+    year++;
+  }
+  day++;
+
+  month = 0;
+  while (1) {
+    if (IsLeapYear(year)) {
+      if (day <= dayLearYear[month])
+        break;
+      day -= dayLearYear[month];
+      month++;
     }
-	day++;
-
-	month = 0;
-	while (1) {					
-		if (IsLeapYear(year)) {
-			if (day <= dayLearYear[month])
-				break;
-			day -= dayLearYear[month];
-			month++;
-		} else {
-			if (day <= dayYear[month])
-				break;
-			day -= dayYear[month];
-			month++;
-		}
-	}
+    else {
+      if (day <= dayYear[month])
+        break;
+      day -= dayYear[month];
+      month++;
+    }
+  }
 
 #if defined(HAVE_SNPRINTF)
-	snprintf(buf, bufSize,
+  snprintf(buf, bufSize,
 #else
-	sprintf(buf,
+  sprintf(buf,
 #endif
-		"%s, %02d %s %04d %02d:%02d:%02d GMT",
-		to_week_string(week),
-		day,
-		to_month_string(month),
-		year,
-		hour,
-		min,
-		sec);
+      "%s, %02d %s %04d %02d:%02d:%02d GMT",
+      to_week_string(week),
+      day,
+      to_month_string(month),
+      year,
+      hour,
+      min,
+      sec);
 
-	return buf;
+  return buf;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif

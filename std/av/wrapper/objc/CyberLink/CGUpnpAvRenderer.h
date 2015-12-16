@@ -22,13 +22,12 @@ typedef void CgUpnpAvRenderer;
 /**
  * The CGUpnpAvRenderer class is a UPnP/AV media server class.
  */
-@interface CGUpnpAvRenderer : CGUpnpDevice
-{
+@interface CGUpnpAvRenderer : CGUpnpDevice {
 }
-@property(assign,readonly) CgUpnpAvRenderer *cAvObject;
+@property (assign, readonly) CgUpnpAvRenderer* cAvObject;
 - (id)init;
-- (id)initWithCObject:(CgUpnpDevice *)cobj;
-- (BOOL)setAVTransportURI:(NSString *)aURI;
+- (id)initWithCObject:(CgUpnpDevice*)cobj;
+- (BOOL)setAVTransportURI:(NSString*)aURI;
 - (BOOL)play;
 - (BOOL)stop;
 - (BOOL)pause;
@@ -38,5 +37,5 @@ typedef void CgUpnpAvRenderer;
 - (BOOL)start
 - (BOOL)stop
 */
-- (CGUpnpAVPositionInfo *)positionInfo;
+- (CGUpnpAVPositionInfo*)positionInfo;
 @end

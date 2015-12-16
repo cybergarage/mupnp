@@ -4,10 +4,10 @@
 #pragma once
 
 #ifndef __AFXWIN_H__
-	#error "include 'stdafx.h' before including this file for PCH"
+#error "include 'stdafx.h' before including this file for PCH"
 #endif
 
-#include "resource.h"		// main symbols
+#include "resource.h" // main symbols
 
 #include "cdms_youtube.h"
 
@@ -15,28 +15,26 @@
 // See CDmsYoutube.cpp for the implementation of this class
 //
 
-class CCDmsYoutubeApp : public CWinApp
-{
-	CgUpnpMediaServer *dms;
+class CCDmsYoutubeApp : public CWinApp {
+  CgUpnpMediaServer* dms;
 
-public:
-	CCDmsYoutubeApp();
-	~CCDmsYoutubeApp();
+  public:
+  CCDmsYoutubeApp();
+  ~CCDmsYoutubeApp();
 
-// Overrides
-	public:
-	virtual BOOL InitInstance();
+  // Overrides
+  public:
+  virtual BOOL InitInstance();
 
-// Implementation
+  // Implementation
 
-	DECLARE_MESSAGE_MAP()
+  DECLARE_MESSAGE_MAP()
 
-public:
-
-	CgUpnpMediaServer *GetDMS()
-	{
-		return dms;
-	}
+  public:
+  CgUpnpMediaServer* GetDMS()
+  {
+    return dms;
+  }
 };
 
 extern CCDmsYoutubeApp theApp;

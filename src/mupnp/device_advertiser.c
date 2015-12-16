@@ -21,41 +21,41 @@
  *
  * \param thread The thread context that this function is running in
  */
-static void mupnp_device_advertiser_action(mUpnpThread *thread) 
+static void mupnp_device_advertiser_action(mUpnpThread* thread)
 {
-	mUpnpDevice *dev;
-	mUpnpTime leaseTime;
-	mUpnpTime notifyInterval;
-  
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpDevice* dev;
+  mUpnpTime leaseTime;
+  mUpnpTime notifyInterval;
+
+  mupnp_log_debug_l4("Entering...\n");
 
   /**
    * Get the device struct that this function is advertising.
    */
-  dev = (mUpnpDevice *)mupnp_thread_getuserdata(thread);
+  dev = (mUpnpDevice*)mupnp_thread_getuserdata(thread);
 
   /**
    * Lease time
    */
   leaseTime = mupnp_device_getleasetime(dev);
-  
+
   /* Run this thread until it is stopped from outside */
-    while ( mupnp_thread_isrunnable(thread) == true )
-    {
-      notifyInterval = (leaseTime/4) + (long)((float)leaseTime * (mupnp_random() * 0.25f));
-      notifyInterval *= 1000;
+  while (mupnp_thread_isrunnable(thread) == true) {
+    notifyInterval = (leaseTime / 4) + (long)((float)leaseTime * (mupnp_random() * 0.25f));
+    notifyInterval *= 1000;
 
-      /* Sleep *notifyInterval* msecs */
-      mupnp_wait(notifyInterval); 
+    /* Sleep *notifyInterval* msecs */
+    mupnp_wait(notifyInterval);
 
-      /* Check if we must exit before sending new announce */
-      if ( mupnp_thread_isrunnable(thread) == false ) break;
+    /* Check if we must exit before sending new announce */
+    if (mupnp_thread_isrunnable(thread) == false)
+      break;
 
-      /* Initiate advertise routine after sleeping */
-      mupnp_device_announce(dev);
-    }
+    /* Initiate advertise routine after sleeping */
+    mupnp_device_announce(dev);
+  }
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -65,11 +65,11 @@ static void mupnp_device_advertiser_action(mUpnpThread *thread)
  *
  * \param dev The device that is to be advertised
  */
-bool mupnp_device_advertiser_start(mUpnpDevice *dev)
+bool mupnp_device_advertiser_start(mUpnpDevice* dev)
 {
-	mUpnpThread *advertiser;
-  
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpThread* advertiser;
+
+  mupnp_log_debug_l4("Entering...\n");
 
   /* Get the already existing (created in device_new) advertiser thread */
   advertiser = mupnp_device_getadvertiserthead(dev);
@@ -83,7 +83,7 @@ bool mupnp_device_advertiser_start(mUpnpDevice *dev)
   /* Start the thread */
   return mupnp_thread_start(advertiser);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /**
@@ -93,19 +93,19 @@ bool mupnp_device_advertiser_start(mUpnpDevice *dev)
  *
  * \param dev Device that is being advertised
  */
-bool mupnp_device_advertiser_stop(mUpnpDevice *dev)
+bool mupnp_device_advertiser_stop(mUpnpDevice* dev)
 {
-	mUpnpThread *advertiser;
-  
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpThread* advertiser;
 
-	/* Get the advertiser thread from the device struct */
-	advertiser = mupnp_device_getadvertiserthead(dev);
-  
-	//Theo Beisch 
-	if (advertiser != NULL)
- 		return mupnp_thread_stop(advertiser);
-	return false;
+  mupnp_log_debug_l4("Entering...\n");
+
+  /* Get the advertiser thread from the device struct */
+  advertiser = mupnp_device_getadvertiserthead(dev);
+
+  //Theo Beisch
+  if (advertiser != NULL)
+    return mupnp_thread_stop(advertiser);
+  return false;
 }
 
 /**
@@ -115,15 +115,15 @@ bool mupnp_device_advertiser_stop(mUpnpDevice *dev)
  *
  * \param dev Device that is being advertised
  */
-bool mupnp_device_advertiser_isrunning(mUpnpDevice *dev)
+bool mupnp_device_advertiser_isrunning(mUpnpDevice* dev)
 {
-	mUpnpThread *advertiser;
-	
-	mupnp_log_debug_l4("Entering...\n");
-	
-	advertiser = mupnp_device_getadvertiserthead(dev);
-	if (advertiser != NULL)
- 		return mupnp_thread_isrunnable(advertiser);
+  mUpnpThread* advertiser;
 
-	return false;
+  mupnp_log_debug_l4("Entering...\n");
+
+  advertiser = mupnp_device_getadvertiserthead(dev);
+  if (advertiser != NULL)
+    return mupnp_thread_isrunnable(advertiser);
+
+  return false;
 }

@@ -16,13 +16,12 @@
 #ifndef _CG_KB_UTIL_H_
 #define _CG_KB_UTIL_H_
 
-
 void kbinit();
 int kbhit();
 int kbkey();
 void kbexit();
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

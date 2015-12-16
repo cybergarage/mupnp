@@ -16,7 +16,7 @@
 #include <mupnp/xml/xml.h>
 #include <mupnp/util/list.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -42,7 +42,7 @@ extern "C" {
 typedef struct _mUpnpIcon {
   MUPNP_LIST_STRUCT_MEMBERS
 
-	mUpnpXmlNode *iconNode;
+  mUpnpXmlNode* iconNode;
 } mUpnpIcon, mUpnpIconList;
 
 /****************************************
@@ -52,21 +52,21 @@ typedef struct _mUpnpIcon {
 /**
  * Create a new icon struct
  */
-mUpnpIcon *mupnp_icon_new();
+mUpnpIcon* mupnp_icon_new();
 
 /**
  * Delete an icon struct
  *
  * \param dev Icon to delete
  */
-void mupnp_icon_delete(mUpnpIcon *dev);
+void mupnp_icon_delete(mUpnpIcon* dev);
 
 /**
  * Get the next icon in list. Use as an iterator.
  * 
  * \param icon Node in a list of icons
  */
-#define mupnp_icon_next(icon) (mUpnpIcon *)mupnp_list_next((mUpnpList *)icon)
+#define mupnp_icon_next(icon) (mUpnpIcon*) mupnp_list_next((mUpnpList*)icon)
 
 /**
  * Check whether the given node is a member of an icon list
@@ -81,7 +81,7 @@ void mupnp_icon_delete(mUpnpIcon *dev);
  * \param icon The icon struct
  * \param node XML node
  */
-#define mupnp_icon_seticonnode(icon,node) (icon->iconNode = node)
+#define mupnp_icon_seticonnode(icon, node) (icon->iconNode = node)
 
 /**
  * Get the XML icon node from an icon struct
@@ -188,35 +188,35 @@ void mupnp_icon_delete(mUpnpIcon *dev);
  * Create a new list of icons
  * 
  */
-mUpnpIconList *mupnp_iconlist_new();
+mUpnpIconList* mupnp_iconlist_new();
 
 /**
  * Delete a list of icons
  * 
  * \param iconList List of icons
  */
-void mupnp_iconlist_delete(mUpnpIconList *iconList);
+void mupnp_iconlist_delete(mUpnpIconList* iconList);
 
 /**
  * Clear the contents of an icon list
  * 
  * \param iconList List of icons
  */
-#define mupnp_iconlist_clear(iconList) mupnp_list_clear((mUpnpList *)iconList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_icon_delete)
+#define mupnp_iconlist_clear(iconList) mupnp_list_clear((mUpnpList*)iconList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_icon_delete)
 
 /**
  * Get the size (number of elements) of an icon list
  * 
  * \param iconList List of icons
  */
-#define mupnp_iconlist_size(iconList) mupnp_list_size((mUpnpList *)iconList)
+#define mupnp_iconlist_size(iconList) mupnp_list_size((mUpnpList*)iconList)
 
 /**
  * \todo Get the first icon from the list for iteration
  * 
  * \param iconList List of icons
  */
-#define mupnp_iconlist_gets(iconList) (mUpnpIcon *)mupnp_list_next((mUpnpList *)iconList)
+#define mupnp_iconlist_gets(iconList) (mUpnpIcon*) mupnp_list_next((mUpnpList*)iconList)
 
 /**
  * Add an icon to an icon list
@@ -224,9 +224,9 @@ void mupnp_iconlist_delete(mUpnpIconList *iconList);
  * \param iconList List of icons
  * \param icon Icon to add
  */
-#define mupnp_iconlist_add(iconList, icon) mupnp_list_add((mUpnpList *)iconList, (mUpnpList *)icon)
+#define mupnp_iconlist_add(iconList, icon) mupnp_list_add((mUpnpList*)iconList, (mUpnpList*)icon)
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 
 } /* extern "C" */
 

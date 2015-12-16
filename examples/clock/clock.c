@@ -21,105 +21,91 @@
 * toMonthString
 ****************************************/
 
-static char *MONTH_STRING[] = {
-	"Jan",
-	"Feb",
-	"Mar",
-	"Apr",
-	"May",
-	"Jun",
-	"Jul",
-	"Aug",
-	"Sep",
-	"Oct",
-	"Nov",
-	"Dec",
+static char* MONTH_STRING[] = {
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 };
 
-static char *toMonthString(int value)
+static char* toMonthString(int value)
 {
-	if (0 <= value && value < 12)
-		return MONTH_STRING[value];
-	return "";
+  if (0 <= value && value < 12)
+    return MONTH_STRING[value];
+  return "";
 }
-	
+
 /****************************************
 * toWeekString
 ****************************************/
 
-static char *WEEK_STRING[] = {
-	"Sun",
-	"Mon",
-	"Tue",
-	"Wed",
-	"Thu",
-	"Fri",
-	"Sat",
+static char* WEEK_STRING[] = {
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat",
 };
 
-static char *toWeekString(int value)
+static char* toWeekString(int value)
 {
-	if (0 <= value && value < 7)
-		return WEEK_STRING[value];
-	return "";
+  if (0 <= value && value < 7)
+    return WEEK_STRING[value];
+  return "";
 }
 
 /****************************************
 * GetSystemTimeString
 ****************************************/
 
-char *GetSystemTimeString(mUpnpTime currTime, char *buf)
+char* GetSystemTimeString(mUpnpTime currTime, char* buf)
 {
-	struct tm *localTime;
-			
-	localTime = localtime(&currTime);
-	sprintf(buf, "%s, %s %d, %02d, %02d:%02d:%02d",
-		toWeekString(localTime->tm_wday),
-		toMonthString(localTime->tm_mon),
-		localTime->tm_mday,
-		localTime->tm_year + 1900,
-		localTime->tm_hour,
-		localTime->tm_min,
-		localTime->tm_sec);
-	
-	return buf;
+  struct tm* localTime;
+
+  localTime = localtime(&currTime);
+  sprintf(buf, "%s, %s %d, %02d, %02d:%02d:%02d", toWeekString(localTime->tm_wday), toMonthString(localTime->tm_mon), localTime->tm_mday, localTime->tm_year + 1900, localTime->tm_hour, localTime->tm_min, localTime->tm_sec);
+
+  return buf;
 }
 
 /****************************************
 * GetDateString
 ****************************************/
 
-char *GetDateString(mUpnpTime currTime, char *buf)
+char* GetDateString(mUpnpTime currTime, char* buf)
 {
-	struct tm *localTime;
-			
-	localTime = localtime(&currTime);
+  struct tm* localTime;
 
-	sprintf(buf, "%s, %s %d, %02d",
-		toWeekString(localTime->tm_wday),
-		toMonthString(localTime->tm_mon),
-		localTime->tm_mday,
-		localTime->tm_year + 1900);
+  localTime = localtime(&currTime);
 
-	return buf;
+  sprintf(buf, "%s, %s %d, %02d", toWeekString(localTime->tm_wday), toMonthString(localTime->tm_mon), localTime->tm_mday, localTime->tm_year + 1900);
+
+  return buf;
 }
 
 /****************************************
 * GetTimeString
 ****************************************/
 
-char *GetTimeString(mUpnpTime currTime, char *buf)
+char* GetTimeString(mUpnpTime currTime, char* buf)
 {
-	struct tm *localTime;
-			
-	localTime = localtime(&currTime);
+  struct tm* localTime;
 
-	sprintf(buf, "%02d%s%02d",
-		localTime->tm_hour,
-		((localTime->tm_sec % 2) == 0) ? ":" : " ",
-		localTime->tm_min);
+  localTime = localtime(&currTime);
 
-	return buf;
+  sprintf(buf, "%02d%s%02d", localTime->tm_hour, ((localTime->tm_sec % 2) == 0) ? ":" : " ", localTime->tm_min);
+
+  return buf;
 }
 
 /****************************************
@@ -128,9 +114,9 @@ char *GetTimeString(mUpnpTime currTime, char *buf)
 
 int GetSecond(mUpnpTime currTime)
 {
-	struct tm *localTime;
-			
-	localTime = localtime(&currTime);
+  struct tm* localTime;
 
-	return localTime->tm_sec;
+  localTime = localtime(&currTime);
+
+  return localTime->tm_sec;
 }

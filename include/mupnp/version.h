@@ -12,7 +12,7 @@
 #ifndef _MUPNP_VERSION_H_
 #define _MUPNP_VERSION_H_
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -22,7 +22,7 @@ extern "C" {
 
 #define MUPNP_VER "3.0.2"
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 } /* extern C */
 #endif
 

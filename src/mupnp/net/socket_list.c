@@ -18,32 +18,32 @@
 * mupnp_socketlist_new
 ****************************************/
 
-mUpnpSocketList *mupnp_socketlist_new()
+mUpnpSocketList* mupnp_socketlist_new()
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mUpnpSocketList *socketList = (mUpnpSocketList *)malloc(sizeof(mUpnpSocketList));
+  mUpnpSocketList* socketList = (mUpnpSocketList*)malloc(sizeof(mUpnpSocketList));
 
-	if ( NULL != socketList )
-		mupnp_list_header_init((mUpnpList *)socketList);
+  if (NULL != socketList)
+    mupnp_list_header_init((mUpnpList*)socketList);
 
-	return socketList;
+  return socketList;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_socketlist_delete
 ****************************************/
 
-void mupnp_socketlist_delete(mUpnpSocketList *socketList)
+void mupnp_socketlist_delete(mUpnpSocketList* socketList)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_socketlist_clear(socketList);
-	free(socketList);
+  mupnp_socketlist_clear(socketList);
+  free(socketList);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif

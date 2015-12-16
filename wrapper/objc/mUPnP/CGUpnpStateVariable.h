@@ -17,30 +17,29 @@ typedef void mUpnpStateVariable;
 /**
  * The CGUpnpStateVariable class is a wrapper class for mUpnpStateVariable of CyberLink for C.
  */
-@interface CGUpnpStateVariable : NSObject 
-{
+@interface CGUpnpStateVariable : NSObject {
 }
-@property(assign, readonly) mUpnpStateVariable *cObject;
-- (id)initWithCObject:(mUpnpStateVariable *)cobj;
+@property (assign, readonly) mUpnpStateVariable* cObject;
+- (id)initWithCObject:(mUpnpStateVariable*)cobj;
 /**
  * Get the name of the state variable.
  * 
  * @return The name.
  */
-- (NSString *)name;
+- (NSString*)name;
 /**
  * Get the value of the state variable.
  * 
  * @return The value.
  */
-- (NSString *)value;
+- (NSString*)value;
 
 /**
  * Get an array of the allowed values for the state variable
  * 
  * @return The array.
  */
-- (NSArray *)allowedValues;
+- (NSArray*)allowedValues;
 
 /**
  * Checks whether value is allowed for this state variable
@@ -50,7 +49,6 @@ typedef void mUpnpStateVariable;
  * @return YES if true
  */
 - (BOOL)isAllowedValue:(NSString*)value;
-
 
 /**
  * Send query

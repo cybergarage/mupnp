@@ -12,7 +12,7 @@
 
 #import <CyberLink/CGXmlNode.h>
 
-#if  !defined(_CG_CLINKCAV_CONTENT_H_)
+#if !defined(_CG_CLINKCAV_CONTENT_H_)
 typedef void CgUpnpAvContent;
 #endif
 
@@ -24,37 +24,35 @@ typedef void CgUpnpAvContent;
 #define CGUPNPAV_OBJECT_SOUND_FILEEXT @"snd"
 #define CGUPNPAV_OBJECT_IMAGE_FILEEXT @"img"
 
-@interface CGUpnpAvObject : CGXmlNode 
-{
+@interface CGUpnpAvObject : CGXmlNode {
 }
-@property(retain) CGUpnpAvObject *parent;
-@property(retain) id userObject;
-+ (NSArray *)arrayWithXMLString:(NSString *)aXmlString;
+@property (retain) CGUpnpAvObject* parent;
+@property (retain) id userObject;
++ (NSArray*)arrayWithXMLString:(NSString*)aXmlString;
 - (id)init;
-#if  !defined(TARGET_OS_IPHONE)
-- (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
+#if !defined(TARGET_OS_IPHONE)
+- (id)initWithXMLNode:(NSXMLElement*)aXmlNode;
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
-- (id)initWithMediaContent:(CgUpnpAvContent *)aMediaContent;
+- (id)initWithXMLNode:(CgXmlNode*)aXmlNode;
+- (id)initWithMediaContent:(CgUpnpAvContent*)aMediaContent;
 #endif
 - (BOOL)isEqual:(id)anObject;
 - (BOOL)isContainer;
 - (BOOL)isItem;
-- (void)setParent:(CGUpnpAvObject *)aParent;
-- (CGUpnpAvObject *)parent;
-- (CGUpnpAvObject *)ancestor;
-- (NSString *)objectId;
+- (void)setParent:(CGUpnpAvObject*)aParent;
+- (CGUpnpAvObject*)parent;
+- (CGUpnpAvObject*)ancestor;
+- (NSString*)objectId;
 - (NSUInteger)childCount;
-- (NSString *)title;
-- (NSString *)upnpClass;
-- (NSString *)date;
-- (NSString *)albumArtURI;
-- (void)setObjectId:(NSString *)aValue;
-- (void)setTitle:(NSString *)aValue;
-- (void)setUpnpClass:(NSString *)aValue;
-- (BOOL)isObjectId:(NSString *)aObjectId;
-- (BOOL)isTitle:(NSString *)aTitle;
-- (BOOL)isUpnpClass:(NSString *)aUpnpClass;
-- (NSString *)toFileNameString;
+- (NSString*)title;
+- (NSString*)upnpClass;
+- (NSString*)date;
+- (NSString*)albumArtURI;
+- (void)setObjectId:(NSString*)aValue;
+- (void)setTitle:(NSString*)aValue;
+- (void)setUpnpClass:(NSString*)aValue;
+- (BOOL)isObjectId:(NSString*)aObjectId;
+- (BOOL)isTitle:(NSString*)aTitle;
+- (BOOL)isUpnpClass:(NSString*)aUpnpClass;
+- (NSString*)toFileNameString;
 @end
-

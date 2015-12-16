@@ -14,10 +14,9 @@
 
 @class CGUpnpDevice;
 
-@interface UPnPDeviceTableViewCell : UPnPTableViewCell 
-{
+@interface UPnPDeviceTableViewCell : UPnPTableViewCell {
 }
 
-- (void)setDevice:(CGUpnpDevice *)upnpDevice;
+- (void)setDevice:(CGUpnpDevice*)upnpDevice;
 
 @end

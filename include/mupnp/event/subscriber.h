@@ -21,7 +21,7 @@
 
 #include <mupnp/statevariable.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -39,13 +39,13 @@ extern "C" {
 typedef struct _mUpnpSubscriber {
   MUPNP_LIST_STRUCT_MEMBERS
 
-	mUpnpString *sid;
-	mUpnpString *ifAddr;
-	mUpnpNetURL *deliveryURL;
-	
-	mUpnpTime timeout;
-	long notifyCount;
-	mUpnpTime subscriptionTime;
+  mUpnpString* sid;
+  mUpnpString* ifAddr;
+  mUpnpNetURL* deliveryURL;
+
+  mUpnpTime timeout;
+  long notifyCount;
+  mUpnpTime subscriptionTime;
 } mUpnpSubscriber, mUpnpSubscriberList;
 
 /****************************************
@@ -55,14 +55,14 @@ typedef struct _mUpnpSubscriber {
 /**
  * Create a new event subscriber
  */
-mUpnpSubscriber *mupnp_subscriber_new();
+mUpnpSubscriber* mupnp_subscriber_new();
 
 /**
  * Destroy an event subscriber
  *
  * @param sub The event subscriber
  */
-void mupnp_subscriber_delete(mUpnpSubscriber *sub);
+void mupnp_subscriber_delete(mUpnpSubscriber* sub);
 
 /**
  * Clear the contents of an event subscriber
@@ -71,7 +71,7 @@ void mupnp_subscriber_delete(mUpnpSubscriber *sub);
  *
  * @param sub The event subscriber
  */
-void mupnp_subscriber_clear(mUpnpSubscriber *sub);
+void mupnp_subscriber_clear(mUpnpSubscriber* sub);
 
 /**
  * Renew a subscription. Essentially sets subscription time (duration) 
@@ -79,7 +79,7 @@ void mupnp_subscriber_clear(mUpnpSubscriber *sub);
  *
  * @param sub The event subscriber
  */
-void mupnp_subscriber_renew(mUpnpSubscriber *sub);
+void mupnp_subscriber_renew(mUpnpSubscriber* sub);
 
 /**
  * Get the next subscriber in a subscriber list. Use as an iterator.
@@ -87,14 +87,14 @@ void mupnp_subscriber_renew(mUpnpSubscriber *sub);
  * @param sub The current event subscriber
  * @return Next subscriber or NULL
  */
-#define mupnp_subscriber_next(sub) (mUpnpSubscriber *)mupnp_list_next((mUpnpList *)sub)
+#define mupnp_subscriber_next(sub) (mUpnpSubscriber*) mupnp_list_next((mUpnpList*)sub)
 
 /**
  * Remove the event subscriber from a subscriber list.
  *
  * @param sub The event subscriber to remove
  */
-#define mupnp_subscriber_remove(sub) mupnp_list_remove((mUpnpList *)sub)
+#define mupnp_subscriber_remove(sub) mupnp_list_remove((mUpnpList*)sub)
 
 /****************************************************************************
  * sid
@@ -182,7 +182,7 @@ void mupnp_subscriber_renew(mUpnpSubscriber *sub);
  * @param sub The event subscriber
  * @return The new notify count
  */
-long mupnp_subscriber_incrementnotifycount(mUpnpSubscriber *sub);
+long mupnp_subscriber_incrementnotifycount(mUpnpSubscriber* sub);
 
 /****************************************************************************
  * Delivery URL
@@ -223,7 +223,7 @@ long mupnp_subscriber_incrementnotifycount(mUpnpSubscriber *sub);
  * @param sub The subscriber
  * @return true if the subscription has been expired; otherwise false
  */
-bool mupnp_subscriber_isexpired(mUpnpSubscriber *sub);
+bool mupnp_subscriber_isexpired(mUpnpSubscriber* sub);
 
 /**
  * Post a notification to an event subscriber. This is called in a device.
@@ -232,7 +232,7 @@ bool mupnp_subscriber_isexpired(mUpnpSubscriber *sub);
  * @param statVar The evented state variable
  * @return true if succesful; otherwise false
  */
-bool mupnp_subscriber_notify(mUpnpSubscriber *sub, mUpnpStateVariable *statVar);
+bool mupnp_subscriber_notify(mUpnpSubscriber* sub, mUpnpStateVariable* statVar);
 
 /**
  * Post a notification to an event subscriber. This is called in a device.
@@ -241,7 +241,7 @@ bool mupnp_subscriber_notify(mUpnpSubscriber *sub, mUpnpStateVariable *statVar);
  * @param service The evented service
  * @return true if succesful; otherwise false
  */
-bool mupnp_subscriber_notifyall(mUpnpSubscriber *sub, void *service);
+bool mupnp_subscriber_notifyall(mUpnpSubscriber* sub, void* service);
 
 /****************************************
 * Function (SubscriberList)
@@ -250,35 +250,35 @@ bool mupnp_subscriber_notifyall(mUpnpSubscriber *sub, void *service);
 /**
  * Create a new event subscriber list
  */
-mUpnpSubscriberList *mupnp_subscriberlist_new();
+mUpnpSubscriberList* mupnp_subscriberlist_new();
 
 /**
  * Destroy an event subscriber list
  *
  * @param subscriberlist The list to destroy
  */
-void mupnp_subscriberlist_delete(mUpnpSubscriberList *subscriberlist);
+void mupnp_subscriberlist_delete(mUpnpSubscriberList* subscriberlist);
 
 /**
  * Clear the contents of a subscriber list
  *
  * @param subList The subscriber list to clear
  */
-#define mupnp_subscriberlist_clear(subList) mupnp_list_clear((mUpnpList *)subList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_subscriber_delete)
+#define mupnp_subscriberlist_clear(subList) mupnp_list_clear((mUpnpList*)subList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_subscriber_delete)
 
 /**
  * Get the size (node count) of a subscriber list
  *
  * @param subList The subscriber list to evaluate
  */
-#define mupnp_subscriberlist_size(subList) mupnp_list_size((mUpnpList *)subList)
+#define mupnp_subscriberlist_size(subList) mupnp_list_size((mUpnpList*)subList)
 
 /**
  * Get the first item in a subscriber list (use as the first step in iteration).
  *
  * @param subList The subscriber list to evaluate
  */
-#define mupnp_subscriberlist_gets(subList) (mUpnpSubscriber *)mupnp_list_next((mUpnpList *)subList)
+#define mupnp_subscriberlist_gets(subList) (mUpnpSubscriber*) mupnp_list_next((mUpnpList*)subList)
 
 /**
  * Add a new event subscriber to a subscriber list
@@ -286,9 +286,9 @@ void mupnp_subscriberlist_delete(mUpnpSubscriberList *subscriberlist);
  * @param subList The subscriber list to add to
  * @param sub The subscriber to add
  */
-#define mupnp_subscriberlist_add(subList, sub) mupnp_list_add((mUpnpList *)subList, (mUpnpList *)sub)
+#define mupnp_subscriberlist_add(subList, sub) mupnp_list_add((mUpnpList*)subList, (mUpnpList*)sub)
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

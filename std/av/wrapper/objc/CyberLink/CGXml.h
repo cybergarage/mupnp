@@ -8,11 +8,9 @@
 
 #import <Foundation/NSString.h>
 
-@interface CGXml : NSObject 
-{
+@interface CGXml : NSObject {
 }
-+ (NSString *)escapestring:(NSString *)aString;
-+ (NSString *)escapestringFromIndex:(NSString *)aString index:(NSUInteger)anIndex;
-+ (NSString *)unescapestring:(NSString *)aString;
++ (NSString*)escapestring:(NSString*)aString;
++ (NSString*)escapestringFromIndex:(NSString*)aString index:(NSUInteger)anIndex;
++ (NSString*)unescapestring:(NSString*)aString;
 @end
-

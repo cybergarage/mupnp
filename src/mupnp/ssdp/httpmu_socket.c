@@ -16,49 +16,49 @@
 * mupnp_httpmu_socket_bind
 ****************************************/
 
-bool mupnp_httpmu_socket_bind(mUpnpHttpMuSocket *sock, const char *mcastAddr, int port, const char *bindAddr)
+bool mupnp_httpmu_socket_bind(mUpnpHttpMuSocket* sock, const char* mcastAddr, int port, const char* bindAddr)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	if (mupnp_socket_bind(sock, port, bindAddr, false, true) == false)
-		return false;
-		
-	if (mupnp_socket_joingroup(sock, mcastAddr, bindAddr) == false) {
-		mupnp_socket_close(sock);
-		return false;
-	}
+  if (mupnp_socket_bind(sock, port, bindAddr, false, true) == false)
+    return false;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  if (mupnp_socket_joingroup(sock, mcastAddr, bindAddr) == false) {
+    mupnp_socket_close(sock);
+    return false;
+  }
 
-	return true;
+  mupnp_log_debug_l4("Leaving...\n");
+
+  return true;
 }
 
 /****************************************
 * mupnp_httpmu_socket_recv
 ****************************************/
 
-ssize_t mupnp_httpmu_socket_recv(mUpnpHttpMuSocket *sock, mUpnpSSDPPacket *ssdpPkt)
+ssize_t mupnp_httpmu_socket_recv(mUpnpHttpMuSocket* sock, mUpnpSSDPPacket* ssdpPkt)
 {
-	mUpnpDatagramPacket *dgmPkt;
-	char *ssdpData;
-	ssize_t recvLen;
-	
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpDatagramPacket* dgmPkt;
+  char* ssdpData;
+  ssize_t recvLen;
 
-	dgmPkt = mupnp_ssdp_packet_getdatagrampacket(ssdpPkt);
-	recvLen = mupnp_socket_recv(sock, dgmPkt);
+  mupnp_log_debug_l4("Entering...\n");
 
-	if (recvLen <= 0)
-		return recvLen;
+  dgmPkt = mupnp_ssdp_packet_getdatagrampacket(ssdpPkt);
+  recvLen = mupnp_socket_recv(sock, dgmPkt);
 
-	ssdpData = mupnp_socket_datagram_packet_getdata(dgmPkt);
+  if (recvLen <= 0)
+    return recvLen;
 
-	/* set header information to the packets headerlist,
+  ssdpData = mupnp_socket_datagram_packet_getdata(dgmPkt);
+
+  /* set header information to the packets headerlist,
 	   this will leave only the request line in the datagram packet 
 	   which is need to verify the message */
-	mupnp_ssdp_packet_setheader(ssdpPkt, ssdpData);
-	
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_ssdp_packet_setheader(ssdpPkt, ssdpData);
 
-	return recvLen;
+  mupnp_log_debug_l4("Leaving...\n");
+
+  return recvLen;
 }

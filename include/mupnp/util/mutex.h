@@ -28,7 +28,7 @@
 #include <pthread.h>
 #endif
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -44,30 +44,29 @@ extern "C" {
  */
 typedef struct _mUpnpMutex {
 #if defined(WIN32) && !defined(ITRON)
-	HANDLE	mutexID;
+  HANDLE mutexID;
 #elif defined(BTRON)
-	WERR	mutexID;
+  WERR mutexID;
 #elif defined(ITRON)
-	ER_ID	mutexID;
+  ER_ID mutexID;
 #elif defined(TENGINE) && !defined(PROCESS_BASE)
-	ID mutexID;
+  ID mutexID;
 #elif defined(TENGINE) && defined(PROCESS_BASE)
-	WERR	mutexID;
+  WERR mutexID;
 #else
-	/** The mutex entity */
-	pthread_mutex_t mutexID;
+  /** The mutex entity */
+  pthread_mutex_t mutexID;
 #endif
 } mUpnpMutex;
 
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
 #include <stdlib.h>
 
-typedef struct _mUpnpLockInfo
-{
-	struct _mUpnpLockInfo *next;
-	pthread_t thread_id;
-	char *file, *function;
-	int line, mutex_id;
+typedef struct _mUpnpLockInfo {
+  struct _mUpnpLockInfo* next;
+  pthread_t thread_id;
+  char *file, *function;
+  int line, mutex_id;
 } mUpnpLockInfo;
 #endif
 
@@ -78,14 +77,14 @@ typedef struct _mUpnpLockInfo
 /** 
  * Create a new mutex
  */
-mUpnpMutex *mupnp_mutex_new();
+mUpnpMutex* mupnp_mutex_new();
 
 /** 
  * Destroy a mutex
  *
  * \param mutex The mutex to destroy
  */
-bool mupnp_mutex_delete(mUpnpMutex *mutex);
+bool mupnp_mutex_delete(mUpnpMutex* mutex);
 
 /** 
  * Acquire a mutex lock
@@ -94,9 +93,9 @@ bool mupnp_mutex_delete(mUpnpMutex *mutex);
  */
 
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
-#	define mupnp_mutex_lock(mutex) mupnp_mutex_lock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, mutex)
+#define mupnp_mutex_lock(mutex) mupnp_mutex_lock_trace(__FILE__, __LINE__, __PRETTY_FUNCTION__, mutex)
 #else
-	bool mupnp_mutex_lock(mUpnpMutex *mutex);
+bool mupnp_mutex_lock(mUpnpMutex* mutex);
 #endif
 
 /** 
@@ -105,12 +104,12 @@ bool mupnp_mutex_delete(mUpnpMutex *mutex);
  * \param mutex Mutex to unlock
  */
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
-#       define mupnp_mutex_unlock(mutex) mupnp_mutex_unlock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, mutex)
+#define mupnp_mutex_unlock(mutex) mupnp_mutex_unlock_trace(__FILE__, __LINE__, __PRETTY_FUNCTION__, mutex)
 #else
-	bool mupnp_mutex_unlock(mUpnpMutex *mutex);
+bool mupnp_mutex_unlock(mUpnpMutex* mutex);
 #endif
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 
 } /* extern "C" */
 

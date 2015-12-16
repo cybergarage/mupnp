@@ -15,14 +15,13 @@
 #include <mupnp/typedef.h>
 #include <mupnp/http/http.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
 * Define
 ****************************************/
-
 
 /****************************************
 * Data Type
@@ -40,7 +39,7 @@ typedef mUpnpHttpRequest mUpnpSubscriptionRequest;
 /**
  * Create new subscription request
  */
-mUpnpSubscriptionRequest *mupnp_event_subscription_request_new();
+mUpnpSubscriptionRequest* mupnp_event_subscription_request_new();
 
 /**
  * Delete subscription request
@@ -138,7 +137,7 @@ mUpnpSubscriptionRequest *mupnp_event_subscription_request_new();
  * @param subReq Subscription request
  * @param timeout Timeout
  */
-void mupnp_event_subscription_request_settimeout(mUpnpSubscriptionRequest *subReq, long timeout);
+void mupnp_event_subscription_request_settimeout(mUpnpSubscriptionRequest* subReq, long timeout);
 
 /**
  * Get timeout value from subscription request
@@ -147,9 +146,9 @@ void mupnp_event_subscription_request_settimeout(mUpnpSubscriptionRequest *subRe
  *
  * @return Timeout
  */
-long mupnp_event_subscription_request_gettimeout(mUpnpSubscriptionRequest *subReq);
+long mupnp_event_subscription_request_gettimeout(mUpnpSubscriptionRequest* subReq);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

@@ -10,15 +10,14 @@
 *
 ******************************************************************/
 
-
 #import <UIKit/UIKit.h>
 #import <iAd/ADBannerView.h>
 #import <CyberLink/UPnP.h>
 
 @interface UPnPPresentationViewController : UIViewController <UIWebViewDelegate> {
 }
-@property(retain) UIWebView *webView;
-@property(retain) ADBannerView *adView;
-@property(retain) CGUpnpDevice *device;
-@property(retain) NSString *presentationURL;
+@property (retain) UIWebView* webView;
+@property (retain) ADBannerView* adView;
+@property (retain) CGUpnpDevice* device;
+@property (retain) NSString* presentationURL;
 @end

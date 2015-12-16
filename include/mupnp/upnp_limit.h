@@ -13,7 +13,7 @@
 #define _MUPNP_UPNPLIMIT_H_
 
 #ifdef HAVE_CONFIG_H
-#  include "config.h"
+#include "config.h"
 #endif
 
 #if defined(HAVE_STDINT_H)
@@ -31,9 +31,9 @@
 #define MUPNP_CONTROLPOINT_EVENTSUBURL_MAX 512
 
 #if defined(HAVE_STDINT_H)
-#define MUPNP_NOTIFY_COUNT_MAX UINT32_MAX 
+#define MUPNP_NOTIFY_COUNT_MAX UINT32_MAX
 #else
-#define MUPNP_NOTIFY_COUNT_MAX UINT_MAX 
+#define MUPNP_NOTIFY_COUNT_MAX UINT_MAX
 #endif
 
 #endif

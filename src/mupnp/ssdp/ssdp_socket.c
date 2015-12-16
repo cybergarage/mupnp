@@ -20,41 +20,41 @@
 * mupnp_ssdp_socket_notify
 ****************************************/
 
-static bool mupnp_ssdp_socket_notify(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPRequest *ssdpReq, const char *ssdpAddr)
+static bool mupnp_ssdp_socket_notify(mUpnpSSDPSocket* ssdpSock, mUpnpSSDPRequest* ssdpReq, const char* ssdpAddr)
 {
-	mUpnpString *ssdpMsg;
-	size_t sentLen;
+  mUpnpString* ssdpMsg;
+  size_t sentLen;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_ssdprequest_setmethod(ssdpReq, MUPNP_HTTP_NOTIFY);
-	
-	ssdpMsg = mupnp_string_new();
-	mupnp_ssdprequest_tostring(ssdpReq, ssdpMsg);
+  mupnp_ssdprequest_setmethod(ssdpReq, MUPNP_HTTP_NOTIFY);
 
-	sentLen = mupnp_socket_sendto(ssdpSock, ssdpAddr, MUPNP_SSDP_PORT, mupnp_string_getvalue(ssdpMsg), mupnp_string_length(ssdpMsg));
-	mupnp_string_delete(ssdpMsg);
-	
-	mupnp_log_debug_l4("Leaving...\n");
+  ssdpMsg = mupnp_string_new();
+  mupnp_ssdprequest_tostring(ssdpReq, ssdpMsg);
 
-	return (0 < sentLen) ? true : false;
+  sentLen = mupnp_socket_sendto(ssdpSock, ssdpAddr, MUPNP_SSDP_PORT, mupnp_string_getvalue(ssdpMsg), mupnp_string_length(ssdpMsg));
+  mupnp_string_delete(ssdpMsg);
+
+  mupnp_log_debug_l4("Leaving...\n");
+
+  return (0 < sentLen) ? true : false;
 }
 
 /****************************************
 * mupnp_ssdp_socket_notifyfrom
 ****************************************/
 
-bool mupnp_ssdp_socket_notifyfrom(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPRequest *ssdpReq, const char *bindAddr)
+bool mupnp_ssdp_socket_notifyfrom(mUpnpSSDPSocket* ssdpSock, mUpnpSSDPRequest* ssdpReq, const char* bindAddr)
 {
-	const char *ssdpAddr;
-	
-	mupnp_log_debug_l4("Entering...\n");
+  const char* ssdpAddr;
 
-	ssdpAddr = mupnp_ssdp_gethostaddress(bindAddr);
-	mupnp_ssdprequest_sethost(ssdpReq, ssdpAddr, MUPNP_SSDP_PORT);
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_log_debug_l4("Leaving...\n");
-	
+  ssdpAddr = mupnp_ssdp_gethostaddress(bindAddr);
+  mupnp_ssdprequest_sethost(ssdpReq, ssdpAddr, MUPNP_SSDP_PORT);
+
+  mupnp_log_debug_l4("Leaving...\n");
+
   return mupnp_ssdp_socket_notify(ssdpSock, ssdpReq, ssdpAddr);
 }
 
@@ -62,21 +62,21 @@ bool mupnp_ssdp_socket_notifyfrom(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPRequest *s
 * mupnp_ssdp_socket_postresponse
 ****************************************/
 
-bool mupnp_ssdp_socket_postresponse(mUpnpSSDPSocket *ssdpSock, mUpnpSSDPResponse *ssdpRes, const char *host, int port)
+bool mupnp_ssdp_socket_postresponse(mUpnpSSDPSocket* ssdpSock, mUpnpSSDPResponse* ssdpRes, const char* host, int port)
 {
-	mUpnpString *ssdpMsg;
+  mUpnpString* ssdpMsg;
   size_t ssdpMsgLen;
-	bool postSuccess;
+  bool postSuccess;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	ssdpMsg = mupnp_string_new();
-	mupnp_ssdpresponse_tostring(ssdpRes, ssdpMsg);
+  ssdpMsg = mupnp_string_new();
+  mupnp_ssdpresponse_tostring(ssdpRes, ssdpMsg);
   ssdpMsgLen = mupnp_string_length(ssdpMsg);
-	postSuccess = (mupnp_socket_sendto(ssdpSock, host, port, mupnp_string_getvalue(ssdpMsg), ssdpMsgLen) == ssdpMsgLen) ? true : false;
-	mupnp_string_delete(ssdpMsg);
+  postSuccess = (mupnp_socket_sendto(ssdpSock, host, port, mupnp_string_getvalue(ssdpMsg), ssdpMsgLen) == ssdpMsgLen) ? true : false;
+  mupnp_string_delete(ssdpMsg);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 
-	return postSuccess;
+  return postSuccess;
 }

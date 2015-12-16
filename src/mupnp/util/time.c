@@ -14,14 +14,14 @@
 
 #include <limits.h>
 
-#if defined(WIN32) && !defined(ITRON) && !defined (WINCE)
+#if defined(WIN32) && !defined(ITRON) && !defined(WINCE)
 #include <windows.h>
 #include <time.h>
-#elif defined(WIN32) && defined (WINCE)
+#elif defined(WIN32) && defined(WINCE)
 #include <windows.h>
 #include <time.h>
 //#include <altcecrt.h>
-#elif defined(BTRON) 
+#elif defined(BTRON)
 #include <btron/proctask.h>
 #include <btron/clk.h>
 #elif defined(ITRON)
@@ -44,23 +44,23 @@
 
 void mupnp_wait(mUpnpTime mtime)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
 #if defined(WIN32) && !defined(ITRON)
-	Sleep(mtime);
+  Sleep(mtime);
 #elif defined(BTRON)
-	slp_tsk(mtime);
+  slp_tsk(mtime);
 #elif defined(ITRON)
-	tslp_tsk(mtime);
+  tslp_tsk(mtime);
 #elif defined(TENGINE) && !defined(PROCESS_BASE)
-	tk_slp_tsk(mtime);
+  tk_slp_tsk(mtime);
 #elif defined(TENGINE) && defined(PROCESS_BASE)
-	b_slp_tsk(mtime);
+  b_slp_tsk(mtime);
 #else
-	usleep(((useconds_t)(mtime * 1000)));
+  usleep(((useconds_t)(mtime * 1000)));
 #endif
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
@@ -69,16 +69,16 @@ void mupnp_wait(mUpnpTime mtime)
 
 void mupnp_waitrandom(mUpnpTime mtime)
 {
-	double factor;
-	long waitTime;
+  double factor;
+  long waitTime;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	factor = (double)rand() / (double)RAND_MAX;
-	waitTime = (long)((double)mtime * factor);
-	mupnp_wait(waitTime);
+  factor = (double)rand() / (double)RAND_MAX;
+  waitTime = (long)((double)mtime * factor);
+  mupnp_wait(waitTime);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
@@ -88,33 +88,33 @@ void mupnp_waitrandom(mUpnpTime mtime)
 mUpnpTime mupnp_getcurrentsystemtime()
 {
 #if defined(BTRON)
-	STIME mUpnpTime;
-	TIMEZONE tz;
-	STIME localtime;
-	if (get_tim(&mUpnpTime, &tz) != 0)
-		return 0;
-	localtime = mUpnpTime - tz.adjust + (tz.dst_flg ? (tz.dst_adj*60): 0);
+  STIME mUpnpTime;
+  TIMEZONE tz;
+  STIME localtime;
+  if (get_tim(&mUpnpTime, &tz) != 0)
+    return 0;
+  localtime = mUpnpTime - tz.adjust + (tz.dst_flg ? (tz.dst_adj * 60) : 0);
 #elif defined(ITRON)
-	static bool initialized = false;
-	SYSTIM sysTim;
-	if (initialized == false) {
-		sysTim.utime = 0;
-		sysTim.ltime = 0;
-		set_tim(&sysTim);
-	}
-	get_tim(&sysTim);
+  static bool initialized = false;
+  SYSTIM sysTim;
+  if (initialized == false) {
+    sysTim.utime = 0;
+    sysTim.ltime = 0;
+    set_tim(&sysTim);
+  }
+  get_tim(&sysTim);
 #endif
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 
 #if defined(BTRON)
-	return localtime;
+  return localtime;
 #elif defined(ITRON)
-	return ((sysTim.utime / 1000) << 32) + (sysTim.ltime / 1000);
+  return ((sysTim.utime / 1000) << 32) + (sysTim.ltime / 1000);
 #else
-	return time(NULL);
+  return time(NULL);
 #endif
 }
 
@@ -124,16 +124,16 @@ mUpnpTime mupnp_getcurrentsystemtime()
 
 float mupnp_random()
 {
-	static bool seedDone = false;
+  static bool seedDone = false;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	if (seedDone == false) {
-		srand((int)(mupnp_getcurrentsystemtime() % INT_MAX));
-		seedDone = true;
-	}
-	
-	mupnp_log_debug_l4("Leaving...\n");
-	
-	return (float)rand() / (float)RAND_MAX;
+  if (seedDone == false) {
+    srand((int)(mupnp_getcurrentsystemtime() % INT_MAX));
+    seedDone = true;
+  }
+
+  mupnp_log_debug_l4("Leaving...\n");
+
+  return (float)rand() / (float)RAND_MAX;
 }

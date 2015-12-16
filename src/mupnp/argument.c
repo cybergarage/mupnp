@@ -16,42 +16,41 @@
 * mupnp_argument_new
 ****************************************/
 
-mUpnpArgument *mupnp_argument_new()
+mUpnpArgument* mupnp_argument_new()
 {
-	mUpnpArgument *arg;
+  mUpnpArgument* arg;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	arg = (mUpnpArgument *)malloc(sizeof(mUpnpArgument));
+  arg = (mUpnpArgument*)malloc(sizeof(mUpnpArgument));
 
-	if ( NULL != arg )
-	{
-		mupnp_list_node_init((mUpnpList *)arg);
-		
-		arg->serviceNode = NULL;
-		arg->argumentNode = NULL;
-		
-		arg->value = mupnp_string_new();
-	}
-	
-	mupnp_log_debug_l4("Leaving...\n");
-	
-	return arg;
+  if (NULL != arg) {
+    mupnp_list_node_init((mUpnpList*)arg);
+
+    arg->serviceNode = NULL;
+    arg->argumentNode = NULL;
+
+    arg->value = mupnp_string_new();
+  }
+
+  mupnp_log_debug_l4("Leaving...\n");
+
+  return arg;
 }
 
 /****************************************
 * mupnp_argument_delete
 ****************************************/
 
-void mupnp_argument_delete(mUpnpArgument *arg)
+void mupnp_argument_delete(mUpnpArgument* arg)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_list_remove((mUpnpList *)arg);
-	
-	mupnp_string_delete(arg->value);
-	
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_list_remove((mUpnpList*)arg);
 
-	free(arg);
+  mupnp_string_delete(arg->value);
+
+  mupnp_log_debug_l4("Leaving...\n");
+
+  free(arg);
 }
