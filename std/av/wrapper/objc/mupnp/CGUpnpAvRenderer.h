@@ -64,16 +64,12 @@ typedef void mUpnpAvRenderer;
 }
 
 @property (assign,readonly) mUpnpAvRenderer *cAvObject;
-@property (nonatomic, weak) id<CGUpnpAvRenderDelegate> delegate;
+@property (nonatomic, weak) id<CGUpnpAvRenderDelegate> avDelegate;
 
+// Player Setting
 @property(nonatomic, retain) NSArray<DMRMediaItem *> *playerItemCollection;
 @property (nonatomic, retain) DMRMediaItem *nowPlayingItem;
 @property (nonatomic, readonly) NSUInteger indexOfNowPlayingItem; // return NSNotFound if the index is not valid
-
-@property (nonatomic, retain) NSString *currentTrackName;
-@property (nonatomic, retain) NSString *currentTrackArtist;
-@property (nonatomic, retain) UIImage *currentTrackThumbnail;
-@property (nonatomic, retain) NSString *trackURI;
 @property (nonatomic) float currentVolume;
 @property (nonatomic) float trackDuration;
 @property (nonatomic) float currentPlaybackTime;
@@ -81,12 +77,19 @@ typedef void mUpnpAvRenderer;
 @property (nonatomic) DMRMusicRepeatMode repeatMode;
 @property (nonatomic) DMRMusicShuffleMode shuffleMode;
 
+// Media Info
+@property (nonatomic, retain) NSString *currentTrackName;
+@property (nonatomic, retain) NSString *currentTrackAlbum;
+@property (nonatomic, retain) NSString *currentTrackArtist;
+@property (nonatomic, retain) UIImage *currentTrackArtwork;
+@property (nonatomic, retain) NSString *trackURI;
+
 - (id)init;
 - (id)initWithCObject:(mUpnpDevice *)cobj;
 - (BOOL)play;
 - (BOOL)stop;
 - (BOOL)pause;
-- (BOOL)seek:(float)absTime;
+- (BOOL)seek:(float)relTime;
 - (BOOL)isPlaying;
 - (BOOL)setVolume:(NSInteger)volume;
 /*

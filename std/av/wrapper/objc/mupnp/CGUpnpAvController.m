@@ -17,12 +17,12 @@
 #import "CGUpnpAvObject.h"
 #import "CGUpnpAvContainer.h"
 #import "CGUpnpAvRenderer.h"
+#import "CGUpnpAvEvent.h"
 
 
 @interface CGUpnpAvController() <CGUpnpAvRenderDelegate> {
     NSArray<CGUpnpAvRenderer *> *rendererArray;
     NSArray<CGUpnpAvServer *> *serverArray;
-    id<CGUpnpAvControllerDelegate> avDelegate;
 }
 
 @end
@@ -35,6 +35,7 @@
 		return nil;
 	
 	[self setSsdpSearchMX:1];
+    mupnp_controlpoint_seteventlistener(self.cObject, CGUpnpControlPointEventListener);
 	
 	return self;
 }
@@ -45,7 +46,7 @@
 
 - (void)setDelegate:(id<CGUpnpControlPointDelegate>)delegate {
     [super setDelegate:delegate];
-    avDelegate = delegate;
+    _avDelegate = (id<CGUpnpAvControllerDelegate>)delegate;
 }
 
 ////////////////////////////////////////////////////////////
@@ -367,8 +368,88 @@
 #pragma mark CGUpnpAvRenderDelegate
 
 - (void)upnpAvRenderDidPositionInfoUpdated:(CGUpnpAvRenderer *)renderer {
-    if ([avDelegate respondsToSelector:@selector(upnpAvController:DidRenderPositionInfoUpdated:)]) {
-        [avDelegate upnpAvController:self DidRenderPositionInfoUpdated:renderer];
+    if ([self.avDelegate respondsToSelector:@selector(upnpAvController:didRendererPositionInfoUpdated:)]) {
+        [self.avDelegate upnpAvController:self didRendererPositionInfoUpdated:renderer];
+    }
+}
+
+#pragma mark 
+
+static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnpProperty *property)
+{
+    CGUpnpAvController *avControlPoint = (__bridge CGUpnpAvController *)mupnp_controlpoint_getuserdata(cCtrlPoint);
+    if (avControlPoint == nil)
+        return;
+    
+    if ([avControlPoint avDelegate] == nil)
+        return;
+    
+    CGUpnpAvEvent *event = [[CGUpnpAvEvent alloc] initWithEventProperty:property];
+    CGUpnpAvRenderer *renderer = [avControlPoint rendererWithSubscriptionID:event.subscriptionID];
+    if (nil == renderer) {
+        return;
+    }
+    
+    switch (event.eventType) {
+        case EVENT_AVT_NO_MEDIA_PRESENT:
+            NSLog(@"%@: no meidia", renderer.udn);
+            renderer.playbackState = DMRMusicPlaybackStateStopped;
+            if ([avControlPoint.avDelegate respondsToSelector:@selector(upnpAvController:didRendererPlaybackStateUpdated:)]) {
+                [avControlPoint.avDelegate upnpAvController:avControlPoint didRendererPlaybackStateUpdated:renderer];
+            }
+            break;
+        case EVENT_AVT_TRANSITIONING:
+            NSLog(@"%@: transitioning", renderer.udn);
+            renderer.playbackState = DMRMusicPlaybackStateTransitioning;
+            if ([avControlPoint.avDelegate respondsToSelector:@selector(upnpAvController:didRendererPlaybackStateUpdated:)]) {
+                [avControlPoint.avDelegate upnpAvController:avControlPoint didRendererPlaybackStateUpdated:renderer];
+            }
+            break;
+        case EVENT_AVT_PLAYING:
+            NSLog(@"%@: playing", renderer.udn);
+            renderer.playbackState = DMRMusicPlaybackStatePlaying;
+            if ([avControlPoint.avDelegate respondsToSelector:@selector(upnpAvController:didRendererPlaybackStateUpdated:)]) {
+                [avControlPoint.avDelegate upnpAvController:avControlPoint didRendererPlaybackStateUpdated:renderer];
+            }
+            break;
+        case EVENT_AVT_PAUSED:
+            NSLog(@"%@: paused", renderer.udn);
+            renderer.playbackState = DMRMusicPlaybackStatePaused;
+            if ([avControlPoint.avDelegate respondsToSelector:@selector(upnpAvController:didRendererPlaybackStateUpdated:)]) {
+                [avControlPoint.avDelegate upnpAvController:avControlPoint didRendererPlaybackStateUpdated:renderer];
+            }
+            break;
+        case EVENT_AVT_STOPPED:
+            NSLog(@"%@: stopped", renderer.udn);
+            renderer.playbackState = DMRMusicPlaybackStateStopped;
+            if ([avControlPoint.avDelegate respondsToSelector:@selector(upnpAvController:didRendererPlaybackStateUpdated:)]) {
+                [avControlPoint.avDelegate upnpAvController:avControlPoint didRendererPlaybackStateUpdated:renderer];
+            }
+            break;
+        case EVENT_AVT_TRACKURI:
+            NSLog(@"%@: trackURI", renderer.udn);
+            renderer.trackURI = event.trackURI;
+            if ([avControlPoint.avDelegate respondsToSelector:@selector(upnpAvController:didRendererTrackURIUpdated:)]) {
+                [avControlPoint.avDelegate upnpAvController:avControlPoint didRendererTrackURIUpdated:renderer];
+            }
+            break;
+        case EVENT_AVT_DURATION:
+            NSLog(@"%@: duration", renderer.udn);
+            renderer.trackDuration = event.duration;
+            if ([avControlPoint.avDelegate respondsToSelector:@selector(upnpAvController:didRendererTrackDurationUpdated:)]) {
+                [avControlPoint.avDelegate upnpAvController:avControlPoint didRendererTrackDurationUpdated:renderer];
+            }
+            break;
+        case EVENT_RCS_VOLUME:
+            NSLog(@"%@: volume %ld", renderer.udn, (long)event.volume);
+            renderer.currentVolume = event.volume;
+            if ([avControlPoint.avDelegate respondsToSelector:@selector(upnpAvController:didRendererVolumeUpdated:)]) {
+                [avControlPoint.avDelegate upnpAvController:avControlPoint didRendererVolumeUpdated:renderer];
+            }
+            break;
+            
+        default:
+            break;
     }
 }
 

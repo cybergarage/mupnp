@@ -29,6 +29,7 @@
 {
 }
 
+@property (nonatomic, weak) id<CGUpnpAvControllerDelegate> avDelegate;
 /**
  * Activate some background threads of the control point such as SSDP and 
  * HTTP servers to listen messages and events of UPnP. You must call this 
@@ -61,6 +62,10 @@
 @protocol CGUpnpAvControllerDelegate <NSObject, CGUpnpControlPointDelegate>
 
 @optional
-- (void)upnpAvController:(CGUpnpAvController *)controller   DidRenderPositionInfoUpdated:(CGUpnpAvRenderer *)renderer;
+- (void)upnpAvController:(CGUpnpAvController *)controller   didRendererPositionInfoUpdated:(CGUpnpAvRenderer *)renderer;
+- (void)upnpAvController:(CGUpnpAvController *)controller didRendererPlaybackStateUpdated:(CGUpnpAvRenderer *)renderer;
+- (void)upnpAvController:(CGUpnpAvController *)controller didRendererTrackURIUpdated:(CGUpnpAvRenderer *)renderer;
+- (void)upnpAvController:(CGUpnpAvController *)controller didRendererTrackDurationUpdated:(CGUpnpAvRenderer *)renderer;
+- (void)upnpAvController:(CGUpnpAvController *)controller didRendererVolumeUpdated:(CGUpnpAvRenderer *)renderer;
 
 @end

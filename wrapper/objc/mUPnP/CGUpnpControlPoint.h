@@ -46,7 +46,7 @@ typedef void mUpnpProperty;
 {
 }
 @property(assign, readonly) mUpnpControlPoint *cObject;
-@property(assign) id<CGUpnpControlPointDelegate> delegate;
+@property(nonatomic, weak) id<CGUpnpControlPointDelegate> delegate;
 - (mUpnpControlPoint *)cObject;
 /**
  * Activate some background threads of the control point such as SSDP and 
