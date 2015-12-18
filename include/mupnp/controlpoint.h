@@ -344,13 +344,7 @@ mUpnpDevice* mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint* ctrlPoint, con
  * @param ctrlPoint The control point in question
  * @param evlistener The callback function to set, that is of type @ref MUPNP_EVENT_LISTENER, or NULL
  */
-#define mupnp_controlpoint_seteventlistener(ctrlPoint, evlistener)                                          \
-  do {                                                                                                      \
-    if (evlistener == NULL)                                                                                 \
-      mupnp_eventlistenerlist_remove(ctrlPoint->eventListeners, ctrlPoint->eventListeners->next->listener); \
-    else                                                                                                    \
-      mupnp_eventlistenerlist_add(ctrlPoint->eventListeners, evlistener);                                   \
-  } while (0)
+bool mupnp_controlpoint_seteventlistener(mUpnpControlPoint *ctrlPoint, MUPNP_EVENT_LISTENER evlistener);
 
 /**
  * Get the single event listener for the control point.
