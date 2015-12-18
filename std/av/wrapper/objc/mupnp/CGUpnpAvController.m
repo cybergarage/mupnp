@@ -87,7 +87,7 @@
 
 - (CGUpnpAvServer *)serverForUDN:(NSString *)aUdn
 {
-	if (aUdn == nil)
+	if (aUdn == nil || nil == serverArray)
 		return nil;
 	
     __block CGUpnpAvServer *server = nil;
@@ -103,6 +103,10 @@
 
 - (CGUpnpAvServer *)serverWithCObject:(mUpnpDevice *)cDevice
 {
+    if (nil == serverArray) {
+        return nil;
+    }
+    
     __block CGUpnpAvServer *server = nil;
     [serverArray enumerateObjectsUsingBlock:^(CGUpnpAvServer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.cObject == cDevice)
@@ -116,7 +120,7 @@
 
 - (CGUpnpAvServer *)serverForFriendlyName:(NSString *)aFriendlyName
 {
-	if (aFriendlyName == nil)
+	if (aFriendlyName == nil || nil == serverArray)
 		return nil;
     
     __block CGUpnpAvServer *server = nil;
@@ -263,7 +267,7 @@
 
 - (CGUpnpAvRenderer *)rendererForUDN:(NSString *)aUdn
 {
-	if (aUdn == nil)
+	if (aUdn == nil || nil == rendererArray)
 		return nil;
     
     __block CGUpnpAvRenderer *renderer = nil;
@@ -279,6 +283,9 @@
 
 - (CGUpnpAvRenderer *)rendererWithCObject:(mUpnpDevice *)cDevice
 {
+    if (nil == rendererArray) {
+        return nil;
+    }
     __block CGUpnpAvRenderer *renderer = nil;
     [rendererArray enumerateObjectsUsingBlock:^(CGUpnpAvRenderer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.cObject == cDevice)
@@ -292,7 +299,7 @@
 
 - (CGUpnpAvRenderer *)rendererWithSubscriptionID:(NSString *)sid
 {
-    if (nil == sid)
+    if (nil == sid || nil == rendererArray)
     {
         return nil;
     }

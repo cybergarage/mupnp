@@ -37,21 +37,11 @@
     BOOL bSeeking;
 }
 
-@property (assign) int currentPlayMode;
-
 @end
-
-
-enum {
-	CGUpnpAvRendererPlayModePlay,
-	CGUpnpAvRendererPlayModePause,
-	CGUpnpAvRendererPlayModeStop,
-};
 
 @implementation CGUpnpAvRenderer
 
 @synthesize cAvObject;
-@synthesize currentPlayMode;
 
 - (id)init
 {
@@ -60,8 +50,8 @@ enum {
 
 	cAvObject = mupnp_upnpav_dmr_new();
 	[self setCObject:mupnp_upnpav_dmr_getdevice(cAvObject)];
-	
-	[self setCurrentPlayMode:CGUpnpAvRendererPlayModeStop];
+    
+    [self initStatus];
 	
 	return self;
 }
@@ -73,8 +63,16 @@ enum {
     
     [self getDeviceServices];
 	cAvObject = NULL;
+    
+    [self initStatus];
 
 	return self;
+}
+
+- (void)initStatus {
+    _repeatMode = DMRMusicRepeatModeNone;
+    _shuffleMode = DMRMusicShuffleModeOff;
+    _playbackState = DMRMusicPlaybackStateStopped;
 }
 
 #pragma mark property
@@ -168,8 +166,6 @@ enum {
 	if (![action post])
 		return NO;
 	
-	[self setCurrentPlayMode:CGUpnpAvRendererPlayModePlay];
-	
 	return YES;
 }
 
@@ -184,8 +180,6 @@ enum {
 	if (![action post])
 		return NO;
 	
-	[self setCurrentPlayMode:CGUpnpAvRendererPlayModeStop];
-	
 	return YES;
 }
 
@@ -199,8 +193,6 @@ enum {
 	
 	if (![action post])
 		return NO;
-	
-	[self setCurrentPlayMode:CGUpnpAvRendererPlayModePause];
 	
 	return YES;
 }
@@ -230,7 +222,7 @@ enum {
 
 - (BOOL)isPlaying
 {
-	if ([self currentPlayMode] == CGUpnpAvRendererPlayModePlay)
+	if (DMRMusicPlaybackStatePlaying == self.playbackState)
 		return YES;
 	return NO;
 }
@@ -239,7 +231,7 @@ enum {
 {
 	CGUpnpAction *action = [self actionOfTransportServiceForName:@"GetPositionInfo"];
 	if (!action)
-		return NO;
+		return nil;
 	
 	[action setArgumentValue:@"0" forName:@"InstanceID"];
 	
