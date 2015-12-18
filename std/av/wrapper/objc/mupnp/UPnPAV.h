@@ -18,3 +18,4 @@
 #import <mUPnP/CGUpnpAvController.h>
 #import <mUPnP/CGUpnpAvRenderer.h>
 #import <mUPnP/CGUpnpAvEvent.h>
+#import <mUPnp/UPnPDeviceManager.h>

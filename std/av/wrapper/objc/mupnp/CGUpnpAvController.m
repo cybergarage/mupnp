@@ -306,10 +306,12 @@
     
     __block CGUpnpAvRenderer *renderer = nil;
     [rendererArray enumerateObjectsUsingBlock:^(CGUpnpAvRenderer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (nil != [obj serviceWithSubscriptionID:sid])
-        {
-            renderer = obj;
-            *stop = YES;
+        if ([obj isKindOfClass:[CGUpnpAvRenderer class]]) {
+            if (nil != [obj serviceWithSubscriptionID:sid])
+            {
+                renderer = obj;
+                *stop = YES;
+            }
         }
     }];
     return renderer;
