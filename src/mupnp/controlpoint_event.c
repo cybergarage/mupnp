@@ -18,6 +18,22 @@
 
 #if !defined(MUPNP_NOUSE_CONTROLPOINT) && !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
+bool mupnp_controlpoint_seteventlistener(mUpnpControlPoint* ctrlPoint, MUPNP_EVENT_LISTENER evlistener)
+{
+
+  mUpnpEventListenerList* nextEvListener;
+  do {
+    if (evlistener == NULL) {
+      nextEvListener = (mUpnpEventListenerList*)ctrlPoint->eventListeners->next;
+      mupnp_eventlistenerlist_remove(ctrlPoint->eventListeners, nextEvListener->listener);
+    }
+    else
+      mupnp_eventlistenerlist_add(ctrlPoint->eventListeners, evlistener);
+  } while (0);
+
+  return true;
+}
+
 mUpnpService* mupnp_device_getfirstexpiratedservice(mUpnpControlPoint* ctrlPoint,
     mUpnpDevice* dev,
     mUpnpTime expirationTime)
