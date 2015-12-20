@@ -39,6 +39,7 @@ xcuserdata/
 aclocal.m4
 autom4te.cache/
 config/
+config.log
 .deps/
 *.Po
 .dirstamp
