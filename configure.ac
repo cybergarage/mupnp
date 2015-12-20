@@ -576,7 +576,8 @@ AM_CONDITIONAL(MUPNP_ENABLE_EXAMPLES,test "$build_examples" = yes)
 AC_ARG_ENABLE([tests], AC_HELP_STRING([--enable-tests], [ build tests (default = no) ]), [build_tests="yes"], [])
 AM_CONDITIONAL(MUPNP_ENABLE_TESTS,test "$build_tests" = yes)
 if [ test "$build_tests" = yes ]; then
-        AC_CHECK_LIB([boost_unit_test_framework-mt],[main],,[AC_MSG_ERROR(mUPnP unittests need boost::unit_test_framework)])
+	AC_CHECK_LIB([boost_unit_test_framework-mt],[main],,
+		[AC_CHECK_LIB([boost_unit_test_framework],[main],,[AC_MSG_ERROR(mUPnP needs boost::boost_unit_test_framework)])])
 fi
 
 ##############################

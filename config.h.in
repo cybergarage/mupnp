@@ -36,6 +36,10 @@
 /* IP_PKTINFO */
 #undef HAVE_IP_PKTINFO
 
+/* Define to 1 if you have the `boost_unit_test_framework' library
+   (-lboost_unit_test_framework). */
+#undef HAVE_LIBBOOST_UNIT_TEST_FRAMEWORK
+
 /* Define to 1 if you have the `boost_unit_test_framework-mt' library
    (-lboost_unit_test_framework-mt). */
 #undef HAVE_LIBBOOST_UNIT_TEST_FRAMEWORK_MT
