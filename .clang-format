@@ -4,4 +4,4 @@ IndentWidth: 2
 BinPackArguments: false
 BinPackParameters: false
 BreakBeforeBraces: Stroustrup
-PenaltyReturnTypeOnItsOwnLine: 200
+PenaltyReturnTypeOnItsOwnLine: 1024
