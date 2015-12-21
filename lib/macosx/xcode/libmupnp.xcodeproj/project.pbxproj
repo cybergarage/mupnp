@@ -138,11 +138,10 @@
 		216F03851A83C58E00165CB3 /* xml_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 216F03261A83C58E00165CB3 /* xml_parser.c */; };
 		216F03861A83C58E00165CB3 /* xml_parser_expat.c in Sources */ = {isa = PBXBuildFile; fileRef = 216F03271A83C58E00165CB3 /* xml_parser_expat.c */; };
 		216F03871A83C58E00165CB3 /* xml_parser_libxml2.c in Sources */ = {isa = PBXBuildFile; fileRef = 216F03281A83C58E00165CB3 /* xml_parser_libxml2.c */; };
-		21AA0F221331794D00A2338F /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 21AA0F211331794D00A2338F /* libxml2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		210AF4181331182E00A2EB09 /* liblibmupnp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibmupnp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		210AF4181331182E00A2EB09 /* libmupnp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmupnp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		216F020B1A83C57C00165CB3 /* action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = action.h; sourceTree = "<group>"; };
 		216F020C1A83C57C00165CB3 /* argument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = argument.h; sourceTree = "<group>"; };
 		216F020D1A83C57C00165CB3 /* controlpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = controlpoint.h; sourceTree = "<group>"; };
@@ -275,7 +274,6 @@
 		216F03261A83C58E00165CB3 /* xml_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xml_parser.c; sourceTree = "<group>"; };
 		216F03271A83C58E00165CB3 /* xml_parser_expat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xml_parser_expat.c; sourceTree = "<group>"; };
 		216F03281A83C58E00165CB3 /* xml_parser_libxml2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xml_parser_libxml2.c; sourceTree = "<group>"; };
-		21AA0F211331794D00A2338F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,7 +281,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21AA0F221331794D00A2338F /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,7 +290,6 @@
 		210AF40D1331182E00A2EB09 = {
 			isa = PBXGroup;
 			children = (
-				21AA0F211331794D00A2338F /* libxml2.dylib */,
 				2152CA5D13311C5C00229C13 /* Headers */,
 				2152CAB213311CAB00229C13 /* Sources */,
 				210AF4191331182E00A2EB09 /* Products */,
@@ -303,7 +299,7 @@
 		210AF4191331182E00A2EB09 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				210AF4181331182E00A2EB09 /* liblibmupnp.a */,
+				210AF4181331182E00A2EB09 /* libmupnp.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -679,7 +675,7 @@
 			);
 			name = libmupnp;
 			productName = clink;
-			productReference = 210AF4181331182E00A2EB09 /* liblibmupnp.a */;
+			productReference = 210AF4181331182E00A2EB09 /* libmupnp.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -875,7 +871,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_PREFIX = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -896,7 +892,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_PREFIX = "";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				HEADER_SEARCH_PATHS = (
 					"${SDKROOT}/usr/include/libxml2",
