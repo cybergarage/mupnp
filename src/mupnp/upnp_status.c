@@ -17,55 +17,59 @@
 * mupnp_status_new
 ****************************************/
 
-mUpnpStatus *mupnp_status_new()
+mUpnpStatus* mupnp_status_new()
 {
-	mUpnpStatus *upnpStat;
+  mUpnpStatus* upnpStat;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	upnpStat = (mUpnpStatus *)malloc(sizeof(mUpnpStatus));
+  upnpStat = (mUpnpStatus*)malloc(sizeof(mUpnpStatus));
 
-	if ( NULL != upnpStat )
-	{
-		upnpStat->code = 0;
-		upnpStat->description = mupnp_string_new();
-	}
+  if (NULL != upnpStat) {
+    upnpStat->code = 0;
+    upnpStat->description = mupnp_string_new();
+  }
 
-	return upnpStat;
+  return upnpStat;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_status_delete
 ****************************************/
 
-void mupnp_status_delete(mUpnpStatus *upnpStat)
+void mupnp_status_delete(mUpnpStatus* upnpStat)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_string_delete(upnpStat->description);
-	free(upnpStat);
+  mupnp_string_delete(upnpStat->description);
+  free(upnpStat);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_status_code2string
 ****************************************/
 
-char *mupnp_status_code2string(int code)
+char* mupnp_status_code2string(int code)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	switch (code) {
-	case MUPNP_STATUS_INVALID_ACTION: return "Invalid Action";
-	case MUPNP_STATUS_INVALID_ARGS: return "Invalid Args";
-	case MUPNP_STATUS_OUT_OF_SYNC: return "Out of Sync";
-	case MUPNP_STATUS_INVALID_VAR: return "Invalid Var";
-	case MUPNP_STATUS_ACTION_FAILED: return "Action Failed";
-	}
-	 return "";
+  switch (code) {
+  case MUPNP_STATUS_INVALID_ACTION:
+    return "Invalid Action";
+  case MUPNP_STATUS_INVALID_ARGS:
+    return "Invalid Args";
+  case MUPNP_STATUS_OUT_OF_SYNC:
+    return "Out of Sync";
+  case MUPNP_STATUS_INVALID_VAR:
+    return "Invalid Var";
+  case MUPNP_STATUS_ACTION_FAILED:
+    return "Action Failed";
+  }
+  return "";
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }

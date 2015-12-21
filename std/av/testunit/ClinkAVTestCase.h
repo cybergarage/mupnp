@@ -3,23 +3,19 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 
-class ClinkAVTestCase : public CPPUNIT_NS::TestFixture
-{
-  CPPUNIT_TEST_SUITE( ClinkAVTestCase );
+class ClinkAVTestCase : public CPPUNIT_NS::TestFixture {
+  CPPUNIT_TEST_SUITE(ClinkAVTestCase);
 
-  CPPUNIT_TEST( testRenderer );
+  CPPUNIT_TEST(testRenderer);
 
   CPPUNIT_TEST_SUITE_END();
 
-public:
+  public:
+  void setUp();
+  void tearDown();
 
-	void setUp();
-	void tearDown();
-
-protected:
-  
-	void testRenderer();
-
+  protected:
+  void testRenderer();
 };
 
 #endif

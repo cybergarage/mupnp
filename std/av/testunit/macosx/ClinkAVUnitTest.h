@@ -10,7 +10,7 @@
 #import <CyberLink/UPnPAV.h>
 
 @interface ClinkAVUnitTest : SenTestCase {
-	CGUpnpAvController *dmc;
+  CGUpnpAvController* dmc;
 }
 
 @end

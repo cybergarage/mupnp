@@ -14,7 +14,7 @@
 
 #include <mupnp/typedef.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -41,16 +41,16 @@ extern "C" {
  * \param uuidBuf The UUID created by this function (must not be NULL)
  * \return The UUID created by this function (== \e uuidBuf)
  */
-const char *mupnp_createuuid(char *uuidBuf, size_t uuidBufSize);
+const char* mupnp_createuuid(char* uuidBuf, size_t uuidBufSize);
 
 /**
- * Get the server name ("OSname/OSversion/UPnP/<version> CyberLinkC/<version>")
+ * Get the server name ("OSname/OSversion/UPnP/<version> mUPnP/<version>")
  *
  * \param buf Buffer to store the server name
  * \param bufSize Buffer length
  * \param The server name buffer (== \e buf)
  */
-const char *mupnp_getservername(char *buf, size_t bufSize);
+const char* mupnp_getservername(char* buf, size_t bufSize);
 
 /**
  * Enable/disable NMPR (Intel Networked Media Product Requirements) mode.
@@ -81,10 +81,10 @@ int mupnp_createbootid();
  *
  * \return CONFIGID
  */
-int mupnp_generateconfigid(const char *string);
+int mupnp_generateconfigid(const char* string);
 
-#ifdef  __cplusplus
-  
+#ifdef __cplusplus
+
 } /* extern "C" */
 
 #endif

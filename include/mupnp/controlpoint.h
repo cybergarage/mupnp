@@ -25,7 +25,7 @@
 #include <mupnp/event/event.h>
 #include <mupnp/event/notify.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -48,7 +48,7 @@ extern "C" {
 /** Definition for HTTP event default port */
 #define MUPNP_CONTROLPOINT_HTTP_EVENT_DEFAULT_PORT 39500
 
-/** Definition for default controlpoint event callback "location" */ 
+/** Definition for default controlpoint event callback "location" */
 #define MUPNP_CONTROLPOINT_HTTP_EVENTSUB_URI "/eventSub"
 
 /****************************************
@@ -68,12 +68,11 @@ extern "C" {
  * network in a proper way (i.e. with UPnP ByeBye messages). The user should
  * immediately cease using the device, because it will be removed in both cases.
  */
-typedef enum _mUpnpDeviceStatus
-{
-	mUpnpDeviceStatusAdded = 0,
-	mUpnpDeviceStatusUpdated,
-	mUpnpDeviceStatusInvalid,
-	mUpnpDeviceStatusRemoved
+typedef enum _mUpnpDeviceStatus {
+  mUpnpDeviceStatusAdded = 0,
+  mUpnpDeviceStatusUpdated,
+  mUpnpDeviceStatusInvalid,
+  mUpnpDeviceStatusRemoved
 } mUpnpDeviceStatus;
 
 /**
@@ -82,36 +81,36 @@ typedef enum _mUpnpDeviceStatus
  * @param udn The UDN of the device, that the status update concerns
  * @param status The new status
  */
-	
+
 typedef struct _mUpnpControlPoint {
-	mUpnpMutex *mutex;
-	mUpnpXmlNodeList *deviceRootNodeList;
-	mUpnpDeviceList *deviceList;
-	mUpnpSSDPServerList *ssdpServerList;
-	mUpnpSSDPResponseServerList *ssdpResServerList;
-	mUpnpHttpServerList *httpServerList;
-	void (*deviceListener)(struct _mUpnpControlPoint *, const char*, mUpnpDeviceStatus); /* MUPNP_DEVICE_LISTENER */
-	MUPNP_HTTP_LISTENER httpListener;
-	MUPNP_SSDP_LISTNER ssdpListener;
-	MUPNP_SSDP_RESPONSE_LISTNER ssdpResListener;
-	mUpnpEventListenerList* eventListeners;
-	int ssdpResPort;
-	mUpnpString *httpEventURI;
-	int httpEventPort;
-	int ssdpSearchMx;
-	void *userData;
-	
-	/* Expiration handling */
-	mUpnpThread *expThread;
-	mUpnpMutex *expMutex;
-	mUpnpCond *expCond;
-	
-	/** List of cached interfaces */
-	mUpnpNetworkInterfaceList *ifCache;
+  mUpnpMutex* mutex;
+  mUpnpXmlNodeList* deviceRootNodeList;
+  mUpnpDeviceList* deviceList;
+  mUpnpSSDPServerList* ssdpServerList;
+  mUpnpSSDPResponseServerList* ssdpResServerList;
+  mUpnpHttpServerList* httpServerList;
+  void (*deviceListener)(struct _mUpnpControlPoint*, const char*, mUpnpDeviceStatus); /* MUPNP_DEVICE_LISTENER */
+  MUPNP_HTTP_LISTENER httpListener;
+  MUPNP_SSDP_LISTNER ssdpListener;
+  MUPNP_SSDP_RESPONSE_LISTNER ssdpResListener;
+  mUpnpEventListenerList* eventListeners;
+  int ssdpResPort;
+  mUpnpString* httpEventURI;
+  int httpEventPort;
+  int ssdpSearchMx;
+  void* userData;
+
+  /* Expiration handling */
+  mUpnpThread* expThread;
+  mUpnpMutex* expMutex;
+  mUpnpCond* expCond;
+
+  /** List of cached interfaces */
+  mUpnpNetworkInterfaceList* ifCache;
 } mUpnpControlPoint;
 
-typedef void (*MUPNP_DEVICE_LISTENER)(mUpnpControlPoint *ctrlPoint, const char* udn, mUpnpDeviceStatus status);
-	
+typedef void (*MUPNP_DEVICE_LISTENER)(mUpnpControlPoint* ctrlPoint, const char* udn, mUpnpDeviceStatus status);
+
 /****************************************************************************
  * Control Point top-level control
  ****************************************************************************/
@@ -121,14 +120,14 @@ typedef void (*MUPNP_DEVICE_LISTENER)(mUpnpControlPoint *ctrlPoint, const char* 
  *
  * @return A newly-created mUpnpControlPoint
  */
-mUpnpControlPoint *mupnp_controlpoint_new();
+mUpnpControlPoint* mupnp_controlpoint_new();
 
 /**
  * Destroy the given control point
  *
  * @param ctrlPoint The control point struct to destroy
  */
-void mupnp_controlpoint_delete(mUpnpControlPoint *ctrlPoint);
+void mupnp_controlpoint_delete(mUpnpControlPoint* ctrlPoint);
 
 /**
  * Activate the control point. Starts listening for SSDP messages etc.
@@ -139,7 +138,7 @@ void mupnp_controlpoint_delete(mUpnpControlPoint *ctrlPoint);
  * @return true if successful; otherwise false
  *
  */
-bool mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint);
+bool mupnp_controlpoint_start(mUpnpControlPoint* ctrlPoint);
 
 /**
  * Stop the control point. Stops sending/receiveing/responding to any messages.
@@ -149,7 +148,7 @@ bool mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint);
  * @return true if successful; otherwise false
  *
  */
-bool mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint);
+bool mupnp_controlpoint_stop(mUpnpControlPoint* ctrlPoint);
 
 /**
 * Check if  the control point is activated.
@@ -159,8 +158,8 @@ bool mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint);
 * @return true if running; otherwise false
 *
 */
-bool mupnp_controlpoint_isrunning(mUpnpControlPoint *ctrlPoint);
-	
+bool mupnp_controlpoint_isrunning(mUpnpControlPoint* ctrlPoint);
+
 /****************************************************************************
  * Control Point locking
  ****************************************************************************/
@@ -182,9 +181,9 @@ bool mupnp_controlpoint_isrunning(mUpnpControlPoint *ctrlPoint);
  */
 
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
-#define mupnp_controlpoint_lock(ctrlPoint) mupnp_mutex_lock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, ctrlPoint->mutex)
+#define mupnp_controlpoint_lock(ctrlPoint) mupnp_mutex_lock_trace(__FILE__, __LINE__, __PRETTY_FUNCTION__, ctrlPoint->mutex)
 #else
-bool mupnp_controlpoint_lock(mUpnpControlPoint *ctrlPoint);
+bool mupnp_controlpoint_lock(mUpnpControlPoint* ctrlPoint);
 #endif
 /**
  * Release a previously locked control point mutex.
@@ -194,9 +193,9 @@ bool mupnp_controlpoint_lock(mUpnpControlPoint *ctrlPoint);
  * @param ctrlPoint The control point in question
  */
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
-#define mupnp_controlpoint_unlock(ctrlPoint) mupnp_mutex_unlock_trace(__FILE__,  __LINE__, __PRETTY_FUNCTION__, ctrlPoint->mutex)
+#define mupnp_controlpoint_unlock(ctrlPoint) mupnp_mutex_unlock_trace(__FILE__, __LINE__, __PRETTY_FUNCTION__, ctrlPoint->mutex)
 #else
-bool mupnp_controlpoint_unlock(mUpnpControlPoint *ctrlPoint);
+bool mupnp_controlpoint_unlock(mUpnpControlPoint* ctrlPoint);
 #endif
 
 /****************************************************************************
@@ -214,8 +213,7 @@ bool mupnp_controlpoint_unlock(mUpnpControlPoint *ctrlPoint);
  * @param exacttype Type of the device
  *
  */
-mUpnpDevice *mupnp_controlpoint_getdevicebyexacttype(mUpnpControlPoint *ctrlPoint,
-						   char *exacttype);
+mUpnpDevice* mupnp_controlpoint_getdevicebyexacttype(mUpnpControlPoint* ctrlPoint, const char* exacttype);
 
 /**
  * Find a device from the controlpoint by the type of the device.
@@ -228,8 +226,7 @@ mUpnpDevice *mupnp_controlpoint_getdevicebyexacttype(mUpnpControlPoint *ctrlPoin
  * @param type Type of the device
  *
  */
-mUpnpDevice *mupnp_controlpoint_getdevicebytype(mUpnpControlPoint *ctrlPoint,
-						   char *type);
+mUpnpDevice* mupnp_controlpoint_getdevicebytype(mUpnpControlPoint* ctrlPoint, const char* type);
 
 /**
  * Find a device from the controlpoint by the UDN of the device.
@@ -238,8 +235,7 @@ mUpnpDevice *mupnp_controlpoint_getdevicebytype(mUpnpControlPoint *ctrlPoint,
  * @param type Type of the device
  *
  */
-mUpnpDevice *mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint *ctrlPoint,
-						   char *udn);
+mUpnpDevice* mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint* ctrlPoint, const char* udn);
 
 /****************************************************************************
  * SSDP response
@@ -348,13 +344,7 @@ mUpnpDevice *mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param evlistener The callback function to set, that is of type @ref MUPNP_EVENT_LISTENER, or NULL
  */
-#define mupnp_controlpoint_seteventlistener(ctrlPoint, evlistener) \
-	do {\
-		if (evlistener == NULL) \
-			mupnp_eventlistenerlist_remove(ctrlPoint->eventListeners, ctrlPoint->eventListeners->next->listener); \
-		else \
-			mupnp_eventlistenerlist_add(ctrlPoint->eventListeners, evlistener); \
-	} while(0)
+bool mupnp_controlpoint_seteventlistener(mUpnpControlPoint* ctrlPoint, MUPNP_EVENT_LISTENER evlistener);
 
 /**
  * Get the single event listener for the control point.
@@ -436,7 +426,7 @@ mUpnpDevice *mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point in question
  * @param target The Search Target parameter (ex. "ssdp:all")
  */
-bool mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target);
+bool mupnp_controlpoint_search(mUpnpControlPoint* ctrlPoint, const char* target);
 
 /**
  * Set the MX-parameter used for SSDP searches i.e. Set the time to wait 
@@ -482,7 +472,7 @@ bool mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target)
  *
  * @param httpReq The received HTTP request
  */
-void mupnp_controlpoint_httprequestreceived(mUpnpHttpRequest *httpReq);
+void mupnp_controlpoint_httprequestreceived(mUpnpHttpRequest* httpReq);
 
 /**
  * When an event is received, update also the associated service's
@@ -492,12 +482,12 @@ void mupnp_controlpoint_httprequestreceived(mUpnpHttpRequest *httpReq);
  * @param prop The evented property from which to update
  */
 void mupnp_controlpoint_updatestatetablefromproperty(mUpnpService* service,
-						       mUpnpProperty* prop);
-						       
+    mUpnpProperty* prop);
+
 /****************************************************************************
  * User Data
  ****************************************************************************/
- 
+
 /**
  * Set the user data pointer (arbitrary user data) to the control point.
  * 
@@ -525,7 +515,7 @@ void mupnp_controlpoint_updatestatetablefromproperty(mUpnpService* service,
  * @param service The service in question
  * @return true if successful; otherwise false
  */
-bool mupnp_controlpoint_parsescservicescpd(mUpnpService *service);
+bool mupnp_controlpoint_parsescservicescpd(mUpnpService* service);
 
 /**
  * Parse the device's services using the received SSDP packet. Do not call this
@@ -534,7 +524,7 @@ bool mupnp_controlpoint_parsescservicescpd(mUpnpService *service);
  * @param dev The device in question
  * @param ssdpPkt An SSDP packet
  */
-bool mupnp_controlpoint_parseservicesfordevice(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt);
+bool mupnp_controlpoint_parseservicesfordevice(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt);
 
 /****************************************************************************
  * Device adding/removal by SSDP packets
@@ -547,8 +537,8 @@ bool mupnp_controlpoint_parseservicesfordevice(mUpnpDevice *dev, mUpnpSSDPPacket
  * @param ctrlPoint The control point, whose device list to handle
  * @param ssdpPkt The received SSDP packet
  */
-void mupnp_controlpoint_adddevicebyssdppacket(mUpnpControlPoint *ctrlPoint,
-						mUpnpSSDPPacket *ssdpPkt);
+void mupnp_controlpoint_adddevicebyssdppacket(mUpnpControlPoint* ctrlPoint,
+    mUpnpSSDPPacket* ssdpPkt);
 
 /**
  * Remove a device on the basis of an SSDP packet. Do not call this from user
@@ -557,8 +547,8 @@ void mupnp_controlpoint_adddevicebyssdppacket(mUpnpControlPoint *ctrlPoint,
  * @param ctrlPoint The control point, whose device list to handle
  * @param ssdpPkt The received SSDP packet
  */
-void mupnp_controlpoint_removedevicebyssdppacket(mUpnpControlPoint *ctrlPoint,
-						   mUpnpSSDPPacket *ssdpPkt);
+void mupnp_controlpoint_removedevicebyssdppacket(mUpnpControlPoint* ctrlPoint,
+    mUpnpSSDPPacket* ssdpPkt);
 
 /****************************************
  * Subscription
@@ -572,7 +562,7 @@ void mupnp_controlpoint_removedevicebyssdppacket(mUpnpControlPoint *ctrlPoint,
  * @param timeout Timeout for subscription expiration/renewal
  * @return true if successful; otherwise false
  */
-bool mupnp_controlpoint_subscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service, long timeout);
+bool mupnp_controlpoint_subscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* service, long timeout);
 
 /**
  * Re-subscribe to a service's events (i.e. renew subscription)
@@ -582,7 +572,7 @@ bool mupnp_controlpoint_subscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *se
  * @param timeout Timeout for subscription expiration/renewal
  * @return true if successful; otherwise false
  */
-bool mupnp_controlpoint_resubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service, long timeout);
+bool mupnp_controlpoint_resubscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* service, long timeout);
 
 /**
  * Unsubscribe to a service's events (i.e. cancel subscription)
@@ -591,7 +581,7 @@ bool mupnp_controlpoint_resubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *
  * @param service The service to unsubscribe to
  * @return true if successful; otherwise false
  */
-bool mupnp_controlpoint_unsubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service);
+bool mupnp_controlpoint_unsubscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* service);
 
 /**
  * Subscribe to all of the device's services' events
@@ -601,7 +591,7 @@ bool mupnp_controlpoint_unsubscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *
  * @param timeout Timeout for subscription expiration/renewal
  * @return true if successful; otherwise false
  */
-bool mupnp_controlpoint_subscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev, long timeout);
+bool mupnp_controlpoint_subscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice* dev, long timeout);
 
 /**
  * Re-subscribe to all of the device's services' events (i.e. renew subscription)
@@ -611,7 +601,7 @@ bool mupnp_controlpoint_subscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *
  * @param timeout Timeout for subscription expiration/renewal
  * @return true if successful; otherwise false
  */
-bool mupnp_controlpoint_resubscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev, long timeout);
+bool mupnp_controlpoint_resubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice* dev, long timeout);
 
 /**
  * Unsubscribe to all of the device's services' events (i.e. cancel subscription)
@@ -620,7 +610,7 @@ bool mupnp_controlpoint_resubscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice
  * @param dev The device to unsubscribe to
  * @return true if successful; otherwise false
  */
-bool mupnp_controlpoint_unsubscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice *dev);
+bool mupnp_controlpoint_unsubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice* dev);
 
 /****************************************
  * Function (DeviceList)
@@ -669,7 +659,7 @@ bool mupnp_controlpoint_unsubscribeall(mUpnpControlPoint *ctrlPoint, mUpnpDevice
  *
  * \param thread the thread in question
  */
-void mupnp_controlpoint_expirationhandler(mUpnpThread *thread);
+void mupnp_controlpoint_expirationhandler(mUpnpThread* thread);
 
 /**
  * Notify the control point that any IP of the host has been changed.
@@ -677,17 +667,16 @@ void mupnp_controlpoint_expirationhandler(mUpnpThread *thread);
  * \param ctrlpoint The control point in use
  * \return success of changing used interfaces
  */
-bool mupnp_controlpoint_ipchanged(mUpnpControlPoint *ctrlpoint);
-
+bool mupnp_controlpoint_ipchanged(mUpnpControlPoint* ctrlpoint);
 
 /**
  * Get the event subscription callback URI
  *
  * @param ctrlPoint The control point in question
  */
-const char *mupnp_controlpoint_geteventsubcallbackurl(mUpnpControlPoint *ctrlPoint, char *ifaddr, char *buf, size_t bufLen);
+const char* mupnp_controlpoint_geteventsubcallbackurl(mUpnpControlPoint* ctrlPoint, char* ifaddr, char* buf, size_t bufLen);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

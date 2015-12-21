@@ -684,7 +684,7 @@
 		210AF40F1331182E00A2EB09 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0710;
 			};
 			buildConfigurationList = 210AF4121331182E00A2EB09 /* Build configuration list for PBXProject "libmupnp" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -822,6 +822,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;

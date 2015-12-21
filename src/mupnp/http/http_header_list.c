@@ -16,104 +16,103 @@
 * mupnp_http_headerlist_new
 ****************************************/
 
-mUpnpHttpHeaderList *mupnp_http_headerlist_new()
+mUpnpHttpHeaderList* mupnp_http_headerlist_new()
 {
-	mUpnpHttpHeaderList *headerList;
+  mUpnpHttpHeaderList* headerList;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	headerList = (mUpnpHttpHeaderList *)malloc(sizeof(mUpnpHttpHeaderList));
+  headerList = (mUpnpHttpHeaderList*)malloc(sizeof(mUpnpHttpHeaderList));
 
-	if ( NULL != headerList )
-	{
-		mupnp_list_header_init((mUpnpList *)headerList);
-		headerList->name = NULL;
-		headerList->value = NULL;
-	}
+  if (NULL != headerList) {
+    mupnp_list_header_init((mUpnpList*)headerList);
+    headerList->name = NULL;
+    headerList->value = NULL;
+  }
 
-	return headerList;
+  return headerList;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_http_headerlist_delete
 ****************************************/
 
-void mupnp_http_headerlist_delete(mUpnpHttpHeaderList *headerList)
+void mupnp_http_headerlist_delete(mUpnpHttpHeaderList* headerList)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_http_headerlist_clear(headerList);
-	free(headerList);
+  mupnp_http_headerlist_clear(headerList);
+  free(headerList);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_http_headerlist_getheader
 ****************************************/
 
-mUpnpHttpHeader *mupnp_http_headerlist_get(mUpnpHttpHeaderList *headerList, const char *name)
+mUpnpHttpHeader* mupnp_http_headerlist_get(mUpnpHttpHeaderList* headerList, const char* name)
 {
-	mUpnpHttpHeader *header;
-	const char *headerName;
-		
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpHttpHeader* header;
+  const char* headerName;
 
-	if (name == NULL)
-		return NULL;
-		
-	for (header = mupnp_http_headerlist_gets(headerList); header != NULL; header = mupnp_http_header_next(header)) {
-		headerName = mupnp_http_header_getname(header);
-		if (headerName == NULL)
-			continue;
-		if (mupnp_strcasecmp(headerName, name) == 0)
-			return header;
-	}
-	
-	return NULL;
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_log_debug_l4("Leaving...\n");
+  if (name == NULL)
+    return NULL;
+
+  for (header = mupnp_http_headerlist_gets(headerList); header != NULL; header = mupnp_http_header_next(header)) {
+    headerName = mupnp_http_header_getname(header);
+    if (headerName == NULL)
+      continue;
+    if (mupnp_strcasecmp(headerName, name) == 0)
+      return header;
+  }
+
+  return NULL;
+
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_http_headerlist_setheader
 ****************************************/
 
-void mupnp_http_headerlist_set(mUpnpHttpHeaderList *headerList, const char *name, const char *value)
+void mupnp_http_headerlist_set(mUpnpHttpHeaderList* headerList, const char* name, const char* value)
 {
-	mUpnpHttpHeader *header;
-	
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpHttpHeader* header;
 
-	header = mupnp_http_headerlist_get(headerList, name);
-	if (header == NULL) {
-		header = mupnp_http_header_new();
-		mupnp_http_headerlist_add(headerList, header);
-		mupnp_http_header_setname(header, name);
-	}
-	
-	mupnp_http_header_setvalue(header, value);
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_log_debug_l4("Leaving...\n");
+  header = mupnp_http_headerlist_get(headerList, name);
+  if (header == NULL) {
+    header = mupnp_http_header_new();
+    mupnp_http_headerlist_add(headerList, header);
+    mupnp_http_header_setname(header, name);
+  }
+
+  mupnp_http_header_setvalue(header, value);
+
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_http_headerlist_setheader
 ****************************************/
 
-const char *mupnp_http_headerlist_getvalue(mUpnpHttpHeaderList *headerList, const char *name)
+const char* mupnp_http_headerlist_getvalue(mUpnpHttpHeaderList* headerList, const char* name)
 {
-	mUpnpHttpHeader *header;
-	
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpHttpHeader* header;
 
-	header = mupnp_http_headerlist_get(headerList, name);
-	if (header != NULL)
-		return mupnp_http_header_getvalue(header);
-		
-	return NULL;
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_log_debug_l4("Leaving...\n");
+  header = mupnp_http_headerlist_get(headerList, name);
+  if (header != NULL)
+    return mupnp_http_header_getvalue(header);
+
+  return NULL;
+
+  mupnp_log_debug_l4("Leaving...\n");
 }

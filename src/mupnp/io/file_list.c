@@ -19,40 +19,38 @@
 * mupnp_filelist_new
 ****************************************/
 
-mUpnpFileList *mupnp_filelist_new()
+mUpnpFileList* mupnp_filelist_new()
 {
-	mUpnpFileList *fileList;
+  mUpnpFileList* fileList;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	fileList = (mUpnpFileList *)malloc(sizeof(mUpnpFileList));
+  fileList = (mUpnpFileList*)malloc(sizeof(mUpnpFileList));
 
-	if ( NULL != fileList )
-	{
-		mupnp_list_header_init((mUpnpList *)fileList);
-		fileList->name = NULL;
-		fileList->path = NULL;
-		fileList->content = NULL;
-	}
+  if (NULL != fileList) {
+    mupnp_list_header_init((mUpnpList*)fileList);
+    fileList->name = NULL;
+    fileList->path = NULL;
+    fileList->content = NULL;
+  }
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 
-	return fileList;
+  return fileList;
 }
 
 /****************************************
 * mupnp_filelist_delete
 ****************************************/
 
-void mupnp_filelist_delete(mUpnpFileList *fileList)
+void mupnp_filelist_delete(mUpnpFileList* fileList)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	mupnp_filelist_clear(fileList);
-	free(fileList);
+  mupnp_filelist_clear(fileList);
+  free(fileList);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 #endif
-

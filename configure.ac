@@ -9,7 +9,7 @@
 AC_CONFIG_AUX_DIR(config)
 AM_CONFIG_HEADER(config.h)
 
-AC_INIT([mupnp], [2.4])
+AC_INIT([mupnp],[3.0.2])
 AC_CONFIG_SRCDIR([include/mupnp/typedef.h])
 AM_INIT_AUTOMAKE([subdir-objects])
 
@@ -576,7 +576,8 @@ AM_CONDITIONAL(MUPNP_ENABLE_EXAMPLES,test "$build_examples" = yes)
 AC_ARG_ENABLE([tests], AC_HELP_STRING([--enable-tests], [ build tests (default = no) ]), [build_tests="yes"], [])
 AM_CONDITIONAL(MUPNP_ENABLE_TESTS,test "$build_tests" = yes)
 if [ test "$build_tests" = yes ]; then
-        AC_CHECK_LIB([boost_unit_test_framework-mt],[main],,[AC_MSG_ERROR(mUPnP unittests need boost::unit_test_framework)])
+	AC_CHECK_LIB([boost_unit_test_framework-mt],[main],,
+		[AC_CHECK_LIB([boost_unit_test_framework],[main],,[AC_MSG_ERROR(mUPnP needs boost::boost_unit_test_framework)])])
 fi
 
 ##############################

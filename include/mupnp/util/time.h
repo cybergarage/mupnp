@@ -21,7 +21,7 @@
 #include <kernel.h>
 #endif
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -29,7 +29,7 @@ extern "C" {
 * Define
 ****************************************/
 
-#if defined(BTRON) || defined(ITRON) 
+#if defined(BTRON) || defined(ITRON)
 typedef size_t mUpnpTime;
 #else
 typedef long mUpnpTime;
@@ -49,7 +49,7 @@ void mupnp_waitrandom(mUpnpTime mtime);
 
 mUpnpTime mupnp_getcurrentsystemtime();
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

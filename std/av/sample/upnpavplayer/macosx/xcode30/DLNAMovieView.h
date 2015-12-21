@@ -10,11 +10,10 @@
 
 @class DLNAController;
 
-@interface DLNAImageView : NSImageView
-{
-	DLNAController *controller;
+@interface DLNAImageView : NSImageView {
+  DLNAController* controller;
 }
-@property(readwrite,retain) DLNAController *controller;
+@property (readwrite, retain) DLNAController* controller;
 - (id)initWithFrame:(NSRect)frameRect;
-- (void)mouseDown:(NSEvent *)theEvent;
+- (void)mouseDown:(NSEvent*)theEvent;
 @end

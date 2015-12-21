@@ -17,7 +17,7 @@
 
 #include <mupnp/util/time.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -31,12 +31,12 @@ extern "C" {
 * Function
 ****************************************/
 
-char *GetSystemTimeString(mUpnpTime currTime, char *buf);
-char *GetDateString(mUpnpTime currTime, char *buf);
-char *GetTimeString(mUpnpTime currTime, char *buf);
+char* GetSystemTimeString(mUpnpTime currTime, char* buf);
+char* GetDateString(mUpnpTime currTime, char* buf);
+char* GetTimeString(mUpnpTime currTime, char* buf);
 int GetSecond(mUpnpTime currTime);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

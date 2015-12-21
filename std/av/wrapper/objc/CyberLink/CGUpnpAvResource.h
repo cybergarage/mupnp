@@ -11,29 +11,28 @@
 /**
  * The CGUpnpAvResource class is a wrapper class for CgUpnpAction of CyberLink for C.
  */
-@interface CGUpnpAvResource : CGXmlNode 
-{
+@interface CGUpnpAvResource : CGXmlNode {
 }
 - (id)init;
-#if  !defined(TARGET_OS_IPHONE)
-- (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
+#if !defined(TARGET_OS_IPHONE)
+- (id)initWithXMLNode:(NSXMLElement*)aXmlNode;
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
+- (id)initWithXMLNode:(CgXmlNode*)aXmlNode;
 #endif
-- (NSString *)url;
+- (NSString*)url;
 - (long long)size;
-- (NSString *)protocolInfo;
-- (NSString *)protocolInfoAtIndex:(NSUInteger)anIndex;
-- (NSString *)protocol;
-- (NSString *)network;
-- (NSString *)contentFormat;
-- (NSString *)mimeType;
-- (NSString *)extention;
-- (NSString *)additionalInfo;
-- (NSString *)additionalInfoForKey:(NSString*)aKey;
-- (NSString *)dlnaOrgPn;
-- (NSString *)dlnaOrgOp;
-- (NSString *)dlnaOrgFlags;
+- (NSString*)protocolInfo;
+- (NSString*)protocolInfoAtIndex:(NSUInteger)anIndex;
+- (NSString*)protocol;
+- (NSString*)network;
+- (NSString*)contentFormat;
+- (NSString*)mimeType;
+- (NSString*)extention;
+- (NSString*)additionalInfo;
+- (NSString*)additionalInfoForKey:(NSString*)aKey;
+- (NSString*)dlnaOrgPn;
+- (NSString*)dlnaOrgOp;
+- (NSString*)dlnaOrgFlags;
 - (CGSize)resolution;
 - (BOOL)isThumbnail;
 - (BOOL)isSmallImage;
@@ -44,4 +43,3 @@
 - (BOOL)isVideo;
 - (BOOL)isAudio;
 @end
-

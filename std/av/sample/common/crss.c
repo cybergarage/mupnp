@@ -25,146 +25,146 @@
 * mupnp_http_getrestresponse
 ************************************************************/
 
-mUpnpMediaContent *mupnp_http_getrsscontents(char *rssURL)
+mUpnpMediaContent* mupnp_http_getrsscontents(char* rssURL)
 {
-	mUpnpString *content_str;
-	char *content_string;
-	mUpnpXmlParser *xmlParser;
-	mUpnpXmlNodeList *nodeList;
-	mUpnpXmlNode *rootNode;
-	mUpnpXmlNode *channelNode;
-	mUpnpXmlNode *node;
-	mUpnpXmlNode *childNode;
-	char *container_title;
-	char *content_title;
-	char *contentURL;
-	char containerID[CG_MD5_STRING_BUF_SIZE];
-	char contentID[CG_MD5_STRING_BUF_SIZE];
-	long contentSize;
-	int nContentent;
-	char *contentMimeType;
-	mUpnpMediaContent *content;
-	mUpnpMediaContent *container;
-	mUpnpMediaResource *res;
+  mUpnpString* content_str;
+  char* content_string;
+  mUpnpXmlParser* xmlParser;
+  mUpnpXmlNodeList* nodeList;
+  mUpnpXmlNode* rootNode;
+  mUpnpXmlNode* channelNode;
+  mUpnpXmlNode* node;
+  mUpnpXmlNode* childNode;
+  char* container_title;
+  char* content_title;
+  char* contentURL;
+  char containerID[CG_MD5_STRING_BUF_SIZE];
+  char contentID[CG_MD5_STRING_BUF_SIZE];
+  long contentSize;
+  int nContentent;
+  char* contentMimeType;
+  mUpnpMediaContent* content;
+  mUpnpMediaContent* container;
+  mUpnpMediaResource* res;
 
-	content_str = mupnp_string_new();
+  content_str = mupnp_string_new();
 
-	if (!mupnp_http_getrestresponse(rssURL, content_str)) {
-		mupnp_string_delete(content_str);
-		return NULL;
-	}
+  if (!mupnp_http_getrestresponse(rssURL, content_str)) {
+    mupnp_string_delete(content_str);
+    return NULL;
+  }
 
-	content_string = mupnp_string_getvalue(content_str);
-	if (mupnp_strlen(content_string) <= 0) {
-		mupnp_string_delete(content_str);
-		return NULL;
-	}
+  content_string = mupnp_string_getvalue(content_str);
+  if (mupnp_strlen(content_string) <= 0) {
+    mupnp_string_delete(content_str);
+    return NULL;
+  }
 
-	nodeList = mupnp_xml_nodelist_new();
-	xmlParser = mupnp_xml_parser_new();
-	if (mupnp_xml_parse(xmlParser, nodeList, content_string, mupnp_strlen(content_string)) == FALSE) {
-		mupnp_string_delete(content_str);
-		mupnp_xml_parser_delete(xmlParser);
-		mupnp_xml_nodelist_delete(nodeList); 
-		return NULL;
-	}
+  nodeList = mupnp_xml_nodelist_new();
+  xmlParser = mupnp_xml_parser_new();
+  if (mupnp_xml_parse(xmlParser, nodeList, content_string, mupnp_strlen(content_string)) == FALSE) {
+    mupnp_string_delete(content_str);
+    mupnp_xml_parser_delete(xmlParser);
+    mupnp_xml_nodelist_delete(nodeList);
+    return NULL;
+  }
 
-	mupnp_string_delete(content_str);
-	mupnp_xml_parser_delete(xmlParser);
+  mupnp_string_delete(content_str);
+  mupnp_xml_parser_delete(xmlParser);
 
-	nContentent = 0;
-	rootNode = mupnp_xml_nodelist_gets(nodeList);
-	if (rootNode == NULL) {
-		mupnp_xml_nodelist_delete(rootNode); 
-		return NULL;
-	}
+  nContentent = 0;
+  rootNode = mupnp_xml_nodelist_gets(nodeList);
+  if (rootNode == NULL) {
+    mupnp_xml_nodelist_delete(rootNode);
+    return NULL;
+  }
 
-	channelNode = mupnp_xml_node_getchildnode(rootNode, "channel");
-	if (channelNode == NULL) {
-		mupnp_xml_nodelist_delete(rootNode); 
-		return NULL;
-	}
+  channelNode = mupnp_xml_node_getchildnode(rootNode, "channel");
+  if (channelNode == NULL) {
+    mupnp_xml_nodelist_delete(rootNode);
+    return NULL;
+  }
 
-	/**** container ****/
+  /**** container ****/
 
-	// Title
-	container_title = "";
-	childNode = mupnp_xml_node_getchildnode(channelNode, "title");
-	if (childNode) {
-		if (mupnp_xml_node_getvalue(childNode))
-			container_title = mupnp_xml_node_getvalue(childNode);
-	}
+  // Title
+  container_title = "";
+  childNode = mupnp_xml_node_getchildnode(channelNode, "title");
+  if (childNode) {
+    if (mupnp_xml_node_getvalue(childNode))
+      container_title = mupnp_xml_node_getvalue(childNode);
+  }
 
-	if (mupnp_strlen(container_title) <= 0) {
-		mupnp_xml_nodelist_delete(rootNode); 
-		return NULL;
-	}
+  if (mupnp_strlen(container_title) <= 0) {
+    mupnp_xml_nodelist_delete(rootNode);
+    return NULL;
+  }
 
-	container = mupnp_media_content_new();
-	mupnp_media_content_settype(container, MUPNP_MEDIA_CONTENT_CONTAINER);
-	mupnp_media_content_settitle(container, container_title);
-	mupnp_str2md5(container_title, containerID);
-	mupnp_media_content_setid(container, containerID);
+  container = mupnp_media_content_new();
+  mupnp_media_content_settype(container, MUPNP_MEDIA_CONTENT_CONTAINER);
+  mupnp_media_content_settitle(container, container_title);
+  mupnp_str2md5(container_title, containerID);
+  mupnp_media_content_setid(container, containerID);
 
-	/**** item ****/
-	for (node=mupnp_xml_node_getchildnodes(channelNode); node; node = mupnp_xml_node_next(node)) {
-		
-		if (!mupnp_xml_node_isname(node, "item"))
-			continue;
+  /**** item ****/
+  for (node = mupnp_xml_node_getchildnodes(channelNode); node; node = mupnp_xml_node_next(node)) {
 
-		content_title = "";
-		contentURL = "";
-		contentSize = 0;
+    if (!mupnp_xml_node_isname(node, "item"))
+      continue;
 
-		// Title
-		childNode = mupnp_xml_node_getchildnode(node, "title");
-		if (childNode) {
-			if (mupnp_xml_node_getvalue(childNode))
-				content_title = mupnp_xml_node_getvalue(childNode);
-		}
+    content_title = "";
+    contentURL = "";
+    contentSize = 0;
 
-		// Enclosure
-		childNode = mupnp_xml_node_getchildnode(node, "enclosure");
-		if (childNode) {
-			// url
-			if (mupnp_xml_node_getattributevalue(childNode, "url"))
-				contentURL = mupnp_xml_node_getattributevalue(childNode, "url");
-			// type
-			if (mupnp_xml_node_getattributevalue(childNode, "type"))
-				contentMimeType = mupnp_xml_node_getattributevalue(childNode, "type");
-			// type
-			if (mupnp_xml_node_getattributevalue(childNode, "length"))
-				contentSize = atol(mupnp_xml_node_getattributevalue(childNode, "length"));
-		}
+    // Title
+    childNode = mupnp_xml_node_getchildnode(node, "title");
+    if (childNode) {
+      if (mupnp_xml_node_getvalue(childNode))
+        content_title = mupnp_xml_node_getvalue(childNode);
+    }
 
-		if (mupnp_strlen(content_title) <= 0 || mupnp_strlen(contentURL) <= 0)
-			continue;
+    // Enclosure
+    childNode = mupnp_xml_node_getchildnode(node, "enclosure");
+    if (childNode) {
+      // url
+      if (mupnp_xml_node_getattributevalue(childNode, "url"))
+        contentURL = mupnp_xml_node_getattributevalue(childNode, "url");
+      // type
+      if (mupnp_xml_node_getattributevalue(childNode, "type"))
+        contentMimeType = mupnp_xml_node_getattributevalue(childNode, "type");
+      // type
+      if (mupnp_xml_node_getattributevalue(childNode, "length"))
+        contentSize = atol(mupnp_xml_node_getattributevalue(childNode, "length"));
+    }
 
-		content = mupnp_media_content_new();
-		mupnp_media_content_settype(content, MUPNP_MEDIA_CONTENT_ITEM);
+    if (mupnp_strlen(content_title) <= 0 || mupnp_strlen(contentURL) <= 0)
+      continue;
 
-		/**** content name ****/
-		content_title = mupnp_strtrim(content_title, " ", 1);
-		if (mupnp_strlen(content_title) <= 0) {
-			continue;
-		}
-		mupnp_media_content_settitle(content, content_title);
+    content = mupnp_media_content_new();
+    mupnp_media_content_settype(content, MUPNP_MEDIA_CONTENT_ITEM);
 
-		/**** content id ****/
-		mupnp_str2md5(contentURL, contentID);
-		mupnp_media_content_setid(content, contentID);
-		mupnp_media_content_addchildcontent(container, content);
+    /**** content name ****/
+    content_title = mupnp_strtrim(content_title, " ", 1);
+    if (mupnp_strlen(content_title) <= 0) {
+      continue;
+    }
+    mupnp_media_content_settitle(content, content_title);
 
-		res = mupnp_media_resource_new();
-		mupnp_media_resource_setmimetype(res, contentMimeType);
-		mupnp_media_resource_seturl(res, contentURL);
-		mupnp_media_resource_setsize(res, contentSize);
-		mupnp_media_content_addresource(content, res);
+    /**** content id ****/
+    mupnp_str2md5(contentURL, contentID);
+    mupnp_media_content_setid(content, contentID);
+    mupnp_media_content_addchildcontent(container, content);
 
-		nContentent++;
-	}
+    res = mupnp_media_resource_new();
+    mupnp_media_resource_setmimetype(res, contentMimeType);
+    mupnp_media_resource_seturl(res, contentURL);
+    mupnp_media_resource_setsize(res, contentSize);
+    mupnp_media_content_addresource(content, res);
 
-	mupnp_xml_nodelist_delete(nodeList);
+    nContentent++;
+  }
 
-	return container;
+  mupnp_xml_nodelist_delete(nodeList);
+
+  return container;
 }

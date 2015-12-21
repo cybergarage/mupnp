@@ -1,0 +1,2 @@
+#!/bin/sh
+./version.h.gen > version.h

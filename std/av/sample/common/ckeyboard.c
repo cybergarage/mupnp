@@ -24,7 +24,7 @@
 #include <sys/ioctl.h>
 #endif
 
-#if defined (__CYGWIN__) && !defined(FIONREAD)
+#if defined(__CYGWIN__) && !defined(FIONREAD)
 #include <winsock2.h>
 #include <windows.h>
 #endif
@@ -45,36 +45,35 @@ static struct termios orgTermAttr;
 void mupnp_kb_init()
 {
 #if !defined(WIN32) && !defined(__MINGW32__)
-	struct termios termAttr;
-	tcgetattr(0, &orgTermAttr);
-	termAttr = orgTermAttr;
-	termAttr.c_lflag &= ~(ICANON | ECHO);
-	termAttr.c_cc[VTIME] = 0;
-	termAttr.c_cc[VMIN] = 1;
-	tcsetattr(0, TCSANOW, &termAttr);
+  struct termios termAttr;
+  tcgetattr(0, &orgTermAttr);
+  termAttr = orgTermAttr;
+  termAttr.c_lflag &= ~(ICANON | ECHO);
+  termAttr.c_cc[VTIME] = 0;
+  termAttr.c_cc[VMIN] = 1;
+  tcsetattr(0, TCSANOW, &termAttr);
 #endif
 }
 
 int mupnp_kb_hit()
 {
 #if !defined(WIN32) && !defined(__MINGW32__)
-	int ret, n;
-	ret = ioctl(0, FIONREAD, &n);
-	if (ret != -1)
-		return n;
+  int ret, n;
+  ret = ioctl(0, FIONREAD, &n);
+  if (ret != -1)
+    return n;
 #endif
-	return 0;
+  return 0;
 }
 
 int mupnp_kb_key()
 {
-	return 0;
+  return 0;
 }
 
 void mupnp_kb_exit()
 {
 #if !defined(WIN32) && !defined(__MINGW32__)
-	tcsetattr(0, TCSANOW, &orgTermAttr);
+  tcsetattr(0, TCSANOW, &orgTermAttr);
 #endif
 }
-

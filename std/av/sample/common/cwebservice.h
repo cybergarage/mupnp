@@ -16,16 +16,16 @@
 #ifndef _CG_UPNPAV_WEBSERVICE_H_
 #define _CG_UPNPAV_WEBSERVICE_H_
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
 #include <mupnp/util/string.h>
 
-BOOL mupnp_http_getrestresponse(char *url, mUpnpString *str);
-BOOL mupnp_http_getredirecturl(char *orgURL, char *redirectURL, int redirectURLSize);
+BOOL mupnp_http_getrestresponse(char* url, mUpnpString* str);
+BOOL mupnp_http_getredirecturl(char* orgURL, char* redirectURL, int redirectURLSize);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

@@ -20,8 +20,7 @@
  * program using only Objective-C directly on MacOSX.
  * Currently, the only basic methods are wrapped to control UPnP devices.
  */
-@interface CGUpnpAvController : CGUpnpControlPoint 
-{
+@interface CGUpnpAvController : CGUpnpControlPoint {
 }
 /**
  * Activate some background threads of the control point such as SSDP and 
@@ -31,18 +30,18 @@
  * @return TRUE if successful; otherwise FALSE
  *
  */
-- (NSArray *)servers;
-- (CGUpnpAvServer *)serverForUDN:(NSString *)aUdn;
-- (CGUpnpAvServer *)serverForFriendlyName:(NSString *)aFriendlyName;
-- (CGUpnpAvServer *)serverForPath:(NSString *)aPath;
-- (CGUpnpAvServer *)serverForIndexPath:(NSIndexPath *)aIndexPath;
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aServerAndTitlePath;
-- (CGUpnpAvObject *)objectForIndexPath:(NSIndexPath *)aServerAndTitleIndexPath;
-- (NSArray *)browseDirectChildrenWithTitlePath:(NSString *)aServerAndTitlePath;
-- (NSArray *)browseDirectChildrenWithIndexPath:(NSIndexPath *)aServerAndTitleIndexPath;
+- (NSArray*)servers;
+- (CGUpnpAvServer*)serverForUDN:(NSString*)aUdn;
+- (CGUpnpAvServer*)serverForFriendlyName:(NSString*)aFriendlyName;
+- (CGUpnpAvServer*)serverForPath:(NSString*)aPath;
+- (CGUpnpAvServer*)serverForIndexPath:(NSIndexPath*)aIndexPath;
+- (CGUpnpAvObject*)objectForTitlePath:(NSString*)aServerAndTitlePath;
+- (CGUpnpAvObject*)objectForIndexPath:(NSIndexPath*)aServerAndTitleIndexPath;
+- (NSArray*)browseDirectChildrenWithTitlePath:(NSString*)aServerAndTitlePath;
+- (NSArray*)browseDirectChildrenWithIndexPath:(NSIndexPath*)aServerAndTitleIndexPath;
 
-- (NSArray *)renderers;
-- (CGUpnpAvRenderer *)rendererForUDN:(NSString *)aUdn;
+- (NSArray*)renderers;
+- (CGUpnpAvRenderer*)rendererForUDN:(NSString*)aUdn;
 
 - (void)search;
 

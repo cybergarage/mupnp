@@ -19,33 +19,33 @@
 * mupnp_service_ssdpmessagereceived
 ****************************************/
 
-void mupnp_service_ssdpmessagereceived(mUpnpService *service, mUpnpSSDPPacket *ssdpPkt)
+void mupnp_service_ssdpmessagereceived(mUpnpService* service, mUpnpSSDPPacket* ssdpPkt)
 {
-	mUpnpDevice *dev;
-	const char *ssdpST;
-	const char *serviceType;
-	char serviceNT[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
-	char serviceUSN[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
-	
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpDevice* dev;
+  const char* ssdpST;
+  const char* serviceType;
+  char serviceNT[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
+  char serviceUSN[MUPNP_SSDP_HEADER_LINE_MAXSIZE];
 
-	ssdpST = mupnp_ssdp_packet_getst(ssdpPkt);
-	if (mupnp_strlen(ssdpST) <= 0)
-		return;
+  mupnp_log_debug_l4("Entering...\n");
 
-	dev = mupnp_service_getdevice(service);
+  ssdpST = mupnp_ssdp_packet_getst(ssdpPkt);
+  if (mupnp_strlen(ssdpST) <= 0)
+    return;
 
-	mupnp_service_getnotifyservicetypent(service, serviceNT, sizeof(serviceNT));
-	mupnp_service_getnotifyservicetypeusn(service, serviceUSN, sizeof(serviceUSN));
-	
-	if (mupnp_st_isalldevice(ssdpST) == true) {
-			mupnp_device_postsearchresponse(dev, ssdpPkt, serviceNT, serviceUSN);
-	}
-	else if (mupnp_st_isurn(ssdpST)  == true) {
-		serviceType = mupnp_service_getservicetype(service);
-		if (mupnp_streq(ssdpST, serviceType) == true)
-			mupnp_device_postsearchresponse(dev, ssdpPkt, serviceType, serviceUSN);
-	}
+  dev = mupnp_service_getdevice(service);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_service_getnotifyservicetypent(service, serviceNT, sizeof(serviceNT));
+  mupnp_service_getnotifyservicetypeusn(service, serviceUSN, sizeof(serviceUSN));
+
+  if (mupnp_st_isalldevice(ssdpST) == true) {
+    mupnp_device_postsearchresponse(dev, ssdpPkt, serviceNT, serviceUSN);
+  }
+  else if (mupnp_st_isurn(ssdpST) == true) {
+    serviceType = mupnp_service_getservicetype(service);
+    if (mupnp_streq(ssdpST, serviceType) == true)
+      mupnp_device_postsearchresponse(dev, ssdpPkt, serviceType, serviceUSN);
+  }
+
+  mupnp_log_debug_l4("Leaving...\n");
 }

@@ -18,7 +18,7 @@
 #include <mupnp/upnp.h>
 #include <mupnp/std/av/cupnpav.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -27,16 +27,16 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpAvServer {
-mUpnpMutex *mutex;
-mUpnpDevice *dev;
-mUpnpAvContent *rootContent;
-int systemUpdateID;
-CG_UPNPAV_HTTP_LISTENER httplistener;
-CG_UPNPAV_ACTION_LISTNER actionListner;
-CG_UPNPAV_STATEVARIABLE_LISTNER queryListner;
-mUpnpAvProtocolInfoList *protocolInfoList;
-mUpnpNetworkInterfaceList *networkInterfaceList;
-void *userData;
+  mUpnpMutex* mutex;
+  mUpnpDevice* dev;
+  mUpnpAvContent* rootContent;
+  int systemUpdateID;
+  CG_UPNPAV_HTTP_LISTENER httplistener;
+  CG_UPNPAV_ACTION_LISTNER actionListner;
+  CG_UPNPAV_STATEVARIABLE_LISTNER queryListner;
+  mUpnpAvProtocolInfoList* protocolInfoList;
+  mUpnpNetworkInterfaceList* networkInterfaceList;
+  void* userData;
 } mUpnpAvServer;
 
 /****************************************
@@ -135,14 +135,12 @@ void *userData;
 #define CG_UPNPAV_DMS_MEDIARECEIVER_IS_VALIDATED "IsValidated"
 #define CG_UPNPAV_DMS_MEDIARECEIVER_RESULT "Result"
 
-
-
 /****************************************
 * Public Functions
 ****************************************/
 
-mUpnpAvServer *mupnp_upnpav_dms_new();
-void mupnp_upnpav_dms_delete(mUpnpAvServer *dms);
+mUpnpAvServer* mupnp_upnpav_dms_new();
+void mupnp_upnpav_dms_delete(mUpnpAvServer* dms);
 
 #define mupnp_upnpav_dms_getdevice(dms) (dms->dev)
 #define mupnp_upnpav_dms_getrootcontent(dms) (dms->rootContent)
@@ -159,19 +157,19 @@ void mupnp_upnpav_dms_delete(mUpnpAvServer *dms);
 #define mupnp_upnpav_dms_setudn(dms, value) mupnp_device_setudn(dms->dev, value)
 #define mupnp_upnpav_dms_getudn(dms) mupnp_device_getudn(dms->dev)
 
-mUpnpAvContent *mupnp_upnpav_dms_findcontentbytitle(mUpnpAvServer *dms, char *name);
-mUpnpAvContent *mupnp_upnpav_dms_findcontentbyid(mUpnpAvServer *dms, char *objectID);
+mUpnpAvContent* mupnp_upnpav_dms_findcontentbytitle(mUpnpAvServer* dms, char* name);
+mUpnpAvContent* mupnp_upnpav_dms_findcontentbyid(mUpnpAvServer* dms, char* objectID);
 
-#define mupnp_upnpav_dms_sethttplistener(dms,func) (dms->httplistener = func)
+#define mupnp_upnpav_dms_sethttplistener(dms, func) (dms->httplistener = func)
 #define mupnp_upnpav_dms_gethttplistener(dms) (dms->httplistener)
 
-#define mupnp_upnpav_dms_setactionlistener(dms,func) (dms->actionListner = func)
+#define mupnp_upnpav_dms_setactionlistener(dms, func) (dms->actionListner = func)
 #define mupnp_upnpav_dms_getactionlistener(dms) (dms->actionListner)
 
-#define mupnp_upnpav_dms_setquerylistener(dms,func) (dms->queryListner = func)
+#define mupnp_upnpav_dms_setquerylistener(dms, func) (dms->queryListner = func)
 #define mupnp_upnpav_dms_getquerylistener(dms) (dms->queryListner)
 
-#define mupnp_upnpav_dms_setuserdata(dms,data) (dms->userData = data)
+#define mupnp_upnpav_dms_setuserdata(dms, data) (dms->userData = data)
 #define mupnp_upnpav_dms_getuserdata(dms) (dms->userData)
 
 #define mupnp_upnpav_dms_addprotocolinfo(dms, info) mupnp_upnpav_protocolinfolist_add(dms->protocolInfoList, info)
@@ -181,7 +179,7 @@ mUpnpAvContent *mupnp_upnpav_dms_findcontentbyid(mUpnpAvServer *dms, char *objec
 * Connection Manager
 ****************************************/
 
-BOOL mupnp_upnpav_dms_conmgr_init(mUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_conmgr_init(mUpnpAvServer* dms);
 
 /****************************************
 * Network Interface
@@ -190,27 +188,26 @@ BOOL mupnp_upnpav_dms_conmgr_init(mUpnpAvServer *dms);
 #define mupnp_upnpav_dms_getnetworkinterfaces(dms) mupnp_net_interfacelist_gets(dms->networkInterfaceList)
 #define mupnp_upnpav_dms_getnnetworkinterfaces(dms) mupnp_net_interfacelist_size(dms->networkInterfaceList)
 
-BOOL mupnp_upnpav_dms_updatenetworkinterfaces(mUpnpAvServer *dms);
-mUpnpNetworkInterface *mupnp_upnpav_dms_getnetworkinterface(mUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_updatenetworkinterfaces(mUpnpAvServer* dms);
+mUpnpNetworkInterface* mupnp_upnpav_dms_getnetworkinterface(mUpnpAvServer* dms);
 
 /****************************************
 * Content Directory
 ****************************************/
 
-BOOL mupnp_upnpav_dms_condir_init(mUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_condir_init(mUpnpAvServer* dms);
 
-void mupnp_upnpav_dms_condir_setsystemupdateid(mUpnpAvServer *dms, int id);
-int mupnp_upnpav_dms_condir_getsystemupdateid(mUpnpAvServer *dms);
-void mupnp_upnpav_dms_condir_updatesystemupdateid(mUpnpAvServer *dms);
+void mupnp_upnpav_dms_condir_setsystemupdateid(mUpnpAvServer* dms, int id);
+int mupnp_upnpav_dms_condir_getsystemupdateid(mUpnpAvServer* dms);
+void mupnp_upnpav_dms_condir_updatesystemupdateid(mUpnpAvServer* dms);
 
 /****************************************
 * Media Receiveer
 ****************************************/
 
-BOOL mupnp_upnpav_dms_medrec_init(mUpnpAvServer *dms);
+BOOL mupnp_upnpav_dms_medrec_init(mUpnpAvServer* dms);
 
-
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

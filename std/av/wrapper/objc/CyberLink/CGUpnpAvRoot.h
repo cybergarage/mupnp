@@ -11,14 +11,12 @@
 /**
  * The CGUpnpAvRoot class is a root container of UPnP/AV.
  */
-@interface CGUpnpAvRoot : CGUpnpAvContainer 
-{
+@interface CGUpnpAvRoot : CGUpnpAvContainer {
 }
 - (id)init;
-#if  !defined(TARGET_OS_IPHONE)
-- (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
+#if !defined(TARGET_OS_IPHONE)
+- (id)initWithXMLNode:(NSXMLElement*)aXmlNode;
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
+- (id)initWithXMLNode:(CgXmlNode*)aXmlNode;
 #endif
 @end
-

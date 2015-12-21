@@ -20,7 +20,7 @@
 #define WIN32 1
 #endif
 
-#if (defined(WIN32) || defined(__CYGWIN__)) && !defined (ITRON)
+#if (defined(WIN32) || defined(__CYGWIN__)) && !defined(ITRON)
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #elif defined(BTRON) || defined(TENGINE)
@@ -32,27 +32,27 @@
 #if defined(__APPLE_CPP__) || defined(__APPLE_CC__)
 #include <TargetConditionals.h>
 #endif
-	
+
 #ifdef HAVE_CONFIG_H
-#  include "config.h"
+#include "config.h"
 #endif
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
  * Compiler
  ****************************************/
-  
+
 #if __STDC_VERSION__ >= 199901L
 #define C99
 #endif
-  
+
 /****************************************
  * Data Type
  ****************************************/
-  
+
 #if defined(C99) || defined(HAVE_STDBOOL_H)
 #include <stdbool.h>
 #else
@@ -66,10 +66,10 @@ extern "C" {
 #define false 0
 #endif
 #endif
-	
+
 typedef unsigned char mUpnpByte;
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

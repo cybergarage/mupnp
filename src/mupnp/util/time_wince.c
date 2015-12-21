@@ -20,26 +20,26 @@
 
 #if defined(WINCE)
 
-time_t time( time_t *timep)
-{ 
-	static time_t localt = 0; 
-	SYSTEMTIME sysTime; 
-	FILETIME fileTime; 
-	ULARGE_INTEGER fileTime64; 
-  
-	if (timep == NULL )
-		timep = &localt; 
-  
-	GetSystemTime(&sysTime ); 
-	if (SystemTimeToFileTime(&sysTime, &fileTime) ) { 
-		memcpy(&fileTime64, &fileTime, sizeof(FILETIME)); 
-		fileTime64.QuadPart -= 0x19db1ded53e8000; 
-		fileTime64.QuadPart /= 10000000; 
-		*timep = (time_t)fileTime64.QuadPart; 
-	} 
-  
-	return *timep; 
-} 
+time_t time(time_t* timep)
+{
+  static time_t localt = 0;
+  SYSTEMTIME sysTime;
+  FILETIME fileTime;
+  ULARGE_INTEGER fileTime64;
+
+  if (timep == NULL)
+    timep = &localt;
+
+  GetSystemTime(&sysTime);
+  if (SystemTimeToFileTime(&sysTime, &fileTime)) {
+    memcpy(&fileTime64, &fileTime, sizeof(FILETIME));
+    fileTime64.QuadPart -= 0x19db1ded53e8000;
+    fileTime64.QuadPart /= 10000000;
+    *timep = (time_t)fileTime64.QuadPart;
+  }
+
+  return *timep;
+}
 
 #endif
 
@@ -49,30 +49,30 @@ time_t time( time_t *timep)
 
 #if defined(WINCE)
 
-struct tm *localtime(const time_t *timep)
+struct tm* localtime(const time_t* timep)
 {
-	FILETIME fileTime; 
-	ULARGE_INTEGER fileTime64; 
-	SYSTEMTIME sysTime; 
-	static struct tm localtm; 
-	
-	fileTime64.QuadPart = *timep * 10000000;
-	fileTime64.QuadPart += 0x19db1ded53e8000;
-	memcpy(&fileTime, &fileTime64, sizeof(FILETIME)); 
+  FILETIME fileTime;
+  ULARGE_INTEGER fileTime64;
+  SYSTEMTIME sysTime;
+  static struct tm localtm;
 
-	if (FileTimeToSystemTime(&fileTime, &sysTime)) {
-		localtm.tm_sec = sysTime.wSecond;
-		localtm.tm_min = sysTime.wMinute;
-		localtm.tm_hour = sysTime.wHour;
-		localtm.tm_mday = sysTime.wDay;
-		localtm.tm_mon = sysTime.wMonth - 1;
-		localtm.tm_year = sysTime.wYear - 1900;
-		localtm.tm_wday = sysTime.wDayOfWeek;
-		localtm.tm_yday = 0;
-		localtm.tm_isdst = 0;
-	}
+  fileTime64.QuadPart = *timep * 10000000;
+  fileTime64.QuadPart += 0x19db1ded53e8000;
+  memcpy(&fileTime, &fileTime64, sizeof(FILETIME));
 
-	return &localtm;
+  if (FileTimeToSystemTime(&fileTime, &sysTime)) {
+    localtm.tm_sec = sysTime.wSecond;
+    localtm.tm_min = sysTime.wMinute;
+    localtm.tm_hour = sysTime.wHour;
+    localtm.tm_mday = sysTime.wDay;
+    localtm.tm_mon = sysTime.wMonth - 1;
+    localtm.tm_year = sysTime.wYear - 1900;
+    localtm.tm_wday = sysTime.wDayOfWeek;
+    localtm.tm_yday = 0;
+    localtm.tm_isdst = 0;
+  }
+
+  return &localtm;
 }
 
 #endif

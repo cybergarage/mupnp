@@ -11,25 +11,23 @@
 /**
  * The CGUpnpAvContainer class is a container of UPnP/AV container.
  */
-@interface CGUpnpAvContainer : CGUpnpAvObject
-{
+@interface CGUpnpAvContainer : CGUpnpAvObject {
 }
-@property(retain) NSMutableArray *childArray;
+@property (retain) NSMutableArray* childArray;
 - (id)init;
-#if  !defined(TARGET_OS_IPHONE)
-- (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
+#if !defined(TARGET_OS_IPHONE)
+- (id)initWithXMLNode:(NSXMLElement*)aXmlNode;
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
+- (id)initWithXMLNode:(CgXmlNode*)aXmlNode;
 #endif
-- (void)addChild:(CGUpnpAvObject *)obj;
-- (void)addChildren:(NSArray *)objArray;
-- (void)removeChild:(CGUpnpAvObject *)obj;
+- (void)addChild:(CGUpnpAvObject*)obj;
+- (void)addChildren:(NSArray*)objArray;
+- (void)removeChild:(CGUpnpAvObject*)obj;
 - (void)removeAllChildren;
-- (NSArray *)children;
-- (CGUpnpAvObject *)childAtIndex:(NSUInteger)anIndex;
-- (CGUpnpAvObject *)childforId:(NSString *)anObjectId;
-- (CGUpnpAvObject *)childforTitle:(NSString *)aTitle;
-- (CGUpnpAvObject *)objectForId:(NSString *)anObjectId;
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
+- (NSArray*)children;
+- (CGUpnpAvObject*)childAtIndex:(NSUInteger)anIndex;
+- (CGUpnpAvObject*)childforId:(NSString*)anObjectId;
+- (CGUpnpAvObject*)childforTitle:(NSString*)aTitle;
+- (CGUpnpAvObject*)objectForId:(NSString*)anObjectId;
+- (CGUpnpAvObject*)objectForTitlePath:(NSString*)aTitlePath;
 @end
-

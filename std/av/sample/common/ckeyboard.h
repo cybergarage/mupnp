@@ -16,7 +16,7 @@
 #ifndef _CG_UPNPAV_KEYBOAD_H_
 #define _CG_UPNPAV_KEYBOAD_H_
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -25,7 +25,7 @@ int mupnp_kb_hit();
 int mupnp_kb_key();
 void mupnp_kb_exit();
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

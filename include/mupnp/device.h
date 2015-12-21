@@ -26,7 +26,7 @@
 #include <mupnp/icon.h>
 #include <mupnp/ssdp/ssdp_server.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -107,8 +107,8 @@ extern "C" {
 #define MUPNP_DEVICE_DEFAULT_PRESENTATION_URI "/presentation"
 
 /** Definition for presentation listener */
-typedef void (*MUPNP_PRESENTATION_LISTNER)(mUpnpHttpRequest *);
-  
+typedef void (*MUPNP_PRESENTATION_LISTNER)(mUpnpHttpRequest*);
+
 /****************************************
  * Data Type
  ****************************************/
@@ -119,60 +119,54 @@ typedef void (*MUPNP_PRESENTATION_LISTNER)(mUpnpHttpRequest *);
  * \note This struct can also be cast to a mUpnpList* and used as a node in a 
  * linked list with mupnp_list_* functions.
  */
-typedef struct _mUpnpDevice
-{
-  /** Used by mupnp_list_* functions to indicate start of list */
-  bool headFlag;
-  /** Used by mupnp_list_* functions to point to the previous item in list */
-  struct _mUpnpDevice *prev;
-  /** Used by mupnp_list_* functions to point to the next item in list */
-  struct _mUpnpDevice *next;
-  
+typedef struct _mUpnpDevice {
+  MUPNP_LIST_STRUCT_MEMBERS
+
   /** List of XML root nodes */
-  mUpnpXmlNodeList *rootNodeList;
+  mUpnpXmlNodeList* rootNodeList;
   /** This device's description XML node */
-  mUpnpXmlNode *deviceNode;
-  
+  mUpnpXmlNode* deviceNode;
+
   /** This device's parent device */
-  struct _mUpnpDevice *parentDevice;
+  struct _mUpnpDevice* parentDevice;
   /** List of devices */
-  struct _mUpnpDevice *deviceList;
+  struct _mUpnpDevice* deviceList;
   /** List of services */
-  struct _mUpnpService *serviceList;
+  struct _mUpnpService* serviceList;
   /** List of icons */
-  struct _mUpnpIcon *iconList;
-  
+  struct _mUpnpIcon* iconList;
+
   /** Mutex used in multithreading */
-  mUpnpMutex *mutex;
+  mUpnpMutex* mutex;
   /** List of HTTP servers */
-  mUpnpHttpServerList *httpServerList;
+  mUpnpHttpServerList* httpServerList;
   /** List of SSDP servers */
-  mUpnpSSDPServer *ssdpServerList;
+  mUpnpSSDPServer* ssdpServerList;
   /** Device advertiser thread */
-  mUpnpThread *advertiser;
-  
+  mUpnpThread* advertiser;
+
   /** HTTP request listener */
   MUPNP_HTTP_LISTENER httpListener;
-  
+
   /** Presentation listener */
   MUPNP_PRESENTATION_LISTNER presentationListener;
-  
+
   /** URI for this device's description */
-  mUpnpString *descriptionURI;
+  mUpnpString* descriptionURI;
   /** Advertisement lease time */
   mUpnpTime leaseTime;
   /** HTTP Port to listen to */
   int httpPort;
   /** This device's SSDP packet */
-  mUpnpSSDPPacket *ssdpPkt;
+  mUpnpSSDPPacket* ssdpPkt;
   /** User data used to pass miscellaneous data */
-  void *userData;
+  void* userData;
 
   /** BOOTID.UPNP.ORG (UPnP DA v1.1) */
   int bootId;
 
   /* List of cached interfaces */
-  mUpnpNetworkInterfaceList *ifCache;
+  mUpnpNetworkInterfaceList* ifCache;
 } mUpnpDevice, mUpnpDeviceList;
 
 /****************************************
@@ -182,35 +176,35 @@ typedef struct _mUpnpDevice
 /**
  * Create a new UPnP device
  */
-mUpnpDevice *mupnp_device_new();
-  
+mUpnpDevice* mupnp_device_new();
+
 /**
  * Delete a UPnP device
  *
  * \param dev Device in question
  */
-void mupnp_device_delete(mUpnpDevice *dev);
+void mupnp_device_delete(mUpnpDevice* dev);
 
 /**
  * Clear a UPnP device structure. This is an internal function and should not be called from outside.
  *
  * \param dev Device in question
  */
-void mupnp_device_clear(mUpnpDevice *dev);
+void mupnp_device_clear(mUpnpDevice* dev);
 
 /**
  * Get the next device in the device list. Use as an iterator.
  *
  * \param dev Current device
  */
-#define mupnp_device_next(dev) (mUpnpDevice *)mupnp_list_next((mUpnpList *)dev)
+#define mupnp_device_next(dev) (mUpnpDevice*) mupnp_list_next((mUpnpList*)dev)
 
 /**
  * Remove the device from the device list.
  *
  * \param dev Device in question
  */
-#define mupnp_device_remove(dev) mupnp_list_remove((mUpnpList *)dev)
+#define mupnp_device_remove(dev) mupnp_list_remove((mUpnpList*)dev)
 
 /**
  * Check whether the given node is of type MUPNP_DEVICE_ELEM_NAME
@@ -233,7 +227,7 @@ void mupnp_device_clear(mUpnpDevice *dev);
  * \param dev Device in question
  * \param node The XML structure to be set as the device's description
  */
-void mupnp_device_setdevicenode(mUpnpDevice *dev, mUpnpXmlNode *node);
+void mupnp_device_setdevicenode(mUpnpDevice* dev, mUpnpXmlNode* node);
 
 /**
  * Return the device XML description node
@@ -270,7 +264,7 @@ void mupnp_device_setdevicenode(mUpnpDevice *dev, mUpnpXmlNode *node);
  *
  * \param dev Traverses the device tree upwards starting from this device
  */
-mUpnpDevice *mupnp_device_getrootdevice(mUpnpDevice *dev);
+mUpnpDevice* mupnp_device_getrootdevice(mUpnpDevice* dev);
 
 /**
  * Parse the device description XML document.
@@ -281,7 +275,7 @@ mUpnpDevice *mupnp_device_getrootdevice(mUpnpDevice *dev);
  *
  * \return true, if the buffer was successfully parsed; otherwise false
  */
-bool mupnp_device_parsedescription(mUpnpDevice *dev, const char *desciption, size_t descriptionLen);
+bool mupnp_device_parsedescription(mUpnpDevice* dev, const char* desciption, size_t descriptionLen);
 
 /**
  * Fetch and parse the device description XML file, located in the given URL.
@@ -291,8 +285,7 @@ bool mupnp_device_parsedescription(mUpnpDevice *dev, const char *desciption, siz
  *
  * \return true, if the buffer was successfully parsed; otherwise false
  */
-bool mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url);
-
+bool mupnp_device_parsedescriptionurl(mUpnpDevice* dev, mUpnpNetURL* url);
 
 #if defined(MUPNP_USE_CFILE)
 /**
@@ -304,13 +297,13 @@ bool mupnp_device_parsedescriptionurl(mUpnpDevice *dev, mUpnpNetURL *url);
  *
  * \return true, if the buffer was successfully parsed; otherwise false
  */
-bool mupnp_device_loaddescriptionfile(mUpnpDevice *dev, char *fileName);
+bool mupnp_device_loaddescriptionfile(mUpnpDevice* dev, char* fileName);
 #endif
 
 /****************************************************************************
  * Description updates
  ****************************************************************************/
- 
+
 /**
  * Update the device's contents from an SSDP packet if necessary.
  *
@@ -319,7 +312,7 @@ bool mupnp_device_loaddescriptionfile(mUpnpDevice *dev, char *fileName);
  * @return true if the device was updated; otherwise false
  */
 bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
-					 mUpnpSSDPPacket* ssdpPkt);
+    mUpnpSSDPPacket* ssdpPkt);
 
 /*****************************************************************************
  * Device Type
@@ -500,7 +493,7 @@ char* mupnp_devicetype_getversion(const char* deviceType);
  * \return The device model description
  */
 #define mupnp_device_getmodeldescription(dev) mupnp_xml_node_getchildnodevalue(mupnp_device_getdevicenode(dev), MUPNP_DEVICE_MODEL_DESCRIPTION)
-	
+
 /*****************************************************************************
  * Model Name
  *****************************************************************************/
@@ -522,7 +515,7 @@ char* mupnp_devicetype_getversion(const char* deviceType);
  * \return The model name
  */
 #define mupnp_device_getmodelname(dev) mupnp_xml_node_getchildnodevalue(mupnp_device_getdevicenode(dev), MUPNP_DEVICE_MODEL_NAME)
-	
+
 /*****************************************************************************
  * Model Number
  *****************************************************************************/
@@ -566,7 +559,7 @@ char* mupnp_devicetype_getversion(const char* deviceType);
  * \return The model URL
  */
 #define mupnp_device_getmodelurl(dev) mupnp_xml_node_getchildnodevalue(mupnp_device_getdevicenode(dev), MUPNP_DEVICE_MODEL_URL)
-	
+
 /*****************************************************************************
  * serialNumber
  *****************************************************************************/
@@ -588,7 +581,7 @@ char* mupnp_devicetype_getversion(const char* deviceType);
  * \return The serial number
  */
 #define mupnp_device_getserialnumber(dev) mupnp_xml_node_getchildnodevalue(mupnp_device_getdevicenode(dev), MUPNP_DEVICE_SERIAL_NUMBER)
-	
+
 /*****************************************************************************
  * Unique Device Name (UDN)
  *****************************************************************************/
@@ -626,7 +619,7 @@ char* mupnp_devicetype_getversion(const char* deviceType);
  * \param dev Device in question
  *
  */
-void mupnp_device_updateudn(mUpnpDevice *dev);
+void mupnp_device_updateudn(mUpnpDevice* dev);
 
 /*****************************************************************************
  * Universal Product Code (UPC)
@@ -649,7 +642,7 @@ void mupnp_device_updateudn(mUpnpDevice *dev);
  * \return The Universal Product Code
  */
 #define mupnp_device_getupc(dev) mupnp_xml_node_getchildnodevalue(mupnp_device_getdevicenode(dev), MUPNP_DEVICE_UPC)
-	
+
 /*****************************************************************************
  * Presentation URL
  *****************************************************************************/
@@ -679,7 +672,7 @@ void mupnp_device_updateudn(mUpnpDevice *dev);
  *
  */
 #define mupnp_device_removepresentationurl(dev) mupnp_xml_node_removechildnode(mupnp_device_getdevicenode(dev), MUPNP_DEVICE_PRESENTATION_URL)
-  
+
 /*
  * Set an presentation listener function to the device
  *
@@ -687,8 +680,8 @@ void mupnp_device_updateudn(mUpnpDevice *dev);
  * \param func The listener function
  *
  */
-void mupnp_device_setpresentationlistener(mUpnpDevice *dev, MUPNP_PRESENTATION_LISTNER func);
-  
+void mupnp_device_setpresentationlistener(mUpnpDevice* dev, MUPNP_PRESENTATION_LISTNER func);
+
 /**
  * Get the device's presentation listener function
  *
@@ -696,7 +689,7 @@ void mupnp_device_setpresentationlistener(mUpnpDevice *dev, MUPNP_PRESENTATION_L
  *
  */
 #define mupnp_device_getpresentationlistener(dev) (dev->presentationListener)
-  
+
 /*****************************************************************************
  * URLBase
  *****************************************************************************/
@@ -709,7 +702,7 @@ void mupnp_device_setpresentationlistener(mUpnpDevice *dev, MUPNP_PRESENTATION_L
  * \param value The URL base
  *
  */
-void mupnp_device_seturlbase(mUpnpDevice *dev, char *value);
+void mupnp_device_seturlbase(mUpnpDevice* dev, char* value);
 
 /**
  * Get the device's base URL.
@@ -757,7 +750,7 @@ void mupnp_device_seturlbase(mUpnpDevice *dev, char *value);
  * \param dev Device in question
  *
  */
-bool mupnp_device_start(mUpnpDevice *dev);
+bool mupnp_device_start(mUpnpDevice* dev);
 
 /**
  * Stop the device. This concerns:
@@ -769,15 +762,15 @@ bool mupnp_device_start(mUpnpDevice *dev);
  * \param dev Device in question
  *
  */
-bool mupnp_device_stop(mUpnpDevice *dev);
+bool mupnp_device_stop(mUpnpDevice* dev);
 
 /**
  * Check if the device] has been started
  *
  * \param dev Device that is being advertised
  */
-bool mupnp_device_isrunning(mUpnpDevice *dev);
-	
+bool mupnp_device_isrunning(mUpnpDevice* dev);
+
 /*****************************************************************************
  * URL
  *****************************************************************************/
@@ -793,7 +786,7 @@ bool mupnp_device_isrunning(mUpnpDevice *dev);
  * \param bufSize Buffer length
  *
  */
-const char *mupnp_device_getlocationurl(mUpnpDevice *dev, const char *host, char *buf, int bufSize);
+const char* mupnp_device_getlocationurl(mUpnpDevice* dev, const char* host, char* buf, int bufSize);
 
 /*****************************************************************************
  * Notify 
@@ -805,7 +798,7 @@ const char *mupnp_device_getlocationurl(mUpnpDevice *dev, const char *host, char
  * \param dev Device in question
  *
  */
-void mupnp_device_announce(mUpnpDevice *dev);
+void mupnp_device_announce(mUpnpDevice* dev);
 
 /**
  * Broadcast an SSDP:byebye message to notify control points that the device is no longer available.
@@ -813,7 +806,7 @@ void mupnp_device_announce(mUpnpDevice *dev);
  * \param dev Device in question
  *
  */
-void mupnp_device_byebye(mUpnpDevice *dev);
+void mupnp_device_byebye(mUpnpDevice* dev);
 
 /*****************************************************************************
  * Mutex 
@@ -835,7 +828,7 @@ void mupnp_device_byebye(mUpnpDevice *dev);
  * \param t timeout in ms
  *
  */
-#define mupnp_device_waitforlock(dev,t) mupnp_mutex_waitforlock(dev->mutex,t)
+#define mupnp_device_waitforlock(dev, t) mupnp_mutex_waitforlock(dev->mutex, t)
 
 /**
  * Unlock the device's mutex (release exclusive access to the device) locked previously with \ref mupnp_device_lock.
@@ -857,7 +850,7 @@ void mupnp_device_byebye(mUpnpDevice *dev);
  * \param actionListener The action listener
  *
  */
-void mupnp_device_setactionlistener(mUpnpDevice *dev, MUPNP_ACTION_LISTNER actionListner);
+void mupnp_device_setactionlistener(mUpnpDevice* dev, MUPNP_ACTION_LISTNER actionListner);
 
 /**
  * Set a query listener to the device. Queries are meant for state variables.
@@ -866,7 +859,7 @@ void mupnp_device_setactionlistener(mUpnpDevice *dev, MUPNP_ACTION_LISTNER actio
  * \param actionListener The query listener
  *
  */
-void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER queryListner);
+void mupnp_device_setquerylistener(mUpnpDevice* dev, MUPNP_STATEVARIABLE_LISTNER queryListner);
 
 /*****************************************************************************
  * User Data
@@ -889,7 +882,7 @@ void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER
  *
  */
 #define mupnp_device_getuserdata(dev) (dev->userData)
- 
+
 /*****************************************************************************
 * Function
 ******************************************************************************/
@@ -905,7 +898,7 @@ void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER
  * \param url Description URL
  *
  */
-#define mupnp_device_setdescriptionuri(dev,url) mupnp_string_setvalue(dev->descriptionURI, url)
+#define mupnp_device_setdescriptionuri(dev, url) mupnp_string_setvalue(dev->descriptionURI, url)
 
 /**
  * Get the device's description URI
@@ -938,7 +931,7 @@ void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER
  * \param value Lease time in seconds
  *
  */
-#define mupnp_device_setleasetime(dev,value) (dev->leaseTime = value)
+#define mupnp_device_setleasetime(dev, value) (dev->leaseTime = value)
 
 /**
  * Get the device's lease time. See \ref mupnp_device_setleasetime.
@@ -973,7 +966,7 @@ void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER
  *
  */
 //Theo Beisch added missing (mUpnpList*) cast
-#define mupnp_device_getdevice(dev,idx) ((mUpnpDevice *)mupnp_list_get((mUpnpList*)dev->deviceList,idx))
+#define mupnp_device_getdevice(dev, idx) ((mUpnpDevice*)mupnp_list_get((mUpnpList*)dev->deviceList, idx))
 
 /**
  * \todo Correct explanation...
@@ -982,7 +975,7 @@ void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER
  *
  */
 //Theo Beisch : added missing (mUpnpList*) cast
-#define mupnp_device_getdevices(dev) ((mUpnpDevice *)mupnp_list_gets((mUpnpList *)dev->deviceList))
+#define mupnp_device_getdevices(dev) ((mUpnpDevice*)mupnp_list_gets((mUpnpList*)dev->deviceList))
 
 /**
  * Find a device from the device's children by the exact type of the device.
@@ -995,8 +988,7 @@ void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER
  * \param exacttype Type of the device
  *
  */
-mUpnpDevice *mupnp_device_getdevicebyexacttype(mUpnpDevice* dev,
-						   char *exacttype);
+mUpnpDevice* mupnp_device_getdevicebyexacttype(mUpnpDevice* dev, const char* exacttype);
 
 /**
  * Find a device from the device's children by the type of the device.
@@ -1009,7 +1001,7 @@ mUpnpDevice *mupnp_device_getdevicebyexacttype(mUpnpDevice* dev,
  * \param type Type of the device
  *
  */
-mUpnpDevice *mupnp_device_getdevicebytype(mUpnpDevice *dev, char *type);
+mUpnpDevice* mupnp_device_getdevicebytype(mUpnpDevice* dev, const char* type);
 
 /**
  * Find a device from the device's children by the UDN of the device.
@@ -1018,7 +1010,7 @@ mUpnpDevice *mupnp_device_getdevicebytype(mUpnpDevice *dev, char *type);
  * \param type Type of the device
  *
  */
-mUpnpDevice *mupnp_device_getdevicebyudn(mUpnpDevice *dev, char *udn);
+mUpnpDevice* mupnp_device_getdevicebyudn(mUpnpDevice* dev, const char* udn);
 
 /**
  * Find a child device by its description URI.
@@ -1027,7 +1019,7 @@ mUpnpDevice *mupnp_device_getdevicebyudn(mUpnpDevice *dev, char *udn);
  * \param url Description URI
  *
  */
-mUpnpDevice *mupnp_device_getdevicebydescriptionuri(mUpnpDevice *dev, char *url);
+mUpnpDevice* mupnp_device_getdevicebydescriptionuri(mUpnpDevice* dev, const char* url);
 
 /*****************************************************************************
  * Embedded ServiceList
@@ -1057,7 +1049,7 @@ mUpnpDevice *mupnp_device_getdevicebydescriptionuri(mUpnpDevice *dev, char *url)
  *
  */
 //Theo Beisch : added missing (mUpnpList*) cast
-#define mupnp_device_getservice(dev,idx) ((mUpnpService *)mupnp_list_get((mUpnpList *)dev->serviceList,idx))
+#define mupnp_device_getservice(dev, idx) ((mUpnpService*)mupnp_list_get((mUpnpList*)dev->serviceList, idx))
 
 /**
  * \todo Correct explanation...
@@ -1065,7 +1057,7 @@ mUpnpDevice *mupnp_device_getdevicebydescriptionuri(mUpnpDevice *dev, char *url)
  * \param dev Device in question
  *
  */
-#define mupnp_device_getservices(dev) ((mUpnpService *)mupnp_list_gets((mUpnpList *)dev->serviceList))
+#define mupnp_device_getservices(dev) ((mUpnpService*)mupnp_list_gets((mUpnpList*)dev->serviceList))
 
 /**
  * Find service from the device by a given serviceId.
@@ -1076,7 +1068,7 @@ mUpnpDevice *mupnp_device_getdevicebydescriptionuri(mUpnpDevice *dev, char *url)
  * \param serviceId serviceId of the service
  * \return service matching the given serviceId
  */
-mUpnpService *mupnp_device_getservicebyserviceid(mUpnpDevice *dev, const char *serviceId);
+mUpnpService* mupnp_device_getservicebyserviceid(mUpnpDevice* dev, const char* serviceId);
 
 /**
  * Find a service from the device by the type of the service.
@@ -1089,7 +1081,7 @@ mUpnpService *mupnp_device_getservicebyserviceid(mUpnpDevice *dev, const char *s
  * \param type Type of the service
  * 
  */
-mUpnpService *mupnp_device_getservicebyexacttype(mUpnpDevice *dev, const char *type);
+mUpnpService* mupnp_device_getservicebyexacttype(mUpnpDevice* dev, const char* type);
 
 /**
  * Find a service from the device by the type of the service.
@@ -1102,7 +1094,7 @@ mUpnpService *mupnp_device_getservicebyexacttype(mUpnpDevice *dev, const char *t
  * \param type Type of the service
  *
  */
-mUpnpService *mupnp_device_getservicebytype(mUpnpDevice *dev, const char *type);
+mUpnpService* mupnp_device_getservicebytype(mUpnpDevice* dev, const char* type);
 
 /**
  * Find a service from the device by the subscribtion ID
@@ -1110,7 +1102,7 @@ mUpnpService *mupnp_device_getservicebytype(mUpnpDevice *dev, const char *type);
  * \param dev Device in question
  * \param sid Subscription ID of the service
  */
-mUpnpService *mupnp_device_getservicebysid(mUpnpDevice *dev, const char *sid);
+mUpnpService* mupnp_device_getservicebysid(mUpnpDevice* dev, const char* sid);
 
 /**
  * Find a service from the device by the SCPD (Service Control Protocol Definition) URL of the service.
@@ -1119,7 +1111,7 @@ mUpnpService *mupnp_device_getservicebysid(mUpnpDevice *dev, const char *sid);
  * \param url SCPD URL
  *
  */
-mUpnpService *mupnp_device_getservicebyscpdurl(mUpnpDevice *dev, const char *url);
+mUpnpService* mupnp_device_getservicebyscpdurl(mUpnpDevice* dev, const char* url);
 
 /**
  * Find a service from a device by its control URL
@@ -1128,7 +1120,7 @@ mUpnpService *mupnp_device_getservicebyscpdurl(mUpnpDevice *dev, const char *url
  * \param url Control URL
  *
  */
-mUpnpService *mupnp_device_getservicebycontrolurl(mUpnpDevice *dev, const char *url);
+mUpnpService* mupnp_device_getservicebycontrolurl(mUpnpDevice* dev, const char* url);
 
 /**
  * Find a service from a device by its event subscription URL
@@ -1137,7 +1129,7 @@ mUpnpService *mupnp_device_getservicebycontrolurl(mUpnpDevice *dev, const char *
  * \param url Event Subscription URL
  *
  */
-mUpnpService *mupnp_device_getservicebyeventsuburl(mUpnpDevice *dev, const char *url);
+mUpnpService* mupnp_device_getservicebyeventsuburl(mUpnpDevice* dev, const char* url);
 
 /**
  * Find a service from its Subscription ID
@@ -1146,8 +1138,7 @@ mUpnpService *mupnp_device_getservicebyeventsuburl(mUpnpDevice *dev, const char 
  * \param char* Subscription-ID (SID)
  *
  */
-mUpnpService *mupnp_device_getservicebysid(mUpnpDevice *dev, const char *sid);
-
+mUpnpService* mupnp_device_getservicebysid(mUpnpDevice* dev, const char* sid);
 
 /*****************************************************************************
  * Embedded IconList
@@ -1168,7 +1159,7 @@ mUpnpService *mupnp_device_getservicebysid(mUpnpDevice *dev, const char *sid);
  * \param idx Icon index number
  *
  */
-#define mupnp_device_geticon(dev,idx) ((mUpnpIcon *)mupnp_list_get((mUpnpList *)dev->iconList,idx))
+#define mupnp_device_geticon(dev, idx) ((mUpnpIcon*)mupnp_list_get((mUpnpList*)dev->iconList, idx))
 
 /**
  * \todo Correct explanation...
@@ -1176,7 +1167,7 @@ mUpnpService *mupnp_device_getservicebysid(mUpnpDevice *dev, const char *sid);
  * \param dev Device in question
  *
  */
-#define mupnp_device_geticons(dev) ((mUpnpIcon *)mupnp_list_gets((mUpnpList *)dev->iconList))
+#define mupnp_device_geticons(dev) ((mUpnpIcon*)mupnp_list_gets((mUpnpList*)dev->iconList))
 
 /**
 * Get a smallest icon
@@ -1185,7 +1176,7 @@ mUpnpService *mupnp_device_getservicebysid(mUpnpDevice *dev, const char *sid);
 *
 * \return A smallest icon.
 */
-mUpnpIcon *mupnp_device_getsmallesticon(mUpnpDevice *dev);
+mUpnpIcon* mupnp_device_getsmallesticon(mUpnpDevice* dev);
 
 /**
  * Get a smallest icon of a specified mime type
@@ -1195,7 +1186,7 @@ mUpnpIcon *mupnp_device_getsmallesticon(mUpnpDevice *dev);
  *
  * \return A smallest icon.
 */
-mUpnpIcon *mupnp_device_getsmallesticonbymimetype(mUpnpDevice *dev, const char *mimeType);
+mUpnpIcon* mupnp_device_getsmallesticonbymimetype(mUpnpDevice* dev, const char* mimeType);
 
 /**
  * Get an icon by its index from the device's list of icons
@@ -1206,7 +1197,7 @@ mUpnpIcon *mupnp_device_getsmallesticonbymimetype(mUpnpDevice *dev, const char *
  *
  * \return true if the absolute url is created, otherwise false.
  */
-bool mupnp_device_getabsoluteiconurl(mUpnpDevice *dev, mUpnpIcon *icon, mUpnpString *buf);
+bool mupnp_device_getabsoluteiconurl(mUpnpDevice* dev, mUpnpIcon* icon, mUpnpString* buf);
 
 /**
 * Get a smallest icon
@@ -1215,8 +1206,8 @@ bool mupnp_device_getabsoluteiconurl(mUpnpDevice *dev, mUpnpIcon *icon, mUpnpStr
  * \param icon Icon to add
  *
  */
-bool mupnp_device_addicon(mUpnpDevice *dev, mUpnpIcon *icon);
-	
+bool mupnp_device_addicon(mUpnpDevice* dev, mUpnpIcon* icon);
+
 /*****************************************************************************
  * Embedded Action
  *****************************************************************************/
@@ -1228,7 +1219,7 @@ bool mupnp_device_addicon(mUpnpDevice *dev, mUpnpIcon *icon);
  * \param name Name of the action
  *
  */
-mUpnpAction *mupnp_device_getactionbyname(mUpnpDevice *dev, const char *name);
+mUpnpAction* mupnp_device_getactionbyname(mUpnpDevice* dev, const char* name);
 
 /*****************************************************************************
  * Embedded StateVariable 
@@ -1241,7 +1232,7 @@ mUpnpAction *mupnp_device_getactionbyname(mUpnpDevice *dev, const char *name);
  * \param name Name of the state variable
  *
  */
-mUpnpStateVariable *mupnp_device_getstatevariablebyname(mUpnpDevice *dev, const char *name);
+mUpnpStateVariable* mupnp_device_getstatevariablebyname(mUpnpDevice* dev, const char* name);
 
 /*****************************************************************************
  * Function (DeviceList)
@@ -1251,7 +1242,7 @@ mUpnpStateVariable *mupnp_device_getstatevariablebyname(mUpnpDevice *dev, const 
  * Create a new device list
  * 
  */
-mUpnpDeviceList *mupnp_devicelist_new();
+mUpnpDeviceList* mupnp_devicelist_new();
 
 /**
  * Delete a device list completely, freeing all devices and their contents.
@@ -1259,7 +1250,7 @@ mUpnpDeviceList *mupnp_devicelist_new();
  * \param devList The device list to delete
  *
  */
-void mupnp_devicelist_delete(mUpnpDeviceList *devList);
+void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 
 /**
  * Clear the contents of a device list.
@@ -1268,7 +1259,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList *devList);
  * \param devList The device list to clear
  *
  */
-#define mupnp_devicelist_clear(devList) mupnp_list_clear((mUpnpList *)devList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_device_delete)
+#define mupnp_devicelist_clear(devList) mupnp_list_clear((mUpnpList*)devList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_device_delete)
 
 /**
  * Get the size of the device list
@@ -1276,7 +1267,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList *devList);
  * \param devList The device list
  *
  */
-#define mupnp_devicelist_size(devList) mupnp_list_size((mUpnpList *)devList)
+#define mupnp_devicelist_size(devList) mupnp_list_size((mUpnpList*)devList)
 
 /**
  * \todo Correct description
@@ -1284,7 +1275,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList *devList);
  * \param devList The device list
  *
  */
-#define mupnp_devicelist_gets(devList) (mUpnpDevice *)mupnp_list_next((mUpnpList *)devList)
+#define mupnp_devicelist_gets(devList) (mUpnpDevice*) mupnp_list_next((mUpnpList*)devList)
 
 /**
  * Get an device from the device list by the index
@@ -1293,7 +1284,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList *devList);
  * \param index The index of the device to get
  *
  */
-#define mupnp_devicelist_get(devList, index) (mUpnpDevice *)mupnp_list_get((mUpnpList *)devList, index)
+#define mupnp_devicelist_get(devList, index) (mUpnpDevice*) mupnp_list_get((mUpnpList*)devList, index)
 
 /**
  * Add a device to the device list
@@ -1302,7 +1293,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList *devList);
  * \param dev The device to add
  *
  */
-#define mupnp_devicelist_add(devList, dev) mupnp_list_add((mUpnpList *)devList, (mUpnpList *)dev)
+#define mupnp_devicelist_add(devList, dev) mupnp_list_add((mUpnpList*)devList, (mUpnpList*)dev)
 
 /****************************************
 * Function (Service)
@@ -1341,7 +1332,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList *devList);
  * \param value Port number
  *
  */
-#define mupnp_device_sethttpport(dev,value) (dev->httpPort = value)
+#define mupnp_device_sethttpport(dev, value) (dev->httpPort = value)
 
 /**
  * Get the device's HTTP port
@@ -1375,7 +1366,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList *devList);
  *
  */
 #define mupnp_device_gethttpserverlist(dev) (dev->httpServerList)
-	
+
 /**
  * Handler function for a received HTTP request. Delegates GET and POST requests
  * to their respective handlers, or treats as a BAD REQUEST, when appropriate.
@@ -1383,7 +1374,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList *devList);
  * \param httpReq Received HTTP request
  *
  */
-void mupnp_device_httprequestrecieved(mUpnpHttpRequest *httpReq);
+void mupnp_device_httprequestrecieved(mUpnpHttpRequest* httpReq);
 
 /*****************************************************************************
  * Function (SSDP)
@@ -1403,7 +1394,7 @@ void mupnp_device_httprequestrecieved(mUpnpHttpRequest *httpReq);
  * \param ssdpPkt SSDP Packet
  *
  */
-void mupnp_device_ssdplistener(mUpnpSSDPPacket *ssdpPkt);
+void mupnp_device_ssdplistener(mUpnpSSDPPacket* ssdpPkt);
 
 /**
  * Get the SSDP server list 
@@ -1412,7 +1403,7 @@ void mupnp_device_ssdplistener(mUpnpSSDPPacket *ssdpPkt);
  *
  */
 #define mupnp_device_getssdpserverlist(dev) (dev->ssdpServerList)
-	
+
 /**
  * Get the device's Notification Type (NT). For the root device this is "upnp:rootdevice",
  * otherwise the device's UDN (Unique Device Name).
@@ -1422,7 +1413,7 @@ void mupnp_device_ssdplistener(mUpnpSSDPPacket *ssdpPkt);
  * \param bufSize Buffer length
  *
  */
-char *mupnp_device_getnotifydevicent(mUpnpDevice *dev, char *buf, int bufSize);
+char* mupnp_device_getnotifydevicent(mUpnpDevice* dev, char* buf, int bufSize);
 
 //Theo Beisch: added reference
 /**
@@ -1433,7 +1424,7 @@ char *mupnp_device_getnotifydevicent(mUpnpDevice *dev, char *buf, int bufSize);
  * \param dev The device in question
  *
  */
-char *mupnp_device_getnotifydeviceusn(mUpnpDevice *dev, char *buf, int bufSize);
+char* mupnp_device_getnotifydeviceusn(mUpnpDevice* dev, char* buf, int bufSize);
 
 /**
  * Get the device type
@@ -1443,7 +1434,7 @@ char *mupnp_device_getnotifydeviceusn(mUpnpDevice *dev, char *buf, int bufSize);
  * \param bufSize Buffer length
  *
  */
-char *mupnp_device_getnotifydevicetypent(mUpnpDevice *dev, char *buf, int bufSize);
+char* mupnp_device_getnotifydevicetypent(mUpnpDevice* dev, char* buf, int bufSize);
 
 /**
  * Get the device's USN (Unique Service Name). For the root device this is "<UDN>::upnp:rootdevice",
@@ -1455,7 +1446,7 @@ char *mupnp_device_getnotifydevicetypent(mUpnpDevice *dev, char *buf, int bufSiz
  *
  * @return Pointer to buf
  */
-char *mupnp_device_getnotifydevicetypeusn(mUpnpDevice *dev, char *buf, int bufSize);
+char* mupnp_device_getnotifydevicetypeusn(mUpnpDevice* dev, char* buf, int bufSize);
 
 /**
  * SSDP message handler
@@ -1464,7 +1455,7 @@ char *mupnp_device_getnotifydevicetypeusn(mUpnpDevice *dev, char *buf, int bufSi
  * \param ssdpPkt Received SSDP packet
  *
  */
-void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt, int filter);
+void mupnp_device_ssdpmessagereceived(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt, int filter);
 
 /**
  * Post a response to an SSDP search message
@@ -1475,7 +1466,7 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt
  * \param usn Unique Service Name (USN)
  *
  */
-bool mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt, const char *st, const char *usn);
+bool mupnp_device_postsearchresponse(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt, const char* st, const char* usn);
 
 /**
  * Notify device that IP address of the host has been changed.
@@ -1483,7 +1474,7 @@ bool mupnp_device_postsearchresponse(mUpnpDevice *dev, mUpnpSSDPPacket *ssdpPkt,
  * \param dev dev The device in question
  * \return success of changing used interfaces
  */
-bool mupnp_device_ipchanged(mUpnpDevice *dev);
+bool mupnp_device_ipchanged(mUpnpDevice* dev);
 
 /*****************************************************************************
  * Function (SSDPPacket)
@@ -1531,22 +1522,22 @@ bool mupnp_device_ipchanged(mUpnpDevice *dev);
  *
  * \param dev The device in question
  */
-bool mupnp_device_advertiser_start(mUpnpDevice *dev);
+bool mupnp_device_advertiser_start(mUpnpDevice* dev);
 
 /**
  * Stop the advertiser thread for the given device
  *
  * \param dev The device in question
  */
-bool mupnp_device_advertiser_stop(mUpnpDevice *dev);
+bool mupnp_device_advertiser_stop(mUpnpDevice* dev);
 
 /**
  * Check if the advertiser has been started
  *
  * \param dev Device that is being advertised
  */
-bool mupnp_device_advertiser_isrunning(mUpnpDevice *dev);
-	
+bool mupnp_device_advertiser_isrunning(mUpnpDevice* dev);
+
 /**
  * Get the advertiser thread from the device
  *
@@ -1554,7 +1545,7 @@ bool mupnp_device_advertiser_isrunning(mUpnpDevice *dev);
  */
 #define mupnp_device_getadvertiserthead(dev) (dev->advertiser)
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 
 } /* extern C */
 

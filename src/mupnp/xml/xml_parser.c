@@ -17,32 +17,31 @@
 * mupnp_xml_parser_new
 ****************************************/
 
-mUpnpXmlParser *mupnp_xml_parser_new()
+mUpnpXmlParser* mupnp_xml_parser_new()
 {
-	mUpnpXmlParser *parser;
+  mUpnpXmlParser* parser;
 
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	parser = (mUpnpXmlParser *)malloc(sizeof(mUpnpXmlParser));
+  parser = (mUpnpXmlParser*)malloc(sizeof(mUpnpXmlParser));
 
-	if ( NULL != parser )
-	{
-		parser->parseResult = false;
-	}
-	return parser;
+  if (NULL != parser) {
+    parser->parseResult = false;
+  }
+  return parser;
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }
 
 /****************************************
 * mupnp_xml_parser_delete
 ****************************************/
 
-void mupnp_xml_parser_delete(mUpnpXmlParser *parser)
+void mupnp_xml_parser_delete(mUpnpXmlParser* parser)
 {
-	mupnp_log_debug_l4("Entering...\n");
+  mupnp_log_debug_l4("Entering...\n");
 
-	free(parser);
+  free(parser);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  mupnp_log_debug_l4("Leaving...\n");
 }

@@ -16,23 +16,23 @@
 * mupnp_soap_createenvelopebodynode
 ****************************************/
 
-mUpnpXmlNode *mupnp_soap_createenvelopebodynode()
+mUpnpXmlNode* mupnp_soap_createenvelopebodynode()
 {
-	mUpnpXmlNode *envNode;
-	mUpnpXmlNode *bodyNode;
-	
-	mupnp_log_debug_l4("Entering...\n");
+  mUpnpXmlNode* envNode;
+  mUpnpXmlNode* bodyNode;
 
-	envNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(envNode, MUPNP_SOAP_XMLNS MUPNP_SOAP_DELIM MUPNP_SOAP_ENVELOPE);
-	mupnp_xml_node_setattribute(envNode, MUPNP_SOAP_ATTRIBUTE_XMLNS MUPNP_SOAP_DELIM MUPNP_SOAP_XMLNS, MUPNP_SOAP_XMLNS_URL);
-	mupnp_xml_node_setattribute(envNode, MUPNP_SOAP_XMLNS MUPNP_SOAP_DELIM MUPNP_SOAP_ENCORDING, MUPNP_SOAP_ENCSTYLE_URL);
+  mupnp_log_debug_l4("Entering...\n");
 
-	bodyNode = mupnp_xml_node_new();
-	mupnp_xml_node_setname(bodyNode, MUPNP_SOAP_XMLNS MUPNP_SOAP_DELIM MUPNP_SOAP_BODY);
-	mupnp_xml_node_addchildnode(envNode, bodyNode);
+  envNode = mupnp_xml_node_new();
+  mupnp_xml_node_setname(envNode, MUPNP_SOAP_XMLNS MUPNP_SOAP_DELIM MUPNP_SOAP_ENVELOPE);
+  mupnp_xml_node_setattribute(envNode, MUPNP_SOAP_ATTRIBUTE_XMLNS MUPNP_SOAP_DELIM MUPNP_SOAP_XMLNS, MUPNP_SOAP_XMLNS_URL);
+  mupnp_xml_node_setattribute(envNode, MUPNP_SOAP_XMLNS MUPNP_SOAP_DELIM MUPNP_SOAP_ENCORDING, MUPNP_SOAP_ENCSTYLE_URL);
 
-	return envNode;
+  bodyNode = mupnp_xml_node_new();
+  mupnp_xml_node_setname(bodyNode, MUPNP_SOAP_XMLNS MUPNP_SOAP_DELIM MUPNP_SOAP_BODY);
+  mupnp_xml_node_addchildnode(envNode, bodyNode);
 
-	mupnp_log_debug_l4("Leaving...\n");
+  return envNode;
+
+  mupnp_log_debug_l4("Leaving...\n");
 }

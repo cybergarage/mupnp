@@ -20,26 +20,24 @@ typedef void CgXmlNode;
 /**
  * The CGXmlNode class is a wrapper class for NSXMLNode.
  */
-@interface CGXmlNode : NSObject 
-{
-	id	userInfo;
+@interface CGXmlNode : NSObject {
+  id userInfo;
 }
 #if !defined(TARGET_OS_IPHONE)
-@property(retain) NSXMLElement *xmlNode;
+@property (retain) NSXMLElement* xmlNode;
 #else
-@property(assign) CgXmlNode *cXmlNode;
+@property (assign) CgXmlNode* cXmlNode;
 #endif
-@property(retain) id userInfo;
+@property (retain) id userInfo;
 - (id)init;
-#if  !defined(TARGET_OS_IPHONE)
-- (id)initWithXMLNode:(NSXMLElement *)aXmlNode;
+#if !defined(TARGET_OS_IPHONE)
+- (id)initWithXMLNode:(NSXMLElement*)aXmlNode;
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode;
+- (id)initWithXMLNode:(CgXmlNode*)aXmlNode;
 #endif
-- (NSString *)attributeValueForName:(NSString *)aName;
-- (NSString *)elementValueForName:(NSString *)aName;
-- (NSString *)stringValue;
-- (void)setStringValue:(NSString *)aValue;
-- (void)setAttributeWithName:(NSString *)aName stringValue:(NSString *)aValue;
+- (NSString*)attributeValueForName:(NSString*)aName;
+- (NSString*)elementValueForName:(NSString*)aName;
+- (NSString*)stringValue;
+- (void)setStringValue:(NSString*)aValue;
+- (void)setAttributeWithName:(NSString*)aName stringValue:(NSString*)aValue;
 @end
-

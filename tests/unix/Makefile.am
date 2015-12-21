@@ -1,11 +1,12 @@
 ############################################################
 #
-# CyberGarage for C
+# mUPnP for C
 #
 # Copyright (C) Satoshi Konno 2005
 #
 ############################################################
 
+TESTS = mupnptest
 noinst_PROGRAMS = mupnptest
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../

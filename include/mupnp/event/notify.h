@@ -21,7 +21,7 @@
 #include <mupnp/event/property.h>
 #include <mupnp/event/subscriber.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -64,21 +64,21 @@ typedef mUpnpSoapResponse mUpnpNotifyResponse;
 /**
  * Create new Notification request
  */
-mUpnpNotifyRequest *mupnp_event_notify_request_new();
+mUpnpNotifyRequest* mupnp_event_notify_request_new();
 
 /**
  * Delete Notification request
  *
  * @param notifyReq Notification request
  */
-void mupnp_event_notify_request_delete(mUpnpNotifyRequest *notifyReq);
+void mupnp_event_notify_request_delete(mUpnpNotifyRequest* notifyReq);
 
 /**
  * Clear Notification request
  *
  * @param notifyReq Notification request
  */
-void mupnp_event_notify_request_clear(mUpnpNotifyRequest *notifyReq);
+void mupnp_event_notify_request_clear(mUpnpNotifyRequest* notifyReq);
 
 /**
  * Set HTTP request for event Notification request
@@ -121,7 +121,7 @@ void mupnp_event_notify_request_clear(mUpnpNotifyRequest *notifyReq);
  *
  * @param nofityReq Notification request
  */
-mUpnpPropertyList *mupnp_event_notify_request_getpropertylist(mUpnpNotifyRequest *nofityReq);
+mUpnpPropertyList* mupnp_event_notify_request_getpropertylist(mUpnpNotifyRequest* nofityReq);
 
 /**** NT ****/
 
@@ -169,7 +169,7 @@ mUpnpPropertyList *mupnp_event_notify_request_getpropertylist(mUpnpNotifyRequest
  * @param soapReq Notification request
  * @param sid SID
  */
-void mupnp_event_notify_request_setsid(mUpnpNotifyRequest *soapReq, char *sid);
+void mupnp_event_notify_request_setsid(mUpnpNotifyRequest* soapReq, char* sid);
 
 /**
  * Get SID from notification request
@@ -200,7 +200,7 @@ void mupnp_event_notify_request_setsid(mUpnpNotifyRequest *soapReq, char *sid);
 /** 
  * \todo Check what this does exactly...
  */
-bool mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest *notifyReq, mUpnpSubscriber *sub, /* mUpnpService */void *service, mUpnpStateVariable *statVar);
+bool mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest* notifyReq, mUpnpSubscriber* sub, /* mUpnpService */ void* service, mUpnpStateVariable* statVar);
 
 /****************************************
 * Function (Response)
@@ -219,8 +219,8 @@ bool mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest *notifyReq
  * @param notifyRes Notification response
  */
 #define mupnp_event_notify_response_getstatuscode(notifyRes) mupnp_soap_response_getstatuscode(notifyRes)
-	
-#ifdef  __cplusplus
+
+#ifdef __cplusplus
 }
 #endif
 

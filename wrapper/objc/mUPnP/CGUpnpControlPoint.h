@@ -20,10 +20,10 @@ typedef void mUpnpControlPoint;
 
 @protocol CGUpnpControlPointDelegate <NSObject>
 @optional
-- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceAdded:(NSString *)deviceUdn;
-- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(NSString *)deviceUdn;
-- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceRemoved:(NSString *)deviceUdn;
-- (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceInvalid:(NSString *)deviceUdn;
+- (void)controlPoint:(CGUpnpControlPoint*)controlPoint deviceAdded:(NSString*)deviceUdn;
+- (void)controlPoint:(CGUpnpControlPoint*)controlPoint deviceUpdated:(NSString*)deviceUdn;
+- (void)controlPoint:(CGUpnpControlPoint*)controlPoint deviceRemoved:(NSString*)deviceUdn;
+- (void)controlPoint:(CGUpnpControlPoint*)controlPoint deviceInvalid:(NSString*)deviceUdn;
 @end
 
 /**
@@ -31,12 +31,11 @@ typedef void mUpnpControlPoint;
  * program using only Objective-C directly on MacOSX.
  * Currently, the only basic methods are wrapped to control UPnP devices.
  */
-@interface CGUpnpControlPoint : NSObject 
-{
+@interface CGUpnpControlPoint : NSObject {
 }
-@property(assign, readonly) mUpnpControlPoint *cObject;
-@property(assign) id<CGUpnpControlPointDelegate> delegate;
-- (mUpnpControlPoint *)cObject;
+@property (assign, readonly) mUpnpControlPoint* cObject;
+@property (assign) id<CGUpnpControlPointDelegate> delegate;
+- (mUpnpControlPoint*)cObject;
 /**
  * Activate some background threads of the control point such as SSDP and 
  * HTTP servers to listen messages and events of UPnP. You must call this 
@@ -72,7 +71,7 @@ typedef void mUpnpControlPoint;
  *
  * @param aST The Search Target parameter (ex. "ssdp:all")
  */
-- (void)searchWithST:(NSString *)aST;
+- (void)searchWithST:(NSString*)aST;
 /**
  * Set a MX parameter used for SSDP searches in seconds.
  * The parameter is used to wait for M-SEARCH responses in search() and searchWithST:(NSString *)aST.
@@ -91,10 +90,10 @@ typedef void mUpnpControlPoint;
  * Get all UPnP devices which the control point found as a NSArray object. The array has the devices as instances of CGUpnpDevice.
  * @return NSArray of CGUpnpDevice.
  */
-- (NSArray *)devices;
+- (NSArray*)devices;
 /**
  * Get a specified UPnP devices by the UDN.
  * @return CGUpnpDevice when the specified device is found, otherwise nil.
  */
-- (CGUpnpDevice *)deviceForUDN:(NSString *)udn;
+- (CGUpnpDevice*)deviceForUDN:(NSString*)udn;
 @end

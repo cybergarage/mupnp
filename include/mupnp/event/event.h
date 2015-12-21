@@ -9,7 +9,7 @@
  *
  ******************************************************************/
 
-#ifndef  _MUPNP_EVENT_H_
+#ifndef _MUPNP_EVENT_H_
 #define _MUPNP_EVENT_H_
 
 #include <mupnp/typedef.h>
@@ -21,7 +21,7 @@
 #include <mupnp/service.h>
 #include <mupnp/upnp_function.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -67,12 +67,12 @@ extern "C" {
 /**
  * Definition for subscription callback start tag
  */
-#define MUPNP_SUBSCRIPTION_CALLBACK_START_WITH  "<"
+#define MUPNP_SUBSCRIPTION_CALLBACK_START_WITH "<"
 
 /**
  * Definition for subscription callback end tag
  */
-#define MUPNP_SUBSCRIPTION_CALLBACK_END_WITH  ">"
+#define MUPNP_SUBSCRIPTION_CALLBACK_END_WITH ">"
 
 /**
  * Definition for subscription delay
@@ -88,7 +88,7 @@ extern "C" {
  * Definition for maximum upnp subscription timeout
  */
 #define MUPNP_SUBSCRIPTION_MAX_TIMEOUT 300
-	
+
 /****************************************
 * Data Type
 ****************************************/
@@ -106,22 +106,17 @@ typedef mUpnpHttpResponse mUpnpSubscriptionResponse;
 /**
  * Type definition for event listener callback
  */
-typedef void (*MUPNP_EVENT_LISTENER)(mUpnpProperty *);
+typedef void (*MUPNP_EVENT_LISTENER)(mUpnpProperty*);
 
 /**
  * Type definition for event listener list
  */
 typedef struct _mUpnpEventListenerList {
-	/** Used by mupnp_list_* functions to indicate start of list */
-	bool headFlag;
-	/** Used by mupnp_list_* functions to point to the previous item in list */
-	struct _mUpnpEventListenerList *prev;
-	/** Used by mupnp_list_* functions to point to the next item in list */
-	struct _mUpnpEventListenerList *next;
- 
-	MUPNP_EVENT_LISTENER listener;
+  MUPNP_LIST_STRUCT_MEMBERS
+
+  MUPNP_EVENT_LISTENER listener;
 } mUpnpEventListenerList;
- 
+
 /****************************************
 * Function
 ****************************************/
@@ -134,7 +129,7 @@ typedef struct _mUpnpEventListenerList {
  *
  * @return Timeout header C string
  */
-const char *mupnp_event_subscription_totimeoutheaderstring(mUpnpTime time, mUpnpString *buf);
+const char* mupnp_event_subscription_totimeoutheaderstring(mUpnpTime time, mUpnpString* buf);
 
 /**
  * Get event subscription timeout
@@ -143,7 +138,7 @@ const char *mupnp_event_subscription_totimeoutheaderstring(mUpnpTime time, mUpnp
  *
  * @return Timeout
  */
-mUpnpTime mupnp_event_subscription_gettimeout(const char *headerValue);
+mUpnpTime mupnp_event_subscription_gettimeout(const char* headerValue);
 
 /**
  * Create SID for subscription
@@ -153,7 +148,7 @@ mUpnpTime mupnp_event_subscription_gettimeout(const char *headerValue);
  *
  * @return Pointer to buffer containing SID
  */
-const char * mupnp_event_subscription_createsid(char *buf, size_t bufSize);
+const char* mupnp_event_subscription_createsid(char* buf, size_t bufSize);
 
 /**
  * Creates SID header string
@@ -164,7 +159,7 @@ const char * mupnp_event_subscription_createsid(char *buf, size_t bufSize);
  *
  * @return Pointer to buffer containing SID header string
  */
-const char *mupnp_event_subscription_tosidheaderstring(const char *sid, char *buf, size_t bufSize);
+const char* mupnp_event_subscription_tosidheaderstring(const char* sid, char* buf, size_t bufSize);
 
 /**
  * Get SID
@@ -173,7 +168,7 @@ const char *mupnp_event_subscription_tosidheaderstring(const char *sid, char *bu
  * 
  * @return C string containing SID
  */
-const char *mupnp_event_subscription_getsid(const char *headerValue);
+const char* mupnp_event_subscription_getsid(const char* headerValue);
 
 /****************************************
 * Function (Request)
@@ -219,7 +214,7 @@ const char *mupnp_event_subscription_getsid(const char *headerValue);
  * @param subReq Subscription request
  * @param sid SID (Subscription id)
  */
-void mupnp_event_subscription_request_setsid(mUpnpSubscriptionRequest *subReq, const char *sid);
+void mupnp_event_subscription_request_setsid(mUpnpSubscriptionRequest* subReq, const char* sid);
 
 /**
  * Get sid from subscription request
@@ -303,7 +298,7 @@ void mupnp_event_subscription_request_setsid(mUpnpSubscriptionRequest *subReq, c
  * @param subReq Subscription request
  * @param timeout Timeout value for subscription request
  */
-void mupnp_event_subscription_request_settimeout(mUpnpSubscriptionRequest *subReq, mUpnpTime timeout);
+void mupnp_event_subscription_request_settimeout(mUpnpSubscriptionRequest* subReq, mUpnpTime timeout);
 
 /**
  * Get timeout value from subscription request
@@ -322,7 +317,7 @@ void mupnp_event_subscription_request_settimeout(mUpnpSubscriptionRequest *subRe
  * @param callback URL to be called when service state changes
  * @param timeout Subscription timeout
  */
-void mupnp_event_subscription_request_setnewsubscription(mUpnpSubscriptionRequest *subReq, mUpnpService *service, const char *callback, mUpnpTime timeout);
+void mupnp_event_subscription_request_setnewsubscription(mUpnpSubscriptionRequest* subReq, mUpnpService* service, const char* callback, mUpnpTime timeout);
 
 /**
  * (Re)initializes subscription request to be renewal request
@@ -332,7 +327,7 @@ void mupnp_event_subscription_request_setnewsubscription(mUpnpSubscriptionReques
  * @param uuid Devices unique identification string
  * @param timeout Subscription timeout
  */
-void mupnp_event_subscription_request_setrenewsubscription(mUpnpSubscriptionRequest *subReq, mUpnpService *service, const char *uuid, mUpnpTime timeout);
+void mupnp_event_subscription_request_setrenewsubscription(mUpnpSubscriptionRequest* subReq, mUpnpService* service, const char* uuid, mUpnpTime timeout);
 
 /**
  * (Re)initializes subscription request to be unsubscription request
@@ -340,7 +335,7 @@ void mupnp_event_subscription_request_setrenewsubscription(mUpnpSubscriptionRequ
  * @param subReq Subscription request
  * @param service Service where to be unsubscribed
  */
-void mupnp_event_subscription_request_setunsubscription(mUpnpSubscriptionRequest *subReq, mUpnpService *service);
+void mupnp_event_subscription_request_setunsubscription(mUpnpSubscriptionRequest* subReq, mUpnpService* service);
 
 /**** Host ****/
 
@@ -427,7 +422,7 @@ void mupnp_event_subscription_request_setunsubscription(mUpnpSubscriptionRequest
  * @param subRes Subscription response
  * @param sid Subscription ID
  */
-void mupnp_event_subscription_response_setsid(mUpnpSubscriptionResponse *subRes, const char *sid);
+void mupnp_event_subscription_response_setsid(mUpnpSubscriptionResponse* subRes, const char* sid);
 
 /**
  * Get SID
@@ -446,7 +441,7 @@ void mupnp_event_subscription_response_setsid(mUpnpSubscriptionResponse *subRes,
  * @param subRes Subscription response
  * @param value Timeout
  */
-void mupnp_event_subscription_response_settimeout(mUpnpSubscriptionResponse *subRes, long value);
+void mupnp_event_subscription_response_settimeout(mUpnpSubscriptionResponse* subRes, long value);
 
 /**
  * Get timeout value from subscription response
@@ -463,57 +458,57 @@ void mupnp_event_subscription_response_settimeout(mUpnpSubscriptionResponse *sub
  * @param subRes Subscription response
  * @param code Response code
  */
-void mupnp_event_subscription_subscriberesponse_setresponse(mUpnpSubscriptionResponse *subRes, int code);
+void mupnp_event_subscription_subscriberesponse_setresponse(mUpnpSubscriptionResponse* subRes, int code);
 /* TODO getter? */
 
 /****************************************
 * Function (Eventlistener list)
 ****************************************/
- 
+
 /**
 * Create a new event listener list
 *
 */
-mUpnpEventListenerList *mupnp_eventlistenerlist_new();
- 
+mUpnpEventListenerList* mupnp_eventlistenerlist_new();
+
 /**
 * Delete a event listener list.
 *
 * \param eventListenerList The event listener list to delete
 *
 */
-void mupnp_eventlistenerlist_delete(mUpnpEventListenerList *eventListenerList);
- 
+void mupnp_eventlistenerlist_delete(mUpnpEventListenerList* eventListenerList);
+
 /**
 * Clear the contents of a event listener list.
 *
 * \param eventListenerList The device list to clear
 *
 */
-#define mupnp_eventlistenerlist_clear(eventListenerList) mupnp_list_clear((mUpnpList *)eventListenerList, (MUPNP_LIST_DESTRUCTORFUNC)free)
- 
+#define mupnp_eventlistenerlist_clear(eventListenerList) mupnp_list_clear((mUpnpList*)eventListenerList, (MUPNP_LIST_DESTRUCTORFUNC)free)
+
 /**
 * Get the size of the device list
 *
 * \param eventListenerList The device list
 *
 */
-#define mupnp_eventlistenerlist_size(eventListenerList) mupnp_list_size((mUpnpList *)eventListenerList)
- 
-/**
-* Fetches next list element from event listener list
-*
-* @param eventListenerList Event listener list
-*/
-#define mupnp_eventlistenerlist_gets(eventListenerList) (mUpnpEventListenerList*)mupnp_list_next((mUpnpList *)eventListenerList)
+#define mupnp_eventlistenerlist_size(eventListenerList) mupnp_list_size((mUpnpList*)eventListenerList)
 
 /**
 * Fetches next list element from event listener list
 *
 * @param eventListenerList Event listener list
 */
-#define mupnp_eventlistenerlist_next(eventListenerList) (mUpnpEventListenerList*)mupnp_list_next((mUpnpList *)eventListenerList)
- 
+#define mupnp_eventlistenerlist_gets(eventListenerList) (mUpnpEventListenerList*) mupnp_list_next((mUpnpList*)eventListenerList)
+
+/**
+* Fetches next list element from event listener list
+*
+* @param eventListenerList Event listener list
+*/
+#define mupnp_eventlistenerlist_next(eventListenerList) (mUpnpEventListenerList*) mupnp_list_next((mUpnpList*)eventListenerList)
+
 /**
 * Remove a listener from the event listener list
 *
@@ -522,7 +517,7 @@ void mupnp_eventlistenerlist_delete(mUpnpEventListenerList *eventListenerList);
 *
 */
 void mupnp_eventlistenerlist_remove(mUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener);
- 
+
 /**
 * Add a listener to the event listener list
 *
@@ -531,17 +526,16 @@ void mupnp_eventlistenerlist_remove(mUpnpEventListenerList* eventListenerList, M
 *
 */
 void mupnp_eventlistenerlist_add(mUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener);
- 
+
 /**
  * Call all event listeners in the list with the given data.
  *
  * @param eventListenerList The list to iterate thru
  * @param property The property that has been evented
  */
-void mupnp_eventlistenerlist_notify(mUpnpEventListenerList* eventListenerList, mUpnpProperty *property);
+void mupnp_eventlistenerlist_notify(mUpnpEventListenerList* eventListenerList, mUpnpProperty* property);
 
-
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

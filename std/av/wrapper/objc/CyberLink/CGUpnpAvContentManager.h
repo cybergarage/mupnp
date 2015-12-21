@@ -16,11 +16,9 @@
  * The CGUpnpAvContentDirectory class has UPnP/AV objects of a media servers.
  *
  */
-@interface CGUpnpAvContentManager : NSObject
-{
+@interface CGUpnpAvContentManager : NSObject {
 }
-@property(retain) CGUpnpAvRoot *rootObj;
-- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId;
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath;
+@property (retain) CGUpnpAvRoot* rootObj;
+- (CGUpnpAvObject*)objectForId:(NSString*)aObjectId;
+- (CGUpnpAvObject*)objectForTitlePath:(NSString*)aTitlePath;
 @end
-

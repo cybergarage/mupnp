@@ -10,6 +10,6 @@
 #import <CyberLink/UPnP.h>
 
 @interface ClinkUnitTest : SenTestCase {
-	CGUpnpControlPoint *cp;
+  CGUpnpControlPoint* cp;
 }
 @end

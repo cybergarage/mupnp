@@ -42,6 +42,7 @@ mupnp_headers = \
 	./mupnp/util/string.h \
 	./mupnp/util/thread.h \
 	./mupnp/util/time.h \
+	./mupnp/version.h \
 	./mupnp/xml/xml.h
 
 

@@ -13,4 +13,3 @@
 ************************************************************/
 
 #include <cybergarage/upnp/std/av/cresource.h>
-

@@ -16,7 +16,7 @@
 #include <mupnp/http/http.h>
 #include <mupnp/xml/xml.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -46,7 +46,7 @@ extern "C" {
 
 #define MUPNP_SOAP_XMLNS_URL "http://schemas.xmlsoap.org/soap/envelope/"
 #define MUPNP_SOAP_ENCSTYLE_URL "http://schemas.xmlsoap.org/soap/encoding/"
-	
+
 #define MUPNP_SOAP_CONTENT_TYPE "text/xml; charset=\"utf-8\""
 #define MUPNP_SOAP_ENCORDING "encodingStyle"
 
@@ -55,45 +55,45 @@ extern "C" {
 ****************************************/
 
 typedef struct _mUpnpSoapResponse {
-	mUpnpHttpResponse *httpRes;
-	bool isHttpResCreated;
-	mUpnpXmlNodeList *rootNodeList;
-	void *userData;
+  mUpnpHttpResponse* httpRes;
+  bool isHttpResCreated;
+  mUpnpXmlNodeList* rootNodeList;
+  void* userData;
 } mUpnpSoapResponse;
 
-typedef struct _mUpnpSoapRequest{
-	mUpnpHttpRequest *httpReq;
-	bool isHttpReqCreated;
-	mUpnpXmlNode *rootNodeList;
-	mUpnpSoapResponse *soapRes;
-	void *userData;
+typedef struct _mUpnpSoapRequest {
+  mUpnpHttpRequest* httpReq;
+  bool isHttpReqCreated;
+  mUpnpXmlNode* rootNodeList;
+  mUpnpSoapResponse* soapRes;
+  void* userData;
 } mUpnpSoapRequest;
 
 /****************************************
 * Function (Request)
 ****************************************/
 
-mUpnpSoapRequest *mupnp_soap_request_new();
-void mupnp_soap_request_delete(mUpnpSoapRequest *soapReq);
-void mupnp_soap_request_clear(mUpnpSoapRequest *soapReq);
+mUpnpSoapRequest* mupnp_soap_request_new();
+void mupnp_soap_request_delete(mUpnpSoapRequest* soapReq);
+void mupnp_soap_request_clear(mUpnpSoapRequest* soapReq);
 
-bool mupnp_soap_request_sethttprequest(mUpnpSoapRequest *soapReq, mUpnpHttpRequest *httpReq);
+bool mupnp_soap_request_sethttprequest(mUpnpSoapRequest* soapReq, mUpnpHttpRequest* httpReq);
 #define mupnp_soap_request_gethttprequest(soapReq) (soapReq->httpReq)
 
 #define mupnp_soap_request_setsoapaction(soapReq, name) mupnp_http_packet_setheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SOAP_ACTION, name)
 #define mupnp_soap_request_getsoapaction(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SOAP_ACTION)
 #define mupnp_soap_request_getsoapactionwithns(soapReq) mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)(soapReq->httpReq), MUPNP_HTTP_SOAP_ACTION_WITH_NS)
 
-bool mupnp_soap_request_parsemessage(mUpnpSoapRequest *soapReq, char *msg, size_t msgLen);
-mUpnpSoapResponse *mupnp_soap_request_post(mUpnpSoapRequest *soapReq, const char *ipaddr, int port);
+bool mupnp_soap_request_parsemessage(mUpnpSoapRequest* soapReq, char* msg, size_t msgLen);
+mUpnpSoapResponse* mupnp_soap_request_post(mUpnpSoapRequest* soapReq, const char* ipaddr, int port);
 #define mupnp_soap_request_getsoapresponse(soapReq) (soapReq->soapRes)
 
 #define mupnp_soap_request_getrootnoodelist(soapReq) (soapReq->rootNodeList)
 #define mupnp_soap_request_getrootnoode(soapReq) mupnp_xml_nodelist_gets(soapReq->rootNodeList)
 #define mupnp_soap_request_getenvelopenode(soapReq) mupnp_xml_nodelist_gets(soapReq->rootNodeList)
-mUpnpXmlNode *mupnp_soap_request_getbodynode(mUpnpSoapRequest *soapReq);
+mUpnpXmlNode* mupnp_soap_request_getbodynode(mUpnpSoapRequest* soapReq);
 
-void mupnp_soap_request_setcontent(mUpnpSoapRequest *soapReq, mUpnpXmlNode *node);
+void mupnp_soap_request_setcontent(mUpnpSoapRequest* soapReq, mUpnpXmlNode* node);
 #define mupnp_soap_request_createcontent(soapReq) mupnp_soap_request_setcontent(soapReq, mupnp_soap_request_getenvelopenode(soapReq))
 
 /**** User Data ****/
@@ -104,19 +104,19 @@ void mupnp_soap_request_setcontent(mUpnpSoapRequest *soapReq, mUpnpXmlNode *node
 * Function (Response)
 ****************************************/
 
-mUpnpSoapResponse *mupnp_soap_response_new();
-void mupnp_soap_response_delete(mUpnpSoapResponse *soapRes);
-void mupnp_soap_response_clear(mUpnpSoapResponse *soapRes);
+mUpnpSoapResponse* mupnp_soap_response_new();
+void mupnp_soap_response_delete(mUpnpSoapResponse* soapRes);
+void mupnp_soap_response_clear(mUpnpSoapResponse* soapRes);
 
-void mupnp_soap_response_sethttpresponse(mUpnpSoapResponse *soapRes, mUpnpHttpResponse *httpRes);
+void mupnp_soap_response_sethttpresponse(mUpnpSoapResponse* soapRes, mUpnpHttpResponse* httpRes);
 #define mupnp_soap_response_gethttpresponse(soapRes) (soapRes->httpRes)
 
 #define mupnp_soap_response_getrootnoodelist(soapRes) (soapRes->rootNodeList);
 #define mupnp_soap_response_getrootnoode(soapRes) mupnp_xml_nodelist_gets(soapRes->rootNodeList);
 #define mupnp_soap_response_getenvelopenode(soapRes) mupnp_xml_nodelist_gets(soapRes->rootNodeList);
-mUpnpXmlNode *mupnp_soap_response_getbodynode(mUpnpSoapResponse *soapRes);
+mUpnpXmlNode* mupnp_soap_response_getbodynode(mUpnpSoapResponse* soapRes);
 
-void mupnp_soap_response_setcontent(mUpnpSoapResponse *soapRes, mUpnpXmlNode *node);
+void mupnp_soap_response_setcontent(mUpnpSoapResponse* soapRes, mUpnpXmlNode* node);
 #define mupnp_soap_response_createcontent(soapRes) mupnp_soap_response_setcontent(soapRes, mupnp_soap_response_getenvelopenode(soapRes))
 
 #define mupnp_soap_response_getstatuscode(soapRes) mupnp_http_response_getstatuscode(soapRes->httpRes)
@@ -130,9 +130,9 @@ void mupnp_soap_response_setcontent(mUpnpSoapResponse *soapRes, mUpnpXmlNode *no
 * Function
 ****************************************/
 
-mUpnpXmlNode *mupnp_soap_createenvelopebodynode();
+mUpnpXmlNode* mupnp_soap_createenvelopebodynode();
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

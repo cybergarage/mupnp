@@ -17,7 +17,7 @@
 #include <mupnp/util/string.h>
 #include <mupnp/net/uri.h>
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -85,12 +85,12 @@ typedef struct _mUpnpNetURI mUpnpNetURL;
 
 #define mupnp_net_url_getupnpbasepath(urip) mupnp_net_uri_getupnpbasepath(urip);
 
-const char *mupnp_net_gethosturl(const char *host, int port, const char *uri, char *buf, size_t bufSize);
-const char *mupnp_net_getmodifierhosturl(const char *host, int port, const char *uri, const char *begin, const char *end, char *buf, size_t bufSize);
+const char* mupnp_net_gethosturl(const char* host, int port, const char* uri, char* buf, size_t bufSize);
+const char* mupnp_net_getmodifierhosturl(const char* host, int port, const char* uri, const char* begin, const char* end, char* buf, size_t bufSize);
 
 #define mupnp_net_url_getquerydictionary(urip) mupnp_net_uri_getquerydictionary(urip);
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 
