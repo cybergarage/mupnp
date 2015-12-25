@@ -53,6 +53,7 @@ mUpnpDevice *mupnp_device_new()
 #ifdef MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS
 		mupnp_http_persistentconnection_init();
 #endif
+        dev->refCount = 0;
 
 		dev->rootNodeList = NULL;
 		dev->deviceNode = NULL;
@@ -96,6 +97,9 @@ mUpnpDevice *mupnp_device_new()
 void mupnp_device_delete(mUpnpDevice *dev)
 {
 	mupnp_log_debug_l4("Entering...\n");
+    if (dev->refCount > 0) {
+        return;
+    }
 
 	mupnp_list_remove((mUpnpList *)dev);
 	

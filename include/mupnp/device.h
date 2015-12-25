@@ -123,6 +123,8 @@ typedef struct _mUpnpDevice
 {
   MUPNP_LIST_STRUCT_MEMBERS
   
+  /** Referrence Count */
+    int refCount;
   /** List of XML root nodes */
   mUpnpXmlNodeList *rootNodeList;
   /** This device's description XML node */

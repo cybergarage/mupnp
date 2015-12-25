@@ -62,7 +62,7 @@
 @protocol CGUpnpAvControllerDelegate <NSObject, CGUpnpControlPointDelegate>
 
 @optional
-- (void)upnpAvController:(CGUpnpAvController *)controller   didRendererPositionInfoUpdated:(CGUpnpAvRenderer *)renderer;
+- (void)upnpAvController:(CGUpnpAvController *)controller didRendererPositionInfoUpdated:(CGUpnpAvRenderer *)renderer;
 - (void)upnpAvController:(CGUpnpAvController *)controller didRendererPlaybackStateUpdated:(CGUpnpAvRenderer *)renderer;
 - (void)upnpAvController:(CGUpnpAvController *)controller didRendererTrackURIUpdated:(CGUpnpAvRenderer *)renderer;
 - (void)upnpAvController:(CGUpnpAvController *)controller didRendererTrackDurationUpdated:(CGUpnpAvRenderer *)renderer;

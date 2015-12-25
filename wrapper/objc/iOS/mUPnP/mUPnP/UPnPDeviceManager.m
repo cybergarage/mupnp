@@ -142,7 +142,7 @@ UPnPDeviceManager *gUPnPDeviceManager;
     }
 }
 
-- (void)upnpAvController:(CGUpnpAvController *)controller   didRendererPositionInfoUpdated:(CGUpnpAvRenderer *)renderer {
+- (void)upnpAvController:(CGUpnpAvController *)controller didRendererPositionInfoUpdated:(CGUpnpAvRenderer *)renderer {
     for (id<UPnPDeviceManagerObserver> observer in observerArray) {
         if ([observer respondsToSelector:@selector(deviceManagerDidRendererPositionInfoUpdated:)]) {
             [observer deviceManagerDidRendererPositionInfoUpdated:renderer];

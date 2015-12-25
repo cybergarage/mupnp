@@ -32,6 +32,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	cObject = mupnp_device_new();
 	if (!cObject)
 		return nil;
+    cObject->refCount ++;
 	isCObjectCreated = YES;
 	mupnp_device_setuserdata(cObject, (__bridge void *)(self));
 	mupnp_device_setactionlistener(cObject, CGUpnpDeviceActionListener);
@@ -43,6 +44,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	if ((self = [super init]) == nil)
 		return nil;
 	cObject = cobj;
+    cObject->refCount ++;
 	isCObjectCreated = NO;
 	return self;
 }
@@ -70,6 +72,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 - (void) dealloc
 {
 	if (isCObjectCreated && cObject) {
+        cObject->refCount --;
 		mupnp_device_delete(cObject);
 		cObject = NULL;
 	}

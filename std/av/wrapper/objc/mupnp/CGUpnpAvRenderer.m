@@ -35,6 +35,7 @@
     BOOL bGeneratingPositionInfoNotifications;
     BOOL bPlayedBySelf;
     BOOL bSeeking;
+    BOOL bSkiping;
 }
 
 @end
@@ -87,10 +88,12 @@
     if (DMRMusicPlaybackStateStopped == playbackState) {
         if (bPlayedBySelf &&
             nil != self.nowPlayingItem &&
-            [self.playerItemCollection count] > 0) {
+            [self.playerItemCollection count] > 0 &&
+            ! bSkiping) { // if user pressed next or previous, not jump to next again.
             [self skipToNextItem];
         }
     } else if (DMRMusicPlaybackStatePlaying == playbackState) {
+        bSkiping = NO;
         [self mediaInfo];
     }
 }
@@ -383,6 +386,7 @@
 
 - (void)playMusicWithIndex:(NSInteger)index {
     if (index < [self.playerItemCollection count]) {
+        bSkiping = YES;
         DMRMediaItem *item = [self.playerItemCollection objectAtIndex:index];
         [self setNowPlayingItem:item];
     }
@@ -404,7 +408,6 @@
 }
 
 - (void)skipToBeginning {
-    
 }
 
 - (void)skipToPreviousItem {
