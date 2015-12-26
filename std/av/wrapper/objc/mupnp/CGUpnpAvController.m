@@ -382,6 +382,12 @@
     }
 }
 
+- (void)upnpAvRender:(CGUpnpAvRenderer *)renderer preparingToPlayItemAtIndex:(NSInteger)index {
+    if ([self.avDelegate respondsToSelector:@selector(upnpAvController:didRenderer:preparingToPlayItemAtIndex:)]) {
+        [self.avDelegate upnpAvController:self didRenderer:renderer preparingToPlayItemAtIndex:index];
+    }
+}
+
 #pragma mark 
 
 static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnpProperty *property)

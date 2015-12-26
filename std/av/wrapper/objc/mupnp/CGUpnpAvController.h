@@ -67,5 +67,5 @@
 - (void)upnpAvController:(CGUpnpAvController *)controller didRendererTrackURIUpdated:(CGUpnpAvRenderer *)renderer;
 - (void)upnpAvController:(CGUpnpAvController *)controller didRendererTrackDurationUpdated:(CGUpnpAvRenderer *)renderer;
 - (void)upnpAvController:(CGUpnpAvController *)controller didRendererVolumeUpdated:(CGUpnpAvRenderer *)renderer;
-
+- (void)upnpAvController:(CGUpnpAvController *)controller didRenderer:(CGUpnpAvRenderer *)renderer preparingToPlayItemAtIndex:(NSInteger)index;
 @end

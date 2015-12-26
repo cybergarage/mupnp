@@ -403,6 +403,9 @@
 - (void)skipToNextItem {
     NSUInteger index = [self indexOfNowPlayingItem];
     if (++ index < [self.playerItemCollection count]) {
+        if ([self.avDelegate respondsToSelector:@selector(upnpAvRender:preparingToPlayItemAtIndex:)]) {
+            [self.avDelegate upnpAvRender:self preparingToPlayItemAtIndex:index];
+        }
         [self playMusicWithIndex:index];
     }
 }
@@ -413,7 +416,11 @@
 - (void)skipToPreviousItem {
     NSUInteger index = [self indexOfNowPlayingItem];
     if (index > 0) {
-        [self playMusicWithIndex:-- index];
+        index --;
+        if ([self.avDelegate respondsToSelector:@selector(upnpAvRender:preparingToPlayItemAtIndex:)]) {
+            [self.avDelegate upnpAvRender:self preparingToPlayItemAtIndex:index];
+        }
+        [self playMusicWithIndex:index];
     }
 }
 

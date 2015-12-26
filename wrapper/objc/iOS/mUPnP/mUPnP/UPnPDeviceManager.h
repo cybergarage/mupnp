@@ -41,5 +41,6 @@
 - (void)deviceManagerDidRendererTrackDurationUpdated:(CGUpnpAvRenderer *)avRenderer;
 - (void)deviceManagerDidRendererTrackURIUpdated:(CGUpnpAvRenderer *)avRenderer;
 - (void)deviceManagerDidRendererPositionInfoUpdated:(CGUpnpAvRenderer *)avRenderer;
+- (void)deviceManagerDidRenderer:(CGUpnpAvRenderer *)avRenderer preparingToPlayItemAtIndex:(NSInteger)index;
 
 @end

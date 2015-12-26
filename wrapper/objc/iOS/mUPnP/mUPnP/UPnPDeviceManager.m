@@ -182,4 +182,12 @@ UPnPDeviceManager *gUPnPDeviceManager;
     }
 }
 
+- (void)upnpAvController:(CGUpnpAvController *)controller didRenderer:(CGUpnpAvRenderer *)renderer preparingToPlayItemAtIndex:(NSInteger)index {
+    for (id<UPnPDeviceManagerObserver> observer in observerArray) {
+        if ([observer respondsToSelector:@selector(deviceManagerDidRenderer:preparingToPlayItemAtIndex:)]) {
+            [observer deviceManagerDidRenderer:renderer preparingToPlayItemAtIndex:index];
+        }
+    }
+}
+
 @end

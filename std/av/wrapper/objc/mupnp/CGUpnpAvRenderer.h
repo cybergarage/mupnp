@@ -124,5 +124,6 @@ typedef void mUpnpAvRenderer;
 
 @optional
 - (void)upnpAvRenderDidPositionInfoUpdated:(CGUpnpAvRenderer *)renderer;
+- (void)upnpAvRender:(CGUpnpAvRenderer *)renderer preparingToPlayItemAtIndex:(NSInteger)index;
 
 @end
