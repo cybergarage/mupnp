@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		211B90D6197675F500DEA0D7 /* XMLTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 211B90D5197675F500DEA0D7 /* XMLTest.cpp */; };
-		2121F3081A83D83900930B36 /* liblibmupnp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2123216C1A83C528002AA265 /* liblibmupnp.a */; };
+		2121F3081A83D83900930B36 /* libmupnp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2123216C1A83C528002AA265 /* libmupnp.a */; };
 		212CAC5E186439810065C62C /* StringTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 212CAC5D186439810065C62C /* StringTest.cpp */; };
 		219030B819067A4E003D4327 /* UPnPFuncTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 219030B719067A4E003D4327 /* UPnPFuncTest.cpp */; };
 		21A2BCFB14C664E8007457AF /* ServiceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21A2BCFA14C664E8007457AF /* ServiceTest.cpp */; };
@@ -78,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2121F3081A83D83900930B36 /* liblibmupnp.a in Frameworks */,
+				2121F3081A83D83900930B36 /* libmupnp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +88,7 @@
 		212321681A83C528002AA265 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2123216C1A83C528002AA265 /* liblibmupnp.a */,
+				2123216C1A83C528002AA265 /* libmupnp.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,10 +193,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		2123216C1A83C528002AA265 /* liblibmupnp.a */ = {
+		2123216C1A83C528002AA265 /* libmupnp.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = liblibmupnp.a;
+			path = libmupnp.a;
 			remoteRef = 2123216B1A83C528002AA265 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};

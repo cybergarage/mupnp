@@ -141,7 +141,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		210AF4181331182E00A2EB09 /* liblibmupnp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibmupnp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		210AF4181331182E00A2EB09 /* libmupnp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmupnp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		216F020B1A83C57C00165CB3 /* action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = action.h; sourceTree = "<group>"; };
 		216F020C1A83C57C00165CB3 /* argument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = argument.h; sourceTree = "<group>"; };
 		216F020D1A83C57C00165CB3 /* controlpoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = controlpoint.h; sourceTree = "<group>"; };
@@ -301,7 +301,7 @@
 		210AF4191331182E00A2EB09 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				210AF4181331182E00A2EB09 /* liblibmupnp.a */,
+				210AF4181331182E00A2EB09 /* libmupnp.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -677,7 +677,7 @@
 			);
 			name = libmupnp;
 			productName = clink;
-			productReference = 210AF4181331182E00A2EB09 /* liblibmupnp.a */;
+			productReference = 210AF4181331182E00A2EB09 /* libmupnp.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -874,7 +874,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_PREFIX = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				HEADER_SEARCH_PATHS = (
@@ -895,7 +895,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_PREFIX = "";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				HEADER_SEARCH_PATHS = (
 					"${SDKROOT}/usr/include/libxml2",
