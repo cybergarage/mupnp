@@ -274,7 +274,6 @@
 		216F03261A83C58E00165CB3 /* xml_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xml_parser.c; sourceTree = "<group>"; };
 		216F03271A83C58E00165CB3 /* xml_parser_expat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xml_parser_expat.c; sourceTree = "<group>"; };
 		216F03281A83C58E00165CB3 /* xml_parser_libxml2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xml_parser_libxml2.c; sourceTree = "<group>"; };
-		21AA0F211331794D00A2338F /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,7 +290,6 @@
 		210AF40D1331182E00A2EB09 = {
 			isa = PBXGroup;
 			children = (
-				21AA0F211331794D00A2338F /* libxml2.dylib */,
 				2152CA5D13311C5C00229C13 /* Headers */,
 				2152CAB213311CAB00229C13 /* Sources */,
 				210AF4191331182E00A2EB09 /* Products */,
