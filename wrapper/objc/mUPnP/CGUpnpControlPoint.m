@@ -149,7 +149,8 @@ static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnp
 - (CGUpnpDevice *)deviceWithCObject:(mUpnpDevice *)cDevice
 {
     __block CGUpnpDevice *device = nil;
-    [deviceArray enumerateObjectsUsingBlock:^(CGUpnpDevice * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    NSArray *tempArray = deviceArray;
+    [tempArray enumerateObjectsUsingBlock:^(CGUpnpDevice * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.cObject == cDevice) {
             device = obj;
             *stop = YES;
