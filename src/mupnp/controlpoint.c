@@ -600,6 +600,9 @@ static mUpnpDevice* mupnp_controlpoint_createdevicefromssdkpacket(mUpnpSSDPPacke
   url = mupnp_net_url_new();
   mupnp_net_url_set(url, location);
   parseSuccess = mupnp_device_parsedescriptionurl(dev, url);
+  if (parseSuccess) {
+    mupnp_device_sethttpport(dev, mupnp_net_url_getport(url));
+  }
   mupnp_net_url_delete(url);
 
   if (parseSuccess == false) {
