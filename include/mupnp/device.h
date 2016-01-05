@@ -1321,6 +1321,14 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 * Function (HTTP)
 ******************************************************************************/
 
+/**
+ * Get the device's address from SSDP packet
+ *
+ * \param dev The device in question
+ *
+ */
+#define mupnp_device_getaddress(dev) mupnp_ssdp_packet_getlocaladdress(mupnp_device_getssdppacket(dev))
+
 /*****************************************************************************
  * HTTP Port 
  *****************************************************************************/
