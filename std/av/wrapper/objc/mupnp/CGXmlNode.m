@@ -189,6 +189,20 @@
 	mupnp_xml_node_setattribute(cXmlNode, (char *)[aName UTF8String], (char *)[aValue UTF8String]);
 }
 
+- (NSString *)xmlNodeToString
+{
+    if (!cXmlNode)
+        return nil;
+    mUpnpString *str = mupnp_string_new();
+    const char* strValue = mupnp_xml_node_tostring(cXmlNode, true, str);
+    if (strValue)
+    {
+        return [NSString stringWithUTF8String:strValue];
+    }
+    
+    return nil;
+}
+
 #endif
 
 @end

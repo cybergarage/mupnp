@@ -220,7 +220,7 @@
 	
 	CGUpnpAction *browseAction = [self browseAction];
 	NSString *resultStr = [browseAction argumentValueForName:@"Result"];
-	NSArray *avObjArray =  [CGUpnpAvObject arrayWithXMLString:resultStr];
+	NSArray *avObjArray = [CGUpnpAvObject arrayWithXMLString:resultStr];
     
 	/* Update Content Manager */
 	CGUpnpAvObject *parentObj = [self objectForId:aObjectId];

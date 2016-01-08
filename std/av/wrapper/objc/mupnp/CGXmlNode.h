@@ -46,6 +46,7 @@ typedef void mUpnpXmlNode;
 - (NSString *)stringValue;
 - (void)setStringValue:(NSString *)aValue;
 - (void)setAttributeWithName:(NSString *)aName stringValue:(NSString *)aValue;
+- (NSString *)xmlNodeToString;
 
 @end
 

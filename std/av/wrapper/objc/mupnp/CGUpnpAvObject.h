@@ -46,6 +46,7 @@ typedef void mUpnpAvContent;
 - (NSString *)objectId;
 - (NSUInteger)childCount;
 - (NSString *)title;
+- (NSString *)creator;
 - (NSString *)upnpClass;
 - (NSString *)date;
 - (NSString *)albumArtURI;

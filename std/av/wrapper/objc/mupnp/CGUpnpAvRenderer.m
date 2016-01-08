@@ -7,14 +7,15 @@
 //
 
 #include <mupnp/std/av/cmediarenderer.h>
+#import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
 
 #import "CGUpnpAvRenderer.h"
 #import "CGUpnpAVPositionInfo.h"
 #import "CGUpnpAVPositionInfo.h"
 #import "CGUpnpService.h"
 #import "CGUpnpAction.h"
-#import <AVFoundation/AVFoundation.h>
-#import <UIKit/UIKit.h>
+#import "CGUpnpAvItem.h"
 
 #define AUDIO_PROTOCOL_M4A @"http-get:*:audio/mp4:*;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
 #define AUDIO_PROTOCOL_MP3 @"http-get:*:audio/mpeg:DLNA.ORG_PN=MP3;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
@@ -139,6 +140,28 @@
 		return nil;
 	
 	return [avTransService getActionForName:serviceName];
+}
+
+- (BOOL)setAVTransportWithAvItem:(CGUpnpAvItem *)avItem
+{
+    if (nil == avItem) {
+        return NO;
+    }
+    
+    CGUpnpAction *action = [self actionOfTransportServiceForName:@"SetAVTransportURI"];
+    if (!action)
+        return NO;
+    
+    NSString *resourceURL = [[avItem resource] url];
+    NSString *metaData = [avItem xmlNodeToString];
+    [action setArgumentValue:@"0" forName:@"InstanceID"];
+    [action setArgumentValue:resourceURL forName:@"CurrentURI"];
+    [action setArgumentValue:metaData forName:@"CurrentURIMetaData"];
+    
+    if (![action post])
+        return NO;
+    
+    return YES;
 }
 
 - (BOOL)setAVTransportURI:(NSString *)aURL;
@@ -375,7 +398,11 @@
 - (void)setNowPlayingItem:(DMRMediaItem *)nowPlayingItem {
     bPlayedBySelf = YES;
     _nowPlayingItem = nowPlayingItem;
-    if ([self setAVTransportURI:nowPlayingItem.assetURL]) {
+    if (nil != nowPlayingItem.upnpAvItem) { // from UPnP AV Server
+        [self setAVTransportWithAvItem:nowPlayingItem.upnpAvItem];
+        [self play];
+    } else if (nil != nowPlayingItem.assetURL) { // from Local iOS Device
+        [self setAVTransportURI:nowPlayingItem.assetURL];
         [self play];
     }
 }
@@ -386,6 +413,11 @@
 
 - (void)playMusicWithIndex:(NSInteger)index {
     if (index < [self.playerItemCollection count]) {
+        // for iOS need to export local music to configure the resource url.
+        if ([self.avDelegate respondsToSelector:@selector(upnpAvRender:preparingToPlayItemAtIndex:)]) {
+            [self.avDelegate upnpAvRender:self preparingToPlayItemAtIndex:index];
+        }
+        
         bSkiping = YES;
         DMRMediaItem *item = [self.playerItemCollection objectAtIndex:index];
         [self setNowPlayingItem:item];
@@ -403,9 +435,6 @@
 - (void)skipToNextItem {
     NSUInteger index = [self indexOfNowPlayingItem];
     if (++ index < [self.playerItemCollection count]) {
-        if ([self.avDelegate respondsToSelector:@selector(upnpAvRender:preparingToPlayItemAtIndex:)]) {
-            [self.avDelegate upnpAvRender:self preparingToPlayItemAtIndex:index];
-        }
         [self playMusicWithIndex:index];
     }
 }
@@ -417,9 +446,6 @@
     NSUInteger index = [self indexOfNowPlayingItem];
     if (index > 0) {
         index --;
-        if ([self.avDelegate respondsToSelector:@selector(upnpAvRender:preparingToPlayItemAtIndex:)]) {
-            [self.avDelegate upnpAvRender:self preparingToPlayItemAtIndex:index];
-        }
         [self playMusicWithIndex:index];
     }
 }

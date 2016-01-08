@@ -27,6 +27,7 @@ extern "C" {
 #define CG_UPNPAV_OBJECT_CHILDCOUNT "childCount"
 #define CG_UPNPAV_OBJECT_RESTRICTED "restricted"
 #define CG_UPNPAV_OBJECT_TITLE "dc:title"
+#define CG_UPNPAV_OBJECT_CREATOR "dc:creator"
 #define CG_UPNPAV_OBJECT_DATE "dc:date"
 #define CG_UPNPAV_OBJECT_UPNPCLASS "upnp:class"
 #define CG_UPNPAV_OBJECT_ALBUMARTURI "upnp:albumArtURI"

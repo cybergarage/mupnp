@@ -15,6 +15,7 @@
 #import <MediaPlayer/MPMediaItem.h>
 
 @class CGUpnpAVPositionInfo;
+@class CGUpnpAvItem;
 
 typedef enum : NSUInteger {
     DMRMusicPlaybackStateStopped,
@@ -45,6 +46,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, retain) NSString *assetURL;
 @property (nonatomic, retain) MPMediaItem *mediaItem;
+@property (nonatomic, retain) CGUpnpAvItem *upnpAvItem;
 
 @end
 
