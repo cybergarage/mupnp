@@ -87,7 +87,8 @@
 - (void)setPlaybackState:(DMRMusicPlaybackState)playbackState {
     _playbackState = playbackState;
     if (DMRMusicPlaybackStateStopped == playbackState) {
-        if (bPlayedBySelf &&
+        if (self.autoPlayControl &&
+            bPlayedBySelf &&
             nil != self.nowPlayingItem &&
             [self.playerItemCollection count] > 0 &&
             ! bSkiping) { // if user pressed next or previous, not jump to next again.
@@ -105,14 +106,23 @@
     }
     
     _trackURI = trackURI;
-    if (nil != self.nowPlayingItem &&
-        [trackURI isEqualToString:self.nowPlayingItem.assetURL]) {
-        bPlayedBySelf = YES;
-        [self mediaInfoFromNowPlayItem];
-    } else {
-        bPlayedBySelf = NO;
-        [self mediaInfoFromURLString:trackURI];
+    if (nil != self.nowPlayingItem) {
+        if (nil != self.nowPlayingItem.upnpAvItem) {
+            NSString *mediaUrl = [[self.nowPlayingItem.upnpAvItem resource] url];
+            if (nil != mediaUrl && [trackURI isEqualToString:mediaUrl]) {
+                bPlayedBySelf = YES;
+                [self mediaInfoFromURLString:trackURI];
+                return;
+            }
+        } else if (nil != self.nowPlayingItem.assetURL && [trackURI isEqualToString:self.nowPlayingItem.assetURL]) {
+            bPlayedBySelf = YES;
+            [self mediaInfoFromNowPlayItem];
+            return;
+        }
     }
+    
+    bPlayedBySelf = NO;
+    [self mediaInfoFromURLString:trackURI];
 }
 
 #pragma mark

@@ -76,6 +76,8 @@ typedef void mUpnpAvRenderer;
 @property (nonatomic) float trackDuration;
 @property (nonatomic) float currentPlaybackTime;
 @property (nonatomic) DMRMusicPlaybackState playbackState;
+
+@property (nonatomic, assign) BOOL autoPlayControl;
 @property (nonatomic) DMRMusicRepeatMode repeatMode;
 @property (nonatomic) DMRMusicShuffleMode shuffleMode;
 
