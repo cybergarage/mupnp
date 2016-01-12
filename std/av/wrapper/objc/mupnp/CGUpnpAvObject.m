@@ -208,12 +208,22 @@
 
 - (void)setTitle:(NSString *)aValue;
 {
-	[self setAttributeWithName:@CG_UPNPAV_OBJECT_TITLE stringValue:aValue];
+	[self setElementValueWithName:@CG_UPNPAV_OBJECT_TITLE stringValue:aValue];
+}
+
+- (void)setCreator:(NSString *)aValue
+{
+    [self setElementValueWithName:@CG_UPNPAV_OBJECT_CREATOR stringValue:aValue];
 }
 
 - (void)setUpnpClass:(NSString *)aValue;
 {
-	[self setAttributeWithName:@CG_UPNPAV_OBJECT_UPNPCLASS stringValue:aValue];
+	[self setElementValueWithName:@CG_UPNPAV_OBJECT_UPNPCLASS stringValue:aValue];
+}
+
+- (void)setAlbumArtURI:(NSString *)aValue
+{
+    [self setElementValueWithName:@CG_UPNPAV_OBJECT_ALBUMARTURI stringValue:aValue];
 }
 
 - (BOOL)isObjectId:(NSString *)aObjectId

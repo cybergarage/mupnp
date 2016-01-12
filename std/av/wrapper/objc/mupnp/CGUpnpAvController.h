@@ -16,6 +16,7 @@
 @class CGUpnpAvServer;
 @class CGUpnpAvObject;
 @class CGUpnpAvRenderer;
+@class DMRMediaItem;
 
 
 @protocol CGUpnpAvControllerDelegate;
@@ -67,5 +68,5 @@
 - (void)upnpAvController:(CGUpnpAvController *)controller didRendererTrackURIUpdated:(CGUpnpAvRenderer *)renderer;
 - (void)upnpAvController:(CGUpnpAvController *)controller didRendererTrackDurationUpdated:(CGUpnpAvRenderer *)renderer;
 - (void)upnpAvController:(CGUpnpAvController *)controller didRendererVolumeUpdated:(CGUpnpAvRenderer *)renderer;
-- (void)upnpAvController:(CGUpnpAvController *)controller didRenderer:(CGUpnpAvRenderer *)renderer preparingToPlayItemAtIndex:(NSInteger)index;
+- (void)upnpAvController:(CGUpnpAvController *)controller didRenderer:(CGUpnpAvRenderer *)renderer preparingToPlayItem:(DMRMediaItem *)item;
 @end

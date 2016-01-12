@@ -28,17 +28,14 @@ typedef enum : NSUInteger {
 } DMRMusicPlaybackState;
 
 typedef enum : NSUInteger {
-    DMRMusicRepeatModeDefault, // the user's preference for repeat mode
     DMRMusicRepeatModeNone,
     DMRMusicRepeatModeOne,
-    DMRMusicRepeatModeAll
+    DMRMusicRepeatModeAll,
 } DMRMusicRepeatMode;
 
 typedef enum : NSUInteger {
-    DMRMusicShuffleModeDefault, // the user's preference for shuffle mode
     DMRMusicShuffleModeOff,
     DMRMusicShuffleModeSongs,
-    DMRMusicShuffleModeAlbums
 } DMRMusicShuffleMode;
 
 
@@ -69,7 +66,7 @@ typedef void mUpnpAvRenderer;
 @property (nonatomic, weak) id<CGUpnpAvRenderDelegate> avDelegate;
 
 // Player Setting
-@property(nonatomic, retain) NSArray<DMRMediaItem *> *playerItemCollection;
+@property (nonatomic, retain) NSArray<DMRMediaItem *> *playerItemCollection;
 @property (nonatomic, retain) DMRMediaItem *nowPlayingItem;
 @property (nonatomic, readonly) NSUInteger indexOfNowPlayingItem; // return NSNotFound if the index is not valid
 @property (nonatomic) float currentVolume;
@@ -111,8 +108,10 @@ typedef void mUpnpAvRenderer;
  */
 
 - (void)playMusicWithIndex:(NSInteger)index;
+- (void)playMusicWithDMRMediaItem:(DMRMediaItem *)item;
 - (DMRMediaItem *)itemAtIndex:(NSInteger)index;
 - (void)skipToNextItem; //If already at the last item, will end playback.
+- (void)skipToFirstItem;
 - (void)skipToBeginning; // Restarts playback at the beginning of the currently playing media item.
 - (void)skipToPreviousItem; // If already at the first item, this will end playback.
 
@@ -128,6 +127,6 @@ typedef void mUpnpAvRenderer;
 
 @optional
 - (void)upnpAvRenderDidPositionInfoUpdated:(CGUpnpAvRenderer *)renderer;
-- (void)upnpAvRender:(CGUpnpAvRenderer *)renderer preparingToPlayItemAtIndex:(NSInteger)index;
+- (void)upnpAvRender:(CGUpnpAvRenderer *)renderer preparingToPlayItem:(DMRMediaItem *)item;
 
 @end

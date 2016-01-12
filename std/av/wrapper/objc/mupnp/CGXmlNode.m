@@ -125,6 +125,15 @@
     [self setCXmlNode:nil];
 }
 
+- (void)setNodeName:(NSString *)aName
+{
+    if (! cXmlNode) {
+        return;
+    }
+    
+    mupnp_xml_node_setname(cXmlNode, (char *)[aName UTF8String]);
+}
+
 - (NSString *)attributeValueForName:(NSString *)aName
 {
 	if (!cXmlNode)
@@ -182,6 +191,16 @@
 	mupnp_xml_node_setvalue(cXmlNode, (char *)[aValue UTF8String]);
 }
 
+- (void)setElementValueWithName:(NSString *)aName stringValue:(NSString *)aValue
+{
+    if (! cXmlNode) {
+        return;
+    }
+    
+    mupnp_xml_node_setchildnode(cXmlNode, (char *)[aName UTF8String], (char *)[aValue UTF8String]);
+    
+}
+
 - (void)setAttributeWithName:(NSString *)aName stringValue:(NSString *)aValue
 {
 	if (!cXmlNode)
@@ -201,6 +220,15 @@
     }
     
     return nil;
+}
+
+- (void)addChildNode:(CGXmlNode *)aXmlNode
+{
+    if (! cXmlNode) {
+        return;
+    }
+    
+    mupnp_xml_node_addchildnode(cXmlNode, aXmlNode.cXmlNode);
 }
 
 #endif

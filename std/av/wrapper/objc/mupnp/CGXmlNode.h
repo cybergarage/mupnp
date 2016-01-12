@@ -40,12 +40,20 @@ typedef void mUpnpXmlNode;
 - (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode;
 #endif
 
+- (void)setNodeName:(NSString *)aName;
 - (NSString *)attributeValueForName:(NSString *)aName;
 - (CGXmlNode *)elementForName:(NSString *)aName;
 - (NSString *)elementValueForName:(NSString *)aName;
 - (NSString *)stringValue;
 - (void)setStringValue:(NSString *)aValue;
+- (void)setElementValueWithName:(NSString *)aName stringValue:(NSString *)aValue;
 - (void)setAttributeWithName:(NSString *)aName stringValue:(NSString *)aValue;
+
+#if  !defined(TARGET_OS_IPHONE)
+#else
+- (void)addChildNode:(CGXmlNode *)aXmlNode;
+#endif
+
 - (NSString *)xmlNodeToString;
 
 @end

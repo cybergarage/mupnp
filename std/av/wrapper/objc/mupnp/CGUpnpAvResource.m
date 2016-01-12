@@ -6,6 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#include <mupnp/std/av/cupnpav.h>
 #import "CGXmlNode.h"
 #import "CGUpnpAvResource.h"
 #import "CGUpnpAvConstants.h"
@@ -16,6 +17,8 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
+    [self setNodeName:@CG_UPNPAV_RES];
+    
 	return self;
 }
 
@@ -39,14 +42,39 @@
 	return [self stringValue];
 }
 
+- (void)setUrl:(NSString *)resUrl
+{
+    [self setStringValue:resUrl];
+}
+
 - (long long)size
 {
-	return [[self attributeValueForName:@"size"] longLongValue];
+	return [[self attributeValueForName:@CG_UPNPAV_RES_SIZE] longLongValue];
+}
+
+- (void)setSize:(long long)size
+{
+    [self setAttributeWithName:@CG_UPNPAV_RES_SIZE stringValue:[NSString stringWithFormat:@"%lld", size]];
+}
+
+- (void)setDuration:(NSUInteger)duration
+{
+    NSInteger second = duration % 60;
+    NSInteger minute = duration / 60 % 60;
+    NSInteger hour = duration / 60 / 60;
+    
+    NSString *strDuration = [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute, second];
+    [self setAttributeWithName:@CG_UPNPAV_RES_DURATION stringValue:strDuration];
 }
 
 - (NSString *)protocolInfo
 {
 	return [self attributeValueForName:@"protocolInfo"];
+}
+
+- (void)setProtocolInfo:(NSString *)protocolInfo
+{
+    [self setAttributeWithName:@CG_UPNPAV_RES_PROTOCOLINFO stringValue:protocolInfo];
 }
 
 - (NSString *)protocolInfoAtIndex:(NSUInteger)anIndex

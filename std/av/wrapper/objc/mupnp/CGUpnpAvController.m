@@ -382,9 +382,9 @@
     }
 }
 
-- (void)upnpAvRender:(CGUpnpAvRenderer *)renderer preparingToPlayItemAtIndex:(NSInteger)index {
-    if ([self.avDelegate respondsToSelector:@selector(upnpAvController:didRenderer:preparingToPlayItemAtIndex:)]) {
-        [self.avDelegate upnpAvController:self didRenderer:renderer preparingToPlayItemAtIndex:index];
+- (void)upnpAvRender:(CGUpnpAvRenderer *)renderer preparingToPlayItem:(DMRMediaItem *)item {
+    if ([self.avDelegate respondsToSelector:@selector(upnpAvController:didRenderer:preparingToPlayItem:)]) {
+        [self.avDelegate upnpAvController:self didRenderer:renderer preparingToPlayItem:item];
     }
 }
 

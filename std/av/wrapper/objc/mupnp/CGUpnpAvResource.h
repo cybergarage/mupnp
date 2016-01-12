@@ -22,8 +22,12 @@
 - (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode;
 #endif
 - (NSString *)url;
+- (void)setUrl:(NSString *)resUrl;
 - (long long)size;
+- (void)setSize:(long long)size;
+- (void)setDuration:(NSUInteger)duration;
 - (NSString *)protocolInfo;
+- (void)setProtocolInfo:(NSString *)protocolInfo;
 - (NSString *)protocolInfoAtIndex:(NSUInteger)anIndex;
 - (NSString *)protocol;
 - (NSString *)network;

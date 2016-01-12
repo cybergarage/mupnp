@@ -22,6 +22,8 @@
 extern "C" {
 #endif
 
+#define CG_UPNPAV_OBJECT_CONTAINER "container"
+#define CG_UPNPAV_OBJECT_ITEM "item"
 #define CG_UPNPAV_OBJECT_ID "id"
 #define CG_UPNPAV_OBJECT_PARENTID "parentID"
 #define CG_UPNPAV_OBJECT_CHILDCOUNT "childCount"
@@ -30,8 +32,18 @@ extern "C" {
 #define CG_UPNPAV_OBJECT_CREATOR "dc:creator"
 #define CG_UPNPAV_OBJECT_DATE "dc:date"
 #define CG_UPNPAV_OBJECT_UPNPCLASS "upnp:class"
+#define CG_UPNPAV_OBJECT_TRACKNUMBER "upnp:originalTrackNumber"
+#define CG_UPNPAV_OBJECT_ARTIST "upnp:artist"
+#define CG_UPNPAV_OBJECT_ALBUM "upnp:album"
+#define CG_UPNPAV_OBJECT_GENRE "upnp:genre"
 #define CG_UPNPAV_OBJECT_ALBUMARTURI "upnp:albumArtURI"
 #define CG_UPNPAV_OBJECT_ROOT_ID "0"
+    
+#define CG_UPNPAV_RES "res"
+#define CG_UPNPAV_RES_PROTOCOLINFO "protocolInfo"
+#define CG_UPNPAV_RES_SIZE "size"
+#define CG_UPNPAV_RES_DURATION "duration"
+#define CG_UPNPAV_RES_BITRATE "bitrate"
 
 typedef bool (*CG_UPNPAV_HTTP_LISTENER)(mUpnpHttpRequest *);
 typedef bool (*CG_UPNPAV_ACTION_LISTNER)(mUpnpAction *);

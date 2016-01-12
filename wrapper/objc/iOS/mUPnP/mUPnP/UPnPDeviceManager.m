@@ -182,10 +182,10 @@ UPnPDeviceManager *gUPnPDeviceManager;
     }
 }
 
-- (void)upnpAvController:(CGUpnpAvController *)controller didRenderer:(CGUpnpAvRenderer *)renderer preparingToPlayItemAtIndex:(NSInteger)index {
+- (void)upnpAvController:(CGUpnpAvController *)controller didRenderer:(CGUpnpAvRenderer *)renderer preparingToPlayItem:(DMRMediaItem *)item {
     for (id<UPnPDeviceManagerObserver> observer in observerArray) {
-        if ([observer respondsToSelector:@selector(deviceManagerDidRenderer:preparingToPlayItemAtIndex:)]) {
-            [observer deviceManagerDidRenderer:renderer preparingToPlayItemAtIndex:index];
+        if ([observer respondsToSelector:@selector(deviceManagerDidRenderer:preparingToPlayItem:)]) {
+            [observer deviceManagerDidRenderer:renderer preparingToPlayItem:item];
         }
     }
 }

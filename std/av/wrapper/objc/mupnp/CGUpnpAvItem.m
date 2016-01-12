@@ -6,6 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
+#include <mupnp/std/av/cupnpav.h>
 #import "CGXmlNode.h"
 #import "CGUpnpAvObject.h"
 #import "CGUpnpAvResource.h"
@@ -35,6 +36,11 @@
 {
 	if ((self = [super init]) == nil)
 		return nil;
+    [self setNodeName:@CG_UPNPAV_OBJECT_ITEM];
+    [self setAttributeWithName:@CG_UPNPAV_OBJECT_ID stringValue:@"0"];
+    [self setAttributeWithName:@CG_UPNPAV_OBJECT_PARENTID stringValue:@CG_UPNPAV_ROOT_CONTENT_PARENTID];
+    [self setAttributeWithName:@CG_UPNPAV_OBJECT_RESTRICTED stringValue:@"0"];
+    
 	self.resourceArray = [NSMutableArray array];
 	return self;
 }
@@ -61,6 +67,7 @@
 
 - (void)addResource:(CGUpnpAvResource *)res
 {
+    [self addChildNode:res];
 	[[self resourceArray] addObject:res];
 }
 

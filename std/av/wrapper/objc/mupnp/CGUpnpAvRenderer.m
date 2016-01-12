@@ -37,6 +37,8 @@
     BOOL bPlayedBySelf;
     BOOL bSeeking;
     BOOL bSkiping;
+    
+    NSArray<DMRMediaItem *> *sortedPlayerlist;
 }
 
 @end
@@ -84,6 +86,15 @@
     [super setDelegate:delegate];
 }
 
+- (void)setPlayerItemCollection:(NSArray<DMRMediaItem *> *)playerItemCollection {
+    _playerItemCollection = playerItemCollection;
+    if (DMRMusicShuffleModeOff != self.shuffleMode) {
+        sortedPlayerlist = [self shuffleWithPokeMethodFromArray:self.playerItemCollection];
+    } else {
+        sortedPlayerlist = self.playerItemCollection;
+    }
+}
+
 - (void)setPlaybackState:(DMRMusicPlaybackState)playbackState {
     _playbackState = playbackState;
     if (DMRMusicPlaybackStateStopped == playbackState) {
@@ -92,11 +103,36 @@
             nil != self.nowPlayingItem &&
             [self.playerItemCollection count] > 0 &&
             ! bSkiping) { // if user pressed next or previous, not jump to next again.
-            [self skipToNextItem];
+            if (DMRMusicRepeatModeOne == self.repeatMode) {
+                [self skipToBeginning];
+            } else {
+                NSInteger index = 0;
+                if (DMRMusicShuffleModeOff != self.shuffleMode) {
+                    index = [self indexOfNowPlayingItemInSortedPlaylist];
+                } else {
+                    index = [self indexOfNowPlayingItem];
+                }
+                
+                if ((DMRMusicRepeatModeAll == self.repeatMode) && (index >= [self.playerItemCollection count] - 1)) {
+                    [self skipToFirstItem];
+                } else {
+                    [self skipToNextItem];
+                }
+            }
+            
         }
     } else if (DMRMusicPlaybackStatePlaying == playbackState) {
         bSkiping = NO;
         [self mediaInfo];
+    }
+}
+
+- (void)setShuffleMode:(DMRMusicShuffleMode)shuffleMode {
+    _shuffleMode = shuffleMode;
+    if (DMRMusicShuffleModeOff != shuffleMode) {
+        sortedPlayerlist = [self shuffleWithPokeMethodFromArray:self.playerItemCollection];
+    } else {
+        sortedPlayerlist = self.playerItemCollection;
     }
 }
 
@@ -107,17 +143,24 @@
     
     _trackURI = trackURI;
     if (nil != self.nowPlayingItem) {
-        if (nil != self.nowPlayingItem.upnpAvItem) {
+        if (nil != self.nowPlayingItem.assetURL && [trackURI isEqualToString:self.nowPlayingItem.assetURL]) {
+            bPlayedBySelf = YES;
+            [self mediaInfoFromNowPlayItem];
+            return;
+        }
+        else if (nil != self.nowPlayingItem.upnpAvItem) {
             NSString *mediaUrl = [[self.nowPlayingItem.upnpAvItem resource] url];
             if (nil != mediaUrl && [trackURI isEqualToString:mediaUrl]) {
                 bPlayedBySelf = YES;
                 [self mediaInfoFromURLString:trackURI];
+                if (nil == self.currentTrackArtwork && nil != self.nowPlayingItem.upnpAvItem.albumArtURI) {
+                    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.nowPlayingItem.upnpAvItem.albumArtURI]];
+                    if (nil != data) {
+                        self.currentTrackArtwork = [UIImage imageWithData:data];
+                    }
+                }
                 return;
             }
-        } else if (nil != self.nowPlayingItem.assetURL && [trackURI isEqualToString:self.nowPlayingItem.assetURL]) {
-            bPlayedBySelf = YES;
-            [self mediaInfoFromNowPlayItem];
-            return;
         }
     }
     
@@ -131,6 +174,15 @@
     NSUInteger index = NSNotFound;
     if (nil != self.nowPlayingItem) {
         index = [self.playerItemCollection indexOfObject:self.nowPlayingItem];
+    }
+    
+    return index;
+}
+
+- (NSUInteger)indexOfNowPlayingItemInSortedPlaylist {
+    NSUInteger index = NSNotFound;
+    if (nil != self.nowPlayingItem) {
+        index = [sortedPlayerlist indexOfObject:self.nowPlayingItem];
     }
     
     return index;
@@ -384,6 +436,24 @@
 }
 */
 
+#pragma mark Function for Assistant
+
+- (NSArray<DMRMediaItem *> *)shuffleWithPokeMethodFromArray:(NSArray *)sourceArray {
+    NSMutableArray *pokeArray = nil;
+    if (nil != sourceArray && [sourceArray count] > 0) {
+        pokeArray = [NSMutableArray arrayWithArray:sourceArray];
+        NSInteger count = [pokeArray count];
+        for (NSInteger i = count - 1; i > 0; i --) {
+            NSInteger randId = (NSInteger)(random() / (float)RAND_MAX * i);
+            DMRMediaItem *tempItem = [pokeArray objectAtIndex:randId];
+            [pokeArray removeObjectAtIndex:randId];
+            [pokeArray addObject:tempItem];
+        }
+    }
+    
+    return pokeArray;
+}
+
 #pragma mark Wrap the render with necessary infomation for playing
 
 - (BOOL)setVolume:(NSInteger)volume {
@@ -417,19 +487,21 @@
     }
 }
 
-- (void)setPlayerItemCollection:(NSArray<DMRMediaItem *> *)playerItemCollection {
-    _playerItemCollection = playerItemCollection;
-}
-
 - (void)playMusicWithIndex:(NSInteger)index {
     if (index < [self.playerItemCollection count]) {
+        DMRMediaItem *item = [self.playerItemCollection objectAtIndex:index];
+        [self playMusicWithDMRMediaItem:item];
+    }
+}
+
+- (void)playMusicWithDMRMediaItem:(DMRMediaItem *)item {
+    if ([self.playerItemCollection containsObject:item]) {
         // for iOS need to export local music to configure the resource url.
-        if ([self.avDelegate respondsToSelector:@selector(upnpAvRender:preparingToPlayItemAtIndex:)]) {
-            [self.avDelegate upnpAvRender:self preparingToPlayItemAtIndex:index];
+        if ([self.avDelegate respondsToSelector:@selector(upnpAvRender:preparingToPlayItem:)]) {
+            [self.avDelegate upnpAvRender:self preparingToPlayItem:item];
         }
         
         bSkiping = YES;
-        DMRMediaItem *item = [self.playerItemCollection objectAtIndex:index];
         [self setNowPlayingItem:item];
     }
 }
@@ -443,20 +515,55 @@
 }
 
 - (void)skipToNextItem {
-    NSUInteger index = [self indexOfNowPlayingItem];
-    if (++ index < [self.playerItemCollection count]) {
-        [self playMusicWithIndex:index];
+    if (DMRMusicShuffleModeOff != self.repeatMode) {
+        NSUInteger index = [self indexOfNowPlayingItemInSortedPlaylist];
+        if (++ index < [sortedPlayerlist count]) {
+            DMRMediaItem *item = [sortedPlayerlist objectAtIndex:index];
+            [self playMusicWithDMRMediaItem:item];
+        }
+    } else {
+        NSUInteger index = [self indexOfNowPlayingItem];
+        if (++ index < [self.playerItemCollection count]) {
+            DMRMediaItem *item = [self.playerItemCollection objectAtIndex:index];
+            [self playMusicWithDMRMediaItem:item];
+        }
+    }
+}
+
+- (void)skipToFirstItem {
+    if (DMRMusicShuffleModeOff != self.repeatMode) {
+        if ([sortedPlayerlist count] > 0) {
+            DMRMediaItem *item = [sortedPlayerlist objectAtIndex:0];
+            [self playMusicWithDMRMediaItem:item];
+        }
+    } else {
+        if ([self.playerItemCollection count] > 0) {
+            DMRMediaItem *item = [self.playerItemCollection objectAtIndex:0];
+            [self playMusicWithDMRMediaItem:item];
+        }
     }
 }
 
 - (void)skipToBeginning {
+    if (nil != self.nowPlayingItem) {
+        DMRMediaItem *item = self.nowPlayingItem;
+        [self setNowPlayingItem:item];
+    }
 }
 
 - (void)skipToPreviousItem {
-    NSUInteger index = [self indexOfNowPlayingItem];
-    if (index > 0) {
-        index --;
-        [self playMusicWithIndex:index];
+    if (DMRMusicShuffleModeOff != self.shuffleMode) {
+        NSUInteger index = [self indexOfNowPlayingItemInSortedPlaylist];
+        if (index > 0) {
+            DMRMediaItem *item = [sortedPlayerlist objectAtIndex:index];
+            [self playMusicWithDMRMediaItem:item];
+        }
+    } else {
+        NSUInteger index = [self indexOfNowPlayingItem];
+        if (index > 0) {
+            DMRMediaItem *item = [self.playerItemCollection objectAtIndex:index];
+            [self playMusicWithDMRMediaItem:item];
+        }
     }
 }
 
