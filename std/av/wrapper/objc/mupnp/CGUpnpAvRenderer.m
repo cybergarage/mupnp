@@ -17,13 +17,6 @@
 #import "CGUpnpAction.h"
 #import "CGUpnpAvItem.h"
 
-#define AUDIO_PROTOCOL_M4A @"http-get:*:audio/mp4:*;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
-#define AUDIO_PROTOCOL_MP3 @"http-get:*:audio/mpeg:DLNA.ORG_PN=MP3;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
-#define AUDIO_PROTOCOL_WAV @"http-get:*:audio/wav:*;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
-#define AUDIO_PROTOCOL_AIFF @"http-get:*:audio/x-aiff:*;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
-#define IMAGE_PROTOCOL_JPEG @"http-get:*:image/jpeg:DLNA.ORG_PN=JPEG_LRG;DLNA.ORG_OP=01;DLNA.ORG_FLAGS=01700000000000000000000000000000"
-
-
 @implementation DMRMediaItem
 
 @end
@@ -34,6 +27,7 @@
     CGUpnpService *avTransportService;
     CGUpnpService *avConnectManagerService;
     BOOL bGeneratingPositionInfoNotifications;
+    NSObject *notificationToken;
     BOOL bPlayedBySelf;
     BOOL bSeeking;
     BOOL bSkiping;
@@ -77,6 +71,7 @@
     _repeatMode = DMRMusicRepeatModeNone;
     _shuffleMode = DMRMusicShuffleModeOff;
     _playbackState = DMRMusicPlaybackStateStopped;
+    notificationToken = [[NSObject alloc] init];
 }
 
 #pragma mark property
@@ -123,7 +118,6 @@
         }
     } else if (DMRMusicPlaybackStatePlaying == playbackState) {
         bSkiping = NO;
-        [self mediaInfo];
     }
 }
 
@@ -145,27 +139,19 @@
     if (nil != self.nowPlayingItem) {
         if (nil != self.nowPlayingItem.assetURL && [trackURI isEqualToString:self.nowPlayingItem.assetURL]) {
             bPlayedBySelf = YES;
-            [self mediaInfoFromNowPlayItem];
             return;
         }
         else if (nil != self.nowPlayingItem.upnpAvItem) {
             NSString *mediaUrl = [[self.nowPlayingItem.upnpAvItem resource] url];
             if (nil != mediaUrl && [trackURI isEqualToString:mediaUrl]) {
                 bPlayedBySelf = YES;
-                [self mediaInfoFromURLString:trackURI];
-                if (nil == self.currentTrackArtwork && nil != self.nowPlayingItem.upnpAvItem.albumArtURI) {
-                    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:self.nowPlayingItem.upnpAvItem.albumArtURI]];
-                    if (nil != data) {
-                        self.currentTrackArtwork = [UIImage imageWithData:data];
-                    }
-                }
                 return;
             }
         }
     }
     
     bPlayedBySelf = NO;
-    [self mediaInfoFromURLString:trackURI];
+    [self mediaInfoFromRenderer];
 }
 
 #pragma mark
@@ -215,7 +201,7 @@
         return NO;
     
     NSString *resourceURL = [[avItem resource] url];
-    NSString *metaData = [avItem xmlNodeToString];
+    NSString *metaData = [avItem metaData];
     [action setArgumentValue:@"0" forName:@"InstanceID"];
     [action setArgumentValue:resourceURL forName:@"CurrentURI"];
     [action setArgumentValue:metaData forName:@"CurrentURIMetaData"];
@@ -329,35 +315,6 @@
 	return [[CGUpnpAVPositionInfo alloc] initWithAction:action];
 }
 
-- (BOOL)mediaInfo
-{
-    BOOL bRet = NO;
-    
-    CGUpnpAction *action = [self actionOfTransportServiceForName:@"GetMediaInfo"];
-    if (action) {
-        [action setArgumentValue:@"0" forName:@"InstanceID"];
-        
-        if ([action post]) {
-            bRet = YES;
-            NSString *currentURI = [action argumentValueForName:@"CurrentURI"];
-            if (nil != currentURI) {
-                self.trackURI = currentURI;
-            }
-            
-//            NSString *metaData = [action argumentValueForName:@"CurrentURIMetaData"];
-//            NSString *nextURI = [action argumentValueForName:@"NextURI"];
-//            NSString *nextMetaData = [action argumentValueForName:@"NextURIMetaData"];
-//            NSString *tracks = [action argumentValueForName:@"NrTracks"];
-//            NSString *duration = [action argumentValueForName:@"MediaDuration"];
-//            NSString *playMedium = [action argumentValueForName:@"PlayMedium"];
-//            NSString *writeStatus = [action argumentValueForName:@"WriteStatus"];
-//            NSString *recordMedium = [action argumentValueForName:@"RecordMedium"];
-        }
-    }
-    
-    return bRet;
-}
-
 - (CGUpnpService *)renderControlService
 {
     return avRenderControlService;
@@ -384,15 +341,64 @@
     return service;
 }
 
-- (void)mediaInfoFromNowPlayItem {
-    if (nil == self.nowPlayingItem) {
-        return;
+- (void)mediaInfoFromDMRItem:(DMRMediaItem *)item {
+    if (nil != item.mediaItem) {
+        self.currentTrackName = item.mediaItem.title;
+        self.currentTrackArtist = item.mediaItem.artist;
+        self.currentTrackAlbum = item.mediaItem.albumTitle;
+        self.currentTrackArtwork = [item.mediaItem.artwork imageWithSize:CGSizeMake(320, 320)];
+    } else if (nil != item.upnpAvItem) {
+        self.currentTrackName = item.upnpAvItem.title;
+        self.currentTrackArtist = item.upnpAvItem.creator;
+        if (nil != item.upnpAvItem.albumArtURI) {
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:item.upnpAvItem.albumArtURI]];
+            if (nil != data) {
+                self.currentTrackArtwork = [UIImage imageWithData:data];
+            }
+        }
+    }
+}
+
+- (BOOL)mediaInfoFromRenderer
+{
+    BOOL bRet = NO;
+    BOOL bGetMediaInfo = NO;
+    CGUpnpAction *action = [self actionOfTransportServiceForName:@"GetMediaInfo"];
+    if (action) {
+        [action setArgumentValue:@"0" forName:@"InstanceID"];
+        
+        if ([action post]) {
+            bRet = YES;
+            
+            NSString *metaData = [action argumentValueForName:@"CurrentURIMetaData"];
+            if (nil != metaData) {
+                CGUpnpAvItem *item = [CGUpnpAvItem avItemWithXMLString:metaData];
+                self.currentTrackName = item.title;
+                self.currentTrackArtist = item.creator;
+                if (nil != item.albumArtURI) {
+                    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:item.albumArtURI]];
+                    if (nil != data) {
+                        self.currentTrackArtwork = [UIImage imageWithData:data];
+                    }
+                }
+                bGetMediaInfo = YES;
+            }
+//            NSString *currentURI = [action argumentValueForName:@"CurrentURI"];
+//            NSString *nextURI = [action argumentValueForName:@"NextURI"];
+//            NSString *nextMetaData = [action argumentValueForName:@"NextURIMetaData"];
+//            NSString *tracks = [action argumentValueForName:@"NrTracks"];
+//            NSString *duration = [action argumentValueForName:@"MediaDuration"];
+//            NSString *playMedium = [action argumentValueForName:@"PlayMedium"];
+//            NSString *writeStatus = [action argumentValueForName:@"WriteStatus"];
+//            NSString *recordMedium = [action argumentValueForName:@"RecordMedium"];
+        }
     }
     
-    self.currentTrackName = self.nowPlayingItem.mediaItem.title;
-    self.currentTrackArtist = self.nowPlayingItem.mediaItem.artist;
-    self.currentTrackAlbum = self.nowPlayingItem.mediaItem.albumTitle;
-    self.currentTrackArtwork = [self.nowPlayingItem.mediaItem.artwork imageWithSize:CGSizeMake(320, 320)];
+    if (! bRet || ! bGetMediaInfo) {
+        [self mediaInfoFromURLString:self.trackURI];
+    }
+    
+    return bRet;
 }
 
 - (void)mediaInfoFromURLString:(NSString *)url {
@@ -501,6 +507,8 @@
             [self.avDelegate upnpAvRender:self preparingToPlayItem:item];
         }
         
+        [self mediaInfoFromDMRItem:item];
+        
         bSkiping = YES;
         [self setNowPlayingItem:item];
     }
@@ -568,29 +576,33 @@
 }
 
 - (void)beginGeneratingPlaybackNotifications {
-    if (! bGeneratingPositionInfoNotifications) {
-        bGeneratingPositionInfoNotifications = YES;
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            while (bGeneratingPositionInfoNotifications) {
-                sleep(1);
-                if (bSeeking) {
-                    continue;
+    @synchronized(notificationToken) {
+        if (! bGeneratingPositionInfoNotifications) {
+            bGeneratingPositionInfoNotifications = YES;
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                while (bGeneratingPositionInfoNotifications) {
+                    sleep(1);
+                    if (bSeeking) {
+                        continue;
+                    }
+                    CGUpnpAVPositionInfo *positionInfo = [self positionInfo];
+                    self.currentPlaybackTime = positionInfo.relTime;
+                    self.trackDuration = positionInfo.trackDuration;
+                    
+                    if ([self.avDelegate respondsToSelector:@selector(upnpAvRenderDidPositionInfoUpdated:)])
+                    {
+                        [self.avDelegate upnpAvRenderDidPositionInfoUpdated:self];
+                    }
                 }
-                CGUpnpAVPositionInfo *positionInfo = [self positionInfo];
-                self.currentPlaybackTime = positionInfo.relTime;
-                self.trackDuration = positionInfo.trackDuration;
-                
-                if ([self.avDelegate respondsToSelector:@selector(upnpAvRenderDidPositionInfoUpdated:)])
-                {
-                    [self.avDelegate upnpAvRenderDidPositionInfoUpdated:self];
-                }
-            }
-        });
+            });
+        }
     }
 }
 
 - (void)endGeneratingPlaybackNotifications {
-    bGeneratingPositionInfoNotifications = NO;
+    @synchronized(notificationToken) {
+        bGeneratingPositionInfoNotifications = NO;
+    }
 }
 
 @end

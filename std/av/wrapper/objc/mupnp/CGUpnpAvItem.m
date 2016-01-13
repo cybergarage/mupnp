@@ -32,6 +32,42 @@
     return [NSArray arrayWithObjects:@"image/jpeg", @"image/png", @"image/gif", nil];
 }
 
++ (CGUpnpAvItem *)avItemWithXMLString:(NSString *)aXmlString
+{
+    char *resultXml;
+    mUpnpXmlParser *xmlParser;
+    mUpnpXmlNodeList *rootNode;
+    mUpnpXmlNode *didlNode;
+    mUpnpXmlNode *cnode;
+    
+    resultXml = (char *)[aXmlString UTF8String];
+    if (mupnp_strlen(resultXml) <= 0)
+        return nil;
+    
+    CGUpnpAvItem *avObj = nil;
+    rootNode = mupnp_xml_nodelist_new();
+    xmlParser = mupnp_xml_parser_new();
+    if (mupnp_xml_parse(xmlParser, rootNode, resultXml, mupnp_strlen(resultXml)))
+    {
+        didlNode = mupnp_xml_nodelist_getbyname(rootNode, "DIDL-Lite");
+        if (NULL != didlNode) {
+            for (cnode=mupnp_xml_node_getchildnodes(didlNode); cnode; cnode=mupnp_xml_node_next(cnode)) {
+                if (mupnp_xml_node_isname(cnode, "item")) {
+                    CGUpnpAvItem *avItem = [[CGUpnpAvItem alloc] initWithXMLNode:cnode];
+                    avObj = avItem;
+                    break;
+                }
+            }
+        } else {
+            cnode = mupnp_xml_nodelist_getbyname(rootNode, "item");
+            CGUpnpAvItem *avItem = [[CGUpnpAvItem alloc] initWithXMLNode:cnode];
+            avObj = avItem;
+        }
+    }
+    
+    return avObj;
+}
+
 - (id)init
 {
 	if ((self = [super init]) == nil)
@@ -47,15 +83,38 @@
 
 #if  !defined(TARGET_OS_IPHONE)
 - (id)initWithXMLNode:(NSXMLElement *)aXmlNode
+{
+    if ((self = [super initWithXMLNode:aXmlNode]) == nil)
+        return nil;
+    
+    self.resourceArray = [NSMutableArray array];
+    NSArray *resArray = [aXmlNode elementsForName:@"res"];
+    for (NSXMLElement *resNode in resArray) {
+        CGUpnpAvResource *avRes = [[CGUpnpAvResource alloc] initWithXMLNode:resNode];
+        [self.resourceArray addObject:avRes];
+        [avRes release];
+    }
+    
+    return self;
+}
 #else
 - (id)initWithXMLNode:(mUpnpXmlNode *)aXmlNode
-#endif
 {
+    mUpnpXmlNode *rnode;
 	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
 		return nil;
+    
 	self.resourceArray = [NSMutableArray array];
+    for (rnode=mupnp_xml_node_getchildnodes(aXmlNode); rnode; rnode=mupnp_xml_node_next(rnode)) {
+        if (mupnp_xml_node_isname(rnode, "res")) {
+            CGUpnpAvResource *avRes = [[CGUpnpAvResource alloc] initWithXMLNode:rnode];
+            [self.resourceArray addObject:avRes];
+        }
+    }
+    
 	return self;
 }
+#endif
 
 - (void)dealloc
 {
@@ -79,6 +138,12 @@
 - (NSArray *)resources
 {
 	return [self resourceArray];
+}
+
+- (NSString *)metaData
+{
+    NSString *metaData = [NSString stringWithFormat:@"<DIDL-Lite xmlns=\"urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/\" xmlns:upnp=\"urn:schemas-upnp-org:metadata-1-0/upnp/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns:sec=\"http://www.sec.co.kr/\">%@</DIDL-Lite>", [self xmlNodeToString]];
+    return metaData;
 }
 
 - (NSArray *)resourcesWithMimeTypes:(NSArray *)mimeTypes

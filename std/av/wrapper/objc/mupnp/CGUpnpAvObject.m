@@ -40,12 +40,6 @@
 		}
 		else if ([[contentNode name] isEqualToString:@"item"]) {
 			CGUpnpAvItem *avItem = [[CGUpnpAvItem alloc] initWithXMLNode:contentNode];
-			NSArray *resArray = [contentNode elementsForName:@"res"];
-			for (NSXMLElement *resNode in resArray) {
-				CGUpnpAvResource *avRes = [[CGUpnpAvResource alloc] initWithXMLNode:resNode];
-				[avItem addResource:avRes];
-                [avRes release];
-			}
 			avObj = avItem;
 		}
 		if (avObj == nil)
@@ -60,7 +54,6 @@
 	mUpnpXmlNodeList *rootNode;
 	mUpnpXmlNode *didlNode;
 	mUpnpXmlNode *cnode;
-	mUpnpXmlNode *rnode;
 	
 	resultXml = (char *)[aXmlString UTF8String];
 	if (mupnp_strlen(resultXml) <= 0)
@@ -81,12 +74,6 @@
 				}
 				else if (mupnp_xml_node_isname(cnode, "item")) {
 					CGUpnpAvItem *avItem = [[CGUpnpAvItem alloc] initWithXMLNode:cnode];
-					for (rnode=mupnp_xml_node_getchildnodes(cnode); rnode; rnode=mupnp_xml_node_next(rnode)) {
-						if (mupnp_xml_node_isname(rnode, "res")) {
-							CGUpnpAvResource *avRes = [[CGUpnpAvResource alloc] initWithXMLNode:rnode];
-							[avItem addResource:avRes];
-						}
-					}
 					avObj = avItem;
 				}
 				if (avObj == nil)

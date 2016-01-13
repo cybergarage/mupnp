@@ -59,5 +59,6 @@ typedef void mUpnpAvContent;
 - (BOOL)isTitle:(NSString *)aTitle;
 - (BOOL)isUpnpClass:(NSString *)aUpnpClass;
 - (NSString *)toFileNameString;
+
 @end
 

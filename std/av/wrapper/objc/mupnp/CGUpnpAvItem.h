@@ -16,6 +16,8 @@
 {
 }
 
++ (CGUpnpAvItem *)avItemWithXMLString:(NSString *)aXmlString;
+
 @property(retain) NSMutableArray *resourceArray;
 #if defined(TARGET_OS_IPHONE)
 @property(retain) UIImage *thumbnailImage;
@@ -30,6 +32,7 @@
 - (void)addResource:(CGUpnpAvResource *)res;
 - (void)removeResource:(CGUpnpAvResource *)res;
 - (NSArray *)resources;
+- (NSString *)metaData;
 - (CGUpnpAvResource *)smallImageResource;
 - (CGUpnpAvResource *)mediumImageResource;
 - (CGUpnpAvResource *)largeImageResource;
