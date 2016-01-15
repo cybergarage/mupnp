@@ -105,6 +105,10 @@ UPnPDeviceManager *gUPnPDeviceManager;
 
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceAdded:(NSString *)deviceUdn {
     NSLog(@"%@ added.", deviceUdn);
+    if (nil == deviceUdn) {
+        return;
+    }
+    
     for (id<UPnPDeviceManagerObserver> observer in observerArray) {
         if ([observer respondsToSelector:@selector(deviceManagerDidDeviceArrayUpdated)]) {
             [observer deviceManagerDidDeviceArrayUpdated];
@@ -114,6 +118,9 @@ UPnPDeviceManager *gUPnPDeviceManager;
 
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceUpdated:(NSString *)deviceUdn {
     NSLog(@"%@ updated.", deviceUdn);
+    if (nil == deviceUdn) {
+        return;
+    }
     
     for (id<UPnPDeviceManagerObserver> observer in observerArray) {
         if ([observer respondsToSelector:@selector(deviceManagerDidDeviceArrayUpdated)]) {
@@ -124,6 +131,9 @@ UPnPDeviceManager *gUPnPDeviceManager;
 
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceRemoved:(NSString *)deviceUdn {
     NSLog(@"%@ removed.", deviceUdn);
+    if (nil == deviceUdn) {
+        return;
+    }
     
     for (id<UPnPDeviceManagerObserver> observer in observerArray) {
         if ([observer respondsToSelector:@selector(deviceManagerDidDeviceArrayUpdated)]) {
@@ -134,6 +144,9 @@ UPnPDeviceManager *gUPnPDeviceManager;
 
 - (void)controlPoint:(CGUpnpControlPoint *)controlPoint deviceInvalid:(NSString *)deviceUdn {
     NSLog(@"%@ invalid.", deviceUdn);
+    if (nil == deviceUdn) {
+        return;
+    }
    
     for (id<UPnPDeviceManagerObserver> observer in observerArray) {
         if ([observer respondsToSelector:@selector(deviceManagerDidDeviceArrayUpdated)]) {

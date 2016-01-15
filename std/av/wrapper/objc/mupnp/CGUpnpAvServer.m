@@ -34,11 +34,9 @@
 
 - (id) init
 {
-	if ((self = [super init]) == nil)
+    cAvObject = mupnp_upnpav_dms_new();
+	if ((self = [super initWithCObject:cAvObject->dev]) == nil)
 		return nil;
-
-	cAvObject = mupnp_upnpav_dms_new();
-	[self setCObject:cAvObject];
 	
 	self.contentDirectory = nil;
 

@@ -136,6 +136,8 @@ typedef void mUpnpDevice;
  * @param aUdn UDN to set.
  */
 -(void)setUdn:(NSString *)aUdn;
+- (void)setManufacturer:(NSString *)aManufacturer;
+- (void)setModelName:(NSString *)aModelName;
 /**
  * Check whether the device type is the specified type.
  *

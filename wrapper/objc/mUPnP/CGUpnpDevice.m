@@ -210,6 +210,24 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 	mupnp_device_setudn(cObject, (char *)[aUdn UTF8String]);
 }
 
+- (void)setManufacturer:(NSString *)aManufacturer
+{
+    if (! cObject)
+    {
+        return;
+    }
+    mupnp_device_setmanufacturer(cObject, (char *)[aManufacturer UTF8String]);
+}
+
+- (void)setModelName:(NSString *)aModelName
+{
+    if (! cObject)
+    {
+        return;
+    }
+    mupnp_device_setmodelname(cObject, (char *)[aModelName UTF8String]);
+}
+
 - (BOOL)isDeviceType:(NSString *)aType
 {
 	return [aType isEqualToString:[self deviceType]];
