@@ -1,6 +1,6 @@
 /******************************************************************
 *
-* CyberLink for Objective-C
+* mUPnP for Objective-C
 *
 * UPnPDeviceTableViewCell.m
 *
@@ -11,7 +11,7 @@
 ******************************************************************/
 
 #import "UPnPDeviceTableViewCell.h"
-#import <CyberLink/UPnP.h>
+#import <mUPnP/CGUpnp.h>
 
 @implementation UPnPDeviceTableViewCell
 
@@ -31,8 +31,8 @@
 }
 
 - (void)setDevice:(CGUpnpDevice *)upnpDevice
-{	
-	[self setName:[upnpDevice friendlyName]];		
+{
+	[self setName:[upnpDevice friendlyName]];
 	[self setMime:[upnpDevice manufacturer]];		
 	[self setDate:[upnpDevice ipaddress]];		
 
@@ -55,7 +55,6 @@
 
 	[self setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 }
-
 
 - (void)dealloc 
 {

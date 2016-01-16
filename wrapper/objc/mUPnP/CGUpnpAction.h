@@ -16,7 +16,7 @@ typedef void mUpnpAction;
 #endif
 
 /**
- * The CGUpnpAction class is a wrapper class for mUpnpAction of CyberLink for C.
+ * The CGUpnpAction class is a wrapper class for mUpnpAction of mUPnP for C.
  */
 @interface CGUpnpAction : NSObject {
 }

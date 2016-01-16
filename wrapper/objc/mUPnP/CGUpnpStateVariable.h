@@ -15,7 +15,7 @@ typedef void mUpnpStateVariable;
 #endif
 
 /**
- * The CGUpnpStateVariable class is a wrapper class for mUpnpStateVariable of CyberLink for C.
+ * The CGUpnpStateVariable class is a wrapper class for mUpnpStateVariable of mUPnP for C.
  */
 @interface CGUpnpStateVariable : NSObject {
 }

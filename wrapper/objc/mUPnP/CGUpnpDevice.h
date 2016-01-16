@@ -21,7 +21,7 @@ typedef void mUpnpDevice;
 @class CGUpnpIcon;
 
 /**
- * The CGUpnpDevice class is a wrapper class for mUpnpDevice of CyberLink for C.
+ * The CGUpnpDevice class is a wrapper class for mUpnpDevice of mUPnP for C.
  */
 @protocol CGUpnpDeviceDelegate <NSObject>
 @optional
@@ -29,7 +29,7 @@ typedef void mUpnpDevice;
 @end
 
 /**
- * The CGUpnpDevice class is a wrapper class for mUpnpDevice of CyberLink for C.
+ * The CGUpnpDevice class is a wrapper class for mUpnpDevice of mUPnP for C.
  */
 @interface CGUpnpDevice : NSObject {
   BOOL isCObjectCreated;

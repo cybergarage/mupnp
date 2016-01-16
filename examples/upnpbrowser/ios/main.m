@@ -1,6 +1,6 @@
 /******************************************************************
 *
-* CyberLink for Objective-C
+* mUPnP for Objective-C
 *
 * main.m
 *

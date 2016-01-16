@@ -1,6 +1,6 @@
 /******************************************************************
 *
-* CyberLink for Objective-C
+* mUPnP for Objective-C
 *
 * UPnPDeviceTableViewCell.h
 *
@@ -10,7 +10,7 @@
 *
 ******************************************************************/
 
-#import <CyberLink/UPnP.h>
+#import <mUPnP/CGUpnp.h>
 
 @interface UPnPDeviceViewController : UITableViewController {
   CGUpnpControlPoint* upnpCtrlPoint;

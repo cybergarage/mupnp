@@ -27,7 +27,7 @@ typedef void mUpnpControlPoint;
 @end
 
 /**
- * The CGUpnpControlPoint class is a wrapper class for mUpnpControlPoint of CyberLink for C to 
+ * The CGUpnpControlPoint class is a wrapper class for mUpnpControlPoint of mUPnP for C to 
  * program using only Objective-C directly on MacOSX.
  * Currently, the only basic methods are wrapped to control UPnP devices.
  */

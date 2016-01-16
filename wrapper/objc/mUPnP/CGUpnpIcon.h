@@ -16,7 +16,7 @@ typedef void mUpnpIcon;
 #endif
 
 /**
- * The CGUpnpIcon class is a wrapper class for mUpnpIcon of CyberLink for C.
+ * The CGUpnpIcon class is a wrapper class for mUpnpIcon of mUPnP for C.
  */
 @interface CGUpnpIcon : NSObject {
 #if defined(TARGET_OS_IPHONE)

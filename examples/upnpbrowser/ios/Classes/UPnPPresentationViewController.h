@@ -1,6 +1,6 @@
 /******************************************************************
 *
-* CyberLink for Objective-C
+* mUPnP for Objective-C
 *
 * UPnPPresentationViewController.h
 *
@@ -12,7 +12,7 @@
 
 #import <UIKit/UIKit.h>
 #import <iAd/ADBannerView.h>
-#import <CyberLink/UPnP.h>
+#import <mUPnP/CGUpnp.h>
 
 @interface UPnPPresentationViewController : UIViewController <UIWebViewDelegate> {
 }
