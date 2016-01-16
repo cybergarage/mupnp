@@ -27,7 +27,7 @@
 		213AF7F7195986C1009E7963 /* CGUpnpStateVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7EA195986C1009E7963 /* CGUpnpStateVariable.h */; };
 		213AF7F8195986C1009E7963 /* CGUpnpStateVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7EB195986C1009E7963 /* CGUpnpStateVariable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		213AF7F9195986C1009E7963 /* UPnP.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7EC195986C1009E7963 /* UPnP.h */; };
-		215AC1A31A842B5F000FC959 /* liblibmupnp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 215AC1A01A842B48000FC959 /* liblibmupnp.a */; };
+		215AC1A31A842B5F000FC959 /* libmupnp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 215AC1A01A842B48000FC959 /* libmupnp.a */; };
 		217C0F0C195988AD00FA1929 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 217C0F0B195988AD00FA1929 /* libxml2.2.dylib */; };
 /* End PBXBuildFile section */
 
@@ -91,7 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				215AC1A31A842B5F000FC959 /* liblibmupnp.a in Frameworks */,
+				215AC1A31A842B5F000FC959 /* libmupnp.a in Frameworks */,
 				217C0F0C195988AD00FA1929 /* libxml2.2.dylib in Frameworks */,
 				211481C51959863A00B8EC17 /* Cocoa.framework in Frameworks */,
 			);
@@ -212,7 +212,7 @@
 		215AC19C1A842B48000FC959 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				215AC1A01A842B48000FC959 /* liblibmupnp.a */,
+				215AC1A01A842B48000FC959 /* libmupnp.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,7 +280,7 @@
 		211481B81959863A00B8EC17 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Satoshi Konno";
 				TargetAttributes = {
 					211481D71959863A00B8EC17 = {
@@ -313,10 +313,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		215AC1A01A842B48000FC959 /* liblibmupnp.a */ = {
+		215AC1A01A842B48000FC959 /* libmupnp.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = liblibmupnp.a;
+			path = libmupnp.a;
 			remoteRef = 215AC19F1A842B48000FC959 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -415,6 +415,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -488,6 +489,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mUPnP4ObjC/mUPnP4ObjC-Prefix.pch";
 				INFOPLIST_FILE = "mUPnP4ObjC/mUPnP4ObjC-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cybergarage.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -503,6 +505,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mUPnP4ObjC/mUPnP4ObjC-Prefix.pch";
 				INFOPLIST_FILE = "mUPnP4ObjC/mUPnP4ObjC-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cybergarage.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
 			};
@@ -524,6 +527,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "mUPnP4ObjCTests/mUPnP4ObjCTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cybergarage.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -542,6 +546,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mUPnP4ObjC/mUPnP4ObjC-Prefix.pch";
 				INFOPLIST_FILE = "mUPnP4ObjCTests/mUPnP4ObjCTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cybergarage.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
