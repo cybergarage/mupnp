@@ -91,6 +91,9 @@
 }
 
 - (void)setPlaybackState:(DMRMusicPlaybackState)playbackState {
+    if (_playbackState == playbackState) {
+        return;
+    }
     _playbackState = playbackState;
     if (DMRMusicPlaybackStateStopped == playbackState) {
         if (self.autoPlayControl &&
@@ -501,17 +504,15 @@
 }
 
 - (void)playMusicWithDMRMediaItem:(DMRMediaItem *)item {
-    if ([self.playerItemCollection containsObject:item]) {
-        // for iOS need to export local music to configure the resource url.
-        if ([self.avDelegate respondsToSelector:@selector(upnpAvRender:preparingToPlayItem:)]) {
-            [self.avDelegate upnpAvRender:self preparingToPlayItem:item];
-        }
-        
-        [self mediaInfoFromDMRItem:item];
-        
-        bSkiping = YES;
-        [self setNowPlayingItem:item];
+    // for iOS need to export local music to configure the resource url.
+    if ([self.avDelegate respondsToSelector:@selector(upnpAvRender:preparingToPlayItem:)]) {
+        [self.avDelegate upnpAvRender:self preparingToPlayItem:item];
     }
+    
+    [self mediaInfoFromDMRItem:item];
+    
+    bSkiping = YES;
+    [self setNowPlayingItem:item];
 }
 
 - (DMRMediaItem *)itemAtIndex:(NSInteger)index {

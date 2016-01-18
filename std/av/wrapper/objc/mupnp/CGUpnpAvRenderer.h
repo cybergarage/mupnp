@@ -41,9 +41,9 @@ typedef enum : NSUInteger {
 
 @interface DMRMediaItem : NSObject
 
-@property (nonatomic, retain) NSString *assetURL;
-@property (nonatomic, retain) MPMediaItem *mediaItem;
-@property (nonatomic, retain) CGUpnpAvItem *upnpAvItem;
+@property (nonatomic, retain) NSString *assetURL; // a http url to access music
+@property (nonatomic, retain) MPMediaItem *mediaItem; // For choose local music to play
+@property (nonatomic, retain) CGUpnpAvItem *upnpAvItem; // For music from DMS or network
 
 @end
 
