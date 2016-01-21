@@ -47,5 +47,8 @@ void mupnp_upnpav_resource_data_delete(mUpnpAvResourceData *resData)
 
 void mupnp_upnpav_resource_data_copy(mUpnpAvResourceData *destResData, mUpnpAvResourceData *srcResData)
 {
+    if (NULL == destResData || NULL == srcResData) {
+        return;
+    }
 	mupnp_string_setvalue(destResData->mimeType, mupnp_string_getvalue(srcResData->mimeType));
 }

@@ -21,8 +21,7 @@
 @class CGUpnpAvContainer;
 @class CGUpnpAvServer;
 @class CGUpnpAction;
-@class CgUpnpDevice;
-@class CgUpnpAvServer;
+@class DMRMediaItem;
 
 #if !defined(_CG_CLINKCAV_SERVER_H_)
 typedef void mUpnpAvServer;
@@ -59,9 +58,10 @@ typedef void mUpnpAvServer;
  * 
  * @return New instance if successfull; otherwise nil.
  */
-- (id)initWithCObject:(CgUpnpDevice *)cobj;
+- (id)initWithCObject:(mUpnpDevice *)cobj;
 - (void)setUserObject:(id)aUserObj;
 - (id)userObject;
+- (void)initAvContent:(NSArray<DMRMediaItem *> *)mediaItemCollection;
 - (BOOL)browse:(NSString *)aObjectId browseFlag:(NSString *)aBrowseFlag options:(NSDictionary *)options;
 - (CGUpnpAvObject *)browseMetadata:(NSString *)aObjectId;
 - (NSArray *)browseDirectChildren:(NSString *)aObjectId;

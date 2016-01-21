@@ -51,6 +51,7 @@ typedef void mUpnpAvContent;
 - (NSString *)date;
 - (NSString *)albumArtURI;
 - (void)setObjectId:(NSString *)aValue;
+- (void)setParentId:(NSString *)aValue;
 - (void)setTitle:(NSString *)aValue;
 - (void)setCreator:(NSString *)aValue;
 - (void)setUpnpClass:(NSString *)aValue;

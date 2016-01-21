@@ -70,7 +70,7 @@
             
             server = [self serverWithCObject:cDevice];
             if (nil == server) {
-                server = [[CGUpnpAvServer alloc] initWithCObject:(__bridge CgUpnpDevice *)(cDevice)];
+                server = [[CGUpnpAvServer alloc] initWithCObject:cDevice];
             }
 			
 			[server setUserObject:server];

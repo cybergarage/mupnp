@@ -64,4 +64,9 @@
 - (BOOL)isAudioClass;
 - (BOOL)isImageClass;
 - (BOOL)writeToFile:(NSString *)path;
+
+- (void)setArtist:(NSString *)aValue;
+- (void)setAlbum:(NSString *)aValue;
+- (void)setGenre:(NSString *)aValue;
+
 @end

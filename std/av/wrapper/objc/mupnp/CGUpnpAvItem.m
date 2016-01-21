@@ -446,7 +446,23 @@
 	return NO;
 }
 
-#pragma mark -
+#pragma mark
+
+- (void)setArtist:(NSString *)aValue
+{
+    [self setElementValueWithName:@CG_UPNPAV_OBJECT_ARTIST stringValue:aValue];
+}
+
+- (void)setAlbum:(NSString *)aValue
+{
+    [self setElementValueWithName:@CG_UPNPAV_OBJECT_ALBUM stringValue:aValue];
+}
+
+- (void)setGenre:(NSString *)aValue
+{
+    [self setElementValueWithName:@CG_UPNPAV_OBJECT_GENRE stringValue:aValue];
+}
+
 #pragma mark save
 
 - (BOOL)writeToFile:(NSString *)path

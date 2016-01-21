@@ -17,6 +17,7 @@
 #import "CGUpnpAvServer.h"
 #import "CGUpnpService.h"
 #import "CGUpnpAction.h"
+#import "CGUpnpAvRenderer.h"
 
 #define CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT 999
 
@@ -96,6 +97,18 @@
 
 	if (cAvObject)
 		mupnp_upnpav_dms_delete(cAvObject);
+}
+
+- (void)initAvContent:(NSArray<DMRMediaItem *> *)mediaItemCollection
+{
+    if (NULL != cAvObject && nil != mediaItemCollection)
+    {
+        [mediaItemCollection enumerateObjectsUsingBlock:^(DMRMediaItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            mUpnpXmlNode *childnode = mupnp_xml_node_new();
+            mupnp_xml_node_copy(childnode, obj.upnpAvItem.cXmlNode);
+            mupnp_xml_node_addchildnode(cAvObject->rootContent, childnode);
+        }];
+    }
 }
 
 - (CGUpnpAvContainer *)rootObject

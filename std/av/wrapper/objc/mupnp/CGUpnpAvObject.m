@@ -193,6 +193,11 @@
 	[self setAttributeWithName:@CG_UPNPAV_OBJECT_ID stringValue:aValue];
 }
 
+- (void)setParentId:(NSString *)aValue
+{
+    [self setAttributeWithName:@CG_UPNPAV_OBJECT_PARENTID stringValue:aValue];
+}
+
 - (void)setTitle:(NSString *)aValue;
 {
 	[self setElementValueWithName:@CG_UPNPAV_OBJECT_TITLE stringValue:aValue];
