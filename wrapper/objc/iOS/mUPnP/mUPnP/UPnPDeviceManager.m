@@ -22,7 +22,7 @@
 @end
 
 
-UPnPDeviceManager *gUPnPDeviceManager;
+static UPnPDeviceManager *gUPnPDeviceManager;
 
 @implementation UPnPDeviceManager
 
