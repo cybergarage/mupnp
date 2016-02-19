@@ -123,7 +123,7 @@ typedef void mUpnpAvRenderer;
 @end
 
 
-@protocol CGUpnpAvRenderDelegate <NSObject>
+@protocol CGUpnpAvRenderDelegate <CGUpnpDeviceDelegate>
 
 @optional
 - (void)upnpAvRenderDidPositionInfoUpdated:(CGUpnpAvRenderer *)renderer;

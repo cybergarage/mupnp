@@ -12,19 +12,19 @@
 #include <mupnp/control/control.h>
 #import "CGUpnpAction.h"
 
-static BOOL CGUpnpActionListener(mUpnpAction *cAction)
+static bool CGUpnpActionListener(mUpnpAction *cAction)
 {
 	if (!cAction)
 		return FALSE;
+    
 	CGUpnpAction *objcAction = (__bridge CGUpnpAction *)mupnp_action_getuserdata(cAction);
-	if (!objcAction)
+	if (! objcAction)
 		return FALSE;
-	SEL actionReceived = @selector(actionReceived);		
-	if (!actionReceived)
-		return FALSE;
-	if (![objcAction respondsToSelector: actionReceived])
-		return FALSE;
-        [objcAction performSelector:actionReceived];
+    
+	if (! [objcAction respondsToSelector:@selector(actionReceived)])
+        return FALSE;
+    
+    [objcAction actionReceived];
 	return TRUE;
 }
 
@@ -129,6 +129,11 @@ static BOOL CGUpnpActionListener(mUpnpAction *cAction)
 	if (!cObject)
 		return 0;
 	return mupnp_action_getstatuscode(cObject);
+}
+
+- (void)actionReceived
+{
+    
 }
 
 @end

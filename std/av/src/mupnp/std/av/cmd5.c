@@ -403,10 +403,10 @@ char *md5buf)
   unsigned char digest[16];
   unsigned int len;
 
-  len = mupnp_strlen(string);
+  len = (unsigned int)mupnp_strlen(string);
 
   MD5Init(&context);
-  MD5Update(&context, string,len);
+  MD5Update(&context, (unsigned char *)string,len);
   MD5Final(digest, &context);
 
   sprintf(md5buf, "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x", 

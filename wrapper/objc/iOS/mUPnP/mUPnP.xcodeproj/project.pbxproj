@@ -54,6 +54,7 @@
 		2CEFC4B31BFAF41900082C1D /* UPnPAV.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CEFC4971BFAF41900082C1D /* UPnPAV.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2CF96BAD1C23BEBA00A616DD /* UPnPDeviceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CF96BAB1C23BEBA00A616DD /* UPnPDeviceManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2CF96BAE1C23BEBA00A616DD /* UPnPDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF96BAC1C23BEBA00A616DD /* UPnPDeviceManager.m */; };
+		3B055DBE1C77061A0039678D /* mUPnP.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B055DBD1C7704A00039678D /* mUPnP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +107,7 @@
 		2CEFC4971BFAF41900082C1D /* UPnPAV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPnPAV.h; path = ../../../../../std/av/wrapper/objc/mupnp/UPnPAV.h; sourceTree = "<group>"; };
 		2CF96BAB1C23BEBA00A616DD /* UPnPDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPnPDeviceManager.h; sourceTree = "<group>"; };
 		2CF96BAC1C23BEBA00A616DD /* UPnPDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UPnPDeviceManager.m; sourceTree = "<group>"; };
+		3B055DBD1C7704A00039678D /* mUPnP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mUPnP.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 		2C9DD32B1BF1B65500D222B5 /* mUPnP */ = {
 			isa = PBXGroup;
 			children = (
+				3B055DBD1C7704A00039678D /* mUPnP.h */,
 				2C9DD3401BF1B74000D222B5 /* UPnP.h */,
 				2CEFC4971BFAF41900082C1D /* UPnPAV.h */,
 				2CF96BAB1C23BEBA00A616DD /* UPnPDeviceManager.h */,
@@ -216,6 +219,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B055DBE1C77061A0039678D /* mUPnP.h in Headers */,
 				2CF96BAD1C23BEBA00A616DD /* UPnPDeviceManager.h in Headers */,
 				2C9DD34A1BF1B74000D222B5 /* CGUpnpIcon.h in Headers */,
 				2C9DD3481BF1B74000D222B5 /* CGUpnpControlPoint.h in Headers */,

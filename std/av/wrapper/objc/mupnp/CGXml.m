@@ -10,7 +10,7 @@
 
 @implementation CGXml
 
-#warning TODO
+#warning TODO Need check the line commented.
 
 + (NSString *)escapestring:(NSString *)aString
 {

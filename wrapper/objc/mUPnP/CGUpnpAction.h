@@ -70,4 +70,7 @@ typedef void mUpnpAction;
  * @return The status code
  */
 - (NSInteger)statusCode;
+
+- (void)actionReceived;
+
 @end

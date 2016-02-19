@@ -390,8 +390,9 @@
 
 #pragma mark 
 
-static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnpProperty *property)
+static void CGUpnpControlPointEventListener(void *aCtrlPoint, mUpnpProperty *property)
 {
+    mUpnpControlPoint *cCtrlPoint = aCtrlPoint;
     CGUpnpAvController *avControlPoint = (__bridge CGUpnpAvController *)mupnp_controlpoint_getuserdata(cCtrlPoint);
     if (avControlPoint == nil)
         return;

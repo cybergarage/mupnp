@@ -202,7 +202,7 @@ void mupnp_log_print(int severity, const char *file, int line_n, const char *fun
 	char log_line[MAX_LOG_STRING], *l_ptr, t_ptr[MAX_LOG_STRING];
 	int prefix_length = -1;
 	struct fd_list *temp = NULL;
-	size_t timestamp;
+	time_t timestamp;
 	struct tm *timestamp_human_readable;
 
 	/* If output targets are empty, do return */

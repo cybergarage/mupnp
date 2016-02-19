@@ -21,6 +21,8 @@
 * to_month_string()
 ****************************************/
 
+#if defined(ITRON)
+
 static char MONTH_STRING[][4] = {
 	"Jan",
 	"Feb",
@@ -45,9 +47,13 @@ static char *to_month_string(int value)
 	return "";
 }
 
+#endif
+
 /****************************************
 * to_week_string()
 ****************************************/
+
+#if defined(ITRON)
 
 static char WEEK_STRING[][4] = {
 	"Sun",
@@ -70,6 +76,8 @@ static char *to_week_string(int value)
 
 	mupnp_log_debug_l4("Leaving...\n");
 }
+
+#endif
 
 /****************************************
 * mupnp_http_getservername()

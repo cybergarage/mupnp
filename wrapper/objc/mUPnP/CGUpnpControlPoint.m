@@ -16,7 +16,7 @@
 #import "CGUpnpService.h"
 
 static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *ctrlPoint, const char* udn, mUpnpDeviceStatus status);
-static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnpProperty *property);
+static void CGUpnpControlPointEventListener(void *aCtrlPoint, mUpnpProperty *property);
 
 
 @interface CGUpnpControlPoint()
@@ -220,8 +220,9 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint *cCtrlPoint, cons
 	}
 }
 
-static void CGUpnpControlPointEventListener(mUpnpControlPoint *cCtrlPoint, mUpnpProperty *property)
+static void CGUpnpControlPointEventListener(void *aCtrlPoint, mUpnpProperty *property)
 {
+    mUpnpControlPoint *cCtrlPoint = aCtrlPoint;
     CGUpnpControlPoint *ctrlPoint = (__bridge CGUpnpControlPoint *)mupnp_controlpoint_getuserdata(cCtrlPoint);
     if (ctrlPoint == nil)
         return;

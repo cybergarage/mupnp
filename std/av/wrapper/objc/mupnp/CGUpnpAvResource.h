@@ -48,5 +48,8 @@
 - (BOOL)isMovie;
 - (BOOL)isVideo;
 - (BOOL)isAudio;
+
+- (NSComparisonResult)imageSizeCompare:(CGUpnpAvResource *)otherResource;
+
 @end
 

@@ -18,7 +18,7 @@
 #import "CGUpnpIcon.h"
 #import <Foundation/Foundation.h>
 
-static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
+static bool CGUpnpDeviceActionListener(mUpnpAction *action);
 
 @implementation CGUpnpDevice
 
@@ -408,7 +408,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction *action);
 
 @end
 
-static BOOL CGUpnpDeviceActionListener(mUpnpAction *cUpnpAction)
+static bool CGUpnpDeviceActionListener(mUpnpAction *cUpnpAction)
 {
 	if (!cUpnpAction)
 		return NO;

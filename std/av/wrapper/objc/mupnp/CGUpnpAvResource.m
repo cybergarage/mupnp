@@ -63,7 +63,7 @@
     NSInteger minute = duration / 60 % 60;
     NSInteger hour = duration / 60 / 60;
     
-    NSString *strDuration = [NSString stringWithFormat:@"%02d:%02d:%02d", hour, minute, second];
+    NSString *strDuration = [NSString stringWithFormat:@"%02ld:%02ld:%02ld", (long)hour, (long)minute, (long)second];
     [self setAttributeWithName:@CG_UPNPAV_RES_DURATION stringValue:strDuration];
 }
 
