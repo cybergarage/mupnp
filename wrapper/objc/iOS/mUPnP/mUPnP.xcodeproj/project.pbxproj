@@ -21,7 +21,6 @@
 		2C9DD34A1BF1B74000D222B5 /* CGUpnpIcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9DD33D1BF1B74000D222B5 /* CGUpnpIcon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2C9DD34B1BF1B74000D222B5 /* CGUpnpService.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9DD33E1BF1B74000D222B5 /* CGUpnpService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2C9DD34C1BF1B74000D222B5 /* CGUpnpStateVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9DD33F1BF1B74000D222B5 /* CGUpnpStateVariable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2C9DD34D1BF1B74000D222B5 /* UPnP.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9DD3401BF1B74000D222B5 /* UPnP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2C9DD34F1BF1B8DD00D222B5 /* libmupnpiOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9DD34E1BF1B8DD00D222B5 /* libmupnpiOS.a */; };
 		2C9DD3511BF1B8FE00D222B5 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C9DD3501BF1B8FE00D222B5 /* libxml2.tbd */; };
 		2CEFC4981BFAF41900082C1D /* CGUpnpAvConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CEFC47C1BFAF41900082C1D /* CGUpnpAvConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -74,7 +73,6 @@
 		2C9DD33D1BF1B74000D222B5 /* CGUpnpIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpIcon.h; path = ../../../mUPnP/CGUpnpIcon.h; sourceTree = "<group>"; };
 		2C9DD33E1BF1B74000D222B5 /* CGUpnpService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpService.h; path = ../../../mUPnP/CGUpnpService.h; sourceTree = "<group>"; };
 		2C9DD33F1BF1B74000D222B5 /* CGUpnpStateVariable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CGUpnpStateVariable.h; path = ../../../mUPnP/CGUpnpStateVariable.h; sourceTree = "<group>"; };
-		2C9DD3401BF1B74000D222B5 /* UPnP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UPnP.h; path = ../../../mUPnP/UPnP.h; sourceTree = "<group>"; };
 		2C9DD34E1BF1B8DD00D222B5 /* libmupnpiOS.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libmupnpiOS.a; path = "../../../../../../../Library/Developer/Xcode/DerivedData/mUPnPiOS-evevlxuldrkdpzfcmouaebgxqwyy/Build/Products/Debug-iphoneos/libmupnpiOS.a"; sourceTree = "<group>"; };
 		2C9DD3501BF1B8FE00D222B5 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
 		2CEFC47C1BFAF41900082C1D /* CGUpnpAvConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvConstants.h; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				3B055DBD1C7704A00039678D /* mUPnP.h */,
-				2C9DD3401BF1B74000D222B5 /* UPnP.h */,
 				2CEFC4971BFAF41900082C1D /* UPnPAV.h */,
 				2CF96BAB1C23BEBA00A616DD /* UPnPDeviceManager.h */,
 				2CF96BAC1C23BEBA00A616DD /* UPnPDeviceManager.m */,
@@ -238,7 +235,6 @@
 				2CEFC4A11BFAF41900082C1D /* CGUpnpAvItem.h in Headers */,
 				2CEFC49D1BFAF41900082C1D /* CGUpnpAvContentManager.h in Headers */,
 				2CEFC49F1BFAF41900082C1D /* CGUpnpAvController.h in Headers */,
-				2C9DD34D1BF1B74000D222B5 /* UPnP.h in Headers */,
 				2C9DD3491BF1B74000D222B5 /* CGUpnpDevice.h in Headers */,
 				2C9DD34C1BF1B74000D222B5 /* CGUpnpStateVariable.h in Headers */,
 				2C33E3A41C1C30370054F6E4 /* CGUpnpAvEvent.h in Headers */,

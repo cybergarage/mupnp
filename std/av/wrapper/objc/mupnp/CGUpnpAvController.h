@@ -10,7 +10,6 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSIndexPath.h>
 
-#import <mUPnP/UPnP.h>
 #import <mUPnP/CGUpnpControlPoint.h>
 
 @class CGUpnpAvServer;

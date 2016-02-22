@@ -9,7 +9,12 @@
 #ifndef mUPnP_h
 #define mUPnP_h
 
-#import <mUPnP/UPnP.h>
+#import <mUPnP/CGUpnpControlPoint.h>
+#import <mUPnP/CGUpnpDevice.h>
+#import <mUPnP/CGUpnpService.h>
+#import <mUPnP/CGUpnpAction.h>
+#import <mUPnP/CGUpnpStateVariable.h>
+#import <mUPnP/CGUpnpIcon.h>
 #import <mUPnP/UPnPAV.h>
 
 

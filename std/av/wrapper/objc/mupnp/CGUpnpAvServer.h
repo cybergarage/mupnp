@@ -13,7 +13,6 @@
 #import <Foundation/NSString.h>
 #endif
 
-#import <mUPnP/UPnP.h>
 #import <mUPnP/CGUpnpDevice.h>
 
 @class CGUpnpAvContentDirectory;
