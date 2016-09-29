@@ -110,14 +110,14 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_mupnptest_OBJECTS = ../ServiceTest.$(OBJEXT) \
-	../DeviceTest.$(OBJEXT) ../NetworkTest.$(OBJEXT) \
-	../ControlPointTest.$(OBJEXT) ../StateVariableTest.$(OBJEXT) \
-	../StringTest.$(OBJEXT) ../DictionaryTest.$(OBJEXT) \
-	../TestDevice.$(OBJEXT) ../HttpTest.$(OBJEXT) \
-	../UPnPFuncTest.$(OBJEXT) ../URITest.$(OBJEXT) \
-	../mUpnpTestMain.$(OBJEXT) ../SubscriptionTest.$(OBJEXT) \
-	../XMLTest.$(OBJEXT)
+am_mupnptest_OBJECTS = ..//ControlPointTest.$(OBJEXT) \
+	..//DeviceTest.$(OBJEXT) ..//DictionaryTest.$(OBJEXT) \
+	..//HttpTest.$(OBJEXT) ..//mUpnpTestMain.$(OBJEXT) \
+	..//NetworkTest.$(OBJEXT) ..//ServiceTest.$(OBJEXT) \
+	..//StateVariableTest.$(OBJEXT) ..//StringTest.$(OBJEXT) \
+	..//SubscriptionTest.$(OBJEXT) ..//TestDevice.$(OBJEXT) \
+	..//UPnPFuncTest.$(OBJEXT) ..//URITest.$(OBJEXT) \
+	..//XMLTest.$(OBJEXT)
 mupnptest_OBJECTS = $(am_mupnptest_OBJECTS)
 mupnptest_DEPENDENCIES = ../../lib/unix/libmupnp.a
 AM_V_P = $(am__v_P_@AM_V@)
@@ -494,24 +494,24 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../
 noinst_HEADERS = \
-	../ClinkUnitTest.h \
-	../TestDevice.h
+	..//ClinkUnitTest.h \
+	..//TestDevice.h
 
 mupnptest_SOURCES = \
-	../ServiceTest.cpp \
-	../DeviceTest.cpp \
-	../NetworkTest.cpp \
-	../ControlPointTest.cpp \
-	../StateVariableTest.cpp \
-	../StringTest.cpp \
-	../DictionaryTest.cpp \
-	../TestDevice.c \
-	../HttpTest.cpp \
-	../UPnPFuncTest.cpp \
-	../URITest.cpp \
-	../mUpnpTestMain.cpp \
-	../SubscriptionTest.cpp \
-	../XMLTest.cpp
+	..//ControlPointTest.cpp \
+	..//DeviceTest.cpp \
+	..//DictionaryTest.cpp \
+	..//HttpTest.cpp \
+	..//mUpnpTestMain.cpp \
+	..//NetworkTest.cpp \
+	..//ServiceTest.cpp \
+	..//StateVariableTest.cpp \
+	..//StringTest.cpp \
+	..//SubscriptionTest.cpp \
+	..//TestDevice.c \
+	..//UPnPFuncTest.cpp \
+	..//URITest.cpp \
+	..//XMLTest.cpp
 
 #if HAVE_LIBTOOL
 #mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@
@@ -530,9 +530,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu tests/unix/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign tests/unix/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu tests/unix/Makefile
+	  $(AUTOMAKE) --foreign tests/unix/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -554,36 +554,37 @@ $(am__aclocal_m4_deps):
 clean-noinstPROGRAMS:
 	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
 ../$(am__dirstamp):
-	@$(MKDIR_P) ..
+	@$(MKDIR_P) ../
 	@: > ../$(am__dirstamp)
 ../$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) ../$(DEPDIR)
+	@$(MKDIR_P) ..//$(DEPDIR)
 	@: > ../$(DEPDIR)/$(am__dirstamp)
-../ServiceTest.$(OBJEXT): ../$(am__dirstamp) \
+..//ControlPointTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../DeviceTest.$(OBJEXT): ../$(am__dirstamp) \
+..//DeviceTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../NetworkTest.$(OBJEXT): ../$(am__dirstamp) \
+..//DictionaryTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../ControlPointTest.$(OBJEXT): ../$(am__dirstamp) \
+..//HttpTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../StateVariableTest.$(OBJEXT): ../$(am__dirstamp) \
+..//mUpnpTestMain.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../StringTest.$(OBJEXT): ../$(am__dirstamp) \
+..//NetworkTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../DictionaryTest.$(OBJEXT): ../$(am__dirstamp) \
+..//ServiceTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../TestDevice.$(OBJEXT): ../$(am__dirstamp) \
+..//StateVariableTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../HttpTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
-../UPnPFuncTest.$(OBJEXT): ../$(am__dirstamp) \
+..//StringTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../URITest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
-../mUpnpTestMain.$(OBJEXT): ../$(am__dirstamp) \
+..//SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
+..//TestDevice.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../XMLTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+..//UPnPFuncTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+..//URITest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+..//XMLTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
 
 mupnptest$(EXEEXT): $(mupnptest_OBJECTS) $(mupnptest_DEPENDENCIES) $(EXTRA_mupnptest_DEPENDENCIES) 
 	@rm -f mupnptest$(EXEEXT)
@@ -591,7 +592,7 @@ mupnptest$(EXEEXT): $(mupnptest_OBJECTS) $(mupnptest_DEPENDENCIES) $(EXTRA_mupnp
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f ../*.$(OBJEXT)
+	-rm -f ..//*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
