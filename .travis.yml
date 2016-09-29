@@ -5,4 +5,4 @@ compiler:
     - gcc
 
 script:
-    ./boostrap && ./configure && make && make test
+    ./bootstrap && ./configure && make && make test
