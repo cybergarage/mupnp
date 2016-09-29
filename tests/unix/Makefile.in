@@ -22,7 +22,6 @@
 #
 ############################################################
 
-
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -96,7 +95,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 TESTS = mupnptest$(EXEEXT)
-noinst_PROGRAMS = mupnptest$(EXEEXT)
+check_PROGRAMS = mupnptest$(EXEEXT)
 subdir = tests/unix
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
@@ -108,16 +107,15 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-PROGRAMS = $(noinst_PROGRAMS)
 am__dirstamp = $(am__leading_dot)dirstamp
-am_mupnptest_OBJECTS = ..//ControlPointTest.$(OBJEXT) \
-	..//DeviceTest.$(OBJEXT) ..//DictionaryTest.$(OBJEXT) \
-	..//HttpTest.$(OBJEXT) ..//mUpnpTestMain.$(OBJEXT) \
-	..//NetworkTest.$(OBJEXT) ..//ServiceTest.$(OBJEXT) \
-	..//StateVariableTest.$(OBJEXT) ..//StringTest.$(OBJEXT) \
-	..//SubscriptionTest.$(OBJEXT) ..//TestDevice.$(OBJEXT) \
-	..//UPnPFuncTest.$(OBJEXT) ..//URITest.$(OBJEXT) \
-	..//XMLTest.$(OBJEXT)
+am_mupnptest_OBJECTS = ../ControlPointTest.$(OBJEXT) \
+	../TestDevice.$(OBJEXT) ../SubscriptionTest.$(OBJEXT) \
+	../HttpTest.$(OBJEXT) ../DictionaryTest.$(OBJEXT) \
+	../DeviceTest.$(OBJEXT) ../StateVariableTest.$(OBJEXT) \
+	../URITest.$(OBJEXT) ../UPnPFuncTest.$(OBJEXT) \
+	../StringTest.$(OBJEXT) ../XMLTest.$(OBJEXT) \
+	../NetworkTest.$(OBJEXT) ../mUpnpTestMain.$(OBJEXT) \
+	../ServiceTest.$(OBJEXT)
 mupnptest_OBJECTS = $(am_mupnptest_OBJECTS)
 mupnptest_DEPENDENCIES = ../../lib/unix/libmupnp.a
 AM_V_P = $(am__v_P_@AM_V@)
@@ -484,6 +482,7 @@ pdfdir = @pdfdir@
 prefix = @prefix@
 program_transform_name = @program_transform_name@
 psdir = @psdir@
+runstatedir = @runstatedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 srcdir = @srcdir@
@@ -494,24 +493,24 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../
 noinst_HEADERS = \
-	..//ClinkUnitTest.h \
-	..//TestDevice.h
+	../ClinkUnitTest.h \
+	../TestDevice.h
 
 mupnptest_SOURCES = \
-	..//ControlPointTest.cpp \
-	..//DeviceTest.cpp \
-	..//DictionaryTest.cpp \
-	..//HttpTest.cpp \
-	..//mUpnpTestMain.cpp \
-	..//NetworkTest.cpp \
-	..//ServiceTest.cpp \
-	..//StateVariableTest.cpp \
-	..//StringTest.cpp \
-	..//SubscriptionTest.cpp \
-	..//TestDevice.c \
-	..//UPnPFuncTest.cpp \
-	..//URITest.cpp \
-	..//XMLTest.cpp
+	../ControlPointTest.cpp \
+	../TestDevice.c \
+	../SubscriptionTest.cpp \
+	../HttpTest.cpp \
+	../DictionaryTest.cpp \
+	../DeviceTest.cpp \
+	../StateVariableTest.cpp \
+	../URITest.cpp \
+	../UPnPFuncTest.cpp \
+	../StringTest.cpp \
+	../XMLTest.cpp \
+	../NetworkTest.cpp \
+	../mUpnpTestMain.cpp \
+	../ServiceTest.cpp
 
 #if HAVE_LIBTOOL
 #mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@
@@ -551,40 +550,39 @@ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
-clean-noinstPROGRAMS:
-	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
+clean-checkPROGRAMS:
+	-test -z "$(check_PROGRAMS)" || rm -f $(check_PROGRAMS)
 ../$(am__dirstamp):
-	@$(MKDIR_P) ../
+	@$(MKDIR_P) ..
 	@: > ../$(am__dirstamp)
 ../$(DEPDIR)/$(am__dirstamp):
-	@$(MKDIR_P) ..//$(DEPDIR)
+	@$(MKDIR_P) ../$(DEPDIR)
 	@: > ../$(DEPDIR)/$(am__dirstamp)
-..//ControlPointTest.$(OBJEXT): ../$(am__dirstamp) \
+../ControlPointTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//DeviceTest.$(OBJEXT): ../$(am__dirstamp) \
+../TestDevice.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//DictionaryTest.$(OBJEXT): ../$(am__dirstamp) \
+../SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//HttpTest.$(OBJEXT): ../$(am__dirstamp) \
+../HttpTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../DictionaryTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//mUpnpTestMain.$(OBJEXT): ../$(am__dirstamp) \
+../DeviceTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//NetworkTest.$(OBJEXT): ../$(am__dirstamp) \
+../StateVariableTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//ServiceTest.$(OBJEXT): ../$(am__dirstamp) \
+../URITest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../UPnPFuncTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//StateVariableTest.$(OBJEXT): ../$(am__dirstamp) \
+../StringTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//StringTest.$(OBJEXT): ../$(am__dirstamp) \
+../XMLTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../NetworkTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
+../mUpnpTestMain.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//TestDevice.$(OBJEXT): ../$(am__dirstamp) \
+../ServiceTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-..//UPnPFuncTest.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-..//URITest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
-..//XMLTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
 
 mupnptest$(EXEEXT): $(mupnptest_OBJECTS) $(mupnptest_DEPENDENCIES) $(EXTRA_mupnptest_DEPENDENCIES) 
 	@rm -f mupnptest$(EXEEXT)
@@ -592,7 +590,7 @@ mupnptest$(EXEEXT): $(mupnptest_OBJECTS) $(mupnptest_DEPENDENCIES) $(EXTRA_mupnp
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f ..//*.$(OBJEXT)
+	-rm -f ../*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -826,7 +824,7 @@ check-TESTS:
 	log_list=`echo $$log_list`; trs_list=`echo $$trs_list`; \
 	$(MAKE) $(AM_MAKEFLAGS) $(TEST_SUITE_LOG) TEST_LOGS="$$log_list"; \
 	exit $$?;
-recheck: all 
+recheck: all $(check_PROGRAMS)
 	@test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)
 	@set +e; $(am__set_TESTS_bases); \
 	bases=`for i in $$bases; do echo $$i; done \
@@ -890,9 +888,10 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
+	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
 	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 check: check-am
-all-am: Makefile $(PROGRAMS) $(HEADERS)
+all-am: Makefile $(HEADERS)
 installdirs:
 install: install-am
 install-exec: install-exec-am
@@ -931,7 +930,7 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-noinstPROGRAMS mostlyclean-am
+clean-am: clean-checkPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ../$(DEPDIR)
@@ -1001,10 +1000,10 @@ uninstall-am:
 .MAKE: check-am install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am check check-TESTS check-am clean \
-	clean-generic clean-noinstPROGRAMS cscopelist-am ctags \
-	ctags-am distclean distclean-compile distclean-generic \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
+	clean-checkPROGRAMS clean-generic cscopelist-am ctags ctags-am \
+	distclean distclean-compile distclean-generic distclean-tags \
+	distdir dvi dvi-am html html-am info info-am install \
+	install-am install-data install-data-am install-dvi \
 	install-dvi-am install-exec install-exec-am install-html \
 	install-html-am install-info install-info-am install-man \
 	install-pdf install-pdf-am install-ps install-ps-am \
