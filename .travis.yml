@@ -9,4 +9,4 @@ before_script:
     - sudo apt-get install libboost-all-dev
 
 script:
-    - ./bootstrap && ./configure --enable-tests && make && make test
+    - ./bootstrap && ./configure --enable-tests && make && make check
