@@ -216,9 +216,10 @@ bool mupnp_device_parsedescription(mUpnpDevice* dev, const char* desciption, siz
     return false;
   }
 
-  if (mupnp_device_hasudn(dev) == false)
+  if (mupnp_device_hasudn(dev) == false) {
     mupnp_device_setudn(dev, mupnp_createuuid(uuidBuf, sizeof(uuidBuf)));
-
+  }
+  
   mupnp_device_initchildnodes(dev);
 
   mupnp_log_debug_l4("Leaving...\n");
