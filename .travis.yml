@@ -1,12 +1,15 @@
-language: cpp
+language: c
 
 compiler:
-  - clang
-  - gcc
+    - clang
+    - gcc
 
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y libxml2-dev
+before_script:
+    - sudo apt-get update -qq
+    - sudo apt-get install libboost-all-dev
 
 script:
-  - ./configure --enable-tests && make && make check
+    - ./bootstrap && ./configure --enable-tests && make && make check
+
+notifications:
+  email: false

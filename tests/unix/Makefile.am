@@ -7,7 +7,7 @@
 ############################################################
 
 TESTS = mupnptest
-noinst_PROGRAMS = mupnptest
+check_PROGRAMS = mupnptest
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../
 
@@ -16,20 +16,20 @@ noinst_HEADERS = \
 	../TestDevice.h
 
 mupnptest_SOURCES = \
-	../ServiceTest.cpp \
-	../DeviceTest.cpp \
-	../NetworkTest.cpp \
 	../ControlPointTest.cpp \
-	../StateVariableTest.cpp \
-	../StringTest.cpp \
-	../DictionaryTest.cpp \
 	../TestDevice.c \
-	../HttpTest.cpp \
-	../UPnPFuncTest.cpp \
-	../URITest.cpp \
-	../mUpnpTestMain.cpp \
 	../SubscriptionTest.cpp \
-	../XMLTest.cpp
+	../HttpTest.cpp \
+	../DictionaryTest.cpp \
+	../DeviceTest.cpp \
+	../StateVariableTest.cpp \
+	../URITest.cpp \
+	../UPnPFuncTest.cpp \
+	../StringTest.cpp \
+	../XMLTest.cpp \
+	../NetworkTest.cpp \
+	../mUpnpTestMain.cpp \
+	../ServiceTest.cpp
 #if HAVE_LIBTOOL
 #mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@
 #else

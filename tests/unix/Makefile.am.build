@@ -9,7 +9,7 @@ print<<HEADER;
 ############################################################
 
 TESTS = mupnptest
-noinst_PROGRAMS = mupnptest
+check_PROGRAMS = mupnptest
 
 AM_CPPFLAGS = -I\$(top_srcdir)/include -I../
 
