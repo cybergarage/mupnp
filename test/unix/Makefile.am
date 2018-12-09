@@ -17,19 +17,19 @@ noinst_HEADERS = \
 
 mupnptest_SOURCES = \
 	../ControlPointTest.cpp \
-	../TestDevice.c \
-	../SubscriptionTest.cpp \
-	../HttpTest.cpp \
-	../DictionaryTest.cpp \
 	../DeviceTest.cpp \
-	../StateVariableTest.cpp \
-	../URITest.cpp \
-	../UPnPFuncTest.cpp \
-	../StringTest.cpp \
-	../XMLTest.cpp \
+	../DictionaryTest.cpp \
+	../HttpTest.cpp \
 	../NetworkTest.cpp \
-	../mUpnpTestMain.cpp \
-	../ServiceTest.cpp
+	../ServiceTest.cpp \
+	../StateVariableTest.cpp \
+	../StringTest.cpp \
+	../SubscriptionTest.cpp \
+	../TestDevice.c \
+	../UPnPFuncTest.cpp \
+	../URITest.cpp \
+	../XMLTest.cpp \
+	../mUpnpTestMain.cpp
 #if HAVE_LIBTOOL
 #mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@
 #else

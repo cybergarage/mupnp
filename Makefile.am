@@ -2,8 +2,8 @@ SUBDIRS = include lib
 if MUPNP_ENABLE_EXAMPLES
 SUBDIRS += examples
 endif
-if MUPNP_ENABLE_TESTS
-SUBDIRS += tests
+if MUPNP_ENABLE_TEST
+SUBDIRS += test
 endif
 
 devdocsdir = $(datadir)/doc/clinkc-dev
