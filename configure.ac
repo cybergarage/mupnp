@@ -133,7 +133,7 @@ if [ test $USE_LIBXML2 = yes ]; then
 		XML_LIBS=`pkg-config libxml-2.0 --libs`
 		AC_SUBST(XML_LIBS)
 	],[
-		AC_MSG_ERROR(mUPnP needs libxml2-dev >= $LIBXML2_VERSION)
+		AC_MSG_ERROR(mUPnP needs libxml2-devel >= $LIBXML2_VERSION)
 	])
 fi
 
