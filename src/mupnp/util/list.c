@@ -256,7 +256,7 @@ mUpnpList* mupnp_list_next(
 
 void mupnp_list_clear(mUpnpList* headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc)
 {
-  mUpnpList* list;
+  mUpnpList* list, *nextList;
 
   mupnp_log_debug_l5("Entering...\n");
 
@@ -265,6 +265,7 @@ void mupnp_list_clear(mUpnpList* headList, MUPNP_LIST_DESTRUCTORFUNC destructorF
 
   list = mupnp_list_next(headList);
   while (list != NULL) {
+    nextList = mupnp_list_next(list);
     mupnp_list_remove(list);
     //Theo Beisch: use destructorFunc or just free(listElement)
     if (destructorFunc != NULL) {
@@ -273,7 +274,7 @@ void mupnp_list_clear(mUpnpList* headList, MUPNP_LIST_DESTRUCTORFUNC destructorF
     else {
       free(list);
     }
-    list = mupnp_list_next(headList);
+    list = nextList;
   }
 
   /*** list header must be deleted by user ***/
