@@ -88,7 +88,7 @@ const char* mupnp_createuuid(char* uuidBuf, size_t uuidBufSize)
 #else
   /**** Thanks for Makela Aapo (10/30/05) ****/
   time1 = mupnp_getcurrentsystemtime();
-  time2 = (time_t)((double)mupnp_getcurrentsystemtime(NULL) * ((double)rand() / (double)RAND_MAX));
+  time2 = (time_t)((double)mupnp_getcurrentsystemtime() * ((double)rand() / (double)RAND_MAX));
   snprintf(uuidBuf, uuidBufSize, "%s:%04x-%04x-%04x-%04x", MUPNP_UUID_NAME, (int)(time1 & 0xFFFF), (int)(((time1 >> 31) | 0xA000) & 0xFFFF), (int)(time2 & 0xFFFF), (int)(((time2 >> 31) | 0xE000) & 0xFFFF));
 #endif
 
