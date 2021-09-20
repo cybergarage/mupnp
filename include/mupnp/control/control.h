@@ -283,7 +283,7 @@ void mupnp_control_request_sethostfromservice(mUpnpSoapRequest* soapReq, mUpnpSe
 /**
  * Create new action request object
  */
-mUpnpActionRequest* mupnp_control_action_request_new();
+mUpnpActionRequest* mupnp_control_action_request_new(void);
 
 /**
  * Delete action request object
@@ -374,7 +374,7 @@ mUpnpActionResponse* mupnp_control_action_request_post(mUpnpActionRequest* actio
 /**
  * Create new action response
  */
-mUpnpActionResponse* mupnp_control_action_response_new();
+mUpnpActionResponse* mupnp_control_action_response_new(void);
 
 /**
  * Delete action response
@@ -457,7 +457,7 @@ bool mupnp_control_action_response_geterror(mUpnpActionResponse* actionRes, mUpn
 /**
  * Create new query request object
  */
-mUpnpQueryRequest* mupnp_control_query_request_new();
+mUpnpQueryRequest* mupnp_control_query_request_new(void);
 
 /**
  * Delete query request
@@ -541,7 +541,7 @@ mUpnpQueryResponse* mupnp_control_query_request_post(mUpnpQueryRequest* queryReq
 /**
  * Create new query response
  */
-mUpnpQueryResponse* mupnp_control_query_response_new();
+mUpnpQueryResponse* mupnp_control_query_response_new(void);
 
 /**
  * Delete query response

@@ -67,7 +67,7 @@ typedef struct _mUpnpCond {
 /** 
  * Create a new condition variable
  */
-mUpnpCond* mupnp_cond_new();
+mUpnpCond* mupnp_cond_new(void);
 
 /** 
  * Destroy a condition variable

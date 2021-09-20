@@ -92,7 +92,7 @@ ssize_t mupnp_httpu_socket_recv(mUpnpHttpUSocket* sock, mUpnpSSDPPacket* ssdpPkt
 * Function (SSDPPacket)
 ****************************************/
 
-mUpnpSSDPPacket* mupnp_ssdp_packet_new();
+mUpnpSSDPPacket* mupnp_ssdp_packet_new(void);
 void mupnp_ssdp_packet_delete(mUpnpSSDPPacket* ssdpPkt);
 void mupnp_ssdp_packet_clear(mUpnpSSDPPacket* ssdpPkt);
 
@@ -142,7 +142,7 @@ void mupnp_ssdp_packet_print(mUpnpSSDPPacket* ssdpPkt);
 * Function (SSDPServer)
 ****************************************/
 
-mUpnpSSDPServer* mupnp_ssdp_server_new();
+mUpnpSSDPServer* mupnp_ssdp_server_new(void);
 void mupnp_ssdp_server_delete(mUpnpSSDPServer* server);
 
 #define mupnp_ssdp_server_next(server) (mUpnpSSDPServer*) mupnp_list_next((mUpnpList*)server)
@@ -167,7 +167,7 @@ bool mupnp_ssdp_server_stop(mUpnpSSDPServer* server);
 * Function (SSDPServerList)
 ****************************************/
 
-mUpnpSSDPServerList* mupnp_ssdp_serverlist_new();
+mUpnpSSDPServerList* mupnp_ssdp_serverlist_new(void);
 void mupnp_ssdp_serverlist_delete(mUpnpSSDPServerList* serverList);
 
 #define mupnp_ssdp_serverlist_clear(serverList) mupnp_list_clear((mUpnpList*)serverList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_ssdp_server_delete)
@@ -186,7 +186,7 @@ void mupnp_ssdp_serverlist_setuserdata(mUpnpSSDPServerList* ssdpServerList, void
 * Function (SSDPResponseServer)
 ****************************************/
 
-mUpnpSSDPResponseServer* mupnp_ssdpresponse_server_new();
+mUpnpSSDPResponseServer* mupnp_ssdpresponse_server_new(void);
 void mupnp_ssdpresponse_server_delete(mUpnpSSDPResponseServer* server);
 
 #define mupnp_ssdpresponse_server_next(server) (mUpnpSSDPResponseServer*) mupnp_list_next((mUpnpList*)server)
@@ -213,7 +213,7 @@ bool mupnp_ssdpresponse_server_post(mUpnpSSDPResponseServer* server, mUpnpSSDPRe
 * Function (SSDPResponseServerList)
 ****************************************/
 
-mUpnpSSDPResponseServerList* mupnp_ssdpresponse_serverlist_new();
+mUpnpSSDPResponseServerList* mupnp_ssdpresponse_serverlist_new(void);
 void mupnp_ssdpresponse_serverlist_delete(mUpnpSSDPResponseServerList* serverList);
 
 #define mupnp_ssdpresponse_serverlist_clear(serverList) mupnp_list_clear((mUpnpList*)serverList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_ssdpresponse_server_delete)

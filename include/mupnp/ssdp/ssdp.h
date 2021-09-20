@@ -82,10 +82,10 @@ typedef mUpnpSocket mUpnpSSDPSocket;
 ****************************************/
 
 void mupnp_ssdp_setipv6address(const char* addr);
-const char* mupnp_ssdp_getipv6address();
+const char* mupnp_ssdp_getipv6address(void);
 
 void mupnp_ssdp_setannouncecount(int count);
-int mupnp_ssdp_getannouncecount();
+int mupnp_ssdp_getannouncecount(void);
 
 int mupnp_ssdp_getleasetime(const char* cacheCont);
 
@@ -95,7 +95,7 @@ const char* mupnp_ssdp_gethostaddress(const char* ifAddr);
 * Function (SSDPRequest)
 ****************************************/
 
-mUpnpSSDPRequest* mupnp_ssdprequest_new();
+mUpnpSSDPRequest* mupnp_ssdprequest_new(void);
 void mupnp_ssdprequest_delete(mUpnpSSDPRequest* ssdpReq);
 
 /**** Method ****/
@@ -160,7 +160,7 @@ char* mupnp_ssdprequest_tostring(mUpnpSSDPRequest* ssdpReq, mUpnpString* ssdpMsg
 * Function (SSDPResponse)
 ****************************************/
 
-mUpnpSSDPResponse* mupnp_ssdpresponse_new();
+mUpnpSSDPResponse* mupnp_ssdpresponse_new(void);
 void mupnp_ssdpresponse_delete(mUpnpSSDPResponse* ssdpRes);
 
 /**** ST ****/

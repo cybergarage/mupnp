@@ -77,7 +77,7 @@ typedef struct _mUpnpLockInfo {
 /** 
  * Create a new mutex
  */
-mUpnpMutex* mupnp_mutex_new();
+mUpnpMutex* mupnp_mutex_new(void);
 
 /** 
  * Destroy a mutex

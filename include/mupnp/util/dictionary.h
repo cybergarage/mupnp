@@ -48,7 +48,7 @@ typedef struct _mUpnpDictionary {
 /**
  * Create a new dictionary
  */
-mUpnpDictionaryElement* mupnp_dictionary_element_new();
+mUpnpDictionaryElement* mupnp_dictionary_element_new(void);
 
 /**
  * Destroy a dictionary.
@@ -97,7 +97,7 @@ bool mupnp_dictionary_element_delete(mUpnpDictionaryElement* dirElem);
  *
  * \return Dictionary list
  */
-mUpnpDictionary* mupnp_dictionary_new();
+mUpnpDictionary* mupnp_dictionary_new(void);
 
 /**
  * Destroy a dictionary list

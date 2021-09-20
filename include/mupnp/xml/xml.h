@@ -62,7 +62,7 @@ typedef struct _mUpnpXmlParser {
 * Function (AttribureList)
 ****************************************/
 
-mUpnpXmlAttributeList* mupnp_xml_attributelist_new();
+mUpnpXmlAttributeList* mupnp_xml_attributelist_new(void);
 void mupnp_xml_attributelist_delete(mUpnpXmlAttributeList* attrList);
 
 #define mupnp_xml_attributelist_clear(attrList) mupnp_list_clear((mUpnpList*)attrList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_xml_attribute_delete)
@@ -78,7 +78,7 @@ const char* mupnp_xml_attributelist_getvalue(mUpnpXmlAttributeList* attrList, co
 * Function (Attributes)
 ****************************************/
 
-mUpnpXmlAttribute* mupnp_xml_attribute_new();
+mUpnpXmlAttribute* mupnp_xml_attribute_new(void);
 void mupnp_xml_attribute_delete(mUpnpXmlAttribute* attr);
 
 #define mupnp_xml_attribute_next(attr) (mUpnpXmlAttribute*) mupnp_list_next((mUpnpList*)attr)
@@ -95,7 +95,7 @@ const char* mupnp_xml_attribute_getvalue(mUpnpXmlAttribute* attr);
 * Function (NodeList)
 ****************************************/
 
-mUpnpXmlNodeList* mupnp_xml_nodelist_new();
+mUpnpXmlNodeList* mupnp_xml_nodelist_new(void);
 void mupnp_xml_nodelist_delete(mUpnpXmlNodeList* nodeList);
 
 #define mupnp_xml_nodelist_clear(nodeList) mupnp_list_clear((mUpnpList*)(nodeList), (MUPNP_LIST_DESTRUCTORFUNC)mupnp_xml_node_delete)
@@ -112,7 +112,7 @@ mUpnpXmlNode* mupnp_xml_nodelist_getbyxpath(mUpnpXmlNodeList* nodeList, const ch
 * Function (Node)
 ****************************************/
 
-mUpnpXmlNode* mupnp_xml_node_new();
+mUpnpXmlNode* mupnp_xml_node_new(void);
 void mupnp_xml_node_delete(mUpnpXmlNode* node);
 
 #define mupnp_xml_node_next(node) (mUpnpXmlNode*) mupnp_list_next((mUpnpList*)node)
@@ -177,7 +177,7 @@ void mupnp_xml_node_copy(mUpnpXmlNode* dstNode, mUpnpXmlNode* srcNode);
 * Function (Parser)
 ****************************************/
 
-mUpnpXmlParser* mupnp_xml_parser_new();
+mUpnpXmlParser* mupnp_xml_parser_new(void);
 void mupnp_xml_parser_delete(mUpnpXmlParser* parser);
 bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const char* data, size_t len);
 

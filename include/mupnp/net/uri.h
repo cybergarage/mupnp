@@ -68,7 +68,7 @@ typedef struct _mUpnpNetURI {
 * Function
 ****************************************/
 
-mUpnpNetURI* mupnp_net_uri_new();
+mUpnpNetURI* mupnp_net_uri_new(void);
 void mupnp_net_uri_delete(mUpnpNetURI* uri);
 void mupnp_net_uri_clear(mUpnpNetURI* uri);
 void mupnp_net_uri_setvalue(mUpnpNetURI* uri, const char* value);

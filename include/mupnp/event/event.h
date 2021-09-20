@@ -469,7 +469,7 @@ void mupnp_event_subscription_subscriberesponse_setresponse(mUpnpSubscriptionRes
 * Create a new event listener list
 *
 */
-mUpnpEventListenerList* mupnp_eventlistenerlist_new();
+mUpnpEventListenerList* mupnp_eventlistenerlist_new(void);
 
 /**
 * Delete a event listener list.

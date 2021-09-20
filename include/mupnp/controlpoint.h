@@ -120,7 +120,7 @@ typedef void (*MUPNP_DEVICE_LISTENER)(mUpnpControlPoint* ctrlPoint, const char* 
  *
  * @return A newly-created mUpnpControlPoint
  */
-mUpnpControlPoint* mupnp_controlpoint_new();
+mUpnpControlPoint* mupnp_controlpoint_new(void);
 
 /**
  * Destroy the given control point

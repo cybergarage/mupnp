@@ -64,7 +64,7 @@ void mupnp_wait(mUpnpTime mtime)
 }
 
 /****************************************
-* mupnp_time_wait
+* mupnp_waitrandom
 ****************************************/
 
 void mupnp_waitrandom(mUpnpTime mtime)
@@ -82,7 +82,7 @@ void mupnp_waitrandom(mUpnpTime mtime)
 }
 
 /****************************************
-* mupnp_time_wait
+* mupnp_getcurrentsystemtime
 ****************************************/
 
 mUpnpTime mupnp_getcurrentsystemtime()

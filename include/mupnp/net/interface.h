@@ -59,9 +59,9 @@ typedef struct _mUpnpNetworkInterface {
 * Function (NetworkInterface)
 ****************************************/
 
-mUpnpNetworkInterface* mupnp_net_interface_new();
+mUpnpNetworkInterface* mupnp_net_interface_new(void);
 void mupnp_net_interface_delete(mUpnpNetworkInterface* netIf);
-mUpnpNetworkInterface* mupnp_net_interface_getany();
+mUpnpNetworkInterface* mupnp_net_interface_getany(void);
 
 #define mupnp_net_interface_next(netIf) (mUpnpNetworkInterface*) mupnp_list_next((mUpnpList*)netIf)
 #define mupnp_net_interface_remove(netIf) mupnp_list_remove((mUpnpList*)netIf)
@@ -90,7 +90,7 @@ int mupnp_net_interface_cmp(mUpnpNetworkInterface* netIfA,
 * Function (NetworkInterfaceList)
 ****************************************/
 
-mUpnpNetworkInterfaceList* mupnp_net_interfacelist_new();
+mUpnpNetworkInterfaceList* mupnp_net_interfacelist_new(void);
 void mupnp_net_interfacelist_delete(mUpnpNetworkInterfaceList* netIfList);
 
 #define mupnp_net_interfacelist_clear(netIfList) mupnp_list_clear((mUpnpList*)netIfList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_net_interface_delete)

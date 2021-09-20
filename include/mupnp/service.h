@@ -77,7 +77,7 @@ typedef struct _mUpnpService {
 /**
  * Create a new UPnP service
  */
-mUpnpService* mupnp_service_new();
+mUpnpService* mupnp_service_new(void);
 
 /**
  * Destroy a UPnP service
@@ -725,7 +725,7 @@ void mupnp_service_createnotifyallthread(mUpnpService* service, mUpnpTime waitTi
 /**
  * Create a new list of services
  */
-mUpnpServiceList* mupnp_servicelist_new();
+mUpnpServiceList* mupnp_servicelist_new(void);
 
 /**
  * Destroy a list of services

@@ -43,7 +43,7 @@ typedef struct _mUpnpProperty {
 /**
  * Construct new UPnP property object
  */
-mUpnpProperty* mupnp_property_new();
+mUpnpProperty* mupnp_property_new(void);
 
 /**
  * Delete UPnP property object
@@ -140,7 +140,7 @@ void mupnp_property_clear(mUpnpProperty* prop);
 /**
  * Create new UPnP property list
  */
-mUpnpPropertyList* mupnp_propertylist_new();
+mUpnpPropertyList* mupnp_propertylist_new(void);
 
 /**
  * Delete UPnP property list

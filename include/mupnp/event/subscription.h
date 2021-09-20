@@ -39,7 +39,7 @@ typedef mUpnpHttpRequest mUpnpSubscriptionRequest;
 /**
  * Create new subscription request
  */
-mUpnpSubscriptionRequest* mupnp_event_subscription_request_new();
+mUpnpSubscriptionRequest* mupnp_event_subscription_request_new(void);
 
 /**
  * Delete subscription request

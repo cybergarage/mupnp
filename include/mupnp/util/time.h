@@ -39,7 +39,7 @@ typedef long mUpnpTime;
 * Function
 ****************************************/
 
-float mupnp_random();
+float mupnp_random(void);
 
 void mupnp_wait(mUpnpTime mtime);
 void mupnp_waitrandom(mUpnpTime mtime);
@@ -47,7 +47,7 @@ void mupnp_waitrandom(mUpnpTime mtime);
 #define mupnp_sleep(val) mupnp_wait(val)
 #define mupnp_sleeprandom(val) mupnp_waitrandom(val)
 
-mUpnpTime mupnp_getcurrentsystemtime();
+mUpnpTime mupnp_getcurrentsystemtime(void);
 
 #ifdef __cplusplus
 }

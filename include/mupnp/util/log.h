@@ -62,7 +62,7 @@ void mupnp_log_set_separator(char* s);
  * contain special targets like network addresses etc.
  */
 int mupnp_log_add_target(char* target, int severity_mask);
-int mupnp_log_clear_targets();
+int mupnp_log_clear_targets(void);
 
 /* Standard error handling */
 #if defined(__USE_ISOC99)

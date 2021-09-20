@@ -60,7 +60,7 @@ typedef bool (*MUPNP_ACTION_LISTNER)(mUpnpAction*);
  *
  * @return mUpnpAction*
  */
-mUpnpAction* mupnp_action_new();
+mUpnpAction* mupnp_action_new(void);
 
 /**
  * Destroy an action
@@ -308,7 +308,7 @@ bool mupnp_action_setargumentvaluebyname(mUpnpAction* action, const char* name, 
  *
  * @return mUpnpActionList*
  */
-mUpnpActionList* mupnp_actionlist_new();
+mUpnpActionList* mupnp_actionlist_new(void);
 
 /**
  * Destroy a list of actions

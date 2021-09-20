@@ -176,7 +176,7 @@ typedef struct _mUpnpDevice {
 /**
  * Create a new UPnP device
  */
-mUpnpDevice* mupnp_device_new();
+mUpnpDevice* mupnp_device_new(void);
 
 /**
  * Delete a UPnP device
@@ -1242,7 +1242,7 @@ mUpnpStateVariable* mupnp_device_getstatevariablebyname(mUpnpDevice* dev, const 
  * Create a new device list
  * 
  */
-mUpnpDeviceList* mupnp_devicelist_new();
+mUpnpDeviceList* mupnp_devicelist_new(void);
 
 /**
  * Delete a device list completely, freeing all devices and their contents.

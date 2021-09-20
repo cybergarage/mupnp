@@ -73,7 +73,7 @@ typedef struct _mUpnpSoapRequest {
 * Function (Request)
 ****************************************/
 
-mUpnpSoapRequest* mupnp_soap_request_new();
+mUpnpSoapRequest* mupnp_soap_request_new(void);
 void mupnp_soap_request_delete(mUpnpSoapRequest* soapReq);
 void mupnp_soap_request_clear(mUpnpSoapRequest* soapReq);
 
@@ -104,7 +104,7 @@ void mupnp_soap_request_setcontent(mUpnpSoapRequest* soapReq, mUpnpXmlNode* node
 * Function (Response)
 ****************************************/
 
-mUpnpSoapResponse* mupnp_soap_response_new();
+mUpnpSoapResponse* mupnp_soap_response_new(void);
 void mupnp_soap_response_delete(mUpnpSoapResponse* soapRes);
 void mupnp_soap_response_clear(mUpnpSoapResponse* soapRes);
 
@@ -130,7 +130,7 @@ void mupnp_soap_response_setcontent(mUpnpSoapResponse* soapRes, mUpnpXmlNode* no
 * Function
 ****************************************/
 
-mUpnpXmlNode* mupnp_soap_createenvelopebodynode();
+mUpnpXmlNode* mupnp_soap_createenvelopebodynode(void);
 
 #ifdef __cplusplus
 }

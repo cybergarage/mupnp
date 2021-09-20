@@ -64,7 +64,7 @@ typedef mUpnpSoapResponse mUpnpNotifyResponse;
 /**
  * Create new Notification request
  */
-mUpnpNotifyRequest* mupnp_event_notify_request_new();
+mUpnpNotifyRequest* mupnp_event_notify_request_new(void);
 
 /**
  * Delete Notification request

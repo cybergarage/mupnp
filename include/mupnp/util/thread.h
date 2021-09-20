@@ -114,13 +114,13 @@ typedef void (*MUPNP_THREAD_FUNC)(mUpnpThread*);
 /**
  * Create a new thread
  */
-mUpnpThread* mupnp_thread_new();
+mUpnpThread* mupnp_thread_new(void);
 
 /**
  * Get a self reference to thread.
  */
 
-mUpnpThread* mupnp_thread_self();
+mUpnpThread* mupnp_thread_self(void);
 
 /**
  * Stop and destroy a thread.
@@ -205,7 +205,7 @@ void mupnp_thread_monitor(mUpnpThread* thread);
  *
  * \return Thread list
  */
-mUpnpThreadList* mupnp_threadlist_new();
+mUpnpThreadList* mupnp_threadlist_new(void);
 
 /**
  * Destroy a thread list

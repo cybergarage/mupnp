@@ -52,7 +52,7 @@ typedef struct _mUpnpStatus {
  * Create a new status struct
  *
  */
-mUpnpStatus* mupnp_status_new();
+mUpnpStatus* mupnp_status_new(void);
 
 /**
  * Delete a status struct

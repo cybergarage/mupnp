@@ -105,8 +105,8 @@ typedef struct _mUpnpDatagramPacket {
 * Function (Socket)
 ****************************************/
 
-void mupnp_socket_startup();
-void mupnp_socket_cleanup();
+void mupnp_socket_startup(void);
+void mupnp_socket_cleanup(void);
 
 mUpnpSocket* mupnp_socket_new(int type);
 #define mupnp_socket_stream_new() mupnp_socket_new(MUPNP_NET_SOCKET_STREAM)
@@ -147,7 +147,7 @@ size_t mupnp_socket_skip(mUpnpSocket* sock, size_t skipLen);
 size_t mupnp_socket_sendto(mUpnpSocket* sock, const char* addr, int port, const char* data, size_t dataeLen);
 ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt);
 
-int mupnp_socket_getlasterror();
+int mupnp_socket_getlasterror(void);
 
 /****************************************
 * Function (Multicast)
@@ -167,7 +167,7 @@ bool mupnp_socket_settimeout(mUpnpSocket* sock, int sec);
 * Function (DatagramPacket)
 ****************************************/
 
-mUpnpDatagramPacket* mupnp_socket_datagram_packet_new();
+mUpnpDatagramPacket* mupnp_socket_datagram_packet_new(void);
 void mupnp_socket_datagram_packet_delete(mUpnpDatagramPacket* dgmPkt);
 
 #define mupnp_socket_datagram_packet_setdata(dgmPkt, value) mupnp_string_setvalue(dgmPkt->data, value)
@@ -202,7 +202,7 @@ void mupnp_socket_datagram_packet_copy(mUpnpDatagramPacket* dstDgmPkt, mUpnpData
 
 #define mupnp_socket_next(sock) (mUpnpSocket*) mupnp_list_next((mUpnpList*)sock)
 
-mUpnpSocketList* mupnp_socketlist_new();
+mUpnpSocketList* mupnp_socketlist_new(void);
 void mupnp_socketlist_delete(mUpnpSocketList* sockList);
 
 #define mupnp_socketlist_clear(sockList) mupnp_list_clear((mUpnpList*)sockList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_socket_delete)

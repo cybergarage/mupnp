@@ -234,7 +234,7 @@ const char* mupnp_http_statuscode2reasonphrase(const int code);
 * Function (Header)
 ****************************************/
 
-mUpnpHttpHeader* mupnp_http_header_new();
+mUpnpHttpHeader* mupnp_http_header_new(void);
 void mupnp_http_header_delete(mUpnpHttpHeader* header);
 
 #define mupnp_http_header_next(header) (mUpnpHttpHeader*) mupnp_list_next((mUpnpList*)header)
@@ -248,7 +248,7 @@ const char* mupnp_http_header_getvalue(mUpnpHttpHeader* header);
 * Function (Header List)
 ****************************************/
 
-mUpnpHttpHeaderList* mupnp_http_headerlist_new();
+mUpnpHttpHeaderList* mupnp_http_headerlist_new(void);
 void mupnp_http_headerlist_delete(mUpnpHttpHeaderList* headerList);
 
 #define mupnp_http_headerlist_clear(headerList) mupnp_list_clear((mUpnpList*)headerList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_http_header_delete)
@@ -264,7 +264,7 @@ const char* mupnp_http_headerlist_getvalue(mUpnpHttpHeaderList* headerList, cons
 * Function (Packet)
 ****************************************/
 
-mUpnpHttpPacket* mupnp_http_packet_new();
+mUpnpHttpPacket* mupnp_http_packet_new(void);
 void mupnp_http_packet_delete(mUpnpHttpPacket* httpPkt);
 void mupnp_http_packet_init(mUpnpHttpPacket* httpPkt);
 void mupnp_http_packet_clean(mUpnpHttpPacket* httpPkt);
@@ -332,7 +332,7 @@ void mupnp_http_packet_print(mUpnpHttpPacket* httpPkt);
 * Function (Request)
 ****************************************/
 
-mUpnpHttpRequest* mupnp_http_request_new();
+mUpnpHttpRequest* mupnp_http_request_new(void);
 void mupnp_http_request_delete(mUpnpHttpRequest* httpReq);
 void mupnp_http_request_clear(mUpnpHttpRequest* httpReq);
 void mupnp_http_request_setmethod(mUpnpHttpRequest* httpReq, const char* method);
@@ -437,7 +437,7 @@ void mupnp_http_request_print(mUpnpHttpRequest* httpReq);
 * Function (Response)
 ****************************************/
 
-mUpnpHttpResponse* mupnp_http_response_new();
+mUpnpHttpResponse* mupnp_http_response_new(void);
 void mupnp_http_response_delete(mUpnpHttpResponse* httpRes);
 void mupnp_http_response_clear(mUpnpHttpResponse* httpRes);
 void mupnp_http_response_setversion(mUpnpHttpResponse* httpRes, const char* version);
@@ -508,7 +508,7 @@ void mupnp_http_response_print(mUpnpHttpResponse* httpRes);
 * Function (Server)
 ****************************************/
 
-mUpnpHttpServer* mupnp_http_server_new();
+mUpnpHttpServer* mupnp_http_server_new(void);
 void mupnp_http_server_delete(mUpnpHttpServer* httpServer);
 bool mupnp_http_server_open(mUpnpHttpServer* httpServer, int bindPort, const char* bindAddr);
 bool mupnp_http_server_close(mUpnpHttpServer* httpServer);
@@ -539,7 +539,7 @@ const char* mupnp_http_getservername(char* buf, size_t bufSize);
 * Function (Server List)
 ****************************************/
 
-mUpnpHttpServerList* mupnp_http_serverlist_new();
+mUpnpHttpServerList* mupnp_http_serverlist_new(void);
 void mupnp_http_serverlist_delete(mUpnpHttpServerList* httpServerList);
 
 #define mupnp_http_serverlist_clear(httpServerList) mupnp_list_clear((mUpnpList*)httpServerList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_http_server_delete)

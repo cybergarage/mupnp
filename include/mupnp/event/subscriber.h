@@ -55,7 +55,7 @@ typedef struct _mUpnpSubscriber {
 /**
  * Create a new event subscriber
  */
-mUpnpSubscriber* mupnp_subscriber_new();
+mUpnpSubscriber* mupnp_subscriber_new(void);
 
 /**
  * Destroy an event subscriber
@@ -250,7 +250,7 @@ bool mupnp_subscriber_notifyall(mUpnpSubscriber* sub, void* service);
 /**
  * Create a new event subscriber list
  */
-mUpnpSubscriberList* mupnp_subscriberlist_new();
+mUpnpSubscriberList* mupnp_subscriberlist_new(void);
 
 /**
  * Destroy an event subscriber list

@@ -65,7 +65,7 @@ void mupnp_setnmprmode(bool onFlag);
  *
  * \return true if on; otherwise false
  */
-bool mupnp_isnmprmode();
+bool mupnp_isnmprmode(void);
 
 /**
  * Generate a integer id of BOOTID.UPNP.ORG.
@@ -73,7 +73,7 @@ bool mupnp_isnmprmode();
  *
  * \return BOOTID
  */
-int mupnp_createbootid();
+int mupnp_createbootid(void);
 
 /**
  * Generate a integer id of CONFIGID.UPNP.ORG.

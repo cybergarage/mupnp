@@ -52,7 +52,7 @@ typedef struct _mUpnpIcon {
 /**
  * Create a new icon struct
  */
-mUpnpIcon* mupnp_icon_new();
+mUpnpIcon* mupnp_icon_new(void);
 
 /**
  * Delete an icon struct
@@ -188,7 +188,7 @@ void mupnp_icon_delete(mUpnpIcon* dev);
  * Create a new list of icons
  * 
  */
-mUpnpIconList* mupnp_iconlist_new();
+mUpnpIconList* mupnp_iconlist_new(void);
 
 /**
  * Delete a list of icons

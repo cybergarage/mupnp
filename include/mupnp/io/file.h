@@ -75,7 +75,7 @@ typedef struct _mUpnpFile {
 * Function
 ****************************************/
 
-mUpnpFile* mupnp_file_new();
+mUpnpFile* mupnp_file_new(void);
 void mupnp_file_delete(mUpnpFile* file);
 
 #define mupnp_file_next(file) (mUpnpFile*) mupnp_list_next((mUpnpList*)file)
@@ -124,7 +124,7 @@ bool mupnp_file_seek(mUpnpFile* file, mUpnpInt64, int whence);
  *
  * \return File list
  */
-mUpnpFileList* mupnp_filelist_new();
+mUpnpFileList* mupnp_filelist_new(void);
 
 /**
  * Destroy a file list

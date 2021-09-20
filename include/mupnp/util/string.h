@@ -114,7 +114,7 @@ void mupnp_string_tokenizer_print(mUpnpStringTokenizer* strToken);
 * Function (String)
 ****************************************/
 
-mUpnpString* mupnp_string_new();
+mUpnpString* mupnp_string_new(void);
 void mupnp_string_delete(mUpnpString* str);
 void mupnp_string_clear(mUpnpString* str);
 

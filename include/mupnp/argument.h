@@ -68,7 +68,7 @@ typedef struct _mUpnpArgument {
 /**
  * Create new argument
  */
-mUpnpArgument* mupnp_argument_new();
+mUpnpArgument* mupnp_argument_new(void);
 
 /**
  * Delete argument
@@ -287,7 +287,7 @@ void mupnp_argument_delete(mUpnpArgument* dev);
 /**
  * Create new argument list
  */
-mUpnpArgumentList* mupnp_argumentlist_new();
+mUpnpArgumentList* mupnp_argumentlist_new(void);
 
 /**
  * Delete argument list

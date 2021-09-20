@@ -114,7 +114,7 @@ typedef bool (*MUPNP_STATEVARIABLE_LISTNER)(mUpnpStateVariable*);
 /**
  * Create new state variable object
  */
-mUpnpStateVariable* mupnp_statevariable_new();
+mUpnpStateVariable* mupnp_statevariable_new(void);
 
 /**
  * Delete state variable object
@@ -206,7 +206,7 @@ int mupnp_statevariable_is_allowed_value(mUpnpStateVariable* statVar, const char
 /**
  * Create new allowed state variable values list
  */
-mUpnpAllowedValuesList* mupnp_allowedvaluelist_new();
+mUpnpAllowedValuesList* mupnp_allowedvaluelist_new(void);
 
 /**** allowedValueRange ****/
 
@@ -411,7 +411,7 @@ void mupnp_statevariable_setvaluewithoutnotify(mUpnpStateVariable* statVar, cons
 /**
  * Create service state table object
  */
-mUpnpServiceStateTable* mupnp_servicestatetable_new();
+mUpnpServiceStateTable* mupnp_servicestatetable_new(void);
 
 /**
  * Delete service state table object
