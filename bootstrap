@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 pushd include    && ./Makefile.am.build > Makefile.am && popd
 pushd lib/unix   && ./Makefile.am.build > Makefile.am && popd
