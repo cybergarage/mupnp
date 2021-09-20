@@ -67,7 +67,6 @@ bool mupnp_net_isipv6address(const char* addr)
 
 int mupnp_net_getipv6scopeid(const char* addr)
 {
-  size_t addrLen;
   ssize_t perIdx;
   char scopeIDBuf[8 + 1];
 
@@ -75,7 +74,6 @@ int mupnp_net_getipv6scopeid(const char* addr)
 
   if (mupnp_net_isipv6address(addr) == false)
     return 0;
-  addrLen = mupnp_strlen(addr);
   perIdx = mupnp_strchr(addr, "%", 1);
   if (perIdx < 0)
     return 0;
