@@ -234,7 +234,7 @@ void mupnp_log_print(int severity, const char* file, int line_n, const char* fun
 
   /* Filling out rest of the log message */
   va_start(list, format);
-  vsnprintf(log_line + prefix_length, MAX_LOG_STRING - prefix_length, format, list);
+  vsnprintf(l_ptr, MAX_LOG_STRING - prefix_length, format, list);
   va_end(list);
 
   /* Multiplexing the created message into targets */
