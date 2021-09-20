@@ -97,7 +97,6 @@ const char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, size_t bufSize)
   gmTime = gmtime(&sysTime);
 #endif
 
-  /*
 #if !defined(WINCE)
 #if defined(HAVE_SNPRINTF)
 	snprintf(buf, bufSize,
@@ -123,7 +122,6 @@ const char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, size_t bufSize)
 		systemTime.wMinute,
 		systemTime.wSecond);
 #endif
-   */
 
   mupnp_log_debug_l4("Leaving...\n");
 
