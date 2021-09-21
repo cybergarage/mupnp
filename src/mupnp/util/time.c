@@ -16,11 +16,8 @@
 
 #if defined(WIN32) && !defined(ITRON) && !defined(WINCE)
 #include <windows.h>
-#include <time.h>
 #elif defined(WIN32) && defined(WINCE)
 #include <windows.h>
-#include <time.h>
-//#include <altcecrt.h>
 #elif defined(BTRON)
 #include <btron/proctask.h>
 #include <btron/clk.h>
@@ -28,14 +25,11 @@
 #include <kernel.h>
 #elif defined(TENGINE) && !defined(PROCESS_BASE)
 #include <tk/tkernel.h>
-#include <time.h>
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 #include <tk/tkernel.h>
 #include <btron/proctask.h>
-#include <time.h>
 #else
 #include <unistd.h>
-#include <time.h>
 #endif
 
 /****************************************
@@ -114,7 +108,7 @@ mUpnpTime mupnp_getcurrentsystemtime()
 #elif defined(ITRON)
   return ((sysTim.utime / 1000) << 32) + (sysTim.ltime / 1000);
 #else
-  return time(NULL);
+  return time((time_t *)NULL);
 #endif
 }
 

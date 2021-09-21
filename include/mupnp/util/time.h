@@ -12,7 +12,14 @@
 #ifndef _MUPNP_UTIL_TIME_H_
 #define _MUPNP_UTIL_TIME_H_
 
+#if !defined(BTRON) && !defined(ITRON)
+#include <time.h>
+#endif
+
 #include <mupnp/typedef.h>
+
+#if !defined(BTRON) || defined(ITRON)
+#endif
 
 #if defined(BTRON)
 #include <btron/proctask.h>
