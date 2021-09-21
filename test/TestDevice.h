@@ -32,7 +32,7 @@ extern "C" {
 * Function
 ****************************************/
 
-mUpnpDevice* upnp_test_device_new();
+mUpnpDevice* upnp_test_device_new(void);
 
 #ifdef __cplusplus
 }
