@@ -21,14 +21,21 @@ AGENCY, JAPAN, as a project of MitohProgram2004.
 
 \* UPnP ™ is a certification mark of the UPnP™ Implementers Corporation.
 
-## Repositories
+## References
 
-The project is hosted on the following sites. Please check the following
-sites to know about mUPnP for C in more detail.
+### mUPnP for C
 
-* [Programming Guide](http://www.cybergarage.org:8080/pdfdoc/clinkcproguide.pdf)
-* [Doxygen](http://www.cybergarage.org:8080/doxygen/mupnp4c/)
-* [GitHub](https://github.com/cybergarage/mupnpc)
+To develop UPnP devices or control point applications using mUPnP for C, please check the following developer's documentation.
+
+* [Programming Guide](doc/mupnpcproguide.pdf)
+* [Doxygen](http://cybergarage.github.io/mupnp/)
+
+### mUPnP for Objective-C
+
+mUPnP for C releases the wrapper library for Objective-C to use the UPnP library on iOS and MacOSX platforms too. Please check the following developer's documentation to know the wrapper library in more detail.
+
+* [Programming Guide](doc/mupnpobjcproguide.pdf)
+* [Doxygen](http://cybergarage.github.io/mupnp/objc/html/)
 
 Adoption
 --------
