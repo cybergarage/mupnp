@@ -54,18 +54,3 @@ from iPhone / iPod touch / iPad (of iOS 4.2 or later). CyberLinkForJava
 is used as the UPnP framework.
 
 ![VIERA Remote](doc/img/mupnpc-example-vieraremote-02.gif)
-
-## Support
-
-### upnpchk
-
-If you have any problems using mUPnP, please use the tiny debugging
-tool which is included in Net::UPnP, and send the output log as
-the following. To run the debugging tool, you have to be able to run
-Perl on your computer.
-
-```
-$ tar xvf <Net-UPnP-?.?.?.tar>
-$ cd <Net-UPnP-?.?.?>
-$ perl -Ilib examples/upnpchk.pl > upnpchk.log
-```
