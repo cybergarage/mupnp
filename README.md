@@ -1,5 +1,7 @@
 # mUPnP for C
 
+[![Build Status](https://app.travis-ci.com/cybergarage/mupnp.svg?branch=master)](https://app.travis-ci.com/cybergarage/mupnp)
+
 ## Overview
 
 mUPnP for C is a development package for UPnP™ developers. mUPnP
