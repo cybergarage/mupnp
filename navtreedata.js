@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "mUPnP for C (Objective-C)", "index.html", [
+  [ "mUPnP for C", "index.html", [
     [ "Deprecated List", "deprecated.html", null ],
     [ "Todo List", "todo.html", null ],
     [ "Bug List", "bug.html", null ],
