@@ -3,9 +3,9 @@
 #---------------------------------------------------------------------------
 # Project related configuration options
 #---------------------------------------------------------------------------
-PROJECT_NAME           = "mUPnP for C"
+PROJECT_NAME           = "mUPnP for Objective-C"
 PROJECT_NUMBER         = 
-OUTPUT_DIRECTORY       = ./doc
+OUTPUT_DIRECTORY       = ./doc/html/objc
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = English
 USE_WINDOWS_ENCODING   = NO
@@ -72,8 +72,8 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = src include wrapper std/upnpav/wrapper
-FILE_PATTERNS          = *.h *.c *.m
+INPUT                  = wrapper std/upnpav/wrapper
+FILE_PATTERNS          = *.h *.m
 RECURSIVE              = YES
 EXCLUDE                = 
 EXCLUDE_SYMLINKS       = NO

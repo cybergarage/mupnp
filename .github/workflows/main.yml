@@ -8,8 +8,6 @@ on:
   push:
     branches: [ master ]
 
-
-  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -30,6 +28,14 @@ jobs:
         # Working directory
         working-directory: "." # default is .
     
+    - name: Doxygen Action (ObjC)
+      uses: mattnotmitt/doxygen-action@v1.1.0
+      with:
+        # Path to Doxyfile
+        doxyfile-path: "./Doxyfile.objc" # default is ./Doxyfile
+        # Working directory
+        working-directory: "." # default is .
+
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
