@@ -1,0 +1,23 @@
+name: mupnp
+base: core20
+version: '3.0.1' 
+summary: UPnP™ library for cross-platform
+license: "BSD"
+description: |
+  mUPnP for C is a development package for UPnP™ developers. 
+  mUPnP controls these protocols automatically, and supports to 
+  create your devices and control points quickly.
+
+grade: stable
+confinement: strict
+
+build-packages:
+  - libboost-all-dev
+
+parts:
+  fdtools:
+    source-type: git
+    source: https://github.com/cybergarage/mupnp
+    plugin: autotools
+    autotools-configure-parameters:
+      - --enable-test
