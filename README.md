@@ -58,8 +58,21 @@ mUPnP for C releases the wrapper library for Objective-C to use the UPnP library
 * [Programming Guide](doc/mupnpobjcproguide.pdf)
 * [Doxygen](http://cybergarage.github.io/mupnp/objc/html/)
 
-Adoption
---------
+## Examples
+
+- UPnP control point examples
+  - UPnP controller for UPnP devices
+    - [UPnP multicast dump utility](examples/upnpdump)
+  - UPnP controller for UPnP stardard devices
+    - [UPnP Internet gateway utility ](examples/upnpigddump)
+    - [UPnP/AV media server utility ](examples/upnpavdump)
+ 
+- UPnP device examples
+  - UPnP non-standard devices
+    - [UPnP clock device](examples/clock)
+    
+## Adoption
+
 ### Nokia 770 Internet Tablet
 
 Nokia released the UPnP/AV Control point, Media Streamer, for Nokia 770.
