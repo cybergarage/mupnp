@@ -71,7 +71,7 @@ mUPnP for C releases the wrapper library for Objective-C to use the UPnP library
   - UPnP non-standard devices
     - [UPnP clock device](examples/clock)
     
-## Adoption
+## Adoptions for Consumer Products
 
 ### Nokia 770 Internet Tablet
 
