@@ -23,6 +23,25 @@ AGENCY, JAPAN, as a project of MitohProgram2004.
 
 \* UPnP ™ is a certification mark of the UPnP™ Implementers Corporation.
 
+## Building and Installation
+
+mUPnP for C is distributed as an Automake project, and so you can install the library from the source codes with the following commands:
+
+```
+./boostrap
+./configure
+make install
+```
+
+### macOS
+
+For macOS platforms, you can easily install using Homebrew with the following `brew` commands:
+
+```
+brew tap cybergarage/homebrew
+brew install mupnp
+```
+
 ## References
 
 ### mUPnP for C
