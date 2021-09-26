@@ -28,7 +28,7 @@
 
 - (void)loadView
 {
-  CGRect scrSize = [[UIScreen mainScreen] applicationFrame];
+  CGRect scrSize = [[UIScreen mainScreen] bounds];
   scrSize.origin.y = 0;
 
   self.view = [[UIView alloc] initWithFrame:scrSize];
