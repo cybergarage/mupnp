@@ -1,6 +1,6 @@
 # mUPnP for C
 
-[![Build Status](https://app.travis-ci.com/cybergarage/mupnp.svg?branch=master)](https://app.travis-ci.com/cybergarage/mupnp)
+[![Build Status](https://github.com/cybergarage/mupnp/actions/workflows/make.yml/badge.svg)](https://github.com/cybergarage/mupnp/actions/workflows/make.yml)
 
 ## Overview
 
