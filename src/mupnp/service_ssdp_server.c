@@ -9,10 +9,10 @@
  *
  ******************************************************************/
 
+#include <mupnp/control/control.h>
 #include <mupnp/device.h>
 #include <mupnp/service.h>
 #include <mupnp/ssdp/ssdp_server.h>
-#include <mupnp/control/control.h>
 #include <mupnp/util/log.h>
 
 /****************************************

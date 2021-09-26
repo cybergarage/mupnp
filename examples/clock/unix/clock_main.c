@@ -31,8 +31,8 @@
 #define DIR "/SYS/bin/"
 #else /* T-Kernel based */
 #include <basic.h>
-#include <tk/tkernel.h>
 #include <sys/pinfo.h>
+#include <tk/tkernel.h>
 #define MBEG ER main(INT ac, UB* av[])
 #define MEND E_SYS
 #define DIR "/SYS/bin/"

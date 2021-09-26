@@ -12,11 +12,11 @@
 *
 ************************************************************/
 
-#include "ckeyboard.h"
 #include "cdms_filesys.h"
+#include "ckeyboard.h"
 
-#include <stdio.h>
 #include <ctype.h>
+#include <stdio.h>
 
 #if defined(WIN32)
 #include <conio.h>

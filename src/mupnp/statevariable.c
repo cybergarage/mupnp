@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/statevariable.h>
 #include <mupnp/service.h>
+#include <mupnp/statevariable.h>
 #include <mupnp/util/log.h>
 
 #include <string.h>

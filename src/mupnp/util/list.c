@@ -256,7 +256,7 @@ mUpnpList* mupnp_list_next(
 
 void mupnp_list_clear(mUpnpList* headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc)
 {
-  mUpnpList* list, *nextList;
+  mUpnpList *list, *nextList;
 
   mupnp_log_debug_l5("Entering...\n");
 

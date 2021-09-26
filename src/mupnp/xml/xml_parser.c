@@ -9,9 +9,9 @@
  *
  ******************************************************************/
 
-#include <mupnp/xml/xml.h>
 #include <mupnp/http/http.h>
 #include <mupnp/util/log.h>
+#include <mupnp/xml/xml.h>
 
 /****************************************
 * mupnp_xml_parser_new

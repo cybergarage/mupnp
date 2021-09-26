@@ -10,8 +10,8 @@
  ******************************************************************/
 
 #if defined(WINCE)
-#include <windows.h>
 #include <time.h>
+#include <windows.h>
 #endif
 
 /****************************************

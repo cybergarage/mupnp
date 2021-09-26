@@ -8,8 +8,8 @@
  * This is licensed under BSD-style license, see file COPYING.
  *
  ******************************************************************/
-#include <mupnp/upnp_limit.h>
 #include <mupnp/controlpoint.h>
+#include <mupnp/upnp_limit.h>
 #include <mupnp/util/log.h>
 
 /****************************************

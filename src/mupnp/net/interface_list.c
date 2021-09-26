@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/util/list.h>
 #include <mupnp/net/interface.h>
+#include <mupnp/util/list.h>
 #include <mupnp/util/log.h>
 
 /****************************************

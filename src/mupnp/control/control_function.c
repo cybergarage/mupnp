@@ -11,8 +11,8 @@
 #include <mupnp/control/control.h>
 
 #include <mupnp/device.h>
-#include <mupnp/util/string.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/string.h>
 
 /****************************************
 * mupnp_usn_getudn

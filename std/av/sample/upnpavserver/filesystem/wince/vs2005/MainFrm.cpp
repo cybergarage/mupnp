@@ -1,10 +1,10 @@
 // MainFrm.cpp : implementation of the CMainFrame class
 //
 
-#include "stdafx.h"
 #include "CDmsMobilePhoto.h"
 #include "CDmsMobilePhotoDoc.h"
 #include "CDmsMobilePhotoView.h"
+#include "stdafx.h"
 
 #include "MainFrm.h"
 

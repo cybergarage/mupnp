@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/net/uri.h>
 #include <mupnp/net/interface.h>
+#include <mupnp/net/uri.h>
 #include <mupnp/util/log.h>
 
 #include <stdio.h>

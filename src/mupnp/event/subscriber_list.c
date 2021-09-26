@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/event/subscriber.h>
 #include <mupnp/control/control.h>
+#include <mupnp/event/subscriber.h>
 #include <mupnp/util/log.h>
 
 /****************************************

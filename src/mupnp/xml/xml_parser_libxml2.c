@@ -25,11 +25,11 @@
 * Header Files
 ****************************************/
 
-#include <mupnp/xml/xml.h>
-#include <mupnp/util/log.h>
 #include <libxml/parser.h>
-#include <libxml/tree.h>
 #include <libxml/parserInternals.h>
+#include <libxml/tree.h>
+#include <mupnp/util/log.h>
+#include <mupnp/xml/xml.h>
 
 #ifdef MUPNP_SHOW_TIMINGS
 #include <sys/time.h>

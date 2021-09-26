@@ -9,10 +9,10 @@
  *
  ******************************************************************/
 
-#include <mupnp/ssdp/ssdp.h>
-#include <mupnp/util/string.h>
 #include <mupnp/net/interface.h>
+#include <mupnp/ssdp/ssdp.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/string.h>
 
 static char* ssdpIPv6Address = MUPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS;
 static int ssdpAnnounceCount = MUPNP_SSDP_DEFAULT_ANNOUNCE_COUNT;

@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/device.h>
 #include <mupnp/control/control.h>
+#include <mupnp/device.h>
 #include <mupnp/util/log.h>
 #include <mupnp/util/string.h>
 

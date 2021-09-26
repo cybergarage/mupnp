@@ -14,8 +14,8 @@
 #endif
 
 #include <mupnp/event/event.h>
-#include <mupnp/util/log.h>
 #include <mupnp/upnp_function.h>
+#include <mupnp/util/log.h>
 
 #include <stdio.h>
 #include <stdlib.h>

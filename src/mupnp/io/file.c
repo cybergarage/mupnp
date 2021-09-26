@@ -17,8 +17,8 @@
 #include <stdio.h>
 
 #if defined(WIN32) && !defined(WINCE)
-#include <windows.h>
 #include <sys/stat.h>
+#include <windows.h>
 #elif defined(WINCE)
 #include <windows.h>
 
@@ -44,16 +44,16 @@ struct stat {
 */
 
 #elif defined(BTRON) || defined(ITRON) || defined(TENGINE)
-#include <fcntl.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/dirent.h>
 #include <bsys/unixemu.h>
+#include <fcntl.h>
+#include <sys/dirent.h>
+#include <sys/types.h>
+#include <unistd.h>
 #else
+#include <dirent.h>
 #include <sys/param.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <dirent.h>
 #endif
 
 /****************************************

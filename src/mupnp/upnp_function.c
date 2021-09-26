@@ -28,9 +28,9 @@
 #include <mupnp/upnp.h>
 #include <mupnp/util/log.h>
 
-#include <time.h>
-#include <stdlib.h>
 #include <limits.h>
+#include <stdlib.h>
+#include <time.h>
 
 // Some systems (Solaris, CentOS?) come with libuuid, but does not feature
 // the uuid_unparse_lower() call.

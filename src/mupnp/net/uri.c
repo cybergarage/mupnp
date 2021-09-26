@@ -10,8 +10,8 @@
  ******************************************************************/
 
 #include <mupnp/net/uri.h>
-#include <mupnp/util/string.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/string.h>
 
 #if defined(MUPNP_HTTP_CURL)
 #include <curl/curl.h>

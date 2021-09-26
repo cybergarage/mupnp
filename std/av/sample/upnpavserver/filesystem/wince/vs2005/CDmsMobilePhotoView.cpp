@@ -1,8 +1,8 @@
 // CDmsMobilePhotoView.cpp : implementation of the CCDmsMobilePhotoView class
 //
 
-#include "stdafx.h"
 #include "CDmsMobilePhoto.h"
+#include "stdafx.h"
 
 #include "CDmsMobilePhotoDoc.h"
 #include "CDmsMobilePhotoView.h"

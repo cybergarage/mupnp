@@ -19,9 +19,9 @@ These notices must be retained in any copies of any part of this
 documentation and/or software.
  */
 
+#include <cybergarage/util/cstring.h>
 #include <stdio.h>
 #include <string.h>
-#include <cybergarage/util/cstring.h>
 
 #ifndef PROTOTYPES
 #define PROTOTYPES 0

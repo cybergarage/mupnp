@@ -9,11 +9,11 @@
  *
  ******************************************************************/
 
-#include <mupnp/service.h>
-#include <mupnp/upnp_function.h>
 #include <mupnp/device.h>
-#include <mupnp/ssdp/ssdp.h>
 #include <mupnp/net/interface.h>
+#include <mupnp/service.h>
+#include <mupnp/ssdp/ssdp.h>
+#include <mupnp/upnp_function.h>
 #include <mupnp/util/log.h>
 
 /****************************************

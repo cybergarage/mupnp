@@ -14,9 +14,9 @@
 #include <signal.h>
 #endif
 
+#include <mupnp/util/log.h>
 #include <mupnp/util/thread.h>
 #include <mupnp/util/time.h>
-#include <mupnp/util/log.h>
 
 /* Private function prototypes */
 static void sig_handler(int sign);

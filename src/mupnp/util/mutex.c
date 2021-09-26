@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/util/mutex.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/mutex.h>
 
 #if !defined(WINCE)
 #include <errno.h>
@@ -99,8 +99,8 @@ bool mupnp_mutex_delete(mUpnpMutex* mutex)
 * mupnp_mutex_lock
 ****************************************/
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
-#include <string.h>
 #include <pthread.h>
+#include <string.h>
 
 /* Contains record for every thread which has lock or is
  * waiting for lock

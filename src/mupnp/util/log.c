@@ -9,15 +9,15 @@
  *
  ******************************************************************/
 
-#include <stdio.h>
-#include <time.h>
 #include <stdarg.h>
-#include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 #include <mupnp/util/log.h>
-#include <mupnp/util/string.h>
 #include <mupnp/util/mutex.h>
+#include <mupnp/util/string.h>
 
 #if defined(WIN32)
 #define snprintf _snprintf
@@ -35,7 +35,7 @@ static const char* sev_debug_l5_s = SEV_DEBUG_L5_S;
 
 static const char* sev_unknown_s = SEV_UNKNOWN_S;
 
-static void log_init_with_defaults();
+static void log_init_with_defaults(void);
 static const char* map_severity(int severity);
 
 struct fd_list {

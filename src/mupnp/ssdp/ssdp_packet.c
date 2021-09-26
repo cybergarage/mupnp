@@ -9,10 +9,10 @@
  *
  ******************************************************************/
 
-#include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/control/control.h>
-#include <mupnp/util/string.h>
+#include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/string.h>
 
 /****************************************
 * mupnp_ssdp_packet_new

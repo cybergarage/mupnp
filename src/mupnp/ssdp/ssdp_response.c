@@ -10,8 +10,8 @@
  ******************************************************************/
 
 #include <mupnp/ssdp/ssdp.h>
-#include <mupnp/util/string.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/string.h>
 
 #define MUPNP_SSDP_MAXAGE_LEN 7
 

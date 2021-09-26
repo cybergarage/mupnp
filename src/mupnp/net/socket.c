@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/net/socket.h>
 #include <mupnp/net/interface.h>
+#include <mupnp/net/socket.h>
 #include <mupnp/util/time.h>
 /*
 #include <mupnp/ssdp/ssdp.h>
@@ -33,29 +33,29 @@
 #endif
 #else
 #if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
-#include <typedef.h>
-#include <net/sock_com.h>
 #include <btron/bsocket.h>
+#include <net/sock_com.h>
 #include <string.h> //for mem___()
+#include <typedef.h>
 #elif defined(ITRON)
 #include <kernel.h>
 #if defined(NORTiAPI)
 #include <nonet.h>
 #endif
 #elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
-#include <tk/tkernel.h>
 #include <btron/kasago.h>
-#include <sys/svc/ifkasago.h>
 #include <string.h> //for mem___()
+#include <sys/svc/ifkasago.h>
+#include <tk/tkernel.h>
 #else
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <netinet/in.h>
 #include <arpa/inet.h>
 #include <fcntl.h>
+#include <netdb.h>
+#include <netinet/in.h>
 #include <signal.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
 #endif
 #endif
 

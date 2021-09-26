@@ -1,9 +1,9 @@
 // CDmsYoutube.cpp : Defines the class behaviors for the application.
 //
 
-#include "stdafx.h"
 #include "CDmsYoutube.h"
 #include "CDmsYoutubeDlg.h"
+#include "stdafx.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

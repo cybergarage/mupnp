@@ -9,9 +9,9 @@
  *
  ******************************************************************/
 
-#include <mupnp/util/list.h>
 #include <mupnp/http/http.h>
 #include <mupnp/net/socket.h>
+#include <mupnp/util/list.h>
 #include <mupnp/util/log.h>
 #include <mupnp/util/string.h>
 #include <mupnp/util/thread.h>

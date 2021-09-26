@@ -25,8 +25,8 @@
 * Header Files
 ****************************************/
 
-#include <mupnp/xml/xml.h>
 #include <mupnp/util/log.h>
+#include <mupnp/xml/xml.h>
 
 #if defined(WIN32)
 #define XML_STATIC
@@ -142,7 +142,7 @@ static void XMLCALL mupnp_expat_character_data(void* userData, const XML_Char* s
 
   mupnp_log_debug_l4("Entering...\n");
 
-//	printf("%8x XML data len=%-3d now=%d %s d[0]0x%x\n",userData, len, mupnp_strlen(out->value), out->value, (char)(out->value[0]));
+  //	printf("%8x XML data len=%-3d now=%d %s d[0]0x%x\n",userData, len, mupnp_strlen(out->value), out->value, (char)(out->value[0]));
 
 #if defined XML_IGNORE_WHITESPACE
   for (i = 0; i < len; i++) {

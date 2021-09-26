@@ -14,9 +14,9 @@
 #endif
 
 #include <mupnp/http/http.h>
-#include <mupnp/util/thread.h>
 #include <mupnp/util/log.h>
 #include <mupnp/util/string.h>
+#include <mupnp/util/thread.h>
 
 #if defined(HAVE_UNAME) || defined(TARGET_OS_MAC) || defined(TARGET_OS_IPHONE)
 #include <sys/utsname.h>

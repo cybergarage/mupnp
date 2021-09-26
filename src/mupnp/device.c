@@ -9,19 +9,19 @@
  *
  ******************************************************************/
 
-#include <mupnp/device.h>
+#include <mupnp/control/control.h>
 #include <mupnp/controlpoint.h>
-#include <mupnp/upnp_limit.h>
-#include <mupnp/util/time.h>
+#include <mupnp/device.h>
+#include <mupnp/io/file.h>
 #include <mupnp/net/interface.h>
 #include <mupnp/net/url.h>
-#include <mupnp/upnp_function.h>
 #include <mupnp/ssdp/ssdp.h>
 #include <mupnp/ssdp/ssdp_server.h>
-#include <mupnp/control/control.h>
-#include <mupnp/io/file.h>
+#include <mupnp/upnp_function.h>
+#include <mupnp/upnp_limit.h>
 #include <mupnp/util/log.h>
 #include <mupnp/util/string.h>
+#include <mupnp/util/time.h>
 
 /****************************************
 * prototype define for static functions
@@ -219,7 +219,7 @@ bool mupnp_device_parsedescription(mUpnpDevice* dev, const char* desciption, siz
   if (mupnp_device_hasudn(dev) == false) {
     mupnp_device_setudn(dev, mupnp_createuuid(uuidBuf, sizeof(uuidBuf)));
   }
-  
+
   mupnp_device_initchildnodes(dev);
 
   mupnp_log_debug_l4("Leaving...\n");

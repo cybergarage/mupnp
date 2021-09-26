@@ -14,14 +14,14 @@
 #include "config.h"
 #endif
 
+#include <mupnp/device.h>
+#include <mupnp/net/uri.h>
+#include <mupnp/net/url.h>
+#include <mupnp/ssdp/ssdp.h>
 #include <mupnp/upnp.h>
 #include <mupnp/upnp_function.h>
-#include <mupnp/device.h>
-#include <mupnp/ssdp/ssdp.h>
 #include <mupnp/util/log.h>
 #include <mupnp/util/string.h>
-#include <mupnp/net/url.h>
-#include <mupnp/net/uri.h>
 
 #ifdef MUPNP_OPTIMIZED_CP_MODE
 #include <mupnp/controlpoint.h>

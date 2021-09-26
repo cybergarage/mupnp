@@ -9,11 +9,11 @@
  *
  ******************************************************************/
 
-#include <mupnp/event/notify.h>
-#include <mupnp/event/event.h>
-#include <mupnp/event/subscriber.h>
-#include <mupnp/event/property.h>
 #include <mupnp/control/control.h>
+#include <mupnp/event/event.h>
+#include <mupnp/event/notify.h>
+#include <mupnp/event/property.h>
+#include <mupnp/event/subscriber.h>
 #include <mupnp/statevariable.h>
 #include <mupnp/util/log.h>
 

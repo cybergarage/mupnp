@@ -9,9 +9,9 @@
  *
  ******************************************************************/
 
-#include <mupnp/upnp_limit.h>
-#include <mupnp/service.h>
 #include <mupnp/control/control.h>
+#include <mupnp/service.h>
+#include <mupnp/upnp_limit.h>
 #include <mupnp/util/log.h>
 
 /****************************************

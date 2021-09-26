@@ -33,36 +33,36 @@
 #endif
 
 #if (defined(WIN32) || defined(__CYGWIN__)) && !defined(ITRON) && !defined(_W32_WCE)
-#include <Iptypes.h>
 #include <Iphlpapi.h>
+#include <Iptypes.h>
 #elif defined(_W32_WCE)
+#include <iphlpapi.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include <iphlpapi.h>
 #elif defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
-#include <net/sock_com.h>
 #include <btron/bsocket.h>
+#include <net/sock_com.h>
 #elif defined(ITRON)
 #include <kernel.h>
 #elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
-#include <tk/tkernel.h>
 #include <btron/kasago.h>
 #include <sys/svc/ifkasago.h>
+#include <tk/tkernel.h>
 #else
 #if defined(HAVE_IFADDRS_H)
 #include <ifaddrs.h>
 #if defined(HAVE_SIOCGIFHWADDR)
-#include <sys/ioctl.h>
 #include <net/if.h>
+#include <sys/ioctl.h>
 #endif
 #else
 #include <sys/ioctl.h>
 #endif
-#include <netdb.h>
-#include <net/if.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
 #include <arpa/inet.h>
+#include <net/if.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
 #endif
 
 #if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)

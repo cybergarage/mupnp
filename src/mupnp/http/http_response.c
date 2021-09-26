@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/util/list.h>
 #include <mupnp/http/http.h>
+#include <mupnp/util/list.h>
 #include <mupnp/util/log.h>
 
 /****************************************

@@ -27,8 +27,8 @@
 #include "config.h"
 #endif
 
-#include "clock_device.h"
 #include "clock.h"
+#include "clock_device.h"
 
 #include <string.h>
 

@@ -10,8 +10,8 @@
  ******************************************************************/
 
 #include <mupnp/device.h>
-#include <mupnp/util/time.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/time.h>
 
 /**
  * mupnp_device_advertiser_action

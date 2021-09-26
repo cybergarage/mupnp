@@ -9,12 +9,12 @@
  *
  ******************************************************************/
 
+#include <mupnp/control/control.h>
 #include <mupnp/device.h>
-#include <mupnp/upnp.h>
+#include <mupnp/event/event.h>
 #include <mupnp/http/http.h>
 #include <mupnp/net/url.h>
-#include <mupnp/control/control.h>
-#include <mupnp/event/event.h>
+#include <mupnp/upnp.h>
 #include <mupnp/util/log.h>
 
 /****************************************

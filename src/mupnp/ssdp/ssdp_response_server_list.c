@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/net/interface.h>
+#include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/util/log.h>
 
 /****************************************

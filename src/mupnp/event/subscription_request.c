@@ -9,9 +9,9 @@
  *
  ******************************************************************/
 
-#include <mupnp/event/event.h>
 #include <mupnp/control/control.h>
 #include <mupnp/device.h>
+#include <mupnp/event/event.h>
 #include <mupnp/util/log.h>
 
 /****************************************

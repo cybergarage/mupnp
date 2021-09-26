@@ -7,9 +7,9 @@
 *	File:	ClockMain.cpp
 *
 ******************************************************************/
-#include <winsock2.h>
-#include <windowsx.h>
 #include <commdlg.h>
+#include <windowsx.h>
+#include <winsock2.h>
 //#include "resource.h"
 
 #include "clock.h"

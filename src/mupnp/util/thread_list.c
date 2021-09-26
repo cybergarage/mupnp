@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/util/thread.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/thread.h>
 
 /****************************************
 * mupnp_threadlist_new

@@ -9,11 +9,11 @@
  *
  ******************************************************************/
 
-#include <mupnp/controlpoint.h>
-#include <mupnp/upnp_limit.h>
 #include <mupnp/control/control.h>
-#include <mupnp/util/log.h>
+#include <mupnp/controlpoint.h>
 #include <mupnp/net/uri.h>
+#include <mupnp/upnp_limit.h>
+#include <mupnp/util/log.h>
 
 /****************************************
 * MUPNP_NOUSE_CONTROLPOINT (Begin)

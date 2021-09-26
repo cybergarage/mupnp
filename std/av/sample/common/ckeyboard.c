@@ -20,13 +20,13 @@
 #if !defined(WIN32) && !defined(__MINGW32__)
 #include <stdio.h>
 #include <stdlib.h>
-#include <termios.h>
 #include <sys/ioctl.h>
+#include <termios.h>
 #endif
 
 #if defined(__CYGWIN__) && !defined(FIONREAD)
-#include <winsock2.h>
 #include <windows.h>
+#include <winsock2.h>
 #endif
 
 #if defined(HAVE_SYS_IOCTL_H)

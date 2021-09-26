@@ -13,24 +13,24 @@
 ************************************************************/
 
 #include "cdms_filesys.h"
-#include <mupnp/std/av/cmediaserver.h>
 #include <mupnp/net/interface.h>
+#include <mupnp/std/av/cmediaserver.h>
 
-#include <stdio.h>
 #include <ctype.h>
+#include <stdio.h>
 
 #if defined(WIN32)
-#include <windows.h>
 #include <tchar.h>
+#include <windows.h>
 #if !defined(WINCE)
-#include <sys/stat.h>
 #include <conio.h>
+#include <sys/stat.h>
 #endif
 #else
+#include <dirent.h>
 #include <sys/param.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <dirent.h>
 #endif
 
 /****************************************

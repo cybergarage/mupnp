@@ -1,9 +1,9 @@
 // CDmsMobilePhoto.cpp : Defines the class behaviors for the application.
 //
 
-#include "stdafx.h"
 #include "CDmsMobilePhoto.h"
 #include "MainFrm.h"
+#include "stdafx.h"
 #include <shlobj.h>
 
 #include "CDmsMobilePhotoDoc.h"

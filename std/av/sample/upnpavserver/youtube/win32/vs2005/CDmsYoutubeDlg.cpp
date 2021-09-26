@@ -1,12 +1,12 @@
 // CDmsYoutubeDlg.cpp : implementation file
 //
 
-#include "stdafx.h"
-#include "CDmsYoutube.h"
 #include "CDmsYoutubeDlg.h"
+#include "CDmsYoutube.h"
+#include "stdafx.h"
 
-#include <cybergarage/util/cthread.h>
 #include "cdms_youtube.h"
+#include <cybergarage/util/cthread.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
