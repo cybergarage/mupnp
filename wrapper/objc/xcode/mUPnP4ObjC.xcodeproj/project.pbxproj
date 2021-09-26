@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		211481C51959863A00B8EC17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C41959863A00B8EC17 /* Cocoa.framework */; };
 		211481CF1959863A00B8EC17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211481CD1959863A00B8EC17 /* InfoPlist.strings */; };
 		211481DA1959863A00B8EC17 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481D91959863A00B8EC17 /* XCTest.framework */; };
 		211481DB1959863A00B8EC17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C41959863A00B8EC17 /* Cocoa.framework */; };
@@ -93,7 +92,6 @@
 			files = (
 				215AC1A31A842B5F000FC959 /* libmupnp.a in Frameworks */,
 				217C0F0C195988AD00FA1929 /* libxml2.2.dylib in Frameworks */,
-				211481C51959863A00B8EC17 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,7 +453,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -508,7 +506,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
-				SDKROOT = macosx;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
