@@ -906,7 +906,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "-DHAVE_LIBUUID";
+				OTHER_CFLAGS = (
+					"-DHAVE_LIBUUID",
+					"-Wno-error=implicit-function-declaration",
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -928,7 +931,10 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_CFLAGS = "-DHAVE_LIBUUID";
+				OTHER_CFLAGS = (
+					"-DHAVE_LIBUUID",
+					"-Wno-error=implicit-function-declaration",
+				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
