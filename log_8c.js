@@ -1,7 +1,7 @@
 var log_8c =
 [
     [ "fd_list", "structfd__list.html", "structfd__list" ],
-    [ "log_init_with_defaults", "log_8c.html#a61a3e46646fdb9966bad0adf0d811e62", null ],
+    [ "log_init_with_defaults", "log_8c.html#a1600d1c6bcd71d4827ef67e4ae231b90", null ],
     [ "map_severity", "log_8c.html#ab1c4f4fb3a480494ee4242279969f7c2", null ],
     [ "mupnp_log_add_target", "log_8c.html#a35c045a74ae442c05f86d74ee40d6910", null ],
     [ "mupnp_log_clear_targets", "log_8c.html#a97b1c2d201abc9dcc00ec1b7ea52176a", null ],
