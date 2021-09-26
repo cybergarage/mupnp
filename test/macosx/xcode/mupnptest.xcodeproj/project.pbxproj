@@ -98,6 +98,7 @@
 			children = (
 				21AA0EFE1331224E00A2338F /* Sources */,
 				21C42077133121CA00F2428B /* Frameworks */,
+				212321671A83C528002AA265 /* libmupnp.xcodeproj */,
 				2152CB8F1331206B00229C13 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -135,7 +136,6 @@
 		21C42077133121CA00F2428B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				212321671A83C528002AA265 /* libmupnp.xcodeproj */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
