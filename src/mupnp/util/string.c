@@ -9,8 +9,8 @@
  *
  ******************************************************************/
 
-#include <mupnp/util/string.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/string.h>
 
 #include <string.h>
 

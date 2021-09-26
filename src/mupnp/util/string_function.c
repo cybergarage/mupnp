@@ -13,8 +13,8 @@
 #include "config.h"
 #endif
 
-#include <mupnp/util/string.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/string.h>
 
 #include <ctype.h>
 
@@ -39,7 +39,7 @@ char* mupnp_strdup(const char* str)
   char* cpStrBuf;
 #endif
 
-  /* mupnp_log_debug_l5("Entering...\n"); */
+  mupnp_log_debug_l5("Entering...\n");
 
   if (str == NULL)
     return NULL;
@@ -53,7 +53,7 @@ char* mupnp_strdup(const char* str)
   return cpStrBuf;
 #endif
 
-  /* mupnp_log_debug_l5("Leaving...\n"); */
+  mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -63,10 +63,9 @@ char* mupnp_strdup(const char* str)
 size_t mupnp_strlen(const char* str)
 {
   mupnp_log_debug_l5("Entering...\n");
+  mupnp_log_debug_l5("Leaving...\n");
 
   return (str == NULL) ? 0 : strlen(str);
-
-  mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -76,10 +75,9 @@ size_t mupnp_strlen(const char* str)
 char* mupnp_strcpy(char* dest, const char* src)
 {
   mupnp_log_debug_l5("Entering...\n");
+  mupnp_log_debug_l5("Leaving...\n");
 
   return strcpy(dest, src);
-
-  mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -90,9 +88,9 @@ char* mupnp_strcat(char* dest, const char* src)
 {
   mupnp_log_debug_l5("Entering...\n");
 
-  return strcat(dest, src);
-
   mupnp_log_debug_l5("Leaving...\n");
+
+  return strcat(dest, src);
 }
 
 /****************************************
@@ -107,9 +105,8 @@ int mupnp_strcmp(const char* str1, const char* str2)
     return -1;
   if (str2 == NULL)
     return 1;
-  return strcmp(str1, str2);
-
   mupnp_log_debug_l5("Leaving...\n");
+  return strcmp(str1, str2);
 }
 
 /****************************************
@@ -125,9 +122,9 @@ int mupnp_strncmp(const char* str1, const char* str2, int nchars)
   if (str2 == NULL)
     return 1;
 
-  return strncmp(str1, str2, nchars);
-
   mupnp_log_debug_l5("Leaving...\n");
+
+  return strncmp(str1, str2, nchars);
 }
 
 /****************************************
@@ -140,6 +137,9 @@ int mupnp_strcasecmp(const char* str1, const char* str2)
 
   if (str1 == NULL || str2 == NULL)
     return -1;
+
+  mupnp_log_debug_l5("Leaving...\n");
+
 #if !defined(WIN32)
   return strcasecmp(str1, str2);
 #else
@@ -149,8 +149,6 @@ int mupnp_strcasecmp(const char* str1, const char* str2)
   }
   return *str1 - *str2;
 #endif
-
-  mupnp_log_debug_l5("Leaving...\n");
 }
 
 /****************************************
@@ -164,9 +162,9 @@ bool mupnp_streq(const char* str1, const char* str2)
   if (str1 == NULL || str2 == NULL)
     return false;
 
-  return ((mupnp_strcmp(str1, str2) == 0) ? true : false);
-
   mupnp_log_debug_l5("Leaving...\n");
+
+  return ((mupnp_strcmp(str1, str2) == 0) ? true : false);
 }
 
 /****************************************
@@ -180,9 +178,9 @@ bool mupnp_strcaseeq(const char* str1, const char* str2)
   if (str1 == NULL || str2 == NULL)
     return false;
 
-  return ((mupnp_strcasecmp(str1, str2) == 0) ? true : false);
-
   mupnp_log_debug_l5("Leaving...\n");
+
+  return ((mupnp_strcasecmp(str1, str2) == 0) ? true : false);
 }
 
 /****************************************
@@ -200,9 +198,10 @@ ssize_t mupnp_strstr(const char* haystack, const char* needle)
   strPos = strstr(haystack, needle);
   if (strPos == NULL)
     return -1;
-  return (strPos - haystack);
 
   mupnp_log_debug_l5("Leaving...\n");
+
+  return (strPos - haystack);
 }
 
 /****************************************
@@ -227,9 +226,9 @@ ssize_t mupnp_strchr(const char* str, const char* chars, size_t nchars)
     }
   }
 
-  return -1;
-
   mupnp_log_debug_l5("Leaving...\n");
+
+  return -1;
 }
 
 /****************************************
@@ -278,8 +277,9 @@ char* mupnp_strtrimwhite(char* str)
       break;
   }
 
-  if (i > 0)
+  if (i > 0) {
     memmove(str, str + i, strLen - i);
+  }
 
   str[strLen] = 0;
   return str;
@@ -297,9 +297,10 @@ char* mupnp_strtrim(char* str, char* delim, size_t ndelim)
     return NULL;
 
   mupnp_strrtrim(str, delim, ndelim);
-  return mupnp_strltrim(str, delim, ndelim);
 
   mupnp_log_debug_l5("Leaving...\n");
+
+  return mupnp_strltrim(str, delim, ndelim);
 }
 
 /****************************************
@@ -326,9 +327,9 @@ char* mupnp_strltrim(char* str, char* delim, size_t ndelim)
       return (str + i);
   }
 
-  return (str + strLen);
-
   mupnp_log_debug_l5("Leaving...\n");
+
+  return (str + strLen);
 }
 
 /****************************************
@@ -356,9 +357,9 @@ char* mupnp_strrtrim(char* str, char* delim, size_t ndelim)
       break;
   }
 
-  return str;
-
   mupnp_log_debug_l5("Leaving...\n");
+
+  return str;
 }
 
 /****************************************
