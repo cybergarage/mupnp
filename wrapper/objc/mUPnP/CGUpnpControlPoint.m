@@ -133,32 +133,31 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint* cCtrlPoint, cons
   if ([ctrlPoint delegate] == nil)
     return;
 
-  NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+  @autoreleasepool {
 
-  NSString* deviceUdn = [[NSString alloc] initWithUTF8String:udn];
+    NSString* deviceUdn = [[NSString alloc] initWithUTF8String:udn];
 
-  switch (status) {
-  case mUpnpDeviceStatusAdded: {
-    if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceAdded:)])
-      [[ctrlPoint delegate] controlPoint:ctrlPoint deviceAdded:deviceUdn];
-  } break;
-  case mUpnpDeviceStatusUpdated: {
-    if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceUpdated:)])
-      [[ctrlPoint delegate] controlPoint:ctrlPoint deviceUpdated:deviceUdn];
-  } break;
-  case mUpnpDeviceStatusRemoved: {
-    if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceRemoved:)])
-      [[ctrlPoint delegate] controlPoint:ctrlPoint deviceRemoved:deviceUdn];
-  } break;
-  case mUpnpDeviceStatusInvalid: {
-    if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceInvalid:)])
-      [[ctrlPoint delegate] controlPoint:ctrlPoint deviceInvalid:deviceUdn];
-  } break;
-  default:
-    break;
+    switch (status) {
+    case mUpnpDeviceStatusAdded: {
+      if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceAdded:)])
+        [[ctrlPoint delegate] controlPoint:ctrlPoint deviceAdded:deviceUdn];
+    } break;
+    case mUpnpDeviceStatusUpdated: {
+      if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceUpdated:)])
+        [[ctrlPoint delegate] controlPoint:ctrlPoint deviceUpdated:deviceUdn];
+    } break;
+    case mUpnpDeviceStatusRemoved: {
+      if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceRemoved:)])
+        [[ctrlPoint delegate] controlPoint:ctrlPoint deviceRemoved:deviceUdn];
+    } break;
+    case mUpnpDeviceStatusInvalid: {
+      if ([[ctrlPoint delegate] respondsToSelector:@selector(controlPoint:deviceInvalid:)])
+        [[ctrlPoint delegate] controlPoint:ctrlPoint deviceInvalid:deviceUdn];
+    } break;
+    default:
+      break;
+    }
+
+    [deviceUdn release];
   }
-
-  [deviceUdn release];
-
-  [pool drain];
 }
