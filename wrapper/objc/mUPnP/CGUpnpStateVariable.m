@@ -8,9 +8,10 @@
  *
  ******************************************************************/
 
-#import "CGUpnpStateVariable.h"
 #include <mupnp/control/control.h>
 #include <mupnp/statevariable.h>
+
+#import "CGUpnpStateVariable.h"
 
 @implementation CGUpnpStateVariable
 

@@ -8,10 +8,11 @@
  *
  ******************************************************************/
 
-#import "CGUpnpControlPoint.h"
-#import "CGUpnpDevice.h"
 #include <mupnp/control/control.h>
 #include <mupnp/controlpoint.h>
+
+#import "CGUpnpControlPoint.h"
+#import "CGUpnpDevice.h"
 
 static void CGUpnpControlPointDeviceListener(mUpnpControlPoint* ctrlPoint, const char* udn, mUpnpDeviceStatus status);
 

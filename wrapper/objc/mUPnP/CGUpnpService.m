@@ -8,12 +8,13 @@
  *
  ******************************************************************/
 
-#import "CGUpnpService.h"
-#import "CGUpnpAction.h"
-#import "CGUpnpStateVariable.h"
 #include <mupnp/action.h>
 #include <mupnp/service.h>
 #include <mupnp/statevariable.h>
+
+#import "CGUpnpAction.h"
+#import "CGUpnpService.h"
+#import "CGUpnpStateVariable.h"
 
 @implementation CGUpnpService
 

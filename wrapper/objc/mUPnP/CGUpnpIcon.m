@@ -8,8 +8,9 @@
  *
  ******************************************************************/
 
-#import "CGUpnpIcon.h"
 #include <mupnp/icon.h>
+
+#import "CGUpnpIcon.h"
 
 @implementation CGUpnpIcon
 
