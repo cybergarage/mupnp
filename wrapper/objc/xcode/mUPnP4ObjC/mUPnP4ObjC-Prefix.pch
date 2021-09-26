@@ -5,5 +5,7 @@
 //
 
 #ifdef __OBJC__
-  #import <Cocoa/Cocoa.h>
+#if defined(TARGET_OS_IOS)
+#import <Cocoa/Cocoa.h>
+#endif
 #endif
