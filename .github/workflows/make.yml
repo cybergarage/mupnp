@@ -16,9 +16,9 @@ jobs:
     - name: setup
       run: |
         sudo apt update
-        sudo apt install -y libboost-all-dev --enable-examples
+        sudo apt install -y libboost-all-dev
     - name: configure
-      run: ./configure --enable-test
+      run: ./configure --enable-test --enable-examples
     - name: make
       run: make
     - name: make check
