@@ -97,13 +97,13 @@ const char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, size_t bufSize)
   gmTime = gmtime(&sysTime);
 #endif
 
-#if !defined(WINCE)
 #if defined(HAVE_SNPRINTF)
   snprintf(buf, bufSize,
 #else
   sprintf(buf,
 #endif
       "%s, %02d %s %04d %02d:%02d:%02d GMT",
+#if defined(HAVE_GMTIME_R)
       to_week_string(gmTime->tm_wday),
       gmTime->tm_mday,
       to_month_string(gmTime->tm_mon),
@@ -111,9 +111,7 @@ const char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, size_t bufSize)
       gmTime->tm_hour,
       gmTime->tm_min,
       gmTime->tm_sec);
-#else
-  sprintf(buf,
-      "%s, %02d %s %04d %02d:%02d:%02d GMT",
+#elif defined(WINCE)
       to_week_string(systemTime.wDayOfWeek),
       systemTime.wDay,
       to_month_string(systemTime.wMonth - 1),
@@ -121,6 +119,14 @@ const char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, size_t bufSize)
       systemTime.wHour,
       systemTime.wMinute,
       systemTime.wSecond);
+#else
+      to_week_string(gmTime->tm_wday),
+      gmTime->tm_mday,
+      to_month_string(gmTime->tm_mon),
+      gmTime->tm_year + 1900,
+      gmTime->tm_hour,
+      gmTime->tm_min,
+      gmTime->tm_sec);
 #endif
 
   mupnp_log_debug_l4("Leaving...\n");
