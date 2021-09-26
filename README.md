@@ -28,7 +28,6 @@ AGENCY, JAPAN, as a project of MitohProgram2004.
 mUPnP for C is distributed as an Automake project, and so you can install the library from the source codes with the following commands:
 
 ```
-./boostrap
 ./configure
 make install
 ```
