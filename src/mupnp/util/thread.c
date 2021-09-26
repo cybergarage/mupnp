@@ -9,6 +9,7 @@
  *
  ******************************************************************/
 
+#include <string.h>
 #if !defined(WIN32) && !defined(WINCE)
 #include <signal.h>
 #endif
@@ -16,7 +17,6 @@
 #include <mupnp/util/thread.h>
 #include <mupnp/util/time.h>
 #include <mupnp/util/log.h>
-#include <string.h>
 
 /* Private function prototypes */
 static void sig_handler(int sign);

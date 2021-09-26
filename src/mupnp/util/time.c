@@ -9,10 +9,10 @@
  *
  ******************************************************************/
 
+#include <limits.h>
+
 #include <mupnp/util/time.h>
 #include <mupnp/util/log.h>
-
-#include <limits.h>
 
 #if defined(WIN32) && !defined(ITRON) && !defined(WINCE)
 #include <windows.h>
