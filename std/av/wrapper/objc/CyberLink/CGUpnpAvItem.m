@@ -6,16 +6,16 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import "CGXmlNode.h"
+#import "CGUpnpAvItem.h"
 #import "CGUpnpAvObject.h"
 #import "CGUpnpAvResource.h"
-#import "CGUpnpAvItem.h"
+#import "CGXmlNode.h"
 
-@interface CGUpnpAvItem()
-+ (NSArray *)dlnaStandardImageMimeTypes;
-- (NSArray *)resourcesWithMimeTypes:(NSArray *)mimeTypes;
-- (NSArray *)sortedImageResouces;
-- (NSArray *)sortedImageResoucesWithMimeTypes:(NSArray *)mimeTypes;
+@interface CGUpnpAvItem ()
++ (NSArray*)dlnaStandardImageMimeTypes;
+- (NSArray*)resourcesWithMimeTypes:(NSArray*)mimeTypes;
+- (NSArray*)sortedImageResouces;
+- (NSArray*)sortedImageResoucesWithMimeTypes:(NSArray*)mimeTypes;
 @end
 
 @implementation CGUpnpAvItem
@@ -26,374 +26,373 @@
 @synthesize thumbnailImage;
 #endif
 
-+ (NSArray *)dlnaStandardImageMimeTypes
++ (NSArray*)dlnaStandardImageMimeTypes
 {
-    return [NSArray arrayWithObjects:@"image/jpeg", @"image/png", @"image/gif", nil];
+  return [NSArray arrayWithObjects:@"image/jpeg", @"image/png", @"image/gif", nil];
 }
 
 - (id)init
 {
-	if ((self = [super init]) == nil)
-		return nil;
-	self.resourceArray = [NSMutableArray array];
-	return self;
+  if ((self = [super init]) == nil)
+    return nil;
+  self.resourceArray = [NSMutableArray array];
+  return self;
 }
 
-#if  !defined(TARGET_OS_IPHONE)
-- (id)initWithXMLNode:(NSXMLElement *)aXmlNode
+#if !defined(TARGET_OS_IPHONE)
+- (id)initWithXMLNode:(NSXMLElement*)aXmlNode
 #else
-- (id)initWithXMLNode:(CgXmlNode *)aXmlNode
+- (id)initWithXMLNode:(CgXmlNode*)aXmlNode
 #endif
 {
-	if ((self = [super initWithXMLNode:aXmlNode]) == nil)
-		return nil;
-	self.resourceArray = [NSMutableArray array];
-	return self;
+  if ((self = [super initWithXMLNode:aXmlNode]) == nil)
+    return nil;
+  self.resourceArray = [NSMutableArray array];
+  return self;
 }
 
 - (void)dealloc
 {
-	self.resourceArray = nil;
+  self.resourceArray = nil;
 #if defined(TARGET_OS_IPHONE)
-    self.thumbnailImage = nil;
+  self.thumbnailImage = nil;
 #endif
-    
-	[super dealloc];
+
+  [super dealloc];
 }
 
-- (void)addResource:(CGUpnpAvResource *)res
+- (void)addResource:(CGUpnpAvResource*)res
 {
-	[[self resourceArray] addObject:res];
+  [[self resourceArray] addObject:res];
 }
 
-- (void)removeResource:(CGUpnpAvResource *)res
+- (void)removeResource:(CGUpnpAvResource*)res
 {
-	[[self resourceArray] removeObject:res];
+  [[self resourceArray] removeObject:res];
 }
 
-- (NSArray *)resources
+- (NSArray*)resources
 {
-	return [self resourceArray];
+  return [self resourceArray];
 }
 
-- (NSArray *)resourcesWithMimeTypes:(NSArray *)mimeTypes
+- (NSArray*)resourcesWithMimeTypes:(NSArray*)mimeTypes
 {
-	NSMutableArray *imageResouces = [NSMutableArray array];
-	for (CGUpnpAvResource *resource in [self resources]) {
-        NSString *resourceMimeType = [resource mimeType];
-        if (resourceMimeType == nil || [resourceMimeType length] <= 0)
-        	continue;
-        for (NSString *mimeType in mimeTypes) {
-            if ([mimeType isEqualToString:resourceMimeType]) {
-            	[imageResouces addObject:resource];
-                break;
-            }
-        }
-	}
-    return imageResouces;
+  NSMutableArray* imageResouces = [NSMutableArray array];
+  for (CGUpnpAvResource* resource in [self resources]) {
+    NSString* resourceMimeType = [resource mimeType];
+    if (resourceMimeType == nil || [resourceMimeType length] <= 0)
+      continue;
+    for (NSString* mimeType in mimeTypes) {
+      if ([mimeType isEqualToString:resourceMimeType]) {
+        [imageResouces addObject:resource];
+        break;
+      }
+    }
+  }
+  return imageResouces;
 }
 
-- (CGUpnpAvResource *)resource
+- (CGUpnpAvResource*)resource
 {
-	if ([self isImageClass])
-		return [self imageResource];
-	if ([self isAudioClass])
-		return [self audioResource];
-	if ([self isMovieClass])
-		return [self movieResource];	
-	return nil;
+  if ([self isImageClass])
+    return [self imageResource];
+  if ([self isAudioClass])
+    return [self audioResource];
+  if ([self isMovieClass])
+    return [self movieResource];
+  return nil;
 }
 
 - (BOOL)hasRendererResource;
 {
-	return ([self rendererResource] != nil) ? YES : NO;
+  return ([self rendererResource] != nil) ? YES : NO;
 }
 
-- (CGUpnpAvResource *)rendererResource;
+- (CGUpnpAvResource*)rendererResource;
 {
-	if ([self isImageClass])
-		return [self highestImageResource];
-	if ([self isAudioClass])
-		return [self audioResource];
-	if ([self isMovieClass])
-		return [self movieResource];	
-	return nil;
+  if ([self isImageClass])
+    return [self highestImageResource];
+  if ([self isAudioClass])
+    return [self audioResource];
+  if ([self isMovieClass])
+    return [self movieResource];
+  return nil;
 }
 
-- (NSURL *)resourceUrl
+- (NSURL*)resourceUrl
 {
-	CGUpnpAvResource *resource = [self resource];
-	if (resource == nil)
-		return nil;
-	return [NSURL URLWithString:[resource url]];
+  CGUpnpAvResource* resource = [self resource];
+  if (resource == nil)
+    return nil;
+  return [NSURL URLWithString:[resource url]];
 }
 
-- (CGUpnpAvResource *)smallImageResourceWithMimeTypes:(NSArray *)mimeTypes
+- (CGUpnpAvResource*)smallImageResourceWithMimeTypes:(NSArray*)mimeTypes
 {
-	for (CGUpnpAvResource *res in [self resourcesWithMimeTypes:mimeTypes]) {
-		if ([res isSmallImage])
-			return [[res retain] autorelease];
-	}
-	return nil;
+  for (CGUpnpAvResource* res in [self resourcesWithMimeTypes:mimeTypes]) {
+    if ([res isSmallImage])
+      return [[res retain] autorelease];
+  }
+  return nil;
 }
 
-- (CGUpnpAvResource *)smallImageResource
+- (CGUpnpAvResource*)smallImageResource
 {
-    return [self smallImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
+  return [self smallImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
 }
 
-- (CGUpnpAvResource *)mediumImageResourceWithMimeTypes:(NSArray *)mimeTypes
+- (CGUpnpAvResource*)mediumImageResourceWithMimeTypes:(NSArray*)mimeTypes
 {
-	for (CGUpnpAvResource *res in [self resourcesWithMimeTypes:mimeTypes]) {
-		if ([res isMediumImage])
-			return [[res retain] autorelease];
-	}
-	return nil;
+  for (CGUpnpAvResource* res in [self resourcesWithMimeTypes:mimeTypes]) {
+    if ([res isMediumImage])
+      return [[res retain] autorelease];
+  }
+  return nil;
 }
 
-- (CGUpnpAvResource *)mediumImageResource
+- (CGUpnpAvResource*)mediumImageResource
 {
-    return [self mediumImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
+  return [self mediumImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
 }
 
-- (CGUpnpAvResource *)largeImageResourceWithMimeTypes:(NSArray *)mimeTypes
+- (CGUpnpAvResource*)largeImageResourceWithMimeTypes:(NSArray*)mimeTypes
 {
-	for (CGUpnpAvResource *res in [self resourcesWithMimeTypes:mimeTypes]) {
-		if ([res isLargeImage])
-			return [[res retain] autorelease];
-	}
-	return nil;
+  for (CGUpnpAvResource* res in [self resourcesWithMimeTypes:mimeTypes]) {
+    if ([res isLargeImage])
+      return [[res retain] autorelease];
+  }
+  return nil;
 }
 
-- (CGUpnpAvResource *)largeImageResource
+- (CGUpnpAvResource*)largeImageResource
 {
-    return [self largeImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
+  return [self largeImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
 }
 
-- (NSArray *)sortedImageResouces
+- (NSArray*)sortedImageResouces
 {
-	NSMutableArray *imageResouces = [NSMutableArray array];
-    
-	for (CGUpnpAvResource *resource in [self resources]) {
-		if ([resource isImage] == NO)
-			continue;
+  NSMutableArray* imageResouces = [NSMutableArray array];
+
+  for (CGUpnpAvResource* resource in [self resources]) {
+    if ([resource isImage] == NO)
+      continue;
+    [imageResouces addObject:resource];
+  }
+
+  return [imageResouces sortedArrayUsingSelector:@selector(imageSizeCompare:)];
+}
+
+- (NSArray*)sortedImageResoucesWithMimeTypes:(NSArray*)mimeTypes
+{
+  NSMutableArray* imageResouces = [NSMutableArray array];
+  for (CGUpnpAvResource* resource in [self sortedImageResouces]) {
+    NSString* resourceMimeType = [resource mimeType];
+    if (resourceMimeType == nil || [resourceMimeType length] <= 0)
+      continue;
+    for (NSString* mimeType in mimeTypes) {
+      if ([mimeType isEqualToString:resourceMimeType]) {
         [imageResouces addObject:resource];
-	}
-	
-    return [imageResouces sortedArrayUsingSelector:@selector(imageSizeCompare:)];
+        break;
+      }
+    }
+  }
+  return imageResouces;
 }
 
-- (NSArray *)sortedImageResoucesWithMimeTypes:(NSArray *)mimeTypes
+- (CGUpnpAvResource*)lowestImageResourceWithMimeTypes:(NSArray*)mimeTypes
 {
-	NSMutableArray *imageResouces = [NSMutableArray array];
-	for (CGUpnpAvResource *resource in [self sortedImageResouces]) {
-        NSString *resourceMimeType = [resource mimeType];
-        if (resourceMimeType == nil || [resourceMimeType length] <= 0)
-        	continue;
-        for (NSString *mimeType in mimeTypes) {
-            if ([mimeType isEqualToString:resourceMimeType]) {
-            	[imageResouces addObject:resource];
-                break;
-            }
-        }
-	}
-    return imageResouces;
+  NSArray* sortedImageResouces = [self sortedImageResoucesWithMimeTypes:mimeTypes];
+
+  if ([sortedImageResouces count] <= 0)
+    return nil;
+
+  return [sortedImageResouces objectAtIndex:0];
 }
 
-- (CGUpnpAvResource *)lowestImageResourceWithMimeTypes:(NSArray *)mimeTypes
+- (CGUpnpAvResource*)lowestImageResource
 {
-    NSArray *sortedImageResouces = [self sortedImageResoucesWithMimeTypes:mimeTypes];
-    
-    if ([sortedImageResouces count] <= 0)
-        return nil;
-    
-    return [sortedImageResouces objectAtIndex:0];
+  return [self lowestImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
 }
 
-
-- (CGUpnpAvResource *)lowestImageResource
+- (CGUpnpAvResource*)highestImageResourceWithMimeTypes:(NSArray*)mimeTypes
 {
-    return [self lowestImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
+  NSArray* sortedImageResouces = [self sortedImageResoucesWithMimeTypes:mimeTypes];
+
+  if ([sortedImageResouces count] <= 0)
+    return nil;
+
+  return [sortedImageResouces objectAtIndex:([sortedImageResouces count] - 1)];
 }
 
-- (CGUpnpAvResource *)highestImageResourceWithMimeTypes:(NSArray *)mimeTypes
+- (CGUpnpAvResource*)highestImageResource
 {
-    NSArray *sortedImageResouces = [self sortedImageResoucesWithMimeTypes:mimeTypes];
-    
-    if ([sortedImageResouces count] <= 0)
-        return nil;
-    
-    return [sortedImageResouces objectAtIndex:([sortedImageResouces count] - 1)];
+  return [self highestImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
 }
 
-- (CGUpnpAvResource *)highestImageResource
+- (CGUpnpAvResource*)applicableImageResourceBySize:(CGSize)wantedSize mimeTypes:(NSArray*)mimeTypes
 {
-    return [self highestImageResourceWithMimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
+  NSArray* imageResouces = [self sortedImageResoucesWithMimeTypes:mimeTypes];
+
+  CGUpnpAvResource* applicableResource = nil;
+  for (CGUpnpAvResource* resource in imageResouces) {
+    if (applicableResource == nil) {
+      applicableResource = resource;
+      continue;
+    }
+    CGSize resourceSize = [resource resolution];
+    if (wantedSize.width < resourceSize.width)
+      break;
+    applicableResource = resource;
+  }
+  return applicableResource;
 }
 
-- (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize mimeTypes:(NSArray *)mimeTypes
+- (CGUpnpAvResource*)applicableImageResourceBySize:(CGSize)wantedSize
 {
-	NSArray *imageResouces = [self sortedImageResoucesWithMimeTypes:mimeTypes];
-	
-	CGUpnpAvResource *applicableResource = nil;
-	for (CGUpnpAvResource *resource in imageResouces) {
-		if (applicableResource == nil) {
-			applicableResource = resource;
-			continue;
-		}
-		CGSize resourceSize = [resource resolution];
-        if (wantedSize.width < resourceSize.width)
-        	break;
-        applicableResource = resource;
-	}
-	return applicableResource;
+  return [self applicableImageResourceBySize:wantedSize mimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
 }
 
-- (CGUpnpAvResource *)applicableImageResourceBySize:(CGSize)wantedSize
+- (NSString*)thumbnailUrl
 {
-	return [self applicableImageResourceBySize:wantedSize mimeTypes:[CGUpnpAvItem dlnaStandardImageMimeTypes]];
+  NSString* tbUrl = [self albumArtURI];
+  if (tbUrl && 0 < [tbUrl length])
+    return [[tbUrl retain] autorelease];
+  for (CGUpnpAvResource* res in [self resources]) {
+    if ([res isThumbnail])
+      return [[[res url] retain] autorelease];
+  }
+  return nil;
 }
 
-- (NSString *)thumbnailUrl
+- (NSString*)smallImageUrl
 {
-	NSString *tbUrl = [self albumArtURI];
-	if (tbUrl && 0 < [tbUrl length])
-		return [[tbUrl retain] autorelease];
-	for (CGUpnpAvResource *res in [self resources]) {
-		if ([res isThumbnail])
-			return [[[res url] retain] autorelease];
-	}
-	return nil;
+  return [[[[self smallImageResource] url] retain] autorelease];
 }
 
-- (NSString *)smallImageUrl
+- (NSString*)mediumImageUrl
 {
-	return [[[[self smallImageResource] url] retain] autorelease];
+  return [[[[self mediumImageResource] url] retain] autorelease];
 }
 
-- (NSString *)mediumImageUrl
+- (NSString*)largeImageUrl
 {
-	return [[[[self mediumImageResource] url] retain] autorelease];
+  return [[[[self largeImageResource] url] retain] autorelease];
 }
 
-- (NSString *)largeImageUrl
+- (NSString*)lowestImageUrl
 {
-	return [[[[self largeImageResource] url] retain] autorelease];
+  return [[[[self lowestImageResource] url] retain] autorelease];
 }
 
-- (NSString *)lowestImageUrl
+- (NSString*)highestImageUrl
 {
-	return [[[[self lowestImageResource] url] retain] autorelease];
+  return [[[[self highestImageResource] url] retain] autorelease];
 }
 
-- (NSString *)highestImageUrl
+- (NSString*)applicableImageUrlBySize:(CGSize)size
 {
-	return [[[[self highestImageResource] url] retain] autorelease];
+  return [[[[self applicableImageResourceBySize:size] url] retain] autorelease];
 }
 
-- (NSString *)applicableImageUrlBySize:(CGSize)size
+- (CGUpnpAvResource*)movieResource
 {
-	return [[[[self applicableImageResourceBySize:size] url] retain] autorelease];
+  for (CGUpnpAvResource* res in [self resources]) {
+    if ([res isMovie])
+      return res;
+  }
+  return nil;
 }
 
-- (CGUpnpAvResource *)movieResource
+- (CGUpnpAvResource*)videoResource
 {
-	for (CGUpnpAvResource *res in [self resources]) {
-		if ([res isMovie])
-			return res;
-	}
-	return nil;
+  return [self movieResource];
 }
 
-- (CGUpnpAvResource *)videoResource
+- (CGUpnpAvResource*)audioResource
 {
-	return [self movieResource];
+  for (CGUpnpAvResource* res in [self resources]) {
+    if ([res isAudio])
+      return res;
+  }
+  return nil;
 }
 
-- (CGUpnpAvResource *)audioResource
+- (CGUpnpAvResource*)imageResource
 {
-	for (CGUpnpAvResource *res in [self resources]) {
-		if ([res isAudio])
-			return res;
-	}
-	return nil;
+  return [self lowestImageResource];
 }
 
-- (CGUpnpAvResource *)imageResource
+- (BOOL)hasMovieResource
 {
-	return [self lowestImageResource];
+  if ([self movieResource] != nil)
+    return YES;
+  return NO;
 }
 
--(BOOL)hasMovieResource
+- (BOOL)hasVideoResource
 {
-	if ([self movieResource] != nil)
-		return YES;
-	return NO;
+  return [self hasMovieResource];
 }
 
--(BOOL)hasVideoResource
+- (BOOL)hasAudioResource
 {
-	return [self hasMovieResource];
+  if ([self audioResource] != nil)
+    return YES;
+  return NO;
 }
 
--(BOOL)hasAudioResource
+- (BOOL)hasImageResource
 {
-	if ([self audioResource] != nil)
-		return YES;
-	return NO;
+  if ([self imageResource] != nil)
+    return YES;
+  return NO;
 }
 
--(BOOL)hasImageResource
+- (BOOL)isMovieClass
 {
-	if ([self imageResource] != nil)
-		return YES;
-	return NO;
+  if ([[self upnpClass] rangeOfString:@"movie"].location != NSNotFound || [[self upnpClass] rangeOfString:@"video"].location != NSNotFound)
+    return YES;
+  return NO;
 }
 
--(BOOL)isMovieClass
+- (BOOL)isVideoClass
 {
-	if ([[self upnpClass] rangeOfString:@"movie"].location != NSNotFound || [[self upnpClass] rangeOfString:@"video"].location != NSNotFound)
-		return YES;
-	return NO;
+  return [self isMovieClass];
 }
 
--(BOOL)isVideoClass
+- (BOOL)isAudioClass
 {
-	return [self isMovieClass];
+  if ([[self upnpClass] rangeOfString:@"audio"].location != NSNotFound || [[self upnpClass] rangeOfString:@"music"].location != NSNotFound)
+    return YES;
+  return NO;
 }
 
--(BOOL)isAudioClass
+- (BOOL)isImageClass
 {
-	if ([[self upnpClass] rangeOfString:@"audio"].location != NSNotFound || [[self upnpClass] rangeOfString:@"music"].location != NSNotFound)
-		return YES;
-	return NO;
-}
-
--(BOOL)isImageClass
-{
-	if ([[self upnpClass] rangeOfString:@"image"].location != NSNotFound || [[self upnpClass] rangeOfString:@"photo"].location != NSNotFound)
-		return YES;
-	return NO;
+  if ([[self upnpClass] rangeOfString:@"image"].location != NSNotFound || [[self upnpClass] rangeOfString:@"photo"].location != NSNotFound)
+    return YES;
+  return NO;
 }
 
 #pragma mark -
 #pragma mark save
 
-- (BOOL)writeToFile:(NSString *)path
+- (BOOL)writeToFile:(NSString*)path
 {
-	CGUpnpAvResource *avResource = [self resource];
-	if (avResource == nil)
-		return NO;
+  CGUpnpAvResource* avResource = [self resource];
+  if (avResource == nil)
+    return NO;
 
-	NSURL *avResourceUrl = [NSURL URLWithString:[avResource url]];
-	if (avResourceUrl == nil)
-		return NO;
+  NSURL* avResourceUrl = [NSURL URLWithString:[avResource url]];
+  if (avResourceUrl == nil)
+    return NO;
 
-	NSData *avResourceData = [NSData dataWithContentsOfURL:avResourceUrl];
-	if (avResourceData == nil)
-		return NO;
-		
-	return [avResourceData writeToFile:path atomically:NO];
+  NSData* avResourceData = [NSData dataWithContentsOfURL:avResourceUrl];
+  if (avResourceData == nil)
+    return NO;
+
+  return [avResourceData writeToFile:path atomically:NO];
 }
 
 @end

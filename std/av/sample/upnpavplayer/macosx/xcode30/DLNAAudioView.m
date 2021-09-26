@@ -15,19 +15,19 @@
 
 - (id)initWithFrame:(NSRect)frameRect
 {
-	if ((self = [super initWithFrame:frameRect]) == nil)
-		return nil;
-	return self;
+  if ((self = [super initWithFrame:frameRect]) == nil)
+    return nil;
+  return self;
 }
 
-- (void)mouseDown:(NSEvent *)theEvent
+- (void)mouseDown:(NSEvent*)theEvent
 {
-	DLNAController *dmc = [self controller]; 
-	NSView *browserView = [dmc browserView];
-	NSWindow *mainWin = [NSApp mainWindow];
-	NSView *currView = [mainWin contentView];
-	[mainWin setContentView:browserView];
-	[currView release];
+  DLNAController* dmc = [self controller];
+  NSView* browserView = [dmc browserView];
+  NSWindow* mainWin = [NSApp mainWindow];
+  NSView* currView = [mainWin contentView];
+  [mainWin setContentView:browserView];
+  [currView release];
 }
 
 @end

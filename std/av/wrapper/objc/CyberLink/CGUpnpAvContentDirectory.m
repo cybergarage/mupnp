@@ -6,11 +6,11 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#import "CGUpnpAvContentManager.h"
 #import "CGUpnpAvContentDirectory.h"
-#import "CGXmlNode.h"
+#import "CGUpnpAvContentManager.h"
 #import "CGUpnpAvObject.h"
 #import "CGUpnpAvRoot.h"
+#import "CGXmlNode.h"
 
 @implementation CGUpnpAvContentDirectory
 
@@ -18,32 +18,31 @@
 
 - (id)init
 {
-	if ((self = [super init]) == nil)
-		return nil;
-	self.contentMgr = [[[CGUpnpAvContentManager alloc] init] autorelease];
-	return self;
+  if ((self = [super init]) == nil)
+    return nil;
+  self.contentMgr = [[[CGUpnpAvContentManager alloc] init] autorelease];
+  return self;
 }
 
 - (void)dealloc
 {
-    self.contentMgr = nil;
-	[super dealloc];
+  self.contentMgr = nil;
+  [super dealloc];
 }
 
-- (CGUpnpAvContainer *)rootObject
+- (CGUpnpAvContainer*)rootObject
 {
-	return[[self contentMgr] rootObj];
+  return [[self contentMgr] rootObj];
 }
 
-- (CGUpnpAvObject *)objectForId:(NSString *)aObjectId
+- (CGUpnpAvObject*)objectForId:(NSString*)aObjectId
 {
-	return [[self contentMgr] objectForId:aObjectId];
+  return [[self contentMgr] objectForId:aObjectId];
 }
 
-- (CGUpnpAvObject *)objectForTitlePath:(NSString *)aTitlePath
+- (CGUpnpAvObject*)objectForTitlePath:(NSString*)aTitlePath
 {
-	return [[self contentMgr] objectForTitlePath:aTitlePath];
+  return [[self contentMgr] objectForTitlePath:aTitlePath];
 }
 
 @end
-

@@ -1,6 +1,6 @@
 //
 //  CGUpnpAVPositionInfo.m
-//  
+//
 //
 //  Created by Satoshi Konno on 10/12/01.
 //  Copyright 2010 Yahoo Japan Corporation. All rights reserved.
@@ -12,42 +12,42 @@
 
 @synthesize upnpAction;
 
--(id)initWithAction:(CGUpnpAction *)aUpnpAction
+- (id)initWithAction:(CGUpnpAction*)aUpnpAction
 {
-	if ((self = [super init])) {
-		[self setUpnpAction:aUpnpAction];
-	}
-	return self;
+  if ((self = [super init])) {
+    [self setUpnpAction:aUpnpAction];
+  }
+  return self;
 }
 
-- (void) dealloc
+- (void)dealloc
 {
-	self.upnpAction = nil;
-    
-	[super dealloc];
+  self.upnpAction = nil;
+
+  [super dealloc];
 }
 
--(float)trackDuration
+- (float)trackDuration
 {
-	NSString *trackDurationStr = [[self upnpAction] argumentValueForName:@"TrackDuration"];
-	return [trackDurationStr durationTime];
+  NSString* trackDurationStr = [[self upnpAction] argumentValueForName:@"TrackDuration"];
+  return [trackDurationStr durationTime];
 }
 
--(float)absTime
+- (float)absTime
 {
-	NSString *absTimeStr = [[self upnpAction] argumentValueForName:@"AbsTime"];
-	return [absTimeStr durationTime];
+  NSString* absTimeStr = [[self upnpAction] argumentValueForName:@"AbsTime"];
+  return [absTimeStr durationTime];
 }
 
--(float)relTime
+- (float)relTime
 {
-	NSString *relTimeStr = [[self upnpAction] argumentValueForName:@"RelTime"];
-	return [relTimeStr durationTime];
+  NSString* relTimeStr = [[self upnpAction] argumentValueForName:@"RelTime"];
+  return [relTimeStr durationTime];
 }
 
 @end
 
-@implementation  NSString(CGUPnPAV)
+@implementation NSString (CGUPnPAV)
 /*
  H+:MM:SS[.F+] or H+:MM:SS[.F0/F1]
  where :
@@ -57,40 +57,40 @@
  •	[.F+] means optionally a dot followed by one or more digits to indicate fractions of seconds
  •	[.F0/F1] means optionally a dot followed by a fraction, with F0 and F1 at least one digit long, and F0 < F1
  */
-+(NSString *)stringWithDurationTime:(float)timeValue
++ (NSString*)stringWithDurationTime:(float)timeValue
 {
-	return [NSString stringWithFormat:@"%02d:%02d:%02d", 
-			(int)(timeValue / 3600.0),
-			(int)(fmod(timeValue, 3600.0) / 60.0),
-			(int)fmod(timeValue, 60.0)];
+  return [NSString stringWithFormat:@"%02d:%02d:%02d",
+                   (int)(timeValue / 3600.0),
+                   (int)(fmod(timeValue, 3600.0) / 60.0),
+                   (int)fmod(timeValue, 60.0)];
 }
 - (float)durationTime
 {
-	NSArray *timeStrings = [self componentsSeparatedByString:@":"];
-	NSUInteger timeStringsCount = [timeStrings count];
-	if (timeStringsCount < 3)
-		return -1.0f;
-	float durationTime = 0.0;
-	for (int n=0; n<timeStringsCount; n++) {
-		NSString *timeString = [timeStrings objectAtIndex:n];
-		int timeIntValue = [timeString intValue];
-		switch (n) {
-			case 0: // HH
-				durationTime += timeIntValue * (60 * 60);
-				break;
-			case 1: // MM
-				durationTime += timeIntValue * 60;
-				break;
-			case 2: // SS
-				durationTime += timeIntValue;
-				break;
-			case 3: // .F?
-				durationTime += timeIntValue * 0.1;
-				break;
-			default:
-				break;
-		}
-	}
-	return durationTime;
+  NSArray* timeStrings = [self componentsSeparatedByString:@":"];
+  NSUInteger timeStringsCount = [timeStrings count];
+  if (timeStringsCount < 3)
+    return -1.0f;
+  float durationTime = 0.0;
+  for (int n = 0; n < timeStringsCount; n++) {
+    NSString* timeString = [timeStrings objectAtIndex:n];
+    int timeIntValue = [timeString intValue];
+    switch (n) {
+    case 0: // HH
+      durationTime += timeIntValue * (60 * 60);
+      break;
+    case 1: // MM
+      durationTime += timeIntValue * 60;
+      break;
+    case 2: // SS
+      durationTime += timeIntValue;
+      break;
+    case 3: // .F?
+      durationTime += timeIntValue * 0.1;
+      break;
+    default:
+      break;
+    }
+  }
+  return durationTime;
 }
 @end

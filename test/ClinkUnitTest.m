@@ -10,33 +10,33 @@
 
 @implementation ClinkUnitTest
 
-- (void) setUp
+- (void)setUp
 {
-	cp = [[CGUpnpControlPoint alloc] init];
-}
- 
-- (void) tearDown
-{
-	[cp release];
+  cp = [[CGUpnpControlPoint alloc] init];
 }
 
-- (void) testSearch
+- (void)tearDown
 {
-	[cp search];
-	NSArray *devices = [cp devices];
-	STAssertTrue(0 < [devices count], @"0 < [devices count]");
+  [cp release];
 }
 
-- (void) testControlPoint
+- (void)testSearch
 {
-	NSArray *devices = [cp devices];
-	for (CGUpnpDevice *dev in devices) {
-		STAssertNotNil(dev, nil);
-		CGUpnpDevice *foundDev; 
-		foundDev = [cp deviceForUDN:[dev udn]]; 
-		STAssertNotNil(foundDev, nil);
-		STAssertTrue(dev == foundDev, @"dev == foundDev");
-	}
+  [cp search];
+  NSArray* devices = [cp devices];
+  STAssertTrue(0 < [devices count], @"0 < [devices count]");
+}
+
+- (void)testControlPoint
+{
+  NSArray* devices = [cp devices];
+  for (CGUpnpDevice* dev in devices) {
+    STAssertNotNil(dev, nil);
+    CGUpnpDevice* foundDev;
+    foundDev = [cp deviceForUDN:[dev udn]];
+    STAssertNotNil(foundDev, nil);
+    STAssertTrue(dev == foundDev, @"dev == foundDev");
+  }
 }
 
 @end
