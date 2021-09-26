@@ -15,7 +15,6 @@
 @implementation UPnPPresentationViewController
 
 @synthesize webView;
-@synthesize adView;
 @synthesize device;
 @synthesize presentationURL;
 

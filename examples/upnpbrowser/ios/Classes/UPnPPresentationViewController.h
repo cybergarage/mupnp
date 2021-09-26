@@ -11,13 +11,11 @@
 ******************************************************************/
 
 #import <UIKit/UIKit.h>
-#import <iAd/ADBannerView.h>
 #import <mUPnP/CGUpnp.h>
 
 @interface UPnPPresentationViewController : UIViewController <UIWebViewDelegate> {
 }
 @property (retain) UIWebView* webView;
-@property (retain) ADBannerView* adView;
 @property (retain) CGUpnpDevice* device;
 @property (retain) NSString* presentationURL;
 @end
