@@ -288,11 +288,11 @@
 			};
 			buildConfigurationList = 211481BB1959863A00B8EC17 /* Build configuration list for PBXProject "mUPnP4ObjC" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 211481B71959863A00B8EC17;
 			productRefGroup = 211481C21959863A00B8EC17 /* Products */;
