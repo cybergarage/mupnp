@@ -25,20 +25,22 @@ AGENCY, JAPAN, as a project of MitohProgram2004.
 
 ## Building and Installation
 
+### Homebrew (macOS, Linux, Raspbian)
+
+For any platforms which support [Homebrew](https://brew.sh/), you can easily install using Homebrew with the following `brew` commands:
+
+```
+brew tap cybergarage/homebrew
+brew install mupnp
+```
+
+### Installation from source
+
 mUPnP for C is distributed as an Automake project, and so you can install the library from the source codes with the following commands:
 
 ```
 ./configure
 make install
-```
-
-### macOS
-
-For macOS platforms, you can easily install using Homebrew with the following `brew` commands:
-
-```
-brew tap cybergarage/homebrew
-brew install mupnp
 ```
 
 ## References
