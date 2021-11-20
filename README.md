@@ -85,7 +85,7 @@ The control point is created based on CyberLinkForC with their patches.
 
 [VIERA remote](http://panasonic.jp/support/global/cs/tv/vremote/index.html) is a TV remote controller app for Panasonic VIERA TVs, both plasma TV and
 LCD TV, to let TV channel selection, input selection and volume control
-from iPhone / iPod touch / iPad (of iOS 4.2 or later). CyberLinkForJava
+from iPhone / iPod touch / iPad (of iOS 4.2 or later). mUPnP for C
 is used as the UPnP framework.
 
 ![VIERA Remote](doc/img/mupnpc-example-vieraremote-02.gif)
