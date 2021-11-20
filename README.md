@@ -77,7 +77,7 @@ mUPnP for C releases the wrapper library for Objective-C to use the UPnP library
 ### Nokia 770 Internet Tablet
 
 Nokia released the UPnP/AV Control point, Media Streamer, for Nokia 770.
-The control point is created based on CyberLinkForC with their patches.
+The control point is created based on mUPnP for C with their patches.
 
 ![Nokia770](doc/img/mupnpc-example-nokia770-01.jpg)
 
