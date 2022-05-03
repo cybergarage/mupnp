@@ -113,7 +113,6 @@ void mupnp_ssdp_packet_setheader(mUpnpSSDPPacket* ssdpPkt, char* ssdpMsg)
   /**** skip the first line ****/
   if (mupnp_string_tokenizer_hasmoretoken(ssdpTok) == false)
     return;
-  lineMsg = mupnp_string_tokenizer_nexttoken(ssdpTok);
 
   while (mupnp_string_tokenizer_hasmoretoken(ssdpTok) == true) {
     lineMsg = mupnp_string_tokenizer_nexttoken(ssdpTok);

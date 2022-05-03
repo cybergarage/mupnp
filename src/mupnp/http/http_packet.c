@@ -489,7 +489,6 @@ bool mupnp_http_packet_read_body(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, ch
       mupnp_http_packet_setcontentlength(httpPkt, conLen);
     }
     else {
-      readLen = 0;
       conLen = 0;
       while ((readLen = mupnp_socket_read(sock, readBuf, READBUF_LENGTH)) > 0) {
         mupnp_http_packet_appendncontent(httpPkt, readBuf, readLen);

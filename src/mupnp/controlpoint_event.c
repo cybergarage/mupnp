@@ -47,7 +47,6 @@ mUpnpService* mupnp_device_getfirstexpiratedservice(mUpnpControlPoint* ctrlPoint
 
   mupnp_log_debug_l4("Entering...\n");
 
-  tmpTime = 0;
   currTime = mupnp_getcurrentsystemtime();
 
   for (srv = mupnp_device_getservices(dev); srv != NULL;
@@ -117,7 +116,6 @@ void mupnp_controlpoint_expirationhandler(mUpnpThread* thread)
     currTime = mupnp_getcurrentsystemtime();
     mupnp_log_debug_s("Current time: %ld\n", currTime);
     expirationTime = 0;
-    tmpTime = 0;
 
     /* Get expirations from all services and devices */
     mupnp_mutex_unlock(ctrlPoint->expMutex);
