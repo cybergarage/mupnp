@@ -945,12 +945,9 @@ ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt)
 {
   ssize_t recvLen = 0;
   char recvBuf[MUPNP_NET_SOCKET_DGRAM_RECV_BUFSIZE + 1];
-#if defined(BTRON) || defined(TENGINE) || defined(ITRON)
   char remoteAddr[MUPNP_NET_SOCKET_MAXHOST];
   char remotePort[MUPNP_NET_SOCKET_MAXSERV];
-#else
   char* localAddr;
-#endif
   
 #if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
   struct sockaddr_in from;
@@ -996,12 +993,21 @@ ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt)
   mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, remoteAddr);
   mupnp_socket_datagram_packet_setremoteport(dgmPkt, ntohs(remoteHost.portno));
 #else
-  mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, inet_ntoa(((struct  sockaddr_in*)&from)->sin_addr));
-  mupnp_socket_datagram_packet_setremoteport(dgmPkt, ((struct  sockaddr_in*)&from)->sin_port);  
+
+  if (getnameinfo((struct sockaddr*)&from, fromLen, remoteAddr, sizeof(remoteAddr), remotePort, sizeof(remotePort), NI_NUMERICHOST | NI_NUMERICSERV) == 0) {
+    mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, remoteAddr);
+    mupnp_socket_datagram_packet_setremoteport(dgmPkt, mupnp_str2int(remotePort));
+  }
+  else {
+    mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, inet_ntoa(((struct sockaddr_in*)&from)->sin_addr));
+    mupnp_socket_datagram_packet_setremoteport(dgmPkt, ((struct sockaddr_in*)&from)->sin_port);
+  }
+  
   mupnp_log_debug_s("From pointer %p\n", &from);
   localAddr = mupnp_net_selectaddr((struct sockaddr*)&from);
   mupnp_socket_datagram_packet_setlocaladdress(dgmPkt, localAddr);
   free(localAddr);
+
 #endif
 
   mupnp_log_debug_l4("Leaving...\n");
