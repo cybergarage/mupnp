@@ -121,7 +121,7 @@ var NAVTREEINDEX1 =
 "datagram__packet_8c.html#a8d7775d9c31b2e50b28f473e5607ac4d":[4,0,1,0,4,0,0],
 "datagram__packet_8c.html#a9c5571c04c64f5ae04cae075925b860a":[4,0,1,0,4,0,1],
 "datagram__packet_8c.html#ab15796781648b94aa6025682eccb0667":[4,0,1,0,4,0,2],
-"deprecated.html":[0],
+"deprecated.html":[1],
 "device_8c.html":[4,0,1,0,16],
 "device_8c.html#a02c8a946739719f7fe4f11558ad6d608":[4,0,1,0,16,11],
 "device_8c.html#a02da3d2107a668702f60f468558effcf":[4,0,1,0,16,29],
