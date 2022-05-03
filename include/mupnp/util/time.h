@@ -43,7 +43,7 @@ typedef long mUpnpTime;
 * FIXME: XCode 13 might not include <time.h> normally
 ****************************************/
 
-#ifndef _TIME_H_
+#if !defined(_TIME_H_) && !defined(_TIME_H)
 struct tm {
   int  tm_sec;    /* seconds after the minute [0-60] */
   int  tm_min;    /* minutes after the hour [0-59] */

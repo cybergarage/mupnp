@@ -7,43 +7,43 @@
 ############################################################
 
 mupnp_headers = \
-	./mupnp/argument.h \
-	./mupnp/action.h \
-	./mupnp/ssdp/ssdp.h \
-	./mupnp/ssdp/ssdp_server.h \
-	./mupnp/version.h \
-	./mupnp/device.h \
-	./mupnp/http/http.h \
-	./mupnp/statevariable.h \
 	./mupnp/upnp_status.h \
-	./mupnp/controlpoint.h \
-	./mupnp/service.h \
-	./mupnp/icon.h \
-	./mupnp/net/socket.h \
-	./mupnp/net/interface.h \
-	./mupnp/net/uri.h \
-	./mupnp/net/url.h \
-	./mupnp/control/control.h \
-	./mupnp/event/subscription.h \
-	./mupnp/event/notify.h \
-	./mupnp/event/event.h \
+	./mupnp/action.h \
+	./mupnp/util/dictionary.h \
+	./mupnp/util/log.h \
+	./mupnp/util/mutex.h \
+	./mupnp/util/time.h \
+	./mupnp/util/string.h \
+	./mupnp/util/thread.h \
+	./mupnp/util/list.h \
+	./mupnp/util/cond.h \
 	./mupnp/event/subscriber.h \
 	./mupnp/event/property.h \
-	./mupnp/io/file.h \
-	./mupnp/upnp_function.h \
-	./mupnp/typedef.h \
-	./mupnp/soap/soap.h \
+	./mupnp/event/event.h \
+	./mupnp/event/subscription.h \
+	./mupnp/event/notify.h \
+	./mupnp/http/http.h \
 	./mupnp/xml/xml.h \
+	./mupnp/controlpoint.h \
+	./mupnp/argument.h \
+	./mupnp/upnp_function.h \
+	./mupnp/io/file.h \
+	./mupnp/ssdp/ssdp.h \
+	./mupnp/ssdp/ssdp_server.h \
 	./mupnp/upnp.h \
-	./mupnp/util/thread.h \
-	./mupnp/util/cond.h \
-	./mupnp/util/log.h \
-	./mupnp/util/dictionary.h \
-	./mupnp/util/time.h \
-	./mupnp/util/mutex.h \
-	./mupnp/util/list.h \
-	./mupnp/util/string.h \
-	./mupnp/upnp_limit.h
+	./mupnp/net/uri.h \
+	./mupnp/net/url.h \
+	./mupnp/net/socket.h \
+	./mupnp/net/interface.h \
+	./mupnp/statevariable.h \
+	./mupnp/control/control.h \
+	./mupnp/device.h \
+	./mupnp/icon.h \
+	./mupnp/service.h \
+	./mupnp/upnp_limit.h \
+	./mupnp/version.h \
+	./mupnp/typedef.h \
+	./mupnp/soap/soap.h
 
 
 mupnp/upnp.h: $(top_builddir)/config.h
