@@ -34,7 +34,7 @@ extern "C" {
 ****************************************/
 
 #if defined(BTRON) || defined(ITRON)
-typedef size_t mUpnpTime;
+typedef time_t mUpnpTime;
 #else
 typedef long mUpnpTime;
 #endif
