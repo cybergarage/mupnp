@@ -25,20 +25,22 @@ AGENCY, JAPAN, as a project of MitohProgram2004.
 
 ## Building and Installation
 
+### Homebrew (macOS, Linux, Raspbian)
+
+For any platforms which support [Homebrew](https://brew.sh/), you can easily install using Homebrew with the following `brew` commands:
+
+```
+brew tap cybergarage/homebrew
+brew install mupnp
+```
+
+### Installation from source
+
 mUPnP for C is distributed as an Automake project, and so you can install the library from the source codes with the following commands:
 
 ```
 ./configure
 make install
-```
-
-### macOS
-
-For macOS platforms, you can easily install using Homebrew with the following `brew` commands:
-
-```
-brew tap cybergarage/homebrew
-brew install mupnp
 ```
 
 ## References
@@ -75,7 +77,7 @@ mUPnP for C releases the wrapper library for Objective-C to use the UPnP library
 ### Nokia 770 Internet Tablet
 
 Nokia released the UPnP/AV Control point, Media Streamer, for Nokia 770.
-The control point is created based on CyberLinkForC with their patches.
+The control point is created based on mUPnP for C with their patches.
 
 ![Nokia770](doc/img/mupnpc-example-nokia770-01.jpg)
 
@@ -83,7 +85,7 @@ The control point is created based on CyberLinkForC with their patches.
 
 [VIERA remote](http://panasonic.jp/support/global/cs/tv/vremote/index.html) is a TV remote controller app for Panasonic VIERA TVs, both plasma TV and
 LCD TV, to let TV channel selection, input selection and volume control
-from iPhone / iPod touch / iPad (of iOS 4.2 or later). CyberLinkForJava
+from iPhone / iPod touch / iPad (of iOS 4.2 or later). mUPnP for C
 is used as the UPnP framework.
 
 ![VIERA Remote](doc/img/mupnpc-example-vieraremote-02.gif)
