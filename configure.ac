@@ -7,7 +7,7 @@
 #############################################################################
 
 AC_CONFIG_AUX_DIR(config)
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS(config.h)
 
 AC_INIT([mupnp],[3.0.2])
 AC_CONFIG_SRCDIR([include/mupnp/typedef.h])
@@ -38,7 +38,7 @@ AC_PROG_INSTALL
 AC_PROG_AWK
 #AC_PROG_LIBTOOL
 AC_PROG_RANLIB
-AC_LANG_CPLUSPLUS
+AC_LANG([C++])
 AM_PROG_CC_C_O
 
 ##############################
@@ -52,27 +52,12 @@ AC_CHECK_HEADERS([stdbool.h])
 ##############################
 
 AC_MSG_CHECKING([whether $CC supports long long])
-AC_TRY_COMPILE([
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <stdlib.h>
 typedef long long CgInt64;
-],
-[],
-[AC_MSG_RESULT(yes)
-AC_DEFINE([HAVE_LONGLONG],1,[LONGLONG])],
-[AC_MSG_RESULT(no)]
-)
-
-#############################################################################
-# Checks for CYGWIN an MinGW
-#############################################################################
-
-#AC_CYGWIN
-#if [ test $CYGWIN = yes || test $MINGW = yes ]; then
-  #AC_LIBTOOL_WIN32_DLL
-  #AM_DISABLE_STATIC
-  AC_CHECK_LIB([ws2_32],[main])
-  #AC_CHECK_LIB([iphlpapi],[main])
-#fi
+]], [[]])],[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_LONGLONG],1,[LONGLONG])],[AC_MSG_RESULT(no)
+])
 
 #############################################################################
 # Check whether libtool should be used
@@ -101,7 +86,9 @@ fi
 # Checks for header files.
 ##############################
 
-AC_HEADER_STDC
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_CHECK_HEADERS([arpa/inet.h limits.h netdb.h netinet/in.h stdlib.h string.h sys/param.h sys/socket.h unistd.h sys/ioctl.h sys/filio.h])
 
 ##############################
@@ -415,20 +402,17 @@ AC_CHECK_FUNCS([getifaddrs])
 
 ##### socklen_t ####
 AC_MSG_CHECKING(for socklen_t)
-AC_TRY_COMPILE([
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <sys/types.h>
 #include <sys/socket.h>
 socklen_t foosocket;
-],
-[],
-[AC_MSG_RESULT(yes)
-AC_DEFINE([HAVE_SOCKLEN_T],1,[SOCKLEN_T])],
-[AC_MSG_RESULT(no)]
-)
+]], [[]])],[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_SOCKLEN_T],1,[SOCKLEN_T])],[AC_MSG_RESULT(no)
+])
 
 ##### SIOCGIFHWADDR ####
 AC_MSG_CHECKING(for SIOCGIFHWADDR)
-AC_TRY_COMPILE([
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
@@ -445,16 +429,13 @@ void func()
   ifr.ifr_addr.sa_family = AF_INET;
   ioctl(sock, SIOCGIFHWADDR, &ifr);
 }
-],
-[],
-[AC_MSG_RESULT(yes)
-AC_DEFINE([HAVE_SIOCGIFHWADDR],1,[SIOCGIFHWADDR])],
-[AC_MSG_RESULT(no)]
-)
+]], [[]])],[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_SIOCGIFHWADDR],1,[SIOCGIFHWADDR])],[AC_MSG_RESULT(no)
+])
 
 ##### sockaddr_dl ####
 AC_MSG_CHECKING(for sockaddr_dl)
-AC_TRY_COMPILE([
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <sys/types.h>
 #include <sys/socket.h>
 void func()
@@ -468,16 +449,13 @@ void func()
   LLADDR(dl);
   freeifaddrs(ifaddr);
 }
-],
-[],
-[AC_MSG_RESULT(yes)
-AC_DEFINE([HAVE_SOCKADDR_DL],1,[SOCKADDR_DL])],
-[AC_MSG_RESULT(no)]
-)
+]], [[]])],[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_SOCKADDR_DL],1,[SOCKADDR_DL])],[AC_MSG_RESULT(no)
+])
 
 ##### IP_PKTINFO ####
 AC_MSG_CHECKING(for IP_PKTINFO)
-AC_TRY_COMPILE([
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <sys/types.h>
 #include <sys/socket.h>
 void func()
@@ -485,16 +463,13 @@ void func()
   int on=1;
   setsockopt(0, IPPROTO_IP, IP_PKTINFO,  &on, sizeof(on));
 }
-],
-[],
-[AC_MSG_RESULT(yes)
-AC_DEFINE([HAVE_IP_PKTINFO],1,[IP_PKTINFO])],
-[AC_MSG_RESULT(no)]
-)
+]], [[]])],[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_IP_PKTINFO],1,[IP_PKTINFO])],[AC_MSG_RESULT(no)
+])
 
 ##### SO_NOSIGPIPE ####
 AC_MSG_CHECKING(for SO_NOSIGPIPE)
-AC_TRY_COMPILE([
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
 #include <sys/types.h>
 #include <sys/socket.h>
 void func()
@@ -502,12 +477,9 @@ void func()
   int on=1;
   setsockopt(0, SOL_SOCKET, SO_NOSIGPIPE,  &on, sizeof(on));
 }
-],
-[],
-[AC_MSG_RESULT(yes)
-AC_DEFINE([HAVE_SO_NOSIGPIPE],1,[SO_NOSIGPIPES])],
-[AC_MSG_RESULT(no)]
-)
+]], [[]])],[AC_MSG_RESULT(yes)
+AC_DEFINE([HAVE_SO_NOSIGPIPE],1,[SO_NOSIGPIPES])],[AC_MSG_RESULT(no)
+])
 
 ##############################
 # Checks for other headers.
@@ -560,8 +532,7 @@ AC_SEARCH_LIBS([socket], [socket inet])
 
 AC_ARG_ENABLE(
   [examples],
-  AC_HELP_STRING([--enable-examples],
-  [ build examples (default = yes) ]),
+  AS_HELP_STRING([--enable-examples],[ build examples (default = yes) ]),
   [case "${enableval}" in
     yes | no ) build_examples="${enableval}" ;;
   esac],
@@ -573,7 +544,7 @@ AM_CONDITIONAL(MUPNP_ENABLE_EXAMPLES,test "$build_examples" = yes)
 # Test
 ##############################
 
-AC_ARG_ENABLE([test], AC_HELP_STRING([--enable-test], [ build test (default = no) ]), [build_test="yes"], [])
+AC_ARG_ENABLE([test], AS_HELP_STRING([--enable-test],[ build test (default = no) ]), [build_test="yes"], [])
 AM_CONDITIONAL(MUPNP_ENABLE_TEST,test "$build_test" = yes)
 if [ test "$build_test" = yes ]; then
 	AC_CHECK_LIB([boost_unit_test_framework-mt],[main],,
@@ -584,7 +555,7 @@ fi
 # Makefiles
 ##############################
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
 mupnp.pc
 Makefile
 include/Makefile
@@ -602,3 +573,4 @@ examples/upnpigddump/unix/Makefile
 test/Makefile
 test/unix/Makefile
 ])
+AC_OUTPUT

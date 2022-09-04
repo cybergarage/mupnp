@@ -12,24 +12,24 @@ check_PROGRAMS = mupnptest
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../
 
 noinst_HEADERS = \
-	../TestDevice.h \
-	../ClinkUnitTest.h
+	../ClinkUnitTest.h \
+	../TestDevice.h
 
 mupnptest_SOURCES = \
 	../UPnPFuncTest.cpp \
-	../HttpTest.cpp \
-	../ServiceTest.cpp \
-	../SubscriptionTest.cpp \
-	../DictionaryTest.cpp \
-	../URITest.cpp \
 	../XMLTest.cpp \
 	../StringTest.cpp \
-	../ControlPointTest.cpp \
-	../mUpnpTestMain.cpp \
-	../DeviceTest.cpp \
-	../StateVariableTest.cpp \
+	../URITest.cpp \
+	../TestDevice.c \
+	../SubscriptionTest.cpp \
 	../NetworkTest.cpp \
-	../TestDevice.c
+	../mUpnpTestMain.cpp \
+	../DictionaryTest.cpp \
+	../StateVariableTest.cpp \
+	../ControlPointTest.cpp \
+	../HttpTest.cpp \
+	../ServiceTest.cpp \
+	../DeviceTest.cpp
 #if HAVE_LIBTOOL
 #mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@
 #else

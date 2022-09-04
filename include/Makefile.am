@@ -7,43 +7,43 @@
 ############################################################
 
 mupnp_headers = \
-	./mupnp/upnp_status.h \
-	./mupnp/action.h \
-	./mupnp/util/dictionary.h \
-	./mupnp/util/log.h \
-	./mupnp/util/mutex.h \
-	./mupnp/util/time.h \
-	./mupnp/util/string.h \
-	./mupnp/util/thread.h \
-	./mupnp/util/list.h \
-	./mupnp/util/cond.h \
-	./mupnp/event/subscriber.h \
-	./mupnp/event/property.h \
-	./mupnp/event/event.h \
-	./mupnp/event/subscription.h \
-	./mupnp/event/notify.h \
-	./mupnp/http/http.h \
+	./mupnp/icon.h \
+	./mupnp/statevariable.h \
 	./mupnp/xml/xml.h \
-	./mupnp/controlpoint.h \
-	./mupnp/argument.h \
-	./mupnp/upnp_function.h \
-	./mupnp/io/file.h \
-	./mupnp/ssdp/ssdp.h \
-	./mupnp/ssdp/ssdp_server.h \
-	./mupnp/upnp.h \
+	./mupnp/net/interface.h \
 	./mupnp/net/uri.h \
 	./mupnp/net/url.h \
 	./mupnp/net/socket.h \
-	./mupnp/net/interface.h \
-	./mupnp/statevariable.h \
-	./mupnp/control/control.h \
-	./mupnp/device.h \
-	./mupnp/icon.h \
 	./mupnp/service.h \
-	./mupnp/upnp_limit.h \
-	./mupnp/version.h \
+	./mupnp/event/notify.h \
+	./mupnp/event/property.h \
+	./mupnp/event/subscriber.h \
+	./mupnp/event/event.h \
+	./mupnp/event/subscription.h \
 	./mupnp/typedef.h \
-	./mupnp/soap/soap.h
+	./mupnp/upnp_status.h \
+	./mupnp/http/http.h \
+	./mupnp/controlpoint.h \
+	./mupnp/soap/soap.h \
+	./mupnp/version.h \
+	./mupnp/io/file.h \
+	./mupnp/upnp_function.h \
+	./mupnp/argument.h \
+	./mupnp/device.h \
+	./mupnp/ssdp/ssdp.h \
+	./mupnp/ssdp/ssdp_server.h \
+	./mupnp/action.h \
+	./mupnp/util/time.h \
+	./mupnp/util/list.h \
+	./mupnp/util/mutex.h \
+	./mupnp/util/log.h \
+	./mupnp/util/cond.h \
+	./mupnp/util/string.h \
+	./mupnp/util/dictionary.h \
+	./mupnp/util/thread.h \
+	./mupnp/upnp_limit.h \
+	./mupnp/control/control.h \
+	./mupnp/upnp.h
 
 
 mupnp/upnp.h: $(top_builddir)/config.h
