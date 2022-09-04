@@ -1,5 +1,6 @@
 # mUPnP for C
 
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/cybergarage/mupnp)
 [![Build Status](https://github.com/cybergarage/mupnp/actions/workflows/make.yml/badge.svg)](https://github.com/cybergarage/mupnp/actions/workflows/make.yml)
 [![doxygen](https://github.com/cybergarage/mupnp/actions/workflows/doxygen.yml/badge.svg)](http://cybergarage.github.io/mupnp/)
 
