@@ -4,7 +4,7 @@
 
 /******************************************************************
 *
-*	CyberLink for C
+*	mUPnP for C
 *
 *	Copyright (C) Satoshi Konno 2005
 *

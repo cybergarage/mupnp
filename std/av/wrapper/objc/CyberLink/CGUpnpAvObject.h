@@ -1,6 +1,6 @@
 //
 //  CGUpnpAvObject.h
-//  CyberLink for C
+//  mUPnP for C
 //
 //  Created by Satoshi Konno on 08/07/01.
 //  Copyright 2008 Satoshi Konno. All rights reserved.
@@ -17,7 +17,7 @@ typedef void CgUpnpAvContent;
 #endif
 
 /**
- * The CGUpnpAvObject class is a wrapper class for CgUpnpAvObject of CyberLink for C.
+ * The CGUpnpAvObject class is a wrapper class for CgUpnpAvObject of mUPnP for C.
  */
 
 #define CGUPNPAV_OBJECT_MOVIE_FILEEXT @"mov"

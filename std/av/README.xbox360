@@ -6,7 +6,7 @@ Requirements for Microsoft XBox 360 UPNP Support.
 UPNP Friendly Name (cg_upnpav_dms_setfriendlyname) must be of the form:
    XXXX (MediaServer) : 1
 
-For example, "Cyberlink for C Media Server (MediaServer) : 1"
+For example, "mUPnP for C Media Server (MediaServer) : 1"
 
 *
 The ModelName (cg_upnp_device_setmodelname) must be one of:

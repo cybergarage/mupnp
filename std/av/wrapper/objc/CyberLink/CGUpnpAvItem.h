@@ -1,6 +1,6 @@
 //
 //  CGUpnpAvItem.h
-//  CyberLink for C
+//  mUPnP for C
 //
 //  Created by Satoshi Konno on 08/07/01.
 //  Copyright 2008 Satoshi Konno. All rights reserved.
@@ -10,7 +10,7 @@
 #import <CyberLink/CGUpnpAvResource.h>
 
 /**
- * The CGUpnpAction class is a wrapper class for CgUpnpAction of CyberLink for C.
+ * The CGUpnpAction class is a wrapper class for CgUpnpAction of mUPnP for C.
  */
 @interface CGUpnpAvItem : CGUpnpAvObject {
 }

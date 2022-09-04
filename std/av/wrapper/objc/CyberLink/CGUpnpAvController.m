@@ -1,6 +1,6 @@
 //
 //  CGUpnpAvController.m
-//  CyberLink for C
+//  mUPnP for C
 //
 //  Created by Satoshi Konno on 08/06/25.
 //  Copyright 2008 Satoshi Konno. All rights reserved.

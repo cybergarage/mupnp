@@ -1,6 +1,6 @@
 //
 //  CGUpnpAvController.h
-//  CyberLink for C
+//  mUPnP for C
 //
 //  Created by Satoshi Konno on 08/06/25.
 //  Copyright 2008 Satoshi Konno. All rights reserved.
@@ -16,7 +16,7 @@
 @class CGUpnpAvRenderer;
 
 /**
- * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of CyberLink for C to 
+ * The CGUpnpControlPoint class is a wrapper class for CgUpnpControlPoint of mUPnP for C to 
  * program using only Objective-C directly on MacOSX.
  * Currently, the only basic methods are wrapped to control UPnP devices.
  */

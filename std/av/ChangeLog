@@ -57,7 +57,7 @@
 	  
 2008-10-31  Satoshi Konno <skonno@cybergarage.org>
 	* v2.3
-	* Added UPnP/AV package in std/av of CyberLink for C as a sample implementation.
+	* Added UPnP/AV package in std/av of mUPnP for C as a sample implementation.
 	* Added the following classes of Objective-C for MacOSX and iPhone
 	  CGUpnpAvContainer
 	  CGUpnpAvContentDirectory

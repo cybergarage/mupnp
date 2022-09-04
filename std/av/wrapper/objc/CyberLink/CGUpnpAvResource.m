@@ -1,6 +1,6 @@
 //
 //  CGUpnpAvResource.m
-//  CyberLink for C
+//  mUPnP for C
 //
 //  Created by Satoshi Konno on 08/07/02.
 //  Copyright 2008 Satoshi Konno. All rights reserved.
