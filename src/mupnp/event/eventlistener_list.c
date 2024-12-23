@@ -67,8 +67,8 @@ void mupnp_eventlistenerlist_remove(mUpnpEventListenerList* eventListenerList, M
     return;
 
   for (list_node = mupnp_eventlistenerlist_gets(eventListenerList);
-       list_node != NULL;
-       list_node = mupnp_eventlistenerlist_next(list_node)) {
+      list_node != NULL;
+      list_node = mupnp_eventlistenerlist_next(list_node)) {
     if (list_node->listener == listener) {
       mupnp_list_remove((mUpnpList*)list_node);
       free(list_node);
@@ -122,8 +122,8 @@ void mupnp_eventlistenerlist_notify(mUpnpEventListenerList* eventListenerList, m
   mupnp_log_debug_l4("Entering...\n");
 
   for (list_node = mupnp_eventlistenerlist_gets(eventListenerList);
-       list_node != NULL;
-       list_node = mupnp_eventlistenerlist_next(list_node)) {
+      list_node != NULL;
+      list_node = mupnp_eventlistenerlist_next(list_node)) {
     if (list_node->listener != NULL) {
       list_node->listener(property);
     }

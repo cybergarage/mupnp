@@ -851,8 +851,8 @@ mUpnpDevice* mupnp_device_getdevicebytype(mUpnpDevice* dev, const char* type)
   }
 
   for (childDev = mupnp_device_getdevices(dev);
-       childDev != NULL;
-       childDev = mupnp_device_next(childDev)) {
+      childDev != NULL;
+      childDev = mupnp_device_next(childDev)) {
     typeString = mupnp_device_getdevicetype(childDev);
     if (typeString != NULL) {
       part = mupnp_devicetype_getschematype(typeString);
@@ -899,8 +899,8 @@ mUpnpDevice* mupnp_device_getdevicebyexacttype(mUpnpDevice* dev, const char* exa
   }
 
   for (childDev = mupnp_device_getdevices(dev);
-       childDev != NULL;
-       childDev = mupnp_device_next(childDev)) {
+      childDev != NULL;
+      childDev = mupnp_device_next(childDev)) {
     if (mupnp_strcmp(mupnp_device_getdevicetype(childDev),
             exacttype)
         == 0) {
@@ -938,8 +938,8 @@ mUpnpDevice* mupnp_device_getdevicebyudn(mUpnpDevice* dev, const char* udn)
   }
 
   for (childDev = mupnp_device_getdevices(dev);
-       childDev != NULL;
-       childDev = mupnp_device_next(childDev)) {
+      childDev != NULL;
+      childDev = mupnp_device_next(childDev)) {
     if (mupnp_strcmp(mupnp_device_getudn(childDev), udn) == 0) {
       return childDev;
     }
@@ -1530,8 +1530,8 @@ mUpnpService* mupnp_device_getservicebyserviceid(mUpnpDevice* dev, const char* s
   }
 
   for (service = mupnp_device_getservices(dev);
-       service != NULL;
-       service = mupnp_service_next(service)) {
+      service != NULL;
+      service = mupnp_service_next(service)) {
     if (mupnp_strcmp(mupnp_service_getserviceid(service),
             serviceId)
         == 0) {
@@ -1544,8 +1544,8 @@ mUpnpService* mupnp_device_getservicebyserviceid(mUpnpDevice* dev, const char* s
   }
 
   for (childDev = mupnp_device_getdevices(dev);
-       childDev != NULL;
-       childDev = mupnp_device_next(childDev)) {
+      childDev != NULL;
+      childDev = mupnp_device_next(childDev)) {
     service = mupnp_device_getservicebyserviceid(childDev, serviceId);
     if (service != NULL) {
       return service;
@@ -1580,8 +1580,8 @@ mUpnpService* mupnp_device_getservicebyexacttype(mUpnpDevice* dev, const char* t
   }
 
   for (service = mupnp_device_getservices(dev);
-       service != NULL;
-       service = mupnp_service_next(service)) {
+      service != NULL;
+      service = mupnp_service_next(service)) {
     if (mupnp_strcmp(mupnp_service_getservicetype(service),
             type)
         == 0) {
@@ -1594,8 +1594,8 @@ mUpnpService* mupnp_device_getservicebyexacttype(mUpnpDevice* dev, const char* t
   }
 
   for (childDev = mupnp_device_getdevices(dev);
-       childDev != NULL;
-       childDev = mupnp_device_next(childDev)) {
+      childDev != NULL;
+      childDev = mupnp_device_next(childDev)) {
     service = mupnp_device_getservicebyexacttype(childDev, type);
     if (service != NULL) {
       return service;
@@ -1632,8 +1632,8 @@ mUpnpService* mupnp_device_getservicebytype(mUpnpDevice* dev, const char* type)
   }
 
   for (service = mupnp_device_getservices(dev);
-       service != NULL;
-       service = mupnp_service_next(service)) {
+      service != NULL;
+      service = mupnp_service_next(service)) {
     typeString = mupnp_service_getservicetype(service);
     if (typeString != NULL) {
       if (mupnp_strcmp(typeString, type) == 0)
@@ -1654,8 +1654,8 @@ mUpnpService* mupnp_device_getservicebytype(mUpnpDevice* dev, const char* type)
   }
 
   for (childDev = mupnp_device_getdevices(dev);
-       childDev != NULL;
-       childDev = mupnp_device_next(childDev)) {
+      childDev != NULL;
+      childDev = mupnp_device_next(childDev)) {
     service = mupnp_device_getservicebytype(childDev, type);
     if (service != NULL) {
       return service;

@@ -284,8 +284,8 @@ bool mupnp_controlpoint_stop(mUpnpControlPoint* ctrlPoint)
   /* Unsubscribe from all services */
 
   for (dev = mupnp_controlpoint_getdevices(ctrlPoint);
-       dev != NULL;
-       dev = mupnp_device_next(dev)) {
+      dev != NULL;
+      dev = mupnp_device_next(dev)) {
     udn = mupnp_device_getudn(dev);
 
     /* Call device listener for each device */
@@ -405,8 +405,8 @@ mUpnpDevice* mupnp_controlpoint_getdevicebyexacttype(mUpnpControlPoint* ctrlPoin
   }
 
   for (dev = mupnp_controlpoint_getdevices(ctrlPoint);
-       dev != NULL;
-       dev = mupnp_device_next(dev)) {
+      dev != NULL;
+      dev = mupnp_device_next(dev)) {
     if (mupnp_strcmp(mupnp_device_getdevicetype(dev),
             exacttype)
         == 0) {
@@ -449,8 +449,8 @@ mUpnpDevice* mupnp_controlpoint_getdevicebytype(mUpnpControlPoint* ctrlPoint, co
   }
 
   for (dev = mupnp_controlpoint_getdevices(ctrlPoint);
-       dev != NULL;
-       dev = mupnp_device_next(dev)) {
+      dev != NULL;
+      dev = mupnp_device_next(dev)) {
     typeString = mupnp_device_getdevicetype(dev);
     if (typeString != NULL) {
       part = mupnp_devicetype_getschematype(typeString);
@@ -494,8 +494,8 @@ mUpnpDevice* mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint* ctrlPoint, con
   }
 
   for (dev = mupnp_controlpoint_getdevices(ctrlPoint);
-       dev != NULL;
-       dev = mupnp_device_next(dev)) {
+      dev != NULL;
+      dev = mupnp_device_next(dev)) {
     if (mupnp_strcmp(mupnp_device_getudn(dev), udn) == 0) {
       return dev;
     }
@@ -802,8 +802,8 @@ bool mupnp_controlpoint_ipchanged(mUpnpControlPoint* ctrlPoint)
 
   /* Remove all devices registered through old interface */
   for (netIf = mupnp_net_interfacelist_gets(removed);
-       netIf != NULL;
-       netIf = mupnp_net_interface_next(netIf)) {
+      netIf != NULL;
+      netIf = mupnp_net_interface_next(netIf)) {
     mupnp_controlpoint_lock(ctrlPoint);
     tmp = mupnp_controlpoint_getdevices(ctrlPoint);
     while (tmp != NULL) {

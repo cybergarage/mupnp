@@ -948,7 +948,7 @@ ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt)
   char remoteAddr[MUPNP_NET_SOCKET_MAXHOST];
   char remotePort[MUPNP_NET_SOCKET_MAXSERV];
   char* localAddr;
-  
+
 #if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
   struct sockaddr_in from;
   W fromLen = sizeof(from);

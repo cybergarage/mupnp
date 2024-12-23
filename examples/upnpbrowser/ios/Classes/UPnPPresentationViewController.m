@@ -61,13 +61,13 @@
   if (![presentationURL hasPrefix:@"http://"]) {
     if (urlBase != nil && 0 < [urlBase length]) {
       self.presentationURL = [NSString stringWithFormat:@"%@%@",
-                                       [device urlBase],
-                                       [device presentationURL]];
+          [device urlBase],
+          [device presentationURL]];
     }
     else if (ssdpLocationURL != nil && 0 < [ssdpLocationURL length]) {
       self.presentationURL = [NSString stringWithFormat:@"%@%@",
-                                       [device locationURL],
-                                       [device presentationURL]];
+          [device locationURL],
+          [device presentationURL]];
     }
   }
   NSLog(@"presentatilURL = %@", presentationURL);
@@ -75,7 +75,7 @@
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 
   [webView loadRequest:[NSURLRequest requestWithURL:
-                                         [NSURL URLWithString:presentationURL]]];
+                               [NSURL URLWithString:presentationURL]]];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView*)webView
@@ -90,7 +90,7 @@
   NSString* errMsg = [error localizedFailureReason];
   if (errMsg == nil || [errMsg length] <= 0) {
     errMsg = [NSString stringWithFormat:@"Presentation URL is invalid !! (%@)",
-                       [self presentationURL]];
+        [self presentationURL]];
   }
 
   UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"iNetFrame"
