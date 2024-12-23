@@ -67,7 +67,7 @@ var NAVTREEINDEX =
 "ssdp__server_8h.html#a978f6ca22a519d6564b13a47bd72ee5e",
 "struct__mUpnpActionRequest.html#a4d20f05180f46d682b9a43a4f7d7325f",
 "structfd__list.html#a22ea02af113bf4e4f10b82ff6e89a1f6",
-"uri_8h.html#a5f9cd1443bda17116089004bfe4e4576"
+"uri_8h.html#a61d13ab8743fed86c965bd1c91459ec5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -9,7 +9,6 @@ var subscription_8h =
     [ "mupnp_event_subscription_request_sethost", "subscription_8h.html#add614fe9aff1a1c2b7d73bf072071947", null ],
     [ "mupnp_event_subscription_request_setnt", "subscription_8h.html#adc8fbc3564368e8b7a74d195524a012f", null ],
     [ "mupnp_event_subscription_request_setsid", "subscription_8h.html#a5941417e34426e0bc8885f4c1c025f9a", null ],
-    [ "mUpnpSubscriptionRequest", "subscription_8h.html#aa7115104844b10973a077614dad7f3c6", null ],
     [ "mupnp_event_subscription_request_gettimeout", "subscription_8h.html#ad1e6d1e03d2002f941664d7ba7ac2187", null ],
     [ "mupnp_event_subscription_request_new", "subscription_8h.html#a974244cb7c311b346d53ab0aec758aa1", null ],
     [ "mupnp_event_subscription_request_settimeout", "subscription_8h.html#a6dae20ef477803b3f95ad3436d6ed461", null ]
