@@ -131,7 +131,8 @@ bool upnp_clock_actionreceived(mUpnpAction* action)
   const char* actionName;
   mUpnpArgument* currTimeArg;
   char sysTimeStr[SYSTEM_TIME_BUF_LEN];
-  mUpnpArgument *newTimeArg, *resultArg;
+  // mUpnpArgument *newTimeArg;
+  mUpnpArgument *resultArg;
 
   currTime = mupnp_getcurrentsystemtime();
 
@@ -143,7 +144,7 @@ bool upnp_clock_actionreceived(mUpnpAction* action)
     return true;
   }
   if (strcmp(actionName, "SetTime") == 0) {
-    newTimeArg = mupnp_action_getargumentbyname(action, "NewTime");
+    // newTimeArg = mupnp_action_getargumentbyname(action, "NewTime");
     resultArg = mupnp_action_getargumentbyname(action, "Result");
     mupnp_argument_setvalue(resultArg, "Not implemented");
     return true;
@@ -180,15 +181,14 @@ bool upnp_clock_queryreceived(mUpnpStateVariable* statVar)
 void upnp_clock_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
 {
   mUpnpTime currTime;
-  mUpnpDevice* dev;
+  // mUpnpDevice* dev;
   char* uri;
   char content[2048];
   char sysTimeStr[SYSTEM_TIME_BUF_LEN];
   char serverName[MUPNP_SEVERNAME_MAXLEN];
   mUpnpHttpResponse* httpRes;
-  bool postRet;
 
-  dev = (mUpnpDevice*)mupnp_http_request_getuserdata(httpReq);
+  // dev = (mUpnpDevice*)mupnp_http_request_getuserdata(httpReq);
 
   uri = mupnp_http_request_geturi(httpReq);
   if (strcmp(uri, "/presentation") != 0) {
@@ -246,7 +246,7 @@ void upnp_clock_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
   mupnp_http_response_setcontent(httpRes, content);
   mupnp_http_response_setcontenttype(httpRes, "text/html");
   mupnp_http_response_setcontentlength(httpRes, strlen(content));
-  postRet = mupnp_http_request_postresponse(httpReq, httpRes);
+  mupnp_http_request_postresponse(httpReq, httpRes);
   mupnp_http_response_delete(httpRes);
 }
 
