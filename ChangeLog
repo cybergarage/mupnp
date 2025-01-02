@@ -1,3 +1,7 @@
+2025-XX-XX Satoshi Konno <skonno@cybergarage.org>
+	* 3.0.3
+	* Fixed unused-but-set-variable warnings
+
 2022-09-04 Satoshi Konno <skonno@cybergarage.org>
 	* 3.0.2
 	* Update deprecated macros configure.in.
