@@ -108,13 +108,13 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__dirstamp = $(am__leading_dot)dirstamp
-am_mupnptest_OBJECTS = ../UPnPFuncTest.$(OBJEXT) ../XMLTest.$(OBJEXT) \
-	../StringTest.$(OBJEXT) ../URITest.$(OBJEXT) \
-	../TestDevice.$(OBJEXT) ../SubscriptionTest.$(OBJEXT) \
-	../NetworkTest.$(OBJEXT) ../mUpnpTestMain.$(OBJEXT) \
-	../DictionaryTest.$(OBJEXT) ../StateVariableTest.$(OBJEXT) \
-	../ControlPointTest.$(OBJEXT) ../HttpTest.$(OBJEXT) \
-	../ServiceTest.$(OBJEXT) ../DeviceTest.$(OBJEXT)
+am_mupnptest_OBJECTS = ../TestDevice.$(OBJEXT) ../StringTest.$(OBJEXT) \
+	../StateVariableTest.$(OBJEXT) ../SubscriptionTest.$(OBJEXT) \
+	../URITest.$(OBJEXT) ../XMLTest.$(OBJEXT) \
+	../NetworkTest.$(OBJEXT) ../UPnPFuncTest.$(OBJEXT) \
+	../HttpTest.$(OBJEXT) ../ControlPointTest.$(OBJEXT) \
+	../mUpnpTestMain.$(OBJEXT) ../DeviceTest.$(OBJEXT) \
+	../DictionaryTest.$(OBJEXT) ../ServiceTest.$(OBJEXT)
 mupnptest_OBJECTS = $(am_mupnptest_OBJECTS)
 mupnptest_DEPENDENCIES = ../../lib/unix/libmupnp.a
 AM_V_P = $(am__v_P_@AM_V@)
@@ -505,20 +505,20 @@ noinst_HEADERS = \
 	../TestDevice.h
 
 mupnptest_SOURCES = \
-	../UPnPFuncTest.cpp \
-	../XMLTest.cpp \
-	../StringTest.cpp \
-	../URITest.cpp \
 	../TestDevice.c \
-	../SubscriptionTest.cpp \
-	../NetworkTest.cpp \
-	../mUpnpTestMain.cpp \
-	../DictionaryTest.cpp \
+	../StringTest.cpp \
 	../StateVariableTest.cpp \
-	../ControlPointTest.cpp \
+	../SubscriptionTest.cpp \
+	../URITest.cpp \
+	../XMLTest.cpp \
+	../NetworkTest.cpp \
+	../UPnPFuncTest.cpp \
 	../HttpTest.cpp \
-	../ServiceTest.cpp \
-	../DeviceTest.cpp
+	../ControlPointTest.cpp \
+	../mUpnpTestMain.cpp \
+	../DeviceTest.cpp \
+	../DictionaryTest.cpp \
+	../ServiceTest.cpp
 
 #if HAVE_LIBTOOL
 #mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@
@@ -566,30 +566,30 @@ clean-checkPROGRAMS:
 ../$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) ../$(DEPDIR)
 	@: > ../$(DEPDIR)/$(am__dirstamp)
-../UPnPFuncTest.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../XMLTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
-../StringTest.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../URITest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
 ../TestDevice.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../NetworkTest.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../mUpnpTestMain.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../DictionaryTest.$(OBJEXT): ../$(am__dirstamp) \
+../StringTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../StateVariableTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../ControlPointTest.$(OBJEXT): ../$(am__dirstamp) \
+../SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../URITest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../XMLTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../NetworkTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../UPnPFuncTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../HttpTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
-../ServiceTest.$(OBJEXT): ../$(am__dirstamp) \
+../ControlPointTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../mUpnpTestMain.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../DeviceTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../DictionaryTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ServiceTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 
 mupnptest$(EXEEXT): $(mupnptest_OBJECTS) $(mupnptest_DEPENDENCIES) $(EXTRA_mupnptest_DEPENDENCIES) 
