@@ -244,14 +244,20 @@ AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
-CFLAGS = @CFLAGS@
+
+##############################
+# Code coverage
+##############################
+
+# include $(top_srcdir)/aminclude_static.am
+CFLAGS = "$CFLAGS $(CODE_COVERAGE_CFLAGS)"
 CLOG_DEBUG_FLAGS = @CLOG_DEBUG_FLAGS@
-CPPFLAGS = @CPPFLAGS@
+CPPFLAGS = "$CPPFLAGS $(CODE_COVERAGE_CPPFLAGS)"
 CSCOPE = @CSCOPE@
 CTAGS = @CTAGS@
 CXX = @CXX@
 CXXDEPMODE = @CXXDEPMODE@
-CXXFLAGS = @CXXFLAGS@
+CXXFLAGS = "$CXXFLAGS $(CODE_COVERAGE_CXXFLAGS)"
 CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
@@ -336,11 +342,18 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = include lib $(am__append_1) $(am__append_2)
-devdocsdir = $(datadir)/doc/clinkc-dev
-docsdir = $(datadir)/doc/clinkc0
+
+# clean-local: code-coverage-clean
+# distclean-local: code-coverage-dist-clean
+
+##############################
+# Dist
+##############################
+devdocsdir = $(datadir)/doc/mupnp-dev
+docsdir = $(datadir)/doc/mupnp0
 EXTRA_DIST = debian/changelog \
-	debian/clinkc0.install \
-	debian/clinkc-dev.install \
+	debian/mupnp0.install \
+	debian/mupnp-dev.install \
 	debian/compat \
 	debian/control \
 	debian/copyright \
@@ -914,6 +927,17 @@ uninstall-am: uninstall-dist_devdocsDATA uninstall-dist_docsDATA \
 #	doxygen/html/* \
 #	doxygen-objc/html/*
 
+deb: dist
+	-mkdir $(top_builddir)/debian-build
+	-cp $(top_builddir)/../$(PACKAGE)*.orig.tar.gz $(top_builddir)/debian-build/
+	cd $(top_builddir)/debian-build && tar zxf ../$(top_builddir)/$(PACKAGE)-$(VERSION).tar.gz
+	cd $(top_builddir)/debian-build/$(PACKAGE)-$(VERSION) && dpkg-buildpackage -rfakeroot -sa -D
+	-rm -rf $(top_builddir)/debian-build/$(PACKAGE)-$(VERSION)
+
+##############################
+# Doxygen
+##############################
+
 doxygen: doxygen/html/* doxygen/html/*
 
 doxygen/html/*:
@@ -923,13 +947,6 @@ doxygen/html/*:
 doxygen-objc/html/*:
 	cd $(srcdir) && doxygen Doxyfile.objc
 # scp -r doxygen-objc skonno,clinkobjc@frs.sourceforge.net:/home/groups/c/cl/clinkobjc/htdocs
-
-deb: dist
-	-mkdir $(top_builddir)/debian-build
-	-cp $(top_builddir)/../$(PACKAGE)*.orig.tar.gz $(top_builddir)/debian-build/
-	cd $(top_builddir)/debian-build && tar zxf ../$(top_builddir)/$(PACKAGE)-$(VERSION).tar.gz
-	cd $(top_builddir)/debian-build/$(PACKAGE)-$(VERSION) && dpkg-buildpackage -rfakeroot -sa -D
-	-rm -rf $(top_builddir)/debian-build/$(PACKAGE)-$(VERSION)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

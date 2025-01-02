@@ -36,11 +36,11 @@ nobase_libmupnpinclude_HEADERS =  \\
 #if HAVE_LIBTOOL
 #libmupnp_la_SOURCES = \\
 #        \$(mupnp_source)
-#libmupnp_la_LIBADD = \@HTTP_LIBS\@ \@XML_LIBS\@
+#libmupnp_la_LIBADD = \@HTTP_LIBS\@ \@XML_LIBS\@ \$(CODE_COVERAGE_LIBS)
 #else
 libmupnp_a_SOURCES = \\
         \$(mupnp_sources)
 libmupnp_a_CFLAGS = \$(AM_CFLAGS)
-#libmupnp_a_LIBADD = \@HTTP_LIBS\@ \@XML_LIBS\@
+#libmupnp_a_LIBADD = \@HTTP_LIBS\@ \@XML_LIBS\@ \$(CODE_COVERAGE_LIBS)
 #endif
 FOTTER

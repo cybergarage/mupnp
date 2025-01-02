@@ -499,7 +499,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -I$(top_srcdir)/include -I../
+AM_CPPFLAGS = -I$(top_srcdir)/include -I../ $(CODE_COVERAGE_CPPFLAGS)
 noinst_HEADERS = \
 	../ClinkUnitTest.h \
 	../TestDevice.h
@@ -521,9 +521,9 @@ mupnptest_SOURCES = \
 	../ServiceTest.cpp
 
 #if HAVE_LIBTOOL
-#mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@
+#mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@ $(CODE_COVERAGE_LIBS)
 #else
-mupnptest_LDADD = ../../lib/unix/libmupnp.a @XML_LIBS@
+mupnptest_LDADD = ../../lib/unix/libmupnp.a @XML_LIBS@ $(CODE_COVERAGE_LIBS)
 all: all-am
 
 .SUFFIXES:

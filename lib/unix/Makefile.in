@@ -609,7 +609,7 @@ nobase_libmupnpinclude_HEADERS = \
 #if HAVE_LIBTOOL
 #libmupnp_la_SOURCES = \
 #        $(mupnp_source)
-#libmupnp_la_LIBADD = @HTTP_LIBS@ @XML_LIBS@
+#libmupnp_la_LIBADD = @HTTP_LIBS@ @XML_LIBS@ $(CODE_COVERAGE_LIBS)
 #else
 libmupnp_a_SOURCES = \
         $(mupnp_sources)
@@ -2937,7 +2937,7 @@ uninstall-am: uninstall-libLIBRARIES \
 
 .PRECIOUS: Makefile
 
-#libmupnp_a_LIBADD = @HTTP_LIBS@ @XML_LIBS@
+#libmupnp_a_LIBADD = @HTTP_LIBS@ @XML_LIBS@ $(CODE_COVERAGE_LIBS)
 #endif
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
