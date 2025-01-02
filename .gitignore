@@ -43,3 +43,6 @@ config.log
 *.Po
 .dirstamp
 Makefile
+
+# Coverage
+*.gcno
