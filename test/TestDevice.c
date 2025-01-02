@@ -207,18 +207,15 @@ bool upnp_test_queryreceived(mUpnpStateVariable* statVar)
 
 void upnp_test_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
 {
-  mUpnpTime currTime;
-  mUpnpDevice* dev;
+  // mUpnpTime currTime;
+  // mUpnpDevice* dev;
   char* uri;
   char content[2048];
-  /*
-	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
- char serverName[MUPNP_SEVERNAME_MAXLEN];
-*/
+	// char sysTimeStr[SYSTEM_TIME_BUF_LEN];
+  // char serverName[MUPNP_SEVERNAME_MAXLEN];
   mUpnpHttpResponse* httpRes;
-  bool postRet;
 
-  dev = (mUpnpDevice*)mupnp_http_request_getuserdata(httpReq);
+  // dev = (mUpnpDevice*)mupnp_http_request_getuserdata(httpReq);
 
   uri = mupnp_http_request_geturi(httpReq);
   if (strcmp(uri, "/presentation") != 0) {
@@ -226,7 +223,7 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
     return;
   }
 
-  currTime = mupnp_getcurrentsystemtime();
+  // currTime = mupnp_getcurrentsystemtime();
 
   /*
 #if defined(HAVE_SNPRINTF)
@@ -278,7 +275,7 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
   mupnp_http_response_setcontent(httpRes, content);
   mupnp_http_response_setcontenttype(httpRes, "text/html");
   mupnp_http_response_setcontentlength(httpRes, strlen(content));
-  postRet = mupnp_http_request_postresponse(httpReq, httpRes);
+  mupnp_http_request_postresponse(httpReq, httpRes);
   mupnp_http_response_delete(httpRes);
 }
 
