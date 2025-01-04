@@ -4,8 +4,6 @@
 [![Build Status](https://github.com/cybergarage/mupnp/actions/workflows/make.yml/badge.svg)](https://github.com/cybergarage/mupnp/actions/workflows/make.yml)
 [![doxygen](https://github.com/cybergarage/mupnp/actions/workflows/doxygen.yml/badge.svg)](http://cybergarage.github.io/mupnp/)
 
-## Overview
-
 **mUPnP for C**is a development package for UPnP™ developers. mUPnP
 controls these protocols automatically, and supports to create your
 devices and control points quickly.
