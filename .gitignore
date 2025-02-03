@@ -38,7 +38,7 @@ xcuserdata/
 # Automake
 aclocal.m4
 autom4te.cache/
-config.log
+config.*
 .deps/
 *.Po
 .dirstamp
