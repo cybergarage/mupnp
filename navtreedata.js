@@ -70,5 +70,5 @@ var NAVTREEINDEX =
 "uri_8h.html#a61d13ab8743fed86c965bd1c91459ec5"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'click to disable panel synchronization';
+var SYNCOFFMSG = 'click to enable panel synchronization';
