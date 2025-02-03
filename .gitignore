@@ -36,7 +36,6 @@ xcuserdata/
 *.class
 
 # Automake
-aclocal.m4
 autom4te.cache/
 config.*
 .deps/
