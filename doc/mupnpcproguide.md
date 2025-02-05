@@ -156,112 +156,7 @@ The above static structure diagram is modified simplify to explain.
 
 At first, you have to make some description files of your devices and the services when you want to create your UPnP™ device..
 
-+---------------------------------------------------------------------------+--------------------------------------------------------------------------+
-| \                                                                       | +------------------------------------------------------------------+---+ |
-|                                                                           | | filename : /yourdevice/descripton/service/name/descriptoin.xml   |   | |
-| \<                                                                        | +:=================================================================+:==+ |
-|                                                                           | | \<?xml version=\"1.0\"?\                                       |   | |
-| ?xml version=\"1.0\" ?                                                    | |                                                                  |   | |
-|                                                                           | | \<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\" \            |   | |
-| \<                                                                        | |                                                                  |   | |
-|                                                                           | | \...\.....                                                       |   | |
-| root xmlns=\"urn:schemas-upnp-org:device-1-0\"                            | |                                                                  |   | |
-|                                                                           | | \<actionList\                                                  |   | |
-| \                                                                       | |                                                                  |   | |
-|                                                                           | | \...\.....                                                       |   | |
-| \...\.....                                                                | |                                                                  |   | |
-|                                                                           | | \<action\                                                      |   | |
-| \<device\                                                               | |                                                                  |   | |
-|                                                                           | | \...\.....                                                       |   | |
-| \...\.....                                                                | |                                                                  |   | |
-|                                                                           | | \</action\                                                     |   | |
-| \<serviceList\                                                          | |                                                                  |   | |
-|                                                                           | | \</actionList\\<serviceStateTable\                           |   | |
-| \...\.....                                                                | |                                                                  |   | |
-|                                                                           | | \...\.....                                                       |   | |
-| \<service\                                                              | |                                                                  |   | |
-|                                                                           | | \<stateVariable\                                               |   | |
-| \...\.....                                                                | |                                                                  |   | |
-|                                                                           | | \...\.....                                                       |   | |
-| \<SCPDURL\                                                              | |                                                                  |   | |
-|                                                                           | | \</stateVariable\                                              |   | |
-| [/service/name/description.xml]{.underline}                               | |                                                                  |   | |
-|                                                                           | | \</serviceStateTable\                                          |   | |
-| \                                                                       | |                                                                  |   | |
-|                                                                           | | \</scpd\                                                       |   | |
-| /SCPDURL                                                                  | +------------------------------------------------------------------+---+ |
-|                                                                           |                                                                          |
-| \<                                                                        |                                                                          |
-|                                                                           |                                                                          |
-| \</service\                                                             |                                                                          |
-|                                                                           |                                                                          |
-| \</serviceList\                                                         |                                                                          |
-|                                                                           |                                                                          |
-| \<presentationURL\                                                      |                                                                          |
-|                                                                           |                                                                          |
-| [/presentation.html]{.underline}                                          |                                                                          |
-|                                                                           |                                                                          |
-| \<                                                                        |                                                                          |
-|                                                                           |                                                                          |
-| /presentationURL                                                          |                                                                          |
-|                                                                           |                                                                          |
-| \                                                                       |                                                                          |
-|                                                                           |                                                                          |
-| \<iconList\                                                             |                                                                          |
-|                                                                           |                                                                          |
-| \<icon\                                                                 |                                                                          |
-|                                                                           |                                                                          |
-| \...\.....                                                                |                                                                          |
-|                                                                           |                                                                          |
-| \<url\                                                                  |                                                                          |
-|                                                                           |                                                                          |
-| [/icon.gif]{.underline}                                                   |                                                                          |
-|                                                                           |                                                                          |
-| \<                                                                        |                                                                          |
-|                                                                           |                                                                          |
-| /url                                                                      |                                                                          |
-|                                                                           |                                                                          |
-| \                                                                       |                                                                          |
-|                                                                           |                                                                          |
-| \</icon\                                                                |                                                                          |
-|                                                                           |                                                                          |
-| \</iconList\                                                            |                                                                          |
-|                                                                           |                                                                          |
-| \</device\                                                              |                                                                          |
-|                                                                           |                                                                          |
-| \<                                                                        |                                                                          |
-|                                                                           |                                                                          |
-| /root                                                                     |                                                                          |
-|                                                                           |                                                                          |
-| \                                                                       |                                                                          |
-|                                                                           |                                                                          |
-| filename : /yourdevice/descripton/descriptoin.xml                         |                                                                          |
-+===========================================================================+==========================================================================+
-|                                                                           | +----------------------------------------------------------------+-----+ |
-|                                                                           | | filename : /yourdevice/presentation.html                       |     | |
-|                                                                           | +:===============================================================+:====+ |
-|                                                                           | | \<html\                                                      |     | |
-|                                                                           | |                                                                |     | |
-|                                                                           | | \<head\                                                      |     | |
-|                                                                           | |                                                                |     | |
-|                                                                           | | \...\.....                                                     |     | |
-|                                                                           | |                                                                |     | |
-|                                                                           | | \</head\\<body\                                            |     | |
-|                                                                           | |                                                                |     | |
-|                                                                           | | \...\.....                                                     |     | |
-|                                                                           | |                                                                |     | |
-|                                                                           | | \</body\                                                     |     | |
-|                                                                           | |                                                                |     | |
-|                                                                           | | \</html\                                                     |     | |
-|                                                                           | +----------------------------------------------------------------+-----+ |
-+---------------------------------------------------------------------------+--------------------------------------------------------------------------+
-|   ----------------------------------------------------------------------- |                                                                          |
-|   filename : /yourdevice/icon.gif                                         |                                                                          |
-|   ---------------------------------------------------------------- ------ |                                                                          |
-|                                                                           |                                                                          |
-|                                                                           |                                                                          |
-|   ----------------------------------------------------------------------- |                                                                          |
-+---------------------------------------------------------------------------+--------------------------------------------------------------------------+
+![](img/mupnpc-device-description.png)
 
 The description of the root device should not have URLBase element because the element is added automatically when the device is created using the description.
 
@@ -275,97 +170,47 @@ The device is created as a root device, and only the root device can be active u
 
 cg_upnp_device_stop(). The following shows an example of the initiating device.
 
-#include \<cybergarage/upnp/cupnp.h\
-
+```
+#include <cybergarage/upnp/cupnp.h>
 ......
-
-const char DEVICE_DESCRIPTION\[\] =
-
-\"\<?xml version=\\\"1.0\\\" ?\>\\n\"
-
-\"\<root xmlns=\\\"urn:schemas-upnp-org:device-1-0\\\"\>\\n\"
-
-. . . .
-
-\"\</root\>\";
-
-const char SERVICE_DESCRIPTION\[\] =
-
-\"\<?xml version=\\\"1.0\\\"?\>\\n\"
-
-\"\<scpd xmlns=\\\"urn:schemas-upnp-org:service-1-0\\\" \>\\n\"
-
-. . . .
-
-"\</scpd\>";
-
+const char DEVICE_DESCRIPTION[] =
+"<?xml version=\"1.0\" ?>\n"
+"<root xmlns=\"urn:schemas-upnp-org:device-1-0\">\n"
+....
+"</root>";
+const char SERVICE_DESCRIPTION[] =
+"<?xml version=\"1.0\"?>\n"
+"<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\" >\n"
+....
+“</scpd>”;
 ......
-
 CgUpnpDevice *dev;
-
-BOOL parseSuccess;
-
-CgUpnpService *service;
-
+BOOL parseSuccess; CgUpnpService *service;
 dev = cg_upnp_device_new();
-
 if (cg_upnp_device_parsedescription(dev, DEVICE_DESCRIPTION, sizeof(DEVICE_DESCRIPTION)) == FALSE) {
-
-......
-
+  ......
 }
-
-service = cg_upnp_device_getservicebyname(dev, \"urn:schemas-upnp-org:serviceId:xxxxx:1\");
-
+service = cg_upnp_device_getservicebyname(dev, "urn:schemas-upnp-org:serviceId:xxxxx:1");
 if (cg_upnp_service_parsedescription(service, SERVICE_DESCRIPTION, sizeof(SERVICE_DESCRIPTION)) == FALSE) {
-
-......
-
+  ......
 }
-
 ......
-
 cg_upnp_device_start(dev);
-
 ......
-
 cg_upnp_device_stop(dev);
+```
 
 The active root device has some server processes, and returns the responses automatically when a control points sends a request to the device. For example, the device has a HTTP server to return the description files when a
 
-control point gets the description file. The device searches an available port for the HTTP server automatically
+control point gets the description file. The device searches an available port for the HTTP server automatically on the machine when the device is started.
 
-on the machine when the device is started.
-
-HTTP
-
-HTTPMU
-
-HTTPU
-
-GENA
-
-SOAP
-
-Device
-
-Control Point
-
-Control
-
-Description
-
-Notify/Search
-
-Event
-
-Search Response
+![](img/mupnpc-device-ports.png)
 
 The root device is created with the following default parameters, you can change the parameters using the following methods before the root device is started.
 
 |   | Parameter       | Default          | Function                           |
 |---|-----------------|------------------|------------------------------------|
-| 1 | HTTP port       | 4004             | cg_upnp_device_sethttpport ()      |
+| 1 | HTTP port       | 4004             | cg_upnp_device_sethttpport()      |
 | 2 | Description URI | /description.xml | cg_upnp_device_setdescriptionuri() |
 | 3 | Lease time      | 1800             | cg_upnp_device_setleasetime        |
 
@@ -373,47 +218,7 @@ The root device is created with the following default parameters, you can change
 
 Your device is announced using cg_upnp_device_start() to the UPnP™ network using a notify message with ssdp::alive automatically when the device is started. When device is stopped using cg_upnp_device_stop(), a notify message is posted with ssdp::byebye. You can announce the notify messages using cg_upnp_device_announce() and cg_upnp_device\_ byebye().
 
-+-----------------------------------------------------------------------+
-| NOTIFY * HTTP/1.1                                                    |
-|                                                                       |
-| HOST: 239.255.255.250:1900                                            |
-|                                                                       |
-| CACHE-CONTROL: max-age = seconds until advertisement expires          |
-|                                                                       |
-| LOCATION: URL for UPnP description for root device                    |
-|                                                                       |
-| NT: search target                                                     |
-|                                                                       |
-| NTS: ssdp:alive                                                       |
-|                                                                       |
-| SERVER: OS/version UPnP/1.0 product/version                           |
-|                                                                       |
-| USN: advertisement UUID                                               |
-+=======================================================================+
-+-----------------------------------------------------------------------+
-
-Device dev \....
-
-\.....
-
-dev.start();
-
-\.....
-
-+-----------------------------------------------------------------------+
-| NOTIFY * HTTP/1.1                                                    |
-|                                                                       |
-| HOST: 239.255.255.250:1900                                            |
-|                                                                       |
-| NT: search target                                                     |
-|                                                                       |
-| NTS: ssdp:byebye                                                      |
-|                                                                       |
-| USN: advertisement UUID                                               |
-+=======================================================================+
-+-----------------------------------------------------------------------+
-
-dev.stop();
+![](img/mupnpc-device-notify.png)
 
 When a control point sends a search request with M-SEARCH to the UPnP™ network, the active device send the search response to the control point automatically. The device repeats the announcement in the lease time automatically.
 
@@ -680,107 +485,92 @@ cg_upnp_controlpoint_search(ctrlPoint);
 
 Use cg_upnp_controlpoint_getdevices() that returns only root devices to get the discovered device list. The following example outputs friendly names of the root devices.
 
+```
 CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();
-
 ......
-
 cg_upnp_controlpoint_start(ctrlPoint);
-
 ......
-
-CgUpnpDevice *dev; for (dev = cg_upnp_controlpoint_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev)) { char *devName = cg_upnp_device_getgriendlyname(dev);
-
-printf("%s\\n", devName);
-
+CgUpnpDevice *dev;
+for (dev = cg_upnp_controlpoint_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
+  char  *devName = cg_upnp_device_getgriendlyname(dev);
+  printf("%s\\n", devName);
 }
+```
 
 You can find a root device by the friendly name using cg_upnp_controlpoint_getdevicebyname(). The following example gets a root device by the friendly name.
 
+```
 CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();
-
 ......
-
 cg_upnp_controlpoint_start(ctrlPoint);
-
 ......
-
 CgUpnpDevice *dev = cg_upnp_controlpoint_getdevicebyname(ctrlPoint, "xxxx-xxxx-xxxx");
+```
 
 ## 4.6 Control
 
 The control point can send action or query control messages to the discovered devices. To send the action control message, use cg_upnp_argument_setvalue() and cg_upnp_action_post(). You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.
 
-CgUpnpDevice *clockDev = \....
-
+```
+CgUpnpDevice *clockDev = ......
 CgUpnpAction *setTimeAct = cg_upnp_device_getactionbyname("SetTime");
-
-CgUpnpArgument *timeArg = cg_upnp_action_getargumentbyname(setTimeAct, "time"); char *newTime = \....
-
+CgUpnpArgument *timeArg = cg_upnp_action_getargumentbyname(setTimeAct, "time"); 
+char *newTime = ......
 cg_upnp_argument_setvalue(timeArg, newTime);
-
 if (cg_upnp_action_post(setTimeAct) == TRUE) {
-
-CgUpnpArgument *arg; for (arg = cg_upnp_action_getarguments(setTimeAct); arg; arg = cg_upnp_argument_next(arg)) { if (cg_upnp_argument_isoutdirection(arg) == TRUE) printf(\" %s = %s\\n\", cg_upnp_argument_getname(arg), cg_upnp_argument_getvalue(arg));
-
-}
-
+  CgUpnpArgument *arg; 
+  for (arg = cg_upnp_action_getarguments(setTimeAct); arg; arg = cg_upnp_argument_next(arg)) {
+    If (cg_upnp_argument_isoutdirection(arg) == TRUE) 
+      printf(\" %s = %s\\n\", cg_upnp_argument_getname(arg), cg_upnp_argument_getvalue(arg));
+  }
 } else {
-
-printf("UPnP Error (%d) : %s\\n cg_upnp_action_getstatuscode(selTimeAct),
-
-cg_upnp_action_getstatusdescription(selTimeAct));
-
+  printf("UPnP Error (%d) : %s\\n cg_upnp_action_getstatuscode(selTimeAct),
+  cg_upnp_action_getstatusdescription(selTimeAct));
 }
+```
 
 Similarly, to send the query control message, use cg_upnp_statevariable_post(). The following sample posts a query control request, and output the return value.
 
-CgUpnpDevice *clockDev = \....
-
-CgUpnpStateVariable *timeStateVar = c cg_upnp_device_getstatevariablebyname("time"); if (cg_upnp_statevariable_post(timeStateVar) == TRUE) {
-
-char *value = cg_upnp_statevariable_getvalue();
-
-\...\...
-
-} else { printf("UPnP Error (%d) : %s\\n cg_upnp_statevariable_getstatuscode(selTimeAct),
-
-cg_upnp_statevariable_getstatusdescription(selTimeAct));
-
+```
+CgUpnpDevice *clockDev = ....
+.....
+CgUpnpStateVariable *timeStateVar = c cg_upnp_device_getstatevariablebyname("time");
+if (cg_upnp_statevariable_post(timeStateVar) == TRUE) {
+  char *value = cg_upnp_statevariable_getvalue();
+  .....
+} else {
+  printf("UPnP Error (%d) : %s\\n"
+    cg_upnp_statevariable_getstatuscode(selTimeAct),
+    cg_upnp_statevariable_getstatusdescription(selTimeAct));
 }
+```
 
 ## 4.7 Event
 
 The control point can subscribe events of the discovered devices. To get the state changes of the services, Use cg_upnp_controlpoint_subscribe() to subscribe the service events, and set the event listener function using cg_upnp_controlpoint_seteventlistener(). The
 
-void EventListener(CgUpnpProperty *prop)
-
-{
-
-printf(\"Property Changed (%s) = %s\\n\", cg_upnp_property_getname(prop),
-
-cg_upnp_property_getvalue(prop));
-
+```
+void EventListener(CgUpnpProperty *prop) {
+  printf(\"Property Changed (%s) = %s\\n\", cg_upnp_property_getname(prop),
+  cg_upnp_property_getvalue(prop));
 }
-
 CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();
-
 ......
-
-cg_upnp_controlpoint_seteventlistener(ctrlPoint, EventListener); cg_upnp_controlpoint_start(ctrlPoint);
+cg_upnp_controlpoint_seteventlistener(ctrlPoint, EventListener);
+cg_upnp_controlpoint_start(ctrlPoint);
+```
 
 The cg_upnp_controlpoint_subscribe() returns true when the subscription is accepted from the service, and you can get the subscription id and timeout.
 
-CgUpnpControlPoint *ctrlPoint = \.....
-
+```
+CgUpnpControlPoint *ctrlPoint = \
+.....
 CgUpnpDevice *clockDev = cg_upnp_controlpoint_getdevicebyname(ctrlPoint, "xxxx-clock");
-
 CgUpnpService *timeService = cg_upnp_device_getservice(clockDev, "time:1"); if (cg_upnp_controlpoint_subscribe(ctrlPoint, timeService) == TRUE) {
-
-char *sid = cg_upnp_service_getsubscriptionsid(timeService);
-
-......
-
+  char *sid = cg_upnp_service_getsubscriptionsid(timeService);
+  ......
 }
+```
 
 # 5 License
 
@@ -791,9 +581,7 @@ Copyright (c) 2005-2006, Theo Beisch Collectively the Copyright Owners All right
 Subject to the below, redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
 
 -   Redistributions of source code must retain the above copyright notice, this list of conditions and thefollowing disclaimer.
-
 -   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and thefollowing disclaimer in the documentation and/or other materials provided with the distribution.
-
 -   Neither the names of the Copyright Owners nor the names of its contributors may be used to endorse orpromote products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT OWNERS AND CONTRIBUTORS \"AS IS\" AND
