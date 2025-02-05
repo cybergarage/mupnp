@@ -365,15 +365,11 @@ Search Response
 
 The root device is created with the following default parameters, you can change the parameters using the following methods before the root device is started.
 
-+-----+-------------------+--------------------+------------------------------------+
-|     | Parameter       | Default          | Function                           |
-+:====+:==================+:===================+:===================================+
+|   | Parameter       | Default          | Function                           |
+|---|-----------------|------------------|------------------------------------|
 | 1 | HTTP port       | 4004             | cg_upnp_device_sethttpport ()      |
-+-----+-------------------+--------------------+------------------------------------+
 | 2 | Description URI | /description.xml | cg_upnp_device_setdescriptionuri() |
-+-----+-------------------+--------------------+------------------------------------+
 | 3 | Lease time      | 1800             | cg_upnp_device_setleasetime        |
-+-----+-------------------+--------------------+------------------------------------+
 
 ## 3.4 Notify
 
@@ -581,17 +577,12 @@ cg_upnp_statevariable_setvalue(timeVar, timeStr);
 
 Using the following functions, you can set your original data to the objects. The default user data are NULL.
 
-  -------------------------------------------------------------------------------------------------
-  Object                setter                                getter
-  --------------------- ------------------------------------- -------------------------------------
-  CgUpnpDevice          cg_upnp_device_setuserdata()          cg_upnp_device_getuserdata()
-
-  CgUpnpService         cg_upnp_service_setuserdata()         cg_upnp_service_getuserdata()
-
-  CgUpnpAction          cg_upnp_action_setuserdata()          cg_upnp_action_getuserdata()
-
-  CgUpnpStateVariable   cg_upnp_statevariable_setuserdata()   cg_upnp_statevariable_getuserdata()
-  -------------------------------------------------------------------------------------------------
+| Object              |setter                               | getter
+|---------------------|-------------------------------------|-------------------------------------
+| CgUpnpDevice        | cg_upnp_device_setuserdata()        | cg_upnp_device_getuserdata()|
+| CgUpnpService       | cg_upnp_service_setuserdata()       | cg_upnp_service_getuserdata()|
+| CgUpnpAction        | cg_upnp_action_setuserdata()        | cg_upnp_action_getuserdata()|
+| CgUpnpStateVariable | cg_upnp_statevariable_setuserdata() | cg_upnp_statevariable_getuserdata()|
 
 The following sample sets a structure data to a device object.
 
@@ -647,17 +638,12 @@ The active control point has some server processes, and returns the responses au
 
 The control point is created with the following default parameters. You can change the parameters using the following methods before the control point is started.
 
-+-----+------------------+-------------+--------------------------------------------+
-|     | Parameter        | Default   | Function                                   |
-+:====+:=================+:============+:===========================================+
+|   | Parameter        | Default   | Function                                   |
+|---|------------------|-----------|--------------------------------------------|
 | 1 | HTTP port        | 39500     | cg_upnp_controlpoint_seteventport()        |
-+-----+------------------+-------------+--------------------------------------------+
 | 2 | SSDP port        | 39400     | cg_upnp_controlpoint_setssdpresponseport() |
-+-----+------------------+-------------+--------------------------------------------+
 | 3 | Subscription URI | /eventSub | cg_upnp_controlpoint_seteventsuburi()      |
-+-----+------------------+-------------+--------------------------------------------+
 | 4 | Search Response  | 3         | cg_upnp_controlpoint_setssdpsearchmx()     |
-+-----+------------------+-------------+--------------------------------------------+
 
 ## 4.3 Notify
 
@@ -822,9 +808,7 @@ char \*sid = cg_upnp_service_getsubscriptionsid(timeService);
 # 5 License
 
 Copyright (c) 2004-2006, Satoshi Konno
-
 Copyright (c) 2005-2006, Nokia Corporation
-
 Copyright (c) 2005-2006, Theo Beisch Collectively the Copyright Owners All rights reserved.
 
 Subject to the below, redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -836,31 +820,19 @@ Subject to the below, redistribution and use in source and binary forms, with or
 -   Neither the names of the Copyright Owners nor the names of its contributors may be used to endorse orpromote products derived from this software without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT OWNERS AND CONTRIBUTORS \"AS IS\" AND
-
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-
 DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-
 FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-
 DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-
 SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
-
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 While any of the respective Copyright Owners licenses and/or distributes this software and any files contained therein under its or third party copyrights, for clarification it is hereby stated that no patent license explicit or
-
 implied is granted by any of the Copyright Owners in connection to this license or distribution of this software.
 
 In addition to the disclaimer above and not limiting its generality, no assurances are provided by the Copyright Owners that the software does not infringe patents of either third parties or any of the Copyright Owners in any particular jurisdiction. As a condition to exercising the rights and licenses granted hereunder in any particular jurisdiction, each recipient hereby assumes sole responsibility to procure licenses under any relevant patents in that jurisdiction. For example, if a third party patent license is required to allow recipient to distribute the program in a particular country, it is the recipient\'s responsibility to acquire that license before distributing the program.
 
-This software has been supported by IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY,
-
-JAPAN, as a project of Exploratory Software Project.
+This software has been supported by IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY, JAPAN, as a project of Exploratory Software Project.
 
 [^1]: UPnP™ is a certification mark of the UPnP™ Implementers Corporation.　
