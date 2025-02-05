@@ -232,7 +232,7 @@ The devices may have some embedded devices. cg_upnp_device_getdevices() and cg_u
 
 ```
 void PrintDevice(CgUpnpDevice *dev) {
-  char *devName = cg_upnp_device_getfriendlyname(dev); printf("%s\\n", devName);
+  char *devName = cg_upnp_device_getfriendlyname(dev); printf("%s\n", devName);
   CgUpnpDevice *childDevList; 
   for (childDev = cg_upnp_device_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev))
     PrintDevice(childDev);
@@ -262,9 +262,9 @@ CgUpnpAction *action;
 CgUpnpStateVariable *statVar;
 for (service = cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) {
   for (action = cg_upnp_service_getactions(service); action != NULL; action = cg_upnp_action_next(action)) {
-    printff("%s\\n", cg_upnp_action_getname(action));
+    printff("%s\n", cg_upnp_action_getname(action));
     for (statVar = cg_upnp_service_getstatevariables(service); statVar != NULL; statVar = cg_upnp_statevariable_next(statVar))
-      printf("%s\\n", cg_upnp_statevariable_getname(statVar);
+      printf("%s\n", cg_upnp_statevariable_getname(statVar);
     }
   }
 }
@@ -466,7 +466,7 @@ cg_upnp_controlpoint_start(ctrlPoint);
 CgUpnpDevice *dev;
 for (dev = cg_upnp_controlpoint_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev)) {
   char  *devName = cg_upnp_device_getgriendlyname(dev);
-  printf("%s\\n", devName);
+  printf("%s\n", devName);
 }
 ```
 
@@ -494,10 +494,10 @@ if (cg_upnp_action_post(setTimeAct) == TRUE) {
   CgUpnpArgument *arg; 
   for (arg = cg_upnp_action_getarguments(setTimeAct); arg; arg = cg_upnp_argument_next(arg)) {
     If (cg_upnp_argument_isoutdirection(arg) == TRUE) 
-      printf(\" %s = %s\\n\", cg_upnp_argument_getname(arg), cg_upnp_argument_getvalue(arg));
+      printf(\" %s = %s\n\", cg_upnp_argument_getname(arg), cg_upnp_argument_getvalue(arg));
   }
 } else {
-  printf("UPnP Error (%d) : %s\\n cg_upnp_action_getstatuscode(selTimeAct),
+  printf("UPnP Error (%d) : %s\n cg_upnp_action_getstatuscode(selTimeAct),
   cg_upnp_action_getstatusdescription(selTimeAct));
 }
 ```
@@ -512,7 +512,7 @@ if (cg_upnp_statevariable_post(timeStateVar) == TRUE) {
   char *value = cg_upnp_statevariable_getvalue();
   .....
 } else {
-  printf("UPnP Error (%d) : %s\\n"
+  printf("UPnP Error (%d) : %s\n"
     cg_upnp_statevariable_getstatuscode(selTimeAct),
     cg_upnp_statevariable_getstatusdescription(selTimeAct));
 }
@@ -524,7 +524,7 @@ The control point can subscribe events of the discovered devices. To get the sta
 
 ```
 void EventListener(CgUpnpProperty *prop) {
-  printf(\"Property Changed (%s) = %s\\n\", cg_upnp_property_getname(prop),
+  printf(\"Property Changed (%s) = %s\n\", cg_upnp_property_getname(prop),
   cg_upnp_property_getvalue(prop));
 }
 
