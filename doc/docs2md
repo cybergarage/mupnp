@@ -1,0 +1,9 @@
+#!/bin/bash
+cd /Users/skonno/Src/mupnp/doc
+
+DOC_FILES=("mupnpcproguide.docx" "mupnpobjcproguide.docx")
+PANDOC_PARAMS="-f docx -t markdown --wrap=none"
+
+for DOC_FILE in "${DOC_FILES[@]}"; do
+    pandoc ${PANDOC_PARAMS} "${DOC_FILE}" -o "${DOC_FILE%.docx}.md"
+done
