@@ -172,7 +172,9 @@ cg_upnp_device_stop(). The following shows an example of the initiating device.
 
 ```
 #include <cybergarage/upnp/cupnp.h>
+
 ......
+
 const char DEVICE_DESCRIPTION[] =
 "<?xml version=\"1.0\" ?>\n"
 "<root xmlns=\"urn:schemas-upnp-org:device-1-0\">\n"
@@ -183,7 +185,9 @@ const char SERVICE_DESCRIPTION[] =
 "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\" >\n"
 ....
 “</scpd>”;
+
 ......
+
 CgUpnpDevice *dev;
 BOOL parseSuccess; CgUpnpService *service;
 dev = cg_upnp_device_new();
@@ -224,53 +228,45 @@ When a control point sends a search request with M-SEARCH to the UPnP™ network
 
 ## 3.5 Embedded Devices
 
-The devices may have some embedded devices. cg_upnp_device_getdevices() and cg_upnp_device_next() to get the embedded device list. The following example outputs friendly names of all embedded devices in a root
+The devices may have some embedded devices. cg_upnp_device_getdevices() and cg_upnp_device_next() to get the embedded device list. The following example outputs friendly names of all embedded devices in a root device.
 
-device.
-
-void PrintDevice(CgUpnpDevice *dev)
-
-{
-
-char *devName = cg_upnp_device_getfriendlyname(dev); printf("%s\\n", devName);
-
-CgUpnpDevice *childDevList; for (childDev = cg_upnp_device_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev)) PrintDevice(childDev);
-
+```
+void PrintDevice(CgUpnpDevice *dev) {
+  char *devName = cg_upnp_device_getfriendlyname(dev); printf("%s\\n", devName);
+  CgUpnpDevice *childDevList; for (childDev = cg_upnp_device_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev)) PrintDevice(childDev);
 }
-
-\...\...
-
-CgUpnpDevice *rootDev = \....;
-
 ......
+CgUpnpDevice *rootDev = ......;
+......
+```
 
 CgUpnpDevice *childDev; for (childDev = cg_upnp_device_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev)) PrintDevice(childDev);
 
 You can find a embedded device by the friendly name or UDN using cg_upnp_device_getdevicebyname(). The following example gets a embedded device by the friendly name.
 
-CgUpnpDevice *homeServerDev \....
-
+```
+CgUpnpDevice *homeServerDev = ......
 CgUpnpDevice *musicDev = cg_upnp_device_getdevicebyname("music");
+```
 
 ## 3.6 Service
 
-Use cg_upnp_device_getservices() to access embedded services of the device. The service may have some actions and state variables. Use cg_upnp_service_getactions() and cg_upnp_action_next() to get the actions, and use cg_upnp_service_getstatevariables() and cg_upnp_statevariable_next() to the state variables. The following
+Use cg_upnp_device_getservices() to access embedded services of the device. The service may have some actions and state variables. Use cg_upnp_service_getactions() and cg_upnp_action_next() to get the actions, and use cg_upnp_service_getstatevariables() and cg_upnp_statevariable_next() to the state variables. The following example outputs the all actions and state variables in a device.
 
-example outputs the all actions and state variables in a device.
-
-CgUpnpDevice *dev \....
-
+```
+CgUpnpDevice *dev = ......
 CgUpnpService *service;
-
 CgUpnpAction *action;
-
-CgUpnpStateVariable *statVar; for (service = cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) { for (action = cg_upnp_service_getactions(service); action != NULL; action = cg_upnp_action_next(action))
-
-printff("%s\\n", cg_upnp_action_getname(action)); for (statVar = cg_upnp_service_getstatevariables(service); statVar != NULL; statVar = cg_upnp_statevariable_next(statVar))
-
-printf("%s\\n", cg_upnp_statevariable_getname(statVar);
-
+CgUpnpStateVariable *statVar;
+for (service = cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) {
+  for (action = cg_upnp_service_getactions(service); action != NULL; action = cg_upnp_action_next(action)) {
+    printff("%s\\n", cg_upnp_action_getname(action));
+    for (statVar = cg_upnp_service_getstatevariables(service); statVar != NULL; statVar = cg_upnp_statevariable_next(statVar))
+      printf("%s\\n", cg_upnp_statevariable_getname(statVar);
+    }
+  }
 }
+```
 
 You can find a service in the device by the service ID using cg_upnp_device_getservicebyname(), and you can find an action or state variable in the service by the name too. cg_upnp_device_getactionbyname() or
 
@@ -278,13 +274,12 @@ cg_upnp_service_getactionbyname() to find the action, and use cg_upnp_device_get
 
 a service, an action and a state variable in a device by the name.
 
-CgUpnpDevice *clockDev \....
-
+```
+CgUpnpDevice *clockDev = ......
 CgUpnpService *timerSev = cg_upnp_device_getservicebyname(clockDev, "timer");
-
 CgUpnpAction *getTimeAct = cg_upnp_device_getaction(clockDev, "GetTime");
-
 CgUpnpStateVariable *timeStat = cg_upnp_device_getstatevariable(clockDev, "time");
+```
 
 ## 3.7 Control
 
@@ -294,87 +289,62 @@ To receive query control events from control points, the device needs to impleme
 
 The following sample is a clock device. The device executes two action control requests and a query control request.
 
-BOOL UpnpClockActionControlRecieved(CgUpnpAction *action)
-
-{
-
-char *actionName = cg_upnp_action_getname(action);
-
-if (strcmp(actionName, \"SetTime\") == 0 {
-
-CgUpnpArgument *inTime = cg_upnp_action_getargumentbyname(action, "time"); char *timeValue = cg_upnp_argument_getvalue(inTime); If (timeValue == NULL \|\| strlen(timeValue) \<= 0) return FALSE;
-
-........
-
-CgUpnpArgument *outResult = cg_upnp_action_getargumentbyname("result");
-
-cg_upnp_argument_setvalue("OK");
-
-return TRUE;
-
+```
+BOOL UpnpClockActionControlRecieved(CgUpnpAction *action) {
+  char *actionName = cg_upnp_action_getname(action);
+  if (strcmp(actionName, "SetTime") == 0 {
+    CgUpnpArgument *inTime = cg_upnp_action_getargumentbyname(action, "time");
+    char *timeValue = cg_upnp_argument_getvalue(inTime);
+    If (timeValue == NULL || strlen(timeValue) \<= 0)
+      return FALSE;
+    ........
+    CgUpnpArgument *outResult = cg_upnp_action_getargumentbyname("result");
+    cg_upnp_argument_setvalue("OK");
+    return TRUE;
+  }
+  else if (strcmp(actionName, "GetTime") == 0) {
+    char *currTimeStr = .....
+    CgUpnpArgument *currTimeArg = cg_upnp_action_getargumentbyname("currTime");
+    cg_upnp_argument_setvalue(currTimeStr);
+    return TRUE;
+  }
+  return FALSE;
 }
 
-else if (strcmp(actionName, "GetTime") == 0) {
-
-char *currTimeStr = .....
-
-CgUpnpArgument *currTimeArg = cg_upnp_action_getargumentbyname("currTime");
-
-cg_upnp_argument_setvalue(currTimeStr);
-
-return TRUE;
-
+BOOL UpnpClockQueryControlReceived(CgUpnpStatusVariable *stateVar) {
+  varName = cg_upnp_statevariable_getname(statVar);
+  if (strcmp(varName, "Time") == 0) {
+    char *currTimeStr = ....;
+    cg_upnp_statevariable_setvaluecurrTimeStr);
+    return TRUE;
+  }
+  return FALSE;
 }
-
-return FALSE;
-
-}
-
-BOOL UpnpClockQueryControlReceived(CgUpnpStatusVariable *stateVar)
-
-{
-
-varName = cg_upnp_statevariable_getname(statVar);
-
-if (strcmp(varName, "Time") == 0) {
-
-char *currTimeStr = ....;
-
-cg_upnp_statevariable_setvaluecurrTimeStr);
-
-return TRUE;
-
-}
-
-return FALSE;
-
-}
-
-}
+```
 
 Use cg_upnp_action_setlistner() to set the action listener to a action. To set the listener to all actions in a device or service, use cg_upnp_device_setactionlistener() or cg_upnp_service_setactionlistener().
 
 Similarly, Use cg_upnp_statevariable_setlistner() to set the query listener to a state variable. To set the listener to all state variables in a device or a service, use cg_upnp_device_setquerylistener() or cg_upnp_service_setquerylistener(). The following sample sets a listener into all actions in a device.
 
+```
 CgUpnpDevice *clockDev = cg_upnp_device_new();
-
 .......
-
-cg_upnp_clock_device_setactionlistner(clockDev, UpnpClockActionControlRecieved); cg_upnp_clock_device_setquerylistner(clockDev, UpnpClockQueryControlReceived);
+cg_upnp_clock_device_setactionlistner(clockDev, UpnpClockActionControlRecieved);
+cg_upnp_clock_device_setquerylistner(clockDev, UpnpClockQueryControlReceived);
+```
 
 ## 3.8 Event
 
-The control point may subscribe some events of the device. You don't need manage the subscription messages from control points because the device manages the subscription messages automatically. For example, the device adds a control point into the subscriber list when the control point sends a subscription message to the device, or the device removes the control point from the subscriber list when the control point sends a
-
-unsubscription message.
+The control point may subscribe some events of the device. You don't need manage the subscription messages from control points because the device manages the subscription messages automatically. For example, the device adds a control point into the subscriber list when the control point sends a subscription message to the device, or the device removes the control point from the subscriber list when the control point sends a unsubscription message.
 
 Use cg_upnp_statevariable_setvalue() when you want to send the state to the subscribers. The event is sent to the subscribers automatically when the state variable is updated using cg_upnp_statevariable_setvalue(). The following example updates a state variable, and the updated state is distributed to the subscribers automatically.
 
-CgUpnpDevice *clockDevice = \....
-
-CgUpnpStateVariable *timeVar = cg_upnp_device_getstatevariable (clockDev, \"Time\"); char *timeStr = \.....
-
+```
+CgUpnpDevice *clockDevice = ......
+CgUpnpStateVariable *timeVar = cg_upnp_device_getstatevariable (clockDev, \"Time\"); 
+char *timeStr = .....
 cg_upnp_statevariable_setvalue(timeVar, timeStr);
+```
 
 ## 3.9 User Data
 
@@ -389,19 +359,19 @@ Using the following functions, you can set your original data to the objects. Th
 
 The following sample sets a structure data to a device object.
 
+```
 typedef struct {
-
-int x; int y;
-
+  int x; int y;
 } MyPoint;
 
-MyPoint *myPoint = (MyPoint *)malloc(sizeof(MyPoint); myPoint-\>x = 100; myPoint-\>y = 200; CgUpnpDevice *dev = \....
-
+MyPoint *myPoint = (MyPoint *)malloc(sizeof(MyPoint);
+myPoint->x = 100; 
+myPoint->y = 200; 
+CgUpnpDevice *dev = ......
 cg_upnp_device_setuserdata(dev, myPonint);
-
 .......
-
 MyPoint *devPoint = (MyPoint *)cg_upnp_device_getuserdata(dev);
+```
 
 # 4 Control Point
 
