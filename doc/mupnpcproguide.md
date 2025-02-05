@@ -233,7 +233,9 @@ The devices may have some embedded devices. cg_upnp_device_getdevices() and cg_u
 ```
 void PrintDevice(CgUpnpDevice *dev) {
   char *devName = cg_upnp_device_getfriendlyname(dev); printf("%s\\n", devName);
-  CgUpnpDevice *childDevList; for (childDev = cg_upnp_device_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev)) PrintDevice(childDev);
+  CgUpnpDevice *childDevList; 
+  for (childDev = cg_upnp_device_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev))
+    PrintDevice(childDev);
 }
 ......
 CgUpnpDevice *rootDev = ......;
@@ -425,7 +427,7 @@ void DeviceNotifyReceived(CgUpnpSSDPPacket *ssdpPkt) {
   char *subType = cg_upnp_ssdp_packet_getnts(ssdpPkt); char *where = cg_upnp_ssdp_packet_getlocation(ssdpPkt);
   .....
 }
-.....
+
 CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();
 cg_upnp_controlpoint_setssdplistener(ctrlPoint, DeviceNotifyReceived);
 cg_upnp_controlpoint_start(ctrlPoint);
@@ -446,7 +448,8 @@ void DeviceSearchResponseReceived(CgUpnpSSDPPacket *ssdpPkt) {
   .....
 }
 
-CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new(); cg_upnp_controlpoint_setssdpresponselistener(ctrlPoint, DeviceSearchResponseReceived);
+CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();
+cg_upnp_controlpoint_setssdpresponselistener(ctrlPoint, DeviceSearchResponseReceived);
 cg_upnp_controlpoint_start(ctrlPoint);
 cg_upnp_controlpoint_search(ctrlPoint);
 ```
@@ -524,6 +527,7 @@ void EventListener(CgUpnpProperty *prop) {
   printf(\"Property Changed (%s) = %s\\n\", cg_upnp_property_getname(prop),
   cg_upnp_property_getvalue(prop));
 }
+
 CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();
 ......
 cg_upnp_controlpoint_seteventlistener(ctrlPoint, EventListener);
@@ -533,10 +537,11 @@ cg_upnp_controlpoint_start(ctrlPoint);
 The cg_upnp_controlpoint_subscribe() returns true when the subscription is accepted from the service, and you can get the subscription id and timeout.
 
 ```
-CgUpnpControlPoint *ctrlPoint = \
+CgUpnpControlPoint *ctrlPoint = .....;
 .....
 CgUpnpDevice *clockDev = cg_upnp_controlpoint_getdevicebyname(ctrlPoint, "xxxx-clock");
-CgUpnpService *timeService = cg_upnp_device_getservice(clockDev, "time:1"); if (cg_upnp_controlpoint_subscribe(ctrlPoint, timeService) == TRUE) {
+CgUpnpService *timeService = cg_upnp_device_getservice(clockDev, "time:1"); 
+if (cg_upnp_controlpoint_subscribe(ctrlPoint, timeService) == TRUE) {
   char *sid = cg_upnp_service_getsubscriptionsid(timeService);
   ......
 }
