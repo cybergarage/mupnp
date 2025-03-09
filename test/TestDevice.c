@@ -211,7 +211,7 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
   // mUpnpDevice* dev;
   char* uri;
   char content[2048];
-	// char sysTimeStr[SYSTEM_TIME_BUF_LEN];
+  // char sysTimeStr[SYSTEM_TIME_BUF_LEN];
   // char serverName[MUPNP_SEVERNAME_MAXLEN];
   mUpnpHttpResponse* httpRes;
 
