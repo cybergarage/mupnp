@@ -74,17 +74,17 @@ $(function(){initNavTree('device_8h.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">device.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="typedef_8h.html">mupnp/typedef.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="xml_8h.html">mupnp/xml/xml.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="list_8h.html">mupnp/util/list.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="string_8h.html">mupnp/util/string.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="mutex_8h.html">mupnp/util/mutex.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="thread_8h.html">mupnp/util/thread.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="http_8h.html">mupnp/http/http.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="url_8h.html">mupnp/net/url.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="http_8h.html">mupnp/http/http.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="interface_8h.html">mupnp/net/interface.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="service_8h.html">mupnp/service.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="url_8h.html">mupnp/net/url.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="typedef_8h.html">mupnp/typedef.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="list_8h.html">mupnp/util/list.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="mutex_8h.html">mupnp/util/mutex.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="string_8h.html">mupnp/util/string.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="thread_8h.html">mupnp/util/thread.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="xml_8h.html">mupnp/xml/xml.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="icon_8h.html">mupnp/icon.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="service_8h.html">mupnp/service.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ssdp__server_8h.html">mupnp/ssdp/ssdp_server.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
@@ -1950,7 +1950,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_typedef" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a>*) <a class="code hl_function" href="list_8c.html#a2a9efe9bcae6cdc8ee0783bc4b883cc3">mupnp_list_next</a>((<a class="code hl_typedef" href="list_8h.html#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a>*)dev)</div>
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_typedef" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a>*)<a class="code hl_function" href="list_8c.html#a2a9efe9bcae6cdc8ee0783bc4b883cc3">mupnp_list_next</a>((<a class="code hl_typedef" href="list_8h.html#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a>*)dev)</div>
 <div class="ttc" id="alist_8c_html_a2a9efe9bcae6cdc8ee0783bc4b883cc3"><div class="ttname"><a href="list_8c.html#a2a9efe9bcae6cdc8ee0783bc4b883cc3">mupnp_list_next</a></div><div class="ttdeci">mUpnpList * mupnp_list_next(mUpnpList *list)</div><div class="ttdef"><b>Definition</b> list.c:234</div></div>
 </div><!-- fragment --><p>Get the next device in the device list. Use as an iterator.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -2870,7 +2870,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_typedef" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a>*) <a class="code hl_function" href="list_8c.html#a9ae27195738e53282ea7518009c91f7f">mupnp_list_get</a>((<a class="code hl_typedef" href="list_8h.html#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a>*)devList, index)</div>
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_typedef" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a>*)<a class="code hl_function" href="list_8c.html#a9ae27195738e53282ea7518009c91f7f">mupnp_list_get</a>((<a class="code hl_typedef" href="list_8h.html#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a>*)devList, index)</div>
 </div><!-- fragment --><p>Get an device from the device list by the index</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -2896,7 +2896,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_typedef" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a>*) <a class="code hl_function" href="list_8c.html#a2a9efe9bcae6cdc8ee0783bc4b883cc3">mupnp_list_next</a>((<a class="code hl_typedef" href="list_8h.html#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a>*)devList)</div>
+<b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_typedef" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a>*)<a class="code hl_function" href="list_8c.html#a2a9efe9bcae6cdc8ee0783bc4b883cc3">mupnp_list_next</a>((<a class="code hl_typedef" href="list_8h.html#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a>*)devList)</div>
 </div><!-- fragment --><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo</a></b></dt><dd>Correct description</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
