@@ -4,5 +4,3 @@ BinPackArguments: false
 BinPackParameters: false
 BreakBeforeBraces: Stroustrup
 PenaltyReturnTypeOnItsOwnLine: 1024
-ReflowComments: false
-SortIncludes: false
