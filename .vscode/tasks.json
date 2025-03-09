@@ -2,6 +2,17 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "format",
+            "type": "shell",
+            "command": "./format",
+            "args": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []            
+        }
+        {
             "label": "make check",
             "type": "shell",
             "command": "make",
@@ -14,7 +25,8 @@
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": []
-        }
+            "problemMatcher": [],
+            "dependsOn": ["format"]
+        },
     ]
 }
