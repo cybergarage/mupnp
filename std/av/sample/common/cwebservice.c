@@ -1,23 +1,23 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: rss_func.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: rss_func.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include <mupnp/http/http.h>
 #include <mupnp/xml/xml.h>
 
 /************************************************************
-* mupnp_http_getrestresponse
-************************************************************/
+ * mupnp_http_getrestresponse
+ ************************************************************/
 
 #define CG_HTTP_URLLEN_MAX 512
 
@@ -67,8 +67,8 @@ BOOL mupnp_http_getrestresponse(char* url, mUpnpString* str)
 }
 
 /************************************************************
-* mupnp_http_getrestresponse
-************************************************************/
+ * mupnp_http_getrestresponse
+ ************************************************************/
 
 BOOL mupnp_http_getredirecturl(char* orgURL, char* redirectURL, int redirectURLSize)
 {

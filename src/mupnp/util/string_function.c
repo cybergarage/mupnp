@@ -19,9 +19,9 @@
 #include <ctype.h>
 
 #if defined(WINCE)
-//Theo Beisch - needed for _i64toa_s support -
-// strangely just with the VS2005 ce environment
-// evc4 is only happy without :-(
+// Theo Beisch - needed for _i64toa_s support -
+//  strangely just with the VS2005 ce environment
+//  evc4 is only happy without :-(
 #include <altcecrt.h>
 #endif
 
@@ -30,8 +30,8 @@
 #endif
 
 /****************************************
-* mupnp_strdup
-****************************************/
+ * mupnp_strdup
+ ****************************************/
 
 char* mupnp_strdup(const char* str)
 {
@@ -57,8 +57,8 @@ char* mupnp_strdup(const char* str)
 }
 
 /****************************************
-* mupnp_strlen
-****************************************/
+ * mupnp_strlen
+ ****************************************/
 
 size_t mupnp_strlen(const char* str)
 {
@@ -69,8 +69,8 @@ size_t mupnp_strlen(const char* str)
 }
 
 /****************************************
-* mupnp_strcpy
-****************************************/
+ * mupnp_strcpy
+ ****************************************/
 
 char* mupnp_strcpy(char* dest, const char* src)
 {
@@ -81,8 +81,8 @@ char* mupnp_strcpy(char* dest, const char* src)
 }
 
 /****************************************
-* mupnp_strcat
-****************************************/
+ * mupnp_strcat
+ ****************************************/
 
 char* mupnp_strcat(char* dest, const char* src)
 {
@@ -94,8 +94,8 @@ char* mupnp_strcat(char* dest, const char* src)
 }
 
 /****************************************
-* mupnp_strcmp
-****************************************/
+ * mupnp_strcmp
+ ****************************************/
 
 int mupnp_strcmp(const char* str1, const char* str2)
 {
@@ -110,8 +110,8 @@ int mupnp_strcmp(const char* str1, const char* str2)
 }
 
 /****************************************
-* mupnp_strncmp
-****************************************/
+ * mupnp_strncmp
+ ****************************************/
 
 int mupnp_strncmp(const char* str1, const char* str2, int nchars)
 {
@@ -128,8 +128,8 @@ int mupnp_strncmp(const char* str1, const char* str2, int nchars)
 }
 
 /****************************************
-* mupnp_strcasecmp
-****************************************/
+ * mupnp_strcasecmp
+ ****************************************/
 
 int mupnp_strcasecmp(const char* str1, const char* str2)
 {
@@ -152,8 +152,8 @@ int mupnp_strcasecmp(const char* str1, const char* str2)
 }
 
 /****************************************
-* mupnp_streq
-****************************************/
+ * mupnp_streq
+ ****************************************/
 
 bool mupnp_streq(const char* str1, const char* str2)
 {
@@ -168,8 +168,8 @@ bool mupnp_streq(const char* str1, const char* str2)
 }
 
 /****************************************
-* mupnp_strcaseeq
-****************************************/
+ * mupnp_strcaseeq
+ ****************************************/
 
 bool mupnp_strcaseeq(const char* str1, const char* str2)
 {
@@ -184,8 +184,8 @@ bool mupnp_strcaseeq(const char* str1, const char* str2)
 }
 
 /****************************************
-* mupnp_strstr
-****************************************/
+ * mupnp_strstr
+ ****************************************/
 
 ssize_t mupnp_strstr(const char* haystack, const char* needle)
 {
@@ -205,8 +205,8 @@ ssize_t mupnp_strstr(const char* haystack, const char* needle)
 }
 
 /****************************************
-* mupnp_strchr
-****************************************/
+ * mupnp_strchr
+ ****************************************/
 
 ssize_t mupnp_strchr(const char* str, const char* chars, size_t nchars)
 {
@@ -232,8 +232,8 @@ ssize_t mupnp_strchr(const char* str, const char* chars, size_t nchars)
 }
 
 /****************************************
-* mupnp_strrchr
-****************************************/
+ * mupnp_strrchr
+ ****************************************/
 
 ssize_t mupnp_strrchr(const char* str, const char* chars, size_t nchars)
 {
@@ -257,8 +257,8 @@ ssize_t mupnp_strrchr(const char* str, const char* chars, size_t nchars)
 }
 
 /****************************************
-* mupnp_strtrimwhite
-****************************************/
+ * mupnp_strtrimwhite
+ ****************************************/
 
 char* mupnp_strtrimwhite(char* str)
 {
@@ -286,8 +286,8 @@ char* mupnp_strtrimwhite(char* str)
 }
 
 /****************************************
-* mupnp_strtrim
-****************************************/
+ * mupnp_strtrim
+ ****************************************/
 
 char* mupnp_strtrim(char* str, char* delim, size_t ndelim)
 {
@@ -304,8 +304,8 @@ char* mupnp_strtrim(char* str, char* delim, size_t ndelim)
 }
 
 /****************************************
-* mupnp_strltrim
-****************************************/
+ * mupnp_strltrim
+ ****************************************/
 
 char* mupnp_strltrim(char* str, char* delim, size_t ndelim)
 {
@@ -333,8 +333,8 @@ char* mupnp_strltrim(char* str, char* delim, size_t ndelim)
 }
 
 /****************************************
-* mupnp_strrtrim
-****************************************/
+ * mupnp_strrtrim
+ ****************************************/
 
 char* mupnp_strrtrim(char* str, char* delim, size_t ndelim)
 {
@@ -363,8 +363,8 @@ char* mupnp_strrtrim(char* str, char* delim, size_t ndelim)
 }
 
 /****************************************
-* mupnp_strncpy
-****************************************/
+ * mupnp_strncpy
+ ****************************************/
 
 char* mupnp_strncpy(char* str1, const char* str2, size_t cnt)
 {
@@ -378,8 +378,8 @@ char* mupnp_strncpy(char* str1, const char* str2, size_t cnt)
 }
 
 /****************************************
-* mupnp_strncat
-****************************************/
+ * mupnp_strncat
+ ****************************************/
 
 char* mupnp_strncat(char* str1, const char* str2, size_t cnt)
 {
@@ -394,8 +394,8 @@ char* mupnp_strncat(char* str1, const char* str2, size_t cnt)
 }
 
 /****************************************
-* mupnp_int2str
-****************************************/
+ * mupnp_int2str
+ ****************************************/
 
 const char* mupnp_int2str(int value, char* buf, size_t bufSize)
 {
@@ -413,8 +413,8 @@ const char* mupnp_int2str(int value, char* buf, size_t bufSize)
 }
 
 /****************************************
-* mupnp_long2str
-****************************************/
+ * mupnp_long2str
+ ****************************************/
 
 const char* mupnp_long2str(long value, char* buf, size_t bufSize)
 {
@@ -432,8 +432,8 @@ const char* mupnp_long2str(long value, char* buf, size_t bufSize)
 }
 
 /****************************************
-* mupnp_float2str
-****************************************/
+ * mupnp_float2str
+ ****************************************/
 
 const char* mupnp_float2str(float value, char* buf, size_t bufSize)
 {
@@ -451,8 +451,8 @@ const char* mupnp_float2str(float value, char* buf, size_t bufSize)
 }
 
 /****************************************
-* mupnp_double2str
-****************************************/
+ * mupnp_double2str
+ ****************************************/
 
 const char* mupnp_double2str(double value, char* buf, size_t bufSize)
 {
@@ -470,8 +470,8 @@ const char* mupnp_double2str(double value, char* buf, size_t bufSize)
 }
 
 /****************************************
-* mupnp_sizet2str
-****************************************/
+ * mupnp_sizet2str
+ ****************************************/
 
 const char* mupnp_sizet2str(size_t value, char* buf, size_t bufSize)
 {
@@ -489,8 +489,8 @@ const char* mupnp_sizet2str(size_t value, char* buf, size_t bufSize)
 }
 
 /****************************************
-* mupnp_ssizet2str
-****************************************/
+ * mupnp_ssizet2str
+ ****************************************/
 
 const char* mupnp_ssizet2str(ssize_t value, char* buf, size_t bufSize)
 {

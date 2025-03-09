@@ -16,8 +16,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_filelist_new
-****************************************/
+ * mupnp_filelist_new
+ ****************************************/
 
 mUpnpFileList* mupnp_filelist_new()
 {
@@ -40,8 +40,8 @@ mUpnpFileList* mupnp_filelist_new()
 }
 
 /****************************************
-* mupnp_filelist_delete
-****************************************/
+ * mupnp_filelist_delete
+ ****************************************/
 
 void mupnp_filelist_delete(mUpnpFileList* fileList)
 {

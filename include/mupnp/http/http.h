@@ -12,23 +12,23 @@
 #ifndef _MUPNP_HTTP_HTTP_H_
 #define _MUPNP_HTTP_HTTP_H_
 
-#include <mupnp/typedef.h>
-#include <mupnp/version.h>
-#include <mupnp/util/string.h>
-#include <mupnp/util/list.h>
-#include <mupnp/util/thread.h>
-#include <mupnp/util/time.h>
-#include <mupnp/util/mutex.h>
 #include <mupnp/net/socket.h>
 #include <mupnp/net/url.h>
+#include <mupnp/typedef.h>
+#include <mupnp/util/list.h>
+#include <mupnp/util/mutex.h>
+#include <mupnp/util/string.h>
+#include <mupnp/util/thread.h>
+#include <mupnp/util/time.h>
+#include <mupnp/version.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define MUPNP_HTTP_READLINE_BUFSIZE 512
 #define MUPNP_HTTP_SEVERNAME_MAXLEN 64
@@ -165,8 +165,8 @@ extern "C" {
 #define MUPNP_HTTP_REASON_505 "HTTP Version not supported"
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef struct _mUpnpHttpHeader {
   MUPNP_LIST_STRUCT_MEMBERS
@@ -219,8 +219,8 @@ typedef struct _mUpnpHttpServer {
 } mUpnpHttpServer, mUpnpHttpServerList;
 
 /****************************************
-* Function 
-****************************************/
+ * Function
+ ****************************************/
 
 /**
  * Convert an HTTP status code to a reason phrase (ex. 200 -> "200 OK")
@@ -231,13 +231,13 @@ typedef struct _mUpnpHttpServer {
 const char* mupnp_http_statuscode2reasonphrase(const int code);
 
 /****************************************
-* Function (Header)
-****************************************/
+ * Function (Header)
+ ****************************************/
 
 mUpnpHttpHeader* mupnp_http_header_new(void);
 void mupnp_http_header_delete(mUpnpHttpHeader* header);
 
-#define mupnp_http_header_next(header) (mUpnpHttpHeader*) mupnp_list_next((mUpnpList*)header)
+#define mupnp_http_header_next(header) (mUpnpHttpHeader*)mupnp_list_next((mUpnpList*)header)
 
 void mupnp_http_header_setname(mUpnpHttpHeader* header, const char* name);
 const char* mupnp_http_header_getname(mUpnpHttpHeader* header);
@@ -245,15 +245,15 @@ void mupnp_http_header_setvalue(mUpnpHttpHeader* header, const char* value);
 const char* mupnp_http_header_getvalue(mUpnpHttpHeader* header);
 
 /****************************************
-* Function (Header List)
-****************************************/
+ * Function (Header List)
+ ****************************************/
 
 mUpnpHttpHeaderList* mupnp_http_headerlist_new(void);
 void mupnp_http_headerlist_delete(mUpnpHttpHeaderList* headerList);
 
 #define mupnp_http_headerlist_clear(headerList) mupnp_list_clear((mUpnpList*)headerList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_http_header_delete)
 #define mupnp_http_headerlist_size(headerList) mupnp_list_size((mUpnpList*)headerList)
-#define mupnp_http_headerlist_gets(headerList) (mUpnpHttpHeader*) mupnp_list_next((mUpnpList*)headerList)
+#define mupnp_http_headerlist_gets(headerList) (mUpnpHttpHeader*)mupnp_list_next((mUpnpList*)headerList)
 #define mupnp_http_headerlist_add(headerList, header) mupnp_list_add((mUpnpList*)headerList, (mUpnpList*)header)
 
 mUpnpHttpHeader* mupnp_http_headerlist_get(mUpnpHttpHeaderList* headerList, const char* name);
@@ -261,8 +261,8 @@ void mupnp_http_headerlist_set(mUpnpHttpHeaderList* headerList, const char* name
 const char* mupnp_http_headerlist_getvalue(mUpnpHttpHeaderList* headerList, const char* name);
 
 /****************************************
-* Function (Packet)
-****************************************/
+ * Function (Packet)
+ ****************************************/
 
 mUpnpHttpPacket* mupnp_http_packet_new(void);
 void mupnp_http_packet_delete(mUpnpHttpPacket* httpPkt);
@@ -273,7 +273,7 @@ void mupnp_http_packet_clear(mUpnpHttpPacket* httpPkt);
 #define mupnp_http_packet_deleteallheaders(httpPkt) mupnp_http_headerlist_gets(httpPkt->headerList)
 #define mupnp_http_packet_getnheaders(httpPkt) mupnp_http_headerlist_size(httpPkt->headerList)
 #define mupnp_http_packet_getheaders(httpPkt) mupnp_http_headerlist_gets(httpPkt->headerList)
-//Theo Beisch - added (mUpnpHttpHeaderList*) cast - as _get is function call
+// Theo Beisch - added (mUpnpHttpHeaderList*) cast - as _get is function call
 #define mupnp_http_packet_getheader(httpPkt, name) mupnp_http_headerlist_get((mUpnpHttpHeaderList*)httpPkt->headerList, name)
 #define mupnp_http_packet_hasheader(httpPkt, name) ((mupnp_http_headerlist_get((mUpnpHttpHeaderList*)httpPkt->headerList, name) != NULL) ? true : false)
 
@@ -329,8 +329,8 @@ void mupnp_http_packet_copy(mUpnpHttpPacket* destHttpPkt, mUpnpHttpPacket* srcHt
 void mupnp_http_packet_print(mUpnpHttpPacket* httpPkt);
 
 /****************************************
-* Function (Request)
-****************************************/
+ * Function (Request)
+ ****************************************/
 
 mUpnpHttpRequest* mupnp_http_request_new(void);
 void mupnp_http_request_delete(mUpnpHttpRequest* httpReq);
@@ -434,8 +434,8 @@ void mupnp_http_request_print(mUpnpHttpRequest* httpReq);
 #define mupnp_http_request_gettimeout(httpReq) (httpReq->timeout)
 
 /****************************************
-* Function (Response)
-****************************************/
+ * Function (Response)
+ ****************************************/
 
 mUpnpHttpResponse* mupnp_http_response_new(void);
 void mupnp_http_response_delete(mUpnpHttpResponse* httpRes);
@@ -505,8 +505,8 @@ void mupnp_http_response_print(mUpnpHttpResponse* httpRes);
 #define mupnp_http_response_gettimeout(httpRes) (httpRes->timeout)
 
 /****************************************
-* Function (Server)
-****************************************/
+ * Function (Server)
+ ****************************************/
 
 mUpnpHttpServer* mupnp_http_server_new(void);
 void mupnp_http_server_delete(mUpnpHttpServer* httpServer);
@@ -517,7 +517,7 @@ bool mupnp_http_server_start(mUpnpHttpServer* httpServer);
 bool mupnp_http_server_stop(mUpnpHttpServer* httpServer);
 void mupnp_http_server_setlistener(mUpnpHttpServer* httpServer, MUPNP_HTTP_LISTENER listener);
 
-#define mupnp_http_server_next(httpServer) (mUpnpHttpServer*) mupnp_list_next((mUpnpList*)httpServer)
+#define mupnp_http_server_next(httpServer) (mUpnpHttpServer*)mupnp_list_next((mUpnpList*)httpServer)
 
 #define mupnp_http_server_getsocket(httpServer) (httpServer->sock)
 #define mupnp_http_server_isopened(httpServer) ((httpServer->sock != NULL) ? true : false)
@@ -536,15 +536,15 @@ const char* mupnp_http_getservername(char* buf, size_t bufSize);
 #define mupnp_http_server_unlock(httpServer) mupnp_mutex_unlock(httpServer->mutex)
 
 /****************************************
-* Function (Server List)
-****************************************/
+ * Function (Server List)
+ ****************************************/
 
 mUpnpHttpServerList* mupnp_http_serverlist_new(void);
 void mupnp_http_serverlist_delete(mUpnpHttpServerList* httpServerList);
 
 #define mupnp_http_serverlist_clear(httpServerList) mupnp_list_clear((mUpnpList*)httpServerList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_http_server_delete)
 #define mupnp_http_serverlist_size(httpServerList) mupnp_list_size((mUpnpList*)httpServerList)
-#define mupnp_http_serverlist_gets(httpServerList) (mUpnpHttpServer*) mupnp_list_next((mUpnpList*)httpServerList)
+#define mupnp_http_serverlist_gets(httpServerList) (mUpnpHttpServer*)mupnp_list_next((mUpnpList*)httpServerList)
 #define mupnp_http_serverlist_add(httpServerList, httpServer) mupnp_list_add((mUpnpList*)httpServerList, (mUpnpList*)httpServer)
 
 bool mupnp_http_serverlist_open(mUpnpHttpServerList* httpServerList, int port);
@@ -555,14 +555,14 @@ void mupnp_http_serverlist_setlistener(mUpnpHttpServerList* httpServerList, MUPN
 void mupnp_http_serverlist_setuserdata(mUpnpHttpServerList* httpServerList, void* value);
 
 /****************************************
-* Function (Date)
-****************************************/
+ * Function (Date)
+ ****************************************/
 
 const char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, size_t bufSize);
 
 /****************************************
-* Persistent connection cache
-****************************************/
+ * Persistent connection cache
+ ****************************************/
 
 /** Initialize persistent connection cache. Can be called many times */
 bool mupnp_http_persistentconnection_init(void);

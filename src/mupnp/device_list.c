@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_devicelist_new
-****************************************/
+ * mupnp_devicelist_new
+ ****************************************/
 
 mUpnpDeviceList* mupnp_devicelist_new()
 {
@@ -33,8 +33,8 @@ mUpnpDeviceList* mupnp_devicelist_new()
 }
 
 /****************************************
-* mupnp_devicelist_delete
-****************************************/
+ * mupnp_devicelist_delete
+ ****************************************/
 
 void mupnp_devicelist_delete(mUpnpDeviceList* devList)
 {

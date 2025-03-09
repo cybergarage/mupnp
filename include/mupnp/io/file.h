@@ -33,8 +33,8 @@ extern "C" {
 #if defined(MUPNP_USE_CFILE)
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #if defined(WIN32)
 #define MUPNP_FILE_SEPARATOR_CHAR '\\'
@@ -59,8 +59,8 @@ extern "C" {
 #define MUPNP_FILE_SEEK_END 0x04
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef struct _mUpnpFile {
   MUPNP_LIST_STRUCT_MEMBERS
@@ -72,13 +72,13 @@ typedef struct _mUpnpFile {
 } mUpnpFile, mUpnpFileList;
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 mUpnpFile* mupnp_file_new(void);
 void mupnp_file_delete(mUpnpFile* file);
 
-#define mupnp_file_next(file) (mUpnpFile*) mupnp_list_next((mUpnpList*)file)
+#define mupnp_file_next(file) (mUpnpFile*)mupnp_list_next((mUpnpList*)file)
 
 void mupnp_file_setname(mUpnpFile* file, char* name);
 
@@ -116,8 +116,8 @@ bool mupnp_file_read(mUpnpFile* file, mUpnpByte* buf, int bufLen);
 bool mupnp_file_seek(mUpnpFile* file, mUpnpInt64, int whence);
 
 /****************************************
-* Function (File List)
-****************************************/
+ * Function (File List)
+ ****************************************/
 
 /**
  * Create a new file list
@@ -152,7 +152,7 @@ void mupnp_filelist_delete(mUpnpFileList* fileList);
  *
  * \param fileList The file list in question
  */
-#define mupnp_filelist_gets(fileList) (mUpnpFile*) mupnp_list_next((mUpnpList*)fileList)
+#define mupnp_filelist_gets(fileList) (mUpnpFile*)mupnp_list_next((mUpnpList*)fileList)
 
 /**
  * Add a file into a file list
@@ -166,7 +166,7 @@ void mupnp_filelist_delete(mUpnpFileList* fileList);
  * Remove a file from file list
  *
  * \param fileList The file list in question
- * \param file The file to be removed 
+ * \param file The file to be removed
  */
 #define mupnp_filelist_remove(file) mupnp_list_remove((mUpnpList*)file)
 

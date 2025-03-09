@@ -8,8 +8,8 @@
  *
  ******************************************************************/
 
-#import <Foundation/NSString.h>
 #import <Foundation/NSDictionary.h>
+#import <Foundation/NSString.h>
 
 #if !defined(_MUPNP_SERVICE_H_)
 typedef void mUpnpService;
@@ -26,25 +26,25 @@ typedef void mUpnpService;
 @property (assign, readonly) mUpnpService* cObject;
 /**
  * Create a new UPnP service with the C instance.
- * 
+ *
  * @return New instance if successfull; otherwise nil.
  */
 - (id)initWithCObject:(mUpnpService*)cobj;
 /**
  * Parse the specified XML description.
- * 
+ *
  * @return YES if successfull; otherwise nui.
  */
 - (BOOL)parseXMLDescription:(NSString*)xmlDesc;
 /**
  * Get the service ID of the service.
- * 
+ *
  * @return The service ID.
  */
 - (NSString*)serviceId;
 /**
  * Get the service type of the service.
- * 
+ *
  * @return The service type.
  */
 - (NSString*)serviceType;

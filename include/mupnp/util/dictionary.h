@@ -42,8 +42,8 @@ typedef struct _mUpnpDictionary {
 } mUpnpDictionaryElement, mUpnpDictionary;
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 /**
  * Create a new dictionary
@@ -61,7 +61,7 @@ bool mupnp_dictionary_element_delete(mUpnpDictionaryElement* dirElem);
  * Set a key
  *
  * \param dirElem Dictionary struct
- * \param name String to set 
+ * \param name String to set
  */
 #define mupnp_dictionary_element_setkey(dirElem, name) mupnp_string_setvalue(dirElem->key, name)
 /**
@@ -85,12 +85,12 @@ bool mupnp_dictionary_element_delete(mUpnpDictionaryElement* dirElem);
  */
 #define mupnp_dictionary_element_getvalue(dirElem) mupnp_string_getvalue(dirElem->value)
 
-#define mupnp_dictionary_element_next(dirElem) (mUpnpDictionaryElement*) mupnp_list_next((mUpnpList*)dirElem)
+#define mupnp_dictionary_element_next(dirElem) (mUpnpDictionaryElement*)mupnp_list_next((mUpnpList*)dirElem)
 #define mupnp_dictionary_element_remove(dirElem) mupnp_list_remove((mUpnpList*)dirElem)
 
 /****************************************
-* Function (Dictionary List)
-****************************************/
+ * Function (Dictionary List)
+ ****************************************/
 
 /**
  * Create a new dictionary list
@@ -125,7 +125,7 @@ void mupnp_dictionary_delete(mUpnpDictionary* dir);
  *
  * \param dir The dictionary list in question
  */
-#define mupnp_dictionary_gets(dir) (mUpnpDictionaryElement*) mupnp_list_next((mUpnpList*)dir)
+#define mupnp_dictionary_gets(dir) (mUpnpDictionaryElement*)mupnp_list_next((mUpnpList*)dir)
 
 /**
  * Add a dictionary into a dictionary list
@@ -138,7 +138,7 @@ void mupnp_dictionary_delete(mUpnpDictionary* dir);
 /**
  * Remove a dictionary from dictionary list
  *
- * \param dirElem The dictionary to be removed 
+ * \param dirElem The dictionary to be removed
  */
 #define mupnp_dictionary_remove(dirElem) mupnp_list_remove((mUpnpList*)dirElem)
 
@@ -152,7 +152,7 @@ void mupnp_dictionary_delete(mUpnpDictionary* dir);
 mUpnpDictionaryElement* mupnp_dictionary_get(mUpnpDictionary* dir, const char* key);
 
 /**
- * Set a new element into a dictionary 
+ * Set a new element into a dictionary
  *
  * \param dir The dictionary list in question
  * \param key Name to set.

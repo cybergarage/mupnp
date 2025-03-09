@@ -14,8 +14,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_http_serverlist_new
-****************************************/
+ * mupnp_http_serverlist_new
+ ****************************************/
 
 mUpnpHttpServerList* mupnp_http_serverlist_new()
 {
@@ -41,8 +41,8 @@ mUpnpHttpServerList* mupnp_http_serverlist_new()
 }
 
 /****************************************
-* mupnp_http_serverlist_delete
-****************************************/
+ * mupnp_http_serverlist_delete
+ ****************************************/
 
 void mupnp_http_serverlist_delete(mUpnpHttpServerList* httpServerList)
 {
@@ -55,8 +55,8 @@ void mupnp_http_serverlist_delete(mUpnpHttpServerList* httpServerList)
 }
 
 /****************************************
-* mupnp_http_serverlist_open
-****************************************/
+ * mupnp_http_serverlist_open
+ ****************************************/
 
 bool mupnp_http_serverlist_open(mUpnpHttpServerList* httpServerList, int port)
 {
@@ -82,13 +82,13 @@ bool mupnp_http_serverlist_open(mUpnpHttpServerList* httpServerList, int port)
     httpServer = mupnp_http_server_new();
 
     if (mupnp_http_server_open(httpServer, port, bindAddr) == false) {
-      /* Theo Beisch - why break off, 
-			   we may be running ok on at least some IF??? 
-			   (at least WINCE does...) */
+      /* Theo Beisch - why break off,
+                           we may be running ok on at least some IF???
+                           (at least WINCE does...) */
       continue;
     }
     mupnp_http_serverlist_add(httpServerList, httpServer);
-    result = true; //at least one IF found ok
+    result = true; // at least one IF found ok
   }
 
   if (result == false)
@@ -99,8 +99,8 @@ bool mupnp_http_serverlist_open(mUpnpHttpServerList* httpServerList, int port)
 }
 
 /****************************************
-* mupnp_http_serverlist_close
-****************************************/
+ * mupnp_http_serverlist_close
+ ****************************************/
 
 bool mupnp_http_serverlist_close(mUpnpHttpServerList* httpServerList)
 {
@@ -117,8 +117,8 @@ bool mupnp_http_serverlist_close(mUpnpHttpServerList* httpServerList)
 }
 
 /****************************************
-* mupnp_http_serverlist_start
-****************************************/
+ * mupnp_http_serverlist_start
+ ****************************************/
 
 bool mupnp_http_serverlist_start(mUpnpHttpServerList* httpServerList)
 {
@@ -135,8 +135,8 @@ bool mupnp_http_serverlist_start(mUpnpHttpServerList* httpServerList)
 }
 
 /****************************************
-* mupnp_http_serverlist_stop
-****************************************/
+ * mupnp_http_serverlist_stop
+ ****************************************/
 
 bool mupnp_http_serverlist_stop(mUpnpHttpServerList* httpServerList)
 {
@@ -153,8 +153,8 @@ bool mupnp_http_serverlist_stop(mUpnpHttpServerList* httpServerList)
 }
 
 /****************************************
-* mupnp_http_serverlist_setlistener
-****************************************/
+ * mupnp_http_serverlist_setlistener
+ ****************************************/
 
 void mupnp_http_serverlist_setlistener(mUpnpHttpServerList* httpServerList, MUPNP_HTTP_LISTENER listener)
 {
@@ -169,8 +169,8 @@ void mupnp_http_serverlist_setlistener(mUpnpHttpServerList* httpServerList, MUPN
 }
 
 /****************************************
-* mupnp_http_serverlist_setuserdata
-****************************************/
+ * mupnp_http_serverlist_setuserdata
+ ****************************************/
 
 void mupnp_http_serverlist_setuserdata(mUpnpHttpServerList* httpServerList, void* value)
 {

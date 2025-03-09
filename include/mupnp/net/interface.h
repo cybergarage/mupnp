@@ -13,13 +13,13 @@
 #define _MUPNP_NET_CINTERFACE_H_
 
 #include <mupnp/typedef.h>
-#include <mupnp/util/string.h>
 #include <mupnp/util/list.h>
+#include <mupnp/util/string.h>
 
 #if !defined(WIN32)
-#include <sys/socket.h>
-#include <netinet/in.h>
 #include <arpa/inet.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
 #endif
 
 #ifdef __cplusplus
@@ -27,8 +27,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define MUPNP_NET_IPV4_ADDRSTRING_MAXSIZE ((3 * 4) + (1 * 3) + 1)
 #define MUPNP_NET_IPV6_ADDRSTRING_MAXSIZE (1 + (8 * 4) + (1 * 7) + 1 + 1)
@@ -42,8 +42,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef struct _mUpnpNetworkInterface {
   MUPNP_LIST_STRUCT_MEMBERS
@@ -56,14 +56,14 @@ typedef struct _mUpnpNetworkInterface {
 } mUpnpNetworkInterface, mUpnpNetworkInterfaceList;
 
 /****************************************
-* Function (NetworkInterface)
-****************************************/
+ * Function (NetworkInterface)
+ ****************************************/
 
 mUpnpNetworkInterface* mupnp_net_interface_new(void);
 void mupnp_net_interface_delete(mUpnpNetworkInterface* netIf);
 mUpnpNetworkInterface* mupnp_net_interface_getany(void);
 
-#define mupnp_net_interface_next(netIf) (mUpnpNetworkInterface*) mupnp_list_next((mUpnpList*)netIf)
+#define mupnp_net_interface_next(netIf) (mUpnpNetworkInterface*)mupnp_list_next((mUpnpList*)netIf)
 #define mupnp_net_interface_remove(netIf) mupnp_list_remove((mUpnpList*)netIf)
 
 void mupnp_net_interface_setname(mUpnpNetworkInterface* netIf, char* name);
@@ -87,15 +87,15 @@ int mupnp_net_interface_cmp(mUpnpNetworkInterface* netIfA,
     mUpnpNetworkInterface* netIfB);
 
 /****************************************
-* Function (NetworkInterfaceList)
-****************************************/
+ * Function (NetworkInterfaceList)
+ ****************************************/
 
 mUpnpNetworkInterfaceList* mupnp_net_interfacelist_new(void);
 void mupnp_net_interfacelist_delete(mUpnpNetworkInterfaceList* netIfList);
 
 #define mupnp_net_interfacelist_clear(netIfList) mupnp_list_clear((mUpnpList*)netIfList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_net_interface_delete)
 #define mupnp_net_interfacelist_size(netIfList) mupnp_list_size((mUpnpList*)netIfList)
-#define mupnp_net_interfacelist_gets(netIfList) (mUpnpNetworkInterface*) mupnp_list_next((mUpnpList*)netIfList)
+#define mupnp_net_interfacelist_gets(netIfList) (mUpnpNetworkInterface*)mupnp_list_next((mUpnpList*)netIfList)
 #define mupnp_net_interfacelist_add(netIfList, netIf) mupnp_list_add((mUpnpList*)netIfList, (mUpnpList*)netIf)
 
 mUpnpNetworkInterface* mupnp_net_interfacelist_get(mUpnpNetworkInterfaceList* netIfList, char* name);
@@ -103,12 +103,12 @@ mUpnpNetworkInterface* mupnp_net_interfacelist_get(mUpnpNetworkInterfaceList* ne
 /**
  * Gets changes in the two given (aka old and new) interface lists. Changes
  * are resolved based on IP-addresses.
- * 
+ *
  * @param netIfListOld List of the old interfaces. It is changed!
  * @param netIfListNew List of the new interfaces. It is changed!
  * @param netIfListAdded List to store interfaces, which were in netIfListNew,
  *			 but were not in netIfListOld. May be NULL.
- * @param netIfListRemoved List to store interfaces, which were in 
+ * @param netIfListRemoved List to store interfaces, which were in
  *			   netIfListOld, but were not in netIfListNew.
  */
 void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList* netIfListOld,
@@ -117,8 +117,8 @@ void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList* netIfListOld,
     mUpnpNetworkInterfaceList* netIfListRemoved);
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 #if defined(ITRON)
 void mupnp_net_setinterface(const char* ifaddr);

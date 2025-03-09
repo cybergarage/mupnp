@@ -1,14 +1,14 @@
 /******************************************************************
-*
-* mUPnP for Objective-C
-*
-* main.m
-*
-* Copyright (C) Satoshi Konno 2011
-*
-* This is licensed under BSD-style license, see file COPYING.
-*
-******************************************************************/
+ *
+ * mUPnP for Objective-C
+ *
+ * main.m
+ *
+ * Copyright (C) Satoshi Konno 2011
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #import <UIKit/UIKit.h>
 

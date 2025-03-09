@@ -1,29 +1,29 @@
 /******************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2009
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cprotocolinfolist.c
-*
-*	Revision:
-*
-*	07/27/09
-*		- first revision
-*
-******************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2009
+ *
+ *       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ *       This is licensed under BSD-style license,
+ *       see file COPYING.
+ *
+ *	File: cprotocolinfolist.c
+ *
+ *	Revision:
+ *
+ *	07/27/09
+ *		- first revision
+ *
+ ******************************************************************/
 
 #include <cybergarage/upnp/std/av/cprotocolinfo.h>
 #include <cybergarage/util/clog.h>
 
 /****************************************
-* cg_upnp_protocolinflist_new
-****************************************/
+ * cg_upnp_protocolinflist_new
+ ****************************************/
 
 CgUpnpAvProtocolInfoList* cg_upnpav_protocolinfolist_new()
 {
@@ -42,8 +42,8 @@ CgUpnpAvProtocolInfoList* cg_upnpav_protocolinfolist_new()
 }
 
 /****************************************
-* cg_upnpav_protocolinfor_delete
-****************************************/
+ * cg_upnpav_protocolinfor_delete
+ ****************************************/
 
 void cg_upnpav_protocolinfolist_delete(CgUpnpAvProtocolInfoList* protocolinfoList)
 {

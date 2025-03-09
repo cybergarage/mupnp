@@ -8,8 +8,8 @@
  *
  ******************************************************************/
 
-#import <Foundation/NSString.h>
 #import <Foundation/NSDictionary.h>
+#import <Foundation/NSString.h>
 
 #if !defined(_MUPNP_ACTION_H_)
 typedef void mUpnpAction;
@@ -24,7 +24,7 @@ typedef void mUpnpAction;
 - (id)initWithCObject:(mUpnpAction*)cobj;
 /**
  * Get the name of the action.
- * 
+ *
  * @return The name.
  */
 - (NSString*)name;
@@ -64,7 +64,7 @@ typedef void mUpnpAction;
  */
 - (BOOL)postWithArguments:(NSDictionary*)arguments;
 /**
- * Get a states code of the last post. 
+ * Get a states code of the last post.
  *
  * @return The status code
  */

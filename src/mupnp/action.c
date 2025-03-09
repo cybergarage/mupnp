@@ -13,15 +13,15 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* prototype define for static functions
-****************************************/
+ * prototype define for static functions
+ ****************************************/
 
 static void mupnp_action_initchildnodes(mUpnpAction* action);
 static void mupnp_action_initargumentlist(mUpnpAction* action);
 
 /****************************************
-* mupnp_action_new
-****************************************/
+ * mupnp_action_new
+ ****************************************/
 
 mUpnpAction* mupnp_action_new()
 {
@@ -50,8 +50,8 @@ mUpnpAction* mupnp_action_new()
 }
 
 /****************************************
-* mupnp_action_delete
-****************************************/
+ * mupnp_action_delete
+ ****************************************/
 
 void mupnp_action_delete(mUpnpAction* action)
 {
@@ -68,8 +68,8 @@ void mupnp_action_delete(mUpnpAction* action)
 }
 
 /****************************************
-* mupnp_action_setactionnode
-****************************************/
+ * mupnp_action_setactionnode
+ ****************************************/
 
 void mupnp_action_setactionnode(mUpnpAction* action, mUpnpXmlNode* node)
 {
@@ -82,14 +82,14 @@ void mupnp_action_setactionnode(mUpnpAction* action, mUpnpXmlNode* node)
 }
 
 /****************************************
-*
-* Child Node
-*
-****************************************/
+ *
+ * Child Node
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_action_initchildnodes
-****************************************/
+ * mupnp_action_initchildnodes
+ ****************************************/
 
 static void mupnp_action_initchildnodes(mUpnpAction* action)
 {
@@ -101,14 +101,14 @@ static void mupnp_action_initchildnodes(mUpnpAction* action)
 }
 
 /****************************************
-*
-* Embedded Action
-*
-****************************************/
+ *
+ * Embedded Action
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_action_initargumentlist
-****************************************/
+ * mupnp_action_initargumentlist
+ ****************************************/
 
 static void mupnp_action_initargumentlist(mUpnpAction* action)
 {
@@ -141,8 +141,8 @@ static void mupnp_action_initargumentlist(mUpnpAction* action)
 }
 
 /****************************************
-* mupnp_action_getargumentbyname
-****************************************/
+ * mupnp_action_getargumentbyname
+ ****************************************/
 
 mUpnpArgument* mupnp_action_getargumentbyname(mUpnpAction* action, const char* name)
 {
@@ -166,8 +166,8 @@ mUpnpArgument* mupnp_action_getargumentbyname(mUpnpAction* action, const char* n
 }
 
 /****************************************
-* mupnp_action_getargumentvaluebyname
-****************************************/
+ * mupnp_action_getargumentvaluebyname
+ ****************************************/
 
 char* mupnp_action_getargumentvaluebyname(mUpnpAction* action, const char* name)
 {
@@ -180,8 +180,8 @@ char* mupnp_action_getargumentvaluebyname(mUpnpAction* action, const char* name)
 }
 
 /****************************************
-* mupnp_action_setargumentvaluebyname
-****************************************/
+ * mupnp_action_setargumentvaluebyname
+ ****************************************/
 
 bool mupnp_action_setargumentvaluebyname(mUpnpAction* action, const char* name, const char* value)
 {

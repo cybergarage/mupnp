@@ -17,14 +17,14 @@
 #include <time.h>
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (Begin)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_property_new
-****************************************/
+ * mupnp_property_new
+ ****************************************/
 
 mUpnpProperty* mupnp_property_new()
 {
@@ -50,8 +50,8 @@ mUpnpProperty* mupnp_property_new()
 }
 
 /****************************************
-* mupnp_property_delete
-****************************************/
+ * mupnp_property_delete
+ ****************************************/
 
 void mupnp_property_delete(mUpnpProperty* prop)
 {
@@ -70,8 +70,8 @@ void mupnp_property_delete(mUpnpProperty* prop)
 }
 
 /****************************************
-* mupnp_property_clear
-****************************************/
+ * mupnp_property_clear
+ ****************************************/
 
 void mupnp_property_clear(mUpnpProperty* prop)
 {
@@ -85,7 +85,7 @@ void mupnp_property_clear(mUpnpProperty* prop)
 }
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (End)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (End)
+ ****************************************/
 
 #endif

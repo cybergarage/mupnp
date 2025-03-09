@@ -15,8 +15,8 @@
 #if defined(MUPNP_NET_USE_SOCKET_LIST)
 
 /****************************************
-* mupnp_socketlist_new
-****************************************/
+ * mupnp_socketlist_new
+ ****************************************/
 
 mUpnpSocketList* mupnp_socketlist_new()
 {
@@ -33,8 +33,8 @@ mUpnpSocketList* mupnp_socketlist_new()
 }
 
 /****************************************
-* mupnp_socketlist_delete
-****************************************/
+ * mupnp_socketlist_delete
+ ****************************************/
 
 void mupnp_socketlist_delete(mUpnpSocketList* socketList)
 {

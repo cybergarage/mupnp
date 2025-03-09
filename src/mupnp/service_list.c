@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_servicelist_new
-****************************************/
+ * mupnp_servicelist_new
+ ****************************************/
 
 mUpnpServiceList* mupnp_servicelist_new()
 {
@@ -33,8 +33,8 @@ mUpnpServiceList* mupnp_servicelist_new()
 }
 
 /****************************************
-* mupnp_servicelist_delete
-****************************************/
+ * mupnp_servicelist_delete
+ ****************************************/
 
 void mupnp_servicelist_delete(mUpnpServiceList* serviceList)
 {

@@ -79,8 +79,8 @@
 #if defined(TARGET_OS_IPHONE)
 - (void)setResourceName:(NSString*)aResourceName
 {
-  //UIImage *image = [UIImage imageNamed:aResourceName];
-  //CGSize imageSize = CGSizeMake(CGImageGetWidth([image CGImage]), CGImageGetHeight([image CGImage]));
+  // UIImage *image = [UIImage imageNamed:aResourceName];
+  // CGSize imageSize = CGSizeMake(CGImageGetWidth([image CGImage]), CGImageGetHeight([image CGImage]));
 }
 #endif
 

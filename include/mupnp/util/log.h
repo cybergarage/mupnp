@@ -39,7 +39,7 @@ extern "C" {
 #define SEV_DEBUG_L3 32
 #define SEV_DEBUG_L3_S "Debug (application)"
 
-/* Low level debug messages like when printing out (important) function 
+/* Low level debug messages like when printing out (important) function
  * entry/leaving points */
 #define SEV_DEBUG_L4 64
 #define SEV_DEBUG_L4_S "Debug (low level L4)"

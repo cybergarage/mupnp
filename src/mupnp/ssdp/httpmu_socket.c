@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_httpmu_socket_bind
-****************************************/
+ * mupnp_httpmu_socket_bind
+ ****************************************/
 
 bool mupnp_httpmu_socket_bind(mUpnpHttpMuSocket* sock, const char* mcastAddr, int port, const char* bindAddr)
 {
@@ -34,8 +34,8 @@ bool mupnp_httpmu_socket_bind(mUpnpHttpMuSocket* sock, const char* mcastAddr, in
 }
 
 /****************************************
-* mupnp_httpmu_socket_recv
-****************************************/
+ * mupnp_httpmu_socket_recv
+ ****************************************/
 
 ssize_t mupnp_httpmu_socket_recv(mUpnpHttpMuSocket* sock, mUpnpSSDPPacket* ssdpPkt)
 {
@@ -54,8 +54,8 @@ ssize_t mupnp_httpmu_socket_recv(mUpnpHttpMuSocket* sock, mUpnpSSDPPacket* ssdpP
   ssdpData = mupnp_socket_datagram_packet_getdata(dgmPkt);
 
   /* set header information to the packets headerlist,
-	   this will leave only the request line in the datagram packet 
-	   which is need to verify the message */
+           this will leave only the request line in the datagram packet
+           which is need to verify the message */
   mupnp_ssdp_packet_setheader(ssdpPkt, ssdpData);
 
   mupnp_log_debug_l4("Leaving...\n");

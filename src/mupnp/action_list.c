@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_action_new
-****************************************/
+ * mupnp_action_new
+ ****************************************/
 
 mUpnpActionList* mupnp_actionlist_new()
 {
@@ -33,8 +33,8 @@ mUpnpActionList* mupnp_actionlist_new()
 }
 
 /****************************************
-* mupnp_action_delete
-****************************************/
+ * mupnp_action_delete
+ ****************************************/
 
 void mupnp_actionlist_delete(mUpnpActionList* actionList)
 {

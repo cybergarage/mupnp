@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_list_header_init
-****************************************/
+ * mupnp_list_header_init
+ ****************************************/
 
 void mupnp_list_header_init(mUpnpList* list)
 {
@@ -30,8 +30,8 @@ void mupnp_list_header_init(mUpnpList* list)
 }
 
 /****************************************
-* mupnp_list_node_init
-****************************************/
+ * mupnp_list_node_init
+ ****************************************/
 
 void mupnp_list_node_init(mUpnpList* list)
 {
@@ -47,8 +47,8 @@ void mupnp_list_node_init(mUpnpList* list)
 }
 
 /****************************************
-* mupnp_list_size
-****************************************/
+ * mupnp_list_size
+ ****************************************/
 
 int mupnp_list_size(mUpnpList* headList)
 {
@@ -70,8 +70,8 @@ int mupnp_list_size(mUpnpList* headList)
 }
 
 /****************************************
-* mupnp_list_get
-****************************************/
+ * mupnp_list_get
+ ****************************************/
 
 mUpnpList* mupnp_list_get(mUpnpList* headList, int index)
 {
@@ -96,8 +96,8 @@ mUpnpList* mupnp_list_get(mUpnpList* headList, int index)
 }
 
 /****************************************
-* mupnp_list_insert
-****************************************/
+ * mupnp_list_insert
+ ****************************************/
 
 void mupnp_list_insert(
     mUpnpList* prevList,
@@ -117,8 +117,8 @@ void mupnp_list_insert(
 }
 
 /****************************************
-* mupnp_list_add
-****************************************/
+ * mupnp_list_add
+ ****************************************/
 
 void mupnp_list_add(
     mUpnpList* headList,
@@ -138,8 +138,8 @@ void mupnp_list_add(
 }
 
 /****************************************
-* mupnp_list_remove
-****************************************/
+ * mupnp_list_remove
+ ****************************************/
 
 void mupnp_list_remove(mUpnpList* list)
 {
@@ -159,8 +159,8 @@ void mupnp_list_remove(mUpnpList* list)
 }
 
 /****************************************
-* mupnp_list_prev_circular
-****************************************/
+ * mupnp_list_prev_circular
+ ****************************************/
 
 mUpnpList* mupnp_list_prev_circular(
     mUpnpList* list)
@@ -182,8 +182,8 @@ mUpnpList* mupnp_list_prev_circular(
 }
 
 /****************************************
-* mupnp_list_prev
-****************************************/
+ * mupnp_list_prev
+ ****************************************/
 
 mUpnpList* mupnp_list_prev(
     mUpnpList* list)
@@ -205,8 +205,8 @@ mUpnpList* mupnp_list_prev(
 }
 
 /****************************************
-* mupnp_list_next_circular
-****************************************/
+ * mupnp_list_next_circular
+ ****************************************/
 
 mUpnpList* mupnp_list_next_circular(
     mUpnpList* list)
@@ -228,8 +228,8 @@ mUpnpList* mupnp_list_next_circular(
 }
 
 /****************************************
-* mupnp_list_next
-****************************************/
+ * mupnp_list_next
+ ****************************************/
 
 mUpnpList* mupnp_list_next(
     mUpnpList* list)
@@ -251,8 +251,8 @@ mUpnpList* mupnp_list_next(
 }
 
 /****************************************
-* mupnp_list_clear
-****************************************/
+ * mupnp_list_clear
+ ****************************************/
 
 void mupnp_list_clear(mUpnpList* headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc)
 {
@@ -267,7 +267,7 @@ void mupnp_list_clear(mUpnpList* headList, MUPNP_LIST_DESTRUCTORFUNC destructorF
   while (list != NULL) {
     nextList = mupnp_list_next(list);
     mupnp_list_remove(list);
-    //Theo Beisch: use destructorFunc or just free(listElement)
+    // Theo Beisch: use destructorFunc or just free(listElement)
     if (destructorFunc != NULL) {
       destructorFunc(list);
     }

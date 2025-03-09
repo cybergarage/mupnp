@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cdms_youtube.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cdms_youtube.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include <cybergarage/net/cinterface.h>
 #include <cybergarage/upnp/std/av/cmediaserver.h>
@@ -22,8 +22,8 @@
 #include "cwebservice.h"
 
 /****************************************
-* cg_upnp_dms_youtube_rssurl2flv
-****************************************/
+ * cg_upnp_dms_youtube_rssurl2flv
+ ****************************************/
 
 #define CG_UPNP_MEDIA_YOUTUBE_PARAM_VIDEOID "video_id="
 #define CG_UPNP_MEDIA_YOUTUBE_PARAM_T "t="
@@ -85,8 +85,8 @@ BOOL cg_upnp_dms_youtube_rssurl2flv(char* rssURL, char* flvURL, int flvURLSize)
 }
 
 /****************************************
-* cg_upnp_dms_youtube_transcode2mpeg2
-****************************************/
+ * cg_upnp_dms_youtube_transcode2mpeg2
+ ****************************************/
 
 #define CG_UPNP_MEDIA_YOUTUBE_FFMPEG_CMD_MAX_LEN 512
 
@@ -217,8 +217,8 @@ BOOL cg_upnp_dms_youtube_transcode2mpeg2(char* objectID, char* flvFileName)
 }
 
 /****************************************
-* cg_upnp_dms_youtube_updaterootcontentlist
-****************************************/
+ * cg_upnp_dms_youtube_updaterootcontentlist
+ ****************************************/
 
 char* cg_upnp_dms_youtube_getupdatemessage(char* action, char* title, int cnt, int size, char* msgBuf, int msgBufSize)
 {
@@ -364,8 +364,8 @@ void cg_upnp_dms_youtube_updaterootcontentlist(CgUpnpMediaServer* dms)
 }
 
 /****************************************
-* cg_upnp_dms_youtube_update
-****************************************/
+ * cg_upnp_dms_youtube_update
+ ****************************************/
 
 void cg_upnp_dms_youtube_update(CgUpnpMediaServer* dms)
 {

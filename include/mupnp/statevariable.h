@@ -13,9 +13,9 @@
 #define _MUPNP_STATEVARIABLE_H_
 
 #include <mupnp/typedef.h>
-#include <mupnp/xml/xml.h>
 #include <mupnp/util/list.h>
 #include <mupnp/util/string.h>
+#include <mupnp/xml/xml.h>
 
 #include <mupnp/upnp_status.h>
 
@@ -24,8 +24,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 /**
  * Definition for state variable XML element name
@@ -68,12 +68,12 @@ extern "C" {
 #define MUPNP_STATEVARIABLE_ALLOWEDVALUELIST "allowedValueList"
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 /**
-  * Data type for allowed state variables allowed values table
-  */
+ * Data type for allowed state variables allowed values table
+ */
 typedef struct _mUpnpAllowedValuesList {
   MUPNP_LIST_STRUCT_MEMBERS
 
@@ -87,11 +87,11 @@ typedef struct _mUpnpStateVariable {
   MUPNP_LIST_STRUCT_MEMBERS
 
   mUpnpAllowedValuesList* allowedValueList;
-  //tb: fixmelater verify type mUpnpService* ???
+  // tb: fixmelater verify type mUpnpService* ???
   void* parentService;
   mUpnpXmlNode* stateVarNode;
   /* Dummy pointers to maintain ABI, Please remove during the
-	 * appropriate development stage */
+   * appropriate development stage */
   void* dummy1;
   void* dummy2;
   /**** Execution Data ****/
@@ -108,8 +108,8 @@ typedef struct _mUpnpStateVariable {
 typedef bool (*MUPNP_STATEVARIABLE_LISTNER)(mUpnpStateVariable*);
 
 /****************************************
-* Function (StateVariable)
-****************************************/
+ * Function (StateVariable)
+ ****************************************/
 
 /**
  * Create new state variable object
@@ -128,7 +128,7 @@ void mupnp_statevariable_delete(mUpnpStateVariable* statVar);
  *
  * @param statVar state variable list node
  */
-#define mupnp_statevariable_next(statVar) (mUpnpStateVariable*) mupnp_list_next((mUpnpList*)statVar)
+#define mupnp_statevariable_next(statVar) (mUpnpStateVariable*)mupnp_list_next((mUpnpList*)statVar)
 
 /**
  * Check if XML node is state variable node
@@ -200,7 +200,7 @@ mUpnpAllowedValuesList* mupnp_statevariable_getallowedvaluelist(mUpnpStateVariab
  * @param statVar State variable
  *
  * @return 0 if it does allowed to receive value
-*/
+ */
 int mupnp_statevariable_is_allowed_value(mUpnpStateVariable* statVar, const char* value);
 
 /**
@@ -279,7 +279,7 @@ mUpnpAllowedValuesList* mupnp_allowedvaluelist_new(void);
 /**** sendEvents ****/
 
 /**
- * Set send events option for state variable, can be used to disable eventing 
+ * Set send events option for state variable, can be used to disable eventing
  * for certain variables.
  *
  * @param statVar State variable
@@ -291,7 +291,7 @@ mUpnpAllowedValuesList* mupnp_allowedvaluelist_new(void);
  * Get state variable event sending option value
  *
  * @param statVar State variable
- * 
+ *
  * @return Current value associated to state variable
  */
 #define mupnp_statevariable_getsendevents(statVar) mupnp_xml_node_getattributevalue(mupnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_SENDEVENTS)
@@ -306,8 +306,8 @@ mUpnpAllowedValuesList* mupnp_allowedvaluelist_new(void);
 #define mupnp_statevariable_issendevents(statVar) (mupnp_streq(mupnp_statevariable_getsendevents(statVar), MUPNP_STATEVARIABLE_SENDEVENTS_YES))
 
 /****************************************
-* Function (StateVariable - Execution Data)
-****************************************/
+ * Function (StateVariable - Execution Data)
+ ****************************************/
 
 /**** value ****/
 
@@ -363,7 +363,7 @@ void mupnp_statevariable_setvaluewithoutnotify(mUpnpStateVariable* statVar, cons
  */
 #define mupnp_statevariable_setstatuscode(statVar, code) mupnp_status_setcode(statVar->upnpStatus, code)
 
-/** 
+/**
  * Get status code of this state variable
  *
  * @param statVar Status variable
@@ -405,8 +405,8 @@ void mupnp_statevariable_setvaluewithoutnotify(mUpnpStateVariable* statVar, cons
 #define mupnp_statevariable_getuserdata(statVar) (statVar->userData)
 
 /****************************************
-* Function (ServiceStateTable)
-****************************************/
+ * Function (ServiceStateTable)
+ ****************************************/
 
 /**
  * Create service state table object
@@ -441,7 +441,7 @@ void mupnp_servicestatetable_delete(mUpnpServiceStateTable* servicestatetable);
  *
  * @return Service state table (node)
  */
-#define mupnp_servicestatetable_gets(stateTable) (mUpnpStateVariable*) mupnp_list_next((mUpnpList*)stateTable)
+#define mupnp_servicestatetable_gets(stateTable) (mUpnpStateVariable*)mupnp_list_next((mUpnpList*)stateTable)
 
 /**
  * Add new service state table into service state table list

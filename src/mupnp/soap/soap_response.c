@@ -14,8 +14,8 @@
 #include <mupnp/util/string.h>
 
 /****************************************
-* mupnp_soap_response_new
-****************************************/
+ * mupnp_soap_response_new
+ ****************************************/
 
 mUpnpSoapResponse* mupnp_soap_response_new()
 {
@@ -40,8 +40,8 @@ mUpnpSoapResponse* mupnp_soap_response_new()
 }
 
 /****************************************
-* mupnp_soap_response_delete
-****************************************/
+ * mupnp_soap_response_delete
+ ****************************************/
 
 void mupnp_soap_response_delete(mUpnpSoapResponse* soapRes)
 {
@@ -59,8 +59,8 @@ void mupnp_soap_response_delete(mUpnpSoapResponse* soapRes)
 }
 
 /****************************************
-* mupnp_soap_response_clear
-****************************************/
+ * mupnp_soap_response_clear
+ ****************************************/
 
 void mupnp_soap_response_clear(mUpnpSoapResponse* soapRes)
 {
@@ -77,8 +77,8 @@ void mupnp_soap_response_clear(mUpnpSoapResponse* soapRes)
 }
 
 /****************************************
-* mupnp_soap_request_getbodynode
-****************************************/
+ * mupnp_soap_request_getbodynode
+ ****************************************/
 
 mUpnpXmlNode* mupnp_soap_response_getbodynode(mUpnpSoapResponse* soapRes)
 {
@@ -97,8 +97,8 @@ mUpnpXmlNode* mupnp_soap_response_getbodynode(mUpnpSoapResponse* soapRes)
 }
 
 /****************************************
-* mupnp_soap_response_sethttpresponse
-****************************************/
+ * mupnp_soap_response_sethttpresponse
+ ****************************************/
 
 void mupnp_soap_response_sethttpresponse(mUpnpSoapResponse* soapRes, mUpnpHttpResponse* httpRes)
 {
@@ -113,8 +113,8 @@ void mupnp_soap_response_sethttpresponse(mUpnpSoapResponse* soapRes, mUpnpHttpRe
 }
 
 /****************************************
-* mupnp_soap_response_setcontent
-****************************************/
+ * mupnp_soap_response_setcontent
+ ****************************************/
 
 void mupnp_soap_response_setcontent(mUpnpSoapResponse* soapReq, mUpnpXmlNode* node)
 {

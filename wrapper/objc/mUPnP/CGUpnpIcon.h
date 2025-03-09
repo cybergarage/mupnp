@@ -8,8 +8,8 @@
  *
  ******************************************************************/
 
-#import <Foundation/NSString.h>
 #import <Foundation/NSDictionary.h>
+#import <Foundation/NSString.h>
 
 #if !defined(_MUPNP_ICON_H_)
 typedef void mUpnpIcon;
@@ -30,25 +30,25 @@ typedef void mUpnpIcon;
 - (id)initWithCObject:(mUpnpIcon*)cobj;
 /**
  * Get the url of the icon.
- * 
+ *
  * @return The url.
  */
 - (NSString*)url;
 /**
  * Get the url of the width.
- * 
+ *
  * @return The width.
  */
 - (NSInteger)width;
 /**
  * Get the height of the icon.
- * 
+ *
  * @return The height.
  */
 - (NSInteger)height;
 /**
  * Get the depth of the icon.
- * 
+ *
  * @return The depth.
  */
 - (NSInteger)depth;

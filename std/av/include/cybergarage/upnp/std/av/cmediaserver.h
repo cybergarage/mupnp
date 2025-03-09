@@ -1,30 +1,30 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cmediaserver.h
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cmediaserver.h
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #ifndef _CG_CLINKCAV_SERVER_H_
 #define _CG_CLINKCAV_SERVER_H_
 
-#include <mupnp/upnp.h>
 #include <mupnp/std/av/cupnpav.h>
+#include <mupnp/upnp.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Struct
-****************************************/
+ * Struct
+ ****************************************/
 
 typedef struct _mUpnpAvServer {
   mUpnpMutex* mutex;
@@ -40,15 +40,15 @@ typedef struct _mUpnpAvServer {
 } mUpnpAvServer;
 
 /****************************************
-* Constants (Media Server)
-****************************************/
+ * Constants (Media Server)
+ ****************************************/
 
 #define CG_UPNPAV_DMS_DEVICE_TYPE "urn:schemas-upnp-org:device:MediaServer:1"
 #define CG_UPNPAV_DMS_DEFAULT_HTTP_PORT 38520
 
 /****************************************
-* Constants (Content Directory)
-****************************************/
+ * Constants (Content Directory)
+ ****************************************/
 
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_TYPE "urn:schemas-upnp-org:service:ContentDirectory:1"
 
@@ -92,8 +92,8 @@ typedef struct _mUpnpAvServer {
 #define CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_UPDATE_ID "UpdateID"
 
 /****************************************
-* Constants (Connection Manager)
-****************************************/
+ * Constants (Connection Manager)
+ ****************************************/
 
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_TYPE "urn:schemas-upnp-org:service:ConnectionManager:1"
 
@@ -125,8 +125,8 @@ typedef struct _mUpnpAvServer {
 #define CG_UPNPAV_DMS_CONNECTIONMANAGER_OK "OK"
 
 /****************************************
-* Constants (Media Receiver, Microsoft)
-****************************************/
+ * Constants (Media Receiver, Microsoft)
+ ****************************************/
 
 #define CG_UPNPAV_DMS_MEDIARECEIVER_SERVICE_TYPE "urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:1"
 #define CG_UPNPAV_DMS_MEDIARECEIVER_REGISTRATION_RESP_MSG "RegistrationRespMsg"
@@ -136,8 +136,8 @@ typedef struct _mUpnpAvServer {
 #define CG_UPNPAV_DMS_MEDIARECEIVER_RESULT "Result"
 
 /****************************************
-* Public Functions
-****************************************/
+ * Public Functions
+ ****************************************/
 
 mUpnpAvServer* mupnp_upnpav_dms_new();
 void mupnp_upnpav_dms_delete(mUpnpAvServer* dms);
@@ -176,14 +176,14 @@ mUpnpAvContent* mupnp_upnpav_dms_findcontentbyid(mUpnpAvServer* dms, char* objec
 #define mupnp_upnpav_dms_getprotocolinfos(dms) mupnp_upnpav_protocolinfolist_gets(dms->protocolInfoList)
 
 /****************************************
-* Connection Manager
-****************************************/
+ * Connection Manager
+ ****************************************/
 
 BOOL mupnp_upnpav_dms_conmgr_init(mUpnpAvServer* dms);
 
 /****************************************
-* Network Interface
-****************************************/
+ * Network Interface
+ ****************************************/
 
 #define mupnp_upnpav_dms_getnetworkinterfaces(dms) mupnp_net_interfacelist_gets(dms->networkInterfaceList)
 #define mupnp_upnpav_dms_getnnetworkinterfaces(dms) mupnp_net_interfacelist_size(dms->networkInterfaceList)
@@ -192,8 +192,8 @@ BOOL mupnp_upnpav_dms_updatenetworkinterfaces(mUpnpAvServer* dms);
 mUpnpNetworkInterface* mupnp_upnpav_dms_getnetworkinterface(mUpnpAvServer* dms);
 
 /****************************************
-* Content Directory
-****************************************/
+ * Content Directory
+ ****************************************/
 
 BOOL mupnp_upnpav_dms_condir_init(mUpnpAvServer* dms);
 
@@ -202,8 +202,8 @@ int mupnp_upnpav_dms_condir_getsystemupdateid(mUpnpAvServer* dms);
 void mupnp_upnpav_dms_condir_updatesystemupdateid(mUpnpAvServer* dms);
 
 /****************************************
-* Media Receiveer
-****************************************/
+ * Media Receiveer
+ ****************************************/
 
 BOOL mupnp_upnpav_dms_medrec_init(mUpnpAvServer* dms);
 

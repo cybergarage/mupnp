@@ -1,22 +1,22 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cdms_filesys_data.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cdms_filesys_data.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include "cdms_filesys.h"
 
 /****************************************
-* mupnp_upnpav_dms_filesys_content_data_new
-****************************************/
+ * mupnp_upnpav_dms_filesys_content_data_new
+ ****************************************/
 
 mUpnpMediaFileSystemContentData* mupnp_upnpav_dms_filesys_content_data_new()
 {
@@ -29,8 +29,8 @@ mUpnpMediaFileSystemContentData* mupnp_upnpav_dms_filesys_content_data_new()
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_content_data_delete
-****************************************/
+ * mupnp_upnpav_dms_filesys_content_data_delete
+ ****************************************/
 
 void mupnp_upnpav_dms_filesys_content_data_delete(mUpnpMediaFileSystemContentData* data)
 {
@@ -44,8 +44,8 @@ void mupnp_upnpav_dms_filesys_content_data_delete(mUpnpMediaFileSystemContentDat
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_content_getdata
-****************************************/
+ * mupnp_upnpav_dms_filesys_content_getdata
+ ****************************************/
 
 mUpnpMediaFileSystemContentData* mupnp_upnpav_dms_filesys_content_getdata(mUpnpMediaContent* con)
 {
@@ -61,8 +61,8 @@ mUpnpMediaFileSystemContentData* mupnp_upnpav_dms_filesys_content_getdata(mUpnpM
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_content_setpubicdirectory
-****************************************/
+ * mupnp_upnpav_dms_filesys_content_setpubicdirectory
+ ****************************************/
 
 void mupnp_upnpav_dms_filesys_content_setpubicdirectory(mUpnpMediaContent* con, char* dir)
 {
@@ -75,8 +75,8 @@ void mupnp_upnpav_dms_filesys_content_setpubicdirectory(mUpnpMediaContent* con, 
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_content_getpubicdirectory
-****************************************/
+ * mupnp_upnpav_dms_filesys_content_getpubicdirectory
+ ****************************************/
 
 char* mupnp_upnpav_dms_filesys_content_getpubicdirectory(mUpnpMediaContent* con)
 {

@@ -16,14 +16,14 @@
 #include <mupnp/typedef.h>
 
 /****************************************
-*	Compiler Switch (BEGIN)
-****************************************/
+ *	Compiler Switch (BEGIN)
+ ****************************************/
 
 #if defined(MUPNP_XMLPARSER_EXPAT) || (!defined(HAVE_CONFIG_H) && !defined(TARGET_OS_IPHONE))
 
 /****************************************
-* Header Files
-****************************************/
+ * Header Files
+ ****************************************/
 
 #include <mupnp/util/log.h>
 #include <mupnp/xml/xml.h>
@@ -54,8 +54,8 @@ extern long int mupnp_total_elapsed_time;
 #endif
 
 /****************************************
-* mupnp_xml_parse (Expat)
-****************************************/
+ * mupnp_xml_parse (Expat)
+ ****************************************/
 
 typedef struct _mUpnpExpatData {
   mUpnpXmlNode* rootNode;
@@ -90,7 +90,7 @@ static void XMLCALL mupnp_expat_element_start(void* userData, const char* el, co
   free(outbuf);
   ++indent;
 #endif
-  //memdiags_memlist_report_unmarkedsize();
+  // memdiags_memlist_report_unmarkedsize();
 
   expatData = (mUpnpExpatData*)userData;
 
@@ -123,10 +123,10 @@ static void XMLCALL mupnp_expat_element_end(void* userData, const char* el)
   expatData = (mUpnpExpatData*)userData;
 
 #if defined DEBUG_XML
-  //printf("%8x XML end %s\n",userData,el);
+  // printf("%8x XML end %s\n",userData,el);
   --indent;
 #endif
-  //memdiags_memlist_report_unmarkedsize();
+  // memdiags_memlist_report_unmarkedsize();
   if (expatData->currNode != NULL)
     expatData->currNode = mupnp_xml_node_getparentnode(expatData->currNode);
 
@@ -233,7 +233,7 @@ bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const c
 }
 
 /****************************************
-* Compiler Switch (END)
-****************************************/
+ * Compiler Switch (END)
+ ****************************************/
 
 #endif

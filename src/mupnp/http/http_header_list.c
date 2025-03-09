@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_http_headerlist_new
-****************************************/
+ * mupnp_http_headerlist_new
+ ****************************************/
 
 mUpnpHttpHeaderList* mupnp_http_headerlist_new()
 {
@@ -36,8 +36,8 @@ mUpnpHttpHeaderList* mupnp_http_headerlist_new()
 }
 
 /****************************************
-* mupnp_http_headerlist_delete
-****************************************/
+ * mupnp_http_headerlist_delete
+ ****************************************/
 
 void mupnp_http_headerlist_delete(mUpnpHttpHeaderList* headerList)
 {
@@ -50,8 +50,8 @@ void mupnp_http_headerlist_delete(mUpnpHttpHeaderList* headerList)
 }
 
 /****************************************
-* mupnp_http_headerlist_getheader
-****************************************/
+ * mupnp_http_headerlist_getheader
+ ****************************************/
 
 mUpnpHttpHeader* mupnp_http_headerlist_get(mUpnpHttpHeaderList* headerList, const char* name)
 {
@@ -77,8 +77,8 @@ mUpnpHttpHeader* mupnp_http_headerlist_get(mUpnpHttpHeaderList* headerList, cons
 }
 
 /****************************************
-* mupnp_http_headerlist_setheader
-****************************************/
+ * mupnp_http_headerlist_setheader
+ ****************************************/
 
 void mupnp_http_headerlist_set(mUpnpHttpHeaderList* headerList, const char* name, const char* value)
 {
@@ -99,8 +99,8 @@ void mupnp_http_headerlist_set(mUpnpHttpHeaderList* headerList, const char* name
 }
 
 /****************************************
-* mupnp_http_headerlist_setheader
-****************************************/
+ * mupnp_http_headerlist_setheader
+ ****************************************/
 
 const char* mupnp_http_headerlist_getvalue(mUpnpHttpHeaderList* headerList, const char* name)
 {

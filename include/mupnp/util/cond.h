@@ -64,19 +64,19 @@ typedef struct _mUpnpCond {
  * Functions
  ****************************************/
 
-/** 
+/**
  * Create a new condition variable
  */
 mUpnpCond* mupnp_cond_new(void);
 
-/** 
+/**
  * Destroy a condition variable
  *
  * \param cond The cond to destroy
  */
 bool mupnp_cond_delete(mUpnpCond* cond);
 
-/** 
+/**
  * Wait for condition variable to be signalled.
  *
  * \param cond Cond to be waited
@@ -85,7 +85,7 @@ bool mupnp_cond_delete(mUpnpCond* cond);
  */
 bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout);
 
-/** 
+/**
  * Signal a condition variable
  *
  * \param cond Cond to be signalled

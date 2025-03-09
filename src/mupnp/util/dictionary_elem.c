@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_dictionary_element_new
-****************************************/
+ * mupnp_dictionary_element_new
+ ****************************************/
 
 mUpnpDictionaryElement* mupnp_dictionary_element_new()
 {
@@ -38,8 +38,8 @@ mUpnpDictionaryElement* mupnp_dictionary_element_new()
 }
 
 /****************************************
-* mupnp_dictionary_element_delete
-****************************************/
+ * mupnp_dictionary_element_delete
+ ****************************************/
 
 bool mupnp_dictionary_element_delete(mUpnpDictionaryElement* dirElem)
 {

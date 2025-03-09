@@ -15,14 +15,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_QUERY (Begin)
-****************************************/
+ * MUPNP_NOUSE_QUERY (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_QUERYCTRL)
 
 /****************************************
-* mupnp_control_query_response_new
-****************************************/
+ * mupnp_control_query_response_new
+ ****************************************/
 
 mUpnpQueryResponse* mupnp_control_query_response_new()
 {
@@ -43,8 +43,8 @@ mUpnpQueryResponse* mupnp_control_query_response_new()
 }
 
 /****************************************
-* mupnp_control_query_response_delete
-****************************************/
+ * mupnp_control_query_response_delete
+ ****************************************/
 
 void mupnp_control_query_response_delete(mUpnpQueryResponse* queryRes)
 {
@@ -61,8 +61,8 @@ void mupnp_control_query_response_delete(mUpnpQueryResponse* queryRes)
 }
 
 /****************************************
-* mupnp_control_query_response_clear
-****************************************/
+ * mupnp_control_query_response_clear
+ ****************************************/
 
 void mupnp_control_query_response_clear(mUpnpQueryResponse* queryRes)
 {
@@ -77,8 +77,8 @@ void mupnp_control_query_response_clear(mUpnpQueryResponse* queryRes)
 }
 
 /****************************************
-* mupnp_control_query_request_setsoaprequest
-****************************************/
+ * mupnp_control_query_request_setsoaprequest
+ ****************************************/
 
 void mupnp_control_query_response_setsoapresponse(mUpnpQueryResponse* queryRes, mUpnpSoapResponse* soapRes)
 {
@@ -93,8 +93,8 @@ void mupnp_control_query_response_setsoapresponse(mUpnpQueryResponse* queryRes, 
 }
 
 /****************************************
-* mupnp_control_query_response_createresponsenode
-****************************************/
+ * mupnp_control_query_response_createresponsenode
+ ****************************************/
 
 static mUpnpXmlNode* mupnp_control_query_response_createresponsenode(mUpnpStateVariable* statVar)
 {
@@ -118,8 +118,8 @@ static mUpnpXmlNode* mupnp_control_query_response_createresponsenode(mUpnpStateV
 }
 
 /****************************************
-* mupnp_control_query_response_setresponse
-****************************************/
+ * mupnp_control_query_response_setresponse
+ ****************************************/
 
 void mupnp_control_query_response_setresponse(mUpnpQueryResponse* queryRes, mUpnpStateVariable* statVar)
 {
@@ -148,8 +148,8 @@ void mupnp_control_query_response_setresponse(mUpnpQueryResponse* queryRes, mUpn
 }
 
 /****************************************
-* mupnp_control_query_response_setresponse
-****************************************/
+ * mupnp_control_query_response_setresponse
+ ****************************************/
 
 mUpnpXmlNode* mupnp_control_query_response_getreturnnode(mUpnpQueryResponse* queryRes)
 {
@@ -179,8 +179,8 @@ mUpnpXmlNode* mupnp_control_query_response_getreturnnode(mUpnpQueryResponse* que
 }
 
 /****************************************
-* mupnp_control_query_response_setresponse
-****************************************/
+ * mupnp_control_query_response_setresponse
+ ****************************************/
 
 char* mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse* queryRes)
 {
@@ -197,7 +197,7 @@ char* mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse* queryRes)
 }
 
 /****************************************
-* MUPNP_NOUSE_QUERY (End)
-****************************************/
+ * MUPNP_NOUSE_QUERY (End)
+ ****************************************/
 
 #endif

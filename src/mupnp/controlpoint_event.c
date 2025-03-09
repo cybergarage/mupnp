@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_CONTROLPOINT (Begin)
-****************************************/
+ * MUPNP_NOUSE_CONTROLPOINT (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_CONTROLPOINT) && !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
@@ -195,8 +195,8 @@ void mupnp_controlpoint_expirationhandler(mUpnpThread* thread)
 }
 
 /****************************************
-* mupnp_controlpoint_resubscribe
-****************************************/
+ * mupnp_controlpoint_resubscribe
+ ****************************************/
 
 bool mupnp_controlpoint_resubscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* service, long timeout)
 {
@@ -235,8 +235,8 @@ bool mupnp_controlpoint_resubscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* 
 }
 
 /****************************************
-* mupnp_controlpoint_subscribe
-****************************************/
+ * mupnp_controlpoint_subscribe
+ ****************************************/
 
 bool mupnp_controlpoint_subscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* service, long timeout)
 {
@@ -296,8 +296,8 @@ bool mupnp_controlpoint_subscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* se
 }
 
 /****************************************
-* mupnp_event_subscription_request_setunsubscription
-****************************************/
+ * mupnp_event_subscription_request_setunsubscription
+ ****************************************/
 
 bool mupnp_controlpoint_unsubscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* service)
 {
@@ -330,8 +330,8 @@ bool mupnp_controlpoint_unsubscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* 
 }
 
 /****************************************
-* mupnp_controlpoint_subscribeall
-****************************************/
+ * mupnp_controlpoint_subscribeall
+ ****************************************/
 
 bool mupnp_controlpoint_subscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice* dev, long timeout)
 {
@@ -359,8 +359,8 @@ bool mupnp_controlpoint_subscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice* 
 }
 
 /****************************************
-* mupnp_controlpoint_resubscribeall
-****************************************/
+ * mupnp_controlpoint_resubscribeall
+ ****************************************/
 
 bool mupnp_controlpoint_resubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice* dev, long timeout)
 {
@@ -388,8 +388,8 @@ bool mupnp_controlpoint_resubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice
 }
 
 /****************************************
-* mupnp_controlpoint_unsubscribeall
-****************************************/
+ * mupnp_controlpoint_unsubscribeall
+ ****************************************/
 
 bool mupnp_controlpoint_unsubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice* dev)
 {
@@ -422,42 +422,42 @@ bool mupnp_controlpoint_unsubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice
 
 bool ControlPoint::isSubscribed(Service *service)
 {
-	mupnp_log_debug_l4("Entering...\n");
+        mupnp_log_debug_l4("Entering...\n");
 
-	if (service == NULL)
-		return false;
-	return service->isSubscribed();
+        if (service == NULL)
+                return false;
+        return service->isSubscribed();
 
-	mupnp_log_debug_l4("Leaving...\n");
+        mupnp_log_debug_l4("Leaving...\n");
 }
 
 void ControlPoint::unsubscribe(Device *device)
 {
-	mupnp_log_debug_l4("Entering...\n");
+        mupnp_log_debug_l4("Entering...\n");
 
-	int n;
+        int n;
 
-	ServiceList *serviceList = device->getServiceList();
-	int serviceCnt = serviceList->size();
-	for (n=0; n<serviceCnt; n++) {
-		Service *service = serviceList->getService(n);
-		if (service->hasSID() == true)
-			unsubscribe(service);
-	}
+        ServiceList *serviceList = device->getServiceList();
+        int serviceCnt = serviceList->size();
+        for (n=0; n<serviceCnt; n++) {
+                Service *service = serviceList->getService(n);
+                if (service->hasSID() == true)
+                        unsubscribe(service);
+        }
 
-	DeviceList *childDevList = device->getDeviceList();
-	int childDevCnt = childDevList->size();
-	for (n=0; n<childDevCnt; n++) {
-		Device *cdev = childDevList->getDevice(n);
-		unsubscribe(cdev);
-	}		
+        DeviceList *childDevList = device->getDeviceList();
+        int childDevCnt = childDevList->size();
+        for (n=0; n<childDevCnt; n++) {
+                Device *cdev = childDevList->getDevice(n);
+                unsubscribe(cdev);
+        }
 
-	mupnp_log_debug_l4("Leaving...\n");
+        mupnp_log_debug_l4("Leaving...\n");
 }
 */
 
 /****************************************
-* MUPNP_NOUSE_CONTROLPOINT (End)
-****************************************/
+ * MUPNP_NOUSE_CONTROLPOINT (End)
+ ****************************************/
 
 #endif

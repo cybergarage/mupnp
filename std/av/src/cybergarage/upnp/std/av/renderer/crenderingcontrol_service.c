@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2009
-*
-*	File: crenderingcontrol_service.c
-*
-*	Revision:
-*       2008/06/16
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2009
+ *
+ *	File: crenderingcontrol_service.c
+ *
+ *	Revision:
+ *       2008/06/16
+ *               - first release.
+ *
+ ************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -19,8 +19,8 @@
 #include <cybergarage/upnp/std/av/cmediarenderer.h>
 
 /****************************************
-* Service Description (Rendering Control)
-****************************************/
+ * Service Description (Rendering Control)
+ ****************************************/
 
 static char* CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_DESCRIPTION =
 #if defined(CG_CLINKCAV_USE_UPNPSTD_XML)
@@ -1380,8 +1380,8 @@ static char* CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_DESCRIPTION =
 #endif
 
 /****************************************
-* cg_upnpav_dmr_renderingctrl_actionreceived
-****************************************/
+ * cg_upnpav_dmr_renderingctrl_actionreceived
+ ****************************************/
 
 BOOL cg_upnpav_dmr_renderingctrl_actionreceived(CgUpnpAction* action)
 {
@@ -1433,8 +1433,8 @@ BOOL cg_upnpav_dmr_renderingctrl_queryreceived(CgUpnpStateVariable* statVar)
 }
 
 /****************************************
-* cg_upnpav_dmr_renderingctrl_init
-****************************************/
+ * cg_upnpav_dmr_renderingctrl_init
+ ****************************************/
 
 BOOL cg_upnpav_dmr_renderingctrl_init(CgUpnpAvRenderer* dmr)
 {

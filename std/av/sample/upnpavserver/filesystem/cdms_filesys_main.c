@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cdms_filesys_main.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cdms_filesys_main.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include "cdms_filesys.h"
 #include "ckeyboard.h"
@@ -24,8 +24,8 @@
 #endif
 
 /****************************************
-* PrintKeyMessage
-****************************************/
+ * PrintKeyMessage
+ ****************************************/
 
 void PrintKeyMessage()
 {
@@ -34,8 +34,8 @@ void PrintKeyMessage()
 }
 
 /****************************************
-* main
-****************************************/
+ * main
+ ****************************************/
 
 int main(int argc, char* argv[])
 {

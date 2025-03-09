@@ -15,8 +15,8 @@
 #include <mupnp/util/string.h>
 
 /****************************************
-* mupnp_ssdp_packet_new
-****************************************/
+ * mupnp_ssdp_packet_new
+ ****************************************/
 
 mUpnpSSDPPacket* mupnp_ssdp_packet_new()
 {
@@ -43,8 +43,8 @@ mUpnpSSDPPacket* mupnp_ssdp_packet_new()
 }
 
 /****************************************
-* mupnp_ssdp_packet_delete
-****************************************/
+ * mupnp_ssdp_packet_delete
+ ****************************************/
 
 void mupnp_ssdp_packet_delete(mUpnpSSDPPacket* ssdpPkt)
 {
@@ -63,8 +63,8 @@ void mupnp_ssdp_packet_delete(mUpnpSSDPPacket* ssdpPkt)
 }
 
 /****************************************
-* mupnp_ssdp_packet_clear
-****************************************/
+ * mupnp_ssdp_packet_clear
+ ****************************************/
 
 void mupnp_ssdp_packet_clear(mUpnpSSDPPacket* ssdpPkt)
 {
@@ -77,8 +77,8 @@ void mupnp_ssdp_packet_clear(mUpnpSSDPPacket* ssdpPkt)
 }
 
 /****************************************
-* mupnp_ssdp_packet_isrootdevice
-****************************************/
+ * mupnp_ssdp_packet_isrootdevice
+ ****************************************/
 
 bool mupnp_ssdp_packet_isrootdevice(mUpnpSSDPPacket* ssdpPkt)
 {
@@ -94,8 +94,8 @@ bool mupnp_ssdp_packet_isrootdevice(mUpnpSSDPPacket* ssdpPkt)
 }
 
 /****************************************
-* mupnp_ssdp_packet_setheader
-****************************************/
+ * mupnp_ssdp_packet_setheader
+ ****************************************/
 
 void mupnp_ssdp_packet_setheader(mUpnpSSDPPacket* ssdpPkt, char* ssdpMsg)
 {
@@ -172,8 +172,8 @@ long mupnp_ssdp_packet_getmaxage(mUpnpSSDPPacket* ssdpPkt)
 }
 
 /****************************************
-* mupnp_ssdp_packet_copy
-****************************************/
+ * mupnp_ssdp_packet_copy
+ ****************************************/
 
 void mupnp_ssdp_packet_copy(mUpnpSSDPPacket* dstSsdpPkt, mUpnpSSDPPacket* srcSsdpPkt)
 {
@@ -200,8 +200,8 @@ void mupnp_ssdp_packet_copy(mUpnpSSDPPacket* dstSsdpPkt, mUpnpSSDPPacket* srcSsd
 }
 
 /****************************************
-* mupnp_ssdp_packet_print
-****************************************/
+ * mupnp_ssdp_packet_print
+ ****************************************/
 
 void mupnp_ssdp_packet_print(mUpnpSSDPPacket* ssdpPkt)
 {

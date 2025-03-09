@@ -74,19 +74,19 @@ typedef struct _mUpnpLockInfo {
  * Functions
  ****************************************/
 
-/** 
+/**
  * Create a new mutex
  */
 mUpnpMutex* mupnp_mutex_new(void);
 
-/** 
+/**
  * Destroy a mutex
  *
  * \param mutex The mutex to destroy
  */
 bool mupnp_mutex_delete(mUpnpMutex* mutex);
 
-/** 
+/**
  * Acquire a mutex lock
  *
  * \param mutex Mutex to lock
@@ -98,7 +98,7 @@ bool mupnp_mutex_delete(mUpnpMutex* mutex);
 bool mupnp_mutex_lock(mUpnpMutex* mutex);
 #endif
 
-/** 
+/**
  * Release a locked mutex
  *
  * \param mutex Mutex to unlock

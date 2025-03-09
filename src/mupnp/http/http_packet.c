@@ -23,8 +23,8 @@
 #define READBUF_LENGTH 1024
 
 /****************************************
-* mupnp_http_packet_new
-****************************************/
+ * mupnp_http_packet_new
+ ****************************************/
 
 mUpnpHttpPacket* mupnp_http_packet_new()
 {
@@ -44,8 +44,8 @@ mUpnpHttpPacket* mupnp_http_packet_new()
 }
 
 /****************************************
-* mupnp_http_packet_delete
-****************************************/
+ * mupnp_http_packet_delete
+ ****************************************/
 
 void mupnp_http_packet_delete(mUpnpHttpPacket* httpPkt)
 {
@@ -58,8 +58,8 @@ void mupnp_http_packet_delete(mUpnpHttpPacket* httpPkt)
 }
 
 /****************************************
-* mupnp_http_packet_init
-****************************************/
+ * mupnp_http_packet_init
+ ****************************************/
 
 void mupnp_http_packet_init(mUpnpHttpPacket* httpPkt)
 {
@@ -72,8 +72,8 @@ void mupnp_http_packet_init(mUpnpHttpPacket* httpPkt)
 }
 
 /****************************************
-* mupnp_http_packet_clean
-****************************************/
+ * mupnp_http_packet_clean
+ ****************************************/
 
 void mupnp_http_packet_clean(mUpnpHttpPacket* httpPkt)
 {
@@ -86,8 +86,8 @@ void mupnp_http_packet_clean(mUpnpHttpPacket* httpPkt)
 }
 
 /****************************************
-* mupnp_http_packet_clear
-****************************************/
+ * mupnp_http_packet_clear
+ ****************************************/
 
 void mupnp_http_packet_clear(mUpnpHttpPacket* httpPkt)
 {
@@ -100,8 +100,8 @@ void mupnp_http_packet_clear(mUpnpHttpPacket* httpPkt)
 }
 
 /****************************************
-* mupnp_http_packet_setheader
-****************************************/
+ * mupnp_http_packet_setheader
+ ****************************************/
 
 void mupnp_http_packet_setheadervalue(mUpnpHttpPacket* httpPkt, const char* name, const char* value)
 {
@@ -113,8 +113,8 @@ void mupnp_http_packet_setheadervalue(mUpnpHttpPacket* httpPkt, const char* name
 }
 
 /****************************************
-* mupnp_http_packet_setheaderinteger
-****************************************/
+ * mupnp_http_packet_setheaderinteger
+ ****************************************/
 
 void mupnp_http_packet_setheaderinteger(mUpnpHttpPacket* httpPkt, const char* name, int value)
 {
@@ -128,8 +128,8 @@ void mupnp_http_packet_setheaderinteger(mUpnpHttpPacket* httpPkt, const char* na
 }
 
 /****************************************
-* mupnp_http_packet_setheaderlong
-****************************************/
+ * mupnp_http_packet_setheaderlong
+ ****************************************/
 
 void mupnp_http_packet_setheaderlong(mUpnpHttpPacket* httpPkt, const char* name, long value)
 {
@@ -173,8 +173,8 @@ void mupnp_http_packet_setheaderssizet(mUpnpHttpPacket* httpPkt, const char* nam
 }
 
 /****************************************
-* mupnp_http_packet_getheadervalue
-****************************************/
+ * mupnp_http_packet_getheadervalue
+ ****************************************/
 
 const char* mupnp_http_packet_getheadervalue(mUpnpHttpPacket* httpPkt, const char* name)
 {
@@ -182,8 +182,8 @@ const char* mupnp_http_packet_getheadervalue(mUpnpHttpPacket* httpPkt, const cha
 }
 
 /****************************************
-* mupnp_http_packet_getheadervalue
-****************************************/
+ * mupnp_http_packet_getheadervalue
+ ****************************************/
 
 int mupnp_http_packet_getheaderinteger(mUpnpHttpPacket* httpPkt, const char* name)
 {
@@ -199,8 +199,8 @@ int mupnp_http_packet_getheaderinteger(mUpnpHttpPacket* httpPkt, const char* nam
 }
 
 /****************************************
-* mupnp_http_packet_getheadervalue
-****************************************/
+ * mupnp_http_packet_getheadervalue
+ ****************************************/
 
 long mupnp_http_packet_getheaderlong(mUpnpHttpPacket* httpPkt, const char* name)
 {
@@ -250,8 +250,8 @@ ssize_t mupnp_http_packet_getheaderssizet(mUpnpHttpPacket* httpPkt, const char* 
 }
 
 /****************************************
-* mupnp_http_packet_getheadervalue
-****************************************/
+ * mupnp_http_packet_getheadervalue
+ ****************************************/
 
 void mupnp_http_packet_sethost(mUpnpHttpPacket* httpPkt, const char* addr, int port)
 {
@@ -306,8 +306,8 @@ void mupnp_http_packet_sethost(mUpnpHttpPacket* httpPkt, const char* addr, int p
 }
 
 /****************************************
-* mupnp_http_packet_post
-****************************************/
+ * mupnp_http_packet_post
+ ****************************************/
 
 void mupnp_http_packet_post(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock)
 {
@@ -343,8 +343,8 @@ void mupnp_http_packet_post(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock)
 }
 
 /****************************************
-* mupnp_http_packet_read_headers
-****************************************/
+ * mupnp_http_packet_read_headers
+ ****************************************/
 
 void mupnp_http_packet_read_headers(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, char* lineBuf, size_t lineBufSize)
 {
@@ -383,8 +383,8 @@ void mupnp_http_packet_read_headers(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock,
 }
 
 /****************************************
-* mupnp_http_packet_read_chunk
-****************************************/
+ * mupnp_http_packet_read_chunk
+ ****************************************/
 
 size_t mupnp_http_packet_read_chunk(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, char* lineBuf, size_t lineBufSize)
 {
@@ -434,8 +434,8 @@ size_t mupnp_http_packet_read_chunk(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock,
 }
 
 /****************************************
-* mupnp_http_packet_read_body
-****************************************/
+ * mupnp_http_packet_read_body
+ ****************************************/
 
 bool mupnp_http_packet_read_body(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, char* lineBuf, size_t lineBufSize)
 {
@@ -476,7 +476,7 @@ bool mupnp_http_packet_read_body(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, ch
                MUPNP_HTTP_CONTENT_LENGTH)
       == NULL) {
     /* header existance must be checked! otherwise packets which
-		   rightly report 0 as content length, will jam the http */
+                   rightly report 0 as content length, will jam the http */
 
     /* Check if we read chunked encoding */
     if (mupnp_http_packet_ischunked(httpPkt) == true) {
@@ -505,8 +505,8 @@ bool mupnp_http_packet_read_body(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, ch
 }
 
 /****************************************
-* mupnp_http_packet_read
-****************************************/
+ * mupnp_http_packet_read
+ ****************************************/
 
 bool mupnp_http_packet_read(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, bool onlyHeader, char* lineBuf, size_t lineBufSize)
 {
@@ -524,8 +524,8 @@ bool mupnp_http_packet_read(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, bool on
 }
 
 /****************************************
-* mupnp_http_packet_getheadersize
-****************************************/
+ * mupnp_http_packet_getheadersize
+ ****************************************/
 
 size_t mupnp_http_packet_getheadersize(mUpnpHttpPacket* httpPkt)
 {
@@ -554,8 +554,8 @@ size_t mupnp_http_packet_getheadersize(mUpnpHttpPacket* httpPkt)
 }
 
 /****************************************
-* mupnp_http_packet_copy
-****************************************/
+ * mupnp_http_packet_copy
+ ****************************************/
 
 void mupnp_http_packet_copy(mUpnpHttpPacket* destHttpPkt, mUpnpHttpPacket* srcHttpPkt)
 {
@@ -581,8 +581,8 @@ void mupnp_http_packet_copy(mUpnpHttpPacket* destHttpPkt, mUpnpHttpPacket* srcHt
 }
 
 /****************************************
-* mupnp_http_packet_print
-****************************************/
+ * mupnp_http_packet_print
+ ****************************************/
 
 void mupnp_http_packet_print(mUpnpHttpPacket* httpPkt)
 {

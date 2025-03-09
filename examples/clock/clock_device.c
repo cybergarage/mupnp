@@ -1,27 +1,27 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: clock_device.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-*	10/31/05
-*		- Removed :schemas: from clock service description
-*
-*	11-Jan-06 Heikki Junnila
-*		- Renamed *_getservicebyname's to *_getservicebyexacttype
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ *       This is licensed under BSD-style license,
+ *       see file COPYING.
+ *
+ *	File: clock_device.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ *	10/31/05
+ *		- Removed :schemas: from clock service description
+ *
+ *	11-Jan-06 Heikki Junnila
+ *		- Renamed *_getservicebyname's to *_getservicebyexacttype
+ *
+ ************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -33,8 +33,8 @@
 #include <string.h>
 
 /****************************************
-* Descriptions
-****************************************/
+ * Descriptions
+ ****************************************/
 
 char* CLOCK_DEVICE_DESCRIPTION = "<?xml version=\"1.0\" ?>\n"
                                  "<root xmlns=\"urn:schemas-upnp-org:device-1-0\">\n"
@@ -122,8 +122,8 @@ char* CLOCK_SERVICE_DESCRIPTION = "<?xml version=\"1.0\"?>\n"
                                   "</scpd>\n";
 
 /****************************************
-* upnp_clock_actionreceived
-****************************************/
+ * upnp_clock_actionreceived
+ ****************************************/
 
 bool upnp_clock_actionreceived(mUpnpAction* action)
 {
@@ -154,8 +154,8 @@ bool upnp_clock_actionreceived(mUpnpAction* action)
 }
 
 /****************************************
-* upnp_clock_queryreceived
-****************************************/
+ * upnp_clock_queryreceived
+ ****************************************/
 
 bool upnp_clock_queryreceived(mUpnpStateVariable* statVar)
 {
@@ -175,8 +175,8 @@ bool upnp_clock_queryreceived(mUpnpStateVariable* statVar)
 }
 
 /****************************************
-* upnp_clock_device_httprequestrecieved
-****************************************/
+ * upnp_clock_device_httprequestrecieved
+ ****************************************/
 
 void upnp_clock_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
 {
@@ -251,8 +251,8 @@ void upnp_clock_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
 }
 
 /****************************************
-* upnp_clock_device_new
-****************************************/
+ * upnp_clock_device_new
+ ****************************************/
 
 mUpnpDevice* upnp_clock_device_new()
 {
@@ -285,8 +285,8 @@ mUpnpDevice* upnp_clock_device_new()
 }
 
 /****************************************
-* upnp_clock_device_update
-****************************************/
+ * upnp_clock_device_update
+ ****************************************/
 
 void upnp_clock_device_update(mUpnpDevice* clockDev)
 {

@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_ssdprequest_new
-****************************************/
+ * mupnp_ssdprequest_new
+ ****************************************/
 
 mUpnpSSDPRequest* mupnp_ssdprequest_new()
 {
@@ -34,8 +34,8 @@ mUpnpSSDPRequest* mupnp_ssdprequest_new()
 }
 
 /****************************************
-* mupnp_ssdprequest_delete
-****************************************/
+ * mupnp_ssdprequest_delete
+ ****************************************/
 
 void mupnp_ssdprequest_delete(mUpnpSSDPRequest* ssdpReq)
 {
@@ -47,8 +47,8 @@ void mupnp_ssdprequest_delete(mUpnpSSDPRequest* ssdpReq)
 }
 
 /****************************************
-* mupnp_ssdprequest_setleasetime
-****************************************/
+ * mupnp_ssdprequest_setleasetime
+ ****************************************/
 
 void mupnp_ssdprequest_setleasetime(mUpnpSSDPRequest* ssdpReq, mUpnpTime value)
 {
@@ -63,8 +63,8 @@ void mupnp_ssdprequest_setleasetime(mUpnpSSDPRequest* ssdpReq, mUpnpTime value)
 }
 
 /****************************************
-* mupnp_ssdprequest_getleasetime
-****************************************/
+ * mupnp_ssdprequest_getleasetime
+ ****************************************/
 
 mUpnpTime mupnp_ssdprequest_getleasetime(mUpnpSSDPRequest* ssdpReq)
 {
@@ -80,8 +80,8 @@ mUpnpTime mupnp_ssdprequest_getleasetime(mUpnpSSDPRequest* ssdpReq)
 }
 
 /****************************************
-* mupnp_ssdprequest_tostring
-****************************************/
+ * mupnp_ssdprequest_tostring
+ ****************************************/
 
 char* mupnp_ssdprequest_tostring(mUpnpSSDPRequest* ssdpReq, mUpnpString* ssdpMsg)
 {

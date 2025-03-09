@@ -8,8 +8,8 @@
  *
  ******************************************************************/
 
-#import <Foundation/NSString.h>
 #import <Foundation/NSArray.h>
+#import <Foundation/NSString.h>
 
 #if !defined(_MUPNP_CONTROLPOINT_H_)
 typedef void mUpnpControlPoint;
@@ -27,7 +27,7 @@ typedef void mUpnpControlPoint;
 @end
 
 /**
- * The CGUpnpControlPoint class is a wrapper class for mUpnpControlPoint of mUPnP for C to 
+ * The CGUpnpControlPoint class is a wrapper class for mUpnpControlPoint of mUPnP for C to
  * program using only Objective-C directly on MacOSX.
  * Currently, the only basic methods are wrapped to control UPnP devices.
  */
@@ -37,8 +37,8 @@ typedef void mUpnpControlPoint;
 @property (assign) id<CGUpnpControlPointDelegate> delegate;
 - (mUpnpControlPoint*)cObject;
 /**
- * Activate some background threads of the control point such as SSDP and 
- * HTTP servers to listen messages and events of UPnP. You must call this 
+ * Activate some background threads of the control point such as SSDP and
+ * HTTP servers to listen messages and events of UPnP. You must call this
  * method before you can actually use a control point.
  *
  * @return TRUE if successful; otherwise FALSE
@@ -46,8 +46,8 @@ typedef void mUpnpControlPoint;
  */
 - (BOOL)start;
 /**
- * Stop some background threads of the control point such as SSDP and 
- * HTTP servers to listen messages and events of UPnP. 
+ * Stop some background threads of the control point such as SSDP and
+ * HTTP servers to listen messages and events of UPnP.
  *
  * @return TRUE if successful; otherwise FALSE
  *

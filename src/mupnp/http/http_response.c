@@ -14,8 +14,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_http_response_new
-****************************************/
+ * mupnp_http_response_new
+ ****************************************/
 
 mUpnpHttpResponse* mupnp_http_response_new()
 {
@@ -43,8 +43,8 @@ mUpnpHttpResponse* mupnp_http_response_new()
 }
 
 /****************************************
-* mupnp_http_response_delete
-****************************************/
+ * mupnp_http_response_delete
+ ****************************************/
 
 void mupnp_http_response_delete(mUpnpHttpResponse* httpRes)
 {
@@ -59,8 +59,8 @@ void mupnp_http_response_delete(mUpnpHttpResponse* httpRes)
 }
 
 /****************************************
-* mupnp_http_response_clear
-****************************************/
+ * mupnp_http_response_clear
+ ****************************************/
 
 void mupnp_http_response_clear(mUpnpHttpResponse* httpRes)
 {
@@ -76,8 +76,8 @@ void mupnp_http_response_clear(mUpnpHttpResponse* httpRes)
 }
 
 /****************************************
-* mupnp_http_response_setversion
-****************************************/
+ * mupnp_http_response_setversion
+ ****************************************/
 
 void mupnp_http_response_setversion(mUpnpHttpResponse* httpRes, const char* value)
 {
@@ -89,8 +89,8 @@ void mupnp_http_response_setversion(mUpnpHttpResponse* httpRes, const char* valu
 }
 
 /****************************************
-* mupnp_http_response_getversion
-****************************************/
+ * mupnp_http_response_getversion
+ ****************************************/
 
 char* mupnp_http_response_getversion(mUpnpHttpResponse* httpRes)
 {
@@ -102,8 +102,8 @@ char* mupnp_http_response_getversion(mUpnpHttpResponse* httpRes)
 }
 
 /****************************************
-* mupnp_http_response_setstatuscode
-****************************************/
+ * mupnp_http_response_setstatuscode
+ ****************************************/
 
 void mupnp_http_response_setstatuscode(mUpnpHttpResponse* httpRes, int value)
 {
@@ -117,8 +117,8 @@ void mupnp_http_response_setstatuscode(mUpnpHttpResponse* httpRes, int value)
 }
 
 /****************************************
-* mupnp_http_response_getstatuscode
-****************************************/
+ * mupnp_http_response_getstatuscode
+ ****************************************/
 
 int mupnp_http_response_getstatuscode(mUpnpHttpResponse* httpRes)
 {
@@ -130,8 +130,8 @@ int mupnp_http_response_getstatuscode(mUpnpHttpResponse* httpRes)
 }
 
 /****************************************
-* mupnp_http_response_setreasonphrase
-****************************************/
+ * mupnp_http_response_setreasonphrase
+ ****************************************/
 
 void mupnp_http_response_setreasonphrase(mUpnpHttpResponse* httpRes, const char* value)
 {
@@ -143,8 +143,8 @@ void mupnp_http_response_setreasonphrase(mUpnpHttpResponse* httpRes, const char*
 }
 
 /****************************************
-* mupnp_http_response_getreasonphrase
-****************************************/
+ * mupnp_http_response_getreasonphrase
+ ****************************************/
 
 char* mupnp_http_response_getreasonphrase(mUpnpHttpResponse* httpRes)
 {
@@ -156,8 +156,8 @@ char* mupnp_http_response_getreasonphrase(mUpnpHttpResponse* httpRes)
 }
 
 /****************************************
-* mupnp_http_response_read
-****************************************/
+ * mupnp_http_response_read
+ ****************************************/
 
 bool mupnp_http_response_read(mUpnpHttpResponse* httpRes, mUpnpSocket* sock, bool onlyHeader)
 {
@@ -194,8 +194,8 @@ bool mupnp_http_response_read(mUpnpHttpResponse* httpRes, mUpnpSocket* sock, boo
 }
 
 /****************************************
-* mupnp_http_response_copy
-****************************************/
+ * mupnp_http_response_copy
+ ****************************************/
 
 void mupnp_http_response_copy(mUpnpHttpResponse* destHttpRes, mUpnpHttpResponse* srcHttpRes)
 {
@@ -211,8 +211,8 @@ void mupnp_http_response_copy(mUpnpHttpResponse* destHttpRes, mUpnpHttpResponse*
 }
 
 /****************************************
-* mupnp_http_response_print
-****************************************/
+ * mupnp_http_response_print
+ ****************************************/
 
 void mupnp_http_response_print(mUpnpHttpResponse* httpRes)
 {

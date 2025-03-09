@@ -13,8 +13,8 @@
 #include <mupnp/xml/xml.h>
 
 /****************************************
-* mupnp_xml_attribute_new
-****************************************/
+ * mupnp_xml_attribute_new
+ ****************************************/
 
 mUpnpXmlAttribute* mupnp_xml_attribute_new()
 {
@@ -35,8 +35,8 @@ mUpnpXmlAttribute* mupnp_xml_attribute_new()
 }
 
 /****************************************
-* mupnp_xml_attribute_delete
-****************************************/
+ * mupnp_xml_attribute_delete
+ ****************************************/
 
 void mupnp_xml_attribute_delete(mUpnpXmlAttribute* attr)
 {
@@ -51,8 +51,8 @@ void mupnp_xml_attribute_delete(mUpnpXmlAttribute* attr)
 }
 
 /****************************************
-* mupnp_xml_attribute_setname
-****************************************/
+ * mupnp_xml_attribute_setname
+ ****************************************/
 
 void mupnp_xml_attribute_setname(mUpnpXmlAttribute* attr, const char* name)
 {
@@ -64,8 +64,8 @@ void mupnp_xml_attribute_setname(mUpnpXmlAttribute* attr, const char* name)
 }
 
 /****************************************
-* mupnp_xml_attribute_getname
-****************************************/
+ * mupnp_xml_attribute_getname
+ ****************************************/
 
 const char* mupnp_xml_attribute_getname(mUpnpXmlAttribute* attr)
 {
@@ -77,8 +77,8 @@ const char* mupnp_xml_attribute_getname(mUpnpXmlAttribute* attr)
 }
 
 /****************************************
-* mupnp_xml_attribute_isname
-****************************************/
+ * mupnp_xml_attribute_isname
+ ****************************************/
 
 bool mupnp_xml_attribute_isname(mUpnpXmlAttribute* attr, const char* name)
 {
@@ -90,8 +90,8 @@ bool mupnp_xml_attribute_isname(mUpnpXmlAttribute* attr, const char* name)
 }
 
 /****************************************
-* mupnp_xml_attribute_setvalue
-****************************************/
+ * mupnp_xml_attribute_setvalue
+ ****************************************/
 
 void mupnp_xml_attribute_setvalue(mUpnpXmlAttribute* attr, const char* value)
 {
@@ -103,8 +103,8 @@ void mupnp_xml_attribute_setvalue(mUpnpXmlAttribute* attr, const char* value)
 }
 
 /****************************************
-* mupnp_xml_attribute_setvalue
-****************************************/
+ * mupnp_xml_attribute_setvalue
+ ****************************************/
 
 const char* mupnp_xml_attribute_getvalue(mUpnpXmlAttribute* attr)
 {

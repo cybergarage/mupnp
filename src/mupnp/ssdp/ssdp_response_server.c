@@ -14,14 +14,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_CONTROLPOINT (Begin)
-****************************************/
+ * MUPNP_NOUSE_CONTROLPOINT (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_CONTROLPOINT)
 
 /****************************************
-* mupnp_ssdpresponse_server_new
-****************************************/
+ * mupnp_ssdpresponse_server_new
+ ****************************************/
 
 mUpnpSSDPResponseServer* mupnp_ssdpresponse_server_new()
 {
@@ -47,8 +47,8 @@ mUpnpSSDPResponseServer* mupnp_ssdpresponse_server_new()
 }
 
 /****************************************
-* mupnp_ssdpresponse_server_delete
-****************************************/
+ * mupnp_ssdpresponse_server_delete
+ ****************************************/
 
 void mupnp_ssdpresponse_server_delete(mUpnpSSDPResponseServer* server)
 {
@@ -65,8 +65,8 @@ void mupnp_ssdpresponse_server_delete(mUpnpSSDPResponseServer* server)
 }
 
 /****************************************
-* mupnp_ssdpresponse_server_open
-****************************************/
+ * mupnp_ssdpresponse_server_open
+ ****************************************/
 
 bool mupnp_ssdpresponse_server_open(mUpnpSSDPResponseServer* server, int bindPort, char* bindAddr)
 {
@@ -88,8 +88,8 @@ bool mupnp_ssdpresponse_server_open(mUpnpSSDPResponseServer* server, int bindPor
 }
 
 /****************************************
-* mupnp_ssdpresponse_server_close
-****************************************/
+ * mupnp_ssdpresponse_server_close
+ ****************************************/
 
 bool mupnp_ssdpresponse_server_close(mUpnpSSDPResponseServer* server)
 {
@@ -109,8 +109,8 @@ bool mupnp_ssdpresponse_server_close(mUpnpSSDPResponseServer* server)
 }
 
 /****************************************
-* mupnp_ssdpresponse_server_performlistener
-****************************************/
+ * mupnp_ssdpresponse_server_performlistener
+ ****************************************/
 
 void mupnp_ssdpresponse_server_performlistener(mUpnpSSDPResponseServer* server, mUpnpSSDPPacket* ssdpPkt)
 {
@@ -127,8 +127,8 @@ void mupnp_ssdpresponse_server_performlistener(mUpnpSSDPResponseServer* server, 
 }
 
 /****************************************
-* mupnp_ssdpresponse_server_thread
-****************************************/
+ * mupnp_ssdpresponse_server_thread
+ ****************************************/
 
 static void mupnp_ssdpresponse_server_thread(mUpnpThread* thread)
 {
@@ -163,8 +163,8 @@ static void mupnp_ssdpresponse_server_thread(mUpnpThread* thread)
 }
 
 /****************************************
-* mupnp_ssdpresponse_server_start
-****************************************/
+ * mupnp_ssdpresponse_server_start
+ ****************************************/
 
 bool mupnp_ssdpresponse_server_start(mUpnpSSDPResponseServer* server)
 {
@@ -188,8 +188,8 @@ bool mupnp_ssdpresponse_server_start(mUpnpSSDPResponseServer* server)
 }
 
 /****************************************
-* mupnp_ssdpresponse_server_stop
-****************************************/
+ * mupnp_ssdpresponse_server_stop
+ ****************************************/
 
 bool mupnp_ssdpresponse_server_stop(mUpnpSSDPResponseServer* server)
 {
@@ -207,8 +207,8 @@ bool mupnp_ssdpresponse_server_stop(mUpnpSSDPResponseServer* server)
 }
 
 /****************************************
-* mupnp_ssdpresponse_server_post
-****************************************/
+ * mupnp_ssdpresponse_server_post
+ ****************************************/
 
 bool mupnp_ssdpresponse_server_post(mUpnpSSDPResponseServer* server, mUpnpSSDPRequest* ssdpReq)
 {
@@ -238,7 +238,7 @@ bool mupnp_ssdpresponse_server_post(mUpnpSSDPResponseServer* server, mUpnpSSDPRe
 }
 
 /****************************************
-* MUPNP_NOUSE_CONTROLPOINT (End)
-****************************************/
+ * MUPNP_NOUSE_CONTROLPOINT (End)
+ ****************************************/
 
 #endif

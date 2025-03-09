@@ -16,14 +16,14 @@
 #include <mupnp/typedef.h>
 
 /****************************************
-* Compiler Switch (BEGIN)
-****************************************/
+ * Compiler Switch (BEGIN)
+ ****************************************/
 
 #if defined(MUPNP_XMLPARSER_LIBXML2) || (!defined(HAVE_CONFIG_H) && defined(TARGET_OS_IPHONE))
 
 /****************************************
-* Header Files
-****************************************/
+ * Header Files
+ ****************************************/
 
 #include <libxml/parser.h>
 #include <libxml/parserInternals.h>
@@ -172,8 +172,8 @@ static xmlEntityPtr mupnp_libxml2_get_entity(void* user_data, const xmlChar* nam
 }
 
 /****************************************
-* mupnp_xml_force_utf8
-****************************************/
+ * mupnp_xml_force_utf8
+ ****************************************/
 
 static void mupnp_xml_force_utf8(char* data, size_t len)
 {
@@ -189,7 +189,7 @@ static void mupnp_xml_force_utf8(char* data, size_t len)
     /* If not then we check if byte starts two byte sequence. */
     else if (UTF_RANGE2_1_R == (*(data + read) & UTF_RANGE2_1)) {
       /* We know that if this is correct two byte UTF8 char
-                         * there must be at least one byte in data buffer */
+       * there must be at least one byte in data buffer */
       if ((read + 1) > len) {
         *(data + read) = '?';
         read++;
@@ -197,14 +197,14 @@ static void mupnp_xml_force_utf8(char* data, size_t len)
       }
 
       /* We have bytes left in buffer, next we check if this two
-                         * byte sequence can be decoded as two byte UTF8 char. */
+       * byte sequence can be decoded as two byte UTF8 char. */
       if (UTF_RANGEX_2_R == (*(data + read + 1) & UTF_RANGEX_2)) {
         read += 2;
         continue;
       }
 
       /* Found a byte sequence which is not an UTF8 character, converting
-			 * it to proper UTF8 character. */
+       * it to proper UTF8 character. */
       else {
         *(data + read) = '?';
         read++;
@@ -215,7 +215,7 @@ static void mupnp_xml_force_utf8(char* data, size_t len)
     /* Three byte sequence check */
     else if (UTF_RANGE3_1_R == (*(data + read) & UTF_RANGE3_1)) {
       /* Now we have to have at least two other bytes in buffer for this char
-                         * really to be a correct UTF8 char. */
+       * really to be a correct UTF8 char. */
       if ((read + 2) > len) {
         *(data + read) = '?';
         read++;
@@ -229,7 +229,7 @@ static void mupnp_xml_force_utf8(char* data, size_t len)
       }
 
       /* This byte did not start a valid three byte UTF8 character, so
-			 * converting and continuing. */
+       * converting and continuing. */
       else {
         *(data + read) = '?';
         read++;
@@ -253,7 +253,7 @@ static void mupnp_xml_force_utf8(char* data, size_t len)
       }
 
       /* This byte did not start a valid four byte sequence, converting
-			 * and continuing. */
+       * and continuing. */
       else {
         *(data + read) = '?';
         read++;
@@ -262,7 +262,7 @@ static void mupnp_xml_force_utf8(char* data, size_t len)
     }
 
     /* We couldn't find one, two, three or four byte encoding sequences,
-                 * so just setting current byte as unknown and continuing. */
+     * so just setting current byte as unknown and continuing. */
     else {
       *(data + read) = '?';
       read++;
@@ -392,7 +392,7 @@ static int mupnp_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void* user_data, con
 }
 
 /****************************************
-* Compiler Switch (END)
-****************************************/
+ * Compiler Switch (END)
+ ****************************************/
 
 #endif

@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cdms_youtube.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cdms_youtube.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include <cybergarage/net/cinterface.h>
 #include <cybergarage/upnp/std/av/cmediaserver.h>
@@ -24,8 +24,8 @@
 #endif
 
 /****************************************
-* cg_upnp_dms_youtube_actionlistner
-****************************************/
+ * cg_upnp_dms_youtube_actionlistner
+ ****************************************/
 
 BOOL cg_upnp_dms_youtube_actionlistner(CgUpnpAction* action)
 {
@@ -58,7 +58,7 @@ BOOL cg_upnp_dms_youtube_actionlistner(CgUpnpAction* action)
 
     cg_upnp_dms_lock(dms);
 
-    //cg_upnp_dms_youtube_update(dms);
+    // cg_upnp_dms_youtube_update(dms);
 
     cg_upnp_dms_unlock(dms);
   }
@@ -68,8 +68,8 @@ BOOL cg_upnp_dms_youtube_actionlistner(CgUpnpAction* action)
 }
 
 /****************************************
-* cg_upnp_dms_youtube_new
-****************************************/
+ * cg_upnp_dms_youtube_new
+ ****************************************/
 
 CgUpnpMediaServer* cg_upnp_dms_youtube_new()
 {
@@ -98,8 +98,8 @@ CgUpnpMediaServer* cg_upnp_dms_youtube_new()
   return dms;
 }
 /****************************************
-* cg_upnp_dms_filesys_updatecontentlist
-****************************************/
+ * cg_upnp_dms_filesys_updatecontentlist
+ ****************************************/
 
 void cg_upnp_dms_youtube_clearcontentfiles(CgUpnpMediaServer* dms)
 {
@@ -155,8 +155,8 @@ void cg_upnp_dms_youtube_clearcontentfiles(CgUpnpMediaServer* dms)
 }
 
 /****************************************
-* cg_upnp_dms_youtube_delete
-****************************************/
+ * cg_upnp_dms_youtube_delete
+ ****************************************/
 
 void cg_upnp_dms_youtube_delete(CgUpnpMediaServer* dms)
 {

@@ -13,8 +13,8 @@
 #include <mupnp/xml/xml.h>
 
 /****************************************
-* mupnp_xml_nodelist_new
-****************************************/
+ * mupnp_xml_nodelist_new
+ ****************************************/
 
 mUpnpXmlNodeList* mupnp_xml_nodelist_new()
 {
@@ -42,8 +42,8 @@ mUpnpXmlNodeList* mupnp_xml_nodelist_new()
 }
 
 /****************************************
-* mupnp_xml_nodelist_delete
-****************************************/
+ * mupnp_xml_nodelist_delete
+ ****************************************/
 
 void mupnp_xml_nodelist_delete(mUpnpXmlNodeList* nodeList)
 {
@@ -56,8 +56,8 @@ void mupnp_xml_nodelist_delete(mUpnpXmlNodeList* nodeList)
 }
 
 /****************************************
-* mupnp_xml_nodelist_getbyname
-****************************************/
+ * mupnp_xml_nodelist_getbyname
+ ****************************************/
 
 mUpnpXmlNode* mupnp_xml_nodelist_getbyname(mUpnpXmlNodeList* nodeList, const char* name)
 {
@@ -83,8 +83,8 @@ mUpnpXmlNode* mupnp_xml_nodelist_getbyname(mUpnpXmlNodeList* nodeList, const cha
 }
 
 /****************************************
-* mupnp_xml_nodelist_getbyxpath
-****************************************/
+ * mupnp_xml_nodelist_getbyxpath
+ ****************************************/
 
 mUpnpXmlNode* mupnp_xml_nodelist_getbyxpath(mUpnpXmlNodeList* nodeList, const char* name)
 {

@@ -17,8 +17,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_ssdp_socket_notify
-****************************************/
+ * mupnp_ssdp_socket_notify
+ ****************************************/
 
 static bool mupnp_ssdp_socket_notify(mUpnpSSDPSocket* ssdpSock, mUpnpSSDPRequest* ssdpReq, const char* ssdpAddr)
 {
@@ -41,8 +41,8 @@ static bool mupnp_ssdp_socket_notify(mUpnpSSDPSocket* ssdpSock, mUpnpSSDPRequest
 }
 
 /****************************************
-* mupnp_ssdp_socket_notifyfrom
-****************************************/
+ * mupnp_ssdp_socket_notifyfrom
+ ****************************************/
 
 bool mupnp_ssdp_socket_notifyfrom(mUpnpSSDPSocket* ssdpSock, mUpnpSSDPRequest* ssdpReq, const char* bindAddr)
 {
@@ -59,8 +59,8 @@ bool mupnp_ssdp_socket_notifyfrom(mUpnpSSDPSocket* ssdpSock, mUpnpSSDPRequest* s
 }
 
 /****************************************
-* mupnp_ssdp_socket_postresponse
-****************************************/
+ * mupnp_ssdp_socket_postresponse
+ ****************************************/
 
 bool mupnp_ssdp_socket_postresponse(mUpnpSSDPSocket* ssdpSock, mUpnpSSDPResponse* ssdpRes, const char* host, int port)
 {

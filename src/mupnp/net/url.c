@@ -16,8 +16,8 @@
 #include <stdio.h>
 
 /****************************************
-* mupnp_net_getmodifierhosturl
-****************************************/
+ * mupnp_net_getmodifierhosturl
+ ****************************************/
 
 const char* mupnp_net_getmodifierhosturl(const char* host, int port, const char* uri, const char* begin, const char* end, char* buf, size_t bufSize)
 {
@@ -47,8 +47,8 @@ const char* mupnp_net_getmodifierhosturl(const char* host, int port, const char*
 }
 
 /****************************************
-* mupnp_net_gethosturl
-****************************************/
+ * mupnp_net_gethosturl
+ ****************************************/
 
 const char* mupnp_net_gethosturl(const char* host, int port, const char* uri, char* buf, size_t bufSize)
 {

@@ -24,8 +24,8 @@
 #include <mupnp/util/time.h>
 
 /****************************************
-* prototype define for static functions
-****************************************/
+ * prototype define for static functions
+ ****************************************/
 
 static void mupnp_device_initchildnodes(mUpnpDevice* dev);
 static void mupnp_device_initdevicelist(mUpnpDevice* dev);
@@ -35,8 +35,8 @@ static void mupnp_device_initiconlist(mUpnpDevice* dev);
 static void mupnp_device_notifywait(mUpnpDevice* dev);
 
 /****************************************
-* mupnp_device_new
-****************************************/
+ * mupnp_device_new
+ ****************************************/
 
 mUpnpDevice* mupnp_device_new()
 {
@@ -89,8 +89,8 @@ mUpnpDevice* mupnp_device_new()
 }
 
 /****************************************
-* mupnp_device_delete
-****************************************/
+ * mupnp_device_delete
+ ****************************************/
 
 void mupnp_device_delete(mUpnpDevice* dev)
 {
@@ -124,8 +124,8 @@ void mupnp_device_delete(mUpnpDevice* dev)
 }
 
 /****************************************
-* mupnp_device_clear
-****************************************/
+ * mupnp_device_clear
+ ****************************************/
 
 void mupnp_device_clear(mUpnpDevice* dev)
 {
@@ -145,8 +145,8 @@ void mupnp_device_clear(mUpnpDevice* dev)
 }
 
 /****************************************
-* mupnp_device_setdevicenode
-****************************************/
+ * mupnp_device_setdevicenode
+ ****************************************/
 
 void mupnp_device_setdevicenode(mUpnpDevice* dev, mUpnpXmlNode* node)
 {
@@ -159,8 +159,8 @@ void mupnp_device_setdevicenode(mUpnpDevice* dev, mUpnpXmlNode* node)
 }
 
 /****************************************
-* mupnp_device_getrootdevice
-****************************************/
+ * mupnp_device_getrootdevice
+ ****************************************/
 
 mUpnpDevice* mupnp_device_getrootdevice(mUpnpDevice* dev)
 {
@@ -178,8 +178,8 @@ mUpnpDevice* mupnp_device_getrootdevice(mUpnpDevice* dev)
 }
 
 /****************************************
-* mupnp_device_parsedescription
-****************************************/
+ * mupnp_device_parsedescription
+ ****************************************/
 
 bool mupnp_device_parsedescription(mUpnpDevice* dev, const char* desciption, size_t descriptionLen)
 {
@@ -228,8 +228,8 @@ bool mupnp_device_parsedescription(mUpnpDevice* dev, const char* desciption, siz
 }
 
 /****************************************
-* mupnp_device_parsedescriptionurl
-****************************************/
+ * mupnp_device_parsedescriptionurl
+ ****************************************/
 
 bool mupnp_device_parsedescriptionurl(mUpnpDevice* dev, mUpnpNetURL* url)
 {
@@ -280,8 +280,8 @@ bool mupnp_device_parsedescriptionurl(mUpnpDevice* dev, mUpnpNetURL* url)
 }
 
 /****************************************
-* mupnp_device_loaddescriptionfile
-****************************************/
+ * mupnp_device_loaddescriptionfile
+ ****************************************/
 
 #if defined(MUPNP_USE_CFILE)
 
@@ -348,14 +348,14 @@ bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
 
   if (mupnp_streq(oldLocation, newLocation) == true) {
     /* The device's location has not changed, just update
-		   the SSDP packet */
+                   the SSDP packet */
     mupnp_device_setssdppacket(dev, ssdpPkt);
 
     return true;
   }
   else {
     /* The device's location HAS changed. We must get a new
-		   description. */
+                   description. */
     mupnp_device_setssdppacket(dev, ssdpPkt);
 
     url = mupnp_net_url_new();
@@ -395,8 +395,8 @@ bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
  * Device Type
  *****************************************************************************/
 
-/** 
- * Get the identifier-part of a device type string (usually "urn") 
+/**
+ * Get the identifier-part of a device type string (usually "urn")
  *
  * @param deviceType A device type string (usually the result from
  *	  \ref mupnp_device_getdevicetype)
@@ -445,8 +445,8 @@ char* mupnp_devicetype_getidentifier(const char* deviceType)
   return part;
 }
 
-/** 
- * Get the URN part of a device type string (usually "schemas-upnp-org") 
+/**
+ * Get the URN part of a device type string (usually "schemas-upnp-org")
  *
  * @param deviceType A device type string (usually the result from
  *	  \ref mupnp_device_getdevicetype)
@@ -504,7 +504,7 @@ char* mupnp_devicetype_geturn(const char* deviceType)
   return part;
 }
 
-/** 
+/**
  * Get the device part of a device type string (usually just "device")
  *
  * @param deviceType A device type string (usually the result from
@@ -569,7 +569,7 @@ char* mupnp_devicetype_getdevice(const char* deviceType)
   return part;
 }
 
-/** 
+/**
  * Get the type part of a device type string (ex. "ContentDirectory")
  *
  * @param deviceType A device type string (usually the result from
@@ -634,7 +634,7 @@ char* mupnp_devicetype_gettype(const char* deviceType)
   return part;
 }
 
-/** 
+/**
  * Get the schema type part of a device type string (without last colon)
  * (ex. "urn:schemas-upnp-org:device:ContentDirectory")
  *
@@ -691,7 +691,7 @@ char* mupnp_devicetype_getschematype(const char* deviceType)
   return part;
 }
 
-/** 
+/**
  * Get the version part of a device type string (ex. "1")
  *
  * @param deviceType A device type string (usually the result from
@@ -757,14 +757,14 @@ char* mupnp_devicetype_getversion(const char* deviceType)
 }
 
 /****************************************
-*
-* Child Node
-*
-****************************************/
+ *
+ * Child Node
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_device_initchildnodes
-****************************************/
+ * mupnp_device_initchildnodes
+ ****************************************/
 
 static void mupnp_device_initchildnodes(mUpnpDevice* dev)
 {
@@ -778,14 +778,14 @@ static void mupnp_device_initchildnodes(mUpnpDevice* dev)
 }
 
 /****************************************
-*
-* Embedded Device
-*
-****************************************/
+ *
+ * Embedded Device
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_device_initdevicelist
-****************************************/
+ * mupnp_device_initdevicelist
+ ****************************************/
 
 static void mupnp_device_initdevicelist(mUpnpDevice* dev)
 {
@@ -811,11 +811,11 @@ static void mupnp_device_initdevicelist(mUpnpDevice* dev)
       continue;
     childDev = mupnp_device_new();
     /* Propagate "lease-time" from parent device to the child-devices; call "setleasetime"
-		   (line below added by: rborges) */
+                   (line below added by: rborges) */
     mupnp_device_setleasetime(childDev, mupnp_device_getleasetime(dev));
     /* Propagate important data (description URI, HTTP port) from the parent
-	         * device to the child-devices; call "setdescriptionuri" and 
-		 * "sethttpport" - (rosfran.borges) */
+     * device to the child-devices; call "setdescriptionuri" and
+     * "sethttpport" - (rosfran.borges) */
     mupnp_device_setdescriptionuri(childDev, mupnp_device_getdescriptionuri(dev));
     mupnp_device_sethttpport(childDev, mupnp_device_gethttpport(dev));
     mupnp_device_setdevicenode(childDev, childNode);
@@ -885,7 +885,7 @@ mUpnpDevice* mupnp_device_getdevicebytype(mUpnpDevice* dev, const char* type)
  *
  * \param dev Device in question
  * \param exacttype Type of the device
- * 
+ *
  */
 mUpnpDevice* mupnp_device_getdevicebyexacttype(mUpnpDevice* dev, const char* exacttype)
 {
@@ -956,8 +956,8 @@ mUpnpDevice* mupnp_device_getdevicebyudn(mUpnpDevice* dev, const char* udn)
 }
 
 /****************************************
-* mupnp_device_getdevicebydescriptionuri
-****************************************/
+ * mupnp_device_getdevicebydescriptionuri
+ ****************************************/
 
 mUpnpDevice* mupnp_device_getdevicebydescriptionuri(mUpnpDevice* dev, const char* url)
 {
@@ -983,14 +983,14 @@ mUpnpDevice* mupnp_device_getdevicebydescriptionuri(mUpnpDevice* dev, const char
 }
 
 /****************************************
-*
-* Notify
-*
-****************************************/
+ *
+ * Notify
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_device_notifywait
-****************************************/
+ * mupnp_device_notifywait
+ ****************************************/
 
 static void mupnp_device_notifywait(mUpnpDevice* dev)
 {
@@ -1002,8 +1002,8 @@ static void mupnp_device_notifywait(mUpnpDevice* dev)
 }
 
 /****************************************
-* mupnp_device_getlocationurl
-****************************************/
+ * mupnp_device_getlocationurl
+ ****************************************/
 
 const char* mupnp_device_getlocationurl(mUpnpDevice* dev, const char* host, char* buf, int bufSize)
 {
@@ -1020,8 +1020,8 @@ const char* mupnp_device_getlocationurl(mUpnpDevice* dev, const char* host, char
 }
 
 /****************************************
-* mupnp_device_getnotifydevicent
-****************************************/
+ * mupnp_device_getnotifydevicent
+ ****************************************/
 
 char* mupnp_device_getnotifydevicent(mUpnpDevice* dev, char* buf, int bufSize)
 {
@@ -1047,8 +1047,8 @@ char* mupnp_device_getnotifydevicent(mUpnpDevice* dev, char* buf, int bufSize)
 }
 
 /****************************************
-* mupnp_device_getnotifydeviceusn
-****************************************/
+ * mupnp_device_getnotifydeviceusn
+ ****************************************/
 
 char* mupnp_device_getnotifydeviceusn(mUpnpDevice* dev, char* buf, int bufSize)
 {
@@ -1075,8 +1075,8 @@ char* mupnp_device_getnotifydeviceusn(mUpnpDevice* dev, char* buf, int bufSize)
 }
 
 /****************************************
-* mupnp_device_getnotifydevicetypent
-****************************************/
+ * mupnp_device_getnotifydevicetypent
+ ****************************************/
 
 char* mupnp_device_getnotifydevicetypent(mUpnpDevice* dev, char* buf, int bufSize)
 {
@@ -1094,8 +1094,8 @@ char* mupnp_device_getnotifydevicetypent(mUpnpDevice* dev, char* buf, int bufSiz
 }
 
 /****************************************
-* mupnp_device_getnotifydevicetypeusn
-****************************************/
+ * mupnp_device_getnotifydevicetypeusn
+ ****************************************/
 
 char* mupnp_device_getnotifydevicetypeusn(mUpnpDevice* dev, char* buf, int bufSize)
 {
@@ -1113,8 +1113,8 @@ char* mupnp_device_getnotifydevicetypeusn(mUpnpDevice* dev, char* buf, int bufSi
 }
 
 /****************************************
-* mupnp_device_announcefrom
-****************************************/
+ * mupnp_device_announcefrom
+ ****************************************/
 
 bool mupnp_device_announcefrom(mUpnpDevice* dev, char* bindAddr)
 {
@@ -1180,8 +1180,8 @@ bool mupnp_device_announcefrom(mUpnpDevice* dev, char* bindAddr)
 }
 
 /****************************************
-* mupnp_device_announce
-****************************************/
+ * mupnp_device_announce
+ ****************************************/
 
 void mupnp_device_announce(mUpnpDevice* dev)
 {
@@ -1213,8 +1213,8 @@ void mupnp_device_announce(mUpnpDevice* dev)
 }
 
 /****************************************
-* mupnp_device_byebyefrom
-****************************************/
+ * mupnp_device_byebyefrom
+ ****************************************/
 
 bool mupnp_device_byebyefrom(mUpnpDevice* dev, char* bindAddr)
 {
@@ -1269,8 +1269,8 @@ bool mupnp_device_byebyefrom(mUpnpDevice* dev, char* bindAddr)
 }
 
 /****************************************
-* mupnp_device_byebye
-****************************************/
+ * mupnp_device_byebye
+ ****************************************/
 
 void mupnp_device_byebye(mUpnpDevice* dev)
 {
@@ -1301,8 +1301,8 @@ void mupnp_device_byebye(mUpnpDevice* dev)
 }
 
 /****************************************
-* mupnp_device_postsearchresponse
-****************************************/
+ * mupnp_device_postsearchresponse
+ ****************************************/
 
 bool mupnp_device_postsearchresponse(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt, const char* st, const char* usn)
 {
@@ -1361,14 +1361,14 @@ bool mupnp_device_postsearchresponse(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt,
 }
 
 /****************************************
-*
-* Start/Stop
-*
-****************************************/
+ *
+ * Start/Stop
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_device_start
-****************************************/
+ * mupnp_device_start
+ ****************************************/
 
 bool mupnp_device_start(mUpnpDevice* dev)
 {
@@ -1420,8 +1420,8 @@ bool mupnp_device_start(mUpnpDevice* dev)
 }
 
 /****************************************
-* mupnp_device_ipchanged
-****************************************/
+ * mupnp_device_ipchanged
+ ****************************************/
 
 bool mupnp_device_ipchanged(mUpnpDevice* dev)
 {
@@ -1433,8 +1433,8 @@ bool mupnp_device_ipchanged(mUpnpDevice* dev)
 }
 
 /****************************************
-* mupnp_device_stop
-****************************************/
+ * mupnp_device_stop
+ ****************************************/
 
 bool mupnp_device_stop(mUpnpDevice* dev)
 {
@@ -1478,14 +1478,14 @@ bool mupnp_device_isrunning(mUpnpDevice* dev)
 }
 
 /****************************************
-*
-* Embedded Service
-*
-****************************************/
+ *
+ * Embedded Service
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_device_initservicelist
-****************************************/
+ * mupnp_device_initservicelist
+ ****************************************/
 
 static void mupnp_device_initservicelist(mUpnpDevice* dev)
 {
@@ -1566,7 +1566,7 @@ mUpnpService* mupnp_device_getservicebyserviceid(mUpnpDevice* dev, const char* s
  *
  * \param dev Device in question
  * \param type Type of the service
- * 
+ *
  */
 mUpnpService* mupnp_device_getservicebyexacttype(mUpnpDevice* dev, const char* type)
 {
@@ -1668,8 +1668,8 @@ mUpnpService* mupnp_device_getservicebytype(mUpnpDevice* dev, const char* type)
 }
 
 /****************************************
-* mupnp_device_getservicebyscpdurl
-****************************************/
+ * mupnp_device_getservicebyscpdurl
+ ****************************************/
 
 mUpnpService* mupnp_device_getservicebyscpdurl(mUpnpDevice* dev, const char* url)
 {
@@ -1699,8 +1699,8 @@ mUpnpService* mupnp_device_getservicebyscpdurl(mUpnpDevice* dev, const char* url
 }
 
 /****************************************
-* mupnp_device_getservicebycontrolurl
-****************************************/
+ * mupnp_device_getservicebycontrolurl
+ ****************************************/
 
 mUpnpService* mupnp_device_getservicebycontrolurl(mUpnpDevice* dev, const char* url)
 {
@@ -1716,7 +1716,7 @@ mUpnpService* mupnp_device_getservicebycontrolurl(mUpnpDevice* dev, const char* 
   for (service = mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
     /* mupnp_log_debug_s("<%s> == <%s> ?\n", url, mupnp_net_url_getrequest(mupnp_service_getcontrolurl(service))); */
     /* MODIFICATION Fabrice Fontaine Orange 23/04/07
-		if (mupnp_strstr(mupnp_net_url_getrequest(mupnp_service_getcontrolurl(service)), url) != -1)*/
+                if (mupnp_strstr(mupnp_net_url_getrequest(mupnp_service_getcontrolurl(service)), url) != -1)*/
     /* Memory leak correction : mupnp_service_getcontrolurl return a malloc */
     /* structure, this structure must be freed after use */
     service_url = mupnp_service_getcontrolurl(service);
@@ -1744,8 +1744,8 @@ mUpnpService* mupnp_device_getservicebycontrolurl(mUpnpDevice* dev, const char* 
 }
 
 /****************************************
-* mupnp_device_getservicebysid
-****************************************/
+ * mupnp_device_getservicebysid
+ ****************************************/
 
 mUpnpService* mupnp_device_getservicebysid(mUpnpDevice* dev, const char* sid)
 {
@@ -1778,8 +1778,8 @@ mUpnpService* mupnp_device_getservicebysid(mUpnpDevice* dev, const char* sid)
 }
 
 /****************************************
-* mupnp_device_setactionlistener
-****************************************/
+ * mupnp_device_setactionlistener
+ ****************************************/
 
 void mupnp_device_setactionlistener(mUpnpDevice* dev, MUPNP_ACTION_LISTNER actionListner)
 {
@@ -1798,8 +1798,8 @@ void mupnp_device_setactionlistener(mUpnpDevice* dev, MUPNP_ACTION_LISTNER actio
 }
 
 /****************************************
-* mupnp_device_setquerylistener
-****************************************/
+ * mupnp_device_setquerylistener
+ ****************************************/
 
 void mupnp_device_setquerylistener(mUpnpDevice* dev, MUPNP_STATEVARIABLE_LISTNER queryListner)
 {
@@ -1818,8 +1818,8 @@ void mupnp_device_setquerylistener(mUpnpDevice* dev, MUPNP_STATEVARIABLE_LISTNER
 }
 
 /****************************************
-* mupnp_device_getservicebyeventsuburl
-****************************************/
+ * mupnp_device_getservicebyeventsuburl
+ ****************************************/
 
 mUpnpService* mupnp_device_getservicebyeventsuburl(mUpnpDevice* dev, const char* url)
 {
@@ -1874,8 +1874,8 @@ mUpnpIcon* mupnp_device_getsmallesticonbymimetype(mUpnpDevice* dev, const char* 
 }
 
 /****************************************
-* mupnp_device_getsmallesticon
-****************************************/
+ * mupnp_device_getsmallesticon
+ ****************************************/
 
 mUpnpIcon* mupnp_device_getsmallesticon(mUpnpDevice* dev)
 {
@@ -1922,14 +1922,14 @@ bool mupnp_device_getabsoluteiconurl(mUpnpDevice* dev, mUpnpIcon* icon, mUpnpStr
 }
 
 /****************************************
-*
-* Embedded Action
-*
-****************************************/
+ *
+ * Embedded Action
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_device_getactionbyname
-****************************************/
+ * mupnp_device_getactionbyname
+ ****************************************/
 
 mUpnpAction* mupnp_device_getactionbyname(mUpnpDevice* dev, const char* name)
 {
@@ -1960,14 +1960,14 @@ mUpnpAction* mupnp_device_getactionbyname(mUpnpDevice* dev, const char* name)
 }
 
 /****************************************
-*
-* Embedded StateVariable
-*
-****************************************/
+ *
+ * Embedded StateVariable
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_device_getstatevariablebyname
-****************************************/
+ * mupnp_device_getstatevariablebyname
+ ****************************************/
 
 mUpnpStateVariable* mupnp_device_getstatevariablebyname(mUpnpDevice* dev, const char* name)
 {
@@ -1998,14 +1998,14 @@ mUpnpStateVariable* mupnp_device_getstatevariablebyname(mUpnpDevice* dev, const 
 }
 
 /****************************************
-*
-* Embedded Icon
-*
-****************************************/
+ *
+ * Embedded Icon
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_device_initiconlist
-****************************************/
+ * mupnp_device_initiconlist
+ ****************************************/
 
 static void mupnp_device_initiconlist(mUpnpDevice* dev)
 {

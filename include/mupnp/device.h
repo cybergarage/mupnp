@@ -12,18 +12,18 @@
 #ifndef _MUPNP_DEVICE_H_
 #define _MUPNP_DEVICE_H_
 
-#include <mupnp/typedef.h>
-#include <mupnp/xml/xml.h>
-#include <mupnp/util/list.h>
-#include <mupnp/util/string.h>
-#include <mupnp/util/mutex.h>
-#include <mupnp/util/thread.h>
 #include <mupnp/http/http.h>
-#include <mupnp/net/url.h>
 #include <mupnp/net/interface.h>
+#include <mupnp/net/url.h>
+#include <mupnp/typedef.h>
+#include <mupnp/util/list.h>
+#include <mupnp/util/mutex.h>
+#include <mupnp/util/string.h>
+#include <mupnp/util/thread.h>
+#include <mupnp/xml/xml.h>
 
-#include <mupnp/service.h>
 #include <mupnp/icon.h>
+#include <mupnp/service.h>
 #include <mupnp/ssdp/ssdp_server.h>
 
 #ifdef __cplusplus
@@ -116,7 +116,7 @@ typedef void (*MUPNP_PRESENTATION_LISTNER)(mUpnpHttpRequest*);
 /**
  * \brief The generic UPnP device structure
  *
- * \note This struct can also be cast to a mUpnpList* and used as a node in a 
+ * \note This struct can also be cast to a mUpnpList* and used as a node in a
  * linked list with mupnp_list_* functions.
  */
 typedef struct _mUpnpDevice {
@@ -197,7 +197,7 @@ void mupnp_device_clear(mUpnpDevice* dev);
  *
  * \param dev Current device
  */
-#define mupnp_device_next(dev) (mUpnpDevice*) mupnp_list_next((mUpnpList*)dev)
+#define mupnp_device_next(dev) (mUpnpDevice*)mupnp_list_next((mUpnpList*)dev)
 
 /**
  * Remove the device from the device list.
@@ -345,8 +345,8 @@ bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
  */
 #define mupnp_device_isdevicetype(dev, value) mupnp_streq(mupnp_device_getdevicetype(dev), value)
 
-/** 
- * Get the identifier-part of a device type string (usually "urn") 
+/**
+ * Get the identifier-part of a device type string (usually "urn")
  *
  * @param deviceType A device type string (usually the result from
  *	  @ref mupnp_device_getdevicetype)
@@ -355,8 +355,8 @@ bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
  */
 char* mupnp_devicetype_getidentifier(const char* deviceType);
 
-/** 
- * Get the URN part of a device type string (usually "schemas-upnp-org") 
+/**
+ * Get the URN part of a device type string (usually "schemas-upnp-org")
  *
  * @param deviceType A device type string (usually the result from
  *	  @ref mupnp_device_getdevicetype)
@@ -365,7 +365,7 @@ char* mupnp_devicetype_getidentifier(const char* deviceType);
  */
 char* mupnp_devicetype_geturn(const char* deviceType);
 
-/** 
+/**
  * Get the device part of a device type string (usually just "device")
  *
  * @param deviceType A device type string (usually the result from
@@ -375,7 +375,7 @@ char* mupnp_devicetype_geturn(const char* deviceType);
  */
 char* mupnp_devicetype_getdevice(const char* deviceType);
 
-/** 
+/**
  * Get the type part of a device type string (ex. "ContentDirectory")
  *
  * @param deviceType A device type string (usually the result from
@@ -385,7 +385,7 @@ char* mupnp_devicetype_getdevice(const char* deviceType);
  */
 char* mupnp_devicetype_gettype(const char* deviceType);
 
-/** 
+/**
  * Get the schema type part of a device type string (without last colon)
  * (ex. "urn:schemas-upnp-org:device:ContentDirectory")
  *
@@ -396,7 +396,7 @@ char* mupnp_devicetype_gettype(const char* deviceType);
  */
 char* mupnp_devicetype_getschematype(const char* deviceType);
 
-/** 
+/**
  * Get the version part of a device type string (ex. "1")
  *
  * @param deviceType A device type string (usually the result from
@@ -577,7 +577,7 @@ char* mupnp_devicetype_getversion(const char* deviceType);
  * Get the device's model number
  *
  * \param dev Device in question
- * 
+ *
  * \return The serial number
  */
 #define mupnp_device_getserialnumber(dev) mupnp_xml_node_getchildnodevalue(mupnp_device_getdevicenode(dev), MUPNP_DEVICE_SERIAL_NUMBER)
@@ -789,7 +789,7 @@ bool mupnp_device_isrunning(mUpnpDevice* dev);
 const char* mupnp_device_getlocationurl(mUpnpDevice* dev, const char* host, char* buf, int bufSize);
 
 /*****************************************************************************
- * Notify 
+ * Notify
  *****************************************************************************/
 
 /**
@@ -809,7 +809,7 @@ void mupnp_device_announce(mUpnpDevice* dev);
 void mupnp_device_byebye(mUpnpDevice* dev);
 
 /*****************************************************************************
- * Mutex 
+ * Mutex
  *****************************************************************************/
 
 /**
@@ -821,7 +821,7 @@ void mupnp_device_byebye(mUpnpDevice* dev);
 #define mupnp_device_lock(dev) mupnp_mutex_lock(dev->mutex)
 
 /**
- * Lock the device's mutex with timeout, return true if exclusive access is gained 
+ * Lock the device's mutex with timeout, return true if exclusive access is gained
  * Release lock with  \ref mupnp_device_unlock is called.
  *
  * \param dev Device in question
@@ -884,11 +884,11 @@ void mupnp_device_setquerylistener(mUpnpDevice* dev, MUPNP_STATEVARIABLE_LISTNER
 #define mupnp_device_getuserdata(dev) (dev->userData)
 
 /*****************************************************************************
-* Function
-******************************************************************************/
+ * Function
+ ******************************************************************************/
 
 /*****************************************************************************
- * DescriptionURL 
+ * DescriptionURL
  *****************************************************************************/
 
 /**
@@ -942,8 +942,8 @@ void mupnp_device_setquerylistener(mUpnpDevice* dev, MUPNP_STATEVARIABLE_LISTNER
 #define mupnp_device_getleasetime(dev) (dev->leaseTime)
 
 /*****************************************************************************
-* Functions (Embedded)
-******************************************************************************/
+ * Functions (Embedded)
+ ******************************************************************************/
 
 /*****************************************************************************
  * Embedded DeviceList
@@ -965,7 +965,7 @@ void mupnp_device_setquerylistener(mUpnpDevice* dev, MUPNP_STATEVARIABLE_LISTNER
  * \return NULL if not found; otherwise the device pointer
  *
  */
-//Theo Beisch added missing (mUpnpList*) cast
+// Theo Beisch added missing (mUpnpList*) cast
 #define mupnp_device_getdevice(dev, idx) ((mUpnpDevice*)mupnp_list_get((mUpnpList*)dev->deviceList, idx))
 
 /**
@@ -974,13 +974,13 @@ void mupnp_device_setquerylistener(mUpnpDevice* dev, MUPNP_STATEVARIABLE_LISTNER
  * \param dev Device in question
  *
  */
-//Theo Beisch : added missing (mUpnpList*) cast
+// Theo Beisch : added missing (mUpnpList*) cast
 #define mupnp_device_getdevices(dev) ((mUpnpDevice*)mupnp_list_gets((mUpnpList*)dev->deviceList))
 
 /**
  * Find a device from the device's children by the exact type of the device.
  * This function searches for devices, whose *complete type string*
- * matches the given string, including version number. For example: 
+ * matches the given string, including version number. For example:
  * "urn:schemas-upnp-org:device:FooDevice:1". If you need to disregard
  * the version, use \ref mupnp_device_getdevicebytype
  *
@@ -1035,7 +1035,7 @@ mUpnpDevice* mupnp_device_getdevicebydescriptionuri(mUpnpDevice* dev, const char
 
 /**
  * Get the number of services known by the device
- * 
+ *
  * \param dev Device in question
  * @return The number of devices in the control point's device list
  */
@@ -1048,7 +1048,7 @@ mUpnpDevice* mupnp_device_getdevicebydescriptionuri(mUpnpDevice* dev, const char
  * \param idx Device index number
  *
  */
-//Theo Beisch : added missing (mUpnpList*) cast
+// Theo Beisch : added missing (mUpnpList*) cast
 #define mupnp_device_getservice(dev, idx) ((mUpnpService*)mupnp_list_get((mUpnpList*)dev->serviceList, idx))
 
 /**
@@ -1073,13 +1073,13 @@ mUpnpService* mupnp_device_getservicebyserviceid(mUpnpDevice* dev, const char* s
 /**
  * Find a service from the device by the type of the service.
  * This function searches for services, whose *complete type string*
- * matches the given string, including version number. For example: 
+ * matches the given string, including version number. For example:
  * "urn:schemas-upnp-org:service:ContentDirectory:1". If you need to
  * know the version of a service, use \ref mupnp_servicetype_getversion
  *
  * \param dev Device in question
  * \param type Type of the service
- * 
+ *
  */
 mUpnpService* mupnp_device_getservicebyexacttype(mUpnpDevice* dev, const char* type);
 
@@ -1170,12 +1170,12 @@ mUpnpService* mupnp_device_getservicebysid(mUpnpDevice* dev, const char* sid);
 #define mupnp_device_geticons(dev) ((mUpnpIcon*)mupnp_list_gets((mUpnpList*)dev->iconList))
 
 /**
-* Get a smallest icon
-*
-* \param dev Device in question
-*
-* \return A smallest icon.
-*/
+ * Get a smallest icon
+ *
+ * \param dev Device in question
+ *
+ * \return A smallest icon.
+ */
 mUpnpIcon* mupnp_device_getsmallesticon(mUpnpDevice* dev);
 
 /**
@@ -1185,7 +1185,7 @@ mUpnpIcon* mupnp_device_getsmallesticon(mUpnpDevice* dev);
  * \param mimeType Mime type to get
  *
  * \return A smallest icon.
-*/
+ */
 mUpnpIcon* mupnp_device_getsmallesticonbymimetype(mUpnpDevice* dev, const char* mimeType);
 
 /**
@@ -1200,7 +1200,7 @@ mUpnpIcon* mupnp_device_getsmallesticonbymimetype(mUpnpDevice* dev, const char* 
 bool mupnp_device_getabsoluteiconurl(mUpnpDevice* dev, mUpnpIcon* icon, mUpnpString* buf);
 
 /**
-* Get a smallest icon
+ * Get a smallest icon
  *
  * \param dev Device in question
  * \param icon Icon to add
@@ -1214,7 +1214,7 @@ bool mupnp_device_addicon(mUpnpDevice* dev, mUpnpIcon* icon);
 
 /**
  * Find an action from a device by its name
- * 
+ *
  * \param dev Device in question
  * \param name Name of the action
  *
@@ -1222,12 +1222,12 @@ bool mupnp_device_addicon(mUpnpDevice* dev, mUpnpIcon* icon);
 mUpnpAction* mupnp_device_getactionbyname(mUpnpDevice* dev, const char* name);
 
 /*****************************************************************************
- * Embedded StateVariable 
+ * Embedded StateVariable
  *****************************************************************************/
 
 /**
  * Find a state variable from a device by its name
- * 
+ *
  * \param dev Device in question
  * \param name Name of the state variable
  *
@@ -1240,13 +1240,13 @@ mUpnpStateVariable* mupnp_device_getstatevariablebyname(mUpnpDevice* dev, const 
 
 /**
  * Create a new device list
- * 
+ *
  */
 mUpnpDeviceList* mupnp_devicelist_new(void);
 
 /**
  * Delete a device list completely, freeing all devices and their contents.
- * 
+ *
  * \param devList The device list to delete
  *
  */
@@ -1255,7 +1255,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 /**
  * Clear the contents of a device list.
  * Use \ref mupnp_devicelist_delete instead of this function.
- * 
+ *
  * \param devList The device list to clear
  *
  */
@@ -1263,7 +1263,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 
 /**
  * Get the size of the device list
- * 
+ *
  * \param devList The device list
  *
  */
@@ -1271,11 +1271,11 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 
 /**
  * \todo Correct description
- * 
+ *
  * \param devList The device list
  *
  */
-#define mupnp_devicelist_gets(devList) (mUpnpDevice*) mupnp_list_next((mUpnpList*)devList)
+#define mupnp_devicelist_gets(devList) (mUpnpDevice*)mupnp_list_next((mUpnpList*)devList)
 
 /**
  * Get an device from the device list by the index
@@ -1284,11 +1284,11 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
  * \param index The index of the device to get
  *
  */
-#define mupnp_devicelist_get(devList, index) (mUpnpDevice*) mupnp_list_get((mUpnpList*)devList, index)
+#define mupnp_devicelist_get(devList, index) (mUpnpDevice*)mupnp_list_get((mUpnpList*)devList, index)
 
 /**
  * Add a device to the device list
- * 
+ *
  * \param devList The device list
  * \param dev The device to add
  *
@@ -1296,30 +1296,30 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 #define mupnp_devicelist_add(devList, dev) mupnp_list_add((mUpnpList*)devList, (mUpnpList*)dev)
 
 /****************************************
-* Function (Service)
-****************************************/
+ * Function (Service)
+ ****************************************/
 
 /**
  * Get the device associated to the given service
- * 
+ *
  * \param service The service in question
  *
  */
-//Theo Beisch: namespace conflict - removed duplicate - already defined in cservice.h
-//#define mupnp_service_getdevice(service) ((mUpnpDevice *)service->parentDevice)
+// Theo Beisch: namespace conflict - removed duplicate - already defined in cservice.h
+// #define mupnp_service_getdevice(service) ((mUpnpDevice *)service->parentDevice)
 
 /**
  * Get the root device of the given service
- * 
+ *
  * \param service The service in question
  *
  */
-//Theo Beisch: namespace conflict - removed duplicate - already defined in cservice.h
-//#define mupnp_service_getrootdevice(service) mupnp_device_getrootdevice((mUpnpDevice *)service->parentDevice)
+// Theo Beisch: namespace conflict - removed duplicate - already defined in cservice.h
+// #define mupnp_service_getrootdevice(service) mupnp_device_getrootdevice((mUpnpDevice *)service->parentDevice)
 
 /*****************************************************************************
-* Function (HTTP)
-******************************************************************************/
+ * Function (HTTP)
+ ******************************************************************************/
 
 /**
  * Get the device's address from SSDP packet
@@ -1330,12 +1330,12 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 #define mupnp_device_getaddress(dev) mupnp_ssdp_packet_getlocaladdress(mupnp_device_getssdppacket(dev))
 
 /*****************************************************************************
- * HTTP Port 
+ * HTTP Port
  *****************************************************************************/
 
 /**
  * Modify the port that the device's HTTP server is listening
- * 
+ *
  * \param dev The device in question
  * \param value Port number
  *
@@ -1344,7 +1344,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 
 /**
  * Get the device's HTTP port
- * 
+ *
  * \param dev The device in question
  *
  */
@@ -1352,7 +1352,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 
 /**
  * Set an HTTP listener function to the device
- * 
+ *
  * \param dev The device in question
  * \param func The listener function
  *
@@ -1361,15 +1361,15 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 
 /**
  * Get the device's HTTP listener function
- * 
+ *
  * \param dev The device in question
  *
  */
 #define mupnp_device_gethttplistener(dev) (dev->httpListener)
 
 /**
- * Get the HTTP server list 
- * 
+ * Get the HTTP server list
+ *
  * \param dev The device in question
  *
  */
@@ -1378,7 +1378,7 @@ void mupnp_devicelist_delete(mUpnpDeviceList* devList);
 /**
  * Handler function for a received HTTP request. Delegates GET and POST requests
  * to their respective handlers, or treats as a BAD REQUEST, when appropriate.
- * 
+ *
  * \param httpReq Received HTTP request
  *
  */
@@ -1390,7 +1390,7 @@ void mupnp_device_httprequestrecieved(mUpnpHttpRequest* httpReq);
 
 /**
  * Get the device's list of SSDP servers
- * 
+ *
  * \param dev The device in question
  *
  */
@@ -1398,15 +1398,15 @@ void mupnp_device_httprequestrecieved(mUpnpHttpRequest* httpReq);
 
 /**
  * The SSDP message handler function.
- * 
+ *
  * \param ssdpPkt SSDP Packet
  *
  */
 void mupnp_device_ssdplistener(mUpnpSSDPPacket* ssdpPkt);
 
 /**
- * Get the SSDP server list 
- * 
+ * Get the SSDP server list
+ *
  * \param dev The device in question
  *
  */
@@ -1415,7 +1415,7 @@ void mupnp_device_ssdplistener(mUpnpSSDPPacket* ssdpPkt);
 /**
  * Get the device's Notification Type (NT). For the root device this is "upnp:rootdevice",
  * otherwise the device's UDN (Unique Device Name).
- * 
+ *
  * \param dev The device in question
  * \param buf Buffer for the Notification Type
  * \param bufSize Buffer length
@@ -1423,12 +1423,12 @@ void mupnp_device_ssdplistener(mUpnpSSDPPacket* ssdpPkt);
  */
 char* mupnp_device_getnotifydevicent(mUpnpDevice* dev, char* buf, int bufSize);
 
-//Theo Beisch: added reference
+// Theo Beisch: added reference
 /**
- * Get the device's USN (Unique Service Name). 
+ * Get the device's USN (Unique Service Name).
  * For the root device this is "<UDN>::upnp:rootdevice",
  * otherwise the UDN (Unique Device Name).
- * 
+ *
  * \param dev The device in question
  *
  */
@@ -1436,7 +1436,7 @@ char* mupnp_device_getnotifydeviceusn(mUpnpDevice* dev, char* buf, int bufSize);
 
 /**
  * Get the device type
- * 
+ *
  * \param dev The device in question
  * \param buf Buffer for the device type
  * \param bufSize Buffer length
@@ -1447,7 +1447,7 @@ char* mupnp_device_getnotifydevicetypent(mUpnpDevice* dev, char* buf, int bufSiz
 /**
  * Get the device's USN (Unique Service Name). For the root device this is "<UDN>::upnp:rootdevice",
  * otherwise the UDN (Unique Device Name).
- * 
+ *
  * \param dev The device in question
  * @param buf Buffer where USN is stored after call
  * @param bufSize Buffer size
@@ -1458,7 +1458,7 @@ char* mupnp_device_getnotifydevicetypeusn(mUpnpDevice* dev, char* buf, int bufSi
 
 /**
  * SSDP message handler
- * 
+ *
  * \param dev The device in question
  * \param ssdpPkt Received SSDP packet
  *
@@ -1467,7 +1467,7 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt
 
 /**
  * Post a response to an SSDP search message
- * 
+ *
  * \param dev The device in question
  * \param ssdpPkt Received SSDP packet
  * \param st Service Type (ST)
@@ -1490,7 +1490,7 @@ bool mupnp_device_ipchanged(mUpnpDevice* dev);
 
 /**
  * Get the device's SSDP packet
- * 
+ *
  * \param dev The device in question
  *
  */
@@ -1498,7 +1498,7 @@ bool mupnp_device_ipchanged(mUpnpDevice* dev);
 
 /**
  * Modify the device's SSDP packet (creates a copy of the original)
- * 
+ *
  * \param dev The device in question
  * \param srcSsdpPkt The SSDP packet
  *
@@ -1507,7 +1507,7 @@ bool mupnp_device_ipchanged(mUpnpDevice* dev);
 
 /**
  * Extract location information from the device's SSDP packet
- * 
+ *
  * \param dev The device in question
  *
  */
@@ -1515,15 +1515,15 @@ bool mupnp_device_ipchanged(mUpnpDevice* dev);
 
 /**
  * Extract the interface address from the device's SSDP packet
- * 
+ *
  * \param dev The device in question
  *
  */
 #define mupnp_device_getinterfaceaddressfromssdppacket(dev) mupnp_ssdp_packet_getlocaladdress(dev->ssdpPkt)
 
 /****************************************
-* Function (Advertiser)
-****************************************/
+ * Function (Advertiser)
+ ****************************************/
 
 /**
  * Start the advertiser thread for the given device

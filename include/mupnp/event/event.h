@@ -14,20 +14,20 @@
 
 #include <mupnp/typedef.h>
 
-#include <mupnp/http/http.h>
-#include <mupnp/util/string.h>
-#include <mupnp/util/list.h>
 #include <mupnp/event/property.h>
+#include <mupnp/http/http.h>
 #include <mupnp/service.h>
 #include <mupnp/upnp_function.h>
+#include <mupnp/util/list.h>
+#include <mupnp/util/string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 /**
  * Definition for SID size
@@ -90,8 +90,8 @@ extern "C" {
 #define MUPNP_SUBSCRIPTION_MAX_TIMEOUT 300
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 /**
  * Type definition for subsription request
@@ -118,8 +118,8 @@ typedef struct _mUpnpEventListenerList {
 } mUpnpEventListenerList;
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 /**
  * Create timeout header string
@@ -165,14 +165,14 @@ const char* mupnp_event_subscription_tosidheaderstring(const char* sid, char* bu
  * Get SID
  *
  * @param headerValue Raw header C string
- * 
+ *
  * @return C string containing SID
  */
 const char* mupnp_event_subscription_getsid(const char* headerValue);
 
 /****************************************
-* Function (Request)
-****************************************/
+ * Function (Request)
+ ****************************************/
 
 /**
  * Subscription request constructor
@@ -237,7 +237,7 @@ void mupnp_event_subscription_request_setsid(mUpnpSubscriptionRequest* subReq, c
 /**** NT ****/
 
 /**
- * Set NT (Notification target) for subscription request  
+ * Set NT (Notification target) for subscription request
  *
  * @param subReq Subscription request
  * @param value Notification type
@@ -370,8 +370,8 @@ void mupnp_event_subscription_request_setunsubscription(mUpnpSubscriptionRequest
 #define mupnp_event_subscription_request_postresponse(subReq, subRes) mupnp_http_request_postresponse(subReq, subRes)
 
 /****************************************
-* Function (Response)
-****************************************/
+ * Function (Response)
+ ****************************************/
 
 /**
  * Constructor for subscription response
@@ -462,69 +462,69 @@ void mupnp_event_subscription_subscriberesponse_setresponse(mUpnpSubscriptionRes
 /* TODO getter? */
 
 /****************************************
-* Function (Eventlistener list)
-****************************************/
+ * Function (Eventlistener list)
+ ****************************************/
 
 /**
-* Create a new event listener list
-*
-*/
+ * Create a new event listener list
+ *
+ */
 mUpnpEventListenerList* mupnp_eventlistenerlist_new(void);
 
 /**
-* Delete a event listener list.
-*
-* \param eventListenerList The event listener list to delete
-*
-*/
+ * Delete a event listener list.
+ *
+ * \param eventListenerList The event listener list to delete
+ *
+ */
 void mupnp_eventlistenerlist_delete(mUpnpEventListenerList* eventListenerList);
 
 /**
-* Clear the contents of a event listener list.
-*
-* \param eventListenerList The device list to clear
-*
-*/
+ * Clear the contents of a event listener list.
+ *
+ * \param eventListenerList The device list to clear
+ *
+ */
 #define mupnp_eventlistenerlist_clear(eventListenerList) mupnp_list_clear((mUpnpList*)eventListenerList, (MUPNP_LIST_DESTRUCTORFUNC)free)
 
 /**
-* Get the size of the device list
-*
-* \param eventListenerList The device list
-*
-*/
+ * Get the size of the device list
+ *
+ * \param eventListenerList The device list
+ *
+ */
 #define mupnp_eventlistenerlist_size(eventListenerList) mupnp_list_size((mUpnpList*)eventListenerList)
 
 /**
-* Fetches next list element from event listener list
-*
-* @param eventListenerList Event listener list
-*/
-#define mupnp_eventlistenerlist_gets(eventListenerList) (mUpnpEventListenerList*) mupnp_list_next((mUpnpList*)eventListenerList)
+ * Fetches next list element from event listener list
+ *
+ * @param eventListenerList Event listener list
+ */
+#define mupnp_eventlistenerlist_gets(eventListenerList) (mUpnpEventListenerList*)mupnp_list_next((mUpnpList*)eventListenerList)
 
 /**
-* Fetches next list element from event listener list
-*
-* @param eventListenerList Event listener list
-*/
-#define mupnp_eventlistenerlist_next(eventListenerList) (mUpnpEventListenerList*) mupnp_list_next((mUpnpList*)eventListenerList)
+ * Fetches next list element from event listener list
+ *
+ * @param eventListenerList Event listener list
+ */
+#define mupnp_eventlistenerlist_next(eventListenerList) (mUpnpEventListenerList*)mupnp_list_next((mUpnpList*)eventListenerList)
 
 /**
-* Remove a listener from the event listener list
-*
-* \param eventListenerList The event listener list
-* \param listener The listener to remove
-*
-*/
+ * Remove a listener from the event listener list
+ *
+ * \param eventListenerList The event listener list
+ * \param listener The listener to remove
+ *
+ */
 void mupnp_eventlistenerlist_remove(mUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener);
 
 /**
-* Add a listener to the event listener list
-*
-* \param eventListenerList The event listener list
-* \param listener The listener to add
-*
-*/
+ * Add a listener to the event listener list
+ *
+ * \param eventListenerList The event listener list
+ * \param listener The listener to add
+ *
+ */
 void mupnp_eventlistenerlist_add(mUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener);
 
 /**

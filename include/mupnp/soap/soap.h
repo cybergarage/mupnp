@@ -12,8 +12,8 @@
 #ifndef _MUPNP_SOAP_SOAP_H_
 #define _MUPNP_SOAP_SOAP_H_
 
-#include <mupnp/typedef.h>
 #include <mupnp/http/http.h>
+#include <mupnp/typedef.h>
 #include <mupnp/xml/xml.h>
 
 #ifdef __cplusplus
@@ -21,8 +21,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define MUPNP_SOAP_VERSION_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
 
@@ -51,8 +51,8 @@ extern "C" {
 #define MUPNP_SOAP_ENCORDING "encodingStyle"
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef struct _mUpnpSoapResponse {
   mUpnpHttpResponse* httpRes;
@@ -70,8 +70,8 @@ typedef struct _mUpnpSoapRequest {
 } mUpnpSoapRequest;
 
 /****************************************
-* Function (Request)
-****************************************/
+ * Function (Request)
+ ****************************************/
 
 mUpnpSoapRequest* mupnp_soap_request_new(void);
 void mupnp_soap_request_delete(mUpnpSoapRequest* soapReq);
@@ -101,8 +101,8 @@ void mupnp_soap_request_setcontent(mUpnpSoapRequest* soapReq, mUpnpXmlNode* node
 #define mupnp_soap_request_getuserdata(soapReq) (soapReq->userData)
 
 /****************************************
-* Function (Response)
-****************************************/
+ * Function (Response)
+ ****************************************/
 
 mUpnpSoapResponse* mupnp_soap_response_new(void);
 void mupnp_soap_response_delete(mUpnpSoapResponse* soapRes);
@@ -127,8 +127,8 @@ void mupnp_soap_response_setcontent(mUpnpSoapResponse* soapRes, mUpnpXmlNode* no
 #define mupnp_soap_response_getuserdata(soapRes) (soapRes->userData)
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 mUpnpXmlNode* mupnp_soap_createenvelopebodynode(void);
 

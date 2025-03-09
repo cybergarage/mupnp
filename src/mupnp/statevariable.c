@@ -16,8 +16,8 @@
 #include <string.h>
 
 /****************************************
-* mupnp_statevariable_new
-****************************************/
+ * mupnp_statevariable_new
+ ****************************************/
 
 mUpnpStateVariable* mupnp_statevariable_new()
 {
@@ -47,8 +47,8 @@ mUpnpStateVariable* mupnp_statevariable_new()
 }
 
 /****************************************
-* mupnp_statevariable_delete
-****************************************/
+ * mupnp_statevariable_delete
+ ****************************************/
 
 void mupnp_statevariable_delete(mUpnpStateVariable* statVar)
 {
@@ -68,8 +68,8 @@ void mupnp_statevariable_delete(mUpnpStateVariable* statVar)
 }
 
 /****************************************
-* mupnp_statevariable_setstatevariablenode
-****************************************/
+ * mupnp_statevariable_setstatevariablenode
+ ****************************************/
 
 void mupnp_statevariable_setstatevariablenode(mUpnpStateVariable* statVar, mUpnpXmlNode* node)
 {
@@ -81,8 +81,8 @@ void mupnp_statevariable_setstatevariablenode(mUpnpStateVariable* statVar, mUpnp
 }
 
 /****************************************
-* mupnp_statevariable_setvaluewithnotify
-****************************************/
+ * mupnp_statevariable_setvaluewithnotify
+ ****************************************/
 
 static void mupnp_statevariable_setvaluewithnotify(mUpnpStateVariable* statVar, const char* data, bool doNotify)
 {
@@ -110,8 +110,8 @@ static void mupnp_statevariable_setvaluewithnotify(mUpnpStateVariable* statVar, 
 }
 
 /****************************************
-* mupnp_statevariable_setvalue
-****************************************/
+ * mupnp_statevariable_setvalue
+ ****************************************/
 
 void mupnp_statevariable_setvalue(mUpnpStateVariable* statVar, const char* data)
 {
@@ -123,8 +123,8 @@ void mupnp_statevariable_setvalue(mUpnpStateVariable* statVar, const char* data)
 }
 
 /****************************************
-* mupnp_statevariable_setvaluewithoutnotify
-****************************************/
+ * mupnp_statevariable_setvaluewithoutnotify
+ ****************************************/
 
 void mupnp_statevariable_setvaluewithoutnotify(mUpnpStateVariable* statVar, const char* data)
 {

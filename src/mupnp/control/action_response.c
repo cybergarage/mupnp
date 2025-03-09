@@ -15,14 +15,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_ACTIONCTRL (Begin)
-****************************************/
+ * MUPNP_NOUSE_ACTIONCTRL (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
 /****************************************
-* mupnp_control_action_response_new
-****************************************/
+ * mupnp_control_action_response_new
+ ****************************************/
 
 mUpnpActionResponse* mupnp_control_action_response_new()
 {
@@ -45,8 +45,8 @@ mUpnpActionResponse* mupnp_control_action_response_new()
 }
 
 /****************************************
-* mupnp_control_action_response_delete
-****************************************/
+ * mupnp_control_action_response_delete
+ ****************************************/
 
 void mupnp_control_action_response_delete(mUpnpActionResponse* actionRes)
 {
@@ -65,8 +65,8 @@ void mupnp_control_action_response_delete(mUpnpActionResponse* actionRes)
 }
 
 /****************************************
-* mupnp_control_action_response_clear
-****************************************/
+ * mupnp_control_action_response_clear
+ ****************************************/
 
 void mupnp_control_action_response_clear(mUpnpActionResponse* actionRes)
 {
@@ -83,8 +83,8 @@ void mupnp_control_action_response_clear(mUpnpActionResponse* actionRes)
 }
 
 /****************************************
-* mupnp_control_action_response_setsoapresponse
-****************************************/
+ * mupnp_control_action_response_setsoapresponse
+ ****************************************/
 
 void mupnp_control_action_response_setsoapresponse(mUpnpActionResponse* actionRes, mUpnpSoapResponse* soapRes)
 {
@@ -99,8 +99,8 @@ void mupnp_control_action_response_setsoapresponse(mUpnpActionResponse* actionRe
 }
 
 /****************************************
-* mupnp_control_action_response_createresponsenode
-****************************************/
+ * mupnp_control_action_response_createresponsenode
+ ****************************************/
 
 static mUpnpXmlNode* mupnp_control_action_response_createresponsenode(mUpnpAction* action)
 {
@@ -155,8 +155,8 @@ static mUpnpXmlNode* mupnp_control_action_response_createresponsenode(mUpnpActio
 }
 
 /****************************************
-* mupnp_control_action_response_setresponse
-****************************************/
+ * mupnp_control_action_response_setresponse
+ ****************************************/
 
 void mupnp_control_action_response_setresponse(mUpnpActionResponse* actionRes, mUpnpAction* action)
 {
@@ -185,8 +185,8 @@ void mupnp_control_action_response_setresponse(mUpnpActionResponse* actionRes, m
 }
 
 /****************************************
-* mupnp_control_action_response_getactionresponsenode
-****************************************/
+ * mupnp_control_action_response_getactionresponsenode
+ ****************************************/
 
 mUpnpXmlNode* mupnp_control_action_response_getactionresponsenode(mUpnpActionResponse* actionRes)
 {
@@ -210,8 +210,8 @@ mUpnpXmlNode* mupnp_control_action_response_getactionresponsenode(mUpnpActionRes
 }
 
 /****************************************
-* mupnp_control_action_response_getresult
-****************************************/
+ * mupnp_control_action_response_getresult
+ ****************************************/
 
 bool mupnp_control_action_response_getresult(mUpnpActionResponse* actionRes, mUpnpAction* action)
 {
@@ -240,8 +240,8 @@ bool mupnp_control_action_response_getresult(mUpnpActionResponse* actionRes, mUp
 }
 
 /****************************************
-* mupnp_control_action_response_geterror
-****************************************/
+ * mupnp_control_action_response_geterror
+ ****************************************/
 bool mupnp_control_action_response_geterror(mUpnpActionResponse* actionRes, mUpnpAction* action)
 {
   mUpnpXmlNode* resNode;
@@ -258,7 +258,7 @@ bool mupnp_control_action_response_geterror(mUpnpActionResponse* actionRes, mUpn
   }
 
   /* Response node is FAULT node, there will be no output args,
-	   but set action status and description */
+           but set action status and description */
   upnpErrorNode = mupnp_xml_node_getchildnodewithnamespace(resNode, MUPNP_SOAP_DETAIL, NULL, true);
 
   if (upnpErrorNode == NULL)
@@ -289,7 +289,7 @@ bool mupnp_control_action_response_geterror(mUpnpActionResponse* actionRes, mUpn
 }
 
 /****************************************
-* MUPNP_NOUSE_ACTIONCTRL (End)
-****************************************/
+ * MUPNP_NOUSE_ACTIONCTRL (End)
+ ****************************************/
 
 #endif

@@ -16,8 +16,8 @@
 #include <mupnp/util/time.h>
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (Begin)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
@@ -85,7 +85,7 @@ void mupnp_subscriber_clear(mUpnpSubscriber* sub)
 }
 
 /**
- * Renew a subscription. Essentially sets subscription time (duration) 
+ * Renew a subscription. Essentially sets subscription time (duration)
  * to zero and resets notify count (== event key).
  *
  * @param sub The event subscriber
@@ -94,7 +94,7 @@ void mupnp_subscriber_renew(mUpnpSubscriber* sub)
 {
   mupnp_log_debug_l4("Entering...\n");
 
-  //Theo Beisch use clinkc time
+  // Theo Beisch use clinkc time
   mupnp_subscriber_setsubscriptiontime(sub, mupnp_getcurrentsystemtime());
 
   mupnp_log_debug_l4("Leaving...\n");
@@ -135,9 +135,9 @@ bool mupnp_subscriber_isexpired(mUpnpSubscriber* sub)
   if (timeout == MUPNP_SUBSCRIPTION_INFINITE_VALUE)
     return false;
 
-  //Theo Beisch - use clinkc function
-  currTime = mupnp_getcurrentsystemtime(); //returns time in s
-  expiredTime = mupnp_subscriber_getsubscriptiontime(sub) + (timeout); //tb: removed( *1000);
+  // Theo Beisch - use clinkc function
+  currTime = mupnp_getcurrentsystemtime(); // returns time in s
+  expiredTime = mupnp_subscriber_getsubscriptiontime(sub) + (timeout); // tb: removed( *1000);
   if (expiredTime < currTime)
     return true;
 
@@ -211,7 +211,7 @@ bool mupnp_subscriber_notifyall(mUpnpSubscriber* sub, /* mUpnpService */ void* s
 }
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (End)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (End)
+ ****************************************/
 
 #endif

@@ -6,8 +6,8 @@
 //  Copyright 2008 CyberGarage. All rights reserved.
 //
 
-#import <SenTestingKit/SenTestingKit.h>
 #import <CyberLink/UPnPAV.h>
+#import <SenTestingKit/SenTestingKit.h>
 
 @interface ClinkAVUnitTest : SenTestCase {
   CGUpnpAvController* dmc;

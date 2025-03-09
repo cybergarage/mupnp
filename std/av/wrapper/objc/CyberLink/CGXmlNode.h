@@ -7,8 +7,8 @@
 //
 
 #if defined(TARGET_OS_IPHONE)
-#import <Foundation/NSString.h>
 #import <Foundation/NSArray.h>
+#import <Foundation/NSString.h>
 #else
 #import <Foundation/Foundation.h>
 #endif

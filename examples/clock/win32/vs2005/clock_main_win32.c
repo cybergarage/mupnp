@@ -1,16 +1,16 @@
 /******************************************************************
-*
-*	CyberX3D for C++
-*
-*	Copyright (C) Satoshi Konno 1996-2003
-*
-*	File:	ClockMain.cpp
-*
-******************************************************************/
+ *
+ *	CyberX3D for C++
+ *
+ *	Copyright (C) Satoshi Konno 1996-2003
+ *
+ *	File:	ClockMain.cpp
+ *
+ ******************************************************************/
 #include <commdlg.h>
 #include <windowsx.h>
 #include <winsock2.h>
-//#include "resource.h"
+// #include "resource.h"
 
 #include "clock.h"
 #include "clock_device.h"
@@ -82,7 +82,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
   hWnd = CreateWindow(
       szAppName,
       szTitle,
-      //WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
+      // WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN | WS_CLIPSIBLINGS,
       WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
       CW_USEDEFAULT,
       CW_USEDEFAULT,

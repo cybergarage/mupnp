@@ -14,14 +14,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_QUERY (Begin)
-****************************************/
+ * MUPNP_NOUSE_QUERY (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_QUERYCTRL)
 
 /****************************************
-* mupnp_control_query_request_new
-****************************************/
+ * mupnp_control_query_request_new
+ ****************************************/
 
 mUpnpQueryRequest* mupnp_control_query_request_new()
 {
@@ -56,8 +56,8 @@ mUpnpQueryRequest* mupnp_control_query_request_new()
 }
 
 /****************************************
-* mupnp_control_query_request_delete
-****************************************/
+ * mupnp_control_query_request_delete
+ ****************************************/
 
 void mupnp_control_query_request_delete(mUpnpQueryRequest* queryReq)
 {
@@ -76,8 +76,8 @@ void mupnp_control_query_request_delete(mUpnpQueryRequest* queryReq)
 }
 
 /****************************************
-* mupnp_control_query_request_clear
-****************************************/
+ * mupnp_control_query_request_clear
+ ****************************************/
 
 void mupnp_control_query_request_clear(mUpnpQueryRequest* queryReq)
 {
@@ -92,8 +92,8 @@ void mupnp_control_query_request_clear(mUpnpQueryRequest* queryReq)
 }
 
 /****************************************
-* mupnp_control_query_request_setsoaprequest
-****************************************/
+ * mupnp_control_query_request_setsoaprequest
+ ****************************************/
 
 void mupnp_control_query_request_setsoaprequest(mUpnpQueryRequest* queryReq, mUpnpSoapRequest* soapReq)
 {
@@ -108,8 +108,8 @@ void mupnp_control_query_request_setsoaprequest(mUpnpQueryRequest* queryReq, mUp
 }
 
 /****************************************
-* mupnp_control_query_request_getvarnamenode
-****************************************/
+ * mupnp_control_query_request_getvarnamenode
+ ****************************************/
 
 mUpnpXmlNode* mupnp_control_query_request_getvarnamenode(mUpnpQueryRequest* queryReq)
 {
@@ -139,8 +139,8 @@ mUpnpXmlNode* mupnp_control_query_request_getvarnamenode(mUpnpQueryRequest* quer
 }
 
 /****************************************
-* mupnp_control_query_request_getqueryname
-****************************************/
+ * mupnp_control_query_request_getqueryname
+ ****************************************/
 
 char* mupnp_control_query_request_getvarname(mUpnpQueryRequest* queryReq)
 {
@@ -158,8 +158,8 @@ char* mupnp_control_query_request_getvarname(mUpnpQueryRequest* queryReq)
 }
 
 /****************************************
-* mupnp_control_query_request_cratestatevariablenode
-****************************************/
+ * mupnp_control_query_request_cratestatevariablenode
+ ****************************************/
 
 mUpnpXmlNode* mupnp_control_query_request_cratestatevariablenode(mUpnpStateVariable* statVar)
 {
@@ -184,8 +184,8 @@ mUpnpXmlNode* mupnp_control_query_request_cratestatevariablenode(mUpnpStateVaria
 }
 
 /****************************************
-* mupnp_control_query_request_setstatevariable
-****************************************/
+ * mupnp_control_query_request_setstatevariable
+ ****************************************/
 
 void mupnp_control_query_request_setstatevariable(mUpnpQueryRequest* queryReq, mUpnpStateVariable* statVar)
 {
@@ -214,8 +214,8 @@ void mupnp_control_query_request_setstatevariable(mUpnpQueryRequest* queryReq, m
 }
 
 /****************************************
-* mupnp_control_query_request_post
-****************************************/
+ * mupnp_control_query_request_post
+ ****************************************/
 
 mUpnpQueryResponse* mupnp_control_query_request_post(mUpnpQueryRequest* queryReq)
 {
@@ -246,7 +246,7 @@ mUpnpQueryResponse* mupnp_control_query_request_post(mUpnpQueryRequest* queryReq
 }
 
 /****************************************
-* MUPNP_NOUSE_QUERY (End)
-****************************************/
+ * MUPNP_NOUSE_QUERY (End)
+ ****************************************/
 
 #endif

@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cdms_filesys.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cdms_filesys.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include "cdms_filesys.h"
 #include <mupnp/net/interface.h>
@@ -34,8 +34,8 @@
 #endif
 
 /****************************************
-* mupnp_upnpav_dms_filesys_getmimetype
-****************************************/
+ * mupnp_upnpav_dms_filesys_getmimetype
+ ****************************************/
 
 char* mupnp_upnpav_dms_filesys_getmimetype(char* ext)
 {
@@ -49,8 +49,8 @@ char* mupnp_upnpav_dms_filesys_getmimetype(char* ext)
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_getupnpclass
-****************************************/
+ * mupnp_upnpav_dms_filesys_getupnpclass
+ ****************************************/
 
 char* mupnp_upnpav_dms_filesys_getupnpclass(char* ext)
 {
@@ -64,8 +64,8 @@ char* mupnp_upnpav_dms_filesys_getupnpclass(char* ext)
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_updatecontentlist
-****************************************/
+ * mupnp_upnpav_dms_filesys_updatecontentlist
+ ****************************************/
 
 void mupnp_upnpav_dms_filesys_updatecontentlist(mUpnpMediaServer* dms, mUpnpMediaContentList* parentCon, char* pubdir)
 {
@@ -79,7 +79,7 @@ void mupnp_upnpav_dms_filesys_updatecontentlist(mUpnpMediaServer* dms, mUpnpMedi
   int fileExtIdx;
   char* fileExt;
   char idmd5[CG_MD5_STRING_BUF_SIZE];
-  //char resURL[CG_UPNPAV_FILESYS_RESURL_MAXLEN];
+  // char resURL[CG_UPNPAV_FILESYS_RESURL_MAXLEN];
   char resURL[1024];
   char* mimeType;
   char* upnpClass;
@@ -254,8 +254,8 @@ void mupnp_upnpav_dms_filesys_updatecontentlist(mUpnpMediaServer* dms, mUpnpMedi
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_updaterootcontentlist
-****************************************/
+ * mupnp_upnpav_dms_filesys_updaterootcontentlist
+ ****************************************/
 
 void mupnp_upnpav_dms_filesys_updaterootcontentlist(mUpnpMediaServer* dms)
 {
@@ -279,8 +279,8 @@ void mupnp_upnpav_dms_filesys_updaterootcontentlist(mUpnpMediaServer* dms)
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_setpublicationdirectory
-****************************************/
+ * mupnp_upnpav_dms_filesys_setpublicationdirectory
+ ****************************************/
 
 void mupnp_upnpav_dms_filesys_setpublicationdirectory(mUpnpMediaServer* dms, char* pubdir)
 {
@@ -294,8 +294,8 @@ void mupnp_upnpav_dms_filesys_setpublicationdirectory(mUpnpMediaServer* dms, cha
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_getpublicationdirectory
-****************************************/
+ * mupnp_upnpav_dms_filesys_getpublicationdirectory
+ ****************************************/
 
 char* mupnp_upnpav_dms_filesys_getpublicationdirectory(mUpnpMediaServer* dms)
 {
@@ -309,8 +309,8 @@ char* mupnp_upnpav_dms_filesys_getpublicationdirectory(mUpnpMediaServer* dms)
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_actionlistner
-****************************************/
+ * mupnp_upnpav_dms_filesys_actionlistner
+ ****************************************/
 
 BOOL mupnp_upnpav_dms_filesys_actionlistner(mUpnpAction* action)
 {
@@ -362,8 +362,8 @@ BOOL mupnp_upnpav_dms_filesys_actionlistner(mUpnpAction* action)
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_new
-****************************************/
+ * mupnp_upnpav_dms_filesys_new
+ ****************************************/
 
 mUpnpMediaServer* mupnp_upnpav_dms_filesys_new()
 {
@@ -378,8 +378,8 @@ mUpnpMediaServer* mupnp_upnpav_dms_filesys_new()
 }
 
 /****************************************
-* mupnp_upnpav_dms_filesys_delete
-****************************************/
+ * mupnp_upnpav_dms_filesys_delete
+ ****************************************/
 
 void mupnp_upnpav_dms_filesys_delete(mUpnpMediaServer* dms)
 {

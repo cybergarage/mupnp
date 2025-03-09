@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: ccontent.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: ccontent.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include <cybergarage/upnp/std/av/ccontent.h>
 #include <cybergarage/util/cstring.h>
@@ -19,8 +19,8 @@
 #define CG_UPNPAV_CONTENT_ITEM_STRING "item"
 
 /****************************************
-* cg_upnpav_content_settype
-****************************************/
+ * cg_upnpav_content_settype
+ ****************************************/
 
 void cg_upnpav_content_settype(CgUpnpAvContent* con, int type)
 {
@@ -36,8 +36,8 @@ void cg_upnpav_content_settype(CgUpnpAvContent* con, int type)
 }
 
 /****************************************
-* cg_upnpav_content_gettype
-****************************************/
+ * cg_upnpav_content_gettype
+ ****************************************/
 
 int cg_upnpav_content_gettype(CgUpnpAvContent* con)
 {
@@ -49,8 +49,8 @@ int cg_upnpav_content_gettype(CgUpnpAvContent* con)
 }
 
 /****************************************
-* cg_upnpav_content_copy
-****************************************/
+ * cg_upnpav_content_copy
+ ****************************************/
 
 void cg_upnpav_content_copy(CgUpnpAvContent* destContent, CgUpnpAvContent* srcContent)
 {
@@ -82,8 +82,8 @@ void cg_upnpav_content_copy(CgUpnpAvContent* destContent, CgUpnpAvContent* srcCo
 }
 
 /****************************************
-* cg_upnpav_content_findbyuserfunc
-****************************************/
+ * cg_upnpav_content_findbyuserfunc
+ ****************************************/
 
 CgUpnpAvContent* cg_upnpav_content_findbyuserfunc(CgUpnpAvContent* con, CG_UPNPAV_CONTENT_COMPARE_FUNC userFunc, void* userData)
 {
@@ -106,8 +106,8 @@ CgUpnpAvContent* cg_upnpav_content_findbyuserfunc(CgUpnpAvContent* con, CG_UPNPA
 }
 
 /****************************************
-* cg_upnpav_content_getbyobjectid
-****************************************/
+ * cg_upnpav_content_getbyobjectid
+ ****************************************/
 
 static BOOL cg_upnpav_content_comparebyid(CgUpnpAvContent* con, void* userData)
 {
@@ -122,8 +122,8 @@ CgUpnpAvContent* cg_upnpav_content_getbyid(CgUpnpAvContent* con, char* id)
 }
 
 /****************************************
-* cg_upnpav_content_getbytitle
-****************************************/
+ * cg_upnpav_content_getbytitle
+ ****************************************/
 
 static BOOL cg_upnpav_content_comparebytitle(CgUpnpAvContent* con, void* userData)
 {
@@ -138,8 +138,8 @@ CgUpnpAvContent* cg_upnpav_content_getbytitle(CgUpnpAvContent* con, char* title)
 }
 
 /****************************************
-* cg_upnpav_content_addchildcontent
-****************************************/
+ * cg_upnpav_content_addchildcontent
+ ****************************************/
 
 void cg_upnpav_content_addchildcontent(CgUpnpAvContent* con, CgUpnpAvContent* childCon)
 {
@@ -148,8 +148,8 @@ void cg_upnpav_content_addchildcontent(CgUpnpAvContent* con, CgUpnpAvContent* ch
 }
 
 /****************************************
-* cg_upnpav_content_istitlenode
-****************************************/
+ * cg_upnpav_content_istitlenode
+ ****************************************/
 
 BOOL cg_upnpav_content_iscontentnode(CgXmlNode* node)
 {
@@ -161,8 +161,8 @@ BOOL cg_upnpav_content_iscontentnode(CgXmlNode* node)
 }
 
 /****************************************
-* cg_upnpav_content_getnchildcontents
-****************************************/
+ * cg_upnpav_content_getnchildcontents
+ ****************************************/
 
 int cg_upnpav_content_getnchildcontents(CgUpnpAvContent* con)
 {
@@ -176,8 +176,8 @@ int cg_upnpav_content_getnchildcontents(CgUpnpAvContent* con)
   return contentNodeCnt;
 }
 /****************************************
-* cg_upnpav_content_getchildcontents
-****************************************/
+ * cg_upnpav_content_getchildcontents
+ ****************************************/
 
 CgUpnpAvContent* cg_upnpav_content_getchildcontents(CgUpnpAvContent* con)
 {
@@ -190,8 +190,8 @@ CgUpnpAvContent* cg_upnpav_content_getchildcontents(CgUpnpAvContent* con)
 }
 
 /****************************************
-* cg_upnpav_content_istitlenode
-****************************************/
+ * cg_upnpav_content_istitlenode
+ ****************************************/
 
 BOOL cg_upnpav_content_haschildcontents(CgUpnpAvContent* con)
 {
@@ -204,8 +204,8 @@ BOOL cg_upnpav_content_haschildcontents(CgUpnpAvContent* con)
 }
 
 /****************************************
-* cg_upnpav_content_next
-****************************************/
+ * cg_upnpav_content_next
+ ****************************************/
 
 CgUpnpAvContent* cg_upnpav_content_next(CgUpnpAvContent* con)
 {

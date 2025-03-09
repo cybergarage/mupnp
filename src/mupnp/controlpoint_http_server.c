@@ -14,8 +14,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_CONTROLPOINT (Begin)
-****************************************/
+ * MUPNP_NOUSE_CONTROLPOINT (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_CONTROLPOINT)
 
@@ -145,7 +145,7 @@ void mupnp_controlpoint_updatestatetablefromproperty(mUpnpService* service,
 }
 
 /****************************************
-* MUPNP_NOUSE_CONTROLPOINT (End)
-****************************************/
+ * MUPNP_NOUSE_CONTROLPOINT (End)
+ ****************************************/
 
 #endif

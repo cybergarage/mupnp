@@ -13,8 +13,8 @@
 #include <mupnp/util/string.h>
 
 /****************************************
-* mupnp_string_tokenizer_new
-****************************************/
+ * mupnp_string_tokenizer_new
+ ****************************************/
 
 mUpnpStringTokenizer* mupnp_string_tokenizer_new(const char* value, const char* delim)
 {
@@ -41,8 +41,8 @@ mUpnpStringTokenizer* mupnp_string_tokenizer_new(const char* value, const char* 
 }
 
 /****************************************
-* mupnp_string_tokenizer_delete
-****************************************/
+ * mupnp_string_tokenizer_delete
+ ****************************************/
 
 void mupnp_string_tokenizer_delete(mUpnpStringTokenizer* strToken)
 {
@@ -56,8 +56,8 @@ void mupnp_string_tokenizer_delete(mUpnpStringTokenizer* strToken)
 }
 
 /****************************************
-* mupnp_string_tokenizer_hasmoretoken
-****************************************/
+ * mupnp_string_tokenizer_hasmoretoken
+ ****************************************/
 
 bool mupnp_string_tokenizer_hasmoretoken(mUpnpStringTokenizer* strToken)
 {
@@ -69,8 +69,8 @@ bool mupnp_string_tokenizer_hasmoretoken(mUpnpStringTokenizer* strToken)
 }
 
 /****************************************
-* mupnp_string_tokenizer_nexttoken
-****************************************/
+ * mupnp_string_tokenizer_nexttoken
+ ****************************************/
 
 char* mupnp_string_tokenizer_nexttoken(mUpnpStringTokenizer* strToken)
 {
@@ -119,8 +119,8 @@ char* mupnp_string_tokenizer_nexttoken(mUpnpStringTokenizer* strToken)
 }
 
 /****************************************
-* mupnp_string_tokenizer_nextalltoken
-****************************************/
+ * mupnp_string_tokenizer_nextalltoken
+ ****************************************/
 
 char* mupnp_string_tokenizer_nextalltoken(mUpnpStringTokenizer* strToken)
 {
@@ -139,8 +139,8 @@ char* mupnp_string_tokenizer_nextalltoken(mUpnpStringTokenizer* strToken)
 }
 
 /****************************************
-* mupnp_string_tokenizer_print
-****************************************/
+ * mupnp_string_tokenizer_print
+ ****************************************/
 
 void mupnp_string_tokenizer_print(mUpnpStringTokenizer* strToken)
 {

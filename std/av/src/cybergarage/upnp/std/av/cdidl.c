@@ -1,22 +1,22 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cdidl.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cdidl.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include <cybergarage/upnp/std/av/cdidl.h>
 
 /****************************************
-* Constants
-****************************************/
+ * Constants
+ ****************************************/
 
 #define CG_UPNPAV_DMS_DIDL_NAME "DIDL-Lite"
 #define CG_UPNPAV_DMS_DIDL_XMLNS "xmlns"
@@ -29,8 +29,8 @@
 #define CG_UPNPAV_DMS_DIDL_XMLNS_DLNA_URL "urn:schemas-dlna-org:metadata-1-0/"
 
 /****************************************
-* cg_upnpav_didl_node_new
-****************************************/
+ * cg_upnpav_didl_node_new
+ ****************************************/
 
 CgXmlNode* cg_upnpav_didl_node_new()
 {

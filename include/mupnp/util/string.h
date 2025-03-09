@@ -20,8 +20,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define MUPNP_STRING_MEMORY_ALLOCATION_UNIT 64
 
@@ -38,8 +38,8 @@ extern "C" {
 #define MUPNP_STRING_DOUBLE_BUFLEN 64
 
 /****************************************
-* Function 
-****************************************/
+ * Function
+ ****************************************/
 
 char* mupnp_strdup(const char* str);
 size_t mupnp_strlen(const char* str);
@@ -77,8 +77,8 @@ const char* mupnp_ssizet2str(ssize_t value, char* buf, size_t bufSize);
 #define mupnp_str2ssizet(value) ((ssize_t)(value ? atol(value) : 0))
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef struct _mUpnpString {
   char* value;
@@ -99,8 +99,8 @@ typedef struct _mUpnpStringTokenizer {
 } mUpnpStringTokenizer;
 
 /****************************************
-* Function (StringTokenizer)
-****************************************/
+ * Function (StringTokenizer)
+ ****************************************/
 
 mUpnpStringTokenizer* mupnp_string_tokenizer_new(const char* str, const char* delim);
 void mupnp_string_tokenizer_delete(mUpnpStringTokenizer* strToken);
@@ -111,8 +111,8 @@ char* mupnp_string_tokenizer_nextalltoken(mUpnpStringTokenizer* strToken);
 void mupnp_string_tokenizer_print(mUpnpStringTokenizer* strToken);
 
 /****************************************
-* Function (String)
-****************************************/
+ * Function (String)
+ ****************************************/
 
 mUpnpString* mupnp_string_new(void);
 void mupnp_string_delete(mUpnpString* str);

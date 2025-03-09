@@ -14,8 +14,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_ssdp_serverlist_new
-****************************************/
+ * mupnp_ssdp_serverlist_new
+ ****************************************/
 
 mUpnpSSDPServerList* mupnp_ssdp_serverlist_new()
 {
@@ -39,8 +39,8 @@ mUpnpSSDPServerList* mupnp_ssdp_serverlist_new()
 }
 
 /****************************************
-* mupnp_ssdp_serverlist_delete
-****************************************/
+ * mupnp_ssdp_serverlist_delete
+ ****************************************/
 
 void mupnp_ssdp_serverlist_delete(mUpnpSSDPServerList* ssdpServerList)
 {
@@ -54,8 +54,8 @@ void mupnp_ssdp_serverlist_delete(mUpnpSSDPServerList* ssdpServerList)
 }
 
 /****************************************
-* mupnp_ssdp_serverlist_open
-****************************************/
+ * mupnp_ssdp_serverlist_open
+ ****************************************/
 
 bool mupnp_ssdp_serverlist_open(mUpnpSSDPServerList* ssdpServerList)
 {
@@ -93,8 +93,8 @@ bool mupnp_ssdp_serverlist_open(mUpnpSSDPServerList* ssdpServerList)
 }
 
 /****************************************
-* mupnp_ssdp_serverlist_close
-****************************************/
+ * mupnp_ssdp_serverlist_close
+ ****************************************/
 
 bool mupnp_ssdp_serverlist_close(mUpnpSSDPServerList* ssdpServerList)
 {
@@ -111,8 +111,8 @@ bool mupnp_ssdp_serverlist_close(mUpnpSSDPServerList* ssdpServerList)
 }
 
 /****************************************
-* mupnp_ssdp_serverlist_start
-****************************************/
+ * mupnp_ssdp_serverlist_start
+ ****************************************/
 
 bool mupnp_ssdp_serverlist_start(mUpnpSSDPServerList* ssdpServerList)
 {
@@ -129,8 +129,8 @@ bool mupnp_ssdp_serverlist_start(mUpnpSSDPServerList* ssdpServerList)
 }
 
 /****************************************
-* mupnp_ssdp_serverlist_stop
-****************************************/
+ * mupnp_ssdp_serverlist_stop
+ ****************************************/
 
 bool mupnp_ssdp_serverlist_stop(mUpnpSSDPServerList* ssdpServerList)
 {
@@ -147,8 +147,8 @@ bool mupnp_ssdp_serverlist_stop(mUpnpSSDPServerList* ssdpServerList)
 }
 
 /****************************************
-* mupnp_ssdp_serverlist_setlistener
-****************************************/
+ * mupnp_ssdp_serverlist_setlistener
+ ****************************************/
 
 void mupnp_ssdp_serverlist_setlistener(mUpnpSSDPServerList* ssdpServerList, MUPNP_SSDP_LISTNER listener)
 {
@@ -163,8 +163,8 @@ void mupnp_ssdp_serverlist_setlistener(mUpnpSSDPServerList* ssdpServerList, MUPN
 }
 
 /****************************************
-* mupnp_ssdp_serverlist_setuserdata
-****************************************/
+ * mupnp_ssdp_serverlist_setuserdata
+ ****************************************/
 
 void mupnp_ssdp_serverlist_setuserdata(mUpnpSSDPServerList* ssdpServerList, void* data)
 {

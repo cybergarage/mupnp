@@ -3,19 +3,19 @@
 #endif
 
 /******************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: kb_util.h
-*
-*	Revision:
-*
-*	05/11/05
-*		- first revision
-*
-******************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: kb_util.h
+ *
+ *	Revision:
+ *
+ *	05/11/05
+ *		- first revision
+ *
+ ******************************************************************/
 
 #if !defined(WIN32) && !defined(__MINGW32__)
 #include <stdio.h>

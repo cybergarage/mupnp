@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: ccontent.h
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: ccontent.h
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #ifndef _CG_CLINKCAV_CONTENT_H_
 #define _CG_CLINKCAV_CONTENT_H_
@@ -22,8 +22,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Constant
-****************************************/
+ * Constant
+ ****************************************/
 
 #define CG_UPNPAV_CONTENT_NONE (0)
 #define CG_UPNPAV_CONTENT_CONTAINER (1)
@@ -61,15 +61,15 @@ extern "C" {
 #define CG_UPNPAV_DLNA_PN_AVC "AVC_MP4_ BL_CIF30C"
 
 /****************************************
-* Struct
-****************************************/
+ * Struct
+ ****************************************/
 
 typedef mUpnpXmlNode mUpnpAvContent;
 typedef mUpnpXmlNodeList mUpnpAvContentList;
 
 /****************************************
-* Content
-****************************************/
+ * Content
+ ****************************************/
 
 #define mupnp_upnpav_contentlist_new() mupnp_xml_nodelist_new()
 #define mupnp_upnpav_contentlist_delete(conList) mupnp_xml_nodelist_delete(conList)

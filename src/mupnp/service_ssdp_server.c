@@ -16,8 +16,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_service_ssdpmessagereceived
-****************************************/
+ * mupnp_service_ssdpmessagereceived
+ ****************************************/
 
 void mupnp_service_ssdpmessagereceived(mUpnpService* service, mUpnpSSDPPacket* ssdpPkt)
 {

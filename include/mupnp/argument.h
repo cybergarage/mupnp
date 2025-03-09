@@ -13,16 +13,16 @@
 #define _MUPNP_ARGUMENT_H_
 
 #include <mupnp/typedef.h>
-#include <mupnp/xml/xml.h>
 #include <mupnp/util/list.h>
+#include <mupnp/xml/xml.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 /** Definition for argument element name */
 #define MUPNP_ARGUMENT_ELEM_NAME "argument"
@@ -46,8 +46,8 @@ extern "C" {
 #define MUPNP_ARGUMENT_RELATED_STATE_VARIABLE "relatedStateVariable"
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 /**
  * Data type definition for UPnP argument and UPnP argument list
@@ -62,8 +62,8 @@ typedef struct _mUpnpArgument {
 } mUpnpArgument, mUpnpArgumentList;
 
 /****************************************
-* Function (Argument)
-****************************************/
+ * Function (Argument)
+ ****************************************/
 
 /**
  * Create new argument
@@ -82,7 +82,7 @@ void mupnp_argument_delete(mUpnpArgument* dev);
  *
  * @param arg Argument node
  */
-#define mupnp_argument_next(arg) (mUpnpArgument*) mupnp_list_next((mUpnpList*)arg)
+#define mupnp_argument_next(arg) (mUpnpArgument*)mupnp_list_next((mUpnpList*)arg)
 
 /**
  * Check if XML node is argument node
@@ -162,7 +162,7 @@ void mupnp_argument_delete(mUpnpArgument* dev);
 
 /**
  * Get argument direction
- * 
+ *
  * @param arg Argument
  *
  * @return Argument direction
@@ -207,8 +207,8 @@ void mupnp_argument_delete(mUpnpArgument* dev);
 #define mupnp_argument_getrelatedstatevariable(arg) mupnp_xml_node_getchildnodevalue(mupnp_argument_getargumentnode(arg), MUPNP_ARGUMENT_RELATED_STATE_VARIABLE)
 
 /****************************************
-* Function (Argument - Execution Data)
-****************************************/
+ * Function (Argument - Execution Data)
+ ****************************************/
 
 /**** value ****/
 
@@ -281,8 +281,8 @@ void mupnp_argument_delete(mUpnpArgument* dev);
 #define mupnp_argument_getdoublevalue(arg) mupnp_string_getdoublevalue(arg->value)
 
 /****************************************
-* Function (ArgumentList)
-****************************************/
+ * Function (ArgumentList)
+ ****************************************/
 
 /**
  * Create new argument list
@@ -315,7 +315,7 @@ void mupnp_argumentlist_delete(mUpnpArgumentList* argumentList);
  *
  * @param argList Argument list
  */
-#define mupnp_argumentlist_gets(argList) (mUpnpArgument*) mupnp_list_next((mUpnpList*)argList)
+#define mupnp_argumentlist_gets(argList) (mUpnpArgument*)mupnp_list_next((mUpnpList*)argList)
 
 /**
  * Add argument into argument list
@@ -336,7 +336,7 @@ void mupnp_argumentlist_delete(mUpnpArgumentList* argumentList);
 mUpnpArgument* mupnp_argumentlist_get(mUpnpArgumentList* argumentList, const char* name);
 
 /**
- * Set argument values by using source argument list. If there is an argument with the 
+ * Set argument values by using source argument list. If there is an argument with the
  * name in argument list and source argument list argument data is set from source
  * argument list to the matching argument list.
  *

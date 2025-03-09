@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: clock.c
-*
-*	Revision:
-*       06/07/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: clock.c
+ *
+ *	Revision:
+ *       06/07/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include "clock.h"
 
@@ -18,8 +18,8 @@
 #include <time.h>
 
 /****************************************
-* toMonthString
-****************************************/
+ * toMonthString
+ ****************************************/
 
 static char* MONTH_STRING[] = {
   "Jan",
@@ -44,8 +44,8 @@ static char* toMonthString(int value)
 }
 
 /****************************************
-* toWeekString
-****************************************/
+ * toWeekString
+ ****************************************/
 
 static char* WEEK_STRING[] = {
   "Sun",
@@ -65,8 +65,8 @@ static char* toWeekString(int value)
 }
 
 /****************************************
-* GetSystemTimeString
-****************************************/
+ * GetSystemTimeString
+ ****************************************/
 
 char* GetSystemTimeString(mUpnpTime currTime, char* buf)
 {
@@ -79,8 +79,8 @@ char* GetSystemTimeString(mUpnpTime currTime, char* buf)
 }
 
 /****************************************
-* GetDateString
-****************************************/
+ * GetDateString
+ ****************************************/
 
 char* GetDateString(mUpnpTime currTime, char* buf)
 {
@@ -94,8 +94,8 @@ char* GetDateString(mUpnpTime currTime, char* buf)
 }
 
 /****************************************
-* GetTimeString
-****************************************/
+ * GetTimeString
+ ****************************************/
 
 char* GetTimeString(mUpnpTime currTime, char* buf)
 {
@@ -109,8 +109,8 @@ char* GetTimeString(mUpnpTime currTime, char* buf)
 }
 
 /****************************************
-* GetSecond
-****************************************/
+ * GetSecond
+ ****************************************/
 
 int GetSecond(mUpnpTime currTime)
 {

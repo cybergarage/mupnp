@@ -19,8 +19,8 @@
 #endif
 
 /****************************************
-* mupnp_cond_new
-****************************************/
+ * mupnp_cond_new
+ ****************************************/
 
 mUpnpCond* mupnp_cond_new()
 {
@@ -52,8 +52,8 @@ mUpnpCond* mupnp_cond_new()
 }
 
 /****************************************
-* mupnp_cond_delete
-****************************************/
+ * mupnp_cond_delete
+ ****************************************/
 
 bool mupnp_cond_delete(mUpnpCond* cond)
 {
@@ -80,8 +80,8 @@ bool mupnp_cond_delete(mUpnpCond* cond)
 }
 
 /****************************************
-* mupnp_cond_lock
-****************************************/
+ * mupnp_cond_lock
+ ****************************************/
 
 bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout)
 {
@@ -121,8 +121,8 @@ bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout)
 }
 
 /****************************************
-* mupnp_cond_unlock
-****************************************/
+ * mupnp_cond_unlock
+ ****************************************/
 
 bool mupnp_cond_signal(mUpnpCond* cond)
 {

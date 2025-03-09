@@ -14,8 +14,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_http_header_new
-****************************************/
+ * mupnp_http_header_new
+ ****************************************/
 
 mUpnpHttpHeader* mupnp_http_header_new()
 {
@@ -37,8 +37,8 @@ mUpnpHttpHeader* mupnp_http_header_new()
 }
 
 /****************************************
-* mupnp_http_header_delete
-****************************************/
+ * mupnp_http_header_delete
+ ****************************************/
 
 void mupnp_http_header_delete(mUpnpHttpHeader* header)
 {
@@ -53,8 +53,8 @@ void mupnp_http_header_delete(mUpnpHttpHeader* header)
 }
 
 /****************************************
-* mupnp_http_header_setname
-****************************************/
+ * mupnp_http_header_setname
+ ****************************************/
 
 void mupnp_http_header_setname(mUpnpHttpHeader* header, const char* name)
 {
@@ -66,8 +66,8 @@ void mupnp_http_header_setname(mUpnpHttpHeader* header, const char* name)
 }
 
 /****************************************
-* mupnp_http_header_getname
-****************************************/
+ * mupnp_http_header_getname
+ ****************************************/
 
 const char* mupnp_http_header_getname(mUpnpHttpHeader* header)
 {
@@ -79,8 +79,8 @@ const char* mupnp_http_header_getname(mUpnpHttpHeader* header)
 }
 
 /****************************************
-* mupnp_http_header_setvalue
-****************************************/
+ * mupnp_http_header_setvalue
+ ****************************************/
 
 void mupnp_http_header_setvalue(mUpnpHttpHeader* header, const char* value)
 {
@@ -92,8 +92,8 @@ void mupnp_http_header_setvalue(mUpnpHttpHeader* header, const char* value)
 }
 
 /****************************************
-* mupnp_http_header_getvalue
-****************************************/
+ * mupnp_http_header_getvalue
+ ****************************************/
 
 const char* mupnp_http_header_getvalue(mUpnpHttpHeader* header)
 {

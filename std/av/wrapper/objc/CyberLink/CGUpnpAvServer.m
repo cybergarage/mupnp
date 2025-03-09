@@ -18,7 +18,7 @@
 
 #define CGUPNPAVSERVER_BROWSE_RETRY_REQUESTEDCOUNT 999
 
-//#define CGUPNPAVSERVER_ENABLED_USEROBJECT_RETAIN 1
+// #define CGUPNPAVSERVER_ENABLED_USEROBJECT_RETAIN 1
 
 @implementation CGUpnpAvServer
 
@@ -175,13 +175,13 @@
 
 #if defined(CG_UPNPAVSERVER_BROWSEACTION_RETRY_ENABLED)
   /*
-	 * ContentDirectory:1 Service Template Version 1.01
-	 * 2.7.4.2. Argument Descriptions
-	 *  RequestedCount ui4 Requested number of entries under the object specified by ObjectID. 
-	 *  RequestedCount =0 indicates request all entries.
-	 * Added to set the RequestedCount parameter using the NumberReturned result when the specified parameter is zero and
-	 * the NumberReturned parameter is less than the TotalMatches parameter for XMBC.
-	 */
+   * ContentDirectory:1 Service Template Version 1.01
+   * 2.7.4.2. Argument Descriptions
+   *  RequestedCount ui4 Requested number of entries under the object specified by ObjectID.
+   *  RequestedCount =0 indicates request all entries.
+   * Added to set the RequestedCount parameter using the NumberReturned result when the specified parameter is zero and
+   * the NumberReturned parameter is less than the TotalMatches parameter for XMBC.
+   */
 
   if (postResult) {
     CGUpnpAction* browseAction = [self browseAction];
@@ -344,8 +344,8 @@
     // TODO FIX Memory Leaks
     /*
         NSString *objectId = [avObj objectId];
-		if ([self hasAvObject:toAvObjs objectId:objectId])
-			 continue;
+                if ([self hasAvObject:toAvObjs objectId:objectId])
+                         continue;
         */
     [toAvObjs addObject:avObj];
   }

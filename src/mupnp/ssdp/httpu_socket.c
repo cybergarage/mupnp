@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_httpu_socket_recv
-****************************************/
+ * mupnp_httpu_socket_recv
+ ****************************************/
 
 ssize_t mupnp_httpu_socket_recv(mUpnpHttpMuSocket* sock, mUpnpSSDPPacket* ssdpPkt)
 {

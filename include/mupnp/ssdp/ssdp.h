@@ -22,8 +22,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define MUPNP_SSDP_PORT 1900
 
@@ -69,8 +69,8 @@ extern "C" {
 #define MUPNP_SSDP_FILTER_TABLE_SIZE 101
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef mUpnpHttpResponse mUpnpSSDPResponse;
 typedef mUpnpHttpRequest mUpnpSSDPRequest;
@@ -78,8 +78,8 @@ typedef mUpnpHttpRequest mUpnpSSDPRequest;
 typedef mUpnpSocket mUpnpSSDPSocket;
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 void mupnp_ssdp_setipv6address(const char* addr);
 const char* mupnp_ssdp_getipv6address(void);
@@ -92,8 +92,8 @@ int mupnp_ssdp_getleasetime(const char* cacheCont);
 const char* mupnp_ssdp_gethostaddress(const char* ifAddr);
 
 /****************************************
-* Function (SSDPRequest)
-****************************************/
+ * Function (SSDPRequest)
+ ****************************************/
 
 mUpnpSSDPRequest* mupnp_ssdprequest_new(void);
 void mupnp_ssdprequest_delete(mUpnpSSDPRequest* ssdpReq);
@@ -157,8 +157,8 @@ char* mupnp_ssdprequest_tostring(mUpnpSSDPRequest* ssdpReq, mUpnpString* ssdpMsg
 #define mupnp_ssdprequest_print(ssdpReq) mupnp_http_request_print(ssdpReq)
 
 /****************************************
-* Function (SSDPResponse)
-****************************************/
+ * Function (SSDPResponse)
+ ****************************************/
 
 mUpnpSSDPResponse* mupnp_ssdpresponse_new(void);
 void mupnp_ssdpresponse_delete(mUpnpSSDPResponse* ssdpRes);
@@ -200,8 +200,8 @@ char* mupnp_ssdpresponse_tostring(mUpnpSSDPResponse* ssdpRes, mUpnpString* ssdpM
 #define mupnp_ssdpresponse_print(ssdpReq) mupnp_http_response_print(ssdpReq)
 
 /****************************************
-* Function (SSDPSocket)
-****************************************/
+ * Function (SSDPSocket)
+ ****************************************/
 
 #define mupnp_ssdp_socket_new() mupnp_socket_new(MUPNP_NET_SOCKET_DGRAM)
 #define mupnp_ssdp_socket_delete(socket) mupnp_socket_delete(socket)

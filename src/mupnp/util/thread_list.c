@@ -13,8 +13,8 @@
 #include <mupnp/util/thread.h>
 
 /****************************************
-* mupnp_threadlist_new
-****************************************/
+ * mupnp_threadlist_new
+ ****************************************/
 
 mUpnpThreadList* mupnp_threadlist_new()
 {
@@ -37,8 +37,8 @@ mUpnpThreadList* mupnp_threadlist_new()
 }
 
 /****************************************
-* mupnp_threadlist_delete
-****************************************/
+ * mupnp_threadlist_delete
+ ****************************************/
 
 void mupnp_threadlist_delete(mUpnpThreadList* threadList)
 {
@@ -51,8 +51,8 @@ void mupnp_threadlist_delete(mUpnpThreadList* threadList)
 }
 
 /****************************************
-* mupnp_threadlist_start
-****************************************/
+ * mupnp_threadlist_start
+ ****************************************/
 
 bool mupnp_threadlist_start(mUpnpThreadList* threadList)
 {
@@ -69,8 +69,8 @@ bool mupnp_threadlist_start(mUpnpThreadList* threadList)
 }
 
 /****************************************
-* mupnp_threadlist_stop
-****************************************/
+ * mupnp_threadlist_stop
+ ****************************************/
 
 bool mupnp_threadlist_stop(mUpnpThreadList* threadList)
 {

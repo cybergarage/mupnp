@@ -28,8 +28,8 @@
 #endif
 
 /****************************************
-* prototype define for static functions
-****************************************/
+ * prototype define for static functions
+ ****************************************/
 
 static void mupnp_service_initchildnodes(mUpnpService* service);
 static void mupnp_service_initactionlist(mUpnpService* service);
@@ -37,8 +37,8 @@ static void mupnp_service_initservicestatetable(mUpnpService* service);
 static mUpnpNetURL* mupnp_service_mangleurl(mUpnpService* service, char* type);
 
 /****************************************
-* mupnp_service_new
-****************************************/
+ * mupnp_service_new
+ ****************************************/
 
 mUpnpService* mupnp_service_new()
 {
@@ -81,8 +81,8 @@ mUpnpService* mupnp_service_new()
 }
 
 /****************************************
-* mupnp_service_delete
-****************************************/
+ * mupnp_service_delete
+ ****************************************/
 
 void mupnp_service_delete(mUpnpService* service)
 {
@@ -108,8 +108,8 @@ void mupnp_service_delete(mUpnpService* service)
 }
 
 /****************************************
-* mupnp_service_clear
-****************************************/
+ * mupnp_service_clear
+ ****************************************/
 
 void mupnp_service_clear(mUpnpService* service)
 {
@@ -137,7 +137,7 @@ void mupnp_service_clear(mUpnpService* service)
 
 /**
  * Compare the service's SCPD URL and the given location
- * 
+ *
  * @param service The service in question
  * @param url The URL (location) to compare
  * @return true if location is found from URL; otherwise false
@@ -173,7 +173,7 @@ mUpnpNetURL* mupnp_service_getcontrolurl(mUpnpService* service)
 /**
  * Get the service's SCPD (service description) URL
  *
- * @param service The service in question                                                                 
+ * @param service The service in question
  * @return mUpnpNetURL Pointer to URL/URI structure
  */
 mUpnpNetURL* mupnp_service_getscpdurl(mUpnpService* service)
@@ -182,8 +182,8 @@ mUpnpNetURL* mupnp_service_getscpdurl(mUpnpService* service)
 }
 
 /****************************************
-* mupnp_service_parsedescription
-****************************************/
+ * mupnp_service_parsedescription
+ ****************************************/
 
 bool mupnp_service_parsedescription(mUpnpService* service, const char* desciption, size_t descriptionLen)
 {
@@ -235,8 +235,8 @@ bool mupnp_service_parsedescription(mUpnpService* service, const char* desciptio
 }
 
 /****************************************
-* mupnp_service_parsedescriptionurl
-****************************************/
+ * mupnp_service_parsedescriptionurl
+ ****************************************/
 
 bool mupnp_service_parsedescriptionurl(mUpnpService* service, mUpnpNetURL* url)
 {
@@ -289,8 +289,8 @@ bool mupnp_service_parsedescriptionurl(mUpnpService* service, mUpnpNetURL* url)
 }
 
 /****************************************
-* mupnp_service_getdescription
-****************************************/
+ * mupnp_service_getdescription
+ ****************************************/
 
 char* mupnp_service_getdescription(mUpnpService* service, mUpnpString* descStr)
 {
@@ -314,8 +314,8 @@ char* mupnp_service_getdescription(mUpnpService* service, mUpnpString* descStr)
  * Service Type
  ****************************************/
 
-/** 
- * Get the identifier-part of a service type string (usually "urn") 
+/**
+ * Get the identifier-part of a service type string (usually "urn")
  *
  * @param serviceType A service type string (usually the result from
  *	  \ref mupnp_service_getservicetype)
@@ -364,8 +364,8 @@ const char* mupnp_servicetype_getidentifier(const char* serviceType)
   return part;
 }
 
-/** 
- * Get the URN part of a service type string (usually "schemas-upnp-org") 
+/**
+ * Get the URN part of a service type string (usually "schemas-upnp-org")
  *
  * @param serviceType A service type string (usually the result from
  *	  \ref mupnp_service_getservicetype)
@@ -423,7 +423,7 @@ const char* mupnp_servicetype_geturn(const char* serviceType)
   return part;
 }
 
-/** 
+/**
  * Get the service part of a service type string (usually just "service")
  *
  * @param serviceType A service type string (usually the result from
@@ -488,7 +488,7 @@ const char* mupnp_servicetype_getservice(const char* serviceType)
   return part;
 }
 
-/** 
+/**
  * Get the type part of a service type string (ex. "ContentDirectory")
  *
  * @param serviceType A service type string (usually the result from
@@ -553,7 +553,7 @@ const char* mupnp_servicetype_gettype(const char* serviceType)
   return part;
 }
 
-/** 
+/**
  * Get the schema type part of a service type string (without last colon)
  * (ex. "urn:schemas-upnp-org:service:ContentDirectory")
  *
@@ -610,7 +610,7 @@ char* mupnp_servicetype_getschematype(const char* serviceType)
   return part;
 }
 
-/** 
+/**
  * Get the version part of a service type string (ex. "1")
  *
  * @param serviceType A service type string (usually the result from
@@ -676,10 +676,10 @@ const char* mupnp_servicetype_getversion(const char* serviceType)
 }
 
 /****************************************
-*
-* Announce
-*
-****************************************/
+ *
+ * Announce
+ *
+ ****************************************/
 
 char* mupnp_service_getnotifyservicetypent(mUpnpService* service, char* buf, int bufSize)
 {
@@ -774,14 +774,14 @@ bool mupnp_service_byebyefrom(mUpnpService* service, const char* bindAddr)
 }
 
 /****************************************
-*
-* Child Node
-*
-****************************************/
+ *
+ * Child Node
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_service_initchildnodes
-****************************************/
+ * mupnp_service_initchildnodes
+ ****************************************/
 
 static void mupnp_service_initchildnodes(mUpnpService* service)
 {
@@ -794,14 +794,14 @@ static void mupnp_service_initchildnodes(mUpnpService* service)
 }
 
 /****************************************
-*
-* Embedded Action
-*
-****************************************/
+ *
+ * Embedded Action
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_service_initactionlist
-****************************************/
+ * mupnp_service_initactionlist
+ ****************************************/
 
 static void mupnp_service_initactionlist(mUpnpService* service)
 {
@@ -823,7 +823,7 @@ static void mupnp_service_initactionlist(mUpnpService* service)
   if (actionListNode == NULL)
     return;
 
-  //serviceNode = mupnp_service_getservicenode(service);
+  // serviceNode = mupnp_service_getservicenode(service);
   for (childNode = mupnp_xml_node_getchildnodes(actionListNode); childNode != NULL; childNode = mupnp_xml_node_next(childNode)) {
     if (mupnp_action_isactionnode(childNode) == false)
       continue;
@@ -837,8 +837,8 @@ static void mupnp_service_initactionlist(mUpnpService* service)
 }
 
 /****************************************
-* mupnp_service_getactionbyname
-****************************************/
+ * mupnp_service_getactionbyname
+ ****************************************/
 
 mUpnpAction* mupnp_service_getactionbyname(mUpnpService* service, const char* name)
 {
@@ -866,14 +866,14 @@ mUpnpAction* mupnp_service_getactionbyname(mUpnpService* service, const char* na
 }
 
 /****************************************
-*
-* Embedded ServiceStateTable
-*
-****************************************/
+ *
+ * Embedded ServiceStateTable
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_service_initservicestatetable
-****************************************/
+ * mupnp_service_initservicestatetable
+ ****************************************/
 
 static void mupnp_service_initservicestatetable(mUpnpService* service)
 {
@@ -909,8 +909,8 @@ static void mupnp_service_initservicestatetable(mUpnpService* service)
 }
 
 /****************************************
-* mupnp_service_getstatevariablebyname
-****************************************/
+ * mupnp_service_getstatevariablebyname
+ ****************************************/
 
 mUpnpStateVariable* mupnp_service_getstatevariablebyname(mUpnpService* service, const char* name)
 {
@@ -938,8 +938,8 @@ mUpnpStateVariable* mupnp_service_getstatevariablebyname(mUpnpService* service, 
 }
 
 /****************************************
-* mupnp_service_setactionlistener
-****************************************/
+ * mupnp_service_setactionlistener
+ ****************************************/
 
 void mupnp_service_setactionlistener(mUpnpService* service, MUPNP_ACTION_LISTNER actionListener)
 {
@@ -956,8 +956,8 @@ void mupnp_service_setactionlistener(mUpnpService* service, MUPNP_ACTION_LISTNER
 }
 
 /****************************************
-* mupnp_service_setquerylistener
-****************************************/
+ * mupnp_service_setquerylistener
+ ****************************************/
 
 void mupnp_service_setquerylistener(mUpnpService* service, MUPNP_STATEVARIABLE_LISTNER queryListener)
 {
@@ -1026,16 +1026,16 @@ mUpnpStateVariable* mupnp_service_getstatevariables(mUpnpService* service)
 }
 
 /****************************************
-*
-*	Subscription
-*
-****************************************/
+ *
+ *	Subscription
+ *
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_service_addsubscriber
-****************************************/
+ * mupnp_service_addsubscriber
+ ****************************************/
 
 bool mupnp_service_addsubscriber(mUpnpService* service, mUpnpSubscriber* sub)
 {
@@ -1049,8 +1049,8 @@ bool mupnp_service_addsubscriber(mUpnpService* service, mUpnpSubscriber* sub)
 }
 
 /****************************************
-* mupnp_service_removesubscriber
-****************************************/
+ * mupnp_service_removesubscriber
+ ****************************************/
 
 bool mupnp_service_removesubscriber(mUpnpService* service, mUpnpSubscriber* sub)
 {
@@ -1065,8 +1065,8 @@ bool mupnp_service_removesubscriber(mUpnpService* service, mUpnpSubscriber* sub)
 }
 
 /****************************************
-* mupnp_service_getsubscriberbysid
-****************************************/
+ * mupnp_service_getsubscriberbysid
+ ****************************************/
 
 mUpnpSubscriber* mupnp_service_getsubscriberbysid(mUpnpService* service, const char* sid)
 {
@@ -1152,13 +1152,13 @@ mUpnpNetURL* mupnp_service_mangleabsoluteurl(const char* serviceURLStr, const ch
       mupnp_net_url_gethost(absServiceURL),
       mupnp_net_url_getport(absServiceURL),
       mupnp_net_url_getpath(absServiceURL));
-  /* UPnP spec says that path in location URL with last part removed should be 
-     * considered as base path when getting service descriptions, if relative
-     * paths are used in description XML.
-     *
-     * So we convert location http://192.168.1.1/base/path/description
-     * into http://192.168.1.1/base/path/
-     */
+  /* UPnP spec says that path in location URL with last part removed should be
+   * considered as base path when getting service descriptions, if relative
+   * paths are used in description XML.
+   *
+   * So we convert location http://192.168.1.1/base/path/description
+   * into http://192.168.1.1/base/path/
+   */
 
   basePath = mupnp_net_url_getupnpbasepath(absServiceURL);
   if (basePath) {

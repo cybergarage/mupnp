@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cdms_youtube_http.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cdms_youtube_http.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include "cdms_youtube.h"
 
@@ -21,8 +21,8 @@
 #define CG_UPNP_DMS_SOCKET_SEND_RETRY_CNT 10
 
 /**********************************************************************
-* cg_upnp_dms_youtube_http_listener
-**********************************************************************/
+ * cg_upnp_dms_youtube_http_listener
+ **********************************************************************/
 
 void cg_upnp_dms_youtube_http_listener(CgHttpRequest* httpReq)
 {

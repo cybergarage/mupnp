@@ -18,8 +18,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* prototype define for static functions
-****************************************/
+ * prototype define for static functions
+ ****************************************/
 
 static bool mupnp_device_ispresentationrequest(mUpnpDevice* dev, mUpnpHttpRequest* httpReq);
 static void mupnp_device_getrequestrecieved(mUpnpDevice* dev, mUpnpHttpRequest* httpReq);
@@ -42,8 +42,8 @@ static void mupnp_device_unsubscriptionrecieved(mUpnpService* service, mUpnpSubs
 #endif
 
 /****************************************
-* mupnp_device_httprequestrecieved
-****************************************/
+ * mupnp_device_httprequestrecieved
+ ****************************************/
 
 void mupnp_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
 {
@@ -119,14 +119,14 @@ static bool mupnp_device_ispresentationrequest(mUpnpDevice* dev, mUpnpHttpReques
 }
 
 /****************************************
-* 
-* HTTP GET REQUEST
-*
-****************************************/
+ *
+ * HTTP GET REQUEST
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_device_updateurlbase
-****************************************/
+ * mupnp_device_updateurlbase
+ ****************************************/
 
 void mupnp_device_seturlbase(mUpnpDevice* dev, char* value)
 {
@@ -272,10 +272,10 @@ static void mupnp_device_postrequestrecieved(mUpnpDevice* dev, mUpnpHttpRequest*
 }
 
 /****************************************
-* 
-* SOAP REQUEST
-*
-****************************************/
+ *
+ * SOAP REQUEST
+ *
+ ****************************************/
 
 static void mupnp_device_badsoapactionrecieved(mUpnpHttpRequest* httpReq)
 {
@@ -365,10 +365,10 @@ static void mupnp_device_controlrequestrecieved(mUpnpService* service, mUpnpSoap
 }
 
 /****************************************
-* 
-* SOAP REQUEST (Action)
-*
-****************************************/
+ *
+ * SOAP REQUEST (Action)
+ *
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
@@ -402,10 +402,10 @@ static void mupnp_device_actioncontrolrequestrecieved(mUpnpService* service, mUp
 #endif
 
 /****************************************
-* 
-* SOAP REQUEST (Query)
-*
-****************************************/
+ *
+ * SOAP REQUEST (Query)
+ *
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_QUERYCTRL)
 
@@ -434,10 +434,10 @@ static void mupnp_device_querycontrolrequestrecieved(mUpnpService* service, mUpn
 #endif
 
 /****************************************
-* 
-* SOAP REQUEST (SubScribe)
-*
-****************************************/
+ *
+ * SOAP REQUEST (SubScribe)
+ *
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 

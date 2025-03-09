@@ -13,16 +13,16 @@
 #define _MUPNP_XML_XML_H_
 
 #include <mupnp/typedef.h>
-#include <mupnp/util/string.h>
 #include <mupnp/util/list.h>
+#include <mupnp/util/string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define MUPNP_XML_INDENT_STRING " "
 #define MUPNP_XML_VERSION_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -32,8 +32,8 @@ extern "C" {
 typedef void (*MUPNP_XML_NODE_USERDATA_DESTRUCTORFUNC)(void*);
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef struct _mUpnpXmlAttribute {
   MUPNP_LIST_STRUCT_MEMBERS
@@ -59,15 +59,15 @@ typedef struct _mUpnpXmlParser {
 } mUpnpXmlParser;
 
 /****************************************
-* Function (AttribureList)
-****************************************/
+ * Function (AttribureList)
+ ****************************************/
 
 mUpnpXmlAttributeList* mupnp_xml_attributelist_new(void);
 void mupnp_xml_attributelist_delete(mUpnpXmlAttributeList* attrList);
 
 #define mupnp_xml_attributelist_clear(attrList) mupnp_list_clear((mUpnpList*)attrList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_xml_attribute_delete)
 #define mupnp_xml_attributelist_size(attrList) mupnp_list_size((mUpnpList*)attrList)
-#define mupnp_xml_attributelist_gets(attrList) (mUpnpXmlAttribute*) mupnp_list_next((mUpnpList*)attrList)
+#define mupnp_xml_attributelist_gets(attrList) (mUpnpXmlAttribute*)mupnp_list_next((mUpnpList*)attrList)
 #define mupnp_xml_attributelist_add(attrList, attr) mupnp_list_add((mUpnpList*)attrList, (mUpnpList*)attr)
 
 void mupnp_xml_attributelist_set(mUpnpXmlAttributeList* attrList, const char* name, const char* value);
@@ -75,13 +75,13 @@ mUpnpXmlAttribute* mupnp_xml_attributelist_get(mUpnpXmlAttributeList* attrList, 
 const char* mupnp_xml_attributelist_getvalue(mUpnpXmlAttributeList* attrList, const char* name);
 
 /****************************************
-* Function (Attributes)
-****************************************/
+ * Function (Attributes)
+ ****************************************/
 
 mUpnpXmlAttribute* mupnp_xml_attribute_new(void);
 void mupnp_xml_attribute_delete(mUpnpXmlAttribute* attr);
 
-#define mupnp_xml_attribute_next(attr) (mUpnpXmlAttribute*) mupnp_list_next((mUpnpList*)attr)
+#define mupnp_xml_attribute_next(attr) (mUpnpXmlAttribute*)mupnp_list_next((mUpnpList*)attr)
 #define mupnp_xml_attribute_remove(attr) mupnp_list_remove((mUpnpList*)attr)
 
 void mupnp_xml_attribute_setname(mUpnpXmlAttribute* attr, const char* name);
@@ -92,15 +92,15 @@ void mupnp_xml_attribute_setvalue(mUpnpXmlAttribute* attr, const char* value);
 const char* mupnp_xml_attribute_getvalue(mUpnpXmlAttribute* attr);
 
 /****************************************
-* Function (NodeList)
-****************************************/
+ * Function (NodeList)
+ ****************************************/
 
 mUpnpXmlNodeList* mupnp_xml_nodelist_new(void);
 void mupnp_xml_nodelist_delete(mUpnpXmlNodeList* nodeList);
 
 #define mupnp_xml_nodelist_clear(nodeList) mupnp_list_clear((mUpnpList*)(nodeList), (MUPNP_LIST_DESTRUCTORFUNC)mupnp_xml_node_delete)
 #define mupnp_xml_nodelist_size(nodeList) mupnp_list_size((mUpnpList*)(nodeList))
-#define mupnp_xml_nodelist_gets(nodeList) (mUpnpXmlNode*) mupnp_list_next((mUpnpList*)(nodeList))
+#define mupnp_xml_nodelist_gets(nodeList) (mUpnpXmlNode*)mupnp_list_next((mUpnpList*)(nodeList))
 #define mupnp_xml_nodelist_add(nodeList, node) mupnp_list_add((mUpnpList*)(nodeList), (mUpnpList*)(node))
 
 /* Deprecated : Use mupnp_xml_nodelist_getbyname */
@@ -109,13 +109,13 @@ mUpnpXmlNode* mupnp_xml_nodelist_getbyname(mUpnpXmlNodeList* nodeList, const cha
 mUpnpXmlNode* mupnp_xml_nodelist_getbyxpath(mUpnpXmlNodeList* nodeList, const char* xpath);
 
 /****************************************
-* Function (Node)
-****************************************/
+ * Function (Node)
+ ****************************************/
 
 mUpnpXmlNode* mupnp_xml_node_new(void);
 void mupnp_xml_node_delete(mUpnpXmlNode* node);
 
-#define mupnp_xml_node_next(node) (mUpnpXmlNode*) mupnp_list_next((mUpnpList*)node)
+#define mupnp_xml_node_next(node) (mUpnpXmlNode*)mupnp_list_next((mUpnpList*)node)
 #define mupnp_xml_node_remove(node) mupnp_list_remove((mUpnpList*)node)
 
 #define mupnp_xml_node_setname(node, nodename) mupnp_string_setvalue(node->name, nodename)
@@ -174,16 +174,16 @@ void mupnp_xml_node_print(mUpnpXmlNode* node);
 void mupnp_xml_node_copy(mUpnpXmlNode* dstNode, mUpnpXmlNode* srcNode);
 
 /****************************************
-* Function (Parser)
-****************************************/
+ * Function (Parser)
+ ****************************************/
 
 mUpnpXmlParser* mupnp_xml_parser_new(void);
 void mupnp_xml_parser_delete(mUpnpXmlParser* parser);
 bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const char* data, size_t len);
 
 /****************************************
-* Function (Other)
-****************************************/
+ * Function (Other)
+ ****************************************/
 
 char* mupnp_xml_escapechars(mUpnpString* str);
 char* mupnp_xml_unescapechars(mUpnpString* str);

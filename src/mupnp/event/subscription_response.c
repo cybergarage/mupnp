@@ -14,14 +14,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (Begin)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_event_subscription_subscriberesponse_setresponse
-****************************************/
+ * mupnp_event_subscription_subscriberesponse_setresponse
+ ****************************************/
 
 void mupnp_event_subscription_subscriberesponse_setresponse(mUpnpSubscriptionResponse* subRes, int code)
 {
@@ -39,8 +39,8 @@ void mupnp_event_subscription_subscriberesponse_setresponse(mUpnpSubscriptionRes
 }
 
 /****************************************
-* mupnp_event_subscription_response_setsid
-****************************************/
+ * mupnp_event_subscription_response_setsid
+ ****************************************/
 
 void mupnp_event_subscription_response_setsid(mUpnpSubscriptionResponse* subRes, const char* sid)
 {
@@ -64,8 +64,8 @@ void mupnp_event_subscription_response_setsid(mUpnpSubscriptionResponse* subRes,
 }
 
 /****************************************
-* mupnp_event_subscription_response_settimeout
-****************************************/
+ * mupnp_event_subscription_response_settimeout
+ ****************************************/
 
 void mupnp_event_subscription_response_settimeout(mUpnpSubscriptionResponse* subRes, long value)
 {
@@ -81,7 +81,7 @@ void mupnp_event_subscription_response_settimeout(mUpnpSubscriptionResponse* sub
 }
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (End)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (End)
+ ****************************************/
 
 #endif

@@ -57,8 +57,8 @@ struct stat {
 #endif
 
 /****************************************
-* mupnp_file_new
-****************************************/
+ * mupnp_file_new
+ ****************************************/
 
 mUpnpFile* mupnp_file_new()
 {
@@ -82,8 +82,8 @@ mUpnpFile* mupnp_file_new()
 }
 
 /****************************************
-* mupnp_file_delete
-****************************************/
+ * mupnp_file_delete
+ ****************************************/
 
 void mupnp_file_delete(mUpnpFile* file)
 {
@@ -101,8 +101,8 @@ void mupnp_file_delete(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_setname
-****************************************/
+ * mupnp_file_setname
+ ****************************************/
 
 void mupnp_file_setname(mUpnpFile* file, char* name)
 {
@@ -114,8 +114,8 @@ void mupnp_file_setname(mUpnpFile* file, char* name)
 }
 
 /****************************************
-* mupnp_file_getname
-****************************************/
+ * mupnp_file_getname
+ ****************************************/
 
 char* mupnp_file_getname(mUpnpFile* file)
 {
@@ -127,8 +127,8 @@ char* mupnp_file_getname(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_getname
-****************************************/
+ * mupnp_file_getname
+ ****************************************/
 
 long mupnp_file_getlastmodified(mUpnpFile* file)
 {
@@ -162,8 +162,8 @@ long mupnp_file_getlastmodified(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_getname
-****************************************/
+ * mupnp_file_getname
+ ****************************************/
 
 long mupnp_file_getlength(mUpnpFile* file)
 {
@@ -195,8 +195,8 @@ long mupnp_file_getlength(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_exists
-****************************************/
+ * mupnp_file_exists
+ ****************************************/
 
 bool mupnp_file_exists(mUpnpFile* file)
 {
@@ -229,8 +229,8 @@ bool mupnp_file_exists(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_remove
-****************************************/
+ * mupnp_file_remove
+ ****************************************/
 
 bool mupnp_file_remove(mUpnpFile* file)
 {
@@ -253,8 +253,8 @@ bool mupnp_file_remove(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_setcontent
-****************************************/
+ * mupnp_file_setcontent
+ ****************************************/
 
 void mupnp_file_setcontent(mUpnpFile* file, char* content)
 {
@@ -270,8 +270,8 @@ void mupnp_file_setcontent(mUpnpFile* file, char* content)
 }
 
 /****************************************
-* mupnp_file_getcontent
-****************************************/
+ * mupnp_file_getcontent
+ ****************************************/
 
 char* mupnp_file_getcontent(mUpnpFile* file)
 {
@@ -283,8 +283,8 @@ char* mupnp_file_getcontent(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_getfilename
-****************************************/
+ * mupnp_file_getfilename
+ ****************************************/
 
 char* mupnp_file_getfilename(mUpnpFile* file)
 {
@@ -303,8 +303,8 @@ char* mupnp_file_getfilename(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_getpath
-****************************************/
+ * mupnp_file_getpath
+ ****************************************/
 
 char* mupnp_file_getpath(mUpnpFile* file)
 {
@@ -340,8 +340,8 @@ char* mupnp_file_getpath(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_load
-****************************************/
+ * mupnp_file_load
+ ****************************************/
 
 bool mupnp_file_load(mUpnpFile* file)
 {
@@ -416,8 +416,8 @@ bool mupnp_file_load(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_save
-****************************************/
+ * mupnp_file_save
+ ****************************************/
 
 bool mupnp_file_save(mUpnpFile* file)
 {
@@ -481,8 +481,8 @@ bool mupnp_file_save(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_listfiles
-****************************************/
+ * mupnp_file_listfiles
+ ****************************************/
 
 int mupnp_file_listfiles(mUpnpFile* file, mUpnpFileList* fileList)
 {
@@ -575,8 +575,8 @@ int mupnp_file_listfiles(mUpnpFile* file, mUpnpFileList* fileList)
 }
 
 /****************************************
-* mupnp_file_listfiles
-****************************************/
+ * mupnp_file_listfiles
+ ****************************************/
 
 bool mupnp_file_open(mUpnpFile* file, int mode)
 {
@@ -603,8 +603,8 @@ bool mupnp_file_open(mUpnpFile* file, int mode)
 }
 
 /****************************************
-* mupnp_file_listfiles
-****************************************/
+ * mupnp_file_listfiles
+ ****************************************/
 
 bool mupnp_file_close(mUpnpFile* file)
 {
@@ -620,8 +620,8 @@ bool mupnp_file_close(mUpnpFile* file)
 }
 
 /****************************************
-* mupnp_file_listfiles
-****************************************/
+ * mupnp_file_listfiles
+ ****************************************/
 
 bool mupnp_file_write(mUpnpFile* file, mUpnpByte* buf, int bufLen)
 {
@@ -632,8 +632,8 @@ bool mupnp_file_write(mUpnpFile* file, mUpnpByte* buf, int bufLen)
 }
 
 /****************************************
-* mupnp_file_listfiles
-****************************************/
+ * mupnp_file_listfiles
+ ****************************************/
 
 bool mupnp_file_read(mUpnpFile* file, mUpnpByte* buf, int bufLen)
 {
@@ -644,8 +644,8 @@ bool mupnp_file_read(mUpnpFile* file, mUpnpByte* buf, int bufLen)
 }
 
 /****************************************
-* mupnp_file_listfiles
-****************************************/
+ * mupnp_file_listfiles
+ ****************************************/
 
 bool mupnp_file_seek(mUpnpFile* file, mUpnpInt64 offset, int whence)
 {
@@ -672,8 +672,8 @@ bool mupnp_file_seek(mUpnpFile* file, mUpnpInt64 offset, int whence)
 }
 
 /****************************************
-* mupnp_file_setfilename
-****************************************/
+ * mupnp_file_setfilename
+ ****************************************/
 
 void mupnp_file_setfilename(mUpnpFile* file, char* name)
 {

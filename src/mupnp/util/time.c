@@ -33,8 +33,8 @@
 #endif
 
 /****************************************
-* mupnp_time_wait
-****************************************/
+ * mupnp_time_wait
+ ****************************************/
 
 void mupnp_wait(mUpnpTime mtime)
 {
@@ -58,8 +58,8 @@ void mupnp_wait(mUpnpTime mtime)
 }
 
 /****************************************
-* mupnp_waitrandom
-****************************************/
+ * mupnp_waitrandom
+ ****************************************/
 
 void mupnp_waitrandom(mUpnpTime mtime)
 {
@@ -76,8 +76,8 @@ void mupnp_waitrandom(mUpnpTime mtime)
 }
 
 /****************************************
-* mupnp_getcurrentsystemtime
-****************************************/
+ * mupnp_getcurrentsystemtime
+ ****************************************/
 
 mUpnpTime mupnp_getcurrentsystemtime()
 {
@@ -113,8 +113,8 @@ mUpnpTime mupnp_getcurrentsystemtime()
 }
 
 /****************************************
-* mupnp_random
-****************************************/
+ * mupnp_random
+ ****************************************/
 
 float mupnp_random()
 {

@@ -14,8 +14,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_ssdp_server_new
-****************************************/
+ * mupnp_ssdp_server_new
+ ****************************************/
 
 mUpnpSSDPServer* mupnp_ssdp_server_new()
 {
@@ -41,8 +41,8 @@ mUpnpSSDPServer* mupnp_ssdp_server_new()
 }
 
 /****************************************
-* mupnp_ssdp_server_delete
-****************************************/
+ * mupnp_ssdp_server_delete
+ ****************************************/
 
 void mupnp_ssdp_server_delete(mUpnpSSDPServer* server)
 {
@@ -59,8 +59,8 @@ void mupnp_ssdp_server_delete(mUpnpSSDPServer* server)
 }
 
 /****************************************
-* mupnp_ssdp_server_open
-****************************************/
+ * mupnp_ssdp_server_open
+ ****************************************/
 
 bool mupnp_ssdp_server_open(mUpnpSSDPServer* server, char* bindAddr)
 {
@@ -87,8 +87,8 @@ bool mupnp_ssdp_server_open(mUpnpSSDPServer* server, char* bindAddr)
 }
 
 /****************************************
-* mupnp_ssdp_server_close
-****************************************/
+ * mupnp_ssdp_server_close
+ ****************************************/
 
 bool mupnp_ssdp_server_close(mUpnpSSDPServer* server)
 {
@@ -107,8 +107,8 @@ bool mupnp_ssdp_server_close(mUpnpSSDPServer* server)
 }
 
 /****************************************
-* mupnp_ssdp_server_performlistener
-****************************************/
+ * mupnp_ssdp_server_performlistener
+ ****************************************/
 
 void mupnp_ssdp_server_performlistener(mUpnpSSDPServer* server, mUpnpSSDPPacket* ssdpPkt)
 {
@@ -125,8 +125,8 @@ void mupnp_ssdp_server_performlistener(mUpnpSSDPServer* server, mUpnpSSDPPacket*
 }
 
 /****************************************
-* mupnp_ssdp_server_thread
-****************************************/
+ * mupnp_ssdp_server_thread
+ ****************************************/
 
 static void mupnp_ssdp_server_thread(mUpnpThread* thread)
 {
@@ -159,8 +159,8 @@ static void mupnp_ssdp_server_thread(mUpnpThread* thread)
 }
 
 /****************************************
-* mupnp_ssdp_server_start
-****************************************/
+ * mupnp_ssdp_server_start
+ ****************************************/
 
 bool mupnp_ssdp_server_start(mUpnpSSDPServer* server)
 {
@@ -184,8 +184,8 @@ bool mupnp_ssdp_server_start(mUpnpSSDPServer* server)
 }
 
 /****************************************
-* mupnp_ssdp_server_stop
-****************************************/
+ * mupnp_ssdp_server_stop
+ ****************************************/
 
 bool mupnp_ssdp_server_stop(mUpnpSSDPServer* server)
 {

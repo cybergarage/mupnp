@@ -1,22 +1,22 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cdms_filesys.h
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cdms_filesys.h
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #ifndef _CG_CLINKC_MEDIASERVER_FILESYS_H_
 #define _CG_CLINKC_MEDIASERVER_FILESYS_H_
 
-#include <mupnp/std/av/cmediaserver.h>
 #include <mupnp/std/av/ccontent.h>
+#include <mupnp/std/av/cmediaserver.h>
 
 #ifdef __cplusplus
 extern "C" {

@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_servicestatetable_new
-****************************************/
+ * mupnp_servicestatetable_new
+ ****************************************/
 
 mUpnpServiceStateTable* mupnp_servicestatetable_new()
 {
@@ -33,8 +33,8 @@ mUpnpServiceStateTable* mupnp_servicestatetable_new()
 }
 
 /****************************************
-* mupnp_servicestatetable_delete
-****************************************/
+ * mupnp_servicestatetable_delete
+ ****************************************/
 
 void mupnp_servicestatetable_delete(mUpnpServiceStateTable* statevariableTable)
 {

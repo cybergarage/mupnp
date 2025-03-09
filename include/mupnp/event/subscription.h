@@ -12,20 +12,20 @@
 #ifndef _MUPNP_SUBSCRIPTION_H_
 #define _MUPNP_SUBSCRIPTION_H_
 
-#include <mupnp/typedef.h>
 #include <mupnp/http/http.h>
+#include <mupnp/typedef.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 /**
  * Data type for subscription request
@@ -33,8 +33,8 @@ extern "C" {
 typedef mUpnpHttpRequest mUpnpSubscriptionRequest;
 
 /****************************************
-* Function (Request)
-****************************************/
+ * Function (Request)
+ ****************************************/
 
 /**
  * Create new subscription request

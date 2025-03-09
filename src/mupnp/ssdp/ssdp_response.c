@@ -16,8 +16,8 @@
 #define MUPNP_SSDP_MAXAGE_LEN 7
 
 /****************************************
-* mupnp_ssdpresponse_new
-****************************************/
+ * mupnp_ssdpresponse_new
+ ****************************************/
 
 mUpnpSSDPResponse* mupnp_ssdpresponse_new()
 {
@@ -36,8 +36,8 @@ mUpnpSSDPResponse* mupnp_ssdpresponse_new()
 }
 
 /****************************************
-* mupnp_ssdpresponse_delete
-****************************************/
+ * mupnp_ssdpresponse_delete
+ ****************************************/
 
 void mupnp_ssdpresponse_delete(mUpnpSSDPResponse* ssdpRes)
 {
@@ -49,8 +49,8 @@ void mupnp_ssdpresponse_delete(mUpnpSSDPResponse* ssdpRes)
 }
 
 /****************************************
-* mupnp_ssdpresponse_setleasetime
-****************************************/
+ * mupnp_ssdpresponse_setleasetime
+ ****************************************/
 
 void mupnp_ssdpresponse_setleasetime(mUpnpSSDPResponse* ssdpRes, mUpnpTime value)
 {
@@ -65,8 +65,8 @@ void mupnp_ssdpresponse_setleasetime(mUpnpSSDPResponse* ssdpRes, mUpnpTime value
 }
 
 /****************************************
-* mupnp_ssdpresponse_getleasetime
-****************************************/
+ * mupnp_ssdpresponse_getleasetime
+ ****************************************/
 
 int mupnp_ssdpresponse_getleasetime(mUpnpSSDPResponse* ssdpRes)
 {
@@ -82,8 +82,8 @@ int mupnp_ssdpresponse_getleasetime(mUpnpSSDPResponse* ssdpRes)
 }
 
 /****************************************
-* mupnp_ssdpresponse_tostring
-****************************************/
+ * mupnp_ssdpresponse_tostring
+ ****************************************/
 
 char* mupnp_ssdpresponse_tostring(mUpnpSSDPResponse* ssdpRes, mUpnpString* ssdpMsg)
 {

@@ -23,8 +23,8 @@
 #endif
 
 /****************************************
-* mupnp_http_server_new
-****************************************/
+ * mupnp_http_server_new
+ ****************************************/
 
 mUpnpHttpServer* mupnp_http_server_new()
 {
@@ -58,8 +58,8 @@ mUpnpHttpServer* mupnp_http_server_new()
 }
 
 /****************************************
-* mupnp_http_server_delete
-****************************************/
+ * mupnp_http_server_delete
+ ****************************************/
 
 void mupnp_http_server_delete(mUpnpHttpServer* httpServer)
 {
@@ -79,8 +79,8 @@ void mupnp_http_server_delete(mUpnpHttpServer* httpServer)
 }
 
 /****************************************
-* mupnp_http_server_delete
-****************************************/
+ * mupnp_http_server_delete
+ ****************************************/
 
 bool mupnp_http_server_open(mUpnpHttpServer* httpServer, int bindPort, const char* bindAddr)
 {
@@ -107,8 +107,8 @@ bool mupnp_http_server_open(mUpnpHttpServer* httpServer, int bindPort, const cha
 }
 
 /****************************************
-* mupnp_http_server_delete
-****************************************/
+ * mupnp_http_server_delete
+ ****************************************/
 
 bool mupnp_http_server_close(mUpnpHttpServer* httpServer)
 {
@@ -128,8 +128,8 @@ bool mupnp_http_server_close(mUpnpHttpServer* httpServer)
 }
 
 /****************************************
-* mupnp_http_server_thread
-****************************************/
+ * mupnp_http_server_thread
+ ****************************************/
 
 typedef struct _mUpnpHttpServerClientData {
   mUpnpSocket* clientSock;
@@ -188,7 +188,7 @@ static void mupnp_http_server_clientthread(mUpnpThread* thread)
     version = mupnp_http_request_getversion(httpReq);
     if (mupnp_strcmp(version, MUPNP_HTTP_VER11) == 0) {
       /* According to HTTP/1.1 spec, we must not tolerate
-			   HTTP/1.1 request without HOST-header */
+                           HTTP/1.1 request without HOST-header */
       if (mupnp_http_request_gethost(httpReq) == NULL) {
         mupnp_http_request_postbadrequest(httpReq);
         continue;
@@ -232,8 +232,8 @@ static void mupnp_http_server_clientthread(mUpnpThread* thread)
 }
 
 /****************************************
-* mupnp_http_server_thread
-****************************************/
+ * mupnp_http_server_thread
+ ****************************************/
 
 static void mupnp_http_server_thread(mUpnpThread* thread)
 {
@@ -276,8 +276,8 @@ static void mupnp_http_server_thread(mUpnpThread* thread)
 }
 
 /****************************************
-* mupnp_http_server_start
-****************************************/
+ * mupnp_http_server_start
+ ****************************************/
 
 bool mupnp_http_server_start(mUpnpHttpServer* httpServer)
 {
@@ -310,8 +310,8 @@ bool mupnp_http_server_start(mUpnpHttpServer* httpServer)
 }
 
 /****************************************
-* mupnp_http_server_stop
-****************************************/
+ * mupnp_http_server_stop
+ ****************************************/
 
 bool mupnp_http_server_stop(mUpnpHttpServer* httpServer)
 {
@@ -335,8 +335,8 @@ bool mupnp_http_server_stop(mUpnpHttpServer* httpServer)
 }
 
 /****************************************
-* mupnp_http_server_setlistener
-****************************************/
+ * mupnp_http_server_setlistener
+ ****************************************/
 
 void mupnp_http_server_setlistener(mUpnpHttpServer* httpServer, MUPNP_HTTP_LISTENER listener)
 {
@@ -348,8 +348,8 @@ void mupnp_http_server_setlistener(mUpnpHttpServer* httpServer, MUPNP_HTTP_LISTE
 }
 
 /****************************************
-* mupnp_http_getservername()
-****************************************/
+ * mupnp_http_getservername()
+ ****************************************/
 
 const char* mupnp_http_getservername(char* buf, size_t bufSize)
 {

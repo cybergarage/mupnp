@@ -13,14 +13,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_ACTIONCTRL (Begin)
-****************************************/
+ * MUPNP_NOUSE_ACTIONCTRL (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
 /****************************************
-* mupnp_action_clearoutputargumentvalues
-****************************************/
+ * mupnp_action_clearoutputargumentvalues
+ ****************************************/
 
 void mupnp_action_clearoutputargumentvalues(mUpnpAction* action)
 {
@@ -39,8 +39,8 @@ void mupnp_action_clearoutputargumentvalues(mUpnpAction* action)
 }
 
 /****************************************
-* mupnp_action_performlistener
-****************************************/
+ * mupnp_action_performlistener
+ ****************************************/
 
 bool mupnp_action_performlistner(mUpnpAction* action, mUpnpActionRequest* actionReq)
 {
@@ -79,8 +79,8 @@ bool mupnp_action_performlistner(mUpnpAction* action, mUpnpActionRequest* action
 }
 
 /****************************************
-* mupnp_action_post
-****************************************/
+ * mupnp_action_post
+ ****************************************/
 
 bool mupnp_action_post(mUpnpAction* action)
 {
@@ -115,7 +115,7 @@ bool mupnp_action_post(mUpnpAction* action)
 }
 
 /****************************************
-* MUPNP_NOUSE_ACTIONCTRL (End)
-****************************************/
+ * MUPNP_NOUSE_ACTIONCTRL (End)
+ ****************************************/
 
 #endif

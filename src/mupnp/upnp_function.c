@@ -51,14 +51,14 @@ void uuid_unparse_lower(uuid_t uu, char* out)
 #endif
 
 /****************************************
-* Static
-****************************************/
+ * Static
+ ****************************************/
 
 static bool isUpnpNMPRMode = false;
 
 /****************************************
-* mupnp_createuuid
-****************************************/
+ * mupnp_createuuid
+ ****************************************/
 
 const char* mupnp_createuuid(char* uuidBuf, size_t uuidBufSize)
 {
@@ -98,8 +98,8 @@ const char* mupnp_createuuid(char* uuidBuf, size_t uuidBufSize)
 }
 
 /****************************************
-* uuid_unparse_lower
-****************************************/
+ * uuid_unparse_lower
+ ****************************************/
 
 /* Some systems (Solaris, CentOS?) come with libuuid, but does not feature
     the uuid_unparse_lower() call. */
@@ -119,8 +119,8 @@ void uuid_unparse_lower(uuid_t uu, char* out)
 #endif
 
 /****************************************
-* mupnp_getservername
-****************************************/
+ * mupnp_getservername
+ ****************************************/
 
 const char* mupnp_getservername(char* buf, size_t bufSize)
 {
@@ -145,8 +145,8 @@ const char* mupnp_getservername(char* buf, size_t bufSize)
 }
 
 /****************************************
-* mupnp_setnmprmode
-****************************************/
+ * mupnp_setnmprmode
+ ****************************************/
 
 void mupnp_setnmprmode(bool onFlag)
 {
@@ -158,8 +158,8 @@ void mupnp_setnmprmode(bool onFlag)
 }
 
 /****************************************
-* mupnp_isnmprmode
-****************************************/
+ * mupnp_isnmprmode
+ ****************************************/
 
 bool mupnp_isnmprmode()
 {
@@ -171,8 +171,8 @@ bool mupnp_isnmprmode()
 }
 
 /****************************************
-* mupnp_createbootid
-****************************************/
+ * mupnp_createbootid
+ ****************************************/
 
 int mupnp_createbootid()
 {

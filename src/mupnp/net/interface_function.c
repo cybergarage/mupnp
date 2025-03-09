@@ -75,9 +75,9 @@ bool IsInterfaceAddressInitialized = false;
 #endif
 
 /****************************************
-* mupnp_net_gethostinterfaces (WIN32)
-* (WINCE follows below)
-****************************************/
+ * mupnp_net_gethostinterfaces (WIN32)
+ * (WINCE follows below)
+ ****************************************/
 
 #if ((defined(WIN32) && !defined(WINCE)) || defined(__CYGWIN__)) && !defined(ITRON)
 
@@ -102,7 +102,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
   mupnp_net_interfacelist_clear(netIfList);
 
   sd = WSASocket(AF_INET, SOCK_DGRAM, 0, 0, 0, 0);
-  //Theo Beisch WINSOCK2API WSASocket will return INVALID_SOCKET on error, not SOCKET_ERROR
+  // Theo Beisch WINSOCK2API WSASocket will return INVALID_SOCKET on error, not SOCKET_ERROR
   if (sd == INVALID_SOCKET) {
     return 0;
   }
@@ -113,13 +113,13 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
   nNumInterfaces = nBytesReturned / sizeof(INTERFACE_INFO);
   for (i = 0; i < nNumInterfaces; ++i) {
     nFlags = InterfaceList[i].iiFlags;
-    //if (CyberNet::HostInterface::USE_ONLY_IPV4_ADDR == false) {
+    // if (CyberNet::HostInterface::USE_ONLY_IPV4_ADDR == false) {
     if (nFlags & IFF_LOOPBACK)
       continue;
     //}
     if (!(nFlags & IFF_UP))
       continue;
-    //if (IsUseAddress(host) == false)
+    // if (IsUseAddress(host) == false)
     //	continue;
 
     netIf = mupnp_net_interface_new();
@@ -216,7 +216,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
       saddrlen = sockaddr.iSockaddrLength;
       namInfoRet = getnameinfo(saddr, saddrlen, addr, sizeof(addr), port, sizeof(port), NI_NUMERICHOST | NI_NUMERICSERV);
       if (namInfoRet == 0) {
-        //if (IsUseAddress(addr) == true) {
+        // if (IsUseAddress(addr) == true) {
         ifIdx = 0;
         if (mupnp_net_isipv6address(addr) == true)
           ifIdx = mupnp_net_getipv6scopeid(addr);
@@ -245,26 +245,26 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 #elif defined(WINCE)
 
 /****************************************
-* mupnp_net_gethostinterfaces (WINCE)
-****************************************/
+ * mupnp_net_gethostinterfaces (WINCE)
+ ****************************************/
 
 int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 {
   mUpnpNetworkInterface* netIf;
 
-  //iphelper API vars
+  // iphelper API vars
   PIP_ADAPTER_INFO pAdapterInfo = NULL, pAdapter = NULL;
   ULONG ulOutBufLen;
   DWORD dwRetVal;
   DWORD nOfInterfaces;
   int i = 0;
 
-  //mupnp_socket_startup();
+  // mupnp_socket_startup();
   mupnp_net_interfacelist_clear(netIfList);
 
   // new code to determine interfaces available
 
-  //try with default for single adapter
+  // try with default for single adapter
   ulOutBufLen = sizeof(IP_ADAPTER_INFO);
   pAdapterInfo = (IP_ADAPTER_INFO*)malloc(ulOutBufLen);
   if (GetAdaptersInfo(pAdapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) {
@@ -285,21 +285,21 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 #endif
 
       /*
-			if (pAdapter->DhcpEnabled) {
-				printf("\tDHCP Enabled: Yes\n");
-				printf("\t\tDHCP Server: \t%s\n", pAdapter->DhcpServer.IpAddress.String);
-				printf("\tLease Obtained: %ld\n", pAdapter->LeaseObtained);
-			}
-			else
-				printf("\tDHCP Enabled: No\n");
-    
-		    if (pAdapter->HaveWins) {
-				printf("\tHave Wins: Yes\n");
-				printf("\t\tPrimary Wins Server: \t%s\n", pAdapter->PrimaryWinsServer.IpAddress.String);
-				printf("\t\tSecondary Wins Server: \t%s\n", pAdapter->SecondaryWinsServer.IpAddress.String);
-			}
-			else
-				printf("\tHave Wins: No\n");
+                        if (pAdapter->DhcpEnabled) {
+                                printf("\tDHCP Enabled: Yes\n");
+                                printf("\t\tDHCP Server: \t%s\n", pAdapter->DhcpServer.IpAddress.String);
+                                printf("\tLease Obtained: %ld\n", pAdapter->LeaseObtained);
+                        }
+                        else
+                                printf("\tDHCP Enabled: No\n");
+
+                    if (pAdapter->HaveWins) {
+                                printf("\tHave Wins: Yes\n");
+                                printf("\t\tPrimary Wins Server: \t%s\n", pAdapter->PrimaryWinsServer.IpAddress.String);
+                                printf("\t\tSecondary Wins Server: \t%s\n", pAdapter->SecondaryWinsServer.IpAddress.String);
+                        }
+                        else
+                                printf("\tHave Wins: No\n");
 */
 
       // now add adapter to list
@@ -307,7 +307,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
       if (pAdapter->Type == MIB_IF_TYPE_ETHERNET) {
         // List will not contain loopback
         // IFF_UP check not required, ce only returns UP interfaces here
-        //host = inet_ntoa(pAdapter->Address);
+        // host = inet_ntoa(pAdapter->Address);
         netIf = mupnp_net_interface_new();
         mupnp_net_interface_setaddress(netIf, pAdapter->IpAddressList.IpAddress.String);
         mupnp_net_interface_setmacaddress(netIf, pAdapter->IpAddressList.Address.String);
@@ -337,8 +337,8 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 #else
 
 /****************************************
-* mupnp_net_gethostinterfaces (UNIX)
-****************************************/
+ * mupnp_net_gethostinterfaces (UNIX)
+ ****************************************/
 
 #if defined(HAVE_IFADDRS_H)
 
@@ -469,7 +469,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
     mupnp_net_interface_setaddress(netIf, ifaddr);
     mupnp_net_interfacelist_add(netIfList, netIf);
     mupnp_log_debug("Interface name: %s, address: %s\n", ifname, ifaddr);
-    //cout << ifname << ", " << ifaddr << endl;
+    // cout << ifname << ", " << ifaddr << endl;
   }
   fclose(fd);
   close(s);
@@ -483,8 +483,8 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 #endif
 
 /****************************************
-* mupnp_net_gethostinterfaces (BTRON)
-****************************************/
+ * mupnp_net_gethostinterfaces (BTRON)
+ ****************************************/
 
 #if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
 
@@ -520,8 +520,8 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 #endif
 
 /****************************************
-* mupnp_net_gethostinterfaces (TENGINE-KASAGO)
-****************************************/
+ * mupnp_net_gethostinterfaces (TENGINE-KASAGO)
+ ****************************************/
 
 #if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 
@@ -556,8 +556,8 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 #endif
 
 /****************************************
-* mupnp_net_gethostinterfaces (ITRON)
-****************************************/
+ * mupnp_net_gethostinterfaces (ITRON)
+ ****************************************/
 
 #if defined(ITRON)
 
@@ -593,8 +593,8 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 #endif
 
 /****************************************
-* mupnp_net_selectaddr
-****************************************/
+ * mupnp_net_selectaddr
+ ****************************************/
 
 #if !defined(HAVE_IFADDRS_H) || defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR)
 char* mupnp_net_selectaddr(struct sockaddr* remoteaddr)

@@ -116,7 +116,7 @@ mUpnpList* mupnp_list_get(mUpnpList* headList, int index);
 
 /**
  * Get the previous node. Wrap around if the beginning has been reached.
- * 
+ *
  *
  * \param list Current node
  */

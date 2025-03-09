@@ -14,9 +14,9 @@
 
 #include <mupnp/typedef.h>
 
+#include <mupnp/net/url.h>
 #include <mupnp/util/list.h>
 #include <mupnp/util/string.h>
-#include <mupnp/net/url.h>
 
 #include <mupnp/statevariable.h>
 
@@ -37,8 +37,8 @@ typedef struct _mUpnpProperty {
 } mUpnpProperty, mUpnpPropertyList;
 
 /****************************************
-* Function (Property)
-****************************************/
+ * Function (Property)
+ ****************************************/
 
 /**
  * Construct new UPnP property object
@@ -64,7 +64,7 @@ void mupnp_property_clear(mUpnpProperty* prop);
  *
  * @param prop UPnP property
  */
-#define mupnp_property_next(prop) (mUpnpProperty*) mupnp_list_next((mUpnpList*)prop)
+#define mupnp_property_next(prop) (mUpnpProperty*)mupnp_list_next((mUpnpList*)prop)
 
 /**** name ****/
 /**
@@ -134,8 +134,8 @@ void mupnp_property_clear(mUpnpProperty* prop);
 #define mupnp_property_getseq(prop) (prop->seq)
 
 /****************************************
-* Function (PropertyList)
-****************************************/
+ * Function (PropertyList)
+ ****************************************/
 
 /**
  * Create new UPnP property list
@@ -168,7 +168,7 @@ void mupnp_propertylist_delete(mUpnpPropertyList* propertylist);
  *
  * @param propList UPnP property list
  */
-#define mupnp_propertylist_gets(propList) (mUpnpProperty*) mupnp_list_next((mUpnpList*)propList)
+#define mupnp_propertylist_gets(propList) (mUpnpProperty*)mupnp_list_next((mUpnpList*)propList)
 
 /**
  * Add new property into property list

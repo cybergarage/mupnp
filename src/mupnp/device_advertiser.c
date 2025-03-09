@@ -15,7 +15,7 @@
 
 /**
  * mupnp_device_advertiser_action
- * 
+ *
  * Function run as a UPnP device advertisement
  * thread.
  *
@@ -102,7 +102,7 @@ bool mupnp_device_advertiser_stop(mUpnpDevice* dev)
   /* Get the advertiser thread from the device struct */
   advertiser = mupnp_device_getadvertiserthead(dev);
 
-  //Theo Beisch
+  // Theo Beisch
   if (advertiser != NULL)
     return mupnp_thread_stop(advertiser);
   return false;

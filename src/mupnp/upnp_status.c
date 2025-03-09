@@ -14,8 +14,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_status_new
-****************************************/
+ * mupnp_status_new
+ ****************************************/
 
 mUpnpStatus* mupnp_status_new()
 {
@@ -36,8 +36,8 @@ mUpnpStatus* mupnp_status_new()
 }
 
 /****************************************
-* mupnp_status_delete
-****************************************/
+ * mupnp_status_delete
+ ****************************************/
 
 void mupnp_status_delete(mUpnpStatus* upnpStat)
 {
@@ -50,8 +50,8 @@ void mupnp_status_delete(mUpnpStatus* upnpStat)
 }
 
 /****************************************
-* mupnp_status_code2string
-****************************************/
+ * mupnp_status_code2string
+ ****************************************/
 
 char* mupnp_status_code2string(int code)
 {

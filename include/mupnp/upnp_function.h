@@ -19,8 +19,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define MUPNP_UUID_NAME "uuid"
 #define MUPNP_UUID_MAX_LEN 128 /*(5 + ((4+1)*4) + 1)*/
@@ -28,12 +28,12 @@ extern "C" {
 #define MUPNP_CONFIGID_UPNP_ORG_MAX 16777215
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 /**
  * Create a UUID (Universally Unique IDentifier) based on a semi-random value using current time.
@@ -61,7 +61,7 @@ void mupnp_setnmprmode(bool onFlag);
 
 /**
  * Check whether NMPR (Intel Networked Media Product Requirements) mode is on.
- * 
+ *
  *
  * \return true if on; otherwise false
  */
@@ -69,7 +69,7 @@ bool mupnp_isnmprmode(void);
 
 /**
  * Generate a integer id of BOOTID.UPNP.ORG.
- * 
+ *
  *
  * \return BOOTID
  */

@@ -18,22 +18,22 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (Begin)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* Static Function Prototype
-****************************************/
+ * Static Function Prototype
+ ****************************************/
 
 static mUpnpXmlNode* mupnp_event_notify_request_createpropertysetnode(mUpnpService* service, mUpnpStateVariable* statVar);
 
 #define mupnp_event_notify_request_getpropertylistonly(notifyReq) ((mUpnpPropertyList*)mupnp_soap_request_getuserdata(notifyReq))
 
 /****************************************
-* mupnp_event_notify_request_new
-****************************************/
+ * mupnp_event_notify_request_new
+ ****************************************/
 
 mUpnpNotifyRequest* mupnp_event_notify_request_new()
 {
@@ -53,8 +53,8 @@ mUpnpNotifyRequest* mupnp_event_notify_request_new()
 }
 
 /****************************************
-* mupnp_event_notify_request_delete
-****************************************/
+ * mupnp_event_notify_request_delete
+ ****************************************/
 
 void mupnp_event_notify_request_delete(mUpnpNotifyRequest* notifyReq)
 {
@@ -71,8 +71,8 @@ void mupnp_event_notify_request_delete(mUpnpNotifyRequest* notifyReq)
 }
 
 /****************************************
-* mupnp_event_notify_request_clear
-****************************************/
+ * mupnp_event_notify_request_clear
+ ****************************************/
 
 void mupnp_event_notify_request_clear(mUpnpNotifyRequest* notifyReq)
 {
@@ -89,8 +89,8 @@ void mupnp_event_notify_request_clear(mUpnpNotifyRequest* notifyReq)
 }
 
 /****************************************
-* mupnp_event_notify_request_setsid
-****************************************/
+ * mupnp_event_notify_request_setsid
+ ****************************************/
 
 void mupnp_event_notify_request_setsid(mUpnpNotifyRequest* soapReq, char* sid)
 {
@@ -104,8 +104,8 @@ void mupnp_event_notify_request_setsid(mUpnpNotifyRequest* soapReq, char* sid)
 }
 
 /****************************************
-* mupnp_event_notify_request_setpropertysetnode
-****************************************/
+ * mupnp_event_notify_request_setpropertysetnode
+ ****************************************/
 bool mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest* notifyReq, mUpnpSubscriber* sub, /* mUpnpService */ void* pservice, mUpnpStateVariable* statVar)
 {
   mUpnpHttpRequest* httpReq;
@@ -142,8 +142,8 @@ bool mupnp_event_notify_request_setpropertysetnode(mUpnpNotifyRequest* notifyReq
 }
 
 /****************************************
-* mupnp_event_notify_request_createpropertysetnode
-****************************************/
+ * mupnp_event_notify_request_createpropertysetnode
+ ****************************************/
 
 static mUpnpXmlNode* mupnp_event_notify_request_createpropertysetnode(mUpnpService* service, mUpnpStateVariable* statVar)
 {
@@ -198,8 +198,8 @@ static mUpnpXmlNode* mupnp_event_notify_request_createpropertysetnode(mUpnpServi
 }
 
 /****************************************
-* mupnp_event_notify_request_getvariablenode
-****************************************/
+ * mupnp_event_notify_request_getvariablenode
+ ****************************************/
 
 mUpnpXmlNode* mupnp_event_notify_request_getvariablenode(mUpnpNotifyRequest* nofityReq)
 {
@@ -226,8 +226,8 @@ mUpnpXmlNode* mupnp_event_notify_request_getvariablenode(mUpnpNotifyRequest* nof
 }
 
 /****************************************
-* mupnp_property_createfromnode
-****************************************/
+ * mupnp_property_createfromnode
+ ****************************************/
 
 static mUpnpProperty* mupnp_property_createfromnode(mUpnpXmlNode* varNode)
 {
@@ -257,8 +257,8 @@ static mUpnpProperty* mupnp_property_createfromnode(mUpnpXmlNode* varNode)
 }
 
 /****************************************
-* mupnp_event_notify_request_getpropertylist
-****************************************/
+ * mupnp_event_notify_request_getpropertylist
+ ****************************************/
 
 mUpnpPropertyList* mupnp_event_notify_request_getpropertylist(mUpnpNotifyRequest* notifyReq)
 {
@@ -296,7 +296,7 @@ mUpnpPropertyList* mupnp_event_notify_request_getpropertylist(mUpnpNotifyRequest
 }
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (End)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (End)
+ ****************************************/
 
 #endif

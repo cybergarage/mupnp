@@ -14,9 +14,9 @@
 
 #include <mupnp/typedef.h>
 
+#include <mupnp/net/url.h>
 #include <mupnp/util/list.h>
 #include <mupnp/util/string.h>
-#include <mupnp/net/url.h>
 #include <mupnp/util/time.h>
 
 #include <mupnp/statevariable.h>
@@ -26,12 +26,12 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 /**
  * The device-side structure for an event subscriber
@@ -49,8 +49,8 @@ typedef struct _mUpnpSubscriber {
 } mUpnpSubscriber, mUpnpSubscriberList;
 
 /****************************************
-* Function (Subscriber)
-****************************************/
+ * Function (Subscriber)
+ ****************************************/
 
 /**
  * Create a new event subscriber
@@ -74,7 +74,7 @@ void mupnp_subscriber_delete(mUpnpSubscriber* sub);
 void mupnp_subscriber_clear(mUpnpSubscriber* sub);
 
 /**
- * Renew a subscription. Essentially sets subscription time (duration) 
+ * Renew a subscription. Essentially sets subscription time (duration)
  * to zero and resets notify count (== event key).
  *
  * @param sub The event subscriber
@@ -87,7 +87,7 @@ void mupnp_subscriber_renew(mUpnpSubscriber* sub);
  * @param sub The current event subscriber
  * @return Next subscriber or NULL
  */
-#define mupnp_subscriber_next(sub) (mUpnpSubscriber*) mupnp_list_next((mUpnpList*)sub)
+#define mupnp_subscriber_next(sub) (mUpnpSubscriber*)mupnp_list_next((mUpnpList*)sub)
 
 /**
  * Remove the event subscriber from a subscriber list.
@@ -244,8 +244,8 @@ bool mupnp_subscriber_notify(mUpnpSubscriber* sub, mUpnpStateVariable* statVar);
 bool mupnp_subscriber_notifyall(mUpnpSubscriber* sub, void* service);
 
 /****************************************
-* Function (SubscriberList)
-****************************************/
+ * Function (SubscriberList)
+ ****************************************/
 
 /**
  * Create a new event subscriber list
@@ -278,7 +278,7 @@ void mupnp_subscriberlist_delete(mUpnpSubscriberList* subscriberlist);
  *
  * @param subList The subscriber list to evaluate
  */
-#define mupnp_subscriberlist_gets(subList) (mUpnpSubscriber*) mupnp_list_next((mUpnpList*)subList)
+#define mupnp_subscriberlist_gets(subList) (mUpnpSubscriber*)mupnp_list_next((mUpnpList*)subList)
 
 /**
  * Add a new event subscriber to a subscriber list

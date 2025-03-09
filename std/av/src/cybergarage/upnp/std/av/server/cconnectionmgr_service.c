@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cconnectionmgr_service.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cconnectionmgr_service.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -19,8 +19,8 @@
 #include <cybergarage/upnp/std/av/cmediaserver.h>
 
 /****************************************
-* Service Description (Connection Manager)
-****************************************/
+ * Service Description (Connection Manager)
+ ****************************************/
 
 static char* CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
                                                                    "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
@@ -156,8 +156,8 @@ static char* CG_UPNPAV_DMS_CONNECTIONMANAGER_SERVICE_DESCRIPTION = "<?xml versio
                                                                    "</scpd>\n";
 
 /****************************************
-* cg_upnpav_dms_conmgr_actionreceived
-****************************************/
+ * cg_upnpav_dms_conmgr_actionreceived
+ ****************************************/
 
 BOOL cg_upnpav_dms_conmgr_actionreceived(CgUpnpAction* action)
 {
@@ -200,8 +200,8 @@ BOOL cg_upnpav_dms_conmgr_actionreceived(CgUpnpAction* action)
 }
 
 /****************************************
-* cg_upnpav_dms_conmgr_init
-****************************************/
+ * cg_upnpav_dms_conmgr_init
+ ****************************************/
 
 BOOL cg_upnpav_dms_conmgr_init(CgUpnpAvServer* dms)
 {

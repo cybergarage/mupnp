@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cupnpav.h
-*
-*	Revision:
-*       2008/06/16
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cupnpav.h
+ *
+ *	Revision:
+ *       2008/06/16
+ *               - first release.
+ *
+ ************************************************************/
 
 #ifndef _CG_CLINKCAV_CUPNPAV_H_
 #define _CG_CLINKCAV_CUPNPAV_H_
@@ -40,12 +40,12 @@ typedef BOOL (*CG_UPNPAV_STATEVARIABLE_LISTNER)(mUpnpStateVariable*);
 }
 #endif
 
-#include <mupnp/std/av/cdidl.h>
 #include <mupnp/std/av/ccontent.h>
+#include <mupnp/std/av/cdidl.h>
 #include <mupnp/std/av/cmd5.h>
-#include <mupnp/std/av/cresource.h>
-#include <mupnp/std/av/cprotocolinfo.h>
-#include <mupnp/std/av/cmediaserver.h>
 #include <mupnp/std/av/cmediarenderer.h>
+#include <mupnp/std/av/cmediaserver.h>
+#include <mupnp/std/av/cprotocolinfo.h>
+#include <mupnp/std/av/cresource.h>
 
 #endif

@@ -1,24 +1,24 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: upnpdump.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-*	10/31/05
-*		- Added some M-SEARCH sending actions
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ *       This is licensed under BSD-style license,
+ *       see file COPYING.
+ *
+ *	File: upnpdump.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ *	10/31/05
+ *		- Added some M-SEARCH sending actions
+ *
+ ************************************************************/
 
 #include <mupnp/upnp.h>
 

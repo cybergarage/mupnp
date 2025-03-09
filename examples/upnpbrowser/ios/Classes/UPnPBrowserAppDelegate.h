@@ -1,14 +1,14 @@
 /******************************************************************
-*
-* mUPnP for Objective-C
-*
-* UPnPBrowserAppDelegate.h
-*
-* Copyright (C) Satoshi Konno 2011
-*
-* This is licensed under BSD-style license, see file COPYING.
-*
-******************************************************************/
+ *
+ * mUPnP for Objective-C
+ *
+ * UPnPBrowserAppDelegate.h
+ *
+ * Copyright (C) Satoshi Konno 2011
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 @interface UPnPBrowserAppDelegate : NSObject <UIApplicationDelegate> {
 

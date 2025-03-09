@@ -13,8 +13,8 @@
 #include <mupnp/xml/xml.h>
 
 /****************************************
-* mupnp_xml_attributelist_new
-****************************************/
+ * mupnp_xml_attributelist_new
+ ****************************************/
 
 mUpnpXmlAttributeList* mupnp_xml_attributelist_new()
 {
@@ -36,8 +36,8 @@ mUpnpXmlAttributeList* mupnp_xml_attributelist_new()
 }
 
 /****************************************
-* mupnp_xml_attributelist_delete
-****************************************/
+ * mupnp_xml_attributelist_delete
+ ****************************************/
 
 void mupnp_xml_attributelist_delete(mUpnpXmlAttributeList* attrList)
 {
@@ -50,8 +50,8 @@ void mupnp_xml_attributelist_delete(mUpnpXmlAttributeList* attrList)
 }
 
 /****************************************
-* mupnp_xml_attributelist_getattribute
-****************************************/
+ * mupnp_xml_attributelist_getattribute
+ ****************************************/
 
 mUpnpXmlAttribute* mupnp_xml_attributelist_get(mUpnpXmlAttributeList* attrList, const char* name)
 {
@@ -77,8 +77,8 @@ mUpnpXmlAttribute* mupnp_xml_attributelist_get(mUpnpXmlAttributeList* attrList, 
 }
 
 /****************************************
-* mupnp_xml_attributelist_setattribute
-****************************************/
+ * mupnp_xml_attributelist_setattribute
+ ****************************************/
 
 void mupnp_xml_attributelist_set(mUpnpXmlAttributeList* attrList, const char* name, const char* value)
 {
@@ -99,8 +99,8 @@ void mupnp_xml_attributelist_set(mUpnpXmlAttributeList* attrList, const char* na
 }
 
 /****************************************
-* mupnp_xml_attributelist_getvalue
-****************************************/
+ * mupnp_xml_attributelist_getvalue
+ ****************************************/
 
 const char* mupnp_xml_attributelist_getvalue(mUpnpXmlAttributeList* attrList, const char* name)
 {

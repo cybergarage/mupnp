@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: crss.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: crss.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include "crss.h"
 #include "cwebservice.h"
@@ -22,8 +22,8 @@
 #include <mupnp/std/av/cmd5.h>
 
 /************************************************************
-* mupnp_http_getrestresponse
-************************************************************/
+ * mupnp_http_getrestresponse
+ ************************************************************/
 
 mUpnpMediaContent* mupnp_http_getrsscontents(char* rssURL)
 {

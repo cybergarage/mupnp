@@ -1,14 +1,14 @@
 /******************************************************************
-*
-* mUPnP for Objective-C
-*
-* UPnPDeviceTableViewCell.m
-*
-* Copyright (C) Satoshi Konno 2011
-*
-* This is licensed under BSD-style license, see file COPYING.
-*
-******************************************************************/
+ *
+ * mUPnP for Objective-C
+ *
+ * UPnPDeviceTableViewCell.m
+ *
+ * Copyright (C) Satoshi Konno 2011
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #import "UPnPDeviceViewController.h"
 #import "UPnPDeviceTableViewCell.h"
@@ -85,9 +85,9 @@
   if (row < [deviceArray count]) {
     CGUpnpDevice* device = [deviceArray objectAtIndex:row];
     /*
-		UIImage *icon = [UIImage imageWithContentsOfFile:imagePath];
-		cell.image = icon;
-		*/
+                UIImage *icon = [UIImage imageWithContentsOfFile:imagePath];
+                cell.image = icon;
+                */
     [cell setDevice:device];
     //[cell setText:[server friendlyName]];
     //[cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];

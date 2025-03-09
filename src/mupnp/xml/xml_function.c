@@ -13,8 +13,8 @@
 #include <mupnp/xml/xml.h>
 
 /****************************************
-* mupnp_xml_escapechars
-****************************************/
+ * mupnp_xml_escapechars
+ ****************************************/
 
 char* mupnp_xml_escapechars(mUpnpString* str)
 {

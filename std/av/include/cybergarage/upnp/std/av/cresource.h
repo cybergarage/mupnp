@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cresource.h
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cresource.h
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #ifndef _CG_CLINKCAV_RESOURCE_H_
 #define _CG_CLINKCAV_RESOURCE_H_
@@ -23,8 +23,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Constant
-****************************************/
+ * Constant
+ ****************************************/
 
 #define CG_UPNPAV_RESOURCE_NAME "res"
 #define CG_UPNPAV_RESOURCE_PROTOCOLINFO "protocolInfo"
@@ -33,8 +33,8 @@ extern "C" {
 #define CG_UPNPAV_RESOURCE_PROTOCOLINFO_RESOLUTION "resolution"
 
 /****************************************
-* Struct
-****************************************/
+ * Struct
+ ****************************************/
 
 typedef mUpnpXmlNode mUpnpAvResource;
 typedef mUpnpXmlNodeList mUpnpAvResourceList;
@@ -45,8 +45,8 @@ typedef struct _mUpnpAvResourceData {
 } mUpnpAvResourceData;
 
 /****************************************
-* Resource
-****************************************/
+ * Resource
+ ****************************************/
 
 #define mupnp_upnpav_resourcelist_new() mupnp_xml_nodelist_new()
 #define mupnp_upnpav_resourcelist_delete(resList) mupnp_xml_nodelist_delete(resList)

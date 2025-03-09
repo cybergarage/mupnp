@@ -16,8 +16,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_CONTROLPOINT (Begin)
-****************************************/
+ * MUPNP_NOUSE_CONTROLPOINT (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_CONTROLPOINT)
 
@@ -31,8 +31,8 @@ bool mupnp_service_hasstddcp(mUpnpService* service);
 #endif
 
 /****************************************
-* static function defines
-****************************************/
+ * static function defines
+ ****************************************/
 
 static void mupnp_controlpoint_ssdplistner(mUpnpSSDPPacket* ssdpPkt);
 static void mupnp_controlpoint_ssdpresponselistner(mUpnpSSDPPacket* ssdpPkt);
@@ -338,7 +338,7 @@ bool mupnp_controlpoint_isrunning(mUpnpControlPoint* ctrlPoint)
  * Control Point locking
  ****************************************************************************/
 /**
- * Lock the control point's mutex. 
+ * Lock the control point's mutex.
  * The control point should be ALWAYS locked, when a mUpnpDevice*,
  * mUpnpService*, mUpnpAction* or other pointer has been taken into use from
  * the stack. This effectively prevents devices/services from being updated/
@@ -385,7 +385,7 @@ bool mupnp_controlpoint_unlock(mUpnpControlPoint* ctrlPoint)
 /**
  * Find a device from the control point by the exact type of the device.
  * This function searches for devices, whose *complete type string*
- * matches the given string, including version number. For example: 
+ * matches the given string, including version number. For example:
  * "urn:schemas-upnp-org:device:FooDevice:1". If you need to disregard
  * the version, use \ref mupnp_controlpoint_getdevicebytype
  *
@@ -517,7 +517,7 @@ mUpnpDevice* mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint* ctrlPoint, con
 /**
  * Parse the service description from the service's SCPD URL. Do not call
  * this from user applications.
- * 
+ *
  * @param service The service in question
  * @return true if successful; otherwise false
  */
@@ -553,8 +553,8 @@ bool mupnp_controlpoint_parsescservicescpd(mUpnpService* service)
 }
 
 /****************************************
-* mupnp_controlpoint_parseservicesfordevice
-****************************************/
+ * mupnp_controlpoint_parseservicesfordevice
+ ****************************************/
 
 bool mupnp_controlpoint_parseservicesfordevice(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt)
 {
@@ -569,8 +569,8 @@ bool mupnp_controlpoint_parseservicesfordevice(mUpnpDevice* dev, mUpnpSSDPPacket
     }
   }
 
-  /* Now only root SCPDs for root services are parsed, but also child 
-	   devices' services have to be parsed, so parse them */
+  /* Now only root SCPDs for root services are parsed, but also child
+           devices' services have to be parsed, so parse them */
   for (childDev = mupnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_device_next(childDev)) {
     if (mupnp_controlpoint_parseservicesfordevice(childDev, ssdpPkt) == false) {
       return false;
@@ -625,8 +625,8 @@ static mUpnpDevice* mupnp_controlpoint_createdevicefromssdkpacket(mUpnpSSDPPacke
 }
 
 /****************************************
-* mupnp_controlpoint_adddevicebyssdppacket
-****************************************/
+ * mupnp_controlpoint_adddevicebyssdppacket
+ ****************************************/
 
 void mupnp_controlpoint_adddevicebyssdppacket(mUpnpControlPoint* ctrlPoint, mUpnpSSDPPacket* ssdpPkt)
 {
@@ -690,8 +690,8 @@ void mupnp_controlpoint_adddevicebyssdppacket(mUpnpControlPoint* ctrlPoint, mUpn
 }
 
 /****************************************
-* mupnp_controlpoint_removedevicebyssdppacket
-****************************************/
+ * mupnp_controlpoint_removedevicebyssdppacket
+ ****************************************/
 
 void mupnp_controlpoint_removedevicebyssdppacket(mUpnpControlPoint* ctrlPoint, mUpnpSSDPPacket* ssdpPkt)
 {
@@ -769,8 +769,8 @@ bool mupnp_controlpoint_search(mUpnpControlPoint* ctrlPoint, const char* target)
 }
 
 /****************************************
-* mupnp_controlpoint_ipchanged
-****************************************/
+ * mupnp_controlpoint_ipchanged
+ ****************************************/
 
 bool mupnp_controlpoint_ipchanged(mUpnpControlPoint* ctrlPoint)
 {
@@ -813,8 +813,8 @@ bool mupnp_controlpoint_ipchanged(mUpnpControlPoint* ctrlPoint)
       address = mupnp_ssdp_packet_getlocaladdress(ssdpPkt);
 
       if (address != NULL && mupnp_strcmp(address, mupnp_net_interface_getaddress(netIf)) == 0) {
-        /* This device has been received from the 
-				   removed interface, so it does not exist */
+        /* This device has been received from the
+                                   removed interface, so it does not exist */
         mupnp_controlpoint_unlock(ctrlPoint);
         mupnp_controlpoint_removedevicebyssdppacket(ctrlPoint,
             ssdpPkt);
@@ -843,8 +843,8 @@ bool mupnp_controlpoint_ipchanged(mUpnpControlPoint* ctrlPoint)
 }
 
 /****************************************
-* mupnp_controlpoint_ssdplistner
-****************************************/
+ * mupnp_controlpoint_ssdplistner
+ ****************************************/
 
 static void mupnp_controlpoint_ssdplistner(mUpnpSSDPPacket* ssdpPkt)
 {
@@ -858,8 +858,8 @@ static void mupnp_controlpoint_ssdplistner(mUpnpSSDPPacket* ssdpPkt)
     return;
 
   /* We filter out all but rootdevice, since it must be advertized by all
-	 * devices. This way we avoid lots of device updates during advertizement
-	 * cycle. */
+   * devices. This way we avoid lots of device updates during advertizement
+   * cycle. */
   if (mupnp_ssdp_packet_isrootdevice(ssdpPkt) == true) {
     if (mupnp_ssdp_packet_isalive(ssdpPkt) == true)
       mupnp_controlpoint_adddevicebyssdppacket(ctrlPoint, ssdpPkt);
@@ -875,8 +875,8 @@ static void mupnp_controlpoint_ssdplistner(mUpnpSSDPPacket* ssdpPkt)
 }
 
 /****************************************
-* mupnp_controlpoint_ssdpresponselistner
-****************************************/
+ * mupnp_controlpoint_ssdpresponselistner
+ ****************************************/
 
 static void mupnp_controlpoint_ssdpresponselistner(mUpnpSSDPPacket* ssdpPkt)
 {

@@ -13,9 +13,9 @@
 #define _MUPNP_ACTION_H_
 
 #include <mupnp/typedef.h>
-#include <mupnp/xml/xml.h>
 #include <mupnp/util/list.h>
 #include <mupnp/util/string.h>
+#include <mupnp/xml/xml.h>
 
 #include <mupnp/argument.h>
 #include <mupnp/upnp_status.h>
@@ -25,8 +25,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define MUPNP_ACTION_ELEM_NAME "action"
 #define MUPNP_ACTIONLIST_ELEM_NAME "actionList"
@@ -34,8 +34,8 @@ extern "C" {
 #define MUPNP_ACTION_NAME "name"
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef struct _mUpnpAction {
   MUPNP_LIST_STRUCT_MEMBERS
@@ -74,11 +74,11 @@ void mupnp_action_delete(mUpnpAction* action);
  *
  * @param action The current action
  */
-#define mupnp_action_next(action) (mUpnpAction*) mupnp_list_next((mUpnpList*)action)
+#define mupnp_action_next(action) (mUpnpAction*)mupnp_list_next((mUpnpList*)action)
 
 /**
  * Check, whether the given XML node is an action node
- * 
+ *
  * @param node The mUpnpXmlNode*
  */
 #define mupnp_action_isactionnode(node) mupnp_xml_node_isname(node, MUPNP_ACTION_ELEM_NAME)
@@ -339,7 +339,7 @@ void mupnp_actionlist_delete(mUpnpActionList* actionList);
  * @param actionList The list in question
  * @return mUpnpAction*
  */
-#define mupnp_actionlist_gets(actionList) (mUpnpAction*) mupnp_list_next((mUpnpList*)actionList)
+#define mupnp_actionlist_gets(actionList) (mUpnpAction*)mupnp_list_next((mUpnpList*)actionList)
 
 /**
  * Add an action to a list of actions

@@ -22,8 +22,8 @@
 #endif
 
 /****************************************
-* mupnp_mutex_new
-****************************************/
+ * mupnp_mutex_new
+ ****************************************/
 
 mUpnpMutex* mupnp_mutex_new()
 {
@@ -65,8 +65,8 @@ mUpnpMutex* mupnp_mutex_new()
 }
 
 /****************************************
-* mupnp_mutex_delete
-****************************************/
+ * mupnp_mutex_delete
+ ****************************************/
 
 bool mupnp_mutex_delete(mUpnpMutex* mutex)
 {
@@ -96,8 +96,8 @@ bool mupnp_mutex_delete(mUpnpMutex* mutex)
 }
 
 /****************************************
-* mupnp_mutex_lock
-****************************************/
+ * mupnp_mutex_lock
+ ****************************************/
 #if defined(WITH_THREAD_LOCK_TRACE) && defined(__USE_ISOC99)
 #include <pthread.h>
 #include <string.h>
@@ -129,7 +129,7 @@ bool mupnp_mutex_lock_trace(const char* file,
   found = 0;
 
   /* Searching existing lock record for this thread.
-	 */
+   */
   temp = mupnp_tlt_list;
   while (NULL != temp) {
     if (pthread_equal(temp->thread_id, thid) && (temp->mutex_id == (int)mutex)) {
@@ -152,7 +152,7 @@ bool mupnp_mutex_lock_trace(const char* file,
   }
 
   /* No locks found for this thread, inserting new record.
-	 */
+   */
 
   temp = malloc(sizeof(mUpnpLockInfo));
   temp->thread_id = thid;
@@ -160,7 +160,7 @@ bool mupnp_mutex_lock_trace(const char* file,
   temp->line = line;
   temp->function = strdup(function);
   /* Using the memory address for differentiating between different
-	 * mutexes... */
+   * mutexes... */
   temp->mutex_id = (int)mutex;
 
   temp->next = mupnp_tlt_list;
@@ -170,8 +170,8 @@ bool mupnp_mutex_lock_trace(const char* file,
 
   if (EBUSY == pthread_mutex_trylock(&mutex->mutexID)) {
     /* Lock already held by someone, printing out information
-		 * about thread having lock and threads waiting for lock.
-		 */
+     * about thread having lock and threads waiting for lock.
+     */
     pthread_mutex_lock(&tlt_mutex);
     temp = mupnp_tlt_list;
 
@@ -225,7 +225,7 @@ bool mupnp_mutex_unlock_trace(const char* file,
   }
 
   /* Removing lock record from list
-         */
+   */
   if (found && (NULL != ptemp)) {
     ptemp->next = temp->next;
     free(temp->file);
@@ -234,7 +234,7 @@ bool mupnp_mutex_unlock_trace(const char* file,
     temp = NULL;
   }
   /* First list record handled as a special case
-         */
+   */
   else if (found && (NULL == ptemp)) {
     mupnp_tlt_list = temp->next;
     free(temp->file);
@@ -288,8 +288,8 @@ bool mupnp_mutex_lock(mUpnpMutex* mutex)
 }
 
 /****************************************
-* mupnp_mutex_unlock
-****************************************/
+ * mupnp_mutex_unlock
+ ****************************************/
 
 bool mupnp_mutex_unlock(mUpnpMutex* mutex)
 {

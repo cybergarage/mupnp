@@ -18,8 +18,8 @@
 #endif
 
 /****************************************
-* mupnp_net_uri_new
-****************************************/
+ * mupnp_net_uri_new
+ ****************************************/
 
 mUpnpNetURI* mupnp_net_uri_new()
 {
@@ -52,8 +52,8 @@ mUpnpNetURI* mupnp_net_uri_new()
 }
 
 /****************************************
-* mupnp_net_uri_delete
-****************************************/
+ * mupnp_net_uri_delete
+ ****************************************/
 
 void mupnp_net_uri_delete(mUpnpNetURI* uri)
 {
@@ -79,8 +79,8 @@ void mupnp_net_uri_delete(mUpnpNetURI* uri)
 }
 
 /****************************************
-* mupnp_net_uri_clear
-****************************************/
+ * mupnp_net_uri_clear
+ ****************************************/
 
 void mupnp_net_uri_clear(mUpnpNetURI* uri)
 {
@@ -104,8 +104,8 @@ void mupnp_net_uri_clear(mUpnpNetURI* uri)
 }
 
 /****************************************
-* mupnp_net_uri_set
-****************************************/
+ * mupnp_net_uri_set
+ ****************************************/
 
 void mupnp_net_uri_setvalue(mUpnpNetURI* uri, const char* value)
 {
@@ -195,8 +195,8 @@ void mupnp_net_uri_setvalue(mUpnpNetURI* uri, const char* value)
   }
 
   /*
-		Handle relative URL
-	*/
+                Handle relative URL
+        */
   if (mupnp_net_uri_isabsolute(uri) == false) {
     mupnp_string_addvalue(uri->path, value);
   }
@@ -264,8 +264,8 @@ const char* mupnp_net_uri_getvalue(mUpnpNetURI* uri)
 }
 
 /****************************************
-* mupnp_net_uri_getrequest
-****************************************/
+ * mupnp_net_uri_getrequest
+ ****************************************/
 
 char* mupnp_net_uri_getrequest(mUpnpNetURI* uri)
 {
@@ -288,8 +288,8 @@ char* mupnp_net_uri_getrequest(mUpnpNetURI* uri)
 }
 
 /****************************************
-* mupnp_net_uri_isequivalent
-****************************************/
+ * mupnp_net_uri_isequivalent
+ ****************************************/
 
 bool mupnp_net_uri_isequivalent(const char* url, const char* relative_url)
 {
@@ -308,8 +308,8 @@ bool mupnp_net_uri_isequivalent(const char* url, const char* relative_url)
 }
 
 /****************************************
-* mupnp_net_uri_isescapedstring
-****************************************/
+ * mupnp_net_uri_isescapedstring
+ ****************************************/
 
 bool mupnp_net_uri_isescapedstring(char* buf, size_t bufSize)
 {
@@ -321,7 +321,7 @@ bool mupnp_net_uri_isescapedstring(char* buf, size_t bufSize)
     bufSize = mupnp_strlen(buf) + 1;
 
   /* We assume that the URI string is escaped, if it has at least one
-	   escaped character */
+           escaped character */
 
   /* First check that there is escaping character */
   idx = mupnp_strstr(buf, MUPNP_NET_URI_ESCAPING_CHAR);
@@ -338,8 +338,8 @@ bool mupnp_net_uri_isescapedstring(char* buf, size_t bufSize)
 }
 
 /****************************************
-* mupnp_net_uri_unescapestring
-****************************************/
+ * mupnp_net_uri_unescapestring
+ ****************************************/
 
 char* mupnp_net_uri_escapestring(char* buf, size_t bufSize, mUpnpString* retBuf)
 {
@@ -390,8 +390,8 @@ char* mupnp_net_uri_escapestring(char* buf, size_t bufSize, mUpnpString* retBuf)
 }
 
 /****************************************
-* mupnp_net_uri_escapestring
-****************************************/
+ * mupnp_net_uri_escapestring
+ ****************************************/
 
 char* mupnp_net_uri_unescapestring(char* buf, size_t bufSize, mUpnpString* retBuf)
 {
@@ -464,8 +464,8 @@ char* mupnp_net_uri_unescapestring(char* buf, size_t bufSize, mUpnpString* retBu
 }
 
 /****************************************
-* mupnp_net_uri_getupnpbasepath
-****************************************/
+ * mupnp_net_uri_getupnpbasepath
+ ****************************************/
 
 char* mupnp_net_uri_getupnpbasepath(mUpnpNetURI* locationURL)
 {
@@ -497,8 +497,8 @@ char* mupnp_net_uri_getupnpbasepath(mUpnpNetURI* locationURL)
 }
 
 /****************************************
-* mupnp_net_uri_isreservedchar
-****************************************/
+ * mupnp_net_uri_isreservedchar
+ ****************************************/
 
 bool mupnp_net_uri_isreservedchar(char c)
 {
@@ -508,8 +508,8 @@ bool mupnp_net_uri_isreservedchar(char c)
 }
 
 /****************************************
-* mupnp_net_uri_isalphanumchar
-****************************************/
+ * mupnp_net_uri_isalphanumchar
+ ****************************************/
 
 bool mupnp_net_uri_isalphanumchar(char c)
 {
@@ -523,8 +523,8 @@ bool mupnp_net_uri_isalphanumchar(char c)
 }
 
 /****************************************
-* mupnp_net_uri_isunreservedchar
-****************************************/
+ * mupnp_net_uri_isunreservedchar
+ ****************************************/
 
 bool mupnp_net_uri_isunreservedchar(char c)
 {
@@ -536,8 +536,8 @@ bool mupnp_net_uri_isunreservedchar(char c)
 }
 
 /****************************************
-* mupnp_net_uri_isescapedchar
-****************************************/
+ * mupnp_net_uri_isescapedchar
+ ****************************************/
 
 bool mupnp_net_uri_isescapechar(char c)
 {
@@ -549,8 +549,8 @@ bool mupnp_net_uri_isescapechar(char c)
 }
 
 /****************************************
-* mupnp_net_uri_getquerydictionary
-****************************************/
+ * mupnp_net_uri_getquerydictionary
+ ****************************************/
 
 mUpnpDictionary* mupnp_net_uri_getquerydictionary(mUpnpNetURI* uri)
 {

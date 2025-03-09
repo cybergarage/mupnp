@@ -13,8 +13,8 @@
 #define _MUPNP_UTIL_THREAD_H_
 
 #include <mupnp/typedef.h>
-#include <mupnp/util/list.h>
 #include <mupnp/util/cond.h>
+#include <mupnp/util/list.h>
 
 #include <mupnp/util/time.h>
 #if defined(WIN32) && !defined(ITRON)
@@ -71,7 +71,7 @@ typedef struct _mUpnpThread {
   bool isRunning;
   bool deletePending;
   mUpnpTime sleep;
-#endif //WINCE
+#endif // WINCE
 
 #if defined DEBUG
   char friendlyName[32];
@@ -103,13 +103,13 @@ typedef struct _mUpnpThread {
 } mUpnpThread, mUpnpThreadList;
 
 /**
- * Prototype for the threads' worker functions 
+ * Prototype for the threads' worker functions
  */
 typedef void (*MUPNP_THREAD_FUNC)(mUpnpThread*);
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 /**
  * Create a new thread
@@ -190,15 +190,15 @@ void mupnp_thread_sleep(mUpnpThread* thread);
 void mupnp_thread_exit(DWORD exitCode);
 #if defined DEBUG_MEM
 void mupnp_thread_monitor(mUpnpThread* thread);
-#endif //DEBUG_MEM
-#endif //WIN32_WCE
+#endif // DEBUG_MEM
+#endif // WIN32_WCE
 
-#define mupnp_thread_next(thread) (mUpnpThread*) mupnp_list_next((mUpnpList*)thread)
+#define mupnp_thread_next(thread) (mUpnpThread*)mupnp_list_next((mUpnpList*)thread)
 #define mupnp_thread_remove(thread) mupnp_list_remove((mUpnpList*)thread)
 
 /****************************************
-* Function (Thread List)
-****************************************/
+ * Function (Thread List)
+ ****************************************/
 
 /**
  * Create a new thread list
@@ -233,7 +233,7 @@ void mupnp_threadlist_delete(mUpnpThreadList* threadList);
  *
  * \param threadList The thread list in question
  */
-#define mupnp_threadlist_gets(threadList) (mUpnpThread*) mupnp_list_next((mUpnpList*)threadList)
+#define mupnp_threadlist_gets(threadList) (mUpnpThread*)mupnp_list_next((mUpnpList*)threadList)
 
 /**
  * Add a thread into a thread list
@@ -247,7 +247,7 @@ void mupnp_threadlist_delete(mUpnpThreadList* threadList);
  * Remove a thread from thread list
  *
  * \param threadList The thread list in question
- * \param thread The thread to be removed 
+ * \param thread The thread to be removed
  */
 #define mupnp_threadlist_remove(thread) mupnp_list_remove((mUpnpList*)thread)
 

@@ -1,14 +1,14 @@
 /******************************************************************
-*
-* mUPnP for Objective-C
-*
-* UPnPDeviceTableViewCell.m
-*
-* Copyright (C) Satoshi Konno 2011
-*
-* This is licensed under BSD-style license, see file COPYING.
-*
-******************************************************************/
+ *
+ * mUPnP for Objective-C
+ *
+ * UPnPDeviceTableViewCell.m
+ *
+ * Copyright (C) Satoshi Konno 2011
+ *
+ * This is licensed under BSD-style license, see file COPYING.
+ *
+ ******************************************************************/
 
 #import "UPnPTableViewCell.h"
 
@@ -36,7 +36,7 @@ enum {
     int imgHeight = imgWidth;
     int imgMargin = (cellHeight - imgHeight) / 2;
     int imgCellWidth = cellHeight;
-    //int imgCellHeight =  cellHeight;
+    // int imgCellHeight =  cellHeight;
 
     UIImageView* imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(imgMargin, imgMargin, imgWidth, imgHeight)] autorelease];
     imageView.tag = UPNPAVOBJECT_CELL_IMAGE;

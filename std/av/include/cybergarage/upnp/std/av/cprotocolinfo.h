@@ -1,43 +1,43 @@
 /******************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2009
-*
-*       Copyright (C) 2006 Nokia Corporation. All rights reserved.
-*
-*       This is licensed under BSD-style license,
-*       see file COPYING.
-*
-*	File: cprotocolinfo.h
-*
-*	Revision:
-*
-*	07/27/09
-*		- first revision
-*
-******************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2009
+ *
+ *       Copyright (C) 2006 Nokia Corporation. All rights reserved.
+ *
+ *       This is licensed under BSD-style license,
+ *       see file COPYING.
+ *
+ *	File: cprotocolinfo.h
+ *
+ *	Revision:
+ *
+ *	07/27/09
+ *		- first revision
+ *
+ ******************************************************************/
 
 #ifndef _CG_CLINKCAV_PROTOCOLINFO_H_
 #define _CG_CLINKCAV_PROTOCOLINFO_H_
 
-#include <mupnp/util/string.h>
 #include <mupnp/util/list.h>
+#include <mupnp/util/string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Constant
-****************************************/
+ * Constant
+ ****************************************/
 
 #define CG_UPNPAV_PROTOCOLINFO_MAXSIZE 512
 #define CG_UPNPAV_PROTOCOLINFO_HTTPGET "http-get"
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 /**
  * The generic protocolinfo struct
  */
@@ -53,8 +53,8 @@ typedef struct _mUpnpAvProtocolInfo {
 } mUpnpAvProtocolInfo, mUpnpAvProtocolInfoList;
 
 /****************************************
-* Function (ProtocolInfo)
-****************************************/
+ * Function (ProtocolInfo)
+ ****************************************/
 
 /**
  * Create a new protocolinfo struct
@@ -73,7 +73,7 @@ void mupnp_upnpav_protocolinfo_delete(mUpnpAvProtocolInfo* protocolinfo);
  *
  * \param protocolinfo Node in a list of protocolinfos
  */
-#define mupnp_upnpav_protocolinfo_next(protocolinfo) (mUpnpAvProtocolInfo*) mupnp_list_next((mUpnpList*)protocolinfo)
+#define mupnp_upnpav_protocolinfo_next(protocolinfo) (mUpnpAvProtocolInfo*)mupnp_list_next((mUpnpList*)protocolinfo)
 
 /*****************************************************************************
  * Protocol
@@ -144,7 +144,7 @@ void mupnp_upnpav_protocolinfo_delete(mUpnpAvProtocolInfo* protocolinfo);
 #define mupnp_upnpav_protocolinfo_getadditionalinfo(protocolinfo) mupnp_string_getvalue(protocolinfo->additionalInfo)
 
 /* Due to the typo active in clinkcav-2.3 and 2.4, I leave the old
-     * definitions here, to be backward compatible.  -lundman */
+ * definitions here, to be backward compatible.  -lundman */
 #define mupnp_upnpav_protocolinfo_setadditionainfo(protocolinfo, value) mupnp_string_setvalue(protocolinfo->additionalInfo, value)
 #define mupnp_upnpav_protocolinfo_getadditionainfo(protocolinfo) mupnp_string_getvalue(protocolinfo->additionalInfo)
 
@@ -194,7 +194,7 @@ void mupnp_upnpav_protocolinfolist_delete(mUpnpAvProtocolInfoList* protocolinfoL
  *
  * \param protocolinfoList List of protocolinfos
  */
-#define mupnp_upnpav_protocolinfolist_gets(protocolinfoList) (mUpnpAvProtocolInfo*) mupnp_list_next((mUpnpList*)protocolinfoList)
+#define mupnp_upnpav_protocolinfolist_gets(protocolinfoList) (mUpnpAvProtocolInfo*)mupnp_list_next((mUpnpList*)protocolinfoList)
 
 /**
  * Add an protocolinfo to an protocolinfo list

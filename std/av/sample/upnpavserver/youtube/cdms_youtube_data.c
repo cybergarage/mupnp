@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cdms_youtube_data.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cdms_youtube_data.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include <cybergarage/net/cinterface.h>
 #include <cybergarage/upnp/std/av/cmediaserver.h>
@@ -18,8 +18,8 @@
 #include "cdms_youtube.h"
 
 /****************************************
-* cg_upnp_dms_youtube_data_new
-****************************************/
+ * cg_upnp_dms_youtube_data_new
+ ****************************************/
 
 CgUpnpDmsYoutubeData* cg_upnp_dms_youtube_data_new()
 {
@@ -32,8 +32,8 @@ CgUpnpDmsYoutubeData* cg_upnp_dms_youtube_data_new()
 }
 
 /****************************************
-* cg_upnp_dms_youtube_data_delete
-****************************************/
+ * cg_upnp_dms_youtube_data_delete
+ ****************************************/
 
 void cg_upnp_dms_youtube_data_delete(CgUpnpDmsYoutubeData* data)
 {
@@ -47,8 +47,8 @@ void cg_upnp_dms_youtube_data_delete(CgUpnpDmsYoutubeData* data)
 }
 
 /****************************************
-* cg_upnp_dms_youtube_data_setrssurl
-****************************************/
+ * cg_upnp_dms_youtube_data_setrssurl
+ ****************************************/
 
 void cg_upnp_dms_youtube_data_setrssurl(CgUpnpDmsYoutubeData* data, char* val)
 {
@@ -56,8 +56,8 @@ void cg_upnp_dms_youtube_data_setrssurl(CgUpnpDmsYoutubeData* data, char* val)
 }
 
 /****************************************
-* cg_upnp_dms_youtube_data_getrssurl
-****************************************/
+ * cg_upnp_dms_youtube_data_getrssurl
+ ****************************************/
 
 char* cg_upnp_dms_youtube_data_getrssurl(CgUpnpDmsYoutubeData* data)
 {
@@ -65,8 +65,8 @@ char* cg_upnp_dms_youtube_data_getrssurl(CgUpnpDmsYoutubeData* data)
 }
 
 /****************************************
-* cg_upnp_dms_youtube_data_setupdatelistener
-****************************************/
+ * cg_upnp_dms_youtube_data_setupdatelistener
+ ****************************************/
 
 void cg_upnp_dms_youtube_data_setupdatelistener(CgUpnpDmsYoutubeData* data, CG_UPNP_MEDIA_YOUTUBE_UPDATE_LISTENER func)
 {
@@ -74,8 +74,8 @@ void cg_upnp_dms_youtube_data_setupdatelistener(CgUpnpDmsYoutubeData* data, CG_U
 }
 
 /****************************************
-* cg_upnp_dms_youtube_data_getupdatelistener
-****************************************/
+ * cg_upnp_dms_youtube_data_getupdatelistener
+ ****************************************/
 
 CG_UPNP_MEDIA_YOUTUBE_UPDATE_LISTENER cg_upnp_dms_youtube_data_getupdatelistener(CgUpnpDmsYoutubeData* data)
 {
@@ -83,8 +83,8 @@ CG_UPNP_MEDIA_YOUTUBE_UPDATE_LISTENER cg_upnp_dms_youtube_data_getupdatelistener
 }
 
 /****************************************
-* cg_upnp_dms_youtube_data_setupdatelistenerdata
-****************************************/
+ * cg_upnp_dms_youtube_data_setupdatelistenerdata
+ ****************************************/
 
 void cg_upnp_dms_youtube_data_setupdatelistenerdata(CgUpnpDmsYoutubeData* data, void* val)
 {
@@ -92,8 +92,8 @@ void cg_upnp_dms_youtube_data_setupdatelistenerdata(CgUpnpDmsYoutubeData* data, 
 }
 
 /****************************************
-* cg_upnp_dms_youtube_data_getupdatelistenerdata
-****************************************/
+ * cg_upnp_dms_youtube_data_getupdatelistenerdata
+ ****************************************/
 
 void* cg_upnp_dms_youtube_data_getupdatelistenerdata(CgUpnpDmsYoutubeData* data)
 {

@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_soap_createenvelopebodynode
-****************************************/
+ * mupnp_soap_createenvelopebodynode
+ ****************************************/
 
 mUpnpXmlNode* mupnp_soap_createenvelopebodynode()
 {

@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cdms_http.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cdms_http.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include "cdms_filesys.h"
 
@@ -22,8 +22,8 @@
 #define CG_USE_CHUNKED_STREAM 1
 
 /**********************************************************************
-* mupnp_dms_filesys_http_listener
-**********************************************************************/
+ * mupnp_dms_filesys_http_listener
+ **********************************************************************/
 
 void mupnp_upnpav_dms_filesys_http_listener(mUpnpHttpRequest* httpReq)
 {

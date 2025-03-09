@@ -36,8 +36,8 @@ BOOST_AUTO_TEST_CASE(NetworkInterface)
     mupnp_net_interface_getmacaddress(netIf, macAddr);
     BOOST_CHECK(memcmp(macAddr, nullMacAddr, MUPNP_NET_MACADDR_SIZE) != 0);
 #endif
-    //BOOST_CHECK(0 < mupnp_strlen(mupnp_net_interface_getname(netIf)));
-    //BOOST_CHECK(0 < mupnp_strlen(mupnp_net_interface_getnetmask(netIf)));
+    // BOOST_CHECK(0 < mupnp_strlen(mupnp_net_interface_getname(netIf)));
+    // BOOST_CHECK(0 < mupnp_strlen(mupnp_net_interface_getnetmask(netIf)));
   }
   mupnp_net_interfacelist_delete(netIfList);
 }

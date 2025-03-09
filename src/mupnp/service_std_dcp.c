@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_USE_STDDCP (Begin)
-****************************************/
+ * MUPNP_USE_STDDCP (Begin)
+ ****************************************/
 
 #if defined(MUPNP_USE_STDDCP)
 
@@ -1061,7 +1061,7 @@ bool mupnp_service_hasstddcp(mUpnpService* service)
 }
 
 /****************************************
-* MUPNP_USE_STDDCP (End)
-****************************************/
+ * MUPNP_USE_STDDCP (End)
+ ****************************************/
 
 #endif

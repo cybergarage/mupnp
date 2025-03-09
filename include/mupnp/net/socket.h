@@ -24,8 +24,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define MUPNP_NET_SOCKET_NONE 0
 
@@ -59,16 +59,16 @@ typedef int SOCKET;
 #endif
 
 /****************************************
-* Define (SocketList)
-****************************************/
+ * Define (SocketList)
+ ****************************************/
 
 #if defined(ITRON)
 #define MUPNP_NET_USE_SOCKET_LIST 1
 #endif
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 #if defined(MUPNP_NET_USE_SOCKET_LIST)
 #include <mupnp/util/list.h>
@@ -102,8 +102,8 @@ typedef struct _mUpnpDatagramPacket {
 } mUpnpDatagramPacket;
 
 /****************************************
-* Function (Socket)
-****************************************/
+ * Function (Socket)
+ ****************************************/
 
 void mupnp_socket_startup(void);
 void mupnp_socket_cleanup(void);
@@ -150,22 +150,22 @@ ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt);
 int mupnp_socket_getlasterror(void);
 
 /****************************************
-* Function (Multicast)
-****************************************/
+ * Function (Multicast)
+ ****************************************/
 
 bool mupnp_socket_joingroup(mUpnpSocket* sock, const char* mcastAddr, const char* ifAddr);
 
 /****************************************
-* Function (Option)
-****************************************/
+ * Function (Option)
+ ****************************************/
 
 bool mupnp_socket_setreuseaddress(mUpnpSocket* socket, bool flag);
 bool mupnp_socket_setmulticastttl(mUpnpSocket* sock, int ttl);
 bool mupnp_socket_settimeout(mUpnpSocket* sock, int sec);
 
 /****************************************
-* Function (DatagramPacket)
-****************************************/
+ * Function (DatagramPacket)
+ ****************************************/
 
 mUpnpDatagramPacket* mupnp_socket_datagram_packet_new(void);
 void mupnp_socket_datagram_packet_delete(mUpnpDatagramPacket* dgmPkt);
@@ -185,8 +185,8 @@ void mupnp_socket_datagram_packet_delete(mUpnpDatagramPacket* dgmPkt);
 void mupnp_socket_datagram_packet_copy(mUpnpDatagramPacket* dstDgmPkt, mUpnpDatagramPacket* srcDgmPkt);
 
 /****************************************
-* Function (SSLSocket)
-****************************************/
+ * Function (SSLSocket)
+ ****************************************/
 
 #if defined(MUPNP_USE_OPENSSL)
 #define MUPNP_NET_SOCKET_SSL 0x0100
@@ -195,19 +195,19 @@ void mupnp_socket_datagram_packet_copy(mUpnpDatagramPacket* dstDgmPkt, mUpnpData
 #endif
 
 /****************************************
-* Function (SocketList)
-****************************************/
+ * Function (SocketList)
+ ****************************************/
 
 #if defined(MUPNP_NET_USE_SOCKET_LIST)
 
-#define mupnp_socket_next(sock) (mUpnpSocket*) mupnp_list_next((mUpnpList*)sock)
+#define mupnp_socket_next(sock) (mUpnpSocket*)mupnp_list_next((mUpnpList*)sock)
 
 mUpnpSocketList* mupnp_socketlist_new(void);
 void mupnp_socketlist_delete(mUpnpSocketList* sockList);
 
 #define mupnp_socketlist_clear(sockList) mupnp_list_clear((mUpnpList*)sockList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_socket_delete)
 #define mupnp_socketlist_size(sockList) mupnp_list_size((mUpnpList*)sockList)
-#define mupnp_socketlist_gets(sockList) (mUpnpSocket*) mupnp_list_next((mUpnpList*)sockList)
+#define mupnp_socketlist_gets(sockList) (mUpnpSocket*)mupnp_list_next((mUpnpList*)sockList)
 #define mupnp_socketlist_add(sockList, sock) mupnp_list_add((mUpnpList*)sockList, (mUpnpList*)sock)
 
 #endif

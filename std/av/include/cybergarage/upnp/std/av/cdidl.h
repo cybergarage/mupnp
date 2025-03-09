@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2004-2006
-*
-*	File: cdlna.h
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2004-2006
+ *
+ *	File: cdlna.h
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #ifndef _CG_CLINKCAV_DIDL_H_
 #define _CG_CLINKCAV_DIDL_H_
@@ -22,8 +22,8 @@ extern "C" {
 #endif
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 mUpnpXmlNode* mupnp_upnpav_didl_node_new();
 

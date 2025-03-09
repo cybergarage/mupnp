@@ -13,14 +13,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (Begin)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_service_notifymain
-****************************************/
+ * mupnp_service_notifymain
+ ****************************************/
 
 static bool mupnp_service_notifymain(mUpnpService* service, mUpnpStateVariable* statVar)
 {
@@ -99,8 +99,8 @@ static bool mupnp_service_notifymain(mUpnpService* service, mUpnpStateVariable* 
 }
 
 /****************************************
-* mupnp_service_notify
-****************************************/
+ * mupnp_service_notify
+ ****************************************/
 
 bool mupnp_service_notify(mUpnpService* service, mUpnpStateVariable* statVar)
 {
@@ -108,8 +108,8 @@ bool mupnp_service_notify(mUpnpService* service, mUpnpStateVariable* statVar)
 }
 
 /****************************************
-* mupnp_service_notifyall
-****************************************/
+ * mupnp_service_notifyall
+ ****************************************/
 
 bool mupnp_service_notifyallbracket(mUpnpService* service)
 {
@@ -117,8 +117,8 @@ bool mupnp_service_notifyallbracket(mUpnpService* service)
 }
 
 /****************************************
-* mupnp_service_notifyall
-****************************************/
+ * mupnp_service_notifyall
+ ****************************************/
 
 bool mupnp_service_notifyall(mUpnpService* service, bool doBracket)
 {
@@ -167,7 +167,7 @@ void mupnp_service_createnotifyallthread(mUpnpService* service, mUpnpTime waitTi
 }
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (End)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (End)
+ ****************************************/
 
 #endif

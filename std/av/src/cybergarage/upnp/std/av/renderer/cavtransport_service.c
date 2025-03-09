@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cavtransport_service.c
-*
-*	Revision:
-*		2009/06/11
-*        - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cavtransport_service.c
+ *
+ *	Revision:
+ *		2009/06/11
+ *        - first release.
+ *
+ ************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -19,8 +19,8 @@
 #include <cybergarage/upnp/std/av/cmediarenderer.h>
 
 /****************************************
-* Service Description (AVTransport)
-****************************************/
+ * Service Description (AVTransport)
+ ****************************************/
 
 static char* CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION =
 #if defined(CG_CLINKCAV_USE_UPNPSTD_XML)
@@ -1178,8 +1178,8 @@ static char* CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_DESCRIPTION =
 #endif
 
 /****************************************
-* cg_upnpav_dmr_avtransport_actionreceived
-****************************************/
+ * cg_upnpav_dmr_avtransport_actionreceived
+ ****************************************/
 
 BOOL cg_upnpav_dmr_avtransport_actionreceived(CgUpnpAction* action)
 {
@@ -1232,8 +1232,8 @@ BOOL cg_upnpav_dmr_avtransport_queryreceived(CgUpnpStateVariable* statVar)
 }
 
 /****************************************
-* cg_upnpav_dmr_avtransport_init
-****************************************/
+ * cg_upnpav_dmr_avtransport_init
+ ****************************************/
 
 BOOL cg_upnpav_dmr_avtransport_init(CgUpnpAvRenderer* dmr)
 {

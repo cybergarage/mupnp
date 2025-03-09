@@ -28,7 +28,7 @@ void PrintContentDirectory(CGUpnpAction* browseAction, int indent, NSString* obj
     [indentStr appendString:@"  "];
 
   NSString* resultStr = [browseAction argumentValueForName:@"Result"];
-  //NSLog(@"%@", resultStr);
+  // NSLog(@"%@", resultStr);
 
   NSError* xmlErr;
   NSXMLDocument* xmlDoc = [[NSXMLDocument alloc] initWithXMLString:resultStr options:0 error:&xmlErr];

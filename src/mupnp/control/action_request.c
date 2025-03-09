@@ -13,14 +13,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_ACTIONCTRL (Begin)
-****************************************/
+ * MUPNP_NOUSE_ACTIONCTRL (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_ACTIONCTRL)
 
 /****************************************
-* mupnp_control_action_request_new
-****************************************/
+ * mupnp_control_action_request_new
+ ****************************************/
 
 mUpnpActionRequest* mupnp_control_action_request_new()
 {
@@ -44,8 +44,8 @@ mUpnpActionRequest* mupnp_control_action_request_new()
 }
 
 /****************************************
-* mupnp_control_action_request_delete
-****************************************/
+ * mupnp_control_action_request_delete
+ ****************************************/
 
 void mupnp_control_action_request_delete(mUpnpActionRequest* actionReq)
 {
@@ -66,8 +66,8 @@ void mupnp_control_action_request_delete(mUpnpActionRequest* actionReq)
 }
 
 /****************************************
-* mupnp_control_action_request_clear
-****************************************/
+ * mupnp_control_action_request_clear
+ ****************************************/
 
 void mupnp_control_action_request_clear(mUpnpActionRequest* actionReq)
 {
@@ -84,8 +84,8 @@ void mupnp_control_action_request_clear(mUpnpActionRequest* actionReq)
 }
 
 /****************************************
-* mupnp_control_action_request_setsoaprequest
-****************************************/
+ * mupnp_control_action_request_setsoaprequest
+ ****************************************/
 
 void mupnp_control_action_request_setsoaprequest(mUpnpActionRequest* actionReq, mUpnpSoapRequest* soapReq)
 {
@@ -120,8 +120,8 @@ void mupnp_control_action_request_setsoaprequest(mUpnpActionRequest* actionReq, 
 }
 
 /****************************************
-* mupnp_control_action_request_getactionnode
-****************************************/
+ * mupnp_control_action_request_getactionnode
+ ****************************************/
 
 mUpnpXmlNode* mupnp_control_action_request_getactionnode(mUpnpActionRequest* actionReq)
 {
@@ -145,8 +145,8 @@ mUpnpXmlNode* mupnp_control_action_request_getactionnode(mUpnpActionRequest* act
 }
 
 /****************************************
-* mupnp_control_action_request_getactionname
-****************************************/
+ * mupnp_control_action_request_getactionname
+ ****************************************/
 
 char* mupnp_control_action_request_getactionname(mUpnpActionRequest* actionReq)
 {
@@ -174,8 +174,8 @@ char* mupnp_control_action_request_getactionname(mUpnpActionRequest* actionReq)
 }
 
 /****************************************
-* mupnp_control_action_request_createactionnode
-****************************************/
+ * mupnp_control_action_request_createactionnode
+ ****************************************/
 
 mUpnpXmlNode* mupnp_control_action_request_createactionnode(mUpnpAction* action)
 {
@@ -213,8 +213,8 @@ mUpnpXmlNode* mupnp_control_action_request_createactionnode(mUpnpAction* action)
 }
 
 /****************************************
-* mupnp_control_action_setrequest
-****************************************/
+ * mupnp_control_action_setrequest
+ ****************************************/
 
 void mupnp_control_action_request_setaction(mUpnpActionRequest* actionReq, mUpnpAction* action)
 {
@@ -251,8 +251,8 @@ void mupnp_control_action_request_setaction(mUpnpActionRequest* actionReq, mUpnp
 }
 
 /****************************************
-* mupnp_control_action_request_post
-****************************************/
+ * mupnp_control_action_request_post
+ ****************************************/
 
 mUpnpActionResponse* mupnp_control_action_request_post(mUpnpActionRequest* actionReq)
 {
@@ -283,7 +283,7 @@ mUpnpActionResponse* mupnp_control_action_request_post(mUpnpActionRequest* actio
 }
 
 /****************************************
-* MUPNP_NOUSE_ACTIONCTRL (End)
-****************************************/
+ * MUPNP_NOUSE_ACTIONCTRL (End)
+ ****************************************/
 
 #endif

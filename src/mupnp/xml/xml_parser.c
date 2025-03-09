@@ -14,8 +14,8 @@
 #include <mupnp/xml/xml.h>
 
 /****************************************
-* mupnp_xml_parser_new
-****************************************/
+ * mupnp_xml_parser_new
+ ****************************************/
 
 mUpnpXmlParser* mupnp_xml_parser_new()
 {
@@ -34,8 +34,8 @@ mUpnpXmlParser* mupnp_xml_parser_new()
 }
 
 /****************************************
-* mupnp_xml_parser_delete
-****************************************/
+ * mupnp_xml_parser_delete
+ ****************************************/
 
 void mupnp_xml_parser_delete(mUpnpXmlParser* parser)
 {

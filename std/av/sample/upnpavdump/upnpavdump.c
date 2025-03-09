@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2008
-*
-*	File: upnpavdump.c
-*
-*	Revision:
-*       08/05/24
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2008
+ *
+ *	File: upnpavdump.c
+ *
+ *	Revision:
+ *       08/05/24
+ *               - first release.
+ *
+ ************************************************************/
 
 #include <mupnp/upnp.h>
 

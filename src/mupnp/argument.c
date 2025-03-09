@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_argument_new
-****************************************/
+ * mupnp_argument_new
+ ****************************************/
 
 mUpnpArgument* mupnp_argument_new()
 {
@@ -39,8 +39,8 @@ mUpnpArgument* mupnp_argument_new()
 }
 
 /****************************************
-* mupnp_argument_delete
-****************************************/
+ * mupnp_argument_delete
+ ****************************************/
 
 void mupnp_argument_delete(mUpnpArgument* arg)
 {

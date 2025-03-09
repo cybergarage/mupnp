@@ -34,8 +34,8 @@ long int mupnp_total_elapsed_time;
 #endif
 
 /****************************************
-* mupnp_http_request_new
-****************************************/
+ * mupnp_http_request_new
+ ****************************************/
 
 mUpnpHttpRequest* mupnp_http_request_new()
 {
@@ -69,8 +69,8 @@ mUpnpHttpRequest* mupnp_http_request_new()
 }
 
 /****************************************
-* mupnp_http_request_delete
-****************************************/
+ * mupnp_http_request_delete
+ ****************************************/
 
 void mupnp_http_request_delete(mUpnpHttpRequest* httpReq)
 {
@@ -93,8 +93,8 @@ void mupnp_http_request_delete(mUpnpHttpRequest* httpReq)
 }
 
 /****************************************
-* mupnp_http_request_clear
-****************************************/
+ * mupnp_http_request_clear
+ ****************************************/
 
 void mupnp_http_request_clear(mUpnpHttpRequest* httpReq)
 {
@@ -111,8 +111,8 @@ void mupnp_http_request_clear(mUpnpHttpRequest* httpReq)
 }
 
 /****************************************
-* mupnp_http_request_setmethod
-****************************************/
+ * mupnp_http_request_setmethod
+ ****************************************/
 
 void mupnp_http_request_setmethod(mUpnpHttpRequest* httpReq, const char* value)
 {
@@ -124,8 +124,8 @@ void mupnp_http_request_setmethod(mUpnpHttpRequest* httpReq, const char* value)
 }
 
 /****************************************
-* mupnp_http_request_setversion
-****************************************/
+ * mupnp_http_request_setversion
+ ****************************************/
 
 void mupnp_http_request_setversion(mUpnpHttpRequest* httpReq, const char* value)
 {
@@ -137,8 +137,8 @@ void mupnp_http_request_setversion(mUpnpHttpRequest* httpReq, const char* value)
 }
 
 /****************************************
-* mupnp_http_request_setuseragent
-****************************************/
+ * mupnp_http_request_setuseragent
+ ****************************************/
 
 void mupnp_http_request_setuseragent(mUpnpHttpRequest* httpReq, const char* value)
 {
@@ -150,8 +150,8 @@ void mupnp_http_request_setuseragent(mUpnpHttpRequest* httpReq, const char* valu
 }
 
 /****************************************
-* mupnp_http_request_setuseragent
-****************************************/
+ * mupnp_http_request_setuseragent
+ ****************************************/
 
 void mupnp_http_request_addtouseragent(mUpnpHttpRequest* httpReq, const char* value)
 {
@@ -163,8 +163,8 @@ void mupnp_http_request_addtouseragent(mUpnpHttpRequest* httpReq, const char* va
 }
 
 /****************************************
-* mupnp_http_request_seturi
-****************************************/
+ * mupnp_http_request_seturi
+ ****************************************/
 
 void mupnp_http_request_seturi(mUpnpHttpRequest* httpReq, const char* value)
 {
@@ -176,8 +176,8 @@ void mupnp_http_request_seturi(mUpnpHttpRequest* httpReq, const char* value)
 }
 
 /****************************************
-* mupnp_http_request_getmethod
-****************************************/
+ * mupnp_http_request_getmethod
+ ****************************************/
 
 char* mupnp_http_request_getmethod(mUpnpHttpRequest* httpReq)
 {
@@ -189,8 +189,8 @@ char* mupnp_http_request_getmethod(mUpnpHttpRequest* httpReq)
 }
 
 /****************************************
-* mupnp_http_request_getversion
-****************************************/
+ * mupnp_http_request_getversion
+ ****************************************/
 
 char* mupnp_http_request_getversion(mUpnpHttpRequest* httpReq)
 {
@@ -202,8 +202,8 @@ char* mupnp_http_request_getversion(mUpnpHttpRequest* httpReq)
 }
 
 /****************************************
-* mupnp_http_request_getversion
-****************************************/
+ * mupnp_http_request_getversion
+ ****************************************/
 
 char* mupnp_http_request_getuseragent(mUpnpHttpRequest* httpReq)
 {
@@ -214,8 +214,8 @@ char* mupnp_http_request_getuseragent(mUpnpHttpRequest* httpReq)
   return mupnp_string_getvalue(httpReq->userAgent);
 }
 /****************************************
-* mupnp_http_request_geturi
-****************************************/
+ * mupnp_http_request_geturi
+ ****************************************/
 
 char* mupnp_http_request_geturi(mUpnpHttpRequest* httpReq)
 {
@@ -227,8 +227,8 @@ char* mupnp_http_request_geturi(mUpnpHttpRequest* httpReq)
 }
 
 /****************************************
-* mupnp_http_request_setsocket
-****************************************/
+ * mupnp_http_request_setsocket
+ ****************************************/
 
 void mupnp_http_request_setsocket(mUpnpHttpRequest* httpReq, mUpnpSocket* sock)
 {
@@ -240,8 +240,8 @@ void mupnp_http_request_setsocket(mUpnpHttpRequest* httpReq, mUpnpSocket* sock)
 }
 
 /****************************************
-* mupnp_http_request_getsocket
-****************************************/
+ * mupnp_http_request_getsocket
+ ****************************************/
 
 mUpnpSocket* mupnp_http_request_getsocket(mUpnpHttpRequest* httpReq)
 {
@@ -253,8 +253,8 @@ mUpnpSocket* mupnp_http_request_getsocket(mUpnpHttpRequest* httpReq)
 }
 
 /****************************************
-* mupnp_http_request_post
-****************************************/
+ * mupnp_http_request_post
+ ****************************************/
 
 #if !defined(MUPNP_HTTP_CURL)
 
@@ -359,8 +359,8 @@ mUpnpHttpResponse* mupnp_https_request_post(mUpnpHttpRequest* httpReq, const cha
 #endif
 
 /****************************************
-* mupnp_http_request_post (libcurl)
-****************************************/
+ * mupnp_http_request_post (libcurl)
+ ****************************************/
 
 #if defined(MUPNP_HTTP_CURL)
 
@@ -543,7 +543,7 @@ mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, char* ipad
   httpRes = httpReq->httpRes;
 
   /* Clear the response data because new data will not
-	 * overwrite it, but it is appended to the end */
+   * overwrite it, but it is appended to the end */
   mupnp_string_clear(httpRes->content);
 
   mupnp_log_debug_s("Posting HTTP request (Curl)\n");
@@ -680,8 +680,8 @@ mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, char* ipad
 #endif
 
 /****************************************
-* mupnp_http_request_read
-****************************************/
+ * mupnp_http_request_read
+ ****************************************/
 
 bool mupnp_http_request_read(mUpnpHttpRequest* httpReq, mUpnpSocket* sock)
 {
@@ -740,7 +740,7 @@ bool mupnp_http_request_read(mUpnpHttpRequest* httpReq, mUpnpSocket* sock)
   mupnp_http_packet_read_headers((mUpnpHttpPacket*)httpReq, sock, lineBuf, sizeof(lineBuf));
 
   /* HTTP-request must have Content-Length or Transfer-Encoding header
-	   in order to have body */
+           in order to have body */
   if (mupnp_http_packet_hasheader((mUpnpHttpPacket*)httpReq, MUPNP_HTTP_CONTENT_LENGTH) || mupnp_http_packet_hasheader((mUpnpHttpPacket*)httpReq, MUPNP_HTTP_TRANSFER_ENCODING))
     mupnp_http_packet_read_body((mUpnpHttpPacket*)httpReq, sock, lineBuf, sizeof(lineBuf));
 
@@ -750,8 +750,8 @@ bool mupnp_http_request_read(mUpnpHttpRequest* httpReq, mUpnpSocket* sock)
 }
 
 /****************************************
-* mupnp_http_response_postresponse
-****************************************/
+ * mupnp_http_response_postresponse
+ ****************************************/
 
 bool mupnp_http_request_postresponse(mUpnpHttpRequest* httpReq, mUpnpHttpResponse* httpRes)
 {
@@ -799,8 +799,8 @@ bool mupnp_http_request_postresponse(mUpnpHttpRequest* httpReq, mUpnpHttpRespons
 }
 
 /****************************************
-* mupnp_http_request_poststatuscode
-****************************************/
+ * mupnp_http_request_poststatuscode
+ ****************************************/
 
 bool mupnp_http_request_poststatuscode(mUpnpHttpRequest* httpReq, int httpStatCode)
 {
@@ -835,8 +835,8 @@ bool mupnp_http_request_postdata(mUpnpHttpRequest* httpReq, void* data, int data
 }
 
 /****************************************
-* mupnp_http_request_postchunkedsize
-****************************************/
+ * mupnp_http_request_postchunkedsize
+ ****************************************/
 
 bool mupnp_http_request_postchunkedsize(mUpnpHttpRequest* httpReq, int dataLen)
 {
@@ -855,8 +855,8 @@ bool mupnp_http_request_postchunkedsize(mUpnpHttpRequest* httpReq, int dataLen)
 }
 
 /****************************************
-* mupnp_http_request_postchunkeddata
-****************************************/
+ * mupnp_http_request_postchunkeddata
+ ****************************************/
 
 bool mupnp_http_request_postchunkeddata(mUpnpHttpRequest* httpReq, void* data, int dataLen)
 {
@@ -889,8 +889,8 @@ bool mupnp_http_request_postlastchunk(mUpnpHttpRequest* httpReq)
 }
 
 /****************************************
-* mupnp_http_response_copy
-****************************************/
+ * mupnp_http_response_copy
+ ****************************************/
 
 void mupnp_http_request_copy(mUpnpHttpRequest* destHttpReq, mUpnpHttpRequest* srcHttpReq)
 {
@@ -906,8 +906,8 @@ void mupnp_http_request_copy(mUpnpHttpRequest* destHttpReq, mUpnpHttpRequest* sr
 }
 
 /****************************************
-* mupnp_http_request_print
-****************************************/
+ * mupnp_http_request_print
+ ****************************************/
 
 void mupnp_http_request_print(mUpnpHttpRequest* httpReq)
 {

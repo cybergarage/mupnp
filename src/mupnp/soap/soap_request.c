@@ -14,8 +14,8 @@
 #include <mupnp/util/string.h>
 
 /****************************************
-* mupnp_soap_request_new
-****************************************/
+ * mupnp_soap_request_new
+ ****************************************/
 
 mUpnpSoapRequest* mupnp_soap_request_new()
 {
@@ -43,8 +43,8 @@ mUpnpSoapRequest* mupnp_soap_request_new()
 }
 
 /****************************************
-* mupnp_soap_request_delete
-****************************************/
+ * mupnp_soap_request_delete
+ ****************************************/
 
 void mupnp_soap_request_delete(mUpnpSoapRequest* soapReq)
 {
@@ -64,8 +64,8 @@ void mupnp_soap_request_delete(mUpnpSoapRequest* soapReq)
 }
 
 /****************************************
-* mupnp_soap_request_clear
-****************************************/
+ * mupnp_soap_request_clear
+ ****************************************/
 
 void mupnp_soap_request_clear(mUpnpSoapRequest* soapReq)
 {
@@ -85,8 +85,8 @@ void mupnp_soap_request_clear(mUpnpSoapRequest* soapReq)
 }
 
 /****************************************
-* mupnp_soap_request_getbodynode
-****************************************/
+ * mupnp_soap_request_getbodynode
+ ****************************************/
 
 mUpnpXmlNode* mupnp_soap_request_getbodynode(mUpnpSoapRequest* soapReq)
 {
@@ -107,22 +107,22 @@ mUpnpXmlNode* mupnp_soap_request_getbodynode(mUpnpSoapRequest* soapReq)
   if (mupnp_xml_node_haschildnodes(envNode) == false)
     return NULL;
 
-  /* We cannot assume the namespace prefix for Body is 's'. 
+  /* We cannot assume the namespace prefix for Body is 's'.
            According to spec, it could be anything... */
   for (attr = mupnp_xml_node_getattributes(envNode); attr != NULL;
       attr = mupnp_xml_attribute_next(attr)) {
     /* First, find the namespace declaration attribute. */
-    /* Note: We must take a copy of the attr name. 
+    /* Note: We must take a copy of the attr name.
                    Tokenizer doesn't do it (by default) */
     name = mupnp_strdup(mupnp_xml_attribute_getname(attr));
     tok = mupnp_string_tokenizer_new(name, ":");
 
     nsPrefix = mupnp_string_tokenizer_nexttoken(tok);
     if (-1 != mupnp_strstr(nsPrefix, "xmlns")) {
-      /* This attribute is a namespace declaration. Check is 
+      /* This attribute is a namespace declaration. Check is
                            it the one defined for SOAP. */
       if (mupnp_strcmp(mupnp_xml_attribute_getvalue(attr), MUPNP_SOAP_XMLNS_URL) == 0) {
-        /* This namespace declaration is correct. 
+        /* This namespace declaration is correct.
                                    Use it to find the body node... */
         if (mupnp_string_tokenizer_hasmoretoken(tok)) {
           /* There is a prefix */
@@ -162,8 +162,8 @@ mUpnpXmlNode* mupnp_soap_request_getbodynode(mUpnpSoapRequest* soapReq)
 }
 
 /****************************************
-* mupnp_soap_request_sethttprequest
-****************************************/
+ * mupnp_soap_request_sethttprequest
+ ****************************************/
 
 bool mupnp_soap_request_sethttprequest(mUpnpSoapRequest* soapReq, mUpnpHttpRequest* httpReq)
 {
@@ -189,8 +189,8 @@ bool mupnp_soap_request_sethttprequest(mUpnpSoapRequest* soapReq, mUpnpHttpReque
 }
 
 /****************************************
-* mupnp_soap_request_parsemessage
-****************************************/
+ * mupnp_soap_request_parsemessage
+ ****************************************/
 
 bool mupnp_soap_request_parsemessage(mUpnpSoapRequest* soapReq, char* msg, size_t msgLen)
 {
@@ -212,8 +212,8 @@ bool mupnp_soap_request_parsemessage(mUpnpSoapRequest* soapReq, char* msg, size_
 }
 
 /****************************************
-* mupnp_soap_request_post
-****************************************/
+ * mupnp_soap_request_post
+ ****************************************/
 
 mUpnpSoapResponse* mupnp_soap_request_post(mUpnpSoapRequest* soapReq, const char* ipaddr, int port)
 {
@@ -266,8 +266,8 @@ mUpnpSoapResponse* mupnp_soap_request_post(mUpnpSoapRequest* soapReq, const char
 }
 
 /****************************************
-* mupnp_soap_request_setcontent
-****************************************/
+ * mupnp_soap_request_setcontent
+ ****************************************/
 
 void mupnp_soap_request_setcontent(mUpnpSoapRequest* soapReq, mUpnpXmlNode* node)
 {

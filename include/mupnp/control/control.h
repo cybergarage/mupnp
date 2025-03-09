@@ -14,20 +14,20 @@
 
 #include <mupnp/typedef.h>
 
-#include <mupnp/util/string.h>
-#include <mupnp/soap/soap.h>
-#include <mupnp/service.h>
 #include <mupnp/action.h>
 #include <mupnp/argument.h>
+#include <mupnp/service.h>
+#include <mupnp/soap/soap.h>
 #include <mupnp/statevariable.h>
+#include <mupnp/util/string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 /**** MAN ****/
 
@@ -149,7 +149,7 @@ extern "C" {
  */
 #define MUPNP_CONTROL_FAULT_STRING "UPnPError"
 
-/** 
+/**
  * Definition fro control error code
  */
 #define MUPNP_CONTROL_ERROR_CODE "errorCode"
@@ -160,8 +160,8 @@ extern "C" {
 #define MUPNP_CONTROL_ERROR_DESCRIPTION "errorDescription"
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 /**** Action ****/
 
@@ -204,8 +204,8 @@ typedef struct _mUpnpQueryRequest {
 } mUpnpQueryRequest;
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 /* After POST has failed we send M-POST and change the SOAPACTION header into 01-SOAPACTION.
  * Next ensures that also in this case query is interpreted as a query.
@@ -223,7 +223,7 @@ typedef struct _mUpnpQueryRequest {
 /* Check if HTTP request is UPnP action request
  *
  * @param httpReq HTTP request
- * 
+ *
  * @return True if request is UPnP action request, false otherwise
  */
 #define mupnp_control_isactionrequest(httpReq) ((mupnp_control_isqueryrequest(httpReq) == true) ? false : true)
@@ -277,8 +277,8 @@ bool mupnp_statevariable_performlistner(mUpnpStateVariable* statVar, mUpnpQueryR
 void mupnp_control_request_sethostfromservice(mUpnpSoapRequest* soapReq, mUpnpService* service);
 
 /****************************************
-* Function (ActionRequest)
-****************************************/
+ * Function (ActionRequest)
+ ****************************************/
 
 /**
  * Create new action request object
@@ -368,8 +368,8 @@ void mupnp_control_action_request_setaction(mUpnpActionRequest* actionReq, mUpnp
 mUpnpActionResponse* mupnp_control_action_request_post(mUpnpActionRequest* actionReq);
 
 /****************************************
-* Function (ActionResponse)
-****************************************/
+ * Function (ActionResponse)
+ ****************************************/
 
 /**
  * Create new action response
@@ -424,7 +424,7 @@ void mupnp_control_action_response_setresponse(mUpnpActionResponse* actionRes, m
  */
 #define mupnp_control_action_response_issuccessful(actionRes) mupnp_soap_response_issuccessful(actionRes->soapRes)
 
-/** 
+/**
  * Get action response XML node from action response
  *
  * @param actionRes Action response
@@ -451,8 +451,8 @@ bool mupnp_control_action_response_getresult(mUpnpActionResponse* actionRes, mUp
 bool mupnp_control_action_response_geterror(mUpnpActionResponse* actionRes, mUpnpAction* action);
 
 /****************************************
-* Function (QueryRequest)
-****************************************/
+ * Function (QueryRequest)
+ ****************************************/
 
 /**
  * Create new query request object
@@ -535,8 +535,8 @@ void mupnp_control_query_request_setstatevariable(mUpnpQueryRequest* queryReq, m
 mUpnpQueryResponse* mupnp_control_query_request_post(mUpnpQueryRequest* queryReq);
 
 /****************************************
-* Function (QueryResponse)
-****************************************/
+ * Function (QueryResponse)
+ ****************************************/
 
 /**
  * Create new query response
@@ -608,8 +608,8 @@ mUpnpXmlNode* mupnp_control_query_response_getreturnnode(mUpnpQueryResponse* que
 char* mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse* queryRes);
 
 /****************************************
-* Function (MAN)
-****************************************/
+ * Function (MAN)
+ ****************************************/
 
 /**
  * Check if string is correct mandatory header value as specified
@@ -622,14 +622,14 @@ char* mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse* queryRes);
 #define mupnp_man_isdiscover(str) ((0 == mupnp_strstr(str, MUPNP_MAN_DISCOVER)) ? true : false)
 
 /****************************************
-* Function (ST)
-****************************************/
+ * Function (ST)
+ ****************************************/
 
 /**
  * Check if device is of type "all"
  *
  * @param str String to be checked
- * 
+ *
  * @return True if device type is "all", false otherwise
  */
 #define mupnp_st_isalldevice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_ALL_DEVICE)) ? true : false)
@@ -680,8 +680,8 @@ char* mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse* queryRes);
 #define mupnp_st_isurnservice(str) ((0 <= mupnp_strstr(str, MUPNP_ST_URN_SERVICE)) ? true : false)
 
 /****************************************
-* Function (NT)
-****************************************/
+ * Function (NT)
+ ****************************************/
 
 /**
  * Check if NT (notification target) is for root device
@@ -693,8 +693,8 @@ char* mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse* queryRes);
 #define mupnp_nt_isrootdevice(str) ((0 <= mupnp_strstr(str, MUPNP_NT_ROOTDEVICE)) ? true : false)
 
 /****************************************
-* Function (NTS)
-****************************************/
+ * Function (NTS)
+ ****************************************/
 
 /**
  * Check if NTS (notification sub target) is of type "alive"
@@ -724,8 +724,8 @@ char* mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse* queryRes);
 #define mupnp_nts_ispropchange(str) ((0 <= mupnp_strstr(str, MUPNP_NTS_PROPCHANGE)) ? true : false)
 
 /****************************************
-* Function (USN)
-****************************************/
+ * Function (USN)
+ ****************************************/
 
 /**
  * Check if usn is from root device
@@ -748,8 +748,8 @@ char* mupnp_control_query_response_getreturnvalue(mUpnpQueryResponse* queryRes);
 const char* mupnp_usn_getudn(const char* usn, char* udnBuf, size_t udnBufLen);
 
 /****************************************
-* Function (Action)
-****************************************/
+ * Function (Action)
+ ****************************************/
 
 /**
  * Send action
@@ -759,8 +759,8 @@ const char* mupnp_usn_getudn(const char* usn, char* udnBuf, size_t udnBufLen);
 bool mupnp_action_post(mUpnpAction* action);
 
 /****************************************
-* Function (Query)
-****************************************/
+ * Function (Query)
+ ****************************************/
 
 /**
  * Send query

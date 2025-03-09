@@ -14,14 +14,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (Begin)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_subscriberlist_new
-****************************************/
+ * mupnp_subscriberlist_new
+ ****************************************/
 
 mUpnpSubscriberList* mupnp_subscriberlist_new()
 {
@@ -40,8 +40,8 @@ mUpnpSubscriberList* mupnp_subscriberlist_new()
 }
 
 /****************************************
-* mupnp_subscriberlist_delete
-****************************************/
+ * mupnp_subscriberlist_delete
+ ****************************************/
 
 void mupnp_subscriberlist_delete(mUpnpSubscriberList* subscriberList)
 {
@@ -54,8 +54,8 @@ void mupnp_subscriberlist_delete(mUpnpSubscriberList* subscriberList)
 }
 
 /****************************************
-* mupnp_subscriberlist_get
-****************************************/
+ * mupnp_subscriberlist_get
+ ****************************************/
 
 mUpnpSubscriber* mupnp_subscriberlist_get(mUpnpSubscriberList* subscriberList, char* sid)
 {
@@ -78,7 +78,7 @@ mUpnpSubscriber* mupnp_subscriberlist_get(mUpnpSubscriberList* subscriberList, c
 }
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (End)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (End)
+ ****************************************/
 
 #endif

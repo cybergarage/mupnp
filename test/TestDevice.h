@@ -29,8 +29,8 @@ extern "C" {
 #define TEST_DEVICE_STATEVARIABLE_STATUS "Status"
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 mUpnpDevice* upnp_test_device_new(void);
 

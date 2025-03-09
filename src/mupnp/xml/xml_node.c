@@ -13,8 +13,8 @@
 #include <mupnp/xml/xml.h>
 
 /****************************************
-* mupnp_xml_node_new
-****************************************/
+ * mupnp_xml_node_new
+ ****************************************/
 
 mUpnpXmlNode* mupnp_xml_node_new()
 {
@@ -42,8 +42,8 @@ mUpnpXmlNode* mupnp_xml_node_new()
 }
 
 /****************************************
-* mupnp_xml_node_delete
-****************************************/
+ * mupnp_xml_node_delete
+ ****************************************/
 
 void mupnp_xml_node_delete(mUpnpXmlNode* node)
 {
@@ -62,8 +62,8 @@ void mupnp_xml_node_delete(mUpnpXmlNode* node)
 }
 
 /****************************************
-* mupnp_xml_node_setparentnode
-****************************************/
+ * mupnp_xml_node_setparentnode
+ ****************************************/
 
 mUpnpXmlNode* mupnp_xml_node_getrootnode(mUpnpXmlNode* node)
 {
@@ -85,8 +85,8 @@ mUpnpXmlNode* mupnp_xml_node_getrootnode(mUpnpXmlNode* node)
 }
 
 /****************************************
-* mupnp_xml_node_addchildnode
-****************************************/
+ * mupnp_xml_node_addchildnode
+ ****************************************/
 
 void mupnp_xml_node_addchildnode(mUpnpXmlNode* node, mUpnpXmlNode* cnode)
 {
@@ -99,8 +99,8 @@ void mupnp_xml_node_addchildnode(mUpnpXmlNode* node, mUpnpXmlNode* cnode)
 }
 
 /****************************************
-* mupnp_xml_node_setchildnode
-****************************************/
+ * mupnp_xml_node_setchildnode
+ ****************************************/
 
 void mupnp_xml_node_setchildnode(mUpnpXmlNode* node, const char* name, const char* value)
 {
@@ -141,10 +141,10 @@ bool mupnp_xml_node_removechildnode(mUpnpXmlNode* node, const char* name)
   return true;
 }
 
-/***************************************************************************** 
-* Get childnode with some specific namespace prefix, or ignore namespace prefix.
-* If ns is NULL, name string must match completely
-*****************************************************************************/
+/*****************************************************************************
+ * Get childnode with some specific namespace prefix, or ignore namespace prefix.
+ * If ns is NULL, name string must match completely
+ *****************************************************************************/
 
 mUpnpXmlNode* mupnp_xml_node_getchildnodewithnamespace(mUpnpXmlNode* node, const char* name, const char* ns, bool ignoreNs)
 {
@@ -210,8 +210,8 @@ mUpnpXmlNode* mupnp_xml_node_getchildnodewithnamespace(mUpnpXmlNode* node, const
 }
 
 /****************************************
-* mupnp_xml_node_getchildnodevalue
-****************************************/
+ * mupnp_xml_node_getchildnodevalue
+ ****************************************/
 
 const char* mupnp_xml_node_getchildnodevalue(mUpnpXmlNode* node, const char* name)
 {
@@ -229,8 +229,8 @@ const char* mupnp_xml_node_getchildnodevalue(mUpnpXmlNode* node, const char* nam
 }
 
 /****************************************
-* mupnp_xml_node_removeattribute
-****************************************/
+ * mupnp_xml_node_removeattribute
+ ****************************************/
 
 bool mupnp_xml_node_removeattribute(mUpnpXmlNode* node, const char* name)
 {
@@ -279,8 +279,8 @@ void mupnp_xml_node_copy(mUpnpXmlNode* dstNode, mUpnpXmlNode* srcNode)
 }
 
 /****************************************
-* mupnp_xml_node_attribute_tostring
-****************************************/
+ * mupnp_xml_node_attribute_tostring
+ ****************************************/
 
 static char* mupnp_xml_node_attribute_tostring(mUpnpXmlNode* node, mUpnpString* str)
 {
@@ -302,8 +302,8 @@ static char* mupnp_xml_node_attribute_tostring(mUpnpXmlNode* node, mUpnpString* 
     mupnp_string_setvalue(valueStr, value);
     mupnp_xml_escapechars(valueStr);
 
-    /* All the following functions return NULL only when memory 
-		   allocation fails, so we can check them all */
+    /* All the following functions return NULL only when memory
+                   allocation fails, so we can check them all */
     if (!mupnp_string_naddvalue(str, " ", 1) || !mupnp_string_addvalue(str, name) || !mupnp_string_naddvalue(str, "=\"", 2) || !mupnp_string_addvalue(str, mupnp_string_getvalue(valueStr)) || !mupnp_string_naddvalue(str, "\"", 1)) {
       /* Memory allocation failed */
       mupnp_string_delete(valueStr);
@@ -318,8 +318,8 @@ static char* mupnp_xml_node_attribute_tostring(mUpnpXmlNode* node, mUpnpString* 
 }
 
 /****************************************
-* mupnp_xml_node_tostring_indent
-****************************************/
+ * mupnp_xml_node_tostring_indent
+ ****************************************/
 
 static char* mupnp_xml_node_tostring_indent(mUpnpXmlNode* node, int indentLevel, bool withChildNode, mUpnpString* str)
 {
@@ -379,8 +379,8 @@ static char* mupnp_xml_node_tostring_indent(mUpnpXmlNode* node, int indentLevel,
 }
 
 /****************************************
-* mupnp_xml_node_tostring
-****************************************/
+ * mupnp_xml_node_tostring
+ ****************************************/
 
 char* mupnp_xml_node_tostring(mUpnpXmlNode* node, bool withChildNode, mUpnpString* str)
 {

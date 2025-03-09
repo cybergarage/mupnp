@@ -19,8 +19,8 @@
 #define MUPNP_STRING_REALLOC_EXTRA 16
 
 /****************************************
-* mupnp_string_new
-****************************************/
+ * mupnp_string_new
+ ****************************************/
 
 mUpnpString* mupnp_string_new()
 {
@@ -42,8 +42,8 @@ mUpnpString* mupnp_string_new()
 }
 
 /****************************************
-* mupnp_string_delete
-****************************************/
+ * mupnp_string_delete
+ ****************************************/
 
 void mupnp_string_delete(mUpnpString* str)
 {
@@ -58,8 +58,8 @@ void mupnp_string_delete(mUpnpString* str)
 }
 
 /****************************************
-* mupnp_string_delete
-****************************************/
+ * mupnp_string_delete
+ ****************************************/
 
 void mupnp_string_clear(mUpnpString* str)
 {
@@ -78,8 +78,8 @@ void mupnp_string_clear(mUpnpString* str)
 }
 
 /****************************************
-* mupnp_string_setvalue
-****************************************/
+ * mupnp_string_setvalue
+ ****************************************/
 
 void mupnp_string_setvalue(mUpnpString* str, const char* value)
 {
@@ -94,8 +94,8 @@ void mupnp_string_setvalue(mUpnpString* str, const char* value)
 }
 
 /****************************************
-* mupnp_string_setintvalue
-****************************************/
+ * mupnp_string_setintvalue
+ ****************************************/
 
 void mupnp_string_setintvalue(mUpnpString* str, int value)
 {
@@ -109,8 +109,8 @@ void mupnp_string_setintvalue(mUpnpString* str, int value)
 }
 
 /****************************************
-* mupnp_string_setlongvalue
-****************************************/
+ * mupnp_string_setlongvalue
+ ****************************************/
 
 void mupnp_string_setlongvalue(mUpnpString* str, long value)
 {
@@ -124,8 +124,8 @@ void mupnp_string_setlongvalue(mUpnpString* str, long value)
 }
 
 /****************************************
-* mupnp_string_setnvalue
-****************************************/
+ * mupnp_string_setnvalue
+ ****************************************/
 
 void mupnp_string_setnvalue(mUpnpString* str, const char* value, size_t len)
 {
@@ -153,8 +153,8 @@ void mupnp_string_setnvalue(mUpnpString* str, const char* value, size_t len)
 }
 
 /****************************************
-* mupnp_string_setpointervalue
-****************************************/
+ * mupnp_string_setpointervalue
+ ****************************************/
 
 void mupnp_string_setpointervalue(mUpnpString* str, char* value, size_t len)
 {
@@ -171,8 +171,8 @@ void mupnp_string_setpointervalue(mUpnpString* str, char* value, size_t len)
 }
 
 /****************************************
-* mupnp_string_getvalue
-****************************************/
+ * mupnp_string_getvalue
+ ****************************************/
 
 char* mupnp_string_getvalue(mUpnpString* str)
 {
@@ -184,8 +184,8 @@ char* mupnp_string_getvalue(mUpnpString* str)
 }
 
 /****************************************
-* mupnp_string_getmemorysize
-****************************************/
+ * mupnp_string_getmemorysize
+ ****************************************/
 
 size_t mupnp_string_getmemorysize(mUpnpString* str)
 {
@@ -200,8 +200,8 @@ size_t mupnp_string_getmemorysize(mUpnpString* str)
 }
 
 /****************************************
-* mupnp_string_length
-****************************************/
+ * mupnp_string_length
+ ****************************************/
 
 size_t mupnp_string_length(mUpnpString* str)
 {
@@ -219,8 +219,8 @@ size_t mupnp_string_length(mUpnpString* str)
 }
 
 /****************************************
-* mupnp_string_add
-****************************************/
+ * mupnp_string_add
+ ****************************************/
 
 char* mupnp_string_addvalue(mUpnpString* str, const char* value)
 {
@@ -232,8 +232,8 @@ char* mupnp_string_addvalue(mUpnpString* str, const char* value)
 }
 
 /****************************************
-* mupnp_string_add
-****************************************/
+ * mupnp_string_add
+ ****************************************/
 
 char* mupnp_string_naddvalue(mUpnpString* str, const char* value, size_t valueLen)
 {
@@ -267,7 +267,7 @@ char* mupnp_string_naddvalue(mUpnpString* str, const char* value, size_t valueLe
   }
 
   /* memcpy works better with non-zero-terminated data
-	   than strncpy */
+           than strncpy */
   memcpy(str->value + str->valueSize, value, valueLen);
 
   str->valueSize += valueLen;
@@ -281,8 +281,8 @@ char* mupnp_string_naddvalue(mUpnpString* str, const char* value, size_t valueLe
 }
 
 /****************************************
-* mupnp_string_addrep
-****************************************/
+ * mupnp_string_addrep
+ ****************************************/
 
 char* mupnp_string_addrepvalue(mUpnpString* str, const char* value, size_t repeatCnt)
 {
@@ -298,8 +298,8 @@ char* mupnp_string_addrepvalue(mUpnpString* str, const char* value, size_t repea
 }
 
 /****************************************
-* mupnp_string_naddrep
-****************************************/
+ * mupnp_string_naddrep
+ ****************************************/
 
 char* mupnp_string_naddrepvalue(mUpnpString* str, const char* value, size_t valueLen, size_t repeatCnt)
 {
@@ -316,8 +316,8 @@ char* mupnp_string_naddrepvalue(mUpnpString* str, const char* value, size_t valu
 }
 
 /****************************************
-* mupnp_string_replace
-****************************************/
+ * mupnp_string_replace
+ ****************************************/
 
 char* mupnp_string_replace(mUpnpString* str, char* fromStr[], char* toStr[], size_t fromStrCnt)
 {

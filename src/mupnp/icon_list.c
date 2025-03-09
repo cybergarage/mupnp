@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_iconr_new
-****************************************/
+ * mupnp_iconr_new
+ ****************************************/
 
 mUpnpIconList* mupnp_iconlist_new()
 {
@@ -33,8 +33,8 @@ mUpnpIconList* mupnp_iconlist_new()
 }
 
 /****************************************
-* mupnp_iconr_delete
-****************************************/
+ * mupnp_iconr_delete
+ ****************************************/
 
 void mupnp_iconlist_delete(mUpnpIconList* iconList)
 {

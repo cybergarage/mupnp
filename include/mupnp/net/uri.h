@@ -14,16 +14,16 @@
 
 #include <mupnp/typedef.h>
 
-#include <mupnp/util/string.h>
 #include <mupnp/util/dictionary.h>
+#include <mupnp/util/string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define MUPNP_NET_URI_KNKOWN_PORT (-1)
 #define MUPNP_NET_URI_DEFAULT_HTTP_PORT 80
@@ -47,8 +47,8 @@ extern "C" {
 #define MUPNP_NET_URI_PROTOCOL_FTP "ftp"
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef struct _mUpnpNetURI {
   mUpnpString* uri;
@@ -65,8 +65,8 @@ typedef struct _mUpnpNetURI {
 } mUpnpNetURI;
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 mUpnpNetURI* mupnp_net_uri_new(void);
 void mupnp_net_uri_delete(mUpnpNetURI* uri);

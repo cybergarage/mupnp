@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_socket_datagram_packet_new
-****************************************/
+ * mupnp_socket_datagram_packet_new
+ ****************************************/
 
 mUpnpDatagramPacket* mupnp_socket_datagram_packet_new()
 {
@@ -39,8 +39,8 @@ mUpnpDatagramPacket* mupnp_socket_datagram_packet_new()
 }
 
 /****************************************
-* mupnp_socket_datagram_packet_delete
-****************************************/
+ * mupnp_socket_datagram_packet_delete
+ ****************************************/
 
 void mupnp_socket_datagram_packet_delete(mUpnpDatagramPacket* dgmPkt)
 {
@@ -56,8 +56,8 @@ void mupnp_socket_datagram_packet_delete(mUpnpDatagramPacket* dgmPkt)
 }
 
 /****************************************
-* mupnp_socket_datagram_packet_copy
-****************************************/
+ * mupnp_socket_datagram_packet_copy
+ ****************************************/
 
 void mupnp_socket_datagram_packet_copy(mUpnpDatagramPacket* dstDgmPkt, mUpnpDatagramPacket* srcDgmPkt)
 {

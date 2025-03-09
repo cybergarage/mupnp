@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_argument_new
-****************************************/
+ * mupnp_argument_new
+ ****************************************/
 
 mUpnpArgumentList* mupnp_argumentlist_new()
 {
@@ -33,8 +33,8 @@ mUpnpArgumentList* mupnp_argumentlist_new()
 }
 
 /****************************************
-* mupnp_argument_delete
-****************************************/
+ * mupnp_argument_delete
+ ****************************************/
 
 void mupnp_argumentlist_delete(mUpnpArgumentList* argumentList)
 {
@@ -47,8 +47,8 @@ void mupnp_argumentlist_delete(mUpnpArgumentList* argumentList)
 }
 
 /****************************************
-* mupnp_argumentlist_get
-****************************************/
+ * mupnp_argumentlist_get
+ ****************************************/
 
 mUpnpArgument* mupnp_argumentlist_get(mUpnpArgumentList* argList, const char* name)
 {
@@ -74,8 +74,8 @@ mUpnpArgument* mupnp_argumentlist_get(mUpnpArgumentList* argList, const char* na
 }
 
 /****************************************
-* mupnp_argumentlist_set
-****************************************/
+ * mupnp_argumentlist_set
+ ****************************************/
 
 void mupnp_argumentlist_set(mUpnpArgumentList* argList, mUpnpArgumentList* srcArgList)
 {

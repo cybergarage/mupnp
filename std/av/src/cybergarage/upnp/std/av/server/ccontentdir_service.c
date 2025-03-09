@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: ccontentdir_service.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: ccontentdir_service.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -19,8 +19,8 @@
 #include <cybergarage/upnp/std/av/cmediaserver.h>
 
 /****************************************
-* Service Description (Content Directory)
-****************************************/
+ * Service Description (Content Directory)
+ ****************************************/
 
 static char* CG_UPNPAV_DMS_CONTENTDIRECTORY_SERVICE_DESCRIPTION = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
                                                                   "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\">\n"
@@ -517,8 +517,8 @@ static char* CG_UPNPAV_DMS_MEDIARECEIVER_SERVICE_DESCRIPTION = "<?xml version=\"
                                                                "</scpd>\n";
 
 /****************************************
-* cg_upnpav_dms_condir_setsystemupdateid
-****************************************/
+ * cg_upnpav_dms_condir_setsystemupdateid
+ ****************************************/
 
 void cg_upnpav_dms_condir_setsystemupdateid(CgUpnpAvServer* dms, int id)
 {
@@ -538,8 +538,8 @@ void cg_upnpav_dms_condir_setsystemupdateid(CgUpnpAvServer* dms, int id)
 }
 
 /****************************************
-* cg_upnpav_dms_condir_getsystemupdateid
-****************************************/
+ * cg_upnpav_dms_condir_getsystemupdateid
+ ****************************************/
 
 int cg_upnpav_dms_condir_getsystemupdateid(CgUpnpAvServer* dms)
 {
@@ -562,8 +562,8 @@ int cg_upnpav_dms_condir_getsystemupdateid(CgUpnpAvServer* dms)
 }
 
 /****************************************
-* cg_upnpav_dms_condir_updatesystemupdateid
-****************************************/
+ * cg_upnpav_dms_condir_updatesystemupdateid
+ ****************************************/
 
 void cg_upnpav_dms_condir_updatesystemupdateid(CgUpnpAvServer* dms)
 {
@@ -571,8 +571,8 @@ void cg_upnpav_dms_condir_updatesystemupdateid(CgUpnpAvServer* dms)
 }
 
 /****************************************
-* cg_upnpav_dms_condir_browsemetadata
-****************************************/
+ * cg_upnpav_dms_condir_browsemetadata
+ ****************************************/
 static BOOL cg_upnpav_dms_condir_browsemetadata(CgUpnpAvServer* dms, CgUpnpAction* action)
 {
   char* objectID;
@@ -616,8 +616,8 @@ static BOOL cg_upnpav_dms_condir_browsemetadata(CgUpnpAvServer* dms, CgUpnpActio
 }
 
 /****************************************
-* cg_upnpav_dms_condir_browsedirectchildren
-****************************************/
+ * cg_upnpav_dms_condir_browsedirectchildren
+ ****************************************/
 
 static BOOL cg_upnpav_dms_condir_browsedirectchildren(CgUpnpAvServer* dms, CgUpnpAction* action)
 {
@@ -654,11 +654,11 @@ static BOOL cg_upnpav_dms_condir_browsedirectchildren(CgUpnpAvServer* dms, CgUpn
   }
 
   /* Not Implemented
-	// Sort Content Node Lists
-	string sortCriteria = action->getSortCriteria();
-	ContentNodeList sortedContentNodeBufList(false);
-	ContentNodeList *sortedContentNodeList = sortContentNodeList(&contentNodeList, sortCriteria.c_str(), sortedContentNodeBufList);
-	*/
+        // Sort Content Node Lists
+        string sortCriteria = action->getSortCriteria();
+        ContentNodeList sortedContentNodeBufList(false);
+        ContentNodeList *sortedContentNodeList = sortContentNodeList(&contentNodeList, sortCriteria.c_str(), sortedContentNodeBufList);
+        */
 
   startingIndex = cg_str2int(cg_upnp_action_getargumentvaluebyname(action, CG_UPNPAV_DMS_CONTENTDIRECTORY_BROWSE_STARTING_INDEX));
   if (startingIndex <= 0)
@@ -704,8 +704,8 @@ static BOOL cg_upnpav_dms_condir_browsedirectchildren(CgUpnpAvServer* dms, CgUpn
 }
 
 /****************************************
-* cg_upnpav_dms_condir_actionreceived
-****************************************/
+ * cg_upnpav_dms_condir_actionreceived
+ ****************************************/
 
 BOOL cg_upnpav_dms_condir_actionreceived(CgUpnpAction* action)
 {
@@ -778,8 +778,8 @@ BOOL cg_upnpav_dms_condir_actionreceived(CgUpnpAction* action)
 }
 
 /****************************************
-* cg_upnpav_dms_condir_queryreceived
-****************************************/
+ * cg_upnpav_dms_condir_queryreceived
+ ****************************************/
 
 BOOL cg_upnpav_dms_condir_queryreceived(CgUpnpStateVariable* var)
 {
@@ -822,8 +822,8 @@ BOOL cg_upnpav_dms_condir_queryreceived(CgUpnpStateVariable* var)
 }
 
 /****************************************
-* cg_upnpav_dms_condir_init
-****************************************/
+ * cg_upnpav_dms_condir_init
+ ****************************************/
 
 BOOL cg_upnpav_dms_condir_init(CgUpnpAvServer* dms)
 {
@@ -852,8 +852,8 @@ BOOL cg_upnpav_dms_condir_init(CgUpnpAvServer* dms)
 }
 
 /****************************************
-* cg_upnpav_dms_medrec_actionreceived
-****************************************/
+ * cg_upnpav_dms_medrec_actionreceived
+ ****************************************/
 // Used for xbox360 support, see README.360
 BOOL cg_upnpav_dms_medrec_actionreceived(CgUpnpAction* action)
 {
@@ -897,8 +897,8 @@ BOOL cg_upnpav_dms_medrec_actionreceived(CgUpnpAction* action)
 }
 
 /****************************************
-* cg_upnpav_dms_medrec_init
-****************************************/
+ * cg_upnpav_dms_medrec_init
+ ****************************************/
 
 BOOL cg_upnpav_dms_medrec_init(CgUpnpAvServer* dms)
 {

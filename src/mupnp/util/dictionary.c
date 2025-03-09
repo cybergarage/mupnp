@@ -13,8 +13,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_dictionary_new
-****************************************/
+ * mupnp_dictionary_new
+ ****************************************/
 
 mUpnpDictionary* mupnp_dictionary_new()
 {
@@ -36,8 +36,8 @@ mUpnpDictionary* mupnp_dictionary_new()
 }
 
 /****************************************
-* mupnp_dictionary_delete
-****************************************/
+ * mupnp_dictionary_delete
+ ****************************************/
 
 void mupnp_dictionary_delete(mUpnpDictionary* dictionaryList)
 {
@@ -50,8 +50,8 @@ void mupnp_dictionary_delete(mUpnpDictionary* dictionaryList)
 }
 
 /****************************************
-* mupnp_dictionary_getelement
-****************************************/
+ * mupnp_dictionary_getelement
+ ****************************************/
 
 mUpnpDictionaryElement* mupnp_dictionary_getelement(mUpnpDictionary* dir, const char* key)
 {
@@ -77,8 +77,8 @@ mUpnpDictionaryElement* mupnp_dictionary_getelement(mUpnpDictionary* dir, const 
 }
 
 /****************************************
-* mupnp_dictionary_setvalue
-****************************************/
+ * mupnp_dictionary_setvalue
+ ****************************************/
 
 void mupnp_dictionary_setvalue(mUpnpDictionary* dir, const char* key, const char* value)
 {
@@ -98,8 +98,8 @@ void mupnp_dictionary_setvalue(mUpnpDictionary* dir, const char* key, const char
 }
 
 /****************************************
-* mupnp_dictionary_getvalue
-****************************************/
+ * mupnp_dictionary_getvalue
+ ****************************************/
 
 const char* mupnp_dictionary_getvalue(mUpnpDictionary* dir, const char* key)
 {

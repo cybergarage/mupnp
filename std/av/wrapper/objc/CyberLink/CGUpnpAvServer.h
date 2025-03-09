@@ -45,13 +45,13 @@ typedef void CgUpnpAvServer;
 
 /*
  * Create a new UPnP/AV server.
- * 
+ *
  * @return New instance if successfull; otherwise nil.
  */
 - (id)init;
 /**
  * Create a new UPnP/AV server with the C instance.
- * 
+ *
  * @return New instance if successfull; otherwise nil.
  */
 - (id)initWithCObject:(CgUpnpDevice*)cobj;

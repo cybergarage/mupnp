@@ -21,14 +21,14 @@
 #include <stdlib.h>
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (Begin)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_event_subscription_totimeoutheaderstring
-****************************************/
+ * mupnp_event_subscription_totimeoutheaderstring
+ ****************************************/
 
 const char* mupnp_event_subscription_totimeoutheaderstring(mUpnpTime time, mUpnpString* buf)
 {
@@ -48,8 +48,8 @@ const char* mupnp_event_subscription_totimeoutheaderstring(mUpnpTime time, mUpnp
 }
 
 /****************************************
-* mupnp_event_subscription_gettimeout
-****************************************/
+ * mupnp_event_subscription_gettimeout
+ ****************************************/
 
 mUpnpTime mupnp_event_subscription_gettimeout(const char* headerValue)
 {
@@ -72,8 +72,8 @@ mUpnpTime mupnp_event_subscription_gettimeout(const char* headerValue)
 }
 
 /****************************************
-* mupnp_event_subscription_createsid
-****************************************/
+ * mupnp_event_subscription_createsid
+ ****************************************/
 
 const char* mupnp_event_subscription_createsid(char* buf, size_t bufSize)
 {
@@ -84,8 +84,8 @@ const char* mupnp_event_subscription_createsid(char* buf, size_t bufSize)
 }
 
 /****************************************
-* mupnp_event_subscription_tosidheaderstring
-****************************************/
+ * mupnp_event_subscription_tosidheaderstring
+ ****************************************/
 
 const char* mupnp_event_subscription_tosidheaderstring(const char* sid, char* buf, size_t bufSize)
 {
@@ -114,8 +114,8 @@ const char* mupnp_event_subscription_tosidheaderstring(const char* sid, char* bu
 }
 
 /****************************************
-* mupnp_event_subscription_getsid
-****************************************/
+ * mupnp_event_subscription_getsid
+ ****************************************/
 
 const char* mupnp_event_subscription_getsid(const char* headerValue)
 {
@@ -133,7 +133,7 @@ const char* mupnp_event_subscription_getsid(const char* headerValue)
 }
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (End)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (End)
+ ****************************************/
 
 #endif

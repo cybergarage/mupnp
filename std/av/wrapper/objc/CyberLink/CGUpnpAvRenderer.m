@@ -163,16 +163,16 @@ enum {
 /*
 - (BOOL)start
 {
-	if (!cAvObject)
-		return NO;
-	return cg_upnpav_dms_start(cAvObject);
+        if (!cAvObject)
+                return NO;
+        return cg_upnpav_dms_start(cAvObject);
 }
 
 - (BOOL)stop
 {
-	if (!cAvObject)
-		return NO;
-	return cg_upnpav_dms_stop(cAvObject);
+        if (!cAvObject)
+                return NO;
+        return cg_upnpav_dms_stop(cAvObject);
 }
 */
 

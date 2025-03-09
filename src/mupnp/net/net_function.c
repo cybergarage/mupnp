@@ -17,8 +17,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* global variables
-****************************************/
+ * global variables
+ ****************************************/
 
 static bool MUPNP_NET_USE_ONLY_IPV4_ADDR = false;
 static bool MUPNP_NET_USE_ONLY_IPV6_ADDR = false;

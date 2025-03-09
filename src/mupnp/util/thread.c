@@ -22,8 +22,8 @@
 static void sig_handler(int sign);
 
 /****************************************
-* Thread Function
-****************************************/
+ * Thread Function
+ ****************************************/
 
 #if defined(WIN32) && !defined(WINCE) && !defined(ITRON)
 static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
@@ -43,8 +43,8 @@ static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 {
   mUpnpThread* thread = (mUpnpThread*)lpParam;
 
-  //Theo Beisch: make sure we're runnable
-  //thread->runnableFlag = true;
+  // Theo Beisch: make sure we're runnable
+  // thread->runnableFlag = true;
   //(moved to start() with Visa Smolander's mod)
 
   thread->isRunning = true;
@@ -68,9 +68,9 @@ static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
   if (thread->deletePending) {
     mupnp_thread_delete(thread);
   }
-  //proper friendly thread exit for WINCE
+  // proper friendly thread exit for WINCE
   mupnp_thread_exit(0);
-  //dummy - compiler wants a return statement
+  // dummy - compiler wants a return statement
   return 0;
 }
 #elif defined(BTRON)
@@ -150,8 +150,8 @@ static void* PosixThreadProc(void* param)
   mUpnpThread* thread = (mUpnpThread*)param;
 
   /* SIGQUIT is used in thread deletion routine
-	 * to force accept and recvmsg to return during thread
-	 * termination process. */
+   * to force accept and recvmsg to return during thread
+   * termination process. */
   sigfillset(&set);
   sigdelset(&set, SIGQUIT);
   pthread_sigmask(SIG_SETMASK, &set, NULL);
@@ -175,8 +175,8 @@ static void* PosixThreadProc(void* param)
 #endif
 
 /****************************************
-* mupnp_thread_new
-****************************************/
+ * mupnp_thread_new
+ ****************************************/
 
 mUpnpThread* mupnp_thread_new()
 {
@@ -198,22 +198,22 @@ mUpnpThread* mupnp_thread_new()
 
 #if defined(WINCE)
   thread->hThread = NULL;
-  //WINCE trial result: default sleep value to keep system load down
+  // WINCE trial result: default sleep value to keep system load down
   thread->sleep = MUPNP_THREAD_MIN_SLEEP;
   thread->isRunning = false;
   thread->deletePending = false;
 #if defined DEBUG
   strcpy(thread->friendlyName, "-");
-#endif //DEBUG
-#endif //WINCE
+#endif // DEBUG
+#endif // WINCE
   mupnp_log_debug_l4("Leaving...\n");
 
   return thread;
 }
 
 /****************************************
-* mupnp_thread_delete
-****************************************/
+ * mupnp_thread_delete
+ ****************************************/
 
 bool mupnp_thread_delete(mUpnpThread* thread)
 {
@@ -242,14 +242,14 @@ bool mupnp_thread_delete(mUpnpThread* thread)
 #if defined DEBUG
   printf("***** Stop failed for Thread %X %s - marking thread for selfDelete\n", thread, thread->friendlyName);
 #endif
-  //setting this will cause the real thread exit to call delete() again
+  // setting this will cause the real thread exit to call delete() again
   thread->deletePending = true;
 
   mupnp_log_debug_l4("Leaving...\n");
 
   return false;
-} //WINCE
-#else //all except WINCE
+} // WINCE
+#else // all except WINCE
 
   mupnp_log_debug_l4("Entering...\n");
 
@@ -267,8 +267,8 @@ bool mupnp_thread_delete(mUpnpThread* thread)
 #endif
 
 /****************************************
-* mupnp_thread_start
-****************************************/
+ * mupnp_thread_start
+ ****************************************/
 
 bool mupnp_thread_start(mUpnpThread* thread)
 {
@@ -336,7 +336,7 @@ bool mupnp_thread_start(mUpnpThread* thread)
       return false;
     }
     /* MODIFICATION Fabrice Fontaine Orange 24/04/2007
-	pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE); */
+        pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_JOINABLE); */
     /* Bug correction : Threads used to answer UPnP requests are created */
     /* in joinable state but the main thread doesn't call pthread_join on them. */
     /* So, they are kept alive until the end of the program. By creating them */
@@ -370,8 +370,8 @@ bool mupnp_thread_start(mUpnpThread* thread)
 }
 
 /****************************************
-* mupnp_thread_stop
-****************************************/
+ * mupnp_thread_stop
+ ****************************************/
 
 bool mupnp_thread_stop(mUpnpThread* thread)
 {
@@ -398,7 +398,7 @@ bool mupnp_thread_stop_with_cond(mUpnpThread* thread, mUpnpCond* cond)
 #if defined(WIN32) && !defined(WINCE) && !defined(ITRON)
     TerminateThread(thread->hThread, 0);
     WaitForSingleObject(thread->hThread, INFINITE);
-//tb: this will create a deadlock if the thread is on a blocking socket
+// tb: this will create a deadlock if the thread is on a blocking socket
 #elif defined(WINCE)
     // Theo Beisch: while the above code apparently works under WIN32 (NT/XP)
     // TerminateThread as brute force is not recommended by M$
@@ -433,7 +433,7 @@ bool mupnp_thread_stop_with_cond(mUpnpThread* thread, mUpnpCond* cond)
       return false;
 
     return true;
-//end WINCE
+// end WINCE
 #elif defined(BTRON)
       ter_tsk(thread->taskID);
 #elif defined(ITRON)
@@ -448,9 +448,9 @@ bool mupnp_thread_stop_with_cond(mUpnpThread* thread, mUpnpCond* cond)
       mupnp_log_debug_s("Killing thread %p\n", thread);
       pthread_kill(thread->pThread, 0);
       /* MODIFICATION Fabrice Fontaine Orange 24/04/2007
-		mupnp_log_debug_s("Thread %p signalled, joining.\n", thread);
-		pthread_join(thread->pThread, NULL);
-		mupnp_log_debug_s("Thread %p joined.\n", thread); */
+                mupnp_log_debug_s("Thread %p signalled, joining.\n", thread);
+                pthread_join(thread->pThread, NULL);
+                mupnp_log_debug_s("Thread %p joined.\n", thread); */
       /* Now we wait one second for thread termination instead of using pthread_join */
       mupnp_sleep(MUPNP_THREAD_MIN_SLEEP);
 /* MODIFICATION END Fabrice Fontaine Orange 24/04/2007 */
@@ -463,8 +463,8 @@ bool mupnp_thread_stop_with_cond(mUpnpThread* thread, mUpnpCond* cond)
 }
 
 /****************************************
-* mupnp_thread_sleep
-****************************************/
+ * mupnp_thread_sleep
+ ****************************************/
 // Theo Beisch
 // Added this to improve external thread control
 // by having a finer timer tick granularity
@@ -484,8 +484,8 @@ void mupnp_thread_sleep(mUpnpThread* thread)
 #endif
 
 /****************************************
-* mupnp_thread_exit (friendly exit) 
-****************************************/
+ * mupnp_thread_exit (friendly exit)
+ ****************************************/
 // Theo Beisch
 // to be called from the thread's loop only
 
@@ -497,8 +497,8 @@ VOID mupnp_thread_exit(DWORD exitCode)
 #endif
 
 /****************************************
-* mupnp_thread_restart
-****************************************/
+ * mupnp_thread_restart
+ ****************************************/
 
 bool mupnp_thread_restart(mUpnpThread* thread)
 {
@@ -512,8 +512,8 @@ bool mupnp_thread_restart(mUpnpThread* thread)
 }
 
 /****************************************
-* mupnp_thread_isrunnable
-****************************************/
+ * mupnp_thread_isrunnable
+ ****************************************/
 
 bool mupnp_thread_isrunnable(mUpnpThread* thread)
 {
@@ -529,8 +529,8 @@ bool mupnp_thread_isrunnable(mUpnpThread* thread)
 }
 
 /****************************************
-* mupnp_thread_setaction
-****************************************/
+ * mupnp_thread_setaction
+ ****************************************/
 
 void mupnp_thread_setaction(mUpnpThread* thread, MUPNP_THREAD_FUNC func)
 {
@@ -542,8 +542,8 @@ void mupnp_thread_setaction(mUpnpThread* thread, MUPNP_THREAD_FUNC func)
 }
 
 /****************************************
-* mupnp_thread_setuserdata
-****************************************/
+ * mupnp_thread_setuserdata
+ ****************************************/
 
 void mupnp_thread_setuserdata(mUpnpThread* thread, void* value)
 {
@@ -555,8 +555,8 @@ void mupnp_thread_setuserdata(mUpnpThread* thread, void* value)
 }
 
 /****************************************
-* mupnp_thread_getuserdata
-****************************************/
+ * mupnp_thread_getuserdata
+ ****************************************/
 
 void* mupnp_thread_getuserdata(mUpnpThread* thread)
 {

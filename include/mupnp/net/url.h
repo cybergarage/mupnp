@@ -14,26 +14,26 @@
 
 #include <mupnp/typedef.h>
 
-#include <mupnp/util/string.h>
 #include <mupnp/net/uri.h>
+#include <mupnp/util/string.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef struct _mUpnpNetURI mUpnpNetURL;
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 #define mupnp_net_url_new() mupnp_net_uri_new()
 #define mupnp_net_url_delete(urip) mupnp_net_uri_delete(urip);

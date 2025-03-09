@@ -1,24 +1,24 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cresource.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cresource.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include <cybergarage/upnp/std/av/ccontent.h>
 #include <cybergarage/upnp/std/av/cresource.h>
 #include <cybergarage/util/cstring.h>
 
 /****************************************
-* cg_upnpav_resource_new
-****************************************/
+ * cg_upnpav_resource_new
+ ****************************************/
 
 CgUpnpAvResource* cg_upnpav_resource_new()
 {
@@ -36,8 +36,8 @@ CgUpnpAvResource* cg_upnpav_resource_new()
 }
 
 /****************************************
-* cg_upnpav_resource_delete
-****************************************/
+ * cg_upnpav_resource_delete
+ ****************************************/
 
 void cg_upnpav_resource_delete(CgUpnpAvResource* res)
 {
@@ -51,8 +51,8 @@ void cg_upnpav_resource_delete(CgUpnpAvResource* res)
 }
 
 /****************************************
-* cg_upnpav_content_copy
-****************************************/
+ * cg_upnpav_content_copy
+ ****************************************/
 
 void cg_upnpav_resource_copy(CgUpnpAvResource* destRes, CgUpnpAvResource* srcRes)
 {
@@ -66,8 +66,8 @@ void cg_upnpav_resource_copy(CgUpnpAvResource* destRes, CgUpnpAvResource* srcRes
 }
 
 /****************************************
-* cg_upnpav_resource_updateattributes
-****************************************/
+ * cg_upnpav_resource_updateattributes
+ ****************************************/
 
 void cg_upnpav_resource_updateattributes(CgUpnpAvResource* res)
 {
@@ -90,8 +90,8 @@ void cg_upnpav_resource_updateattributes(CgUpnpAvResource* res)
 }
 
 /****************************************
-* cg_upnpav_resource_setmimetype
-****************************************/
+ * cg_upnpav_resource_setmimetype
+ ****************************************/
 
 void cg_upnpav_resource_setmimetype(CgUpnpAvResource* res, char* mimeType)
 {
@@ -104,8 +104,8 @@ void cg_upnpav_resource_setmimetype(CgUpnpAvResource* res, char* mimeType)
 }
 
 /****************************************
-* cg_upnpav_resource_setdlnaattribute
-****************************************/
+ * cg_upnpav_resource_setdlnaattribute
+ ****************************************/
 
 void cg_upnpav_resource_setdlnaattribute(CgUpnpAvResource* res, char* attr)
 {
@@ -118,8 +118,8 @@ void cg_upnpav_resource_setdlnaattribute(CgUpnpAvResource* res, char* attr)
 }
 
 /****************************************
-* cg_upnpav_resource_getdlnaattributesbymimetype
-****************************************/
+ * cg_upnpav_resource_getdlnaattributesbymimetype
+ ****************************************/
 
 char* cg_upnpav_resource_getdlnaattributesbymimetype(char* mimeType, char* dlnaAttr, int dlnaAttrSize)
 {
@@ -167,8 +167,8 @@ char* cg_upnpav_resource_getdlnaattributesbymimetype(char* mimeType, char* dlnaA
 }
 
 /****************************************
-* cg_upnpav_resource_getdlnaattributes
-****************************************/
+ * cg_upnpav_resource_getdlnaattributes
+ ****************************************/
 
 char* cg_upnpav_resource_getdlnaattributes(CgUpnpAvResource* res, char* dlnaAttr, int dlnaAttrSize)
 {
@@ -176,8 +176,8 @@ char* cg_upnpav_resource_getdlnaattributes(CgUpnpAvResource* res, char* dlnaAttr
 }
 
 /****************************************
-* cg_upnpav_resource_setsize
-****************************************/
+ * cg_upnpav_resource_setsize
+ ****************************************/
 
 void cg_upnpav_resource_setsize(CgUpnpAvResource* res, long value)
 {

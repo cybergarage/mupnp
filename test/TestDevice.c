@@ -18,8 +18,8 @@
 #include <string.h>
 
 /****************************************
-* Descriptions
-****************************************/
+ * Descriptions
+ ****************************************/
 
 char* TEST_DEVICE_DESCRIPTION = "<?xml version=\"1.0\" ?>\n"
                                 "<root xmlns=\"urn:schemas-upnp-org:device-1-0\">\n"
@@ -88,8 +88,8 @@ char* TEST_DEVICE_DESCRIPTION = "<?xml version=\"1.0\" ?>\n"
                                 "</root>\n";
 
 /****************************************
-* Service Device Descriptions
-****************************************/
+ * Service Device Descriptions
+ ****************************************/
 
 char* TEST_SERVICE_DESCRIPTION = "<?xml version=\"1.0\"?>\n"
                                  "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\" >\n"
@@ -144,66 +144,66 @@ char* TEST_SERVICE_DESCRIPTION = "<?xml version=\"1.0\"?>\n"
                                  "</scpd>\n";
 
 /****************************************
-* upnp_test_actionreceived
-****************************************/
+ * upnp_test_actionreceived
+ ****************************************/
 
 bool upnp_test_actionreceived(mUpnpAction* action)
 {
   /*
-	mUpnpTime currTime;
-	char *actionName;
-	mUpnpArgument *currTimeArg;
+        mUpnpTime currTime;
+        char *actionName;
+        mUpnpArgument *currTimeArg;
 
-	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
-	mUpnpArgument *newTimeArg, *resultArg;
+        char sysTimeStr[SYSTEM_TIME_BUF_LEN];
+        mUpnpArgument *newTimeArg, *resultArg;
 
-	currTime = mupnp_getcurrentsystemtime();
-	
-	actionName = mupnp_action_getname(action);
-	if (strcmp("GetTime", actionName) == 0) {
-		GetSystemTimeString(currTime, sysTimeStr);
-		currTimeArg = mupnp_action_getargumentbyname(action, "CurrentTime");
-		mupnp_argument_setvalue(currTimeArg, sysTimeStr);
-		return true;
-	}
-	if (strcmp(actionName, "SetTime") == 0) {
-		newTimeArg = mupnp_action_getargumentbyname(action, "NewTime");
-		resultArg = mupnp_action_getargumentbyname(action, "Result");
-		mupnp_argument_setvalue(resultArg, "Not implemented");
-		return true;
-	}
+        currTime = mupnp_getcurrentsystemtime();
+
+        actionName = mupnp_action_getname(action);
+        if (strcmp("GetTime", actionName) == 0) {
+                GetSystemTimeString(currTime, sysTimeStr);
+                currTimeArg = mupnp_action_getargumentbyname(action, "CurrentTime");
+                mupnp_argument_setvalue(currTimeArg, sysTimeStr);
+                return true;
+        }
+        if (strcmp(actionName, "SetTime") == 0) {
+                newTimeArg = mupnp_action_getargumentbyname(action, "NewTime");
+                resultArg = mupnp_action_getargumentbyname(action, "Result");
+                mupnp_argument_setvalue(resultArg, "Not implemented");
+                return true;
+        }
 */
 
   return false;
 }
 
 /****************************************
-* upnp_test_queryreceived
-****************************************/
+ * upnp_test_queryreceived
+ ****************************************/
 
 bool upnp_test_queryreceived(mUpnpStateVariable* statVar)
 {
   /*
-	char *varName;
-	mUpnpTime currTime;
+        char *varName;
+        mUpnpTime currTime;
 
-	char sysTimeStr[SYSTEM_TIME_BUF_LEN];
-	
-	varName = mupnp_statevariable_getname(statVar);
-	if (strcmp("Time", varName) == 0) {
-		currTime = mupnp_getcurrentsystemtime();
-		GetSystemTimeString(currTime, sysTimeStr);
-		mupnp_statevariable_setvalue(statVar, sysTimeStr);
-		return true;
-	}
+        char sysTimeStr[SYSTEM_TIME_BUF_LEN];
+
+        varName = mupnp_statevariable_getname(statVar);
+        if (strcmp("Time", varName) == 0) {
+                currTime = mupnp_getcurrentsystemtime();
+                GetSystemTimeString(currTime, sysTimeStr);
+                mupnp_statevariable_setvalue(statVar, sysTimeStr);
+                return true;
+        }
 */
 
   return false;
 }
 
 /****************************************
-* upnp_test_device_httprequestrecieved
-****************************************/
+ * upnp_test_device_httprequestrecieved
+ ****************************************/
 
 void upnp_test_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
 {
@@ -227,47 +227,47 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
 
   /*
 #if defined(HAVE_SNPRINTF)
-	snprintf(content, sizeof(content),
+        snprintf(content, sizeof(content),
 #else
-	sprintf(content,
+        sprintf(content,
 #endif
-		"<HTML>"
-		"<HEAD>"
-		"<TITLE>UPnP Clock Sample</TITLE>"
-		"</HEAD>"
-		"<META HTTP-EQUIV=\"Refresh\" CONTENT=\"1; URL=/presentation\">"
-		"<BODY><CENTER>"
-		"<H1>UPnP Clock Sample</H1>"
-		"<TABLE border=\"0\" cellpadding=\"0\" cellspacing=\"0\">"
-		"<TR>"
-		"<TD style=\"width: 50px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-		"<TD style=\"background-color: rgb(176, 176, 176);\"></TD>"
-		"<TD style=\"width: 50px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-		"</TR>"
-		"<TR>"
-		"<TD style=\"height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-		"<TD style=\"height: 50px; background-color: rgb(221, 236, 245);\" align=\"center\"><H1>"
-		"%s"
-		"</H1></TD>"
-		"<TD style=\"height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-		"</TR>"
-		"<TR>"
-		"<TD style=\"height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-		"<TD style=\"height: 50px; background-color: rgb(221, 236, 245);\" align=\"center\"><H3>"
-		"Server : %s"
-		"</H3></TD>"
-		"<TD style=\"height: 30px; background-color: rgb(176, 176, 176);\"></TD>"
-		"</TR>"
-		"<TR>"
-		"<TD style=\"width: 30px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-		"<TD style=\"background-color: rgb(176, 176, 176);\"></TD>"
-		"<TD style=\"width: 30px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-		"</TR>"
-		"</TABLE>"
-		"<CENTER></BODY>"
-		"</HTML>",
-		GetSystemTimeString(currTime, sysTimeStr),
-		mupnp_getservername(serverName, sizeof(serverName)));
+                "<HTML>"
+                "<HEAD>"
+                "<TITLE>UPnP Clock Sample</TITLE>"
+                "</HEAD>"
+                "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"1; URL=/presentation\">"
+                "<BODY><CENTER>"
+                "<H1>UPnP Clock Sample</H1>"
+                "<TABLE border=\"0\" cellpadding=\"0\" cellspacing=\"0\">"
+                "<TR>"
+                "<TD style=\"width: 50px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
+                "<TD style=\"background-color: rgb(176, 176, 176);\"></TD>"
+                "<TD style=\"width: 50px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
+                "</TR>"
+                "<TR>"
+                "<TD style=\"height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
+                "<TD style=\"height: 50px; background-color: rgb(221, 236, 245);\" align=\"center\"><H1>"
+                "%s"
+                "</H1></TD>"
+                "<TD style=\"height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
+                "</TR>"
+                "<TR>"
+                "<TD style=\"height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
+                "<TD style=\"height: 50px; background-color: rgb(221, 236, 245);\" align=\"center\"><H3>"
+                "Server : %s"
+                "</H3></TD>"
+                "<TD style=\"height: 30px; background-color: rgb(176, 176, 176);\"></TD>"
+                "</TR>"
+                "<TR>"
+                "<TD style=\"width: 30px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
+                "<TD style=\"background-color: rgb(176, 176, 176);\"></TD>"
+                "<TD style=\"width: 30px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
+                "</TR>"
+                "</TABLE>"
+                "<CENTER></BODY>"
+                "</HTML>",
+                GetSystemTimeString(currTime, sysTimeStr),
+                mupnp_getservername(serverName, sizeof(serverName)));
 */
 
   httpRes = mupnp_http_response_new();
@@ -280,8 +280,8 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
 }
 
 /****************************************
-* upnp_test_device_new
-****************************************/
+ * upnp_test_device_new
+ ****************************************/
 
 mUpnpDevice* upnp_test_device_new()
 {

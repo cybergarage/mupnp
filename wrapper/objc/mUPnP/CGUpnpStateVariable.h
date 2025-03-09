@@ -23,20 +23,20 @@ typedef void mUpnpStateVariable;
 - (id)initWithCObject:(mUpnpStateVariable*)cobj;
 /**
  * Get the name of the state variable.
- * 
+ *
  * @return The name.
  */
 - (NSString*)name;
 /**
  * Get the value of the state variable.
- * 
+ *
  * @return The value.
  */
 - (NSString*)value;
 
 /**
  * Get an array of the allowed values for the state variable
- * 
+ *
  * @return The array.
  */
 - (NSArray*)allowedValues;
@@ -57,7 +57,7 @@ typedef void mUpnpStateVariable;
  */
 - (BOOL)query;
 /**
- * Get a states code of the last query. 
+ * Get a states code of the last query.
  *
  * @return The status code
  */

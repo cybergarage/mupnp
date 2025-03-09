@@ -8,8 +8,8 @@
  *
  ******************************************************************/
 
-#import <Foundation/NSString.h>
 #import <Foundation/NSDictionary.h>
+#import <Foundation/NSString.h>
 
 #if !defined(_MUPNP_DEVICE_H_)
 typedef void mUpnpDevice;
@@ -38,43 +38,43 @@ typedef void mUpnpDevice;
 @property (assign) id<CGUpnpDeviceDelegate> delegate;
 /**
  * Create a new UPnP device.
- * 
+ *
  * @return New instance if successfull; otherwise nil.
  */
 - (id)init;
 /**
  * Create a new UPnP device with the C instance.
- * 
+ *
  * @return New instance if successfull; otherwise nil.
  */
 - (id)initWithCObject:(mUpnpDevice*)cobj;
 /**
  * Create a new UPnP device with the XML descriptioin.
- * 
+ *
  * @return New instance if successfull; otherwise nil.
  */
 - (id)initWithXMLDescription:(NSString*)xmlDesc;
 /**
  * Parse the specified XML description.
- * 
+ *
  * @return YES if successfull; otherwise nui.
  */
 - (BOOL)parseXMLDescription:(NSString*)xmlDesc;
 /**
  * Get the friendly name of the device.
- * 
+ *
  * @return Friendly name.
  */
 - (NSString*)friendlyName;
 /**
  * Get the device type of the device.
- * 
+ *
  * @return Device Type.
  */
 - (NSString*)deviceType;
 /**
  * Get the UDN of the device.
- * 
+ *
  * @return UDN of the specified device.
  */
 - (NSString*)udn;
@@ -119,19 +119,19 @@ typedef void mUpnpDevice;
 - (NSString*)locationURL;
 /**
  * Set a device type of the device.
- * 
+ *
  * @param aType Device type to set.
  */
 - (void)setDeviceType:(NSString*)aType;
 /**
  * Set a friendly name of the device.
- * 
+ *
  * @param aName Friendly name to set.
  */
 - (void)setFriendlyName:(NSString*)aName;
 /**
  * Set a udn of the device.
- * 
+ *
  * @param aUdn UDN to set.
  */
 - (void)setUdn:(NSString*)aUdn;
@@ -139,7 +139,7 @@ typedef void mUpnpDevice;
  * Check whether the device type is the specified type.
  *
  * @param aType A type string of the device.
- * 
+ *
  * @return YES if the specified type is same as the device type; otherwise NO.
  */
 - (BOOL)isDeviceType:(NSString*)aType;
@@ -147,7 +147,7 @@ typedef void mUpnpDevice;
  * Check whether the device's UDN is the specified UDN.
  *
  * @param aUDN A UDN string of the device.
- * 
+ *
  * @return YES if the specified UDN is same as the device' UDN; otherwise NO.
  */
 - (BOOL)isUDN:(NSString*)aUDN;
@@ -155,7 +155,7 @@ typedef void mUpnpDevice;
  * Check whether the device's friendly name is the specified name.
  *
  * @param aFriendlyName A friendly name string of the device.
- * 
+ *
  * @return YES if the specified friendly name is same as the device' friendly name; otherwise NO.
  */
 - (BOOL)isFriendlyName:(NSString*)aFriendlyName;

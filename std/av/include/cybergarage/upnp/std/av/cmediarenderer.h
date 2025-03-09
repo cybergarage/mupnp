@@ -1,6 +1,6 @@
 /************************************************************
 *
- 
+
 *	mUPnP for C
 *
 *	Copyright (C) Satoshi Konno 2005
@@ -16,8 +16,8 @@
 #ifndef _CG_CLINKCAV_MEDIARENDERER_H_
 #define _CG_CLINKCAV_MEDIARENDERER_H_
 
-#include <mupnp/upnp.h>
 #include <mupnp/std/av/cupnpav.h>
+#include <mupnp/upnp.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,8 +26,8 @@ extern "C" {
 #undef CG_CLINKCAV_USE_UPNPSTD_XML
 
 /****************************************
-* Struct
-****************************************/
+ * Struct
+ ****************************************/
 
 typedef struct _mUpnpAvRenderer {
   mUpnpMutex* mutex;
@@ -40,15 +40,15 @@ typedef struct _mUpnpAvRenderer {
 } mUpnpAvRenderer;
 
 /****************************************
-* Constants (Media Server)
-****************************************/
+ * Constants (Media Server)
+ ****************************************/
 
 #define CG_UPNPAV_DMR_DEVICE_TYPE "urn:schemas-upnp-org:device:MediaRenderer:1"
 #define CG_UPNPAV_DMR_DEFAULT_HTTP_PORT 38520
 
 /****************************************
-* Constants (Rendering Control)
-****************************************/
+ * Constants (Rendering Control)
+ ****************************************/
 
 #define CG_UPNPAV_DMR_RENDERINGCONTROL_SERVICE_TYPE "urn:schemas-upnp-org:service:RenderingControl:1"
 #define CG_UPNPAV_DMR_RENDERINGCONTROL_GETVOLUME "GetVolume"
@@ -62,8 +62,8 @@ typedef struct _mUpnpAvRenderer {
 #define CG_UPNPAV_DMR_RENDERINGCONTROL_LASTCHANGE "LastChange"
 
 /****************************************
-* Constants (Connection Manager)
-****************************************/
+ * Constants (Connection Manager)
+ ****************************************/
 
 #define CG_UPNPAV_DMR_CONNECTIONMANAGER_SERVICE_TYPE "urn:schemas-upnp-org:service:ConnectionManager:1"
 
@@ -77,8 +77,8 @@ typedef struct _mUpnpAvRenderer {
 #define CG_UPNPAV_DMR_CONNECTIONMANAGER_SINKPROTOCOLINFO "SinkProtocolInfo"
 
 /****************************************
-* Constants (AVTransport)
-****************************************/
+ * Constants (AVTransport)
+ ****************************************/
 
 #define CG_UPNPAV_DMR_AVTRANSPORT_SERVICE_TYPE "urn:schemas-upnp-org:service:AVTransport:1"
 
@@ -96,8 +96,8 @@ typedef struct _mUpnpAvRenderer {
 #define CG_UPNPAV_DMR_AVTRANSPORT_CURRENTTRANSPORTSTATUS_OK "OK"
 
 /****************************************
-* Public Functions
-****************************************/
+ * Public Functions
+ ****************************************/
 
 mUpnpAvRenderer* mupnp_upnpav_dmr_new();
 void mupnp_upnpav_dmr_delete(mUpnpAvRenderer* dmr);

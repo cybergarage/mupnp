@@ -27,18 +27,18 @@ void PrintDevice(CGUpnpDevice* dev)
     NSArray* actionArray = [service actions];
     actionNum = 0;
     for (CGUpnpAction* action in actionArray) {
-      //NSLog(@"      [%d] action = %@", ++actionNum, [action name]);
+      // NSLog(@"      [%d] action = %@", ++actionNum, [action name]);
       NSDictionary* argDir = [action arguments];
       argNum = 0;
       for (NSString* name in argDir) {
-        //NSLog(@"        [%d] argument = %@", ++argNum, name);
+        // NSLog(@"        [%d] argument = %@", ++argNum, name);
       }
     }
 
     NSArray* statVarArray = [service stateVariables];
     statVarNum = 0;
     for (CGUpnpStateVariable* statVar in statVarArray) {
-      //NSLog(@"      [%d] stateVariable = %@", ++statVarNum, [statVar name]);
+      // NSLog(@"      [%d] stateVariable = %@", ++statVarNum, [statVar name]);
     }
   }
 }

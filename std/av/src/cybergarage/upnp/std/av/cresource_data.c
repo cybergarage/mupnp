@@ -1,23 +1,23 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cresource_data.c
-*
-*	Revision:
-*       05/11/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cresource_data.c
+ *
+ *	Revision:
+ *       05/11/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #include <cybergarage/upnp/std/av/cresource.h>
 #include <cybergarage/util/cstring.h>
 
 /****************************************
-* cg_upnpav_resource_data_new
-****************************************/
+ * cg_upnpav_resource_data_new
+ ****************************************/
 
 CgUpnpAvResourceData* cg_upnpav_resource_data_new()
 {
@@ -31,8 +31,8 @@ CgUpnpAvResourceData* cg_upnpav_resource_data_new()
 }
 
 /****************************************
-* cg_upnpav_resource_data_delete
-****************************************/
+ * cg_upnpav_resource_data_delete
+ ****************************************/
 
 void cg_upnpav_resource_data_delete(CgUpnpAvResourceData* resData)
 {
@@ -42,8 +42,8 @@ void cg_upnpav_resource_data_delete(CgUpnpAvResourceData* resData)
 }
 
 /****************************************
-* cg_upnpav_resource_data_copy
-****************************************/
+ * cg_upnpav_resource_data_copy
+ ****************************************/
 
 void cg_upnpav_resource_data_copy(CgUpnpAvResourceData* destResData, CgUpnpAvResourceData* srcResData)
 {

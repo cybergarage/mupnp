@@ -12,26 +12,26 @@
 #ifndef _MUPNP_CONTROLPOINT_H_
 #define _MUPNP_CONTROLPOINT_H_
 
-#include <mupnp/util/string.h>
-#include <mupnp/util/mutex.h>
-#include <mupnp/util/cond.h>
-#include <mupnp/xml/xml.h>
 #include <mupnp/net/interface.h>
+#include <mupnp/util/cond.h>
+#include <mupnp/util/mutex.h>
+#include <mupnp/util/string.h>
+#include <mupnp/xml/xml.h>
 
-#include <mupnp/device.h>
 #include <mupnp/argument.h>
-#include <mupnp/upnp_status.h>
-#include <mupnp/ssdp/ssdp_server.h>
+#include <mupnp/device.h>
 #include <mupnp/event/event.h>
 #include <mupnp/event/notify.h>
+#include <mupnp/ssdp/ssdp_server.h>
+#include <mupnp/upnp_status.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 /** Definition for SSDP default search MX */
 #define MUPNP_CONTROLPOINT_SSDP_DEFAULT_SEARCH_MX 3
@@ -52,12 +52,12 @@ extern "C" {
 #define MUPNP_CONTROLPOINT_HTTP_EVENTSUB_URI "/eventSub"
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 /**
  * Device listener status parameters.
- * 
+ *
  * @ref mUpnpDeviceStatusAdded means a device has been added to local cache.
  * @ref mUpnpDeviceStatusUpdated means a device description has been updated
  * because its IP address or description has changed. The user should renew
@@ -77,7 +77,7 @@ typedef enum _mUpnpDeviceStatus {
 
 /**
  * Prototype for control point's device listener callback.
- * 
+ *
  * @param udn The UDN of the device, that the status update concerns
  * @param status The new status
  */
@@ -151,13 +151,13 @@ bool mupnp_controlpoint_start(mUpnpControlPoint* ctrlPoint);
 bool mupnp_controlpoint_stop(mUpnpControlPoint* ctrlPoint);
 
 /**
-* Check if  the control point is activated.
-*
-* @param ctrlPoint The control point to stop
-*
-* @return true if running; otherwise false
-*
-*/
+ * Check if  the control point is activated.
+ *
+ * @param ctrlPoint The control point to stop
+ *
+ * @return true if running; otherwise false
+ *
+ */
 bool mupnp_controlpoint_isrunning(mUpnpControlPoint* ctrlPoint);
 
 /****************************************************************************
@@ -165,7 +165,7 @@ bool mupnp_controlpoint_isrunning(mUpnpControlPoint* ctrlPoint);
  ****************************************************************************/
 
 /**
- * Lock the control point's mutex. 
+ * Lock the control point's mutex.
  * The control point should be ALWAYS locked, when a mUpnpDevice*,
  * mUpnpService*, mUpnpAction* or other pointer has been taken into use from
  * the stack. This effectively prevents devices/services from being updated/
@@ -205,7 +205,7 @@ bool mupnp_controlpoint_unlock(mUpnpControlPoint* ctrlPoint);
 /**
  * Find a device from the control point by the exact type of the device.
  * This function searches for devices, whose *complete type string*
- * matches the given string, including version number. For example: 
+ * matches the given string, including version number. For example:
  * "urn:schemas-upnp-org:device:FooDevice:1". If you need to disregard
  * the version, use @ref mupnp_controlpoint_getdevicebytype
  *
@@ -276,7 +276,7 @@ mUpnpDevice* mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint* ctrlPoint, con
 #define mupnp_controlpoint_setssdplistener(ctrlPoint, func) (ctrlPoint->ssdpListener = func)
 
 /**
- * Get the SSDP message listener for the control point. 
+ * Get the SSDP message listener for the control point.
  *
  * @param ctrlPoint The control point in question
  * @return A callback function that is of type @ref MUPNP_SSDP_LISTNER or NULL
@@ -429,7 +429,7 @@ bool mupnp_controlpoint_seteventlistener(mUpnpControlPoint* ctrlPoint, MUPNP_EVE
 bool mupnp_controlpoint_search(mUpnpControlPoint* ctrlPoint, const char* target);
 
 /**
- * Set the MX-parameter used for SSDP searches i.e. Set the time to wait 
+ * Set the MX-parameter used for SSDP searches i.e. Set the time to wait
  * (in seconds) for device responses to an M-SEARCH
  *
  * @param ctrlPoint The control point in question
@@ -490,7 +490,7 @@ void mupnp_controlpoint_updatestatetablefromproperty(mUpnpService* service,
 
 /**
  * Set the user data pointer (arbitrary user data) to the control point.
- * 
+ *
  * @param ctrlPoint The control point in question
  * @param value Arbitrary user data
  */
@@ -498,7 +498,7 @@ void mupnp_controlpoint_updatestatetablefromproperty(mUpnpService* service,
 
 /**
  * Get the user data pointer (arbitrary user data) from the control point.
- * 
+ *
  * @param dev The control point in question
  * @return Pointer to user data or NULL
  */
@@ -511,7 +511,7 @@ void mupnp_controlpoint_updatestatetablefromproperty(mUpnpService* service,
 /**
  * Parse the service description from the service's SCPD URL. Do not call
  * this from user applications.
- * 
+ *
  * @param service The service in question
  * @return true if successful; otherwise false
  */
@@ -556,7 +556,7 @@ void mupnp_controlpoint_removedevicebyssdppacket(mUpnpControlPoint* ctrlPoint,
 
 /**
  * Subscribe to a service's events
- * 
+ *
  * @param ctrlPoint The control point in use
  * @param service The service to subscribe to
  * @param timeout Timeout for subscription expiration/renewal
@@ -566,7 +566,7 @@ bool mupnp_controlpoint_subscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* se
 
 /**
  * Re-subscribe to a service's events (i.e. renew subscription)
- * 
+ *
  * @param ctrlPoint The control point in use
  * @param service The service to subscribe to
  * @param timeout Timeout for subscription expiration/renewal
@@ -576,7 +576,7 @@ bool mupnp_controlpoint_resubscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* 
 
 /**
  * Unsubscribe to a service's events (i.e. cancel subscription)
- * 
+ *
  * @param ctrlPoint The control point in use
  * @param service The service to unsubscribe to
  * @return true if successful; otherwise false
@@ -585,7 +585,7 @@ bool mupnp_controlpoint_unsubscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* 
 
 /**
  * Subscribe to all of the device's services' events
- * 
+ *
  * @param ctrlPoint The control point in use
  * @param dev The device to subscribe to
  * @param timeout Timeout for subscription expiration/renewal
@@ -595,7 +595,7 @@ bool mupnp_controlpoint_subscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice* 
 
 /**
  * Re-subscribe to all of the device's services' events (i.e. renew subscription)
- * 
+ *
  * @param ctrlPoint The control point in use
  * @param dev The device to subscribe to
  * @param timeout Timeout for subscription expiration/renewal
@@ -605,7 +605,7 @@ bool mupnp_controlpoint_resubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice
 
 /**
  * Unsubscribe to all of the device's services' events (i.e. cancel subscription)
- * 
+ *
  * @param ctrlPoint The control point in use
  * @param dev The device to unsubscribe to
  * @return true if successful; otherwise false
@@ -618,7 +618,7 @@ bool mupnp_controlpoint_unsubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice
 
 /**
  * Get the head of the control point's list of devices (use for iteration)
- * 
+ *
  * @param ctrlPoint The control point in use
  * @return The head of the device list
  */
@@ -626,7 +626,7 @@ bool mupnp_controlpoint_unsubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice
 
 /**
  * Get the number of devices known by the control point
- * 
+ *
  * @param ctrlPoint The control point in use
  * @return The number of devices in the control point's device list
  */
@@ -634,7 +634,7 @@ bool mupnp_controlpoint_unsubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice
 
 /**
  * Get the head of the control point's list of devices (use for iteration)
- * 
+ *
  * @param ctrlPoint The control point in use
  * @param index The index of the device to get
  * @return The specified device
@@ -644,7 +644,7 @@ bool mupnp_controlpoint_unsubscribeall(mUpnpControlPoint* ctrlPoint, mUpnpDevice
 /**
  * Add a device to the control point's list of devices. Do not call this from
  * user applications.
- * 
+ *
  * @param ctrlPoint The control point in use
  * @param dev The device to add
  */

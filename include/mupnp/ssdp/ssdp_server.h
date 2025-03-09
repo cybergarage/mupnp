@@ -21,12 +21,12 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 /****************************************
-* Data Type
-****************************************/
+ * Data Type
+ ****************************************/
 
 typedef mUpnpSocket mUpnpHttpMuSocket;
 typedef mUpnpSocket mUpnpHttpUSocket;
@@ -38,8 +38,8 @@ typedef struct _mUpnpSSDPPacket {
   mUpnpTime timeStamp;
 
   /* These are used when filtering out duplicate
-	 * M-SEARCHes
-	 */
+   * M-SEARCHes
+   */
   mUpnpTime* timestamps;
   int initialized;
 } mUpnpSSDPPacket;
@@ -67,8 +67,8 @@ typedef struct _mUpnpSSDPResponseServer {
 } mUpnpSSDPResponseServer, mUpnpSSDPResponseServerList;
 
 /****************************************
-* Function (HTTPMU)
-****************************************/
+ * Function (HTTPMU)
+ ****************************************/
 
 #define mupnp_httpmu_socket_new() mupnp_socket_dgram_new()
 #define mupnp_httpmu_socket_delete(sock) mupnp_socket_delete(sock)
@@ -78,8 +78,8 @@ bool mupnp_httpmu_socket_bind(mUpnpHttpMuSocket* sock, const char* mcastAddr, in
 ssize_t mupnp_httpmu_socket_recv(mUpnpHttpMuSocket* sock, mUpnpSSDPPacket* ssdpPkt);
 
 /****************************************
-* Function (HTTPU)
-****************************************/
+ * Function (HTTPU)
+ ****************************************/
 
 #define mupnp_httpu_socket_new() mupnp_socket_dgram_new()
 #define mupnp_httpu_socket_delete(sock) mupnp_socket_delete(sock)
@@ -89,8 +89,8 @@ ssize_t mupnp_httpmu_socket_recv(mUpnpHttpMuSocket* sock, mUpnpSSDPPacket* ssdpP
 ssize_t mupnp_httpu_socket_recv(mUpnpHttpUSocket* sock, mUpnpSSDPPacket* ssdpPkt);
 
 /****************************************
-* Function (SSDPPacket)
-****************************************/
+ * Function (SSDPPacket)
+ ****************************************/
 
 mUpnpSSDPPacket* mupnp_ssdp_packet_new(void);
 void mupnp_ssdp_packet_delete(mUpnpSSDPPacket* ssdpPkt);
@@ -139,13 +139,13 @@ void mupnp_ssdp_packet_copy(mUpnpSSDPPacket* destSsdpPkt, mUpnpSSDPPacket* srcSs
 void mupnp_ssdp_packet_print(mUpnpSSDPPacket* ssdpPkt);
 
 /****************************************
-* Function (SSDPServer)
-****************************************/
+ * Function (SSDPServer)
+ ****************************************/
 
 mUpnpSSDPServer* mupnp_ssdp_server_new(void);
 void mupnp_ssdp_server_delete(mUpnpSSDPServer* server);
 
-#define mupnp_ssdp_server_next(server) (mUpnpSSDPServer*) mupnp_list_next((mUpnpList*)server)
+#define mupnp_ssdp_server_next(server) (mUpnpSSDPServer*)mupnp_list_next((mUpnpList*)server)
 
 bool mupnp_ssdp_server_open(mUpnpSSDPServer* server, char* bindAddr);
 bool mupnp_ssdp_server_close(mUpnpSSDPServer* server);
@@ -164,15 +164,15 @@ bool mupnp_ssdp_server_start(mUpnpSSDPServer* server);
 bool mupnp_ssdp_server_stop(mUpnpSSDPServer* server);
 
 /****************************************
-* Function (SSDPServerList)
-****************************************/
+ * Function (SSDPServerList)
+ ****************************************/
 
 mUpnpSSDPServerList* mupnp_ssdp_serverlist_new(void);
 void mupnp_ssdp_serverlist_delete(mUpnpSSDPServerList* serverList);
 
 #define mupnp_ssdp_serverlist_clear(serverList) mupnp_list_clear((mUpnpList*)serverList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_ssdp_server_delete)
 #define mupnp_ssdp_serverlist_size(serverList) mupnp_list_size((mUpnpList*)serverList)
-#define mupnp_ssdp_serverlist_gets(serverList) (mUpnpSSDPServer*) mupnp_list_next((mUpnpList*)serverList)
+#define mupnp_ssdp_serverlist_gets(serverList) (mUpnpSSDPServer*)mupnp_list_next((mUpnpList*)serverList)
 #define mupnp_ssdp_serverlist_add(serverList, server) mupnp_list_add((mUpnpList*)serverList, (mUpnpList*)server)
 
 bool mupnp_ssdp_serverlist_open(mUpnpSSDPServerList* ssdpServerList);
@@ -183,13 +183,13 @@ void mupnp_ssdp_serverlist_setlistener(mUpnpSSDPServerList* ssdpServerList, MUPN
 void mupnp_ssdp_serverlist_setuserdata(mUpnpSSDPServerList* ssdpServerList, void* data);
 
 /****************************************
-* Function (SSDPResponseServer)
-****************************************/
+ * Function (SSDPResponseServer)
+ ****************************************/
 
 mUpnpSSDPResponseServer* mupnp_ssdpresponse_server_new(void);
 void mupnp_ssdpresponse_server_delete(mUpnpSSDPResponseServer* server);
 
-#define mupnp_ssdpresponse_server_next(server) (mUpnpSSDPResponseServer*) mupnp_list_next((mUpnpList*)server)
+#define mupnp_ssdpresponse_server_next(server) (mUpnpSSDPResponseServer*)mupnp_list_next((mUpnpList*)server)
 
 bool mupnp_ssdpresponse_server_open(mUpnpSSDPResponseServer* server, int bindPort, char* bindAddr);
 bool mupnp_ssdpresponse_server_close(mUpnpSSDPResponseServer* server);
@@ -210,15 +210,15 @@ bool mupnp_ssdpresponse_server_stop(mUpnpSSDPResponseServer* server);
 bool mupnp_ssdpresponse_server_post(mUpnpSSDPResponseServer* server, mUpnpSSDPRequest* ssdpReq);
 
 /****************************************
-* Function (SSDPResponseServerList)
-****************************************/
+ * Function (SSDPResponseServerList)
+ ****************************************/
 
 mUpnpSSDPResponseServerList* mupnp_ssdpresponse_serverlist_new(void);
 void mupnp_ssdpresponse_serverlist_delete(mUpnpSSDPResponseServerList* serverList);
 
 #define mupnp_ssdpresponse_serverlist_clear(serverList) mupnp_list_clear((mUpnpList*)serverList, (MUPNP_LIST_DESTRUCTORFUNC)mupnp_ssdpresponse_server_delete)
 #define mupnp_ssdpresponse_serverlist_size(serverList) mupnp_list_size((mUpnpList*)serverList)
-#define mupnp_ssdpresponse_serverlist_gets(serverList) (mUpnpSSDPResponseServer*) mupnp_list_next((mUpnpList*)serverList)
+#define mupnp_ssdpresponse_serverlist_gets(serverList) (mUpnpSSDPResponseServer*)mupnp_list_next((mUpnpList*)serverList)
 #define mupnp_ssdpresponse_serverlist_add(serverList, server) mupnp_list_add((mUpnpList*)serverList, (mUpnpList*)server)
 
 bool mupnp_ssdpresponse_serverlist_open(mUpnpSSDPResponseServerList* ssdpServerList, int bindPort);

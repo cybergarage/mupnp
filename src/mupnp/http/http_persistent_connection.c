@@ -42,8 +42,8 @@ static mUpnpHttpPersistentConnectionList* cache = NULL;
 static mUpnpMutex* persistent_connection_mutex = NULL;
 
 /****************************************
-* mupnp_http_persistentconnection_init
-****************************************/
+ * mupnp_http_persistentconnection_init
+ ****************************************/
 
 bool mupnp_http_persistentconnection_init(void)
 {
@@ -84,8 +84,8 @@ bool mupnp_http_persistentconnection_init(void)
 }
 
 /****************************************
-* mupnp_http_persistentconnection_new
-****************************************/
+ * mupnp_http_persistentconnection_new
+ ****************************************/
 
 mUpnpHttpPersistentConnection* mupnp_http_persistentconnection_new(void)
 {
@@ -113,8 +113,8 @@ mUpnpHttpPersistentConnection* mupnp_http_persistentconnection_new(void)
 }
 
 /****************************************
-* mupnp_http_persistentconnection_delete
-****************************************/
+ * mupnp_http_persistentconnection_delete
+ ****************************************/
 
 void mupnp_http_persistentconnection_delete(mUpnpHttpPersistentConnection* node)
 {
@@ -135,8 +135,8 @@ void mupnp_http_persistentconnection_delete(mUpnpHttpPersistentConnection* node)
 }
 
 /****************************************
-* mupnp_http_persistentconnection_get
-****************************************/
+ * mupnp_http_persistentconnection_get
+ ****************************************/
 
 void* mupnp_http_persistentconnection_get(char* host, int port)
 {
@@ -197,8 +197,8 @@ void* mupnp_http_persistentconnection_get(char* host, int port)
 }
 
 /****************************************
-* mupnp_http_persistentconnection_put
-****************************************/
+ * mupnp_http_persistentconnection_put
+ ****************************************/
 
 bool mupnp_http_persistentconnection_put(char* host, int port, void* data)
 {
@@ -277,8 +277,8 @@ bool mupnp_http_persistentconnection_put(char* host, int port, void* data)
 }
 
 /****************************************
-* mupnp_http_persistentconnection_clear
-****************************************/
+ * mupnp_http_persistentconnection_clear
+ ****************************************/
 
 void mupnp_http_persistentconnection_clear(void)
 {
@@ -301,8 +301,8 @@ void mupnp_http_persistentconnection_clear(void)
 }
 
 /****************************************
-* mupnp_http_persistentconnection_lock
-****************************************/
+ * mupnp_http_persistentconnection_lock
+ ****************************************/
 
 void mupnp_http_persistentconnection_lock(void)
 {
@@ -317,8 +317,8 @@ void mupnp_http_persistentconnection_lock(void)
 }
 
 /****************************************
-* mupnp_http_persistentconnection_unlock
-****************************************/
+ * mupnp_http_persistentconnection_unlock
+ ****************************************/
 
 void mupnp_http_persistentconnection_unlock(void)
 {

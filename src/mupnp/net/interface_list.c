@@ -14,8 +14,8 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* mupnp_net_interfacelist_new
-****************************************/
+ * mupnp_net_interfacelist_new
+ ****************************************/
 
 mUpnpNetworkInterfaceList* mupnp_net_interfacelist_new()
 {
@@ -37,8 +37,8 @@ mUpnpNetworkInterfaceList* mupnp_net_interfacelist_new()
 }
 
 /****************************************
-* mupnp_net_interfacelist_delete
-****************************************/
+ * mupnp_net_interfacelist_delete
+ ****************************************/
 
 void mupnp_net_interfacelist_delete(mUpnpNetworkInterfaceList* netIfList)
 {
@@ -51,8 +51,8 @@ void mupnp_net_interfacelist_delete(mUpnpNetworkInterfaceList* netIfList)
 }
 
 /****************************************
-* mupnp_net_interfacelist_getinterface
-****************************************/
+ * mupnp_net_interfacelist_getinterface
+ ****************************************/
 
 mUpnpNetworkInterface* mupnp_net_interfacelist_get(mUpnpNetworkInterfaceList* netIfList, char* name)
 {
@@ -78,8 +78,8 @@ mUpnpNetworkInterface* mupnp_net_interfacelist_get(mUpnpNetworkInterfaceList* ne
 }
 
 /****************************************
-* mupnp_net_interfacelist_getchanges
-****************************************/
+ * mupnp_net_interfacelist_getchanges
+ ****************************************/
 
 void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList* netIfListOld,
     mUpnpNetworkInterfaceList* netIfListNew,
@@ -115,8 +115,8 @@ void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList* netIfListOld,
     }
   }
 
-  /* Browse through new interfaces and check, if they are in the 
-	   remaining old interfaces */
+  /* Browse through new interfaces and check, if they are in the
+           remaining old interfaces */
   tmp = mupnp_net_interfacelist_gets(netIfListNew);
   while (tmp != NULL) {
     netIfNew = tmp;

@@ -13,14 +13,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_QUERY (Begin)
-****************************************/
+ * MUPNP_NOUSE_QUERY (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_QUERYCTRL)
 
 /****************************************
-* mupnp_action_performlistener
-****************************************/
+ * mupnp_action_performlistener
+ ****************************************/
 
 bool mupnp_statevariable_performlistner(mUpnpStateVariable* statVar, mUpnpQueryRequest* queryReq)
 {
@@ -58,8 +58,8 @@ bool mupnp_statevariable_performlistner(mUpnpStateVariable* statVar, mUpnpQueryR
 }
 
 /****************************************
-* mupnp_statevariable_post
-****************************************/
+ * mupnp_statevariable_post
+ ****************************************/
 
 bool mupnp_statevariable_post(mUpnpStateVariable* statVar)
 {
@@ -84,7 +84,7 @@ bool mupnp_statevariable_post(mUpnpStateVariable* statVar)
 }
 
 /****************************************
-* MUPNP_NOUSE_QUERY (End)
-****************************************/
+ * MUPNP_NOUSE_QUERY (End)
+ ****************************************/
 
 #endif

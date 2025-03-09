@@ -15,14 +15,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (Begin)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_event_subscription_request_setsid
-****************************************/
+ * mupnp_event_subscription_request_setsid
+ ****************************************/
 
 void mupnp_event_subscription_request_setsid(mUpnpSubscriptionRequest* subReq, const char* sid)
 {
@@ -46,8 +46,8 @@ void mupnp_event_subscription_request_setsid(mUpnpSubscriptionRequest* subReq, c
 }
 
 /****************************************
-* mupnp_event_subscription_request_settimeout
-****************************************/
+ * mupnp_event_subscription_request_settimeout
+ ****************************************/
 
 void mupnp_event_subscription_request_settimeout(mUpnpSubscriptionRequest* subReq, long timeout)
 {
@@ -63,8 +63,8 @@ void mupnp_event_subscription_request_settimeout(mUpnpSubscriptionRequest* subRe
 }
 
 /****************************************
-* mupnp_event_subscription_request_setservice
-****************************************/
+ * mupnp_event_subscription_request_setservice
+ ****************************************/
 
 static void mupnp_event_subscription_request_setservice(mUpnpSubscriptionRequest* subReq, mUpnpService* service)
 {
@@ -83,8 +83,8 @@ static void mupnp_event_subscription_request_setservice(mUpnpSubscriptionRequest
 }
 
 /****************************************
-* mupnp_event_subscription_request_setnewsubscription
-****************************************/
+ * mupnp_event_subscription_request_setnewsubscription
+ ****************************************/
 
 void mupnp_event_subscription_request_setnewsubscription(mUpnpSubscriptionRequest* subReq, mUpnpService* service, const char* callback, mUpnpTime timeout)
 {
@@ -99,8 +99,8 @@ void mupnp_event_subscription_request_setnewsubscription(mUpnpSubscriptionReques
 }
 
 /****************************************
-* mupnp_event_subscription_request_setrenewsubscription
-****************************************/
+ * mupnp_event_subscription_request_setrenewsubscription
+ ****************************************/
 
 void mupnp_event_subscription_request_setrenewsubscription(mUpnpSubscriptionRequest* subReq, mUpnpService* service, const char* uuid, mUpnpTime timeout)
 {
@@ -114,8 +114,8 @@ void mupnp_event_subscription_request_setrenewsubscription(mUpnpSubscriptionRequ
 }
 
 /****************************************
-* mupnp_event_subscription_request_setunsubscription
-****************************************/
+ * mupnp_event_subscription_request_setunsubscription
+ ****************************************/
 
 void mupnp_event_subscription_request_setunsubscription(mUpnpSubscriptionRequest* subReq, mUpnpService* service)
 {
@@ -128,7 +128,7 @@ void mupnp_event_subscription_request_setunsubscription(mUpnpSubscriptionRequest
 }
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (End)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (End)
+ ****************************************/
 
 #endif

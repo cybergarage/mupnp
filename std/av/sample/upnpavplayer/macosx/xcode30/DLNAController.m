@@ -49,10 +49,10 @@
     [fsBrowser registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
     [fsBrowser setDraggingSourceOperationMask:NSDragOperationEvery forLocal:YES];
     [fsBrowser setDraggingSourceOperationMask:NSDragOperationEvery forLocal:NO];
-    
+
     // Prime the browser with an initial load of data.
     [self reloadData:nil];
-	*/
+        */
   [thumbnailView setImageScaling:NSScaleToFit];
   NSURL* imgUrl = [NSURL URLWithString:@"http://certification.dlna.org//prodimages/RDA1_RF.jpg"];
   NSImage* img = [[NSImage alloc] initWithContentsOfURL:imgUrl];
@@ -152,12 +152,12 @@
 
   /*
    [videoView setAutoresizingMask: NSViewHeightSizable|NSViewWidthSizable];
-  
+
    // Init the player object
    player = [[VLCMediaPlayer alloc] initWithVideoView:videoView];
- 
+
    [player setMedia:[VLCMedia mediaWithPath:@"/to/my/movie"]];
-   [player play];	
+   [player play];
    */
 }
 

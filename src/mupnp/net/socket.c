@@ -64,8 +64,8 @@
 */
 
 /****************************************
-* static variable
-****************************************/
+ * static variable
+ ****************************************/
 
 static int socketCnt = 0;
 
@@ -78,8 +78,8 @@ ttUserInterface kaInterfaceHandle;
 #endif
 
 /****************************************
-* prototype
-****************************************/
+ * prototype
+ ****************************************/
 
 #if !defined(ITRON)
 bool mupnp_socket_tosockaddrin(const char* addr, int port, struct sockaddr_in* sockaddr, bool isBindAddr);
@@ -113,14 +113,14 @@ static bool mupnp_socket_getavailablelocaladdress(T_IPV4EP* localAddr);
 #endif
 
 /****************************************
-*
-* Socket
-*
-****************************************/
+ *
+ * Socket
+ *
+ ****************************************/
 
 /****************************************
-* mupnp_socket_startup
-****************************************/
+ * mupnp_socket_startup
+ ****************************************/
 
 void mupnp_socket_startup()
 {
@@ -138,9 +138,9 @@ void mupnp_socket_startup()
     err = WSAStartup(MAKEWORD(2, 2), &wsaData);
 
 #if defined(WINCE)
-    //Theo Beisch unfriendly exit, at least for WINCE
+    // Theo Beisch unfriendly exit, at least for WINCE
     if (err) {
-//startup error
+// startup error
 #if defined DEBUG
       printf("######## WINSOCK startup error %d\n", err);
 #endif // DEBUG
@@ -176,8 +176,8 @@ void mupnp_socket_startup()
 }
 
 /****************************************
-* mupnp_socket_cleanup
-****************************************/
+ * mupnp_socket_cleanup
+ ****************************************/
 
 void mupnp_socket_cleanup()
 {
@@ -203,8 +203,8 @@ void mupnp_socket_cleanup()
 }
 
 /****************************************
-* mupnp_socket_new
-****************************************/
+ * mupnp_socket_new
+ ****************************************/
 
 mUpnpSocket* mupnp_socket_new(int type)
 {
@@ -248,8 +248,8 @@ mUpnpSocket* mupnp_socket_new(int type)
 }
 
 /****************************************
-* mupnp_socket_delete
-****************************************/
+ * mupnp_socket_delete
+ ****************************************/
 
 bool mupnp_socket_delete(mUpnpSocket* sock)
 {
@@ -269,8 +269,8 @@ bool mupnp_socket_delete(mUpnpSocket* sock)
 }
 
 /****************************************
-* mupnp_socket_isbound
-****************************************/
+ * mupnp_socket_isbound
+ ****************************************/
 
 bool mupnp_socket_isbound(mUpnpSocket* sock)
 {
@@ -286,8 +286,8 @@ bool mupnp_socket_isbound(mUpnpSocket* sock)
 }
 
 /****************************************
-* mupnp_socket_setid
-****************************************/
+ * mupnp_socket_setid
+ ****************************************/
 
 void mupnp_socket_setid(mUpnpSocket* socket, SOCKET value)
 {
@@ -312,8 +312,8 @@ void mupnp_socket_setid(mUpnpSocket* socket, SOCKET value)
 }
 
 /****************************************
-* mupnp_socket_close
-****************************************/
+ * mupnp_socket_close
+ ****************************************/
 
 bool mupnp_socket_close(mUpnpSocket* sock)
 {
@@ -399,8 +399,8 @@ bool mupnp_socket_close(mUpnpSocket* sock)
 }
 
 /****************************************
-* mupnp_socket_listen
-****************************************/
+ * mupnp_socket_listen
+ ****************************************/
 
 bool mupnp_socket_listen(mUpnpSocket* sock)
 {
@@ -423,8 +423,8 @@ bool mupnp_socket_listen(mUpnpSocket* sock)
 }
 
 /****************************************
-* mupnp_socket_bind
-****************************************/
+ * mupnp_socket_bind
+ ****************************************/
 
 bool mupnp_socket_bind(mUpnpSocket* sock, int bindPort, const char* bindAddr, bool bindFlag, bool reuseFlag)
 {
@@ -469,9 +469,9 @@ bool mupnp_socket_bind(mUpnpSocket* sock, int bindPort, const char* bindAddr, bo
   if (sock->id < 0)
     return false;
   /*
-	if (mupnp_socket_setmulticastinterface(sock, bindAddr) == false)
-		return false;
-	*/
+        if (mupnp_socket_setmulticastinterface(sock, bindAddr) == false)
+                return false;
+        */
   if (reuseFlag == true) {
     if (mupnp_socket_setreuseaddress(sock, true) == false) {
       mupnp_socket_close(sock);
@@ -542,8 +542,8 @@ bool mupnp_socket_bind(mUpnpSocket* sock, int bindPort, const char* bindAddr, bo
 }
 
 /****************************************
-* mupnp_socket_accept
-****************************************/
+ * mupnp_socket_accept
+ ****************************************/
 
 bool mupnp_socket_accept(mUpnpSocket* serverSock, mUpnpSocket* clientSock)
 {
@@ -604,8 +604,8 @@ bool mupnp_socket_accept(mUpnpSocket* serverSock, mUpnpSocket* clientSock)
 }
 
 /****************************************
-* mupnp_socket_connect
-****************************************/
+ * mupnp_socket_connect
+ ****************************************/
 
 bool mupnp_socket_connect(mUpnpSocket* sock, const char* addr, int port)
 {
@@ -684,8 +684,8 @@ bool mupnp_socket_connect(mUpnpSocket* sock, const char* addr, int port)
 }
 
 /****************************************
-* mupnp_socket_read
-****************************************/
+ * mupnp_socket_read
+ ****************************************/
 
 ssize_t mupnp_socket_read(mUpnpSocket* sock, char* buffer, size_t bufferLen)
 {
@@ -726,8 +726,8 @@ ssize_t mupnp_socket_read(mUpnpSocket* sock, char* buffer, size_t bufferLen)
 }
 
 /****************************************
-* mupnp_socket_write
-****************************************/
+ * mupnp_socket_write
+ ****************************************/
 
 #define MUPNP_NET_SOCKET_SEND_RETRY_CNT 10
 #define MUPNP_NET_SOCKET_SEND_RETRY_WAIT_MSEC 20
@@ -771,8 +771,8 @@ size_t mupnp_socket_write(mUpnpSocket* sock, const char* cmd, size_t cmdLen)
       retryCnt++;
       if (MUPNP_NET_SOCKET_SEND_RETRY_CNT < retryCnt) {
         /* Must reset this because otherwise return
-				   value is interpreted as something else than
-				   fault and this function loops forever */
+                                   value is interpreted as something else than
+                                   fault and this function loops forever */
         nTotalSent = 0;
         break;
       }
@@ -797,8 +797,8 @@ size_t mupnp_socket_write(mUpnpSocket* sock, const char* cmd, size_t cmdLen)
   return nTotalSent;
 }
 /****************************************
-* mupnp_socket_readline
-****************************************/
+ * mupnp_socket_readline
+ ****************************************/
 
 ssize_t mupnp_socket_readline(mUpnpSocket* sock, char* buffer, size_t bufferLen)
 {
@@ -832,8 +832,8 @@ ssize_t mupnp_socket_readline(mUpnpSocket* sock, char* buffer, size_t bufferLen)
 }
 
 /****************************************
-* mupnp_socket_skip
-****************************************/
+ * mupnp_socket_skip
+ ****************************************/
 
 size_t mupnp_socket_skip(mUpnpSocket* sock, size_t skipLen)
 {
@@ -857,8 +857,8 @@ size_t mupnp_socket_skip(mUpnpSocket* sock, size_t skipLen)
 }
 
 /****************************************
-* mupnp_socket_sendto
-****************************************/
+ * mupnp_socket_sendto
+ ****************************************/
 
 size_t mupnp_socket_sendto(mUpnpSocket* sock, const char* addr, int port, const char* data, size_t dataLen)
 {
@@ -938,8 +938,8 @@ size_t mupnp_socket_sendto(mUpnpSocket* sock, const char* addr, int port, const 
 }
 
 /****************************************
-* mupnp_socket_recv
-****************************************/
+ * mupnp_socket_recv
+ ****************************************/
 
 ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt)
 {
@@ -1011,8 +1011,8 @@ ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt)
 }
 
 /****************************************
-* mupnp_socket_setreuseaddress
-****************************************/
+ * mupnp_socket_setreuseaddress
+ ****************************************/
 
 bool mupnp_socket_setreuseaddress(mUpnpSocket* sock, bool flag)
 {
@@ -1056,8 +1056,8 @@ bool mupnp_socket_setreuseaddress(mUpnpSocket* sock, bool flag)
 }
 
 /****************************************
-* mupnp_socket_setmulticastttl
-****************************************/
+ * mupnp_socket_setmulticastttl
+ ****************************************/
 
 bool mupnp_socket_setmulticastttl(mUpnpSocket* sock, int ttl)
 {
@@ -1094,8 +1094,8 @@ bool mupnp_socket_setmulticastttl(mUpnpSocket* sock, int ttl)
 }
 
 /****************************************
-* mupnp_socket_settimeout
-****************************************/
+ * mupnp_socket_settimeout
+ ****************************************/
 
 bool mupnp_socket_settimeout(mUpnpSocket* sock, int sec)
 {
@@ -1135,8 +1135,8 @@ bool mupnp_socket_settimeout(mUpnpSocket* sock, int sec)
 }
 
 /****************************************
-* mupnp_socket_joingroup
-****************************************/
+ * mupnp_socket_joingroup
+ ****************************************/
 
 #if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 
@@ -1270,8 +1270,8 @@ bool mupnp_socket_joingroup(mUpnpSocket* sock, const char* mcastAddr, const char
 #endif
 
 /****************************************
-* mupnp_socket_tosockaddrin
-****************************************/
+ * mupnp_socket_tosockaddrin
+ ****************************************/
 
 #if !defined(ITRON)
 
@@ -1323,8 +1323,8 @@ bool mupnp_socket_tosockaddrin(const char* addr, int port, struct sockaddr_in* s
 #endif
 
 /****************************************
-* mupnp_socket_tosockaddrinfo
-****************************************/
+ * mupnp_socket_tosockaddrinfo
+ ****************************************/
 
 #if !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
 
@@ -1389,8 +1389,8 @@ bool mupnp_socket_tosockaddrinfo(int sockType, const char* addr, int port, struc
 #endif
 
 /****************************************
-* mupnp_socket_setmulticastinterface
-****************************************/
+ * mupnp_socket_setmulticastinterface
+ ****************************************/
 
 #if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 
@@ -1435,8 +1435,8 @@ bool mupnp_socket_setmulticastinterface(mUpnpSocket* sock, char* ifaddr)
 #endif
 
 /****************************************
-* mupnp_socket_getavailableid
-****************************************/
+ * mupnp_socket_getavailableid
+ ****************************************/
 
 #if defined(MUPNP_NET_USE_SOCKET_LIST)
 
@@ -1470,8 +1470,8 @@ static int mupnp_socket_getavailableid(int type)
 #endif
 
 /****************************************
-* mupnp_socket_getavailableid
-****************************************/
+ * mupnp_socket_getavailableid
+ ****************************************/
 
 #if defined(MUPNP_NET_USE_SOCKET_LIST)
 
@@ -1505,8 +1505,8 @@ static int mupnp_socket_getavailableport()
 #endif
 
 /****************************************
-* mupnp_socket_*windowbuffer (ITRON)
-****************************************/
+ * mupnp_socket_*windowbuffer (ITRON)
+ ****************************************/
 
 #if defined(ITRON)
 
@@ -1544,8 +1544,8 @@ bool mupnp_socket_freewindowbuffer(mUpnpSocket* sock)
 #endif
 
 /****************************************
-* mupnp_socket_*_callback (ITRON)
-****************************************/
+ * mupnp_socket_*_callback (ITRON)
+ ****************************************/
 
 #if defined(ITRON)
 
@@ -1570,8 +1570,8 @@ static ER mupnp_socket_tcp_callback(ID cepid, FN fncd, VP parblk)
 #endif
 
 /****************************************
-* mupnp_socket_getavailablelocaladdress (ITRON)
-****************************************/
+ * mupnp_socket_getavailablelocaladdress (ITRON)
+ ****************************************/
 
 #if defined(ITRON)
 
@@ -1605,8 +1605,8 @@ static bool mupnp_socket_getavailablelocaladdress(T_IPV4EP* localAddr)
 
 #if defined(WIN32)
 /****************************************
-* mupnp_socket_getlasterror (WIN32)
-****************************************/
+ * mupnp_socket_getlasterror (WIN32)
+ ****************************************/
 int mupnp_socket_getlasterror()
 {
   return WSAGetLastError();

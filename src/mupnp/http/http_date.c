@@ -20,8 +20,8 @@
 #include <mupnp/util/time.h>
 
 /****************************************
-* to_month_string()
-****************************************/
+ * to_month_string()
+ ****************************************/
 
 static char MONTH_STRING[][4] = {
   "Jan",
@@ -48,8 +48,8 @@ static char* to_month_string(int value)
 }
 
 /****************************************
-* to_week_string()
-****************************************/
+ * to_week_string()
+ ****************************************/
 
 static char WEEK_STRING[][4] = {
   "Sun",
@@ -73,8 +73,8 @@ static char* to_week_string(int value)
 }
 
 /****************************************
-* mupnp_http_getservername()
-****************************************/
+ * mupnp_http_getservername()
+ ****************************************/
 
 #if !defined(ITRON)
 
@@ -139,8 +139,8 @@ const char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, size_t bufSize)
 #endif
 
 /****************************************
-* mupnp_http_getservername() (ITRON)
-****************************************/
+ * mupnp_http_getservername() (ITRON)
+ ****************************************/
 
 #if defined(ITRON)
 

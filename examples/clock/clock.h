@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: clock.h
-*
-*	Revision:
-*       06/07/05
-*               - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: clock.h
+ *
+ *	Revision:
+ *       06/07/05
+ *               - first release.
+ *
+ ************************************************************/
 
 #ifndef _CG_CLOCK_H_
 #define _CG_CLOCK_H_
@@ -22,14 +22,14 @@ extern "C" {
 #endif
 
 /****************************************
-* Define
-****************************************/
+ * Define
+ ****************************************/
 
 #define SYSTEM_TIME_BUF_LEN 128
 
 /****************************************
-* Function
-****************************************/
+ * Function
+ ****************************************/
 
 char* GetSystemTimeString(mUpnpTime currTime, char* buf);
 char* GetDateString(mUpnpTime currTime, char* buf);

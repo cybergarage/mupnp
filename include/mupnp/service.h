@@ -12,26 +12,26 @@
 #ifndef _MUPNP_SERVICE_H_
 #define _MUPNP_SERVICE_H_
 
-#include <mupnp/typedef.h>
-#include <mupnp/xml/xml.h>
-#include <mupnp/util/time.h>
-#include <mupnp/util/list.h>
-#include <mupnp/util/string.h>
-#include <mupnp/util/mutex.h>
 #include <mupnp/net/url.h>
+#include <mupnp/typedef.h>
+#include <mupnp/util/list.h>
+#include <mupnp/util/mutex.h>
+#include <mupnp/util/string.h>
+#include <mupnp/util/time.h>
+#include <mupnp/xml/xml.h>
 
 #include <mupnp/action.h>
-#include <mupnp/statevariable.h>
-#include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/event/subscriber.h>
+#include <mupnp/ssdp/ssdp_server.h>
+#include <mupnp/statevariable.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /****************************************************************************
-* Define
-*****************************************************************************/
+ * Define
+ *****************************************************************************/
 
 #define MUPNP_SERVICE_ELEM_NAME "service"
 #define MUPNP_SERVICELIST_ELEM_NAME "serviceList"
@@ -45,8 +45,8 @@ extern "C" {
 #define MUPNP_SERVICE_NOTIFY_WAITTIME 1000
 
 /****************************************************************************
-* Data Type
-*****************************************************************************/
+ * Data Type
+ *****************************************************************************/
 
 typedef struct _mUpnpService {
   MUPNP_LIST_STRUCT_MEMBERS
@@ -71,8 +71,8 @@ typedef struct _mUpnpService {
 } mUpnpService, mUpnpServiceList;
 
 /****************************************
-* Function (Service)
-****************************************/
+ * Function (Service)
+ ****************************************/
 
 /**
  * Create a new UPnP service
@@ -98,7 +98,7 @@ void mupnp_service_clear(mUpnpService* service);
  *
  * @param service Current service
  */
-#define mupnp_service_next(service) (mUpnpService*) mupnp_list_next((mUpnpList*)service)
+#define mupnp_service_next(service) (mUpnpService*)mupnp_list_next((mUpnpList*)service)
 
 /**
  * Check, whether the given XML node is a service root node
@@ -149,7 +149,7 @@ bool mupnp_service_parsedescription(mUpnpService* service, const char* descripti
 /**
  * Create the service's contents from the given URL. Gets the XML document
  * from the URL and passes it again to @ref mupnp_service_parsedescription
- * 
+ *
  * @param service The service to create
  * @param url The URL of the document to parse
  */
@@ -193,8 +193,8 @@ char* mupnp_service_getdescription(mUpnpService* service, mUpnpString* descStr);
  */
 #define mupnp_service_getservicetype(service) mupnp_xml_node_getchildnodevalue(mupnp_service_getservicenode(service), MUPNP_SERVICE_TYPE)
 
-/** 
- * Get the identifier-part of a service type string (usually "urn") 
+/**
+ * Get the identifier-part of a service type string (usually "urn")
  *
  * @param serviceType A service type string (usually the result from
  *	  \ref mupnp_service_getservicetype)
@@ -203,8 +203,8 @@ char* mupnp_service_getdescription(mUpnpService* service, mUpnpString* descStr);
  */
 const char* mupnp_servicetype_getidentifier(const char* serviceType);
 
-/** 
- * Get the URN part of a service type string (usually "schemas-upnp-org") 
+/**
+ * Get the URN part of a service type string (usually "schemas-upnp-org")
  *
  * @param serviceType A service type string (usually the result from
  *	  \ref mupnp_service_getservicetype)
@@ -213,7 +213,7 @@ const char* mupnp_servicetype_getidentifier(const char* serviceType);
  */
 const char* mupnp_servicetype_geturn(const char* serviceType);
 
-/** 
+/**
  * Get the service part of a service type string (usually just "service")
  *
  * @param serviceType A service type string (usually the result from
@@ -223,7 +223,7 @@ const char* mupnp_servicetype_geturn(const char* serviceType);
  */
 const char* mupnp_servicetype_getservice(const char* serviceType);
 
-/** 
+/**
  * Get the type part of a service type string (ex. "ContentDirectory")
  *
  * @param serviceType A service type string (usually the result from
@@ -233,7 +233,7 @@ const char* mupnp_servicetype_getservice(const char* serviceType);
  */
 const char* mupnp_servicetype_gettype(const char* serviceType);
 
-/** 
+/**
  * Get the schema type part of a service type string (without last colon)
  * (ex. "urn:schemas-upnp-org:service:ContentDirectory")
  *
@@ -244,7 +244,7 @@ const char* mupnp_servicetype_gettype(const char* serviceType);
  */
 char* mupnp_servicetype_getschematype(const char* serviceType);
 
-/** 
+/**
  * Get the version part of a service type string (ex. "1")
  *
  * @param serviceType A service type string (usually the result from
@@ -268,7 +268,7 @@ const char* mupnp_servicetype_getversion(const char* serviceType);
 
 /**
  * Get the service's service ID
- * 
+ *
  * @param service The service in question
  * @return char*
  */
@@ -297,7 +297,7 @@ mUpnpNetURL* mupnp_service_getscpdurl(mUpnpService* service);
 
 /**
  * Compare the service's SCPD URL and the given location
- * 
+ *
  * @param service The service in question
  * @param url The URL (location) to compare
  * @return true if location is found from URL; otherwise false
@@ -330,7 +330,7 @@ mUpnpNetURL* mupnp_service_getcontrolurl(mUpnpService* service);
 
 /**
  * Get the service's event subscription URL
- * 
+ *
  * @param service The service in question
  * @param value The event subscription URL string
  */
@@ -432,14 +432,14 @@ bool mupnp_service_announcefrom(mUpnpService* service, const char* bindAddr);
 /**
  * Send a byebye announcement (i.e. a cancelling advertisement) from the given
  * address
- * 
+ *
  * @param service The service to announce from
  * @param bindAddr The address to attach to the announcement
  */
 bool mupnp_service_byebyefrom(mUpnpService* service, const char* bindAddr);
 
 /****************************************************************************
- * Listener 
+ * Listener
  ****************************************************************************/
 
 /**
@@ -504,7 +504,7 @@ void mupnp_service_setquerylistener(mUpnpService* service, MUPNP_STATEVARIABLE_L
 
 /**
  * Get the number of subscribers for the service
- * 
+ *
  * @param service The service in question
  * @return int
  */
@@ -562,11 +562,11 @@ bool mupnp_service_notify(mUpnpService* service, mUpnpStateVariable* statVar);
 bool mupnp_service_notifyall(mUpnpService* service, bool doBracket);
 
 /**
-* Create a new thread to send a notification message to all of the service's subscribers
-*
+ * Create a new thread to send a notification message to all of the service's subscribers
+ *
  * @param service The service in question
-*  @param waitTime The wait time to send
-*/
+ *  @param waitTime The wait time to send
+ */
 void mupnp_service_createnotifyallthread(mUpnpService* service, mUpnpTime waitTime);
 
 /**
@@ -755,11 +755,11 @@ void mupnp_servicelist_delete(mUpnpServiceList* serviceList);
  *
  * @param serviceList The service list
  */
-#define mupnp_servicelist_gets(serviceList) (mUpnpService*) mupnp_list_next((mUpnpList*)serviceList)
+#define mupnp_servicelist_gets(serviceList) (mUpnpService*)mupnp_list_next((mUpnpList*)serviceList)
 
 /**
  * Add a service to a list of services
- * 
+ *
  * @param serviceList The list to add the service to
  * @param service The service to add to the list
  */

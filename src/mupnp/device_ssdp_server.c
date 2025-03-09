@@ -21,8 +21,8 @@ static int filter_duplicate_m_search(mUpnpSSDPPacket* ssdpPkt);
 static int simple_string_hash(char* str, int table_size);
 
 /****************************************
-* mupnp_device_ssdpmessagereceived
-****************************************/
+ * mupnp_device_ssdpmessagereceived
+ ****************************************/
 
 void mupnp_device_ssdpmessagereceived(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt, int filter)
 {
@@ -51,10 +51,10 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt
   if (filter) {
 
     /****************************************
-		 * Request line
-		 * Check the request line for errors, this is not ideal as it currently only
-		 * checks for the presence of the strings and not the order.
-		 ***************************************/
+     * Request line
+     * Check the request line for errors, this is not ideal as it currently only
+     * checks for the presence of the strings and not the order.
+     ***************************************/
     /**** check for M-SEARCH and return if not found ****/
     if (mupnp_strstr(mupnp_string_getvalue(ssdpPkt->dgmPkt->data), MUPNP_HTTP_MSEARCH) < 0)
       return;
@@ -66,21 +66,21 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt
       return;
 
     /****************************************
-		 * check HOST header, should always be 239.255.255.250:1900, return if incorrect
-		 ***************************************/
+     * check HOST header, should always be 239.255.255.250:1900, return if incorrect
+     ***************************************/
     ssdpTargetAddr = mupnp_ssdp_packet_gethost(ssdpPkt);
     if (mupnp_strcmp(ssdpTargetAddr, MUPNP_SSDP_MULTICAST_ADDRESS) != 0 && !mupnp_net_isipv6address(ssdpTargetAddr))
       return;
 
     /****************************************
-		 * check MAN header, return if incorrect
-		 ***************************************/
+     * check MAN header, return if incorrect
+     ***************************************/
     if (mupnp_ssdp_packet_isdiscover(ssdpPkt) == false)
       return;
 
     /****************************************
-		 * check MX header, return if incorrect
-		 ***************************************/
+     * check MX header, return if incorrect
+     ***************************************/
     if (ssdpMXString == NULL || mupnp_strlen(ssdpMXString) == 0)
       /* return if the MX value does not exist or is empty */
       return;
@@ -92,13 +92,13 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt
     }
 
     /****************************************
-		 * check ST header and if empty return
-		 ***************************************/
+     * check ST header and if empty return
+     ***************************************/
     if (mupnp_strlen(ssdpST) <= 0)
       return;
 
     /* Check if we have received this search recently
-		 * and ignore duplicates. */
+     * and ignore duplicates. */
     if (filter_duplicate_m_search(ssdpPkt))
       return;
 
@@ -153,8 +153,8 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt
 }
 
 /****************************************
-* mupnp_device_ssdplistener
-****************************************/
+ * mupnp_device_ssdplistener
+ ****************************************/
 
 void mupnp_device_ssdplistener(mUpnpSSDPPacket* ssdpPkt)
 {

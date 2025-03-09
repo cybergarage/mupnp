@@ -43,14 +43,14 @@ BOOST_AUTO_TEST_CASE(StringTest)
 
   /*
   mupnp_float2str(MUPNP_TESTCASE_DBLVALUE, buf, sizeof(buf));
-	BOOST_CHECK(mupnp_streq(buf, MUPNP_TESTCASE_DBLVALUE_STRING));
+        BOOST_CHECK(mupnp_streq(buf, MUPNP_TESTCASE_DBLVALUE_STRING));
   mupnp_float2str(MUPNP_TESTCASE_UDBLVALUE, buf, sizeof(buf));
-	BOOST_CHECK(mupnp_streq(buf, MUPNP_TESTCASE_UDBLVALUE_STRING));
+        BOOST_CHECK(mupnp_streq(buf, MUPNP_TESTCASE_UDBLVALUE_STRING));
 
   mupnp_double2str(MUPNP_TESTCASE_DBLVALUE, buf, sizeof(buf));
-	BOOST_CHECK(mupnp_streq(buf, MUPNP_TESTCASE_DBLVALUE_STRING));
+        BOOST_CHECK(mupnp_streq(buf, MUPNP_TESTCASE_DBLVALUE_STRING));
   mupnp_double2str(MUPNP_TESTCASE_UDBLVALUE, buf, sizeof(buf));
-	BOOST_CHECK(mupnp_streq(buf, MUPNP_TESTCASE_UDBLVALUE_STRING));
+        BOOST_CHECK(mupnp_streq(buf, MUPNP_TESTCASE_UDBLVALUE_STRING));
   */
 
   mupnp_sizet2str(MUPNP_TESTCASE_UINTVALUE, buf, sizeof(buf));

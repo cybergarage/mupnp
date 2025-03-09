@@ -114,8 +114,8 @@ int mupnp_log_add_target(char* target, int mask)
   initialized = 1;
 
   /* Checking if target is standard stream or should we create
-	 * new stream for file output.
-	 */
+   * new stream for file output.
+   */
   if (!strcmp(target, "stdout"))
     r_target = stdout;
   else if (!strcmp(target, "stderr"))
@@ -128,7 +128,7 @@ int mupnp_log_add_target(char* target, int mask)
     }
 
     /* User is adding new file for output, note that file is cleared if
-		 * it is not already open. */
+     * it is not already open. */
     if (NULL == r_target)
       r_target = fopen(target, "w");
   }
@@ -257,14 +257,14 @@ void mupnp_log_print(int severity, const char* file, int line_n, const char* fun
 void mupnp_log_error(const char* format, ...)
 {
   /*
-	va_list args;
-	char *fmt;
-	char buf[256];
+        va_list args;
+        char *fmt;
+        char buf[256];
 
-	va_start(args);
-	fmt=va_arg(args,char *);
-	//vsprintf(buf,fmt,args);
-	va_end(args);
+        va_start(args);
+        fmt=va_arg(args,char *);
+        //vsprintf(buf,fmt,args);
+        va_end(args);
 */
 }
 

@@ -1,16 +1,16 @@
 /************************************************************
-*
-*	mUPnP for C
-*
-*	Copyright (C) Satoshi Konno 2005
-*
-*	File: cmediarenderer_device.c
-*
-*	Revision:
-*		2009/06/11
-*        - first release.
-*
-************************************************************/
+ *
+ *	mUPnP for C
+ *
+ *	Copyright (C) Satoshi Konno 2005
+ *
+ *	File: cmediarenderer_device.c
+ *
+ *	Revision:
+ *		2009/06/11
+ *        - first release.
+ *
+ ************************************************************/
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -19,8 +19,8 @@
 #include <cybergarage/upnp/std/av/cmediarenderer.h>
 
 /****************************************
-* Device Description
-****************************************/
+ * Device Description
+ ****************************************/
 
 static char* CG_UPNPAV_DMR_DEVICE_DESCRIPTION = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
                                                 "<root xmlns=\"urn:schemas-upnp-org:device-1-0\" xmlns:dlna=\"urn:schemas-dlna-org:device-1-0\">\n"
@@ -66,8 +66,8 @@ static char* CG_UPNPAV_DMR_DEVICE_DESCRIPTION = "<?xml version=\"1.0\" encoding=
                                                 "</root>\n";
 
 /****************************************
-* Functions
-****************************************/
+ * Functions
+ ****************************************/
 
 BOOL cg_upnpav_dmr_conmgr_init(CgUpnpAvRenderer* dmr);
 BOOL cg_upnpav_dmr_avtransport_init(CgUpnpAvRenderer* dmr);
@@ -137,8 +137,8 @@ char* cg_upnpav_dmr_getcurrentconnectionids(CgUpnpAvRenderer* dmr)
 }
 
 /****************************************
-* cg_upnpav_dmr_actionreceived
-****************************************/
+ * cg_upnpav_dmr_actionreceived
+ ****************************************/
 
 BOOL cg_upnpav_dmr_actionreceived(CgUpnpAction* action)
 {
@@ -178,8 +178,8 @@ BOOL cg_upnpav_dmr_actionreceived(CgUpnpAction* action)
 }
 
 /****************************************
-* cg_upnpav_dmr_queryreceived
-****************************************/
+ * cg_upnpav_dmr_queryreceived
+ ****************************************/
 
 BOOL cg_upnpav_dmr_queryreceived(CgUpnpStateVariable* statVar)
 {
@@ -219,8 +219,8 @@ BOOL cg_upnpav_dmr_queryreceived(CgUpnpStateVariable* statVar)
 }
 
 /****************************************
-* cg_upnpav_dmr_device_httprequestrecieved
-****************************************/
+ * cg_upnpav_dmr_device_httprequestrecieved
+ ****************************************/
 
 void cg_upnpav_dmr_device_httprequestrecieved(CgHttpRequest* httpReq)
 {
@@ -250,8 +250,8 @@ void cg_upnpav_dmr_device_httprequestrecieved(CgHttpRequest* httpReq)
 }
 
 /****************************************
-* cg_upnpav_dmr_new
-****************************************/
+ * cg_upnpav_dmr_new
+ ****************************************/
 
 CgUpnpAvRenderer* cg_upnpav_dmr_new()
 {
@@ -327,8 +327,8 @@ CgUpnpAvRenderer* cg_upnpav_dmr_new()
 }
 
 /****************************************
-* cg_upnpav_dmr_delete
-****************************************/
+ * cg_upnpav_dmr_delete
+ ****************************************/
 
 void cg_upnpav_dmr_delete(CgUpnpAvRenderer* dmr)
 {

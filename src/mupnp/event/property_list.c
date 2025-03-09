@@ -13,14 +13,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (Begin)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_SUBSCRIPTION)
 
 /****************************************
-* mupnp_propertylist_new
-****************************************/
+ * mupnp_propertylist_new
+ ****************************************/
 
 mUpnpPropertyList* mupnp_propertylist_new()
 {
@@ -39,8 +39,8 @@ mUpnpPropertyList* mupnp_propertylist_new()
 }
 
 /****************************************
-* mupnp_propertylist_delete
-****************************************/
+ * mupnp_propertylist_delete
+ ****************************************/
 
 void mupnp_propertylist_delete(mUpnpPropertyList* propertyList)
 {
@@ -53,7 +53,7 @@ void mupnp_propertylist_delete(mUpnpPropertyList* propertyList)
 }
 
 /****************************************
-* MUPNP_NOUSE_SUBSCRIPTION (End)
-****************************************/
+ * MUPNP_NOUSE_SUBSCRIPTION (End)
+ ****************************************/
 
 #endif

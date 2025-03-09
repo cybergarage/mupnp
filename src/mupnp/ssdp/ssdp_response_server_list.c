@@ -14,14 +14,14 @@
 #include <mupnp/util/log.h>
 
 /****************************************
-* MUPNP_NOUSE_CONTROLPOINT (Begin)
-****************************************/
+ * MUPNP_NOUSE_CONTROLPOINT (Begin)
+ ****************************************/
 
 #if !defined(MUPNP_NOUSE_CONTROLPOINT)
 
 /****************************************
-* mupnp_ssdpresponse_serverlist_new
-****************************************/
+ * mupnp_ssdpresponse_serverlist_new
+ ****************************************/
 
 mUpnpSSDPResponseServerList* mupnp_ssdpresponse_serverlist_new()
 {
@@ -45,8 +45,8 @@ mUpnpSSDPResponseServerList* mupnp_ssdpresponse_serverlist_new()
 }
 
 /****************************************
-* mupnp_ssdpresponse_serverlist_delete
-****************************************/
+ * mupnp_ssdpresponse_serverlist_delete
+ ****************************************/
 
 void mupnp_ssdpresponse_serverlist_delete(mUpnpSSDPResponseServerList* ssdpServerList)
 {
@@ -60,8 +60,8 @@ void mupnp_ssdpresponse_serverlist_delete(mUpnpSSDPResponseServerList* ssdpServe
 }
 
 /****************************************
-* mupnp_ssdpresponse_serverlist_open
-****************************************/
+ * mupnp_ssdpresponse_serverlist_open
+ ****************************************/
 
 bool mupnp_ssdpresponse_serverlist_open(mUpnpSSDPResponseServerList* ssdpServerList, int bindPort)
 {
@@ -102,8 +102,8 @@ bool mupnp_ssdpresponse_serverlist_open(mUpnpSSDPResponseServerList* ssdpServerL
 }
 
 /****************************************
-* mupnp_ssdpresponse_serverlist_close
-****************************************/
+ * mupnp_ssdpresponse_serverlist_close
+ ****************************************/
 
 bool mupnp_ssdpresponse_serverlist_close(mUpnpSSDPResponseServerList* ssdpServerList)
 {
@@ -120,8 +120,8 @@ bool mupnp_ssdpresponse_serverlist_close(mUpnpSSDPResponseServerList* ssdpServer
 }
 
 /****************************************
-* mupnp_ssdpresponse_serverlist_start
-****************************************/
+ * mupnp_ssdpresponse_serverlist_start
+ ****************************************/
 
 bool mupnp_ssdpresponse_serverlist_start(mUpnpSSDPResponseServerList* ssdpServerList)
 {
@@ -138,8 +138,8 @@ bool mupnp_ssdpresponse_serverlist_start(mUpnpSSDPResponseServerList* ssdpServer
 }
 
 /****************************************
-* mupnp_ssdpresponse_serverlist_stop
-****************************************/
+ * mupnp_ssdpresponse_serverlist_stop
+ ****************************************/
 
 bool mupnp_ssdpresponse_serverlist_stop(mUpnpSSDPResponseServerList* ssdpServerList)
 {
@@ -156,8 +156,8 @@ bool mupnp_ssdpresponse_serverlist_stop(mUpnpSSDPResponseServerList* ssdpServerL
 }
 
 /****************************************
-* mupnp_ssdpresponse_serverlist_setlistener
-****************************************/
+ * mupnp_ssdpresponse_serverlist_setlistener
+ ****************************************/
 
 void mupnp_ssdpresponse_serverlist_setlistener(mUpnpSSDPResponseServerList* ssdpServerList, MUPNP_SSDP_LISTNER listener)
 {
@@ -172,8 +172,8 @@ void mupnp_ssdpresponse_serverlist_setlistener(mUpnpSSDPResponseServerList* ssdp
 }
 
 /****************************************
-* mupnp_ssdpresponse_serverlist_setuserdata
-****************************************/
+ * mupnp_ssdpresponse_serverlist_setuserdata
+ ****************************************/
 
 void mupnp_ssdpresponse_serverlist_setuserdata(mUpnpSSDPResponseServerList* ssdpServerList, void* data)
 {
@@ -188,8 +188,8 @@ void mupnp_ssdpresponse_serverlist_setuserdata(mUpnpSSDPResponseServerList* ssdp
 }
 
 /****************************************
-* mupnp_ssdpresponse_serverlist_post
-****************************************/
+ * mupnp_ssdpresponse_serverlist_post
+ ****************************************/
 
 bool mupnp_ssdpresponse_serverlist_post(mUpnpSSDPResponseServerList* ssdpServerList, mUpnpSSDPRequest* ssdpReq)
 {
@@ -207,7 +207,7 @@ bool mupnp_ssdpresponse_serverlist_post(mUpnpSSDPResponseServerList* ssdpServerL
 }
 
 /****************************************
-* MUPNP_NOUSE_CONTROLPOINT (End)
-****************************************/
+ * MUPNP_NOUSE_CONTROLPOINT (End)
+ ****************************************/
 
 #endif

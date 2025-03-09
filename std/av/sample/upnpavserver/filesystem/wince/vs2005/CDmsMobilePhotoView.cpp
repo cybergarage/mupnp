@@ -120,6 +120,6 @@ CCDmsMobilePhotoDoc* CCDmsMobilePhotoView::GetDocument() const // non-debug vers
 
 BOOL CCDmsMobilePhotoView::OnEraseBkgnd(CDC* pDC)
 {
-  //return CView::OnEraseBkgnd(pDC);
+  // return CView::OnEraseBkgnd(pDC);
   return TRUE;
 }
