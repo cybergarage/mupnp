@@ -1,2 +1,15 @@
 #!/bin/bash
-find . \( -name *.h -or -name *.c -or -name *.cpp -or -name *.m \) -print | xargs clang-format -i
+formatters=(clang-format clang-format-7)
+for f in "${formatters[@]}"
+do
+	if command -v "${f}" &> /dev/null
+	then
+		format=$f
+		break
+	fi
+done
+
+if [ -x "`which clang-tidy`" ]; then
+	find . -name "*.h" -or -name "*.c" -or -name "*.cpp" -or -name "*.m" | xargs -L 1 -Ifname clang-tidy --fix fname -- -Iinclude -Isrc
+fi
+find . -name "*.h" -or -name "*.c" -or -name "*.cpp" -or -name "*.m" | xargs -L 1 -Ifname $format -i fname
