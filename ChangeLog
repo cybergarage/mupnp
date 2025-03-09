@@ -2,6 +2,7 @@
 	* 3.0.3
 	* Enable code coverage using gcov and lcov
 	* Fixed unused-but-set-variable warnings
+	* Reformatted code according to the updated .clang-format configuration
 
 2022-09-04 Satoshi Konno <skonno@cybergarage.org>
 	* 3.0.2
