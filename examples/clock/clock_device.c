@@ -132,7 +132,7 @@ bool upnp_clock_actionreceived(mUpnpAction* action)
   mUpnpArgument* currTimeArg;
   char sysTimeStr[SYSTEM_TIME_BUF_LEN];
   // mUpnpArgument *newTimeArg;
-  mUpnpArgument *resultArg;
+  mUpnpArgument* resultArg;
 
   currTime = mupnp_getcurrentsystemtime();
 
