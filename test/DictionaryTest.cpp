@@ -27,19 +27,19 @@ BOOST_AUTO_TEST_CASE(DictionaryTest)
 
   /* Basic Unit Test */
   dir = mupnp_dictionary_new();
-  BOOST_CHECK((dir != NULL));
+  BOOST_REQUIRE((dir != NULL));
   mupnp_dictionary_delete(dir);
 
   /* Complet Unit Test */
   dir = mupnp_dictionary_new();
-  BOOST_CHECK((dir != NULL));
-  BOOST_CHECK((mupnp_dictionary_size(dir) == 0));
+  BOOST_REQUIRE((dir != NULL));
+  BOOST_REQUIRE((mupnp_dictionary_size(dir) == 0));
   mupnp_dictionary_setvalue(dir, MUPNP_TESTCASE_DICTIONARY_KEY, MUPNP_TESTCASE_DICTIONARY_VALUE);
-  BOOST_CHECK((mupnp_dictionary_size(dir) == 1));
+  BOOST_REQUIRE((mupnp_dictionary_size(dir) == 1));
   mupnp_dictionary_setvalue(dir, MUPNP_TESTCASE_DICTIONARY_KEY, MUPNP_TESTCASE_DICTIONARY_VALUE);
-  BOOST_CHECK((mupnp_dictionary_size(dir) == 1));
+  BOOST_REQUIRE((mupnp_dictionary_size(dir) == 1));
   dirVal = mupnp_dictionary_getvalue(dir, MUPNP_TESTCASE_DICTIONARY_KEY);
-  BOOST_CHECK((0 < mupnp_strlen(dirVal)));
-  BOOST_CHECK(mupnp_streq(dirVal, MUPNP_TESTCASE_DICTIONARY_VALUE));
+  BOOST_REQUIRE((0 < mupnp_strlen(dirVal)));
+  BOOST_REQUIRE(mupnp_streq(dirVal, MUPNP_TESTCASE_DICTIONARY_VALUE));
   mupnp_dictionary_delete(dir);
 }
