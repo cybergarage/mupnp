@@ -2,9 +2,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "format",
+            "label": "clang-format",
             "type": "shell",
-            "command": "./format",
+            "command": "./clang-format",
             "args": [],
             "group": {
                 "kind": "build",
@@ -26,7 +26,7 @@
                 "isDefault": true
             },
             "problemMatcher": [],
-            "dependsOn": ["format"]
+            "dependsOn": ["clang-format"]
         },
     ]
 }
