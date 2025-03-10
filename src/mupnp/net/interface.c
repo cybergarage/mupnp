@@ -21,7 +21,7 @@
  * mupnp_net_interface_new
  ****************************************/
 
-mUpnpNetworkInterface* mupnp_net_interface_new()
+mUpnpNetworkInterface* mupnp_net_interface_new(void)
 {
   mUpnpNetworkInterface* netIf;
 

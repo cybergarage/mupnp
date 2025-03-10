@@ -16,7 +16,7 @@
  * mupnp_xml_nodelist_new
  ****************************************/
 
-mUpnpXmlNodeList* mupnp_xml_nodelist_new()
+mUpnpXmlNodeList* mupnp_xml_nodelist_new(void)
 {
   mUpnpXmlNodeList* nodeList;
 

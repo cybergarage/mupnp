@@ -34,7 +34,7 @@ void mupnp_ssdp_setipv6address(const char* addr)
  * mupnp_ssdp_getipv6address
  ****************************************/
 
-const char* mupnp_ssdp_getipv6address()
+const char* mupnp_ssdp_getipv6address(void)
 {
   mupnp_log_debug_l4("Entering...\n");
   mupnp_log_debug_l4("Leaving...\n");
@@ -59,7 +59,7 @@ void mupnp_ssdp_setannouncecount(int count)
  * mupnp_ssdp_getannouncecount
  ****************************************/
 
-int mupnp_ssdp_getannouncecount()
+int mupnp_ssdp_getannouncecount(void)
 {
   mupnp_log_debug_l4("Entering...\n");
 

@@ -17,7 +17,7 @@
  * mupnp_http_response_new
  ****************************************/
 
-mUpnpHttpResponse* mupnp_http_response_new()
+mUpnpHttpResponse* mupnp_http_response_new(void)
 {
   mUpnpHttpResponse* httpRes;
 

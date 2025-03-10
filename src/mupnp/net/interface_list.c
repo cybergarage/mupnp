@@ -17,7 +17,7 @@
  * mupnp_net_interfacelist_new
  ****************************************/
 
-mUpnpNetworkInterfaceList* mupnp_net_interfacelist_new()
+mUpnpNetworkInterfaceList* mupnp_net_interfacelist_new(void)
 {
   mUpnpNetworkInterfaceList* netIfList;
 

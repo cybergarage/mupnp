@@ -16,7 +16,7 @@
  * mupnp_servicelist_new
  ****************************************/
 
-mUpnpServiceList* mupnp_servicelist_new()
+mUpnpServiceList* mupnp_servicelist_new(void)
 {
   mUpnpServiceList* serviceList;
 

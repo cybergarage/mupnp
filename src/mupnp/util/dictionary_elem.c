@@ -16,7 +16,7 @@
  * mupnp_dictionary_element_new
  ****************************************/
 
-mUpnpDictionaryElement* mupnp_dictionary_element_new()
+mUpnpDictionaryElement* mupnp_dictionary_element_new(void)
 {
   mUpnpDictionaryElement* dirElem;
 

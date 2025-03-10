@@ -161,7 +161,7 @@ void mupnp_setnmprmode(bool onFlag)
  * mupnp_isnmprmode
  ****************************************/
 
-bool mupnp_isnmprmode()
+bool mupnp_isnmprmode(void)
 {
   mupnp_log_debug_l4("Entering...\n");
 
@@ -174,7 +174,7 @@ bool mupnp_isnmprmode()
  * mupnp_createbootid
  ****************************************/
 
-int mupnp_createbootid()
+int mupnp_createbootid(void)
 {
   mUpnpTime currentTime;
 

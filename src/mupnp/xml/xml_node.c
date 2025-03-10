@@ -16,7 +16,7 @@
  * mupnp_xml_node_new
  ****************************************/
 
-mUpnpXmlNode* mupnp_xml_node_new()
+mUpnpXmlNode* mupnp_xml_node_new(void)
 {
   mUpnpXmlNode* node;
 

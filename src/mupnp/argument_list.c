@@ -16,7 +16,7 @@
  * mupnp_argument_new
  ****************************************/
 
-mUpnpArgumentList* mupnp_argumentlist_new()
+mUpnpArgumentList* mupnp_argumentlist_new(void)
 {
   mUpnpArgument* argumentList;
 

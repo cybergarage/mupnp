@@ -17,7 +17,7 @@
  * mupnp_http_header_new
  ****************************************/
 
-mUpnpHttpHeader* mupnp_http_header_new()
+mUpnpHttpHeader* mupnp_http_header_new(void)
 {
   mUpnpHttpHeader* header;
 

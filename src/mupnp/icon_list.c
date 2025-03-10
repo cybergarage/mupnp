@@ -16,7 +16,7 @@
  * mupnp_iconr_new
  ****************************************/
 
-mUpnpIconList* mupnp_iconlist_new()
+mUpnpIconList* mupnp_iconlist_new(void)
 {
   mUpnpIcon* iconList;
 

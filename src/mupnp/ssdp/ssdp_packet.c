@@ -18,7 +18,7 @@
  * mupnp_ssdp_packet_new
  ****************************************/
 
-mUpnpSSDPPacket* mupnp_ssdp_packet_new()
+mUpnpSSDPPacket* mupnp_ssdp_packet_new(void)
 {
   mUpnpSSDPPacket* ssdpPkt;
 

@@ -22,7 +22,7 @@
  * mupnp_string_new
  ****************************************/
 
-mUpnpString* mupnp_string_new()
+mUpnpString* mupnp_string_new(void)
 {
   mUpnpString* str;
 

@@ -16,7 +16,7 @@
  * mupnp_http_headerlist_new
  ****************************************/
 
-mUpnpHttpHeaderList* mupnp_http_headerlist_new()
+mUpnpHttpHeaderList* mupnp_http_headerlist_new(void)
 {
   mUpnpHttpHeaderList* headerList;
 

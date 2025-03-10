@@ -18,7 +18,7 @@
  * Create a new event listener list
  *
  */
-mUpnpEventListenerList* mupnp_eventlistenerlist_new()
+mUpnpEventListenerList* mupnp_eventlistenerlist_new(void)
 {
   mUpnpEventListenerList* eventListenerList;
 

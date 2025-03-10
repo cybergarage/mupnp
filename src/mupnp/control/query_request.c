@@ -23,7 +23,7 @@
  * mupnp_control_query_request_new
  ****************************************/
 
-mUpnpQueryRequest* mupnp_control_query_request_new()
+mUpnpQueryRequest* mupnp_control_query_request_new(void)
 {
   mUpnpQueryRequest* queryReq;
 

@@ -26,7 +26,7 @@
  * mupnp_http_packet_new
  ****************************************/
 
-mUpnpHttpPacket* mupnp_http_packet_new()
+mUpnpHttpPacket* mupnp_http_packet_new(void)
 {
   mUpnpHttpPacket* httpPkt;
 

@@ -67,7 +67,7 @@ const char* mupnp_controlpoint_geteventsubcallbackurl(mUpnpControlPoint* ctrlPoi
  *
  * @return A newly-created mUpnpControlPoint
  */
-mUpnpControlPoint* mupnp_controlpoint_new()
+mUpnpControlPoint* mupnp_controlpoint_new(void)
 {
   mUpnpControlPoint* ctrlPoint;
 

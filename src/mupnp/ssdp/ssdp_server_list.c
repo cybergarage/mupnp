@@ -17,7 +17,7 @@
  * mupnp_ssdp_serverlist_new
  ****************************************/
 
-mUpnpSSDPServerList* mupnp_ssdp_serverlist_new()
+mUpnpSSDPServerList* mupnp_ssdp_serverlist_new(void)
 {
   mUpnpSSDPServerList* ssdpServerList;
 

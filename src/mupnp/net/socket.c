@@ -122,7 +122,7 @@ static bool mupnp_socket_getavailablelocaladdress(T_IPV4EP* localAddr);
  * mupnp_socket_startup
  ****************************************/
 
-void mupnp_socket_startup()
+void mupnp_socket_startup(void)
 {
   mupnp_log_debug_l4("Entering...\n");
 
@@ -179,7 +179,7 @@ void mupnp_socket_startup()
  * mupnp_socket_cleanup
  ****************************************/
 
-void mupnp_socket_cleanup()
+void mupnp_socket_cleanup(void)
 {
   mupnp_log_debug_l4("Entering...\n");
 

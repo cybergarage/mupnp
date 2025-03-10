@@ -16,7 +16,7 @@
  * mupnp_action_new
  ****************************************/
 
-mUpnpActionList* mupnp_actionlist_new()
+mUpnpActionList* mupnp_actionlist_new(void)
 {
   mUpnpAction* actionList;
 

@@ -25,7 +25,7 @@
  * mupnp_mutex_new
  ****************************************/
 
-mUpnpMutex* mupnp_mutex_new()
+mUpnpMutex* mupnp_mutex_new(void)
 {
   mUpnpMutex* mutex;
 

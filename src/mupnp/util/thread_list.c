@@ -16,7 +16,7 @@
  * mupnp_threadlist_new
  ****************************************/
 
-mUpnpThreadList* mupnp_threadlist_new()
+mUpnpThreadList* mupnp_threadlist_new(void)
 {
   mUpnpThreadList* threadList;
 

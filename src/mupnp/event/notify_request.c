@@ -35,7 +35,7 @@ static mUpnpXmlNode* mupnp_event_notify_request_createpropertysetnode(mUpnpServi
  * mupnp_event_notify_request_new
  ****************************************/
 
-mUpnpNotifyRequest* mupnp_event_notify_request_new()
+mUpnpNotifyRequest* mupnp_event_notify_request_new(void)
 {
   mUpnpNotifyRequest* notifyReq;
   mUpnpPropertyList* propList;

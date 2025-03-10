@@ -21,7 +21,7 @@
  * mupnp_net_uri_new
  ****************************************/
 
-mUpnpNetURI* mupnp_net_uri_new()
+mUpnpNetURI* mupnp_net_uri_new(void)
 {
   mUpnpNetURI* uri;
 

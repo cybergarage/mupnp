@@ -131,12 +131,12 @@ static VOID TEngineProcessBasedTaskProc(W param)
 static pthread_key_t mupnp_thread_self_ref;
 static pthread_once_t mupnp_thread_mykeycreated = PTHREAD_ONCE_INIT;
 
-static void mupnp_thread_createkey()
+static void mupnp_thread_createkey(void)
 {
   pthread_key_create(&mupnp_thread_self_ref, NULL);
 }
 
-mUpnpThread* mupnp_thread_self()
+mUpnpThread* mupnp_thread_self(void)
 {
   return (mUpnpThread*)pthread_getspecific(mupnp_thread_self_ref);
 }
@@ -178,7 +178,7 @@ static void* PosixThreadProc(void* param)
  * mupnp_thread_new
  ****************************************/
 
-mUpnpThread* mupnp_thread_new()
+mUpnpThread* mupnp_thread_new(void)
 {
   mUpnpThread* thread;
 

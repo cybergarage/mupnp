@@ -17,7 +17,7 @@
  * mupnp_xml_parser_new
  ****************************************/
 
-mUpnpXmlParser* mupnp_xml_parser_new()
+mUpnpXmlParser* mupnp_xml_parser_new(void)
 {
   mUpnpXmlParser* parser;
 

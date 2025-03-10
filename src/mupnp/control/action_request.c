@@ -22,7 +22,7 @@
  * mupnp_control_action_request_new
  ****************************************/
 
-mUpnpActionRequest* mupnp_control_action_request_new()
+mUpnpActionRequest* mupnp_control_action_request_new(void)
 {
   mUpnpActionRequest* actionReq;
 

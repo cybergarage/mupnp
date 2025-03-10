@@ -16,7 +16,7 @@
  * mupnp_dictionary_new
  ****************************************/
 
-mUpnpDictionary* mupnp_dictionary_new()
+mUpnpDictionary* mupnp_dictionary_new(void)
 {
   mUpnpDictionary* dictionaryList;
 

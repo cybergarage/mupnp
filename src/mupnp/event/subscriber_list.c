@@ -23,7 +23,7 @@
  * mupnp_subscriberlist_new
  ****************************************/
 
-mUpnpSubscriberList* mupnp_subscriberlist_new()
+mUpnpSubscriberList* mupnp_subscriberlist_new(void)
 {
   mUpnpSubscriberList* subscriberList;
 

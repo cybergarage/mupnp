@@ -38,7 +38,7 @@ static void mupnp_device_notifywait(mUpnpDevice* dev);
  * mupnp_device_new
  ****************************************/
 
-mUpnpDevice* mupnp_device_new()
+mUpnpDevice* mupnp_device_new(void)
 {
   mUpnpDevice* dev;
 

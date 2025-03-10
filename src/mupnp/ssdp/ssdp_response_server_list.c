@@ -23,7 +23,7 @@
  * mupnp_ssdpresponse_serverlist_new
  ****************************************/
 
-mUpnpSSDPResponseServerList* mupnp_ssdpresponse_serverlist_new()
+mUpnpSSDPResponseServerList* mupnp_ssdpresponse_serverlist_new(void)
 {
   mUpnpSSDPResponseServerList* ssdpServerList;
 

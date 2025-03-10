@@ -24,7 +24,7 @@
  * mupnp_control_action_response_new
  ****************************************/
 
-mUpnpActionResponse* mupnp_control_action_response_new()
+mUpnpActionResponse* mupnp_control_action_response_new(void)
 {
   mUpnpActionResponse* actionRes;
 

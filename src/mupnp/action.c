@@ -23,7 +23,7 @@ static void mupnp_action_initargumentlist(mUpnpAction* action);
  * mupnp_action_new
  ****************************************/
 
-mUpnpAction* mupnp_action_new()
+mUpnpAction* mupnp_action_new(void)
 {
   mUpnpAction* action;
 

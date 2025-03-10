@@ -37,7 +37,7 @@ long int mupnp_total_elapsed_time;
  * mupnp_http_request_new
  ****************************************/
 
-mUpnpHttpRequest* mupnp_http_request_new()
+mUpnpHttpRequest* mupnp_http_request_new(void)
 {
   mUpnpHttpRequest* httpReq;
 

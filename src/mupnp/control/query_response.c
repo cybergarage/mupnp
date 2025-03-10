@@ -24,7 +24,7 @@
  * mupnp_control_query_response_new
  ****************************************/
 
-mUpnpQueryResponse* mupnp_control_query_response_new()
+mUpnpQueryResponse* mupnp_control_query_response_new(void)
 {
   mUpnpQueryResponse* queryRes;
 

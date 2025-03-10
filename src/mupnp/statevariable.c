@@ -19,7 +19,7 @@
  * mupnp_statevariable_new
  ****************************************/
 
-mUpnpStateVariable* mupnp_statevariable_new()
+mUpnpStateVariable* mupnp_statevariable_new(void)
 {
   mUpnpStateVariable* statVar;
 
@@ -139,7 +139,7 @@ void mupnp_statevariable_setvaluewithoutnotify(mUpnpStateVariable* statVar, cons
  * mupnp_allowedvaluelist_new
  ****************************************/
 
-mUpnpAllowedValuesList* mupnp_allowedvaluelist_new()
+mUpnpAllowedValuesList* mupnp_allowedvaluelist_new(void)
 {
   mUpnpAllowedValuesList* allowedValueList = (mUpnpAllowedValuesList*)malloc(sizeof(mUpnpAllowedValuesList));
 

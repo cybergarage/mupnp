@@ -26,7 +26,7 @@
  * mupnp_property_new
  ****************************************/
 
-mUpnpProperty* mupnp_property_new()
+mUpnpProperty* mupnp_property_new(void)
 {
   mUpnpProperty* prop;
 

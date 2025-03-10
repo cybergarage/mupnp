@@ -16,7 +16,7 @@
  * mupnp_socket_datagram_packet_new
  ****************************************/
 
-mUpnpDatagramPacket* mupnp_socket_datagram_packet_new()
+mUpnpDatagramPacket* mupnp_socket_datagram_packet_new(void)
 {
   mUpnpDatagramPacket* dgmPkt;
 

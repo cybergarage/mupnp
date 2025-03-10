@@ -16,7 +16,7 @@
  * mupnp_devicelist_new
  ****************************************/
 
-mUpnpDeviceList* mupnp_devicelist_new()
+mUpnpDeviceList* mupnp_devicelist_new(void)
 {
   mUpnpDeviceList* devList;
 

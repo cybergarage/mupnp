@@ -16,7 +16,7 @@
  * mupnp_ssdprequest_new
  ****************************************/
 
-mUpnpSSDPRequest* mupnp_ssdprequest_new()
+mUpnpSSDPRequest* mupnp_ssdprequest_new(void)
 {
   mUpnpSSDPRequest* ssdpReq;
 

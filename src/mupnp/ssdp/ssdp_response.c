@@ -19,7 +19,7 @@
  * mupnp_ssdpresponse_new
  ****************************************/
 
-mUpnpSSDPResponse* mupnp_ssdpresponse_new()
+mUpnpSSDPResponse* mupnp_ssdpresponse_new(void)
 {
   mUpnpSSDPResponse* ssdpRes;
 

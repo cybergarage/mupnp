@@ -53,7 +53,7 @@ static mUpnpMutex*(print_mutex) = NULL;
 
 /* Local helper functions */
 
-static void log_init_with_defaults()
+static void log_init_with_defaults(void)
 {
   mupnp_log_add_target("stdout", SEV_INFO | SEV_DEBUG_L1 | SEV_DEBUG_L2 | SEV_DEBUG_L3);
   mupnp_log_add_target("stderr", SEV_ERROR | SEV_WARNING);
@@ -151,7 +151,7 @@ int mupnp_log_add_target(char* target, int mask)
  * Clear target list
  *
  */
-int mupnp_log_clear_targets()
+int mupnp_log_clear_targets(void)
 {
   struct fd_list* temp = descriptor_list;
 

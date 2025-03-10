@@ -16,7 +16,7 @@
  * mupnp_xml_attribute_new
  ****************************************/
 
-mUpnpXmlAttribute* mupnp_xml_attribute_new()
+mUpnpXmlAttribute* mupnp_xml_attribute_new(void)
 {
   mUpnpXmlAttribute* attr;
 

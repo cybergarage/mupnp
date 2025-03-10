@@ -24,7 +24,7 @@
 /**
  * Create a new event subscriber
  */
-mUpnpSubscriber* mupnp_subscriber_new()
+mUpnpSubscriber* mupnp_subscriber_new(void)
 {
   mUpnpSubscriber* sub;
 

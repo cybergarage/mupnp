@@ -16,7 +16,7 @@
  * mupnp_soap_createenvelopebodynode
  ****************************************/
 
-mUpnpXmlNode* mupnp_soap_createenvelopebodynode()
+mUpnpXmlNode* mupnp_soap_createenvelopebodynode(void)
 {
   mUpnpXmlNode* envNode;
   mUpnpXmlNode* bodyNode;

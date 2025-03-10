@@ -26,7 +26,7 @@
  * mupnp_http_server_new
  ****************************************/
 
-mUpnpHttpServer* mupnp_http_server_new()
+mUpnpHttpServer* mupnp_http_server_new(void)
 {
   mUpnpHttpServer* httpServer;
 

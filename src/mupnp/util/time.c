@@ -79,7 +79,7 @@ void mupnp_waitrandom(mUpnpTime mtime)
  * mupnp_getcurrentsystemtime
  ****************************************/
 
-mUpnpTime mupnp_getcurrentsystemtime()
+mUpnpTime mupnp_getcurrentsystemtime(void)
 {
 #if defined(BTRON)
   STIME mUpnpTime;
@@ -116,7 +116,7 @@ mUpnpTime mupnp_getcurrentsystemtime()
  * mupnp_random
  ****************************************/
 
-float mupnp_random()
+float mupnp_random(void)
 {
   static bool seedDone = false;
 

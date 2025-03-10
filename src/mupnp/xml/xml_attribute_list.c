@@ -16,7 +16,7 @@
  * mupnp_xml_attributelist_new
  ****************************************/
 
-mUpnpXmlAttributeList* mupnp_xml_attributelist_new()
+mUpnpXmlAttributeList* mupnp_xml_attributelist_new(void)
 {
   mUpnpXmlAttributeList* attrList;
 

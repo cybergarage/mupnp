@@ -17,7 +17,7 @@
  * mupnp_soap_response_new
  ****************************************/
 
-mUpnpSoapResponse* mupnp_soap_response_new()
+mUpnpSoapResponse* mupnp_soap_response_new(void)
 {
   mUpnpSoapResponse* soapRes;
 

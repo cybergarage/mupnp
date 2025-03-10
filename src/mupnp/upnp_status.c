@@ -17,7 +17,7 @@
  * mupnp_status_new
  ****************************************/
 
-mUpnpStatus* mupnp_status_new()
+mUpnpStatus* mupnp_status_new(void)
 {
   mUpnpStatus* upnpStat;
 

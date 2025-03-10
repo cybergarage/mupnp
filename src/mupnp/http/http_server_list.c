@@ -17,7 +17,7 @@
  * mupnp_http_serverlist_new
  ****************************************/
 
-mUpnpHttpServerList* mupnp_http_serverlist_new()
+mUpnpHttpServerList* mupnp_http_serverlist_new(void)
 {
   mUpnpHttpServerList* httpServerList;
 

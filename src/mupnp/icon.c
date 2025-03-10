@@ -16,7 +16,7 @@
  * mupnp_icon_new
  ****************************************/
 
-mUpnpIcon* mupnp_icon_new()
+mUpnpIcon* mupnp_icon_new(void)
 {
   mUpnpIcon* dev;
 

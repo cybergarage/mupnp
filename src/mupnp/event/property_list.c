@@ -22,7 +22,7 @@
  * mupnp_propertylist_new
  ****************************************/
 
-mUpnpPropertyList* mupnp_propertylist_new()
+mUpnpPropertyList* mupnp_propertylist_new(void)
 {
   mUpnpPropertyList* propertyList;
 

@@ -40,7 +40,7 @@ static mUpnpNetURL* mupnp_service_mangleurl(mUpnpService* service, char* type);
  * mupnp_service_new
  ****************************************/
 
-mUpnpService* mupnp_service_new()
+mUpnpService* mupnp_service_new(void)
 {
   mUpnpService* service;
 

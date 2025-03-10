@@ -22,7 +22,7 @@
  * mupnp_cond_new
  ****************************************/
 
-mUpnpCond* mupnp_cond_new()
+mUpnpCond* mupnp_cond_new(void)
 {
   mUpnpCond* cond;
 

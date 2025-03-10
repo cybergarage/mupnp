@@ -16,7 +16,7 @@
  * mupnp_servicestatetable_new
  ****************************************/
 
-mUpnpServiceStateTable* mupnp_servicestatetable_new()
+mUpnpServiceStateTable* mupnp_servicestatetable_new(void)
 {
   mUpnpServiceStateTable* statevariableTable;
 
