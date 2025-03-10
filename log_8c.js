@@ -4,7 +4,7 @@ var log_8c =
     [ "log_init_with_defaults", "log_8c.html#a1600d1c6bcd71d4827ef67e4ae231b90", null ],
     [ "map_severity", "log_8c.html#ab1c4f4fb3a480494ee4242279969f7c2", null ],
     [ "mupnp_log_add_target", "log_8c.html#a35c045a74ae442c05f86d74ee40d6910", null ],
-    [ "mupnp_log_clear_targets", "log_8c.html#a97b1c2d201abc9dcc00ec1b7ea52176a", null ],
+    [ "mupnp_log_clear_targets", "log_8c.html#a83f46c163fbb131b8efb84ad36de3d9a", null ],
     [ "mupnp_log_print", "log_8c.html#ae363787cf4304a4a5f8edf30c8465c8e", null ],
     [ "mupnp_log_set_separator", "log_8c.html#aaa07698ddba414fc45cbe20d82c70d35", null ],
     [ "descriptor_list", "log_8c.html#ac8e25865773c8ed775e7efd991e07480", null ],

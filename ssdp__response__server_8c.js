@@ -2,7 +2,7 @@ var ssdp__response__server_8c =
 [
     [ "mupnp_ssdpresponse_server_close", "ssdp__response__server_8c.html#a2d6ce3d8dff795192ffb6ce6af159087", null ],
     [ "mupnp_ssdpresponse_server_delete", "ssdp__response__server_8c.html#af1cd8b989991f6c4f351198338dacff2", null ],
-    [ "mupnp_ssdpresponse_server_new", "ssdp__response__server_8c.html#a16aa0603a5c0c5f24e3b36d7523b81ce", null ],
+    [ "mupnp_ssdpresponse_server_new", "ssdp__response__server_8c.html#a06120b1489a1b5ae213d1d03e7d87dde", null ],
     [ "mupnp_ssdpresponse_server_open", "ssdp__response__server_8c.html#a3c22a77fbc51efb659c0b2c386add53c", null ],
     [ "mupnp_ssdpresponse_server_performlistener", "ssdp__response__server_8c.html#a251de61db0e96239176c037758377659", null ],
     [ "mupnp_ssdpresponse_server_post", "ssdp__response__server_8c.html#a9096ff7bef73f8ff22ad799e8fbd9352", null ],

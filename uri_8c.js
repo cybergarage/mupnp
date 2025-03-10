@@ -13,7 +13,7 @@ var uri_8c =
     [ "mupnp_net_uri_isescapedstring", "uri_8c.html#a04a209dcbf72bfa01aab993612b084d2", null ],
     [ "mupnp_net_uri_isreservedchar", "uri_8c.html#afd0ed1beea3ba81b7792e353afa7c440", null ],
     [ "mupnp_net_uri_isunreservedchar", "uri_8c.html#a184470f0bf0cb9bff7a257e37547b572", null ],
-    [ "mupnp_net_uri_new", "uri_8c.html#a983d6bae83932f984c05c9a37e3585aa", null ],
+    [ "mupnp_net_uri_new", "uri_8c.html#a76a72d472ba6b4e335581dedbadbf138", null ],
     [ "mupnp_net_uri_rebuild", "uri_8c.html#af5a4e3f74768434ea09a9bf2a5522e8f", null ],
     [ "mupnp_net_uri_setvalue", "uri_8c.html#acf3c69a2909c02335d1b8ee4ee97af8d", null ],
     [ "mupnp_net_uri_unescapestring", "uri_8c.html#a256b92b00effb75a4e571fea2e6860bd", null ]

@@ -24,7 +24,7 @@ var service_8c =
     [ "mupnp_service_isscpdurl", "service_8c.html#a981cef313b47c34a62827b9e80fe3ea3", null ],
     [ "mupnp_service_mangleabsoluteurl", "service_8c.html#ac307996e2922d46b047ef5a27137025e", null ],
     [ "mupnp_service_mangleurl", "service_8c.html#aac5f833986787e7d793b1e85ff2e5655", null ],
-    [ "mupnp_service_new", "service_8c.html#a59fe927899c36d49fdbc18175d43a8a4", null ],
+    [ "mupnp_service_new", "service_8c.html#ac44d59e62aa43cf4438bdcb91a6b4128", null ],
     [ "mupnp_service_parsedescription", "service_8c.html#ac2fcc1c19ac553adcf4c05ed0df8d0da", null ],
     [ "mupnp_service_parsedescriptionurl", "service_8c.html#a1cdeccc96fc219fa8b63d0b22f5604e2", null ],
     [ "mupnp_service_removesubscriber", "service_8c.html#a74bb4e9d30e04484cc0ac483ecf1d464", null ],

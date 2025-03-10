@@ -12,7 +12,7 @@ var http__packet_8c =
     [ "mupnp_http_packet_getheaderssizet", "http__packet_8c.html#a06ebbd3d091e6552637dd49c17120043", null ],
     [ "mupnp_http_packet_getheadervalue", "http__packet_8c.html#a92d24711a6d752130865db12f2604644", null ],
     [ "mupnp_http_packet_init", "http__packet_8c.html#a441c0ffd13083f536df7567026d15157", null ],
-    [ "mupnp_http_packet_new", "http__packet_8c.html#a6863881df71d0d7b3d3b8a1b9f9610b1", null ],
+    [ "mupnp_http_packet_new", "http__packet_8c.html#aab55247cdc1ce0aaa77191b71a5c5b4a", null ],
     [ "mupnp_http_packet_post", "http__packet_8c.html#a91d2e4ac8f4c1654735455f938889256", null ],
     [ "mupnp_http_packet_print", "http__packet_8c.html#aecbf87e7dda2f118d429a7c862764031", null ],
     [ "mupnp_http_packet_read", "http__packet_8c.html#a064187da0f1350f514e8dc606eb1cc95", null ],

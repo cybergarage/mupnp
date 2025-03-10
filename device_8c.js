@@ -35,7 +35,7 @@ var device_8c =
     [ "mupnp_device_initservicelist", "device_8c.html#ace444369edde1425d08c2bc109765858", null ],
     [ "mupnp_device_ipchanged", "device_8c.html#afdf580de340c1bac355f5191eb61e2f1", null ],
     [ "mupnp_device_isrunning", "device_8c.html#a94008fd7869299b65b5596d3093a2cb2", null ],
-    [ "mupnp_device_new", "device_8c.html#a0f35f7dd59fccb4691f427e973316048", null ],
+    [ "mupnp_device_new", "device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1", null ],
     [ "mupnp_device_notifywait", "device_8c.html#ac75bce7906daf3d659ced7c57ef656fd", null ],
     [ "mupnp_device_parsedescription", "device_8c.html#a1cfd480edf457d8b980743f1110887d4", null ],
     [ "mupnp_device_parsedescriptionurl", "device_8c.html#af155e0f6bbcfe9d77d969185d8b9736f", null ],

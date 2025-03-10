@@ -10,7 +10,7 @@ var string_8c =
     [ "mupnp_string_length", "string_8c.html#aa02858ab2bb009bba18232c1de5db25f", null ],
     [ "mupnp_string_naddrepvalue", "string_8c.html#a6a6e6cd739a2caaff95b12968857ca0e", null ],
     [ "mupnp_string_naddvalue", "string_8c.html#a1a63ab6c07b045d33c487272ab1039a5", null ],
-    [ "mupnp_string_new", "string_8c.html#a176109d199911e61e620e76ed93d122a", null ],
+    [ "mupnp_string_new", "string_8c.html#a8682b33c69ff2a6cfc2af91edf2174cf", null ],
     [ "mupnp_string_replace", "string_8c.html#ab765768e8f3766fe00b0d297570c1720", null ],
     [ "mupnp_string_setintvalue", "string_8c.html#a5f67b20910947408ae7ab00a6334c39a", null ],
     [ "mupnp_string_setlongvalue", "string_8c.html#a562c36b54a08773d915c823a5753bd9c", null ],

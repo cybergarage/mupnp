@@ -10,7 +10,7 @@ var controlpoint_8c =
     [ "mupnp_controlpoint_ipchanged", "controlpoint_8c.html#a973f672681b7a76c822919a2ecfcdd88", null ],
     [ "mupnp_controlpoint_isrunning", "controlpoint_8c.html#aef4c7d1c09e6e94e3d356872af44c7b2", null ],
     [ "mupnp_controlpoint_lock", "controlpoint_8c.html#a81eab44f23b1acb3ec9b87858d1bfbb5", null ],
-    [ "mupnp_controlpoint_new", "controlpoint_8c.html#a944d62050965c159a9a2cc5d446f7abe", null ],
+    [ "mupnp_controlpoint_new", "controlpoint_8c.html#aa5ebe8ac088296517392651ed4937e51", null ],
     [ "mupnp_controlpoint_parsescservicescpd", "controlpoint_8c.html#a2ff6aeb3dd9eca6612747c3a7bc3c1ad", null ],
     [ "mupnp_controlpoint_parseservicesfordevice", "controlpoint_8c.html#afa98c7641125219d381d822b689d0b4f", null ],
     [ "mupnp_controlpoint_removedevicebyssdppacket", "controlpoint_8c.html#a020d02824724feaae6ebda1beb414d3f", null ],
