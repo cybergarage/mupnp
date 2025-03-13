@@ -42,14 +42,14 @@ make install
 
 To develop UPnP devices or control point applications using **mUPnP for C**, please check the following developer's documentation.
 
-* [Programming Guide for C]((http://cybergarage.github.io/mupnp/)
+* [Programming Guide for C](http://cybergarage.github.io/mupnp/)
 * [Doxygen](http://cybergarage.github.io/mupnp/)
 
 ### mUPnP for Objective-C
 
 **mUPnP for C** releases the wrapper library for Objective-C to use the UPnP library on iOS and MacOSX platforms too. Please check the following developer's documentation to know the wrapper library in more detail.
 
-* [Programming Guide for Objective-C]((http://cybergarage.github.io/mupnp/objc/html/)
+* [Programming Guide for Objective-C](http://cybergarage.github.io/mupnp/objc/html/)
 * [Doxygen](http://cybergarage.github.io/mupnp/objc/html/)
 
 ## Examples
