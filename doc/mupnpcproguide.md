@@ -1,4 +1,4 @@
-# mUPnP for C Programming Guide
+# Programming Guide for C
 
 # 1 Introduction
 

@@ -1,4 +1,4 @@
-# mUPnP for MacOSX Programming Guide
+# Programming Guide for Objective-C
 
 ## 1 Introduction
 
