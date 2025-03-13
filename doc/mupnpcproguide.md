@@ -18,6 +18,8 @@ Please see the following site and documents to know about UPnP™ in more detail
 
 # 2 Setup
 
+This section describes how to build and install the mUPnP package.
+
 ## 2.1 Package Contents
 
 The mUPnP package has the header files, the source files, the project files to build the package and the some samples. The files are included the following directories.
@@ -129,6 +131,8 @@ I have built the library with T-Engine/SH7727 development kit with KASAGO for T-
 For MacOSX, I have released the wrapper class for Objective-C onCocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library for if you have to use all functions of mUPnP for C.
 
 # 3 Device
+
+This section describes how to create your UPnP™ device using mUPnP for C.
 
 ## 3.1 Class Overview
 
@@ -358,6 +362,8 @@ MyPoint *devPoint = (MyPoint *)mupnp_device_getuserdata(dev);
 ```
 
 # 4 Control Point
+
+This section describes how to create your UPnP™ control point using mUPnP for C.
 
 ## 4.1 Class Overview
 
