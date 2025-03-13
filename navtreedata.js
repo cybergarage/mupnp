@@ -34,12 +34,12 @@ var NAVTREE =
       [ "mUPnP for Objective-C", "index.html#autotoc_md46", null ]
     ] ],
     [ "Examples", "index.html#autotoc_md47", null ],
-    [ "Adoption of mUPnP in Consumer Products", "index.html#autotoc_md48", [
+    [ "Adoption in Consumer Products", "index.html#autotoc_md48", [
       [ "Nokia 770 Internet Tablet", "index.html#autotoc_md49", null ],
       [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md50", null ],
       [ "Toshiba REGZA Televisions", "index.html#autotoc_md51", null ]
     ] ],
-    [ "mUPnP for C Programming Guide", "md_doc_2mupnpcproguide.html", [
+    [ "Programming Guide for C", "md_doc_2mupnpcproguide.html", [
       [ "1 Introduction", "md_doc_2mupnpcproguide.html#autotoc_md1", null ],
       [ "2 Setup", "md_doc_2mupnpcproguide.html#autotoc_md2", [
         [ "2.1 Package Contents", "md_doc_2mupnpcproguide.html#autotoc_md3", null ],
@@ -75,7 +75,7 @@ var NAVTREE =
         [ "4.7 Event", "md_doc_2mupnpcproguide.html#autotoc_md29", null ]
       ] ]
     ] ],
-    [ "mUPnP for MacOSX Programming Guide", "md_doc_2mupnpobjcproguide.html", [
+    [ "Programming Guide for Objective-C", "md_doc_2mupnpobjcproguide.html", [
       [ "1 Introduction", "md_doc_2mupnpobjcproguide.html#autotoc_md31", null ],
       [ "2 Setup", "md_doc_2mupnpobjcproguide.html#autotoc_md32", [
         [ "2.1 System Requirement", "md_doc_2mupnpobjcproguide.html#autotoc_md33", null ],

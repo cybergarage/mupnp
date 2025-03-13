@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>mUPnP for C: Programming Guide for C</title>
+<title>mUPnP for Objective-C: Programming Guide for C</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,7 +24,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">mUPnP for C
+   <div id="projectname">mUPnP for Objective-C
    </div>
   </td>
  </tr>
@@ -220,10 +220,8 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <h2><a class="anchor" id="autotoc_md14"></a>
 3.2 Description</h2>
 <p>At first, you have to make some description files of your devices and the services when you want to create your UPnP™ device..</p>
-<div class="image">
-<img src="mupnpc-device-description.png" alt=""/>
-</div>
-    <p>The description of the root device should not have URLBase element because the element is added automatically when the device is created using the description.</p>
+<p><img src="img/mupnpc-device-description.png" alt="" class="inline"/></p>
+<p>The description of the root device should not have URLBase element because the element is added automatically when the device is created using the description.</p>
 <p>The service descriptions are required to create a device, but the presentationURL and the iconList are recommended option. Please see UPnP™ specifications about the description format in more detail.</p>
 <h2><a class="anchor" id="autotoc_md15"></a>
 3.3 Initiating</h2>
@@ -263,10 +261,8 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <div class="line">cg_upnp_device_stop(dev);</div>
 </div><!-- fragment --><p>The active root device has some server processes, and returns the responses automatically when a control points sends a request to the device. For example, the device has a HTTP server to return the description files when a</p>
 <p>control point gets the description file. The device searches an available port for the HTTP server automatically on the machine when the device is started.</p>
-<div class="image">
-<img src="mupnpc-device-ports.png" alt=""/>
-</div>
-    <p>The root device is created with the following default parameters, you can change the parameters using the following methods before the root device is started.</p>
+<p><img src="img/mupnpc-device-ports.png" alt="" class="inline"/></p>
+<p>The root device is created with the following default parameters, you can change the parameters using the following methods before the root device is started.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone">Parameter   </th><th class="markdownTableHeadNone">Default   </th><th class="markdownTableHeadNone">Function    </th></tr>
@@ -280,10 +276,8 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <h2><a class="anchor" id="autotoc_md16"></a>
 3.4 Notify</h2>
 <p>Your device is announced using cg_upnp_device_start() to the UPnP™ network using a notify message with ssdp::alive automatically when the device is started. When device is stopped using cg_upnp_device_stop(), a notify message is posted with ssdp::byebye. You can announce the notify messages using cg_upnp_device_announce() and cg_upnp_device_ byebye().</p>
-<div class="image">
-<img src="mupnpc-device-notify.png" alt=""/>
-</div>
-    <p>When a control point sends a search request with M-SEARCH to the UPnP™ network, the active device send the search response to the control point automatically. The device repeats the announcement in the lease time automatically.</p>
+<p><img src="img/mupnpc-device-notify.png" alt="" class="inline"/></p>
+<p>When a control point sends a search request with M-SEARCH to the UPnP™ network, the active device send the search response to the control point automatically. The device repeats the announcement in the lease time automatically.</p>
 <h2><a class="anchor" id="autotoc_md17"></a>
 3.5 Embedded Devices</h2>
 <p>The devices may have some embedded devices. cg_upnp_device_getdevices() and cg_upnp_device_next() to get the embedded device list. The following example outputs friendly names of all embedded devices in a root device.</p>
@@ -403,10 +397,8 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <h2><a class="anchor" id="autotoc_md23"></a>
 4.1 Class Overview</h2>
 <p>The following static structure diagram is related classes of mUPnP to create your control point of UPnP™. The control point has some root devices in the UPnP™ network.</p>
-<div class="image">
-<img src="mupnp-c-ctrlpoint-class-overview.png" alt=""/>
-</div>
-    <h2><a class="anchor" id="autotoc_md24"></a>
+<p><img src="img/mupnp-c-ctrlpoint-class-overview.png" alt="" class="inline"/></p>
+<h2><a class="anchor" id="autotoc_md24"></a>
 4.2 Initiating</h2>
 <p>To create a UPnP™ control point, create a instance of ControlPoint class. Use cg_upnp_controlpoint_start() to active the control point. The control point multicasts a discovery message searching for all devices to the UPnP™ network automatically when the control point is active.</p>
 <div class="fragment"><div class="line">#include &lt;cybergarage/upnp/cupnp.h\</div>
