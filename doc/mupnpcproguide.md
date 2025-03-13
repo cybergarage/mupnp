@@ -132,6 +132,8 @@ For MacOSX, I have released the wrapper class for Objective-C onCocoa. Currently
 
 # 3 Device
 
+UPnP™ device is a networked device that supports the UPnP™ architecture. The device has some embedded devices and services, and the services have some actions and state variables. The device is created as a root device, and the root device is active using mUPnP for C. 
+
 This section describes how to create your UPnP™ device using mUPnP for C.
 
 ## 3.1 Class Overview
@@ -362,6 +364,8 @@ MyPoint *devPoint = (MyPoint *)mupnp_device_getuserdata(dev);
 ```
 
 # 4 Control Point
+
+UPnP™ control point is a networked device that controls the UPnP™ devices in the UPnP™ network. The control point has some root devices in the UPnP™ network, and the control point can send action or query control messages to the discovered devices. The control point is created as a root device, and the root device is active using mUPnP for C.
 
 This section describes how to create your UPnP™ control point using mUPnP for C.
 
