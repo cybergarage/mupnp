@@ -10,7 +10,7 @@ UPnP™ \* architecture is an open network to enable discovery and control of ne
 
 UPnP™ \* protocols are based on many standard, such as GENA, SSDP, SOAP, HTTPU and HTTP. Therefore you have to understand and implement these protocols to create your devices of UPnP™.
 
-![upnp-app](doc/img/upnpapp.png)
+![UPnP applications](doc/img/upnpapp.png)
 
 **mUPnP for C** is supported from IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY, JAPAN, as a project of MitohProgram2004.
 
