@@ -1,4 +1,4 @@
-# mUPnP for MacOSX Programming Guide Document Version 2.2
+# mUPnP for MacOSX Programming Guide
 
 ## 1 Introduction
 
@@ -34,54 +34,7 @@ The framework is distributed as a install package as the following. Using the in
 
 The following static structure diagram is related classes of mUPnP to create your control point of UPnP™. The control point has some root devices in the UPnP™ network.
 
-```plantuml
-@startuml
-class CGUpnpControlPoint {
-+start()
-+stop()
-+search()
-+searchWithST()
-+setSsdpSearchMX()
-+ssdpSearchMX()
-+devices()    
-}
-class CGUpnpDevice {
-+friendlyName()
-+deviceType()
-+isDeviceType()
-+services()
-+getServiceForID()
-+getServiceForType()
-}
-class CGUpnpService {
-+serviceId()
-+serviceType()
-+actions()
-+stateVariables()
-+getActionByName()
-+getStateVariableByName()
-}
-class CGUpnpAction {
-+name()
-+arguments()
-+setArgumentValue:forName()
-+argumentValueForName()
-+post()
-+postWithArguments()
-+statusCode()
-}
-class CGUpnpStateVariable {
-+name()
-+value()
-+query()
-+statusCode()
-}
-CGUpnpControlPoint *-- CGUpnpDevice
-CGUpnpDevice *-- CGUpnpService
-CGUpnpService *-- CGUpnpAction
-CGUpnpService *-- CGUpnpStateVariable
-@enduml
-```
+![](img/mupnp-objc-ctrlpoint-class-overview.png)
 
 ### 3.2 Initiating
 
@@ -137,33 +90,3 @@ CGUpnpStateVariable *timeStateVar = [timeService "time"];
 if ([timeStateVar query])
     NSLog(@"%@ = %@", [timeStateVar name], [timeStateVar value]]);
 ```
-
-# 4 License
-
-Copyright (c) 2004-2006, Satoshi Konno
-Copyright (c) 2005-2006, Nokia Corporation
-Copyright (c) 2005-2006, Theo Beisch Collectively the Copyright Owners All rights reserved.
-
-Subject to the below, redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-
--   Redistributions of source code must retain the above copyright notice, this list of conditions and thefollowing disclaimer.
--   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and thefollowing disclaimer in the documentation and/or other materials provided with the distribution.
--   Neither the names of the Copyright Owners nor the names of its contributors may be used to endorse orpromote products derived from this software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT OWNERS AND CONTRIBUTORS \"AS IS\" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
-TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-While any of the respective Copyright Owners licenses and/or distributes this software and any files contained therein under its or third party copyrights, for clarification it is hereby stated that no patent license explicit or
-implied is granted by any of the Copyright Owners in connection to this license or distribution of this software.
-
-In addition to the disclaimer above and not limiting its generality, no assurances are provided by the Copyright Owners that the software does not infringe patents of either third parties or any of the Copyright Owners in any particular jurisdiction. As a condition to exercising the rights and licenses granted hereunder in any particular jurisdiction, each recipient hereby assumes sole responsibility to procure licenses under any relevant patents in that jurisdiction. For example, if a third party patent license is required to allow recipient to distribute the program in a particular country, it is the recipient\'s responsibility to acquire that license before distributing the program.
-
-This software has been supported by IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY, JAPAN, as a project of Exploratory Software Project.
-
-[^1]: UPnP™ is a certification mark of the UPnP™ Implementers Corporation.　
