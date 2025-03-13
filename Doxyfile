@@ -85,7 +85,6 @@ IMAGE_PATH             = doc/img
 INPUT_FILTER           = 
 USE_MDFILE_AS_MAINPAGE = README.md
 MARKDOWN_SUPPORT       = YES
-
 #---------------------------------------------------------------------------
 # configuration options related to source browsing
 #---------------------------------------------------------------------------
@@ -222,4 +221,3 @@ DOT_CLEANUP            = YES
 # Configuration::additions related to the search engine   
 #---------------------------------------------------------------------------
 SEARCHENGINE           = NO
-PLANTUML_JAR_PATH      = ./plantuml.jar

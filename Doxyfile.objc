@@ -72,8 +72,8 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = wrapper std/upnpav/wrapper
-FILE_PATTERNS          = *.h *.m
+INPUT                  = wrapper std/upnpav/wrapper doc README.md
+FILE_PATTERNS          = *.h *.m *.md
 RECURSIVE              = YES
 EXCLUDE                = 
 EXCLUDE_SYMLINKS       = NO
@@ -85,6 +85,8 @@ IMAGE_PATH             =
 INPUT_FILTER           = 
 FILTER_PATTERNS        = 
 FILTER_SOURCE_FILES    = NO
+USE_MDFILE_AS_MAINPAGE = README.md
+MARKDOWN_SUPPORT       = YES
 #---------------------------------------------------------------------------
 # configuration options related to source browsing
 #---------------------------------------------------------------------------
