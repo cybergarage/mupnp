@@ -72,8 +72,8 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = src include wrapper std/upnpav/wrapper
-FILE_PATTERNS          = *.h *.c *.m
+INPUT                  = src include wrapper std/upnpav/wrapper doc README.md
+FILE_PATTERNS          = *.h *.c *.m *.md
 RECURSIVE              = YES
 EXCLUDE                = 
 EXCLUDE_SYMLINKS       = NO
@@ -81,10 +81,11 @@ EXCLUDE_PATTERNS       =
 EXAMPLE_PATH           = 
 EXAMPLE_PATTERNS       = 
 EXAMPLE_RECURSIVE      = NO
-IMAGE_PATH             = 
+IMAGE_PATH             = doc/img
 INPUT_FILTER           = 
-FILTER_PATTERNS        = 
-FILTER_SOURCE_FILES    = NO
+USE_MDFILE_AS_MAINPAGE = README.md
+MARKDOWN_SUPPORT       = YES
+
 #---------------------------------------------------------------------------
 # configuration options related to source browsing
 #---------------------------------------------------------------------------
@@ -221,3 +222,4 @@ DOT_CLEANUP            = YES
 # Configuration::additions related to the search engine   
 #---------------------------------------------------------------------------
 SEARCHENGINE           = NO
+PLANTUML_JAR_PATH      = ./plantuml.jar
