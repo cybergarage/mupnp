@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Download the latest PlantUML JAR file
+PLANTUML_URL="https://sourceforge.net/projects/plantuml/files/latest/download"
+OUTPUT_PATH="./plantuml.jar"
+
+if [ ! -f "$OUTPUT_PATH" ]; then
+    echo "PlantUML JAR file does not exist at $OUTPUT_PATH. Downloading..."
+    curl -L -o $OUTPUT_PATH $PLANTUML_URL
+
+    if [ $? -eq 0 ]; then
+        echo "PlantUML downloaded successfully to $OUTPUT_PATH"
+    else
+        echo "Failed to download PlantUML"
+        exit 1
+    fi
+else
+    echo "PlantUML JAR file already exists at $OUTPUT_PATH. Skipping download."
+fi
+
+doxygen 
