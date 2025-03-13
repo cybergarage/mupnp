@@ -25,21 +25,21 @@
 var NAVTREE =
 [
   [ "mUPnP for C", "index.html", [
-    [ "Building and Installation", "index.html#autotoc_md43", [
-      [ "Homebrew (macOS, Linux, Raspbian)", "index.html#autotoc_md44", null ],
-      [ "Installation from source", "index.html#autotoc_md45", null ]
+    [ "Building and Installation", "index.html#autotoc_md41", [
+      [ "Homebrew (macOS, Linux, Raspbian)", "index.html#autotoc_md42", null ],
+      [ "Installation from source", "index.html#autotoc_md43", null ]
     ] ],
-    [ "References", "index.html#autotoc_md46", [
-      [ "mUPnP for C", "index.html#autotoc_md47", null ],
-      [ "mUPnP for Objective-C", "index.html#autotoc_md48", null ]
+    [ "References", "index.html#autotoc_md44", [
+      [ "mUPnP for C", "index.html#autotoc_md45", null ],
+      [ "mUPnP for Objective-C", "index.html#autotoc_md46", null ]
     ] ],
-    [ "Examples", "index.html#autotoc_md49", null ],
-    [ "Adoption of mUPnP in Consumer Products", "index.html#autotoc_md50", [
-      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md51", null ],
-      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md52", null ],
-      [ "Toshiba REGZA Televisions", "index.html#autotoc_md53", null ]
+    [ "Examples", "index.html#autotoc_md47", null ],
+    [ "Adoption of mUPnP in Consumer Products", "index.html#autotoc_md48", [
+      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md49", null ],
+      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md50", null ],
+      [ "Toshiba REGZA Televisions", "index.html#autotoc_md51", null ]
     ] ],
-    [ "mUPnP for C Programming Guide Document Version 2.2", "md_doc_2mupnpcproguide.html", [
+    [ "mUPnP for C Programming Guide", "md_doc_2mupnpcproguide.html", [
       [ "1 Introduction", "md_doc_2mupnpcproguide.html#autotoc_md1", null ],
       [ "2 Setup", "md_doc_2mupnpcproguide.html#autotoc_md2", [
         [ "2.1 Package Contents", "md_doc_2mupnpcproguide.html#autotoc_md3", null ],
@@ -73,22 +73,20 @@ var NAVTREE =
         [ "4.5 Root Devices", "md_doc_2mupnpcproguide.html#autotoc_md27", null ],
         [ "4.6 Control", "md_doc_2mupnpcproguide.html#autotoc_md28", null ],
         [ "4.7 Event", "md_doc_2mupnpcproguide.html#autotoc_md29", null ]
-      ] ],
-      [ "5 License", "md_doc_2mupnpcproguide.html#autotoc_md30", null ]
+      ] ]
     ] ],
-    [ "mUPnP for MacOSX Programming Guide Document Version 2.2", "md_doc_2mupnpobjcproguide.html", [
-      [ "1 Introduction", "md_doc_2mupnpobjcproguide.html#autotoc_md32", null ],
-      [ "2 Setup", "md_doc_2mupnpobjcproguide.html#autotoc_md33", [
-        [ "2.1 System Requirement", "md_doc_2mupnpobjcproguide.html#autotoc_md34", null ],
-        [ "2.2 Installer", "md_doc_2mupnpobjcproguide.html#autotoc_md35", null ]
+    [ "mUPnP for MacOSX Programming Guide", "md_doc_2mupnpobjcproguide.html", [
+      [ "1 Introduction", "md_doc_2mupnpobjcproguide.html#autotoc_md31", null ],
+      [ "2 Setup", "md_doc_2mupnpobjcproguide.html#autotoc_md32", [
+        [ "2.1 System Requirement", "md_doc_2mupnpobjcproguide.html#autotoc_md33", null ],
+        [ "2.2 Installer", "md_doc_2mupnpobjcproguide.html#autotoc_md34", null ]
       ] ],
-      [ "3 Control Point", "md_doc_2mupnpobjcproguide.html#autotoc_md36", [
-        [ "3.1 Class Overview", "md_doc_2mupnpobjcproguide.html#autotoc_md37", null ],
-        [ "3.2 Initiating", "md_doc_2mupnpobjcproguide.html#autotoc_md38", null ],
-        [ "3.3 Root Devices", "md_doc_2mupnpobjcproguide.html#autotoc_md39", null ],
-        [ "3.4 Control", "md_doc_2mupnpobjcproguide.html#autotoc_md40", null ]
-      ] ],
-      [ "4 License", "md_doc_2mupnpobjcproguide.html#autotoc_md41", null ]
+      [ "3 Control Point", "md_doc_2mupnpobjcproguide.html#autotoc_md35", [
+        [ "3.1 Class Overview", "md_doc_2mupnpobjcproguide.html#autotoc_md36", null ],
+        [ "3.2 Initiating", "md_doc_2mupnpobjcproguide.html#autotoc_md37", null ],
+        [ "3.3 Root Devices", "md_doc_2mupnpobjcproguide.html#autotoc_md38", null ],
+        [ "3.4 Control", "md_doc_2mupnpobjcproguide.html#autotoc_md39", null ]
+      ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
     [ "Deprecated List", "deprecated.html", null ],
@@ -127,13 +125,13 @@ var NAVTREEINDEX =
 "http_8h.html#a66e0cc65eaf94ebcbdaa4bf7d110c665",
 "http__persistent__connection_8c.html",
 "interface_8h.html#a72d756a7a0b0f70c590f3149b26cc51e",
-"query__request_8c.html#a3d6e7d62471f38409b654a570dfb8348",
-"socket_8c.html#a97112d13b8dedcb9161518f73e953c61",
-"ssdp__server_8h.html#a2104bbe28f15fc9a010fa17ee8307e45",
-"string_8h.html#ad5162deb82fd2543be45fc5b98113f36",
-"struct__mUpnpStateVariable.html#a259c4a00fa50d4215afe01078f998412",
-"upnp__status_8h.html#a2da1e76bdd2a026e51dd3ce7fe782351",
-"xml__attribute__list_8c.html#a98a375085892766dbf5158ffdbf35fe3"
+"query__request_8c.html#a433f8edc07533efdf28c5c8e1cd29843",
+"socket_8c.html#a9d70943173d8552a31530c6cba2c0025",
+"ssdp__server_8h.html#a251de61db0e96239176c037758377659",
+"string_8h.html#ad626e134ed45acabde857766b7cfd528",
+"struct__mUpnpStateVariable.html#a59316719c8e127cb65691f110f091b1b",
+"upnp__status_8h.html#a3c7886f3dfb79b6e5db5a82388e2e61a",
+"xml__attribute__list_8c.html#af41bae76d7a8186bfc2a779b6ca191db"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

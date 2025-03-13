@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>mUPnP for C: mUPnP for C Programming Guide Document Version 2.2</title>
+<title>mUPnP for C: mUPnP for C Programming Guide</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 </script>
 <div id="doc-content">
 <div><div class="header">
-  <div class="headertitle"><div class="title">mUPnP for C Programming Guide Document Version 2.2</div></div>
+  <div class="headertitle"><div class="title">mUPnP for C Programming Guide</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md0"></a></p>
@@ -215,14 +215,8 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <h2><a class="anchor" id="autotoc_md13"></a>
 3.1 Class Overview</h2>
 <p>The following static structure diagram is related classes of mUPnP to create your device of UPnP™. The device has some embedded devices and services, and the services have some actions and state variables.</p>
-<div class="fragment"><div class="line">@startuml</div>
-<div class="line">CgUpnpDevice *-- CgUpnpIcon</div>
-<div class="line">CgUpnpDevice *-- CgUpnpService</div>
-<div class="line">CgUpnpService *-- CgUpnpAction</div>
-<div class="line">CgUpnpAction *-- CgUpnpArgument</div>
-<div class="line">CgUpnpService *-- CgUpnpStateVariable</div>
-<div class="line">@enduml</div>
-</div><!-- fragment --><p>The above static structure diagram is modified simplify to explain.</p>
+<p><img src="img/mupnp-c-class-overview.png" alt="" class="inline"/></p>
+<p>The above static structure diagram is modified simplify to explain.</p>
 <h2><a class="anchor" id="autotoc_md14"></a>
 3.2 Description</h2>
 <p>At first, you have to make some description files of your devices and the services when you want to create your UPnP™ device..</p>
@@ -409,15 +403,10 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <h2><a class="anchor" id="autotoc_md23"></a>
 4.1 Class Overview</h2>
 <p>The following static structure diagram is related classes of mUPnP to create your control point of UPnP™. The control point has some root devices in the UPnP™ network.</p>
-<div class="fragment"><div class="line">@startuml</div>
-<div class="line">CgUpnpControlPoint *-- CgUpnpDevice</div>
-<div class="line">CgUpnpDevice *-- CgUpnpIcon</div>
-<div class="line">CgUpnpDevice *-- CgUpnpService</div>
-<div class="line">CgUpnpService *-- CgUpnpAction</div>
-<div class="line">CgUpnpAction *-- CgUpnpArgument</div>
-<div class="line">CgUpnpService *-- CgUpnpStateVariable</div>
-<div class="line">@enduml</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md24"></a>
+<div class="image">
+<img src="mupnp-c-ctrlpoint-class-overview.png" alt=""/>
+</div>
+    <h2><a class="anchor" id="autotoc_md24"></a>
 4.2 Initiating</h2>
 <p>To create a UPnP™ control point, create a instance of ControlPoint class. Use cg_upnp_controlpoint_start() to active the control point. The control point multicasts a discovery message searching for all devices to the UPnP™ network automatically when the control point is active.</p>
 <div class="fragment"><div class="line">#include &lt;cybergarage/upnp/cupnp.h\</div>
@@ -537,20 +526,7 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <div class="line">  char *sid = cg_upnp_service_getsubscriptionsid(timeService);</div>
 <div class="line">  ......</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md30"></a>
-5 License</h1>
-<p>Copyright (c) 2004-2006, Satoshi Konno Copyright (c) 2005-2006, Nokia Corporation Copyright (c) 2005-2006, Theo Beisch Collectively the Copyright Owners All rights reserved.</p>
-<p>Subject to the below, redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
-<ul>
-<li>Redistributions of source code must retain the above copyright notice, this list of conditions and thefollowing disclaimer.</li>
-<li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and thefollowing disclaimer in the documentation and/or other materials provided with the distribution.</li>
-<li>Neither the names of the Copyright Owners nor the names of its contributors may be used to endorse orpromote products derived from this software without specific prior written permission.</li>
-</ul>
-<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT OWNERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. While any of the respective Copyright Owners licenses and/or distributes this software and any files contained therein under its or third party copyrights, for clarification it is hereby stated that no patent license explicit or implied is granted by any of the Copyright Owners in connection to this license or distribution of this software.</p>
-<p>In addition to the disclaimer above and not limiting its generality, no assurances are provided by the Copyright Owners that the software does not infringe patents of either third parties or any of the Copyright Owners in any particular jurisdiction. As a condition to exercising the rights and licenses granted hereunder in any particular jurisdiction, each recipient hereby assumes sole responsibility to procure licenses under any relevant patents in that jurisdiction. For example, if a third party patent license is required to allow recipient to distribute the program in a particular country, it is the recipient\'s responsibility to acquire that license before distributing the program.</p>
-<p>This software has been supported by IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY, JAPAN, as a project of Exploratory Software Project.</p>
-<p>[^1]: UPnP™ is a certification mark of the UPnP™ Implementers Corporation.　 </p>
-</div></div><!-- contents -->
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

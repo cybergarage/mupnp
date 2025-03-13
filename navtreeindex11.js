@@ -1,7 +1,5 @@
 var NAVTREEINDEX11 =
 {
-"struct__mUpnpStateVariable.html#a259c4a00fa50d4215afe01078f998412":[9,0,34,2],
-"struct__mUpnpStateVariable.html#a416172ec2c8312811e37fb4e2aecee5e":[9,0,34,1],
 "struct__mUpnpStateVariable.html#a59316719c8e127cb65691f110f091b1b":[9,0,34,3],
 "struct__mUpnpStateVariable.html#a61542b9c8dea94c05d3b98cbc1dae06c":[9,0,34,4],
 "struct__mUpnpStateVariable.html#aa6ff0892431719b8aa0cbaea727edd73":[9,0,34,7],
@@ -249,5 +247,7 @@ var NAVTREEINDEX11 =
 "upnp__status_8h.html":[10,0,1,0,20],
 "upnp__status_8h.html#a0bf3e19fde78a605d16ffdfab5a54729":[10,0,1,0,20,8],
 "upnp__status_8h.html#a1b02f13d5ca24bd38677b940fae197ce":[10,0,1,0,20,13],
-"upnp__status_8h.html#a290844b1eb0736b613da7d7d90788053":[10,0,1,0,20,5]
+"upnp__status_8h.html#a290844b1eb0736b613da7d7d90788053":[10,0,1,0,20,5],
+"upnp__status_8h.html#a2da1e76bdd2a026e51dd3ce7fe782351":[10,0,1,0,20,12],
+"upnp__status_8h.html#a347cb39d6f879d41ea96d978c243d3e5":[10,0,1,0,20,6]
 };

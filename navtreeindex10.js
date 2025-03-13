@@ -1,7 +1,5 @@
 var NAVTREEINDEX10 =
 {
-"string_8h.html#ad5162deb82fd2543be45fc5b98113f36":[10,0,1,0,7,5,29],
-"string_8h.html#ad5d8e5765cbaf3fd78ebf8c80500e80d":[10,0,1,0,7,5,63],
 "string_8h.html#ad626e134ed45acabde857766b7cfd528":[10,0,1,0,7,5,39],
 "string_8h.html#adfbcd151d770f1084ace2e7f01a8c105":[10,0,1,0,7,5,67],
 "string_8h.html#ae0926fc05f907b0f604c527ca4e17db5":[10,0,1,0,7,5,62],
@@ -249,5 +247,7 @@ var NAVTREEINDEX10 =
 "struct__mUpnpSocket.html#a6d3d0646e60ac58fa8e80f177eb3abf6":[9,0,30,4],
 "struct__mUpnpSocket.html#a75cf146eeb4e9a1b594fbeb00e31647e":[9,0,30,3],
 "struct__mUpnpSocket.html#a9407bc0376f5348750de72832f09d173":[9,0,30,1],
-"struct__mUpnpStateVariable.html":[9,0,34]
+"struct__mUpnpStateVariable.html":[9,0,34],
+"struct__mUpnpStateVariable.html#a259c4a00fa50d4215afe01078f998412":[9,0,34,2],
+"struct__mUpnpStateVariable.html#a416172ec2c8312811e37fb4e2aecee5e":[9,0,34,1]
 };
