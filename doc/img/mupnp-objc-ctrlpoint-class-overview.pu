@@ -1,0 +1,46 @@
+@startuml
+class CGUpnpControlPoint {
++start()
++stop()
++search()
++searchWithST()
++setSsdpSearchMX()
++ssdpSearchMX()
++devices()    
+}
+class CGUpnpDevice {
++friendlyName()
++deviceType()
++isDeviceType()
++services()
++getServiceForID()
++getServiceForType()
+}
+class CGUpnpService {
++serviceId()
++serviceType()
++actions()
++stateVariables()
++getActionByName()
++getStateVariableByName()
+}
+class CGUpnpAction {
++name()
++arguments()
++setArgumentValue:forName()
++argumentValueForName()
++post()
++postWithArguments()
++statusCode()
+}
+class CGUpnpStateVariable {
++name()
++value()
++query()
++statusCode()
+}
+CGUpnpControlPoint *-- CGUpnpDevice
+CGUpnpDevice *-- CGUpnpService
+CGUpnpService *-- CGUpnpAction
+CGUpnpService *-- CGUpnpStateVariable
+@enduml
