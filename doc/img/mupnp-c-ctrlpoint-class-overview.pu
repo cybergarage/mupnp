@@ -1,8 +1,8 @@
 @startuml
-CgUpnpControlPoint *-- CgUpnpDevice
-CgUpnpDevice *-- CgUpnpIcon
-CgUpnpDevice *-- CgUpnpService
-CgUpnpService *-- CgUpnpAction
-CgUpnpAction *-- CgUpnpArgument
-CgUpnpService *-- CgUpnpStateVariable
+mUpnpControlPoint *-- mUpnpDevice
+mUpnpDevice *-- mUpnpIcon
+mUpnpDevice *-- mUpnpService
+mUpnpService *-- mUpnpAction
+mUpnpAction *-- mUpnpArgument
+mUpnpService *-- mUpnpStateVariable
 @enduml
