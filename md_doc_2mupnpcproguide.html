@@ -118,7 +118,7 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Package   </th><th class="markdownTableHeadNone">URL    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Expat   </td><td class="markdownTableBodyNone"><a href="http://expat.sourceforge.net/">http://expat.sourceforge.net/</a>   </td></tr>
+<td class="markdownTableBodyNone">Expat   </td><td class="markdownTableBodyNone"><a href="https://libexpat.github.io/">https://libexpat.github.io/</a>   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md5"></a>
 2.2.1 WindowsXP</h3>
@@ -154,22 +154,22 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Option   </th><th class="markdownTableHeadNone">URL    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">CG_XMLPARSER_LIBXML2   </td><td class="markdownTableBodyNone">Use libxml2 as the XML parser instead of Expat.    </td></tr>
+<td class="markdownTableBodyNone">MUPNP_XMLPARSER_LIBXML2   </td><td class="markdownTableBodyNone">Use libxml2 as the XML parser instead of Expat.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">CG_UPNP_NOUSE_CONTROLPOINT   </td><td class="markdownTableBodyNone">Disable UPnP™ control point functions.    </td></tr>
+<td class="markdownTableBodyNone">MUPNP_NOUSE_CONTROLPOINT   </td><td class="markdownTableBodyNone">Disable UPnP™ control point functions.    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">CG_UPNP_NOUSE_SUBSCRIPTION   </td><td class="markdownTableBodyNone">Disable UPnP™ subscription functions.    </td></tr>
+<td class="markdownTableBodyNone">MUPNP_NOUSE_SUBSCRIPTION   </td><td class="markdownTableBodyNone">Disable UPnP™ subscription functions.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">CG_UPNP_NOUSE_ACTIONCTRL   </td><td class="markdownTableBodyNone">Disable UPnP™ action control functions.    </td></tr>
+<td class="markdownTableBodyNone">MUPNP_NOUSE_ACTIONCTRL   </td><td class="markdownTableBodyNone">Disable UPnP™ action control functions.    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">CG_UPNP_NOUSE_QUERYCTRL   </td><td class="markdownTableBodyNone">Disable UPnP™ query control functions.   </td></tr>
+<td class="markdownTableBodyNone">MUPNP_NOUSE_QUERYCTRL   </td><td class="markdownTableBodyNone">Disable UPnP™ query control functions.   </td></tr>
 </table>
 <p>The mUPnP uses Expat as the default parser, but the following XML parser is supported with the compiler option. Please see the XML parser as the following site.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Package   </th><th class="markdownTableHeadNone">URL    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">libxml2   </td><td class="markdownTableBodyNone"><a href="http://xmlsoft.org/">http://xmlsoft.org/</a>   </td></tr>
+<td class="markdownTableBodyNone">libxml2   </td><td class="markdownTableBodyNone"><a href="https://github.com/GNOME/libxml2">https://github.com/GNOME/libxml2</a>   </td></tr>
 </table>
 <h3><a class="anchor" id="autotoc_md8"></a>
 2.3.1 Unix</h3>
@@ -192,7 +192,7 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">TENGINE   </td><td class="markdownTableBodyNone">Enable the platform option.    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">CG_TENGINE_NET_KASAGO   </td><td class="markdownTableBodyNone">Enable KASAGO for T-Engine option.   </td></tr>
+<td class="markdownTableBodyNone">MUPNP_TENGINE_NET_KASAGO   </td><td class="markdownTableBodyNone">Enable KASAGO for T-Engine option.   </td></tr>
 </table>
 <p>The mUPnP is compiled using the functions for PMC T-Shell Kit as the TCP/IP protocol stack, but it is no good because the protocol stack doesn't support the multicast protocol and the functions are not implemented yet.</p>
 <p>To run applications using the mUPnP, the driver of the TCP/IP protocol stack has to be loaded and the network address has to be determined. Please see the manual of the protocol stack how to set the network interface.</p>
@@ -202,21 +202,16 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 </div><!-- fragment --><p>I have built the library with T-Engine/SH7727 development kit with KASAGO for T-Engine. Please check the platform directories, mUPnPC/*/tengine/gnu , for the sample projects. To compile the samples, run configure script in the directory at first. Please see the development manual of your T-Engine development kit if you want to use on other TEngine platforms.</p>
 <h3><a class="anchor" id="autotoc_md11"></a>
 2.3.4 MacOSX</h3>
-<p>For MacOSX, I have released the wrapper class for Objective-C onCocoa. The package is released as an installer package of the framework at the following site.</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Package URL    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">mUPnP for MacOSX <a href="http://sourceforge.net/projects/clinkobjc">http://sourceforge.net/projects/clinkobjc</a>   </td></tr>
-</table>
-<p>Currently, the framework supports only basic functions of the control point. Please use the standard C library for if you have to use all functions of mUPnP for C.</p>
+<p>For MacOSX, I have released the wrapper class for Objective-C onCocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library for if you have to use all functions of mUPnP for C.</p>
 <h1><a class="anchor" id="autotoc_md12"></a>
 3 Device</h1>
 <h2><a class="anchor" id="autotoc_md13"></a>
 3.1 Class Overview</h2>
 <p>The following static structure diagram is related classes of mUPnP to create your device of UPnP™. The device has some embedded devices and services, and the services have some actions and state variables.</p>
-<p><img src="img/mupnp-c-class-overview.png" alt="" class="inline"/></p>
-<p>The above static structure diagram is modified simplify to explain.</p>
+<div class="image">
+<img src="mupnp-c-device-class-overview.png" alt=""/>
+</div>
+    <p>The above static structure diagram is modified simplify to explain.</p>
 <h2><a class="anchor" id="autotoc_md14"></a>
 3.2 Description</h2>
 <p>At first, you have to make some description files of your devices and the services when you want to create your UPnP™ device..</p>
@@ -227,40 +222,36 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <p>The service descriptions are required to create a device, but the presentationURL and the iconList are recommended option. Please see UPnP™ specifications about the description format in more detail.</p>
 <h2><a class="anchor" id="autotoc_md15"></a>
 3.3 Initiating</h2>
-<p>To create a UPnP™ device, use cg_upnp_device_new() to create the instance, set the descriptions using cg_upnp_device_parsedescription() and cg_upnp_service_parsedescription() from the memory description strings.</p>
-<p>The device is created as a root device, and only the root device can be active using cg_upnp_device_start(). The device is announced to the UPnP™ network when the device is started. To terminate the device, use</p>
-<p>cg_upnp_device_stop(). The following shows an example of the initiating device.</p>
-<div class="fragment"><div class="line">#include &lt;cybergarage/upnp/cupnp.h&gt;</div>
+<p>To create a UPnP™ device, use <a class="el" href="device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new()</a> to create the instance, set the descriptions using <a class="el" href="device_8c.html#a1cfd480edf457d8b980743f1110887d4">mupnp_device_parsedescription()</a> and <a class="el" href="service_8c.html#ac2fcc1c19ac553adcf4c05ed0df8d0da">mupnp_service_parsedescription()</a> from the memory description strings.</p>
+<p>The device is created as a root device, and only the root device can be active using <a class="el" href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start()</a>. The device is announced to the UPnP™ network when the device is started. To terminate the device, use</p>
+<p><a class="el" href="device_8c.html#aa29f22524439920db536643028a799cb">mupnp_device_stop()</a>. The following shows an example of the initiating device.</p>
+<div class="fragment"><div class="line">#include &lt;mupnp/upnp.h&gt;</div>
 <div class="line"> </div>
 <div class="line">......</div>
 <div class="line"> </div>
 <div class="line">const char DEVICE_DESCRIPTION[] =</div>
-<div class="line">&quot;&lt;?xml version=\&quot;1.0\&quot; ?&gt;\n&quot;</div>
-<div class="line">&quot;&lt;root xmlns=\&quot;urn:schemas-upnp-org:device-1-0\&quot;&gt;\n&quot;</div>
+<div class="line">&quot;&lt;?xml version=&quot;1.0&quot; ?&gt;\n&quot;</div>
+<div class="line">&quot;&lt;root xmlns=&quot;urn:schemas-upnp-org:device-1-0&quot;&gt;\n&quot;</div>
 <div class="line">....</div>
 <div class="line">&quot;&lt;/root&gt;&quot;;</div>
 <div class="line">const char SERVICE_DESCRIPTION[] =</div>
-<div class="line">&quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&quot;</div>
-<div class="line">&quot;&lt;scpd xmlns=\&quot;urn:schemas-upnp-org:service-1-0\&quot; &gt;\n&quot;</div>
+<div class="line">&quot;&lt;?xml version=&quot;1.0&quot;?&gt;\n&quot;</div>
+<div class="line">&quot;&lt;scpd xmlns=&quot;urn:schemas-upnp-org:service-1-0&quot; &gt;\n&quot;</div>
 <div class="line">....</div>
 <div class="line">“&lt;/scpd&gt;”;</div>
-<div class="line"> </div>
 <div class="line">......</div>
-<div class="line"> </div>
-<div class="line">CgUpnpDevice *dev;</div>
-<div class="line">BOOL parseSuccess; CgUpnpService *service;</div>
-<div class="line">dev = cg_upnp_device_new();</div>
-<div class="line">if (cg_upnp_device_parsedescription(dev, DEVICE_DESCRIPTION, sizeof(DEVICE_DESCRIPTION)) == FALSE) {</div>
+<div class="line">mUpnpDevice *dev = mupnp_device_new();</div>
+<div class="line">if (mupnp_device_parsedescription(dev, DEVICE_DESCRIPTION, sizeof(DEVICE_DESCRIPTION)) == FALSE) {</div>
 <div class="line">  ......</div>
 <div class="line">}</div>
-<div class="line">service = cg_upnp_device_getservicebyname(dev, &quot;urn:schemas-upnp-org:serviceId:xxxxx:1&quot;);</div>
-<div class="line">if (cg_upnp_service_parsedescription(service, SERVICE_DESCRIPTION, sizeof(SERVICE_DESCRIPTION)) == FALSE) {</div>
+<div class="line">mUpnpService *service = mupnp_device_getservicebyname(dev, &quot;urn:schemas-upnp-org:serviceId:xxxxx:1&quot;);</div>
+<div class="line">if (mupnp_service_parsedescription(service, SERVICE_DESCRIPTION, sizeof(SERVICE_DESCRIPTION)) == FALSE) {</div>
 <div class="line">  ......</div>
 <div class="line">}</div>
 <div class="line">......</div>
-<div class="line">cg_upnp_device_start(dev);</div>
+<div class="line">mupnp_device_start(dev);</div>
 <div class="line">......</div>
-<div class="line">cg_upnp_device_stop(dev);</div>
+<div class="line">mupnp_device_stop(dev);</div>
 </div><!-- fragment --><p>The active root device has some server processes, and returns the responses automatically when a control points sends a request to the device. For example, the device has a HTTP server to return the description files when a</p>
 <p>control point gets the description file. The device searches an available port for the HTTP server automatically on the machine when the device is started.</p>
 <div class="image">
@@ -271,106 +262,106 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone">Parameter   </th><th class="markdownTableHeadNone">Default   </th><th class="markdownTableHeadNone">Function    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">HTTP port   </td><td class="markdownTableBodyNone">4004   </td><td class="markdownTableBodyNone">cg_upnp_device_sethttpport()    </td></tr>
+<td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">HTTP port   </td><td class="markdownTableBodyNone">4004   </td><td class="markdownTableBodyNone"><a class="el" href="device_8h.html#aadbf88367cd05a9b0abd594738754022">mupnp_device_sethttpport()</a>    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">Description URI   </td><td class="markdownTableBodyNone">/description.xml   </td><td class="markdownTableBodyNone">cg_upnp_device_setdescriptionuri()    </td></tr>
+<td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">Description URI   </td><td class="markdownTableBodyNone">/description.xml   </td><td class="markdownTableBodyNone"><a class="el" href="device_8h.html#a7289e902282bee777fef39291a00e913">mupnp_device_setdescriptionuri()</a>    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">3   </td><td class="markdownTableBodyNone">Lease time   </td><td class="markdownTableBodyNone">1800   </td><td class="markdownTableBodyNone">cg_upnp_device_setleasetime   </td></tr>
+<td class="markdownTableBodyNone">3   </td><td class="markdownTableBodyNone">Lease time   </td><td class="markdownTableBodyNone">1800   </td><td class="markdownTableBodyNone">mupnp_device_setleasetime   </td></tr>
 </table>
 <h2><a class="anchor" id="autotoc_md16"></a>
 3.4 Notify</h2>
-<p>Your device is announced using cg_upnp_device_start() to the UPnP™ network using a notify message with ssdp::alive automatically when the device is started. When device is stopped using cg_upnp_device_stop(), a notify message is posted with ssdp::byebye. You can announce the notify messages using cg_upnp_device_announce() and cg_upnp_device_ byebye().</p>
+<p>Your device is announced using <a class="el" href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start()</a> to the UPnP™ network using a notify message with ssdp::alive automatically when the device is started. When device is stopped using <a class="el" href="device_8c.html#aa29f22524439920db536643028a799cb">mupnp_device_stop()</a>, a notify message is posted with ssdp::byebye. You can announce the notify messages using <a class="el" href="device_8c.html#a4316f550a580e431ca1ba0a423f59f86">mupnp_device_announce()</a> and <a class="el" href="device_8c.html#a14e96e0c1442ada75bd8adf804594bbd">mupnp_device_byebye()</a>.</p>
 <div class="image">
 <img src="mupnpc-device-notify.png" alt=""/>
 </div>
     <p>When a control point sends a search request with M-SEARCH to the UPnP™ network, the active device send the search response to the control point automatically. The device repeats the announcement in the lease time automatically.</p>
 <h2><a class="anchor" id="autotoc_md17"></a>
 3.5 Embedded Devices</h2>
-<p>The devices may have some embedded devices. cg_upnp_device_getdevices() and cg_upnp_device_next() to get the embedded device list. The following example outputs friendly names of all embedded devices in a root device.</p>
-<div class="fragment"><div class="line">void PrintDevice(CgUpnpDevice *dev) {</div>
-<div class="line">  char *devName = cg_upnp_device_getfriendlyname(dev); printf(&quot;%s\n&quot;, devName);</div>
-<div class="line">  CgUpnpDevice *childDevList; </div>
-<div class="line">  for (childDev = cg_upnp_device_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev))</div>
+<p>The devices may have some embedded devices. <a class="el" href="device_8h.html#a408eb3f9a280092f98416b98c7bb2829">mupnp_device_getdevices()</a> and <a class="el" href="device_8h.html#a693f9e206393d8e368fc53352819d239">mupnp_device_next()</a> to get the embedded device list. The following example outputs friendly names of all embedded devices in a root device.</p>
+<div class="fragment"><div class="line">void PrintDevice(mUpnpDevice *dev) {</div>
+<div class="line">  char *devName = mupnp_device_getfriendlyname(dev); printf(&quot;%s\n&quot;, devName);</div>
+<div class="line">  mUpnpDevice *childDevList; </div>
+<div class="line">  for (childDev = mupnp_device_getdevices(rootDev), childDev != NULL; childDev = mupnp_device_next(childDev))</div>
 <div class="line">    PrintDevice(childDev);</div>
 <div class="line">}</div>
 <div class="line">......</div>
-<div class="line">CgUpnpDevice *rootDev = ......;</div>
+<div class="line">mUpnpDevice *rootDev = ......;</div>
 <div class="line">......</div>
-</div><!-- fragment --><p>CgUpnpDevice *childDev; for (childDev = cg_upnp_device_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev)) PrintDevice(childDev);</p>
-<p>You can find a embedded device by the friendly name or UDN using cg_upnp_device_getdevicebyname(). The following example gets a embedded device by the friendly name.</p>
-<div class="fragment"><div class="line">CgUpnpDevice *homeServerDev = ......</div>
-<div class="line">CgUpnpDevice *musicDev = cg_upnp_device_getdevicebyname(&quot;music&quot;);</div>
+</div><!-- fragment --><p>mUpnpDevice *childDev; for (childDev = <a class="el" href="device_8h.html#a408eb3f9a280092f98416b98c7bb2829">mupnp_device_getdevices(rootDev)</a>, childDev != NULL; childDev = <a class="el" href="device_8h.html#a693f9e206393d8e368fc53352819d239">mupnp_device_next(childDev)</a>) PrintDevice(childDev);</p>
+<p>You can find a embedded device by the friendly name or UDN using mupnp_device_getdevicebyname(). The following example gets a embedded device by the friendly name.</p>
+<div class="fragment"><div class="line">mUpnpDevice *homeServerDev = ......</div>
+<div class="line">mUpnpDevice *musicDev = mupnp_device_getdevicebyname(&quot;music&quot;);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md18"></a>
 3.6 Service</h2>
-<p>Use cg_upnp_device_getservices() to access embedded services of the device. The service may have some actions and state variables. Use cg_upnp_service_getactions() and cg_upnp_action_next() to get the actions, and use cg_upnp_service_getstatevariables() and cg_upnp_statevariable_next() to the state variables. The following example outputs the all actions and state variables in a device.</p>
-<div class="fragment"><div class="line">CgUpnpDevice *dev = ......</div>
-<div class="line">CgUpnpService *service;</div>
-<div class="line">CgUpnpAction *action;</div>
-<div class="line">CgUpnpStateVariable *statVar;</div>
-<div class="line">for (service = cg_upnp_device_getservices(dev); service != NULL; service = cg_upnp_service_next(service)) {</div>
-<div class="line">  for (action = cg_upnp_service_getactions(service); action != NULL; action = cg_upnp_action_next(action)) {</div>
-<div class="line">    printff(&quot;%s\n&quot;, cg_upnp_action_getname(action));</div>
-<div class="line">    for (statVar = cg_upnp_service_getstatevariables(service); statVar != NULL; statVar = cg_upnp_statevariable_next(statVar))</div>
-<div class="line">      printf(&quot;%s\n&quot;, cg_upnp_statevariable_getname(statVar);</div>
+<p>Use <a class="el" href="device_8h.html#a46651a50c89195442a957cd458d7e314">mupnp_device_getservices()</a> to access embedded services of the device. The service may have some actions and state variables. Use <a class="el" href="service_8c.html#a109de352eec828543fd4c8ff2967f573">mupnp_service_getactions()</a> and <a class="el" href="action_8h.html#a48118ff0c9bbe15aae78135fff953f1f">mupnp_action_next()</a> to get the actions, and use <a class="el" href="service_8c.html#a4c968814ce3f9a52e9a01789b3abdf24">mupnp_service_getstatevariables()</a> and <a class="el" href="statevariable_8h.html#a637bbdab5b4be633cb88dd53dafaa2de">mupnp_statevariable_next()</a> to the state variables. The following example outputs the all actions and state variables in a device.</p>
+<div class="fragment"><div class="line">mUpnpDevice *dev = ......</div>
+<div class="line">mUpnpService *service;</div>
+<div class="line">mUpnpAction *action;</div>
+<div class="line">mUpnpStateVariable *statVar;</div>
+<div class="line">for (service = mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {</div>
+<div class="line">  for (action = mupnp_service_getactions(service); action != NULL; action = mupnp_action_next(action)) {</div>
+<div class="line">    printff(&quot;%s\n&quot;, mupnp_action_getname(action));</div>
+<div class="line">    for (statVar = mupnp_service_getstatevariables(service); statVar != NULL; statVar = mupnp_statevariable_next(statVar))</div>
+<div class="line">      printf(&quot;%s\n&quot;, mupnp_statevariable_getname(statVar);</div>
 <div class="line">    }</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><p>You can find a service in the device by the service ID using cg_upnp_device_getservicebyname(), and you can find an action or state variable in the service by the name too. cg_upnp_device_getactionbyname() or</p>
-<p>cg_upnp_service_getactionbyname() to find the action, and use cg_upnp_device_getstatevariablebyname() or cg_upnp_service_getstatevariablebyname () to find the state variable by the name. The following example gets</p>
+</div><!-- fragment --><p>You can find a service in the device by the service ID using mupnp_device_getservicebyname(), and you can find an action or state variable in the service by the name too. <a class="el" href="device_8c.html#a5d4ff735979dec9760fa06596fb96a51">mupnp_device_getactionbyname()</a> or</p>
+<p><a class="el" href="service_8c.html#a2aa9af9ec1e07dda0a7f45fb9d16fa56">mupnp_service_getactionbyname()</a> to find the action, and use <a class="el" href="device_8c.html#a35f04dedec63c6a6d7f7988a631c7ae2">mupnp_device_getstatevariablebyname()</a> or mupnp_service_getstatevariablebyname () to find the state variable by the name. The following example gets</p>
 <p>a service, an action and a state variable in a device by the name.</p>
-<div class="fragment"><div class="line">CgUpnpDevice *clockDev = ......</div>
-<div class="line">CgUpnpService *timerSev = cg_upnp_device_getservicebyname(clockDev, &quot;timer&quot;);</div>
-<div class="line">CgUpnpAction *getTimeAct = cg_upnp_device_getaction(clockDev, &quot;GetTime&quot;);</div>
-<div class="line">CgUpnpStateVariable *timeStat = cg_upnp_device_getstatevariable(clockDev, &quot;time&quot;);</div>
+<div class="fragment"><div class="line">mUpnpDevice *clockDev = ......</div>
+<div class="line">mUpnpService *timerSev = mupnp_device_getservicebyname(clockDev, &quot;timer&quot;);</div>
+<div class="line">mUpnpAction *getTimeAct = mupnp_device_getaction(clockDev, &quot;GetTime&quot;);</div>
+<div class="line">mUpnpStateVariable *timeStat = mupnp_device_getstatevariable(clockDev, &quot;time&quot;);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
 3.7 Control</h2>
-<p>To receive action control events from control points, the device needs to implement the listener function. The listener must have an action, CgUpnpAction, parameter. The input arguments has the passed values from the control point, set the response values in the output arguments and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use cg_upnp_action_setstatuscode() to return other UPnP errors.</p>
-<p>To receive query control events from control points, the device needs to implement the listener function. The listener must have a statevariable, CgUpnpStateVariable, parameter, and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use cg_upnp_statevariable_setstatuscode() to return other UPnP errors.</p>
+<p>To receive action control events from control points, the device needs to implement the listener function. The listener must have an action, mUpnpAction, parameter. The input arguments has the passed values from the control point, set the response values in the output arguments and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use <a class="el" href="action_8h.html#a416a74bc3f51a4a09a3e1804fc2fa25f">mupnp_action_setstatuscode()</a> to return other UPnP errors.</p>
+<p>To receive query control events from control points, the device needs to implement the listener function. The listener must have a statevariable, mUpnpStateVariable, parameter, and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use <a class="el" href="statevariable_8h.html#a3973076d6a08aee5681e98f2619232cb">mupnp_statevariable_setstatuscode()</a> to return other UPnP errors.</p>
 <p>The following sample is a clock device. The device executes two action control requests and a query control request.</p>
-<div class="fragment"><div class="line">BOOL UpnpClockActionControlRecieved(CgUpnpAction *action) {</div>
-<div class="line">  char *actionName = cg_upnp_action_getname(action);</div>
+<div class="fragment"><div class="line">BOOL UpnpClockActionControlRecieved(mUpnpAction *action) {</div>
+<div class="line">  char *actionName = mupnp_action_getname(action);</div>
 <div class="line">  if (strcmp(actionName, &quot;SetTime&quot;) == 0 {</div>
-<div class="line">    CgUpnpArgument *inTime = cg_upnp_action_getargumentbyname(action, &quot;time&quot;);</div>
-<div class="line">    char *timeValue = cg_upnp_argument_getvalue(inTime);</div>
+<div class="line">    mUpnpArgument *inTime = mupnp_action_getargumentbyname(action, &quot;time&quot;);</div>
+<div class="line">    char *timeValue = mupnp_argument_getvalue(inTime);</div>
 <div class="line">    If (timeValue == NULL || strlen(timeValue) &lt;= 0)</div>
 <div class="line">      return FALSE;</div>
 <div class="line">    ........</div>
-<div class="line">    CgUpnpArgument *outResult = cg_upnp_action_getargumentbyname(&quot;result&quot;);</div>
-<div class="line">    cg_upnp_argument_setvalue(&quot;OK&quot;);</div>
+<div class="line">    mUpnpArgument *outResult = mupnp_action_getargumentbyname(&quot;result&quot;);</div>
+<div class="line">    mupnp_argument_setvalue(outResult, &quot;OK&quot;);</div>
 <div class="line">    return TRUE;</div>
 <div class="line">  }</div>
 <div class="line">  else if (strcmp(actionName, &quot;GetTime&quot;) == 0) {</div>
 <div class="line">    char *currTimeStr = .....</div>
-<div class="line">    CgUpnpArgument *currTimeArg = cg_upnp_action_getargumentbyname(&quot;currTime&quot;);</div>
-<div class="line">    cg_upnp_argument_setvalue(currTimeStr);</div>
+<div class="line">    mUpnpArgument *currTimeArg = mupnp_action_getargumentbyname(&quot;currTime&quot;);</div>
+<div class="line">    mupnp_argument_setvalue(currTimeArg, currTimeStr);</div>
 <div class="line">    return TRUE;</div>
 <div class="line">  }</div>
 <div class="line">  return FALSE;</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">BOOL UpnpClockQueryControlReceived(CgUpnpStatusVariable *stateVar) {</div>
-<div class="line">  varName = cg_upnp_statevariable_getname(statVar);</div>
+<div class="line">BOOL UpnpClockQueryControlReceived(mUpnpStatusVariable *stateVar) {</div>
+<div class="line">  varName = mupnp_statevariable_getname(statVar);</div>
 <div class="line">  if (strcmp(varName, &quot;Time&quot;) == 0) {</div>
 <div class="line">    char *currTimeStr = ....;</div>
-<div class="line">    cg_upnp_statevariable_setvaluecurrTimeStr);</div>
+<div class="line">    mupnp_statevariable_setvalue(stateVar, currTimeStr);</div>
 <div class="line">    return TRUE;</div>
 <div class="line">  }</div>
 <div class="line">  return FALSE;</div>
 <div class="line">}</div>
-</div><!-- fragment --><p>Use cg_upnp_action_setlistner() to set the action listener to a action. To set the listener to all actions in a device or service, use cg_upnp_device_setactionlistener() or cg_upnp_service_setactionlistener().</p>
-<p>Similarly, Use cg_upnp_statevariable_setlistner() to set the query listener to a state variable. To set the listener to all state variables in a device or a service, use cg_upnp_device_setquerylistener() or cg_upnp_service_setquerylistener(). The following sample sets a listener into all actions in a device.</p>
-<div class="fragment"><div class="line">CgUpnpDevice *clockDev = cg_upnp_device_new();</div>
+</div><!-- fragment --><p>Use <a class="el" href="action_8h.html#a6404a91b3a48c41334c7f4ee471d8311">mupnp_action_setlistner()</a> to set the action listener to a action. To set the listener to all actions in a device or service, use <a class="el" href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener()</a> or <a class="el" href="service_8c.html#a0582be5c379a70ed5d0a925b8e3ea4c6">mupnp_service_setactionlistener()</a>.</p>
+<p>Similarly, Use mupnp_statevariable_setlistner() to set the query listener to a state variable. To set the listener to all state variables in a device or a service, use <a class="el" href="device_8c.html#abbaa80309b6fd82938cf17173c3ea9a9">mupnp_device_setquerylistener()</a> or <a class="el" href="service_8c.html#ad645add71b5f42ba6e263e7721b41747">mupnp_service_setquerylistener()</a>. The following sample sets a listener into all actions in a device.</p>
+<div class="fragment"><div class="line">mUpnpDevice *clockDev = mupnp_device_new();</div>
 <div class="line">.......</div>
-<div class="line">cg_upnp_clock_device_setactionlistner(clockDev, UpnpClockActionControlRecieved);</div>
-<div class="line">cg_upnp_clock_device_setquerylistner(clockDev, UpnpClockQueryControlReceived);</div>
+<div class="line">mupnp_clock_device_setactionlistner(clockDev, UpnpClockActionControlRecieved);</div>
+<div class="line">mupnp_clock_device_setquerylistner(clockDev, UpnpClockQueryControlReceived);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md20"></a>
 3.8 Event</h2>
 <p>The control point may subscribe some events of the device. You don't need manage the subscription messages from control points because the device manages the subscription messages automatically. For example, the device adds a control point into the subscriber list when the control point sends a subscription message to the device, or the device removes the control point from the subscriber list when the control point sends a unsubscription message.</p>
-<p>Use cg_upnp_statevariable_setvalue() when you want to send the state to the subscribers. The event is sent to the subscribers automatically when the state variable is updated using cg_upnp_statevariable_setvalue(). The following example updates a state variable, and the updated state is distributed to the subscribers automatically.</p>
-<div class="fragment"><div class="line">CgUpnpDevice *clockDevice = ......</div>
-<div class="line">CgUpnpStateVariable *timeVar = cg_upnp_device_getstatevariable (clockDev, \&quot;Time\&quot;); </div>
+<p>Use <a class="el" href="statevariable_8c.html#a58c9be9b989de99732fdde7835e06bff">mupnp_statevariable_setvalue()</a> when you want to send the state to the subscribers. The event is sent to the subscribers automatically when the state variable is updated using <a class="el" href="statevariable_8c.html#a58c9be9b989de99732fdde7835e06bff">mupnp_statevariable_setvalue()</a>. The following example updates a state variable, and the updated state is distributed to the subscribers automatically.</p>
+<div class="fragment"><div class="line">mUpnpDevice *clockDevice = ......</div>
+<div class="line">mUpnpStateVariable *timeVar = mupnp_device_getstatevariable (clockDev, &quot;Time&quot;); </div>
 <div class="line">char *timeStr = .....</div>
-<div class="line">cg_upnp_statevariable_setvalue(timeVar, timeStr);</div>
+<div class="line">mupnp_statevariable_setvalue(timeVar, timeStr);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md21"></a>
 3.9 User Data</h2>
 <p>Using the following functions, you can set your original data to the objects. The default user data are NULL.</p>
@@ -378,13 +369,13 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Object   </th><th class="markdownTableHeadNone">setter   </th><th class="markdownTableHeadNone">getter    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">CgUpnpDevice   </td><td class="markdownTableBodyNone">cg_upnp_device_setuserdata()   </td><td class="markdownTableBodyNone">cg_upnp_device_getuserdata()    </td></tr>
+<td class="markdownTableBodyNone">mUpnpDevice   </td><td class="markdownTableBodyNone"><a class="el" href="device_8h.html#abf424ac26c7d7cb981e1c8ae6dcc1d75">mupnp_device_setuserdata()</a>   </td><td class="markdownTableBodyNone"><a class="el" href="device_8h.html#a011968d6cbb35b5ca92da38a12b641b0">mupnp_device_getuserdata()</a>    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">CgUpnpService   </td><td class="markdownTableBodyNone">cg_upnp_service_setuserdata()   </td><td class="markdownTableBodyNone">cg_upnp_service_getuserdata()    </td></tr>
+<td class="markdownTableBodyNone">mUpnpService   </td><td class="markdownTableBodyNone"><a class="el" href="service_8h.html#a68ab92e4b58feb60e9eebf379139c22f">mupnp_service_setuserdata()</a>   </td><td class="markdownTableBodyNone"><a class="el" href="service_8h.html#a774884739e4dd72e2ac48253bb7aef2d">mupnp_service_getuserdata()</a>    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">CgUpnpAction   </td><td class="markdownTableBodyNone">cg_upnp_action_setuserdata()   </td><td class="markdownTableBodyNone">cg_upnp_action_getuserdata()    </td></tr>
+<td class="markdownTableBodyNone">mUpnpAction   </td><td class="markdownTableBodyNone"><a class="el" href="action_8h.html#a6006329b7283666c9b56acdf79323caf">mupnp_action_setuserdata()</a>   </td><td class="markdownTableBodyNone"><a class="el" href="action_8h.html#a9f5d67eca48783948695e7e7e34989e6">mupnp_action_getuserdata()</a>    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">CgUpnpStateVariable   </td><td class="markdownTableBodyNone">cg_upnp_statevariable_setuserdata()   </td><td class="markdownTableBodyNone">cg_upnp_statevariable_getuserdata()   </td></tr>
+<td class="markdownTableBodyNone">mUpnpStateVariable   </td><td class="markdownTableBodyNone"><a class="el" href="statevariable_8h.html#ad58ac82f5244755c7ccab7ab817c63c0">mupnp_statevariable_setuserdata()</a>   </td><td class="markdownTableBodyNone"><a class="el" href="statevariable_8h.html#a5de7f96dea269ec0209170f6e2df70d3">mupnp_statevariable_getuserdata()</a>   </td></tr>
 </table>
 <p>The following sample sets a structure data to a device object.</p>
 <div class="fragment"><div class="line">typedef struct {</div>
@@ -394,10 +385,10 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 <div class="line">MyPoint *myPoint = (MyPoint *)malloc(sizeof(MyPoint);</div>
 <div class="line">myPoint-&gt;x = 100; </div>
 <div class="line">myPoint-&gt;y = 200; </div>
-<div class="line">CgUpnpDevice *dev = ......</div>
-<div class="line">cg_upnp_device_setuserdata(dev, myPonint);</div>
+<div class="line">mUpnpDevice *dev = ......</div>
+<div class="line">mupnp_device_setuserdata(dev, myPonint);</div>
 <div class="line">.......</div>
-<div class="line">MyPoint *devPoint = (MyPoint *)cg_upnp_device_getuserdata(dev);</div>
+<div class="line">MyPoint *devPoint = (MyPoint *)mupnp_device_getuserdata(dev);</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md22"></a>
 4 Control Point</h1>
 <h2><a class="anchor" id="autotoc_md23"></a>
@@ -408,122 +399,122 @@ $(function(){initNavTree('md_doc_2mupnpcproguide.html',''); initResizable(true);
 </div>
     <h2><a class="anchor" id="autotoc_md24"></a>
 4.2 Initiating</h2>
-<p>To create a UPnP™ control point, create a instance of ControlPoint class. Use cg_upnp_controlpoint_start() to active the control point. The control point multicasts a discovery message searching for all devices to the UPnP™ network automatically when the control point is active.</p>
-<div class="fragment"><div class="line">#include &lt;cybergarage/upnp/cupnp.h\</div>
+<p>To create a UPnP™ control point, create a instance of ControlPoint class. Use <a class="el" href="controlpoint_8c.html#a528c2288f76436f5d1ba619b45b2d357">mupnp_controlpoint_start()</a> to active the control point. The control point multicasts a discovery message searching for all devices to the UPnP™ network automatically when the control point is active.</p>
+<div class="fragment"><div class="line">#include &lt;mupnp/upnp.h&gt;</div>
 <div class="line">......</div>
-<div class="line">CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();</div>
+<div class="line">mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();</div>
 <div class="line">......</div>
-<div class="line">cg_upnp_controlpoint_start(ctrlPoint);</div>
+<div class="line">mupnp_controlpoint_start(ctrlPoint);</div>
 </div><!-- fragment --><p>The active control point has some server processes, and returns the responses automatically when other UPnP™ devices send the messages to the control point. For example, the control point has a SSDP server to get MSEARCH responses, and the control point searches a available port for the SSDP server automatically on the machine when the control point is started.</p>
 <p>The control point is created with the following default parameters. You can change the parameters using the following methods before the control point is started.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone"></th><th class="markdownTableHeadNone">Parameter   </th><th class="markdownTableHeadNone">Default   </th><th class="markdownTableHeadNone">Function    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">HTTP port   </td><td class="markdownTableBodyNone">39500   </td><td class="markdownTableBodyNone">cg_upnp_controlpoint_seteventport()    </td></tr>
+<td class="markdownTableBodyNone">1   </td><td class="markdownTableBodyNone">HTTP port   </td><td class="markdownTableBodyNone">39500   </td><td class="markdownTableBodyNone"><a class="el" href="controlpoint_8h.html#a8f5fbc10a5813a535f6292b35bc0cc79">mupnp_controlpoint_seteventport()</a>    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">SSDP port   </td><td class="markdownTableBodyNone">39400   </td><td class="markdownTableBodyNone">cg_upnp_controlpoint_setssdpresponseport()    </td></tr>
+<td class="markdownTableBodyNone">2   </td><td class="markdownTableBodyNone">SSDP port   </td><td class="markdownTableBodyNone">39400   </td><td class="markdownTableBodyNone"><a class="el" href="controlpoint_8h.html#ab33b74f252323aab57648a9630a76a7a">mupnp_controlpoint_setssdpresponseport()</a>    </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">3   </td><td class="markdownTableBodyNone">Subscription URI   </td><td class="markdownTableBodyNone">/eventSub   </td><td class="markdownTableBodyNone">cg_upnp_controlpoint_seteventsuburi()    </td></tr>
+<td class="markdownTableBodyNone">3   </td><td class="markdownTableBodyNone">Subscription URI   </td><td class="markdownTableBodyNone">/eventSub   </td><td class="markdownTableBodyNone"><a class="el" href="controlpoint_8h.html#ac099829985bd56e20f7dfc4624de4062">mupnp_controlpoint_seteventsuburi()</a>    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">4   </td><td class="markdownTableBodyNone">Search Response   </td><td class="markdownTableBodyNone">3   </td><td class="markdownTableBodyNone">cg_upnp_controlpoint_setssdpsearchmx()   </td></tr>
+<td class="markdownTableBodyNone">4   </td><td class="markdownTableBodyNone">Search Response   </td><td class="markdownTableBodyNone">3   </td><td class="markdownTableBodyNone"><a class="el" href="controlpoint_8h.html#aab38b9740e1424811cce9e92c71f948f">mupnp_controlpoint_setssdpsearchmx()</a>   </td></tr>
 </table>
 <h2><a class="anchor" id="autotoc_md25"></a>
 4.3 Notify</h2>
 <p>The control point receives notify events from devices in the UPnP™ network, and the devices are added or removed form the control point automatically. The expired device is removed from the device list of the control point automatically too. You don't manage the notify events, but you can receive the event to set the listener</p>
-<p>function using cg_upnp_controlpoint_setssdplistener(). The following sample receives the notify messages.</p>
-<div class="fragment"><div class="line">void DeviceNotifyReceived(CgUpnpSSDPPacket *ssdpPkt) {</div>
-<div class="line">  char *uuid = cg_upnp_ssdp_packet_getusn(ssdpPkt); char *target = cg_upnp_ssdp_packet_getnt(ssdpPkt);</div>
-<div class="line">  char *subType = cg_upnp_ssdp_packet_getnts(ssdpPkt); char *where = cg_upnp_ssdp_packet_getlocation(ssdpPkt);</div>
+<p>function using <a class="el" href="controlpoint_8h.html#a9d46f5299e980f4d261925930e70f15b">mupnp_controlpoint_setssdplistener()</a>. The following sample receives the notify messages.</p>
+<div class="fragment"><div class="line">void DeviceNotifyReceived(mUpnpSSDPPacket *ssdpPkt) {</div>
+<div class="line">  char *uuid = mupnp_ssdp_packet_getusn(ssdpPkt); char *target = mupnp_ssdp_packet_getnt(ssdpPkt);</div>
+<div class="line">  char *subType = mupnp_ssdp_packet_getnts(ssdpPkt); char *where = mupnp_ssdp_packet_getlocation(ssdpPkt);</div>
 <div class="line">  .....</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();</div>
-<div class="line">cg_upnp_controlpoint_setssdplistener(ctrlPoint, DeviceNotifyReceived);</div>
-<div class="line">cg_upnp_controlpoint_start(ctrlPoint);</div>
+<div class="line">mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();</div>
+<div class="line">mupnp_controlpoint_setssdplistener(ctrlPoint, DeviceNotifyReceived);</div>
+<div class="line">mupnp_controlpoint_start(ctrlPoint);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md26"></a>
 4.4 Search</h2>
-<p>You can update the device lists using cg_upnp_controlpoint_search(). The discovered root devices are added to the control point automatically, and you can receive the response to set the listener function using</p>
-<p>cg_upnp_controlpoint_setssdpresponselistener(). The following sample receives the notify messages.</p>
-<div class="fragment"><div class="line">void DeviceSearchResponseReceived(CgUpnpSSDPPacket *ssdpPkt) {</div>
-<div class="line">  char *uuid = cg_upnp_ssdp_packet_getusn(ssdpPkt);</div>
-<div class="line">  char *target = cg_upnp_ssdp_packet_getnt(ssdpPkt);</div>
-<div class="line">  char *subType = cg_upnp_ssdp_packet_getnts(ssdpPkt);</div>
-<div class="line">  char *where = cg_upnp_ssdp_packet_getlocation(ssdpPkt);</div>
+<p>You can update the device lists using <a class="el" href="controlpoint_8c.html#a3d38299a5e04b7c42a4715d58cd13677">mupnp_controlpoint_search()</a>. The discovered root devices are added to the control point automatically, and you can receive the response to set the listener function using</p>
+<p><a class="el" href="controlpoint_8h.html#ab8132599b1db5b9f359df5609d31b3e8">mupnp_controlpoint_setssdpresponselistener()</a>. The following sample receives the notify messages.</p>
+<div class="fragment"><div class="line">void DeviceSearchResponseReceived(mUpnpSSDPPacket *ssdpPkt) {</div>
+<div class="line">  char *uuid = mupnp_ssdp_packet_getusn(ssdpPkt);</div>
+<div class="line">  char *target = mupnp_ssdp_packet_getnt(ssdpPkt);</div>
+<div class="line">  char *subType = mupnp_ssdp_packet_getnts(ssdpPkt);</div>
+<div class="line">  char *where = mupnp_ssdp_packet_getlocation(ssdpPkt);</div>
 <div class="line">  .....</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();</div>
-<div class="line">cg_upnp_controlpoint_setssdpresponselistener(ctrlPoint, DeviceSearchResponseReceived);</div>
-<div class="line">cg_upnp_controlpoint_start(ctrlPoint);</div>
-<div class="line">cg_upnp_controlpoint_search(ctrlPoint);</div>
+<div class="line">mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();</div>
+<div class="line">mupnp_controlpoint_setssdpresponselistener(ctrlPoint, DeviceSearchResponseReceived);</div>
+<div class="line">mupnp_controlpoint_start(ctrlPoint);</div>
+<div class="line">mupnp_controlpoint_search(ctrlPoint);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md27"></a>
 4.5 Root Devices</h2>
-<p>Use cg_upnp_controlpoint_getdevices() that returns only root devices to get the discovered device list. The following example outputs friendly names of the root devices.</p>
-<div class="fragment"><div class="line">CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();</div>
+<p>Use <a class="el" href="controlpoint_8h.html#ae9d9c4325cce96083ce356da0c7cd9ff">mupnp_controlpoint_getdevices()</a> that returns only root devices to get the discovered device list. The following example outputs friendly names of the root devices.</p>
+<div class="fragment"><div class="line">mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();</div>
 <div class="line">......</div>
-<div class="line">cg_upnp_controlpoint_start(ctrlPoint);</div>
+<div class="line">mupnp_controlpoint_start(ctrlPoint);</div>
 <div class="line">......</div>
-<div class="line">CgUpnpDevice *dev;</div>
-<div class="line">for (dev = cg_upnp_controlpoint_getdevices(rootDev), childDev != NULL; childDev = cg_upnp_device_next(childDev)) {</div>
-<div class="line">  char  *devName = cg_upnp_device_getgriendlyname(dev);</div>
+<div class="line">mUpnpDevice *dev;</div>
+<div class="line">for (dev = mupnp_controlpoint_getdevices(rootDev), childDev != NULL; childDev = mupnp_device_next(childDev)) {</div>
+<div class="line">  char  *devName = mupnp_device_getgriendlyname(dev);</div>
 <div class="line">  printf(&quot;%s\n&quot;, devName);</div>
 <div class="line">}</div>
-</div><!-- fragment --><p>You can find a root device by the friendly name using cg_upnp_controlpoint_getdevicebyname(). The following example gets a root device by the friendly name.</p>
-<div class="fragment"><div class="line">CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();</div>
+</div><!-- fragment --><p>You can find a root device by the friendly name using mupnp_controlpoint_getdevicebyname(). The following example gets a root device by the friendly name.</p>
+<div class="fragment"><div class="line">mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();</div>
 <div class="line">......</div>
-<div class="line">cg_upnp_controlpoint_start(ctrlPoint);</div>
+<div class="line">mupnp_controlpoint_start(ctrlPoint);</div>
 <div class="line">......</div>
-<div class="line">CgUpnpDevice *dev = cg_upnp_controlpoint_getdevicebyname(ctrlPoint, &quot;xxxx-xxxx-xxxx&quot;);</div>
+<div class="line">mUpnpDevice *dev = mupnp_controlpoint_getdevicebyname(ctrlPoint, &quot;xxxx-xxxx-xxxx&quot;);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md28"></a>
 4.6 Control</h2>
-<p>The control point can send action or query control messages to the discovered devices. To send the action control message, use cg_upnp_argument_setvalue() and cg_upnp_action_post(). You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.</p>
-<div class="fragment"><div class="line">CgUpnpDevice *clockDev = ......</div>
-<div class="line">CgUpnpAction *setTimeAct = cg_upnp_device_getactionbyname(&quot;SetTime&quot;);</div>
-<div class="line">CgUpnpArgument *timeArg = cg_upnp_action_getargumentbyname(setTimeAct, &quot;time&quot;); </div>
+<p>The control point can send action or query control messages to the discovered devices. To send the action control message, use <a class="el" href="argument_8h.html#abb93c9d05a2fe89d5da8382d4e3641bd">mupnp_argument_setvalue()</a> and <a class="el" href="action__ctrl_8c.html#a28717002331c1cf0d389d8984339820a">mupnp_action_post()</a>. You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.</p>
+<div class="fragment"><div class="line">mUpnpDevice *clockDev = ......</div>
+<div class="line">mUpnpAction *setTimeAct = mupnp_device_getactionbyname(&quot;SetTime&quot;);</div>
+<div class="line">mUpnpArgument *timeArg = mupnp_action_getargumentbyname(setTimeAct, &quot;time&quot;); </div>
 <div class="line">char *newTime = ......</div>
-<div class="line">cg_upnp_argument_setvalue(timeArg, newTime);</div>
-<div class="line">if (cg_upnp_action_post(setTimeAct) == TRUE) {</div>
-<div class="line">  CgUpnpArgument *arg; </div>
-<div class="line">  for (arg = cg_upnp_action_getarguments(setTimeAct); arg; arg = cg_upnp_argument_next(arg)) {</div>
-<div class="line">    If (cg_upnp_argument_isoutdirection(arg) == TRUE) </div>
-<div class="line">      printf(\&quot; %s = %s\n\&quot;, cg_upnp_argument_getname(arg), cg_upnp_argument_getvalue(arg));</div>
+<div class="line">mupnp_argument_setvalue(timeArg, newTime);</div>
+<div class="line">if (mupnp_action_post(setTimeAct) == TRUE) {</div>
+<div class="line">  mUpnpArgument *arg; </div>
+<div class="line">  for (arg = mupnp_action_getarguments(setTimeAct); arg; arg = mupnp_argument_next(arg)) {</div>
+<div class="line">    If (mupnp_argument_isoutdirection(arg) == TRUE) </div>
+<div class="line">      printf(&quot; %s = %s\n&quot;, mupnp_argument_getname(arg), mupnp_argument_getvalue(arg));</div>
 <div class="line">  }</div>
 <div class="line">} else {</div>
-<div class="line">  printf(&quot;UPnP Error (%d) : %s\n cg_upnp_action_getstatuscode(selTimeAct),</div>
-<div class="line">  cg_upnp_action_getstatusdescription(selTimeAct));</div>
+<div class="line">  printf(&quot;UPnP Error (%d) : %s\n mupnp_action_getstatuscode(selTimeAct),</div>
+<div class="line">  mupnp_action_getstatusdescription(selTimeAct));</div>
 <div class="line">}</div>
-</div><!-- fragment --><p>Similarly, to send the query control message, use cg_upnp_statevariable_post(). The following sample posts a query control request, and output the return value.</p>
-<div class="fragment"><div class="line">CgUpnpDevice *clockDev = ....</div>
+</div><!-- fragment --><p>Similarly, to send the query control message, use <a class="el" href="query__ctrl_8c.html#a6105d76751463fdcba9eaa16e9db0f60">mupnp_statevariable_post()</a>. The following sample posts a query control request, and output the return value.</p>
+<div class="fragment"><div class="line">mUpnpDevice *clockDev = ....</div>
 <div class="line">.....</div>
-<div class="line">CgUpnpStateVariable *timeStateVar = c cg_upnp_device_getstatevariablebyname(&quot;time&quot;);</div>
-<div class="line">if (cg_upnp_statevariable_post(timeStateVar) == TRUE) {</div>
-<div class="line">  char *value = cg_upnp_statevariable_getvalue();</div>
+<div class="line">mUpnpStateVariable *timeStateVar = c mupnp_device_getstatevariablebyname(&quot;time&quot;);</div>
+<div class="line">if (mupnp_statevariable_post(timeStateVar) == TRUE) {</div>
+<div class="line">  char *value = mupnp_statevariable_getvalue();</div>
 <div class="line">  .....</div>
 <div class="line">} else {</div>
 <div class="line">  printf(&quot;UPnP Error (%d) : %s\n&quot;</div>
-<div class="line">    cg_upnp_statevariable_getstatuscode(selTimeAct),</div>
-<div class="line">    cg_upnp_statevariable_getstatusdescription(selTimeAct));</div>
+<div class="line">    mupnp_statevariable_getstatuscode(selTimeAct),</div>
+<div class="line">    mupnp_statevariable_getstatusdescription(selTimeAct));</div>
 <div class="line">}</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md29"></a>
 4.7 Event</h2>
-<p>The control point can subscribe events of the discovered devices. To get the state changes of the services, Use cg_upnp_controlpoint_subscribe() to subscribe the service events, and set the event listener function using cg_upnp_controlpoint_seteventlistener(). The</p>
-<div class="fragment"><div class="line">void EventListener(CgUpnpProperty *prop) {</div>
-<div class="line">  printf(\&quot;Property Changed (%s) = %s\n\&quot;, cg_upnp_property_getname(prop),</div>
-<div class="line">  cg_upnp_property_getvalue(prop));</div>
+<p>The control point can subscribe events of the discovered devices. To get the state changes of the services, Use <a class="el" href="controlpoint__event_8c.html#a979f3f14289782f79d890b282ddc5fa3">mupnp_controlpoint_subscribe()</a> to subscribe the service events, and set the event listener function using <a class="el" href="controlpoint__event_8c.html#aaec9003821c78ba7a1f408c68905afbe">mupnp_controlpoint_seteventlistener()</a>. The</p>
+<div class="fragment"><div class="line">void EventListener(mUpnpProperty *prop) {</div>
+<div class="line">  printf(&quot;Property Changed (%s) = %s\n&quot;, mupnp_property_getname(prop),</div>
+<div class="line">  mupnp_property_getvalue(prop));</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">CgUpnpControlPoint *ctrlPoint = cg_upnp_controlpoint_new();</div>
+<div class="line">mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();</div>
 <div class="line">......</div>
-<div class="line">cg_upnp_controlpoint_seteventlistener(ctrlPoint, EventListener);</div>
-<div class="line">cg_upnp_controlpoint_start(ctrlPoint);</div>
-</div><!-- fragment --><p>The cg_upnp_controlpoint_subscribe() returns true when the subscription is accepted from the service, and you can get the subscription id and timeout.</p>
-<div class="fragment"><div class="line">CgUpnpControlPoint *ctrlPoint = .....;</div>
+<div class="line">mupnp_controlpoint_seteventlistener(ctrlPoint, EventListener);</div>
+<div class="line">mupnp_controlpoint_start(ctrlPoint);</div>
+</div><!-- fragment --><p>The <a class="el" href="controlpoint__event_8c.html#a979f3f14289782f79d890b282ddc5fa3">mupnp_controlpoint_subscribe()</a> returns true when the subscription is accepted from the service, and you can get the subscription id and timeout.</p>
+<div class="fragment"><div class="line">mUpnpControlPoint *ctrlPoint = .....;</div>
 <div class="line">.....</div>
-<div class="line">CgUpnpDevice *clockDev = cg_upnp_controlpoint_getdevicebyname(ctrlPoint, &quot;xxxx-clock&quot;);</div>
-<div class="line">CgUpnpService *timeService = cg_upnp_device_getservice(clockDev, &quot;time:1&quot;); </div>
-<div class="line">if (cg_upnp_controlpoint_subscribe(ctrlPoint, timeService) == TRUE) {</div>
-<div class="line">  char *sid = cg_upnp_service_getsubscriptionsid(timeService);</div>
+<div class="line">mUpnpDevice *clockDev = mupnp_controlpoint_getdevicebyname(ctrlPoint, &quot;xxxx-clock&quot;);</div>
+<div class="line">mUpnpService *timeService = mupnp_device_getservice(clockDev, &quot;time:1&quot;); </div>
+<div class="line">if (mupnp_controlpoint_subscribe(ctrlPoint, timeService) == TRUE) {</div>
+<div class="line">  char *sid = mupnp_service_getsubscriptionsid(timeService);</div>
 <div class="line">  ......</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div></div><!-- contents -->
