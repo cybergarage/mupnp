@@ -46,3 +46,6 @@ Makefile
 # Coverage
 *.gcno
 *.gcda
+
+# Doxygen
+doc/html
