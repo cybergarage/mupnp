@@ -49,3 +49,4 @@ Makefile
 
 # Doxygen
 doc/html
+*.jar
