@@ -4,7 +4,7 @@
 [![Build Status](https://github.com/cybergarage/mupnp/actions/workflows/make.yml/badge.svg)](https://github.com/cybergarage/mupnp/actions/workflows/make.yml)
 [![doxygen](https://github.com/cybergarage/mupnp/actions/workflows/doxygen.yml/badge.svg)](http://cybergarage.github.io/mupnp/)
 
-**mUPnP for C**is a development package for UPnP™ developers. mUPnP
+**mUPnP for C** is a development package for UPnP™ developers. mUPnP
 controls these protocols automatically, and supports to create your
 devices and control points quickly.
 
@@ -18,7 +18,7 @@ protocols to create your devices of UPnP™.
 
 ![upnp-app](doc/img/upnpapp.png)
 
-**mUPnP for C**is supported from IPA, INFORMATION-TECHNOLOGY PROMOTION
+**mUPnP for C** is supported from IPA, INFORMATION-TECHNOLOGY PROMOTION
 AGENCY, JAPAN, as a project of MitohProgram2004.
 
 \* UPnP ™ is a certification mark of the UPnP™ Implementers Corporation.
@@ -36,7 +36,7 @@ brew install mupnp
 
 ### Installation from source
 
-**mUPnP for C**is distributed as an Automake project, and so you can install the library from the source codes with the following commands:
+**mUPnP for C** is distributed as an Automake project, and so you can install the library from the source codes with the following commands:
 
 ```
 ./configure
@@ -49,14 +49,14 @@ make install
 
 To develop UPnP devices or control point applications using **mUPnP for C**, please check the following developer's documentation.
 
-* [Programming Guide](doc/mupnpcproguide.pdf)
+* [Programming Guide for C]((http://cybergarage.github.io/mupnp/)
 * [Doxygen](http://cybergarage.github.io/mupnp/)
 
 ### mUPnP for Objective-C
 
-**mUPnP for C**releases the wrapper library for Objective-C to use the UPnP library on iOS and MacOSX platforms too. Please check the following developer's documentation to know the wrapper library in more detail.
+**mUPnP for C** releases the wrapper library for Objective-C to use the UPnP library on iOS and MacOSX platforms too. Please check the following developer's documentation to know the wrapper library in more detail.
 
-* [Programming Guide](doc/mupnpobjcproguide.pdf)
+* [Programming Guide for Objective-C]((http://cybergarage.github.io/mupnp/objc/html/)
 * [Doxygen](http://cybergarage.github.io/mupnp/objc/html/)
 
 ## Examples
@@ -72,7 +72,7 @@ To develop UPnP devices or control point applications using **mUPnP for C**, ple
   - UPnP non-standard devices
     - [UPnP clock device](examples/clock)
     
-## Adoption of mUPnP in Consumer Products
+## Adoption in Consumer Products
 
 **mUPnP for C** is used in a variety of consumer products. While not exhaustive, the following is a list of notable implementations.
 
@@ -89,6 +89,6 @@ The [**VIERA Remote**](http://panasonic.jp/support/global/cs/tv/vremote/index.ht
 
 ### Toshiba REGZA Televisions
 
-[**REGZA**](https://www.regza.com/) is Toshiba’s former AV equipment brand.  **mUPnP for C** is embedded in REGZA televisions, enabling seamless media streaming and connectivity.  
+[**REGZA**](https://www.regza.com/) is Toshiba’s former AV equipment brand. **mUPnP for C** is embedded in REGZA televisions, enabling seamless media streaming and connectivity.  
 
 ![REGZA Televisions](doc/img/mupnpc-example-regzatv-01.png)
