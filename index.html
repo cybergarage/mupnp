@@ -71,9 +71,11 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a></p>
 <p><img src="https://img.shields.io/github/v/tag/cybergarage/mupnp" alt="GitHub tag (latest SemVer)" class="inline"/> <a href="https://github.com/cybergarage/mupnp/actions/workflows/make.yml"><img src="https://github.com/cybergarage/mupnp/actions/workflows/make.yml/badge.svg" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="http://cybergarage.github.io/mupnp/"><img src="https://github.com/cybergarage/mupnp/actions/workflows/doxygen.yml/badge.svg" alt="doxygen" style="pointer-events: none;" class="inline"/></a></p>
-<p><b>mUPnP for C</b> is a development package for UPnP™ developers. mUPnP controls these protocols automatically, and supports to create your devices and control points quickly.</p>
-<p>UPnP™ * architecture is an open network to enable discovery and control of networked devices and services, such as media servers and players at home.</p>
-<p>UPnP™ * protocols are based on many standard, such as GENA, SSDP, SOAP, HTTPU and HTTP. Therefore you have to understand and implement these protocols to create your devices of UPnP™.</p>
+<p>mUPnP for C is a development package for UPnP™ developers. It provides a set of APIs to create UPnP™ devices and control points quickly and easily. This README file provides an overview of the package, its contents, and instructions on how to set up and use it.</p>
+<h1><a class="anchor" id="autotoc_md41"></a>
+Overview</h1>
+<p>The UPnP™ (Universal Plug and Play) architecture is designed to enable the discovery and control of networked devices and services, such as media servers and players, within a home network. UPnP™ is based on several standard protocols, including GENA, SSDP, SOAP, HTTPU, and HTTP. To create UPnP™ devices, you need to understand and implement these protocols.</p>
+<p>mUPnP for C simplifies this process by handling these protocols automatically. It allows developers to focus on creating their devices and control points without worrying about the underlying protocol details.</p>
 <div class="image">
 <img src="upnpapp.png" alt=""/>
 <div class="caption">
@@ -82,35 +84,145 @@ UPnP applications</div></div>
 <ul>
 <li>UPnP ™ is a certification mark of the UPnP™ Implementers Corporation.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md41"></a>
-Building and Installation</h1>
-<h2><a class="anchor" id="autotoc_md42"></a>
-Homebrew (macOS, Linux, Raspbian)</h2>
-<p>For any platforms which support <a href="https://brew.sh/">Homebrew</a>, you can easily install using Homebrew with the following <code>brew</code> commands:</p>
-<div class="fragment"><div class="line">brew tap cybergarage/homebrew</div>
-<div class="line">brew install mupnp</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md43"></a>
-Installation from source</h2>
-<p><b>mUPnP for C</b> is distributed as an Automake project, and so you can install the library from the source codes with the following commands:</p>
-<div class="fragment"><div class="line">./configure</div>
-<div class="line">make install</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md44"></a>
-References</h1>
+<h1><a class="anchor" id="autotoc_md42"></a>
+Package Contents</h1>
+<p>The mUPnP package includes the following components:</p>
+<ul>
+<li><b>Source files</b>: The core implementation of mUPnP.</li>
+<li><b>Header files</b>: The API definitions for mUPnP.</li>
+<li><b>Sample files</b>: Example applications demonstrating how to use mUPnP.</li>
+<li><b>Project files</b>: Build configurations for various platforms.</li>
+</ul>
+<p>The files are organized into the following directories:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">File Type   </th><th class="markdownTableHeadNone">Directory    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Source files   </td><td class="markdownTableBodyNone">mupnp/src    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Header Files   </td><td class="markdownTableBodyNone">mupnp/include    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Sample files   </td><td class="markdownTableBodyNone">mupnp/sample    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Project files   </td><td class="markdownTableBodyNone">mupnp    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">mupnp/*/win32/vc60    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">mupnp/*/tengine/gnu    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">mupnp/*/itron    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"></td><td class="markdownTableBodyNone">mupnp/*/macosx   </td></tr>
+</table>
+<h1><a class="anchor" id="autotoc_md43"></a>
+System Requirements</h1>
+<p>mUPnP requires the following package to parse XML and SOAP requests:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Package   </th><th class="markdownTableHeadNone">URL    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Expat   </td><td class="markdownTableBodyNone"><a href="https://libexpat.github.io/">https://libexpat.github.io/</a>   </td></tr>
+</table>
+<h2><a class="anchor" id="autotoc_md44"></a>
+WindowsXP</h2>
+<p>On the Windows platform, you need to install the latest Platform SDK and build on WindowsXP if possible. Please download and install the SDK from the following URL:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Package   </th><th class="markdownTableHeadNone">URL    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Platform SDK   </td><td class="markdownTableBodyNone"><a href="http://www.microsoft.com/msdownload/platformsdk/sdkupdate/">http://www.microsoft.com/msdownload/platformsdk/sdkupdate/</a>   </td></tr>
+</table>
 <h2><a class="anchor" id="autotoc_md45"></a>
+T-Engine</h2>
+<p>On the T-Engine platform, you need to use the following development kit based on GNU GCC and a TCP/IP protocol stack that supports the multicast protocol. mUPnP uses the multicast protocol to search and announce UPnP devices, so you must use a protocol stack that supports multicast.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Package   </th><th class="markdownTableHeadNone">URL    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">T-Engine Development Kit   </td><td class="markdownTableBodyNone"><a href="http://www.personal-media.co.jp/te/welcome.html">http://www.personal-media.co.jp/te/welcome.html</a>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">KASAGO for T-Engine   </td><td class="markdownTableBodyNone"><a href="http://www.elwsc.co.jp/japanese/products/kasago_tengine.html">http://www.elwsc.co.jp/japanese/products/kasago_tengine.html</a>   </td></tr>
+</table>
+<p>mUPnP also supports the following TCP/IP protocol stack for T-Engine, but it does not support the multicast protocol, and the functions are not implemented yet.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Package   </th><th class="markdownTableHeadNone">URL    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">PMC T-Shell Kit   </td><td class="markdownTableBodyNone"><a href="http://www.personal-media.co.jp/te/welcome.html">http://www.personal-media.co.jp/te/welcome.html</a>   </td></tr>
+</table>
+<h1><a class="anchor" id="autotoc_md46"></a>
+Building the Library and Samples</h1>
+<p>mUPnP supports the following compiler options to change the XML parser or disable UPnP functions. You do not need to set these options if you use Expat as the XML parser and all functions of mUPnP.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Option   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">MUPNP_XMLPARSER_LIBXML2   </td><td class="markdownTableBodyNone">Use libxml2 as the XML parser instead of Expat.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">MUPNP_NOUSE_CONTROLPOINT   </td><td class="markdownTableBodyNone">Disable UPnP™ control point functions.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">MUPNP_NOUSE_SUBSCRIPTION   </td><td class="markdownTableBodyNone">Disable UPnP™ subscription functions.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">MUPNP_NOUSE_ACTIONCTRL   </td><td class="markdownTableBodyNone">Disable UPnP™ action control functions.    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">MUPNP_NOUSE_QUERYCTRL   </td><td class="markdownTableBodyNone">Disable UPnP™ query control functions.   </td></tr>
+</table>
+<p>mUPnP uses Expat as the default parser, but the following XML parser is supported with the compiler option. Please refer to the XML parser at the following site:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Package   </th><th class="markdownTableHeadNone">URL    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">libxml2   </td><td class="markdownTableBodyNone"><a href="https://github.com/GNOME/libxml2">https://github.com/GNOME/libxml2</a>   </td></tr>
+</table>
+<h2><a class="anchor" id="autotoc_md47"></a>
+Unix</h2>
+<p>For Unix platforms, you can build the library and samples using the following steps. Use the &ndash;enable-libxml2 option of the configure script instead of the compiler option to use libxml2.</p>
+<div class="fragment"><div class="line">cd mupnp</div>
+<div class="line">./bootstrap</div>
+<div class="line">./configure</div>
+<div class="line">make</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md48"></a>
+Windows</h2>
+<p>For Windows platforms, mUPnP includes platform projects for Visual Studio 2005. Please check the platform directories, mupnp/*/win32/vs2005, to use the projects. On WindowsCE, mUPnP does not have platform projects, but a contributor has verified that the source codes compile normally.</p>
+<h2><a class="anchor" id="autotoc_md49"></a>
+T-Engine</h2>
+<p>For T-Engine platforms, you need to set the following compiler options. mUPnP supports both process-based and T-Kernel-based programs. Use the PROCESS_BASE option to compile the process-based program. Please refer to the development manual of your T-Engine development kit.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Option   </th><th class="markdownTableHeadNone">Description    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">TENGINE   </td><td class="markdownTableBodyNone">Enable the platform option.    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">MUPNP_TENGINE_NET_KASAGO   </td><td class="markdownTableBodyNone">Enable KASAGO for T-Engine option.   </td></tr>
+</table>
+<p>mUPnP is compiled using the functions for PMC T-Shell Kit as the TCP/IP protocol stack, but it is not recommended because the protocol stack does not support the multicast protocol, and the functions are not implemented yet.</p>
+<p>To run applications using mUPnP, the driver of the TCP/IP protocol stack must be loaded, and the network address must be determined. Please refer to the manual of the protocol stack for instructions on setting the network interface.</p>
+<p>You need to set the EXPATROOT environment variable to the top directory of the installed Expat on your shell as follows. The source codes of Expat must be included in the "lib" directory.</p>
+<div class="fragment"><div class="line">export EXPATROOT=/usr/local/expat-1.95.8</div>
+</div><!-- fragment --><p>I have built the library with the T-Engine/SH7727 development kit with KASAGO for T-Engine. Please check the platform directories, mupnp/*/tengine/gnu, for the sample projects. To compile the samples, run the configure script in the directory first. Please refer to the development manual of your T-Engine development kit if you want to use it on other T-Engine platforms.</p>
+<h2><a class="anchor" id="autotoc_md50"></a>
+MacOSX</h2>
+<p>For MacOSX, I have released a wrapper class for Objective-C on Cocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library if you need to use all functions of mUPnP for C.</p>
+<h1><a class="anchor" id="autotoc_md51"></a>
+License</h1>
+<p>mUPnP for C is licensed under a BSD-style license. See the COPYING file for more details.</p>
+<h1><a class="anchor" id="autotoc_md52"></a>
+References</h1>
+<h2><a class="anchor" id="autotoc_md53"></a>
 mUPnP for C</h2>
 <p>To develop UPnP devices or control point applications using <b>mUPnP for C</b>, please check the following developer's documentation.</p>
 <ul>
 <li><a href="http://cybergarage.github.io/mupnp/">Programming Guide for C</a></li>
 <li><a href="http://cybergarage.github.io/mupnp/">Doxygen</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md46"></a>
+<h2><a class="anchor" id="autotoc_md54"></a>
 mUPnP for Objective-C</h2>
 <p><b>mUPnP for C</b> releases the wrapper library for Objective-C to use the UPnP library on iOS and MacOSX platforms too. Please check the following developer's documentation to know the wrapper library in more detail.</p>
 <ul>
 <li><a href="http://cybergarage.github.io/mupnp/objc/html/">Programming Guide for Objective-C</a></li>
 <li><a href="http://cybergarage.github.io/mupnp/objc/html/">Doxygen</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md47"></a>
+<h1><a class="anchor" id="autotoc_md55"></a>
 Examples</h1>
 <ul>
 <li>UPnP control point examples<ul>
@@ -133,10 +245,10 @@ Examples</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md48"></a>
+<h1><a class="anchor" id="autotoc_md56"></a>
 Adoption in Consumer Products</h1>
 <p><b>mUPnP for C</b> is used in a variety of consumer products. While not exhaustive, the following is a list of notable implementations.</p>
-<h2><a class="anchor" id="autotoc_md49"></a>
+<h2><a class="anchor" id="autotoc_md57"></a>
 Nokia 770 Internet Tablet</h2>
 <p>Nokia engineers contributed to the improvement of the initial <b>mUPnP for C</b> release. Nokia developed the UPnP/AV Control Point application, <b>Media Streamer</b>, for the Nokia 770 Internet Tablet.　The application is based on <b>mUPnP for C</b>, incorporating custom patches by Nokia. <br  />
 </p>
@@ -144,7 +256,7 @@ Nokia 770 Internet Tablet</h2>
 <img src="mupnpc-example-nokia770-01.jpg" alt=""/>
 <div class="caption">
 Nokia 770 Internet Tablet</div></div>
-    <h2><a class="anchor" id="autotoc_md50"></a>
+    <h2><a class="anchor" id="autotoc_md58"></a>
 Panasonic VIERA Remote for iOS Devices</h2>
 <p>The <a href="http://panasonic.jp/support/global/cs/tv/vremote/index.html"><b>VIERA Remote</b></a> is a TV remote control app for Panasonic VIERA TVs (plasma and LCD models). It allows users to control channels, switch inputs, and adjust the volume directly from an <b>iPhone, iPod touch, or iPad</b> (iOS 4.2 or later). <b>mUPnP for C</b> functions as the UPnP framework for this app. <br  />
 </p>
@@ -152,7 +264,7 @@ Panasonic VIERA Remote for iOS Devices</h2>
 <img src="mupnpc-example-vieraremote-02.gif" alt=""/>
 <div class="caption">
 VIERA Remote</div></div>
-    <h2><a class="anchor" id="autotoc_md51"></a>
+    <h2><a class="anchor" id="autotoc_md59"></a>
 Toshiba REGZA Televisions</h2>
 <p><a href="https://www.regza.com/"><b>REGZA</b></a> is Toshiba’s former AV equipment brand. <b>mUPnP for C</b> is embedded in REGZA televisions, enabling seamless media streaming and connectivity. <br  />
 </p>

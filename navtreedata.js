@@ -25,19 +25,28 @@
 var NAVTREE =
 [
   [ "mUPnP for C", "index.html", [
-    [ "Building and Installation", "index.html#autotoc_md41", [
-      [ "Homebrew (macOS, Linux, Raspbian)", "index.html#autotoc_md42", null ],
-      [ "Installation from source", "index.html#autotoc_md43", null ]
+    [ "Overview", "index.html#autotoc_md41", null ],
+    [ "Package Contents", "index.html#autotoc_md42", null ],
+    [ "System Requirements", "index.html#autotoc_md43", [
+      [ "WindowsXP", "index.html#autotoc_md44", null ],
+      [ "T-Engine", "index.html#autotoc_md45", null ]
     ] ],
-    [ "References", "index.html#autotoc_md44", [
-      [ "mUPnP for C", "index.html#autotoc_md45", null ],
-      [ "mUPnP for Objective-C", "index.html#autotoc_md46", null ]
+    [ "Building the Library and Samples", "index.html#autotoc_md46", [
+      [ "Unix", "index.html#autotoc_md47", null ],
+      [ "Windows", "index.html#autotoc_md48", null ],
+      [ "T-Engine", "index.html#autotoc_md49", null ],
+      [ "MacOSX", "index.html#autotoc_md50", null ]
     ] ],
-    [ "Examples", "index.html#autotoc_md47", null ],
-    [ "Adoption in Consumer Products", "index.html#autotoc_md48", [
-      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md49", null ],
-      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md50", null ],
-      [ "Toshiba REGZA Televisions", "index.html#autotoc_md51", null ]
+    [ "License", "index.html#autotoc_md51", null ],
+    [ "References", "index.html#autotoc_md52", [
+      [ "mUPnP for C", "index.html#autotoc_md53", null ],
+      [ "mUPnP for Objective-C", "index.html#autotoc_md54", null ]
+    ] ],
+    [ "Examples", "index.html#autotoc_md55", null ],
+    [ "Adoption in Consumer Products", "index.html#autotoc_md56", [
+      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md57", null ],
+      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md58", null ],
+      [ "Toshiba REGZA Televisions", "index.html#autotoc_md59", null ]
     ] ],
     [ "Programming Guide for C", "md_doc_2mupnpcproguide.html", [
       [ "1 Introduction", "md_doc_2mupnpcproguide.html#autotoc_md1", null ],
@@ -124,14 +133,14 @@ var NAVTREEINDEX =
 "file_8h.html",
 "http_8h.html#a66e0cc65eaf94ebcbdaa4bf7d110c665",
 "http__persistent__connection_8c.html",
-"interface_8h.html#a72d756a7a0b0f70c590f3149b26cc51e",
-"query__request_8c.html#a433f8edc07533efdf28c5c8e1cd29843",
-"socket_8c.html#a9d70943173d8552a31530c6cba2c0025",
-"ssdp__server_8h.html#a251de61db0e96239176c037758377659",
-"string_8h.html#ad626e134ed45acabde857766b7cfd528",
-"struct__mUpnpStateVariable.html#a59316719c8e127cb65691f110f091b1b",
-"upnp__status_8h.html#a3c7886f3dfb79b6e5db5a82388e2e61a",
-"xml__attribute__list_8c.html#af41bae76d7a8186bfc2a779b6ca191db"
+"interface_8h.html#a33c5fcab97622ac6baa3fd88b47099c0",
+"protocolCGUpnpDeviceDelegate-p.html#ada2af000af519995d4d5637a52cc32d4",
+"socket_8c.html#a43cad09c97e4717a53cf19f6576fe166",
+"ssdp__server_8h.html#a0923bdd8354d0b7d40304f48e0b82786",
+"string_8h.html#abc7ceae7467ab7274d94969b03463458",
+"struct__mUpnpSocket.html#a019e343e553cf7a105156e4401089a9e",
+"upnp__status_8c.html#a2da1e76bdd2a026e51dd3ce7fe782351",
+"xml__attribute_8c.html#ab0148be7dcaca5e5741a2d2587021f23"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
