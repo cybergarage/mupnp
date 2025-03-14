@@ -56,14 +56,14 @@ To develop UPnP devices or control point applications using **mUPnP for C**, ple
 
 - UPnP control point examples
   - UPnP controller for UPnP devices
-    - [UPnP multicast dump utility](examples/upnpdump)
+    - [UPnP multicast dump utility](https://github.com/cybergarage/mupnp/tree/master/examples/upnpdump)
   - UPnP controller for UPnP stardard devices
-    - [UPnP Internet gateway utility ](examples/upnpigddump)
-    - [UPnP/AV media server utility ](examples/upnpavdump)
+    - [UPnP Internet gateway utility ](https://github.com/cybergarage/mupnp/tree/master/examples/upnpigddump)
+    - [UPnP/AV media server utility ](https://github.com/cybergarage/mupnp/tree/master/examples/upnpavdump)
  
 - UPnP device examples
   - UPnP non-standard devices
-    - [UPnP clock device](examples/clock)
+    - [UPnP clock device](https://github.com/cybergarage/mupnp/tree/master/examples/clock)
     
 ## Adoption in Consumer Products
 
