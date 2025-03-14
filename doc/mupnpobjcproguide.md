@@ -1,5 +1,7 @@
 # Programming Guide for Objective-C
 
+This document describes how to use the mUPnP for Objective-C to create your UPnP™ devices and control points.
+
 ## 1 Introduction
 
 UPnP™\*[^1] architecture is based on open networking to enable discovery and control of networked devices and services, such as media servers and players at home.

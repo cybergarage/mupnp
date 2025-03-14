@@ -1,5 +1,7 @@
 # Programming Guide for C
 
+The programming guide describes how to create your UPnP™ devices and control points using mUPnP for C. The guide is divided into the following sections.
+
 # 1 Introduction
 
 UPnP™*[^1] architecture is based on open networking to enable discovery and control of networked devices and services, such as media servers and players at home.
