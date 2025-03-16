@@ -10,6 +10,7 @@ endif
 # Code coverage
 ##############################
 
+include $(top_srcdir)/aminclude_static.am
 # include $(top_srcdir)/aminclude_static.am
 
 CFLAGS="$CFLAGS $(CODE_COVERAGE_CFLAGS)"
