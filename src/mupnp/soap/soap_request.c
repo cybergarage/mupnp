@@ -110,7 +110,7 @@ mUpnpXmlNode* mupnp_soap_request_getbodynode(mUpnpSoapRequest* soapReq)
   /* We cannot assume the namespace prefix for Body is 's'.
            According to spec, it could be anything... */
   for (attr = mupnp_xml_node_getattributes(envNode); attr != NULL;
-      attr = mupnp_xml_attribute_next(attr)) {
+       attr = mupnp_xml_attribute_next(attr)) {
     /* First, find the namespace declaration attribute. */
     /* Note: We must take a copy of the attr name.
                    Tokenizer doesn't do it (by default) */

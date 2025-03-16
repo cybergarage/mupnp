@@ -99,7 +99,7 @@ void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList* netIfListOld,
 
     found = false;
     for (netIfNew = mupnp_net_interfacelist_gets(netIfListNew); netIfNew != NULL;
-        netIfNew = mupnp_net_interface_next(netIfNew)) {
+         netIfNew = mupnp_net_interface_next(netIfNew)) {
       if (mupnp_net_interface_cmp(netIfOld, netIfNew) == 0) {
         found = true;
         break;
@@ -124,7 +124,7 @@ void mupnp_net_interfacelist_getchanges(mUpnpNetworkInterfaceList* netIfListOld,
 
     found = false;
     for (netIfOld = mupnp_net_interfacelist_gets(netIfListOld); netIfOld != NULL;
-        netIfOld = mupnp_net_interface_next(netIfOld)) {
+         netIfOld = mupnp_net_interface_next(netIfOld)) {
       if (mupnp_net_interface_cmp(netIfOld, netIfNew) == 0) {
         found = true;
         break;

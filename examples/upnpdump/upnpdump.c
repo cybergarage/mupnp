@@ -363,8 +363,8 @@ void ControlDeviceAlter(mUpnpControlPoint* ctrlPoint, int alteration_mask)
       mupnp_sleep(3000);
 
       for (arg = mupnp_action_getarguments(selAction);
-          arg;
-          arg = mupnp_argument_next(arg)) {
+           arg;
+           arg = mupnp_argument_next(arg)) {
         if (mupnp_argument_isoutdirection(arg) == true)
           printf(" %s = %s\n",
               mupnp_argument_getname(arg),
