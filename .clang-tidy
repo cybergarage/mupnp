@@ -8,9 +8,11 @@ CheckOptions:
   - key:             readability-identifier-naming.StructCase
     value:           CamelCase
   - key:             readability-identifier-naming.StructIgnoredRegexp
-    value:           '^_.*'
+    value:           '.*mUpnp.*'
   - key:             readability-identifier-naming.EnumCase
     value:           CamelCase
+  - key:             readability-identifier-naming.EnumIgnoredRegexp
+    value:           '.*mUpnp.*'
   - key:             readability-identifier-naming.UnionCase
     value:           CamelCase
   - key:             readability-identifier-naming.FunctionCase
