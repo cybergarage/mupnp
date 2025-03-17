@@ -24,32 +24,32 @@
 #define vsnprintf _vsnprintf
 #endif
 
-static const char* sev_error_s = SEV_ERROR_S;
-static const char* sev_warning_s = SEV_WARNING_S;
-static const char* sev_info_s = SEV_INFO_S;
-static const char* sev_debug_l1_s = SEV_DEBUG_L1_S;
-static const char* sev_debug_l2_s = SEV_DEBUG_L2_S;
-static const char* sev_debug_l3_s = SEV_DEBUG_L3_S;
-static const char* sev_debug_l4_s = SEV_DEBUG_L4_S;
-static const char* sev_debug_l5_s = SEV_DEBUG_L5_S;
+static const char* sevErrorS = SEV_ERROR_S;
+static const char* sevWarningS = SEV_WARNING_S;
+static const char* sevInfoS = SEV_INFO_S;
+static const char* sevDebugL1S = SEV_DEBUG_L1_S;
+static const char* sevDebugL2S = SEV_DEBUG_L2_S;
+static const char* sevDebugL3S = SEV_DEBUG_L3_S;
+static const char* sevDebugL4S = SEV_DEBUG_L4_S;
+static const char* sevDebugL5S = SEV_DEBUG_L5_S;
 
-static const char* sev_unknown_s = SEV_UNKNOWN_S;
+static const char* sevUnknownS = SEV_UNKNOWN_S;
 
 static void log_init_with_defaults(void);
 static const char* map_severity(int severity);
 
-struct fd_list {
-  struct fd_list* next;
+struct FdList {
+  struct FdList* next;
   FILE* fd;
   char* name;
-  int apply_mask;
+  int applyMask;
 };
 
-static struct fd_list* descriptor_list = NULL; /* Contains logging targets (single linked list) */
+static struct FdList* descriptorList = NULL; /* Contains logging targets (single linked list) */
 static int initialized = 0;
 static char* separator = NULL; /* Log item separator */
 
-static mUpnpMutex*(print_mutex) = NULL;
+static mUpnpMutex*(printMutex) = NULL;
 
 /* Local helper functions */
 
@@ -63,39 +63,39 @@ static const char* map_severity(int severity)
 {
   switch (severity) {
   case SEV_ERROR:
-    return sev_error_s;
+    return sevErrorS;
     break;
 
   case SEV_WARNING:
-    return sev_warning_s;
+    return sevWarningS;
     break;
 
   case SEV_INFO:
-    return sev_info_s;
+    return sevInfoS;
     break;
 
   case SEV_DEBUG_L1:
-    return sev_debug_l1_s;
+    return sevDebugL1S;
     break;
 
   case SEV_DEBUG_L2:
-    return sev_debug_l2_s;
+    return sevDebugL2S;
     break;
 
   case SEV_DEBUG_L3:
-    return sev_debug_l3_s;
+    return sevDebugL3S;
     break;
 
   case SEV_DEBUG_L4:
-    return sev_debug_l4_s;
+    return sevDebugL4S;
     break;
 
   case SEV_DEBUG_L5:
-    return sev_debug_l5_s;
+    return sevDebugL5S;
     break;
 
   default:
-    return sev_unknown_s;
+    return sevUnknownS;
   }
 }
 
@@ -108,8 +108,8 @@ static const char* map_severity(int severity)
  */
 int mupnp_log_add_target(char* target, int mask)
 {
-  struct fd_list* temp = NULL;
-  FILE* r_target = NULL;
+  struct FdList* temp = NULL;
+  FILE* rTarget = NULL;
 
   initialized = 1;
 
@@ -117,32 +117,32 @@ int mupnp_log_add_target(char* target, int mask)
    * new stream for file output.
    */
   if (!strcmp(target, "stdout"))
-    r_target = stdout;
+    rTarget = stdout;
   else if (!strcmp(target, "stderr"))
-    r_target = stderr;
+    rTarget = stderr;
   else {
     /* Try to use existing fd */
-    for (temp = descriptor_list; temp; temp = temp->next) {
+    for (temp = descriptorList; temp; temp = temp->next) {
       if (!strcmp(target, temp->name))
-        r_target = temp->fd;
+        rTarget = temp->fd;
     }
 
     /* User is adding new file for output, note that file is cleared if
      * it is not already open. */
-    if (NULL == r_target)
-      r_target = fopen(target, "w");
+    if (NULL == rTarget)
+      rTarget = fopen(target, "w");
   }
 
-  if (NULL == (temp = (struct fd_list*)malloc(sizeof(struct fd_list)))) {
+  if (NULL == (temp = (struct FdList*)malloc(sizeof(struct FdList)))) {
     return -1;
   }
 
   /* Adding new target into single linked list */
-  temp->next = descriptor_list;
-  temp->apply_mask = mask;
+  temp->next = descriptorList;
+  temp->applyMask = mask;
   temp->name = mupnp_strdup(target);
-  temp->fd = r_target;
-  descriptor_list = temp;
+  temp->fd = rTarget;
+  descriptorList = temp;
 
   return 1;
 }
@@ -153,7 +153,7 @@ int mupnp_log_add_target(char* target, int mask)
  */
 int mupnp_log_clear_targets(void)
 {
-  struct fd_list* temp = descriptor_list;
+  struct FdList* temp = descriptorList;
 
   while (temp) {
     /* We won't close standard streams... */
@@ -161,9 +161,9 @@ int mupnp_log_clear_targets(void)
       fclose(temp->fd);
 
     free(temp->name);
-    descriptor_list = temp->next;
+    descriptorList = temp->next;
     free(temp);
-    temp = descriptor_list;
+    temp = descriptorList;
   }
 
   return 1;
@@ -190,18 +190,18 @@ void mupnp_log_set_separator(char* s)
  * @param format Format string for the actual log message
  * @param ... Possible parameters for the format string
  */
-void mupnp_log_print(int severity, const char* file, int line_n, const char* function, const char* format, ...)
+void mupnp_log_print(int severity, const char* file, int lineN, const char* function, const char* format, ...)
 {
   va_list list;
 
-  char log_line[MAX_LOG_STRING], *l_ptr, t_ptr[MAX_LOG_STRING];
-  int prefix_length = -1;
-  struct fd_list* temp = NULL;
+  char logLine[MAX_LOG_STRING], *lPtr, tPtr[MAX_LOG_STRING];
+  int prefixLength = -1;
+  struct FdList* temp = NULL;
   long timestamp;
-  struct tm* timestamp_human_readable;
+  struct tm* timestampHumanReadable;
 
   /* If output targets are empty, do return */
-  if (!descriptor_list)
+  if (!descriptorList)
     return;
 
   /* If logger is not initialized, do it now */
@@ -213,38 +213,38 @@ void mupnp_log_print(int severity, const char* file, int line_n, const char* fun
     mupnp_log_set_separator(" : ");
 
   /* Create a mutex */
-  if (!print_mutex)
-    print_mutex = mupnp_mutex_new();
-  mupnp_mutex_lock(print_mutex);
+  if (!printMutex)
+    printMutex = mupnp_mutex_new();
+  mupnp_mutex_lock(printMutex);
 
   /* Create timestamp for the log prefix */
   timestamp = time(NULL);
-  timestamp_human_readable = localtime(&timestamp);
+  timestampHumanReadable = localtime(&timestamp);
 
 #if !defined(WIN32)
-  strftime(t_ptr, MAX_LOG_STRING, "%c", timestamp_human_readable);
+  strftime(tPtr, MAX_LOG_STRING, "%c", timestampHumanReadable);
 #else
   snprintf(log_line, MAX_LOG_STRING, "%d-%d-%d %d:%d %d", timestamp_human_readable->tm_year + 1900, timestamp_human_readable->tm_mon + 1, timestamp_human_readable->tm_mday, timestamp_human_readable->tm_hour, timestamp_human_readable->tm_min, timestamp_human_readable->tm_sec);
 #endif
   /* Creating the full log prefix */
-  prefix_length = snprintf(log_line, MAX_LOG_STRING, "%s%s%s%s%s%s%d%s%s%s ", t_ptr, separator, map_severity(severity), separator, file, separator, line_n, separator, function, separator);
+  prefixLength = snprintf(logLine, MAX_LOG_STRING, "%s%s%s%s%s%s%d%s%s%s ", tPtr, separator, map_severity(severity), separator, file, separator, lineN, separator, function, separator);
 
   /* Setting pointer where the actual message should start */
-  l_ptr = &log_line[prefix_length];
+  lPtr = &logLine[prefixLength];
 
   /* Filling out rest of the log message */
   va_start(list, format);
-  vsnprintf(l_ptr, MAX_LOG_STRING - prefix_length, format, list);
+  vsnprintf(lPtr, MAX_LOG_STRING - prefixLength, format, list);
   va_end(list);
 
   /* Multiplexing the created message into targets */
-  for (temp = descriptor_list; temp; temp = temp->next) {
-    if (severity == (severity & temp->apply_mask)) {
-      fputs(log_line, temp->fd);
+  for (temp = descriptorList; temp; temp = temp->next) {
+    if (severity == (severity & temp->applyMask)) {
+      fputs(logLine, temp->fd);
     }
   }
 
-  mupnp_mutex_unlock(print_mutex);
+  mupnp_mutex_unlock(printMutex);
 }
 
 #if defined(WIN32)

@@ -22,7 +22,7 @@
 // PrintContentDirectory
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintContentDirectory(mUpnpAction* browseAction, int indent, const char* objectId)
+void print_content_directory(mUpnpAction* browseAction, int indent, const char* objectId)
 {
   int n;
   char indentStr[128];
@@ -66,7 +66,7 @@ void PrintContentDirectory(mUpnpAction* browseAction, int indent, const char* ob
               indentStr,
               id,
               ((0 < mupnp_strlen(title)) ? title : ""));
-          PrintContentDirectory(browseAction, (indent + 1), id);
+          print_content_directory(browseAction, (indent + 1), id);
         }
         else {
           url = mupnp_xml_node_getchildnodevalue(cnode, "res");
@@ -87,7 +87,7 @@ void PrintContentDirectory(mUpnpAction* browseAction, int indent, const char* ob
 // PrintDMSInfo
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintDMSInfo(mUpnpDevice* dev, int dmsNum)
+void print_dms_info(mUpnpDevice* dev, int dmsNum)
 {
   mUpnpService* conDirService;
   mUpnpAction* browseAction;
@@ -119,14 +119,14 @@ void PrintDMSInfo(mUpnpDevice* dev, int dmsNum)
   if (!browseAction)
     return;
 
-  PrintContentDirectory(browseAction, 0, "0");
+  print_content_directory(browseAction, 0, "0");
 }
 
 /////////////////////////////////////////////////////////////////////////////////
 // PrintDMSInfos
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintDMSInfos(mUpnpControlPoint* ctrlPoint)
+void print_dms_infos(mUpnpControlPoint* ctrlPoint)
 {
   mUpnpDevice* dev;
   int dmsNum;
@@ -134,7 +134,7 @@ void PrintDMSInfos(mUpnpControlPoint* ctrlPoint)
   dmsNum = 0;
   for (dev = mupnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = mupnp_device_next(dev)) {
     if (mupnp_device_isdevicetype(dev, UPNPAVDUMP_DMS_DEVICETYPE))
-      PrintDMSInfo(dev, ++dmsNum);
+      print_dms_info(dev, ++dmsNum);
   }
 
   if (dmsNum <= 0)
@@ -163,7 +163,7 @@ int main(int argc, char* argv[])
 
   mupnp_sleep(mupnp_controlpoint_getssdpsearchmx(ctrlPoint) * 1000);
 
-  PrintDMSInfos(ctrlPoint);
+  print_dms_infos(ctrlPoint);
 
   mupnp_controlpoint_stop(ctrlPoint);
   mupnp_controlpoint_delete(ctrlPoint);

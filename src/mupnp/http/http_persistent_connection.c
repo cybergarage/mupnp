@@ -39,7 +39,7 @@ typedef struct _mUpnpHttpPersistentConnection {
 } mUpnpHttpPersistentConnection, mUpnpHttpPersistentConnectionList;
 
 static mUpnpHttpPersistentConnectionList* cache = NULL;
-static mUpnpMutex* persistent_connection_mutex = NULL;
+static mUpnpMutex* persistentConnectionMutex = NULL;
 
 /****************************************
  * mupnp_http_persistentconnection_init
@@ -50,19 +50,19 @@ bool mupnp_http_persistentconnection_init(void)
   mupnp_log_debug_l4("Entering...\n");
 
   if (cache == NULL) {
-    persistent_connection_mutex = mupnp_mutex_new();
+    persistentConnectionMutex = mupnp_mutex_new();
 
-    if (persistent_connection_mutex == NULL)
+    if (persistentConnectionMutex == NULL)
       return false;
 
     mupnp_http_persistentconnection_lock();
     cache = (mUpnpHttpPersistentConnectionList*)malloc(sizeof(mUpnpHttpPersistentConnectionList));
 
     if (cache == NULL) {
-      if (persistent_connection_mutex != NULL) {
+      if (persistentConnectionMutex != NULL) {
         mupnp_http_persistentconnection_unlock();
-        mupnp_mutex_delete(persistent_connection_mutex);
-        persistent_connection_mutex = NULL;
+        mupnp_mutex_delete(persistentConnectionMutex);
+        persistentConnectionMutex = NULL;
       }
       return false;
     }
@@ -89,27 +89,27 @@ bool mupnp_http_persistentconnection_init(void)
 
 mUpnpHttpPersistentConnection* mupnp_http_persistentconnection_new(void)
 {
-  mUpnpHttpPersistentConnection* new_node;
+  mUpnpHttpPersistentConnection* newNode;
 
   mupnp_log_debug_l4("Entering...\n");
 
-  new_node = (mUpnpHttpPersistentConnection*)malloc(sizeof(mUpnpHttpPersistentConnection));
+  newNode = (mUpnpHttpPersistentConnection*)malloc(sizeof(mUpnpHttpPersistentConnection));
 
-  if (NULL != new_node) {
-    new_node->headFlag = false;
-    new_node->next = NULL;
-    new_node->prev = NULL;
+  if (NULL != newNode) {
+    newNode->headFlag = false;
+    newNode->next = NULL;
+    newNode->prev = NULL;
 
-    new_node->host = mupnp_string_new();
-    new_node->port = 0;
-    new_node->cacheData = NULL;
+    newNode->host = mupnp_string_new();
+    newNode->port = 0;
+    newNode->cacheData = NULL;
 
-    new_node->timestamp = 0;
+    newNode->timestamp = 0;
   }
 
   mupnp_log_debug_l4("Leaving...\n");
 
-  return new_node;
+  return newNode;
 }
 
 /****************************************
@@ -141,7 +141,7 @@ void mupnp_http_persistentconnection_delete(mUpnpHttpPersistentConnection* node)
 void* mupnp_http_persistentconnection_get(char* host, int port)
 {
   mUpnpHttpPersistentConnection* node;
-  mUpnpTime sys_time = mupnp_getcurrentsystemtime();
+  mUpnpTime sysTime = mupnp_getcurrentsystemtime();
   bool iterate;
 
   mupnp_log_debug_l4("Entering...\n");
@@ -156,9 +156,9 @@ void* mupnp_http_persistentconnection_get(char* host, int port)
   do {
     iterate = false;
     for (node = (mUpnpHttpPersistentConnection*)mupnp_list_gets((mUpnpList*)cache);
-         node != NULL;
-         node = (mUpnpHttpPersistentConnection*)mupnp_list_next((mUpnpList*)node)) {
-      if (sys_time > node->timestamp + MUPNP_HTTP_PERSISTENT_TIMEOUT_PERIOD) {
+        node != NULL;
+        node = (mUpnpHttpPersistentConnection*)mupnp_list_next((mUpnpList*)node)) {
+      if (sysTime > node->timestamp + MUPNP_HTTP_PERSISTENT_TIMEOUT_PERIOD) {
         mupnp_log_debug_s("Timeout for persistent HTTP Connection to %s:%d "
                           "(timestamp: %d)\n",
             mupnp_string_getvalue(node->host),
@@ -202,7 +202,7 @@ void* mupnp_http_persistentconnection_get(char* host, int port)
 
 bool mupnp_http_persistentconnection_put(char* host, int port, void* data)
 {
-  mUpnpHttpPersistentConnection *new_node = NULL, *node = NULL;
+  mUpnpHttpPersistentConnection *newNode = NULL, *node = NULL;
 
   mupnp_log_debug_l4("Entering...\n");
 
@@ -225,31 +225,31 @@ bool mupnp_http_persistentconnection_put(char* host, int port, void* data)
       }
 
       mupnp_log_debug_s("Found cached persistent connection for %s:%d\n", mupnp_string_getvalue(node->host), node->port);
-      new_node = node;
-      mupnp_list_remove((mUpnpList*)new_node);
+      newNode = node;
+      mupnp_list_remove((mUpnpList*)newNode);
       break;
     }
   }
 
   /* We didn't find it */
-  if (new_node == NULL) {
+  if (newNode == NULL) {
     /* Check if we have already too many cached things */
     if (mupnp_list_size((mUpnpList*)cache) >= MUPNP_HTTP_PERSISTENT_CACHE_SIZE) {
       /* Take last node (not refreshed for a long time) */
-      new_node = (mUpnpHttpPersistentConnection*)mupnp_list_next((mUpnpList*)cache);
-      mupnp_list_remove((mUpnpList*)new_node);
-      mupnp_http_persistentconnection_delete(new_node);
-      new_node = NULL;
+      newNode = (mUpnpHttpPersistentConnection*)mupnp_list_next((mUpnpList*)cache);
+      mupnp_list_remove((mUpnpList*)newNode);
+      mupnp_http_persistentconnection_delete(newNode);
+      newNode = NULL;
 
       mupnp_log_debug_s("Max persistent HTTP connection cache reached.\n");
     }
 
-    if (new_node == NULL) {
+    if (newNode == NULL) {
       if (data == NULL)
         return true;
 
-      new_node = mupnp_http_persistentconnection_new();
-      if (new_node == NULL)
+      newNode = mupnp_http_persistentconnection_new();
+      if (newNode == NULL)
         return false;
 
       mupnp_log_debug_s("Adding persistent HTTP Connection %s:%d to cache\n", host, port);
@@ -259,16 +259,16 @@ bool mupnp_http_persistentconnection_put(char* host, int port, void* data)
 
   if (data != NULL) {
     /* Set appropriate values for the node */
-    mupnp_string_setvalue(new_node->host, host);
-    new_node->port = port;
-    new_node->cacheData = data;
-    new_node->timestamp = mupnp_getcurrentsystemtime();
+    mupnp_string_setvalue(newNode->host, host);
+    newNode->port = port;
+    newNode->cacheData = data;
+    newNode->timestamp = mupnp_getcurrentsystemtime();
 
-    mupnp_list_add((mUpnpList*)cache, (mUpnpList*)new_node);
+    mupnp_list_add((mUpnpList*)cache, (mUpnpList*)newNode);
   }
   else {
     /* remove and delete node */
-    mupnp_http_persistentconnection_delete(new_node);
+    mupnp_http_persistentconnection_delete(newNode);
   }
 
   mupnp_log_debug_l4("Leaving...\n");
@@ -294,8 +294,8 @@ void mupnp_http_persistentconnection_clear(void)
   cache = NULL;
   mupnp_http_persistentconnection_unlock();
 
-  mupnp_mutex_delete(persistent_connection_mutex);
-  persistent_connection_mutex = NULL;
+  mupnp_mutex_delete(persistentConnectionMutex);
+  persistentConnectionMutex = NULL;
 
   mupnp_log_debug_l4("Leaving...\n");
 }
@@ -308,10 +308,10 @@ void mupnp_http_persistentconnection_lock(void)
 {
   mupnp_log_debug_l4("Entering...\n");
 
-  if (persistent_connection_mutex == NULL)
+  if (persistentConnectionMutex == NULL)
     return;
 
-  mupnp_mutex_lock(persistent_connection_mutex);
+  mupnp_mutex_lock(persistentConnectionMutex);
 
   mupnp_log_debug_l4("Leaving...\n");
 }
@@ -324,10 +324,10 @@ void mupnp_http_persistentconnection_unlock(void)
 {
   mupnp_log_debug_l4("Entering...\n");
 
-  if (persistent_connection_mutex == NULL)
+  if (persistentConnectionMutex == NULL)
     return;
 
-  mupnp_mutex_unlock(persistent_connection_mutex);
+  mupnp_mutex_unlock(persistentConnectionMutex);
 
   mupnp_log_debug_l4("Leaving...\n");
 }

@@ -20,8 +20,8 @@
  * global variables
  ****************************************/
 
-static bool MUPNP_NET_USE_ONLY_IPV4_ADDR = false;
-static bool MUPNP_NET_USE_ONLY_IPV6_ADDR = false;
+static bool mupnpNetUseOnlyIpV4Addr = false;
+static bool mupnpNetUseOnlyIpV6Addr = false;
 
 ////////////////////////////////////////////////
 //	mupnp_net_isuseaddress
@@ -31,11 +31,11 @@ bool mupnp_net_isuseaddress(char* addr)
 {
   mupnp_log_debug_l4("Entering...\n");
 
-  if (MUPNP_NET_USE_ONLY_IPV6_ADDR == true) {
+  if (mupnpNetUseOnlyIpV6Addr == true) {
     if (mupnp_net_isipv6address(addr) == false)
       return false;
   }
-  if (MUPNP_NET_USE_ONLY_IPV4_ADDR == true) {
+  if (mupnpNetUseOnlyIpV4Addr == true) {
     if (mupnp_net_isipv6address(addr) == true)
       return false;
   }

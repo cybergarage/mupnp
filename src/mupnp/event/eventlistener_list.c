@@ -59,19 +59,19 @@ void mupnp_eventlistenerlist_delete(mUpnpEventListenerList* eventListenerList)
  */
 void mupnp_eventlistenerlist_remove(mUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener)
 {
-  mUpnpEventListenerList* list_node = NULL;
+  mUpnpEventListenerList* listNode = NULL;
 
   mupnp_log_debug_l4("Entering...\n");
 
   if (listener == NULL)
     return;
 
-  for (list_node = mupnp_eventlistenerlist_gets(eventListenerList);
-       list_node != NULL;
-       list_node = mupnp_eventlistenerlist_next(list_node)) {
-    if (list_node->listener == listener) {
-      mupnp_list_remove((mUpnpList*)list_node);
-      free(list_node);
+  for (listNode = mupnp_eventlistenerlist_gets(eventListenerList);
+      listNode != NULL;
+      listNode = mupnp_eventlistenerlist_next(listNode)) {
+    if (listNode->listener == listener) {
+      mupnp_list_remove((mUpnpList*)listNode);
+      free(listNode);
       break;
     }
   }
@@ -88,20 +88,20 @@ void mupnp_eventlistenerlist_remove(mUpnpEventListenerList* eventListenerList, M
  */
 void mupnp_eventlistenerlist_add(mUpnpEventListenerList* eventListenerList, MUPNP_EVENT_LISTENER listener)
 {
-  mUpnpEventListenerList* list_node;
+  mUpnpEventListenerList* listNode;
 
   mupnp_log_debug_l4("Entering...\n");
 
   if (listener == NULL)
     return;
 
-  list_node = (mUpnpEventListenerList*)malloc(sizeof(mUpnpEventListenerList));
+  listNode = (mUpnpEventListenerList*)malloc(sizeof(mUpnpEventListenerList));
 
-  if (NULL != list_node) {
-    memset(list_node, 0, sizeof(mUpnpEventListenerList));
-    list_node->listener = listener;
-    mupnp_list_node_init((mUpnpList*)list_node);
-    mupnp_list_add((mUpnpList*)eventListenerList, (mUpnpList*)list_node);
+  if (NULL != listNode) {
+    memset(listNode, 0, sizeof(mUpnpEventListenerList));
+    listNode->listener = listener;
+    mupnp_list_node_init((mUpnpList*)listNode);
+    mupnp_list_add((mUpnpList*)eventListenerList, (mUpnpList*)listNode);
   }
   else
     mupnp_log_debug_s("Memory allocation failure!\n");
@@ -117,15 +117,15 @@ void mupnp_eventlistenerlist_add(mUpnpEventListenerList* eventListenerList, MUPN
  */
 void mupnp_eventlistenerlist_notify(mUpnpEventListenerList* eventListenerList, mUpnpProperty* property)
 {
-  mUpnpEventListenerList* list_node = NULL;
+  mUpnpEventListenerList* listNode = NULL;
 
   mupnp_log_debug_l4("Entering...\n");
 
-  for (list_node = mupnp_eventlistenerlist_gets(eventListenerList);
-       list_node != NULL;
-       list_node = mupnp_eventlistenerlist_next(list_node)) {
-    if (list_node->listener != NULL) {
-      list_node->listener(property);
+  for (listNode = mupnp_eventlistenerlist_gets(eventListenerList);
+      listNode != NULL;
+      listNode = mupnp_eventlistenerlist_next(listNode)) {
+    if (listNode->listener != NULL) {
+      listNode->listener(property);
     }
   }
 

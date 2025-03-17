@@ -14,7 +14,7 @@
 #import "CGUpnpControlPoint.h"
 #import "CGUpnpDevice.h"
 
-static void CGUpnpControlPointDeviceListener(mUpnpControlPoint* ctrlPoint, const char* udn, mUpnpDeviceStatus status);
+static void cg_upnp_control_point_device_listener(mUpnpControlPoint* ctrlPoint, const char* udn, mUpnpDeviceStatus status);
 
 @implementation CGUpnpControlPoint
 
@@ -27,7 +27,7 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint* ctrlPoint, const
     return nil;
   cObject = mupnp_controlpoint_new();
   if (cObject) {
-    mupnp_controlpoint_setdevicelistener(cObject, CGUpnpControlPointDeviceListener);
+    mupnp_controlpoint_setdevicelistener(cObject, cg_upnp_control_point_device_listener);
     mupnp_controlpoint_setuserdata(cObject, self);
     if (![self start])
       self = nil;
@@ -124,7 +124,7 @@ static void CGUpnpControlPointDeviceListener(mUpnpControlPoint* ctrlPoint, const
 
 @end
 
-static void CGUpnpControlPointDeviceListener(mUpnpControlPoint* cCtrlPoint, const char* udn, mUpnpDeviceStatus status)
+static void cg_upnp_control_point_device_listener(mUpnpControlPoint* cCtrlPoint, const char* udn, mUpnpDeviceStatus status)
 {
   CGUpnpControlPoint* ctrlPoint = mupnp_controlpoint_getuserdata(cCtrlPoint);
   if (ctrlPoint == nil)

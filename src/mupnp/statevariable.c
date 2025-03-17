@@ -170,12 +170,12 @@ mUpnpAllowedValuesList* mupnp_statevariable_getallowedvaluelist(mUpnpStateVariab
           mupnp_string_setvalue(statVar->allowedValueList->value, mupnp_xml_node_getvalue(cnode));
         }
         else {
-          mUpnpAllowedValue* allowed_value;
-          allowed_value = (mUpnpAllowedValue*)malloc(sizeof(mUpnpAllowedValue));
-          mupnp_list_node_init((mUpnpList*)allowed_value);
-          allowed_value->value = mupnp_string_new();
-          mupnp_string_setvalue(allowed_value->value, mupnp_xml_node_getvalue(cnode));
-          mupnp_list_insert((mUpnpList*)statVar->allowedValueList, (mUpnpList*)allowed_value);
+          mUpnpAllowedValue* allowedValue;
+          allowedValue = (mUpnpAllowedValue*)malloc(sizeof(mUpnpAllowedValue));
+          mupnp_list_node_init((mUpnpList*)allowedValue);
+          allowedValue->value = mupnp_string_new();
+          mupnp_string_setvalue(allowedValue->value, mupnp_xml_node_getvalue(cnode));
+          mupnp_list_insert((mUpnpList*)statVar->allowedValueList, (mUpnpList*)allowedValue);
         }
       }
     }

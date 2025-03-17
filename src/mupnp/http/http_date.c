@@ -23,7 +23,7 @@
  * to_month_string()
  ****************************************/
 
-static char MONTH_STRING[][4] = {
+static char monthString[][4] = {
   "Jan",
   "Feb",
   "Mar",
@@ -43,7 +43,7 @@ static char* to_month_string(int value)
   mupnp_log_debug_l4("Entering...\n");
 
   if (0 <= value && value < 12)
-    return MONTH_STRING[value];
+    return monthString[value];
   return "";
 }
 
@@ -51,7 +51,7 @@ static char* to_month_string(int value)
  * to_week_string()
  ****************************************/
 
-static char WEEK_STRING[][4] = {
+static char weekString[][4] = {
   "Sun",
   "Mon",
   "Tue",
@@ -66,7 +66,7 @@ static char* to_week_string(int value)
   mupnp_log_debug_l4("Entering...\n");
 
   if (0 <= value && value < 7)
-    return WEEK_STRING[value];
+    return weekString[value];
   return "";
 
   mupnp_log_debug_l4("Leaving...\n");

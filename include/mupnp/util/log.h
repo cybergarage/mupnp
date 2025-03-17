@@ -55,13 +55,13 @@ extern "C" {
 /* Filename, line_n and unique build number can be used to give unique id tag
  * to all messages.
  */
-void mupnp_log_print(int severity, const char* file, int line_n, const char* function, const char* format, ...);
+void mupnp_log_print(int severity, const char* file, int lineN, const char* function, const char* format, ...);
 void mupnp_log_set_separator(char* s);
 
 /* Target defines a file or stdout/stderr, in future it may also
  * contain special targets like network addresses etc.
  */
-int mupnp_log_add_target(char* target, int severity_mask);
+int mupnp_log_add_target(char* target, int severityMask);
 int mupnp_log_clear_targets(void);
 
 /* Standard error handling */

@@ -128,20 +128,20 @@ static VOID TEngineProcessBasedTaskProc(W param)
 #else
 
 /* Key used to store self reference in (p)thread global storage */
-static pthread_key_t mupnp_thread_self_ref;
-static pthread_once_t mupnp_thread_mykeycreated = PTHREAD_ONCE_INIT;
+static pthread_key_t mupnpThreadSelfRef;
+static pthread_once_t mupnpThreadMykeycreated = PTHREAD_ONCE_INIT;
 
 static void mupnp_thread_createkey(void)
 {
-  pthread_key_create(&mupnp_thread_self_ref, NULL);
+  pthread_key_create(&mupnpThreadSelfRef, NULL);
 }
 
 mUpnpThread* mupnp_thread_self(void)
 {
-  return (mUpnpThread*)pthread_getspecific(mupnp_thread_self_ref);
+  return (mUpnpThread*)pthread_getspecific(mupnpThreadSelfRef);
 }
 
-static void* PosixThreadProc(void* param)
+static void* posix_thread_proc(void* param)
 {
   mupnp_log_debug_l4("Entering...\n");
 
@@ -162,8 +162,8 @@ static void* PosixThreadProc(void* param)
   actions.sa_handler = sig_handler;
   sigaction(SIGQUIT, &actions, NULL);
 
-  pthread_once(&mupnp_thread_mykeycreated, mupnp_thread_createkey);
-  pthread_setspecific(mupnp_thread_self_ref, param);
+  pthread_once(&mupnpThreadMykeycreated, mupnp_thread_createkey);
+  pthread_setspecific(mupnpThreadSelfRef, param);
 
   if (thread->action != NULL)
     thread->action(thread);
@@ -330,8 +330,8 @@ bool mupnp_thread_start(mUpnpThread* thread)
       return false;
     }
 #else
-    pthread_attr_t thread_attr;
-    if (pthread_attr_init(&thread_attr) != 0) {
+    pthread_attr_t threadAttr;
+    if (pthread_attr_init(&threadAttr) != 0) {
       thread->runnableFlag = false;
       return false;
     }
@@ -341,9 +341,9 @@ bool mupnp_thread_start(mUpnpThread* thread)
     /* in joinable state but the main thread doesn't call pthread_join on them. */
     /* So, they are kept alive until the end of the program. By creating them */
     /* in detached state, they are correctly clean up */
-    if (pthread_attr_setdetachstate(&thread_attr, PTHREAD_CREATE_DETACHED) != 0) {
+    if (pthread_attr_setdetachstate(&threadAttr, PTHREAD_CREATE_DETACHED) != 0) {
       thread->runnableFlag = false;
-      pthread_attr_destroy(&thread_attr);
+      pthread_attr_destroy(&threadAttr);
       return false;
     }
 #ifdef STACK_SIZE
@@ -356,12 +356,12 @@ bool mupnp_thread_start(mUpnpThread* thread)
     }
 #endif
     /* MODIFICATION END Fabrice Fontaine Orange 24/04/2007 */
-    if (pthread_create(&thread->pThread, &thread_attr, PosixThreadProc, thread) != 0) {
+    if (pthread_create(&thread->pThread, &threadAttr, posix_thread_proc, thread) != 0) {
       thread->runnableFlag = false;
-      pthread_attr_destroy(&thread_attr);
+      pthread_attr_destroy(&threadAttr);
       return false;
     }
-    pthread_attr_destroy(&thread_attr);
+    pthread_attr_destroy(&threadAttr);
 #endif
 
   mupnp_log_debug_l4("Leaving...\n");

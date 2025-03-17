@@ -36,90 +36,90 @@
  * Descriptions
  ****************************************/
 
-char* CLOCK_DEVICE_DESCRIPTION = "<?xml version=\"1.0\" ?>\n"
-                                 "<root xmlns=\"urn:schemas-upnp-org:device-1-0\">\n"
-                                 " 	<specVersion>\n"
-                                 " 		<major>1</major>\n"
-                                 " 		<minor>0</minor>\n"
-                                 " 	</specVersion>\n"
-                                 " 	<device>\n"
-                                 " 		<deviceType>urn:schemas-upnp-org:device:clock:1</deviceType>\n"
-                                 " 		<friendlyName>CyberGarage Clock Device</friendlyName>\n"
-                                 " 		<manufacturer>CyberGarage</manufacturer>\n"
-                                 " 		<manufacturerURL>http://www.cybergarage.org</manufacturerURL>\n"
-                                 " 		<modelDescription>CyberUPnP Clock Device</modelDescription>\n"
-                                 " 		<modelName>Clock</modelName>\n"
-                                 " 		<modelNumber>1.0</modelNumber>\n"
-                                 " 		<modelURL>http://www.cybergarage.org</modelURL>\n"
-                                 " 		<serialNumber>1234567890</serialNumber>\n"
-                                 " 		<UDN>uuid:cybergarageClockDevice</UDN>\n"
-                                 " 		<UPC>123456789012</UPC>\n"
-                                 " 		<iconList>\n"
-                                 " 			<icon>\n"
-                                 " 				<mimetype>image/gif</mimetype>\n"
-                                 " 				<width>48</width>\n"
-                                 " 				<height>32</height>\n"
-                                 " 				<depth>8</depth>\n"
-                                 " 				<url>icon.gif</url>\n"
-                                 " 			</icon>\n"
-                                 " 		</iconList>\n"
-                                 " 		<serviceList>\n"
-                                 " 			<service>\n"
-                                 " 				<serviceType>urn:schemas-upnp-org:service:timer:1</serviceType>\n"
-                                 " 				<serviceId>urn:upnp-org:serviceId:timer:1</serviceId>\n"
-                                 " 				<SCPDURL>/service/timer/description.xml</SCPDURL>\n"
-                                 " 				<controlURL>/service/timer/control</controlURL>\n"
-                                 " 				<eventSubURL>/service/timer/eventSub</eventSubURL>\n"
-                                 " 			</service>\n"
-                                 " 		</serviceList>\n"
-                                 " 		<presentationURL>/presentation</presentationURL>\n"
-                                 "	</device>\n"
-                                 "</root>\n";
+char* clockDeviceDescription = "<?xml version=\"1.0\" ?>\n"
+                               "<root xmlns=\"urn:schemas-upnp-org:device-1-0\">\n"
+                               " 	<specVersion>\n"
+                               " 		<major>1</major>\n"
+                               " 		<minor>0</minor>\n"
+                               " 	</specVersion>\n"
+                               " 	<device>\n"
+                               " 		<deviceType>urn:schemas-upnp-org:device:clock:1</deviceType>\n"
+                               " 		<friendlyName>CyberGarage Clock Device</friendlyName>\n"
+                               " 		<manufacturer>CyberGarage</manufacturer>\n"
+                               " 		<manufacturerURL>http://www.cybergarage.org</manufacturerURL>\n"
+                               " 		<modelDescription>CyberUPnP Clock Device</modelDescription>\n"
+                               " 		<modelName>Clock</modelName>\n"
+                               " 		<modelNumber>1.0</modelNumber>\n"
+                               " 		<modelURL>http://www.cybergarage.org</modelURL>\n"
+                               " 		<serialNumber>1234567890</serialNumber>\n"
+                               " 		<UDN>uuid:cybergarageClockDevice</UDN>\n"
+                               " 		<UPC>123456789012</UPC>\n"
+                               " 		<iconList>\n"
+                               " 			<icon>\n"
+                               " 				<mimetype>image/gif</mimetype>\n"
+                               " 				<width>48</width>\n"
+                               " 				<height>32</height>\n"
+                               " 				<depth>8</depth>\n"
+                               " 				<url>icon.gif</url>\n"
+                               " 			</icon>\n"
+                               " 		</iconList>\n"
+                               " 		<serviceList>\n"
+                               " 			<service>\n"
+                               " 				<serviceType>urn:schemas-upnp-org:service:timer:1</serviceType>\n"
+                               " 				<serviceId>urn:upnp-org:serviceId:timer:1</serviceId>\n"
+                               " 				<SCPDURL>/service/timer/description.xml</SCPDURL>\n"
+                               " 				<controlURL>/service/timer/control</controlURL>\n"
+                               " 				<eventSubURL>/service/timer/eventSub</eventSubURL>\n"
+                               " 			</service>\n"
+                               " 		</serviceList>\n"
+                               " 		<presentationURL>/presentation</presentationURL>\n"
+                               "	</device>\n"
+                               "</root>\n";
 
-char* CLOCK_SERVICE_DESCRIPTION = "<?xml version=\"1.0\"?>\n"
-                                  "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\" >\n"
-                                  " 	<specVersion>\n"
-                                  " 		<major>1</major>\n"
-                                  " 		<minor>0</minor>\n"
-                                  " 	</specVersion>\n"
-                                  " 	<actionList>\n"
-                                  " 		<action>\n"
-                                  " 			<name>SetTime</name>\n"
-                                  " 			<argumentList>\n"
-                                  " 				<argument>\n"
-                                  " 					<name>NewTime</name>\n"
-                                  " 					<relatedStateVariable>Time</relatedStateVariable>\n"
-                                  " 					<direction>in</direction>\n"
-                                  " 				</argument>\n"
-                                  " 				<argument>\n"
-                                  " 					<name>Result</name>\n"
-                                  " 					<relatedStateVariable>Result</relatedStateVariable>\n"
-                                  " 					<direction>out</direction>\n"
-                                  " 				</argument>\n"
-                                  " 			</argumentList>\n"
-                                  " 		</action>\n"
-                                  " 		<action>\n"
-                                  " 			<name>GetTime</name>\n"
-                                  " 			<argumentList>\n"
-                                  " 				<argument>\n"
-                                  " 					<name>CurrentTime</name>\n"
-                                  " 					<relatedStateVariable>Time</relatedStateVariable>\n"
-                                  " 					<direction>out</direction>\n"
-                                  " 				</argument>\n"
-                                  " 			</argumentList>\n"
-                                  " 		</action>\n"
-                                  " 	</actionList>\n"
-                                  " 	<serviceStateTable>\n"
-                                  " 		<stateVariable sendEvents=\"yes\">\n"
-                                  " 			<name>Time</name>\n"
-                                  " 			<dataType>string</dataType>\n"
-                                  " 		</stateVariable>\n"
-                                  " 		<stateVariable sendEvents=\"no\">\n"
-                                  " 			<name>Result</name>\n"
-                                  " 			<dataType>string</dataType>\n"
-                                  " 		</stateVariable>\n"
-                                  " 	</serviceStateTable>\n"
-                                  "</scpd>\n";
+char* clockServiceDescription = "<?xml version=\"1.0\"?>\n"
+                                "<scpd xmlns=\"urn:schemas-upnp-org:service-1-0\" >\n"
+                                " 	<specVersion>\n"
+                                " 		<major>1</major>\n"
+                                " 		<minor>0</minor>\n"
+                                " 	</specVersion>\n"
+                                " 	<actionList>\n"
+                                " 		<action>\n"
+                                " 			<name>SetTime</name>\n"
+                                " 			<argumentList>\n"
+                                " 				<argument>\n"
+                                " 					<name>NewTime</name>\n"
+                                " 					<relatedStateVariable>Time</relatedStateVariable>\n"
+                                " 					<direction>in</direction>\n"
+                                " 				</argument>\n"
+                                " 				<argument>\n"
+                                " 					<name>Result</name>\n"
+                                " 					<relatedStateVariable>Result</relatedStateVariable>\n"
+                                " 					<direction>out</direction>\n"
+                                " 				</argument>\n"
+                                " 			</argumentList>\n"
+                                " 		</action>\n"
+                                " 		<action>\n"
+                                " 			<name>GetTime</name>\n"
+                                " 			<argumentList>\n"
+                                " 				<argument>\n"
+                                " 					<name>CurrentTime</name>\n"
+                                " 					<relatedStateVariable>Time</relatedStateVariable>\n"
+                                " 					<direction>out</direction>\n"
+                                " 				</argument>\n"
+                                " 			</argumentList>\n"
+                                " 		</action>\n"
+                                " 	</actionList>\n"
+                                " 	<serviceStateTable>\n"
+                                " 		<stateVariable sendEvents=\"yes\">\n"
+                                " 			<name>Time</name>\n"
+                                " 			<dataType>string</dataType>\n"
+                                " 		</stateVariable>\n"
+                                " 		<stateVariable sendEvents=\"no\">\n"
+                                " 			<name>Result</name>\n"
+                                " 			<dataType>string</dataType>\n"
+                                " 		</stateVariable>\n"
+                                " 	</serviceStateTable>\n"
+                                "</scpd>\n";
 
 /****************************************
  * upnp_clock_actionreceived
@@ -138,7 +138,7 @@ bool upnp_clock_actionreceived(mUpnpAction* action)
 
   actionName = mupnp_action_getname(action);
   if (strcmp("GetTime", actionName) == 0) {
-    GetSystemTimeString(currTime, sysTimeStr);
+    get_system_time_string(currTime, sysTimeStr);
     currTimeArg = mupnp_action_getargumentbyname(action, "CurrentTime");
     mupnp_argument_setvalue(currTimeArg, sysTimeStr);
     return true;
@@ -166,7 +166,7 @@ bool upnp_clock_queryreceived(mUpnpStateVariable* statVar)
   varName = mupnp_statevariable_getname(statVar);
   if (strcmp("Time", varName) == 0) {
     currTime = mupnp_getcurrentsystemtime();
-    GetSystemTimeString(currTime, sysTimeStr);
+    get_system_time_string(currTime, sysTimeStr);
     mupnp_statevariable_setvalue(statVar, sysTimeStr);
     return true;
   }
@@ -238,7 +238,7 @@ void upnp_clock_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
       "</TABLE>"
       "<CENTER></BODY>"
       "</HTML>",
-      GetSystemTimeString(currTime, sysTimeStr),
+      get_system_time_string(currTime, sysTimeStr),
       mupnp_getservername(serverName, sizeof(serverName)));
 
   httpRes = mupnp_http_response_new();
@@ -261,7 +261,7 @@ mUpnpDevice* upnp_clock_device_new()
 
   clockDev = mupnp_device_new();
 
-  if (mupnp_device_parsedescription(clockDev, CLOCK_DEVICE_DESCRIPTION, strlen(CLOCK_DEVICE_DESCRIPTION)) == false) {
+  if (mupnp_device_parsedescription(clockDev, clockDeviceDescription, strlen(clockDeviceDescription)) == false) {
     mupnp_device_delete(clockDev);
     return NULL;
   }
@@ -272,7 +272,7 @@ mUpnpDevice* upnp_clock_device_new()
     return NULL;
   }
 
-  if (mupnp_service_parsedescription(timeService, CLOCK_SERVICE_DESCRIPTION, strlen(CLOCK_SERVICE_DESCRIPTION)) == false) {
+  if (mupnp_service_parsedescription(timeService, clockServiceDescription, strlen(clockServiceDescription)) == false) {
     mupnp_device_delete(clockDev);
     return NULL;
   }
@@ -304,7 +304,7 @@ void upnp_clock_device_update(mUpnpDevice* clockDev)
     return;
 
   currTime = mupnp_getcurrentsystemtime();
-  GetSystemTimeString(currTime, sysTimeStr);
+  get_system_time_string(currTime, sysTimeStr);
   mupnp_statevariable_setvalue(timeState, sysTimeStr);
 
   printf("%s\n", sysTimeStr);

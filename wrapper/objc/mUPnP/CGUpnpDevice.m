@@ -17,7 +17,7 @@
 #import "CGUpnpIcon.h"
 #import "CGUpnpService.h"
 
-static BOOL CGUpnpDeviceActionListener(mUpnpAction* action);
+static BOOL cg_upnp_device_action_listener(mUpnpAction* action);
 
 @implementation CGUpnpDevice
 
@@ -33,7 +33,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction* action);
     return nil;
   isCObjectCreated = YES;
   mupnp_device_setuserdata(cObject, self);
-  mupnp_device_setactionlistener(cObject, CGUpnpDeviceActionListener);
+  mupnp_device_setactionlistener(cObject, cg_upnp_device_action_listener);
   return self;
 }
 
@@ -90,9 +90,9 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction* action);
 {
   if (!cObject)
     return nil;
-  const char* device_type_cstring = mupnp_device_getdevicetype(cObject);
-  if (device_type_cstring) {
-    return [NSString stringWithUTF8String:device_type_cstring];
+  const char* deviceTypeCstring = mupnp_device_getdevicetype(cObject);
+  if (deviceTypeCstring) {
+    return [NSString stringWithUTF8String:deviceTypeCstring];
   }
   return nil;
 }
@@ -101,9 +101,9 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction* action);
 {
   if (!cObject)
     return nil;
-  const char* udn_cstring = mupnp_device_getudn(cObject);
-  if (udn_cstring) {
-    return [NSString stringWithUTF8String:udn_cstring];
+  const char* udnCstring = mupnp_device_getudn(cObject);
+  if (udnCstring) {
+    return [NSString stringWithUTF8String:udnCstring];
   }
   return nil;
 }
@@ -112,9 +112,9 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction* action);
 {
   if (!cObject)
     return nil;
-  const char* manufacturer_cstring = mupnp_device_getmanufacturer(cObject);
-  if (manufacturer_cstring) {
-    return [NSString stringWithUTF8String:manufacturer_cstring];
+  const char* manufacturerCstring = mupnp_device_getmanufacturer(cObject);
+  if (manufacturerCstring) {
+    return [NSString stringWithUTF8String:manufacturerCstring];
   }
   return nil;
 }
@@ -123,9 +123,9 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction* action);
 {
   if (!cObject)
     return nil;
-  const char* model_number_cstring = mupnp_device_getmodelnumber(cObject);
-  if (model_number_cstring) {
-    return [NSString stringWithUTF8String:model_number_cstring];
+  const char* modelNumberCstring = mupnp_device_getmodelnumber(cObject);
+  if (modelNumberCstring) {
+    return [NSString stringWithUTF8String:modelNumberCstring];
   }
   return nil;
 }
@@ -134,9 +134,9 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction* action);
 {
   if (!cObject)
     return nil;
-  const char* model_name_cstring = mupnp_device_getmodelname(cObject);
-  if (model_name_cstring) {
-    return [NSString stringWithUTF8String:model_name_cstring];
+  const char* modelNameCstring = mupnp_device_getmodelname(cObject);
+  if (modelNameCstring) {
+    return [NSString stringWithUTF8String:modelNameCstring];
   }
   return nil;
 }
@@ -319,10 +319,10 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction* action);
 
   NSString* ipaddr = nil;
 
-  char* location_str = (char*)mupnp_device_getlocationfromssdppacket(cObject);
-  if (0 < mupnp_strlen(location_str)) {
+  char* locationStr = (char*)mupnp_device_getlocationfromssdppacket(cObject);
+  if (0 < mupnp_strlen(locationStr)) {
     mUpnpNetURL* url = mupnp_net_url_new();
-    mupnp_net_url_set(url, location_str);
+    mupnp_net_url_set(url, locationStr);
     ipaddr = [[[NSString alloc] initWithUTF8String:mupnp_net_url_gethost(url)] autorelease];
     mupnp_net_url_delete(url);
   }
@@ -366,7 +366,7 @@ static BOOL CGUpnpDeviceActionListener(mUpnpAction* action);
 
 @end
 
-static BOOL CGUpnpDeviceActionListener(mUpnpAction* cUpnpAction)
+static BOOL cg_upnp_device_action_listener(mUpnpAction* cUpnpAction)
 {
   if (!cUpnpAction)
     return NO;

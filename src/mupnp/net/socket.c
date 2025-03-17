@@ -1062,7 +1062,7 @@ bool mupnp_socket_setreuseaddress(mUpnpSocket* sock, bool flag)
 bool mupnp_socket_setmulticastttl(mUpnpSocket* sock, int ttl)
 {
   int sockOptRet;
-  int ttl_;
+  int ttl;
   unsigned int len = 0;
 
   mupnp_log_debug_l4("Entering...\n");
@@ -1083,8 +1083,8 @@ bool mupnp_socket_setmulticastttl(mUpnpSocket* sock, int ttl)
     mupnp_log_debug("setsockopt() failed with errno %d: %s, fd:%d\n", errno, strerror(errno), sock->id);
   }
   else {
-    len = sizeof(ttl_);
-    getsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_TTL, &ttl_, (socklen_t*)&len);
+    len = sizeof(ttl);
+    getsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_TTL, &ttl, (socklen_t*)&len);
     mupnp_log_debug("Multicast time to live is %i\n", ttl_);
   }
 #endif

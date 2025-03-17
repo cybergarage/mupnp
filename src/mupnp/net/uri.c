@@ -291,7 +291,7 @@ char* mupnp_net_uri_getrequest(mUpnpNetURI* uri)
  * mupnp_net_uri_isequivalent
  ****************************************/
 
-bool mupnp_net_uri_isequivalent(const char* url, const char* relative_url)
+bool mupnp_net_uri_isequivalent(const char* url, const char* relativeUrl)
 {
   mUpnpNetURI* u;
   char* path;
@@ -301,7 +301,7 @@ bool mupnp_net_uri_isequivalent(const char* url, const char* relative_url)
   mupnp_net_uri_set(u, url);
 
   path = mupnp_net_uri_getpath(u);
-  ret = mupnp_strcmp(path, relative_url) == 0;
+  ret = mupnp_strcmp(path, relativeUrl) == 0;
 
   mupnp_net_uri_delete(u);
   return ret;

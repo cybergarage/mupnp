@@ -23,7 +23,7 @@
 // PrintIGDInfo
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintIGDInfo(mUpnpDevice* dev, int igdNum)
+void print_igd_info(mUpnpDevice* dev, int igdNum)
 {
   mUpnpService* ipConService;
   mUpnpAction* extIpAddrAction;
@@ -64,7 +64,7 @@ void PrintIGDInfo(mUpnpDevice* dev, int igdNum)
 // PrintIGDInfos
 /////////////////////////////////////////////////////////////////////////////////
 
-void PrintIGDInfos(mUpnpControlPoint* ctrlPoint)
+void print_igd_infos(mUpnpControlPoint* ctrlPoint)
 {
   mUpnpDevice* dev;
   int igdNum;
@@ -72,7 +72,7 @@ void PrintIGDInfos(mUpnpControlPoint* ctrlPoint)
   igdNum = 0;
   for (dev = mupnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = mupnp_device_next(dev)) {
     if (mupnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE))
-      PrintIGDInfo(dev, ++igdNum);
+      print_igd_info(dev, ++igdNum);
   }
 
   if (igdNum <= 0)
@@ -101,7 +101,7 @@ int main(int argc, char* argv[])
 
   mupnp_sleep(mupnp_controlpoint_getssdpsearchmx(ctrlPoint) * 1000);
 
-  PrintIGDInfos(ctrlPoint);
+  print_igd_infos(ctrlPoint);
 
   mupnp_controlpoint_stop(ctrlPoint);
   mupnp_controlpoint_delete(ctrlPoint);

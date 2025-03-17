@@ -40,7 +40,7 @@ mUpnpService* mupnp_device_getfirstexpiratedservice(mUpnpControlPoint* ctrlPoint
 {
   mUpnpDevice* childDev = NULL;
   mUpnpService* srv = NULL;
-  mUpnpService* found_srv = NULL;
+  mUpnpService* foundSrv = NULL;
   mUpnpTime tmpTime;
   mUpnpTime currTime;
   long timeout;
@@ -75,7 +75,7 @@ mUpnpService* mupnp_device_getfirstexpiratedservice(mUpnpControlPoint* ctrlPoint
 
     if (tmpTime > 0 && tmpTime < expirationTime) {
       expirationTime = tmpTime;
-      found_srv = srv;
+      foundSrv = srv;
     }
   }
 
@@ -86,12 +86,12 @@ mUpnpService* mupnp_device_getfirstexpiratedservice(mUpnpControlPoint* ctrlPoint
         expirationTime);
 
     if (srv != NULL)
-      found_srv = srv;
+      foundSrv = srv;
   }
 
   mupnp_log_debug_l4("Leaving...\n");
 
-  return found_srv;
+  return foundSrv;
 }
 
 void mupnp_controlpoint_expirationhandler(mUpnpThread* thread)

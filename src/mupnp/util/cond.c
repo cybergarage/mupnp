@@ -100,7 +100,7 @@ bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout)
 /* TODO: Add implementation */
 #else
   struct timeval now;
-  struct timespec timeout_s;
+  struct timespec timeoutS;
 
   mupnp_log_debug_l4("Entering...\n");
 
@@ -110,9 +110,9 @@ bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout)
     pthread_cond_wait(&cond->condID, &mutex->mutexID);
   }
   else {
-    timeout_s.tv_sec = now.tv_sec + timeout;
-    timeout_s.tv_nsec = now.tv_usec * 1000;
-    pthread_cond_timedwait(&cond->condID, &mutex->mutexID, &timeout_s);
+    timeoutS.tv_sec = now.tv_sec + timeout;
+    timeoutS.tv_nsec = now.tv_usec * 1000;
+    pthread_cond_timedwait(&cond->condID, &mutex->mutexID, &timeoutS);
   }
 #endif
   mupnp_log_debug_l4("Leaving...\n");

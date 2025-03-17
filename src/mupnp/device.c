@@ -1706,7 +1706,7 @@ mUpnpService* mupnp_device_getservicebycontrolurl(mUpnpDevice* dev, const char* 
 {
   mUpnpService* service;
   mUpnpDevice* childDev;
-  mUpnpNetURL* service_url;
+  mUpnpNetURL* serviceUrl;
 
   mupnp_log_debug_l4("Entering...\n");
 
@@ -1719,15 +1719,15 @@ mUpnpService* mupnp_device_getservicebycontrolurl(mUpnpDevice* dev, const char* 
                 if (mupnp_strstr(mupnp_net_url_getrequest(mupnp_service_getcontrolurl(service)), url) != -1)*/
     /* Memory leak correction : mupnp_service_getcontrolurl return a malloc */
     /* structure, this structure must be freed after use */
-    service_url = mupnp_service_getcontrolurl(service);
-    if (service_url) {
-      if (mupnp_strstr(mupnp_net_url_getrequest(service_url), url) != -1) {
-        mupnp_net_url_delete(service_url);
+    serviceUrl = mupnp_service_getcontrolurl(service);
+    if (serviceUrl) {
+      if (mupnp_strstr(mupnp_net_url_getrequest(serviceUrl), url) != -1) {
+        mupnp_net_url_delete(serviceUrl);
         /* MODIFICATION END Fabrice Fontaine Orange 23/04/07 */
         return service;
         /* ADD Fabrice Fontaine Orange 23/04/07 */
       }
-      mupnp_net_url_delete(service_url);
+      mupnp_net_url_delete(serviceUrl);
     }
     /* ADD END Fabrice Fontaine Orange 23/04/07 */
   }

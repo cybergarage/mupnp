@@ -18,7 +18,7 @@
 #include <string.h>
 
 static int filter_duplicate_m_search(mUpnpSSDPPacket* ssdpPkt);
-static int simple_string_hash(char* str, int table_size);
+static int simple_string_hash(char* str, int tableSize);
 
 /****************************************
  * mupnp_device_ssdpmessagereceived
@@ -173,11 +173,11 @@ void mupnp_device_ssdplistener(mUpnpSSDPPacket* ssdpPkt)
 static int filter_duplicate_m_search(mUpnpSSDPPacket* ssdpPkt)
 {
   mUpnpTime* timestamps = ssdpPkt->timestamps;
-  size_t s_length;
+  size_t sLength;
   int loc;
   const char* st;
-  char *id_string, *r_address, port[6];
-  mUpnpTime curr_time;
+  char *idString, *rAddress, port[6];
+  mUpnpTime currTime;
 
   mupnp_log_debug_l4("Entering...\n");
 
@@ -187,45 +187,45 @@ static int filter_duplicate_m_search(mUpnpSSDPPacket* ssdpPkt)
     memset(timestamps, '\0', MUPNP_SSDP_FILTER_TABLE_SIZE * sizeof(mUpnpTime));
   }
 
-  r_address = mupnp_string_getvalue(ssdpPkt->dgmPkt->remoteAddress);
+  rAddress = mupnp_string_getvalue(ssdpPkt->dgmPkt->remoteAddress);
   st = mupnp_ssdp_packet_getst(ssdpPkt);
   sprintf(port, "%d", ssdpPkt->dgmPkt->remotePort);
 
   /* Catenating remote address string with ssdp ST header field. */
-  s_length = strlen(r_address) + strlen(st) + strlen(port);
-  id_string = (char*)malloc(s_length + 1);
+  sLength = strlen(rAddress) + strlen(st) + strlen(port);
+  idString = (char*)malloc(sLength + 1);
 
-  if (NULL == id_string) {
+  if (NULL == idString) {
     mupnp_log_debug_s("Memory allocation problem!\n");
     return false;
   }
 
-  memset(id_string, '\0', s_length + 1);
+  memset(idString, '\0', sLength + 1);
 
-  mupnp_strcat(id_string, r_address);
-  mupnp_strcat(id_string, port);
-  mupnp_strcat(id_string, st);
+  mupnp_strcat(idString, rAddress);
+  mupnp_strcat(idString, port);
+  mupnp_strcat(idString, st);
 
-  loc = simple_string_hash(id_string, MUPNP_SSDP_FILTER_TABLE_SIZE);
+  loc = simple_string_hash(idString, MUPNP_SSDP_FILTER_TABLE_SIZE);
 
   mupnp_log_debug("Calculated hash: %d\n", loc);
 
-  free(id_string);
+  free(idString);
 
-  curr_time = mupnp_getcurrentsystemtime();
+  currTime = mupnp_getcurrentsystemtime();
 
   if (0 == timestamps[loc]) {
-    timestamps[loc] = curr_time;
+    timestamps[loc] = currTime;
     mupnp_log_debug("First packet... Updating hash table.\n");
     return false;
   }
-  else if ((curr_time - timestamps[loc]) < MUPNP_DEVICE_M_SEARCH_FILTER_INTERVAL) {
+  else if ((currTime - timestamps[loc]) < MUPNP_DEVICE_M_SEARCH_FILTER_INTERVAL) {
     mupnp_log_debug("Filtering packet!\n");
-    timestamps[loc] = curr_time;
+    timestamps[loc] = currTime;
     return true;
   }
   else {
-    timestamps[loc] = curr_time;
+    timestamps[loc] = currTime;
     mupnp_log_debug("Old timestamp found, just updating it.\n");
     return false;
   }
@@ -233,7 +233,7 @@ static int filter_duplicate_m_search(mUpnpSSDPPacket* ssdpPkt)
   mupnp_log_debug_l4("Leaving...\n");
 }
 
-static int simple_string_hash(char* str, int table_size)
+static int simple_string_hash(char* str, int tableSize)
 {
   int sum = 0;
 
@@ -250,5 +250,5 @@ static int simple_string_hash(char* str, int table_size)
 
   mupnp_log_debug_l4("Leaving...\n");
 
-  return sum % table_size;
+  return sum % tableSize;
 }

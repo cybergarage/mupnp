@@ -13,7 +13,7 @@
 
 #import "CGUpnpAction.h"
 
-static BOOL CGUpnpActionListener(mUpnpAction* cAction)
+static BOOL cg_upnp_action_listener(mUpnpAction* cAction)
 {
   if (!cAction)
     return FALSE;
@@ -39,7 +39,7 @@ static BOOL CGUpnpActionListener(mUpnpAction* cAction)
     return nil;
   cObject = cobj;
   mupnp_action_setuserdata(cObject, self);
-  mupnp_action_setlistener(cObject, CGUpnpActionListener);
+  mupnp_action_setlistener(cObject, cg_upnp_action_listener);
   return self;
 }
 

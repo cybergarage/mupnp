@@ -60,19 +60,19 @@ extern long int mupnp_total_elapsed_time;
 /* 10000000 */
 #define UTF_RANGEX_2_R (1 << 7)
 
-static int mupnp_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void* user_data, const char* buffer, size_t size, int recovery);
+static int mupnp_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void* userData, const char* buffer, size_t size, int recovery);
 
-static xmlEntityPtr mupnp_libxml2_get_entity(void* user_data,
+static xmlEntityPtr mupnp_libxml2_get_entity(void* userData,
     const xmlChar* name);
 
-static void mupnp_libxml2_characters(void* user_data,
+static void mupnp_libxml2_characters(void* userData,
     const xmlChar* ch,
     int len);
 
-static void mupnp_libxml2_start_element(void* user_data,
+static void mupnp_libxml2_start_element(void* userData,
     const xmlChar* name,
     const xmlChar** attrs);
-static void mupnp_libxml2_end_element(void* user_data,
+static void mupnp_libxml2_end_element(void* userData,
     const xmlChar* name);
 
 static void mupnp_xml_force_utf8(char* data, size_t len);
@@ -87,14 +87,14 @@ enum {
   LIBXML2_RECOVERY = 1
 };
 
-static xmlSAXHandler mupnp_libxml2_handler = {
+static xmlSAXHandler mupnpLibxml2Handler = {
   .startElement = mupnp_libxml2_start_element,
   .endElement = mupnp_libxml2_end_element,
   .getEntity = mupnp_libxml2_get_entity,
   .characters = mupnp_libxml2_characters
 };
 
-static void mupnp_libxml2_start_element(void* user_data,
+static void mupnp_libxml2_start_element(void* userData,
     const xmlChar* name,
     const xmlChar** attrs)
 {
@@ -104,7 +104,7 @@ static void mupnp_libxml2_start_element(void* user_data,
   mUpnpXmlNode* node;
   int n;
 
-  libxml2Data = (mUpnpLibxml2Data*)user_data;
+  libxml2Data = (mUpnpLibxml2Data*)userData;
 
   node = mupnp_xml_node_new();
   if (node == NULL) {
@@ -134,19 +134,19 @@ static void mupnp_libxml2_start_element(void* user_data,
   mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_libxml2_end_element(void* user_data,
+static void mupnp_libxml2_end_element(void* userData,
     const xmlChar* name)
 {
   mupnp_log_debug_l4("Entering...\n");
 
-  mUpnpLibxml2Data* libxml2Data = (mUpnpLibxml2Data*)user_data;
+  mUpnpLibxml2Data* libxml2Data = (mUpnpLibxml2Data*)userData;
   if (libxml2Data->currNode != NULL)
     libxml2Data->currNode = mupnp_xml_node_getparentnode(libxml2Data->currNode);
 
   mupnp_log_debug_l4("Leaving...\n");
 }
 
-static void mupnp_libxml2_characters(void* user_data,
+static void mupnp_libxml2_characters(void* userData,
     const xmlChar* ch,
     int len)
 {
@@ -154,7 +154,7 @@ static void mupnp_libxml2_characters(void* user_data,
 
   mUpnpLibxml2Data* libxml2Data;
 
-  libxml2Data = (mUpnpLibxml2Data*)user_data;
+  libxml2Data = (mUpnpLibxml2Data*)userData;
 
   if (libxml2Data->currNode != NULL)
     mupnp_xml_node_naddvalue(libxml2Data->currNode, (char*)ch, len);
@@ -162,7 +162,7 @@ static void mupnp_libxml2_characters(void* user_data,
   mupnp_log_debug_l4("Leaving...\n");
 }
 
-static xmlEntityPtr mupnp_libxml2_get_entity(void* user_data, const xmlChar* name)
+static xmlEntityPtr mupnp_libxml2_get_entity(void* userData, const xmlChar* name)
 {
   mupnp_log_debug_l4("Entering...\n");
 
@@ -292,7 +292,7 @@ bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const c
   libxml2Data.rootNode = NULL;
   libxml2Data.currNode = NULL;
 
-  retval = mupnp_libxml2_parsewrapper(&mupnp_libxml2_handler, &libxml2Data, data, len, LIBXML2_NOFLAGS);
+  retval = mupnp_libxml2_parsewrapper(&mupnpLibxml2Handler, &libxml2Data, data, len, LIBXML2_NOFLAGS);
 
   switch (retval) {
   case XML_ERR_INVALID_CHAR:
@@ -308,7 +308,7 @@ bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const c
     mupnp_xml_force_utf8(data, len);
 
     retval = mupnp_libxml2_parsewrapper(
-        &mupnp_libxml2_handler,
+        &mupnpLibxml2Handler,
         &libxml2Data,
         data,
         len,
@@ -346,7 +346,7 @@ bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const c
   return true;
 }
 
-static int mupnp_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void* user_data, const char* buffer, size_t size, int flags)
+static int mupnp_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void* userData, const char* buffer, size_t size, int flags)
 {
   int retval = 0;
   xmlParserCtxtPtr ctxt;
@@ -365,8 +365,8 @@ static int mupnp_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void* user_data, con
   oldsax = ctxt->sax;
   ctxt->sax = sax;
 
-  if (user_data != NULL)
-    ctxt->userData = user_data;
+  if (userData != NULL)
+    ctxt->userData = userData;
 
   xmlParseDocument(ctxt);
 

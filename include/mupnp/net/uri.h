@@ -126,7 +126,7 @@ bool mupnp_net_uri_isalphanumchar(char c);
 bool mupnp_net_uri_isescapedstring(char* buf, size_t bufSize);
 char* mupnp_net_uri_escapestring(char* buf, size_t bufSize, mUpnpString* retBuf);
 char* mupnp_net_uri_unescapestring(char* buf, size_t bufSize, mUpnpString* retBuf);
-bool mupnp_net_uri_isequivalent(const char* url, const char* relative_url);
+bool mupnp_net_uri_isequivalent(const char* url, const char* relativeUrl);
 
 mUpnpDictionary* mupnp_net_uri_getquerydictionary(mUpnpNetURI* uri);
 
