@@ -9,16 +9,16 @@
 /* Define to 1 if you have the <expat.h> header file. */
 #undef HAVE_EXPAT_H
 
-/* Define to 1 if you have the 'fopen' function. */
+/* Define to 1 if you have the `fopen' function. */
 #undef HAVE_FOPEN
 
-/* Define to 1 if you have the 'getifaddrs' function. */
+/* Define to 1 if you have the `getifaddrs' function. */
 #undef HAVE_GETIFADDRS
 
-/* Define to 1 if you have the 'gmtime_r' function. */
+/* Define to 1 if you have the `gmtime_r' function. */
 #undef HAVE_GMTIME_R
 
-/* Define to 1 if you have the 'iconv' function. */
+/* Define to 1 if you have the `iconv' function. */
 #undef HAVE_ICONV
 
 /* Define to 1 if you have the <iconv.h> header file. */
@@ -27,7 +27,7 @@
 /* Define to 1 if you have the <ifaddrs.h> header file. */
 #undef HAVE_IFADDRS_H
 
-/* Define to 1 if you have the 'inet_ntoa' function. */
+/* Define to 1 if you have the `inet_ntoa' function. */
 #undef HAVE_INET_NTOA
 
 /* Define to 1 if you have the <inttypes.h> header file. */
@@ -36,36 +36,36 @@
 /* IP_PKTINFO */
 #undef HAVE_IP_PKTINFO
 
-/* Define to 1 if you have the 'boost_unit_test_framework' library
+/* Define to 1 if you have the `boost_unit_test_framework' library
    (-lboost_unit_test_framework). */
 #undef HAVE_LIBBOOST_UNIT_TEST_FRAMEWORK
 
-/* Define to 1 if you have the 'boost_unit_test_framework-mt' library
+/* Define to 1 if you have the `boost_unit_test_framework-mt' library
    (-lboost_unit_test_framework-mt). */
 #undef HAVE_LIBBOOST_UNIT_TEST_FRAMEWORK_MT
 
-/* Define to 1 if you have the 'gcov' library (-lgcov). */
+/* Define to 1 if you have the `gcov' library (-lgcov). */
 #undef HAVE_LIBGCOV
 
-/* Define to 1 if you have the 'iconv' library (-liconv). */
+/* Define to 1 if you have the `iconv' library (-liconv). */
 #undef HAVE_LIBICONV
 
-/* Define to 1 if you have the 'pthread' library (-lpthread). */
+/* Define to 1 if you have the `pthread' library (-lpthread). */
 #undef HAVE_LIBPTHREAD
 
-/* Define to 1 if you have the 'uuid' library (-luuid). */
+/* Define to 1 if you have the `uuid' library (-luuid). */
 #undef HAVE_LIBUUID
 
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
 
-/* Define to 1 if you have the 'localtime_r' function. */
+/* Define to 1 if you have the `localtime_r' function. */
 #undef HAVE_LOCALTIME_R
 
 /* LONGLONG */
 #undef HAVE_LONGLONG
 
-/* Define to 1 if you have the 'memset' function. */
+/* Define to 1 if you have the `memset' function. */
 #undef HAVE_MEMSET
 
 /* Define to 1 if you have the <netdb.h> header file. */
@@ -77,19 +77,19 @@
 /* Define to 1 if you have the <pthread.h> header file. */
 #undef HAVE_PTHREAD_H
 
-/* Define to 1 if you have the 'realpath' function. */
+/* Define to 1 if you have the `realpath' function. */
 #undef HAVE_REALPATH
 
 /* SIOCGIFHWADDR */
 #undef HAVE_SIOCGIFHWADDR
 
-/* Define to 1 if you have the 'snprintf' function. */
+/* Define to 1 if you have the `snprintf' function. */
 #undef HAVE_SNPRINTF
 
 /* SOCKADDR_DL */
 #undef HAVE_SOCKADDR_DL
 
-/* Define to 1 if you have the 'socket' function. */
+/* Define to 1 if you have the `socket' function. */
 #undef HAVE_SOCKET
 
 /* SOCKLEN_T */
@@ -110,7 +110,7 @@
 /* Define to 1 if you have the <stdlib.h> header file. */
 #undef HAVE_STDLIB_H
 
-/* Define to 1 if you have the 'strdup' function. */
+/* Define to 1 if you have the `strdup' function. */
 #undef HAVE_STRDUP
 
 /* Define to 1 if you have the <strings.h> header file. */
@@ -137,13 +137,13 @@
 /* Define to 1 if you have the <sys/types.h> header file. */
 #undef HAVE_SYS_TYPES_H
 
-/* Define to 1 if you have the 'uname' function. */
+/* Define to 1 if you have the `uname' function. */
 #undef HAVE_UNAME
 
 /* Define to 1 if you have the <unistd.h> header file. */
 #undef HAVE_UNISTD_H
 
-/* Define to 1 if you have the 'uuid_unparse_lower' function. */
+/* Define to 1 if you have the `uuid_unparse_lower' function. */
 #undef HAVE_UUID_UNPARSE_LOWER
 
 /* Define to 1 if you have the <uuid/uuid.h> header file. */
@@ -179,21 +179,21 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
-/* Define to 1 if all of the C89 standard headers exist (not just the ones
+/* Define to 1 if all of the C90 standard headers exist (not just the ones
    required in a freestanding environment). This macro is provided for
    backward compatibility; new code need not use it. */
 #undef STDC_HEADERS
 
-/* Define to 1 if your <sys/time.h> declares 'struct tm'. */
+/* Define to 1 if your <sys/time.h> declares `struct tm'. */
 #undef TM_IN_SYS_TIME
 
 /* Version number of package */
 #undef VERSION
 
-/* Define to empty if 'const' does not conform to ANSI C. */
+/* Define to empty if `const' does not conform to ANSI C. */
 #undef const
 
-/* Define to '__inline__' or '__inline' if that's what the C compiler
+/* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
 #ifndef __cplusplus
 #undef inline
