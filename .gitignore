@@ -36,7 +36,7 @@ xcuserdata/
 *.class
 
 # Automake
-autom4te.cache/
+autom4te.cache/*
 config.*
 .deps/
 *.Po
