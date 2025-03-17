@@ -1062,7 +1062,6 @@ bool mupnp_socket_setreuseaddress(mUpnpSocket* sock, bool flag)
 bool mupnp_socket_setmulticastttl(mUpnpSocket* sock, int ttl)
 {
   int sockOptRet;
-  int ttl;
   unsigned int len = 0;
 
   mupnp_log_debug_l4("Entering...\n");
