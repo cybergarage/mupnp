@@ -23,9 +23,10 @@
 *.lib
 
 # Executables
-*.exe
-*.out
-*.app
+examples/clock/unix/upnpclock
+examples/upnpavdump/unix/upnpavdump
+examples/upnpdump/unix/upnpdump
+examples/upnpigddump/unix/upnpigddump
 
 # MacOSX
 .DS_Store
@@ -42,6 +43,13 @@ config.*
 *.Po
 .dirstamp
 Makefile
+mupnp.pc
+stamp-h2
+
+# Test
+test/unix/mupnptest
+test/unix/mupnptest.*
+test/unix/test-suite.log
 
 # Coverage
 *.gcno
