@@ -14,5 +14,5 @@ var http__persistent__connection_8c =
     [ "mupnp_http_persistentconnection_put", "http__persistent__connection_8c.html#a4d53863bab02219c7eb311b54e94d3af", null ],
     [ "mupnp_http_persistentconnection_unlock", "http__persistent__connection_8c.html#a37a818c6df5db5b8f5077ff418925247", null ],
     [ "cache", "http__persistent__connection_8c.html#ae8dc0ab85d43bb7670cc8794884df2d9", null ],
-    [ "persistent_connection_mutex", "http__persistent__connection_8c.html#ab5ca35d34f013e5e3bfb34f02ff8d920", null ]
+    [ "persistentConnectionMutex", "http__persistent__connection_8c.html#a1388ccdb3ff9b2874a516489de07b339", null ]
 ];

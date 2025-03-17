@@ -43,7 +43,7 @@ var hierarchy =
     [ "_mUpnpXmlAttribute", "struct__mUpnpXmlAttribute.html", null ],
     [ "_mUpnpXmlNode", "struct__mUpnpXmlNode.html", null ],
     [ "_mUpnpXmlParser", "struct__mUpnpXmlParser.html", null ],
-    [ "fd_list", "structfd__list.html", null ],
+    [ "FdList", "structFdList.html", null ],
     [ "NSObject", null, [
       [ "CGUpnpAction", "interfaceCGUpnpAction.html", null ],
       [ "CGUpnpControlPoint", "interfaceCGUpnpControlPoint.html", null ],

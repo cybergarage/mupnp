@@ -1,4 +1,4 @@
 var CGUpnpControlPoint_8m =
 [
-    [ "CGUpnpControlPointDeviceListener", "CGUpnpControlPoint_8m.html#a4c92ecdc59cec49ddff8ab6505a8855d", null ]
+    [ "cg_upnp_control_point_device_listener", "CGUpnpControlPoint_8m.html#a6446d74a6d583282254d4b1e8d94c374", null ]
 ];

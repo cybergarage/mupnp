@@ -27,8 +27,8 @@ var log_8h =
     [ "SEV_UNKNOWN_S", "log_8h.html#a1e684da2979e2c73564a41278f96a621", null ],
     [ "SEV_WARNING", "log_8h.html#a64b1d584b5e9e8bcccab22bcab06f4b9", null ],
     [ "SEV_WARNING_S", "log_8h.html#a064503558a3182afab32314167322937", null ],
-    [ "mupnp_log_add_target", "log_8h.html#a9c523e5cada6420d76a081fee164b600", null ],
+    [ "mupnp_log_add_target", "log_8h.html#a70e38982cdcd040ee2e921ebbe04510a", null ],
     [ "mupnp_log_clear_targets", "log_8h.html#a83f46c163fbb131b8efb84ad36de3d9a", null ],
-    [ "mupnp_log_print", "log_8h.html#ae363787cf4304a4a5f8edf30c8465c8e", null ],
+    [ "mupnp_log_print", "log_8h.html#a3b7cd2fe8361b8b08bf0c36449535741", null ],
     [ "mupnp_log_set_separator", "log_8h.html#aaa07698ddba414fc45cbe20d82c70d35", null ]
 ];

@@ -131,7 +131,7 @@ var NAVTREEINDEX =
 "socket_8c.html#a97112d13b8dedcb9161518f73e953c61",
 "ssdp__server_8h.html#a2104bbe28f15fc9a010fa17ee8307e45",
 "string_8h.html#ad5162deb82fd2543be45fc5b98113f36",
-"struct__mUpnpStateVariable.html#a259c4a00fa50d4215afe01078f998412",
+"struct__mUpnpSocket.html#a6a9263d4410f5b8d0464e6af167829c7",
 "upnp__status_8h.html#a2da1e76bdd2a026e51dd3ce7fe782351",
 "xml__attribute__list_8c.html#a98a375085892766dbf5158ffdbf35fe3"
 ];

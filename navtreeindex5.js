@@ -1,6 +1,7 @@
 var NAVTREEINDEX5 =
 {
 "http__persistent__connection_8c.html":[11,0,2,0,2,5],
+"http__persistent__connection_8c.html#a1388ccdb3ff9b2874a516489de07b339":[11,0,2,0,2,5,14],
 "http__persistent__connection_8c.html#a2a05a87a36389b986d9c1a6fbfea1810":[11,0,2,0,2,5,10],
 "http__persistent__connection_8c.html#a37a818c6df5db5b8f5077ff418925247":[11,0,2,0,2,5,12],
 "http__persistent__connection_8c.html#a4c10213625cd273b3086b46a1222b5dc":[11,0,2,0,2,5,7],
@@ -9,7 +10,6 @@ var NAVTREEINDEX5 =
 "http__persistent__connection_8c.html#a679a22050eec15ef2109d792892a9ff9":[11,0,2,0,2,5,1],
 "http__persistent__connection_8c.html#a98173804ab50cbcf787b8f962ac74601":[11,0,2,0,2,5,2],
 "http__persistent__connection_8c.html#aa9b77f3dbb13ec97b5793173e3f8792e":[11,0,2,0,2,5,6],
-"http__persistent__connection_8c.html#ab5ca35d34f013e5e3bfb34f02ff8d920":[11,0,2,0,2,5,14],
 "http__persistent__connection_8c.html#adf7ebbea913a3f264a3c85e964f0b2c8":[11,0,2,0,2,5,4],
 "http__persistent__connection_8c.html#ae2f1ce262abaa6ac0d53cc57f51a2793":[11,0,2,0,2,5,3],
 "http__persistent__connection_8c.html#ae8dc0ab85d43bb7670cc8794884df2d9":[11,0,2,0,2,5,13],
