@@ -174,8 +174,8 @@ void* mupnp_http_persistentconnection_get(char* host, int port)
 
   /* Get persistent node */
   for (node = (mUpnpHttpPersistentConnection*)mupnp_list_gets((mUpnpList*)cache);
-       node != NULL;
-       node = (mUpnpHttpPersistentConnection*)mupnp_list_next((mUpnpList*)node)) {
+      node != NULL;
+      node = (mUpnpHttpPersistentConnection*)mupnp_list_next((mUpnpList*)node)) {
     if (mupnp_strcmp(mupnp_string_getvalue(node->host), host) == 0 && node->port == port) {
       /* Node was required, remove and add again to refresh cache */
       mupnp_list_remove((mUpnpList*)node);
@@ -214,8 +214,8 @@ bool mupnp_http_persistentconnection_put(char* host, int port, void* data)
 
   /* Check if we already have this one cached */
   for (node = (mUpnpHttpPersistentConnection*)mupnp_list_gets((mUpnpList*)cache);
-       node != NULL;
-       node = (mUpnpHttpPersistentConnection*)mupnp_list_next((mUpnpList*)node)) {
+      node != NULL;
+      node = (mUpnpHttpPersistentConnection*)mupnp_list_next((mUpnpList*)node)) {
     if (mupnp_strcmp(mupnp_string_getvalue(node->host), host) == 0 && node->port == port) {
       /* If also data is the same, then update just
        timestamp */

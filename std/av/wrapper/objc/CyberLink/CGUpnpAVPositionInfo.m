@@ -60,9 +60,9 @@
 + (NSString*)stringWithDurationTime:(float)timeValue
 {
   return [NSString stringWithFormat:@"%02d:%02d:%02d",
-                   (int)(timeValue / 3600.0),
-                   (int)(fmod(timeValue, 3600.0) / 60.0),
-                   (int)fmod(timeValue, 60.0)];
+      (int)(timeValue / 3600.0),
+      (int)(fmod(timeValue, 3600.0) / 60.0),
+      (int)fmod(timeValue, 60.0)];
 }
 - (float)durationTime
 {

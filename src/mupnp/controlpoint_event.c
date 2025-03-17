@@ -50,7 +50,7 @@ mUpnpService* mupnp_device_getfirstexpiratedservice(mUpnpControlPoint* ctrlPoint
   currTime = mupnp_getcurrentsystemtime();
 
   for (srv = mupnp_device_getservices(dev); srv != NULL;
-       srv = mupnp_service_next(srv)) {
+      srv = mupnp_service_next(srv)) {
     if (mupnp_service_issubscribed(srv) == false)
       continue;
 
@@ -80,7 +80,7 @@ mUpnpService* mupnp_device_getfirstexpiratedservice(mUpnpControlPoint* ctrlPoint
   }
 
   for (childDev = mupnp_device_getdevices(dev); childDev != NULL;
-       childDev = mupnp_device_next(childDev)) {
+      childDev = mupnp_device_next(childDev)) {
     srv = mupnp_device_getfirstexpiratedservice(ctrlPoint,
         childDev,
         expirationTime);
@@ -122,8 +122,8 @@ void mupnp_controlpoint_expirationhandler(mUpnpThread* thread)
     mupnp_controlpoint_lock(ctrlPoint);
 
     for (dev = mupnp_controlpoint_getdevices(ctrlPoint);
-         dev != NULL;
-         dev = mupnp_device_next(dev)) {
+        dev != NULL;
+        dev = mupnp_device_next(dev)) {
       /* Check device expiration */
       mupnp_log_debug_s("Checking device expiration.\n");
       ssdpPkt = mupnp_device_getssdppacket(dev);
