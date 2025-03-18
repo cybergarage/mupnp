@@ -15,7 +15,7 @@
 @SET_MAKE@
 
 # aminclude_static.am generated automatically by Autoconf
-# from AX_AM_MACROS_STATIC on Mon Mar 17 22:19:44 JST 2025
+# from AX_AM_MACROS_STATIC on Wed Mar 19 02:00:48 JST 2025
 
 VPATH = @srcdir@
 am__is_gnu_make = { \
@@ -193,8 +193,7 @@ am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
 	$(srcdir)/mupnp.pc.in $(top_srcdir)/aminclude_static.am \
 	$(top_srcdir)/config/compile $(top_srcdir)/config/install-sh \
 	$(top_srcdir)/config/missing AUTHORS COPYING ChangeLog INSTALL \
-	NEWS README.md config/compile config/depcomp config/install-sh \
-	config/missing
+	NEWS README.md config/compile config/install-sh config/missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
