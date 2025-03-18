@@ -1,13 +1,13 @@
 /******************************************************************
- *
- * mUPnP for C
- *
- * Copyright (C) Satoshi Konno 2005
- * Copyright (C) 2006 Nokia Corporation. All rights reserved.
- *
- * This is licensed under BSD-style license, see file COPYING.
- *
- ******************************************************************/
+*
+* mUPnP for C
+*
+* Copyright (C) Satoshi Konno 2005
+* Copyright (C) 2006 Nokia Corporation. All rights reserved.
+*
+* This is licensed under BSD-style license, see file COPYING.
+*
+******************************************************************/
 
 #ifndef _MUPNP_UPNP_H_
 #define _MUPNP_UPNP_H_
@@ -15,17 +15,17 @@
 #include <mupnp/typedef.h>
 
 #include <mupnp/upnp_function.h>
-#include <mupnp/upnp_limit.h>
 #include <mupnp/upnp_status.h>
+#include <mupnp/upnp_limit.h>
 
-#include <mupnp/control/control.h>
-#include <mupnp/controlpoint.h>
 #include <mupnp/device.h>
+#include <mupnp/controlpoint.h>
+#include <mupnp/control/control.h>
 #include <mupnp/event/event.h>
 
 /****************************************
- * Define
- ****************************************/
+* Define
+****************************************/
 
 #define MUPNP_NAME "mUPnP"
 #define MUPNP_VER "3.0.2"
