@@ -18,7 +18,7 @@ jobs:
         sudo apt update
         sudo apt install -y libboost-all-dev autoconf
     - name: bootstrap
-      run: ./bootstrap && git commit -m "Update configure" && git push
+      run: ./bootstrap
     - name: configure
       run: ./configure --enable-test --enable-coverage --enable-examples
     - name: make
