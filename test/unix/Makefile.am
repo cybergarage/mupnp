@@ -19,6 +19,7 @@ mupnptest_SOURCES = \
 	../TestDevice.c \
 	../StringTest.cpp \
 	../StateVariableTest.cpp \
+	../TestMain.cpp \
 	../SubscriptionTest.cpp \
 	../URITest.cpp \
 	../XMLTest.cpp \
@@ -26,7 +27,6 @@ mupnptest_SOURCES = \
 	../UPnPFuncTest.cpp \
 	../HttpTest.cpp \
 	../ControlPointTest.cpp \
-	../mUpnpTestMain.cpp \
 	../DeviceTest.cpp \
 	../DictionaryTest.cpp \
 	../ServiceTest.cpp

@@ -109,11 +109,11 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__dirstamp = $(am__leading_dot)dirstamp
 am_mupnptest_OBJECTS = ../TestDevice.$(OBJEXT) ../StringTest.$(OBJEXT) \
-	../StateVariableTest.$(OBJEXT) ../SubscriptionTest.$(OBJEXT) \
-	../URITest.$(OBJEXT) ../XMLTest.$(OBJEXT) \
-	../NetworkTest.$(OBJEXT) ../UPnPFuncTest.$(OBJEXT) \
-	../HttpTest.$(OBJEXT) ../ControlPointTest.$(OBJEXT) \
-	../mUpnpTestMain.$(OBJEXT) ../DeviceTest.$(OBJEXT) \
+	../StateVariableTest.$(OBJEXT) ../TestMain.$(OBJEXT) \
+	../SubscriptionTest.$(OBJEXT) ../URITest.$(OBJEXT) \
+	../XMLTest.$(OBJEXT) ../NetworkTest.$(OBJEXT) \
+	../UPnPFuncTest.$(OBJEXT) ../HttpTest.$(OBJEXT) \
+	../ControlPointTest.$(OBJEXT) ../DeviceTest.$(OBJEXT) \
 	../DictionaryTest.$(OBJEXT) ../ServiceTest.$(OBJEXT)
 mupnptest_OBJECTS = $(am_mupnptest_OBJECTS)
 am__DEPENDENCIES_1 =
@@ -139,9 +139,9 @@ am__depfiles_remade = ../$(DEPDIR)/ControlPointTest.Po \
 	../$(DEPDIR)/HttpTest.Po ../$(DEPDIR)/NetworkTest.Po \
 	../$(DEPDIR)/ServiceTest.Po ../$(DEPDIR)/StateVariableTest.Po \
 	../$(DEPDIR)/StringTest.Po ../$(DEPDIR)/SubscriptionTest.Po \
-	../$(DEPDIR)/TestDevice.Po ../$(DEPDIR)/UPnPFuncTest.Po \
-	../$(DEPDIR)/URITest.Po ../$(DEPDIR)/XMLTest.Po \
-	../$(DEPDIR)/mUpnpTestMain.Po
+	../$(DEPDIR)/TestDevice.Po ../$(DEPDIR)/TestMain.Po \
+	../$(DEPDIR)/UPnPFuncTest.Po ../$(DEPDIR)/URITest.Po \
+	../$(DEPDIR)/XMLTest.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -520,6 +520,7 @@ mupnptest_SOURCES = \
 	../TestDevice.c \
 	../StringTest.cpp \
 	../StateVariableTest.cpp \
+	../TestMain.cpp \
 	../SubscriptionTest.cpp \
 	../URITest.cpp \
 	../XMLTest.cpp \
@@ -527,7 +528,6 @@ mupnptest_SOURCES = \
 	../UPnPFuncTest.cpp \
 	../HttpTest.cpp \
 	../ControlPointTest.cpp \
-	../mUpnpTestMain.cpp \
 	../DeviceTest.cpp \
 	../DictionaryTest.cpp \
 	../ServiceTest.cpp
@@ -584,6 +584,7 @@ clean-checkPROGRAMS:
 	../$(DEPDIR)/$(am__dirstamp)
 ../StateVariableTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
+../TestMain.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
 ../SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../URITest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
@@ -594,8 +595,6 @@ clean-checkPROGRAMS:
 	../$(DEPDIR)/$(am__dirstamp)
 ../HttpTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
 ../ControlPointTest.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../mUpnpTestMain.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../DeviceTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
@@ -625,10 +624,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/StringTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/SubscriptionTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/TestDevice.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/TestMain.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/UPnPFuncTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/URITest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/XMLTest.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/mUpnpTestMain.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -971,10 +970,10 @@ distclean: distclean-am
 	-rm -f ../$(DEPDIR)/StringTest.Po
 	-rm -f ../$(DEPDIR)/SubscriptionTest.Po
 	-rm -f ../$(DEPDIR)/TestDevice.Po
+	-rm -f ../$(DEPDIR)/TestMain.Po
 	-rm -f ../$(DEPDIR)/UPnPFuncTest.Po
 	-rm -f ../$(DEPDIR)/URITest.Po
 	-rm -f ../$(DEPDIR)/XMLTest.Po
-	-rm -f ../$(DEPDIR)/mUpnpTestMain.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -1030,10 +1029,10 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ../$(DEPDIR)/StringTest.Po
 	-rm -f ../$(DEPDIR)/SubscriptionTest.Po
 	-rm -f ../$(DEPDIR)/TestDevice.Po
+	-rm -f ../$(DEPDIR)/TestMain.Po
 	-rm -f ../$(DEPDIR)/UPnPFuncTest.Po
 	-rm -f ../$(DEPDIR)/URITest.Po
 	-rm -f ../$(DEPDIR)/XMLTest.Po
-	-rm -f ../$(DEPDIR)/mUpnpTestMain.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
