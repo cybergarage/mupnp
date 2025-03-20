@@ -163,9 +163,9 @@ The service descriptions are required to create a device, but the presentationUR
 
 ## Initiating
 
-To create a UPnP™ device, use mupnp_device_new() to create the instance, set the descriptions using mupnp_device_parsedescription() and mupnp_service_parsedescription() from the memory description strings.
+To create a UPnP™ device, use `mupnp_device_new()` to create the instance, set the descriptions using `mupnp_device_parsedescription()` and `mupnp_service_parsedescription()` from the memory description strings.
 
-The device is created as a root device, and only the root device can be active using mupnp_device_start(). The device is announced to the UPnP™ network when the device is started. To terminate the device, use
+The device is created as a root device, and only the root device can be active using `mupnp_device_start()`. The device is announced to the UPnP™ network when the device is started. To terminate the device, use
 
 mupnp_device_stop(). The following shows an example of the initiating device.
 
@@ -215,7 +215,7 @@ The root device is created with the following default parameters, you can change
 
 ## Notify
 
-Your device is announced using mupnp_device_start() to the UPnP™ network using a notify message with ssdp::alive automatically when the device is started. When device is stopped using mupnp_device_stop(), a notify message is posted with ssdp::byebye. You can announce the notify messages using mupnp_device_announce() and mupnp_device_byebye().
+Your device is announced using `mupnp_device_start()` to the UPnP™ network using a notify message with ssdp::alive automatically when the device is started. When device is stopped using `mupnp_device_stop()`, a notify message is posted with ssdp::byebye. You can announce the notify messages using mupnp_device_announce() and `mupnp_device_byebye()`.
 
 ![](img/mupnpc-device-notify.png)
 
@@ -223,7 +223,7 @@ When a control point sends a search request with M-SEARCH to the UPnP™ network
 
 ## Embedded Devices
 
-The devices may have some embedded devices. mupnp_device_getdevices() and mupnp_device_next() to get the embedded device list. The following example outputs friendly names of all embedded devices in a root device.
+The devices may have some embedded devices. `mupnp_device_getdevices()` and `mupnp_device_next()` to get the embedded device list. The following example outputs friendly names of all embedded devices in a root device.
 
 ```
 void PrintDevice(mUpnpDevice *dev) {
@@ -235,11 +235,12 @@ void PrintDevice(mUpnpDevice *dev) {
 ......
 mUpnpDevice *rootDev = ......;
 ......
+mUpnpDevice *childDev; 
+for (childDev = mupnp_device_getdevices(rootDev), childDev != NULL; childDev = mupnp_device_next(childDev))
+  PrintDevice(childDev);
 ```
 
-mUpnpDevice *childDev; for (childDev = mupnp_device_getdevices(rootDev), childDev != NULL; childDev = mupnp_device_next(childDev)) PrintDevice(childDev);
-
-You can find a embedded device by the friendly name or UDN using mupnp_device_getdevicebyname(). The following example gets a embedded device by the friendly name.
+You can find a embedded device by the friendly name or UDN using `mupnp_device_getdevicebyname()`. The following example gets a embedded device by the friendly name.
 
 ```
 mUpnpDevice *homeServerDev = ......
@@ -248,7 +249,7 @@ mUpnpDevice *musicDev = mupnp_device_getdevicebyname("music");
 
 ## Service
 
-Use mupnp_device_getservices() to access embedded services of the device. The service may have some actions and state variables. Use mupnp_service_getactions() and mupnp_action_next() to get the actions, and use mupnp_service_getstatevariables() and mupnp_statevariable_next() to the state variables. The following example outputs the all actions and state variables in a device.
+Use `mupnp_device_getservices()` to access embedded services of the device. The service may have some actions and state variables. Use `mupnp_service_getactions()` and `mupnp_action_next()` to get the actions, and use `mupnp_service_getstatevariables()` and `mupnp_statevariable_next()` to the state variables. The following example outputs the all actions and state variables in a device.
 
 ```
 mUpnpDevice *dev = ......
@@ -265,11 +266,7 @@ for (service = mupnp_device_getservices(dev); service != NULL; service = mupnp_s
 }
 ```
 
-You can find a service in the device by the service ID using mupnp_device_getservicebyname(), and you can find an action or state variable in the service by the name too. mupnp_device_getactionbyname() or
-
-mupnp_service_getactionbyname() to find the action, and use mupnp_device_getstatevariablebyname() or mupnp_service_getstatevariablebyname () to find the state variable by the name. The following example gets
-
-a service, an action and a state variable in a device by the name.
+You can find a service in the device by the service ID using `mupnp_device_getservicebyname()`, and you can find an action or state variable in the service by the name too. `mupnp_device_getactionbyname()` or `mupnp_service_getactionbyname()` to find the action, and use `mupnp_device_getstatevariablebyname()` or `mupnp_service_getstatevariablebyname()` to find the state variable by the name. The following example gets a service, an action and a state variable in a device by the name.
 
 ```
 mUpnpDevice *clockDev = ......
@@ -280,9 +277,9 @@ mUpnpStateVariable *timeStat = mupnp_device_getstatevariable(clockDev, "time");
 
 ## Control
 
-To receive action control events from control points, the device needs to implement the listener function. The listener must have an action, mUpnpAction, parameter. The input arguments has the passed values from the control point, set the response values in the output arguments and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use mupnp_action_setstatuscode() to return other UPnP errors.
+To receive action control events from control points, the device needs to implement the listener function. The listener must have an action, mUpnpAction, parameter. The input arguments has the passed values from the control point, set the response values in the output arguments and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use `mupnp_action_setstatuscode()` to return other UPnP errors.
 
-To receive query control events from control points, the device needs to implement the listener function. The listener must have a statevariable, mUpnpStateVariable, parameter, and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use mupnp_statevariable_setstatuscode() to return other UPnP errors.
+To receive query control events from control points, the device needs to implement the listener function. The listener must have a statevariable, mUpnpStateVariable, parameter, and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use `mupnp_statevariable_setstatuscode()` to return other UPnP errors.
 
 The following sample is a clock device. The device executes two action control requests and a query control request.
 
@@ -319,9 +316,9 @@ BOOL UpnpClockQueryControlReceived(mUpnpStatusVariable *stateVar) {
 }
 ```
 
-Use mupnp_action_setlistner() to set the action listener to a action. To set the listener to all actions in a device or service, use mupnp_device_setactionlistener() or mupnp_service_setactionlistener().
+Use `mupnp_action_setlistner()` to set the action listener to a action. To set the listener to all actions in a device or service, use `mupnp_device_setactionlistener()` or `mupnp_service_setactionlistener()`.
 
-Similarly, Use mupnp_statevariable_setlistner() to set the query listener to a state variable. To set the listener to all state variables in a device or a service, use mupnp_device_setquerylistener() or mupnp_service_setquerylistener(). The following sample sets a listener into all actions in a device.
+Similarly, Use `mupnp_statevariable_setlistner()` to set the query listener to a state variable. To set the listener to all state variables in a device or a service, use `mupnp_device_setquerylistener()` or mupnp_service_setquerylistener(). The following sample sets a listener into all actions in a device.
 
 ```
 mUpnpDevice *clockDev = mupnp_device_new();
@@ -334,7 +331,7 @@ mupnp_clock_device_setquerylistner(clockDev, UpnpClockQueryControlReceived);
 
 The control point may subscribe some events of the device. You don't need manage the subscription messages from control points because the device manages the subscription messages automatically. For example, the device adds a control point into the subscriber list when the control point sends a subscription message to the device, or the device removes the control point from the subscriber list when the control point sends a unsubscription message.
 
-Use mupnp_statevariable_setvalue() when you want to send the state to the subscribers. The event is sent to the subscribers automatically when the state variable is updated using mupnp_statevariable_setvalue(). The following example updates a state variable, and the updated state is distributed to the subscribers automatically.
+Use `mupnp_statevariable_setvalue()` when you want to send the state to the subscribers. The event is sent to the subscribers automatically when the state variable is updated using `mupnp_statevariable_setvalue()`. The following example updates a state variable, and the updated state is distributed to the subscribers automatically.
 
 ```
 mUpnpDevice *clockDevice = ......
@@ -384,7 +381,7 @@ The following static structure diagram is related classes of mUPnP to create you
 
 ## Initiating
 
-To create a UPnP™ control point, create a instance of ControlPoint class. Use mupnp_controlpoint_start() to active the control point. The control point multicasts a discovery message searching for all devices to the UPnP™ network automatically when the control point is active.
+To create a UPnP™ control point, create a instance of ControlPoint class. Use `mupnp_controlpoint_start()` to active the control point. The control point multicasts a discovery message searching for all devices to the UPnP™ network automatically when the control point is active.
 
 ```
 #include <mupnp/upnp.h>
@@ -407,9 +404,7 @@ The control point is created with the following default parameters. You can chan
 
 ## Notify
 
-The control point receives notify events from devices in the UPnP™ network, and the devices are added or removed form the control point automatically. The expired device is removed from the device list of the control point automatically too. You don't manage the notify events, but you can receive the event to set the listener
-
-function using mupnp_controlpoint_setssdplistener(). The following sample receives the notify messages.
+The control point receives notify events from devices in the UPnP™ network, and the devices are added or removed form the control point automatically. The expired device is removed from the device list of the control point automatically too. You don't manage the notify events, but you can receive the event to set the listener function using `mupnp_controlpoint_setssdplistener()`. The following sample receives the notify messages.
 
 ```
 void DeviceNotifyReceived(mUpnpSSDPPacket *ssdpPkt) {
@@ -425,9 +420,7 @@ mupnp_controlpoint_start(ctrlPoint);
 
 ## Search
 
-You can update the device lists using mupnp_controlpoint_search(). The discovered root devices are added to the control point automatically, and you can receive the response to set the listener function using
-
-mupnp_controlpoint_setssdpresponselistener(). The following sample receives the notify messages.
+You can update the device lists using `mupnp_controlpoint_search()`. The discovered root devices are added to the control point automatically, and you can receive the response to set the listener function using `mupnp_controlpoint_setssdpresponselistener()`. The following sample receives the notify messages.
 
 ```
 void DeviceSearchResponseReceived(mUpnpSSDPPacket *ssdpPkt) {
@@ -446,7 +439,7 @@ mupnp_controlpoint_search(ctrlPoint);
 
 ## Root Devices
 
-Use mupnp_controlpoint_getdevices() that returns only root devices to get the discovered device list. The following example outputs friendly names of the root devices.
+Use `mupnp_controlpoint_getdevices()` that returns only root devices to get the discovered device list. The following example outputs friendly names of the root devices.
 
 ```
 mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();
@@ -460,7 +453,7 @@ for (dev = mupnp_controlpoint_getdevices(rootDev), childDev != NULL; childDev = 
 }
 ```
 
-You can find a root device by the friendly name using mupnp_controlpoint_getdevicebyname(). The following example gets a root device by the friendly name.
+You can find a root device by the friendly name using `mupnp_controlpoint_getdevicebyname()`. The following example gets a root device by the friendly name.
 
 ```
 mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();
@@ -472,7 +465,7 @@ mUpnpDevice *dev = mupnp_controlpoint_getdevicebyname(ctrlPoint, "xxxx-xxxx-xxxx
 
 ## Control
 
-The control point can send action or query control messages to the discovered devices. To send the action control message, use mupnp_argument_setvalue() and mupnp_action_post(). You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.
+The control point can send action or query control messages to the discovered devices. To send the action control message, use `mupnp_argument_setvalue()` and `mupnp_action_post()`. You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.
 
 ```
 mUpnpDevice *clockDev = ......
@@ -492,12 +485,12 @@ if (mupnp_action_post(setTimeAct) == TRUE) {
 }
 ```
 
-Similarly, to send the query control message, use mupnp_statevariable_post(). The following sample posts a query control request, and output the return value.
+Similarly, to send the query control message, use `mupnp_statevariable_post()`. The following sample posts a query control request, and output the return value.
 
 ```
 mUpnpDevice *clockDev = ....
 .....
-mUpnpStateVariable *timeStateVar = c mupnp_device_getstatevariablebyname("time");
+mUpnpStateVariable *timeStateVar = mupnp_device_getstatevariablebyname("time");
 if (mupnp_statevariable_post(timeStateVar) == TRUE) {
   char *value = mupnp_statevariable_getvalue();
   .....
@@ -510,7 +503,7 @@ if (mupnp_statevariable_post(timeStateVar) == TRUE) {
 
 ## Event
 
-The control point can subscribe events of the discovered devices. To get the state changes of the services, Use mupnp_controlpoint_subscribe() to subscribe the service events, and set the event listener function using mupnp_controlpoint_seteventlistener(). The
+The control point can subscribe events of the discovered devices. To get the state changes of the services, Use `mupnp_controlpoint_subscribe()` to subscribe the service events, and set the event listener function using `mupnp_controlpoint_seteventlistener()`. The following sample sets the event listener function to the control point.
 
 ```
 void EventListener(mUpnpProperty *prop) {
@@ -524,7 +517,7 @@ mupnp_controlpoint_seteventlistener(ctrlPoint, EventListener);
 mupnp_controlpoint_start(ctrlPoint);
 ```
 
-The mupnp_controlpoint_subscribe() returns true when the subscription is accepted from the service, and you can get the subscription id and timeout.
+The `mupnp_controlpoint_subscribe()` returns true when the subscription is accepted from the service, and you can get the subscription id and timeout.
 
 ```
 mUpnpControlPoint *ctrlPoint = .....;
