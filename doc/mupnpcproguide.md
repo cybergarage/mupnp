@@ -35,7 +35,7 @@ The mUPnP package has the header files, the source files, the project files to b
 |                | WindowsXP (Visual C / Studio)     | mupnp/*/win32/      |
 |                | WindowsCE (Visual C / Studio)     | mupnp/*/wince/      |
 |                | T-Engine (GNU)                    | mupnp/*/tengine/    |
-|                | MacOSX (XCode)                    | mupnp/*/macosx      |
+|                | MacOSX (Project Builder / XCode)  | mupnp/*/macosx      |
 
 ## 2.2 System Requirements
 
