@@ -229,8 +229,8 @@ Description</h2>
 <p>The service descriptions are required to create a device, but the presentationURL and the iconList are recommended option. Please see UPnP™ specifications about the description format in more detail.</p>
 <h2><a class="anchor" id="autotoc_md15"></a>
 Initiating</h2>
-<p>To create a UPnP™ device, use <a class="el" href="device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new()</a> to create the instance, set the descriptions using <a class="el" href="device_8c.html#a1cfd480edf457d8b980743f1110887d4">mupnp_device_parsedescription()</a> and <a class="el" href="service_8c.html#ac2fcc1c19ac553adcf4c05ed0df8d0da">mupnp_service_parsedescription()</a> from the memory description strings.</p>
-<p>The device is created as a root device, and only the root device can be active using <a class="el" href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start()</a>. The device is announced to the UPnP™ network when the device is started. To terminate the device, use</p>
+<p>To create a UPnP™ device, use <code><a class="el" href="device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new()</a></code> to create the instance, set the descriptions using <code><a class="el" href="device_8c.html#a1cfd480edf457d8b980743f1110887d4">mupnp_device_parsedescription()</a></code> and <code><a class="el" href="service_8c.html#ac2fcc1c19ac553adcf4c05ed0df8d0da">mupnp_service_parsedescription()</a></code> from the memory description strings.</p>
+<p>The device is created as a root device, and only the root device can be active using <code><a class="el" href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start()</a></code>. The device is announced to the UPnP™ network when the device is started. To terminate the device, use</p>
 <p><a class="el" href="device_8c.html#aa29f22524439920db536643028a799cb">mupnp_device_stop()</a>. The following shows an example of the initiating device.</p>
 <div class="fragment"><div class="line">#include &lt;mupnp/upnp.h&gt;</div>
 <div class="line"> </div>
@@ -277,14 +277,14 @@ Initiating</h2>
 </table>
 <h2><a class="anchor" id="autotoc_md16"></a>
 Notify</h2>
-<p>Your device is announced using <a class="el" href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start()</a> to the UPnP™ network using a notify message with ssdp::alive automatically when the device is started. When device is stopped using <a class="el" href="device_8c.html#aa29f22524439920db536643028a799cb">mupnp_device_stop()</a>, a notify message is posted with ssdp::byebye. You can announce the notify messages using <a class="el" href="device_8c.html#a4316f550a580e431ca1ba0a423f59f86">mupnp_device_announce()</a> and <a class="el" href="device_8c.html#a14e96e0c1442ada75bd8adf804594bbd">mupnp_device_byebye()</a>.</p>
+<p>Your device is announced using <code><a class="el" href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start()</a></code> to the UPnP™ network using a notify message with ssdp::alive automatically when the device is started. When device is stopped using <code><a class="el" href="device_8c.html#aa29f22524439920db536643028a799cb">mupnp_device_stop()</a></code>, a notify message is posted with ssdp::byebye. You can announce the notify messages using <a class="el" href="device_8c.html#a4316f550a580e431ca1ba0a423f59f86">mupnp_device_announce()</a> and <code><a class="el" href="device_8c.html#a14e96e0c1442ada75bd8adf804594bbd">mupnp_device_byebye()</a></code>.</p>
 <div class="image">
 <img src="mupnpc-device-notify.png" alt=""/>
 </div>
     <p>When a control point sends a search request with M-SEARCH to the UPnP™ network, the active device send the search response to the control point automatically. The device repeats the announcement in the lease time automatically.</p>
 <h2><a class="anchor" id="autotoc_md17"></a>
 Embedded Devices</h2>
-<p>The devices may have some embedded devices. <a class="el" href="device_8h.html#a408eb3f9a280092f98416b98c7bb2829">mupnp_device_getdevices()</a> and <a class="el" href="device_8h.html#a693f9e206393d8e368fc53352819d239">mupnp_device_next()</a> to get the embedded device list. The following example outputs friendly names of all embedded devices in a root device.</p>
+<p>The devices may have some embedded devices. <code><a class="el" href="device_8h.html#a408eb3f9a280092f98416b98c7bb2829">mupnp_device_getdevices()</a></code> and <code><a class="el" href="device_8h.html#a693f9e206393d8e368fc53352819d239">mupnp_device_next()</a></code> to get the embedded device list. The following example outputs friendly names of all embedded devices in a root device.</p>
 <div class="fragment"><div class="line">void PrintDevice(mUpnpDevice *dev) {</div>
 <div class="line">  char *devName = mupnp_device_getfriendlyname(dev); printf(&quot;%s\n&quot;, devName);</div>
 <div class="line">  mUpnpDevice *childDevList; </div>
@@ -294,13 +294,15 @@ Embedded Devices</h2>
 <div class="line">......</div>
 <div class="line">mUpnpDevice *rootDev = ......;</div>
 <div class="line">......</div>
-</div><!-- fragment --><p>mUpnpDevice *childDev; for (childDev = <a class="el" href="device_8h.html#a408eb3f9a280092f98416b98c7bb2829">mupnp_device_getdevices(rootDev)</a>, childDev != NULL; childDev = <a class="el" href="device_8h.html#a693f9e206393d8e368fc53352819d239">mupnp_device_next(childDev)</a>) PrintDevice(childDev);</p>
-<p>You can find a embedded device by the friendly name or UDN using mupnp_device_getdevicebyname(). The following example gets a embedded device by the friendly name.</p>
+<div class="line">mUpnpDevice *childDev; </div>
+<div class="line">for (childDev = mupnp_device_getdevices(rootDev), childDev != NULL; childDev = mupnp_device_next(childDev))</div>
+<div class="line">  PrintDevice(childDev);</div>
+</div><!-- fragment --><p>You can find a embedded device by the friendly name or UDN using <code>mupnp_device_getdevicebyname()</code>. The following example gets a embedded device by the friendly name.</p>
 <div class="fragment"><div class="line">mUpnpDevice *homeServerDev = ......</div>
 <div class="line">mUpnpDevice *musicDev = mupnp_device_getdevicebyname(&quot;music&quot;);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md18"></a>
 Service</h2>
-<p>Use <a class="el" href="device_8h.html#a46651a50c89195442a957cd458d7e314">mupnp_device_getservices()</a> to access embedded services of the device. The service may have some actions and state variables. Use <a class="el" href="service_8c.html#a109de352eec828543fd4c8ff2967f573">mupnp_service_getactions()</a> and <a class="el" href="action_8h.html#a48118ff0c9bbe15aae78135fff953f1f">mupnp_action_next()</a> to get the actions, and use <a class="el" href="service_8c.html#a4c968814ce3f9a52e9a01789b3abdf24">mupnp_service_getstatevariables()</a> and <a class="el" href="statevariable_8h.html#a637bbdab5b4be633cb88dd53dafaa2de">mupnp_statevariable_next()</a> to the state variables. The following example outputs the all actions and state variables in a device.</p>
+<p>Use <code><a class="el" href="device_8h.html#a46651a50c89195442a957cd458d7e314">mupnp_device_getservices()</a></code> to access embedded services of the device. The service may have some actions and state variables. Use <code><a class="el" href="service_8c.html#a109de352eec828543fd4c8ff2967f573">mupnp_service_getactions()</a></code> and <code><a class="el" href="action_8h.html#a48118ff0c9bbe15aae78135fff953f1f">mupnp_action_next()</a></code> to get the actions, and use <code><a class="el" href="service_8c.html#a4c968814ce3f9a52e9a01789b3abdf24">mupnp_service_getstatevariables()</a></code> and <code><a class="el" href="statevariable_8h.html#a637bbdab5b4be633cb88dd53dafaa2de">mupnp_statevariable_next()</a></code> to the state variables. The following example outputs the all actions and state variables in a device.</p>
 <div class="fragment"><div class="line">mUpnpDevice *dev = ......</div>
 <div class="line">mUpnpService *service;</div>
 <div class="line">mUpnpAction *action;</div>
@@ -313,17 +315,15 @@ Service</h2>
 <div class="line">    }</div>
 <div class="line">  }</div>
 <div class="line">}</div>
-</div><!-- fragment --><p>You can find a service in the device by the service ID using mupnp_device_getservicebyname(), and you can find an action or state variable in the service by the name too. <a class="el" href="device_8c.html#a5d4ff735979dec9760fa06596fb96a51">mupnp_device_getactionbyname()</a> or</p>
-<p><a class="el" href="service_8c.html#a2aa9af9ec1e07dda0a7f45fb9d16fa56">mupnp_service_getactionbyname()</a> to find the action, and use <a class="el" href="device_8c.html#a35f04dedec63c6a6d7f7988a631c7ae2">mupnp_device_getstatevariablebyname()</a> or mupnp_service_getstatevariablebyname () to find the state variable by the name. The following example gets</p>
-<p>a service, an action and a state variable in a device by the name.</p>
+</div><!-- fragment --><p>You can find a service in the device by the service ID using <code>mupnp_device_getservicebyname()</code>, and you can find an action or state variable in the service by the name too. <code><a class="el" href="device_8c.html#a5d4ff735979dec9760fa06596fb96a51">mupnp_device_getactionbyname()</a></code> or <code><a class="el" href="service_8c.html#a2aa9af9ec1e07dda0a7f45fb9d16fa56">mupnp_service_getactionbyname()</a></code> to find the action, and use <code><a class="el" href="device_8c.html#a35f04dedec63c6a6d7f7988a631c7ae2">mupnp_device_getstatevariablebyname()</a></code> or <code><a class="el" href="service_8c.html#a728b71049400b7a1bf1aad00f6f93003">mupnp_service_getstatevariablebyname()</a></code> to find the state variable by the name. The following example gets a service, an action and a state variable in a device by the name.</p>
 <div class="fragment"><div class="line">mUpnpDevice *clockDev = ......</div>
 <div class="line">mUpnpService *timerSev = mupnp_device_getservicebyname(clockDev, &quot;timer&quot;);</div>
 <div class="line">mUpnpAction *getTimeAct = mupnp_device_getaction(clockDev, &quot;GetTime&quot;);</div>
 <div class="line">mUpnpStateVariable *timeStat = mupnp_device_getstatevariable(clockDev, &quot;time&quot;);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
 Control</h2>
-<p>To receive action control events from control points, the device needs to implement the listener function. The listener must have an action, mUpnpAction, parameter. The input arguments has the passed values from the control point, set the response values in the output arguments and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use <a class="el" href="action_8h.html#a416a74bc3f51a4a09a3e1804fc2fa25f">mupnp_action_setstatuscode()</a> to return other UPnP errors.</p>
-<p>To receive query control events from control points, the device needs to implement the listener function. The listener must have a statevariable, mUpnpStateVariable, parameter, and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use <a class="el" href="statevariable_8h.html#a3973076d6a08aee5681e98f2619232cb">mupnp_statevariable_setstatuscode()</a> to return other UPnP errors.</p>
+<p>To receive action control events from control points, the device needs to implement the listener function. The listener must have an action, mUpnpAction, parameter. The input arguments has the passed values from the control point, set the response values in the output arguments and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use <code><a class="el" href="action_8h.html#a416a74bc3f51a4a09a3e1804fc2fa25f">mupnp_action_setstatuscode()</a></code> to return other UPnP errors.</p>
+<p>To receive query control events from control points, the device needs to implement the listener function. The listener must have a statevariable, mUpnpStateVariable, parameter, and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use <code><a class="el" href="statevariable_8h.html#a3973076d6a08aee5681e98f2619232cb">mupnp_statevariable_setstatuscode()</a></code> to return other UPnP errors.</p>
 <p>The following sample is a clock device. The device executes two action control requests and a query control request.</p>
 <div class="fragment"><div class="line">BOOL UpnpClockActionControlRecieved(mUpnpAction *action) {</div>
 <div class="line">  char *actionName = mupnp_action_getname(action);</div>
@@ -355,8 +355,8 @@ Control</h2>
 <div class="line">  }</div>
 <div class="line">  return FALSE;</div>
 <div class="line">}</div>
-</div><!-- fragment --><p>Use <a class="el" href="action_8h.html#a6404a91b3a48c41334c7f4ee471d8311">mupnp_action_setlistner()</a> to set the action listener to a action. To set the listener to all actions in a device or service, use <a class="el" href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener()</a> or <a class="el" href="service_8c.html#a0582be5c379a70ed5d0a925b8e3ea4c6">mupnp_service_setactionlistener()</a>.</p>
-<p>Similarly, Use mupnp_statevariable_setlistner() to set the query listener to a state variable. To set the listener to all state variables in a device or a service, use <a class="el" href="device_8c.html#abbaa80309b6fd82938cf17173c3ea9a9">mupnp_device_setquerylistener()</a> or <a class="el" href="service_8c.html#ad645add71b5f42ba6e263e7721b41747">mupnp_service_setquerylistener()</a>. The following sample sets a listener into all actions in a device.</p>
+</div><!-- fragment --><p>Use <code><a class="el" href="action_8h.html#a6404a91b3a48c41334c7f4ee471d8311">mupnp_action_setlistner()</a></code> to set the action listener to a action. To set the listener to all actions in a device or service, use <code><a class="el" href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener()</a></code> or <code><a class="el" href="service_8c.html#a0582be5c379a70ed5d0a925b8e3ea4c6">mupnp_service_setactionlistener()</a></code>.</p>
+<p>Similarly, Use <code>mupnp_statevariable_setlistner()</code> to set the query listener to a state variable. To set the listener to all state variables in a device or a service, use <code><a class="el" href="device_8c.html#abbaa80309b6fd82938cf17173c3ea9a9">mupnp_device_setquerylistener()</a></code> or <a class="el" href="service_8c.html#ad645add71b5f42ba6e263e7721b41747">mupnp_service_setquerylistener()</a>. The following sample sets a listener into all actions in a device.</p>
 <div class="fragment"><div class="line">mUpnpDevice *clockDev = mupnp_device_new();</div>
 <div class="line">.......</div>
 <div class="line">mupnp_clock_device_setactionlistner(clockDev, UpnpClockActionControlRecieved);</div>
@@ -364,7 +364,7 @@ Control</h2>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md20"></a>
 Event</h2>
 <p>The control point may subscribe some events of the device. You don't need manage the subscription messages from control points because the device manages the subscription messages automatically. For example, the device adds a control point into the subscriber list when the control point sends a subscription message to the device, or the device removes the control point from the subscriber list when the control point sends a unsubscription message.</p>
-<p>Use <a class="el" href="statevariable_8c.html#a58c9be9b989de99732fdde7835e06bff">mupnp_statevariable_setvalue()</a> when you want to send the state to the subscribers. The event is sent to the subscribers automatically when the state variable is updated using <a class="el" href="statevariable_8c.html#a58c9be9b989de99732fdde7835e06bff">mupnp_statevariable_setvalue()</a>. The following example updates a state variable, and the updated state is distributed to the subscribers automatically.</p>
+<p>Use <code><a class="el" href="statevariable_8c.html#a58c9be9b989de99732fdde7835e06bff">mupnp_statevariable_setvalue()</a></code> when you want to send the state to the subscribers. The event is sent to the subscribers automatically when the state variable is updated using <code><a class="el" href="statevariable_8c.html#a58c9be9b989de99732fdde7835e06bff">mupnp_statevariable_setvalue()</a></code>. The following example updates a state variable, and the updated state is distributed to the subscribers automatically.</p>
 <div class="fragment"><div class="line">mUpnpDevice *clockDevice = ......</div>
 <div class="line">mUpnpStateVariable *timeVar = mupnp_device_getstatevariable (clockDev, &quot;Time&quot;); </div>
 <div class="line">char *timeStr = .....</div>
@@ -408,7 +408,7 @@ Class Overview</h2>
 </div>
     <h2><a class="anchor" id="autotoc_md24"></a>
 Initiating</h2>
-<p>To create a UPnP™ control point, create a instance of ControlPoint class. Use <a class="el" href="controlpoint_8c.html#a528c2288f76436f5d1ba619b45b2d357">mupnp_controlpoint_start()</a> to active the control point. The control point multicasts a discovery message searching for all devices to the UPnP™ network automatically when the control point is active.</p>
+<p>To create a UPnP™ control point, create a instance of ControlPoint class. Use <code><a class="el" href="controlpoint_8c.html#a528c2288f76436f5d1ba619b45b2d357">mupnp_controlpoint_start()</a></code> to active the control point. The control point multicasts a discovery message searching for all devices to the UPnP™ network automatically when the control point is active.</p>
 <div class="fragment"><div class="line">#include &lt;mupnp/upnp.h&gt;</div>
 <div class="line">......</div>
 <div class="line">mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();</div>
@@ -430,8 +430,7 @@ Initiating</h2>
 </table>
 <h2><a class="anchor" id="autotoc_md25"></a>
 Notify</h2>
-<p>The control point receives notify events from devices in the UPnP™ network, and the devices are added or removed form the control point automatically. The expired device is removed from the device list of the control point automatically too. You don't manage the notify events, but you can receive the event to set the listener</p>
-<p>function using <a class="el" href="controlpoint_8h.html#a9d46f5299e980f4d261925930e70f15b">mupnp_controlpoint_setssdplistener()</a>. The following sample receives the notify messages.</p>
+<p>The control point receives notify events from devices in the UPnP™ network, and the devices are added or removed form the control point automatically. The expired device is removed from the device list of the control point automatically too. You don't manage the notify events, but you can receive the event to set the listener function using <code><a class="el" href="controlpoint_8h.html#a9d46f5299e980f4d261925930e70f15b">mupnp_controlpoint_setssdplistener()</a></code>. The following sample receives the notify messages.</p>
 <div class="fragment"><div class="line">void DeviceNotifyReceived(mUpnpSSDPPacket *ssdpPkt) {</div>
 <div class="line">  char *uuid = mupnp_ssdp_packet_getusn(ssdpPkt); char *target = mupnp_ssdp_packet_getnt(ssdpPkt);</div>
 <div class="line">  char *subType = mupnp_ssdp_packet_getnts(ssdpPkt); char *where = mupnp_ssdp_packet_getlocation(ssdpPkt);</div>
@@ -443,8 +442,7 @@ Notify</h2>
 <div class="line">mupnp_controlpoint_start(ctrlPoint);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md26"></a>
 Search</h2>
-<p>You can update the device lists using <a class="el" href="controlpoint_8c.html#a3d38299a5e04b7c42a4715d58cd13677">mupnp_controlpoint_search()</a>. The discovered root devices are added to the control point automatically, and you can receive the response to set the listener function using</p>
-<p><a class="el" href="controlpoint_8h.html#ab8132599b1db5b9f359df5609d31b3e8">mupnp_controlpoint_setssdpresponselistener()</a>. The following sample receives the notify messages.</p>
+<p>You can update the device lists using <code><a class="el" href="controlpoint_8c.html#a3d38299a5e04b7c42a4715d58cd13677">mupnp_controlpoint_search()</a></code>. The discovered root devices are added to the control point automatically, and you can receive the response to set the listener function using <code><a class="el" href="controlpoint_8h.html#ab8132599b1db5b9f359df5609d31b3e8">mupnp_controlpoint_setssdpresponselistener()</a></code>. The following sample receives the notify messages.</p>
 <div class="fragment"><div class="line">void DeviceSearchResponseReceived(mUpnpSSDPPacket *ssdpPkt) {</div>
 <div class="line">  char *uuid = mupnp_ssdp_packet_getusn(ssdpPkt);</div>
 <div class="line">  char *target = mupnp_ssdp_packet_getnt(ssdpPkt);</div>
@@ -459,7 +457,7 @@ Search</h2>
 <div class="line">mupnp_controlpoint_search(ctrlPoint);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md27"></a>
 Root Devices</h2>
-<p>Use <a class="el" href="controlpoint_8h.html#ae9d9c4325cce96083ce356da0c7cd9ff">mupnp_controlpoint_getdevices()</a> that returns only root devices to get the discovered device list. The following example outputs friendly names of the root devices.</p>
+<p>Use <code><a class="el" href="controlpoint_8h.html#ae9d9c4325cce96083ce356da0c7cd9ff">mupnp_controlpoint_getdevices()</a></code> that returns only root devices to get the discovered device list. The following example outputs friendly names of the root devices.</p>
 <div class="fragment"><div class="line">mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();</div>
 <div class="line">......</div>
 <div class="line">mupnp_controlpoint_start(ctrlPoint);</div>
@@ -469,7 +467,7 @@ Root Devices</h2>
 <div class="line">  char  *devName = mupnp_device_getgriendlyname(dev);</div>
 <div class="line">  printf(&quot;%s\n&quot;, devName);</div>
 <div class="line">}</div>
-</div><!-- fragment --><p>You can find a root device by the friendly name using mupnp_controlpoint_getdevicebyname(). The following example gets a root device by the friendly name.</p>
+</div><!-- fragment --><p>You can find a root device by the friendly name using <code>mupnp_controlpoint_getdevicebyname()</code>. The following example gets a root device by the friendly name.</p>
 <div class="fragment"><div class="line">mUpnpControlPoint *ctrlPoint = mupnp_controlpoint_new();</div>
 <div class="line">......</div>
 <div class="line">mupnp_controlpoint_start(ctrlPoint);</div>
@@ -477,7 +475,7 @@ Root Devices</h2>
 <div class="line">mUpnpDevice *dev = mupnp_controlpoint_getdevicebyname(ctrlPoint, &quot;xxxx-xxxx-xxxx&quot;);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md28"></a>
 Control</h2>
-<p>The control point can send action or query control messages to the discovered devices. To send the action control message, use <a class="el" href="argument_8h.html#abb93c9d05a2fe89d5da8382d4e3641bd">mupnp_argument_setvalue()</a> and <a class="el" href="action__ctrl_8c.html#a28717002331c1cf0d389d8984339820a">mupnp_action_post()</a>. You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.</p>
+<p>The control point can send action or query control messages to the discovered devices. To send the action control message, use <code><a class="el" href="argument_8h.html#abb93c9d05a2fe89d5da8382d4e3641bd">mupnp_argument_setvalue()</a></code> and <code><a class="el" href="action__ctrl_8c.html#a28717002331c1cf0d389d8984339820a">mupnp_action_post()</a></code>. You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.</p>
 <div class="fragment"><div class="line">mUpnpDevice *clockDev = ......</div>
 <div class="line">mUpnpAction *setTimeAct = mupnp_device_getactionbyname(&quot;SetTime&quot;);</div>
 <div class="line">mUpnpArgument *timeArg = mupnp_action_getargumentbyname(setTimeAct, &quot;time&quot;); </div>
@@ -493,10 +491,10 @@ Control</h2>
 <div class="line">  printf(&quot;UPnP Error (%d) : %s\n mupnp_action_getstatuscode(selTimeAct),</div>
 <div class="line">  mupnp_action_getstatusdescription(selTimeAct));</div>
 <div class="line">}</div>
-</div><!-- fragment --><p>Similarly, to send the query control message, use <a class="el" href="query__ctrl_8c.html#a6105d76751463fdcba9eaa16e9db0f60">mupnp_statevariable_post()</a>. The following sample posts a query control request, and output the return value.</p>
+</div><!-- fragment --><p>Similarly, to send the query control message, use <code><a class="el" href="query__ctrl_8c.html#a6105d76751463fdcba9eaa16e9db0f60">mupnp_statevariable_post()</a></code>. The following sample posts a query control request, and output the return value.</p>
 <div class="fragment"><div class="line">mUpnpDevice *clockDev = ....</div>
 <div class="line">.....</div>
-<div class="line">mUpnpStateVariable *timeStateVar = c mupnp_device_getstatevariablebyname(&quot;time&quot;);</div>
+<div class="line">mUpnpStateVariable *timeStateVar = mupnp_device_getstatevariablebyname(&quot;time&quot;);</div>
 <div class="line">if (mupnp_statevariable_post(timeStateVar) == TRUE) {</div>
 <div class="line">  char *value = mupnp_statevariable_getvalue();</div>
 <div class="line">  .....</div>
@@ -507,7 +505,7 @@ Control</h2>
 <div class="line">}</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md29"></a>
 Event</h2>
-<p>The control point can subscribe events of the discovered devices. To get the state changes of the services, Use <a class="el" href="controlpoint__event_8c.html#a979f3f14289782f79d890b282ddc5fa3">mupnp_controlpoint_subscribe()</a> to subscribe the service events, and set the event listener function using <a class="el" href="controlpoint__event_8c.html#aaec9003821c78ba7a1f408c68905afbe">mupnp_controlpoint_seteventlistener()</a>. The</p>
+<p>The control point can subscribe events of the discovered devices. To get the state changes of the services, Use <code><a class="el" href="controlpoint__event_8c.html#a979f3f14289782f79d890b282ddc5fa3">mupnp_controlpoint_subscribe()</a></code> to subscribe the service events, and set the event listener function using <code><a class="el" href="controlpoint__event_8c.html#aaec9003821c78ba7a1f408c68905afbe">mupnp_controlpoint_seteventlistener()</a></code>. The following sample sets the event listener function to the control point.</p>
 <div class="fragment"><div class="line">void EventListener(mUpnpProperty *prop) {</div>
 <div class="line">  printf(&quot;Property Changed (%s) = %s\n&quot;, mupnp_property_getname(prop),</div>
 <div class="line">  mupnp_property_getvalue(prop));</div>
@@ -517,7 +515,7 @@ Event</h2>
 <div class="line">......</div>
 <div class="line">mupnp_controlpoint_seteventlistener(ctrlPoint, EventListener);</div>
 <div class="line">mupnp_controlpoint_start(ctrlPoint);</div>
-</div><!-- fragment --><p>The <a class="el" href="controlpoint__event_8c.html#a979f3f14289782f79d890b282ddc5fa3">mupnp_controlpoint_subscribe()</a> returns true when the subscription is accepted from the service, and you can get the subscription id and timeout.</p>
+</div><!-- fragment --><p>The <code><a class="el" href="controlpoint__event_8c.html#a979f3f14289782f79d890b282ddc5fa3">mupnp_controlpoint_subscribe()</a></code> returns true when the subscription is accepted from the service, and you can get the subscription id and timeout.</p>
 <div class="fragment"><div class="line">mUpnpControlPoint *ctrlPoint = .....;</div>
 <div class="line">.....</div>
 <div class="line">mUpnpDevice *clockDev = mupnp_controlpoint_getdevicebyname(ctrlPoint, &quot;xxxx-clock&quot;);</div>
