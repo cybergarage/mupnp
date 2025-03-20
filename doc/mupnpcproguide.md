@@ -96,7 +96,6 @@ For Unix platforms, you can build the library and samples using the following st
 
 ```
 cd mupnp
-./boostrap
 ./configure
 make
 ```
