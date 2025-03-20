@@ -3,8 +3,8 @@ var index =
     [ "Overview", "index.html#autotoc_md41", null ],
     [ "Building the Library and Samples", "index.html#autotoc_md42", [
       [ "Unix", "index.html#autotoc_md43", null ],
-      [ "MacOSX", "index.html#autotoc_md44", null ],
-      [ "Windows", "index.html#autotoc_md45", null ]
+      [ "Windows", "index.html#autotoc_md44", null ],
+      [ "MacOSX", "index.html#autotoc_md45", null ]
     ] ],
     [ "References", "index.html#autotoc_md46", [
       [ "mUPnP for C", "index.html#autotoc_md47", null ],
