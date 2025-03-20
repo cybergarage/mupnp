@@ -46,7 +46,7 @@ mUPnP supports the following XML parsers for UPnP SOAP requests. To compile mUPn
 | libxml2 | https://github.com/GNOME/libxml2 |
 | Expat   | https://libexpat.github.io/ |
 
-mUPnP uses libxml2 as the default parser, but you can use Expat as the parser by using a compiler option.
+mUPnP uses libxml2 as the default XML parser, but you can use Expat as the parser by using a compiler option.
 
 ### 2.2.1 WindowsXP
 
