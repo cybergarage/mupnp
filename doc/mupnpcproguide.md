@@ -2,7 +2,7 @@
 
 The programming guide describes how to create your UPnP™ devices and control points using mUPnP for C. The guide is divided into the following sections.
 
-# 1 Introduction
+# Introduction
 
 UPnP™*[^1] architecture is based on open networking to enable discovery and control of networked devices and services, such as media servers and players at home.
 
@@ -18,11 +18,11 @@ Please see the following site and documents to know about UPnP™ in more detail
 | Universal Plug and Play Device Architecture            | http://www.upnp.org/download/UPnPDA10_20000613.htm                        |
 | Universal Plug and Play Vendor\'s Implementation Guide | http://www.upnp.org/download/UPnP_Vendor_Implementation_Guide_Jan2001.htm |
 
-# 2 Setup
+# Setup
 
 This section describes how to build and install the mUPnP package.
 
-## 2.1 Package Contents
+## Package Contents
 
 The mUPnP package has the header files, the source files, the project files to build the package and the some samples. The files are included the following directories.
 
@@ -37,7 +37,7 @@ The mUPnP package has the header files, the source files, the project files to b
 |                | T-Engine (GNU)                    | mupnp/*/tengine/    |
 |                | MacOSX (Project Builder / XCode)  | mupnp/*/macosx      |
 
-## 2.2 System Requirements
+## System Requirements
 
 mUPnP supports the following XML parsers for UPnP SOAP requests. To compile mUPnP, you need to install the following packages on your platform.
 
@@ -48,7 +48,7 @@ mUPnP supports the following XML parsers for UPnP SOAP requests. To compile mUPn
 
 mUPnP uses libxml2 as the default XML parser, but you can use Expat as the parser by using a compiler option.
 
-### 2.2.1 WindowsXP
+### WindowsXP
 
 On Windows platform, you have to install latest Platform SDK and build on WindowsXP if you can. Please get the SDK and install in your platform.
 
@@ -56,7 +56,7 @@ On Windows platform, you have to install latest Platform SDK and build on Window
 |--------------|------------------------------------------------------------|
 | Platform SDK | http://www.microsoft.com/msdownload/platformsdk/sdkupdate/ |
 
-### 2.2.2 T-Engine
+### T-Engine
 
 On T-Engine platform, you have to use the following development kit based on GNU GCC and TCP/IP protocol stack that supports the multicast protocol. The mUPnP uses the multicast protocol to search and announce UPnP devices and you have to use the protocol stack because the old package doesn't support the multicast protocol.
 
@@ -72,7 +72,7 @@ The mUPnP supports the following TCP/IP protocol stack for T-Engine too, but the
 |-----------------|-------------------------------------------------|
 | PMC T-Shell Kit | http://www.personal-media.co.jp/te/welcome.html |
 
-## 2.3 Building library and samples
+## Building library and samples
 
 The mUPnP supports the following compiler options to change the XML parser or disable UPnP functions. You haven't to set the options when you use Expat as the XML parser and all functions of the mUPnP.
 
@@ -90,22 +90,25 @@ The mUPnP uses Expat as the default parser, but the following XML parser is supp
 |---------|---------------------|
 | libxml2 | https://github.com/GNOME/libxml2 |
 
-### 2.3.1 Unix
+### Unix
 
-For Unix platforms, you can build the library and samples using the following steps. Use use the --enable-libxml2 option of the configure script instead of the compiler option. to use libxml2.
+For Unix platforms, you can build the library and samples using the following steps.
 
 ```
 cd mupnp
 ./configure
 make
 ```
-### 2.3.2 Windows
+
+For more information about configure options, please use `configure --help`.
+
+### Windows
 
 For Windows platforms The mUPnP has the platform projects for Visual Studio 2005. Please check the platform directories, mupnp/*/win32/vs2005, to use the projects. On WindowsCE, the mUPnP has no the platform
 
 projects, but a contributer have been checked to compile the source codes normally.
 
-### 2.3.3 T-Engine
+### T-Engine
 
 For T-Engine platforms, you have to set the following compiler options. The mUPnP supports the process based and T-
 
@@ -130,17 +133,17 @@ export EXPATROOT=/usr/local/expat-1.95.8
 
 I have built the library with T-Engine/SH7727 development kit with KASAGO for T-Engine. Please check the platform directories, mUPnPC/*/tengine/gnu , for the sample projects. To compile the samples, run configure script in the directory at first. Please see the development manual of your T-Engine development kit if you want to use on other TEngine platforms.
 
-### 2.3.4 MacOSX
+### MacOSX
 
 For MacOSX, I have released the wrapper class for Objective-C onCocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library for if you have to use all functions of mUPnP for C.
 
-# 3 Device
+# Device
 
 UPnP™ device is a networked device that supports the UPnP™ architecture. The device has some embedded devices and services, and the services have some actions and state variables. The device is created as a root device, and the root device is active using mUPnP for C. 
 
 This section describes how to create your UPnP™ device using mUPnP for C.
 
-## 3.1 Class Overview
+## Class Overview
 
 The following static structure diagram is related classes of mUPnP to create your device of UPnP™. The device has some embedded devices and services, and the services have some actions and state variables.
 
@@ -148,7 +151,7 @@ The following static structure diagram is related classes of mUPnP to create you
 
 The above static structure diagram is modified simplify to explain.
 
-## 3.2 Description
+## Description
 
 At first, you have to make some description files of your devices and the services when you want to create your UPnP™ device..
 
@@ -158,7 +161,7 @@ The description of the root device should not have URLBase element because the e
 
 The service descriptions are required to create a device, but the presentationURL and the iconList are recommended option. Please see UPnP™ specifications about the description format in more detail.
 
-## 3.3 Initiating
+## Initiating
 
 To create a UPnP™ device, use mupnp_device_new() to create the instance, set the descriptions using mupnp_device_parsedescription() and mupnp_service_parsedescription() from the memory description strings.
 
@@ -210,7 +213,7 @@ The root device is created with the following default parameters, you can change
 | 2 | Description URI | /description.xml | mupnp_device_setdescriptionuri() |
 | 3 | Lease time      | 1800             | mupnp_device_setleasetime        |
 
-## 3.4 Notify
+## Notify
 
 Your device is announced using mupnp_device_start() to the UPnP™ network using a notify message with ssdp::alive automatically when the device is started. When device is stopped using mupnp_device_stop(), a notify message is posted with ssdp::byebye. You can announce the notify messages using mupnp_device_announce() and mupnp_device_byebye().
 
@@ -218,7 +221,7 @@ Your device is announced using mupnp_device_start() to the UPnP™ network using
 
 When a control point sends a search request with M-SEARCH to the UPnP™ network, the active device send the search response to the control point automatically. The device repeats the announcement in the lease time automatically.
 
-## 3.5 Embedded Devices
+## Embedded Devices
 
 The devices may have some embedded devices. mupnp_device_getdevices() and mupnp_device_next() to get the embedded device list. The following example outputs friendly names of all embedded devices in a root device.
 
@@ -243,7 +246,7 @@ mUpnpDevice *homeServerDev = ......
 mUpnpDevice *musicDev = mupnp_device_getdevicebyname("music");
 ```
 
-## 3.6 Service
+## Service
 
 Use mupnp_device_getservices() to access embedded services of the device. The service may have some actions and state variables. Use mupnp_service_getactions() and mupnp_action_next() to get the actions, and use mupnp_service_getstatevariables() and mupnp_statevariable_next() to the state variables. The following example outputs the all actions and state variables in a device.
 
@@ -275,7 +278,7 @@ mUpnpAction *getTimeAct = mupnp_device_getaction(clockDev, "GetTime");
 mUpnpStateVariable *timeStat = mupnp_device_getstatevariable(clockDev, "time");
 ```
 
-## 3.7 Control
+## Control
 
 To receive action control events from control points, the device needs to implement the listener function. The listener must have an action, mUpnpAction, parameter. The input arguments has the passed values from the control point, set the response values in the output arguments and return a TRUE when the request is valid. Otherwise return a FALSE when the request is invalid. UPnPError response is returned to the control point automatically when the returned value is false or the device has no the interface. The UPnPError is INVALID_ACTION as default, but use mupnp_action_setstatuscode() to return other UPnP errors.
 
@@ -327,7 +330,7 @@ mupnp_clock_device_setactionlistner(clockDev, UpnpClockActionControlRecieved);
 mupnp_clock_device_setquerylistner(clockDev, UpnpClockQueryControlReceived);
 ```
 
-## 3.8 Event
+## Event
 
 The control point may subscribe some events of the device. You don't need manage the subscription messages from control points because the device manages the subscription messages automatically. For example, the device adds a control point into the subscriber list when the control point sends a subscription message to the device, or the device removes the control point from the subscriber list when the control point sends a unsubscription message.
 
@@ -340,7 +343,7 @@ char *timeStr = .....
 mupnp_statevariable_setvalue(timeVar, timeStr);
 ```
 
-## 3.9 User Data
+## User Data
 
 Using the following functions, you can set your original data to the objects. The default user data are NULL.
 
@@ -367,19 +370,19 @@ mupnp_device_setuserdata(dev, myPonint);
 MyPoint *devPoint = (MyPoint *)mupnp_device_getuserdata(dev);
 ```
 
-# 4 Control Point
+# Control Point
 
 UPnP™ control point is a networked device that controls the UPnP™ devices in the UPnP™ network. The control point has some root devices in the UPnP™ network, and the control point can send action or query control messages to the discovered devices. The control point is created as a root device, and the root device is active using mUPnP for C.
 
 This section describes how to create your UPnP™ control point using mUPnP for C.
 
-## 4.1 Class Overview
+## Class Overview
 
 The following static structure diagram is related classes of mUPnP to create your control point of UPnP™. The control point has some root devices in the UPnP™ network.
 
 ![](img/mupnp-c-ctrlpoint-class-overview.png)
 
-## 4.2 Initiating
+## Initiating
 
 To create a UPnP™ control point, create a instance of ControlPoint class. Use mupnp_controlpoint_start() to active the control point. The control point multicasts a discovery message searching for all devices to the UPnP™ network automatically when the control point is active.
 
@@ -402,7 +405,7 @@ The control point is created with the following default parameters. You can chan
 | 3 | Subscription URI | /eventSub | mupnp_controlpoint_seteventsuburi()      |
 | 4 | Search Response  | 3         | mupnp_controlpoint_setssdpsearchmx()     |
 
-## 4.3 Notify
+## Notify
 
 The control point receives notify events from devices in the UPnP™ network, and the devices are added or removed form the control point automatically. The expired device is removed from the device list of the control point automatically too. You don't manage the notify events, but you can receive the event to set the listener
 
@@ -420,7 +423,7 @@ mupnp_controlpoint_setssdplistener(ctrlPoint, DeviceNotifyReceived);
 mupnp_controlpoint_start(ctrlPoint);
 ```
 
-## 4.4 Search
+## Search
 
 You can update the device lists using mupnp_controlpoint_search(). The discovered root devices are added to the control point automatically, and you can receive the response to set the listener function using
 
@@ -441,7 +444,7 @@ mupnp_controlpoint_start(ctrlPoint);
 mupnp_controlpoint_search(ctrlPoint);
 ```
 
-## 4.5 Root Devices
+## Root Devices
 
 Use mupnp_controlpoint_getdevices() that returns only root devices to get the discovered device list. The following example outputs friendly names of the root devices.
 
@@ -467,7 +470,7 @@ mupnp_controlpoint_start(ctrlPoint);
 mUpnpDevice *dev = mupnp_controlpoint_getdevicebyname(ctrlPoint, "xxxx-xxxx-xxxx");
 ```
 
-## 4.6 Control
+## Control
 
 The control point can send action or query control messages to the discovered devices. To send the action control message, use mupnp_argument_setvalue() and mupnp_action_post(). You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.
 
@@ -505,7 +508,7 @@ if (mupnp_statevariable_post(timeStateVar) == TRUE) {
 }
 ```
 
-## 4.7 Event
+## Event
 
 The control point can subscribe events of the discovered devices. To get the state changes of the services, Use mupnp_controlpoint_subscribe() to subscribe the service events, and set the event listener function using mupnp_controlpoint_seteventlistener(). The
 
