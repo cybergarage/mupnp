@@ -26,16 +26,16 @@ This section describes how to build and install the mUPnP package.
 
 The mUPnP package has the header files, the source files, the project files to build the package and the some samples. The files are included the following directories.
 
-| File Type      |                         | Directory           |
-|----------------|-------------------------|---------------------|
-| Source files   |                         | mupnp/src           |
-| Header Files   |                         | mupnp/include       |
-| Examples files |                         | mupnp/examples      |
-| Project files  | Unix (Automake)         | mupnp               |
-|                | WindowsXP (VisualC)     | mupnp/*/win32/      |
-|                | WindowsCE (VisualC)     | mupnp/*/wince/      |
-|                | T-Engine (GNU)          | mupnp/*/tengine/    |
-|                | MacOSX (XCode)          | mupnp/*/macosx      |
+| File Type      |                                   | Directory           |
+|----------------|-----------------------------------|---------------------|
+| Source files   |                                   | mupnp/src           |
+| Header Files   |                                   | mupnp/include       |
+| Examples files |                                   | mupnp/examples      |
+| Project files  | Unix (Automake)                   | mupnp               |
+|                | WindowsXP (Visual C / Studio)     | mupnp/*/win32/      |
+|                | WindowsCE (Visual C / Studio)     | mupnp/*/wince/      |
+|                | T-Engine (GNU)                    | mupnp/*/tengine/    |
+|                | MacOSX (XCode)                    | mupnp/*/macosx      |
 
 ## 2.2 System Requirements
 
