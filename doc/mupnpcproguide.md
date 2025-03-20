@@ -37,13 +37,16 @@ The mUPnP package has the header files, the source files, the project files to b
 |               | uITRON                  | mupnp/*/itron       |
 |               | MacOSX                  | mupnp/*/macosx      |
 
-## 2.2 System Requirement
+## 2.2 System Requirements
 
-The mUPnP needs the following package to parse the XML and SOAP requests. Please get the parser package and install in your platform.
+mUPnP supports the following XML parsers for UPnP SOAP requests. To compile mUPnP, you need to install the following packages on your platform.
 
 | Package | URL                           |
 |---------|-------------------------------|
+| libxml2 | https://github.com/GNOME/libxml2 |
 | Expat   | https://libexpat.github.io/ |
+
+mUPnP uses libxml2 as the default parser, but you can use Expat as the parser by using a compiler option.
 
 ### 2.2.1 WindowsXP
 
