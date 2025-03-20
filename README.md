@@ -10,11 +10,11 @@ mUPnP for C is a development package for UPnP™ [^1] (Universal Plug and Play) 
 
 The UPnP™ architecture is designed to enable the discovery and control of networked devices and services, such as media servers and players, within a home network. UPnP™ is based on several standard protocols, including GENA, SSDP, SOAP, HTTPU, and HTTP. To create UPnP™ devices, you need to understand and implement these protocols.
 
-mUPnP for C simplifies this process by handling these protocols automatically. It allows developers to focus on creating their devices and control points without worrying about the underlying protocol details.
-
 ![UPnP applications](doc/img/upnpapp.png)
 
- **mUPnP for C** is supported from IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY, JAPAN, as a project of MitohProgram2004.
+mUPnP for C simplifies this process by handling these protocols automatically. It allows developers to focus on creating their devices and control points without worrying about the underlying protocol details.
+
+**mUPnP for C** is supported from IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY, JAPAN, as a project of [Mitoh Program 2004](https://www.ipa.go.jp/archive/jinzai/mitou/mitoipedia/2004shimoki-seika.html#sakamura).
 
 ## Building the Library and Samples
 
@@ -22,23 +22,27 @@ To build the library and samples, you need to have the following tools installed
 
 ### Unix
 
-For Unix platforms, you can build the library and samples using the following steps. Use the --enable-libxml2 option of the configure script instead of the compiler option to use libxml2.
+mUPnP for C is distributed as an Automake project, and so you can install the libary from the source codes with the following commands:
 
 ```
 cd mupnp
-./bootstrap
 ./configure
 make
 ```
-
-### MacOSX
-
-For MacOSX, I have released a wrapper class for Objective-C on Cocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library if you need to use all functions of mUPnP for C.
-
 ### Windows
 
 For Windows platforms, mUPnP includes platform projects for Visual Studio 2005. Please check the platform directories, mupnp/*/win32/vs2005, to use the projects. On WindowsCE, mUPnP does not have platform projects, but a contributor has verified that the source codes compile normally.
 
+### MacOSX
+
+For macOS platforms, you can easily install using Homebrew with the following `brew` commands:
+
+```
+brew tap cybergarage/homebrew
+brew install mupnp
+```
+
+For MacOSX, I have released a wrapper class for Objective-C on Cocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library if you need to use all functions of mUPnP for C.
 
 ## References
 
