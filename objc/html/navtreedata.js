@@ -30,7 +30,7 @@ var NAVTREE =
       [ "1 Introduction", "md_doc_2mupnpcproguide.html#autotoc_md1", null ],
       [ "2 Setup", "md_doc_2mupnpcproguide.html#autotoc_md2", [
         [ "2.1 Package Contents", "md_doc_2mupnpcproguide.html#autotoc_md3", null ],
-        [ "2.2 System Requirement", "md_doc_2mupnpcproguide.html#autotoc_md4", [
+        [ "2.2 System Requirements", "md_doc_2mupnpcproguide.html#autotoc_md4", [
           [ "2.2.1 WindowsXP", "md_doc_2mupnpcproguide.html#autotoc_md5", null ],
           [ "2.2.2 T-Engine", "md_doc_2mupnpcproguide.html#autotoc_md6", null ]
         ] ],
