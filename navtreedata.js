@@ -42,39 +42,39 @@ var NAVTREE =
       [ "Toshiba REGZA Televisions", "index.html#autotoc_md53", null ]
     ] ],
     [ "Programming Guide for C", "md_doc_2mupnpcproguide.html", [
-      [ "1 Introduction", "md_doc_2mupnpcproguide.html#autotoc_md1", null ],
-      [ "2 Setup", "md_doc_2mupnpcproguide.html#autotoc_md2", [
-        [ "2.1 Package Contents", "md_doc_2mupnpcproguide.html#autotoc_md3", null ],
-        [ "2.2 System Requirements", "md_doc_2mupnpcproguide.html#autotoc_md4", [
-          [ "2.2.1 WindowsXP", "md_doc_2mupnpcproguide.html#autotoc_md5", null ],
-          [ "2.2.2 T-Engine", "md_doc_2mupnpcproguide.html#autotoc_md6", null ]
+      [ "Introduction", "md_doc_2mupnpcproguide.html#autotoc_md1", null ],
+      [ "Setup", "md_doc_2mupnpcproguide.html#autotoc_md2", [
+        [ "Package Contents", "md_doc_2mupnpcproguide.html#autotoc_md3", null ],
+        [ "System Requirements", "md_doc_2mupnpcproguide.html#autotoc_md4", [
+          [ "WindowsXP", "md_doc_2mupnpcproguide.html#autotoc_md5", null ],
+          [ "T-Engine", "md_doc_2mupnpcproguide.html#autotoc_md6", null ]
         ] ],
-        [ "2.3 Building library and samples", "md_doc_2mupnpcproguide.html#autotoc_md7", [
-          [ "2.3.1 Unix", "md_doc_2mupnpcproguide.html#autotoc_md8", null ],
-          [ "2.3.2 Windows", "md_doc_2mupnpcproguide.html#autotoc_md9", null ],
-          [ "2.3.3 T-Engine", "md_doc_2mupnpcproguide.html#autotoc_md10", null ],
-          [ "2.3.4 MacOSX", "md_doc_2mupnpcproguide.html#autotoc_md11", null ]
+        [ "Building library and samples", "md_doc_2mupnpcproguide.html#autotoc_md7", [
+          [ "Unix", "md_doc_2mupnpcproguide.html#autotoc_md8", null ],
+          [ "Windows", "md_doc_2mupnpcproguide.html#autotoc_md9", null ],
+          [ "T-Engine", "md_doc_2mupnpcproguide.html#autotoc_md10", null ],
+          [ "MacOSX", "md_doc_2mupnpcproguide.html#autotoc_md11", null ]
         ] ]
       ] ],
-      [ "3 Device", "md_doc_2mupnpcproguide.html#autotoc_md12", [
-        [ "3.1 Class Overview", "md_doc_2mupnpcproguide.html#autotoc_md13", null ],
-        [ "3.2 Description", "md_doc_2mupnpcproguide.html#autotoc_md14", null ],
-        [ "3.3 Initiating", "md_doc_2mupnpcproguide.html#autotoc_md15", null ],
-        [ "3.4 Notify", "md_doc_2mupnpcproguide.html#autotoc_md16", null ],
-        [ "3.5 Embedded Devices", "md_doc_2mupnpcproguide.html#autotoc_md17", null ],
-        [ "3.6 Service", "md_doc_2mupnpcproguide.html#autotoc_md18", null ],
-        [ "3.7 Control", "md_doc_2mupnpcproguide.html#autotoc_md19", null ],
-        [ "3.8 Event", "md_doc_2mupnpcproguide.html#autotoc_md20", null ],
-        [ "3.9 User Data", "md_doc_2mupnpcproguide.html#autotoc_md21", null ]
+      [ "Device", "md_doc_2mupnpcproguide.html#autotoc_md12", [
+        [ "Class Overview", "md_doc_2mupnpcproguide.html#autotoc_md13", null ],
+        [ "Description", "md_doc_2mupnpcproguide.html#autotoc_md14", null ],
+        [ "Initiating", "md_doc_2mupnpcproguide.html#autotoc_md15", null ],
+        [ "Notify", "md_doc_2mupnpcproguide.html#autotoc_md16", null ],
+        [ "Embedded Devices", "md_doc_2mupnpcproguide.html#autotoc_md17", null ],
+        [ "Service", "md_doc_2mupnpcproguide.html#autotoc_md18", null ],
+        [ "Control", "md_doc_2mupnpcproguide.html#autotoc_md19", null ],
+        [ "Event", "md_doc_2mupnpcproguide.html#autotoc_md20", null ],
+        [ "User Data", "md_doc_2mupnpcproguide.html#autotoc_md21", null ]
       ] ],
-      [ "4 Control Point", "md_doc_2mupnpcproguide.html#autotoc_md22", [
-        [ "4.1 Class Overview", "md_doc_2mupnpcproguide.html#autotoc_md23", null ],
-        [ "4.2 Initiating", "md_doc_2mupnpcproguide.html#autotoc_md24", null ],
-        [ "4.3 Notify", "md_doc_2mupnpcproguide.html#autotoc_md25", null ],
-        [ "4.4 Search", "md_doc_2mupnpcproguide.html#autotoc_md26", null ],
-        [ "4.5 Root Devices", "md_doc_2mupnpcproguide.html#autotoc_md27", null ],
-        [ "4.6 Control", "md_doc_2mupnpcproguide.html#autotoc_md28", null ],
-        [ "4.7 Event", "md_doc_2mupnpcproguide.html#autotoc_md29", null ]
+      [ "Control Point", "md_doc_2mupnpcproguide.html#autotoc_md22", [
+        [ "Class Overview", "md_doc_2mupnpcproguide.html#autotoc_md23", null ],
+        [ "Initiating", "md_doc_2mupnpcproguide.html#autotoc_md24", null ],
+        [ "Notify", "md_doc_2mupnpcproguide.html#autotoc_md25", null ],
+        [ "Search", "md_doc_2mupnpcproguide.html#autotoc_md26", null ],
+        [ "Root Devices", "md_doc_2mupnpcproguide.html#autotoc_md27", null ],
+        [ "Control", "md_doc_2mupnpcproguide.html#autotoc_md28", null ],
+        [ "Event", "md_doc_2mupnpcproguide.html#autotoc_md29", null ]
       ] ]
     ] ],
     [ "Programming Guide for Objective-C", "md_doc_2mupnpobjcproguide.html", [
