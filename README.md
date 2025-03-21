@@ -29,10 +29,6 @@ cd mupnp
 ./configure
 make
 ```
-### Windows
-
-For Windows platforms, mUPnP includes platform projects for Visual Studio 2005. Please check the platform directories, mupnp/*/win32/vs2005, to use the projects. On WindowsCE, mUPnP does not have platform projects, but a contributor has verified that the source codes compile normally.
-
 ### MacOSX
 
 For macOS platforms, you can easily install using Homebrew with the following `brew` commands:
@@ -43,6 +39,10 @@ brew install mupnp
 ```
 
 For MacOSX, I have released a wrapper class for Objective-C on Cocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library if you need to use all functions of mUPnP for C.
+
+### Windows
+
+For Windows platforms, mUPnP includes platform projects for Visual Studio 2005. Please check the platform directories, mupnp/*/win32/vs2005, to use the projects. On WindowsCE, mUPnP does not have platform projects, but a contributor has verified that the source codes compile normally.
 
 ## References
 
