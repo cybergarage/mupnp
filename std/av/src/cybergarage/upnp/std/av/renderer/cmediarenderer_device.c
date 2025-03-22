@@ -16,7 +16,7 @@
 #include "config.h"
 #endif
 
-#include <cybergarage/upnp/std/av/cmediarenderer.h>
+#include <mupnp/upnp/std/av/cmediarenderer.h>
 
 /****************************************
  * Device Description

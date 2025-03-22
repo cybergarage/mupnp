@@ -12,7 +12,7 @@
  *
  ************************************************************/
 
-#include <cybergarage/upnp/std/av/ccontent.h>
+#include <mupnp/upnp/std/av/ccontent.h>
 #include <cybergarage/util/cstring.h>
 
 #define CG_UPNPAV_CONTENT_CONTAINER_STRING "container"

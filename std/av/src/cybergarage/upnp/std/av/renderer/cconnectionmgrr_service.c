@@ -16,9 +16,9 @@
 #include "config.h"
 #endif
 
-#include <cybergarage/upnp/std/av/ccontent.h>
-#include <cybergarage/upnp/std/av/cmediarenderer.h>
-#include <cybergarage/upnp/std/av/cresource.h>
+#include <mupnp/upnp/std/av/ccontent.h>
+#include <mupnp/upnp/std/av/cmediarenderer.h>
+#include <mupnp/upnp/std/av/cresource.h>
 
 /****************************************
  * Service Description (Connection Manager)

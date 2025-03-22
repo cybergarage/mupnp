@@ -12,7 +12,7 @@
  *
  ************************************************************/
 
-#include <cybergarage/upnp/std/av/cresource.h>
+#include <mupnp/upnp/std/av/cresource.h>
 #include <cybergarage/util/cstring.h>
 
 /****************************************

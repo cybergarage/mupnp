@@ -18,7 +18,7 @@
  *
  ******************************************************************/
 
-#include <cybergarage/upnp/std/av/cprotocolinfo.h>
+#include <mupnp/upnp/std/av/cprotocolinfo.h>
 #include <cybergarage/util/clog.h>
 
 /****************************************

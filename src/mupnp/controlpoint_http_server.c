@@ -54,8 +54,8 @@ void mupnp_controlpoint_httprequestreceived(mUpnpHttpRequest* httpReq)
     sid = mupnp_event_notify_request_getsid(notifyReq);
 
     for (dev = mupnp_controlpoint_getdevices(ctrlPoint);
-        dev != NULL;
-        dev = mupnp_device_next(dev)) {
+         dev != NULL;
+         dev = mupnp_device_next(dev)) {
       service = mupnp_device_getservicebysid(dev, sid);
       if (service != NULL)
         break;
@@ -83,8 +83,8 @@ void mupnp_controlpoint_httprequestreceived(mUpnpHttpRequest* httpReq)
         notifyListeners = 1;
         propList = mupnp_event_notify_request_getpropertylist(notifyReq);
         for (prop = mupnp_propertylist_gets(propList);
-            prop != NULL;
-            prop = mupnp_property_next(prop)) {
+             prop != NULL;
+             prop = mupnp_property_next(prop)) {
           /* Update the service's state table from the event */
           mupnp_controlpoint_updatestatetablefromproperty(service, prop);
         }
@@ -96,8 +96,8 @@ void mupnp_controlpoint_httprequestreceived(mUpnpHttpRequest* httpReq)
     if (notifyListeners && propList != NULL) {
       /* Notify listeners out of control point lock */
       for (prop = mupnp_propertylist_gets(propList);
-          prop != NULL;
-          prop = mupnp_property_next(prop)) {
+           prop != NULL;
+           prop = mupnp_property_next(prop)) {
         mupnp_eventlistenerlist_notify(eventListeners, prop);
       }
     }

@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/std/av/cupnpav.h>
+#include <mupnp/upnp/std/av/cupnpav.h>
 #include <cybergarage/xml/cxml.h>
 
 #import "CGUpnpAvConstants.h"

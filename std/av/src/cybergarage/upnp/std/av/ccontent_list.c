@@ -12,4 +12,4 @@
  *
  ************************************************************/
 
-#include <cybergarage/upnp/std/av/ccontent.h>
+#include <mupnp/upnp/std/av/ccontent.h>

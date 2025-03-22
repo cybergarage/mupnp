@@ -21,9 +21,9 @@
 #define TEST_UPDATE_STATEVARIABLE_DEFAULTVALUE "1234"
 #define TEST_UPDATE_STATEVARIABLE_UPDATEVALUE "4649"
 
-static bool ClinkTestCaseTestSubscriptionFlag;
+static bool clinkTestCaseTestSubscriptionFlag;
 
-static void ClinkTestCaseTestSubscription(mUpnpProperty* prop)
+static void clink_test_case_test_subscription(mUpnpProperty* prop)
 {
   char* propName = mupnp_property_getname(prop);
   BOOST_REQUIRE(propName != NULL);
@@ -45,7 +45,7 @@ static void ClinkTestCaseTestSubscription(mUpnpProperty* prop)
     BOOST_REQUIRE(mupnp_streq(propValue, TEST_UPDATE_STATEVARIABLE_UPDATEVALUE));
   }
 
-  ClinkTestCaseTestSubscriptionFlag = true;
+  clinkTestCaseTestSubscriptionFlag = true;
 }
 
 BOOST_AUTO_TEST_CASE(Subscription)
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(Subscription)
   BOOST_REQUIRE(testCp);
   BOOST_REQUIRE(mupnp_controlpoint_start(testCp));
   BOOST_REQUIRE(mupnp_controlpoint_search(testCp, MUPNP_ST_ROOT_DEVICE));
-  mupnp_controlpoint_addeventlistener(testCp, ClinkTestCaseTestSubscription);
+  mupnp_controlpoint_addeventlistener(testCp, clink_test_case_test_subscription);
 
   // Find Device
   mupnp_sleep(mupnp_controlpoint_getssdpsearchmx(testCp) * 1000);
@@ -90,10 +90,10 @@ BOOST_AUTO_TEST_CASE(Subscription)
   mupnp_sleep(MUPNP_SERVICE_NOTIFY_WAITTIME * 2);
 
   // Update State Variable
-  ClinkTestCaseTestSubscriptionFlag = false;
+  clinkTestCaseTestSubscriptionFlag = false;
   mupnp_statevariable_setvalue(testDevState, TEST_UPDATE_STATEVARIABLE_UPDATEVALUE);
   mupnp_sleep(MUPNP_SERVICE_NOTIFY_WAITTIME * 2);
-  BOOST_REQUIRE(ClinkTestCaseTestSubscriptionFlag);
+  BOOST_REQUIRE(clinkTestCaseTestSubscriptionFlag);
 
   // Unscribe
   BOOST_REQUIRE(mupnp_controlpoint_unsubscribe(testCp, testCpDevService));

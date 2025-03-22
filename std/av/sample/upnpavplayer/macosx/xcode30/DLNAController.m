@@ -228,15 +228,15 @@
 - (NSArray*)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar
 {
   return [NSArray arrayWithObjects:
-          @"Search",
-      nil];
+                      @"Search",
+                  nil];
 }
 
 - (NSArray*)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar
 {
   return [NSArray arrayWithObjects:
-          @"Search",
-      nil];
+                      @"Search",
+                  nil];
 }
 
 - (NSToolbarItem*)toolbar:(NSToolbar*)toolbar itemForItemIdentifier:(NSString*)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag

@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include <cybergarage/upnp/std/av/cmediarenderer.h>
+#include <mupnp/upnp/std/av/cmediarenderer.h>
 
 #include "ClinkAVTestCase.h"
 

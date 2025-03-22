@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/std/av/cmediarenderer.h>
+#include <mupnp/upnp/std/av/cmediarenderer.h>
 
 #import "CGUpnpAVPositionInfo.h"
 #import "CGUpnpAvRenderer.h"

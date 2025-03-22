@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/std/av/cmediaserver.h>
+#include <mupnp/upnp/std/av/cmediaserver.h>
 
 #import "CGUpnpAvContainer.h"
 #import "CGUpnpAvContentDirectory.h"

@@ -7,7 +7,7 @@
 //
 
 #include <cybergarage/upnp/ssdp/cssdp.h>
-#include <cybergarage/upnp/std/av/cmediaserver.h>
+#include <mupnp/upnp/std/av/cmediaserver.h>
 
 #import "CGUpnpAvConstants.h"
 #import "CGUpnpAvContainer.h"

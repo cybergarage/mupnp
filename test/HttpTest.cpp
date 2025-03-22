@@ -22,7 +22,7 @@
 #define MUPNP_TESTCASE_HTTP_URL "/index.html"
 #define MUPNP_TESTCASE_HTTP_LOOP 100
 
-void ClinkTestcaseHttpRequestRecieved(mUpnpHttpRequest* httpReq)
+void clink_testcase_http_request_recieved(mUpnpHttpRequest* httpReq)
 {
   mUpnpHttpResponse* httpRes;
 
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE(HttpServer)
   mUpnpHttpServer* httpServer = mupnp_http_server_new();
   BOOST_REQUIRE(httpServer);
   BOOST_REQUIRE(mupnp_http_server_open(httpServer, MUPNP_TESTCASE_HTTP_PORT, NULL));
-  mupnp_http_server_setlistener(httpServer, ClinkTestcaseHttpRequestRecieved);
+  mupnp_http_server_setlistener(httpServer, clink_testcase_http_request_recieved);
   mupnp_http_server_start(httpServer);
 
   /**** HTTP Client ****/
