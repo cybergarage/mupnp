@@ -1,8 +1,4 @@
-#if HAVE_LIBTOOL
-#lib_LTLIBRARIES = libmupnpav.la
-#else
 lib_LIBRARIES = libmupnpav.a
-#endif
 
 AM_CPPFLAGS = -I$(top_srcdir)/include
 
@@ -35,14 +31,7 @@ libmupnpavincludedir = $(includedir)/cybergarage
 nobase_libmupnpavinclude_HEADERS =  \
         $(clinkcav_header)
 
-#if HAVE_LIBTOOL
-#libmupnpav_la_SOURCES = \
-#        $(clinkcav_source)
-#libmupnpav_a_CFLAGS = $(AM_CFLAGS)
-#libmupnpav_la_LIBADD =
-#else
 libmupnpav_a_SOURCES = \
         $(clinkcav_source)
 libmupnpav_a_CFLAGS = $(AM_CFLAGS)
 libmupnpav_a_LIBADD =
-#endif

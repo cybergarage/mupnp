@@ -15,8 +15,4 @@ upnpclock_SOURCES = \
 	../clock_device.c \
 	../../common/kb_util.c
 
-#if HAVE_LIBTOOL
-#upnpclock_LDADD = ../../../lib/unix/libmupnp.la @XML_LIBS@
-#else
 upnpclock_LDADD = ../../../lib/unix/libmupnp.a @XML_LIBS@
-#endif

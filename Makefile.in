@@ -187,10 +187,11 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 DIST_SUBDIRS = include lib examples test
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in \
-	$(srcdir)/mupnp.pc.in $(top_srcdir)/config/compile \
-	$(top_srcdir)/config/install-sh $(top_srcdir)/config/missing \
-	AUTHORS COPYING ChangeLog INSTALL NEWS README.md \
-	config/compile config/depcomp config/install-sh config/missing
+	$(srcdir)/mupnp.pc.in $(top_srcdir)/config/ar-lib \
+	$(top_srcdir)/config/compile $(top_srcdir)/config/install-sh \
+	$(top_srcdir)/config/missing AUTHORS COPYING ChangeLog INSTALL \
+	NEWS README.md config/ar-lib config/compile config/depcomp \
+	config/install-sh config/missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -238,6 +239,7 @@ distcleancheck_listfiles = find . -type f -print
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
+AR = @AR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -303,6 +305,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 am__include = @am__include@

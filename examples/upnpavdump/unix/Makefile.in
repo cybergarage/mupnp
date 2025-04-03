@@ -166,6 +166,7 @@ DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
+AR = @AR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -231,6 +232,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 am__include = @am__include@
@@ -282,10 +284,6 @@ upnpavdump_SOURCES = \
 	../upnpavdump.c \
 	../../common/kb_util.c
 
-
-#if HAVE_LIBTOOL
-#upnpavdump_LDADD = ../../../lib/unix/libmupnp.la @XML_LIBS@
-#else
 upnpavdump_LDADD = ../../../lib/unix/libmupnp.a @XML_LIBS@
 all: all-am
 
@@ -630,7 +628,6 @@ uninstall-am: uninstall-samplesPROGRAMS
 
 .PRECIOUS: Makefile
 
-#endif
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

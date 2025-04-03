@@ -136,7 +136,6 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)" \
 	"$(DESTDIR)$(libmupnpincludedir)"
 LIBRARIES = $(lib_LIBRARIES)
-AR = ar
 ARFLAGS = cru
 AM_V_AR = $(am__v_AR_@AM_V@)
 am__v_AR_ = $(am__v_AR_@AM_DEFAULT_V@)
@@ -400,6 +399,7 @@ DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
+AR = @AR@
 AUTOCONF = @AUTOCONF@
 AUTOHEADER = @AUTOHEADER@
 AUTOMAKE = @AUTOMAKE@
@@ -465,6 +465,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 am__include = @am__include@
@@ -507,12 +508,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-
-#if HAVE_LIBTOOL
-#lib_LTLIBRARIES = libmupnp.la
-#else
 lib_LIBRARIES = libmupnp.a
-#endif
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@
 mupnp_sources = \
 	../../src/mupnp/xml/xml_attribute_list.c \
@@ -615,12 +611,6 @@ libmupnpincludedir = $(includedir)/mupnp
 nobase_libmupnpinclude_HEADERS = \
         $(mupnp_headers)
 
-
-#if HAVE_LIBTOOL
-#libmupnp_la_SOURCES = \
-#        $(mupnp_source)
-#libmupnp_la_LIBADD = @HTTP_LIBS@ @XML_LIBS@ $(CODE_COVERAGE_LIBS)
-#else
 libmupnp_a_SOURCES = \
         $(mupnp_sources)
 
@@ -2947,8 +2937,6 @@ uninstall-am: uninstall-libLIBRARIES \
 
 .PRECIOUS: Makefile
 
-#libmupnp_a_LIBADD = @HTTP_LIBS@ @XML_LIBS@ $(CODE_COVERAGE_LIBS)
-#endif
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -30,8 +30,4 @@ mupnptest_SOURCES = \
 	../DeviceTest.cpp \
 	../DictionaryTest.cpp \
 	../ServiceTest.cpp
-#if HAVE_LIBTOOL
-#mupnptest_LDADD = ../../lib/unix/libmupnp.la @XML_LIBS@ $(CODE_COVERAGE_LIBS)
-#else
 mupnptest_LDADD = ../../lib/unix/libmupnp.a @XML_LIBS@ $(CODE_COVERAGE_LIBS)
-#endif

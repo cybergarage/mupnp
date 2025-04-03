@@ -7,6 +7,7 @@
 	* Updated testing to prevent memory access violation
 	* Added Visual Code settings
 	* Update XCode settings
+	* Remove deprecated AC_PROG_LIBTOOL in confugre.ac and Makefile.am
 
 2022-09-04 Satoshi Konno <skonno@cybergarage.org>
 	* 3.0.2

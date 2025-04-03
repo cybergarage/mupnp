@@ -43,10 +43,6 @@ foreach $file (@find_files) {
 print join(" \\\n", @source_files) . "\n";
 
 print<<FOTTER;
-#if HAVE_LIBTOOL
-#mupnptest_LDADD = ../../lib/unix/libmupnp.la \@XML_LIBS\@ \$(CODE_COVERAGE_LIBS)
-#else
 mupnptest_LDADD = ../../lib/unix/libmupnp.a \@XML_LIBS\@ \$(CODE_COVERAGE_LIBS)
-#endif
 FOTTER
 

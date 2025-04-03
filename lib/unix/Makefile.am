@@ -6,11 +6,7 @@
 #
 ############################################################
 
-#if HAVE_LIBTOOL
-#lib_LTLIBRARIES = libmupnp.la
-#else
 lib_LIBRARIES = libmupnp.a
-#endif
 
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@
 
@@ -115,13 +111,6 @@ libmupnpincludedir = $(includedir)/mupnp
 nobase_libmupnpinclude_HEADERS =  \
         $(mupnp_headers)
 
-#if HAVE_LIBTOOL
-#libmupnp_la_SOURCES = \
-#        $(mupnp_source)
-#libmupnp_la_LIBADD = @HTTP_LIBS@ @XML_LIBS@ $(CODE_COVERAGE_LIBS)
-#else
 libmupnp_a_SOURCES = \
         $(mupnp_sources)
 libmupnp_a_CFLAGS = $(AM_CFLAGS)
-#libmupnp_a_LIBADD = @HTTP_LIBS@ @XML_LIBS@ $(CODE_COVERAGE_LIBS)
-#endif

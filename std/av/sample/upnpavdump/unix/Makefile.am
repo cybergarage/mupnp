@@ -9,8 +9,4 @@ upnpavdump_SOURCES = \
 	../../common/ckeyboard.c \
 	../upnpavdump.c
 
-if HAVE_LIBTOOL
-upnpavdump_LDADD = -lmupnp ../../../lib/unix/libmupnpav.la
-else
 upnpavdump_LDADD = -lmupnp ../../../lib/unix/libmupnpav.a
-endif

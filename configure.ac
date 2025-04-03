@@ -40,6 +40,7 @@ AC_PROG_AWK
 AC_PROG_RANLIB
 AC_LANG([C++])
 AM_PROG_CC_C_O
+AM_PROG_AR
 
 ##############################
 # Checks for header files.

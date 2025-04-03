@@ -11,8 +11,4 @@ upnpavdump_SOURCES = \
 	../upnpavdump.c \
 	../../common/kb_util.c
 
-#if HAVE_LIBTOOL
-#upnpavdump_LDADD = ../../../lib/unix/libmupnp.la @XML_LIBS@
-#else
 upnpavdump_LDADD = ../../../lib/unix/libmupnp.a @XML_LIBS@
-#endif
