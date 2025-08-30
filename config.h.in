@@ -44,9 +44,6 @@
    (-lboost_unit_test_framework-mt). */
 #undef HAVE_LIBBOOST_UNIT_TEST_FRAMEWORK_MT
 
-/* Define to 1 if you have the `gcov' library (-lgcov). */
-#undef HAVE_LIBGCOV
-
 /* Define to 1 if you have the `iconv' library (-liconv). */
 #undef HAVE_LIBICONV
 

@@ -784,7 +784,6 @@ enable_compiler_warnings
 enable_clog_debug
 enable_clog_debug_stack
 enable_clog_debug_application
-enable_coverage
 with_thread_lock_trace
 enable_persistent_connections
 enable_optimized_cp
@@ -795,6 +794,7 @@ enable_libcurl
 enable_mudflap_debug
 enable_examples
 enable_test
+enable_coverage
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1446,7 +1446,6 @@ Optional Features:
   --enable-clog-debug-application
                           enable clog application debug messages (default =
                           no)
-  --enable-coverage       enable coverage (default = no)
   --enable-persistent-connections
                           enable persistent connections support (default =
                           yes)
@@ -1460,6 +1459,7 @@ Optional Features:
   --enable-mudflap-debug  enable libmudflap debug (default = no)
   --enable-examples       build examples (default = yes)
   --enable-test           build test (default = no)
+  --enable-coverage       Enable code coverage using gcov
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -6479,29 +6479,6 @@ fi
 
 
 
-# Check whether --enable-coverage was given.
-if test ${enable_coverage+y}
-then :
-  enableval=$enable_coverage;
-                        if test $enableval = no; then
-                                USE_COVERAGE=no;
-                        else
-                                USE_COVERAGE=yes;
-                        fi
-
-else $as_nop
-
-                        USE_COVERAGE=no;
-
-
-fi
-
-
-if  test $USE_COVERAGE = yes ; then
-	CFLAGS="$CFLAGS -fprofile-arcs -ftest-coverage -O0"
-	LDFLAGS="$LDFLAGS -lgcov"
-fi
-
 ##############################
 # Check whether thread locking should be traced
 ##############################
@@ -7600,48 +7577,26 @@ fi
 
 fi
 
-	{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for main in -lgcov" >&5
-printf %s "checking for main in -lgcov... " >&6; }
-if test ${ac_cv_lib_gcov_main+y}
+fi
+
+##############################
+# Coverage
+##############################
+
+# Check whether --enable-coverage was given.
+if test ${enable_coverage+y}
 then :
-  printf %s "(cached) " >&6
+  enableval=$enable_coverage; enable_coverage=yes
 else $as_nop
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-lgcov  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-namespace conftest {
-  extern "C" int main ();
-}
-int
-main (void)
-{
-return conftest::main ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_cxx_try_link "$LINENO"
-then :
-  ac_cv_lib_gcov_main=yes
-else $as_nop
-  ac_cv_lib_gcov_main=no
-fi
-rm -f core conftest.err conftest.$ac_objext conftest.beam \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_gcov_main" >&5
-printf "%s\n" "$ac_cv_lib_gcov_main" >&6; }
-if test "x$ac_cv_lib_gcov_main" = xyes
-then :
-  printf "%s\n" "#define HAVE_LIBGCOV 1" >>confdefs.h
-
-  LIBS="-lgcov $LIBS"
-
+  enable_coverage=no
 fi
 
+
+if test "x$enable_coverage" = "xyes"; then
+  CFLAGS="$CFLAGS -O0 -fprofile-arcs -ftest-coverage"
+  LDFLAGS="$LDFLAGS -fprofile-arcs -ftest-coverage"
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Code coverage enabled" >&5
+printf "%s\n" "$as_me: Code coverage enabled" >&6;}
 fi
 
 ##############################
