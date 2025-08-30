@@ -58,3 +58,8 @@ test/unix/test-suite.log
 # Doxygen
 doc/html
 *.jar
+
+# Coverage files
+*.gcov
+*.gcda
+*.gcno
