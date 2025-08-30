@@ -1,0 +1,67 @@
+#!/bin/bash
+# Test coverage workflow locally
+
+set -e
+
+echo "=== Testing Coverage Workflow Locally ==="
+
+# Clean up any previous builds
+echo "Cleaning previous build..."
+make distclean 2>/dev/null || true
+
+# Bootstrap
+echo "Running bootstrap..."
+./bootstrap
+
+# Configure with coverage
+echo "Configuring with coverage enabled..."
+./configure --enable-test --enable-code-coverage --enable-examples
+
+# Build
+echo "Building project..."
+make -j $(nproc)
+
+# Run tests
+echo "Running tests..."
+make check -j $(nproc) || {
+    echo "Tests failed! Check test/unix/test-suite.log"
+    if [ -f test/unix/test-suite.log ]; then
+        echo "=== Test Suite Log ==="
+        cat test/unix/test-suite.log
+    fi
+    exit 1
+}
+
+# Generate coverage
+echo "Generating coverage report..."
+make check-code-coverage
+
+# Check if coverage files exist
+echo "Checking coverage files..."
+if [ -f mupnp-*-coverage.info ]; then
+    echo "✅ Coverage info file generated"
+    ls -la mupnp-*-coverage.info
+else
+    echo "❌ No coverage info file found"
+    exit 1
+fi
+
+if [ -d coverage-report ]; then
+    echo "✅ HTML coverage report generated"
+    echo "📊 Open file://$(pwd)/coverage-report/index.html to view coverage"
+else
+    echo "❌ No HTML coverage report found"
+    exit 1
+fi
+
+# Show coverage summary
+echo ""
+echo "=== Coverage Summary ==="
+if command -v lcov >/dev/null 2>&1; then
+    lcov --summary mupnp-*-coverage.info 2>/dev/null || true
+fi
+
+echo ""
+echo "✅ Coverage workflow test completed successfully!"
+echo "📋 Files ready for Codecov upload:"
+ls -la mupnp-*-coverage.info
