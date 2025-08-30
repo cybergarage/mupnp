@@ -10,8 +10,8 @@ echo "Cleaning previous build..."
 make distclean 2>/dev/null || true
 
 # Bootstrap
-echo "Running bootstrap..."
-./bootstrap
+#echo "Running bootstrap..."
+#./bootstrap
 
 # Configure with coverage
 echo "Configuring with coverage enabled..."
