@@ -30,26 +30,10 @@ jobs:
         run: make check -j 20 || more test/unix/test-suite.log
     - name: generate coverage
       run: |
-        # Generate gcov files for all source directories
-        cd src/mupnp
-        gcov libmupnp_a-*.o
-        cd control && gcov libmupnp_a-*.o || true
-        cd ../event && gcov libmupnp_a-*.o || true
-        cd ../http && gcov libmupnp_a-*.o || true
-        cd ../io && gcov libmupnp_a-*.o || true
-        cd ../net && gcov libmupnp_a-*.o || true
-        cd ../soap && gcov libmupnp_a-*.o || true
-        cd ../ssdp && gcov libmupnp_a-*.o || true
-        cd ../util && gcov libmupnp_a-*.o || true
-        cd ../xml && gcov libmupnp_a-*.o || true
-        cd ../../
-        # List generated coverage files for debugging
-        find . -name "*.gcov" | wc -l
-        echo "Coverage files generated successfully"
+        make check-code-coverage
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: cybergarage/mupnp
-        files: './src/**/*.gcov'
-        directory: './src'
+        files: mupnp-*-coverage.info
