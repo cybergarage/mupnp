@@ -38,7 +38,7 @@ make check-code-coverage
 
 # Check if coverage files exist
 echo "Checking coverage files..."
-if [ -f mupnp-*-coverage.info ]; then
+if ls mupnp-*-coverage.info 1> /dev/null 2>&1; then
     echo "✅ Coverage info file generated"
     ls -la mupnp-*-coverage.info
 else

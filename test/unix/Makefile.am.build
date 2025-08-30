@@ -12,6 +12,8 @@ TESTS = mupnptest
 check_PROGRAMS = mupnptest
 
 AM_CPPFLAGS = -I\$(top_srcdir)/include -I../ \$(CODE_COVERAGE_CPPFLAGS)
+AM_CFLAGS = $(CODE_COVERAGE_CFLAGS)
+AM_CXXFLAGS = $(CODE_COVERAGE_CXXFLAGS)
 
 HEADER
 
