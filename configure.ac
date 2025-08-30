@@ -54,6 +54,10 @@ AC_CHECK_HEADERS([stdbool.h])
 
 AX_CODE_COVERAGE
 
+# Set lcov options to ignore mismatch errors (needed for Boost.Test)
+CODE_COVERAGE_LCOV_OPTIONS_DEFAULT="--ignore-errors mismatch --ignore-errors unused"
+AC_SUBST([CODE_COVERAGE_LCOV_OPTIONS_DEFAULT])
+
 ##############################
 # Checks for Long Long
 ##############################
@@ -543,8 +547,11 @@ fi
 # Coverage
 ##############################
 
+# Note: AX_CODE_COVERAGE is already called earlier in this file,
+# which provides --enable-code-coverage option. 
+# Keeping this for backward compatibility.
 AC_ARG_ENABLE([coverage],
-  [AS_HELP_STRING([--enable-coverage], [Enable code coverage using gcov])],
+  [AS_HELP_STRING([--enable-coverage], [Enable code coverage using gcov (legacy option, use --enable-code-coverage instead)])],
   [enable_coverage=yes], [enable_coverage=no])
 
 if test "x$enable_coverage" = "xyes"; then
