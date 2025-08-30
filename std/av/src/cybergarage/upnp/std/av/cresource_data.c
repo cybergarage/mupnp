@@ -12,8 +12,8 @@
  *
  ************************************************************/
 
-#include <mupnp/util/cstring.h>
 #include <mupnp/upnp/std/av/cresource.h>
+#include <mupnp/util/cstring.h>
 
 /****************************************
  * cg_upnpav_resource_data_new

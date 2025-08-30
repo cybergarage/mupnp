@@ -12,8 +12,8 @@
  *
  ************************************************************/
 
-#include <mupnp/util/cstring.h>
 #include <mupnp/upnp/std/av/ccontent.h>
+#include <mupnp/util/cstring.h>
 
 #define CG_UPNPAV_CONTENT_CONTAINER_STRING "container"
 #define CG_UPNPAV_CONTENT_ITEM_STRING "item"
