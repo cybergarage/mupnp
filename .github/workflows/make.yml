@@ -37,3 +37,4 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: cybergarage/mupnp
         files: mupnp-*-coverage.info
+        directory: './src'
