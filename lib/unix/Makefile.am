@@ -8,7 +8,7 @@
 
 lib_LIBRARIES = libmupnp.a
 
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@ $(CODE_COVERAGE_CFLAGS)
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@
 
 mupnp_sources = \
 	../../src/mupnp/xml/xml_attribute_list.c \
@@ -114,4 +114,3 @@ nobase_libmupnpinclude_HEADERS =  \
 libmupnp_a_SOURCES = \
         $(mupnp_sources)
 libmupnp_a_CFLAGS = $(AM_CFLAGS)
-libmupnp_a_LIBADD = $(CODE_COVERAGE_LIBS)

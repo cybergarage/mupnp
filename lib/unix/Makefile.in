@@ -142,8 +142,7 @@ am__v_AR_ = $(am__v_AR_@AM_DEFAULT_V@)
 am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
 libmupnp_a_AR = $(AR) $(ARFLAGS)
-am__DEPENDENCIES_1 =
-libmupnp_a_DEPENDENCIES = $(am__DEPENDENCIES_1)
+libmupnp_a_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 =  \
 	../../src/mupnp/xml/libmupnp_a-xml_attribute_list.$(OBJEXT) \
@@ -511,7 +510,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lib_LIBRARIES = libmupnp.a
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@ $(CODE_COVERAGE_CFLAGS)
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@
 mupnp_sources = \
 	../../src/mupnp/xml/xml_attribute_list.c \
 	../../src/mupnp/xml/xml_node_list.c \
@@ -617,7 +616,6 @@ libmupnp_a_SOURCES = \
         $(mupnp_sources)
 
 libmupnp_a_CFLAGS = $(AM_CFLAGS)
-libmupnp_a_LIBADD = $(CODE_COVERAGE_LIBS)
 all: all-am
 
 .SUFFIXES:
