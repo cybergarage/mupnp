@@ -19,7 +19,7 @@ These notices must be retained in any copies of any part of this
 documentation and/or software.
  */
 
-#include <cybergarage/util/cstring.h>
+#include <mupnp/util/cstring.h>
 #include <stdio.h>
 #include <string.h>
 

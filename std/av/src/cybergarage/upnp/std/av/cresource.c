@@ -12,9 +12,9 @@
  *
  ************************************************************/
 
+#include <mupnp/util/cstring.h>
 #include <mupnp/upnp/std/av/ccontent.h>
 #include <mupnp/upnp/std/av/cresource.h>
-#include <cybergarage/util/cstring.h>
 
 /****************************************
  * cg_upnpav_resource_new

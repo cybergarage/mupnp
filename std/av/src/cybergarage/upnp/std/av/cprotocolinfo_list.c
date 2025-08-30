@@ -18,8 +18,8 @@
  *
  ******************************************************************/
 
+#include <mupnp/util/clog.h>
 #include <mupnp/upnp/std/av/cprotocolinfo.h>
-#include <cybergarage/util/clog.h>
 
 /****************************************
  * cg_upnp_protocolinflist_new

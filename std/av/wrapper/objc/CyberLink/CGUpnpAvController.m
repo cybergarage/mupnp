@@ -6,7 +6,7 @@
 //  Copyright 2008 Satoshi Konno. All rights reserved.
 //
 
-#include <cybergarage/upnp/ssdp/cssdp.h>
+#include <mupnp/upnp/ssdp/cssdp.h>
 #include <mupnp/upnp/std/av/cmediaserver.h>
 
 #import "CGUpnpAvConstants.h"

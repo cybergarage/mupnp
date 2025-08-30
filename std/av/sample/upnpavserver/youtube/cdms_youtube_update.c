@@ -12,7 +12,7 @@
  *
  ************************************************************/
 
-#include <cybergarage/net/cinterface.h>
+#include <mupnp/net/cinterface.h>
 #include <mupnp/upnp/std/av/cmediaserver.h>
 
 #include <sys/stat.h>

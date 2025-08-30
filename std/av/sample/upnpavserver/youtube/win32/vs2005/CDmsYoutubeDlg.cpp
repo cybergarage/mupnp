@@ -6,7 +6,7 @@
 #include "stdafx.h"
 
 #include "cdms_youtube.h"
-#include <cybergarage/util/cthread.h>
+#include <mupnp/util/cthread.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -232,6 +232,6 @@ void CCDmsYoutubeDlg::UpdateContents()
 
 void CCDmsYoutubeDlg::OnBnClickedUpdate()
 {
-  // TODO: ‚±‚±‚ÉƒRƒ“ƒgƒ[ƒ‹’Ê’mƒnƒ“ƒhƒ‰ ƒR[ƒh‚ğ’Ç‰Á‚µ‚Ü‚·B
+  // TODO: ï¿½ï¿½ï¿½ï¿½ï¿½ÉƒRï¿½ï¿½ï¿½gï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ê’mï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ ï¿½Rï¿½[ï¿½hï¿½ï¿½Ç‰ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B
   UpdateContents();
 }
