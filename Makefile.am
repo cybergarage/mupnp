@@ -10,14 +10,10 @@ endif
 # Code coverage
 ##############################
 
-# include $(top_srcdir)/aminclude_static.am
-# include $(top_srcdir)/aminclude_static.am
+include $(top_srcdir)/aminclude_static.am
 
-# CFLAGS="$CFLAGS $(CODE_COVERAGE_CFLAGS)"
-# CPPFLAGS="$CPPFLAGS $(CODE_COVERAGE_CPPFLAGS)"
-# CXXFLAGS="$CXXFLAGS $(CODE_COVERAGE_CXXFLAGS)"
-
-# clean-local: code-coverage-clean
+clean-local: code-coverage-clean
+distclean-local: code-coverage-dist-clean
 # distclean-local: code-coverage-dist-clean
 
 ##############################

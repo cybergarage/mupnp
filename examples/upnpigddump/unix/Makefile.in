@@ -105,7 +105,9 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_upnpigddump_OBJECTS = ../upnpigddump.$(OBJEXT) \
 	../../common/kb_util.$(OBJEXT)
 upnpigddump_OBJECTS = $(am_upnpigddump_OBJECTS)
-upnpigddump_DEPENDENCIES = ../../../lib/unix/libmupnp.a
+am__DEPENDENCIES_1 =
+upnpigddump_DEPENDENCIES = ../../../lib/unix/libmupnp.a \
+	$(am__DEPENDENCIES_1)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -179,6 +181,7 @@ CODE_COVERAGE_CFLAGS = @CODE_COVERAGE_CFLAGS@
 CODE_COVERAGE_CPPFLAGS = @CODE_COVERAGE_CPPFLAGS@
 CODE_COVERAGE_CXXFLAGS = @CODE_COVERAGE_CXXFLAGS@
 CODE_COVERAGE_ENABLED = @CODE_COVERAGE_ENABLED@
+CODE_COVERAGE_LCOV_OPTIONS_DEFAULT = @CODE_COVERAGE_LCOV_OPTIONS_DEFAULT@
 CODE_COVERAGE_LIBS = @CODE_COVERAGE_LIBS@
 CPPFLAGS = @CPPFLAGS@
 CSCOPE = @CSCOPE@
@@ -276,7 +279,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 samplesdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)/samples
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include -I../ -I../../common @XML_CFLAGS@ @CLOG_DEBUG_FLAGS@
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include -I../ -I../../common @XML_CFLAGS@ @CLOG_DEBUG_FLAGS@ $(CODE_COVERAGE_CFLAGS)
 noinst_HEADERS = \
 	../../common/kb_util.h
 
@@ -284,7 +287,7 @@ upnpigddump_SOURCES = \
 	../upnpigddump.c \
 	../../common/kb_util.c
 
-upnpigddump_LDADD = ../../../lib/unix/libmupnp.a @XML_LIBS@
+upnpigddump_LDADD = ../../../lib/unix/libmupnp.a @XML_LIBS@ $(CODE_COVERAGE_LIBS)
 all: all-am
 
 .SUFFIXES:

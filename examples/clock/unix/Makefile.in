@@ -105,7 +105,9 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_upnpclock_OBJECTS = clock_main.$(OBJEXT) ../clock.$(OBJEXT) \
 	../clock_device.$(OBJEXT) ../../common/kb_util.$(OBJEXT)
 upnpclock_OBJECTS = $(am_upnpclock_OBJECTS)
-upnpclock_DEPENDENCIES = ../../../lib/unix/libmupnp.a
+am__DEPENDENCIES_1 =
+upnpclock_DEPENDENCIES = ../../../lib/unix/libmupnp.a \
+	$(am__DEPENDENCIES_1)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -180,6 +182,7 @@ CODE_COVERAGE_CFLAGS = @CODE_COVERAGE_CFLAGS@
 CODE_COVERAGE_CPPFLAGS = @CODE_COVERAGE_CPPFLAGS@
 CODE_COVERAGE_CXXFLAGS = @CODE_COVERAGE_CXXFLAGS@
 CODE_COVERAGE_ENABLED = @CODE_COVERAGE_ENABLED@
+CODE_COVERAGE_LCOV_OPTIONS_DEFAULT = @CODE_COVERAGE_LCOV_OPTIONS_DEFAULT@
 CODE_COVERAGE_LIBS = @CODE_COVERAGE_LIBS@
 CPPFLAGS = @CPPFLAGS@
 CSCOPE = @CSCOPE@
@@ -277,7 +280,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 samplesdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)/samples
-AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include -I$(srcdir)/../ -I$(srcdir)/../../common @XML_CFLAGS@ @CLOG_DEBUG_FLAGS@
+AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include -I$(srcdir)/../ -I$(srcdir)/../../common @XML_CFLAGS@ @CLOG_DEBUG_FLAGS@ $(CODE_COVERAGE_CFLAGS)
 noinst_HEADERS = \
 	../clock.h \
 	../clock_device.h \
@@ -289,7 +292,7 @@ upnpclock_SOURCES = \
 	../clock_device.c \
 	../../common/kb_util.c
 
-upnpclock_LDADD = ../../../lib/unix/libmupnp.a @XML_LIBS@
+upnpclock_LDADD = ../../../lib/unix/libmupnp.a @XML_LIBS@ $(CODE_COVERAGE_LIBS)
 all: all-am
 
 .SUFFIXES:

@@ -10,6 +10,7 @@ TESTS = mupnptest
 check_PROGRAMS = mupnptest
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../ $(CODE_COVERAGE_CPPFLAGS)
+AM_CXXFLAGS = $(CODE_COVERAGE_CXXFLAGS)
 
 noinst_HEADERS = \
 	../ClinkUnitTest.h \

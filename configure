@@ -663,6 +663,7 @@ EGREP
 GREP
 HAVE_LIBTOOL_FALSE
 HAVE_LIBTOOL_TRUE
+CODE_COVERAGE_LCOV_OPTIONS_DEFAULT
 CODE_COVERAGE_LIBS
 CODE_COVERAGE_CXXFLAGS
 CODE_COVERAGE_CFLAGS
@@ -1459,7 +1460,8 @@ Optional Features:
   --enable-mudflap-debug  enable libmudflap debug (default = no)
   --enable-examples       build examples (default = yes)
   --enable-test           build test (default = no)
-  --enable-coverage       Enable code coverage using gcov
+  --enable-coverage       Enable code coverage using gcov (legacy option, use
+                          --enable-code-coverage instead)
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -5943,6 +5945,10 @@ fi
 
 
 
+# Set lcov options to ignore mismatch errors (needed for Boost.Test)
+CODE_COVERAGE_LCOV_OPTIONS_DEFAULT="--ignore-errors mismatch --ignore-errors unused"
+
+
 ##############################
 # Checks for Long Long
 ##############################
@@ -7583,6 +7589,9 @@ fi
 # Coverage
 ##############################
 
+# Note: AX_CODE_COVERAGE is already called earlier in this file,
+# which provides --enable-code-coverage option.
+# Keeping this for backward compatibility.
 # Check whether --enable-coverage was given.
 if test ${enable_coverage+y}
 then :
