@@ -22,191 +22,34 @@ jobs:
     - name: configure
       run: |
         ./configure --enable-test --enable-code-coverage --enable-examples
-        echo "=== Configuration summary ==="
-        echo "CODE_COVERAGE_ENABLED: $(grep CODE_COVERAGE_ENABLED config.h || echo 'not found')"
-        echo "=== Coverage flags in config ==="
-        grep -E "CODE_COVERAGE_(CFLAGS|CXXFLAGS|LIBS)" config.status | head -5 || echo "Coverage flags not found in config.status"
-        echo "=== Automake version ==="
-        automake --version | head -1 || echo "automake not found"
     - name: make
       run: |
-        echo "=== Building project ==="
         make -j 20
-        echo "=== Checking generated files ==="
-        echo "Test program:"
-        if [ -f test/unix/mupnptest ]; then
-          echo "✅ mupnptest exists"
-          file test/unix/mupnptest
-          ldd test/unix/mupnptest || echo "ldd failed"
-        else
-          echo "❌ mupnptest not found"
-          ls -la test/unix/ || echo "Cannot list test directory"
-        fi
-        
-        echo "Library:"
-        if [ -f lib/unix/libmupnp.a ]; then
-          echo "✅ libmupnp.a exists"
-          ls -la lib/unix/libmupnp.a
-        else
-          echo "❌ libmupnp.a not found"
-        fi
-        
-        echo "Initial .gcno files (should exist after compilation):"
-        find . -name "*.gcno" | wc -l | xargs echo "Count:"
-        find . -name "*.gcno" | head -3 || echo "No .gcno files found"
     - name: make check
       run: |
-        echo "=== Running make check ==="
-        echo "=== Environment variables ==="
-        env | grep CODE_COVERAGE || echo "No CODE_COVERAGE variables found"
-        echo "=== GCOV version ==="
-        gcov --version || echo "gcov not found"
-        echo "=== Compiler flags in use ==="
-        make -n check 2>&1 | grep -E 'CFLAGS|CXXFLAGS|LIBS' | head -5 || echo "No flags found"
-        
-        # Run tests but continue on failure
-        set +e  # Don't exit on error for this section
-        make check -j 20
-        test_result=$?
-        set -e  # Re-enable exit on error
-        
-        if [ $test_result -ne 0 ]; then
-          echo "=== make check failed with exit code $test_result ==="
-          echo "=== make check failed, investigating... ==="
-          # Print test logs
-          for log in test/unix/*.log; do
-            if [ -f "$log" ]; then
-              echo "=== Contents of $log ==="
-              cat "$log"
-            fi
-          done
-          
-          echo "=== Checking if test binaries exist ==="
-          find test -name "*test" -type f 2>/dev/null || echo "No test binaries found"
-          
-          echo "=== Trying to run test manually ==="
-          cd test/unix
-          if [ -f mupnptest ]; then
-            echo "Running ./mupnptest directly..."
-            ./mupnptest || echo "Direct test execution failed with exit code: $?"
-          elif [ -f TestMain ]; then
-            echo "Running ./TestMain directly..."
-            ./TestMain || echo "Direct TestMain execution failed with exit code: $?"
-          else
-            echo "No recognizable test programs found in test/unix"
-            ls -la
-          fi
-          cd ../..
-          
-          # Even if tests fail, let's try to generate some coverage files by compiling with coverage
-          echo "=== Force rebuilding with coverage to ensure .gcno files exist ==="
-          make clean
-          make -j 20 || echo "Rebuild failed"
-        else
-          echo "✅ Tests passed successfully"
-        fi
-        
-        # Check if any .gcda files were created during testing
-        echo "=== Checking for coverage files after tests ==="
-        find . -name "*.gcda" | head -10 || echo "No .gcda files found after tests"
-        find . -name "*.gcno" | head -10 || echo "No .gcno files found after tests"
-    - name: verify coverage files
+        run: make check -j 20 || more test/unix/test-suite.log
+    - name: generate coverage
       run: |
-        echo "=== Post-test coverage file analysis ==="
-        
-        echo "📊 .gcda files (execution data):"
-        gcda_files=$(find . -name "*.gcda" | wc -l)
-        echo "Count: $gcda_files"
-        if [ $gcda_files -gt 0 ]; then
-          find . -name "*.gcda" | head -10
-          echo "Sample .gcda file details:"
-          sample_gcda=$(find . -name "*.gcda" | head -1)
-          if [ -n "$sample_gcda" ]; then
-            ls -la "$sample_gcda"
-            # Check if the file contains data
-            [ -s "$sample_gcda" ] && echo "✅ File has data" || echo "⚠️ File is empty"
-          fi
-        else
-          echo "❌ No .gcda files found - tests may not have run properly"
-        fi
-        
-        echo ""
-        echo "📊 .gcno files (compilation data):"
-        gcno_files=$(find . -name "*.gcno" | wc -l)
-        echo "Count: $gcno_files"
-        if [ $gcno_files -gt 0 ]; then
-          find . -name "*.gcno" | head -10
-        else
-          echo "❌ No .gcno files found - coverage not enabled during compilation"
-        fi
-        
-        echo ""
-        echo "📁 Directory analysis:"
-        for dir in lib/unix test/unix test; do
-          if [ -d "$dir" ]; then
-            echo "Contents of $dir:"
-            ls -la "$dir"/ | grep -E '\.(gcda|gcno|o)$' || echo "No coverage/object files in $dir"
-            echo ""
-          fi
-        done
-    - name: generate coverage report
-      run: |
-        echo "=== Final check for coverage files ==="
-        echo "Looking for .gcda files:"
-        gcda_count=$(find . -name "*.gcda" | wc -l)
-        echo "Found $gcda_count .gcda files"
-        if [ $gcda_count -gt 0 ]; then
-          echo "Sample .gcda files:"
-          find . -name "*.gcda" | head -5
-        fi
-        
-        echo "Looking for .gcno files:"
-        gcno_count=$(find . -name "*.gcno" | wc -l)
-        echo "Found $gcno_count .gcno files"
-        if [ $gcno_count -gt 0 ]; then
-          echo "Sample .gcno files:"
-          find . -name "*.gcno" | head -5
-        fi
-        
-        # Try different approaches to generate coverage
-        if [ $gcda_count -gt 0 ]; then
-          echo "=== Attempting to generate coverage report with make target ==="
-          make check-code-coverage || {
-            echo "make check-code-coverage failed, trying lcov directly..."
-            
-            # Try lcov directly
-            echo "=== Trying lcov directly ==="
-            lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch,unused,empty || {
-              echo "Direct lcov failed, trying with minimal options..."
-              lcov --capture --directory . --output-file coverage.info || {
-                echo "All lcov attempts failed"
-              }
-            }
-            
-            # If we have a coverage.info file, try to generate HTML
-            if [ -f coverage.info ]; then
-              echo "Coverage info file created, attempting HTML generation..."
-              genhtml coverage.info --output-directory coverage_html --ignore-errors mismatch,unused,empty || echo "HTML generation failed"
-            fi
-          }
-        else
-          echo "=== No .gcda files found - creating empty coverage report ==="
-          # Create a minimal coverage info file
-          echo "TN:" > mupnp-3.0.2-coverage.info
-          echo "end_of_record" >> mupnp-3.0.2-coverage.info
-        fi
-        
-        # Check what coverage files we ended up with
-        echo "=== Final coverage files ==="
-        ls -la *.info 2>/dev/null || echo "No .info files found"
-        ls -la coverage_html/ 2>/dev/null || echo "No coverage HTML directory found"
-    - name: upload coverage to Codecov
-      uses: codecov/codecov-action@v4
+        # Generate gcov files for all source directories
+        cd src/mupnp
+        gcov libmupnp_a-*.o
+        cd control && gcov libmupnp_a-*.o || true
+        cd ../event && gcov libmupnp_a-*.o || true
+        cd ../http && gcov libmupnp_a-*.o || true
+        cd ../io && gcov libmupnp_a-*.o || true
+        cd ../net && gcov libmupnp_a-*.o || true
+        cd ../soap && gcov libmupnp_a-*.o || true
+        cd ../ssdp && gcov libmupnp_a-*.o || true
+        cd ../util && gcov libmupnp_a-*.o || true
+        cd ../xml && gcov libmupnp_a-*.o || true
+        cd ../../
+        # List generated coverage files for debugging
+        find . -name "*.gcov" | wc -l
+        echo "Coverage files generated successfully"
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
       with:
-        files: ./*coverage*.info,./coverage.info
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
-        verbose: true
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: cybergarage/mupnp
+        files: './src/**/*.gcov'
+        directory: './src'
