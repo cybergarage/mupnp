@@ -3,7 +3,9 @@
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/cybergarage/mupnp)
 [![Build Status](https://github.com/cybergarage/mupnp/actions/workflows/make.yml/badge.svg)](https://github.com/cybergarage/mupnp/actions/workflows/make.yml)
 [![doxygen](https://github.com/cybergarage/mupnp/actions/workflows/doxygen.yml/badge.svg)](http://cybergarage.github.io/mupnp/)
+<!-- 
 [![codecov](https://codecov.io/gh/cybergarage/mupnp/graph/badge.svg?token=GTSS6CC5YB)](https://codecov.io/gh/cybergarage/mupnp)
+-->
 
 mUPnP for C is a development package for UPnP™ [^1] (Universal Plug and Play) developers. It provides a set of APIs to create UPnP™ devices and control points quickly and easily. This README file provides an overview of the package, its contents, and instructions on how to set up and use it.
 
