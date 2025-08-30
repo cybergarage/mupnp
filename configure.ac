@@ -560,6 +560,20 @@ if [ test "$build_test" = yes ]; then
 fi
 
 ##############################
+# Coverage
+##############################
+
+AC_ARG_ENABLE([coverage],
+  [AS_HELP_STRING([--enable-coverage], [Enable code coverage using gcov])],
+  [enable_coverage=yes], [enable_coverage=no])
+
+if test "x$enable_coverage" = "xyes"; then
+  CFLAGS="$CFLAGS -O0 -fprofile-arcs -ftest-coverage"
+  LDFLAGS="$LDFLAGS -fprofile-arcs -ftest-coverage"
+  AC_MSG_NOTICE([Code coverage enabled])
+fi
+
+##############################
 # Makefiles
 ##############################
 
