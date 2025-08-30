@@ -232,25 +232,6 @@ fi
 
 AC_SUBST(CLOG_DEBUG_FLAGS)
 
-AC_ARG_ENABLE(coverage,
-        AS_HELP_STRING([--enable-coverage],
-                [enable coverage (default = no)]),
-                [
-                        if test $enableval = no; then
-                                USE_COVERAGE=no;
-                        else
-                                USE_COVERAGE=yes;
-                        fi
-                ],[
-                        USE_COVERAGE=no;
-                ]
-)
-
-if [ test $USE_COVERAGE = yes ]; then
-	CFLAGS="$CFLAGS -fprofile-arcs -ftest-coverage -O0"
-	LDFLAGS="$LDFLAGS -lgcov"
-fi
-
 ##############################
 # Check whether thread locking should be traced
 ##############################
