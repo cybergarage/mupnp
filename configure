@@ -663,6 +663,7 @@ EGREP
 GREP
 HAVE_LIBTOOL_FALSE
 HAVE_LIBTOOL_TRUE
+CODE_COVERAGE_LCOV_RMOPTS_DEFAULT
 CODE_COVERAGE_LCOV_OPTIONS_DEFAULT
 CODE_COVERAGE_LIBS
 CODE_COVERAGE_CXXFLAGS
@@ -5946,7 +5947,9 @@ fi
 
 
 # Set lcov options to ignore mismatch errors (needed for Boost.Test)
-CODE_COVERAGE_LCOV_OPTIONS_DEFAULT="--ignore-errors mismatch --ignore-errors unused"
+CODE_COVERAGE_LCOV_OPTIONS_DEFAULT="--ignore-errors mismatch --ignore-errors unused --rc geninfo_unexecuted_blocks=1"
+CODE_COVERAGE_LCOV_RMOPTS_DEFAULT="--ignore-errors unused"
+
 
 
 ##############################
