@@ -1199,8 +1199,8 @@ mUpnpDevice* mupnp_device_getdevicebydescriptionuri(mUpnpDevice* dev, const char
 /**
  * Get a service by index from the device
  *
- * \param dev Device in question
- * \param idx Service index number (0-based)
+ * @param dev Device in question
+ * @param idx Service index number (0-based)
  *
  */
 // Theo Beisch : added missing (mUpnpList*) cast
