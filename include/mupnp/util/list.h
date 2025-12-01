@@ -62,39 +62,122 @@ typedef struct _mUpnpList {
  ****************************************/
 
 /**
- * Initialize a list node to act as the first node
+ * @brief Initialize a list node as a list header (sentinel node)
  *
- * \param list List node
+ * @details
+ * Initializes a node to act as a circular doubly-linked list header.
+ * The header is a sentinel node that marks the beginning and end of the list.
+ * It simplifies list operations by eliminating special cases for empty lists.
+ *
+ * After initialization:
+ * - prev and next point to the node itself (empty circular list)
+ * - headFlag is set to true
+ *
+ * @param list The node to initialize as a header. Must not be NULL.
+ *
+ * @note Thread-safe: Can be called from any thread, but typically called
+ *       during list creation before the list is shared between threads.
+ * @note The header node itself does not contain data; it only manages links.
+ *
+ * @see mupnp_list_node_init()
+ * @see mupnp_list_add()
  */
 void mupnp_list_header_init(mUpnpList* list);
 
 /**
- * Initialize a list node to act as a regular node, part of a list.
+ * @brief Initialize a list node as a regular data node
  *
- * \param list List node
+ * @details
+ * Initializes a node to act as a regular list member (not a header).
+ * The node is initially not linked to any list.
+ *
+ * After initialization:
+ * - prev and next are set to NULL
+ * - headFlag is set to false
+ *
+ * @param list The node to initialize. Must not be NULL.
+ *
+ * @note Thread-safe: Can be called from any thread, but typically called
+ *       before the node is added to a shared list.
+ * @note The node must be properly populated with data before adding to a list.
+ *
+ * @see mupnp_list_header_init()
+ * @see mupnp_list_insert()
+ * @see mupnp_list_add()
  */
 void mupnp_list_node_init(mUpnpList* list);
 
 /**
- * Insert a list node or a complete list structure after the given node
+ * @brief Insert a node or list segment after a given node
  *
- * \param prevList Insert after this node
- * \param list List node or list structure to insert
+ * @details
+ * Inserts a single node or an entire list segment immediately after the
+ * specified node in the list. This maintains the circular doubly-linked
+ * structure and properly updates all prev/next pointers.
+ *
+ * If inserting multiple nodes, they should already be linked together
+ * (forming a chain).
+ *
+ * @param prevList The node after which to insert. Must not be NULL and
+ *                 should be part of a properly initialized list.
+ * @param list The node or list segment to insert. Must not be NULL.
+ *
+ * @note Thread-safe: This function is NOT thread-safe. The caller must
+ *       ensure exclusive access to the list (e.g., via mutex) when
+ *       modifying list structure.
+ * @note Side effect: Updates prev/next pointers of adjacent nodes.
+ *
+ * @see mupnp_list_add()
+ * @see mupnp_list_remove()
  */
 void mupnp_list_insert(mUpnpList* prevList, mUpnpList* list);
 
 /**
- * \todo This works essentially like insert, although it is more error-prone?!
- * \todo There might be a bug in this function.
+ * @brief Add a node to the end of a list
  *
+ * @details
+ * Appends a node to the end of a list (just before the header node).
+ * This is a convenience function for adding elements to the tail of a list.
+ *
+ * @param headList The list header node. Must not be NULL and must be
+ *                 initialized with mupnp_list_header_init().
+ * @param list The node to add. Must not be NULL and should be initialized
+ *             with mupnp_list_node_init().
+ *
+ * @note Thread-safe: This function is NOT thread-safe. The caller must
+ *       ensure exclusive access to the list when modifying structure.
+ * @note Side effect: Updates prev/next pointers of the last node and header.
+ *
+ * @todo Review implementation for potential edge cases with empty lists.
+ *
+ * @see mupnp_list_insert()
+ * @see mupnp_list_remove()
  */
 void mupnp_list_add(mUpnpList* headList, mUpnpList* list);
 
 /**
- * Remove a node from a list. Does not free any memory, but only removes
- * the next and previous link associations regarding the given node.
+ * @brief Remove a node from its list
  *
- * \param list List node to remove
+ * @details
+ * Removes a node from the list it belongs to by updating the prev/next
+ * pointers of adjacent nodes. This does NOT free any memory; it only
+ * unlinks the node from the list structure.
+ *
+ * After removal, the node's prev and next pointers point to itself,
+ * making it safe to check if a node is in a list.
+ *
+ * @param list The node to remove. Must not be NULL and should be part of
+ *             a list (not a standalone node).
+ *
+ * @note Thread-safe: This function is NOT thread-safe. The caller must
+ *       ensure exclusive access to the list when modifying structure.
+ * @note Memory management: The caller is responsible for freeing the node's
+ *       memory if needed after removal.
+ * @note Side effect: Updates prev/next pointers of adjacent nodes.
+ * @note Safe to call on an already removed node (has no effect).
+ *
+ * @see mupnp_list_add()
+ * @see mupnp_list_clear()
  */
 void mupnp_list_remove(mUpnpList* list);
 

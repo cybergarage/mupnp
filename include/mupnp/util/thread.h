@@ -112,34 +112,161 @@ typedef void (*MUPNP_THREAD_FUNC)(mUpnpThread*);
  ****************************************/
 
 /**
- * Create a new thread
+ * @brief Create a new thread instance
+ *
+ * @details
+ * Allocates and initializes a platform-independent thread object.
+ * The thread is initially in a stopped state (not running).
+ *
+ * Before starting the thread, you must:
+ * 1. Set an action function with mupnp_thread_setaction()
+ * 2. Optionally set user data with mupnp_thread_setuserdata()
+ *
+ * Platform support:
+ * - Linux/Unix: pthread (POSIX threads)
+ * - Windows: CreateThread API
+ * - ITRON, T-Engine, BTRON: platform-specific task APIs
+ *
+ * @return A newly-created mUpnpThread on success, or NULL if thread
+ *         creation fails (e.g., insufficient system resources).
+ *
+ * @note The returned thread must be freed with mupnp_thread_delete() when
+ *       no longer needed.
+ * @note Thread-safe: Can be called concurrently from multiple threads.
+ * @note The thread does not start automatically; call mupnp_thread_start()
+ *       to begin execution.
+ *
+ * @see mupnp_thread_delete()
+ * @see mupnp_thread_start()
+ * @see mupnp_thread_setaction()
+ *
+ * @code
+ * // Example: Create and start a worker thread
+ * void worker_function(mUpnpThread* thread) {
+ *     while (mupnp_thread_isrunnable(thread)) {
+ *         // Perform work...
+ *         mupnp_sleep(100);
+ *     }
+ * }
+ * 
+ * mUpnpThread* thread = mupnp_thread_new();
+ * mupnp_thread_setaction(thread, worker_function);
+ * mupnp_thread_start(thread);
+ * @endcode
  */
 mUpnpThread* mupnp_thread_new(void);
 
 /**
- * Get a self reference to thread.
+ * @brief Get the mUpnpThread object for the currently executing thread
+ *
+ * @details
+ * Returns a reference to the thread structure for the calling thread.
+ * This is useful when a thread needs to access its own thread data or
+ * check if it should continue running.
+ *
+ * @return Pointer to the current thread's mUpnpThread structure, or NULL
+ *         if the calling thread was not created with mupnp_thread_new().
+ *
+ * @note Thread-safe: Can be called from any thread.
+ * @note This function only works for threads created by the mUPnP library;
+ *       external threads (e.g., main thread, OS threads) will return NULL.
+ *
+ * @see mupnp_thread_isrunnable()
  */
 
 mUpnpThread* mupnp_thread_self(void);
 
 /**
- * Stop and destroy a thread.
+ * @brief Stop and destroy a thread, freeing all resources
  *
- * \param thread Thread to destroy
+ * @details
+ * Stops the thread if it is running and releases all associated resources.
+ * This function blocks until the thread has fully terminated.
+ *
+ * The thread's action function should periodically check
+ * mupnp_thread_isrunnable() and exit when it returns false to ensure
+ * graceful shutdown.
+ *
+ * @param thread The thread to destroy. May be NULL (no-op if NULL).
+ *
+ * @retval true  Successfully stopped and destroyed the thread
+ * @retval false Failed to destroy (e.g., thread is NULL)
+ *
+ * @note After calling this function, the thread pointer is invalid.
+ * @note Blocking behavior: This function blocks until the thread terminates.
+ *       If the thread does not check mupnp_thread_isrunnable(), it may
+ *       block indefinitely.
+ * @note Thread-safe: Must not be called concurrently on the same thread.
+ *
+ * @warning Do not call this function from the thread's own action function;
+ *          this will cause deadlock.
+ *
+ * @see mupnp_thread_new()
+ * @see mupnp_thread_stop()
  */
 bool mupnp_thread_delete(mUpnpThread* thread);
 
 /**
- * Start a thread (must be created first with ch_thread_new())
+ * @brief Start a thread's execution
  *
- * \param thread Thread to start
+ * @details
+ * Starts the thread, causing its action function to begin execution in
+ * a new thread of control. The thread must have been created with
+ * mupnp_thread_new() and must have an action function set with
+ * mupnp_thread_setaction().
+ *
+ * After starting, the action function runs concurrently with the calling
+ * thread until the thread is stopped or the action function returns.
+ *
+ * @param thread The thread to start. Must not be NULL and must have
+ *               an action function set.
+ *
+ * @retval true  Successfully started the thread
+ * @retval false Failed to start due to:
+ *               - thread is NULL
+ *               - No action function set
+ *               - Thread already running
+ *               - System error (e.g., cannot create OS thread)
+ *
+ * @note Thread-safe: Can be called from any thread.
+ * @note Calling this function on an already-running thread has no effect
+ *       and returns false.
+ * @note Side effect: Sets the thread's runnable flag to true and creates
+ *       a new OS-level thread.
+ *
+ * @see mupnp_thread_stop()
+ * @see mupnp_thread_isrunnable()
+ * @see mupnp_thread_setaction()
  */
 bool mupnp_thread_start(mUpnpThread* thread);
 
 /**
- * Stop a running thread.
+ * @brief Request a thread to stop execution
  *
- * \param thread Thread to stop
+ * @details
+ * Signals the thread to stop by setting its runnable flag to false.
+ * This function does NOT forcibly terminate the thread; the thread's
+ * action function must cooperatively check mupnp_thread_isrunnable()
+ * and exit when it returns false.
+ *
+ * This function returns immediately without waiting for the thread to
+ * terminate. Use mupnp_thread_delete() if you need to wait for termination.
+ *
+ * @param thread The thread to stop. Must not be NULL.
+ *
+ * @retval true  Successfully signaled the thread to stop
+ * @retval false Failed to signal (e.g., thread is NULL)
+ *
+ * @note Non-blocking: Returns immediately without waiting for thread exit.
+ * @note Thread-safe: Can be called from any thread, including the thread
+ *       being stopped.
+ * @note Side effect: Sets the thread's runnable flag to false.
+ * @note The thread continues running until its action function checks
+ *       mupnp_thread_isrunnable() and exits.
+ *
+ * @see mupnp_thread_start()
+ * @see mupnp_thread_isrunnable()
+ * @see mupnp_thread_delete()
  */
 bool mupnp_thread_stop(mUpnpThread* thread);
 
