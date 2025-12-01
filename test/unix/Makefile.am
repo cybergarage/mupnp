@@ -18,18 +18,18 @@ noinst_HEADERS = \
 	../TestDevice.h
 
 mupnptest_SOURCES = \
-	../TestDevice.c \
 	../StringTest.cpp \
-	../StateVariableTest.cpp \
-	../TestMain.cpp \
-	../SubscriptionTest.cpp \
 	../URITest.cpp \
-	../XMLTest.cpp \
-	../NetworkTest.cpp \
-	../UPnPFuncTest.cpp \
-	../HttpTest.cpp \
+	../SubscriptionTest.cpp \
+	../ServiceTest.cpp \
 	../ControlPointTest.cpp \
-	../DeviceTest.cpp \
+	../NetworkTest.cpp \
+	../TestDevice.c \
+	../UPnPFuncTest.cpp \
 	../DictionaryTest.cpp \
-	../ServiceTest.cpp
+	../StateVariableTest.cpp \
+	../XMLTest.cpp \
+	../DeviceTest.cpp \
+	../TestMain.cpp \
+	../HttpTest.cpp
 mupnptest_LDADD = ../../lib/unix/libmupnp.a @XML_LIBS@ $(CODE_COVERAGE_LIBS)
