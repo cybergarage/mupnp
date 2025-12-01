@@ -180,8 +180,10 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4efa7e8625bcd9fc6452719d91d360a4" id="r_a4efa7e8625bcd9fc6452719d91d360a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aab6f74a312e4bfd1d64492e544d4626f">mUpnpStateVariable</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4efa7e8625bcd9fc6452719d91d360a4">mupnp_statevariable_new</a> (void)</td></tr>
+<tr class="memdesc:a4efa7e8625bcd9fc6452719d91d360a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new UPnP state variable.  <br /></td></tr>
 <tr class="separator:a4efa7e8625bcd9fc6452719d91d360a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73185dd7469ae3e88ab1fcb4e641974a" id="r_a73185dd7469ae3e88ab1fcb4e641974a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73185dd7469ae3e88ab1fcb4e641974a">mupnp_statevariable_delete</a> (<a class="el" href="#aab6f74a312e4bfd1d64492e544d4626f">mUpnpStateVariable</a> *statVar)</td></tr>
+<tr class="memdesc:a73185dd7469ae3e88ab1fcb4e641974a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a UPnP state variable and free resources.  <br /></td></tr>
 <tr class="separator:a73185dd7469ae3e88ab1fcb4e641974a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac33516d044d3f4ca01549f674c9c8a6a" id="r_ac33516d044d3f4ca01549f674c9c8a6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac33516d044d3f4ca01549f674c9c8a6a">mupnp_statevariable_setstatevariablenode</a> (<a class="el" href="#aab6f74a312e4bfd1d64492e544d4626f">mUpnpStateVariable</a> *statVar, <a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *node)</td></tr>
 <tr class="separator:ac33516d044d3f4ca01549f674c9c8a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -220,7 +222,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)stateTable, (<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)statVar)</div>
-<div class="ttc" id="alist_8c_html_a879d24aec0a802bf4f3ed01826e8b60f"><div class="ttname"><a href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a></div><div class="ttdeci">void mupnp_list_add(mUpnpList *headList, mUpnpList *list)</div><div class="ttdef"><b>Definition</b> list.c:123</div></div>
+<div class="ttc" id="alist_8c_html_a879d24aec0a802bf4f3ed01826e8b60f"><div class="ttname"><a href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a></div><div class="ttdeci">void mupnp_list_add(mUpnpList *headList, mUpnpList *list)</div><div class="ttdoc">Add a node to the end of a list.</div><div class="ttdef"><b>Definition</b> list.c:123</div></div>
 <div class="ttc" id="astruct__mUpnpList_html"><div class="ttname"><a href="struct__mUpnpList.html">_mUpnpList</a></div><div class="ttdoc">The generic list interface in mUPnP.</div><div class="ttdef"><b>Definition</b> list.h:56</div></div>
 </div><!-- fragment --><p>Add new service state table into service state table list</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -250,7 +252,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="list_8c.html#a579e25386f2e6d3a763a0943b7745b36">mupnp_list_clear</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)stateTable, (<a class="code hl_typedef" href="list_8h.html#a067b9d8a69c3d6a30dc960dfcc6fc95e">MUPNP_LIST_DESTRUCTORFUNC</a>)<a class="code hl_function" href="#a73185dd7469ae3e88ab1fcb4e641974a">mupnp_statevariable_delete</a>)</div>
 <div class="ttc" id="alist_8c_html_a579e25386f2e6d3a763a0943b7745b36"><div class="ttname"><a href="list_8c.html#a579e25386f2e6d3a763a0943b7745b36">mupnp_list_clear</a></div><div class="ttdeci">void mupnp_list_clear(mUpnpList *headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc)</div><div class="ttdef"><b>Definition</b> list.c:257</div></div>
 <div class="ttc" id="alist_8h_html_a067b9d8a69c3d6a30dc960dfcc6fc95e"><div class="ttname"><a href="list_8h.html#a067b9d8a69c3d6a30dc960dfcc6fc95e">MUPNP_LIST_DESTRUCTORFUNC</a></div><div class="ttdeci">void(* MUPNP_LIST_DESTRUCTORFUNC)(void *)</div><div class="ttdef"><b>Definition</b> list.h:29</div></div>
-<div class="ttc" id="astatevariable_8h_html_a73185dd7469ae3e88ab1fcb4e641974a"><div class="ttname"><a href="#a73185dd7469ae3e88ab1fcb4e641974a">mupnp_statevariable_delete</a></div><div class="ttdeci">void mupnp_statevariable_delete(mUpnpStateVariable *statVar)</div><div class="ttdef"><b>Definition</b> statevariable.c:53</div></div>
+<div class="ttc" id="astatevariable_8h_html_a73185dd7469ae3e88ab1fcb4e641974a"><div class="ttname"><a href="#a73185dd7469ae3e88ab1fcb4e641974a">mupnp_statevariable_delete</a></div><div class="ttdeci">void mupnp_statevariable_delete(mUpnpStateVariable *statVar)</div><div class="ttdoc">Destroy a UPnP state variable and free resources.</div><div class="ttdef"><b>Definition</b> statevariable.c:53</div></div>
 </div><!-- fragment --><p>Clear service state table</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -416,7 +418,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a>(<a class="code hl_define" href="#a50bfdda793d85f1c02adc05999862e7d">mupnp_statevariable_getstatevariablenode</a>(statVar), <a class="code hl_define" href="#af92566675759662bf608f2926afc733c">MUPNP_STATEVARIABLE_DATATYPE</a>)</div>
-<div class="ttc" id="astatevariable_8h_html_a50bfdda793d85f1c02adc05999862e7d"><div class="ttname"><a href="#a50bfdda793d85f1c02adc05999862e7d">mupnp_statevariable_getstatevariablenode</a></div><div class="ttdeci">#define mupnp_statevariable_getstatevariablenode(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:155</div></div>
+<div class="ttc" id="astatevariable_8h_html_a50bfdda793d85f1c02adc05999862e7d"><div class="ttname"><a href="#a50bfdda793d85f1c02adc05999862e7d">mupnp_statevariable_getstatevariablenode</a></div><div class="ttdeci">#define mupnp_statevariable_getstatevariablenode(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:196</div></div>
 <div class="ttc" id="astatevariable_8h_html_af92566675759662bf608f2926afc733c"><div class="ttname"><a href="#af92566675759662bf608f2926afc733c">MUPNP_STATEVARIABLE_DATATYPE</a></div><div class="ttdeci">#define MUPNP_STATEVARIABLE_DATATYPE</div><div class="ttdef"><b>Definition</b> statevariable.h:48</div></div>
 <div class="ttc" id="axml__node_8c_html_a6f202591df140c494e7a48abae79ea99"><div class="ttname"><a href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a></div><div class="ttdeci">const char * mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name)</div><div class="ttdef"><b>Definition</b> xml_node.c:216</div></div>
 </div><!-- fragment --><p>Get data type from state variable</p>
@@ -739,8 +741,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a>(<a class="code hl_define" href="#a129346e55f032a0fe2993ad6b92fcd90">mupnp_statevariable_getname</a>(statVar), name)</div>
-<div class="ttc" id="astatevariable_8h_html_a129346e55f032a0fe2993ad6b92fcd90"><div class="ttname"><a href="#a129346e55f032a0fe2993ad6b92fcd90">mupnp_statevariable_getname</a></div><div class="ttdeci">#define mupnp_statevariable_getname(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:248</div></div>
-<div class="ttc" id="astring__function_8c_html_a87e4a8c1183b47bda9414e1bdb2a265b"><div class="ttname"><a href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a></div><div class="ttdeci">bool mupnp_streq(const char *str1, const char *str2)</div><div class="ttdef"><b>Definition</b> string_function.c:158</div></div>
+<div class="ttc" id="astatevariable_8h_html_a129346e55f032a0fe2993ad6b92fcd90"><div class="ttname"><a href="#a129346e55f032a0fe2993ad6b92fcd90">mupnp_statevariable_getname</a></div><div class="ttdeci">#define mupnp_statevariable_getname(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:289</div></div>
+<div class="ttc" id="astring__function_8c_html_a87e4a8c1183b47bda9414e1bdb2a265b"><div class="ttname"><a href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a></div><div class="ttdeci">bool mupnp_streq(const char *str1, const char *str2)</div><div class="ttdoc">Test if two strings are equal (NULL-safe)</div><div class="ttdef"><b>Definition</b> string_function.c:158</div></div>
 </div><!-- fragment --><p>Checks if state variable has certain name</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -768,7 +770,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_function" href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a>(<a class="code hl_define" href="#a562770ce871faed5383a78980bd47eee">mupnp_statevariable_getsendevents</a>(statVar), <a class="code hl_define" href="#a569615e32303984926b8b406c9a9a45c">MUPNP_STATEVARIABLE_SENDEVENTS_YES</a>))</div>
-<div class="ttc" id="astatevariable_8h_html_a562770ce871faed5383a78980bd47eee"><div class="ttname"><a href="#a562770ce871faed5383a78980bd47eee">mupnp_statevariable_getsendevents</a></div><div class="ttdeci">#define mupnp_statevariable_getsendevents(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:297</div></div>
+<div class="ttc" id="astatevariable_8h_html_a562770ce871faed5383a78980bd47eee"><div class="ttname"><a href="#a562770ce871faed5383a78980bd47eee">mupnp_statevariable_getsendevents</a></div><div class="ttdeci">#define mupnp_statevariable_getsendevents(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:338</div></div>
 <div class="ttc" id="astatevariable_8h_html_a569615e32303984926b8b406c9a9a45c"><div class="ttname"><a href="#a569615e32303984926b8b406c9a9a45c">MUPNP_STATEVARIABLE_SENDEVENTS_YES</a></div><div class="ttdeci">#define MUPNP_STATEVARIABLE_SENDEVENTS_YES</div><div class="ttdef"><b>Definition</b> statevariable.h:58</div></div>
 </div><!-- fragment --><p>Check if events are sent to subscribers when this state variable changes</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1286,13 +1288,24 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Delete state variable object</p>
+
+<p>Destroy a UPnP state variable and free resources. </p>
+<p>Releases all resources associated with the state variable, including:</p><ul>
+<li>The current value string</li>
+<li>Allowed values list (if any)</li>
+<li>XML node references</li>
+<li>UPnP status object</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">statVar</td><td>state variable </td></tr>
+    <tr><td class="paramname">statVar</td><td>The state variable to destroy. May be NULL (no-op if NULL).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>After calling this function, the statVar pointer is invalid. </dd>
+<dd>
+Thread-safe: Must not be called concurrently on the same state variable.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a4efa7e8625bcd9fc6452719d91d360a4" title="Create a new UPnP state variable.">mupnp_statevariable_new()</a> </dd></dl>
 
 </div>
 </div>
@@ -1364,7 +1377,31 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create new state variable object </p>
+
+<p>Create a new UPnP state variable. </p>
+<p>Allocates and initializes a new state variable object. State variables represent the state of a UPnP service and can be:</p><ul>
+<li>Evented (sendEvents="yes") - Changes trigger event notifications</li>
+<li>Non-evented (sendEvents="no") - Query-only via action arguments</li>
+</ul>
+<p>State variables have:</p><ul>
+<li>A name (identifier)</li>
+<li>A data type (string, int, boolean, etc.)</li>
+<li>An optional list of allowed values</li>
+<li>A current value</li>
+<li>Optional eventing configuration</li>
+</ul>
+<p>State variables are typically created during SCPD parsing and added to the service state table.</p>
+<dl class="section return"><dt>Returns</dt><dd>A newly-created mUpnpStateVariable on success, or NULL if memory allocation fails.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned state variable must be freed with <a class="el" href="#a73185dd7469ae3e88ab1fcb4e641974a" title="Destroy a UPnP state variable and free resources.">mupnp_statevariable_delete()</a> when no longer needed. </dd>
+<dd>
+Thread-safe: Can be called concurrently from multiple threads. </dd>
+<dd>
+For device implementations, set a query listener to handle QueryStateVariable requests.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a73185dd7469ae3e88ab1fcb4e641974a" title="Destroy a UPnP state variable and free resources.">mupnp_statevariable_delete()</a> </dd>
+<dd>
+<a class="el" href="#a58c9be9b989de99732fdde7835e06bff">mupnp_statevariable_setvalue()</a> </dd>
+<dd>
+<a class="el" href="#a2d849b6b5ab88adbd24195a548d77e34">mupnp_statevariable_issendevents()</a> </dd></dl>
 
 </div>
 </div>

@@ -77,8 +77,10 @@ $(function(){initNavTree('ssdp__request_8c.html',''); initResizable(true); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:afdb1fc69a8b164f0422316bf5aed93a5" id="r_afdb1fc69a8b164f0422316bf5aed93a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ssdp_8h.html#a602627a41c0a2a01631a3142bdaae942">mUpnpSSDPRequest</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdb1fc69a8b164f0422316bf5aed93a5">mupnp_ssdprequest_new</a> (void)</td></tr>
+<tr class="memdesc:afdb1fc69a8b164f0422316bf5aed93a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new SSDP request message.  <br /></td></tr>
 <tr class="separator:afdb1fc69a8b164f0422316bf5aed93a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa860fa74aaae559eb563b1aee66181bd" id="r_aa860fa74aaae559eb563b1aee66181bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa860fa74aaae559eb563b1aee66181bd">mupnp_ssdprequest_delete</a> (<a class="el" href="ssdp_8h.html#a602627a41c0a2a01631a3142bdaae942">mUpnpSSDPRequest</a> *ssdpReq)</td></tr>
+<tr class="memdesc:aa860fa74aaae559eb563b1aee66181bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy an SSDP request message and free resources.  <br /></td></tr>
 <tr class="separator:aa860fa74aaae559eb563b1aee66181bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade4b9e56ebee2cb1d6d786fce9551f3b" id="r_ade4b9e56ebee2cb1d6d786fce9551f3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade4b9e56ebee2cb1d6d786fce9551f3b">mupnp_ssdprequest_setleasetime</a> (<a class="el" href="ssdp_8h.html#a602627a41c0a2a01631a3142bdaae942">mUpnpSSDPRequest</a> *ssdpReq, <a class="el" href="time_8h.html#a0b59cedb05cc09c39dc7c17ad4164953">mUpnpTime</a> value)</td></tr>
 <tr class="separator:ade4b9e56ebee2cb1d6d786fce9551f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -102,6 +104,19 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Destroy an SSDP request message and free resources. </p>
+<p>Releases all resources associated with the SSDP request, including header fields and message content.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ssdpReq</td><td>The SSDP request to destroy. May be NULL (no-op if NULL).</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>After calling this function, the ssdpReq pointer is invalid. </dd>
+<dd>
+Thread-safe: Must not be called concurrently on the same request.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ssdp_8h.html#afdb1fc69a8b164f0422316bf5aed93a5" title="Create a new SSDP request message.">mupnp_ssdprequest_new()</a> </dd></dl>
 
 </div>
 </div>
@@ -136,6 +151,18 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Create a new SSDP request message. </p>
+<p>Allocates and initializes a new SSDP request object, which is used for:</p><ul>
+<li>M-SEARCH discovery requests</li>
+<li>NOTIFY alive/byebye announcements</li>
+</ul>
+<p>SSDP requests are HTTP-based messages sent over UDP multicast or unicast.</p>
+<dl class="section return"><dt>Returns</dt><dd>A newly-created mUpnpSSDPRequest on success, or NULL if memory allocation fails.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned request must be freed with <a class="el" href="ssdp_8h.html#aa860fa74aaae559eb563b1aee66181bd" title="Destroy an SSDP request message and free resources.">mupnp_ssdprequest_delete()</a> when no longer needed. </dd>
+<dd>
+Thread-safe: Can be called concurrently from multiple threads.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ssdp_8h.html#aa860fa74aaae559eb563b1aee66181bd" title="Destroy an SSDP request message and free resources.">mupnp_ssdprequest_delete()</a> </dd></dl>
 
 </div>
 </div>

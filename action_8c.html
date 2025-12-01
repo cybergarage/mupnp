@@ -81,8 +81,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ac04861f6612f4e0b7b400c2e7cd30a28" id="r_ac04861f6612f4e0b7b400c2e7cd30a28"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac04861f6612f4e0b7b400c2e7cd30a28">mupnp_action_initargumentlist</a> (<a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *action)</td></tr>
 <tr class="separator:ac04861f6612f4e0b7b400c2e7cd30a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a650aa4fad4fdc4862a5a64d21da4957a" id="r_a650aa4fad4fdc4862a5a64d21da4957a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a650aa4fad4fdc4862a5a64d21da4957a">mupnp_action_new</a> (void)</td></tr>
+<tr class="memdesc:a650aa4fad4fdc4862a5a64d21da4957a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new UPnP action instance.  <br /></td></tr>
 <tr class="separator:a650aa4fad4fdc4862a5a64d21da4957a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af62579ea6588beb8a0d81841840dd6f4" id="r_af62579ea6588beb8a0d81841840dd6f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af62579ea6588beb8a0d81841840dd6f4">mupnp_action_delete</a> (<a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *action)</td></tr>
+<tr class="memdesc:af62579ea6588beb8a0d81841840dd6f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a UPnP action and free all associated resources.  <br /></td></tr>
 <tr class="separator:af62579ea6588beb8a0d81841840dd6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1024f0a8e6bb8de4253d6f4c32fefab3" id="r_a1024f0a8e6bb8de4253d6f4c32fefab3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1024f0a8e6bb8de4253d6f4c32fefab3">mupnp_action_setactionnode</a> (<a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *action, <a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *node)</td></tr>
 <tr class="separator:a1024f0a8e6bb8de4253d6f4c32fefab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,13 +110,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Destroy an action</p>
+
+<p>Destroy a UPnP action and free all associated resources. </p>
+<p>Releases all resources associated with the action, including:</p><ul>
+<li>All input and output arguments</li>
+<li>UPnP status object</li>
+<li>XML node representation (if any)</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">action</td><td>The action to destroy </td></tr>
+    <tr><td class="paramname">action</td><td>The action to destroy. May be NULL (no-op if NULL).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>After calling this function, the action pointer is invalid and must not be used. </dd>
+<dd>
+Thread-safe: Must not be called concurrently with other operations on the same action.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="action_8h.html#a650aa4fad4fdc4862a5a64d21da4957a" title="Create a new UPnP action instance.">mupnp_action_new()</a> </dd></dl>
 
 </div>
 </div>
@@ -242,8 +254,33 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a new action</p>
-<dl class="section return"><dt>Returns</dt><dd>mUpnpAction* </dd></dl>
+
+<p>Create a new UPnP action instance. </p>
+<p>Allocates and initializes a new UPnP action object. Actions represent operations that can be invoked on a UPnP service, similar to remote procedure calls. Each action has:</p><ul>
+<li>A name (action identifier)</li>
+<li>Input arguments (parameters passed to the action)</li>
+<li>Output arguments (return values from the action)</li>
+<li>A listener callback (for device-side implementations)</li>
+<li>Status information (for responses and errors)</li>
+</ul>
+<p>The function initializes:</p><ul>
+<li>Argument list (empty)</li>
+<li>UPnP status object for error reporting</li>
+<li>Listener callback (NULL, must be set for device implementations)</li>
+</ul>
+<dl class="section return"><dt>Returns</dt><dd>A newly-created mUpnpAction on success, or NULL if memory allocation fails.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned action must be freed with <a class="el" href="action_8h.html#af62579ea6588beb8a0d81841840dd6f4" title="Destroy a UPnP action and free all associated resources.">mupnp_action_delete()</a> when no longer needed. </dd>
+<dd>
+Thread-safe: Can be called concurrently from multiple threads. </dd>
+<dd>
+For device implementations, set an action listener with the listener field to handle invocations from control points. </dd>
+<dd>
+Actions are typically created during service initialization when parsing the SCPD document.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="action_8h.html#af62579ea6588beb8a0d81841840dd6f4" title="Destroy a UPnP action and free all associated resources.">mupnp_action_delete()</a> </dd>
+<dd>
+<a class="el" href="action_8h.html#a1024f0a8e6bb8de4253d6f4c32fefab3">mupnp_action_setactionnode()</a> </dd>
+<dd>
+<a class="el" href="action_8h.html#a7f27b9e1601e1c08847b4df90e2ba64c">MUPNP_ACTION_LISTNER</a> </dd></dl>
 
 </div>
 </div>

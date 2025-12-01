@@ -92,8 +92,10 @@ Functions</h2></td></tr>
 <tr class="memitem:aac5f833986787e7d793b1e85ff2e5655" id="r_aac5f833986787e7d793b1e85ff2e5655"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="url_8h.html#ac243f25fce6502c373159c84eef61b37">mUpnpNetURL</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac5f833986787e7d793b1e85ff2e5655">mupnp_service_mangleurl</a> (<a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service, char *type)</td></tr>
 <tr class="separator:aac5f833986787e7d793b1e85ff2e5655"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac44d59e62aa43cf4438bdcb91a6b4128" id="r_ac44d59e62aa43cf4438bdcb91a6b4128"><td class="memItemLeft" align="right" valign="top"><a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac44d59e62aa43cf4438bdcb91a6b4128">mupnp_service_new</a> (void)</td></tr>
+<tr class="memdesc:ac44d59e62aa43cf4438bdcb91a6b4128"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new UPnP service instance.  <br /></td></tr>
 <tr class="separator:ac44d59e62aa43cf4438bdcb91a6b4128"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad840d7e080c322fb09ffa418dfbcd724" id="r_ad840d7e080c322fb09ffa418dfbcd724"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad840d7e080c322fb09ffa418dfbcd724">mupnp_service_delete</a> (<a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service)</td></tr>
+<tr class="memdesc:ad840d7e080c322fb09ffa418dfbcd724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a UPnP service and free all associated resources.  <br /></td></tr>
 <tr class="separator:ad840d7e080c322fb09ffa418dfbcd724"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29056cb2ba599eeb729a00311da65789" id="r_a29056cb2ba599eeb729a00311da65789"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29056cb2ba599eeb729a00311da65789">mupnp_service_clear</a> (<a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service)</td></tr>
 <tr class="separator:a29056cb2ba599eeb729a00311da65789"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -106,6 +108,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ace2c7512e897468aba866bf4ff738b4b" id="r_ace2c7512e897468aba866bf4ff738b4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="url_8h.html#ac243f25fce6502c373159c84eef61b37">mUpnpNetURL</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ace2c7512e897468aba866bf4ff738b4b">mupnp_service_getscpdurl</a> (<a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service)</td></tr>
 <tr class="separator:ace2c7512e897468aba866bf4ff738b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2fcc1c19ac553adcf4c05ed0df8d0da" id="r_ac2fcc1c19ac553adcf4c05ed0df8d0da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2fcc1c19ac553adcf4c05ed0df8d0da">mupnp_service_parsedescription</a> (<a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service, const char *desciption, size_t descriptionLen)</td></tr>
+<tr class="memdesc:ac2fcc1c19ac553adcf4c05ed0df8d0da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parse and populate a service from an SCPD XML document.  <br /></td></tr>
 <tr class="separator:ac2fcc1c19ac553adcf4c05ed0df8d0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1cdeccc96fc219fa8b63d0b22f5604e2" id="r_a1cdeccc96fc219fa8b63d0b22f5604e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cdeccc96fc219fa8b63d0b22f5604e2">mupnp_service_parsedescriptionurl</a> (<a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service, <a class="el" href="url_8h.html#ac243f25fce6502c373159c84eef61b37">mUpnpNetURL</a> *url)</td></tr>
 <tr class="separator:a1cdeccc96fc219fa8b63d0b22f5604e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -282,13 +285,27 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Destroy a UPnP service</p>
+
+<p>Destroy a UPnP service and free all associated resources. </p>
+<p>Releases all resources associated with the service, including:</p><ul>
+<li>All actions and their argument lists</li>
+<li>State variable table and all state variables</li>
+<li>SCPD XML description nodes</li>
+<li>Subscriber list (if eventing enabled)</li>
+<li>Internal mutexes</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">service</td><td>The service to destroy </td></tr>
+    <tr><td class="paramname">service</td><td>The service to destroy. May be NULL (no-op if NULL).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>After calling this function, the service pointer is invalid and must not be used. </dd>
+<dd>
+Thread-safe: Must not be called concurrently with other operations on the same service. </dd>
+<dd>
+Active event subscriptions are not automatically cancelled on the control point side. Subscribers will eventually time out.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="service_8h.html#ac44d59e62aa43cf4438bdcb91a6b4128" title="Create a new UPnP service instance.">mupnp_service_new()</a> </dd></dl>
 
 </div>
 </div>
@@ -806,7 +823,29 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a new UPnP service </p>
+
+<p>Create a new UPnP service instance. </p>
+<p>Allocates and initializes a new UPnP service object. Services represent the functional units within a UPnP device, providing actions and state variables that can be controlled and queried by control points.</p>
+<p>The function initializes:</p><ul>
+<li>Action list (empty)</li>
+<li>State variable table (empty)</li>
+<li>Subscriber list for event notifications (if eventing enabled)</li>
+<li>Internal mutex for thread safety</li>
+<li>SCPD (Service Control Protocol Description) node list</li>
+</ul>
+<p>After creation, the service should be populated either by:</p><ul>
+<li>Parsing an SCPD document with <a class="el" href="service_8h.html#ae4590e10d2597ed60e54d378ef7aa0bb" title="Parse and populate a service from an SCPD XML document.">mupnp_service_parsedescription()</a></li>
+<li>Manual configuration with setter functions</li>
+</ul>
+<dl class="section return"><dt>Returns</dt><dd>A newly-created mUpnpService on success, or NULL if memory allocation fails.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned service must be freed with <a class="el" href="service_8h.html#ad840d7e080c322fb09ffa418dfbcd724" title="Destroy a UPnP service and free all associated resources.">mupnp_service_delete()</a> when no longer needed. </dd>
+<dd>
+Thread-safe: Can be called concurrently from multiple threads. </dd>
+<dd>
+Services are typically created as part of device initialization and are managed by the parent device's service list.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="service_8h.html#ad840d7e080c322fb09ffa418dfbcd724" title="Destroy a UPnP service and free all associated resources.">mupnp_service_delete()</a> </dd>
+<dd>
+<a class="el" href="service_8h.html#ae4590e10d2597ed60e54d378ef7aa0bb" title="Parse and populate a service from an SCPD XML document.">mupnp_service_parsedescription()</a> </dd></dl>
 
 </div>
 </div>
@@ -833,15 +872,63 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create the service's contents from the given XML document</p>
-<dl class="params"><dt>Parameters</dt><dd>
+
+<p>Parse and populate a service from an SCPD XML document. </p>
+<p>Parses the Service Control Protocol Definition (SCPD) XML document and populates the service with:</p><ul>
+<li>Actions and their input/output arguments</li>
+<li>State variables with types, allowed values, and eventing properties</li>
+</ul>
+<p>The SCPD document must conform to the UPnP Device Architecture specification. Any existing actions and state variables are cleared before parsing.</p>
+<p>Example SCPD structure: </p><div class="fragment"><div class="line">&lt;<span class="keywordtype">scpd</span> <span class="keyword">xmlns</span>=<span class="stringliteral">&quot;urn:schemas-upnp-org:service-1-0&quot;</span>&gt;</div>
+<div class="line">  &lt;<span class="keywordtype">specVersion</span>&gt;&lt;<span class="keywordtype">major</span>&gt;1&lt;/<span class="keywordtype">major</span>&gt;&lt;<span class="keywordtype">minor</span>&gt;0&lt;/<span class="keywordtype">minor</span>&gt;&lt;/<span class="keywordtype">specVersion</span>&gt;</div>
+<div class="line">  &lt;<span class="keywordtype">actionList</span>&gt;</div>
+<div class="line">    &lt;<span class="keywordtype">action</span>&gt;</div>
+<div class="line">      &lt;<span class="keywordtype">name</span>&gt;<span class="keyword">GetStatus</span>&lt;/<span class="keywordtype">name</span>&gt;</div>
+<div class="line">      &lt;<span class="keywordtype">argumentList</span>&gt;</div>
+<div class="line">        &lt;<span class="keywordtype">argument</span>&gt;</div>
+<div class="line">          &lt;<span class="keywordtype">name</span>&gt;<span class="keyword">Status</span>&lt;/<span class="keywordtype">name</span>&gt;</div>
+<div class="line">          &lt;<span class="keywordtype">direction</span>&gt;<span class="keyword">out</span>&lt;/<span class="keywordtype">direction</span>&gt;</div>
+<div class="line">          &lt;<span class="keywordtype">relatedStateVariable</span>&gt;<span class="keyword">Status</span>&lt;/<span class="keywordtype">relatedStateVariable</span>&gt;</div>
+<div class="line">        &lt;/<span class="keywordtype">argument</span>&gt;</div>
+<div class="line">      &lt;/<span class="keywordtype">argumentList</span>&gt;</div>
+<div class="line">    &lt;/<span class="keywordtype">action</span>&gt;</div>
+<div class="line">  &lt;/<span class="keywordtype">actionList</span>&gt;</div>
+<div class="line">  &lt;<span class="keywordtype">serviceStateTable</span>&gt;</div>
+<div class="line">    &lt;<span class="keywordtype">stateVariable</span> <span class="keyword">sendEvents</span>=<span class="stringliteral">&quot;yes&quot;</span>&gt;</div>
+<div class="line">      &lt;<span class="keywordtype">name</span>&gt;<span class="keyword">Status</span>&lt;/<span class="keywordtype">name</span>&gt;</div>
+<div class="line">      &lt;<span class="keywordtype">dataType</span>&gt;<span class="keyword">string</span>&lt;/<span class="keywordtype">dataType</span>&gt;</div>
+<div class="line">    &lt;/<span class="keywordtype">stateVariable</span>&gt;</div>
+<div class="line">  &lt;/<span class="keywordtype">serviceStateTable</span>&gt;</div>
+<div class="line">&lt;/<span class="keywordtype">scpd</span>&gt;</div>
+</div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">service</td><td>The service to create </td></tr>
-    <tr><td class="paramname">description</td><td>The XML document to parse </td></tr>
-    <tr><td class="paramname">descriptionLen</td><td>The length of the XML document </td></tr>
+    <tr><td class="paramname">service</td><td>The service to populate. Must not be NULL. </td></tr>
+    <tr><td class="paramname">description</td><td>The SCPD XML document as a string. Must not be NULL. </td></tr>
+    <tr><td class="paramname">descriptionLen</td><td>The length of the XML document in bytes.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Successfully parsed the SCPD document </td></tr>
+    <tr><td class="paramname">false</td><td>Parsing failed due to:<ul>
+<li>NULL parameters</li>
+<li>Malformed XML</li>
+<li>XML doesn't conform to SCPD schema</li>
+<li>Memory allocation failure</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Can be called from any thread. </dd>
+<dd>
+Side effect: Clears any existing actions and state variables before parsing the new description. </dd>
+<dd>
+The service's parsed flag is set to true on successful parsing.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="service_8h.html#a1cdeccc96fc219fa8b63d0b22f5604e2">mupnp_service_parsedescriptionurl()</a> </dd>
+<dd>
+<a class="el" href="service_8h.html#a948cb86cb4e8e691418c5f98da3cb0c1">mupnp_service_isparsed()</a> </dd></dl>
 
 </div>
 </div>

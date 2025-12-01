@@ -69,9 +69,9 @@ $(function(){initNavTree('md_doc_2mupnpobjcproguide.html',''); initResizable(tru
   <div class="headertitle"><div class="title">Programming Guide for Objective-C</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md30"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md39"></a></p>
 <p>This document describes how to use the mUPnP for Objective-C to create your UPnP™ devices and control points.</p>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md40"></a>
 1 Introduction</h1>
 <p>UPnP™*[^1] architecture is based on open networking to enable discovery and control of networked devices and services, such as media servers and players at home.</p>
 <p>UPnP™ architecture is based on many standard protocols, such as GENA, SSDP, SOAP, HTTPU and HTTP. Therefore you have to understand and implement these protocols to create your devices of UPnP™.</p>
@@ -87,26 +87,26 @@ $(function(){initNavTree('md_doc_2mupnpobjcproguide.html',''); initResizable(tru
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Universal Plug and Play Vendor\'s Implementation Guide   </td><td class="markdownTableBodyNone"><a href="http://www.upnp.org/download/UPnP_Vendor_Implementation_Guide_Jan2001.htm">http://www.upnp.org/download/UPnP_Vendor_Implementation_Guide_Jan2001.htm</a>   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md41"></a>
 2 Setup</h1>
-<h2><a class="anchor" id="autotoc_md33"></a>
+<h2><a class="anchor" id="autotoc_md42"></a>
 2.1 System Requirement</h2>
 <p>Currently, the framework is based on Objective-C 2.0. Thus, the current framework requires MacOSX v10.5, Leopard, later. In the future, I will support other lower MacOSX and iPhone v2.0.</p>
-<h2><a class="anchor" id="autotoc_md34"></a>
+<h2><a class="anchor" id="autotoc_md43"></a>
 2.2 Installer</h2>
 <p>The framework is distributed as a install package as the following. Using the installer, the framework is installed into \'/Library/Framework/mUPnP.framework\' as default.</p>
 <div class="image">
 <img src="mupnpc-objc-macosx-installer.jpg" alt=""/>
 </div>
-    <h1><a class="anchor" id="autotoc_md35"></a>
+    <h1><a class="anchor" id="autotoc_md44"></a>
 3 Control Point</h1>
-<h2><a class="anchor" id="autotoc_md36"></a>
+<h2><a class="anchor" id="autotoc_md45"></a>
 3.1 Class Overview</h2>
 <p>The following static structure diagram is related classes of mUPnP to create your control point of UPnP™. The control point has some root devices in the UPnP™ network.</p>
 <div class="image">
 <img src="mupnp-objc-ctrlpoint-class-overview.png" alt=""/>
 </div>
-    <h2><a class="anchor" id="autotoc_md37"></a>
+    <h2><a class="anchor" id="autotoc_md46"></a>
 3.2 Initiating</h2>
 <p>To create a UPnP™ control point, create a instance of <a class="el" href="interfaceCGUpnpControlPoint.html">CGUpnpControlPoint</a> class. The new instance is activated automatically using <a class="el" href="interfaceCGUpnpControlPoint.html#a2fa0d2fe4287bf9e6596d634ae800683">start (CGUpnpControlPoint)</a>. Use <a class="el" href="interfaceCGUpnpControlPoint.html#aa2ecd4b95780704d69b82012edce7672">search (CGUpnpControlPoint)</a> or searchWithST to find the devices in the local network.</p>
 <div class="fragment"><div class="line">#import &lt;mUPnP/UPnP.h&gt;</div>
@@ -114,7 +114,7 @@ $(function(){initNavTree('md_doc_2mupnpobjcproguide.html',''); initResizable(tru
 <div class="line">CGUpnpControlPoint *ctrlPoint = [[CGUpnpControlPoint alloc] init];</div>
 <div class="line">......</div>
 <div class="line">[ctrolPoint search];</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md38"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md47"></a>
 3.3 Root Devices</h2>
 <p>Use <a class="el" href="interfaceCGUpnpControlPoint.html">CGUpnpControlPoint</a>:devices to get the all root devices which the control point found. The method returns a NSArray object which has the devices as instances of <a class="el" href="interfaceCGUpnpDevice.html">CGUpnpDevice</a>.</p>
 <div class="fragment"><div class="line">#import &lt;mUPnP/UPnP.h&gt;</div>
@@ -126,7 +126,7 @@ $(function(){initNavTree('md_doc_2mupnpobjcproguide.html',''); initResizable(tru
 <div class="line">NSArray *devArray = [ctrlPoint devices];</div>
 <div class="line">for (CGUpnpDevice *dev in devArray)</div>
 <div class="line">    NSLog(@&quot;%@&quot;, [dev friendlyName]);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md39"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md48"></a>
 3.4 Control</h2>
 <p>The control point can send action or query control messages to the discovered devices. To send the action control message, use CGUpnpAction:setArgumentValue:forName and <a class="el" href="interfaceCGUpnpAction.html">CGUpnpAction</a>:post. You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.</p>
 <div class="fragment"><div class="line">CGUpnpDevice *clockDev = .....</div>

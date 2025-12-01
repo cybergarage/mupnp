@@ -100,14 +100,19 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a414994e1d9755a105e375c4d01db8bb2" id="r_a414994e1d9755a105e375c4d01db8bb2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a414994e1d9755a105e375c4d01db8bb2">mupnp_list_header_init</a> (<a class="el" href="#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a> *list)</td></tr>
+<tr class="memdesc:a414994e1d9755a105e375c4d01db8bb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a list node as a list header (sentinel node)  <br /></td></tr>
 <tr class="separator:a414994e1d9755a105e375c4d01db8bb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad12b48b99cdf61164061fdd8ed6b7d6f" id="r_ad12b48b99cdf61164061fdd8ed6b7d6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad12b48b99cdf61164061fdd8ed6b7d6f">mupnp_list_node_init</a> (<a class="el" href="#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a> *list)</td></tr>
+<tr class="memdesc:ad12b48b99cdf61164061fdd8ed6b7d6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a list node as a regular data node.  <br /></td></tr>
 <tr class="separator:ad12b48b99cdf61164061fdd8ed6b7d6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3a65db21364be1d4fbf2a45405f62ee6" id="r_a3a65db21364be1d4fbf2a45405f62ee6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a65db21364be1d4fbf2a45405f62ee6">mupnp_list_insert</a> (<a class="el" href="#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a> *prevList, <a class="el" href="#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a> *list)</td></tr>
+<tr class="memdesc:a3a65db21364be1d4fbf2a45405f62ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Insert a node or list segment after a given node.  <br /></td></tr>
 <tr class="separator:a3a65db21364be1d4fbf2a45405f62ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a879d24aec0a802bf4f3ed01826e8b60f" id="r_a879d24aec0a802bf4f3ed01826e8b60f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a> (<a class="el" href="#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a> *headList, <a class="el" href="#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a> *list)</td></tr>
+<tr class="memdesc:a879d24aec0a802bf4f3ed01826e8b60f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a node to the end of a list.  <br /></td></tr>
 <tr class="separator:a879d24aec0a802bf4f3ed01826e8b60f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5695c91766d48fba2843d87c378a682" id="r_ac5695c91766d48fba2843d87c378a682"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5695c91766d48fba2843d87c378a682">mupnp_list_remove</a> (<a class="el" href="#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a> *list)</td></tr>
+<tr class="memdesc:ac5695c91766d48fba2843d87c378a682"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a node from its list.  <br /></td></tr>
 <tr class="separator:ac5695c91766d48fba2843d87c378a682"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaee1fe9baebc513873824aa70dce4bcc" id="r_aaee1fe9baebc513873824aa70dce4bcc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaee1fe9baebc513873824aa70dce4bcc">mupnp_list_size</a> (<a class="el" href="#ad735f57ea75b23ec4510e3f093743b02">mUpnpList</a> *headList)</td></tr>
 <tr class="separator:aaee1fe9baebc513873824aa70dce4bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -225,9 +230,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo</a></b></dt><dd><p class="startdd">This works essentially like insert, although it is more error-prone?! </p>
-<p class="enddd">There might be a bug in this function.</p>
-</dd></dl>
+
+<p>Add a node to the end of a list. </p>
+<p>Appends a node to the end of a list (just before the header node). This is a convenience function for adding elements to the tail of a list.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">headList</td><td>The list header node. Must not be NULL and must be initialized with <a class="el" href="#a414994e1d9755a105e375c4d01db8bb2" title="Initialize a list node as a list header (sentinel node)">mupnp_list_header_init()</a>. </td></tr>
+    <tr><td class="paramname">list</td><td>The node to add. Must not be NULL and should be initialized with <a class="el" href="#ad12b48b99cdf61164061fdd8ed6b7d6f" title="Initialize a list node as a regular data node.">mupnp_list_node_init()</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: This function is NOT thread-safe. The caller must ensure exclusive access to the list when modifying structure. </dd>
+<dd>
+Side effect: Updates prev/next pointers of the last node and header.</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo</a></b></dt><dd>Review implementation for potential edge cases with empty lists.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3a65db21364be1d4fbf2a45405f62ee6" title="Insert a node or list segment after a given node.">mupnp_list_insert()</a> </dd>
+<dd>
+<a class="el" href="#ac5695c91766d48fba2843d87c378a682" title="Remove a node from its list.">mupnp_list_remove()</a> </dd></dl>
 
 </div>
 </div>
@@ -303,13 +322,25 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initialize a list node to act as the first node</p>
+
+<p>Initialize a list node as a list header (sentinel node) </p>
+<p>Initializes a node to act as a circular doubly-linked list header. The header is a sentinel node that marks the beginning and end of the list. It simplifies list operations by eliminating special cases for empty lists.</p>
+<p>After initialization:</p><ul>
+<li>prev and next point to the node itself (empty circular list)</li>
+<li>headFlag is set to true</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">list</td><td>List node </td></tr>
+    <tr><td class="paramname">list</td><td>The node to initialize as a header. Must not be NULL.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Can be called from any thread, but typically called during list creation before the list is shared between threads. </dd>
+<dd>
+The header node itself does not contain data; it only manages links.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#ad12b48b99cdf61164061fdd8ed6b7d6f" title="Initialize a list node as a regular data node.">mupnp_list_node_init()</a> </dd>
+<dd>
+<a class="el" href="#a879d24aec0a802bf4f3ed01826e8b60f" title="Add a node to the end of a list.">mupnp_list_add()</a> </dd></dl>
 
 </div>
 </div>
@@ -331,14 +362,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Insert a list node or a complete list structure after the given node</p>
+
+<p>Insert a node or list segment after a given node. </p>
+<p>Inserts a single node or an entire list segment immediately after the specified node in the list. This maintains the circular doubly-linked structure and properly updates all prev/next pointers.</p>
+<p>If inserting multiple nodes, they should already be linked together (forming a chain).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">prevList</td><td>Insert after this node </td></tr>
-    <tr><td class="paramname">list</td><td>List node or list structure to insert </td></tr>
+    <tr><td class="paramname">prevList</td><td>The node after which to insert. Must not be NULL and should be part of a properly initialized list. </td></tr>
+    <tr><td class="paramname">list</td><td>The node or list segment to insert. Must not be NULL.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: This function is NOT thread-safe. The caller must ensure exclusive access to the list (e.g., via mutex) when modifying list structure. </dd>
+<dd>
+Side effect: Updates prev/next pointers of adjacent nodes.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a879d24aec0a802bf4f3ed01826e8b60f" title="Add a node to the end of a list.">mupnp_list_add()</a> </dd>
+<dd>
+<a class="el" href="#ac5695c91766d48fba2843d87c378a682" title="Remove a node from its list.">mupnp_list_remove()</a> </dd></dl>
 
 </div>
 </div>
@@ -404,13 +444,27 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initialize a list node to act as a regular node, part of a list.</p>
+
+<p>Initialize a list node as a regular data node. </p>
+<p>Initializes a node to act as a regular list member (not a header). The node is initially not linked to any list.</p>
+<p>After initialization:</p><ul>
+<li>prev and next are set to NULL</li>
+<li>headFlag is set to false</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">list</td><td>List node </td></tr>
+    <tr><td class="paramname">list</td><td>The node to initialize. Must not be NULL.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Can be called from any thread, but typically called before the node is added to a shared list. </dd>
+<dd>
+The node must be properly populated with data before adding to a list.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a414994e1d9755a105e375c4d01db8bb2" title="Initialize a list node as a list header (sentinel node)">mupnp_list_header_init()</a> </dd>
+<dd>
+<a class="el" href="#a3a65db21364be1d4fbf2a45405f62ee6" title="Insert a node or list segment after a given node.">mupnp_list_insert()</a> </dd>
+<dd>
+<a class="el" href="#a879d24aec0a802bf4f3ed01826e8b60f" title="Add a node to the end of a list.">mupnp_list_add()</a> </dd></dl>
 
 </div>
 </div>
@@ -476,13 +530,26 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Remove a node from a list. Does not free any memory, but only removes the next and previous link associations regarding the given node.</p>
+
+<p>Remove a node from its list. </p>
+<p>Removes a node from the list it belongs to by updating the prev/next pointers of adjacent nodes. This does NOT free any memory; it only unlinks the node from the list structure.</p>
+<p>After removal, the node's prev and next pointers point to itself, making it safe to check if a node is in a list.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">list</td><td>List node to remove </td></tr>
+    <tr><td class="paramname">list</td><td>The node to remove. Must not be NULL and should be part of a list (not a standalone node).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: This function is NOT thread-safe. The caller must ensure exclusive access to the list when modifying structure. </dd>
+<dd>
+Memory management: The caller is responsible for freeing the node's memory if needed after removal. </dd>
+<dd>
+Side effect: Updates prev/next pointers of adjacent nodes. </dd>
+<dd>
+Safe to call on an already removed node (has no effect).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a879d24aec0a802bf4f3ed01826e8b60f" title="Add a node to the end of a list.">mupnp_list_add()</a> </dd>
+<dd>
+<a class="el" href="#a579e25386f2e6d3a763a0943b7745b36">mupnp_list_clear()</a> </dd></dl>
 
 </div>
 </div>

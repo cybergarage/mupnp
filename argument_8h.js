@@ -37,7 +37,7 @@ var argument_8h =
     [ "mupnp_argumentlist_size", "argument_8h.html#a1a029e850f33acf9bc65b4366ac450a7", null ],
     [ "mUpnpArgument", "argument_8h.html#a42e4816230e20ad072aff057d5530c25", null ],
     [ "mUpnpArgumentList", "argument_8h.html#a07dcf223ef439f317aa1beb2a4b027d8", null ],
-    [ "mupnp_argument_delete", "argument_8h.html#aba4dac691291731004ccc66ca7894cc7", null ],
+    [ "mupnp_argument_delete", "argument_8h.html#a7e92086c3c403e4df487cb736678d9b1", null ],
     [ "mupnp_argument_new", "argument_8h.html#a2fbe08826d3fc83c9b1177cf85272f42", null ],
     [ "mupnp_argumentlist_delete", "argument_8h.html#abb07b12635cb0eea1217ca81d72adecd", null ],
     [ "mupnp_argumentlist_get", "argument_8h.html#aca58cd1b201addd941ed6e27e834b2b3", null ],

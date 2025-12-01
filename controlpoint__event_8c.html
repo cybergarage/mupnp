@@ -86,6 +86,7 @@ Functions</h2></td></tr>
 <tr class="memitem:ac9a6ce3f3d16f422c124ca3383cd8058" id="r_ac9a6ce3f3d16f422c124ca3383cd8058"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9a6ce3f3d16f422c124ca3383cd8058">mupnp_controlpoint_resubscribe</a> (<a class="el" href="controlpoint_8h.html#a4fd9c99783214a28c444ff995a95052c">mUpnpControlPoint</a> *ctrlPoint, <a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service, long timeout)</td></tr>
 <tr class="separator:ac9a6ce3f3d16f422c124ca3383cd8058"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a979f3f14289782f79d890b282ddc5fa3" id="r_a979f3f14289782f79d890b282ddc5fa3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a979f3f14289782f79d890b282ddc5fa3">mupnp_controlpoint_subscribe</a> (<a class="el" href="controlpoint_8h.html#a4fd9c99783214a28c444ff995a95052c">mUpnpControlPoint</a> *ctrlPoint, <a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service, long timeout)</td></tr>
+<tr class="memdesc:a979f3f14289782f79d890b282ddc5fa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a UPnP service's event notifications.  <br /></td></tr>
 <tr class="separator:a979f3f14289782f79d890b282ddc5fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae73e72669ffc682bd9c8efee7a685568" id="r_ae73e72669ffc682bd9c8efee7a685568"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae73e72669ffc682bd9c8efee7a685568">mupnp_controlpoint_unsubscribe</a> (<a class="el" href="controlpoint_8h.html#a4fd9c99783214a28c444ff995a95052c">mUpnpControlPoint</a> *ctrlPoint, <a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service)</td></tr>
 <tr class="separator:ae73e72669ffc682bd9c8efee7a685568"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -245,17 +246,71 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Subscribe to a service's events</p>
+
+<p>Subscribe to a UPnP service's event notifications. </p>
+<p>Sends a SUBSCRIBE request to the service's event subscription URL to receive notifications when the service's state variables change. The service will send an initial event message with current values, followed by updates whenever evented state variables change.</p>
+<p>The subscription is identified by a Subscription ID (SID) returned by the service and stored in the service object. Event notifications are received on the control point's HTTP event server and dispatched to registered event listeners.</p>
+<p>Subscriptions must be renewed before they expire using <a class="el" href="controlpoint_8h.html#ac9a6ce3f3d16f422c124ca3383cd8058">mupnp_controlpoint_resubscribe()</a> or they will be automatically cancelled by the service.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ctrlPoint</td><td>The control point in use </td></tr>
-    <tr><td class="paramname">service</td><td>The service to subscribe to </td></tr>
-    <tr><td class="paramname">timeout</td><td>Timeout for subscription expiration/renewal </td></tr>
+    <tr><td class="paramname">ctrlPoint</td><td>The control point to use. Must not be NULL and must be running. </td></tr>
+    <tr><td class="paramname">service</td><td>The service to subscribe to. Must not be NULL and must have a valid event subscription URL. </td></tr>
+    <tr><td class="paramname">timeout</td><td>The requested subscription duration in seconds. Use 0 or negative value for infinite duration (if supported by the service). Typical values: 300-1800 seconds. The service may grant a different duration than requested.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if successful; otherwise false </dd></dl>
-
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Subscription successful. Check service's SID for subscription ID. </td></tr>
+    <tr><td class="paramname">false</td><td>Subscription failed due to:<ul>
+<li>NULL parameters</li>
+<li>Control point not running</li>
+<li>Network error</li>
+<li>Service doesn't support eventing</li>
+<li>Service rejected subscription (e.g., too many subscribers)</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Can be called from any thread, but the control point should be locked if accessing device/service pointers. </dd>
+<dd>
+Side effect: Updates the service's subscriptionSid and subscriptionTimeout fields on success. </dd>
+<dd>
+Event notifications are delivered asynchronously via event listener callbacks. Set listeners with <a class="el" href="controlpoint_8h.html#a227b2567c8fed714227c6cfa626879af">mupnp_controlpoint_addeventlistener()</a>. </dd>
+<dd>
+The initial event notification (containing all evented state variables) should arrive shortly after subscription.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Always unsubscribe before destroying the control point to avoid orphaned subscriptions on the service side.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="controlpoint_8h.html#ac9a6ce3f3d16f422c124ca3383cd8058">mupnp_controlpoint_resubscribe()</a> </dd>
+<dd>
+<a class="el" href="controlpoint_8h.html#ae73e72669ffc682bd9c8efee7a685568">mupnp_controlpoint_unsubscribe()</a> </dd>
+<dd>
+<a class="el" href="controlpoint_8h.html#a227b2567c8fed714227c6cfa626879af">mupnp_controlpoint_addeventlistener()</a> </dd>
+<dd>
+<a class="el" href="service_8h.html#a309e341d949578274801e14e41895c40">mupnp_service_getsubscriptionsid()</a></dd></dl>
+<div class="fragment"><div class="line"><span class="comment">// Example: Subscribe to a service&#39;s events</span></div>
+<div class="line"><a class="code hl_function" href="controlpoint_8c.html#a81eab44f23b1acb3ec9b87858d1bfbb5">mupnp_controlpoint_lock</a>(ctrlPoint);</div>
+<div class="line"><a class="code hl_struct" href="struct__mUpnpDevice.html">mUpnpDevice</a>* dev = <a class="code hl_function" href="controlpoint_8c.html#a7ddec7238d44130fef116206df5f511f">mupnp_controlpoint_getdevicebytype</a>(ctrlPoint, <span class="stringliteral">&quot;...:MediaServer&quot;</span>);</div>
+<div class="line"><span class="keywordflow">if</span> (dev) {</div>
+<div class="line">    <a class="code hl_struct" href="struct__mUpnpService.html">mUpnpService</a>* service = <a class="code hl_function" href="device_8c.html#aa84dbe688f21fce60b8b35cca3b82bf7">mupnp_device_getservicebytype</a>(dev, <span class="stringliteral">&quot;ContentDirectory&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">if</span> (service) {</div>
+<div class="line">        <span class="comment">// Subscribe for 30 minutes</span></div>
+<div class="line">        <span class="keywordflow">if</span> (<a class="code hl_function" href="#a979f3f14289782f79d890b282ddc5fa3">mupnp_controlpoint_subscribe</a>(ctrlPoint, service, 1800)) {</div>
+<div class="line">            printf(<span class="stringliteral">&quot;Subscribed with SID: %s\n&quot;</span>, </div>
+<div class="line">                   <a class="code hl_define" href="service_8h.html#a309e341d949578274801e14e41895c40">mupnp_service_getsubscriptionsid</a>(service));</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"><a class="code hl_function" href="controlpoint_8c.html#a5db8fb59ae361ca9bdebb17b98a18d9f">mupnp_controlpoint_unlock</a>(ctrlPoint);</div>
+<div class="ttc" id="acontrolpoint_8c_html_a5db8fb59ae361ca9bdebb17b98a18d9f"><div class="ttname"><a href="controlpoint_8c.html#a5db8fb59ae361ca9bdebb17b98a18d9f">mupnp_controlpoint_unlock</a></div><div class="ttdeci">bool mupnp_controlpoint_unlock(mUpnpControlPoint *ctrlPoint)</div><div class="ttdef"><b>Definition</b> controlpoint.c:372</div></div>
+<div class="ttc" id="acontrolpoint_8c_html_a7ddec7238d44130fef116206df5f511f"><div class="ttname"><a href="controlpoint_8c.html#a7ddec7238d44130fef116206df5f511f">mupnp_controlpoint_getdevicebytype</a></div><div class="ttdeci">mUpnpDevice * mupnp_controlpoint_getdevicebytype(mUpnpControlPoint *ctrlPoint, const char *type)</div><div class="ttdoc">Find a device by type, ignoring version number.</div><div class="ttdef"><b>Definition</b> controlpoint.c:438</div></div>
+<div class="ttc" id="acontrolpoint_8c_html_a81eab44f23b1acb3ec9b87858d1bfbb5"><div class="ttname"><a href="controlpoint_8c.html#a81eab44f23b1acb3ec9b87858d1bfbb5">mupnp_controlpoint_lock</a></div><div class="ttdeci">bool mupnp_controlpoint_lock(mUpnpControlPoint *ctrlPoint)</div><div class="ttdef"><b>Definition</b> controlpoint.c:356</div></div>
+<div class="ttc" id="acontrolpoint__event_8c_html_a979f3f14289782f79d890b282ddc5fa3"><div class="ttname"><a href="#a979f3f14289782f79d890b282ddc5fa3">mupnp_controlpoint_subscribe</a></div><div class="ttdeci">bool mupnp_controlpoint_subscribe(mUpnpControlPoint *ctrlPoint, mUpnpService *service, long timeout)</div><div class="ttdoc">Subscribe to a UPnP service's event notifications.</div><div class="ttdef"><b>Definition</b> controlpoint_event.c:241</div></div>
+<div class="ttc" id="adevice_8c_html_aa84dbe688f21fce60b8b35cca3b82bf7"><div class="ttname"><a href="device_8c.html#aa84dbe688f21fce60b8b35cca3b82bf7">mupnp_device_getservicebytype</a></div><div class="ttdeci">mUpnpService * mupnp_device_getservicebytype(mUpnpDevice *dev, const char *type)</div><div class="ttdef"><b>Definition</b> device.c:1621</div></div>
+<div class="ttc" id="aservice_8h_html_a309e341d949578274801e14e41895c40"><div class="ttname"><a href="service_8h.html#a309e341d949578274801e14e41895c40">mupnp_service_getsubscriptionsid</a></div><div class="ttdeci">#define mupnp_service_getsubscriptionsid(service)</div><div class="ttdef"><b>Definition</b> service.h:710</div></div>
+<div class="ttc" id="astruct__mUpnpDevice_html"><div class="ttname"><a href="struct__mUpnpDevice.html">_mUpnpDevice</a></div><div class="ttdoc">The generic UPnP device structure.</div><div class="ttdef"><b>Definition</b> device.h:122</div></div>
+<div class="ttc" id="astruct__mUpnpService_html"><div class="ttname"><a href="struct__mUpnpService.html">_mUpnpService</a></div><div class="ttdef"><b>Definition</b> service.h:51</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ab31dfb482f1ae318671cc6ccd06e7f5a" name="ab31dfb482f1ae318671cc6ccd06e7f5a"></a>

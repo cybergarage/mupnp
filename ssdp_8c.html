@@ -80,16 +80,22 @@ $(function(){initNavTree('ssdp_8c.html',''); initResizable(true); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a88968fd66fe37d53c7947395e1c40fc1" id="r_a88968fd66fe37d53c7947395e1c40fc1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88968fd66fe37d53c7947395e1c40fc1">mupnp_ssdp_setipv6address</a> (const char *addr)</td></tr>
+<tr class="memdesc:a88968fd66fe37d53c7947395e1c40fc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the IPv6 multicast address for SSDP.  <br /></td></tr>
 <tr class="separator:a88968fd66fe37d53c7947395e1c40fc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3eb81b58392a886feb1b72a5ead381d4" id="r_a3eb81b58392a886feb1b72a5ead381d4"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3eb81b58392a886feb1b72a5ead381d4">mupnp_ssdp_getipv6address</a> (void)</td></tr>
+<tr class="memdesc:a3eb81b58392a886feb1b72a5ead381d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current IPv6 multicast address for SSDP.  <br /></td></tr>
 <tr class="separator:a3eb81b58392a886feb1b72a5ead381d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91c4d49903fde51848abf5a527e638ff" id="r_a91c4d49903fde51848abf5a527e638ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91c4d49903fde51848abf5a527e638ff">mupnp_ssdp_setannouncecount</a> (int count)</td></tr>
+<tr class="memdesc:a91c4d49903fde51848abf5a527e638ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the number of times to send SSDP announcements.  <br /></td></tr>
 <tr class="separator:a91c4d49903fde51848abf5a527e638ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafd0554d7e0d251c88b283ede9c1cb01" id="r_aafd0554d7e0d251c88b283ede9c1cb01"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafd0554d7e0d251c88b283ede9c1cb01">mupnp_ssdp_getannouncecount</a> (void)</td></tr>
+<tr class="memdesc:aafd0554d7e0d251c88b283ede9c1cb01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current SSDP announcement repetition count.  <br /></td></tr>
 <tr class="separator:aafd0554d7e0d251c88b283ede9c1cb01"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbe7e63dd99bf4d44233fa7a0bdd17d1" id="r_adbe7e63dd99bf4d44233fa7a0bdd17d1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbe7e63dd99bf4d44233fa7a0bdd17d1">mupnp_ssdp_getleasetime</a> (const char *cacheCnt)</td></tr>
+<tr class="memdesc:adbe7e63dd99bf4d44233fa7a0bdd17d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract lease time from a Cache-Control header value.  <br /></td></tr>
 <tr class="separator:adbe7e63dd99bf4d44233fa7a0bdd17d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae598037ee502391bfa0b968a4cd70fe1" id="r_ae598037ee502391bfa0b968a4cd70fe1"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae598037ee502391bfa0b968a4cd70fe1">mupnp_ssdp_gethostaddress</a> (const char *ifAddr)</td></tr>
+<tr class="memdesc:ae598037ee502391bfa0b968a4cd70fe1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the host address for a given network interface.  <br /></td></tr>
 <tr class="separator:ae598037ee502391bfa0b968a4cd70fe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
@@ -115,6 +121,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Get the current SSDP announcement repetition count. </p>
+<dl class="section return"><dt>Returns</dt><dd>Number of times each announcement is sent. Default is MUPNP_SSDP_DEFAULT_ANNOUNCE_COUNT (3).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Can be called from any thread.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ssdp_8h.html#a91c4d49903fde51848abf5a527e638ff" title="Set the number of times to send SSDP announcements.">mupnp_ssdp_setannouncecount()</a> </dd></dl>
+
 </div>
 </div>
 <a id="ae598037ee502391bfa0b968a4cd70fe1" name="ae598037ee502391bfa0b968a4cd70fe1"></a>
@@ -131,6 +142,19 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get the host address for a given network interface. </p>
+<p>Retrieves the IP address of the specified network interface, suitable for use in SSDP messages (Location headers, etc.).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ifAddr</td><td>The network interface address. May be NULL to use default.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The host address string, or NULL if not available.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Can be called from any thread. </dd>
+<dd>
+The returned string is managed internally and should not be freed. </dd></dl>
 
 </div>
 </div>
@@ -149,6 +173,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Get the current IPv6 multicast address for SSDP. </p>
+<dl class="section return"><dt>Returns</dt><dd>The currently configured IPv6 multicast address. Default is MUPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Can be called from any thread.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ssdp_8h.html#a88968fd66fe37d53c7947395e1c40fc1" title="Set the IPv6 multicast address for SSDP.">mupnp_ssdp_setipv6address()</a> </dd></dl>
+
 </div>
 </div>
 <a id="adbe7e63dd99bf4d44233fa7a0bdd17d1" name="adbe7e63dd99bf4d44233fa7a0bdd17d1"></a>
@@ -160,11 +189,23 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">int mupnp_ssdp_getleasetime </td>
           <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>cacheCnt</em></span></td><td>)</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>cacheCont</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Extract lease time from a Cache-Control header value. </p>
+<p>Parses the Cache-Control header (or CACHE-CONTROL) from an SSDP message to extract the max-age directive, which specifies the device's lease time in seconds.</p>
+<p>Example: "max-age=1800" returns 1800 (30 minutes).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cacheCont</td><td>The Cache-Control header value. May be NULL.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The lease time in seconds, or 0 if cacheCont is NULL or max-age directive is not found.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Can be called from any thread. </dd></dl>
 
 </div>
 </div>
@@ -183,6 +224,19 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Set the number of times to send SSDP announcements. </p>
+<p>Configures how many times each SSDP advertisement (alive or byebye) is sent. Multiple announcements increase reliability on unreliable networks. Default is MUPNP_SSDP_DEFAULT_ANNOUNCE_COUNT (3).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>Number of announcement repetitions. Must be &gt;= 1. Typical values: 2-4. Higher values increase network traffic.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Should be called before starting devices. </dd>
+<dd>
+Side effect: Changes the global announcement count setting.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ssdp_8h.html#aafd0554d7e0d251c88b283ede9c1cb01" title="Get the current SSDP announcement repetition count.">mupnp_ssdp_getannouncecount()</a> </dd></dl>
+
 </div>
 </div>
 <a id="a88968fd66fe37d53c7947395e1c40fc1" name="a88968fd66fe37d53c7947395e1c40fc1"></a>
@@ -199,6 +253,25 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Set the IPv6 multicast address for SSDP. </p>
+<p>Configures the IPv6 multicast address used for SSDP discovery. Default is MUPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS ("FF02::C").</p>
+<p>Common IPv6 SSDP addresses:</p><ul>
+<li>FF01::C - Interface-local scope</li>
+<li>FF02::C - Link-local scope (default, same subnet)</li>
+<li>FF05::C - Site-local scope</li>
+<li>FF0E::C - Global scope</li>
+</ul>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">addr</td><td>The IPv6 multicast address. Must not be NULL. Should be one of the MUPNP_SSDP_IPV6_* constants.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Should be called before starting devices or control points. </dd>
+<dd>
+Side effect: Changes the global IPv6 multicast address setting.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="ssdp_8h.html#a3eb81b58392a886feb1b72a5ead381d4" title="Get the current IPv6 multicast address for SSDP.">mupnp_ssdp_getipv6address()</a> </dd></dl>
 
 </div>
 </div>

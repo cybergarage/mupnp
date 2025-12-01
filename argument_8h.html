@@ -164,9 +164,11 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2fbe08826d3fc83c9b1177cf85272f42" id="r_a2fbe08826d3fc83c9b1177cf85272f42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a42e4816230e20ad072aff057d5530c25">mUpnpArgument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fbe08826d3fc83c9b1177cf85272f42">mupnp_argument_new</a> (void)</td></tr>
+<tr class="memdesc:a2fbe08826d3fc83c9b1177cf85272f42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new UPnP action argument.  <br /></td></tr>
 <tr class="separator:a2fbe08826d3fc83c9b1177cf85272f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba4dac691291731004ccc66ca7894cc7" id="r_aba4dac691291731004ccc66ca7894cc7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba4dac691291731004ccc66ca7894cc7">mupnp_argument_delete</a> (<a class="el" href="#a42e4816230e20ad072aff057d5530c25">mUpnpArgument</a> *dev)</td></tr>
-<tr class="separator:aba4dac691291731004ccc66ca7894cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e92086c3c403e4df487cb736678d9b1" id="r_a7e92086c3c403e4df487cb736678d9b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e92086c3c403e4df487cb736678d9b1">mupnp_argument_delete</a> (<a class="el" href="#a42e4816230e20ad072aff057d5530c25">mUpnpArgument</a> *arg)</td></tr>
+<tr class="memdesc:a7e92086c3c403e4df487cb736678d9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a UPnP action argument and free resources.  <br /></td></tr>
+<tr class="separator:a7e92086c3c403e4df487cb736678d9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5744c88701a686af4e1a230dae66782e" id="r_a5744c88701a686af4e1a230dae66782e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a07dcf223ef439f317aa1beb2a4b027d8">mUpnpArgumentList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5744c88701a686af4e1a230dae66782e">mupnp_argumentlist_new</a> (void)</td></tr>
 <tr class="separator:a5744c88701a686af4e1a230dae66782e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb07b12635cb0eea1217ca81d72adecd" id="r_abb07b12635cb0eea1217ca81d72adecd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb07b12635cb0eea1217ca81d72adecd">mupnp_argumentlist_delete</a> (<a class="el" href="#a07dcf223ef439f317aa1beb2a4b027d8">mUpnpArgumentList</a> *argumentList)</td></tr>
@@ -247,7 +249,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a>(<a class="code hl_define" href="#a3fa9ee7b4dd077e7ccd1b723768e3a47">mupnp_argument_getargumentnode</a>(arg), <a class="code hl_define" href="#a56490ecc2d91d2b05c08fafca76228cd">MUPNP_ARGUMENT_DIRECTION</a>)</div>
-<div class="ttc" id="aargument_8h_html_a3fa9ee7b4dd077e7ccd1b723768e3a47"><div class="ttname"><a href="#a3fa9ee7b4dd077e7ccd1b723768e3a47">mupnp_argument_getargumentnode</a></div><div class="ttdeci">#define mupnp_argument_getargumentnode(arg)</div><div class="ttdef"><b>Definition</b> argument.h:124</div></div>
+<div class="ttc" id="aargument_8h_html_a3fa9ee7b4dd077e7ccd1b723768e3a47"><div class="ttname"><a href="#a3fa9ee7b4dd077e7ccd1b723768e3a47">mupnp_argument_getargumentnode</a></div><div class="ttdeci">#define mupnp_argument_getargumentnode(arg)</div><div class="ttdef"><b>Definition</b> argument.h:155</div></div>
 <div class="ttc" id="aargument_8h_html_a56490ecc2d91d2b05c08fafca76228cd"><div class="ttname"><a href="#a56490ecc2d91d2b05c08fafca76228cd">MUPNP_ARGUMENT_DIRECTION</a></div><div class="ttdeci">#define MUPNP_ARGUMENT_DIRECTION</div><div class="ttdef"><b>Definition</b> argument.h:43</div></div>
 <div class="ttc" id="axml__node_8c_html_a6f202591df140c494e7a48abae79ea99"><div class="ttname"><a href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a></div><div class="ttdeci">const char * mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name)</div><div class="ttdef"><b>Definition</b> xml_node.c:216</div></div>
 </div><!-- fragment --><p>Get argument direction</p>
@@ -276,7 +278,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="string_8h.html#a6b02263f961499848d6e70a88e85abd1">mupnp_string_getdoublevalue</a>(arg-&gt;value)</div>
-<div class="ttc" id="astring_8h_html_a6b02263f961499848d6e70a88e85abd1"><div class="ttname"><a href="string_8h.html#a6b02263f961499848d6e70a88e85abd1">mupnp_string_getdoublevalue</a></div><div class="ttdeci">#define mupnp_string_getdoublevalue(str)</div><div class="ttdef"><b>Definition</b> string.h:133</div></div>
+<div class="ttc" id="astring_8h_html_a6b02263f961499848d6e70a88e85abd1"><div class="ttname"><a href="string_8h.html#a6b02263f961499848d6e70a88e85abd1">mupnp_string_getdoublevalue</a></div><div class="ttdeci">#define mupnp_string_getdoublevalue(str)</div><div class="ttdef"><b>Definition</b> string.h:518</div></div>
 </div><!-- fragment --><p>Get argument value</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -303,7 +305,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="string_8h.html#ab671efd3633e993018f85af38f19c3e4">mupnp_string_getfloatvalue</a>(arg-&gt;value)</div>
-<div class="ttc" id="astring_8h_html_ab671efd3633e993018f85af38f19c3e4"><div class="ttname"><a href="string_8h.html#ab671efd3633e993018f85af38f19c3e4">mupnp_string_getfloatvalue</a></div><div class="ttdeci">#define mupnp_string_getfloatvalue(str)</div><div class="ttdef"><b>Definition</b> string.h:132</div></div>
+<div class="ttc" id="astring_8h_html_ab671efd3633e993018f85af38f19c3e4"><div class="ttname"><a href="string_8h.html#ab671efd3633e993018f85af38f19c3e4">mupnp_string_getfloatvalue</a></div><div class="ttdeci">#define mupnp_string_getfloatvalue(str)</div><div class="ttdef"><b>Definition</b> string.h:517</div></div>
 </div><!-- fragment --><p>Get argument value</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -330,7 +332,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="string_8h.html#a144d5a44749a30378fe0fba5ac813626">mupnp_string_getintvalue</a>(arg-&gt;value)</div>
-<div class="ttc" id="astring_8h_html_a144d5a44749a30378fe0fba5ac813626"><div class="ttname"><a href="string_8h.html#a144d5a44749a30378fe0fba5ac813626">mupnp_string_getintvalue</a></div><div class="ttdeci">#define mupnp_string_getintvalue(str)</div><div class="ttdef"><b>Definition</b> string.h:130</div></div>
+<div class="ttc" id="astring_8h_html_a144d5a44749a30378fe0fba5ac813626"><div class="ttname"><a href="string_8h.html#a144d5a44749a30378fe0fba5ac813626">mupnp_string_getintvalue</a></div><div class="ttdeci">#define mupnp_string_getintvalue(str)</div><div class="ttdef"><b>Definition</b> string.h:515</div></div>
 </div><!-- fragment --><p>Get argument value</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -505,9 +507,9 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a>(<a class="code hl_define" href="#a1ebf5c3ad9f7551e1f772c987106bd36">mupnp_argument_getdirection</a>(arg), <a class="code hl_define" href="#a68531d24901828420d2bc7f5a20506a8">MUPNP_ARGUMENT_IN_DIR</a>)</div>
-<div class="ttc" id="aargument_8h_html_a1ebf5c3ad9f7551e1f772c987106bd36"><div class="ttname"><a href="#a1ebf5c3ad9f7551e1f772c987106bd36">mupnp_argument_getdirection</a></div><div class="ttdeci">#define mupnp_argument_getdirection(arg)</div><div class="ttdef"><b>Definition</b> argument.h:170</div></div>
+<div class="ttc" id="aargument_8h_html_a1ebf5c3ad9f7551e1f772c987106bd36"><div class="ttname"><a href="#a1ebf5c3ad9f7551e1f772c987106bd36">mupnp_argument_getdirection</a></div><div class="ttdeci">#define mupnp_argument_getdirection(arg)</div><div class="ttdef"><b>Definition</b> argument.h:201</div></div>
 <div class="ttc" id="aargument_8h_html_a68531d24901828420d2bc7f5a20506a8"><div class="ttname"><a href="#a68531d24901828420d2bc7f5a20506a8">MUPNP_ARGUMENT_IN_DIR</a></div><div class="ttdeci">#define MUPNP_ARGUMENT_IN_DIR</div><div class="ttdef"><b>Definition</b> argument.h:34</div></div>
-<div class="ttc" id="astring__function_8c_html_a87e4a8c1183b47bda9414e1bdb2a265b"><div class="ttname"><a href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a></div><div class="ttdeci">bool mupnp_streq(const char *str1, const char *str2)</div><div class="ttdef"><b>Definition</b> string_function.c:158</div></div>
+<div class="ttc" id="astring__function_8c_html_a87e4a8c1183b47bda9414e1bdb2a265b"><div class="ttname"><a href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a></div><div class="ttdeci">bool mupnp_streq(const char *str1, const char *str2)</div><div class="ttdoc">Test if two strings are equal (NULL-safe)</div><div class="ttdef"><b>Definition</b> string_function.c:158</div></div>
 </div><!-- fragment --><p>Check if argument direction is "in"</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -538,7 +540,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a>(<a class="code hl_define" href="#ad46da52df04cd8a3f9c9a000ece09b4d">mupnp_argument_getname</a>(arg), name)</div>
-<div class="ttc" id="aargument_8h_html_ad46da52df04cd8a3f9c9a000ece09b4d"><div class="ttname"><a href="#ad46da52df04cd8a3f9c9a000ece09b4d">mupnp_argument_getname</a></div><div class="ttdeci">#define mupnp_argument_getname(arg)</div><div class="ttdef"><b>Definition</b> argument.h:141</div></div>
+<div class="ttc" id="aargument_8h_html_ad46da52df04cd8a3f9c9a000ece09b4d"><div class="ttname"><a href="#ad46da52df04cd8a3f9c9a000ece09b4d">mupnp_argument_getname</a></div><div class="ttdeci">#define mupnp_argument_getname(arg)</div><div class="ttdef"><b>Definition</b> argument.h:172</div></div>
 </div><!-- fragment --><p>Check if current argument name matches with the provided name</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -945,7 +947,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)argList, (<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)arg)</div>
-<div class="ttc" id="alist_8c_html_a879d24aec0a802bf4f3ed01826e8b60f"><div class="ttname"><a href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a></div><div class="ttdeci">void mupnp_list_add(mUpnpList *headList, mUpnpList *list)</div><div class="ttdef"><b>Definition</b> list.c:123</div></div>
+<div class="ttc" id="alist_8c_html_a879d24aec0a802bf4f3ed01826e8b60f"><div class="ttname"><a href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a></div><div class="ttdeci">void mupnp_list_add(mUpnpList *headList, mUpnpList *list)</div><div class="ttdoc">Add a node to the end of a list.</div><div class="ttdef"><b>Definition</b> list.c:123</div></div>
 </div><!-- fragment --><p>Add argument into argument list</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -971,8 +973,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="list_8c.html#a579e25386f2e6d3a763a0943b7745b36">mupnp_list_clear</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)argList, (<a class="code hl_typedef" href="list_8h.html#a067b9d8a69c3d6a30dc960dfcc6fc95e">MUPNP_LIST_DESTRUCTORFUNC</a>)<a class="code hl_function" href="#aba4dac691291731004ccc66ca7894cc7">mupnp_argument_delete</a>)</div>
-<div class="ttc" id="aargument_8h_html_aba4dac691291731004ccc66ca7894cc7"><div class="ttname"><a href="#aba4dac691291731004ccc66ca7894cc7">mupnp_argument_delete</a></div><div class="ttdeci">void mupnp_argument_delete(mUpnpArgument *dev)</div><div class="ttdef"><b>Definition</b> argument.c:45</div></div>
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="list_8c.html#a579e25386f2e6d3a763a0943b7745b36">mupnp_list_clear</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)argList, (<a class="code hl_typedef" href="list_8h.html#a067b9d8a69c3d6a30dc960dfcc6fc95e">MUPNP_LIST_DESTRUCTORFUNC</a>)<a class="code hl_function" href="#a7e92086c3c403e4df487cb736678d9b1">mupnp_argument_delete</a>)</div>
+<div class="ttc" id="aargument_8h_html_a7e92086c3c403e4df487cb736678d9b1"><div class="ttname"><a href="#a7e92086c3c403e4df487cb736678d9b1">mupnp_argument_delete</a></div><div class="ttdeci">void mupnp_argument_delete(mUpnpArgument *arg)</div><div class="ttdoc">Destroy a UPnP action argument and free resources.</div><div class="ttdef"><b>Definition</b> argument.c:45</div></div>
 <div class="ttc" id="alist_8c_html_a579e25386f2e6d3a763a0943b7745b36"><div class="ttname"><a href="list_8c.html#a579e25386f2e6d3a763a0943b7745b36">mupnp_list_clear</a></div><div class="ttdeci">void mupnp_list_clear(mUpnpList *headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc)</div><div class="ttdef"><b>Definition</b> list.c:257</div></div>
 <div class="ttc" id="alist_8h_html_a067b9d8a69c3d6a30dc960dfcc6fc95e"><div class="ttname"><a href="list_8h.html#a067b9d8a69c3d6a30dc960dfcc6fc95e">MUPNP_LIST_DESTRUCTORFUNC</a></div><div class="ttdeci">void(* MUPNP_LIST_DESTRUCTORFUNC)(void *)</div><div class="ttdef"><b>Definition</b> list.h:29</div></div>
 </div><!-- fragment --><p>Clear argument list</p>
@@ -1082,8 +1084,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="aba4dac691291731004ccc66ca7894cc7" name="aba4dac691291731004ccc66ca7894cc7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba4dac691291731004ccc66ca7894cc7">&#9670;&#160;</a></span>mupnp_argument_delete()</h2>
+<a id="a7e92086c3c403e4df487cb736678d9b1" name="a7e92086c3c403e4df487cb736678d9b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e92086c3c403e4df487cb736678d9b1">&#9670;&#160;</a></span>mupnp_argument_delete()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1091,18 +1093,24 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void mupnp_argument_delete </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a42e4816230e20ad072aff057d5530c25">mUpnpArgument</a> *</td>          <td class="paramname"><span class="paramname"><em>dev</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#a42e4816230e20ad072aff057d5530c25">mUpnpArgument</a> *</td>          <td class="paramname"><span class="paramname"><em>arg</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Delete argument</p>
+
+<p>Destroy a UPnP action argument and free resources. </p>
+<p>Releases all resources associated with the argument, including the argument value string and XML node references.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dev</td><td>Argument </td></tr>
+    <tr><td class="paramname">arg</td><td>The argument to destroy. May be NULL (no-op if NULL).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>After calling this function, the argument pointer is invalid. </dd>
+<dd>
+Thread-safe: Must not be called concurrently on the same argument.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a2fbe08826d3fc83c9b1177cf85272f42" title="Create a new UPnP action argument.">mupnp_argument_new()</a> </dd></dl>
 
 </div>
 </div>
@@ -1120,7 +1128,24 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create new argument </p>
+
+<p>Create a new UPnP action argument. </p>
+<p>Allocates and initializes a new argument object. Arguments represent input or output parameters for UPnP actions. Each argument has:</p><ul>
+<li>A name (identifier)</li>
+<li>A direction (in/out)</li>
+<li>A related state variable (defines the data type)</li>
+<li>A value (set during action invocation or response)</li>
+</ul>
+<p>Arguments are typically created during SCPD parsing and added to action argument lists.</p>
+<dl class="section return"><dt>Returns</dt><dd>A newly-created mUpnpArgument on success, or NULL if memory allocation fails.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned argument must be freed with <a class="el" href="#a7e92086c3c403e4df487cb736678d9b1" title="Destroy a UPnP action argument and free resources.">mupnp_argument_delete()</a> when no longer needed. </dd>
+<dd>
+Thread-safe: Can be called concurrently from multiple threads.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a7e92086c3c403e4df487cb736678d9b1" title="Destroy a UPnP action argument and free resources.">mupnp_argument_delete()</a> </dd>
+<dd>
+<a class="el" href="#a098e567ba04df89e4898f5f8ff62ac71">mupnp_argument_setdirection()</a> </dd>
+<dd>
+<a class="el" href="#abb93c9d05a2fe89d5da8382d4e3641bd">mupnp_argument_setvalue()</a> </dd></dl>
 
 </div>
 </div>

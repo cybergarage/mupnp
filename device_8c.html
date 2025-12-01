@@ -98,8 +98,10 @@ Functions</h2></td></tr>
 <tr class="memitem:ac75bce7906daf3d659ced7c57ef656fd" id="r_ac75bce7906daf3d659ced7c57ef656fd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac75bce7906daf3d659ced7c57ef656fd">mupnp_device_notifywait</a> (<a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev)</td></tr>
 <tr class="separator:ac75bce7906daf3d659ced7c57ef656fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5981b74558fe69136e90ebdd9a1f8dc1" id="r_a5981b74558fe69136e90ebdd9a1f8dc1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new</a> (void)</td></tr>
+<tr class="memdesc:a5981b74558fe69136e90ebdd9a1f8dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new UPnP device instance.  <br /></td></tr>
 <tr class="separator:a5981b74558fe69136e90ebdd9a1f8dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6eb99cb4d1c0f01e2597f8d0596dae65" id="r_a6eb99cb4d1c0f01e2597f8d0596dae65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6eb99cb4d1c0f01e2597f8d0596dae65">mupnp_device_delete</a> (<a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev)</td></tr>
+<tr class="memdesc:a6eb99cb4d1c0f01e2597f8d0596dae65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a UPnP device and free all associated resources.  <br /></td></tr>
 <tr class="separator:a6eb99cb4d1c0f01e2597f8d0596dae65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30c77e2a6310e4354b2680728f25b1e8" id="r_a30c77e2a6310e4354b2680728f25b1e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30c77e2a6310e4354b2680728f25b1e8">mupnp_device_clear</a> (<a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev)</td></tr>
 <tr class="separator:a30c77e2a6310e4354b2680728f25b1e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,10 +156,12 @@ Functions</h2></td></tr>
 <tr class="memitem:acb869c095d2c30dcbc4ccc500fb769e8" id="r_acb869c095d2c30dcbc4ccc500fb769e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb869c095d2c30dcbc4ccc500fb769e8">mupnp_device_postsearchresponse</a> (<a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev, <a class="el" href="ssdp__server_8h.html#af6c745383baac796f372825da3b666d9">mUpnpSSDPPacket</a> *ssdpPkt, const char *st, const char *usn)</td></tr>
 <tr class="separator:acb869c095d2c30dcbc4ccc500fb769e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a2d960ccbb38229b8425f2925d0c40f" id="r_a7a2d960ccbb38229b8425f2925d0c40f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start</a> (<a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev)</td></tr>
+<tr class="memdesc:a7a2d960ccbb38229b8425f2925d0c40f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a UPnP device and begin advertising on the network.  <br /></td></tr>
 <tr class="separator:a7a2d960ccbb38229b8425f2925d0c40f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdf580de340c1bac355f5191eb61e2f1" id="r_afdf580de340c1bac355f5191eb61e2f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afdf580de340c1bac355f5191eb61e2f1">mupnp_device_ipchanged</a> (<a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev)</td></tr>
 <tr class="separator:afdf580de340c1bac355f5191eb61e2f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa29f22524439920db536643028a799cb" id="r_aa29f22524439920db536643028a799cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa29f22524439920db536643028a799cb">mupnp_device_stop</a> (<a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev)</td></tr>
+<tr class="memdesc:aa29f22524439920db536643028a799cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop a UPnP device and cease network advertising.  <br /></td></tr>
 <tr class="separator:aa29f22524439920db536643028a799cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94008fd7869299b65b5596d3093a2cb2" id="r_a94008fd7869299b65b5596d3093a2cb2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94008fd7869299b65b5596d3093a2cb2">mupnp_device_isrunning</a> (<a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev)</td></tr>
 <tr class="separator:a94008fd7869299b65b5596d3093a2cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -354,13 +358,32 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Delete a UPnP device</p>
+
+<p>Delete a UPnP device and free all associated resources. </p>
+<p>Releases all resources associated with the device, including:</p><ul>
+<li>Device description (XML nodes)</li>
+<li>All services and their state tables</li>
+<li>All embedded (child) devices</li>
+<li>Icon list</li>
+<li>Network servers (HTTP, SSDP) if running</li>
+<li>Internal mutexes and threads</li>
+</ul>
+<p>If the device is still running (started) when this function is called, it will be stopped automatically before resources are freed.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dev</td><td>Device in question </td></tr>
+    <tr><td class="paramname">dev</td><td>The device to destroy. May be NULL (no-op if NULL).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>After calling this function, the dev pointer is invalid and must not be used. </dd>
+<dd>
+This function will block until all internal threads have terminated. </dd>
+<dd>
+Thread-safe: Must not be called concurrently with other operations on the same device. The caller is responsible for ensuring exclusive access.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Do not call this function while holding locks or from within listener callbacks, as this may cause deadlocks.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="device_8h.html#a5981b74558fe69136e90ebdd9a1f8dc1" title="Create a new UPnP device instance.">mupnp_device_new()</a> </dd>
+<dd>
+<a class="el" href="device_8h.html#aa29f22524439920db536643028a799cb" title="Stop a UPnP device and cease network advertising.">mupnp_device_stop()</a> </dd></dl>
 
 </div>
 </div>
@@ -1200,7 +1223,37 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a new UPnP device </p>
+
+<p>Create a new UPnP device instance. </p>
+<p>Allocates and initializes a new UPnP device object for use as either:</p><ul>
+<li>A device implementation (to be advertised on the network)</li>
+<li>A device representation (discovered by a control point)</li>
+</ul>
+<p>The function initializes:</p><ul>
+<li>Device description node (XML representation)</li>
+<li>Service list (empty)</li>
+<li>Icon list (empty)</li>
+<li>Embedded device list (empty)</li>
+<li>Internal mutex for thread safety</li>
+<li>Default values (e.g., lease time, HTTP port)</li>
+</ul>
+<p>After creation, populate the device description using one of:</p><ul>
+<li><a class="el" href="device_8h.html#a1cfd480edf457d8b980743f1110887d4">mupnp_device_parsedescription()</a> - from XML string</li>
+<li><a class="el" href="device_8h.html#af155e0f6bbcfe9d77d969185d8b9736f">mupnp_device_parsedescriptionurl()</a> - from HTTP URL</li>
+<li>mupnp_device_loaddescriptionfile() - from file (if MUPNP_USE_CFILE defined)</li>
+<li>Manual setter functions (<a class="el" href="device_8h.html#ab6c98a808406a530f2f71eb690fe3308">mupnp_device_setfriendlyname()</a>, etc.)</li>
+</ul>
+<dl class="section return"><dt>Returns</dt><dd>A newly-created mUpnpDevice on success, or NULL if memory allocation fails.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned device must be freed with <a class="el" href="device_8h.html#a6eb99cb4d1c0f01e2597f8d0596dae65" title="Delete a UPnP device and free all associated resources.">mupnp_device_delete()</a> when no longer needed to avoid memory leaks. </dd>
+<dd>
+Thread-safe: This function can be called concurrently from multiple threads. </dd>
+<dd>
+The device is initially inactive. Use <a class="el" href="device_8h.html#a7a2d960ccbb38229b8425f2925d0c40f" title="Start a UPnP device and begin advertising on the network.">mupnp_device_start()</a> to activate it and begin advertising (for device implementations).</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="device_8h.html#a6eb99cb4d1c0f01e2597f8d0596dae65" title="Delete a UPnP device and free all associated resources.">mupnp_device_delete()</a> </dd>
+<dd>
+<a class="el" href="device_8h.html#a1cfd480edf457d8b980743f1110887d4">mupnp_device_parsedescription()</a> </dd>
+<dd>
+<a class="el" href="device_8h.html#a7a2d960ccbb38229b8425f2925d0c40f" title="Start a UPnP device and begin advertising on the network.">mupnp_device_start()</a> </dd></dl>
 
 </div>
 </div>
@@ -1458,19 +1511,96 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Start the device. This essentially starts: </p><ul>
-<li>The HTTP server </li>
-<li>The SSDP server </li>
-<li>Advertising the device </li>
-<li>Alive notification</li>
+
+<p>Start a UPnP device and begin advertising on the network. </p>
+<p>Activates the device and starts all required network services:</p><ul>
+<li>HTTP server for device description, SOAP control, and eventing (default port: 38400, or as set by <a class="el" href="device_8h.html#aadbf88367cd05a9b0abd594738754022">mupnp_device_sethttpport()</a>)</li>
+<li>SSDP multicast listener for M-SEARCH discovery requests</li>
+<li>SSDP advertisement broadcaster (sends periodic ssdp:alive messages)</li>
+<li>Sends initial ssdp:alive notifications for the device and all its services</li>
 </ul>
+<p>After successful startup, the device will:</p><ul>
+<li>Respond to M-SEARCH discovery requests from control points</li>
+<li>Periodically advertise its presence via ssdp:alive (based on lease time)</li>
+<li>Accept action invocations via SOAP</li>
+<li>Accept event subscriptions and send notifications</li>
+</ul>
+<p>The device description must be properly configured before calling this function (friendly name, UDN, services, etc.).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dev</td><td>Device in question </td></tr>
+    <tr><td class="paramname">dev</td><td>The device to start. Must not be NULL and must have a valid description with at least a UDN and device type.</td></tr>
   </table>
   </dd>
 </dl>
-
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Successfully started all services </td></tr>
+    <tr><td class="paramname">false</td><td>Failed to start due to:<ul>
+<li>NULL parameter</li>
+<li>HTTP port already in use</li>
+<li>Network error (e.g., cannot bind to multicast address)</li>
+<li>Invalid or incomplete device description</li>
+<li>Insufficient permissions</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function may fail if the HTTP port is already in use. Configure an alternative port with <a class="el" href="device_8h.html#aadbf88367cd05a9b0abd594738754022">mupnp_device_sethttpport()</a> if needed. </dd>
+<dd>
+Thread-safe: Can be called from any thread, but must not be called concurrently on the same device. </dd>
+<dd>
+Calling this function on an already-running device has no effect and returns true. </dd>
+<dd>
+Side effect: Sends SSDP advertisements to the network immediately and starts the advertisement thread.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>On some platforms, binding to multicast addresses may require elevated privileges. </dd>
+<dd>
+Ensure proper firewall configuration to allow:<ul>
+<li>Incoming TCP on HTTP port</li>
+<li>Outgoing UDP to SSDP multicast address (239.255.255.250:1900)</li>
+<li>Incoming UDP on SSDP port (1900)</li>
+</ul>
+</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="device_8h.html#aa29f22524439920db536643028a799cb" title="Stop a UPnP device and cease network advertising.">mupnp_device_stop()</a> </dd>
+<dd>
+<a class="el" href="device_8h.html#a94008fd7869299b65b5596d3093a2cb2">mupnp_device_isrunning()</a> </dd>
+<dd>
+<a class="el" href="device_8h.html#aadbf88367cd05a9b0abd594738754022">mupnp_device_sethttpport()</a> </dd>
+<dd>
+<a class="el" href="device_8h.html#a2551544eda953d8ecece0854060b021a">mupnp_device_setleasetime()</a></dd></dl>
+<div class="fragment"><div class="line"><span class="comment">// Example: Create and start a simple device</span></div>
+<div class="line"><a class="code hl_struct" href="struct__mUpnpDevice.html">mUpnpDevice</a>* dev = <a class="code hl_function" href="#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new</a>();</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Configure device description</span></div>
+<div class="line"><a class="code hl_define" href="device_8h.html#a3b873ff433d66570ebdb606816ff0567">mupnp_device_setdevicetype</a>(dev, <span class="stringliteral">&quot;urn:schemas-upnp-org:device:Basic:1&quot;</span>);</div>
+<div class="line"><a class="code hl_define" href="device_8h.html#ab6c98a808406a530f2f71eb690fe3308">mupnp_device_setfriendlyname</a>(dev, <span class="stringliteral">&quot;My UPnP Device&quot;</span>);</div>
+<div class="line"><a class="code hl_define" href="device_8h.html#ae1bfcc9c7dd2ed44d3cdc65a22cb0832">mupnp_device_setmanufacturer</a>(dev, <span class="stringliteral">&quot;Example Corp&quot;</span>);</div>
+<div class="line"><a class="code hl_define" href="device_8h.html#a20060d461a0c342e4ce281f27f9a4b9d">mupnp_device_setmodelname</a>(dev, <span class="stringliteral">&quot;Model 1&quot;</span>);</div>
+<div class="line"><a class="code hl_function" href="#aa9aa9eca8ded521c760287d5bdc50ed2">mupnp_device_updateudn</a>(dev); <span class="comment">// Generate a UDN</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Set action and query listeners</span></div>
+<div class="line"><a class="code hl_function" href="#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener</a>(dev, my_action_listener);</div>
+<div class="line"><a class="code hl_function" href="#abbaa80309b6fd82938cf17173c3ea9a9">mupnp_device_setquerylistener</a>(dev, my_query_listener);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Start the device</span></div>
+<div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start</a>(dev)) {</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Device started and advertising\n&quot;</span>);</div>
+<div class="line">} <span class="keywordflow">else</span> {</div>
+<div class="line">    fprintf(stderr, <span class="stringliteral">&quot;Failed to start device\n&quot;</span>);</div>
+<div class="line">    <a class="code hl_function" href="#a6eb99cb4d1c0f01e2597f8d0596dae65">mupnp_device_delete</a>(dev);</div>
+<div class="line">}</div>
+<div class="ttc" id="adevice_8c_html_a5981b74558fe69136e90ebdd9a1f8dc1"><div class="ttname"><a href="#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new</a></div><div class="ttdeci">mUpnpDevice * mupnp_device_new(void)</div><div class="ttdoc">Create a new UPnP device instance.</div><div class="ttdef"><b>Definition</b> device.c:41</div></div>
+<div class="ttc" id="adevice_8c_html_a6eb99cb4d1c0f01e2597f8d0596dae65"><div class="ttname"><a href="#a6eb99cb4d1c0f01e2597f8d0596dae65">mupnp_device_delete</a></div><div class="ttdeci">void mupnp_device_delete(mUpnpDevice *dev)</div><div class="ttdoc">Delete a UPnP device and free all associated resources.</div><div class="ttdef"><b>Definition</b> device.c:95</div></div>
+<div class="ttc" id="adevice_8c_html_a7a2d960ccbb38229b8425f2925d0c40f"><div class="ttname"><a href="#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start</a></div><div class="ttdeci">bool mupnp_device_start(mUpnpDevice *dev)</div><div class="ttdoc">Start a UPnP device and begin advertising on the network.</div><div class="ttdef"><b>Definition</b> device.c:1373</div></div>
+<div class="ttc" id="adevice_8c_html_aa9aa9eca8ded521c760287d5bdc50ed2"><div class="ttname"><a href="#aa9aa9eca8ded521c760287d5bdc50ed2">mupnp_device_updateudn</a></div><div class="ttdeci">void mupnp_device_updateudn(mUpnpDevice *dev)</div><div class="ttdef"><b>Definition</b> device.c:2082</div></div>
+<div class="ttc" id="adevice_8c_html_abbaa80309b6fd82938cf17173c3ea9a9"><div class="ttname"><a href="#abbaa80309b6fd82938cf17173c3ea9a9">mupnp_device_setquerylistener</a></div><div class="ttdeci">void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER queryListner)</div><div class="ttdef"><b>Definition</b> device.c:1804</div></div>
+<div class="ttc" id="adevice_8c_html_ae6e0dbb589b5c06aeb99d9635a22eab0"><div class="ttname"><a href="#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener</a></div><div class="ttdeci">void mupnp_device_setactionlistener(mUpnpDevice *dev, MUPNP_ACTION_LISTNER actionListner)</div><div class="ttdef"><b>Definition</b> device.c:1784</div></div>
+<div class="ttc" id="adevice_8h_html_a20060d461a0c342e4ce281f27f9a4b9d"><div class="ttname"><a href="device_8h.html#a20060d461a0c342e4ce281f27f9a4b9d">mupnp_device_setmodelname</a></div><div class="ttdeci">#define mupnp_device_setmodelname(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:565</div></div>
+<div class="ttc" id="adevice_8h_html_a3b873ff433d66570ebdb606816ff0567"><div class="ttname"><a href="device_8h.html#a3b873ff433d66570ebdb606816ff0567">mupnp_device_setdevicetype</a></div><div class="ttdeci">#define mupnp_device_setdevicetype(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:384</div></div>
+<div class="ttc" id="adevice_8h_html_ab6c98a808406a530f2f71eb690fe3308"><div class="ttname"><a href="device_8h.html#ab6c98a808406a530f2f71eb690fe3308">mupnp_device_setfriendlyname</a></div><div class="ttdeci">#define mupnp_device_setfriendlyname(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:477</div></div>
+<div class="ttc" id="adevice_8h_html_ae1bfcc9c7dd2ed44d3cdc65a22cb0832"><div class="ttname"><a href="device_8h.html#ae1bfcc9c7dd2ed44d3cdc65a22cb0832">mupnp_device_setmanufacturer</a></div><div class="ttdeci">#define mupnp_device_setmanufacturer(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:499</div></div>
+<div class="ttc" id="astruct__mUpnpDevice_html"><div class="ttname"><a href="struct__mUpnpDevice.html">_mUpnpDevice</a></div><div class="ttdoc">The generic UPnP device structure.</div><div class="ttdef"><b>Definition</b> device.h:122</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="aa29f22524439920db536643028a799cb" name="aa29f22524439920db536643028a799cb"></a>
@@ -1487,18 +1617,52 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Stop the device. This concerns: </p><ul>
-<li>The HTTP server </li>
-<li>The SSDP server </li>
-<li>Advertising the device </li>
-<li>Byebye notification</li>
+
+<p>Stop a UPnP device and cease network advertising. </p>
+<p>Gracefully shuts down all network services:</p><ul>
+<li>Sends ssdp:byebye notifications for the device and all its services, informing control points that the device is leaving the network</li>
+<li>Stops the HTTP server (no longer accepts connections)</li>
+<li>Closes SSDP multicast listener</li>
+<li>Terminates the advertisement broadcaster thread</li>
 </ul>
+<p>After stopping, the device will no longer:</p><ul>
+<li>Respond to M-SEARCH discovery requests</li>
+<li>Accept action invocations</li>
+<li>Send periodic advertisements</li>
+<li>Accept event subscriptions or send notifications</li>
+</ul>
+<p>The device description and configuration are retained. The device can be restarted with <a class="el" href="device_8h.html#a7a2d960ccbb38229b8425f2925d0c40f" title="Start a UPnP device and begin advertising on the network.">mupnp_device_start()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dev</td><td>Device in question </td></tr>
+    <tr><td class="paramname">dev</td><td>The device to stop. Must not be NULL.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Successfully stopped all services and sent byebye notifications </td></tr>
+    <tr><td class="paramname">false</td><td>Failed to stop (unlikely), or dev is NULL</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This function blocks until:<ul>
+<li>ssdp:byebye messages are sent (a few hundred milliseconds)</li>
+<li>All listener threads have terminated (may take a few seconds) </li>
+</ul>
+</dd>
+<dd>
+Calling this function on an already-stopped device has no effect and returns true. </dd>
+<dd>
+Thread-safe: Can be called from any thread, but must not be called concurrently on the same device. </dd>
+<dd>
+Side effect: Sends SSDP byebye messages to the network, which should prompt control points to remove the device from their lists. </dd>
+<dd>
+Active event subscriptions are not explicitly cancelled. Subscribed control points will detect the device is unavailable when subscriptions expire or when they attempt to renew.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="device_8h.html#a7a2d960ccbb38229b8425f2925d0c40f" title="Start a UPnP device and begin advertising on the network.">mupnp_device_start()</a> </dd>
+<dd>
+<a class="el" href="device_8h.html#a94008fd7869299b65b5596d3093a2cb2">mupnp_device_isrunning()</a> </dd>
+<dd>
+<a class="el" href="device_8h.html#a6eb99cb4d1c0f01e2597f8d0596dae65" title="Delete a UPnP device and free all associated resources.">mupnp_device_delete()</a> </dd></dl>
 
 </div>
 </div>

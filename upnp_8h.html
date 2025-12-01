@@ -71,6 +71,9 @@ $(function(){initNavTree('upnp_8h.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">upnp.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Main header file for the mUPnP for C library.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;<a class="el" href="typedef_8h.html">mupnp/typedef.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="upnp__function_8h.html">mupnp/upnp_function.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="upnp__status_8h.html">mupnp/upnp_status.h</a>&gt;</code><br />
@@ -91,7 +94,139 @@ Macros</h2></td></tr>
 <tr class="memitem:ad7baf976e33075122e04e75a7bc6f443" id="r_ad7baf976e33075122e04e75a7bc6f443"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7baf976e33075122e04e75a7bc6f443">MUPNP_XML_DECLARATION</a>&#160;&#160;&#160;&quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&quot;</td></tr>
 <tr class="separator:ad7baf976e33075122e04e75a7bc6f443"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Main header file for the mUPnP for C library. </p>
+<p>This is the primary include file for applications using mUPnP for C. It provides access to all major UPnP functionality through a single include.</p>
+<p>mUPnP for C is a development package that simplifies the creation of UPnP™ devices and control points by abstracting the underlying protocols (SSDP, SOAP, GENA, HTTP, HTTPU) and providing a clean, easy-to-use API.</p>
+<h1><a class="anchor" id="autotoc_md0"></a>
+Key Components</h1>
+<h2><a class="anchor" id="autotoc_md1"></a>
+Control Point (Client) API</h2>
+<p>Control points discover and interact with UPnP devices on the network:</p><ul>
+<li>mUpnpControlPoint - Main control point interface</li>
+<li>Device discovery via M-SEARCH (SSDP)</li>
+<li>Action invocation via SOAP</li>
+<li>Event subscription and notification (GENA)</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Device (Server) API</h2>
+<p>Devices advertise services and respond to control point requests:</p><ul>
+<li>mUpnpDevice - Device implementation interface</li>
+<li>Service advertisement via SSDP</li>
+<li>Action handling via SOAP</li>
+<li>Event notification to subscribers</li>
+</ul>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Service and Action Model</h2>
+<p>Services contain actions and state variables:</p><ul>
+<li>mUpnpService - Service container</li>
+<li>mUpnpAction - Remote procedure calls</li>
+<li>mUpnpStateVariable - Service state with optional eventing</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md4"></a>
+Basic Usage</h1>
+<h2><a class="anchor" id="autotoc_md5"></a>
+Control Point Example</h2>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="upnp_8h.html">mupnp/upnp.h</a>&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> device_listener(<a class="code hl_struct" href="struct__mUpnpControlPoint.html">mUpnpControlPoint</a>* cp, <span class="keyword">const</span> <span class="keywordtype">char</span>* udn, </div>
+<div class="line">                     <a class="code hl_typedef" href="controlpoint_8h.html#a4775fb3ec6882f565b2d25deadcd8d05">mUpnpDeviceStatus</a> status) {</div>
+<div class="line">    <span class="keywordflow">if</span> (status == <a class="code hl_enumvalue" href="controlpoint_8h.html#a4bdde15861e6f92eaa753d0e25d85e44a2a1ec083e1a8e89296b026da7c2bf1ec">mUpnpDeviceStatusAdded</a>) {</div>
+<div class="line">        printf(<span class="stringliteral">&quot;Device added: %s\n&quot;</span>, udn);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main() {</div>
+<div class="line">    <span class="comment">// Create and start control point</span></div>
+<div class="line">    <a class="code hl_struct" href="struct__mUpnpControlPoint.html">mUpnpControlPoint</a>* cp = <a class="code hl_function" href="controlpoint_8c.html#aa5ebe8ac088296517392651ed4937e51">mupnp_controlpoint_new</a>();</div>
+<div class="line">    <a class="code hl_define" href="controlpoint_8h.html#af3e636fd8b3f20ef225fc717da2142a8">mupnp_controlpoint_setdevicelistener</a>(cp, device_listener);</div>
+<div class="line">    <a class="code hl_function" href="controlpoint_8c.html#a528c2288f76436f5d1ba619b45b2d357">mupnp_controlpoint_start</a>(cp);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Discover devices</span></div>
+<div class="line">    <a class="code hl_function" href="controlpoint_8c.html#a3d38299a5e04b7c42a4715d58cd13677">mupnp_controlpoint_search</a>(cp, <span class="stringliteral">&quot;ssdp:all&quot;</span>);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// ... use devices ...</span></div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Cleanup</span></div>
+<div class="line">    <a class="code hl_function" href="controlpoint_8c.html#a6d399f550fe9dee6a72ba9b35c9407ef">mupnp_controlpoint_stop</a>(cp);</div>
+<div class="line">    <a class="code hl_function" href="controlpoint_8c.html#a13ca075e0efce9811bcd2621036b5e74">mupnp_controlpoint_delete</a>(cp);</div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="ttc" id="acontrolpoint_8c_html_a13ca075e0efce9811bcd2621036b5e74"><div class="ttname"><a href="controlpoint_8c.html#a13ca075e0efce9811bcd2621036b5e74">mupnp_controlpoint_delete</a></div><div class="ttdeci">void mupnp_controlpoint_delete(mUpnpControlPoint *ctrlPoint)</div><div class="ttdoc">Destroy a control point and free all associated resources.</div><div class="ttdef"><b>Definition</b> controlpoint.c:123</div></div>
+<div class="ttc" id="acontrolpoint_8c_html_a3d38299a5e04b7c42a4715d58cd13677"><div class="ttname"><a href="controlpoint_8c.html#a3d38299a5e04b7c42a4715d58cd13677">mupnp_controlpoint_search</a></div><div class="ttdeci">bool mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target)</div><div class="ttdoc">Send an M-SEARCH multicast message to discover UPnP devices.</div><div class="ttdef"><b>Definition</b> controlpoint.c:740</div></div>
+<div class="ttc" id="acontrolpoint_8c_html_a528c2288f76436f5d1ba619b45b2d357"><div class="ttname"><a href="controlpoint_8c.html#a528c2288f76436f5d1ba619b45b2d357">mupnp_controlpoint_start</a></div><div class="ttdeci">bool mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint)</div><div class="ttdoc">Activate the control point and start network listeners.</div><div class="ttdef"><b>Definition</b> controlpoint.c:164</div></div>
+<div class="ttc" id="acontrolpoint_8c_html_a6d399f550fe9dee6a72ba9b35c9407ef"><div class="ttname"><a href="controlpoint_8c.html#a6d399f550fe9dee6a72ba9b35c9407ef">mupnp_controlpoint_stop</a></div><div class="ttdeci">bool mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint)</div><div class="ttdoc">Stop the control point and shut down network listeners.</div><div class="ttdef"><b>Definition</b> controlpoint.c:236</div></div>
+<div class="ttc" id="acontrolpoint_8c_html_aa5ebe8ac088296517392651ed4937e51"><div class="ttname"><a href="controlpoint_8c.html#aa5ebe8ac088296517392651ed4937e51">mupnp_controlpoint_new</a></div><div class="ttdeci">mUpnpControlPoint * mupnp_controlpoint_new(void)</div><div class="ttdoc">Create a new control point instance.</div><div class="ttdef"><b>Definition</b> controlpoint.c:70</div></div>
+<div class="ttc" id="acontrolpoint_8h_html_a4775fb3ec6882f565b2d25deadcd8d05"><div class="ttname"><a href="controlpoint_8h.html#a4775fb3ec6882f565b2d25deadcd8d05">mUpnpDeviceStatus</a></div><div class="ttdeci">enum _mUpnpDeviceStatus mUpnpDeviceStatus</div></div>
+<div class="ttc" id="acontrolpoint_8h_html_a4bdde15861e6f92eaa753d0e25d85e44a2a1ec083e1a8e89296b026da7c2bf1ec"><div class="ttname"><a href="controlpoint_8h.html#a4bdde15861e6f92eaa753d0e25d85e44a2a1ec083e1a8e89296b026da7c2bf1ec">mUpnpDeviceStatusAdded</a></div><div class="ttdeci">@ mUpnpDeviceStatusAdded</div><div class="ttdef"><b>Definition</b> controlpoint.h:72</div></div>
+<div class="ttc" id="acontrolpoint_8h_html_af3e636fd8b3f20ef225fc717da2142a8"><div class="ttname"><a href="controlpoint_8h.html#af3e636fd8b3f20ef225fc717da2142a8">mupnp_controlpoint_setdevicelistener</a></div><div class="ttdeci">#define mupnp_controlpoint_setdevicelistener(ctrlPoint, func)</div><div class="ttdef"><b>Definition</b> controlpoint.h:523</div></div>
+<div class="ttc" id="astruct__mUpnpControlPoint_html"><div class="ttname"><a href="struct__mUpnpControlPoint.html">_mUpnpControlPoint</a></div><div class="ttdef"><b>Definition</b> controlpoint.h:85</div></div>
+<div class="ttc" id="aupnp_8h_html"><div class="ttname"><a href="upnp_8h.html">upnp.h</a></div><div class="ttdoc">Main header file for the mUPnP for C library.</div></div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md6"></a>
+Device Example</h2>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="upnp_8h.html">mupnp/upnp.h</a>&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">bool</span> action_listener(<a class="code hl_struct" href="struct__mUpnpAction.html">mUpnpAction</a>* action) {</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">char</span>* name = <a class="code hl_define" href="action_8h.html#a8c8945d6d103fe3d5c3495c5aa854891">mupnp_action_getname</a>(action);</div>
+<div class="line">    <span class="keywordflow">if</span> (strcmp(name, <span class="stringliteral">&quot;GetStatus&quot;</span>) == 0) {</div>
+<div class="line">        <a class="code hl_struct" href="struct__mUpnpArgument.html">mUpnpArgument</a>* arg = <a class="code hl_function" href="action_8c.html#ad7ea7b2725c5ca2e681d624c82e7e1b1">mupnp_action_getargumentbyname</a>(action, <span class="stringliteral">&quot;Status&quot;</span>);</div>
+<div class="line">        <a class="code hl_define" href="argument_8h.html#abb93c9d05a2fe89d5da8382d4e3641bd">mupnp_argument_setvalue</a>(arg, <span class="stringliteral">&quot;OK&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> main() {</div>
+<div class="line">    <span class="comment">// Create device and load description</span></div>
+<div class="line">    <a class="code hl_struct" href="struct__mUpnpDevice.html">mUpnpDevice</a>* dev = <a class="code hl_function" href="device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new</a>();</div>
+<div class="line">    mupnp_device_loaddescriptionfile(dev, <span class="stringliteral">&quot;description.xml&quot;</span>);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Set action listener</span></div>
+<div class="line">    <a class="code hl_function" href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener</a>(dev, action_listener);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Start device</span></div>
+<div class="line">    <a class="code hl_function" href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start</a>(dev);</div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// ... run device ...</span></div>
+<div class="line">    </div>
+<div class="line">    <span class="comment">// Cleanup</span></div>
+<div class="line">    <a class="code hl_function" href="device_8c.html#aa29f22524439920db536643028a799cb">mupnp_device_stop</a>(dev);</div>
+<div class="line">    <a class="code hl_function" href="device_8c.html#a6eb99cb4d1c0f01e2597f8d0596dae65">mupnp_device_delete</a>(dev);</div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+<div class="ttc" id="aaction_8c_html_ad7ea7b2725c5ca2e681d624c82e7e1b1"><div class="ttname"><a href="action_8c.html#ad7ea7b2725c5ca2e681d624c82e7e1b1">mupnp_action_getargumentbyname</a></div><div class="ttdeci">mUpnpArgument * mupnp_action_getargumentbyname(mUpnpAction *action, const char *name)</div><div class="ttdef"><b>Definition</b> action.c:147</div></div>
+<div class="ttc" id="aaction_8h_html_a8c8945d6d103fe3d5c3495c5aa854891"><div class="ttname"><a href="action_8h.html#a8c8945d6d103fe3d5c3495c5aa854891">mupnp_action_getname</a></div><div class="ttdeci">#define mupnp_action_getname(action)</div><div class="ttdef"><b>Definition</b> action.h:185</div></div>
+<div class="ttc" id="aargument_8h_html_abb93c9d05a2fe89d5da8382d4e3641bd"><div class="ttname"><a href="argument_8h.html#abb93c9d05a2fe89d5da8382d4e3641bd">mupnp_argument_setvalue</a></div><div class="ttdeci">#define mupnp_argument_setvalue(arg, data)</div><div class="ttdef"><b>Definition</b> argument.h:252</div></div>
+<div class="ttc" id="adevice_8c_html_a5981b74558fe69136e90ebdd9a1f8dc1"><div class="ttname"><a href="device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new</a></div><div class="ttdeci">mUpnpDevice * mupnp_device_new(void)</div><div class="ttdoc">Create a new UPnP device instance.</div><div class="ttdef"><b>Definition</b> device.c:41</div></div>
+<div class="ttc" id="adevice_8c_html_a6eb99cb4d1c0f01e2597f8d0596dae65"><div class="ttname"><a href="device_8c.html#a6eb99cb4d1c0f01e2597f8d0596dae65">mupnp_device_delete</a></div><div class="ttdeci">void mupnp_device_delete(mUpnpDevice *dev)</div><div class="ttdoc">Delete a UPnP device and free all associated resources.</div><div class="ttdef"><b>Definition</b> device.c:95</div></div>
+<div class="ttc" id="adevice_8c_html_a7a2d960ccbb38229b8425f2925d0c40f"><div class="ttname"><a href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start</a></div><div class="ttdeci">bool mupnp_device_start(mUpnpDevice *dev)</div><div class="ttdoc">Start a UPnP device and begin advertising on the network.</div><div class="ttdef"><b>Definition</b> device.c:1373</div></div>
+<div class="ttc" id="adevice_8c_html_aa29f22524439920db536643028a799cb"><div class="ttname"><a href="device_8c.html#aa29f22524439920db536643028a799cb">mupnp_device_stop</a></div><div class="ttdeci">bool mupnp_device_stop(mUpnpDevice *dev)</div><div class="ttdoc">Stop a UPnP device and cease network advertising.</div><div class="ttdef"><b>Definition</b> device.c:1439</div></div>
+<div class="ttc" id="adevice_8c_html_ae6e0dbb589b5c06aeb99d9635a22eab0"><div class="ttname"><a href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener</a></div><div class="ttdeci">void mupnp_device_setactionlistener(mUpnpDevice *dev, MUPNP_ACTION_LISTNER actionListner)</div><div class="ttdef"><b>Definition</b> device.c:1784</div></div>
+<div class="ttc" id="astruct__mUpnpAction_html"><div class="ttname"><a href="struct__mUpnpAction.html">_mUpnpAction</a></div><div class="ttdef"><b>Definition</b> action.h:40</div></div>
+<div class="ttc" id="astruct__mUpnpArgument_html"><div class="ttname"><a href="struct__mUpnpArgument.html">_mUpnpArgument</a></div><div class="ttdef"><b>Definition</b> argument.h:55</div></div>
+<div class="ttc" id="astruct__mUpnpDevice_html"><div class="ttname"><a href="struct__mUpnpDevice.html">_mUpnpDevice</a></div><div class="ttdoc">The generic UPnP device structure.</div><div class="ttdef"><b>Definition</b> device.h:122</div></div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
+Thread Safety</h1>
+<p>The mUPnP library is designed for multi-threaded environments:</p><ul>
+<li>Most objects have internal mutexes for thread safety</li>
+<li>Control points should be locked when accessing device lists</li>
+<li>Listener callbacks may be invoked from multiple threads</li>
+<li>See individual function documentation for specific thread-safety notes</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md8"></a>
+Platform Support</h1>
+<p>mUPnP for C supports multiple platforms:</p><ul>
+<li>Linux/Unix (POSIX)</li>
+<li>Windows (Win32)</li>
+<li>macOS</li>
+<li>Embedded systems (ITRON, T-Engine, BTRON)</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>UPnP™ is a certification mark of the UPnP™ Implementers Corporation.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a href="http://cybergarage.github.io/mupnp/">http://cybergarage.github.io/mupnp/</a> for documentation </dd>
+<dd>
+<a href="https://github.com/cybergarage/mupnp">https://github.com/cybergarage/mupnp</a> for source code</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>3.0.2 </dd></dl>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a4bca53d83fedae197d6d5b9e513a6355" name="a4bca53d83fedae197d6d5b9e513a6355"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4bca53d83fedae197d6d5b9e513a6355">&#9670;&#160;</a></span>MUPNP_DLNA_VER</h2>
 

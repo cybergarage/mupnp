@@ -157,8 +157,10 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a650aa4fad4fdc4862a5a64d21da4957a" id="r_a650aa4fad4fdc4862a5a64d21da4957a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a650aa4fad4fdc4862a5a64d21da4957a">mupnp_action_new</a> (void)</td></tr>
+<tr class="memdesc:a650aa4fad4fdc4862a5a64d21da4957a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new UPnP action instance.  <br /></td></tr>
 <tr class="separator:a650aa4fad4fdc4862a5a64d21da4957a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af62579ea6588beb8a0d81841840dd6f4" id="r_af62579ea6588beb8a0d81841840dd6f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af62579ea6588beb8a0d81841840dd6f4">mupnp_action_delete</a> (<a class="el" href="#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *action)</td></tr>
+<tr class="memdesc:af62579ea6588beb8a0d81841840dd6f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a UPnP action and free all associated resources.  <br /></td></tr>
 <tr class="separator:af62579ea6588beb8a0d81841840dd6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1024f0a8e6bb8de4253d6f4c32fefab3" id="r_a1024f0a8e6bb8de4253d6f4c32fefab3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1024f0a8e6bb8de4253d6f4c32fefab3">mupnp_action_setactionnode</a> (<a class="el" href="#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *action, <a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *node)</td></tr>
 <tr class="separator:a1024f0a8e6bb8de4253d6f4c32fefab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -326,7 +328,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a>(<a class="code hl_define" href="#ae21a8cfd9f0736c3045eebac93fef730">mupnp_action_getactionnode</a>(action), <a class="code hl_define" href="#a409523ce977decb2cda5830a253c49c1">MUPNP_ACTION_NAME</a>)</div>
 <div class="ttc" id="aaction_8h_html_a409523ce977decb2cda5830a253c49c1"><div class="ttname"><a href="#a409523ce977decb2cda5830a253c49c1">MUPNP_ACTION_NAME</a></div><div class="ttdeci">#define MUPNP_ACTION_NAME</div><div class="ttdef"><b>Definition</b> action.h:34</div></div>
-<div class="ttc" id="aaction_8h_html_ae21a8cfd9f0736c3045eebac93fef730"><div class="ttname"><a href="#ae21a8cfd9f0736c3045eebac93fef730">mupnp_action_getactionnode</a></div><div class="ttdeci">#define mupnp_action_getactionnode(action)</div><div class="ttdef"><b>Definition</b> action.h:104</div></div>
+<div class="ttc" id="aaction_8h_html_ae21a8cfd9f0736c3045eebac93fef730"><div class="ttname"><a href="#ae21a8cfd9f0736c3045eebac93fef730">mupnp_action_getactionnode</a></div><div class="ttdeci">#define mupnp_action_getactionnode(action)</div><div class="ttdef"><b>Definition</b> action.h:145</div></div>
 <div class="ttc" id="axml__node_8c_html_a6f202591df140c494e7a48abae79ea99"><div class="ttname"><a href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a></div><div class="ttdeci">const char * mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name)</div><div class="ttdef"><b>Definition</b> xml_node.c:216</div></div>
 </div><!-- fragment --><p>Get the action's name</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -525,8 +527,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a>(<a class="code hl_define" href="#a8c8945d6d103fe3d5c3495c5aa854891">mupnp_action_getname</a>(action), name)</div>
-<div class="ttc" id="aaction_8h_html_a8c8945d6d103fe3d5c3495c5aa854891"><div class="ttname"><a href="#a8c8945d6d103fe3d5c3495c5aa854891">mupnp_action_getname</a></div><div class="ttdeci">#define mupnp_action_getname(action)</div><div class="ttdef"><b>Definition</b> action.h:144</div></div>
-<div class="ttc" id="astring__function_8c_html_a87e4a8c1183b47bda9414e1bdb2a265b"><div class="ttname"><a href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a></div><div class="ttdeci">bool mupnp_streq(const char *str1, const char *str2)</div><div class="ttdef"><b>Definition</b> string_function.c:158</div></div>
+<div class="ttc" id="aaction_8h_html_a8c8945d6d103fe3d5c3495c5aa854891"><div class="ttname"><a href="#a8c8945d6d103fe3d5c3495c5aa854891">mupnp_action_getname</a></div><div class="ttdeci">#define mupnp_action_getname(action)</div><div class="ttdef"><b>Definition</b> action.h:185</div></div>
+<div class="ttc" id="astring__function_8c_html_a87e4a8c1183b47bda9414e1bdb2a265b"><div class="ttname"><a href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a></div><div class="ttdeci">bool mupnp_streq(const char *str1, const char *str2)</div><div class="ttdoc">Test if two strings are equal (NULL-safe)</div><div class="ttdef"><b>Definition</b> string_function.c:158</div></div>
 </div><!-- fragment --><p>Check, whether the action's name matches the one given as parameter.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -795,7 +797,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)actionList, (<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)action)</div>
-<div class="ttc" id="alist_8c_html_a879d24aec0a802bf4f3ed01826e8b60f"><div class="ttname"><a href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a></div><div class="ttdeci">void mupnp_list_add(mUpnpList *headList, mUpnpList *list)</div><div class="ttdef"><b>Definition</b> list.c:123</div></div>
+<div class="ttc" id="alist_8c_html_a879d24aec0a802bf4f3ed01826e8b60f"><div class="ttname"><a href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a></div><div class="ttdeci">void mupnp_list_add(mUpnpList *headList, mUpnpList *list)</div><div class="ttdoc">Add a node to the end of a list.</div><div class="ttdef"><b>Definition</b> list.c:123</div></div>
 </div><!-- fragment --><p>Add an action to a list of actions</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -822,7 +824,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="list_8c.html#a579e25386f2e6d3a763a0943b7745b36">mupnp_list_clear</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)actionList, (<a class="code hl_typedef" href="list_8h.html#a067b9d8a69c3d6a30dc960dfcc6fc95e">MUPNP_LIST_DESTRUCTORFUNC</a>)<a class="code hl_function" href="#af62579ea6588beb8a0d81841840dd6f4">mupnp_action_delete</a>)</div>
-<div class="ttc" id="aaction_8h_html_af62579ea6588beb8a0d81841840dd6f4"><div class="ttname"><a href="#af62579ea6588beb8a0d81841840dd6f4">mupnp_action_delete</a></div><div class="ttdeci">void mupnp_action_delete(mUpnpAction *action)</div><div class="ttdef"><b>Definition</b> action.c:56</div></div>
+<div class="ttc" id="aaction_8h_html_af62579ea6588beb8a0d81841840dd6f4"><div class="ttname"><a href="#af62579ea6588beb8a0d81841840dd6f4">mupnp_action_delete</a></div><div class="ttdeci">void mupnp_action_delete(mUpnpAction *action)</div><div class="ttdoc">Destroy a UPnP action and free all associated resources.</div><div class="ttdef"><b>Definition</b> action.c:56</div></div>
 <div class="ttc" id="alist_8c_html_a579e25386f2e6d3a763a0943b7745b36"><div class="ttname"><a href="list_8c.html#a579e25386f2e6d3a763a0943b7745b36">mupnp_list_clear</a></div><div class="ttdeci">void mupnp_list_clear(mUpnpList *headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc)</div><div class="ttdef"><b>Definition</b> list.c:257</div></div>
 <div class="ttc" id="alist_8h_html_a067b9d8a69c3d6a30dc960dfcc6fc95e"><div class="ttname"><a href="list_8h.html#a067b9d8a69c3d6a30dc960dfcc6fc95e">MUPNP_LIST_DESTRUCTORFUNC</a></div><div class="ttdeci">void(* MUPNP_LIST_DESTRUCTORFUNC)(void *)</div><div class="ttdef"><b>Definition</b> list.h:29</div></div>
 </div><!-- fragment --><p>Clear the contents of a list of actions</p>
@@ -960,13 +962,23 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Destroy an action</p>
+
+<p>Destroy a UPnP action and free all associated resources. </p>
+<p>Releases all resources associated with the action, including:</p><ul>
+<li>All input and output arguments</li>
+<li>UPnP status object</li>
+<li>XML node representation (if any)</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">action</td><td>The action to destroy </td></tr>
+    <tr><td class="paramname">action</td><td>The action to destroy. May be NULL (no-op if NULL).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>After calling this function, the action pointer is invalid and must not be used. </dd>
+<dd>
+Thread-safe: Must not be called concurrently with other operations on the same action.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a650aa4fad4fdc4862a5a64d21da4957a" title="Create a new UPnP action instance.">mupnp_action_new()</a> </dd></dl>
 
 </div>
 </div>
@@ -1044,8 +1056,33 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a new action</p>
-<dl class="section return"><dt>Returns</dt><dd>mUpnpAction* </dd></dl>
+
+<p>Create a new UPnP action instance. </p>
+<p>Allocates and initializes a new UPnP action object. Actions represent operations that can be invoked on a UPnP service, similar to remote procedure calls. Each action has:</p><ul>
+<li>A name (action identifier)</li>
+<li>Input arguments (parameters passed to the action)</li>
+<li>Output arguments (return values from the action)</li>
+<li>A listener callback (for device-side implementations)</li>
+<li>Status information (for responses and errors)</li>
+</ul>
+<p>The function initializes:</p><ul>
+<li>Argument list (empty)</li>
+<li>UPnP status object for error reporting</li>
+<li>Listener callback (NULL, must be set for device implementations)</li>
+</ul>
+<dl class="section return"><dt>Returns</dt><dd>A newly-created mUpnpAction on success, or NULL if memory allocation fails.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned action must be freed with <a class="el" href="#af62579ea6588beb8a0d81841840dd6f4" title="Destroy a UPnP action and free all associated resources.">mupnp_action_delete()</a> when no longer needed. </dd>
+<dd>
+Thread-safe: Can be called concurrently from multiple threads. </dd>
+<dd>
+For device implementations, set an action listener with the listener field to handle invocations from control points. </dd>
+<dd>
+Actions are typically created during service initialization when parsing the SCPD document.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#af62579ea6588beb8a0d81841840dd6f4" title="Destroy a UPnP action and free all associated resources.">mupnp_action_delete()</a> </dd>
+<dd>
+<a class="el" href="#a1024f0a8e6bb8de4253d6f4c32fefab3">mupnp_action_setactionnode()</a> </dd>
+<dd>
+<a class="el" href="#a7f27b9e1601e1c08847b4df90e2ba64c">MUPNP_ACTION_LISTNER</a> </dd></dl>
 
 </div>
 </div>

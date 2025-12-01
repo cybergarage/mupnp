@@ -77,8 +77,10 @@ $(function(){initNavTree('argument_8c.html',''); initResizable(true); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a2fbe08826d3fc83c9b1177cf85272f42" id="r_a2fbe08826d3fc83c9b1177cf85272f42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="argument_8h.html#a42e4816230e20ad072aff057d5530c25">mUpnpArgument</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fbe08826d3fc83c9b1177cf85272f42">mupnp_argument_new</a> (void)</td></tr>
+<tr class="memdesc:a2fbe08826d3fc83c9b1177cf85272f42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new UPnP action argument.  <br /></td></tr>
 <tr class="separator:a2fbe08826d3fc83c9b1177cf85272f42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e92086c3c403e4df487cb736678d9b1" id="r_a7e92086c3c403e4df487cb736678d9b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e92086c3c403e4df487cb736678d9b1">mupnp_argument_delete</a> (<a class="el" href="argument_8h.html#a42e4816230e20ad072aff057d5530c25">mUpnpArgument</a> *arg)</td></tr>
+<tr class="memdesc:a7e92086c3c403e4df487cb736678d9b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a UPnP action argument and free resources.  <br /></td></tr>
 <tr class="separator:a7e92086c3c403e4df487cb736678d9b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -91,18 +93,24 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">void mupnp_argument_delete </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="argument_8h.html#a42e4816230e20ad072aff057d5530c25">mUpnpArgument</a> *</td>          <td class="paramname"><span class="paramname"><em>dev</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="argument_8h.html#a42e4816230e20ad072aff057d5530c25">mUpnpArgument</a> *</td>          <td class="paramname"><span class="paramname"><em>arg</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Delete argument</p>
+
+<p>Destroy a UPnP action argument and free resources. </p>
+<p>Releases all resources associated with the argument, including the argument value string and XML node references.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dev</td><td>Argument </td></tr>
+    <tr><td class="paramname">arg</td><td>The argument to destroy. May be NULL (no-op if NULL).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>After calling this function, the argument pointer is invalid. </dd>
+<dd>
+Thread-safe: Must not be called concurrently on the same argument.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="argument_8h.html#a2fbe08826d3fc83c9b1177cf85272f42" title="Create a new UPnP action argument.">mupnp_argument_new()</a> </dd></dl>
 
 </div>
 </div>
@@ -120,7 +128,24 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create new argument </p>
+
+<p>Create a new UPnP action argument. </p>
+<p>Allocates and initializes a new argument object. Arguments represent input or output parameters for UPnP actions. Each argument has:</p><ul>
+<li>A name (identifier)</li>
+<li>A direction (in/out)</li>
+<li>A related state variable (defines the data type)</li>
+<li>A value (set during action invocation or response)</li>
+</ul>
+<p>Arguments are typically created during SCPD parsing and added to action argument lists.</p>
+<dl class="section return"><dt>Returns</dt><dd>A newly-created mUpnpArgument on success, or NULL if memory allocation fails.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned argument must be freed with <a class="el" href="argument_8h.html#a7e92086c3c403e4df487cb736678d9b1" title="Destroy a UPnP action argument and free resources.">mupnp_argument_delete()</a> when no longer needed. </dd>
+<dd>
+Thread-safe: Can be called concurrently from multiple threads.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="argument_8h.html#a7e92086c3c403e4df487cb736678d9b1" title="Destroy a UPnP action argument and free resources.">mupnp_argument_delete()</a> </dd>
+<dd>
+<a class="el" href="argument_8h.html#a098e567ba04df89e4898f5f8ff62ac71">mupnp_argument_setdirection()</a> </dd>
+<dd>
+<a class="el" href="argument_8h.html#abb93c9d05a2fe89d5da8382d4e3641bd">mupnp_argument_setvalue()</a> </dd></dl>
 
 </div>
 </div>

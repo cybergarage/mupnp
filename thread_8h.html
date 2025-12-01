@@ -119,14 +119,19 @@ Typedefs</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a814b13993667a6a1c3ae3f1fe590b5f7" id="r_a814b13993667a6a1c3ae3f1fe590b5f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a1e484dbc829e6aadf236d0bec622d131">mUpnpThread</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a814b13993667a6a1c3ae3f1fe590b5f7">mupnp_thread_new</a> (void)</td></tr>
+<tr class="memdesc:a814b13993667a6a1c3ae3f1fe590b5f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new thread instance.  <br /></td></tr>
 <tr class="separator:a814b13993667a6a1c3ae3f1fe590b5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d40d61536a0336ecb5aa6bbdea0b4eb" id="r_a4d40d61536a0336ecb5aa6bbdea0b4eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a1e484dbc829e6aadf236d0bec622d131">mUpnpThread</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4d40d61536a0336ecb5aa6bbdea0b4eb">mupnp_thread_self</a> (void)</td></tr>
+<tr class="memdesc:a4d40d61536a0336ecb5aa6bbdea0b4eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the mUpnpThread object for the currently executing thread.  <br /></td></tr>
 <tr class="separator:a4d40d61536a0336ecb5aa6bbdea0b4eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf428e657ea4b994b4010d16fce19cc6" id="r_abf428e657ea4b994b4010d16fce19cc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf428e657ea4b994b4010d16fce19cc6">mupnp_thread_delete</a> (<a class="el" href="#a1e484dbc829e6aadf236d0bec622d131">mUpnpThread</a> *thread)</td></tr>
+<tr class="memdesc:abf428e657ea4b994b4010d16fce19cc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop and destroy a thread, freeing all resources.  <br /></td></tr>
 <tr class="separator:abf428e657ea4b994b4010d16fce19cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a894f4d99477634c1d9c7dfa582893cce" id="r_a894f4d99477634c1d9c7dfa582893cce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a894f4d99477634c1d9c7dfa582893cce">mupnp_thread_start</a> (<a class="el" href="#a1e484dbc829e6aadf236d0bec622d131">mUpnpThread</a> *thread)</td></tr>
+<tr class="memdesc:a894f4d99477634c1d9c7dfa582893cce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start a thread's execution.  <br /></td></tr>
 <tr class="separator:a894f4d99477634c1d9c7dfa582893cce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c34f0c58d901eb7cd1c40d46778357a" id="r_a7c34f0c58d901eb7cd1c40d46778357a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c34f0c58d901eb7cd1c40d46778357a">mupnp_thread_stop</a> (<a class="el" href="#a1e484dbc829e6aadf236d0bec622d131">mUpnpThread</a> *thread)</td></tr>
+<tr class="memdesc:a7c34f0c58d901eb7cd1c40d46778357a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Request a thread to stop execution.  <br /></td></tr>
 <tr class="separator:a7c34f0c58d901eb7cd1c40d46778357a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec1dd53cdf9f4082715392556acec67c" id="r_aec1dd53cdf9f4082715392556acec67c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec1dd53cdf9f4082715392556acec67c">mupnp_thread_stop_with_cond</a> (<a class="el" href="#a1e484dbc829e6aadf236d0bec622d131">mUpnpThread</a> *thread, <a class="el" href="cond_8h.html#abc65bd78fb72a62bdbe716e1ec5d8542">mUpnpCond</a> *cond)</td></tr>
 <tr class="separator:aec1dd53cdf9f4082715392556acec67c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,7 +205,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="list_8c.html#ac5695c91766d48fba2843d87c378a682">mupnp_list_remove</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)thread)</div>
-<div class="ttc" id="alist_8c_html_ac5695c91766d48fba2843d87c378a682"><div class="ttname"><a href="list_8c.html#ac5695c91766d48fba2843d87c378a682">mupnp_list_remove</a></div><div class="ttdeci">void mupnp_list_remove(mUpnpList *list)</div><div class="ttdef"><b>Definition</b> list.c:144</div></div>
+<div class="ttc" id="alist_8c_html_ac5695c91766d48fba2843d87c378a682"><div class="ttname"><a href="list_8c.html#ac5695c91766d48fba2843d87c378a682">mupnp_list_remove</a></div><div class="ttdeci">void mupnp_list_remove(mUpnpList *list)</div><div class="ttdoc">Remove a node from its list.</div><div class="ttdef"><b>Definition</b> list.c:144</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -223,7 +228,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)threadList, (<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)thread)</div>
-<div class="ttc" id="alist_8c_html_a879d24aec0a802bf4f3ed01826e8b60f"><div class="ttname"><a href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a></div><div class="ttdeci">void mupnp_list_add(mUpnpList *headList, mUpnpList *list)</div><div class="ttdef"><b>Definition</b> list.c:123</div></div>
+<div class="ttc" id="alist_8c_html_a879d24aec0a802bf4f3ed01826e8b60f"><div class="ttname"><a href="list_8c.html#a879d24aec0a802bf4f3ed01826e8b60f">mupnp_list_add</a></div><div class="ttdeci">void mupnp_list_add(mUpnpList *headList, mUpnpList *list)</div><div class="ttdoc">Add a node to the end of a list.</div><div class="ttdef"><b>Definition</b> list.c:123</div></div>
 </div><!-- fragment --><p>Add a thread into a thread list</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -252,7 +257,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="list_8c.html#a579e25386f2e6d3a763a0943b7745b36">mupnp_list_clear</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)threadList, (<a class="code hl_typedef" href="list_8h.html#a067b9d8a69c3d6a30dc960dfcc6fc95e">MUPNP_LIST_DESTRUCTORFUNC</a>)<a class="code hl_function" href="#abf428e657ea4b994b4010d16fce19cc6">mupnp_thread_delete</a>)</div>
 <div class="ttc" id="alist_8c_html_a579e25386f2e6d3a763a0943b7745b36"><div class="ttname"><a href="list_8c.html#a579e25386f2e6d3a763a0943b7745b36">mupnp_list_clear</a></div><div class="ttdeci">void mupnp_list_clear(mUpnpList *headList, MUPNP_LIST_DESTRUCTORFUNC destructorFunc)</div><div class="ttdef"><b>Definition</b> list.c:257</div></div>
 <div class="ttc" id="alist_8h_html_a067b9d8a69c3d6a30dc960dfcc6fc95e"><div class="ttname"><a href="list_8h.html#a067b9d8a69c3d6a30dc960dfcc6fc95e">MUPNP_LIST_DESTRUCTORFUNC</a></div><div class="ttdeci">void(* MUPNP_LIST_DESTRUCTORFUNC)(void *)</div><div class="ttdef"><b>Definition</b> list.h:29</div></div>
-<div class="ttc" id="athread_8h_html_abf428e657ea4b994b4010d16fce19cc6"><div class="ttname"><a href="#abf428e657ea4b994b4010d16fce19cc6">mupnp_thread_delete</a></div><div class="ttdeci">bool mupnp_thread_delete(mUpnpThread *thread)</div><div class="ttdef"><b>Definition</b> thread.c:218</div></div>
+<div class="ttc" id="athread_8h_html_abf428e657ea4b994b4010d16fce19cc6"><div class="ttname"><a href="#abf428e657ea4b994b4010d16fce19cc6">mupnp_thread_delete</a></div><div class="ttdeci">bool mupnp_thread_delete(mUpnpThread *thread)</div><div class="ttdoc">Stop and destroy a thread, freeing all resources.</div><div class="ttdef"><b>Definition</b> thread.c:218</div></div>
 </div><!-- fragment --><p>Clear the contents of a thread list</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -402,13 +407,32 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Stop and destroy a thread.</p>
+
+<p>Stop and destroy a thread, freeing all resources. </p>
+<p>Stops the thread if it is running and releases all associated resources. This function blocks until the thread has fully terminated.</p>
+<p>The thread's action function should periodically check <a class="el" href="#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable()</a> and exit when it returns false to ensure graceful shutdown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">thread</td><td>Thread to destroy </td></tr>
+    <tr><td class="paramname">thread</td><td>The thread to destroy. May be NULL (no-op if NULL).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Successfully stopped and destroyed the thread </td></tr>
+    <tr><td class="paramname">false</td><td>Failed to destroy (e.g., thread is NULL)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>After calling this function, the thread pointer is invalid. </dd>
+<dd>
+Blocking behavior: This function blocks until the thread terminates. If the thread does not check <a class="el" href="#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable()</a>, it may block indefinitely. </dd>
+<dd>
+Thread-safe: Must not be called concurrently on the same thread.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Do not call this function from the thread's own action function; this will cause deadlock.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a814b13993667a6a1c3ae3f1fe590b5f7" title="Create a new thread instance.">mupnp_thread_new()</a> </dd>
+<dd>
+<a class="el" href="#a7c34f0c58d901eb7cd1c40d46778357a" title="Request a thread to stop execution.">mupnp_thread_stop()</a> </dd></dl>
 
 </div>
 </div>
@@ -474,8 +498,46 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a new thread </p>
 
+<p>Create a new thread instance. </p>
+<p>Allocates and initializes a platform-independent thread object. The thread is initially in a stopped state (not running).</p>
+<p>Before starting the thread, you must:</p><ol type="1">
+<li>Set an action function with <a class="el" href="#a38e35c06a45c198f0e6f18a38ab4a332">mupnp_thread_setaction()</a></li>
+<li>Optionally set user data with <a class="el" href="#a17e5e48d4fb86f4922bcddc399ab8fe4">mupnp_thread_setuserdata()</a></li>
+</ol>
+<p>Platform support:</p><ul>
+<li>Linux/Unix: pthread (POSIX threads)</li>
+<li>Windows: CreateThread API</li>
+<li>ITRON, T-Engine, BTRON: platform-specific task APIs</li>
+</ul>
+<dl class="section return"><dt>Returns</dt><dd>A newly-created mUpnpThread on success, or NULL if thread creation fails (e.g., insufficient system resources).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned thread must be freed with <a class="el" href="#abf428e657ea4b994b4010d16fce19cc6" title="Stop and destroy a thread, freeing all resources.">mupnp_thread_delete()</a> when no longer needed. </dd>
+<dd>
+Thread-safe: Can be called concurrently from multiple threads. </dd>
+<dd>
+The thread does not start automatically; call <a class="el" href="#a894f4d99477634c1d9c7dfa582893cce" title="Start a thread&#39;s execution.">mupnp_thread_start()</a> to begin execution.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#abf428e657ea4b994b4010d16fce19cc6" title="Stop and destroy a thread, freeing all resources.">mupnp_thread_delete()</a> </dd>
+<dd>
+<a class="el" href="#a894f4d99477634c1d9c7dfa582893cce" title="Start a thread&#39;s execution.">mupnp_thread_start()</a> </dd>
+<dd>
+<a class="el" href="#a38e35c06a45c198f0e6f18a38ab4a332">mupnp_thread_setaction()</a></dd></dl>
+<div class="fragment"><div class="line"><span class="comment">// Example: Create and start a worker thread</span></div>
+<div class="line"><span class="keywordtype">void</span> worker_function(<a class="code hl_struct" href="struct__mUpnpThread.html">mUpnpThread</a>* thread) {</div>
+<div class="line">    <span class="keywordflow">while</span> (<a class="code hl_function" href="thread_8c.html#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable</a>(thread)) {</div>
+<div class="line">        <span class="comment">// Perform work...</span></div>
+<div class="line">        <a class="code hl_define" href="time_8h.html#aabb7046a6d73c1c5d91076b34c2bc354">mupnp_sleep</a>(100);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><a class="code hl_struct" href="struct__mUpnpThread.html">mUpnpThread</a>* thread = <a class="code hl_function" href="thread_8c.html#a814b13993667a6a1c3ae3f1fe590b5f7">mupnp_thread_new</a>();</div>
+<div class="line"><a class="code hl_function" href="thread_8c.html#a62d90fd07931527376328a2d95526ea0">mupnp_thread_setaction</a>(thread, worker_function);</div>
+<div class="line"><a class="code hl_function" href="thread_8c.html#a894f4d99477634c1d9c7dfa582893cce">mupnp_thread_start</a>(thread);</div>
+<div class="ttc" id="athread_8c_html_a62d90fd07931527376328a2d95526ea0"><div class="ttname"><a href="thread_8c.html#a62d90fd07931527376328a2d95526ea0">mupnp_thread_setaction</a></div><div class="ttdeci">void mupnp_thread_setaction(mUpnpThread *thread, MUPNP_THREAD_FUNC func)</div><div class="ttdef"><b>Definition</b> thread.c:535</div></div>
+<div class="ttc" id="athread_8c_html_a814b13993667a6a1c3ae3f1fe590b5f7"><div class="ttname"><a href="thread_8c.html#a814b13993667a6a1c3ae3f1fe590b5f7">mupnp_thread_new</a></div><div class="ttdeci">mUpnpThread * mupnp_thread_new(void)</div><div class="ttdoc">Create a new thread instance.</div><div class="ttdef"><b>Definition</b> thread.c:181</div></div>
+<div class="ttc" id="athread_8c_html_a894f4d99477634c1d9c7dfa582893cce"><div class="ttname"><a href="thread_8c.html#a894f4d99477634c1d9c7dfa582893cce">mupnp_thread_start</a></div><div class="ttdeci">bool mupnp_thread_start(mUpnpThread *thread)</div><div class="ttdoc">Start a thread's execution.</div><div class="ttdef"><b>Definition</b> thread.c:273</div></div>
+<div class="ttc" id="athread_8c_html_a8aca71db418e300e455b5008714029a9"><div class="ttname"><a href="thread_8c.html#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable</a></div><div class="ttdeci">bool mupnp_thread_isrunnable(mUpnpThread *thread)</div><div class="ttdef"><b>Definition</b> thread.c:518</div></div>
+<div class="ttc" id="atime_8h_html_aabb7046a6d73c1c5d91076b34c2bc354"><div class="ttname"><a href="time_8h.html#aabb7046a6d73c1c5d91076b34c2bc354">mupnp_sleep</a></div><div class="ttdeci">#define mupnp_sleep(val)</div><div class="ttdef"><b>Definition</b> time.h:71</div></div>
+</div><!-- fragment --> 
 </div>
 </div>
 <a id="ae1f3f67fa4496f5a2389ed78acec0052" name="ae1f3f67fa4496f5a2389ed78acec0052"></a>
@@ -492,7 +554,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Restart a thread. Essentially calls <a class="el" href="#a7c34f0c58d901eb7cd1c40d46778357a">mupnp_thread_stop()</a> and <a class="el" href="#a894f4d99477634c1d9c7dfa582893cce">mupnp_thread_start()</a></p>
+<p>Restart a thread. Essentially calls <a class="el" href="#a7c34f0c58d901eb7cd1c40d46778357a" title="Request a thread to stop execution.">mupnp_thread_stop()</a> and <a class="el" href="#a894f4d99477634c1d9c7dfa582893cce" title="Start a thread&#39;s execution.">mupnp_thread_start()</a></p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">thread</td><td>Thread to restart </td></tr>
@@ -516,7 +578,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get a self reference to thread. </p>
+
+<p>Get the mUpnpThread object for the currently executing thread. </p>
+<p>Returns a reference to the thread structure for the calling thread. This is useful when a thread needs to access its own thread data or check if it should continue running.</p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the current thread's mUpnpThread structure, or NULL if the calling thread was not created with <a class="el" href="#a814b13993667a6a1c3ae3f1fe590b5f7" title="Create a new thread instance.">mupnp_thread_new()</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Can be called from any thread. </dd>
+<dd>
+This function only works for threads created by the mUPnP library; external threads (e.g., main thread, OS threads) will return NULL.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable()</a> </dd></dl>
 
 </div>
 </div>
@@ -592,13 +661,39 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Start a thread (must be created first with ch_thread_new())</p>
+
+<p>Start a thread's execution. </p>
+<p>Starts the thread, causing its action function to begin execution in a new thread of control. The thread must have been created with <a class="el" href="#a814b13993667a6a1c3ae3f1fe590b5f7" title="Create a new thread instance.">mupnp_thread_new()</a> and must have an action function set with <a class="el" href="#a38e35c06a45c198f0e6f18a38ab4a332">mupnp_thread_setaction()</a>.</p>
+<p>After starting, the action function runs concurrently with the calling thread until the thread is stopped or the action function returns.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">thread</td><td>Thread to start </td></tr>
+    <tr><td class="paramname">thread</td><td>The thread to start. Must not be NULL and must have an action function set.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Successfully started the thread </td></tr>
+    <tr><td class="paramname">false</td><td>Failed to start due to:<ul>
+<li>thread is NULL</li>
+<li>No action function set</li>
+<li>Thread already running</li>
+<li>System error (e.g., cannot create OS thread)</li>
+</ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Thread-safe: Can be called from any thread. </dd>
+<dd>
+Calling this function on an already-running thread has no effect and returns false. </dd>
+<dd>
+Side effect: Sets the thread's runnable flag to true and creates a new OS-level thread.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a7c34f0c58d901eb7cd1c40d46778357a" title="Request a thread to stop execution.">mupnp_thread_stop()</a> </dd>
+<dd>
+<a class="el" href="#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable()</a> </dd>
+<dd>
+<a class="el" href="#a38e35c06a45c198f0e6f18a38ab4a332">mupnp_thread_setaction()</a> </dd></dl>
 
 </div>
 </div>
@@ -616,13 +711,35 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Stop a running thread.</p>
+
+<p>Request a thread to stop execution. </p>
+<p>Signals the thread to stop by setting its runnable flag to false. This function does NOT forcibly terminate the thread; the thread's action function must cooperatively check <a class="el" href="#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable()</a> and exit when it returns false.</p>
+<p>This function returns immediately without waiting for the thread to terminate. Use <a class="el" href="#abf428e657ea4b994b4010d16fce19cc6" title="Stop and destroy a thread, freeing all resources.">mupnp_thread_delete()</a> if you need to wait for termination.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">thread</td><td>Thread to stop </td></tr>
+    <tr><td class="paramname">thread</td><td>The thread to stop. Must not be NULL.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td>Successfully signaled the thread to stop </td></tr>
+    <tr><td class="paramname">false</td><td>Failed to signal (e.g., thread is NULL)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Non-blocking: Returns immediately without waiting for thread exit. </dd>
+<dd>
+Thread-safe: Can be called from any thread, including the thread being stopped. </dd>
+<dd>
+Side effect: Sets the thread's runnable flag to false. </dd>
+<dd>
+The thread continues running until its action function checks <a class="el" href="#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable()</a> and exits.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a894f4d99477634c1d9c7dfa582893cce" title="Start a thread&#39;s execution.">mupnp_thread_start()</a> </dd>
+<dd>
+<a class="el" href="#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable()</a> </dd>
+<dd>
+<a class="el" href="#abf428e657ea4b994b4010d16fce19cc6" title="Stop and destroy a thread, freeing all resources.">mupnp_thread_delete()</a> </dd></dl>
 
 </div>
 </div>

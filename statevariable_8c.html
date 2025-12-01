@@ -79,8 +79,10 @@ $(function(){initNavTree('statevariable_8c.html',''); initResizable(true); });
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a4efa7e8625bcd9fc6452719d91d360a4" id="r_a4efa7e8625bcd9fc6452719d91d360a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="statevariable_8h.html#aab6f74a312e4bfd1d64492e544d4626f">mUpnpStateVariable</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4efa7e8625bcd9fc6452719d91d360a4">mupnp_statevariable_new</a> (void)</td></tr>
+<tr class="memdesc:a4efa7e8625bcd9fc6452719d91d360a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new UPnP state variable.  <br /></td></tr>
 <tr class="separator:a4efa7e8625bcd9fc6452719d91d360a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73185dd7469ae3e88ab1fcb4e641974a" id="r_a73185dd7469ae3e88ab1fcb4e641974a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73185dd7469ae3e88ab1fcb4e641974a">mupnp_statevariable_delete</a> (<a class="el" href="statevariable_8h.html#aab6f74a312e4bfd1d64492e544d4626f">mUpnpStateVariable</a> *statVar)</td></tr>
+<tr class="memdesc:a73185dd7469ae3e88ab1fcb4e641974a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy a UPnP state variable and free resources.  <br /></td></tr>
 <tr class="separator:a73185dd7469ae3e88ab1fcb4e641974a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac33516d044d3f4ca01549f674c9c8a6a" id="r_ac33516d044d3f4ca01549f674c9c8a6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac33516d044d3f4ca01549f674c9c8a6a">mupnp_statevariable_setstatevariablenode</a> (<a class="el" href="statevariable_8h.html#aab6f74a312e4bfd1d64492e544d4626f">mUpnpStateVariable</a> *statVar, <a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *node)</td></tr>
 <tr class="separator:ac33516d044d3f4ca01549f674c9c8a6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,13 +132,24 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Delete state variable object</p>
+
+<p>Destroy a UPnP state variable and free resources. </p>
+<p>Releases all resources associated with the state variable, including:</p><ul>
+<li>The current value string</li>
+<li>Allowed values list (if any)</li>
+<li>XML node references</li>
+<li>UPnP status object</li>
+</ul>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">statVar</td><td>state variable </td></tr>
+    <tr><td class="paramname">statVar</td><td>The state variable to destroy. May be NULL (no-op if NULL).</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>After calling this function, the statVar pointer is invalid. </dd>
+<dd>
+Thread-safe: Must not be called concurrently on the same state variable.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="statevariable_8h.html#a4efa7e8625bcd9fc6452719d91d360a4" title="Create a new UPnP state variable.">mupnp_statevariable_new()</a> </dd></dl>
 
 </div>
 </div>
@@ -208,7 +221,31 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create new state variable object </p>
+
+<p>Create a new UPnP state variable. </p>
+<p>Allocates and initializes a new state variable object. State variables represent the state of a UPnP service and can be:</p><ul>
+<li>Evented (sendEvents="yes") - Changes trigger event notifications</li>
+<li>Non-evented (sendEvents="no") - Query-only via action arguments</li>
+</ul>
+<p>State variables have:</p><ul>
+<li>A name (identifier)</li>
+<li>A data type (string, int, boolean, etc.)</li>
+<li>An optional list of allowed values</li>
+<li>A current value</li>
+<li>Optional eventing configuration</li>
+</ul>
+<p>State variables are typically created during SCPD parsing and added to the service state table.</p>
+<dl class="section return"><dt>Returns</dt><dd>A newly-created mUpnpStateVariable on success, or NULL if memory allocation fails.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The returned state variable must be freed with <a class="el" href="statevariable_8h.html#a73185dd7469ae3e88ab1fcb4e641974a" title="Destroy a UPnP state variable and free resources.">mupnp_statevariable_delete()</a> when no longer needed. </dd>
+<dd>
+Thread-safe: Can be called concurrently from multiple threads. </dd>
+<dd>
+For device implementations, set a query listener to handle QueryStateVariable requests.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="statevariable_8h.html#a73185dd7469ae3e88ab1fcb4e641974a" title="Destroy a UPnP state variable and free resources.">mupnp_statevariable_delete()</a> </dd>
+<dd>
+<a class="el" href="statevariable_8h.html#a58c9be9b989de99732fdde7835e06bff">mupnp_statevariable_setvalue()</a> </dd>
+<dd>
+<a class="el" href="statevariable_8h.html#a2d849b6b5ab88adbd24195a548d77e34">mupnp_statevariable_issendevents()</a> </dd></dl>
 
 </div>
 </div>
