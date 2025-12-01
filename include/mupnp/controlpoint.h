@@ -116,47 +116,182 @@ typedef void (*MUPNP_DEVICE_LISTENER)(mUpnpControlPoint* ctrlPoint, const char* 
  ****************************************************************************/
 
 /**
- * Create a new control point. Does not start any threads.
+ * @brief Create a new control point instance
  *
- * @return A newly-created mUpnpControlPoint
+ * @details
+ * Allocates and initializes a new UPnP control point object. The control point
+ * is initially inactive and does not start any network threads or listeners.
+ * You must call mupnp_controlpoint_start() to activate it and begin discovering
+ * devices on the network.
+ *
+ * The function initializes:
+ * - Device list (empty)
+ * - SSDP servers for multicast listening
+ * - HTTP servers for event reception
+ * - Internal mutexes for thread safety
+ * - Cached network interface list
+ *
+ * @return A newly-created mUpnpControlPoint on success, or NULL if memory
+ *         allocation fails
+ *
+ * @note The returned control point must be freed with mupnp_controlpoint_delete()
+ *       when no longer needed to avoid memory leaks.
+ * @note Thread-safe: This function can be called concurrently from multiple threads.
+ *
+ * @see mupnp_controlpoint_delete()
+ * @see mupnp_controlpoint_start()
+ *
+ * @code
+ * // Example: Create and start a control point
+ * mUpnpControlPoint* ctrlPoint = mupnp_controlpoint_new();
+ * if (ctrlPoint == NULL) {
+ *     fprintf(stderr, "Failed to create control point\n");
+ *     return -1;
+ * }
+ * 
+ * // Set device listener before starting
+ * mupnp_controlpoint_setdevicelistener(ctrlPoint, device_listener_callback);
+ * 
+ * if (!mupnp_controlpoint_start(ctrlPoint)) {
+ *     fprintf(stderr, "Failed to start control point\n");
+ *     mupnp_controlpoint_delete(ctrlPoint);
+ *     return -1;
+ * }
+ * 
+ * // Perform M-SEARCH to discover devices
+ * mupnp_controlpoint_search(ctrlPoint, "ssdp:all");
+ * @endcode
  */
 mUpnpControlPoint* mupnp_controlpoint_new(void);
 
 /**
- * Destroy the given control point
+ * @brief Destroy a control point and free all associated resources
  *
- * @param ctrlPoint The control point struct to destroy
+ * @details
+ * Releases all resources associated with the control point, including:
+ * - All discovered devices and their descriptions
+ * - Network listeners (SSDP, HTTP)
+ * - Internal mutexes and threads
+ * - Cached network interface information
+ *
+ * If the control point is still running when this function is called,
+ * it will be stopped automatically before resources are freed.
+ *
+ * @param ctrlPoint The control point to destroy. May be NULL (no-op if NULL).
+ *
+ * @note After calling this function, the ctrlPoint pointer is invalid and
+ *       must not be used.
+ * @note This function will block until all internal threads have terminated.
+ * @note Thread-safe: Must not be called concurrently with other operations
+ *       on the same control point. The caller is responsible for ensuring
+ *       exclusive access.
+ *
+ * @warning Do not call this function while holding locks or from within
+ *          event callbacks, as this may cause deadlocks.
+ *
+ * @see mupnp_controlpoint_new()
+ * @see mupnp_controlpoint_stop()
  */
 void mupnp_controlpoint_delete(mUpnpControlPoint* ctrlPoint);
 
 /**
- * Activate the control point. Starts listening for SSDP messages etc.
- * You must call this function before you can actually use a control point.
+ * @brief Activate the control point and start network listeners
  *
- * @param ctrlPoint The control point to start
+ * @details
+ * Starts all network services required for UPnP operation:
+ * - SSDP multicast listeners on all network interfaces
+ * - SSDP unicast response servers (default port: 39400)
+ * - HTTP event notification servers (default port: 39500)
+ * - Device expiration monitoring thread
  *
- * @return true if successful; otherwise false
+ * After successful activation, the control point will:
+ * - Receive and process SSDP advertisements (ssdp:alive, ssdp:byebye)
+ * - Respond to M-SEARCH requests if configured
+ * - Accept event subscriptions and notifications
+ * - Automatically remove expired devices
  *
+ * The control point must be started before performing any network operations
+ * such as device discovery or action invocations.
+ *
+ * @param ctrlPoint The control point to activate. Must not be NULL.
+ *
+ * @retval true  Successfully started all services
+ * @retval false Failed to start (e.g., port already in use, network error,
+ *               insufficient permissions, or ctrlPoint is NULL)
+ *
+ * @note This function may fail if the required ports are already in use.
+ *       Use mupnp_controlpoint_setssdpresponseport() and
+ *       mupnp_controlpoint_seteventport() to configure alternative ports
+ *       before calling start if needed.
+ * @note Thread-safe: Can be called from any thread, but must not be called
+ *       concurrently on the same control point.
+ * @note Calling this function on an already-running control point has no effect
+ *       and returns true.
+ *
+ * @warning On some platforms, binding to multicast addresses may require
+ *          elevated privileges (e.g., root/administrator).
+ *
+ * @see mupnp_controlpoint_stop()
+ * @see mupnp_controlpoint_isrunning()
+ * @see mupnp_controlpoint_search()
  */
 bool mupnp_controlpoint_start(mUpnpControlPoint* ctrlPoint);
 
 /**
- * Stop the control point. Stops sending/receiveing/responding to any messages.
+ * @brief Stop the control point and shut down network listeners
  *
- * @param ctrlPoint The control point to stop
+ * @details
+ * Gracefully shuts down all network services:
+ * - Closes all SSDP multicast listeners
+ * - Closes SSDP unicast response servers
+ * - Closes HTTP event notification servers
+ * - Terminates the device expiration monitoring thread
  *
- * @return true if successful; otherwise false
+ * After stopping, the control point will no longer:
+ * - Receive SSDP advertisements or M-SEARCH requests
+ * - Accept event notifications
+ * - Monitor device expirations
  *
+ * However, the device list is retained and can be accessed after stopping.
+ * The control point can be restarted with mupnp_controlpoint_start().
+ *
+ * @param ctrlPoint The control point to stop. Must not be NULL.
+ *
+ * @retval true  Successfully stopped all services
+ * @retval false Failed to stop (unlikely), or ctrlPoint is NULL
+ *
+ * @note This function blocks until all listener threads have terminated.
+ *       This may take up to a few seconds.
+ * @note Calling this function on an already-stopped control point has no effect
+ *       and returns true.
+ * @note Thread-safe: Can be called from any thread, but must not be called
+ *       concurrently on the same control point.
+ * @note Active event subscriptions are not automatically cancelled. The
+ *       application should explicitly unsubscribe before stopping if cleanup
+ *       is required.
+ *
+ * @see mupnp_controlpoint_start()
+ * @see mupnp_controlpoint_isrunning()
+ * @see mupnp_controlpoint_delete()
  */
 bool mupnp_controlpoint_stop(mUpnpControlPoint* ctrlPoint);
 
 /**
- * Check if  the control point is activated.
+ * @brief Check if the control point is currently active
  *
- * @param ctrlPoint The control point to stop
+ * @details
+ * Queries whether the control point's network services are active and
+ * ready to send/receive UPnP messages.
  *
- * @return true if running; otherwise false
+ * @param ctrlPoint The control point to query. Must not be NULL.
  *
+ * @retval true  The control point is active (started)
+ * @retval false The control point is inactive, or ctrlPoint is NULL
+ *
+ * @note Thread-safe: This function can be called from any thread at any time.
+ *
+ * @see mupnp_controlpoint_start()
+ * @see mupnp_controlpoint_stop()
  */
 bool mupnp_controlpoint_isrunning(mUpnpControlPoint* ctrlPoint);
 
@@ -203,37 +338,116 @@ bool mupnp_controlpoint_unlock(mUpnpControlPoint* ctrlPoint);
  ****************************************************************************/
 
 /**
- * Find a device from the control point by the exact type of the device.
- * This function searches for devices, whose *complete type string*
- * matches the given string, including version number. For example:
- * "urn:schemas-upnp-org:device:FooDevice:1". If you need to disregard
- * the version, use @ref mupnp_controlpoint_getdevicebytype
+ * @brief Find a device by exact type string including version
  *
- * @param ctrlPoint Controlpoint in question
- * @param exacttype Type of the device
+ * @details
+ * Searches the control point's device list for a device whose complete type
+ * string matches the given type, including the version number. This performs
+ * an exact string comparison.
  *
+ * The search includes embedded devices (child devices within root devices).
+ *
+ * @param ctrlPoint The control point to search. Must not be NULL.
+ * @param exacttype The exact device type to match, including version.
+ *                  Must not be NULL. Format:
+ *                  "urn:schemas-upnp-org:device:<deviceType>:<ver>"
+ *                  Example: "urn:schemas-upnp-org:device:MediaServer:2"
+ *
+ * @return Pointer to the first matching device, or NULL if not found or
+ *         if parameters are NULL.
+ *
+ * @note Thread-safe: The control point should be locked with
+ *       mupnp_controlpoint_lock() before calling this function and accessing
+ *       the returned device pointer. Release with mupnp_controlpoint_unlock()
+ *       as soon as possible.
+ * @note Do not cache the returned pointer. Devices may be removed from the
+ *       list at any time when the control point is unlocked.
+ * @note If multiple devices match, only the first one found is returned.
+ *
+ * @warning The returned pointer is only valid while the control point is locked.
+ *
+ * @see mupnp_controlpoint_getdevicebytype()
+ * @see mupnp_controlpoint_getdevicebyudn()
+ * @see mupnp_controlpoint_lock()
+ *
+ * @code
+ * // Example: Find and use a device safely
+ * mupnp_controlpoint_lock(ctrlPoint);
+ * 
+ * mUpnpDevice* dev = mupnp_controlpoint_getdevicebyexacttype(
+ *     ctrlPoint, "urn:schemas-upnp-org:device:MediaServer:2");
+ * 
+ * if (dev != NULL) {
+ *     const char* friendlyName = mupnp_device_getfriendlyname(dev);
+ *     printf("Found device: %s\n", friendlyName);
+ * }
+ * 
+ * mupnp_controlpoint_unlock(ctrlPoint);
+ * // dev pointer is now invalid
+ * @endcode
  */
 mUpnpDevice* mupnp_controlpoint_getdevicebyexacttype(mUpnpControlPoint* ctrlPoint, const char* exacttype);
 
 /**
- * Find a device from the controlpoint by the type of the device.
- * This function searches for devices, whose *type part* (i.e. not including
- * the version) of the device type string matches the given string.
- * For example: "urn:schemas-upnp-org:device:FooDevice". If you need
- * to know the version of a device, use @ref mupnp_devicetype_getversion
+ * @brief Find a device by type, ignoring version number
  *
- * @param ctrlPoint Controlpoint in question
- * @param type Type of the device
+ * @details
+ * Searches the control point's device list for a device whose type matches
+ * the given string, excluding the version suffix. This allows matching devices
+ * regardless of their version number.
  *
+ * The search includes embedded devices (child devices within root devices).
+ *
+ * @param ctrlPoint The control point to search. Must not be NULL.
+ * @param type The device type to match, without version.
+ *             Must not be NULL. Format:
+ *             "urn:schemas-upnp-org:device:<deviceType>"
+ *             Example: "urn:schemas-upnp-org:device:MediaServer"
+ *             This will match "...MediaServer:1", "...MediaServer:2", etc.
+ *
+ * @return Pointer to the first matching device, or NULL if not found or
+ *         if parameters are NULL.
+ *
+ * @note Thread-safe: The control point should be locked with
+ *       mupnp_controlpoint_lock() before calling this function.
+ * @note To get the actual version of the matched device, use
+ *       mupnp_devicetype_getversion() on the device's type string.
+ * @note If multiple devices of different versions match, the first one
+ *       found is returned (no specific ordering guaranteed).
+ *
+ * @see mupnp_controlpoint_getdevicebyexacttype()
+ * @see mupnp_devicetype_getversion()
+ * @see mupnp_controlpoint_lock()
  */
 mUpnpDevice* mupnp_controlpoint_getdevicebytype(mUpnpControlPoint* ctrlPoint, const char* type);
 
 /**
- * Find a device from the controlpoint by the UDN of the device.
+ * @brief Find a device by its Unique Device Name (UDN)
  *
- * @param ctrlPoint Controlpoint in question
- * @param type Type of the device
+ * @details
+ * Searches the control point's device list for a device with the specified
+ * UDN. The UDN uniquely identifies a device instance, even if multiple devices
+ * of the same type exist on the network.
  *
+ * The search includes embedded devices (child devices within root devices).
+ *
+ * @param ctrlPoint The control point to search. Must not be NULL.
+ * @param udn The Unique Device Name to search for. Must not be NULL.
+ *            Format: "uuid:<device-UUID>"
+ *            Example: "uuid:12345678-1234-1234-1234-123456789abc"
+ *
+ * @return Pointer to the matching device, or NULL if not found or if
+ *         parameters are NULL.
+ *
+ * @note Thread-safe: The control point should be locked with
+ *       mupnp_controlpoint_lock() before calling this function.
+ * @note UDNs are unique per device instance, so at most one device will match.
+ * @note The UDN persists across device restarts if properly implemented by
+ *       the device manufacturer.
+ *
+ * @see mupnp_controlpoint_getdevicebytype()
+ * @see mupnp_device_getudn()
+ * @see mupnp_controlpoint_lock()
  */
 mUpnpDevice* mupnp_controlpoint_getdevicebyudn(mUpnpControlPoint* ctrlPoint, const char* udn);
 
@@ -421,10 +635,59 @@ bool mupnp_controlpoint_seteventlistener(mUpnpControlPoint* ctrlPoint, MUPNP_EVE
  ****************************************************************************/
 
 /**
- * Do an M-SEARCH to look for devices in the network.
+ * @brief Send an M-SEARCH multicast message to discover UPnP devices
  *
- * @param ctrlPoint The control point in question
- * @param target The Search Target parameter (ex. "ssdp:all")
+ * @details
+ * Broadcasts an SSDP M-SEARCH request on all network interfaces to discover
+ * UPnP devices matching the specified search target. Devices that match will
+ * respond with unicast M-SEARCH responses, which are processed asynchronously.
+ *
+ * The control point must be started (mupnp_controlpoint_start()) before calling
+ * this function. Discovered devices trigger the device listener callback if set.
+ *
+ * Common search targets:
+ * - "ssdp:all" - All devices and services
+ * - "upnp:rootdevice" - Root devices only
+ * - "urn:schemas-upnp-org:device:<deviceType>:<version>" - Specific device type
+ * - "urn:schemas-upnp-org:service:<serviceType>:<version>" - Specific service type
+ * - "uuid:<device-UUID>" - Specific device by UUID
+ *
+ * The MX (Maximum Wait) header determines how long devices should wait before
+ * responding (default: 3 seconds). Set with mupnp_controlpoint_setssdpsearchmx().
+ *
+ * @param ctrlPoint The control point to use. Must not be NULL and must be running.
+ * @param target The Search Target (ST) string. Must not be NULL or empty.
+ *               See UPnP Device Architecture specification for valid values.
+ *
+ * @retval true  M-SEARCH successfully sent on at least one interface
+ * @retval false Failed to send (ctrlPoint is NULL, not running, or network error)
+ *
+ * @note Thread-safe: Can be called from any thread.
+ * @note Devices may take up to MX seconds to respond. Responses are handled
+ *       asynchronously via the device listener callback.
+ * @note Multiple M-SEARCH requests can be sent without waiting for responses.
+ * @note Not all devices respond to M-SEARCH; some only advertise via
+ *       periodic ssdp:alive messages.
+ *
+ * @see mupnp_controlpoint_setdevicelistener()
+ * @see mupnp_controlpoint_setssdpsearchmx()
+ * @see mupnp_controlpoint_start()
+ *
+ * @code
+ * // Example: Discover all devices
+ * mUpnpControlPoint* cp = mupnp_controlpoint_new();
+ * mupnp_controlpoint_setdevicelistener(cp, my_device_listener);
+ * mupnp_controlpoint_start(cp);
+ * 
+ * // Search for all devices
+ * if (mupnp_controlpoint_search(cp, "ssdp:all")) {
+ *     printf("M-SEARCH sent, waiting for responses...\n");
+ *     sleep(5); // Wait for devices to respond
+ * }
+ * 
+ * // Search for specific device type
+ * mupnp_controlpoint_search(cp, "urn:schemas-upnp-org:device:MediaRenderer:1");
+ * @endcode
  */
 bool mupnp_controlpoint_search(mUpnpControlPoint* ctrlPoint, const char* target);
 
@@ -555,12 +818,72 @@ void mupnp_controlpoint_removedevicebyssdppacket(mUpnpControlPoint* ctrlPoint,
  ****************************************/
 
 /**
- * Subscribe to a service's events
+ * @brief Subscribe to a UPnP service's event notifications
  *
- * @param ctrlPoint The control point in use
- * @param service The service to subscribe to
- * @param timeout Timeout for subscription expiration/renewal
- * @return true if successful; otherwise false
+ * @details
+ * Sends a SUBSCRIBE request to the service's event subscription URL to receive
+ * notifications when the service's state variables change. The service will
+ * send an initial event message with current values, followed by updates
+ * whenever evented state variables change.
+ *
+ * The subscription is identified by a Subscription ID (SID) returned by the
+ * service and stored in the service object. Event notifications are received
+ * on the control point's HTTP event server and dispatched to registered event
+ * listeners.
+ *
+ * Subscriptions must be renewed before they expire using
+ * mupnp_controlpoint_resubscribe() or they will be automatically cancelled
+ * by the service.
+ *
+ * @param ctrlPoint The control point to use. Must not be NULL and must be running.
+ * @param service The service to subscribe to. Must not be NULL and must have
+ *                a valid event subscription URL.
+ * @param timeout The requested subscription duration in seconds.
+ *                Use 0 or negative value for infinite duration (if supported
+ *                by the service). Typical values: 300-1800 seconds.
+ *                The service may grant a different duration than requested.
+ *
+ * @retval true  Subscription successful. Check service's SID for subscription ID.
+ * @retval false Subscription failed due to:
+ *               - NULL parameters
+ *               - Control point not running
+ *               - Network error
+ *               - Service doesn't support eventing
+ *               - Service rejected subscription (e.g., too many subscribers)
+ *
+ * @note Thread-safe: Can be called from any thread, but the control point
+ *       should be locked if accessing device/service pointers.
+ * @note Side effect: Updates the service's subscriptionSid and subscriptionTimeout
+ *       fields on success.
+ * @note Event notifications are delivered asynchronously via event listener
+ *       callbacks. Set listeners with mupnp_controlpoint_addeventlistener().
+ * @note The initial event notification (containing all evented state variables)
+ *       should arrive shortly after subscription.
+ *
+ * @warning Always unsubscribe before destroying the control point to avoid
+ *          orphaned subscriptions on the service side.
+ *
+ * @see mupnp_controlpoint_resubscribe()
+ * @see mupnp_controlpoint_unsubscribe()
+ * @see mupnp_controlpoint_addeventlistener()
+ * @see mupnp_service_getsubscriptionsid()
+ *
+ * @code
+ * // Example: Subscribe to a service's events
+ * mupnp_controlpoint_lock(ctrlPoint);
+ * mUpnpDevice* dev = mupnp_controlpoint_getdevicebytype(ctrlPoint, "...:MediaServer");
+ * if (dev) {
+ *     mUpnpService* service = mupnp_device_getservicebytype(dev, "ContentDirectory");
+ *     if (service) {
+ *         // Subscribe for 30 minutes
+ *         if (mupnp_controlpoint_subscribe(ctrlPoint, service, 1800)) {
+ *             printf("Subscribed with SID: %s\n", 
+ *                    mupnp_service_getsubscriptionsid(service));
+ *         }
+ *     }
+ * }
+ * mupnp_controlpoint_unlock(ctrlPoint);
+ * @endcode
  */
 bool mupnp_controlpoint_subscribe(mUpnpControlPoint* ctrlPoint, mUpnpService* service, long timeout);
 

@@ -174,14 +174,71 @@ typedef struct _mUpnpDevice {
  ****************************************/
 
 /**
- * Create a new UPnP device
+ * @brief Create a new UPnP device instance
+ *
+ * @details
+ * Allocates and initializes a new UPnP device object for use as either:
+ * - A device implementation (to be advertised on the network)
+ * - A device representation (discovered by a control point)
+ *
+ * The function initializes:
+ * - Device description node (XML representation)
+ * - Service list (empty)
+ * - Icon list (empty)
+ * - Embedded device list (empty)
+ * - Internal mutex for thread safety
+ * - Default values (e.g., lease time, HTTP port)
+ *
+ * After creation, populate the device description using one of:
+ * - mupnp_device_parsedescription() - from XML string
+ * - mupnp_device_parsedescriptionurl() - from HTTP URL
+ * - mupnp_device_loaddescriptionfile() - from file (if MUPNP_USE_CFILE defined)
+ * - Manual setter functions (mupnp_device_setfriendlyname(), etc.)
+ *
+ * @return A newly-created mUpnpDevice on success, or NULL if memory
+ *         allocation fails.
+ *
+ * @note The returned device must be freed with mupnp_device_delete() when
+ *       no longer needed to avoid memory leaks.
+ * @note Thread-safe: This function can be called concurrently from multiple threads.
+ * @note The device is initially inactive. Use mupnp_device_start() to activate
+ *       it and begin advertising (for device implementations).
+ *
+ * @see mupnp_device_delete()
+ * @see mupnp_device_parsedescription()
+ * @see mupnp_device_start()
  */
 mUpnpDevice* mupnp_device_new(void);
 
 /**
- * Delete a UPnP device
+ * @brief Delete a UPnP device and free all associated resources
  *
- * \param dev Device in question
+ * @details
+ * Releases all resources associated with the device, including:
+ * - Device description (XML nodes)
+ * - All services and their state tables
+ * - All embedded (child) devices
+ * - Icon list
+ * - Network servers (HTTP, SSDP) if running
+ * - Internal mutexes and threads
+ *
+ * If the device is still running (started) when this function is called,
+ * it will be stopped automatically before resources are freed.
+ *
+ * @param dev The device to destroy. May be NULL (no-op if NULL).
+ *
+ * @note After calling this function, the dev pointer is invalid and
+ *       must not be used.
+ * @note This function will block until all internal threads have terminated.
+ * @note Thread-safe: Must not be called concurrently with other operations
+ *       on the same device. The caller is responsible for ensuring exclusive
+ *       access.
+ *
+ * @warning Do not call this function while holding locks or from within
+ *          listener callbacks, as this may cause deadlocks.
+ *
+ * @see mupnp_device_new()
+ * @see mupnp_device_stop()
  */
 void mupnp_device_delete(mUpnpDevice* dev);
 
@@ -741,26 +798,124 @@ void mupnp_device_seturlbase(mUpnpDevice* dev, char* value);
  *****************************************************************************/
 
 /**
- * Start the device. This essentially starts:
- * \li The HTTP server
- * \li The SSDP server
- * \li Advertising the device
- * \li Alive notification
+ * @brief Start a UPnP device and begin advertising on the network
  *
- * \param dev Device in question
+ * @details
+ * Activates the device and starts all required network services:
+ * - HTTP server for device description, SOAP control, and eventing
+ *   (default port: 38400, or as set by mupnp_device_sethttpport())
+ * - SSDP multicast listener for M-SEARCH discovery requests
+ * - SSDP advertisement broadcaster (sends periodic ssdp:alive messages)
+ * - Sends initial ssdp:alive notifications for the device and all its services
  *
+ * After successful startup, the device will:
+ * - Respond to M-SEARCH discovery requests from control points
+ * - Periodically advertise its presence via ssdp:alive (based on lease time)
+ * - Accept action invocations via SOAP
+ * - Accept event subscriptions and send notifications
+ *
+ * The device description must be properly configured before calling this
+ * function (friendly name, UDN, services, etc.).
+ *
+ * @param dev The device to start. Must not be NULL and must have a valid
+ *            description with at least a UDN and device type.
+ *
+ * @retval true  Successfully started all services
+ * @retval false Failed to start due to:
+ *               - NULL parameter
+ *               - HTTP port already in use
+ *               - Network error (e.g., cannot bind to multicast address)
+ *               - Invalid or incomplete device description
+ *               - Insufficient permissions
+ *
+ * @note This function may fail if the HTTP port is already in use. Configure
+ *       an alternative port with mupnp_device_sethttpport() if needed.
+ * @note Thread-safe: Can be called from any thread, but must not be called
+ *       concurrently on the same device.
+ * @note Calling this function on an already-running device has no effect
+ *       and returns true.
+ * @note Side effect: Sends SSDP advertisements to the network immediately
+ *       and starts the advertisement thread.
+ *
+ * @warning On some platforms, binding to multicast addresses may require
+ *          elevated privileges.
+ * @warning Ensure proper firewall configuration to allow:
+ *          - Incoming TCP on HTTP port
+ *          - Outgoing UDP to SSDP multicast address (239.255.255.250:1900)
+ *          - Incoming UDP on SSDP port (1900)
+ *
+ * @see mupnp_device_stop()
+ * @see mupnp_device_isrunning()
+ * @see mupnp_device_sethttpport()
+ * @see mupnp_device_setleasetime()
+ *
+ * @code
+ * // Example: Create and start a simple device
+ * mUpnpDevice* dev = mupnp_device_new();
+ * 
+ * // Configure device description
+ * mupnp_device_setdevicetype(dev, "urn:schemas-upnp-org:device:Basic:1");
+ * mupnp_device_setfriendlyname(dev, "My UPnP Device");
+ * mupnp_device_setmanufacturer(dev, "Example Corp");
+ * mupnp_device_setmodelname(dev, "Model 1");
+ * mupnp_device_updateudn(dev); // Generate a UDN
+ * 
+ * // Set action and query listeners
+ * mupnp_device_setactionlistener(dev, my_action_listener);
+ * mupnp_device_setquerylistener(dev, my_query_listener);
+ * 
+ * // Start the device
+ * if (mupnp_device_start(dev)) {
+ *     printf("Device started and advertising\n");
+ * } else {
+ *     fprintf(stderr, "Failed to start device\n");
+ *     mupnp_device_delete(dev);
+ * }
+ * @endcode
  */
 bool mupnp_device_start(mUpnpDevice* dev);
 
 /**
- * Stop the device. This concerns:
- * \li The HTTP server
- * \li The SSDP server
- * \li Advertising the device
- * \li Byebye notification
+ * @brief Stop a UPnP device and cease network advertising
  *
- * \param dev Device in question
+ * @details
+ * Gracefully shuts down all network services:
+ * - Sends ssdp:byebye notifications for the device and all its services,
+ *   informing control points that the device is leaving the network
+ * - Stops the HTTP server (no longer accepts connections)
+ * - Closes SSDP multicast listener
+ * - Terminates the advertisement broadcaster thread
  *
+ * After stopping, the device will no longer:
+ * - Respond to M-SEARCH discovery requests
+ * - Accept action invocations
+ * - Send periodic advertisements
+ * - Accept event subscriptions or send notifications
+ *
+ * The device description and configuration are retained. The device can be
+ * restarted with mupnp_device_start().
+ *
+ * @param dev The device to stop. Must not be NULL.
+ *
+ * @retval true  Successfully stopped all services and sent byebye notifications
+ * @retval false Failed to stop (unlikely), or dev is NULL
+ *
+ * @note This function blocks until:
+ *       - ssdp:byebye messages are sent (a few hundred milliseconds)
+ *       - All listener threads have terminated (may take a few seconds)
+ * @note Calling this function on an already-stopped device has no effect
+ *       and returns true.
+ * @note Thread-safe: Can be called from any thread, but must not be called
+ *       concurrently on the same device.
+ * @note Side effect: Sends SSDP byebye messages to the network, which should
+ *       prompt control points to remove the device from their lists.
+ * @note Active event subscriptions are not explicitly cancelled. Subscribed
+ *       control points will detect the device is unavailable when subscriptions
+ *       expire or when they attempt to renew.
+ *
+ * @see mupnp_device_start()
+ * @see mupnp_device_isrunning()
+ * @see mupnp_device_delete()
  */
 bool mupnp_device_stop(mUpnpDevice* dev);
 
