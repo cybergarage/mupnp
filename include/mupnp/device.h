@@ -1197,11 +1197,27 @@ mUpnpDevice* mupnp_device_getdevicebydescriptionuri(mUpnpDevice* dev, const char
 #define mupnp_device_getnservices(dev) mupnp_servicelist_size(dev->serviceList)
 
 /**
- * Get a service by index from the device
+ * @brief Get a service by index from the device's service list
  *
- * @param dev Device in question
- * @param idx Service index number (0-based)
+ * @details
+ * Retrieves a service from the device's service list by its position (index).
+ * Services are stored in the order they appear in the device description.
  *
+ * @param dev Device in question. Must not be NULL.
+ * @param idx Service index number (0-based). Must be less than the number
+ *            of services returned by mupnp_device_getnservices().
+ *
+ * @return Pointer to the service at the specified index, or NULL if the
+ *         index is out of bounds or dev is NULL.
+ *
+ * @note Thread-safe: The device should be locked with mupnp_device_lock()
+ *       before calling if the device is shared between threads.
+ * @note For a safer alternative that doesn't require knowing the index,
+ *       use mupnp_device_getservicebytype() or mupnp_device_getservicebyid().
+ *
+ * @see mupnp_device_getnservices()
+ * @see mupnp_device_getservicebytype()
+ * @see mupnp_device_getservices()
  */
 // Theo Beisch : added missing (mUpnpList*) cast
 #define mupnp_device_getservice(dev, idx) ((mUpnpService*)mupnp_list_get((mUpnpList*)dev->serviceList, idx))
