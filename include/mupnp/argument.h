@@ -66,16 +66,47 @@ typedef struct _mUpnpArgument {
  ****************************************/
 
 /**
- * Create new argument
+ * @brief Create a new UPnP action argument
+ *
+ * @details
+ * Allocates and initializes a new argument object. Arguments represent
+ * input or output parameters for UPnP actions. Each argument has:
+ * - A name (identifier)
+ * - A direction (in/out)
+ * - A related state variable (defines the data type)
+ * - A value (set during action invocation or response)
+ *
+ * Arguments are typically created during SCPD parsing and added to
+ * action argument lists.
+ *
+ * @return A newly-created mUpnpArgument on success, or NULL if memory
+ *         allocation fails.
+ *
+ * @note The returned argument must be freed with mupnp_argument_delete()
+ *       when no longer needed.
+ * @note Thread-safe: Can be called concurrently from multiple threads.
+ *
+ * @see mupnp_argument_delete()
+ * @see mupnp_argument_setdirection()
+ * @see mupnp_argument_setvalue()
  */
 mUpnpArgument* mupnp_argument_new(void);
 
 /**
- * Delete argument
+ * @brief Destroy a UPnP action argument and free resources
  *
- * @param dev Argument
+ * @details
+ * Releases all resources associated with the argument, including
+ * the argument value string and XML node references.
+ *
+ * @param arg The argument to destroy. May be NULL (no-op if NULL).
+ *
+ * @note After calling this function, the argument pointer is invalid.
+ * @note Thread-safe: Must not be called concurrently on the same argument.
+ *
+ * @see mupnp_argument_new()
  */
-void mupnp_argument_delete(mUpnpArgument* dev);
+void mupnp_argument_delete(mUpnpArgument* arg);
 
 /**
  * Get next argument using argument as iterator

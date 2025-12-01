@@ -81,21 +81,145 @@ typedef mUpnpSocket mUpnpSSDPSocket;
  * Function
  ****************************************/
 
+/**
+ * @brief Set the IPv6 multicast address for SSDP
+ *
+ * @details
+ * Configures the IPv6 multicast address used for SSDP discovery.
+ * Default is MUPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS ("FF02::C").
+ *
+ * Common IPv6 SSDP addresses:
+ * - FF01::C - Interface-local scope
+ * - FF02::C - Link-local scope (default, same subnet)
+ * - FF05::C - Site-local scope
+ * - FF0E::C - Global scope
+ *
+ * @param addr The IPv6 multicast address. Must not be NULL.
+ *             Should be one of the MUPNP_SSDP_IPV6_* constants.
+ *
+ * @note Thread-safe: Should be called before starting devices or control points.
+ * @note Side effect: Changes the global IPv6 multicast address setting.
+ *
+ * @see mupnp_ssdp_getipv6address()
+ */
 void mupnp_ssdp_setipv6address(const char* addr);
+
+/**
+ * @brief Get the current IPv6 multicast address for SSDP
+ *
+ * @return The currently configured IPv6 multicast address.
+ *         Default is MUPNP_SSDP_IPV6_LINK_LOCAL_ADDRESS.
+ *
+ * @note Thread-safe: Can be called from any thread.
+ *
+ * @see mupnp_ssdp_setipv6address()
+ */
 const char* mupnp_ssdp_getipv6address(void);
 
+/**
+ * @brief Set the number of times to send SSDP announcements
+ *
+ * @details
+ * Configures how many times each SSDP advertisement (alive or byebye) is
+ * sent. Multiple announcements increase reliability on unreliable networks.
+ * Default is MUPNP_SSDP_DEFAULT_ANNOUNCE_COUNT (3).
+ *
+ * @param count Number of announcement repetitions. Must be >= 1.
+ *              Typical values: 2-4. Higher values increase network traffic.
+ *
+ * @note Thread-safe: Should be called before starting devices.
+ * @note Side effect: Changes the global announcement count setting.
+ *
+ * @see mupnp_ssdp_getannouncecount()
+ */
 void mupnp_ssdp_setannouncecount(int count);
+
+/**
+ * @brief Get the current SSDP announcement repetition count
+ *
+ * @return Number of times each announcement is sent.
+ *         Default is MUPNP_SSDP_DEFAULT_ANNOUNCE_COUNT (3).
+ *
+ * @note Thread-safe: Can be called from any thread.
+ *
+ * @see mupnp_ssdp_setannouncecount()
+ */
 int mupnp_ssdp_getannouncecount(void);
 
+/**
+ * @brief Extract lease time from a Cache-Control header value
+ *
+ * @details
+ * Parses the Cache-Control header (or CACHE-CONTROL) from an SSDP message
+ * to extract the max-age directive, which specifies the device's lease time
+ * in seconds.
+ *
+ * Example: "max-age=1800" returns 1800 (30 minutes).
+ *
+ * @param cacheCont The Cache-Control header value. May be NULL.
+ *
+ * @return The lease time in seconds, or 0 if cacheCont is NULL or
+ *         max-age directive is not found.
+ *
+ * @note Thread-safe: Can be called from any thread.
+ */
 int mupnp_ssdp_getleasetime(const char* cacheCont);
 
+/**
+ * @brief Get the host address for a given network interface
+ *
+ * @details
+ * Retrieves the IP address of the specified network interface, suitable
+ * for use in SSDP messages (Location headers, etc.).
+ *
+ * @param ifAddr The network interface address. May be NULL to use default.
+ *
+ * @return The host address string, or NULL if not available.
+ *
+ * @note Thread-safe: Can be called from any thread.
+ * @note The returned string is managed internally and should not be freed.
+ */
 const char* mupnp_ssdp_gethostaddress(const char* ifAddr);
 
 /****************************************
  * Function (SSDPRequest)
  ****************************************/
 
+/**
+ * @brief Create a new SSDP request message
+ *
+ * @details
+ * Allocates and initializes a new SSDP request object, which is used for:
+ * - M-SEARCH discovery requests
+ * - NOTIFY alive/byebye announcements
+ *
+ * SSDP requests are HTTP-based messages sent over UDP multicast or unicast.
+ *
+ * @return A newly-created mUpnpSSDPRequest on success, or NULL if memory
+ *         allocation fails.
+ *
+ * @note The returned request must be freed with mupnp_ssdprequest_delete()
+ *       when no longer needed.
+ * @note Thread-safe: Can be called concurrently from multiple threads.
+ *
+ * @see mupnp_ssdprequest_delete()
+ */
 mUpnpSSDPRequest* mupnp_ssdprequest_new(void);
+
+/**
+ * @brief Destroy an SSDP request message and free resources
+ *
+ * @details
+ * Releases all resources associated with the SSDP request, including
+ * header fields and message content.
+ *
+ * @param ssdpReq The SSDP request to destroy. May be NULL (no-op if NULL).
+ *
+ * @note After calling this function, the ssdpReq pointer is invalid.
+ * @note Thread-safe: Must not be called concurrently on the same request.
+ *
+ * @see mupnp_ssdprequest_new()
+ */
 void mupnp_ssdprequest_delete(mUpnpSSDPRequest* ssdpReq);
 
 /**** Method ****/
