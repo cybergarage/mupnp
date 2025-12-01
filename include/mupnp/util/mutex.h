@@ -24,6 +24,9 @@
 #include <tk/tkernel.h>
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 #include <btron/taskcomm.h>
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+#include <freertos/FreeRTOS.h>
+#include <freertos/semphr.h>
 #else
 #include <pthread.h>
 #endif
@@ -53,6 +56,9 @@ typedef struct _mUpnpMutex {
   ID mutexID;
 #elif defined(TENGINE) && defined(PROCESS_BASE)
   WERR mutexID;
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  /** FreeRTOS semaphore for ESP32 */
+  SemaphoreHandle_t mutexID;
 #else
   /** The mutex entity */
   pthread_mutex_t mutexID;

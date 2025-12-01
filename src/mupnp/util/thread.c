@@ -125,6 +125,20 @@ static VOID TEngineProcessBasedTaskProc(W param)
 
   mupnp_log_debug_l4("Leaving...\n");
 }
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+static void esp32_thread_proc(void* param)
+{
+  mupnp_log_debug_l4("Entering...\n");
+
+  mUpnpThread* thread = (mUpnpThread*)param;
+  if (thread->action != NULL)
+    thread->action(thread);
+  
+  thread->runnableFlag = false;
+  vTaskDelete(NULL);
+
+  mupnp_log_debug_l4("Leaving...\n");
+}
 #else
 
 /* Key used to store self reference in (p)thread global storage */
@@ -329,6 +343,23 @@ bool mupnp_thread_start(mUpnpThread* thread)
       thread->runnableFlag = false;
       return false;
     }
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+    /* Use configurable stack size from Kconfig, default to 4096 */
+    #ifndef CONFIG_MUPNP_THREAD_STACK_SIZE
+    #define CONFIG_MUPNP_THREAD_STACK_SIZE 4096
+    #endif
+    BaseType_t result = xTaskCreate(
+        esp32_thread_proc,
+        "mupnp",
+        CONFIG_MUPNP_THREAD_STACK_SIZE / sizeof(StackType_t),
+        (void*)thread,
+        5,  /* Priority */
+        &thread->taskHandle
+    );
+    if (result != pdPASS) {
+      thread->runnableFlag = false;
+      return false;
+    }
 #else
     pthread_attr_t threadAttr;
     if (pthread_attr_init(&threadAttr) != 0) {
@@ -444,6 +475,12 @@ bool mupnp_thread_stop_with_cond(mUpnpThread* thread, mUpnpCond* cond)
       tk_del_tsk(thread->taskID);
 #elif defined(TENGINE) && defined(PROCESS_BASE)
       b_ter_tsk(thread->taskID);
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+      mupnp_log_debug_s("Stopping ESP32 task %p\n", thread);
+      if (thread->taskHandle != NULL) {
+        vTaskDelete(thread->taskHandle);
+        thread->taskHandle = NULL;
+      }
 #else
       mupnp_log_debug_s("Killing thread %p\n", thread);
       pthread_kill(thread->pThread, 0);

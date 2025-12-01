@@ -28,6 +28,10 @@
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 #include <btron/proctask.h>
 #include <tk/tkernel.h>
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#include <sys/time.h>
 #else
 #include <unistd.h>
 #endif
@@ -50,6 +54,8 @@ void mupnp_wait(mUpnpTime mtime)
   tk_slp_tsk(mtime);
 #elif defined(TENGINE) && defined(PROCESS_BASE)
   b_slp_tsk(mtime);
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  vTaskDelay(mtime / portTICK_PERIOD_MS);
 #else
   usleep(((useconds_t)(mtime * 1000)));
 #endif

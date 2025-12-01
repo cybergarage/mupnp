@@ -27,6 +27,9 @@
 #include <tk/tkernel.h>
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 #include <btron/proctask.h>
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
 #else
 #include <pthread.h>
 #include <signal.h>
@@ -88,6 +91,9 @@ typedef struct _mUpnpThread {
   ID taskID;
 #elif defined(TENGINE) && defined(PROCESS_BASE)
   WERR taskID;
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  /** FreeRTOS task handle for ESP32 */
+  TaskHandle_t taskHandle;
 #else
 
   /** The POSIX thread handle */

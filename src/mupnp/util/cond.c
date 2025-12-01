@@ -41,6 +41,9 @@ mUpnpCond* mupnp_cond_new(void)
 /* TODO: Add implementation */
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 /* TODO: Add implementation */
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+    cond->condID = xSemaphoreCreateBinary();
+    cond->waiters = 0;
 #else
     pthread_cond_init(&cond->condID, NULL);
 #endif
@@ -69,6 +72,10 @@ bool mupnp_cond_delete(mUpnpCond* cond)
 /* TODO: Add implementation */
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 /* TODO: Add implementation */
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  if (cond->condID != NULL) {
+    vSemaphoreDelete(cond->condID);
+  }
 #else
   pthread_cond_destroy(&cond->condID);
 #endif
@@ -98,6 +105,17 @@ bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout)
 /* TODO: Add implementation */
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 /* TODO: Add implementation */
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  mupnp_log_debug_l4("Entering...\n");
+  
+  cond->waiters++;
+  mupnp_mutex_unlock(mutex);
+  
+  TickType_t ticks = (timeout == 0) ? portMAX_DELAY : (timeout * 1000 / portTICK_PERIOD_MS);
+  xSemaphoreTake(cond->condID, ticks);
+  
+  mupnp_mutex_lock(mutex);
+  cond->waiters--;
 #else
   struct timeval now;
   struct timespec timeoutS;
@@ -143,6 +161,12 @@ bool mupnp_cond_signal(mUpnpCond* cond)
 /* TODO: Add implementation */
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 /* TODO: Add implementation */
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  if (cond->waiters > 0) {
+    success = (xSemaphoreGive(cond->condID) == pdTRUE);
+  } else {
+    success = true;
+  }
 #else
   success = (pthread_cond_signal(&cond->condID) == 0);
 #endif

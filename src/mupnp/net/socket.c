@@ -47,6 +47,16 @@
 #include <string.h> //for mem___()
 #include <sys/svc/ifkasago.h>
 #include <tk/tkernel.h>
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+#include <lwip/sockets.h>
+#include <lwip/netdb.h>
+#include <lwip/igmp.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <errno.h>
 #else
 #include <arpa/inet.h>
 #include <fcntl.h>

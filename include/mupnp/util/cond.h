@@ -25,6 +25,9 @@
 #include <tk/tkernel.h>
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 #include <btron/taskcomm.h>
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+#include <freertos/FreeRTOS.h>
+#include <freertos/semphr.h>
 #else
 #include <pthread.h>
 #endif
@@ -54,6 +57,10 @@ typedef struct _mUpnpCond {
   ID condID;
 #elif defined(TENGINE) && defined(PROCESS_BASE)
   WERR condID;
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  /** FreeRTOS semaphore for condition variable on ESP32 */
+  SemaphoreHandle_t condID;
+  int waiters;
 #else
   /** The cond entity */
   pthread_cond_t condID;
