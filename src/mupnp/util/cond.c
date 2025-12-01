@@ -111,7 +111,16 @@ bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout)
   cond->waiters++;
   mupnp_mutex_unlock(mutex);
   
-  TickType_t ticks = (timeout == 0) ? portMAX_DELAY : (timeout * 1000 / portTICK_PERIOD_MS);
+  /* Calculate ticks with overflow protection */
+  TickType_t ticks;
+  if (timeout == 0) {
+    ticks = portMAX_DELAY;
+  } else if (timeout > (portMAX_DELAY / 1000)) {
+    /* Prevent overflow for large timeout values */
+    ticks = portMAX_DELAY;
+  } else {
+    ticks = (timeout * 1000) / portTICK_PERIOD_MS;
+  }
   xSemaphoreTake(cond->condID, ticks);
   
   mupnp_mutex_lock(mutex);

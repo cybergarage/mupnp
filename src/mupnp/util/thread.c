@@ -348,10 +348,17 @@ bool mupnp_thread_start(mUpnpThread* thread)
     #ifndef CONFIG_MUPNP_THREAD_STACK_SIZE
     #define CONFIG_MUPNP_THREAD_STACK_SIZE 4096
     #endif
+    
+    /* Ensure stack size is reasonable (minimum 2048 bytes) */
+    uint32_t stackSize = CONFIG_MUPNP_THREAD_STACK_SIZE;
+    if (stackSize < 2048) {
+      stackSize = 2048;
+    }
+    
     BaseType_t result = xTaskCreate(
         esp32_thread_proc,
         "mupnp",
-        CONFIG_MUPNP_THREAD_STACK_SIZE / sizeof(StackType_t),
+        stackSize / sizeof(StackType_t),
         (void*)thread,
         5,  /* Priority */
         &thread->taskHandle
