@@ -762,7 +762,7 @@ void mupnp_controlpoint_updatestatetablefromproperty(mUpnpService* service,
 /**
  * Get the user data pointer (arbitrary user data) from the control point.
  *
- * @param dev The control point in question
+ * @param ctrlPoint The control point in question
  * @return Pointer to user data or NULL
  */
 #define mupnp_controlpoint_getuserdata(ctrlPoint) (ctrlPoint->userData)

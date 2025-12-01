@@ -1197,10 +1197,10 @@ mUpnpDevice* mupnp_device_getdevicebydescriptionuri(mUpnpDevice* dev, const char
 #define mupnp_device_getnservices(dev) mupnp_servicelist_size(dev->serviceList)
 
 /**
- * Get a service from <idx> from the device
+ * Get a service by index from the device
  *
  * \param dev Device in question
- * \param idx Device index number
+ * \param idx Service index number (0-based)
  *
  */
 // Theo Beisch : added missing (mUpnpList*) cast
