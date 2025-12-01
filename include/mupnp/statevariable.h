@@ -112,14 +112,55 @@ typedef bool (*MUPNP_STATEVARIABLE_LISTNER)(mUpnpStateVariable*);
  ****************************************/
 
 /**
- * Create new state variable object
+ * @brief Create a new UPnP state variable
+ *
+ * @details
+ * Allocates and initializes a new state variable object. State variables
+ * represent the state of a UPnP service and can be:
+ * - Evented (sendEvents="yes") - Changes trigger event notifications
+ * - Non-evented (sendEvents="no") - Query-only via action arguments
+ *
+ * State variables have:
+ * - A name (identifier)
+ * - A data type (string, int, boolean, etc.)
+ * - An optional list of allowed values
+ * - A current value
+ * - Optional eventing configuration
+ *
+ * State variables are typically created during SCPD parsing and added to
+ * the service state table.
+ *
+ * @return A newly-created mUpnpStateVariable on success, or NULL if memory
+ *         allocation fails.
+ *
+ * @note The returned state variable must be freed with
+ *       mupnp_statevariable_delete() when no longer needed.
+ * @note Thread-safe: Can be called concurrently from multiple threads.
+ * @note For device implementations, set a query listener to handle
+ *       QueryStateVariable requests.
+ *
+ * @see mupnp_statevariable_delete()
+ * @see mupnp_statevariable_setvalue()
+ * @see mupnp_statevariable_issendevents()
  */
 mUpnpStateVariable* mupnp_statevariable_new(void);
 
 /**
- * Delete state variable object
+ * @brief Destroy a UPnP state variable and free resources
  *
- * @param statVar state variable
+ * @details
+ * Releases all resources associated with the state variable, including:
+ * - The current value string
+ * - Allowed values list (if any)
+ * - XML node references
+ * - UPnP status object
+ *
+ * @param statVar The state variable to destroy. May be NULL (no-op if NULL).
+ *
+ * @note After calling this function, the statVar pointer is invalid.
+ * @note Thread-safe: Must not be called concurrently on the same state variable.
+ *
+ * @see mupnp_statevariable_new()
  */
 void mupnp_statevariable_delete(mUpnpStateVariable* statVar);
 

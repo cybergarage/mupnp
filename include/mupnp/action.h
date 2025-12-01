@@ -56,16 +56,57 @@ typedef bool (*MUPNP_ACTION_LISTNER)(mUpnpAction*);
  ****************************************************************************/
 
 /**
- * Create a new action
+ * @brief Create a new UPnP action instance
  *
- * @return mUpnpAction*
+ * @details
+ * Allocates and initializes a new UPnP action object. Actions represent
+ * operations that can be invoked on a UPnP service, similar to remote
+ * procedure calls. Each action has:
+ * - A name (action identifier)
+ * - Input arguments (parameters passed to the action)
+ * - Output arguments (return values from the action)
+ * - A listener callback (for device-side implementations)
+ * - Status information (for responses and errors)
+ *
+ * The function initializes:
+ * - Argument list (empty)
+ * - UPnP status object for error reporting
+ * - Listener callback (NULL, must be set for device implementations)
+ *
+ * @return A newly-created mUpnpAction on success, or NULL if memory
+ *         allocation fails.
+ *
+ * @note The returned action must be freed with mupnp_action_delete() when
+ *       no longer needed.
+ * @note Thread-safe: Can be called concurrently from multiple threads.
+ * @note For device implementations, set an action listener with the listener
+ *       field to handle invocations from control points.
+ * @note Actions are typically created during service initialization when
+ *       parsing the SCPD document.
+ *
+ * @see mupnp_action_delete()
+ * @see mupnp_action_setactionnode()
+ * @see MUPNP_ACTION_LISTNER
  */
 mUpnpAction* mupnp_action_new(void);
 
 /**
- * Destroy an action
+ * @brief Destroy a UPnP action and free all associated resources
  *
- * @param action The action to destroy
+ * @details
+ * Releases all resources associated with the action, including:
+ * - All input and output arguments
+ * - UPnP status object
+ * - XML node representation (if any)
+ *
+ * @param action The action to destroy. May be NULL (no-op if NULL).
+ *
+ * @note After calling this function, the action pointer is invalid and
+ *       must not be used.
+ * @note Thread-safe: Must not be called concurrently with other operations
+ *       on the same action.
+ *
+ * @see mupnp_action_new()
  */
 void mupnp_action_delete(mUpnpAction* action);
 

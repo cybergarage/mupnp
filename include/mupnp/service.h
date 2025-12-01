@@ -75,14 +75,59 @@ typedef struct _mUpnpService {
  ****************************************/
 
 /**
- * Create a new UPnP service
+ * @brief Create a new UPnP service instance
+ *
+ * @details
+ * Allocates and initializes a new UPnP service object. Services represent
+ * the functional units within a UPnP device, providing actions and
+ * state variables that can be controlled and queried by control points.
+ *
+ * The function initializes:
+ * - Action list (empty)
+ * - State variable table (empty)
+ * - Subscriber list for event notifications (if eventing enabled)
+ * - Internal mutex for thread safety
+ * - SCPD (Service Control Protocol Description) node list
+ *
+ * After creation, the service should be populated either by:
+ * - Parsing an SCPD document with mupnp_service_parsedescription()
+ * - Manual configuration with setter functions
+ *
+ * @return A newly-created mUpnpService on success, or NULL if memory
+ *         allocation fails.
+ *
+ * @note The returned service must be freed with mupnp_service_delete()
+ *       when no longer needed.
+ * @note Thread-safe: Can be called concurrently from multiple threads.
+ * @note Services are typically created as part of device initialization and
+ *       are managed by the parent device's service list.
+ *
+ * @see mupnp_service_delete()
+ * @see mupnp_service_parsedescription()
  */
 mUpnpService* mupnp_service_new(void);
 
 /**
- * Destroy a UPnP service
+ * @brief Destroy a UPnP service and free all associated resources
  *
- * @param service The service to destroy
+ * @details
+ * Releases all resources associated with the service, including:
+ * - All actions and their argument lists
+ * - State variable table and all state variables
+ * - SCPD XML description nodes
+ * - Subscriber list (if eventing enabled)
+ * - Internal mutexes
+ *
+ * @param service The service to destroy. May be NULL (no-op if NULL).
+ *
+ * @note After calling this function, the service pointer is invalid and
+ *       must not be used.
+ * @note Thread-safe: Must not be called concurrently with other operations
+ *       on the same service.
+ * @note Active event subscriptions are not automatically cancelled on the
+ *       control point side. Subscribers will eventually time out.
+ *
+ * @see mupnp_service_new()
  */
 void mupnp_service_delete(mUpnpService* service);
 
@@ -138,11 +183,60 @@ void mupnp_service_clear(mUpnpService* service);
 #define mupnp_service_getdevicenode(service) mupnp_xml_node_getparentnode(mupnp_xml_node_getparentnode(service->serviceNode))
 
 /**
- * Create the service's contents from the given XML document
+ * @brief Parse and populate a service from an SCPD XML document
  *
- * @param service The service to create
- * @param description The XML document to parse
- * @param descriptionLen The length of the XML document
+ * @details
+ * Parses the Service Control Protocol Definition (SCPD) XML document and
+ * populates the service with:
+ * - Actions and their input/output arguments
+ * - State variables with types, allowed values, and eventing properties
+ *
+ * The SCPD document must conform to the UPnP Device Architecture specification.
+ * Any existing actions and state variables are cleared before parsing.
+ *
+ * Example SCPD structure:
+ * @code{.xml}
+ * <scpd xmlns="urn:schemas-upnp-org:service-1-0">
+ *   <specVersion><major>1</major><minor>0</minor></specVersion>
+ *   <actionList>
+ *     <action>
+ *       <name>GetStatus</name>
+ *       <argumentList>
+ *         <argument>
+ *           <name>Status</name>
+ *           <direction>out</direction>
+ *           <relatedStateVariable>Status</relatedStateVariable>
+ *         </argument>
+ *       </argumentList>
+ *     </action>
+ *   </actionList>
+ *   <serviceStateTable>
+ *     <stateVariable sendEvents="yes">
+ *       <name>Status</name>
+ *       <dataType>string</dataType>
+ *     </stateVariable>
+ *   </serviceStateTable>
+ * </scpd>
+ * @endcode
+ *
+ * @param service The service to populate. Must not be NULL.
+ * @param description The SCPD XML document as a string. Must not be NULL.
+ * @param descriptionLen The length of the XML document in bytes.
+ *
+ * @retval true  Successfully parsed the SCPD document
+ * @retval false Parsing failed due to:
+ *               - NULL parameters
+ *               - Malformed XML
+ *               - XML doesn't conform to SCPD schema
+ *               - Memory allocation failure
+ *
+ * @note Thread-safe: Can be called from any thread.
+ * @note Side effect: Clears any existing actions and state variables before
+ *       parsing the new description.
+ * @note The service's parsed flag is set to true on successful parsing.
+ *
+ * @see mupnp_service_parsedescriptionurl()
+ * @see mupnp_service_isparsed()
  */
 bool mupnp_service_parsedescription(mUpnpService* service, const char* description, size_t descriptionLen);
 
