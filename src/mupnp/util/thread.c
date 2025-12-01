@@ -344,15 +344,19 @@ bool mupnp_thread_start(mUpnpThread* thread)
       return false;
     }
 #elif defined(ESP32) || defined(ESP_PLATFORM)
-    /* Use configurable stack size from Kconfig, default to 4096 */
+    /* Use configurable stack size from Kconfig */
+    /* Default is defined in Kconfig, but provide fallback */
     #ifndef CONFIG_MUPNP_THREAD_STACK_SIZE
     #define CONFIG_MUPNP_THREAD_STACK_SIZE 4096
     #endif
     
-    /* Ensure stack size is reasonable (minimum 2048 bytes) */
+    /* Minimum stack size for mUPnP threads */
+    #define MUPNP_ESP32_MIN_STACK_SIZE 2048
+    
+    /* Ensure stack size is reasonable */
     uint32_t stackSize = CONFIG_MUPNP_THREAD_STACK_SIZE;
-    if (stackSize < 2048) {
-      stackSize = 2048;
+    if (stackSize < MUPNP_ESP32_MIN_STACK_SIZE) {
+      stackSize = MUPNP_ESP32_MIN_STACK_SIZE;
     }
     
     BaseType_t result = xTaskCreate(

@@ -44,6 +44,10 @@ mUpnpCond* mupnp_cond_new(void)
 #elif defined(ESP32) || defined(ESP_PLATFORM)
     cond->condID = xSemaphoreCreateBinary();
     cond->waiters = 0;
+    /* Binary semaphore starts in taken state, give it to make it available */
+    if (cond->condID != NULL) {
+      xSemaphoreGive(cond->condID);
+    }
 #else
     pthread_cond_init(&cond->condID, NULL);
 #endif
@@ -115,11 +119,15 @@ bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout)
   TickType_t ticks;
   if (timeout == 0) {
     ticks = portMAX_DELAY;
-  } else if (timeout > (portMAX_DELAY / 1000)) {
-    /* Prevent overflow for large timeout values */
-    ticks = portMAX_DELAY;
   } else {
-    ticks = (timeout * 1000) / portTICK_PERIOD_MS;
+    /* Use pdMS_TO_TICKS macro which handles overflow internally */
+    /* timeout is in seconds, convert to milliseconds first */
+    if (timeout > (UINT32_MAX / 1000)) {
+      /* Timeout too large, use maximum delay */
+      ticks = portMAX_DELAY;
+    } else {
+      ticks = pdMS_TO_TICKS(timeout * 1000);
+    }
   }
   xSemaphoreTake(cond->condID, ticks);
   
