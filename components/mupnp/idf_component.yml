@@ -1,0 +1,8 @@
+## IDF Component Manager Manifest File
+version: "4.2.0"
+description: "mUPnP for C - UPnP library for ESP32"
+url: https://github.com/cybergarage/mupnp
+dependencies:
+  idf:
+    version: ">=5.0"
+  espressif/expat: "^2.4.7"

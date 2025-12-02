@@ -1,0 +1,99 @@
+menu "mUPnP Configuration"
+
+config MUPNP_ENABLE_SSDP
+    bool "Enable SSDP (Service Discovery)"
+    default y
+    help
+        Enable SSDP for UPnP device discovery.
+        This is required for both control points and devices.
+
+config MUPNP_SSDP_ANNOUNCE_INTERVAL
+    int "SSDP Announce Interval (seconds)"
+    depends on MUPNP_ENABLE_SSDP
+    default 1800
+    range 300 7200
+    help
+        Interval between SSDP NOTIFY announcements in seconds.
+        UPnP specification recommends less than half of the cache-control max-age.
+
+config MUPNP_HTTP_SERVER_ENABLE
+    bool "Enable HTTP Server for Device"
+    default y
+    help
+        Enable HTTP server for hosting device and service descriptions.
+        Required for UPnP devices.
+
+config MUPNP_HTTP_SERVER_PORT
+    int "HTTP Server Port"
+    depends on MUPNP_HTTP_SERVER_ENABLE
+    default 80
+    range 1 65535
+    help
+        Port number for the HTTP server used by UPnP devices.
+
+config MUPNP_CONTROLPOINT_ENABLE
+    bool "Enable Control Point Functionality"
+    default y
+    help
+        Enable UPnP control point (client) functionality.
+        This allows the device to discover and control other UPnP devices.
+
+config MUPNP_DEVICE_ENABLE
+    bool "Enable Device Functionality"
+    default y
+    help
+        Enable UPnP device (server) functionality.
+        This allows the ESP32 to act as a UPnP device.
+
+config MUPNP_EVENTING_ENABLE
+    bool "Enable UPnP Eventing"
+    default y
+    help
+        Enable UPnP event notification (GENA).
+        This allows devices to notify control points of state changes.
+
+config MUPNP_THREAD_STACK_SIZE
+    int "Thread Stack Size (bytes)"
+    default 4096
+    range 2048 16384
+    help
+        Stack size for mUPnP worker threads.
+        Increase if experiencing stack overflow issues.
+
+config MUPNP_MAX_INTERFACES
+    int "Maximum Network Interfaces"
+    default 2
+    range 1 4
+    help
+        Maximum number of network interfaces to monitor.
+        Typically 1 (WiFi STA) or 2 (WiFi STA + AP).
+
+config MUPNP_MULTICAST_TTL
+    int "Multicast TTL"
+    default 4
+    range 1 255
+    help
+        Time-To-Live for multicast packets.
+        UPnP specification recommends TTL of 4.
+
+config MUPNP_LOG_LEVEL
+    int "mUPnP Log Level"
+    default 3
+    range 0 5
+    help
+        Log level for mUPnP library:
+        0 = None
+        1 = Error
+        2 = Warning
+        3 = Info
+        4 = Debug
+        5 = Verbose
+
+config MUPNP_USE_PERSISTENT_CONNECTIONS
+    bool "Use Persistent HTTP Connections"
+    default n
+    help
+        Enable HTTP persistent connections (HTTP/1.1 keep-alive).
+        May reduce overhead but increases memory usage.
+
+endmenu
