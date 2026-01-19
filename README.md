@@ -44,6 +44,45 @@ For MacOSX, I have released a wrapper class for Objective-C on Cocoa. Currently,
 
 For Windows platforms, mUPnP includes platform projects for Visual Studio 2005. Please check the platform directories, mupnp/*/win32/vs2005, to use the projects. On WindowsCE, mUPnP does not have platform projects, but a contributor has verified that the source codes compile normally.
 
+### ESP32
+
+mUPnP for C supports ESP32 microcontrollers through ESP-IDF (Espressif IoT Development Framework). The library has been ported to work with FreeRTOS and lwIP networking stack on ESP32.
+
+**Prerequisites:**
+- ESP-IDF v5.0 or later
+- ESP32, ESP32-S2, ESP32-S3, or ESP32-C3 development board
+
+**Building for ESP32:**
+
+The library is structured as an ESP-IDF component that can be added to your project:
+
+```bash
+# Clone or add mupnp to your project
+cd your-esp32-project
+mkdir -p components
+cd components
+git clone https://github.com/cybergarage/mupnp.git
+
+# Or use the provided examples
+cd mupnp/examples/esp32/control_point
+idf.py menuconfig  # Configure WiFi settings
+idf.py build
+idf.py -p /dev/ttyUSB0 flash monitor
+```
+
+**Features on ESP32:**
+- UPnP device and control point functionality
+- SSDP discovery via UDP multicast
+- HTTP server for device descriptions
+- Event notifications (GENA)
+- Configurable via Kconfig (WiFi settings, stack sizes, logging)
+
+**Example Applications:**
+- [Control Point Example](examples/esp32/control_point/) - Discovers UPnP devices on the network
+- [Device Example](examples/esp32/device/) - Creates a UPnP device that can be discovered
+
+For detailed ESP32 build and configuration instructions, see the [ESP32 Examples README](examples/esp32/README.md).
+
 ## References
 
 ### mUPnP for C

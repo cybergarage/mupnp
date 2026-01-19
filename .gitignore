@@ -63,3 +63,14 @@ doc/html
 *.gcov
 *.gcda
 *.gcno
+
+# CMake build directory
+build/
+/build/
+
+# ESP-IDF build artifacts
+examples/esp32/*/build/
+examples/esp32/*/sdkconfig
+examples/esp32/*/sdkconfig.old
+examples/esp32/*/.vscode/
+examples/esp32/*/managed_components/
