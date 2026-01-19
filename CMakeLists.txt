@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 
-project(CyberLinkForC)
+project(mUPnP for C)
 
 #
 # Build options
