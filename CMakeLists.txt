@@ -36,7 +36,7 @@ endif(MSVC)
 # Sources and targets
 #
 
-set(CLINKC_SRCS
+set(MUPNP_SRCS
   src/cybergarage/http/chttp.c
   src/cybergarage/http/chttp_date.c
   src/cybergarage/http/chttp_header.c
@@ -133,7 +133,7 @@ set(CLINKC_SRCS
   )
 
 include_directories(include)
-add_library(clinkc STATIC ${CLINKC_SRCS})
+add_library(MUPNP STATIC ${MUPNP_SRCS})
 
 # TODO: add_subdirectory(sample)
 
@@ -151,31 +151,31 @@ if(NOT WIN32)
     -DHAVE_UUID_UUID_H
     )
   include_directories(${LIBUUID_INCLUDE_DIR})
-  target_link_libraries(clinkc ${LIBUUID_LIBRARY})
+  target_link_libraries(MUPNP ${LIBUUID_LIBRARY})
 endif(NOT WIN32)
 
 if(CG_HTTP_CURL)
   find_package(CURL REQUIRED)
   include_directories(${CURL_INCLUDE_DIRS})
-  target_link_libraries(clinkc ${CURL_LIBRARIES})
+  target_link_libraries(MUPNP ${CURL_LIBRARIES})
 endif(CG_HTTP_CURL)
 
 if(CG_USE_OPENSSL)
   find_package(OpenSSL REQUIRED)
   include_directories(${OPENSSL_INCLUDE_DIR})
-  target_link_libraries(clinkc ${OPENSSL_LIBRARIES})
+  target_link_libraries(MUPNP ${OPENSSL_LIBRARIES})
 endif(CG_USE_OPENSSL)
 
 if(CG_XMLPARSER_LIBXML2)
   find_package(LibXml2 REQUIRED)
   add_definitions(${LIBXML2_DEFINITIONS})
   include_directories(${LIBXML2_INCLUDE_DIR})
-  target_link_libraries(clinkc ${LIBXML2_LIBRARIES})
+  target_link_libraries(MUPNP ${LIBXML2_LIBRARIES})
 else(CG_XMLPARSER_LIBXML2)
   find_library(LIBEXPAT_LIBRARY expat)
   find_path(LIBEXPAT_INCLUDE_DIR expat.h PATH_SUFFIXES expat)
   include_directories(${LIBEXPAT_INCLUDE_DIR})
-  target_link_libraries(clinkc ${LIBEXPAT_LIBRARY})
+  target_link_libraries(MUPNP ${LIBEXPAT_LIBRARY})
 endif(CG_XMLPARSER_LIBXML2)
 
 #
@@ -184,5 +184,5 @@ endif(CG_XMLPARSER_LIBXML2)
 
 install(DIRECTORY include/cybergarage/ DESTINATION include/cybergarage
   FILES_MATCHING PATTERN "*.h")
-install(TARGETS clinkc ARCHIVE DESTINATION lib LIBRARY DESTINATION lib
+install(TARGETS MUPNP ARCHIVE DESTINATION lib LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
