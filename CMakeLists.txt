@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 
-project(mUPnP for C)
+project(mUPnP LANGUAGES C)
 
 #
 # Build options
@@ -37,99 +37,99 @@ endif(MSVC)
 #
 
 set(MUPNP_SRCS
-  src/cybergarage/http/chttp.c
-  src/cybergarage/http/chttp_date.c
-  src/cybergarage/http/chttp_header.c
-  src/cybergarage/http/chttp_header_list.c
-  src/cybergarage/http/chttp_packet.c
-  src/cybergarage/http/chttp_persistent_connection.c
-  src/cybergarage/http/chttp_request.c
-  src/cybergarage/http/chttp_response.c
-  src/cybergarage/http/chttp_server.c
-  src/cybergarage/http/chttp_server_list.c
-  src/cybergarage/io/cfile.c
-  src/cybergarage/io/cfile_list.c
-  src/cybergarage/net/cdatagram_packet.c
-  src/cybergarage/net/cinterface.c
-  src/cybergarage/net/cinterface_function.c
-  src/cybergarage/net/cinterface_list.c
-  src/cybergarage/net/cnet_function.c
-  src/cybergarage/net/csocket.c
-  src/cybergarage/net/csocket_list.c
-  src/cybergarage/net/curi.c
-  src/cybergarage/net/curl.c
-  src/cybergarage/soap/csoap.c
-  src/cybergarage/soap/csoap_request.c
-  src/cybergarage/soap/csoap_response.c
-  src/cybergarage/upnp/caction.c
-  src/cybergarage/upnp/caction_list.c
-  src/cybergarage/upnp/cargument.c
-  src/cybergarage/upnp/cargument_list.c
-  src/cybergarage/upnp/ccontrolpoint.c
-  src/cybergarage/upnp/ccontrolpoint_event.c
-  src/cybergarage/upnp/ccontrolpoint_http_server.c
-  src/cybergarage/upnp/cdevice.c
-  src/cybergarage/upnp/cdevice_advertiser.c
-  src/cybergarage/upnp/cdevice_http_server.c
-  src/cybergarage/upnp/cdevice_list.c
-  src/cybergarage/upnp/cdevice_ssdp_server.c
-  src/cybergarage/upnp/cicon.c
-  src/cybergarage/upnp/cicon_list.c
-  src/cybergarage/upnp/control/caction_ctrl.c
-  src/cybergarage/upnp/control/caction_request.c
-  src/cybergarage/upnp/control/caction_response.c
-  src/cybergarage/upnp/control/ccontrol_function.c
-  src/cybergarage/upnp/control/cquery_ctrl.c
-  src/cybergarage/upnp/control/cquery_request.c
-  src/cybergarage/upnp/control/cquery_response.c
-  src/cybergarage/upnp/cservice.c
-  src/cybergarage/upnp/cservice_list.c
-  src/cybergarage/upnp/cservice_notify.c
-  src/cybergarage/upnp/cservice_ssdp_server.c
-  src/cybergarage/upnp/cservicestate_table.c
-  src/cybergarage/upnp/cstatevariable.c
-  src/cybergarage/upnp/cupnp_function.c
-  src/cybergarage/upnp/cupnp_status.c
-  src/cybergarage/upnp/event/ceventlistener_list.c
-  src/cybergarage/upnp/event/cnotify_request.c
-  src/cybergarage/upnp/event/cproperty.c
-  src/cybergarage/upnp/event/cproperty_list.c
-  src/cybergarage/upnp/event/csubscriber.c
-  src/cybergarage/upnp/event/csubscriber_list.c
-  src/cybergarage/upnp/event/csubscription.c
-  src/cybergarage/upnp/event/csubscription_request.c
-  src/cybergarage/upnp/event/csubscription_response.c
-  src/cybergarage/upnp/ssdp/chttpmu_socket.c
-  src/cybergarage/upnp/ssdp/chttpu_socket.c
-  src/cybergarage/upnp/ssdp/cssdp.c
-  src/cybergarage/upnp/ssdp/cssdp_packet.c
-  src/cybergarage/upnp/ssdp/cssdp_request.c
-  src/cybergarage/upnp/ssdp/cssdp_response.c
-  src/cybergarage/upnp/ssdp/cssdp_response_server.c
-  src/cybergarage/upnp/ssdp/cssdp_response_server_list.c
-  src/cybergarage/upnp/ssdp/cssdp_server.c
-  src/cybergarage/upnp/ssdp/cssdp_server_list.c
-  src/cybergarage/upnp/ssdp/cssdp_socket.c
-  src/cybergarage/util/ccond.c
-  src/cybergarage/util/cdictionary.c
-  src/cybergarage/util/cdictionary_elem.c
-  src/cybergarage/util/clist.c
-  src/cybergarage/util/clog.c
-  src/cybergarage/util/cmutex.c
-  src/cybergarage/util/cstring.c
-  src/cybergarage/util/cstring_function.c
-  src/cybergarage/util/cstring_tokenizer.c
-  src/cybergarage/util/cthread.c
-  src/cybergarage/util/cthread_list.c
-  src/cybergarage/util/ctime.c
-  src/cybergarage/xml/cxml_attribute.c
-  src/cybergarage/xml/cxml_attribute_list.c
-  src/cybergarage/xml/cxml_function.c
-  src/cybergarage/xml/cxml_node.c
-  src/cybergarage/xml/cxml_node_list.c
-  src/cybergarage/xml/cxml_parser.c
-  src/cybergarage/xml/cxml_parser_expat.c
-  src/cybergarage/xml/cxml_parser_libxml2.c
+  src/mupnp/http/http.c
+  src/mupnp/http/http_date.c
+  src/mupnp/http/http_header.c
+  src/mupnp/http/http_header_list.c
+  src/mupnp/http/http_packet.c
+  src/mupnp/http/http_persistent_connection.c
+  src/mupnp/http/http_request.c
+  src/mupnp/http/http_response.c
+  src/mupnp/http/http_server.c
+  src/mupnp/http/http_server_list.c
+  src/mupnp/io/file.c
+  src/mupnp/io/file_list.c
+  src/mupnp/net/datagram_packet.c
+  src/mupnp/net/interface.c
+  src/mupnp/net/interface_function.c
+  src/mupnp/net/interface_list.c
+  src/mupnp/net/net_function.c
+  src/mupnp/net/socket.c
+  src/mupnp/net/socket_list.c
+  src/mupnp/net/uri.c
+  src/mupnp/net/url.c
+  src/mupnp/soap/soap.c
+  src/mupnp/soap/soap_request.c
+  src/mupnp/soap/soap_response.c
+  src/mupnp/action.c
+  src/mupnp/action_list.c
+  src/mupnp/argument.c
+  src/mupnp/argument_list.c
+  src/mupnp/controlpoint.c
+  src/mupnp/controlpoint_event.c
+  src/mupnp/controlpoint_http_server.c
+  src/mupnp/device.c
+  src/mupnp/device_advertiser.c
+  src/mupnp/device_http_server.c
+  src/mupnp/device_list.c
+  src/mupnp/device_ssdp_server.c
+  src/mupnp/icon.c
+  src/mupnp/icon_list.c
+  src/mupnp/control/action_ctrl.c
+  src/mupnp/control/action_request.c
+  src/mupnp/control/action_response.c
+  src/mupnp/control/control_function.c
+  src/mupnp/control/query_ctrl.c
+  src/mupnp/control/query_request.c
+  src/mupnp/control/query_response.c
+  src/mupnp/service.c
+  src/mupnp/service_list.c
+  src/mupnp/service_notify.c
+  src/mupnp/service_ssdp_server.c
+  src/mupnp/servicestate_table.c
+  src/mupnp/statevariable.c
+  src/mupnp/upnp_function.c
+  src/mupnp/upnp_status.c
+  src/mupnp/event/eventlistener_list.c
+  src/mupnp/event/notify_request.c
+  src/mupnp/event/property.c
+  src/mupnp/event/property_list.c
+  src/mupnp/event/subscriber.c
+  src/mupnp/event/subscriber_list.c
+  src/mupnp/event/subscription.c
+  src/mupnp/event/subscription_request.c
+  src/mupnp/event/subscription_response.c
+  src/mupnp/ssdp/httpmu_socket.c
+  src/mupnp/ssdp/httpu_socket.c
+  src/mupnp/ssdp/ssdp.c
+  src/mupnp/ssdp/ssdp_packet.c
+  src/mupnp/ssdp/ssdp_request.c
+  src/mupnp/ssdp/ssdp_response.c
+  src/mupnp/ssdp/ssdp_response_server.c
+  src/mupnp/ssdp/ssdp_response_server_list.c
+  src/mupnp/ssdp/ssdp_server.c
+  src/mupnp/ssdp/ssdp_server_list.c
+  src/mupnp/ssdp/ssdp_socket.c
+  src/mupnp/util/cond.c
+  src/mupnp/util/dictionary.c
+  src/mupnp/util/dictionary_elem.c
+  src/mupnp/util/list.c
+  src/mupnp/util/log.c
+  src/mupnp/util/mutex.c
+  src/mupnp/util/string.c
+  src/mupnp/util/string_function.c
+  src/mupnp/util/string_tokenizer.c
+  src/mupnp/util/thread.c
+  src/mupnp/util/thread_list.c
+  src/mupnp/util/time.c
+  src/mupnp/xml/xml_attribute.c
+  src/mupnp/xml/xml_attribute_list.c
+  src/mupnp/xml/xml_function.c
+  src/mupnp/xml/xml_node.c
+  src/mupnp/xml/xml_node_list.c
+  src/mupnp/xml/xml_parser.c
+  src/mupnp/xml/xml_parser_expat.c
+  src/mupnp/xml/xml_parser_libxml2.c
   )
 
 include_directories(include)
@@ -144,14 +144,19 @@ add_library(MUPNP STATIC ${MUPNP_SRCS})
 if(NOT WIN32)
   find_library(LIBUUID_LIBRARY uuid)
   find_path(LIBUUID_INCLUDE_DIR uuid/uuid.h)
-  # TODO: try_compile() for HAVE_UUID_UNPARSE_LOWER
-  add_definitions(
-    -DHAVE_LIBUUID
-    -DHAVE_UUID_UNPARSE_LOWER
-    -DHAVE_UUID_UUID_H
-    )
-  include_directories(${LIBUUID_INCLUDE_DIR})
-  target_link_libraries(MUPNP ${LIBUUID_LIBRARY})
+  if(LIBUUID_LIBRARY AND LIBUUID_INCLUDE_DIR)
+    # TODO: try_compile() for HAVE_UUID_UNPARSE_LOWER
+    add_definitions(
+      -DHAVE_LIBUUID
+      -DHAVE_UUID_UNPARSE_LOWER
+      -DHAVE_UUID_UUID_H
+      )
+    include_directories(${LIBUUID_INCLUDE_DIR})
+    target_link_libraries(MUPNP ${LIBUUID_LIBRARY})
+    message(STATUS "Found libuuid: ${LIBUUID_LIBRARY}")
+  else()
+    message(WARNING "libuuid not found. Install uuid-dev package for UUID support.")
+  endif()
 endif(NOT WIN32)
 
 if(CG_HTTP_CURL)
@@ -182,7 +187,7 @@ endif(CG_XMLPARSER_LIBXML2)
 # Installation
 #
 
-install(DIRECTORY include/cybergarage/ DESTINATION include/cybergarage
+install(DIRECTORY include/mupnp/ DESTINATION include/cybergarage
   FILES_MATCHING PATTERN "*.h")
 install(TARGETS MUPNP ARCHIVE DESTINATION lib LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
