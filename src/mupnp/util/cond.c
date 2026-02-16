@@ -41,6 +41,13 @@ mUpnpCond* mupnp_cond_new(void)
 /* TODO: Add implementation */
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 /* TODO: Add implementation */
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+    cond->condID = xSemaphoreCreateBinary();
+    cond->waiters = 0;
+    /* Binary semaphore starts in taken state, give it to make it available */
+    if (cond->condID != NULL) {
+      xSemaphoreGive(cond->condID);
+    }
 #else
     pthread_cond_init(&cond->condID, NULL);
 #endif
@@ -69,6 +76,10 @@ bool mupnp_cond_delete(mUpnpCond* cond)
 /* TODO: Add implementation */
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 /* TODO: Add implementation */
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  if (cond->condID != NULL) {
+    vSemaphoreDelete(cond->condID);
+  }
 #else
   pthread_cond_destroy(&cond->condID);
 #endif
@@ -98,6 +109,30 @@ bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout)
 /* TODO: Add implementation */
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 /* TODO: Add implementation */
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  mupnp_log_debug_l4("Entering...\n");
+  
+  cond->waiters++;
+  mupnp_mutex_unlock(mutex);
+  
+  /* Calculate ticks with overflow protection */
+  TickType_t ticks;
+  if (timeout == 0) {
+    ticks = portMAX_DELAY;
+  } else {
+    /* Use pdMS_TO_TICKS macro which handles overflow internally */
+    /* timeout is in seconds, convert to milliseconds first */
+    if (timeout > (UINT32_MAX / 1000)) {
+      /* Timeout too large, use maximum delay */
+      ticks = portMAX_DELAY;
+    } else {
+      ticks = pdMS_TO_TICKS(timeout * 1000);
+    }
+  }
+  xSemaphoreTake(cond->condID, ticks);
+  
+  mupnp_mutex_lock(mutex);
+  cond->waiters--;
 #else
   struct timeval now;
   struct timespec timeoutS;
@@ -143,6 +178,12 @@ bool mupnp_cond_signal(mUpnpCond* cond)
 /* TODO: Add implementation */
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 /* TODO: Add implementation */
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  if (cond->waiters > 0) {
+    success = (xSemaphoreGive(cond->condID) == pdTRUE);
+  } else {
+    success = true;
+  }
 #else
   success = (pthread_cond_signal(&cond->condID) == 0);
 #endif

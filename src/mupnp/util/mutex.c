@@ -54,6 +54,8 @@ mUpnpMutex* mupnp_mutex_new(void)
     mutex->mutexID = tk_cre_sem(&csem);
 #elif defined(TENGINE) && defined(PROCESS_BASE)
     mutex->mutexID = b_cre_sem(1, SEM_EXCL);
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+    mutex->mutexID = xSemaphoreCreateMutex();
 #else
     pthread_mutex_init(&mutex->mutexID, NULL);
 #endif
@@ -85,6 +87,10 @@ bool mupnp_mutex_delete(mUpnpMutex* mutex)
   tk_del_sem(mutex->mutexID);
 #elif defined(TENGINE) && defined(PROCESS_BASE)
   b_del_sem(mutex->mutexID);
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  if (mutex->mutexID != NULL) {
+    vSemaphoreDelete(mutex->mutexID);
+  }
 #else
   pthread_mutex_destroy(&mutex->mutexID);
 #endif
@@ -278,6 +284,8 @@ bool mupnp_mutex_lock(mUpnpMutex* mutex)
   tk_wai_sem(mutex->mutexID, 1, TMO_FEVR);
 #elif defined(TENGINE) && defined(PROCESS_BASE)
   b_wai_sem(mutex->mutexID, T_FOREVER);
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  xSemaphoreTake(mutex->mutexID, portMAX_DELAY);
 #else
   pthread_mutex_lock(&mutex->mutexID);
 #endif
@@ -308,6 +316,8 @@ bool mupnp_mutex_unlock(mUpnpMutex* mutex)
   tk_sig_sem(mutex->mutexID, 1);
 #elif defined(TENGINE) && defined(PROCESS_BASE)
   b_sig_sem(mutex->mutexID);
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+  xSemaphoreGive(mutex->mutexID);
 #else
   pthread_mutex_unlock(&mutex->mutexID);
 #endif

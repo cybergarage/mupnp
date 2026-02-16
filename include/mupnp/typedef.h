@@ -27,6 +27,11 @@
 #include <typedef.h>
 #elif defined(ITRON)
 #include <kernel.h>
+#elif defined(ESP32) || defined(ESP_PLATFORM)
+#include <freertos/FreeRTOS.h>
+#include <freertos/task.h>
+#include <stdbool.h>
+#include <stdint.h>
 #endif
 
 #if defined(__APPLE_CPP__) || defined(__APPLE_CC__)

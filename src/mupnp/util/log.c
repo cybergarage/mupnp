@@ -19,6 +19,11 @@
 #include <mupnp/util/mutex.h>
 #include <mupnp/util/string.h>
 
+#if defined(ESP32) || defined(ESP_PLATFORM)
+#include "esp_log.h"
+#define MUPNP_ESP32_LOG_TAG "mupnp"
+#endif
+
 #if defined(WIN32)
 #define snprintf _snprintf
 #define vsnprintf _vsnprintf
@@ -194,6 +199,38 @@ void mupnp_log_print(int severity, const char* file, int lineN, const char* func
 {
   va_list list;
 
+#if defined(ESP32) || defined(ESP_PLATFORM)
+  /* Use ESP-IDF logging system */
+  char logLine[MAX_LOG_STRING];
+  va_start(list, format);
+  vsnprintf(logLine, MAX_LOG_STRING, format, list);
+  va_end(list);
+
+  /* Map mupnp severity to ESP log levels */
+  switch (severity) {
+  case SEV_ERROR:
+    ESP_LOGE(MUPNP_ESP32_LOG_TAG, "%s:%d %s: %s", file, lineN, function, logLine);
+    break;
+  case SEV_WARNING:
+    ESP_LOGW(MUPNP_ESP32_LOG_TAG, "%s:%d %s: %s", file, lineN, function, logLine);
+    break;
+  case SEV_INFO:
+    ESP_LOGI(MUPNP_ESP32_LOG_TAG, "%s:%d %s: %s", file, lineN, function, logLine);
+    break;
+  case SEV_DEBUG_L1:
+  case SEV_DEBUG_L2:
+  case SEV_DEBUG_L3:
+    ESP_LOGD(MUPNP_ESP32_LOG_TAG, "%s:%d %s: %s", file, lineN, function, logLine);
+    break;
+  case SEV_DEBUG_L4:
+  case SEV_DEBUG_L5:
+    ESP_LOGV(MUPNP_ESP32_LOG_TAG, "%s:%d %s: %s", file, lineN, function, logLine);
+    break;
+  default:
+    ESP_LOGI(MUPNP_ESP32_LOG_TAG, "%s:%d %s: %s", file, lineN, function, logLine);
+    break;
+  }
+#else
   char logLine[MAX_LOG_STRING], *lPtr, tPtr[MAX_LOG_STRING];
   int prefixLength = -1;
   struct FdList* temp = NULL;
@@ -245,6 +282,7 @@ void mupnp_log_print(int severity, const char* file, int lineN, const char* func
   }
 
   mupnp_mutex_unlock(printMutex);
+#endif
 }
 
 #if defined(WIN32)
