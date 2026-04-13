@@ -52,7 +52,9 @@
 #include <fcntl.h>
 #include <netdb.h>
 #include <netinet/in.h>
+#if !defined(ESP_PLATFORM)
 #include <signal.h>
+#endif
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -157,7 +159,7 @@ void mupnp_socket_startup(void)
     kaInterfaceHandle = ka_tfAddInterface(MUPNP_NET_DEFAULT_IFNAME);
 #endif
 
-#if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
+#if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && !defined(ESP_PLATFORM)
     // Thanks for Brent Hills (10/26/04)
     signal(SIGPIPE, SIG_IGN);
 #endif
@@ -189,7 +191,7 @@ void mupnp_socket_cleanup(void)
     WSACleanup();
 #endif
 
-#if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
+#if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && !defined(ESP_PLATFORM)
     // Thanks for Brent Hills (10/26/04)
     signal(SIGPIPE, SIG_DFL);
 #endif
