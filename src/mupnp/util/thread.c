@@ -10,7 +10,7 @@
  ******************************************************************/
 
 #include <string.h>
-#if !defined(WIN32) && !defined(WINCE)
+#if !defined(WIN32) && !defined(WINCE) && !defined(ESP_PLATFORM)
 #include <signal.h>
 #endif
 
@@ -19,7 +19,9 @@
 #include <mupnp/util/time.h>
 
 /* Private function prototypes */
+#if !defined(ESP_PLATFORM)
 static void sig_handler(int sign);
+#endif
 
 /****************************************
  * Thread Function
@@ -145,10 +147,13 @@ static void* posix_thread_proc(void* param)
 {
   mupnp_log_debug_l4("Entering...\n");
 
+#if !defined(ESP_PLATFORM)
   sigset_t set;
   struct sigaction actions;
+#endif
   mUpnpThread* thread = (mUpnpThread*)param;
 
+#if !defined(ESP_PLATFORM)
   /* SIGQUIT is used in thread deletion routine
    * to force accept and recvmsg to return during thread
    * termination process. */
@@ -161,6 +166,7 @@ static void* posix_thread_proc(void* param)
   actions.sa_flags = 0;
   actions.sa_handler = sig_handler;
   sigaction(SIGQUIT, &actions, NULL);
+#endif
 
   pthread_once(&mupnpThreadMykeycreated, mupnp_thread_createkey);
   pthread_setspecific(mupnpThreadSelfRef, param);
@@ -569,8 +575,10 @@ void* mupnp_thread_getuserdata(mUpnpThread* thread)
 
 /* Private helper functions */
 
+#if !defined(ESP_PLATFORM)
 static void sig_handler(int sign)
 {
   mupnp_log_debug_s("Got signal %d.\n", sign);
   return;
 }
+#endif

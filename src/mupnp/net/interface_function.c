@@ -44,6 +44,12 @@
 #include <net/sock_com.h>
 #elif defined(ITRON)
 #include <kernel.h>
+#elif defined(ESP_PLATFORM)
+#include <arpa/inet.h>
+#include <esp_netif.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
 #elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
 #include <btron/kasago.h>
 #include <sys/svc/ifkasago.h>
@@ -340,7 +346,68 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
  * mupnp_net_gethostinterfaces (UNIX)
  ****************************************/
 
-#if defined(HAVE_IFADDRS_H)
+#if defined(ESP_PLATFORM)
+
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
+{
+  mUpnpNetworkInterface* netIf;
+  esp_netif_t* espNetIf;
+  esp_netif_ip_info_t ipInfo;
+  struct in_addr inAddr;
+  char addr[NI_MAXHOST + 1];
+  char netmask[NI_MAXHOST + 1];
+  const char* ifname;
+  unsigned long hostAddr;
+  unsigned char macaddr[MUPNP_NET_MACADDR_SIZE];
+
+  mupnp_log_debug_l4("Entering...\n");
+
+  mupnp_net_interfacelist_clear(netIfList);
+
+  for (espNetIf = esp_netif_next(NULL); NULL != espNetIf; espNetIf = esp_netif_next(espNetIf)) {
+    if (false == esp_netif_is_netif_up(espNetIf))
+      continue;
+
+    if (ESP_OK != esp_netif_get_ip_info(espNetIf, &ipInfo))
+      continue;
+
+    if (0 == ipInfo.ip.addr || 0 == ipInfo.netmask.addr)
+      continue;
+
+    hostAddr = ntohl(ipInfo.ip.addr);
+    if ((hostAddr & 0xFF000000) == 0x7F000000)
+      continue;
+
+    inAddr.s_addr = ipInfo.ip.addr;
+    if (NULL == inet_ntop(AF_INET, &inAddr, addr, sizeof(addr)))
+      continue;
+
+    inAddr.s_addr = ipInfo.netmask.addr;
+    if (NULL == inet_ntop(AF_INET, &inAddr, netmask, sizeof(netmask)))
+      continue;
+
+    netIf = mupnp_net_interface_new();
+    if (NULL == netIf)
+      continue;
+
+    ifname = esp_netif_get_desc(espNetIf);
+    if (NULL != ifname)
+      mupnp_net_interface_setname(netIf, (char*)ifname);
+    mupnp_net_interface_setaddress(netIf, addr);
+    mupnp_net_interface_setnetmask(netIf, netmask);
+
+    if (ESP_OK == esp_netif_get_mac(espNetIf, macaddr))
+      mupnp_net_interface_setmacaddress(netIf, macaddr);
+
+    mupnp_net_interfacelist_add(netIfList, netIf);
+  }
+
+  mupnp_log_debug_l4("Leaving...\n");
+
+  return mupnp_net_interfacelist_size(netIfList);
+}
+
+#elif defined(HAVE_IFADDRS_H)
 
 int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 {
