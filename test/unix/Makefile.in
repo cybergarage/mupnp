@@ -108,13 +108,14 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__dirstamp = $(am__leading_dot)dirstamp
-am_mupnptest_OBJECTS = ../TestDevice.$(OBJEXT) ../StringTest.$(OBJEXT) \
-	../StateVariableTest.$(OBJEXT) ../TestMain.$(OBJEXT) \
-	../SubscriptionTest.$(OBJEXT) ../URITest.$(OBJEXT) \
-	../XMLTest.$(OBJEXT) ../NetworkTest.$(OBJEXT) \
-	../UPnPFuncTest.$(OBJEXT) ../HttpTest.$(OBJEXT) \
-	../ControlPointTest.$(OBJEXT) ../DeviceTest.$(OBJEXT) \
-	../DictionaryTest.$(OBJEXT) ../ServiceTest.$(OBJEXT)
+am_mupnptest_OBJECTS = ../NetworkTest.$(OBJEXT) \
+	../SubscriptionTest.$(OBJEXT) ../ServiceTest.$(OBJEXT) \
+	../StringTest.$(OBJEXT) ../TestDevice.$(OBJEXT) \
+	../DeviceTest.$(OBJEXT) ../XMLTest.$(OBJEXT) \
+	../ControlPointTest.$(OBJEXT) ../DictionaryTest.$(OBJEXT) \
+	../HttpTest.$(OBJEXT) ../StateVariableTest.$(OBJEXT) \
+	../URITest.$(OBJEXT) ../TestMain.$(OBJEXT) \
+	../UPnPFuncTest.$(OBJEXT)
 mupnptest_OBJECTS = $(am_mupnptest_OBJECTS)
 am__DEPENDENCIES_1 =
 mupnptest_DEPENDENCIES = ../../lib/unix/libmupnp.a \
@@ -519,24 +520,24 @@ AM_CPPFLAGS = -I$(top_srcdir)/include -I../ $(CODE_COVERAGE_CPPFLAGS)
 AM_CFLAGS = $(CODE_COVERAGE_CFLAGS)
 AM_CXXFLAGS = $(CODE_COVERAGE_CXXFLAGS)
 noinst_HEADERS = \
-	../ClinkUnitTest.h \
-	../TestDevice.h
+	../TestDevice.h \
+	../ClinkUnitTest.h
 
 mupnptest_SOURCES = \
-	../TestDevice.c \
-	../StringTest.cpp \
-	../StateVariableTest.cpp \
-	../TestMain.cpp \
-	../SubscriptionTest.cpp \
-	../URITest.cpp \
-	../XMLTest.cpp \
 	../NetworkTest.cpp \
-	../UPnPFuncTest.cpp \
-	../HttpTest.cpp \
-	../ControlPointTest.cpp \
+	../SubscriptionTest.cpp \
+	../ServiceTest.cpp \
+	../StringTest.cpp \
+	../TestDevice.c \
 	../DeviceTest.cpp \
+	../XMLTest.cpp \
+	../ControlPointTest.cpp \
 	../DictionaryTest.cpp \
-	../ServiceTest.cpp
+	../HttpTest.cpp \
+	../StateVariableTest.cpp \
+	../URITest.cpp \
+	../TestMain.cpp \
+	../UPnPFuncTest.cpp
 
 mupnptest_LDADD = ../../lib/unix/libmupnp.a @XML_LIBS@ $(CODE_COVERAGE_LIBS)
 all: all-am
@@ -581,29 +582,29 @@ clean-checkPROGRAMS:
 ../$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) ../$(DEPDIR)
 	@: > ../$(DEPDIR)/$(am__dirstamp)
-../TestDevice.$(OBJEXT): ../$(am__dirstamp) \
+../NetworkTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ServiceTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../StringTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../StateVariableTest.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../TestMain.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
-../SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../URITest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
-../XMLTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
-../NetworkTest.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../UPnPFuncTest.$(OBJEXT): ../$(am__dirstamp) \
-	../$(DEPDIR)/$(am__dirstamp)
-../HttpTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
-../ControlPointTest.$(OBJEXT): ../$(am__dirstamp) \
+../TestDevice.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../DeviceTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
+../XMLTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../ControlPointTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
 ../DictionaryTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
-../ServiceTest.$(OBJEXT): ../$(am__dirstamp) \
+../HttpTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../StateVariableTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../URITest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../TestMain.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../UPnPFuncTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 
 mupnptest$(EXEEXT): $(mupnptest_OBJECTS) $(mupnptest_DEPENDENCIES) $(EXTRA_mupnptest_DEPENDENCIES) 

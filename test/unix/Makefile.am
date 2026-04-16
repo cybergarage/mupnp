@@ -14,22 +14,22 @@ AM_CFLAGS = $(CODE_COVERAGE_CFLAGS)
 AM_CXXFLAGS = $(CODE_COVERAGE_CXXFLAGS)
 
 noinst_HEADERS = \
-	../ClinkUnitTest.h \
-	../TestDevice.h
+	../TestDevice.h \
+	../ClinkUnitTest.h
 
 mupnptest_SOURCES = \
-	../TestDevice.c \
-	../StringTest.cpp \
-	../StateVariableTest.cpp \
-	../TestMain.cpp \
-	../SubscriptionTest.cpp \
-	../URITest.cpp \
-	../XMLTest.cpp \
 	../NetworkTest.cpp \
-	../UPnPFuncTest.cpp \
-	../HttpTest.cpp \
-	../ControlPointTest.cpp \
+	../SubscriptionTest.cpp \
+	../ServiceTest.cpp \
+	../StringTest.cpp \
+	../TestDevice.c \
 	../DeviceTest.cpp \
+	../XMLTest.cpp \
+	../ControlPointTest.cpp \
 	../DictionaryTest.cpp \
-	../ServiceTest.cpp
+	../HttpTest.cpp \
+	../StateVariableTest.cpp \
+	../URITest.cpp \
+	../TestMain.cpp \
+	../UPnPFuncTest.cpp
 mupnptest_LDADD = ../../lib/unix/libmupnp.a @XML_LIBS@ $(CODE_COVERAGE_LIBS)
