@@ -1,0 +1,3 @@
+SUBDIRS = unix
+
+EXTRA_DIST = README.md

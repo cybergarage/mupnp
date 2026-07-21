@@ -575,6 +575,8 @@ lib/unix/Makefile
 examples/Makefile
 examples/clock/Makefile
 examples/clock/unix/Makefile
+examples/binarylight/Makefile
+examples/binarylight/unix/Makefile
 examples/upnpdump/Makefile
 examples/upnpdump/unix/Makefile
 examples/upnpavdump/Makefile

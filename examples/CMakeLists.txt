@@ -1,4 +1,5 @@
 add_subdirectory(clock)
+add_subdirectory(binarylight)
 add_subdirectory(upnpdump)
 add_subdirectory(upnpavdump)
 add_subdirectory(upnpigddump)

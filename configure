@@ -7615,7 +7615,7 @@ fi
 # Makefiles
 ##############################
 
-ac_config_files="$ac_config_files mupnp.pc Makefile include/Makefile lib/Makefile lib/unix/Makefile examples/Makefile examples/clock/Makefile examples/clock/unix/Makefile examples/upnpdump/Makefile examples/upnpdump/unix/Makefile examples/upnpavdump/Makefile examples/upnpavdump/unix/Makefile examples/upnpigddump/Makefile examples/upnpigddump/unix/Makefile test/Makefile test/unix/Makefile"
+ac_config_files="$ac_config_files mupnp.pc Makefile include/Makefile lib/Makefile lib/unix/Makefile examples/Makefile examples/clock/Makefile examples/clock/unix/Makefile examples/binarylight/Makefile examples/binarylight/unix/Makefile examples/upnpdump/Makefile examples/upnpdump/unix/Makefile examples/upnpavdump/Makefile examples/upnpavdump/unix/Makefile examples/upnpigddump/Makefile examples/upnpigddump/unix/Makefile test/Makefile test/unix/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -8367,6 +8367,8 @@ do
     "examples/Makefile") CONFIG_FILES="$CONFIG_FILES examples/Makefile" ;;
     "examples/clock/Makefile") CONFIG_FILES="$CONFIG_FILES examples/clock/Makefile" ;;
     "examples/clock/unix/Makefile") CONFIG_FILES="$CONFIG_FILES examples/clock/unix/Makefile" ;;
+    "examples/binarylight/Makefile") CONFIG_FILES="$CONFIG_FILES examples/binarylight/Makefile" ;;
+    "examples/binarylight/unix/Makefile") CONFIG_FILES="$CONFIG_FILES examples/binarylight/unix/Makefile" ;;
     "examples/upnpdump/Makefile") CONFIG_FILES="$CONFIG_FILES examples/upnpdump/Makefile" ;;
     "examples/upnpdump/unix/Makefile") CONFIG_FILES="$CONFIG_FILES examples/upnpdump/unix/Makefile" ;;
     "examples/upnpavdump/Makefile") CONFIG_FILES="$CONFIG_FILES examples/upnpavdump/Makefile" ;;

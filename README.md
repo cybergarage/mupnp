@@ -70,6 +70,8 @@ To develop UPnP devices or control point applications using **mUPnP for C**, ple
     - [UPnP/AV media server utility ](https://github.com/cybergarage/mupnp/tree/master/examples/upnpavdump)
  
 - UPnP device examples
+  - UPnP standard devices
+    - [UPnP BinaryLight:1 device](https://github.com/cybergarage/mupnp/tree/master/examples/binarylight)
   - UPnP non-standard devices
     - [UPnP clock device](https://github.com/cybergarage/mupnp/tree/master/examples/clock)
     
