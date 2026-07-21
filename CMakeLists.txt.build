@@ -56,7 +56,21 @@ print <<'FOOTER';
 include_directories(include)
 add_library(MUPNP STATIC ${MUPNP_SRCS})
 
-# TODO: add_subdirectory(sample)
+#
+# Optional subdirectories
+#
+
+option(MUPNP_ENABLE_EXAMPLES "Build examples" ON)
+option(MUPNP_ENABLE_TEST "Build tests" OFF)
+
+if(MUPNP_ENABLE_EXAMPLES)
+  add_subdirectory(examples)
+endif()
+
+if(MUPNP_ENABLE_TEST)
+  enable_testing()
+  add_subdirectory(test)
+endif()
 
 #
 # Dependencies
@@ -96,12 +110,19 @@ if(CG_XMLPARSER_LIBXML2)
   find_package(LibXml2 REQUIRED)
   add_definitions(${LIBXML2_DEFINITIONS})
   include_directories(${LIBXML2_INCLUDE_DIR})
-  target_link_libraries(MUPNP ${LIBXML2_LIBRARIES})
+  target_link_libraries(MUPNP PUBLIC ${LIBXML2_LIBRARIES})
 else(CG_XMLPARSER_LIBXML2)
   find_library(LIBEXPAT_LIBRARY expat)
   find_path(LIBEXPAT_INCLUDE_DIR expat.h PATH_SUFFIXES expat)
   include_directories(${LIBEXPAT_INCLUDE_DIR})
-  target_link_libraries(MUPNP ${LIBEXPAT_LIBRARY})
+  target_link_libraries(MUPNP PUBLIC ${LIBEXPAT_LIBRARY})
+  if(APPLE)
+    find_package(LibXml2)
+    if(LIBXML2_FOUND)
+      include_directories(${LIBXML2_INCLUDE_DIR})
+      target_link_libraries(MUPNP PUBLIC ${LIBXML2_LIBRARIES})
+    endif()
+  endif()
 endif(CG_XMLPARSER_LIBXML2)
 
 #
