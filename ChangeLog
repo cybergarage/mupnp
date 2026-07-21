@@ -1,7 +1,4 @@
 2026-07-21 Satoshi Konno <skonno@cybergarage.org>
-	* Added a UPnP BinaryLight:1 device example.
-
-2025-01-XX Satoshi Konno <skonno@cybergarage.org>
 	* 3.0.3
 	* Enable code coverage using gcov and lcov
 	* Fixed unused-but-set-variable warnings
@@ -11,6 +8,7 @@
 	* Added Visual Code settings
 	* Update XCode settings
 	* Remove deprecated AC_PROG_LIBTOOL in confugre.ac and Makefile.am
+	* Added a UPnP BinaryLight:1 device example.
 
 2022-09-04 Satoshi Konno <skonno@cybergarage.org>
 	* 3.0.2
