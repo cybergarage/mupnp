@@ -156,6 +156,41 @@ BOOST_AUTO_TEST_CASE(URISecurity)
   mupnp_net_uri_delete(uri);
 }
 
+BOOST_AUTO_TEST_CASE(URIQueryFragmentBoundaries)
+{
+  const struct {
+    const char* value;
+    const char* path;
+    const char* query;
+    const char* fragment;
+  } cases[] = {
+    { "/path#?x", "/path", "", "?x" },
+    { "/path#fragment?query", "/path", "", "fragment?query" },
+    { "http://example.com/path#?x", "/path", "", "?x" },
+    { "/path?key=value#fragment?data", "/path", "key=value", "fragment?data" },
+    { "/path?#?", "/path", "", "?" },
+    { "/path?key=value", "/path", "key=value", "" },
+    { "/path#", "/path", "", "" },
+    { "/path?", "/path", "", "" },
+    { "#?x", "", "", "?x" },
+    { "?key=value#fragment", "", "key=value", "fragment" },
+    { "/path", "/path", "", "" },
+  };
+
+  mUpnpNetURI* uri = mupnp_net_uri_new();
+  BOOST_REQUIRE(uri != NULL);
+  for (size_t i = 0; i < sizeof(cases) / sizeof(cases[0]); i++) {
+    BOOST_TEST_CONTEXT(cases[i].value)
+    {
+      mupnp_net_uri_setvalue(uri, cases[i].value);
+      BOOST_CHECK(cases[i].path[0] ? mupnp_streq(mupnp_net_uri_getpath(uri), cases[i].path) : !mupnp_net_uri_haspath(uri));
+      BOOST_CHECK(cases[i].query[0] ? mupnp_streq(mupnp_net_uri_getquery(uri), cases[i].query) : !mupnp_net_uri_hasquery(uri));
+      BOOST_CHECK(cases[i].fragment[0] ? mupnp_streq(mupnp_net_uri_getfragment(uri), cases[i].fragment) : !mupnp_net_uri_hasfragment(uri));
+    }
+  }
+  mupnp_net_uri_delete(uri);
+}
+
 ////////////////////////////////////////
 // testURIAdd
 ////////////////////////////////////////
