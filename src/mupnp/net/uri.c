@@ -150,7 +150,11 @@ void mupnp_net_uri_setvalue(mUpnpNetURI* uri, const char* value)
       mupnp_string_setnvalue(uri->password, value + currIdx + colonIdx + 1, atIdx - (colonIdx + 1));
     }
     else
-      mupnp_string_setnvalue(uri->user, value + currIdx, atIdx - currIdx);
+      /* atIdx is already relative to (value + currIdx), so the length of
+         the user part is atIdx itself. Subtracting currIdx here made the
+         length underflow to a huge size_t whenever a protocol prefix was
+         present (currIdx > 0), causing a heap buffer overflow. */
+      mupnp_string_setnvalue(uri->user, value + currIdx, atIdx);
     currIdx += atIdx + 1;
   }
 
@@ -174,8 +178,11 @@ void mupnp_net_uri_setvalue(mUpnpNetURI* uri, const char* value)
     /**** host ****/
     mupnp_string_setnvalue(uri->host, mupnp_string_getvalue(hostStr), colonIdx);
     host = mupnp_net_uri_gethost(uri);
-    if (0 < hostLen) {
-      if (host[0] == '[' && host[hostLen - 1] == ']')
+    /* host now points at the truncated value (colonIdx bytes long), so it
+       must be indexed with its own length. Using the original hostLen here
+       read past the end of the shortened buffer. */
+    if (0 < colonIdx) {
+      if (host[0] == '[' && host[colonIdx - 1] == ']')
         mupnp_string_setnvalue(uri->host, mupnp_string_getvalue(hostStr) + 1, colonIdx - 2);
     }
     /**** port ****/
@@ -571,17 +578,26 @@ mUpnpDictionary* mupnp_net_uri_getquerydictionary(mUpnpNetURI* uri)
 
   eqIdx = mupnp_strstr(query, "=");
   while (0 < eqIdx) {
+    bool isLastParam = false;
     ampIdx = mupnp_strstr(query + queryOffset, "&");
     if (ampIdx <= 0) {
       ampIdx = mupnp_strstr(query + queryOffset, "#");
-      if (ampIdx <= 0)
+      if (ampIdx <= 0) {
+        /* No further separator: this is the final parameter. */
         ampIdx = mupnp_strlen(query + queryOffset);
+        isLastParam = true;
+      }
     }
     if (ampIdx <= eqIdx)
       break;
     mupnp_string_setnvalue(paramName, query + queryOffset, eqIdx);
     mupnp_string_setnvalue(paramValue, query + queryOffset + eqIdx + 1, (ampIdx - eqIdx - 1));
     mupnp_dictionary_setvalue(uri->queryDictionary, mupnp_string_getvalue(paramName), mupnp_string_getvalue(paramValue));
+    /* Stop after the last parameter. Otherwise queryOffset would advance
+       past the terminating '\0' and the next mupnp_strstr() would read
+       beyond the end of the query buffer. */
+    if (isLastParam)
+      break;
     queryOffset += ampIdx + 1;
     eqIdx = mupnp_strstr(query + queryOffset, "=");
   }
