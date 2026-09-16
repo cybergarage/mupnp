@@ -121,6 +121,42 @@ BOOST_AUTO_TEST_CASE(URIParameter)
 }
 
 ////////////////////////////////////////
+// testURISecurity (regression tests for buffer overflows)
+////////////////////////////////////////
+
+BOOST_AUTO_TEST_CASE(URISecurity)
+{
+  mUpnpNetURI* uri;
+
+  /* User/password parsing must not underflow the length when a protocol
+     prefix is present (previously a heap-buffer-overflow). */
+  uri = mupnp_net_uri_new();
+  mupnp_net_uri_setvalue(uri, "http://username@example.com/path");
+  BOOST_REQUIRE(mupnp_streq(mupnp_net_uri_getuser(uri), "username"));
+  BOOST_REQUIRE(mupnp_streq(mupnp_net_uri_gethost(uri), "example.com"));
+  mupnp_net_uri_delete(uri);
+
+  /* IPv6 host with an explicit port must strip the brackets without
+     reading past the truncated host buffer. */
+  uri = mupnp_net_uri_new();
+  mupnp_net_uri_setvalue(uri, "http://[fe80::1234:5678]:8080/path");
+  BOOST_REQUIRE(mupnp_streq(mupnp_net_uri_gethost(uri), "fe80::1234:5678"));
+  BOOST_REQUIRE(mupnp_net_uri_getport(uri) == 8080);
+  mupnp_net_uri_delete(uri);
+
+  /* A single trailing query parameter must not walk past the end of the
+     query string when building the dictionary. */
+  uri = mupnp_net_uri_new();
+  mupnp_net_uri_setvalue(uri, "/test.cgi?only=value");
+  mUpnpDictionary* dir = mupnp_net_uri_getquerydictionary(uri);
+  mUpnpDictionaryElement* elem = mupnp_dictionary_gets(dir);
+  BOOST_REQUIRE(elem != NULL);
+  BOOST_REQUIRE(mupnp_streq(mupnp_dictionary_element_getkey(elem), "only"));
+  BOOST_REQUIRE(mupnp_streq(mupnp_dictionary_element_getvalue(elem), "value"));
+  mupnp_net_uri_delete(uri);
+}
+
+////////////////////////////////////////
 // testURIAdd
 ////////////////////////////////////////
 

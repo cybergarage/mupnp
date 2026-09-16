@@ -212,6 +212,11 @@ static int filter_duplicate_m_search(mUpnpSSDPPacket* ssdpPkt)
 
   free(idString);
 
+  /* Defensive bounds check: never index the timestamps table with an
+     out-of-range value. */
+  if (loc < 0 || loc >= MUPNP_SSDP_FILTER_TABLE_SIZE)
+    return false;
+
   currTime = mupnp_getcurrentsystemtime();
 
   if (0 == timestamps[loc]) {
@@ -235,20 +240,24 @@ static int filter_duplicate_m_search(mUpnpSSDPPacket* ssdpPkt)
 
 static int simple_string_hash(char* str, int tableSize)
 {
-  int sum = 0;
+  unsigned int sum = 0;
 
   mupnp_log_debug_l4("Entering...\n");
 
-  if (str == NULL)
+  if (str == NULL || tableSize <= 0)
     return -1;
 
-  mupnp_log_debug("Calculating hash from string |%s|, table size: %d\n", str, table_size);
+  mupnp_log_debug("Calculating hash from string |%s|, table size: %d\n", str, tableSize);
 
-  /* Sum up all the characters in the string */
+  /* Sum up all the characters in the string. The bytes must be read as
+     unsigned; otherwise characters >= 0x80 (which can appear in attacker
+     controlled SSDP headers) would contribute negative values, the sum
+     could become negative, and the resulting index would fall outside the
+     timestamps[] table. */
   for (; *str; str++)
-    sum += *str;
+    sum += (unsigned char)*str;
 
   mupnp_log_debug_l4("Leaving...\n");
 
-  return sum % tableSize;
+  return (int)(sum % (unsigned int)tableSize);
 }

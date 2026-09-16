@@ -45,14 +45,14 @@ set(MUPNP_SRCS
   src/mupnp/control/action_request.c
   src/mupnp/control/action_response.c
   src/mupnp/control/control_function.c
-  src/mupnp/controlpoint.c
-  src/mupnp/controlpoint_event.c
-  src/mupnp/controlpoint_http_server.c
   src/mupnp/control/query_ctrl.c
   src/mupnp/control/query_request.c
   src/mupnp/control/query_response.c
-  src/mupnp/device_advertiser.c
+  src/mupnp/controlpoint.c
+  src/mupnp/controlpoint_event.c
+  src/mupnp/controlpoint_http_server.c
   src/mupnp/device.c
+  src/mupnp/device_advertiser.c
   src/mupnp/device_http_server.c
   src/mupnp/device_list.c
   src/mupnp/device_ssdp_server.c
@@ -92,8 +92,8 @@ set(MUPNP_SRCS
   src/mupnp/service_list.c
   src/mupnp/service_notify.c
   src/mupnp/service_ssdp_server.c
-  src/mupnp/servicestate_table.c
   src/mupnp/service_std_dcp.c
+  src/mupnp/servicestate_table.c
   src/mupnp/soap/soap.c
   src/mupnp/soap/soap_request.c
   src/mupnp/soap/soap_response.c
@@ -168,7 +168,7 @@ if(NOT WIN32)
       -DHAVE_UUID_UUID_H
       )
     include_directories(${LIBUUID_INCLUDE_DIR})
-    target_link_libraries(MUPNP ${LIBUUID_LIBRARY})
+    target_link_libraries(MUPNP PUBLIC ${LIBUUID_LIBRARY})
     message(STATUS "Found libuuid: ${LIBUUID_LIBRARY}")
   else()
     message(WARNING "libuuid not found. Install uuid-dev package for UUID support.")
@@ -178,13 +178,13 @@ endif(NOT WIN32)
 if(CG_HTTP_CURL)
   find_package(CURL REQUIRED)
   include_directories(${CURL_INCLUDE_DIRS})
-  target_link_libraries(MUPNP ${CURL_LIBRARIES})
+  target_link_libraries(MUPNP PUBLIC ${CURL_LIBRARIES})
 endif(CG_HTTP_CURL)
 
 if(CG_USE_OPENSSL)
   find_package(OpenSSL REQUIRED)
   include_directories(${OPENSSL_INCLUDE_DIR})
-  target_link_libraries(MUPNP ${OPENSSL_LIBRARIES})
+  target_link_libraries(MUPNP PUBLIC ${OPENSSL_LIBRARIES})
 endif(CG_USE_OPENSSL)
 
 if(CG_XMLPARSER_LIBXML2)

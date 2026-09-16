@@ -25,14 +25,22 @@ mUpnpStringTokenizer* mupnp_string_tokenizer_new(const char* value, const char* 
   strToken = (mUpnpStringTokenizer*)malloc(sizeof(mUpnpStringTokenizer));
 
   if (NULL != strToken) {
+    size_t valueLen;
     strToken->value = mupnp_strdup(value);
     strToken->delim = mupnp_strdup(delim);
     strToken->delimCnt = mupnp_strlen(strToken->delim);
     strToken->nextStartPos = 0;
-    strToken->lastPos = mupnp_strlen(value) - 1;
+    valueLen = mupnp_strlen(strToken->value);
+    /* Guard against empty/NULL input. lastPos is an unsigned index, so
+       computing (len - 1) on a zero-length string would wrap to SIZE_MAX
+       and make mupnp_string_tokenizer_nexttoken() read out of bounds. */
+    strToken->lastPos = (valueLen == 0) ? 0 : (valueLen - 1);
     strToken->currToken = NULL;
     strToken->nextToken = NULL;
-    mupnp_string_tokenizer_nexttoken(strToken);
+    strToken->hasNextTokens = false;
+    strToken->repToken = '\0';
+    if (valueLen > 0)
+      mupnp_string_tokenizer_nexttoken(strToken);
   }
 
   mupnp_log_debug_l4("Leaving...\n");
