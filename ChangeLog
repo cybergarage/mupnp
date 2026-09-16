@@ -1,3 +1,14 @@
+2026-09-16 Satoshi Konno <skonno@cybergarage.org>
+	* 3.0.4
+	* Fixed heap buffer overflows in HTTP/SSDP/SOAP/GENA input parsing, confirmed with AddressSanitizer and UBSan.
+	* Fixed mupnp_string_tokenizer_nexttoken() out-of-bounds read on empty or null input.
+	* Fixed mupnp_net_uri_setvalue() buffer overflows in user-info and IPv6 host parsing.
+	* Fixed mupnp_net_uri_getquerydictionary() out-of-bounds read past the end of the query string.
+	* Fixed URI query length underflow after fragment delimiters.
+	* Fixed the SSDP M-SEARCH duplicate-filter hash to prevent a negative timestamps[] index.
+	* Changed CMake to use the keyword (PUBLIC) target_link_libraries() signature so Linux builds configure.
+	* Added regression tests for URI and string tokenizer parsing.
+
 2026-07-21 Satoshi Konno <skonno@cybergarage.org>
 	* 3.0.3
 	* Enable code coverage using gcov and lcov
