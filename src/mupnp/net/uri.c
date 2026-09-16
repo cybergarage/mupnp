@@ -214,15 +214,17 @@ void mupnp_net_uri_setvalue(mUpnpNetURI* uri, const char* value)
 
   /**** Path (Query/Fragment) ****/
   sharpIdx = mupnp_strstr(value + currIdx, MUPNP_NET_URI_SHARP_DELIM);
-  if (0 < sharpIdx) {
+  if (0 <= sharpIdx) {
     mupnp_string_setnvalue(uri->path, value + currIdx, sharpIdx);
     mupnp_string_setnvalue(uri->fragment, value + currIdx + sharpIdx + 1, uriLen - (currIdx + sharpIdx + 1));
   }
   questionIdx = mupnp_strstr(value + currIdx, MUPNP_NET_URI_QUESTION_DELIM);
-  if (0 < questionIdx) {
+  /* A question mark inside the fragment is data, not a query delimiter.
+     Subtracting an earlier fragment offset would underflow queryLen. */
+  if (0 <= questionIdx && (sharpIdx < 0 || questionIdx < sharpIdx)) {
     mupnp_string_setnvalue(uri->path, value + currIdx, questionIdx);
     queryLen = uriLen - (currIdx + questionIdx + 1);
-    if (0 < sharpIdx)
+    if (0 <= sharpIdx)
       queryLen -= uriLen - (currIdx + sharpIdx);
     mupnp_string_setnvalue(uri->query, value + currIdx + questionIdx + 1, queryLen);
   }
