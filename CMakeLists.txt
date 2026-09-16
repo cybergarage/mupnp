@@ -45,14 +45,14 @@ set(MUPNP_SRCS
   src/mupnp/control/action_request.c
   src/mupnp/control/action_response.c
   src/mupnp/control/control_function.c
-  src/mupnp/controlpoint.c
-  src/mupnp/controlpoint_event.c
-  src/mupnp/controlpoint_http_server.c
   src/mupnp/control/query_ctrl.c
   src/mupnp/control/query_request.c
   src/mupnp/control/query_response.c
-  src/mupnp/device_advertiser.c
+  src/mupnp/controlpoint.c
+  src/mupnp/controlpoint_event.c
+  src/mupnp/controlpoint_http_server.c
   src/mupnp/device.c
+  src/mupnp/device_advertiser.c
   src/mupnp/device_http_server.c
   src/mupnp/device_list.c
   src/mupnp/device_ssdp_server.c
@@ -92,8 +92,8 @@ set(MUPNP_SRCS
   src/mupnp/service_list.c
   src/mupnp/service_notify.c
   src/mupnp/service_ssdp_server.c
-  src/mupnp/servicestate_table.c
   src/mupnp/service_std_dcp.c
+  src/mupnp/servicestate_table.c
   src/mupnp/soap/soap.c
   src/mupnp/soap/soap_request.c
   src/mupnp/soap/soap_response.c
