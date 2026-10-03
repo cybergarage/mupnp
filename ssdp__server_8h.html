@@ -335,7 +335,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="socket_8c.html#a645fe48f195076c7ef86bfe17154f14e">mupnp_socket_close</a>(sock)</div>
-<div class="ttc" id="asocket_8c_html_a645fe48f195076c7ef86bfe17154f14e"><div class="ttname"><a href="socket_8c.html#a645fe48f195076c7ef86bfe17154f14e">mupnp_socket_close</a></div><div class="ttdeci">bool mupnp_socket_close(mUpnpSocket *sock)</div><div class="ttdef"><b>Definition</b> socket.c:320</div></div>
+<div class="ttc" id="asocket_8c_html_a645fe48f195076c7ef86bfe17154f14e"><div class="ttname"><a href="socket_8c.html#a645fe48f195076c7ef86bfe17154f14e">mupnp_socket_close</a></div><div class="ttdeci">bool mupnp_socket_close(mUpnpSocket *sock)</div><div class="ttdef"><b>Definition</b> socket.c:386</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -354,7 +354,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="socket_8c.html#a7aa1baa00203e2914b8b440393f749ad">mupnp_socket_delete</a>(sock)</div>
-<div class="ttc" id="asocket_8c_html_a7aa1baa00203e2914b8b440393f749ad"><div class="ttname"><a href="socket_8c.html#a7aa1baa00203e2914b8b440393f749ad">mupnp_socket_delete</a></div><div class="ttdeci">bool mupnp_socket_delete(mUpnpSocket *sock)</div><div class="ttdef"><b>Definition</b> socket.c:256</div></div>
+<div class="ttc" id="asocket_8c_html_a7aa1baa00203e2914b8b440393f749ad"><div class="ttname"><a href="socket_8c.html#a7aa1baa00203e2914b8b440393f749ad">mupnp_socket_delete</a></div><div class="ttdeci">bool mupnp_socket_delete(mUpnpSocket *sock)</div><div class="ttdef"><b>Definition</b> socket.c:312</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -373,7 +373,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="socket_8h.html#af105040559ea7f82d47636cd7ef1bd81">mupnp_socket_dgram_new</a>()</div>
-<div class="ttc" id="asocket_8h_html_af105040559ea7f82d47636cd7ef1bd81"><div class="ttname"><a href="socket_8h.html#af105040559ea7f82d47636cd7ef1bd81">mupnp_socket_dgram_new</a></div><div class="ttdeci">#define mupnp_socket_dgram_new()</div><div class="ttdef"><b>Definition</b> socket.h:113</div></div>
+<div class="ttc" id="asocket_8h_html_af105040559ea7f82d47636cd7ef1bd81"><div class="ttname"><a href="socket_8h.html#af105040559ea7f82d47636cd7ef1bd81">mupnp_socket_dgram_new</a></div><div class="ttdeci">#define mupnp_socket_dgram_new()</div><div class="ttdef"><b>Definition</b> socket.h:116</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -401,7 +401,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="socket_8c.html#ad47e0625730966cc6cedcb6cd991a4aa">mupnp_socket_bind</a>(sock, bindPort, bindAddr, <span class="keyword">false</span>, <span class="keyword">false</span>)</div>
-<div class="ttc" id="asocket_8c_html_ad47e0625730966cc6cedcb6cd991a4aa"><div class="ttname"><a href="socket_8c.html#ad47e0625730966cc6cedcb6cd991a4aa">mupnp_socket_bind</a></div><div class="ttdeci">bool mupnp_socket_bind(mUpnpSocket *sock, int bindPort, const char *bindAddr, bool bindFlag, bool reuseFlag)</div><div class="ttdef"><b>Definition</b> socket.c:431</div></div>
+<div class="ttc" id="asocket_8c_html_ad47e0625730966cc6cedcb6cd991a4aa"><div class="ttname"><a href="socket_8c.html#ad47e0625730966cc6cedcb6cd991a4aa">mupnp_socket_bind</a></div><div class="ttdeci">bool mupnp_socket_bind(mUpnpSocket *sock, int bindPort, const char *bindAddr, bool bindFlag, bool reuseFlag)</div><div class="ttdef"><b>Definition</b> socket.c:497</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -592,7 +592,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_function" href="#a6542078d360fdbe72d9575c544aebf18">mupnp_ssdp_packet_getmaxage</a>(ssdpPkt) == 0 ? 0 : <a class="code hl_define" href="#ab9de7a0edf6d1446a371ebfe95ee4940">mupnp_ssdp_packet_gettimestamp</a>(ssdpPkt) + <a class="code hl_function" href="#a6542078d360fdbe72d9575c544aebf18">mupnp_ssdp_packet_getmaxage</a>(ssdpPkt))</div>
 <div class="ttc" id="assdp__server_8h_html_a6542078d360fdbe72d9575c544aebf18"><div class="ttname"><a href="#a6542078d360fdbe72d9575c544aebf18">mupnp_ssdp_packet_getmaxage</a></div><div class="ttdeci">long mupnp_ssdp_packet_getmaxage(mUpnpSSDPPacket *ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_packet.c:148</div></div>
-<div class="ttc" id="assdp__server_8h_html_ab9de7a0edf6d1446a371ebfe95ee4940"><div class="ttname"><a href="#ab9de7a0edf6d1446a371ebfe95ee4940">mupnp_ssdp_packet_gettimestamp</a></div><div class="ttdeci">#define mupnp_ssdp_packet_gettimestamp(ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_server.h:106</div></div>
+<div class="ttc" id="assdp__server_8h_html_ab9de7a0edf6d1446a371ebfe95ee4940"><div class="ttname"><a href="#ab9de7a0edf6d1446a371ebfe95ee4940">mupnp_ssdp_packet_gettimestamp</a></div><div class="ttdeci">#define mupnp_ssdp_packet_gettimestamp(ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_server.h:110</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -668,7 +668,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="socket_8h.html#aaf9a156b2070afb90accea8834a2f574">mupnp_socket_datagram_packet_getlocaladdress</a>(ssdpPkt-&gt;dgmPkt)</div>
-<div class="ttc" id="asocket_8h_html_aaf9a156b2070afb90accea8834a2f574"><div class="ttname"><a href="socket_8h.html#aaf9a156b2070afb90accea8834a2f574">mupnp_socket_datagram_packet_getlocaladdress</a></div><div class="ttdeci">#define mupnp_socket_datagram_packet_getlocaladdress(dgmPkt)</div><div class="ttdef"><b>Definition</b> socket.h:177</div></div>
+<div class="ttc" id="asocket_8h_html_aaf9a156b2070afb90accea8834a2f574"><div class="ttname"><a href="socket_8h.html#aaf9a156b2070afb90accea8834a2f574">mupnp_socket_datagram_packet_getlocaladdress</a></div><div class="ttdeci">#define mupnp_socket_datagram_packet_getlocaladdress(dgmPkt)</div><div class="ttdef"><b>Definition</b> socket.h:180</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -687,7 +687,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="socket_8h.html#a6a223d2ae61186ab7ca5051094d6b53a">mupnp_socket_datagram_packet_getlocalport</a>(ssdpPkt-&gt;dgmPkt)</div>
-<div class="ttc" id="asocket_8h_html_a6a223d2ae61186ab7ca5051094d6b53a"><div class="ttname"><a href="socket_8h.html#a6a223d2ae61186ab7ca5051094d6b53a">mupnp_socket_datagram_packet_getlocalport</a></div><div class="ttdeci">#define mupnp_socket_datagram_packet_getlocalport(dgmPkt)</div><div class="ttdef"><b>Definition</b> socket.h:179</div></div>
+<div class="ttc" id="asocket_8h_html_a6a223d2ae61186ab7ca5051094d6b53a"><div class="ttname"><a href="socket_8h.html#a6a223d2ae61186ab7ca5051094d6b53a">mupnp_socket_datagram_packet_getlocalport</a></div><div class="ttdeci">#define mupnp_socket_datagram_packet_getlocalport(dgmPkt)</div><div class="ttdef"><b>Definition</b> socket.h:182</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -802,7 +802,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="socket_8h.html#aa915864f89244d97b13cdb9ae07df15d">mupnp_socket_datagram_packet_getremoteaddress</a>(ssdpPkt-&gt;dgmPkt)</div>
-<div class="ttc" id="asocket_8h_html_aa915864f89244d97b13cdb9ae07df15d"><div class="ttname"><a href="socket_8h.html#aa915864f89244d97b13cdb9ae07df15d">mupnp_socket_datagram_packet_getremoteaddress</a></div><div class="ttdeci">#define mupnp_socket_datagram_packet_getremoteaddress(dgmPkt)</div><div class="ttdef"><b>Definition</b> socket.h:181</div></div>
+<div class="ttc" id="asocket_8h_html_aa915864f89244d97b13cdb9ae07df15d"><div class="ttname"><a href="socket_8h.html#aa915864f89244d97b13cdb9ae07df15d">mupnp_socket_datagram_packet_getremoteaddress</a></div><div class="ttdeci">#define mupnp_socket_datagram_packet_getremoteaddress(dgmPkt)</div><div class="ttdef"><b>Definition</b> socket.h:184</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -821,7 +821,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="socket_8h.html#a81047ae8481ef4bb23a99fcf8cd3b2f9">mupnp_socket_datagram_packet_getremoteport</a>(ssdpPkt-&gt;dgmPkt)</div>
-<div class="ttc" id="asocket_8h_html_a81047ae8481ef4bb23a99fcf8cd3b2f9"><div class="ttname"><a href="socket_8h.html#a81047ae8481ef4bb23a99fcf8cd3b2f9">mupnp_socket_datagram_packet_getremoteport</a></div><div class="ttdeci">#define mupnp_socket_datagram_packet_getremoteport(dgmPkt)</div><div class="ttdef"><b>Definition</b> socket.h:183</div></div>
+<div class="ttc" id="asocket_8h_html_a81047ae8481ef4bb23a99fcf8cd3b2f9"><div class="ttname"><a href="socket_8h.html#a81047ae8481ef4bb23a99fcf8cd3b2f9">mupnp_socket_datagram_packet_getremoteport</a></div><div class="ttdeci">#define mupnp_socket_datagram_packet_getremoteport(dgmPkt)</div><div class="ttdef"><b>Definition</b> socket.h:186</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -934,7 +934,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="control_8h.html#a5b7c2e009de56da1741a425c008451de">mupnp_nts_isalive</a>(<a class="code hl_define" href="#adfc7b95ca1451db35fff9f4ad827e0f5">mupnp_ssdp_packet_getnts</a>(ssdpPkt))</div>
 <div class="ttc" id="acontrol_8h_html_a5b7c2e009de56da1741a425c008451de"><div class="ttname"><a href="control_8h.html#a5b7c2e009de56da1741a425c008451de">mupnp_nts_isalive</a></div><div class="ttdeci">#define mupnp_nts_isalive(str)</div><div class="ttdef"><b>Definition</b> control.h:706</div></div>
-<div class="ttc" id="assdp__server_8h_html_adfc7b95ca1451db35fff9f4ad827e0f5"><div class="ttname"><a href="#adfc7b95ca1451db35fff9f4ad827e0f5">mupnp_ssdp_packet_getnts</a></div><div class="ttdeci">#define mupnp_ssdp_packet_getnts(ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_server.h:124</div></div>
+<div class="ttc" id="assdp__server_8h_html_adfc7b95ca1451db35fff9f4ad827e0f5"><div class="ttname"><a href="#adfc7b95ca1451db35fff9f4ad827e0f5">mupnp_ssdp_packet_getnts</a></div><div class="ttdeci">#define mupnp_ssdp_packet_getnts(ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_server.h:128</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -973,7 +973,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="control_8h.html#aa3c0da7d695df9b766cbd96337bfb84a">mupnp_man_isdiscover</a>(<a class="code hl_define" href="#a77f8f3ed131b1c5819323d43967371f9">mupnp_ssdp_packet_getman</a>(ssdpPkt))</div>
 <div class="ttc" id="acontrol_8h_html_aa3c0da7d695df9b766cbd96337bfb84a"><div class="ttname"><a href="control_8h.html#aa3c0da7d695df9b766cbd96337bfb84a">mupnp_man_isdiscover</a></div><div class="ttdeci">#define mupnp_man_isdiscover(str)</div><div class="ttdef"><b>Definition</b> control.h:622</div></div>
-<div class="ttc" id="assdp__server_8h_html_a77f8f3ed131b1c5819323d43967371f9"><div class="ttname"><a href="#a77f8f3ed131b1c5819323d43967371f9">mupnp_ssdp_packet_getman</a></div><div class="ttdeci">#define mupnp_ssdp_packet_getman(ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_server.h:122</div></div>
+<div class="ttc" id="assdp__server_8h_html_a77f8f3ed131b1c5819323d43967371f9"><div class="ttname"><a href="#a77f8f3ed131b1c5819323d43967371f9">mupnp_ssdp_packet_getman</a></div><div class="ttdeci">#define mupnp_ssdp_packet_getman(ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_server.h:126</div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -72,7 +72,9 @@ $(function(){initNavTree('http__packet_8c.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">http_packet.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="http_8h.html">mupnp/http/http.h</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;errno.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="string_8h.html">string.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="http_8h.html">mupnp/http/http.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="log_8h.html">mupnp/util/log.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="interface_8h.html">mupnp/net/interface.h</a>&gt;</code><br />
 <code>#include &lt;limits.h&gt;</code><br />
@@ -120,8 +122,8 @@ Functions</h2></td></tr>
 <tr class="separator:a91d2e4ac8f4c1654735455f938889256"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19dab0f80fed06fbab7df149e6a1fb94" id="r_a19dab0f80fed06fbab7df149e6a1fb94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19dab0f80fed06fbab7df149e6a1fb94">mupnp_http_packet_read_headers</a> (<a class="el" href="http_8h.html#afb8159164830f2db20e460e17fc5c873">mUpnpHttpPacket</a> *httpPkt, <a class="el" href="socket_8h.html#aad3158bb4abcafffcb4828e7450da8d4">mUpnpSocket</a> *sock, char *lineBuf, size_t lineBufSize)</td></tr>
 <tr class="separator:a19dab0f80fed06fbab7df149e6a1fb94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac03aaa28e657faadfee9547f60a4b8ad" id="r_ac03aaa28e657faadfee9547f60a4b8ad"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac03aaa28e657faadfee9547f60a4b8ad">mupnp_http_packet_read_chunk</a> (<a class="el" href="http_8h.html#afb8159164830f2db20e460e17fc5c873">mUpnpHttpPacket</a> *httpPkt, <a class="el" href="socket_8h.html#aad3158bb4abcafffcb4828e7450da8d4">mUpnpSocket</a> *sock, char *lineBuf, size_t lineBufSize)</td></tr>
-<tr class="separator:ac03aaa28e657faadfee9547f60a4b8ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a944fc4c55db25563a10377ee858c9aca" id="r_a944fc4c55db25563a10377ee858c9aca"><td class="memItemLeft" align="right" valign="top">static ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a944fc4c55db25563a10377ee858c9aca">mupnp_http_packet_read_chunk</a> (<a class="el" href="http_8h.html#afb8159164830f2db20e460e17fc5c873">mUpnpHttpPacket</a> *httpPkt, <a class="el" href="socket_8h.html#aad3158bb4abcafffcb4828e7450da8d4">mUpnpSocket</a> *sock, char *lineBuf, size_t lineBufSize)</td></tr>
+<tr class="separator:a944fc4c55db25563a10377ee858c9aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21a1c08028b601895128db3fc772dc32" id="r_a21a1c08028b601895128db3fc772dc32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21a1c08028b601895128db3fc772dc32">mupnp_http_packet_read_body</a> (<a class="el" href="http_8h.html#afb8159164830f2db20e460e17fc5c873">mUpnpHttpPacket</a> *httpPkt, <a class="el" href="socket_8h.html#aad3158bb4abcafffcb4828e7450da8d4">mUpnpSocket</a> *sock, char *lineBuf, size_t lineBufSize)</td></tr>
 <tr class="separator:a21a1c08028b601895128db3fc772dc32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a064187da0f1350f514e8dc606eb1cc95" id="r_a064187da0f1350f514e8dc606eb1cc95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a064187da0f1350f514e8dc606eb1cc95">mupnp_http_packet_read</a> (<a class="el" href="http_8h.html#afb8159164830f2db20e460e17fc5c873">mUpnpHttpPacket</a> *httpPkt, <a class="el" href="socket_8h.html#aad3158bb4abcafffcb4828e7450da8d4">mUpnpSocket</a> *sock, <a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a> onlyHeader, char *lineBuf, size_t lineBufSize)</td></tr>
@@ -482,14 +484,17 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ac03aaa28e657faadfee9547f60a4b8ad" name="ac03aaa28e657faadfee9547f60a4b8ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac03aaa28e657faadfee9547f60a4b8ad">&#9670;&#160;</a></span>mupnp_http_packet_read_chunk()</h2>
+<a id="a944fc4c55db25563a10377ee858c9aca" name="a944fc4c55db25563a10377ee858c9aca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a944fc4c55db25563a10377ee858c9aca">&#9670;&#160;</a></span>mupnp_http_packet_read_chunk()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">size_t mupnp_http_packet_read_chunk </td>
+          <td class="memname">static ssize_t mupnp_http_packet_read_chunk </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="http_8h.html#afb8159164830f2db20e460e17fc5c873">mUpnpHttpPacket</a> *</td>          <td class="paramname"><span class="paramname"><em>httpPkt</em></span>, </td>
         </tr>
@@ -509,6 +514,11 @@ Functions</h2></td></tr>
           <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>lineBufSize</em></span>&#160;)</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>

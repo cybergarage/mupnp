@@ -82,13 +82,12 @@ $(function(){initNavTree('upnp_8h.html',''); initResizable(true); });
 <code>#include &lt;<a class="el" href="controlpoint_8h.html">mupnp/controlpoint.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="control_8h.html">mupnp/control/control.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="event_8h.html">mupnp/event/event.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="version_8h.html">mupnp/version.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:ac5b9c0cc7b20a31a327c21edac988422" id="r_ac5b9c0cc7b20a31a327c21edac988422"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5b9c0cc7b20a31a327c21edac988422">MUPNP_NAME</a>&#160;&#160;&#160;&quot;mUPnP&quot;</td></tr>
 <tr class="separator:ac5b9c0cc7b20a31a327c21edac988422"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad746461714b7c17e9fc1d8ab36ebfe48" id="r_ad746461714b7c17e9fc1d8ab36ebfe48"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad746461714b7c17e9fc1d8ab36ebfe48">MUPNP_VER</a>&#160;&#160;&#160;&quot;3.0.2&quot;</td></tr>
-<tr class="separator:ad746461714b7c17e9fc1d8ab36ebfe48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bca53d83fedae197d6d5b9e513a6355" id="r_a4bca53d83fedae197d6d5b9e513a6355"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4bca53d83fedae197d6d5b9e513a6355">MUPNP_DLNA_VER</a>&#160;&#160;&#160;&quot;1.50&quot;</td></tr>
 <tr class="separator:a4bca53d83fedae197d6d5b9e513a6355"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7baf976e33075122e04e75a7bc6f443" id="r_ad7baf976e33075122e04e75a7bc6f443"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad7baf976e33075122e04e75a7bc6f443">MUPNP_XML_DECLARATION</a>&#160;&#160;&#160;&quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;&quot;</td></tr>
@@ -153,9 +152,9 @@ Control Point Example</h2>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="acontrolpoint_8c_html_a13ca075e0efce9811bcd2621036b5e74"><div class="ttname"><a href="controlpoint_8c.html#a13ca075e0efce9811bcd2621036b5e74">mupnp_controlpoint_delete</a></div><div class="ttdeci">void mupnp_controlpoint_delete(mUpnpControlPoint *ctrlPoint)</div><div class="ttdoc">Destroy a control point and free all associated resources.</div><div class="ttdef"><b>Definition</b> controlpoint.c:123</div></div>
-<div class="ttc" id="acontrolpoint_8c_html_a3d38299a5e04b7c42a4715d58cd13677"><div class="ttname"><a href="controlpoint_8c.html#a3d38299a5e04b7c42a4715d58cd13677">mupnp_controlpoint_search</a></div><div class="ttdeci">bool mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target)</div><div class="ttdoc">Send an M-SEARCH multicast message to discover UPnP devices.</div><div class="ttdef"><b>Definition</b> controlpoint.c:740</div></div>
+<div class="ttc" id="acontrolpoint_8c_html_a3d38299a5e04b7c42a4715d58cd13677"><div class="ttname"><a href="controlpoint_8c.html#a3d38299a5e04b7c42a4715d58cd13677">mupnp_controlpoint_search</a></div><div class="ttdeci">bool mupnp_controlpoint_search(mUpnpControlPoint *ctrlPoint, const char *target)</div><div class="ttdoc">Send an M-SEARCH multicast message to discover UPnP devices.</div><div class="ttdef"><b>Definition</b> controlpoint.c:782</div></div>
 <div class="ttc" id="acontrolpoint_8c_html_a528c2288f76436f5d1ba619b45b2d357"><div class="ttname"><a href="controlpoint_8c.html#a528c2288f76436f5d1ba619b45b2d357">mupnp_controlpoint_start</a></div><div class="ttdeci">bool mupnp_controlpoint_start(mUpnpControlPoint *ctrlPoint)</div><div class="ttdoc">Activate the control point and start network listeners.</div><div class="ttdef"><b>Definition</b> controlpoint.c:164</div></div>
-<div class="ttc" id="acontrolpoint_8c_html_a6d399f550fe9dee6a72ba9b35c9407ef"><div class="ttname"><a href="controlpoint_8c.html#a6d399f550fe9dee6a72ba9b35c9407ef">mupnp_controlpoint_stop</a></div><div class="ttdeci">bool mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint)</div><div class="ttdoc">Stop the control point and shut down network listeners.</div><div class="ttdef"><b>Definition</b> controlpoint.c:236</div></div>
+<div class="ttc" id="acontrolpoint_8c_html_a6d399f550fe9dee6a72ba9b35c9407ef"><div class="ttname"><a href="controlpoint_8c.html#a6d399f550fe9dee6a72ba9b35c9407ef">mupnp_controlpoint_stop</a></div><div class="ttdeci">bool mupnp_controlpoint_stop(mUpnpControlPoint *ctrlPoint)</div><div class="ttdoc">Stop the control point and shut down network listeners.</div><div class="ttdef"><b>Definition</b> controlpoint.c:278</div></div>
 <div class="ttc" id="acontrolpoint_8c_html_aa5ebe8ac088296517392651ed4937e51"><div class="ttname"><a href="controlpoint_8c.html#aa5ebe8ac088296517392651ed4937e51">mupnp_controlpoint_new</a></div><div class="ttdeci">mUpnpControlPoint * mupnp_controlpoint_new(void)</div><div class="ttdoc">Create a new control point instance.</div><div class="ttdef"><b>Definition</b> controlpoint.c:70</div></div>
 <div class="ttc" id="acontrolpoint_8h_html_a4775fb3ec6882f565b2d25deadcd8d05"><div class="ttname"><a href="controlpoint_8h.html#a4775fb3ec6882f565b2d25deadcd8d05">mUpnpDeviceStatus</a></div><div class="ttdeci">enum _mUpnpDeviceStatus mUpnpDeviceStatus</div></div>
 <div class="ttc" id="acontrolpoint_8h_html_a4bdde15861e6f92eaa753d0e25d85e44a2a1ec083e1a8e89296b026da7c2bf1ec"><div class="ttname"><a href="controlpoint_8h.html#a4bdde15861e6f92eaa753d0e25d85e44a2a1ec083e1a8e89296b026da7c2bf1ec">mUpnpDeviceStatusAdded</a></div><div class="ttdeci">@ mUpnpDeviceStatusAdded</div><div class="ttdef"><b>Definition</b> controlpoint.h:72</div></div>
@@ -200,8 +199,8 @@ Device Example</h2>
 <div class="ttc" id="adevice_8c_html_a5981b74558fe69136e90ebdd9a1f8dc1"><div class="ttname"><a href="device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new</a></div><div class="ttdeci">mUpnpDevice * mupnp_device_new(void)</div><div class="ttdoc">Create a new UPnP device instance.</div><div class="ttdef"><b>Definition</b> device.c:41</div></div>
 <div class="ttc" id="adevice_8c_html_a6eb99cb4d1c0f01e2597f8d0596dae65"><div class="ttname"><a href="device_8c.html#a6eb99cb4d1c0f01e2597f8d0596dae65">mupnp_device_delete</a></div><div class="ttdeci">void mupnp_device_delete(mUpnpDevice *dev)</div><div class="ttdoc">Delete a UPnP device and free all associated resources.</div><div class="ttdef"><b>Definition</b> device.c:95</div></div>
 <div class="ttc" id="adevice_8c_html_a7a2d960ccbb38229b8425f2925d0c40f"><div class="ttname"><a href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start</a></div><div class="ttdeci">bool mupnp_device_start(mUpnpDevice *dev)</div><div class="ttdoc">Start a UPnP device and begin advertising on the network.</div><div class="ttdef"><b>Definition</b> device.c:1373</div></div>
-<div class="ttc" id="adevice_8c_html_aa29f22524439920db536643028a799cb"><div class="ttname"><a href="device_8c.html#aa29f22524439920db536643028a799cb">mupnp_device_stop</a></div><div class="ttdeci">bool mupnp_device_stop(mUpnpDevice *dev)</div><div class="ttdoc">Stop a UPnP device and cease network advertising.</div><div class="ttdef"><b>Definition</b> device.c:1439</div></div>
-<div class="ttc" id="adevice_8c_html_ae6e0dbb589b5c06aeb99d9635a22eab0"><div class="ttname"><a href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener</a></div><div class="ttdeci">void mupnp_device_setactionlistener(mUpnpDevice *dev, MUPNP_ACTION_LISTNER actionListner)</div><div class="ttdef"><b>Definition</b> device.c:1784</div></div>
+<div class="ttc" id="adevice_8c_html_aa29f22524439920db536643028a799cb"><div class="ttname"><a href="device_8c.html#aa29f22524439920db536643028a799cb">mupnp_device_stop</a></div><div class="ttdeci">bool mupnp_device_stop(mUpnpDevice *dev)</div><div class="ttdoc">Stop a UPnP device and cease network advertising.</div><div class="ttdef"><b>Definition</b> device.c:1474</div></div>
+<div class="ttc" id="adevice_8c_html_ae6e0dbb589b5c06aeb99d9635a22eab0"><div class="ttname"><a href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener</a></div><div class="ttdeci">void mupnp_device_setactionlistener(mUpnpDevice *dev, MUPNP_ACTION_LISTNER actionListner)</div><div class="ttdef"><b>Definition</b> device.c:1819</div></div>
 <div class="ttc" id="astruct__mUpnpAction_html"><div class="ttname"><a href="struct__mUpnpAction.html">_mUpnpAction</a></div><div class="ttdef"><b>Definition</b> action.h:40</div></div>
 <div class="ttc" id="astruct__mUpnpArgument_html"><div class="ttname"><a href="struct__mUpnpArgument.html">_mUpnpArgument</a></div><div class="ttdef"><b>Definition</b> argument.h:55</div></div>
 <div class="ttc" id="astruct__mUpnpDevice_html"><div class="ttname"><a href="struct__mUpnpDevice.html">_mUpnpDevice</a></div><div class="ttdoc">The generic UPnP device structure.</div><div class="ttdef"><b>Definition</b> device.h:122</div></div>
@@ -249,20 +248,6 @@ Platform Support</h1>
       <table class="memname">
         <tr>
           <td class="memname">#define MUPNP_NAME&#160;&#160;&#160;&quot;mUPnP&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad746461714b7c17e9fc1d8ab36ebfe48" name="ad746461714b7c17e9fc1d8ab36ebfe48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad746461714b7c17e9fc1d8ab36ebfe48">&#9670;&#160;</a></span>MUPNP_VER</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define MUPNP_VER&#160;&#160;&#160;&quot;3.0.2&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
