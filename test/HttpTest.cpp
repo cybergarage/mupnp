@@ -17,6 +17,8 @@
 // testHttpServer
 ////////////////////////////////////////
 
+// Use the same address family for both ends; localhost may resolve to ::1.
+#define MUPNP_TESTCASE_HTTP_ADDR "127.0.0.1"
 #define MUPNP_TESTCASE_HTTP_PORT 38192
 #define MUPNP_TESTCASE_HTTP_PAGE "<HTML><BODY>Hello World</BODY></HTML>"
 #define MUPNP_TESTCASE_HTTP_URL "/index.html"
@@ -40,9 +42,9 @@ BOOST_AUTO_TEST_CASE(HttpServer)
   /**** HTTP Server ****/
   mUpnpHttpServer* httpServer = mupnp_http_server_new();
   BOOST_REQUIRE(httpServer);
-  BOOST_REQUIRE(mupnp_http_server_open(httpServer, MUPNP_TESTCASE_HTTP_PORT, NULL));
+  BOOST_REQUIRE(mupnp_http_server_open(httpServer, MUPNP_TESTCASE_HTTP_PORT, MUPNP_TESTCASE_HTTP_ADDR));
   mupnp_http_server_setlistener(httpServer, clink_testcase_http_request_recieved);
-  mupnp_http_server_start(httpServer);
+  BOOST_REQUIRE(mupnp_http_server_start(httpServer));
 
   /**** HTTP Client ****/
   for (int n = 0; n < MUPNP_TESTCASE_HTTP_LOOP; n++) {
@@ -51,7 +53,7 @@ BOOST_AUTO_TEST_CASE(HttpServer)
     mupnp_http_request_setmethod(httpReq, MUPNP_HTTP_GET);
     mupnp_http_request_seturi(httpReq, MUPNP_TESTCASE_HTTP_URL);
     mupnp_http_request_setcontentlength(httpReq, 0);
-    mUpnpHttpResponse* httpRes = mupnp_http_request_post(httpReq, "localhost", MUPNP_TESTCASE_HTTP_PORT);
+    mUpnpHttpResponse* httpRes = mupnp_http_request_post(httpReq, MUPNP_TESTCASE_HTTP_ADDR, MUPNP_TESTCASE_HTTP_PORT);
     BOOST_REQUIRE(httpRes);
     BOOST_REQUIRE(mupnp_http_response_issuccessful(httpRes));
     BOOST_REQUIRE(mupnp_streq(mupnp_http_response_getcontent(httpRes), MUPNP_TESTCASE_HTTP_PAGE));
