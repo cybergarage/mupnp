@@ -3,7 +3,9 @@
 Run from the repository root on Linux with a C11 compiler and pthreads:
 
 ```sh
+test/espidf/host/check_generators.sh
 test/espidf/host/run.sh
+test/espidf/host/run_socket.sh
 ```
 
 This builds the actual `ESP_PLATFORM` thread, time, condition, mutex and list
@@ -40,3 +42,9 @@ self-owned worker's deletion with external access/deletion.
 ESP-IDF's `pthread_join()` uses the caller's default FreeRTOS task-notification
 slot. Use event groups, queues, semaphores or a separate indexed notification
 slot for application notifications during shutdown.
+
+The generator check ensures `bootstrap` preserves the ESP component CMake
+branch and keeps standalone ESP test programs out of the normal Boost test
+binary. The socket suite checks cooperative TCP/UDP receive cancellation and
+socket timeouts configured before a descriptor is created, using host socket
+pairs rather than a live network. These tests do not emulate lwIP.

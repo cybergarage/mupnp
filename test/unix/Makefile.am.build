@@ -21,7 +21,7 @@ print<<NOINST_HEADERS;
 noinst_HEADERS = \\
 NOINST_HEADERS
 
-my @find_files = `find ../ -name *.h`;
+my @find_files = `find ../ -path '../espidf' -prune -o -name '*.h' -print`;
 my @include_files;
 foreach $file (@find_files) {
 	$file =~ s/\n//;
@@ -35,7 +35,7 @@ print<<SOURCES;
 mupnptest_SOURCES = \\
 SOURCES
 
-my @find_files = `find ../ -name *.cpp -or -name *.c`;
+my @find_files = `find ../ -path '../espidf' -prune -o -name '*.cpp' -print -o -name '*.c' -print`;
 my @source_files;
 foreach $file (@find_files) {
 	$file =~ s/\n//;

@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Check bootstrap build generators
+        run: test/espidf/host/check_generators.sh
       - name: ESP lifecycle regression (ASan and UBSan)
         run: test/espidf/host/run.sh
       - name: ESP socket shutdown regression (ASan and UBSan)
