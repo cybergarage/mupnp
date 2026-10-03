@@ -10,6 +10,9 @@
  ******************************************************************/
 
 #include <string.h>
+#if defined(ESP_PLATFORM)
+#include "sdkconfig.h"
+#endif
 #if !defined(WIN32) && !defined(WINCE) && !defined(ESP_PLATFORM)
 #include <signal.h>
 #endif
@@ -132,14 +135,26 @@ static VOID TEngineProcessBasedTaskProc(W param)
 /* Key used to store self reference in (p)thread global storage */
 static pthread_key_t mupnpThreadSelfRef;
 static pthread_once_t mupnpThreadMykeycreated = PTHREAD_ONCE_INIT;
+#if defined(ESP_PLATFORM)
+static int mupnpThreadKeyResult;
+#endif
 
 static void mupnp_thread_createkey(void)
 {
+#if defined(ESP_PLATFORM)
+  mupnpThreadKeyResult = pthread_key_create(&mupnpThreadSelfRef, NULL);
+#else
   pthread_key_create(&mupnpThreadSelfRef, NULL);
+#endif
 }
 
 mUpnpThread* mupnp_thread_self(void)
 {
+#if defined(ESP_PLATFORM)
+  /* Socket helpers also call this from app_main and other non-mUPnP tasks. */
+  if (pthread_once(&mupnpThreadMykeycreated, mupnp_thread_createkey) != 0 || mupnpThreadKeyResult != 0)
+    return NULL;
+#endif
   return (mUpnpThread*)pthread_getspecific(mupnpThreadSelfRef);
 }
 
@@ -168,11 +183,35 @@ static void* posix_thread_proc(void* param)
   sigaction(SIGQUIT, &actions, NULL);
 #endif
 
+#if defined(ESP_PLATFORM)
+  /* Do not run before start has stored the pthread handle and lifecycle state. */
+  pthread_mutex_lock(&thread->stateMutex);
+  pthread_mutex_unlock(&thread->stateMutex);
+  if (pthread_setspecific(mupnpThreadSelfRef, param) == 0 && thread->action != NULL)
+    thread->action(thread);
+
+  pthread_mutex_lock(&thread->stateMutex);
+  thread->runnableFlag = false;
+  thread->threadRunning = false;
+  bool deletePending = thread->deletePending;
+  pthread_cond_broadcast(&thread->stateCond);
+  pthread_mutex_unlock(&thread->stateMutex);
+
+  pthread_setspecific(mupnpThreadSelfRef, NULL);
+  if (deletePending) {
+    /* Self-owned notification workers have no external thread to join them. */
+    pthread_detach(pthread_self());
+    pthread_cond_destroy(&thread->stateCond);
+    pthread_mutex_destroy(&thread->stateMutex);
+    free(thread);
+  }
+#else
   pthread_once(&mupnpThreadMykeycreated, mupnp_thread_createkey);
   pthread_setspecific(mupnpThreadSelfRef, param);
 
   if (thread->action != NULL)
     thread->action(thread);
+#endif
 
   mupnp_log_debug_l4("Leaving...\n");
 
@@ -200,6 +239,21 @@ mUpnpThread* mupnp_thread_new(void)
     thread->runnableFlag = false;
     thread->action = NULL;
     thread->userData = NULL;
+#if defined(ESP_PLATFORM)
+    thread->threadStarted = false;
+    thread->threadRunning = false;
+    thread->joinInProgress = false;
+    thread->deletePending = false;
+    if (pthread_mutex_init(&thread->stateMutex, NULL) != 0) {
+      free(thread);
+      return NULL;
+    }
+    if (pthread_cond_init(&thread->stateCond, NULL) != 0) {
+      pthread_mutex_destroy(&thread->stateMutex);
+      free(thread);
+      return NULL;
+    }
+#endif
   }
 
 #if defined(WINCE)
@@ -223,7 +277,32 @@ mUpnpThread* mupnp_thread_new(void)
 
 bool mupnp_thread_delete(mUpnpThread* thread)
 {
-#if defined WINCE
+#if defined(ESP_PLATFORM)
+  if (thread == NULL)
+    return false;
+  if (mupnp_thread_self() == thread) {
+    pthread_mutex_lock(&thread->stateMutex);
+    /* An external joiner owns cleanup if shutdown has already begun. */
+    if (thread->joinInProgress) {
+      pthread_mutex_unlock(&thread->stateMutex);
+      return false;
+    }
+    thread->runnableFlag = false;
+    thread->deletePending = true;
+    pthread_cond_broadcast(&thread->stateCond);
+    pthread_mutex_unlock(&thread->stateMutex);
+    mupnp_thread_remove(thread);
+    return true;
+  }
+  if (!mupnp_thread_stop(thread))
+    return false;
+  mupnp_thread_remove(thread);
+  pthread_cond_destroy(&thread->stateCond);
+  pthread_mutex_destroy(&thread->stateMutex);
+  free(thread);
+  return true;
+}
+#elif defined WINCE
   bool stop = false;
 
   mupnp_log_debug_l4("Entering...\n");
@@ -278,6 +357,46 @@ bool mupnp_thread_delete(mUpnpThread* thread)
 
 bool mupnp_thread_start(mUpnpThread* thread)
 {
+#if defined(ESP_PLATFORM)
+  pthread_attr_t threadAttr;
+  int result;
+
+  if (thread == NULL || thread->action == NULL)
+    return false;
+  if (pthread_once(&mupnpThreadMykeycreated, mupnp_thread_createkey) != 0 || mupnpThreadKeyResult != 0)
+    return false;
+
+  pthread_mutex_lock(&thread->stateMutex);
+  if (thread->threadRunning || thread->joinInProgress || thread->deletePending) {
+    pthread_mutex_unlock(&thread->stateMutex);
+    return false;
+  }
+  /* A naturally completed worker still owns a joinable pthread handle. */
+  if (thread->threadStarted) {
+    if (pthread_join(thread->pThread, NULL) != 0) {
+      pthread_mutex_unlock(&thread->stateMutex);
+      return false;
+    }
+    thread->threadStarted = false;
+  }
+  result = pthread_attr_init(&threadAttr);
+  if (result == 0) {
+    result = pthread_attr_setstacksize(&threadAttr, CONFIG_MUPNP_THREAD_STACK_SIZE);
+    if (result == 0) {
+      thread->runnableFlag = true;
+      thread->threadRunning = true;
+      result = pthread_create(&thread->pThread, &threadAttr, posix_thread_proc, thread);
+      thread->threadStarted = (result == 0);
+      if (result != 0) {
+        thread->runnableFlag = false;
+        thread->threadRunning = false;
+      }
+    }
+    pthread_attr_destroy(&threadAttr);
+  }
+  pthread_mutex_unlock(&thread->stateMutex);
+  return result == 0;
+#else
   mupnp_log_debug_l4("Entering...\n");
 
   /**** Thanks for Visa Smolander (09/11/2005) ****/
@@ -373,6 +492,7 @@ bool mupnp_thread_start(mUpnpThread* thread)
   mupnp_log_debug_l4("Leaving...\n");
 
   return true;
+#endif
 }
 
 /****************************************
@@ -386,6 +506,42 @@ bool mupnp_thread_stop(mUpnpThread* thread)
 
 bool mupnp_thread_stop_with_cond(mUpnpThread* thread, mUpnpCond* cond)
 {
+#if defined(ESP_PLATFORM)
+  int result = 0;
+  if (thread == NULL)
+    return false;
+  pthread_mutex_lock(&thread->stateMutex);
+  thread->runnableFlag = false;
+  pthread_cond_broadcast(&thread->stateCond);
+  if (cond != NULL)
+    mupnp_cond_signal(cond);
+  if (mupnp_thread_self() == thread) {
+    pthread_mutex_unlock(&thread->stateMutex);
+    return true;
+  }
+  /* Self-deletion transfers lifetime to the wrapper; never join/free it twice. */
+  if (thread->deletePending) {
+    pthread_mutex_unlock(&thread->stateMutex);
+    return false;
+  }
+  while (thread->joinInProgress)
+    pthread_cond_wait(&thread->stateCond, &thread->stateMutex);
+  /* A restart could acquire the mutex between two concurrent stop requests. */
+  thread->runnableFlag = false;
+  pthread_cond_broadcast(&thread->stateCond);
+  if (thread->threadStarted) {
+    thread->joinInProgress = true;
+    pthread_mutex_unlock(&thread->stateMutex);
+    result = pthread_join(thread->pThread, NULL);
+    pthread_mutex_lock(&thread->stateMutex);
+    if (result == 0)
+      thread->threadStarted = false;
+    thread->joinInProgress = false;
+    pthread_cond_broadcast(&thread->stateCond);
+  }
+  pthread_mutex_unlock(&thread->stateMutex);
+  return result == 0;
+#else
 #if defined(WINCE)
   int i, j;
   bool result;
@@ -466,6 +622,7 @@ bool mupnp_thread_stop_with_cond(mUpnpThread* thread, mUpnpCond* cond)
   mupnp_log_debug_l4("Leaving...\n");
 
   return true;
+#endif
 }
 
 /****************************************
@@ -510,8 +667,12 @@ bool mupnp_thread_restart(mUpnpThread* thread)
 {
   mupnp_log_debug_l4("Entering...\n");
 
+#if defined(ESP_PLATFORM)
+  return mupnp_thread_stop(thread) && mupnp_thread_start(thread);
+#else
   mupnp_thread_stop(thread);
   mupnp_thread_start(thread);
+#endif
   return true;
 
   mupnp_log_debug_l4("Leaving...\n");
@@ -523,6 +684,15 @@ bool mupnp_thread_restart(mUpnpThread* thread)
 
 bool mupnp_thread_isrunnable(mUpnpThread* thread)
 {
+#if defined(ESP_PLATFORM)
+  bool runnable;
+  if (thread == NULL)
+    return false;
+  pthread_mutex_lock(&thread->stateMutex);
+  runnable = thread->runnableFlag;
+  pthread_mutex_unlock(&thread->stateMutex);
+  return runnable;
+#else
   mupnp_log_debug_l4("Entering...\n");
 
 #if !defined(WIN32) && !defined(WINCE) && !defined(ITRON) && !defined(BTRON) && !defined(TENGINE) && !defined(PROCESS_BASE)
@@ -532,7 +702,21 @@ bool mupnp_thread_isrunnable(mUpnpThread* thread)
   return thread->runnableFlag;
 
   mupnp_log_debug_l4("Leaving...\n");
+#endif
 }
+
+#if defined(ESP_PLATFORM)
+bool mupnp_thread_isrunning(mUpnpThread* thread)
+{
+  bool running;
+  if (thread == NULL)
+    return false;
+  pthread_mutex_lock(&thread->stateMutex);
+  running = thread->threadRunning;
+  pthread_mutex_unlock(&thread->stateMutex);
+  return running;
+}
+#endif
 
 /****************************************
  * mupnp_thread_setaction

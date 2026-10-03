@@ -1,0 +1,6 @@
+description: "mUPnP for C: UPnP devices and control points"
+url: "https://github.com/cybergarage/mupnp"
+license: "BSD-3-Clause"
+dependencies:
+  idf: ">=5.5,<6.0"
+  espressif/expat: "^2.8.4"

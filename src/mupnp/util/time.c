@@ -10,6 +10,13 @@
  ******************************************************************/
 
 #include <limits.h>
+#if defined(ESP_PLATFORM)
+#include <errno.h>
+#include <esp_timer.h>
+#include <mupnp/util/thread.h>
+#include <stdint.h>
+#include <sys/time.h>
+#endif
 
 #include <mupnp/util/log.h>
 #include <mupnp/util/time.h>
@@ -40,7 +47,42 @@ void mupnp_wait(mUpnpTime mtime)
 {
   mupnp_log_debug_l4("Entering...\n");
 
-#if defined(WIN32) && !defined(ITRON)
+#if defined(ESP_PLATFORM)
+  /* Advertisers can sleep for minutes. Stop wakes a managed worker immediately;
+   * short slices also avoid overflowing IDF's millisecond pthread timeout and
+   * keep the duration monotonic across wall-clock (SNTP) corrections. */
+  mUpnpThread* thread = mupnp_thread_self();
+  int64_t started = esp_timer_get_time() / 1000;
+  if (mtime <= 0)
+    return;
+  if (thread != NULL)
+    pthread_mutex_lock(&thread->stateMutex);
+  for (;;) {
+    int64_t remaining = mtime - (esp_timer_get_time() / 1000 - started);
+    if (remaining <= 0 || (thread != NULL && !thread->runnableFlag))
+      break;
+    long slice = (remaining < 100) ? (long)remaining : 100;
+    if (thread != NULL) {
+      struct timeval now;
+      struct timespec until;
+      gettimeofday(&now, NULL);
+      until.tv_sec = now.tv_sec;
+      until.tv_nsec = now.tv_usec * 1000 + slice * 1000000;
+      if (until.tv_nsec >= 1000000000) {
+        until.tv_sec++;
+        until.tv_nsec -= 1000000000;
+      }
+      int result = pthread_cond_timedwait(&thread->stateCond, &thread->stateMutex, &until);
+      if (result != 0 && result != ETIMEDOUT)
+        break;
+    }
+    else {
+      usleep((useconds_t)(slice * 1000));
+    }
+  }
+  if (thread != NULL)
+    pthread_mutex_unlock(&thread->stateMutex);
+#elif defined(WIN32) && !defined(ITRON)
   Sleep(mtime);
 #elif defined(BTRON)
   slp_tsk(mtime);

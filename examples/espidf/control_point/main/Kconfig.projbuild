@@ -1,0 +1,19 @@
+menu "mUPnP control point example"
+
+    config MUPNP_EXAMPLE_WIFI_SSID
+        string "Wi-Fi SSID"
+        default ""
+
+    config MUPNP_EXAMPLE_WIFI_PASSWORD
+        string "Wi-Fi password"
+        default ""
+        help
+            This value is stored in plaintext in sdkconfig and the firmware.
+            Do not commit credentials. Leave empty for an open test network.
+
+    config MUPNP_EXAMPLE_SEARCH_INTERVAL
+        int "SSDP search interval (seconds)"
+        range 10 3600
+        default 30
+
+endmenu

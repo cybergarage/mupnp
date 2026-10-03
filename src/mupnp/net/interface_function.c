@@ -69,6 +69,7 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <unistd.h>
 #endif
 
 #if defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
@@ -348,14 +349,15 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 
 #if defined(ESP_PLATFORM)
 
-int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
+static esp_err_t mupnp_net_gethostinterfaces_esp(void* context)
 {
+  mUpnpNetworkInterfaceList* netIfList = context;
   mUpnpNetworkInterface* netIf;
   esp_netif_t* espNetIf;
   esp_netif_ip_info_t ipInfo;
   struct in_addr inAddr;
-  char addr[NI_MAXHOST + 1];
-  char netmask[NI_MAXHOST + 1];
+  char addr[INET_ADDRSTRLEN];
+  char netmask[INET_ADDRSTRLEN];
   const char* ifname;
   unsigned long hostAddr;
   unsigned char macaddr[MUPNP_NET_MACADDR_SIZE];
@@ -364,7 +366,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 
   mupnp_net_interfacelist_clear(netIfList);
 
-  for (espNetIf = esp_netif_next(NULL); NULL != espNetIf; espNetIf = esp_netif_next(espNetIf)) {
+  for (espNetIf = esp_netif_next_unsafe(NULL); NULL != espNetIf; espNetIf = esp_netif_next_unsafe(espNetIf)) {
     if (false == esp_netif_is_netif_up(espNetIf))
       continue;
 
@@ -395,6 +397,7 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
       mupnp_net_interface_setname(netIf, (char*)ifname);
     mupnp_net_interface_setaddress(netIf, addr);
     mupnp_net_interface_setnetmask(netIf, netmask);
+    mupnp_net_interface_setindex(netIf, esp_netif_get_netif_impl_index(espNetIf));
 
     if (ESP_OK == esp_netif_get_mac(espNetIf, macaddr))
       mupnp_net_interface_setmacaddress(netIf, macaddr);
@@ -404,6 +407,16 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
 
   mupnp_log_debug_l4("Leaving...\n");
 
+  return ESP_OK;
+}
+
+int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
+{
+  if (!netIfList)
+    return 0;
+  /* Serialize the entire traversal with interface creation/removal. */
+  if (esp_netif_tcpip_exec(mupnp_net_gethostinterfaces_esp, netIfList) != ESP_OK)
+    return 0;
   return mupnp_net_interfacelist_size(netIfList);
 }
 

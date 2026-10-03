@@ -1,0 +1,32 @@
+name: ESP-IDF
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  host-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: ESP lifecycle regression (ASan and UBSan)
+        run: test/espidf/host/run.sh
+      - name: ESP socket shutdown regression (ASan and UBSan)
+        run: test/espidf/host/run_socket.sh
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build ESP32 control point with ESP-IDF 5.5.5
+        uses: espressif/esp-idf-ci-action@9d38657f3d789ca759b2b37aaf5ceffbc42c4f0d # v1
+        with:
+          esp_idf_version: v5.5.5
+          target: esp32
+          path: examples/espidf/control_point
+          command: idf.py -D SDKCONFIG_DEFAULTS="sdkconfig.defaults;sdkconfig.ci" build

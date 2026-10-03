@@ -92,6 +92,15 @@ typedef struct _mUpnpThread {
 
   /** The POSIX thread handle */
   pthread_t pThread;
+#if defined(ESP_PLATFORM)
+  /** ESP-IDF workers are joinable until stopped or explicitly self-deleted. */
+  pthread_mutex_t stateMutex;
+  pthread_cond_t stateCond;
+  bool threadStarted;
+  bool threadRunning;
+  bool joinInProgress;
+  bool deletePending;
+#endif
 
 #endif
 
@@ -148,7 +157,7 @@ typedef void (*MUPNP_THREAD_FUNC)(mUpnpThread*);
  *         mupnp_sleep(100);
  *     }
  * }
- * 
+ *
  * mUpnpThread* thread = mupnp_thread_new();
  * mupnp_thread_setaction(thread, worker_function);
  * mupnp_thread_start(thread);
@@ -198,8 +207,10 @@ mUpnpThread* mupnp_thread_self(void);
  *       block indefinitely.
  * @note Thread-safe: Must not be called concurrently on the same thread.
  *
- * @warning Do not call this function from the thread's own action function;
- *          this will cause deadlock.
+ * @warning On ESP-IDF, a self-owned worker may delete itself: destruction is
+ *          deferred until its action returns. The caller must not subsequently
+ *          access the object, and must not race this with external deletion.
+ *          Other platforms do not guarantee safe self-deletion.
  *
  * @see mupnp_thread_new()
  * @see mupnp_thread_stop()
@@ -249,15 +260,18 @@ bool mupnp_thread_start(mUpnpThread* thread);
  * action function must cooperatively check mupnp_thread_isrunnable()
  * and exit when it returns false.
  *
- * This function returns immediately without waiting for the thread to
- * terminate. Use mupnp_thread_delete() if you need to wait for termination.
+ * On ESP-IDF this waits for the worker to terminate, except when called by
+ * the worker itself. Blocking library waits are interrupted cooperatively.
+ * Other platforms retain their platform-specific shutdown behavior.
  *
  * @param thread The thread to stop. Must not be NULL.
  *
  * @retval true  Successfully signaled the thread to stop
  * @retval false Failed to signal (e.g., thread is NULL)
  *
- * @note Non-blocking: Returns immediately without waiting for thread exit.
+ * @note On ESP-IDF, external callers block until the worker exits. IDF's
+ *       pthread_join uses the caller's default FreeRTOS task-notification slot;
+ *       do not use that slot for unrelated notifications during shutdown.
  * @note Thread-safe: Can be called from any thread, including the thread
  *       being stopped.
  * @note Side effect: Sets the thread's runnable flag to false.
@@ -288,6 +302,11 @@ bool mupnp_thread_restart(mUpnpThread* thread);
  * \param thread Thread to check
  */
 bool mupnp_thread_isrunnable(mUpnpThread* thread);
+
+#if defined(ESP_PLATFORM)
+/** True until the worker action has returned, including during shutdown. */
+bool mupnp_thread_isrunning(mUpnpThread* thread);
+#endif
 
 /**
  * Set the thread's worker function.

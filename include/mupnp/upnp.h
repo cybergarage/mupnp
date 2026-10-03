@@ -149,7 +149,7 @@
 ****************************************/
 
 #define MUPNP_NAME "mUPnP"
-#define MUPNP_VER "3.0.2"
+#include <mupnp/version.h>
 
 #define MUPNP_DLNA_VER "1.50"
 

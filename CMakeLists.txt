@@ -1,41 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(mUPnP LANGUAGES C)
-
-#
-# Build options
-#
-
-option(CG_HTTP_CURL "Enable Libcurl support" OFF)
-option(CG_HTTP_USE_PERSISTENT_CONNECTIONS
-  "Enable persistent connections support" ON)
-option(CG_NET_USE_ANYADDR
-  "Enables the usage of IPV4_ADDRANY instead of registering an explicit server for each interface" ON)
-option(CG_OPTIMIZED_CP_MODE "Enable optimized control point mode" OFF)
-option(CG_USE_CFILE "Enable file functions" OFF)
-option(CG_USE_OPENSSL "Enable OpenSSL support" OFF)
-option(CG_XMLPARSER_LIBXML2 "Use Libxml2 instead of Expat for XML parsing" OFF)
-
-foreach(OPT
-    CG_HTTP_CURL CG_HTTP_USE_PERSISTENT_CONNECTIONS CG_NET_USE_ANYADDR
-    CG_OPTIMIZED_CP_MODE CG_USE_CFILE CG_USE_OPENSSL CG_XMLPARSER_LIBXML2)
-  if(${OPT})
-    add_definitions(-D${OPT})
-  endif(${OPT})
-endforeach()
-
-#
-# Compiler related
-#
-
-if(MSVC)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
-endif(MSVC)
-
-#
-# Sources and targets
-#
-
+# Keep a single source list for the host library and ESP-IDF component.
 set(MUPNP_SRCS
   src/mupnp/action.c
   src/mupnp/action_list.c
@@ -133,6 +98,66 @@ set(MUPNP_SRCS
   src/mupnp/xml/xml_parser_expat.c
   src/mupnp/xml/xml_parser_libxml2.c
   )
+
+# ESP-IDF evaluates components before its top-level project() call. Do not run
+# the standalone host build or dependency discovery in this branch.
+if(ESP_PLATFORM)
+  idf_component_register(
+    SRCS ${MUPNP_SRCS}
+    INCLUDE_DIRS include
+    REQUIRES esp_netif lwip pthread esp_timer esp_hw_support
+    PRIV_REQUIRES espressif__expat)
+  target_compile_definitions(${COMPONENT_LIB} PUBLIC
+    MUPNP_XMLPARSER_EXPAT
+    HAVE_STDINT_H
+    HAVE_GMTIME_R
+    HAVE_SNPRINTF)
+  foreach(required_config CONFIG_LWIP_IPV4 CONFIG_LWIP_SO_REUSE CONFIG_VFS_SUPPORT_SELECT)
+    if(NOT ${required_config})
+      message(FATAL_ERROR "mUPnP requires ${required_config}=y; see doc/espidf.md")
+    endif()
+  endforeach()
+  if(NOT CONFIG_LWIP_SO_REUSE_RXTOALL)
+    message(WARNING "Enable CONFIG_LWIP_SO_REUSE_RXTOALL when using multiple SSDP listeners")
+  endif()
+  return()
+endif()
+
+project(mUPnP LANGUAGES C)
+
+#
+# Build options
+#
+
+option(CG_HTTP_CURL "Enable Libcurl support" OFF)
+option(CG_HTTP_USE_PERSISTENT_CONNECTIONS
+  "Enable persistent connections support" ON)
+option(CG_NET_USE_ANYADDR
+  "Enables the usage of IPV4_ADDRANY instead of registering an explicit server for each interface" ON)
+option(CG_OPTIMIZED_CP_MODE "Enable optimized control point mode" OFF)
+option(CG_USE_CFILE "Enable file functions" OFF)
+option(CG_USE_OPENSSL "Enable OpenSSL support" OFF)
+option(CG_XMLPARSER_LIBXML2 "Use Libxml2 instead of Expat for XML parsing" OFF)
+
+foreach(OPT
+    CG_HTTP_CURL CG_HTTP_USE_PERSISTENT_CONNECTIONS CG_NET_USE_ANYADDR
+    CG_OPTIMIZED_CP_MODE CG_USE_CFILE CG_USE_OPENSSL CG_XMLPARSER_LIBXML2)
+  if(${OPT})
+    add_definitions(-D${OPT})
+  endif(${OPT})
+endforeach()
+
+#
+# Compiler related
+#
+
+if(MSVC)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
+endif(MSVC)
+
+#
+# Host library target
+#
 
 include_directories(include)
 add_library(MUPNP STATIC ${MUPNP_SRCS})

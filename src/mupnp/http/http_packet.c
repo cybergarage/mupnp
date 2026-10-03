@@ -9,6 +9,9 @@
  *
  ******************************************************************/
 
+#include <errno.h>
+#include <string.h>
+
 #include <mupnp/http/http.h>
 #include <mupnp/util/log.h>
 
@@ -386,51 +389,51 @@ void mupnp_http_packet_read_headers(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock,
  * mupnp_http_packet_read_chunk
  ****************************************/
 
-size_t mupnp_http_packet_read_chunk(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, char* lineBuf, size_t lineBufSize)
+/* -1 is a read/parse failure; zero is the terminating chunk. */
+static ssize_t mupnp_http_packet_read_chunk(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, char* lineBuf, size_t lineBufSize)
 {
-  ssize_t readLen = 0;
-  ssize_t conLen = 0;
-  int tries = 0;
-  char* content = NULL;
+  ssize_t readLen;
+  size_t received = 0;
+  unsigned long conLen;
+  char* end;
+  char* content;
 
-  mupnp_log_debug_l4("Entering...\n");
-
-  /* Read chunk header */
-  readLen = mupnp_socket_readline(sock, lineBuf, lineBufSize);
-
-  conLen = mupnp_strhex2long(lineBuf);
-  if (conLen < 1)
+  if (mupnp_socket_readline(sock, lineBuf, lineBufSize) <= 0)
+    return -1;
+  errno = 0;
+  conLen = strtoul(lineBuf, &end, 16);
+  if (errno || end == lineBuf || lineBuf[0] == '-' || conLen > LONG_MAX || (*end != ';' && *end != '\r' && *end != '\n'))
+    return -1;
+  if (conLen == 0) {
+    /* Consume optional trailers and the final empty line. */
+    do {
+      readLen = mupnp_socket_readline(sock, lineBuf, lineBufSize);
+      if (readLen <= 0)
+        return -1;
+    } while (readLen > 2);
     return 0;
-
+  }
   content = (char*)malloc(conLen + 1);
-
-  if (content == NULL) {
-    mupnp_log_debug_s("Memory allocation problem!\n");
-    return 0;
+  if (!content)
+    return -1;
+  while (received < conLen) {
+    readLen = mupnp_socket_read(sock, content + received, conLen - received);
+    if (readLen <= 0) {
+      free(content);
+      return -1;
+    }
+    received += readLen;
   }
-
-  content[conLen] = 0;
-
-  readLen = 0;
-  /* Read content until conLen is reached, or tired of trying */
-  while (readLen < conLen && tries < 20) {
-    readLen += mupnp_socket_read(sock, (content + readLen), (conLen - readLen));
-    tries++;
+  if (mupnp_socket_readline(sock, lineBuf, lineBufSize) != 2 || strcmp(lineBuf, "\r\n") != 0) {
+    free(content);
+    return -1;
   }
-
-  /* Append content to packet */
-  mupnp_http_packet_appendncontent(httpPkt, content, readLen);
+  if (!mupnp_http_packet_appendncontent(httpPkt, content, received)) {
+    free(content);
+    return -1;
+  }
   free(content);
-  content = NULL;
-
-  if (readLen == conLen) {
-    /* Read CRLF bytes */
-    mupnp_socket_readline(sock, lineBuf, lineBufSize);
-  }
-
-  mupnp_log_debug_l4("Leaving...\n");
-
-  return readLen;
+  return received;
 }
 
 /****************************************
@@ -443,7 +446,6 @@ bool mupnp_http_packet_read_body(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, ch
   ssize_t conLen;
   char* content;
   char readBuf[READBUF_LENGTH + 1];
-  int tries = 0;
 
   mupnp_log_debug_l4("Entering...\n");
 
@@ -459,16 +461,14 @@ bool mupnp_http_packet_read_body(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, ch
     content[0] = '\0';
     readLen = 0;
 
-    /* Read content until conLen is reached, or tired of trying */
-    while (readLen < conLen && tries < 20) {
-      readLen += mupnp_socket_read(sock, (content + readLen), (conLen - readLen));
-      /* Fixed to increment the counter only when mupnp_socket_read() doesn't read data */
-      if (readLen <= 0)
-        tries++;
+    while (readLen < conLen) {
+      ssize_t received = mupnp_socket_read(sock, content + readLen, conLen - readLen);
+      if (received <= 0) {
+        free(content);
+        return false;
+      }
+      readLen += received;
     }
-
-    if (readLen <= 0)
-      return true;
     content[readLen] = '\0';
     mupnp_http_packet_setcontentpointer(httpPkt, content, readLen);
   }
@@ -483,6 +483,8 @@ bool mupnp_http_packet_read_body(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, ch
       conLen = 0;
       do {
         readLen = mupnp_http_packet_read_chunk(httpPkt, sock, lineBuf, lineBufSize);
+        if (readLen < 0)
+          return false;
         conLen += readLen;
       } while (readLen > 0);
 
@@ -491,10 +493,13 @@ bool mupnp_http_packet_read_body(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, ch
     else {
       conLen = 0;
       while ((readLen = mupnp_socket_read(sock, readBuf, READBUF_LENGTH)) > 0) {
-        mupnp_http_packet_appendncontent(httpPkt, readBuf, readLen);
+        if (!mupnp_http_packet_appendncontent(httpPkt, readBuf, readLen))
+          return false;
         conLen += readLen;
       }
 
+      if (readLen < 0)
+        return false;
       mupnp_http_packet_setcontentlength(httpPkt, conLen);
     }
   }

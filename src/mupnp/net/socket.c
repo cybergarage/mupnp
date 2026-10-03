@@ -12,6 +12,11 @@
 #include <mupnp/net/interface.h>
 #include <mupnp/net/socket.h>
 #include <mupnp/util/time.h>
+#if defined(ESP_PLATFORM)
+#include <esp_timer.h>
+#include <mupnp/util/thread.h>
+#include <sys/select.h>
+#endif
 /*
 #include <mupnp/ssdp/ssdp.h>
 */
@@ -65,11 +70,55 @@
 #define SOCKET_DEBUG
 */
 
+#if defined(ESP_PLATFORM)
+/* ESP-IDF has no pthread signals/cancellation. Poll readiness so a stopped
+ * worker can leave accept/recv/connect without another task closing its fd.
+ * Keep descriptors nonblocking: readiness can change before the next call. */
+static bool mupnp_socket_waitready(mUpnpSocket* sock, bool writing)
+{
+  mUpnpThread* thread = mupnp_thread_self();
+  int64_t deadline = sock->timeout > 0 ? esp_timer_get_time() + (int64_t)sock->timeout * 1000000 : 0;
+
+  for (;;) {
+    fd_set fds;
+    struct timeval interval = { 0, 100000 };
+    int result;
+
+    if (thread && !mupnp_thread_isrunnable(thread)) {
+      errno = EINTR;
+      return false;
+    }
+    if (sock->id < 0 || sock->id >= FD_SETSIZE) {
+      errno = EBADF;
+      return false;
+    }
+    if (deadline) {
+      int64_t remaining = deadline - esp_timer_get_time();
+      if (remaining <= 0) {
+        errno = ETIMEDOUT;
+        return false;
+      }
+      if (remaining < interval.tv_usec)
+        interval.tv_usec = remaining;
+    }
+    FD_ZERO(&fds);
+    FD_SET(sock->id, &fds);
+    result = select(sock->id + 1, writing ? NULL : &fds, writing ? &fds : NULL, NULL, &interval);
+    if (result > 0)
+      return true;
+    if (result < 0 && errno != EINTR)
+      return false;
+  }
+}
+#endif
+
 /****************************************
  * static variable
  ****************************************/
 
+#if !defined(ESP_PLATFORM)
 static int socketCnt = 0;
+#endif
 
 #if defined(MUPNP_NET_USE_SOCKET_LIST)
 static mUpnpSocketList* socketList;
@@ -126,6 +175,7 @@ static bool mupnp_socket_getavailablelocaladdress(T_IPV4EP* localAddr);
 
 void mupnp_socket_startup(void)
 {
+#if !defined(ESP_PLATFORM)
   mupnp_log_debug_l4("Entering...\n");
 
   if (socketCnt == 0) {
@@ -175,6 +225,7 @@ void mupnp_socket_startup(void)
   socketCnt++;
 
   mupnp_log_debug_l4("Leaving...\n");
+#endif
 }
 
 /****************************************
@@ -183,6 +234,7 @@ void mupnp_socket_startup(void)
 
 void mupnp_socket_cleanup(void)
 {
+#if !defined(ESP_PLATFORM)
   mupnp_log_debug_l4("Entering...\n");
 
   socketCnt--;
@@ -202,6 +254,7 @@ void mupnp_socket_cleanup(void)
   }
 
   mupnp_log_debug_l4("Leaving...\n");
+#endif
 }
 
 /****************************************
@@ -226,6 +279,9 @@ mUpnpSocket* mupnp_socket_new(int type)
 #endif
 
     mupnp_socket_settype(sock, type);
+#if defined(ESP_PLATFORM)
+    sock->timeout = 0;
+#endif
     mupnp_socket_setdirection(sock, MUPNP_NET_SOCKET_NONE);
 
     sock->ipaddr = mupnp_string_new();
@@ -283,7 +339,11 @@ bool mupnp_socket_isbound(mUpnpSocket* sock)
 #if defined(WIN32) && !defined(__CYGWIN__) && !defined(__MINGW32__) && !defined(ITRON)
   return (sock->id != INVALID_SOCKET) ? true : false;
 #else
+#if defined(ESP_PLATFORM)
+  return sock->id >= 0;
+#else
   return (0 < sock->id) ? true : false;
+#endif
 #endif
 }
 
@@ -300,6 +360,12 @@ void mupnp_socket_setid(mUpnpSocket* socket, SOCKET value)
   mupnp_log_debug_l4("Entering...\n");
 
   socket->id = value;
+#if defined(ESP_PLATFORM)
+  if (value >= 0 && fcntl(value, F_SETFL, O_NONBLOCK) < 0) {
+    close(value);
+    socket->id = -1;
+  }
+#endif
 
 #if defined(WIN32) || defined(HAVE_IP_PKTINFO)
   if (MUPNP_NET_SOCKET_DGRAM == mupnp_socket_gettype(socket))
@@ -444,7 +510,11 @@ bool mupnp_socket_bind(mUpnpSocket* sock, int bindPort, const char* bindAddr, bo
 
   mupnp_log_debug_l4("Entering...\n");
 
+#if defined(ESP_PLATFORM)
+  if (bindPort < 0)
+#else
   if (bindPort <= 0 /* || bindAddr == NULL*/)
+#endif
     return false;
 
 #if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
@@ -516,22 +586,35 @@ bool mupnp_socket_bind(mUpnpSocket* sock, int bindPort, const char* bindAddr, bo
     return false;
   mupnp_socket_setid(sock, socket(addrInfo->ai_family, addrInfo->ai_socktype, 0));
   if (sock->id == -1) {
-    mupnp_socket_close(sock);
+    freeaddrinfo(addrInfo);
     return false;
   }
   if (reuseFlag == true) {
     if (mupnp_socket_setreuseaddress(sock, true) == false) {
+      freeaddrinfo(addrInfo);
       mupnp_socket_close(sock);
       return false;
     }
   }
+#if defined(ESP_PLATFORM)
+  if (mupnp_socket_isdatagramstream(sock) && bindAddr) {
+    struct in_addr interfaceAddress;
+    if (inet_pton(AF_INET, bindAddr, &interfaceAddress) != 1 || setsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_IF, &interfaceAddress, sizeof(interfaceAddress)) != 0) {
+      freeaddrinfo(addrInfo);
+      mupnp_socket_close(sock);
+      return false;
+    }
+  }
+#endif
   ret = bind(sock->id, addrInfo->ai_addr, addrInfo->ai_addrlen);
   freeaddrinfo(addrInfo);
 #endif
 
 #if !defined(ITRON)
-  if (ret != 0)
+  if (ret != 0) {
+    mupnp_socket_close(sock);
     return false;
+  }
 #endif
 
   mupnp_socket_setdirection(sock, MUPNP_NET_SOCKET_SERVER);
@@ -552,7 +635,9 @@ bool mupnp_socket_accept(mUpnpSocket* serverSock, mUpnpSocket* clientSock)
   struct sockaddr_in sockaddr;
   socklen_t socklen;
   char localAddr[MUPNP_NET_SOCKET_MAXHOST];
+#if !defined(ESP_PLATFORM)
   char localPort[MUPNP_NET_SOCKET_MAXSERV];
+#endif
 #if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
   struct sockaddr_in sockaddr;
   W nLength = sizeof(struct sockaddr_in);
@@ -569,7 +654,18 @@ bool mupnp_socket_accept(mUpnpSocket* serverSock, mUpnpSocket* clientSock)
 #else
   struct sockaddr_storage sockClientAddr;
   socklen_t nLength = sizeof(sockClientAddr);
+#if defined(ESP_PLATFORM)
+  int accepted;
+  do {
+    if (!mupnp_socket_waitready(serverSock, false))
+      return false;
+    nLength = sizeof(sockClientAddr);
+    accepted = accept(serverSock->id, (struct sockaddr*)&sockClientAddr, &nLength);
+  } while (accepted < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR || errno == ECONNABORTED));
+  mupnp_socket_setid(clientSock, accepted);
+#else
   mupnp_socket_setid(clientSock, accept(serverSock->id, (struct sockaddr*)&sockClientAddr, &nLength));
+#endif
 #endif
 
   mupnp_log_debug_l4("Entering...\n");
@@ -590,7 +686,11 @@ bool mupnp_socket_accept(mUpnpSocket* serverSock, mUpnpSocket* clientSock)
   mupnp_socket_setport(clientSock, mupnp_socket_getport(serverSock));
   socklen = sizeof(struct sockaddr_in);
 
+#if defined(ESP_PLATFORM)
+  if (getsockname(clientSock->id, (struct sockaddr*)&sockaddr, &socklen) == 0 && inet_ntop(AF_INET, &sockaddr.sin_addr, localAddr, sizeof(localAddr))) {
+#else
   if (getsockname(clientSock->id, (struct sockaddr*)&sockaddr, &socklen) == 0 && getnameinfo((struct sockaddr*)&sockaddr, socklen, localAddr, sizeof(localAddr), localPort, sizeof(localPort), NI_NUMERICHOST | NI_NUMERICSERV) == 0) {
+#endif
     /* Set address for the sockaddr to real addr */
     mupnp_socket_setaddress(clientSock, localAddr);
   }
@@ -658,6 +758,17 @@ bool mupnp_socket_connect(mUpnpSocket* sock, const char* addr, int port)
   if (mupnp_socket_isbound(sock) == false)
     mupnp_socket_setid(sock, socket(toaddrInfo->ai_family, toaddrInfo->ai_socktype, 0));
   ret = connect(sock->id, toaddrInfo->ai_addr, toaddrInfo->ai_addrlen);
+#if defined(ESP_PLATFORM)
+  if (ret < 0 && errno == EINPROGRESS && mupnp_socket_waitready(sock, true)) {
+    int error = 0;
+    socklen_t errorLen = sizeof(error);
+    ret = getsockopt(sock->id, SOL_SOCKET, SO_ERROR, &error, &errorLen);
+    if (ret == 0 && error) {
+      errno = error;
+      ret = -1;
+    }
+  }
+#endif
   freeaddrinfo(toaddrInfo);
 #endif
 
@@ -704,7 +815,15 @@ ssize_t mupnp_socket_read(mUpnpSocket* sock, char* buffer, size_t bufferLen)
 #elif defined(ITRON)
   recvLen = tcp_rcv_dat(sock->id, buffer, bufferLen, TMO_FEVR);
 #else
+#if defined(ESP_PLATFORM)
+  do {
+    if (!mupnp_socket_waitready(sock, false))
+      return -1;
+    recvLen = recv(sock->id, buffer, bufferLen, 0);
+  } while (recvLen < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR));
+#else
   recvLen = recv(sock->id, buffer, bufferLen, 0);
+#endif
 #endif
 
 #if defined(MUPNP_USE_OPENSSL)
@@ -758,6 +877,10 @@ size_t mupnp_socket_write(mUpnpSocket* sock, const char* cmd, size_t cmdLen)
 #elif defined(ITRON)
     nSent = tcp_snd_dat(sock->id, cmd + cmdPos, cmdLen, TMO_FEVR);
 #else
+#if defined(ESP_PLATFORM)
+    if (!mupnp_socket_waitready(sock, true))
+      return 0;
+#endif
     nSent = send(sock->id, cmd + cmdPos, cmdLen, 0);
 #endif
 
@@ -922,8 +1045,17 @@ size_t mupnp_socket_sendto(mUpnpSocket* sock, const char* addr, int port, const 
   /* Setting multicast time to live in any case to default */
   mupnp_socket_setmulticastttl(sock, MUPNP_NET_SOCKET_MULTICAST_DEFAULT_TTL);
 
-  if (0 <= sock->id)
+  if (0 <= sock->id) {
+#if defined(ESP_PLATFORM)
+    do {
+      if (!mupnp_socket_waitready(sock, true))
+        break;
+      sentLen = sendto(sock->id, data, dataLen, 0, addrInfo->ai_addr, addrInfo->ai_addrlen);
+    } while (sentLen < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR));
+#else
     sentLen = sendto(sock->id, data, dataLen, 0, addrInfo->ai_addr, addrInfo->ai_addrlen);
+#endif
+  }
   freeaddrinfo(addrInfo);
 #endif
 
@@ -936,7 +1068,11 @@ size_t mupnp_socket_sendto(mUpnpSocket* sock, const char* addr, int port, const 
 
   mupnp_log_debug_l4("Leaving...\n");
 
+#if defined(ESP_PLATFORM)
+  return sentLen > 0 ? (size_t)sentLen : 0;
+#else
   return sentLen;
+#endif
 }
 
 /****************************************
@@ -948,7 +1084,9 @@ ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt)
   ssize_t recvLen = 0;
   char recvBuf[MUPNP_NET_SOCKET_DGRAM_RECV_BUFSIZE + 1];
   char remoteAddr[MUPNP_NET_SOCKET_MAXHOST];
+#if !defined(ESP_PLATFORM)
   char remotePort[MUPNP_NET_SOCKET_MAXSERV];
+#endif
   char* localAddr;
 
 #if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
@@ -965,7 +1103,16 @@ ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt)
 #else
   struct sockaddr_storage from;
   socklen_t fromLen = sizeof(from);
+#if defined(ESP_PLATFORM)
+  do {
+    if (!mupnp_socket_waitready(sock, false))
+      return -1;
+    fromLen = sizeof(from);
+    recvLen = recvfrom(sock->id, recvBuf, sizeof(recvBuf) - 1, 0, (struct sockaddr*)&from, &fromLen);
+  } while (recvLen < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR));
+#else
   recvLen = recvfrom(sock->id, recvBuf, sizeof(recvBuf) - 1, 0, (struct sockaddr*)&from, &fromLen);
+#endif
 #endif
 
   mupnp_log_debug_l4("Entering...\n");
@@ -995,10 +1142,18 @@ ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt)
   mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, remoteAddr);
   mupnp_socket_datagram_packet_setremoteport(dgmPkt, ntohs(remoteHost.portno));
 #else
+#if defined(ESP_PLATFORM)
+  struct sockaddr_in* from4 = (struct sockaddr_in*)&from;
+  if (inet_ntop(AF_INET, &from4->sin_addr, remoteAddr, sizeof(remoteAddr))) {
+    mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, remoteAddr);
+    mupnp_socket_datagram_packet_setremoteport(dgmPkt, ntohs(from4->sin_port));
+  }
+#else
   if (getnameinfo((struct sockaddr*)&from, fromLen, remoteAddr, sizeof(remoteAddr), remotePort, sizeof(remotePort), (NI_NUMERICHOST | NI_NUMERICSERV)) == 0) {
     mupnp_socket_datagram_packet_setremoteaddress(dgmPkt, remoteAddr);
     mupnp_socket_datagram_packet_setremoteport(dgmPkt, atoi(remotePort));
   }
+#endif
 #endif
 
 #if !defined(BTRON) && !defined(ITRON) && !defined(ITRON)
@@ -1101,7 +1256,12 @@ bool mupnp_socket_setmulticastttl(mUpnpSocket* sock, int ttl)
 bool mupnp_socket_settimeout(mUpnpSocket* sock, int sec)
 {
   int sockOptRet;
-#if defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
+#if defined(ESP_PLATFORM)
+  if (sec < 0)
+    return false;
+  sock->timeout = sec;
+  sockOptRet = 0;
+#elif defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
   sockOptRet = -1; /* TODO: Implement this */
 #elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
   sockOptRet = -1; /* TODO: Implement this */
@@ -1199,6 +1359,14 @@ bool mupnp_socket_joingroup(mUpnpSocket* sock, char* mcastAddr, char* ifAddr)
 
 bool mupnp_socket_joingroup(mUpnpSocket* sock, const char* mcastAddr, const char* ifAddr)
 {
+#if defined(ESP_PLATFORM)
+  struct ip_mreq membership;
+  if (!mcastAddr || !ifAddr || inet_pton(AF_INET, mcastAddr, &membership.imr_multiaddr) != 1 || inet_pton(AF_INET, ifAddr, &membership.imr_interface) != 1)
+    return false;
+  if (setsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_IF, &membership.imr_interface, sizeof(membership.imr_interface)) != 0)
+    return false;
+  return setsockopt(sock->id, IPPROTO_IP, IP_ADD_MEMBERSHIP, &membership, sizeof(membership)) == 0;
+#else
   struct addrinfo hints;
   struct addrinfo *mcastAddrInfo, *ifAddrInfo;
 
@@ -1266,6 +1434,7 @@ bool mupnp_socket_joingroup(mUpnpSocket* sock, const char* mcastAddr, const char
   mupnp_log_debug_l4("Leaving...\n");
 
   return joinSuccess;
+#endif
 }
 
 #endif
@@ -1362,11 +1531,16 @@ bool mupnp_socket_tosockaddrinfo(int sockType, const char* addr, int port, struc
 #else
   memset(&hints, 0, sizeof(struct addrinfo));
   hints.ai_socktype = sockType;
+#if defined(ESP_PLATFORM)
+  hints.ai_family = AF_INET;
+  if (!addr)
+    addr = "0.0.0.0";
+#endif
   hints.ai_flags = /*AI_NUMERICHOST | */ AI_PASSIVE;
   sprintf(portStr, "%d", port);
   mupnp_log_debug("Address: %s, port: %s\n", addr, portStr);
   if ((errorn = getaddrinfo(addr, portStr, &hints, addrInfo)) != 0) {
-#if !defined(WINCE)
+#if !defined(WINCE) && !defined(ESP_PLATFORM)
     mupnp_log_debug_s("ERROR: %s\n", gai_strerror(errorn));
     mupnp_log_debug_s("SERROR: %s\n", strerror(errno));
 #endif
@@ -1376,8 +1550,12 @@ bool mupnp_socket_tosockaddrinfo(int sockType, const char* addr, int port, struc
     return true;
   hints.ai_family = (*addrInfo)->ai_family;
   freeaddrinfo(*addrInfo);
+#if defined(ESP_PLATFORM)
+  if ((errorn = getaddrinfo("0.0.0.0", portStr, &hints, addrInfo)) != 0) {
+#else
   if ((errorn = getaddrinfo(NULL, portStr, &hints, addrInfo)) != 0) {
-#if !defined(WINCE)
+#endif
+#if !defined(WINCE) && !defined(ESP_PLATFORM)
     mupnp_log_debug_s("ERROR: %s\n", gai_strerror(errorn));
     mupnp_log_debug_s("SERROR: %s\n", strerror(errno));
 #endif

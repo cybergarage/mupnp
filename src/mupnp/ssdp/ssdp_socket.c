@@ -50,6 +50,12 @@ bool mupnp_ssdp_socket_notifyfrom(mUpnpSSDPSocket* ssdpSock, mUpnpSSDPRequest* s
 
   mupnp_log_debug_l4("Entering...\n");
 
+#if defined(ESP_PLATFORM)
+  /* NOTIFY must leave via the interface advertised in LOCATION. Reuse this
+   * ephemeral bound socket for all notifications from the same interface. */
+  if (!mupnp_socket_isbound(ssdpSock) && !mupnp_socket_bind(ssdpSock, 0, bindAddr, true, false))
+    return false;
+#endif
   ssdpAddr = mupnp_ssdp_gethostaddress(bindAddr);
   mupnp_ssdprequest_sethost(ssdpReq, ssdpAddr, MUPNP_SSDP_PORT);
 

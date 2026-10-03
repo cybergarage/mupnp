@@ -130,7 +130,12 @@ bool mupnp_ssdpresponse_serverlist_start(mUpnpSSDPResponseServerList* ssdpServer
   mupnp_log_debug_l4("Entering...\n");
 
   for (ssdpServer = mupnp_ssdpresponse_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_ssdpresponse_server_next(ssdpServer))
+#if defined(ESP_PLATFORM)
+    if (!mupnp_ssdpresponse_server_start(ssdpServer))
+      return false;
+#else
     mupnp_ssdpresponse_server_start(ssdpServer);
+#endif
 
   return true;
 

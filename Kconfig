@@ -1,0 +1,13 @@
+menu "mUPnP"
+
+    config MUPNP_THREAD_STACK_SIZE
+        int "mUPnP worker stack size (bytes)"
+        range 4096 65536
+        default 8192
+        help
+            Stack allocated for each mUPnP pthread. XML device and service
+            descriptions are parsed on worker threads. Increase this for
+            deeply nested descriptions or application callbacks with large
+            stack usage. Measure the stack high-water mark on your hardware.
+
+endmenu

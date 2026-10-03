@@ -1374,6 +1374,9 @@ bool mupnp_device_start(mUpnpDevice* dev)
 {
   MUPNP_HTTP_LISTENER httpListener;
   int httpPort;
+#if defined(ESP_PLATFORM)
+  int httpAttempts = 0;
+#endif
 
   mupnp_log_debug_l4("Entering...\n");
 
@@ -1383,11 +1386,19 @@ bool mupnp_device_start(mUpnpDevice* dev)
   if (dev->ifCache == NULL)
     dev->ifCache = mupnp_net_interfacelist_new();
   mupnp_net_gethostinterfaces(dev->ifCache);
+#if defined(ESP_PLATFORM)
+  if (mupnp_net_interfacelist_size(dev->ifCache) == 0)
+    return false;
+#endif
 
   /**** HTTP Server ****/
   httpPort = mupnp_device_gethttpport(dev);
   /* Opening HTTP server may fail, so try many ports */
   while (mupnp_http_serverlist_open(dev->httpServerList, httpPort) == false) {
+#if defined(ESP_PLATFORM)
+    if (++httpAttempts >= 10 || httpPort >= 65535)
+      goto startup_failed;
+#endif
     mupnp_device_sethttpport(dev, httpPort + 1);
     httpPort = mupnp_device_gethttpport(dev);
   }
@@ -1396,14 +1407,28 @@ bool mupnp_device_start(mUpnpDevice* dev)
   if (httpListener == NULL)
     httpListener = mupnp_device_httprequestrecieved;
   mupnp_http_serverlist_setlistener(dev->httpServerList, httpListener);
+#if defined(ESP_PLATFORM)
+  if (!mupnp_http_serverlist_start(dev->httpServerList))
+    goto startup_failed;
+#else
   mupnp_http_serverlist_start(dev->httpServerList);
+#endif
 
   /**** SSDP Server ****/
   if (mupnp_ssdp_serverlist_open(dev->ssdpServerList) == false)
+#if defined(ESP_PLATFORM)
+    goto startup_failed;
+#else
     return false;
+#endif
   mupnp_ssdp_serverlist_setlistener(dev->ssdpServerList, mupnp_device_ssdplistener);
   mupnp_ssdp_serverlist_setuserdata(dev->ssdpServerList, dev);
+#if defined(ESP_PLATFORM)
+  if (!mupnp_ssdp_serverlist_start(dev->ssdpServerList))
+    goto startup_failed;
+#else
   mupnp_ssdp_serverlist_start(dev->ssdpServerList);
+#endif
 
   /**** Update BootId ****/
   mupnp_device_setbootid(dev, mupnp_createbootid());
@@ -1412,11 +1437,21 @@ bool mupnp_device_start(mUpnpDevice* dev)
   mupnp_device_announce(dev);
 
   /**** Advertiser ****/
+#if defined(ESP_PLATFORM)
+  if (!mupnp_device_advertiser_start(dev))
+    goto startup_failed;
+#else
   mupnp_device_advertiser_start(dev);
+#endif
 
   mupnp_log_debug_l4("Leaving...\n");
 
   return true;
+#if defined(ESP_PLATFORM)
+startup_failed:
+  mupnp_device_stop(dev);
+  return false;
+#endif
 }
 
 /****************************************

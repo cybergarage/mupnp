@@ -62,3 +62,79 @@ BOOST_AUTO_TEST_CASE(HttpServer)
   /**** HTTP Server ****/
   mupnp_http_server_stop(httpServer);
 }
+
+#if !defined(WIN32)
+#include <sys/socket.h>
+#include <unistd.h>
+
+// Feed a complete or truncated wire response without depending on LAN devices.
+static bool read_wire_response(const char* wire, const char* expectedContent = NULL)
+{
+  int pair[2];
+  BOOST_REQUIRE_EQUAL(socketpair(AF_UNIX, SOCK_STREAM, 0, pair), 0);
+  BOOST_REQUIRE_EQUAL(write(pair[1], wire, strlen(wire)), (ssize_t)strlen(wire));
+  shutdown(pair[1], SHUT_WR);
+
+  mUpnpSocket* sock = mupnp_socket_stream_new();
+  mupnp_socket_setid(sock, pair[0]);
+  mUpnpHttpResponse* response = mupnp_http_response_new();
+  bool result = mupnp_http_response_read(response, sock, false);
+  if (result && expectedContent)
+    BOOST_CHECK(mupnp_streq(mupnp_http_response_getcontent(response), expectedContent));
+  mupnp_http_response_delete(response);
+  mupnp_socket_delete(sock);
+  close(pair[1]);
+  return result;
+}
+
+BOOST_AUTO_TEST_CASE(HttpFixedBodyComplete)
+{
+  BOOST_CHECK(read_wire_response("HTTP/1.1 200 OK\r\nContent-Length: 5\r\n\r\nhello", "hello"));
+}
+
+BOOST_AUTO_TEST_CASE(HttpFixedBodyTruncated)
+{
+  BOOST_CHECK(!read_wire_response("HTTP/1.1 200 OK\r\nContent-Length: 5\r\n\r\nhe"));
+}
+
+BOOST_AUTO_TEST_CASE(HttpFixedBodyEmpty)
+{
+  BOOST_CHECK(!read_wire_response("HTTP/1.1 200 OK\r\nContent-Length: 5\r\n\r\n"));
+}
+
+BOOST_AUTO_TEST_CASE(HttpChunkedBodyComplete)
+{
+  BOOST_CHECK(read_wire_response("HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n2\r\nhe\r\n3\r\nllo\r\n0\r\n\r\n", "hello"));
+}
+
+BOOST_AUTO_TEST_CASE(HttpChunkedBodyTruncated)
+{
+  BOOST_CHECK(!read_wire_response("HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n5\r\nhe"));
+}
+
+BOOST_AUTO_TEST_CASE(HttpChunkedBodyMissingTerminator)
+{
+  BOOST_CHECK(!read_wire_response("HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n5\r\nhello\r\n"));
+}
+
+BOOST_AUTO_TEST_CASE(HttpChunkedBodyBadLength)
+{
+  BOOST_CHECK(!read_wire_response("HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\ninvalid\r\n"));
+}
+
+BOOST_AUTO_TEST_CASE(HttpRequestBodyTruncated)
+{
+  int pair[2];
+  const char* wire = "POST / HTTP/1.1\r\nHost: localhost\r\nContent-Length: 5\r\n\r\nhe";
+  BOOST_REQUIRE_EQUAL(socketpair(AF_UNIX, SOCK_STREAM, 0, pair), 0);
+  BOOST_REQUIRE_EQUAL(write(pair[1], wire, strlen(wire)), (ssize_t)strlen(wire));
+  shutdown(pair[1], SHUT_WR);
+  mUpnpSocket* sock = mupnp_socket_stream_new();
+  mupnp_socket_setid(sock, pair[0]);
+  mUpnpHttpRequest* request = mupnp_http_request_new();
+  BOOST_CHECK(!mupnp_http_request_read(request, sock));
+  mupnp_http_request_delete(request);
+  mupnp_socket_delete(sock);
+  close(pair[1]);
+}
+#endif
