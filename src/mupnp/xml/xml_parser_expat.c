@@ -146,7 +146,7 @@ static void XMLCALL mupnp_expat_character_data(void* userData, const XML_Char* s
 
 #if defined XML_IGNORE_WHITESPACE
   for (i = 0; i < len; i++) {
-    if (!isspace((char)s[i])) {
+    if (!isspace((unsigned char)s[i])) {
 #endif
       expatData = (mUpnpExpatData*)userData;
       if (expatData->currNode != NULL)

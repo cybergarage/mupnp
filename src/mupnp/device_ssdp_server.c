@@ -86,7 +86,7 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt
       return;
     /* check if MX value is not an integer */
     for (n = 0; n < strlen(ssdpMXString); n++) {
-      if (isdigit(ssdpMXString[n]) == 0)
+      if (isdigit((unsigned char)ssdpMXString[n]) == 0)
         /* MX value contains a non-digit so is invalid */
         return;
     }

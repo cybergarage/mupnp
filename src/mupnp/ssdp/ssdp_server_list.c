@@ -89,7 +89,11 @@ bool mupnp_ssdp_serverlist_open(mUpnpSSDPServerList* ssdpServerList)
 
   mupnp_log_debug_l4("Leaving...\n");
 
+#if defined(ESP_PLATFORM)
+  return mupnp_ssdp_serverlist_size(ssdpServerList) > 0;
+#else
   return true;
+#endif
 }
 
 /****************************************
@@ -121,7 +125,12 @@ bool mupnp_ssdp_serverlist_start(mUpnpSSDPServerList* ssdpServerList)
   mupnp_log_debug_l4("Entering...\n");
 
   for (ssdpServer = mupnp_ssdp_serverlist_gets(ssdpServerList); ssdpServer != NULL; ssdpServer = mupnp_ssdp_server_next(ssdpServer))
+#if defined(ESP_PLATFORM)
+    if (!mupnp_ssdp_server_start(ssdpServer))
+      return false;
+#else
     mupnp_ssdp_server_start(ssdpServer);
+#endif
 
   mupnp_log_debug_l4("Leaving...\n");
 

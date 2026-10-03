@@ -197,7 +197,7 @@ void mupnp_log_print(int severity, const char* file, int lineN, const char* func
   char logLine[MAX_LOG_STRING], *lPtr, tPtr[MAX_LOG_STRING];
   int prefixLength = -1;
   struct FdList* temp = NULL;
-  long timestamp;
+  time_t timestamp;
   struct tm* timestampHumanReadable;
 
   /* If output targets are empty, do return */

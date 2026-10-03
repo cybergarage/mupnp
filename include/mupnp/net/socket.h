@@ -83,6 +83,9 @@ typedef struct _mUpnpSocket {
   int direction;
   mUpnpString* ipaddr;
   int port;
+#if defined(ESP_PLATFORM)
+  int timeout; /* Seconds; zero means no timeout. */
+#endif
 #if defined(ITRON)
   UH* sendWinBuf;
   UH* recvWinBuf;

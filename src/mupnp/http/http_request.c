@@ -742,7 +742,7 @@ bool mupnp_http_request_read(mUpnpHttpRequest* httpReq, mUpnpSocket* sock)
   /* HTTP-request must have Content-Length or Transfer-Encoding header
            in order to have body */
   if (mupnp_http_packet_hasheader((mUpnpHttpPacket*)httpReq, MUPNP_HTTP_CONTENT_LENGTH) || mupnp_http_packet_hasheader((mUpnpHttpPacket*)httpReq, MUPNP_HTTP_TRANSFER_ENCODING))
-    mupnp_http_packet_read_body((mUpnpHttpPacket*)httpReq, sock, lineBuf, sizeof(lineBuf));
+    return mupnp_http_packet_read_body((mUpnpHttpPacket*)httpReq, sock, lineBuf, sizeof(lineBuf));
 
   mupnp_log_debug_l4("Leaving...\n");
 

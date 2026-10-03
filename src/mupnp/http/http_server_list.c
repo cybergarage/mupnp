@@ -82,6 +82,7 @@ bool mupnp_http_serverlist_open(mUpnpHttpServerList* httpServerList, int port)
     httpServer = mupnp_http_server_new();
 
     if (mupnp_http_server_open(httpServer, port, bindAddr) == false) {
+      mupnp_http_server_delete(httpServer);
       /* Theo Beisch - why break off,
                            we may be running ok on at least some IF???
                            (at least WINCE does...) */
@@ -127,7 +128,12 @@ bool mupnp_http_serverlist_start(mUpnpHttpServerList* httpServerList)
   mupnp_log_debug_l4("Entering...\n");
 
   for (httpServer = mupnp_http_serverlist_gets(httpServerList); httpServer != NULL; httpServer = mupnp_http_server_next(httpServer))
+#if defined(ESP_PLATFORM)
+    if (!mupnp_http_server_start(httpServer))
+      return false;
+#else
     mupnp_http_server_start(httpServer);
+#endif
 
   mupnp_log_debug_l4("Leaving...\n");
 

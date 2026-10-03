@@ -31,6 +31,9 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <time.h>
+#if defined(ESP_PLATFORM)
+#include <esp_random.h>
+#endif
 
 // Some systems (Solaris, CentOS?) come with libuuid, but does not feature
 // the uuid_unparse_lower() call.
@@ -62,7 +65,9 @@ static bool isUpnpNMPRMode = false;
 
 const char* mupnp_createuuid(char* uuidBuf, size_t uuidBufSize)
 {
-#if defined(HAVE_LIBUUID)
+#if defined(ESP_PLATFORM)
+  unsigned char uuid[16];
+#elif defined(HAVE_LIBUUID)
   uuid_t uuid;
   char uuidStr[MUPNP_UUID_MAX_LEN];
 #elif defined(WIN32)
@@ -76,7 +81,12 @@ const char* mupnp_createuuid(char* uuidBuf, size_t uuidBufSize)
 
   mupnp_log_debug_l4("Entering...\n");
 
-#if defined(HAVE_LIBUUID)
+#if defined(ESP_PLATFORM)
+  esp_fill_random(uuid, sizeof(uuid));
+  uuid[6] = (uuid[6] & 0x0f) | 0x40;
+  uuid[8] = (uuid[8] & 0x3f) | 0x80;
+  snprintf(uuidBuf, uuidBufSize, "uuid:%02x%02x%02x%02x-%02x%02x-%02x%02x-%02x%02x-%02x%02x%02x%02x%02x%02x", uuid[0], uuid[1], uuid[2], uuid[3], uuid[4], uuid[5], uuid[6], uuid[7], uuid[8], uuid[9], uuid[10], uuid[11], uuid[12], uuid[13], uuid[14], uuid[15]);
+#elif defined(HAVE_LIBUUID)
   uuid_generate(uuid);
   uuid_unparse_lower(uuid, uuidStr);
   snprintf(uuidBuf, uuidBufSize, "uuid:%s", uuidStr);

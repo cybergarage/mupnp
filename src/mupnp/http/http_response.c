@@ -186,11 +186,7 @@ bool mupnp_http_response_read(mUpnpHttpResponse* httpRes, mUpnpSocket* sock, boo
   }
   mupnp_string_tokenizer_delete(strTok);
 
-  mupnp_http_packet_read((mUpnpHttpPacket*)httpRes, sock, onlyHeader, lineBuf, sizeof(lineBuf));
-
-  mupnp_log_debug_l4("Leaving...\n");
-
-  return true;
+  return mupnp_http_packet_read((mUpnpHttpPacket*)httpRes, sock, onlyHeader, lineBuf, sizeof(lineBuf));
 }
 
 /****************************************

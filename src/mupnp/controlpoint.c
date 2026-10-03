@@ -170,22 +170,38 @@ bool mupnp_controlpoint_start(mUpnpControlPoint* ctrlPoint)
   mUpnpSSDPResponseServerList* ssdpResServerList;
   int ssdpResPort;
   int ssdpMaxResPort;
+#if defined(ESP_PLATFORM)
+  int httpAttempts = 0;
+#endif
 
   mupnp_log_debug_l4("Entering...\n");
 
   mupnp_controlpoint_stop(ctrlPoint);
 
   /* Expiration handling */
+#if defined(ESP_PLATFORM)
+  if (!mupnp_thread_start(ctrlPoint->expThread))
+    return false;
+#else
   mupnp_thread_start(ctrlPoint->expThread);
+#endif
 
   /**** Cache current interfaces ****/
   mupnp_net_gethostinterfaces(ctrlPoint->ifCache);
+#if defined(ESP_PLATFORM)
+  if (mupnp_net_interfacelist_size(ctrlPoint->ifCache) == 0)
+    goto startup_failed;
+#endif
 
   /**** HTTP Server ****/
   httpEventPort = mupnp_controlpoint_geteventport(ctrlPoint);
   httpServerList = mupnp_controlpoint_gethttpserverlist(ctrlPoint);
   /* Opening HTTP server may fail, so try many ports */
   while (mupnp_http_serverlist_open(httpServerList, httpEventPort) == false) {
+#if defined(ESP_PLATFORM)
+    if (++httpAttempts >= 10 || httpEventPort >= 65535)
+      goto startup_failed;
+#endif
     mupnp_controlpoint_seteventport(ctrlPoint, httpEventPort + 1);
     httpEventPort = mupnp_controlpoint_geteventport(ctrlPoint);
   }
@@ -194,16 +210,29 @@ bool mupnp_controlpoint_start(mUpnpControlPoint* ctrlPoint)
   if (httpListener == NULL)
     httpListener = mupnp_controlpoint_httprequestreceived;
   mupnp_http_serverlist_setlistener(httpServerList, httpListener);
+#if defined(ESP_PLATFORM)
+  if (!mupnp_http_serverlist_start(httpServerList))
+    goto startup_failed;
+#else
   mupnp_http_serverlist_start(httpServerList);
+#endif
 
   /**** SSDP Server ****/
   ssdpServerList = mupnp_controlpoint_getssdpserverlist(ctrlPoint);
   if (mupnp_ssdp_serverlist_open(ssdpServerList) == false)
+#if defined(ESP_PLATFORM)
+    goto startup_failed;
+#else
     return false;
+#endif
   mupnp_ssdp_serverlist_setlistener(ssdpServerList, mupnp_controlpoint_ssdplistner);
   mupnp_ssdp_serverlist_setuserdata(ssdpServerList, ctrlPoint);
   if (mupnp_ssdp_serverlist_start(ssdpServerList) == false)
+#if defined(ESP_PLATFORM)
+    goto startup_failed;
+#else
     return false;
+#endif
 
   /**** SSDP Response Server ****/
   ssdpResPort = mupnp_controlpoint_getssdpresponseport(ctrlPoint);
@@ -215,14 +244,27 @@ bool mupnp_controlpoint_start(mUpnpControlPoint* ctrlPoint)
     mupnp_controlpoint_setssdpresponseport(ctrlPoint, ssdpResPort + 1);
     ssdpResPort = mupnp_controlpoint_getssdpresponseport(ctrlPoint);
   }
+#if defined(ESP_PLATFORM)
+  if (mupnp_ssdpresponse_serverlist_size(ssdpResServerList) == 0)
+    goto startup_failed;
+#endif
   mupnp_ssdpresponse_serverlist_setlistener(ssdpResServerList, mupnp_controlpoint_ssdpresponselistner);
   mupnp_ssdpresponse_serverlist_setuserdata(ssdpResServerList, ctrlPoint);
   if (mupnp_ssdpresponse_serverlist_start(ssdpResServerList) == false)
+#if defined(ESP_PLATFORM)
+    goto startup_failed;
+#else
     return false;
+#endif
 
   mupnp_log_debug_l4("Leaving...\n");
 
   return true;
+#if defined(ESP_PLATFORM)
+startup_failed:
+  mupnp_controlpoint_stop(ctrlPoint);
+  return false;
+#endif
 }
 
 /**

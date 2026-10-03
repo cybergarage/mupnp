@@ -1,0 +1,5 @@
+# Non-secret placeholder: retain the full Wi-Fi/control-point application during
+# compile-only CI, rather than optimizing away app_main after the empty-SSID check.
+# Replace this with real local settings before flashing onto hardware.
+CONFIG_MUPNP_EXAMPLE_WIFI_SSID="mupnp-compile-test"
+CONFIG_MUPNP_EXAMPLE_WIFI_PASSWORD=""

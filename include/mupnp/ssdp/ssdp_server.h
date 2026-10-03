@@ -85,7 +85,11 @@ ssize_t mupnp_httpmu_socket_recv(mUpnpHttpMuSocket* sock, mUpnpSSDPPacket* ssdpP
 #define mupnp_httpu_socket_delete(sock) mupnp_socket_delete(sock)
 #define mupnp_httpu_socket_close(sock) mupnp_socket_close(sock)
 #define mupnp_httpu_socket_new() mupnp_socket_dgram_new()
+#if defined(ESP_PLATFORM)
+#define mupnp_httpu_socket_bind(sock, bindPort, bindAddr) mupnp_socket_bind(sock, bindPort, bindAddr, true, false)
+#else
 #define mupnp_httpu_socket_bind(sock, bindPort, bindAddr) mupnp_socket_bind(sock, bindPort, bindAddr, false, false)
+#endif
 ssize_t mupnp_httpu_socket_recv(mUpnpHttpUSocket* sock, mUpnpSSDPPacket* ssdpPkt);
 
 /****************************************

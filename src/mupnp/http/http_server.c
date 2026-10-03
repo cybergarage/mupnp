@@ -221,6 +221,7 @@ static void mupnp_http_server_clientthread(mUpnpThread* thread)
   mupnp_http_server_clientdata_delete(clientData);
   mupnp_thread_setuserdata(thread, NULL);
 
+#if !defined(ESP_PLATFORM)
   // This code frequently crashes. mutex lock referencing free'd memory.
   mupnp_http_server_lock(httpServer);
   mupnp_thread_remove(thread);
@@ -229,6 +230,7 @@ static void mupnp_http_server_clientthread(mUpnpThread* thread)
   mupnp_log_debug_l4("Leaving...\n");
 
   mupnp_thread_delete(thread);
+#endif
 }
 
 /****************************************
@@ -253,14 +255,38 @@ static void mupnp_http_server_thread(mUpnpThread* thread)
   serverSock = httpServer->sock;
   while (mupnp_thread_isrunnable(thread) == true) {
     clientSock = mupnp_socket_stream_new();
+    if (!clientSock)
+      break;
     if (mupnp_socket_accept(serverSock, clientSock) == false) {
       mupnp_socket_delete(clientSock);
       break;
     }
 
+#if defined(ESP_PLATFORM)
+    /* The accept thread owns client thread objects. Reap completed clients
+     * here, and join the remainder at stop before freeing the server. */
+    mUpnpThread* client = mupnp_threadlist_gets(httpServer->clientThreads);
+    while (client) {
+      mUpnpThread* next = mupnp_thread_next(client);
+      if (!mupnp_thread_isrunning(client))
+        mupnp_thread_delete(client);
+      client = next;
+    }
+    if (!mupnp_thread_isrunnable(thread)) {
+      mupnp_socket_delete(clientSock);
+      break;
+    }
+#endif
     mupnp_socket_settimeout(clientSock, mupnp_http_server_gettimeout(httpServer));
     clientData = mupnp_http_server_clientdata_new(httpServer, clientSock);
     httpClientThread = mupnp_thread_new();
+    if (!clientData || !httpClientThread) {
+      free(clientData);
+      if (httpClientThread)
+        mupnp_thread_delete(httpClientThread);
+      mupnp_socket_delete(clientSock);
+      continue;
+    }
     mupnp_thread_setaction(httpClientThread, mupnp_http_server_clientthread);
     mupnp_thread_setuserdata(httpClientThread, clientData);
 
@@ -269,7 +295,14 @@ static void mupnp_http_server_thread(mUpnpThread* thread)
     mupnp_threadlist_add(httpServer->clientThreads, httpClientThread);
     mupnp_http_server_unlock(httpServer);
 
-    mupnp_thread_start(httpClientThread);
+    if (!mupnp_thread_start(httpClientThread)) {
+      mupnp_http_server_lock(httpServer);
+      mupnp_thread_remove(httpClientThread);
+      mupnp_http_server_unlock(httpServer);
+      mupnp_thread_delete(httpClientThread);
+      mupnp_http_server_clientdata_delete(clientData);
+      mupnp_socket_delete(clientSock);
+    }
   }
 
   mupnp_log_debug_l4("Leaving...\n");
@@ -287,11 +320,18 @@ bool mupnp_http_server_start(mUpnpHttpServer* httpServer)
     return false;
 
   httpServer->acceptThread = mupnp_thread_new();
+  if (!httpServer->acceptThread)
+    return false;
   mupnp_thread_setaction(httpServer->acceptThread, mupnp_http_server_thread);
   mupnp_thread_setuserdata(httpServer->acceptThread, httpServer);
 
   /**** Thanks for Makela Aapo (10/31/05) ****/
   httpServer->clientThreads = mupnp_threadlist_new();
+  if (!httpServer->clientThreads) {
+    mupnp_thread_delete(httpServer->acceptThread);
+    httpServer->acceptThread = NULL;
+    return false;
+  }
 
   if (mupnp_thread_start(httpServer->acceptThread) == false) {
     mupnp_thread_delete(httpServer->acceptThread);

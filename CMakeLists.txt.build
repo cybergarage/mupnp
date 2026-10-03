@@ -5,6 +5,43 @@ use warnings;
 print <<'HEADER';
 cmake_minimum_required(VERSION 3.5)
 
+# Keep a single source list for the host library and ESP-IDF component.
+set(MUPNP_SRCS
+HEADER
+
+my @source_files = `find src/mupnp -name '*.c' | sort`;
+foreach my $file (@source_files) {
+  chomp($file);
+  print "  $file\n";
+}
+
+print <<'FOOTER';
+  )
+
+# ESP-IDF evaluates components before its top-level project() call. Do not run
+# the standalone host build or dependency discovery in this branch.
+if(ESP_PLATFORM)
+  idf_component_register(
+    SRCS ${MUPNP_SRCS}
+    INCLUDE_DIRS include
+    REQUIRES esp_netif lwip pthread esp_timer esp_hw_support
+    PRIV_REQUIRES espressif__expat)
+  target_compile_definitions(${COMPONENT_LIB} PUBLIC
+    MUPNP_XMLPARSER_EXPAT
+    HAVE_STDINT_H
+    HAVE_GMTIME_R
+    HAVE_SNPRINTF)
+  foreach(required_config CONFIG_LWIP_IPV4 CONFIG_LWIP_SO_REUSE CONFIG_VFS_SUPPORT_SELECT)
+    if(NOT ${required_config})
+      message(FATAL_ERROR "mUPnP requires ${required_config}=y; see doc/espidf.md")
+    endif()
+  endforeach()
+  if(NOT CONFIG_LWIP_SO_REUSE_RXTOALL)
+    message(WARNING "Enable CONFIG_LWIP_SO_REUSE_RXTOALL when using multiple SSDP listeners")
+  endif()
+  return()
+endif()
+
 project(mUPnP LANGUAGES C)
 
 #
@@ -38,20 +75,8 @@ if(MSVC)
 endif(MSVC)
 
 #
-# Sources and targets
+# Host library target
 #
-
-set(MUPNP_SRCS
-HEADER
-
-my @source_files = `find src/mupnp -name '*.c' | sort`;
-foreach my $file (@source_files) {
-	chomp($file);
-	print "  $file\n";
-}
-
-print <<'FOOTER';
-  )
 
 include_directories(include)
 add_library(MUPNP STATIC ${MUPNP_SRCS})

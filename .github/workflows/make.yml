@@ -27,7 +27,7 @@ jobs:
         make -j 20
     - name: make check
       run: |
-        run: make check -j 20 || more test/unix/test-suite.log
+        make check -j 20 || { cat test/unix/test-suite.log; exit 1; }
     - name: generate coverage
       run: |
         make check-code-coverage

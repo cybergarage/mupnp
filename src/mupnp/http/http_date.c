@@ -80,6 +80,9 @@ static char* to_week_string(int value)
 
 const char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, size_t bufSize)
 {
+#if !defined(WINCE)
+  time_t timestamp = (time_t)sysTime;
+#endif
 #if defined(HAVE_GMTIME_R)
   struct tm gmTimeBuf;
   struct tm* gmTime = &gmTimeBuf;
@@ -92,11 +95,11 @@ const char* mupnp_http_getdate(mUpnpTime sysTime, char* buf, size_t bufSize)
   mupnp_log_debug_l4("Entering...\n");
 
 #if defined(HAVE_GMTIME_R)
-  gmtime_r(&sysTime, &gmTimeBuf);
+  gmtime_r(&timestamp, &gmTimeBuf);
 #elif defined(WINCE)
   GetSystemTime(&systemTime);
 #else
-  gmTime = gmtime(&sysTime);
+  gmTime = gmtime(&timestamp);
 #endif
 
 #if defined(HAVE_SNPRINTF)

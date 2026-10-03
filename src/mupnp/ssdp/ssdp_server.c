@@ -170,6 +170,8 @@ bool mupnp_ssdp_server_start(mUpnpSSDPServer* server)
   mupnp_log_debug_l4("Entering...\n");
 
   server->recvThread = mupnp_thread_new();
+  if (!server->recvThread)
+    return false;
   mupnp_thread_setaction(server->recvThread, mupnp_ssdp_server_thread);
   mupnp_thread_setuserdata(server->recvThread, server);
   if (mupnp_thread_start(server->recvThread) == false) {

@@ -268,12 +268,12 @@ char* mupnp_strtrimwhite(char* str)
   if (strLen == 0)
     return str;
   for (i = (strLen - 1); 0 <= i; i--) {
-    if (isspace(str[i])) {
+    if (isspace((unsigned char)str[i])) {
       strLen--;
     }
   }
   for (i = 0; i < strLen; i++) {
-    if (!isspace(str[i]))
+    if (!isspace((unsigned char)str[i]))
       break;
   }
 

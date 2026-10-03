@@ -40,6 +40,14 @@ brew install mupnp
 
 For MacOSX, I have released a wrapper class for Objective-C on Cocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library if you need to use all functions of mUPnP for C.
 
+### ESP-IDF
+
+The repository can also be used as an ESP-IDF component with Espressif's managed
+Expat dependency. The initial port targets ESP32 with one active Wi-Fi station
+interface and IPv4. See the [ESP-IDF guide](doc/espidf.md) for build instructions,
+configuration, limitations, and the [Wi-Fi control-point example](examples/espidf/control_point).
+The compile baseline is ESP-IDF v5.5.5; hardware validation is still required.
+
 ### Windows
 
 For Windows platforms, mUPnP includes platform projects for Visual Studio 2005. Please check the platform directories, mupnp/*/win32/vs2005, to use the projects. On WindowsCE, mUPnP does not have platform projects, but a contributor has verified that the source codes compile normally.

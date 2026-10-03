@@ -11,6 +11,12 @@
 
 #include <mupnp/util/cond.h>
 #include <mupnp/util/log.h>
+#if defined(ESP_PLATFORM)
+#include <errno.h>
+#include <esp_timer.h>
+#include <mupnp/util/thread.h>
+#include <stdint.h>
+#endif
 
 #if defined(WIN32)
 #include <winbase.h>
@@ -98,6 +104,33 @@ bool mupnp_cond_wait(mUpnpCond* cond, mUpnpMutex* mutex, unsigned long timeout)
 /* TODO: Add implementation */
 #elif defined(TENGINE) && defined(PROCESS_BASE)
 /* TODO: Add implementation */
+#elif defined(ESP_PLATFORM)
+  mUpnpThread* thread = mupnp_thread_self();
+  int64_t started = esp_timer_get_time();
+  int64_t duration = (int64_t)timeout * 1000000;
+
+  /* stop_with_cond cannot lock the caller's mutex. Bounded waits close the
+   * check-to-wait lost-wakeup window without changing the requested deadline. */
+  while (thread == NULL || mupnp_thread_isrunnable(thread)) {
+    int64_t remaining = duration - (esp_timer_get_time() - started);
+    if (timeout != 0 && remaining <= 0)
+      break;
+    long slice = (timeout != 0 && remaining < 100000) ? (long)remaining : 100000;
+    struct timeval now;
+    struct timespec until;
+    gettimeofday(&now, NULL);
+    until.tv_sec = now.tv_sec;
+    until.tv_nsec = now.tv_usec * 1000 + slice * 1000;
+    if (until.tv_nsec >= 1000000000) {
+      until.tv_sec++;
+      until.tv_nsec -= 1000000000;
+    }
+    int result = pthread_cond_timedwait(&cond->condID, &mutex->mutexID, &until);
+    if (result == 0)
+      break;
+    if (result != ETIMEDOUT)
+      return false;
+  }
 #else
   struct timeval now;
   struct timespec timeoutS;
