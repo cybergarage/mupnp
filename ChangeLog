@@ -1,3 +1,16 @@
+2026-10-05 Satoshi Konno <skonno@cybergarage.org>
+	* 3.0.5
+	* Fixed HTTP EOF/error handling, Content-Length and chunked framing validation, and cleanup of incomplete responses.
+	* Fixed POSIX thread and HTTP server ownership during shutdown and deferred deletion.
+	* Fixed Objective-C device snapshot and child-wrapper lifetimes, and preserved native action callbacks.
+	* Enabled TLS certificate-chain and hostname/IP verification with DNS SNI support.
+	* Limited XML nesting and fixed libxml2 input-length and UTF-8 recovery bounds.
+	* Hardened SSDP MX parsing, empty UDP handling, and tokenizer cleanup.
+	* Bounded media-directory traversal to prevent cycles and excessive recursion.
+	* Fixed the test presentation response and bounded SOCKET_DEBUG buffer reads.
+	* Added initial ESP-IDF support for ESP32 IPv4 discovery, with host regression and ESP-IDF build checks.
+	* Added security regression fixtures and saved the audit and remediation report in doc/security-audit-2026-10-05.md.
+
 2026-09-16 Satoshi Konno <skonno@cybergarage.org>
 	* 3.0.4
 	* Fixed heap buffer overflows in HTTP/SSDP/SOAP/GENA input parsing, confirmed with AddressSanitizer and UBSan.
