@@ -50,9 +50,10 @@ void clink_testcase_http_request_recieved(mUpnpHttpRequest* httpReq)
 BOOST_AUTO_TEST_CASE(HttpServer)
 {
   /**** HTTP Server ****/
+  int port = MUPNP_TESTCASE_HTTP_PORT;
   mUpnpHttpServer* httpServer = mupnp_http_server_new();
   BOOST_REQUIRE(httpServer);
-  BOOST_REQUIRE(mupnp_http_server_open(httpServer, MUPNP_TESTCASE_HTTP_PORT, MUPNP_TESTCASE_HTTP_ADDR));
+  BOOST_REQUIRE(mupnp_http_server_open(httpServer, port, MUPNP_TESTCASE_HTTP_ADDR));
   mupnp_http_server_setlistener(httpServer, clink_testcase_http_request_recieved);
   BOOST_REQUIRE(mupnp_http_server_start(httpServer));
 
@@ -63,16 +64,25 @@ BOOST_AUTO_TEST_CASE(HttpServer)
     mupnp_http_request_setmethod(httpReq, MUPNP_HTTP_GET);
     mupnp_http_request_seturi(httpReq, MUPNP_TESTCASE_HTTP_URL);
     mupnp_http_request_setcontentlength(httpReq, 0);
-    mUpnpHttpResponse* httpRes = mupnp_http_request_post(httpReq, MUPNP_TESTCASE_HTTP_ADDR, MUPNP_TESTCASE_HTTP_PORT);
+    mUpnpHttpResponse* httpRes = mupnp_http_request_post(httpReq, MUPNP_TESTCASE_HTTP_ADDR, port);
     BOOST_REQUIRE(httpRes);
     BOOST_REQUIRE(mupnp_http_response_issuccessful(httpRes));
     BOOST_REQUIRE(mupnp_streq(mupnp_http_response_getcontent(httpRes), MUPNP_TESTCASE_HTTP_PAGE));
     BOOST_REQUIRE(mupnp_http_response_getcontentlength(httpRes) == mupnp_strlen(MUPNP_TESTCASE_HTTP_PAGE));
     mupnp_http_request_delete(httpReq);
+    if (n % 10 == 0) {
+      /* Stop while the just-served client may still be completing cleanup. */
+      mupnp_http_server_delete(httpServer);
+      httpServer = mupnp_http_server_new();
+      ++port;
+      BOOST_REQUIRE(mupnp_http_server_open(httpServer, port, MUPNP_TESTCASE_HTTP_ADDR));
+      mupnp_http_server_setlistener(httpServer, clink_testcase_http_request_recieved);
+      BOOST_REQUIRE(mupnp_http_server_start(httpServer));
+    }
   }
 
   /**** HTTP Server ****/
-  mupnp_http_server_stop(httpServer);
+  mupnp_http_server_delete(httpServer);
 }
 
 #if !defined(WIN32)

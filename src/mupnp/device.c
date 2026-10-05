@@ -96,6 +96,13 @@ void mupnp_device_delete(mUpnpDevice* dev)
 {
   mupnp_log_debug_l4("Entering...\n");
 
+  if (!dev)
+    return;
+  /* Drain workers before releasing the description and services they use. */
+  mupnp_device_advertiser_stop(dev);
+  mupnp_http_serverlist_stop(dev->httpServerList);
+  mupnp_ssdp_serverlist_stop(dev->ssdpServerList);
+
   mupnp_list_remove((mUpnpList*)dev);
 
   /* Delete cached interfaces */
