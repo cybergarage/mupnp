@@ -89,6 +89,8 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:ae2d0a71b67036f939b1c64b7a21000fc" id="r_ae2d0a71b67036f939b1c64b7a21000fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae2d0a71b67036f939b1c64b7a21000fc">MUPNP_XML_MAX_DEPTH</a>&#160;&#160;&#160;128</td></tr>
+<tr class="separator:ae2d0a71b67036f939b1c64b7a21000fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab28eb5c9486ee642abd86eb554c73ef9" id="r_ab28eb5c9486ee642abd86eb554c73ef9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab28eb5c9486ee642abd86eb554c73ef9">MUPNP_XML_INDENT_STRING</a>&#160;&#160;&#160;&quot; &quot;</td></tr>
 <tr class="separator:ab28eb5c9486ee642abd86eb554c73ef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8156895307b883b755074d1f2958b447" id="r_a8156895307b883b755074d1f2958b447"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8156895307b883b755074d1f2958b447">MUPNP_XML_VERSION_HEADER</a>&#160;&#160;&#160;&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;utf-8\&quot;?&gt;&quot;</td></tr>
@@ -288,7 +290,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_struct" href="struct__mUpnpXmlAttribute.html">mUpnpXmlAttribute</a>*)<a class="code hl_function" href="list_8c.html#a2a9efe9bcae6cdc8ee0783bc4b883cc3">mupnp_list_next</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)attr)</div>
 <div class="ttc" id="alist_8c_html_a2a9efe9bcae6cdc8ee0783bc4b883cc3"><div class="ttname"><a href="list_8c.html#a2a9efe9bcae6cdc8ee0783bc4b883cc3">mupnp_list_next</a></div><div class="ttdeci">mUpnpList * mupnp_list_next(mUpnpList *list)</div><div class="ttdef"><b>Definition</b> list.c:234</div></div>
 <div class="ttc" id="astruct__mUpnpList_html"><div class="ttname"><a href="struct__mUpnpList.html">_mUpnpList</a></div><div class="ttdoc">The generic list interface in mUPnP.</div><div class="ttdef"><b>Definition</b> list.h:56</div></div>
-<div class="ttc" id="astruct__mUpnpXmlAttribute_html"><div class="ttname"><a href="struct__mUpnpXmlAttribute.html">_mUpnpXmlAttribute</a></div><div class="ttdef"><b>Definition</b> xml.h:38</div></div>
+<div class="ttc" id="astruct__mUpnpXmlAttribute_html"><div class="ttname"><a href="struct__mUpnpXmlAttribute.html">_mUpnpXmlAttribute</a></div><div class="ttdef"><b>Definition</b> xml.h:41</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -434,6 +436,20 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ae2d0a71b67036f939b1c64b7a21000fc" name="ae2d0a71b67036f939b1c64b7a21000fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2d0a71b67036f939b1c64b7a21000fc">&#9670;&#160;</a></span>MUPNP_XML_MAX_DEPTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MUPNP_XML_MAX_DEPTH&#160;&#160;&#160;128</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1fe47ceaef1ec0b91e28457cb0dc1ff8" name="a1fe47ceaef1ec0b91e28457cb0dc1ff8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fe47ceaef1ec0b91e28457cb0dc1ff8">&#9670;&#160;</a></span>mupnp_xml_node_addattribute</h2>
 
@@ -453,7 +469,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a2562527975f0ce442fcba3371121f53e">mupnp_xml_attributelist_add</a>(node-&gt;attrList, attr)</div>
-<div class="ttc" id="axml_8h_html_a2562527975f0ce442fcba3371121f53e"><div class="ttname"><a href="#a2562527975f0ce442fcba3371121f53e">mupnp_xml_attributelist_add</a></div><div class="ttdeci">#define mupnp_xml_attributelist_add(attrList, attr)</div><div class="ttdef"><b>Definition</b> xml.h:71</div></div>
+<div class="ttc" id="axml_8h_html_a2562527975f0ce442fcba3371121f53e"><div class="ttname"><a href="#a2562527975f0ce442fcba3371121f53e">mupnp_xml_attributelist_add</a></div><div class="ttdeci">#define mupnp_xml_attributelist_add(attrList, attr)</div><div class="ttdef"><b>Definition</b> xml.h:74</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -518,7 +534,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#adb93623994de454bcd2ddcbbaf716407">mupnp_xml_attributelist_gets</a>(node-&gt;attrList)</div>
-<div class="ttc" id="axml_8h_html_adb93623994de454bcd2ddcbbaf716407"><div class="ttname"><a href="#adb93623994de454bcd2ddcbbaf716407">mupnp_xml_attributelist_gets</a></div><div class="ttdeci">#define mupnp_xml_attributelist_gets(attrList)</div><div class="ttdef"><b>Definition</b> xml.h:70</div></div>
+<div class="ttc" id="axml_8h_html_adb93623994de454bcd2ddcbbaf716407"><div class="ttname"><a href="#adb93623994de454bcd2ddcbbaf716407">mupnp_xml_attributelist_gets</a></div><div class="ttdeci">#define mupnp_xml_attributelist_gets(attrList)</div><div class="ttdef"><b>Definition</b> xml.h:73</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -693,7 +709,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a09323c569206df09ac7a9d93a5223818">mupnp_xml_nodelist_gets</a>(node-&gt;nodeList)</div>
-<div class="ttc" id="axml_8h_html_a09323c569206df09ac7a9d93a5223818"><div class="ttname"><a href="#a09323c569206df09ac7a9d93a5223818">mupnp_xml_nodelist_gets</a></div><div class="ttdeci">#define mupnp_xml_nodelist_gets(nodeList)</div><div class="ttdef"><b>Definition</b> xml.h:103</div></div>
+<div class="ttc" id="axml_8h_html_a09323c569206df09ac7a9d93a5223818"><div class="ttname"><a href="#a09323c569206df09ac7a9d93a5223818">mupnp_xml_nodelist_gets</a></div><div class="ttdeci">#define mupnp_xml_nodelist_gets(nodeList)</div><div class="ttdef"><b>Definition</b> xml.h:106</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -824,7 +840,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((<a class="code hl_define" href="#af48adaa436a5d364b884f362a59c5b6d">mupnp_xml_node_getchildnodes</a>(node) != NULL) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
 <div class="ttc" id="atypedef_8h_html_a41f9c5fb8b08eb5dc3edce4dcb37fee7"><div class="ttname"><a href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a></div><div class="ttdeci">#define true</div><div class="ttdef"><b>Definition</b> typedef.h:63</div></div>
-<div class="ttc" id="axml_8h_html_af48adaa436a5d364b884f362a59c5b6d"><div class="ttname"><a href="#af48adaa436a5d364b884f362a59c5b6d">mupnp_xml_node_getchildnodes</a></div><div class="ttdeci">#define mupnp_xml_node_getchildnodes(node)</div><div class="ttdef"><b>Definition</b> xml.h:151</div></div>
+<div class="ttc" id="axml_8h_html_af48adaa436a5d364b884f362a59c5b6d"><div class="ttname"><a href="#af48adaa436a5d364b884f362a59c5b6d">mupnp_xml_node_getchildnodes</a></div><div class="ttdeci">#define mupnp_xml_node_getchildnodes(node)</div><div class="ttdef"><b>Definition</b> xml.h:154</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -848,7 +864,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_function" href="string__function_8c.html#a63e9c89a48a84677e3a6dbe6803122c2">mupnp_strcmp</a>(<a class="code hl_define" href="#ab830311e383a02cf3d7a6d6866a54040">mupnp_xml_node_getname</a>(node), nodename) == 0 ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
 <div class="ttc" id="astring__function_8c_html_a63e9c89a48a84677e3a6dbe6803122c2"><div class="ttname"><a href="string__function_8c.html#a63e9c89a48a84677e3a6dbe6803122c2">mupnp_strcmp</a></div><div class="ttdeci">int mupnp_strcmp(const char *str1, const char *str2)</div><div class="ttdoc">Compare two strings (NULL-safe wrapper for strcmp)</div><div class="ttdef"><b>Definition</b> string_function.c:100</div></div>
-<div class="ttc" id="axml_8h_html_ab830311e383a02cf3d7a6d6866a54040"><div class="ttname"><a href="#ab830311e383a02cf3d7a6d6866a54040">mupnp_xml_node_getname</a></div><div class="ttdeci">#define mupnp_xml_node_getname(node)</div><div class="ttdef"><b>Definition</b> xml.h:122</div></div>
+<div class="ttc" id="axml_8h_html_ab830311e383a02cf3d7a6d6866a54040"><div class="ttname"><a href="#ab830311e383a02cf3d7a6d6866a54040">mupnp_xml_node_getname</a></div><div class="ttdeci">#define mupnp_xml_node_getname(node)</div><div class="ttdef"><b>Definition</b> xml.h:125</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -895,7 +911,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_struct" href="struct__mUpnpXmlNode.html">mUpnpXmlNode</a>*)<a class="code hl_function" href="list_8c.html#a2a9efe9bcae6cdc8ee0783bc4b883cc3">mupnp_list_next</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)node)</div>
-<div class="ttc" id="astruct__mUpnpXmlNode_html"><div class="ttname"><a href="struct__mUpnpXmlNode.html">_mUpnpXmlNode</a></div><div class="ttdef"><b>Definition</b> xml.h:45</div></div>
+<div class="ttc" id="astruct__mUpnpXmlNode_html"><div class="ttname"><a href="struct__mUpnpXmlNode.html">_mUpnpXmlNode</a></div><div class="ttdef"><b>Definition</b> xml.h:48</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1038,7 +1054,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#aa32ce35704f67a57155ea44e9958e183">mupnp_xml_node_setattribute</a>(node, <span class="stringliteral">&quot;xmlns:&quot;</span> ns, value)</div>
-<div class="ttc" id="axml_8h_html_aa32ce35704f67a57155ea44e9958e183"><div class="ttname"><a href="#aa32ce35704f67a57155ea44e9958e183">mupnp_xml_node_setattribute</a></div><div class="ttdeci">#define mupnp_xml_node_setattribute(node, name, value)</div><div class="ttdef"><b>Definition</b> xml.h:165</div></div>
+<div class="ttc" id="axml_8h_html_aa32ce35704f67a57155ea44e9958e183"><div class="ttname"><a href="#aa32ce35704f67a57155ea44e9958e183">mupnp_xml_node_setattribute</a></div><div class="ttdeci">#define mupnp_xml_node_setattribute(node, name, value)</div><div class="ttdef"><b>Definition</b> xml.h:168</div></div>
 </div><!-- fragment -->
 </div>
 </div>

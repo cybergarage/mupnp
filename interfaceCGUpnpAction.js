@@ -8,5 +8,6 @@ var interfaceCGUpnpAction =
     [ "postWithArguments:", "interfaceCGUpnpAction.html#ac9b7461e9d2c234013d6aab8ede880e3", null ],
     [ "setArgumentValue:forName:", "interfaceCGUpnpAction.html#a00b84e0f87a1779d64d730aae84afd8a", null ],
     [ "statusCode", "interfaceCGUpnpAction.html#a7aede2e0802cbb86cace48a9061d378b", null ],
-    [ "cObject", "interfaceCGUpnpAction.html#a702f5545f5c951044623e8fd138e5af2", null ]
+    [ "cObject", "interfaceCGUpnpAction.html#a702f5545f5c951044623e8fd138e5af2", null ],
+    [ "cObjectOwner", "interfaceCGUpnpAction.html#a3e4852841153e2f5ec4c90be710f178c", null ]
 ];

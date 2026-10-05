@@ -470,7 +470,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="http_8h.html#a46c9c5d1b3ac6eab5ac9d592835cd47d">mupnp_http_packet_hasheader</a>(((<a class="code hl_struct" href="struct__mUpnpHttpPacket.html">mUpnpHttpPacket</a>*)subReq), <a class="code hl_define" href="http_8h.html#aec230f154456c423aaae4ffc0d59e02e">MUPNP_HTTP_CALLBACK</a>)</div>
-<div class="ttc" id="ahttp_8h_html_a46c9c5d1b3ac6eab5ac9d592835cd47d"><div class="ttname"><a href="http_8h.html#a46c9c5d1b3ac6eab5ac9d592835cd47d">mupnp_http_packet_hasheader</a></div><div class="ttdeci">#define mupnp_http_packet_hasheader(httpPkt, name)</div><div class="ttdef"><b>Definition</b> http.h:278</div></div>
+<div class="ttc" id="ahttp_8h_html_a46c9c5d1b3ac6eab5ac9d592835cd47d"><div class="ttname"><a href="http_8h.html#a46c9c5d1b3ac6eab5ac9d592835cd47d">mupnp_http_packet_hasheader</a></div><div class="ttdeci">#define mupnp_http_packet_hasheader(httpPkt, name)</div><div class="ttdef"><b>Definition</b> http.h:279</div></div>
 </div><!-- fragment --><p>Checks if subscription request has callback URL</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -570,8 +570,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="http__request_8c.html#ab468621b9a302722b2742eae63e4b56d">mupnp_http_request_post</a>(subReq, <a class="code hl_define" href="url_8h.html#a6a16ad99710f359c9e5801e141cd334c">mupnp_net_url_gethost</a>(<a class="code hl_define" href="http_8h.html#a849c5f09107e1623f97093d614e8c90d">mupnp_http_request_getposturl</a>(subReq)), <a class="code hl_define" href="url_8h.html#ad30628b186ddaf8b3f4d0a1d81d78c3b">mupnp_net_url_getport</a>(<a class="code hl_define" href="http_8h.html#a849c5f09107e1623f97093d614e8c90d">mupnp_http_request_getposturl</a>(subReq)))</div>
-<div class="ttc" id="ahttp_8h_html_a849c5f09107e1623f97093d614e8c90d"><div class="ttname"><a href="http_8h.html#a849c5f09107e1623f97093d614e8c90d">mupnp_http_request_getposturl</a></div><div class="ttdeci">#define mupnp_http_request_getposturl(httpReq)</div><div class="ttdef"><b>Definition</b> http.h:427</div></div>
-<div class="ttc" id="ahttp__request_8c_html_ab468621b9a302722b2742eae63e4b56d"><div class="ttname"><a href="http__request_8c.html#ab468621b9a302722b2742eae63e4b56d">mupnp_http_request_post</a></div><div class="ttdeci">mUpnpHttpResponse * mupnp_http_request_post(mUpnpHttpRequest *httpReq, const char *ipaddr, int port)</div><div class="ttdef"><b>Definition</b> http_request.c:347</div></div>
+<div class="ttc" id="ahttp_8h_html_a849c5f09107e1623f97093d614e8c90d"><div class="ttname"><a href="http_8h.html#a849c5f09107e1623f97093d614e8c90d">mupnp_http_request_getposturl</a></div><div class="ttdeci">#define mupnp_http_request_getposturl(httpReq)</div><div class="ttdef"><b>Definition</b> http.h:428</div></div>
+<div class="ttc" id="ahttp__request_8c_html_ab468621b9a302722b2742eae63e4b56d"><div class="ttname"><a href="http__request_8c.html#ab468621b9a302722b2742eae63e4b56d">mupnp_http_request_post</a></div><div class="ttdeci">mUpnpHttpResponse * mupnp_http_request_post(mUpnpHttpRequest *httpReq, const char *ipaddr, int port)</div><div class="ttdef"><b>Definition</b> http_request.c:348</div></div>
 <div class="ttc" id="aurl_8h_html_a6a16ad99710f359c9e5801e141cd334c"><div class="ttname"><a href="url_8h.html#a6a16ad99710f359c9e5801e141cd334c">mupnp_net_url_gethost</a></div><div class="ttdeci">#define mupnp_net_url_gethost(urip)</div><div class="ttdef"><b>Definition</b> url.h:62</div></div>
 <div class="ttc" id="aurl_8h_html_ad30628b186ddaf8b3f4d0a1d81d78c3b"><div class="ttname"><a href="url_8h.html#ad30628b186ddaf8b3f4d0a1d81d78c3b">mupnp_net_url_getport</a></div><div class="ttdeci">#define mupnp_net_url_getport(urip)</div><div class="ttdef"><b>Definition</b> url.h:63</div></div>
 </div><!-- fragment --><p>Send subscription request to device</p>
@@ -603,7 +603,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="http__request_8c.html#a90f9530a402e220c258f7161f6b8851a">mupnp_http_request_postresponse</a>(subReq, subRes)</div>
-<div class="ttc" id="ahttp__request_8c_html_a90f9530a402e220c258f7161f6b8851a"><div class="ttname"><a href="http__request_8c.html#a90f9530a402e220c258f7161f6b8851a">mupnp_http_request_postresponse</a></div><div class="ttdeci">bool mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpResponse *httpRes)</div><div class="ttdef"><b>Definition</b> http_request.c:756</div></div>
+<div class="ttc" id="ahttp__request_8c_html_a90f9530a402e220c258f7161f6b8851a"><div class="ttname"><a href="http__request_8c.html#a90f9530a402e220c258f7161f6b8851a">mupnp_http_request_postresponse</a></div><div class="ttdeci">bool mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpResponse *httpRes)</div><div class="ttdef"><b>Definition</b> http_request.c:757</div></div>
 </div><!-- fragment --><p>Send response to subscription request</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -832,7 +832,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="http_8h.html#a6381ee3027b47020c00b0340c118ec61">mupnp_http_response_issuccessful</a>(subRes)</div>
-<div class="ttc" id="ahttp_8h_html_a6381ee3027b47020c00b0340c118ec61"><div class="ttname"><a href="http_8h.html#a6381ee3027b47020c00b0340c118ec61">mupnp_http_response_issuccessful</a></div><div class="ttdeci">#define mupnp_http_response_issuccessful(httpRes)</div><div class="ttdef"><b>Definition</b> http.h:452</div></div>
+<div class="ttc" id="ahttp_8h_html_a6381ee3027b47020c00b0340c118ec61"><div class="ttname"><a href="http_8h.html#a6381ee3027b47020c00b0340c118ec61">mupnp_http_response_issuccessful</a></div><div class="ttdeci">#define mupnp_http_response_issuccessful(httpRes)</div><div class="ttdef"><b>Definition</b> http.h:453</div></div>
 </div><!-- fragment --><p>Checks if subscription was successfull by checking status code from subscription response</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

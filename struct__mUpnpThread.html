@@ -83,6 +83,16 @@ Data Fields</h2></td></tr>
 <tr class="separator:aba807b80983077eaf707560c3f903802"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab383cda72d3210d9f0e9bd62c63d959f" id="r_ab383cda72d3210d9f0e9bd62c63d959f"><td class="memItemLeft" align="right" valign="top">pthread_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab383cda72d3210d9f0e9bd62c63d959f">pThread</a></td></tr>
 <tr class="separator:ab383cda72d3210d9f0e9bd62c63d959f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0118fcbead3644e94dee13600b353153" id="r_a0118fcbead3644e94dee13600b353153"><td class="memItemLeft" align="right" valign="top">pthread_mutex_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0118fcbead3644e94dee13600b353153">stateMutex</a></td></tr>
+<tr class="separator:a0118fcbead3644e94dee13600b353153"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a3070841b4b15f793ecdca982a91773" id="r_a2a3070841b4b15f793ecdca982a91773"><td class="memItemLeft" align="right" valign="top">pthread_cond_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a3070841b4b15f793ecdca982a91773">completion</a></td></tr>
+<tr class="separator:a2a3070841b4b15f793ecdca982a91773"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8a1342e789a8ee9894effd287000ab6" id="r_ae8a1342e789a8ee9894effd287000ab6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8a1342e789a8ee9894effd287000ab6">isRunning</a></td></tr>
+<tr class="separator:ae8a1342e789a8ee9894effd287000ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14b0c197d33f9468109a6b8618d0b241" id="r_a14b0c197d33f9468109a6b8618d0b241"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14b0c197d33f9468109a6b8618d0b241">stopWaiting</a></td></tr>
+<tr class="separator:a14b0c197d33f9468109a6b8618d0b241"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3101c5d95dd8d06d44ca826141cb829b" id="r_a3101c5d95dd8d06d44ca826141cb829b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3101c5d95dd8d06d44ca826141cb829b">deletePending</a></td></tr>
+<tr class="separator:a3101c5d95dd8d06d44ca826141cb829b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a358065f562d8b3be9192b21bb9effdfa" id="r_a358065f562d8b3be9192b21bb9effdfa"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a358065f562d8b3be9192b21bb9effdfa">action</a> )(struct <a class="el" href="struct__mUpnpThread.html">_mUpnpThread</a> *)</td></tr>
 <tr class="separator:a358065f562d8b3be9192b21bb9effdfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaabbda78cf984cc70b2e63d7daaafd10" id="r_aaabbda78cf984cc70b2e63d7daaafd10"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaabbda78cf984cc70b2e63d7daaafd10">userData</a></td></tr>
@@ -104,6 +114,48 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Thread's worker function </p>
+
+</div>
+</div>
+<a id="a2a3070841b4b15f793ecdca982a91773" name="a2a3070841b4b15f793ecdca982a91773"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a3070841b4b15f793ecdca982a91773">&#9670;&#160;</a></span>completion</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pthread_cond_t _mUpnpThread::completion</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3101c5d95dd8d06d44ca826141cb829b" name="a3101c5d95dd8d06d44ca826141cb829b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3101c5d95dd8d06d44ca826141cb829b">&#9670;&#160;</a></span>deletePending</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a> _mUpnpThread::deletePending</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae8a1342e789a8ee9894effd287000ab6" name="ae8a1342e789a8ee9894effd287000ab6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8a1342e789a8ee9894effd287000ab6">&#9670;&#160;</a></span>isRunning</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a> _mUpnpThread::isRunning</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -134,6 +186,34 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Indicates whether this thread is ready to run </p>
+
+</div>
+</div>
+<a id="a0118fcbead3644e94dee13600b353153" name="a0118fcbead3644e94dee13600b353153"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0118fcbead3644e94dee13600b353153">&#9670;&#160;</a></span>stateMutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">pthread_mutex_t _mUpnpThread::stateMutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14b0c197d33f9468109a6b8618d0b241" name="a14b0c197d33f9468109a6b8618d0b241"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14b0c197d33f9468109a6b8618d0b241">&#9670;&#160;</a></span>stopWaiting</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a> _mUpnpThread::stopWaiting</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

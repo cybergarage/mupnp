@@ -12,6 +12,7 @@ var xml_8h =
     [ "MUPNP_XML_CONTENT_LF", "xml_8h.html#a1e5b927a48da862cff2b488603f29dec", null ],
     [ "MUPNP_XML_CONTENT_TYPE", "xml_8h.html#a0ce293ff7ce18dea7a408c2dd536d27d", null ],
     [ "MUPNP_XML_INDENT_STRING", "xml_8h.html#ab28eb5c9486ee642abd86eb554c73ef9", null ],
+    [ "MUPNP_XML_MAX_DEPTH", "xml_8h.html#ae2d0a71b67036f939b1c64b7a21000fc", null ],
     [ "mupnp_xml_node_addattribute", "xml_8h.html#a1fe47ceaef1ec0b91e28457cb0dc1ff8", null ],
     [ "mupnp_xml_node_addvalue", "xml_8h.html#a659ac3527288470ec0de5902c6e7d3ab", null ],
     [ "mupnp_xml_node_getattribute", "xml_8h.html#a24368e3d29550dc07f78d0c0658b5f6d", null ],

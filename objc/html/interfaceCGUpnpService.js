@@ -9,5 +9,6 @@ var interfaceCGUpnpService =
     [ "serviceId", "interfaceCGUpnpService.html#a847ab60141c97c9ea5d24838e776b1ee", null ],
     [ "serviceType", "interfaceCGUpnpService.html#aecb7a1a1fea8ede53ba6f287c72eaa8c", null ],
     [ "stateVariables", "interfaceCGUpnpService.html#ab322496ca0cd5d8cf577fa9abca89450", null ],
-    [ "cObject", "interfaceCGUpnpService.html#a840aa4913ebcd4adae1b52c9d50e3bc0", null ]
+    [ "cObject", "interfaceCGUpnpService.html#a840aa4913ebcd4adae1b52c9d50e3bc0", null ],
+    [ "cObjectOwner", "interfaceCGUpnpService.html#abd757ae628465b42e0d067a6a558a391", null ]
 ];

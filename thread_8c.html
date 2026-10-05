@@ -183,7 +183,7 @@ Variables</h2></td></tr>
 Blocking behavior: This function blocks until the thread terminates. If the thread does not check <a class="el" href="thread_8h.html#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable()</a>, it may block indefinitely. </dd>
 <dd>
 Thread-safe: Must not be called concurrently on the same thread.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>On ESP-IDF, a self-owned worker may delete itself: destruction is deferred until its action returns. The caller must not subsequently access the object, and must not race this with external deletion. Other platforms do not guarantee safe self-deletion.</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>On ESP-IDF, a self-owned worker may delete itself: destruction is deferred until its action returns. The caller must not subsequently access the object, and must not race this with external deletion. Native POSIX self-deletion is also deferred until action return.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="thread_8h.html#a814b13993667a6a1c3ae3f1fe590b5f7" title="Create a new thread instance.">mupnp_thread_new()</a> </dd>
 <dd>
 <a class="el" href="thread_8h.html#a7c34f0c58d901eb7cd1c40d46778357a" title="Request a thread to stop execution.">mupnp_thread_stop()</a> </dd></dl>
@@ -287,10 +287,10 @@ The thread does not start automatically; call <a class="el" href="thread_8h.html
 <div class="line"><a class="code hl_function" href="#a62d90fd07931527376328a2d95526ea0">mupnp_thread_setaction</a>(thread, worker_function);</div>
 <div class="line"><a class="code hl_function" href="#a894f4d99477634c1d9c7dfa582893cce">mupnp_thread_start</a>(thread);</div>
 <div class="ttc" id="astruct__mUpnpThread_html"><div class="ttname"><a href="struct__mUpnpThread.html">_mUpnpThread</a></div><div class="ttdoc">The generic wrapper struct for mUPnP's threads.</div><div class="ttdef"><b>Definition</b> thread.h:64</div></div>
-<div class="ttc" id="athread_8c_html_a62d90fd07931527376328a2d95526ea0"><div class="ttname"><a href="#a62d90fd07931527376328a2d95526ea0">mupnp_thread_setaction</a></div><div class="ttdeci">void mupnp_thread_setaction(mUpnpThread *thread, MUPNP_THREAD_FUNC func)</div><div class="ttdef"><b>Definition</b> thread.c:725</div></div>
-<div class="ttc" id="athread_8c_html_a814b13993667a6a1c3ae3f1fe590b5f7"><div class="ttname"><a href="#a814b13993667a6a1c3ae3f1fe590b5f7">mupnp_thread_new</a></div><div class="ttdeci">mUpnpThread * mupnp_thread_new(void)</div><div class="ttdoc">Create a new thread instance.</div><div class="ttdef"><b>Definition</b> thread.c:226</div></div>
-<div class="ttc" id="athread_8c_html_a894f4d99477634c1d9c7dfa582893cce"><div class="ttname"><a href="#a894f4d99477634c1d9c7dfa582893cce">mupnp_thread_start</a></div><div class="ttdeci">bool mupnp_thread_start(mUpnpThread *thread)</div><div class="ttdoc">Start a thread's execution.</div><div class="ttdef"><b>Definition</b> thread.c:358</div></div>
-<div class="ttc" id="athread_8c_html_a8aca71db418e300e455b5008714029a9"><div class="ttname"><a href="#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable</a></div><div class="ttdeci">bool mupnp_thread_isrunnable(mUpnpThread *thread)</div><div class="ttdef"><b>Definition</b> thread.c:685</div></div>
+<div class="ttc" id="athread_8c_html_a62d90fd07931527376328a2d95526ea0"><div class="ttname"><a href="#a62d90fd07931527376328a2d95526ea0">mupnp_thread_setaction</a></div><div class="ttdeci">void mupnp_thread_setaction(mUpnpThread *thread, MUPNP_THREAD_FUNC func)</div><div class="ttdef"><b>Definition</b> thread.c:817</div></div>
+<div class="ttc" id="athread_8c_html_a814b13993667a6a1c3ae3f1fe590b5f7"><div class="ttname"><a href="#a814b13993667a6a1c3ae3f1fe590b5f7">mupnp_thread_new</a></div><div class="ttdeci">mUpnpThread * mupnp_thread_new(void)</div><div class="ttdoc">Create a new thread instance.</div><div class="ttdef"><b>Definition</b> thread.c:236</div></div>
+<div class="ttc" id="athread_8c_html_a894f4d99477634c1d9c7dfa582893cce"><div class="ttname"><a href="#a894f4d99477634c1d9c7dfa582893cce">mupnp_thread_start</a></div><div class="ttdeci">bool mupnp_thread_start(mUpnpThread *thread)</div><div class="ttdoc">Start a thread's execution.</div><div class="ttdef"><b>Definition</b> thread.c:400</div></div>
+<div class="ttc" id="athread_8c_html_a8aca71db418e300e455b5008714029a9"><div class="ttname"><a href="#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable</a></div><div class="ttdeci">bool mupnp_thread_isrunnable(mUpnpThread *thread)</div><div class="ttdef"><b>Definition</b> thread.c:770</div></div>
 <div class="ttc" id="atime_8h_html_aabb7046a6d73c1c5d91076b34c2bc354"><div class="ttname"><a href="time_8h.html#aabb7046a6d73c1c5d91076b34c2bc354">mupnp_sleep</a></div><div class="ttdeci">#define mupnp_sleep(val)</div><div class="ttdef"><b>Definition</b> time.h:71</div></div>
 </div><!-- fragment --> 
 </div>
@@ -469,7 +469,7 @@ Side effect: Sets the thread's runnable flag to true and creates a new OS-level 
 
 <p>Request a thread to stop execution. </p>
 <p>Signals the thread to stop by setting its runnable flag to false. This function does NOT forcibly terminate the thread; the thread's action function must cooperatively check <a class="el" href="thread_8h.html#a8aca71db418e300e455b5008714029a9">mupnp_thread_isrunnable()</a> and exit when it returns false.</p>
-<p>On ESP-IDF this waits for the worker to terminate, except when called by the worker itself. Blocking library waits are interrupted cooperatively. Other platforms retain their platform-specific shutdown behavior.</p>
+<p>On ESP-IDF this waits for the worker to terminate, except when called by the worker itself. Blocking library waits are interrupted cooperatively. Native POSIX also waits for action completion; callers must not hold locks required by the action. Other platforms retain their shutdown behavior.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">thread</td><td>The thread to stop. Must not be NULL.</td></tr>

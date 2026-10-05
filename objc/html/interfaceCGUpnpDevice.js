@@ -10,6 +10,7 @@ var interfaceCGUpnpDevice =
     [ "icons", "interfaceCGUpnpDevice.html#aaef110b3cda7e7018bc164a250c942b3", null ],
     [ "init", "interfaceCGUpnpDevice.html#aa0351efbdcee98c85687861faab2d372", null ],
     [ "initWithCObject:", "interfaceCGUpnpDevice.html#a8c6eeb6aa1ccc632b9dca4f9f85982c9", null ],
+    [ "initWithDeviceSnapshot:", "interfaceCGUpnpDevice.html#ae3dc832afe4457b6aad7d269a28479a3", null ],
     [ "initWithXMLDescription:", "interfaceCGUpnpDevice.html#a0ee734df1783cd9025e7f0efcf3e133f", null ],
     [ "ipaddress", "interfaceCGUpnpDevice.html#a75221973da0bd5ce9926e452e880a82d", null ],
     [ "isDeviceType:", "interfaceCGUpnpDevice.html#a1d3676929cd328898f5cc4a0d61a28d5", null ],

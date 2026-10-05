@@ -7,5 +7,6 @@ var interfaceCGUpnpStateVariable =
     [ "query", "interfaceCGUpnpStateVariable.html#a5a46cedaa5838d6cc8577077dc04b079", null ],
     [ "statusCode", "interfaceCGUpnpStateVariable.html#abe5e011694b2cd1c01e34129873d2a5a", null ],
     [ "value", "interfaceCGUpnpStateVariable.html#a65cc40ec260a46058fc3e7a0011c4dfc", null ],
-    [ "cObject", "interfaceCGUpnpStateVariable.html#a080e35f2dac1f3d14203aba507c79f5f", null ]
+    [ "cObject", "interfaceCGUpnpStateVariable.html#a080e35f2dac1f3d14203aba507c79f5f", null ],
+    [ "cObjectOwner", "interfaceCGUpnpStateVariable.html#a560cc3b90f77bf9fa2189c596f57ddd2", null ]
 ];
