@@ -254,12 +254,13 @@ static void mupnp_http_server_clientthread(mUpnpThread* thread)
   /* Transfer ownership under the same lock used by server shutdown. */
   mupnp_http_server_lock(httpServer);
   bool ownerStopping = clientData->ownerStopping;
+  bool deletePending = httpServer->deletePending;
   if (!ownerStopping)
     mupnp_thread_remove(thread);
   mupnp_http_server_unlock(httpServer);
   mupnp_http_server_clientdata_delete(clientData);
   mupnp_thread_setuserdata(thread, NULL);
-  if (httpServer->deletePending)
+  if (deletePending)
     mupnp_http_server_delete(httpServer);
   if (!ownerStopping)
     mupnp_thread_delete(thread);

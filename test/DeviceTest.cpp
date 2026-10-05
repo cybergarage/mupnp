@@ -41,5 +41,7 @@ BOOST_AUTO_TEST_CASE(DeviceTest)
   BOOST_REQUIRE(mupnp_device_start(testDev));
 
   BOOST_REQUIRE(mupnp_device_stop(testDev));
+  BOOST_REQUIRE(mupnp_device_start(testDev));
+  /* delete also owns shutdown of a still-running device. */
   mupnp_device_delete(testDev);
 }
