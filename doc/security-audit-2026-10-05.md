@@ -32,7 +32,7 @@ PRブランチは最新masterの `8fbf1197fc8f75dea0272ed376f8fbbf27a3ca99` に�
 - `sh test/espidf/host/check_generators.sh`: 成功。`-DESP_PLATFORM`と既存host shimsで、変更したスレッド・HTTP・ソケット・SSDPソースの構文検証も成功。Linux向けhostテストの実行とESP32実機ビルドは未実施。
 - HTTP Content-Lengthの通常の空白・タブを正常対照に加え、ASan/UBSanとSOCKET_DEBUGで再検証: 成功。
 
-Clangとlcovを使った必須カバレッジ検証も成功しました（プロジェクトの行66.7%、関数78.1%）。macOSでは`-lgcov`をアーカイブへ追加できないため、`CODE_COVERAGE_LIBS=`とリンクの`--coverage`でClangランタイムを使用しました。lcov 1.16は一時ディレクトリに取得し、gcovラッパーは`llvm-cov gcov "$@"`を実行しました。
+Clangとlcovを使った必須カバレッジ検証も成功しました（プロジェクトの行66.9%、関数78.1%）。macOSでは`-lgcov`をアーカイブへ追加できないため、`CODE_COVERAGE_LIBS=`とリンクの`--coverage`でClangランタイムを使用しました。lcov 1.16は一時ディレクトリに取得し、gcovラッパーは`llvm-cov gcov "$@"`を実行しました。
 
 ```sh
 PATH=/tmp:/tmp/mupnp-lcov/bin:$PATH ./configure \
@@ -52,6 +52,10 @@ PATH=/tmp:/tmp/mupnp-lcov/bin:$PATH make -j4 check-code-coverage \
 修正前のHTTP実装だけを差し替えた同じfixtureでは、部分本文受信後のEOFが4秒のタイムアウトまで終了しませんでした。修正後はEOF/EAGAINを失敗として即座に返し、正常な固定長・chunked・接続終了本文は従来どおり取得できました。深いXML、キャッシュ破棄後の子参照、循環するメディア階層、TLSの正常・異常の各対照も上記fixtureで検証しています。
 
 独立した修正前調査と、1回の候補レビューを実施しました。レビューで確認した受信バッファの余分な終端領域、クライアント応答エラー伝播、HTTPリスナー内削除の問題を修正し、対応するテストを追加しています。
+
+## PRのCI指摘への対応
+
+PR #28の初回CIではLinuxビルド、ESP-IDFビルド、host-regressionが成功しました。SonarCloudがSOCKET_DEBUGで1バイトの読み捨て先に終端NULを書き込む既存の境界問題を検出したため、受信バッファを書き換えない長さ指定ログへ変更しました。長いHTTPヘッダーを正常対照に追加し、SOCKET_DEBUGとASan/UBSanで検証しました。メディアサンプル3箇所は `examples/common/content_directory.h` の単一の走査・予算処理を利用し、循環防止の重複と複雑度を解消しています。共通ヘッダーはAutotoolsの配布対象にも追加しました。更新後の38ケース、カバレッジ、サニタイザーfixtureは成功しています。
 
 ## 互換性と検証範囲
 

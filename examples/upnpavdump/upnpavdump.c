@@ -12,6 +12,7 @@
  *
  ************************************************************/
 
+#include "../common/content_directory.h"
 #include <mupnp/upnp.h>
 
 #define UPNPAVDUMP_DMS_DEVICETYPE "urn:schemas-upnp-org:device:MediaServer:1"
@@ -22,80 +23,9 @@
 // PrintContentDirectory
 /////////////////////////////////////////////////////////////////////////////////
 
-static void print_content_directory_bounded(mUpnpAction* browseAction, int indent, const char* objectId, mUpnpDictionary* visited, size_t* requests)
+void print_content_directory(mUpnpAction* action, int indent, const char* objectId)
 {
-  if (!objectId || indent >= 64 || *requests >= 1024 || mupnp_dictionary_getvalue(visited, objectId))
-    return;
-  mupnp_dictionary_setvalue(visited, objectId, "visited");
-  (*requests)++;
-
-  int n;
-  char indentStr[128];
-  char* resultXml;
-  mUpnpXmlParser* xmlParser;
-  mUpnpXmlNodeList* rootNode;
-  mUpnpXmlNode* didlNode;
-  mUpnpXmlNode* cnode;
-  const char* id;
-  const char* title;
-  const char* url;
-
-  for (n = 0; n < indent && n < (sizeof(indentStr) - 1); n++)
-    indentStr[n] = ' ';
-  indentStr[n] = '\0';
-
-  mupnp_action_setargumentvaluebyname(browseAction, "ObjectID", objectId);
-  mupnp_action_setargumentvaluebyname(browseAction, "BrowseFlag", "BrowseDirectChildren");
-  mupnp_action_setargumentvaluebyname(browseAction, "Filter", "*");
-  mupnp_action_setargumentvaluebyname(browseAction, "StartingIndex", "0");
-  mupnp_action_setargumentvaluebyname(browseAction, "RequestedCount", "0");
-  mupnp_action_setargumentvaluebyname(browseAction, "SortCriteria", "");
-
-  if (!mupnp_action_post(browseAction))
-    return;
-
-  resultXml = mupnp_action_getargumentvaluebyname(browseAction, "Result");
-  if (mupnp_strlen(resultXml) <= 0)
-    return;
-
-  rootNode = mupnp_xml_nodelist_new();
-  xmlParser = mupnp_xml_parser_new();
-  if (mupnp_xml_parse(xmlParser, rootNode, resultXml, mupnp_strlen(resultXml))) {
-    didlNode = mupnp_xml_nodelist_getbyname(rootNode, "DIDL-Lite");
-    if (didlNode) {
-      for (cnode = mupnp_xml_node_getchildnodes(didlNode); cnode; cnode = mupnp_xml_node_next(cnode)) {
-        id = mupnp_xml_node_getattributevalue(cnode, "id");
-        title = mupnp_xml_node_getchildnodevalue(cnode, "dc:title");
-        if (mupnp_xml_node_isname(cnode, "container")) {
-          printf(" %s[%s]%s\n",
-              indentStr,
-              id,
-              ((0 < mupnp_strlen(title)) ? title : ""));
-          print_content_directory_bounded(browseAction, (indent + 1), id, visited, requests);
-        }
-        else {
-          url = mupnp_xml_node_getchildnodevalue(cnode, "res");
-          printf(" %s[%s]%s (%s)\n",
-              indentStr,
-              id,
-              ((0 < mupnp_strlen(title)) ? title : ""),
-              ((0 < mupnp_strlen(url)) ? url : ""));
-        }
-      }
-    }
-  }
-  mupnp_xml_nodelist_delete(rootNode);
-  mupnp_xml_parser_delete(xmlParser);
-}
-
-void print_content_directory(mUpnpAction* browseAction, int indent, const char* objectId)
-{
-  mUpnpDictionary* visited = mupnp_dictionary_new();
-  size_t requests = 0;
-  if (!visited)
-    return;
-  print_content_directory_bounded(browseAction, indent, objectId, visited, &requests);
-  mupnp_dictionary_delete(visited);
+  mupnp_example_print_content_directory(action, indent, objectId);
 }
 
 /////////////////////////////////////////////////////////////////////////////////

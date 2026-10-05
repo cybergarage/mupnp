@@ -12,6 +12,7 @@
 #include <boost/test/unit_test.hpp>
 #include <limits.h>
 #include <mupnp/xml/xml.h>
+#include <string>
 
 ////////////////////////////////////////
 // XML
@@ -40,9 +41,6 @@ BOOST_AUTO_TEST_CASE(XMLChildNode)
   BOOST_REQUIRE(mupnp_xml_node_removechildnode(parentNode, xmlChildNodeName));
   BOOST_REQUIRE(mupnp_xml_node_getchildnode(parentNode, xmlChildNodeName) == NULL);
 }
-
-#include <string>
-#include <vector>
 
 static bool parse_bytes(const char* bytes, size_t size)
 {

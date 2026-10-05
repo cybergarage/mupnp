@@ -13,6 +13,16 @@
 
 #include <mupnp/http/http.h>
 
+#if !defined(WIN32)
+#include "TestDevice.h"
+#include <chrono>
+#include <fcntl.h>
+#include <string>
+#include <sys/socket.h>
+#include <thread>
+#include <unistd.h>
+#endif
+
 ////////////////////////////////////////
 // testHttpServer
 ////////////////////////////////////////
@@ -66,8 +76,6 @@ BOOST_AUTO_TEST_CASE(HttpServer)
 }
 
 #if !defined(WIN32)
-#include <sys/socket.h>
-#include <unistd.h>
 
 // Feed a complete or truncated wire response without depending on LAN devices.
 static bool read_wire_response(const char* wire, const char* expectedContent = NULL)
@@ -142,12 +150,9 @@ BOOST_AUTO_TEST_CASE(HttpRequestBodyTruncated)
 #endif
 
 #if !defined(WIN32)
-#include <fcntl.h>
-#include <sys/socket.h>
-#include <unistd.h>
 
 /* Exercise signed recv results through the public request/response boundary. */
-static bool read_wire_message(const char* wire, bool response, bool nonblocking, std::string* content = NULL)
+static bool read_wire_message(const char* wire, bool response, bool nonblocking, std::string* content = nullptr)
 {
   int descriptors[2];
   BOOST_REQUIRE_EQUAL(socketpair(AF_UNIX, SOCK_STREAM, 0, descriptors), 0);
@@ -205,14 +210,13 @@ BOOST_AUTO_TEST_CASE(HttpCompleteBodies)
   std::string wire = "HTTP/1.0 200 OK\r\n\r\n" + largeBody;
   BOOST_CHECK(read_wire_message(wire.c_str(), true, false, &content));
   BOOST_CHECK_EQUAL(content, largeBody);
+  wire = "HTTP/1.0 200 OK\r\nLong-Header: " + largeBody + "\r\n\r\nbody";
+  BOOST_CHECK(read_wire_message(wire.c_str(), true, false, &content));
+  BOOST_CHECK_EQUAL(content, "body");
 }
 #endif
 
 #if !defined(WIN32)
-#include "TestDevice.h"
-#include <atomic>
-#include <chrono>
-#include <thread>
 
 static void truncated_chunk_listener(mUpnpHttpRequest* request)
 {

@@ -13,6 +13,18 @@
 
 #include <mupnp/net/interface.h>
 
+#if !defined(WIN32)
+#include <array>
+#include <atomic>
+#include <chrono>
+#include <mupnp/net/socket.h>
+#include <mupnp/ssdp/ssdp_server.h>
+#include <mupnp/util/thread.h>
+#include <sys/socket.h>
+#include <thread>
+#include <unistd.h>
+#endif
+
 ////////////////////////////////////////
 // testNetworkInterface
 ////////////////////////////////////////
@@ -43,14 +55,6 @@ BOOST_AUTO_TEST_CASE(NetworkInterface)
 }
 
 #if !defined(WIN32)
-#include <atomic>
-#include <chrono>
-#include <mupnp/net/socket.h>
-#include <mupnp/ssdp/ssdp_server.h>
-#include <mupnp/util/thread.h>
-#include <sys/socket.h>
-#include <thread>
-#include <unistd.h>
 
 BOOST_AUTO_TEST_CASE(DatagramEmptyThenValid)
 {
@@ -146,9 +150,9 @@ BOOST_AUTO_TEST_CASE(SSDPEmptyHeaderCleanup)
 BOOST_AUTO_TEST_CASE(SSDPSearchDelayBound)
 {
   mUpnpSSDPPacket* packet = mupnp_ssdp_packet_new();
-  const char* values[] = { "0", "1", "5", "6", "2147483647", "999999999999999999999999", "5x", "-1" };
-  const int expected[] = { 0, 1, 5, 5, 5, 5, 0, 0 };
-  for (size_t n = 0; n < sizeof(values) / sizeof(values[0]); n++) {
+  const std::array<const char*, 8> values = { "0", "1", "5", "6", "2147483647", "999999999999999999999999", "5x", "-1" };
+  const std::array<int, 8> expected = { 0, 1, 5, 5, 5, 5, 0, 0 };
+  for (size_t n = 0; n < values.size(); n++) {
     mupnp_http_headerlist_set(packet->headerList, MUPNP_HTTP_MX, values[n]);
     BOOST_CHECK_EQUAL(mupnp_ssdp_packet_getmx(packet), expected[n]);
   }
@@ -172,6 +176,11 @@ BOOST_AUTO_TEST_CASE(SSDPWorkerIgnoresEmptyDatagram)
   mupnp_ssdpresponse_server_setlistener(server, count_ssdp);
   BOOST_REQUIRE(mupnp_ssdpresponse_server_start(server));
   int sender = socket(AF_INET, SOCK_DGRAM, 0);
+  if (sender < 0) {
+    mupnp_ssdpresponse_server_delete(server);
+    BOOST_FAIL("Could not create UDP test sender");
+    return;
+  }
   struct sockaddr_in target = {};
   target.sin_family = AF_INET;
   target.sin_addr.s_addr = htonl(INADDR_LOOPBACK);

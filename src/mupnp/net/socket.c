@@ -23,6 +23,7 @@
 
 #include <mupnp/util/log.h>
 
+#include <limits.h>
 #include <string.h>
 
 #if !defined(WINCE)
@@ -858,9 +859,9 @@ ssize_t mupnp_socket_read(mUpnpSocket* sock, char* buffer, size_t bufferLen)
   mupnp_log_debug_l4("Entering...\n");
 
 #ifdef SOCKET_DEBUG
-  if (0 <= recvLen)
-    buffer[recvLen] = '\0';
-  mupnp_log_debug_s("r %d : %s\n", recvLen, (0 <= recvLen) ? buffer : "");
+  /* Debug output must not write a terminator beyond the caller's byte span. */
+  int debugLen = (recvLen > 0) ? (int)((recvLen > INT_MAX) ? INT_MAX : recvLen) : 0;
+  mupnp_log_debug_s("r %ld : %.*s\n", (long)recvLen, debugLen, (recvLen > 0) ? buffer : "");
 #endif
 
   mupnp_log_debug_l4("Leaving...\n");
