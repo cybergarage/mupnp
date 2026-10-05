@@ -25,21 +25,21 @@
 var NAVTREE =
 [
   [ "mUPnP for C", "index.html", [
-    [ "Building the Library and Samples", "index.html#autotoc_md182", [
-      [ "Unix", "index.html#autotoc_md183", null ],
-      [ "MacOSX", "index.html#autotoc_md184", null ],
-      [ "ESP-IDF", "index.html#autotoc_md185", null ],
-      [ "Windows", "index.html#autotoc_md186", null ]
+    [ "Building the Library and Samples", "index.html#autotoc_md183", [
+      [ "Unix", "index.html#autotoc_md184", null ],
+      [ "MacOSX", "index.html#autotoc_md185", null ],
+      [ "ESP-IDF", "index.html#autotoc_md186", null ],
+      [ "Windows", "index.html#autotoc_md187", null ]
     ] ],
-    [ "References", "index.html#autotoc_md187", [
-      [ "mUPnP for C", "index.html#autotoc_md188", null ],
-      [ "mUPnP for Objective-C", "index.html#autotoc_md189", null ]
+    [ "References", "index.html#autotoc_md188", [
+      [ "mUPnP for C", "index.html#autotoc_md189", null ],
+      [ "mUPnP for Objective-C", "index.html#autotoc_md190", null ]
     ] ],
-    [ "Examples", "index.html#autotoc_md190", null ],
-    [ "Adoption in Consumer Products", "index.html#autotoc_md191", [
-      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md192", null ],
-      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md193", null ],
-      [ "Toshiba REGZA Televisions", "index.html#autotoc_md194", null ]
+    [ "Examples", "index.html#autotoc_md191", null ],
+    [ "Adoption in Consumer Products", "index.html#autotoc_md192", [
+      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md193", null ],
+      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md194", null ],
+      [ "Toshiba REGZA Televisions", "index.html#autotoc_md195", null ]
     ] ],
     [ "ESP-IDF port", "md_doc_2espidf.html", [
       [ "Scope and status", "md_doc_2espidf.html#autotoc_md10", null ],
@@ -106,140 +106,141 @@ var NAVTREE =
       [ "修正と検証の対応", "md_doc_2security-audit-2026-10-05.html#autotoc_md59", null ],
       [ "検証コマンドと結果", "md_doc_2security-audit-2026-10-05.html#autotoc_md60", null ],
       [ "PRのCI指摘への対応", "md_doc_2security-audit-2026-10-05.html#autotoc_md61", null ],
-      [ "互換性と検証範囲", "md_doc_2security-audit-2026-10-05.html#autotoc_md62", null ],
-      [ "Security Review: mupnp", "md_doc_2security-audit-2026-10-05.html#autotoc_md64", [
-        [ "Scope", "md_doc_2security-audit-2026-10-05.html#autotoc_md65", [
-          [ "Scan Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md66", null ]
+      [ "マージ後の寿命管理の追補", "md_doc_2security-audit-2026-10-05.html#autotoc_md62", null ],
+      [ "互換性と検証範囲", "md_doc_2security-audit-2026-10-05.html#autotoc_md63", null ],
+      [ "Security Review: mupnp", "md_doc_2security-audit-2026-10-05.html#autotoc_md65", [
+        [ "Scope", "md_doc_2security-audit-2026-10-05.html#autotoc_md66", [
+          [ "Scan Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md67", null ]
         ] ],
-        [ "Threat Model", "md_doc_2security-audit-2026-10-05.html#autotoc_md67", [
-          [ "Assets", "md_doc_2security-audit-2026-10-05.html#autotoc_md68", null ],
-          [ "Trust Boundaries", "md_doc_2security-audit-2026-10-05.html#autotoc_md69", null ],
-          [ "Attacker Capabilities", "md_doc_2security-audit-2026-10-05.html#autotoc_md70", null ],
-          [ "Security Objectives", "md_doc_2security-audit-2026-10-05.html#autotoc_md71", null ],
-          [ "Assumptions", "md_doc_2security-audit-2026-10-05.html#autotoc_md72", null ]
+        [ "Threat Model", "md_doc_2security-audit-2026-10-05.html#autotoc_md68", [
+          [ "Assets", "md_doc_2security-audit-2026-10-05.html#autotoc_md69", null ],
+          [ "Trust Boundaries", "md_doc_2security-audit-2026-10-05.html#autotoc_md70", null ],
+          [ "Attacker Capabilities", "md_doc_2security-audit-2026-10-05.html#autotoc_md71", null ],
+          [ "Security Objectives", "md_doc_2security-audit-2026-10-05.html#autotoc_md72", null ],
+          [ "Assumptions", "md_doc_2security-audit-2026-10-05.html#autotoc_md73", null ]
         ] ],
-        [ "Findings", "md_doc_2security-audit-2026-10-05.html#autotoc_md73", [
-          [ "Confidence Scale", "md_doc_2security-audit-2026-10-05.html#autotoc_md74", null ],
-          [ "[1] HTTP read errors become negative heap offsets", "md_doc_2security-audit-2026-10-05.html#autotoc_md75", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md76", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md77", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md78", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md79", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md80", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md81", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md82", null ]
+        [ "Findings", "md_doc_2security-audit-2026-10-05.html#autotoc_md74", [
+          [ "Confidence Scale", "md_doc_2security-audit-2026-10-05.html#autotoc_md75", null ],
+          [ "[1] HTTP read errors become negative heap offsets", "md_doc_2security-audit-2026-10-05.html#autotoc_md76", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md77", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md78", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md79", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md80", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md81", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md82", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md83", null ]
           ] ],
-          [ "[2] Truncated HTTP body produces an infinite CPU loop", "md_doc_2security-audit-2026-10-05.html#autotoc_md83", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md84", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md85", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md86", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md87", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md88", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md89", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md90", null ]
+          [ "[2] Truncated HTTP body produces an infinite CPU loop", "md_doc_2security-audit-2026-10-05.html#autotoc_md84", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md85", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md86", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md87", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md88", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md89", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md90", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md91", null ]
           ] ],
-          [ "[3] Objective-C device wrappers retain pointers freed by SSDP removal", "md_doc_2security-audit-2026-10-05.html#autotoc_md91", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md92", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md93", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md94", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md95", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md96", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md97", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md98", null ]
+          [ "[3] Objective-C device wrappers retain pointers freed by SSDP removal", "md_doc_2security-audit-2026-10-05.html#autotoc_md92", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md93", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md94", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md95", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md96", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md97", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md98", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md99", null ]
           ] ],
-          [ "[4] POSIX worker shutdown frees live thread and server state", "md_doc_2security-audit-2026-10-05.html#autotoc_md99", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md100", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md101", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md102", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md103", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md104", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md105", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md106", null ]
+          [ "[4] POSIX worker shutdown frees live thread and server state", "md_doc_2security-audit-2026-10-05.html#autotoc_md100", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md101", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md102", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md103", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md104", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md105", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md106", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md107", null ]
           ] ],
-          [ "[5] Libxml2 parsing uses a byte length larger than its input copy", "md_doc_2security-audit-2026-10-05.html#autotoc_md107", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md108", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md109", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md110", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md111", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md112", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md113", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md114", null ]
+          [ "[5] Libxml2 parsing uses a byte length larger than its input copy", "md_doc_2security-audit-2026-10-05.html#autotoc_md108", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md109", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md110", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md111", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md112", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md113", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md114", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md115", null ]
           ] ],
-          [ "[6] Native HTTPS accepts unverified peer certificates", "md_doc_2security-audit-2026-10-05.html#autotoc_md115", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md116", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md117", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md118", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md119", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md120", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md121", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md122", null ]
+          [ "[6] Native HTTPS accepts unverified peer certificates", "md_doc_2security-audit-2026-10-05.html#autotoc_md116", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md117", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md118", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md119", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md120", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md121", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md122", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md123", null ]
           ] ],
-          [ "[7] Action wrappers leave a dangling Objective-C callback target", "md_doc_2security-audit-2026-10-05.html#autotoc_md123", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md124", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md125", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md126", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md127", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md128", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md129", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md130", null ]
+          [ "[7] Action wrappers leave a dangling Objective-C callback target", "md_doc_2security-audit-2026-10-05.html#autotoc_md124", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md125", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md126", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md127", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md128", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md129", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md130", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md131", null ]
           ] ],
-          [ "[8] Deep XML input can exhaust the stack during tree cleanup", "md_doc_2security-audit-2026-10-05.html#autotoc_md131", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md132", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md133", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md134", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md135", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md136", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md137", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md138", null ]
+          [ "[8] Deep XML input can exhaust the stack during tree cleanup", "md_doc_2security-audit-2026-10-05.html#autotoc_md132", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md133", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md134", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md135", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md136", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md137", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md138", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md139", null ]
           ] ],
-          [ "[9] Unbounded M-SEARCH MX blocks the SSDP worker", "md_doc_2security-audit-2026-10-05.html#autotoc_md139", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md140", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md141", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md142", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md143", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md144", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md145", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md146", null ]
+          [ "[9] Unbounded M-SEARCH MX blocks the SSDP worker", "md_doc_2security-audit-2026-10-05.html#autotoc_md140", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md141", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md142", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md143", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md144", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md145", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md146", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md147", null ]
           ] ],
-          [ "[10] Test presentation handler sends uninitialized stack contents", "md_doc_2security-audit-2026-10-05.html#autotoc_md147", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md148", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md149", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md150", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md151", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md152", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md153", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md154", null ]
+          [ "[10] Test presentation handler sends uninitialized stack contents", "md_doc_2security-audit-2026-10-05.html#autotoc_md148", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md149", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md150", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md151", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md152", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md153", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md154", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md155", null ]
           ] ],
-          [ "[11] Media directory dump follows container cycles without a bound", "md_doc_2security-audit-2026-10-05.html#autotoc_md155", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md156", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md157", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md158", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md159", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md160", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md161", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md162", null ]
+          [ "[11] Media directory dump follows container cycles without a bound", "md_doc_2security-audit-2026-10-05.html#autotoc_md156", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md157", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md158", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md159", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md160", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md161", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md162", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md163", null ]
           ] ],
-          [ "[12] Malformed SSDP packets leak tokenizers without bound", "md_doc_2security-audit-2026-10-05.html#autotoc_md163", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md164", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md165", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md166", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md167", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md168", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md169", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md170", null ]
+          [ "[12] Malformed SSDP packets leak tokenizers without bound", "md_doc_2security-audit-2026-10-05.html#autotoc_md164", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md165", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md166", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md167", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md168", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md169", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md170", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md171", null ]
           ] ],
-          [ "[13] A zero-length UDP packet permanently stops SSDP reception", "md_doc_2security-audit-2026-10-05.html#autotoc_md171", [
-            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md172", null ],
-            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md173", null ],
-            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md174", null ],
-            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md175", null ],
-            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md176", null ],
-            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md177", null ],
-            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md178", null ]
+          [ "[13] A zero-length UDP packet permanently stops SSDP reception", "md_doc_2security-audit-2026-10-05.html#autotoc_md172", [
+            [ "Summary", "md_doc_2security-audit-2026-10-05.html#autotoc_md173", null ],
+            [ "Root Cause", "md_doc_2security-audit-2026-10-05.html#autotoc_md174", null ],
+            [ "Validation", "md_doc_2security-audit-2026-10-05.html#autotoc_md175", null ],
+            [ "Dataflow", "md_doc_2security-audit-2026-10-05.html#autotoc_md176", null ],
+            [ "Reachability", "md_doc_2security-audit-2026-10-05.html#autotoc_md177", null ],
+            [ "Severity", "md_doc_2security-audit-2026-10-05.html#autotoc_md178", null ],
+            [ "Remediation", "md_doc_2security-audit-2026-10-05.html#autotoc_md179", null ]
           ] ]
         ] ],
-        [ "Reviewed Surfaces", "md_doc_2security-audit-2026-10-05.html#autotoc_md179", null ],
-        [ "Open Questions And Follow Up", "md_doc_2security-audit-2026-10-05.html#autotoc_md180", null ]
+        [ "Reviewed Surfaces", "md_doc_2security-audit-2026-10-05.html#autotoc_md180", null ],
+        [ "Open Questions And Follow Up", "md_doc_2security-audit-2026-10-05.html#autotoc_md181", null ]
       ] ]
     ] ],
     [ "Todo List", "todo.html", null ],
@@ -279,13 +280,13 @@ var NAVTREEINDEX =
 "http_8h.html#a63866201eb8f7180f9738c72524c8cba",
 "http__packet_8c.html#af5db1d2fce835cff3bc335da5c98a955",
 "interface_8h.html#a29b452e10ccd31cb105551c83071f69f",
-"md_doc_2security-audit-2026-10-05.html#autotoc_md59",
-"service_8h.html#aac0fe1d7f8dd4a50b582504c3c8a9c5d",
-"ssdp_8h.html#a3a57ff64ab1a88093c28a5095aa913a4",
-"ssdp__socket_8c.html#a6c475620e1eb32952cb5501d2138c429",
-"struct__mUpnpDevice.html#a656ef258e6760655aefaa2cbebae3262",
-"subscriber_8h.html#ad120fc9372efea86959e48a9fd6b81db",
-"url_8h.html#a06342e32e7b3421a0f44181125bc6431"
+"md_doc_2security-audit-2026-10-05.html#autotoc_md181",
+"service_8h.html#aaa7dd457bc2bbef819feb04b2db95e0d",
+"ssdp_8h.html#a3883115934917eae368504c3581147c8",
+"ssdp__socket_8c.html#a38f5dc8d63012a5de310e8240214f752",
+"struct__mUpnpDevice.html#a617fb0eaffd613c044d7168566579ef8",
+"subscriber_8h.html#ab36f2ad2cb7e136d95a9dfe39cdeb016",
+"url_8h.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

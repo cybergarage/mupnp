@@ -1,5 +1,6 @@
 var NAVTREEINDEX11 =
 {
+"struct__mUpnpDevice.html#a617fb0eaffd613c044d7168566579ef8":[11,0,8,9],
 "struct__mUpnpDevice.html#a656ef258e6760655aefaa2cbebae3262":[11,0,8,18],
 "struct__mUpnpDevice.html#a7373249222c97b2fbe41dd685680fced":[11,0,8,12],
 "struct__mUpnpDevice.html#a9321841764e3b4ccdc083690f3dd31b0":[11,0,8,17],
@@ -248,6 +249,5 @@ var NAVTREEINDEX11 =
 "subscriber_8h.html#a81251fe54f404edacc7c7b2933204b13":[12,0,1,0,1,3,15],
 "subscriber_8h.html#a8d40536a707b8a1300139c809708aa0b":[12,0,1,0,1,3,29],
 "subscriber_8h.html#aa3e5eb1dcf76c3d58c022663b1180732":[12,0,1,0,1,3,5],
-"subscriber_8h.html#ab224952bb0c04fc86de7bcc1e7541dc0":[12,0,1,0,1,3,25],
-"subscriber_8h.html#ab36f2ad2cb7e136d95a9dfe39cdeb016":[12,0,1,0,1,3,6]
+"subscriber_8h.html#ab224952bb0c04fc86de7bcc1e7541dc0":[12,0,1,0,1,3,25]
 };
