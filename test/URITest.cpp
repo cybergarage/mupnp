@@ -139,7 +139,7 @@ BOOST_AUTO_TEST_CASE(URISecurity)
   /* IPv6 host with an explicit port must strip the brackets without
      reading past the truncated host buffer. */
   uri = mupnp_net_uri_new();
-  mupnp_net_uri_setvalue(uri, "http://[fe80::1234:5678]:8080/path");
+  mupnp_net_uri_setvalue(uri, "https://[fe80::1234:5678]:8080/path");
   BOOST_REQUIRE(mupnp_streq(mupnp_net_uri_gethost(uri), "fe80::1234:5678"));
   BOOST_REQUIRE(mupnp_net_uri_getport(uri) == 8080);
   mupnp_net_uri_delete(uri);
