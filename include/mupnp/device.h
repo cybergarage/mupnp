@@ -366,7 +366,9 @@ bool mupnp_device_loaddescriptionfile(mUpnpDevice* dev, char* fileName);
  *
  * @param dev The device to potentially update
  * @param ssdpPkt The SSDP packet to make decisions on
- * @return true if the device was updated; otherwise false
+ * @return true if the cached device is still valid (updated, refreshed, or
+ *         kept unchanged because the new LOCATION could not be used);
+ *         false only for invalid arguments or a device without SSDP data
  */
 bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
     mUpnpSSDPPacket* ssdpPkt);

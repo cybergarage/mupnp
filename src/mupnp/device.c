@@ -322,27 +322,183 @@ bool mupnp_device_loaddescriptionfile(mUpnpDevice* dev, char* fileName)
 
 #endif
 
+/*
+ * Helpers for mupnp_device_updatefromssdppacket().
+ *
+ * When a known device (same UDN) is announced with a different LOCATION,
+ * for example because it advertises on several interfaces, the description is
+ * fetched into a temporary device first. The cached device is only touched
+ * when that fetch succeeds, so a LOCATION that cannot be reached never wipes a
+ * working device, and GENA subscription state is never silently dropped.
+ */
+
+#define MUPNP_DEVICE_SSDP_CONFIGID "CONFIGID.UPNP.ORG"
+
+/* Like mupnp_streq(), but two missing (NULL or empty) values are equal. */
+static bool mupnp_device_optstreq(const char* a, const char* b)
+{
+  if (mupnp_strlen(a) <= 0 || mupnp_strlen(b) <= 0)
+    return (mupnp_strlen(a) <= 0 && mupnp_strlen(b) <= 0) ? true : false;
+  return mupnp_streq(a, b);
+}
+
+static bool mupnp_device_nodevalueequals(mUpnpXmlNode* a, mUpnpXmlNode* b, const char* name)
+{
+  return mupnp_device_optstreq(mupnp_xml_node_getchildnodevalue(a, name), mupnp_xml_node_getchildnodevalue(b, name));
+}
+
+/* true when both trees expose the same devices, services and service URLs */
+static bool mupnp_device_hassamestructure(mUpnpDevice* a, mUpnpDevice* b)
+{
+  mUpnpService *sa, *sb;
+  mUpnpDevice *ca, *cb;
+
+  if (!mupnp_device_optstreq(mupnp_device_getudn(a), mupnp_device_getudn(b)))
+    return false;
+  if (!mupnp_device_optstreq(mupnp_device_getdevicetype(a), mupnp_device_getdevicetype(b)))
+    return false;
+
+  for (sa = mupnp_device_getservices(a), sb = mupnp_device_getservices(b);
+       sa != NULL && sb != NULL;
+       sa = mupnp_service_next(sa), sb = mupnp_service_next(sb)) {
+    mUpnpXmlNode* na = mupnp_service_getservicenode(sa);
+    mUpnpXmlNode* nb = mupnp_service_getservicenode(sb);
+    if (!mupnp_device_nodevalueequals(na, nb, MUPNP_SERVICE_TYPE)
+        || !mupnp_device_nodevalueequals(na, nb, MUPNP_SERVICE_ID)
+        || !mupnp_device_nodevalueequals(na, nb, MUPNP_SERVICE_SCPDURL)
+        || !mupnp_device_nodevalueequals(na, nb, MUPNP_SERVICE_CONTROL_URL)
+        || !mupnp_device_nodevalueequals(na, nb, MUPNP_SERVICE_EVENT_SUB_URL))
+      return false;
+  }
+  if (sa != NULL || sb != NULL)
+    return false;
+
+  for (ca = mupnp_device_getdevices(a), cb = mupnp_device_getdevices(b);
+       ca != NULL && cb != NULL;
+       ca = mupnp_device_next(ca), cb = mupnp_device_next(cb)) {
+    if (!mupnp_device_hassamestructure(ca, cb))
+      return false;
+  }
+  if (ca != NULL || cb != NULL)
+    return false;
+
+  return true;
+}
+
+static mUpnpDevice* mupnp_device_findbyudnintree(mUpnpDevice* dev, const char* udn)
+{
+  mUpnpDevice *childDev, *found;
+
+  if (mupnp_strlen(udn) <= 0)
+    return NULL;
+  if (mupnp_streq(mupnp_device_getudn(dev), udn))
+    return dev;
+  for (childDev = mupnp_device_getdevices(dev); childDev != NULL; childDev = mupnp_device_next(childDev)) {
+    found = mupnp_device_findbyudnintree(childDev, udn);
+    if (found != NULL)
+      return found;
+  }
+  return NULL;
+}
+
+/* Copy GENA subscription state from the cached tree to the freshly parsed
+   one. Services are matched by the UDN of their own (possibly embedded)
+   device and their serviceId. */
+static void mupnp_device_copysubscriptions(mUpnpDevice* newDev, mUpnpDevice* oldRoot)
+{
+  mUpnpService *newService, *oldService;
+  mUpnpDevice *oldDev, *childDev;
+
+  oldDev = mupnp_device_findbyudnintree(oldRoot, mupnp_device_getudn(newDev));
+
+  for (newService = mupnp_device_getservices(newDev); newService != NULL; newService = mupnp_service_next(newService)) {
+    if (oldDev == NULL)
+      break;
+    for (oldService = mupnp_device_getservices(oldDev); oldService != NULL; oldService = mupnp_service_next(oldService)) {
+      if (!mupnp_streq(mupnp_service_getserviceid(oldService), mupnp_service_getserviceid(newService)))
+        continue;
+      if (mupnp_service_issubscribed(oldService)) {
+        mupnp_service_setsubscriptionsid(newService, mupnp_service_getsubscriptionsid(oldService));
+        mupnp_service_setsubscriptiontimeout(newService, mupnp_service_getsubscriptiontimeout(oldService));
+        mupnp_service_setsubscriptiontimestamp(newService, mupnp_service_getsubscriptiontimestamp(oldService));
+        mupnp_service_seteventkey(newService, mupnp_service_geteventkey(oldService));
+      }
+      break;
+    }
+  }
+
+  for (childDev = mupnp_device_getdevices(newDev); childDev != NULL; childDev = mupnp_device_next(childDev))
+    mupnp_device_copysubscriptions(childDev, oldRoot);
+}
+
+/* Move the description tree of src into dst (and dst's old tree into src) so
+   that dst, which is the object linked into the control point's device list
+   and possibly referenced by the application, stays valid. */
+static void mupnp_device_swapdescription(mUpnpDevice* dst, mUpnpDevice* src)
+{
+  mUpnpXmlNodeList* rootNodeList;
+  mUpnpXmlNode* deviceNode;
+  mUpnpDevice* deviceList;
+  mUpnpService* serviceList;
+  mUpnpIcon* iconList;
+  mUpnpDevice* childDev;
+  mUpnpService* service;
+
+  rootNodeList = dst->rootNodeList;
+  deviceNode = dst->deviceNode;
+  deviceList = dst->deviceList;
+  serviceList = dst->serviceList;
+  iconList = dst->iconList;
+
+  dst->rootNodeList = src->rootNodeList;
+  dst->deviceNode = src->deviceNode;
+  dst->deviceList = src->deviceList;
+  dst->serviceList = src->serviceList;
+  dst->iconList = src->iconList;
+
+  src->rootNodeList = rootNodeList;
+  src->deviceNode = deviceNode;
+  src->deviceList = deviceList;
+  src->serviceList = serviceList;
+  src->iconList = iconList;
+
+  for (service = mupnp_device_getservices(dst); service != NULL; service = mupnp_service_next(service))
+    mupnp_service_setdevice(service, dst);
+  for (childDev = mupnp_device_getdevices(dst); childDev != NULL; childDev = mupnp_device_next(childDev))
+    mupnp_device_setparentdevice(childDev, dst);
+
+  for (service = mupnp_device_getservices(src); service != NULL; service = mupnp_service_next(service))
+    mupnp_service_setdevice(service, src);
+  for (childDev = mupnp_device_getdevices(src); childDev != NULL; childDev = mupnp_device_next(childDev))
+    mupnp_device_setparentdevice(childDev, src);
+}
+
 /**
  * Update the device's contents from an SSDP packet if necessary.
  *
  * @param dev The device to potentially update
  * @param ssdpPkt The SSDP packet to make decisions on
- * @return true if the device was updated; otherwise false
+ * @return true if the cached device is still valid (updated, refreshed, or
+ *         kept unchanged because the new LOCATION could not be used);
+ *         false only for invalid arguments or a device without SSDP data
  */
 bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
     mUpnpSSDPPacket* ssdpPkt)
 {
-  const char* usn = NULL;
-  char udn[MUPNP_UDN_LEN_MAX];
   mUpnpSSDPPacket* tmpSsdpPkt = NULL;
   const char* oldLocation = NULL;
   const char* newLocation = NULL;
+  const char* oldConfigId = NULL;
+  const char* newConfigId = NULL;
   mUpnpNetURL* url = NULL;
+  mUpnpDevice* newDev = NULL;
+  bool parseSuccess;
+  int newHttpPort;
 
   mupnp_log_debug_l4("Entering...\n");
 
-  usn = mupnp_ssdp_packet_getusn(ssdpPkt);
-  mupnp_usn_getudn(usn, udn, sizeof(udn));
+  if ((dev == NULL) || (ssdpPkt == NULL))
+    return false;
 
   tmpSsdpPkt = mupnp_device_getssdppacket(dev);
   if (tmpSsdpPkt == NULL) {
@@ -360,38 +516,78 @@ bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
 
     return true;
   }
-  else {
-    /* The device's location HAS changed. We must get a new
-                   description. */
+
+  /* From here on, every early return keeps the cached device as it was. It is
+     still usable, so these paths report true (mUpnpDeviceStatusUpdated), as a
+     plain re-announcement does, rather than Invalid, which tells applications
+     to drop the device. */
+  if (mupnp_strlen(newLocation) <= 0)
+    return true;
+
+  /* The device's location HAS changed. Fetch the description from the new
+     location into a temporary device; keep the cached device untouched
+     (including its LOCATION and expiration, so it still expires normally if
+     it has really gone away) when that fails. */
+  newDev = mupnp_device_new();
+  url = mupnp_net_url_new();
+  if (newDev == NULL || url == NULL) {
+    mupnp_device_delete(newDev);
+    if (url != NULL)
+      mupnp_net_url_delete(url);
+    return true;
+  }
+
+  mupnp_net_url_set(url, newLocation);
+  parseSuccess = mupnp_device_parsedescriptionurl(newDev, url);
+  newHttpPort = mupnp_net_url_getport(url);
+  mupnp_net_url_delete(url);
+
+  if (parseSuccess == false || !mupnp_streq(mupnp_device_getudn(newDev), mupnp_device_getudn(dev))) {
+    mupnp_log_debug_s("Ignoring unusable LOCATION %s\n", newLocation);
+    mupnp_device_delete(newDev);
+    return true;
+  }
+
+  oldConfigId = mupnp_http_headerlist_getvalue(tmpSsdpPkt->headerList, MUPNP_DEVICE_SSDP_CONFIGID);
+  newConfigId = mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_DEVICE_SSDP_CONFIGID);
+
+  if (mupnp_device_optstreq(oldConfigId, newConfigId) && mupnp_device_hassamestructure(dev, newDev)) {
+    /* Same device reached through another address (e.g. a multi-homed
+       host). Keep the cached services, so SIDs and the service pointers the
+       application holds stay valid; relative URLs now resolve against the
+       new LOCATION. */
+    mupnp_device_delete(newDev);
     mupnp_device_setssdppacket(dev, ssdpPkt);
+    mupnp_device_sethttpport(dev, newHttpPort);
+    return true;
+  }
 
-    url = mupnp_net_url_new();
-    if (url == NULL) {
-      return false;
-    }
-
-    /* Use the new location as the description URL */
-    mupnp_net_url_set(url, newLocation);
-
-    /* Get a new description for the device */
-    mupnp_device_parsedescriptionurl(dev, url);
-
-    mupnp_net_url_delete(url);
+  /* The description really changed: build the new services completely
+     before replacing anything. */
+  mupnp_device_setssdppacket(newDev, ssdpPkt);
+  mupnp_device_sethttpport(newDev, newHttpPort);
 
 /* ADD Fabrice Fontaine Orange 16/04/2007 */
 /* Bug correction : Solving compilation issue when using DMUPNP_NOUSE_CONTROLPOINT flag */
 #ifndef MUPNP_NOUSE_CONTROLPOINT
 /* ADD END Fabrice Fontaine Orange 16/04/2007 */
 #ifndef MUPNP_OPTIMIZED_CP_MODE
-    if (mupnp_controlpoint_parseservicesfordevice(dev, ssdpPkt) == false) {
-      mupnp_device_delete(dev);
-      return false;
-    }
+  if (mupnp_controlpoint_parseservicesfordevice(newDev, ssdpPkt) == false) {
+    mupnp_device_delete(newDev);
+    return true;
+  }
 #endif
 /* ADD Fabrice Fontaine Orange 16/04/2007 */
 #endif
-    /* ADD END Fabrice Fontaine Orange 16/04/2007 */
-  }
+  /* ADD END Fabrice Fontaine Orange 16/04/2007 */
+
+  mupnp_device_copysubscriptions(newDev, dev);
+  mupnp_device_swapdescription(dev, newDev);
+  mupnp_device_setssdppacket(dev, ssdpPkt);
+  mupnp_device_sethttpport(dev, newHttpPort);
+
+  /* newDev now owns the previous description and services */
+  mupnp_device_delete(newDev);
 
   mupnp_log_debug_l4("Leaving...\n");
 

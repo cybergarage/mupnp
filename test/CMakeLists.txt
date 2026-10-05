@@ -17,6 +17,7 @@ add_executable(mupnptest
   StateVariableTest.cpp
   URITest.cpp
   UPnPFuncTest.cpp
+  LocationChangeTest.cpp
 )
 
 target_include_directories(mupnptest PRIVATE
