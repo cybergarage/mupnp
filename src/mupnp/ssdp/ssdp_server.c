@@ -146,8 +146,11 @@ static void mupnp_ssdp_server_thread(mUpnpThread* thread)
   mupnp_ssdp_packet_setuserdata(ssdpPkt, userData);
 
   while (mupnp_thread_isrunnable(thread) == true) {
-    if (mupnp_httpmu_socket_recv(server->httpmuSock, ssdpPkt) <= 0)
+    ssize_t received = mupnp_httpmu_socket_recv(server->httpmuSock, ssdpPkt);
+    if (received < 0)
       break;
+    if (received == 0)
+      continue;
 
     mupnp_ssdp_server_performlistener(server, ssdpPkt);
     mupnp_ssdp_packet_clear(ssdpPkt);

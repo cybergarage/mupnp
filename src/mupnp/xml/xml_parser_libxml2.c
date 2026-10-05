@@ -13,7 +13,9 @@
 #include "config.h"
 #endif
 
+#include <limits.h>
 #include <mupnp/typedef.h>
+#include <string.h>
 
 /****************************************
  * Compiler Switch (BEGIN)
@@ -80,6 +82,8 @@ static void mupnp_xml_force_utf8(char* data, size_t len);
 typedef struct _mUpnpLibxml2Data {
   mUpnpXmlNode* rootNode;
   mUpnpXmlNode* currNode;
+  size_t depth;
+  bool failed;
 } mUpnpLibxml2Data;
 
 enum {
@@ -106,13 +110,18 @@ static void mupnp_libxml2_start_element(void* userData,
 
   libxml2Data = (mUpnpLibxml2Data*)userData;
 
+  if (libxml2Data->failed || libxml2Data->depth >= MUPNP_XML_MAX_DEPTH) {
+    libxml2Data->failed = true;
+    return;
+  }
   node = mupnp_xml_node_new();
   if (node == NULL) {
     /* Memory allocation failed */
-    libxml2Data->currNode = NULL;
+    libxml2Data->failed = true;
     return;
   }
 
+  libxml2Data->depth++;
   mupnp_xml_node_setname(node, (char*)name);
 
   if (attrs != NULL) {
@@ -121,7 +130,7 @@ static void mupnp_libxml2_start_element(void* userData,
   }
 
   if (libxml2Data->rootNode != NULL) {
-    if (libxml2Data->currNode != NULL)
+    if (!libxml2Data->failed && libxml2Data->currNode != NULL)
       mupnp_xml_node_addchildnode(libxml2Data->currNode, node);
     else
       mupnp_xml_node_addchildnode(libxml2Data->rootNode, node);
@@ -140,7 +149,9 @@ static void mupnp_libxml2_end_element(void* userData,
   mupnp_log_debug_l4("Entering...\n");
 
   mUpnpLibxml2Data* libxml2Data = (mUpnpLibxml2Data*)userData;
-  if (libxml2Data->currNode != NULL)
+  if (!libxml2Data->failed && libxml2Data->depth)
+    libxml2Data->depth--;
+  if (!libxml2Data->failed && libxml2Data->currNode != NULL)
     libxml2Data->currNode = mupnp_xml_node_getparentnode(libxml2Data->currNode);
 
   mupnp_log_debug_l4("Leaving...\n");
@@ -156,7 +167,7 @@ static void mupnp_libxml2_characters(void* userData,
 
   libxml2Data = (mUpnpLibxml2Data*)userData;
 
-  if (libxml2Data->currNode != NULL)
+  if (!libxml2Data->failed && libxml2Data->currNode != NULL)
     mupnp_xml_node_naddvalue(libxml2Data->currNode, (char*)ch, len);
 
   mupnp_log_debug_l4("Leaving...\n");
@@ -177,9 +188,9 @@ static xmlEntityPtr mupnp_libxml2_get_entity(void* userData, const xmlChar* name
 
 static void mupnp_xml_force_utf8(char* data, size_t len)
 {
-  int read = 0;
+  size_t read = 0;
 
-  while (read <= len) {
+  while (read < len) {
     /* First we check if byte is one byte UTF8 character */
     if (UTF_RANGE1_1_R == (*(data + read) & UTF_RANGE1_1)) {
       read++;
@@ -190,7 +201,7 @@ static void mupnp_xml_force_utf8(char* data, size_t len)
     else if (UTF_RANGE2_1_R == (*(data + read) & UTF_RANGE2_1)) {
       /* We know that if this is correct two byte UTF8 char
        * there must be at least one byte in data buffer */
-      if ((read + 1) > len) {
+      if ((read + 1) >= len) {
         *(data + read) = '?';
         read++;
         continue;
@@ -216,7 +227,7 @@ static void mupnp_xml_force_utf8(char* data, size_t len)
     else if (UTF_RANGE3_1_R == (*(data + read) & UTF_RANGE3_1)) {
       /* Now we have to have at least two other bytes in buffer for this char
        * really to be a correct UTF8 char. */
-      if ((read + 2) > len) {
+      if ((read + 2) >= len) {
         *(data + read) = '?';
         read++;
         continue;
@@ -240,7 +251,7 @@ static void mupnp_xml_force_utf8(char* data, size_t len)
     /* And same check for four byte character encoding. */
     else if (UTF_RANGE4_1_R == (*(data + read) & UTF_RANGE4_1)) {
       /* Again we have to have at least three extra bytes in buffer */
-      if ((read + 3) > len) {
+      if ((read + 3) >= len) {
         *(data + read) = '?';
         read++;
         continue;
@@ -285,12 +296,24 @@ bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const c
   gettimeofday(&start_time, NULL);
 #endif
 
-  char* data = mupnp_strdup(parseData);
+  if (!parseData || len == 0 || len > INT_MAX)
+    return false;
+  /* Accept a final terminator as the Expat backend does, never an interior NUL. */
+  if (parseData[len - 1] == '\0')
+    len--;
+  if (len == 0 || memchr(parseData, '\0', len))
+    return false;
+  char* data = (char*)malloc(len + 1);
   if (!data)
     return false;
 
+  libxml2Data.depth = 0;
+  libxml2Data.failed = false;
   libxml2Data.rootNode = NULL;
   libxml2Data.currNode = NULL;
+
+  memcpy(data, parseData, len);
+  data[len] = '\0';
 
   retval = mupnp_libxml2_parsewrapper(&mupnpLibxml2Handler, &libxml2Data, data, len, LIBXML2_NOFLAGS);
 
@@ -301,6 +324,8 @@ bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const c
     if (libxml2Data.rootNode != NULL)
       mupnp_xml_node_delete(libxml2Data.rootNode);
 
+    libxml2Data.depth = 0;
+    libxml2Data.failed = false;
     libxml2Data.rootNode = NULL;
     libxml2Data.currNode = NULL;
 
@@ -319,7 +344,7 @@ bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const c
     break;
   }
 
-  if (0 != retval) {
+  if (0 != retval || libxml2Data.failed) {
     mupnp_log_debug_s("LibXML error %d, not trying recovery.\n", retval);
     if (libxml2Data.rootNode != NULL)
       mupnp_xml_node_delete(libxml2Data.rootNode);
@@ -352,7 +377,7 @@ static int mupnp_libxml2_parsewrapper(xmlSAXHandlerPtr sax, void* userData, cons
   xmlParserCtxtPtr ctxt;
   xmlSAXHandlerPtr oldsax = NULL;
 
-  if (sax == NULL)
+  if (sax == NULL || size > INT_MAX)
     return -1;
 
   ctxt = xmlCreateMemoryParserCtxt(buffer, (int)size);

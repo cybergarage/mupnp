@@ -16,6 +16,7 @@
 @implementation CGUpnpStateVariable
 
 @synthesize cObject;
+@synthesize cObjectOwner;
 
 - (id)initWithCObject:(mUpnpStateVariable*)cobj
 {
@@ -35,6 +36,7 @@
 
 - (void)dealloc
 {
+  [cObjectOwner release];
   [super dealloc];
 }
 

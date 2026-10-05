@@ -103,6 +103,8 @@ void mupnp_device_ssdpmessagereceived(mUpnpDevice* dev, mUpnpSSDPPacket* ssdpPkt
       return;
 
     ssdpMX = mupnp_ssdp_packet_getmx(ssdpPkt);
+    if (ssdpMX < 1)
+      return;
     mupnp_log_debug("Sleeping for a while... (MX:%d)\n", ssdpMX);
     mupnp_waitrandom((ssdpMX * 1000) / 4);
   }

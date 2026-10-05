@@ -19,13 +19,14 @@
 @implementation CGUpnpService
 
 @synthesize cObject;
+@synthesize cObjectOwner;
 
 - (id)initWithCObject:(mUpnpService*)cobj
 {
   if ((self = [super init]) == nil)
     return nil;
   cObject = cobj;
-  mupnp_service_setuserdata(cObject, self);
+
   return self;
 }
 
@@ -38,6 +39,7 @@
 
 - (void)dealloc
 {
+  [cObjectOwner release];
   [super dealloc];
 }
 
@@ -70,6 +72,7 @@
   mUpnpAction* cAction;
   for (cAction = mupnp_service_getactions(cObject); cAction; cAction = mupnp_action_next(cAction)) {
     CGUpnpAction* action = [[[CGUpnpAction alloc] initWithCObject:(void*)cAction] autorelease];
+    action.cObjectOwner = self;
     [actionArray addObject:action];
   }
   return actionArray;
@@ -83,6 +86,7 @@
   mUpnpStateVariable* cStatVar;
   for (cStatVar = mupnp_service_getstatevariables(cObject); cStatVar; cStatVar = mupnp_statevariable_next(cStatVar)) {
     CGUpnpStateVariable* statVar = [[[CGUpnpStateVariable alloc] initWithCObject:(void*)cStatVar] autorelease];
+    statVar.cObjectOwner = self;
     [statVarArray addObject:statVar];
   }
   return statVarArray;
@@ -95,7 +99,9 @@
   mUpnpAction* cAction = mupnp_service_getactionbyname(cObject, (char*)[name UTF8String]);
   if (!cAction)
     return nil;
-  return [[[CGUpnpAction alloc] initWithCObject:(void*)cAction] autorelease];
+  CGUpnpAction* action = [[[CGUpnpAction alloc] initWithCObject:(void*)cAction] autorelease];
+  action.cObjectOwner = self;
+  return action;
 }
 
 - (CGUpnpStateVariable*)getStateVariableForName:(NSString*)name
@@ -105,7 +111,9 @@
   mUpnpStateVariable* cStatVar = mupnp_service_getstatevariablebyname(cObject, (char*)[name UTF8String]);
   if (!cStatVar)
     return nil;
-  return [[[CGUpnpStateVariable alloc] initWithCObject:(void*)cStatVar] autorelease];
+  CGUpnpStateVariable* variable = [[[CGUpnpStateVariable alloc] initWithCObject:(void*)cStatVar] autorelease];
+  variable.cObjectOwner = self;
+  return variable;
 }
 
 - (BOOL)isStateVariableImpemented:(NSString*)name;

@@ -43,6 +43,7 @@ mUpnpHttpServer* mupnp_http_server_new(void)
 
     /**** Thanks for Makela Aapo (10/31/05) ****/
     httpServer->clientThreads = NULL;
+    httpServer->deletePending = false;
 
     mupnp_http_server_setuserdata(httpServer, NULL);
 
@@ -64,6 +65,29 @@ mUpnpHttpServer* mupnp_http_server_new(void)
 void mupnp_http_server_delete(mUpnpHttpServer* httpServer)
 {
   mupnp_log_debug_l4("Entering...\n");
+
+#if !defined(WIN32) && !defined(WINCE) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && !defined(ESP_PLATFORM)
+  /* A listener can request deletion from its own client action. Keep the
+   * server alive until that action has finished using the mutex and socket. */
+  mUpnpThread* self = mupnp_thread_self();
+  bool fromClient = false;
+  mupnp_http_server_lock(httpServer);
+  if (httpServer->clientThreads) {
+    for (mUpnpThread* client = mupnp_threadlist_gets(httpServer->clientThreads); client; client = mupnp_thread_next(client)) {
+      if (client == self) {
+        fromClient = true;
+        httpServer->deletePending = true;
+        break;
+      }
+    }
+  }
+  mupnp_http_server_unlock(httpServer);
+  if (fromClient) {
+    mupnp_list_remove((mUpnpList*)httpServer);
+    mupnp_http_server_stop(httpServer);
+    return;
+  }
+#endif
 
   mupnp_http_server_stop(httpServer);
   mupnp_http_server_close(httpServer);
@@ -134,6 +158,7 @@ bool mupnp_http_server_close(mUpnpHttpServer* httpServer)
 typedef struct _mUpnpHttpServerClientData {
   mUpnpSocket* clientSock;
   mUpnpHttpServer* httpServer;
+  bool ownerStopping;
 } mUpnpHttpServerClientData;
 
 static mUpnpHttpServerClientData* mupnp_http_server_clientdata_new(mUpnpHttpServer* httpServer, mUpnpSocket* clientSock)
@@ -146,6 +171,7 @@ static mUpnpHttpServerClientData* mupnp_http_server_clientdata_new(mUpnpHttpServ
 
   if (NULL != clientData) {
     clientData->httpServer = httpServer;
+    clientData->ownerStopping = false;
     clientData->clientSock = clientSock;
   }
 
@@ -198,6 +224,8 @@ static void mupnp_http_server_clientthread(mUpnpThread* thread)
     if (httpServer->listener != NULL) {
       mupnp_http_request_setuserdata(httpReq, httpServerUserData);
       httpServer->listener(httpReq);
+      if (!mupnp_thread_isrunnable(thread))
+        break;
     }
 
     /* Close connection according to HTTP version and headers */
@@ -218,18 +246,23 @@ static void mupnp_http_server_clientthread(mUpnpThread* thread)
   mupnp_socket_close(clientSock);
   mupnp_socket_delete(clientSock);
 
+#if defined(ESP_PLATFORM)
+  /* ESP-IDF accept/stop owns and joins client thread objects. */
   mupnp_http_server_clientdata_delete(clientData);
   mupnp_thread_setuserdata(thread, NULL);
-
-#if !defined(ESP_PLATFORM)
-  // This code frequently crashes. mutex lock referencing free'd memory.
+#else
+  /* Transfer ownership under the same lock used by server shutdown. */
   mupnp_http_server_lock(httpServer);
-  mupnp_thread_remove(thread);
+  bool ownerStopping = clientData->ownerStopping;
+  if (!ownerStopping)
+    mupnp_thread_remove(thread);
   mupnp_http_server_unlock(httpServer);
-
-  mupnp_log_debug_l4("Leaving...\n");
-
-  mupnp_thread_delete(thread);
+  mupnp_http_server_clientdata_delete(clientData);
+  mupnp_thread_setuserdata(thread, NULL);
+  if (httpServer->deletePending)
+    mupnp_http_server_delete(httpServer);
+  if (!ownerStopping)
+    mupnp_thread_delete(thread);
 #endif
 }
 
@@ -364,7 +397,24 @@ bool mupnp_http_server_stop(mUpnpHttpServer* httpServer)
   }
   /**** Thanks for Makela Aapo (10/31/05) ****/
   if (httpServer->clientThreads != NULL) {
+#if defined(ESP_PLATFORM)
     mupnp_threadlist_stop(httpServer->clientThreads);
+#else
+    for (;;) {
+      mupnp_http_server_lock(httpServer);
+      mUpnpThread* client = mupnp_threadlist_gets(httpServer->clientThreads);
+      if (client) {
+        mUpnpHttpServerClientData* data = mupnp_thread_getuserdata(client);
+        data->ownerStopping = true;
+        mupnp_thread_remove(client);
+      }
+      mupnp_http_server_unlock(httpServer);
+      if (!client)
+        break;
+      /* The action may need the server mutex while finishing. */
+      mupnp_thread_delete(client);
+    }
+#endif
     mupnp_threadlist_delete(httpServer->clientThreads);
     httpServer->clientThreads = NULL;
   }

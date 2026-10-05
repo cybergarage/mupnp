@@ -13,6 +13,9 @@
 #define _MUPNP_XML_XML_H_
 
 #include <mupnp/typedef.h>
+
+/* Bound recursion in DOM consumers, including cleanup after parse errors. */
+#define MUPNP_XML_MAX_DEPTH 128
 #include <mupnp/util/list.h>
 #include <mupnp/util/string.h>
 

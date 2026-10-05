@@ -210,7 +210,7 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
   // mUpnpTime currTime;
   // mUpnpDevice* dev;
   char* uri;
-  char content[2048];
+  const char* content = "<HTML><BODY>UPnP test device</BODY></HTML>";
   // char sysTimeStr[SYSTEM_TIME_BUF_LEN];
   // char serverName[MUPNP_SEVERNAME_MAXLEN];
   mUpnpHttpResponse* httpRes;
@@ -224,51 +224,6 @@ void upnp_test_device_httprequestrecieved(mUpnpHttpRequest* httpReq)
   }
 
   // currTime = mupnp_getcurrentsystemtime();
-
-  /*
-#if defined(HAVE_SNPRINTF)
-        snprintf(content, sizeof(content),
-#else
-        sprintf(content,
-#endif
-                "<HTML>"
-                "<HEAD>"
-                "<TITLE>UPnP Clock Sample</TITLE>"
-                "</HEAD>"
-                "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"1; URL=/presentation\">"
-                "<BODY><CENTER>"
-                "<H1>UPnP Clock Sample</H1>"
-                "<TABLE border=\"0\" cellpadding=\"0\" cellspacing=\"0\">"
-                "<TR>"
-                "<TD style=\"width: 50px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-                "<TD style=\"background-color: rgb(176, 176, 176);\"></TD>"
-                "<TD style=\"width: 50px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-                "</TR>"
-                "<TR>"
-                "<TD style=\"height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-                "<TD style=\"height: 50px; background-color: rgb(221, 236, 245);\" align=\"center\"><H1>"
-                "%s"
-                "</H1></TD>"
-                "<TD style=\"height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-                "</TR>"
-                "<TR>"
-                "<TD style=\"height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-                "<TD style=\"height: 50px; background-color: rgb(221, 236, 245);\" align=\"center\"><H3>"
-                "Server : %s"
-                "</H3></TD>"
-                "<TD style=\"height: 30px; background-color: rgb(176, 176, 176);\"></TD>"
-                "</TR>"
-                "<TR>"
-                "<TD style=\"width: 30px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-                "<TD style=\"background-color: rgb(176, 176, 176);\"></TD>"
-                "<TD style=\"width: 30px; height: 50px; background-color: rgb(176, 176, 176);\"></TD>"
-                "</TR>"
-                "</TABLE>"
-                "<CENTER></BODY>"
-                "</HTML>",
-                GetSystemTimeString(currTime, sysTimeStr),
-                mupnp_getservername(serverName, sizeof(serverName)));
-*/
 
   httpRes = mupnp_http_response_new();
   mupnp_http_response_setstatuscode(httpRes, MUPNP_HTTP_STATUS_OK);

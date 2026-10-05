@@ -212,6 +212,7 @@ typedef struct _mUpnpHttpServer {
   mUpnpSocket* sock;
   mUpnpThread* acceptThread;
   mUpnpThreadList* clientThreads;
+  bool deletePending;
   MUPNP_HTTP_LISTENER listener;
   void* userData;
   int timeout;

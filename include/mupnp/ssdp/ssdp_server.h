@@ -122,7 +122,8 @@ void mupnp_ssdp_packet_setheader(mUpnpSSDPPacket* ssdpPkt, char* ssdpMsg);
 #define mupnp_ssdp_packet_getlocation(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_LOCATION)
 #define mupnp_ssdp_packet_getst(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_ST)
 #define mupnp_ssdp_packet_getusn(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_USN)
-#define mupnp_ssdp_packet_getmx(ssdpPkt) mupnp_str2int(mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_MX))
+/* Strict positive MX, capped at five seconds before delay arithmetic. */
+int mupnp_ssdp_packet_getmx(mUpnpSSDPPacket* ssdpPkt);
 #define mupnp_ssdp_packet_getman(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_MAN)
 #define mupnp_ssdp_packet_getnt(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_NT)
 #define mupnp_ssdp_packet_getnts(ssdpPkt) mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_NTS)

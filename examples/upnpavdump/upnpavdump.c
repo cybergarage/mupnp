@@ -22,8 +22,13 @@
 // PrintContentDirectory
 /////////////////////////////////////////////////////////////////////////////////
 
-void print_content_directory(mUpnpAction* browseAction, int indent, const char* objectId)
+static void print_content_directory_bounded(mUpnpAction* browseAction, int indent, const char* objectId, mUpnpDictionary* visited, size_t* requests)
 {
+  if (!objectId || indent >= 64 || *requests >= 1024 || mupnp_dictionary_getvalue(visited, objectId))
+    return;
+  mupnp_dictionary_setvalue(visited, objectId, "visited");
+  (*requests)++;
+
   int n;
   char indentStr[128];
   char* resultXml;
@@ -66,7 +71,7 @@ void print_content_directory(mUpnpAction* browseAction, int indent, const char* 
               indentStr,
               id,
               ((0 < mupnp_strlen(title)) ? title : ""));
-          print_content_directory(browseAction, (indent + 1), id);
+          print_content_directory_bounded(browseAction, (indent + 1), id, visited, requests);
         }
         else {
           url = mupnp_xml_node_getchildnodevalue(cnode, "res");
@@ -81,6 +86,16 @@ void print_content_directory(mUpnpAction* browseAction, int indent, const char* 
   }
   mupnp_xml_nodelist_delete(rootNode);
   mupnp_xml_parser_delete(xmlParser);
+}
+
+void print_content_directory(mUpnpAction* browseAction, int indent, const char* objectId)
+{
+  mUpnpDictionary* visited = mupnp_dictionary_new();
+  size_t requests = 0;
+  if (!visited)
+    return;
+  print_content_directory_bounded(browseAction, indent, objectId, visited, &requests);
+  mupnp_dictionary_delete(visited);
 }
 
 /////////////////////////////////////////////////////////////////////////////////

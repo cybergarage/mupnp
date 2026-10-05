@@ -48,6 +48,10 @@ typedef void mUpnpDevice;
  * @return New instance if successfull; otherwise nil.
  */
 - (id)initWithCObject:(mUpnpDevice*)cobj;
+/** Copy discovery metadata and SCPDs while the caller holds the cache lock.
+ * The returned device is an independent snapshot, safe after cache removal.
+ */
+- (id)initWithDeviceSnapshot:(mUpnpDevice*)cobj;
 /**
  * Create a new UPnP device with the XML descriptioin.
  *

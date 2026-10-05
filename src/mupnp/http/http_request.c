@@ -324,7 +324,8 @@ mUpnpHttpResponse* mupnp_http_request_post_main(mUpnpHttpRequest* httpReq, const
   mupnp_http_packet_post((mUpnpHttpPacket*)httpReq, sock);
 
   /**** read response ****/
-  mupnp_http_response_read(httpReq->httpRes, sock, mupnp_http_request_isheadrequest(httpReq));
+  if (!mupnp_http_response_read(httpReq->httpRes, sock, mupnp_http_request_isheadrequest(httpReq)))
+    mupnp_http_response_clear(httpReq->httpRes);
 
 #ifdef MUPNP_SHOW_TIMINGS
   gettimeofday(&end_time, NULL);

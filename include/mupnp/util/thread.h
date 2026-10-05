@@ -100,6 +100,13 @@ typedef struct _mUpnpThread {
   bool threadRunning;
   bool joinInProgress;
   bool deletePending;
+#else
+  pthread_mutex_t stateMutex;
+  pthread_cond_t completion;
+  bool isRunning;
+  bool stopWaiting;
+  bool deletePending;
+
 #endif
 
 #endif
@@ -210,7 +217,7 @@ mUpnpThread* mupnp_thread_self(void);
  * @warning On ESP-IDF, a self-owned worker may delete itself: destruction is
  *          deferred until its action returns. The caller must not subsequently
  *          access the object, and must not race this with external deletion.
- *          Other platforms do not guarantee safe self-deletion.
+ *          Native POSIX self-deletion is also deferred until action return.
  *
  * @see mupnp_thread_new()
  * @see mupnp_thread_stop()
@@ -262,7 +269,8 @@ bool mupnp_thread_start(mUpnpThread* thread);
  *
  * On ESP-IDF this waits for the worker to terminate, except when called by
  * the worker itself. Blocking library waits are interrupted cooperatively.
- * Other platforms retain their platform-specific shutdown behavior.
+ * Native POSIX also waits for action completion; callers must not hold
+ * locks required by the action. Other platforms retain their shutdown behavior.
  *
  * @param thread The thread to stop. Must not be NULL.
  *

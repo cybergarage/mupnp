@@ -33,6 +33,7 @@ extern "C" {
  ****************************************/
 
 mUpnpDevice* upnp_test_device_new(void);
+void upnp_test_device_httprequestrecieved(mUpnpHttpRequest* httpReq);
 
 #ifdef __cplusplus
 }

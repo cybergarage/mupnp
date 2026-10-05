@@ -19,6 +19,8 @@ typedef void mUpnpStateVariable;
  */
 @interface CGUpnpStateVariable : NSObject {
 }
+/* Retains the native object's owning wrapper, including discovery snapshots. */
+@property (retain) NSObject* cObjectOwner;
 @property (assign, readonly) mUpnpStateVariable* cObject;
 - (id)initWithCObject:(mUpnpStateVariable*)cobj;
 /**
