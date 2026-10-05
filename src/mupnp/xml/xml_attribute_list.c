@@ -80,22 +80,44 @@ mUpnpXmlAttribute* mupnp_xml_attributelist_get(mUpnpXmlAttributeList* attrList, 
  * mupnp_xml_attributelist_setattribute
  ****************************************/
 
-void mupnp_xml_attributelist_set(mUpnpXmlAttributeList* attrList, const char* name, const char* value)
+bool mupnp_xml_attributelist_set(mUpnpXmlAttributeList* attrList, const char* name, const char* value)
 {
   mUpnpXmlAttribute* attr;
+  bool isNewAttr = false;
 
   mupnp_log_debug_l4("Entering...\n");
+
+  if ((NULL == attrList) || (NULL == name))
+    return false;
 
   attr = mupnp_xml_attributelist_get(attrList, name);
   if (attr == NULL) {
     attr = mupnp_xml_attribute_new();
-    mupnp_xml_attributelist_add(attrList, attr);
+    if (attr == NULL) {
+      mupnp_log_debug_s("Memory allocation failure (XML attribute)\n");
+      return false;
+    }
     mupnp_xml_attribute_setname(attr, name);
+    if (mupnp_xml_attribute_getname(attr) == NULL) {
+      mupnp_log_debug_s("Memory allocation failure (XML attribute name)\n");
+      mupnp_xml_attribute_delete(attr);
+      return false;
+    }
+    mupnp_xml_attributelist_add(attrList, attr);
+    isNewAttr = true;
   }
 
   mupnp_xml_attribute_setvalue(attr, value);
+  if ((NULL != value) && (mupnp_xml_attribute_getvalue(attr) == NULL)) {
+    mupnp_log_debug_s("Memory allocation failure (XML attribute value)\n");
+    if (isNewAttr)
+      mupnp_xml_attribute_delete(attr);
+    return false;
+  }
 
   mupnp_log_debug_l4("Leaving...\n");
+
+  return true;
 }
 
 /****************************************

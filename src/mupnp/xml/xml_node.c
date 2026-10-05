@@ -24,16 +24,28 @@ mUpnpXmlNode* mupnp_xml_node_new(void)
 
   node = (mUpnpXmlNode*)malloc(sizeof(mUpnpXmlNode));
 
-  if (NULL != node) {
-    mupnp_list_node_init((mUpnpList*)node);
+  if (NULL == node)
+    return NULL;
 
-    node->name = mupnp_string_new();
-    node->value = mupnp_string_new();
-    node->attrList = mupnp_xml_attributelist_new();
-    node->nodeList = mupnp_xml_nodelist_new();
-    node->parentNode = NULL;
-    node->userData = NULL;
-    node->userDataDestructorFunc = NULL;
+  mupnp_list_node_init((mUpnpList*)node);
+
+  node->name = mupnp_string_new();
+  node->value = mupnp_string_new();
+  node->attrList = mupnp_xml_attributelist_new();
+  node->nodeList = mupnp_xml_nodelist_new();
+  node->parentNode = NULL;
+  node->userData = NULL;
+  node->userDataDestructorFunc = NULL;
+
+  if ((NULL == node->name) || (NULL == node->value) || (NULL == node->attrList) || (NULL == node->nodeList)) {
+    mupnp_string_delete(node->name);
+    mupnp_string_delete(node->value);
+    if (NULL != node->attrList)
+      mupnp_xml_attributelist_delete(node->attrList);
+    if (NULL != node->nodeList)
+      mupnp_xml_nodelist_delete(node->nodeList);
+    free(node);
+    return NULL;
   }
 
   mupnp_log_debug_l4("Leaving...\n");

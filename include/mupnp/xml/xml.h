@@ -73,7 +73,7 @@ void mupnp_xml_attributelist_delete(mUpnpXmlAttributeList* attrList);
 #define mupnp_xml_attributelist_gets(attrList) (mUpnpXmlAttribute*)mupnp_list_next((mUpnpList*)attrList)
 #define mupnp_xml_attributelist_add(attrList, attr) mupnp_list_add((mUpnpList*)attrList, (mUpnpList*)attr)
 
-void mupnp_xml_attributelist_set(mUpnpXmlAttributeList* attrList, const char* name, const char* value);
+bool mupnp_xml_attributelist_set(mUpnpXmlAttributeList* attrList, const char* name, const char* value);
 mUpnpXmlAttribute* mupnp_xml_attributelist_get(mUpnpXmlAttributeList* attrList, const char* name);
 const char* mupnp_xml_attributelist_getvalue(mUpnpXmlAttributeList* attrList, const char* name);
 
