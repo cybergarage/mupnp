@@ -13,6 +13,7 @@
 #include "config.h"
 #endif
 
+#include <limits.h>
 #include <mupnp/typedef.h>
 
 /****************************************
@@ -60,6 +61,8 @@ extern long int mupnp_total_elapsed_time;
 typedef struct _mUpnpExpatData {
   mUpnpXmlNode* rootNode;
   mUpnpXmlNode* currNode;
+  XML_Parser parser;
+  size_t depth;
 } mUpnpExpatData;
 
 static void XMLCALL mupnp_expat_element_start(void* userData, const char* el, const char** attr)
@@ -94,7 +97,16 @@ static void XMLCALL mupnp_expat_element_start(void* userData, const char* el, co
 
   expatData = (mUpnpExpatData*)userData;
 
+  if (expatData->depth >= MUPNP_XML_MAX_DEPTH) {
+    XML_StopParser(expatData->parser, XML_FALSE);
+    return;
+  }
   node = mupnp_xml_node_new();
+  if (!node) {
+    XML_StopParser(expatData->parser, XML_FALSE);
+    return;
+  }
+  expatData->depth++;
   mupnp_xml_node_setname(node, (char*)el);
 
   for (n = 0; attr[n]; n += 2)
@@ -127,6 +139,8 @@ static void XMLCALL mupnp_expat_element_end(void* userData, const char* el)
   --indent;
 #endif
   // memdiags_memlist_report_unmarkedsize();
+  if (expatData->depth)
+    expatData->depth--;
   if (expatData->currNode != NULL)
     expatData->currNode = mupnp_xml_node_getparentnode(expatData->currNode);
 
@@ -175,7 +189,7 @@ bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const c
   gettimeofday(&start_time, NULL);
 #endif
 
-  if (!data || len <= 0)
+  if (!data || len == 0 || len > INT_MAX)
     return false;
 
   p = XML_ParserCreate(NULL);
@@ -185,6 +199,8 @@ bool mupnp_xml_parse(mUpnpXmlParser* parser, mUpnpXmlNodeList* nodeList, const c
   if (data[len - 1] == 0)
     len--;
 
+  expatData.parser = p;
+  expatData.depth = 0;
   expatData.rootNode = NULL;
   expatData.currNode = NULL;
   XML_SetUserData(p, &expatData);

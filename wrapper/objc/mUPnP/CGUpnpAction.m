@@ -13,33 +13,18 @@
 
 #import "CGUpnpAction.h"
 
-static BOOL cg_upnp_action_listener(mUpnpAction* cAction)
-{
-  if (!cAction)
-    return FALSE;
-  CGUpnpAction* objcAction = (CGUpnpAction*)mupnp_action_getuserdata(cAction);
-  if (!objcAction)
-    return FALSE;
-  SEL actionReceived = @selector(actionReceived);
-  if (!actionReceived)
-    return FALSE;
-  if (![objcAction respondsToSelector:actionReceived])
-    return FALSE;
-  [objcAction performSelector:actionReceived];
-  return TRUE;
-}
-
 @implementation CGUpnpAction
 
 @synthesize cObject;
+@synthesize cObjectOwner;
 
 - (id)initWithCObject:(mUpnpAction*)cobj
 {
   if ((self = [super init]) == nil)
     return nil;
   cObject = cobj;
-  mupnp_action_setuserdata(cObject, self);
-  mupnp_action_setlistener(cObject, cg_upnp_action_listener);
+  /* Wrapping an action must not overwrite its native listener with raw self.
+   * Hosted callbacks are dispatched by CGUpnpDevice's delegate listener. */
   return self;
 }
 
@@ -52,6 +37,7 @@ static BOOL cg_upnp_action_listener(mUpnpAction* cAction)
 
 - (void)dealloc
 {
+  [cObjectOwner release];
   [super dealloc];
 }
 

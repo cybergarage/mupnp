@@ -23,6 +23,8 @@ typedef void mUpnpService;
  */
 @interface CGUpnpService : NSObject {
 }
+/* Retains the native object's owning wrapper, including discovery snapshots. */
+@property (retain) NSObject* cObjectOwner;
 @property (assign, readonly) mUpnpService* cObject;
 /**
  * Create a new UPnP service with the C instance.

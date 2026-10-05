@@ -111,8 +111,10 @@ void mupnp_ssdp_packet_setheader(mUpnpSSDPPacket* ssdpPkt, char* ssdpMsg)
   ssdpTok = mupnp_string_tokenizer_new(ssdpMsg, MUPNP_HTTP_CRLF);
 
   /**** skip the first line ****/
-  if (mupnp_string_tokenizer_hasmoretoken(ssdpTok) == false)
+  if (mupnp_string_tokenizer_hasmoretoken(ssdpTok) == false) {
+    mupnp_string_tokenizer_delete(ssdpTok);
     return;
+  }
 
   while (mupnp_string_tokenizer_hasmoretoken(ssdpTok) == true) {
     lineMsg = mupnp_string_tokenizer_nexttoken(ssdpTok);
@@ -221,4 +223,22 @@ void mupnp_ssdp_packet_print(mUpnpSSDPPacket* ssdpPkt)
   }
 
   mupnp_log_debug_l4("Leaving...\n");
+}
+
+int mupnp_ssdp_packet_getmx(mUpnpSSDPPacket* ssdpPkt)
+{
+  const char* value = mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_HTTP_MX);
+  int mx = 0;
+  if (!value || !*value)
+    return 0;
+  for (; *value; value++) {
+    if (*value < '0' || *value > '9')
+      return 0;
+    if (mx < 5) {
+      mx = mx * 10 + (*value - '0');
+      if (mx > 5)
+        mx = 5;
+    }
+  }
+  return mx;
 }

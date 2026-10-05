@@ -9,8 +9,12 @@
 #import <CyberLink/UPnP.h>
 #import <Foundation/Foundation.h>
 
-void PrintContentDirectory(CGUpnpAction* browseAction, int indent, NSString* objectId)
+static void PrintContentDirectoryBounded(CGUpnpAction* browseAction, int indent, NSString* objectId, NSMutableSet* visited)
 {
+  if (!objectId || indent >= 64 || [visited count] >= 1024 || [visited containsObject:objectId])
+    return;
+  [visited addObject:objectId];
+
   int n;
 
   [browseAction setArgumentValue:objectId forName:@"ObjectID"];
@@ -45,7 +49,7 @@ void PrintContentDirectory(CGUpnpAction* browseAction, int indent, NSString* obj
     }
     if ([[contentNode name] isEqualToString:@"container"]) {
       NSLog(@"%@  [%@] %@", indentStr, objId, title);
-      PrintContentDirectory(browseAction, (indent + 1), objId);
+      PrintContentDirectoryBounded(browseAction, (indent + 1), objId, visited);
     }
     else {
       NSArray* resArray = [contentNode elementsForName:@"res"];
@@ -57,6 +61,11 @@ void PrintContentDirectory(CGUpnpAction* browseAction, int indent, NSString* obj
       NSLog(@"%@  [%@] %@ (%@)", indentStr, objId, title, url);
     }
   }
+}
+
+void PrintContentDirectory(CGUpnpAction* browseAction, int indent, NSString* objectId)
+{
+  PrintContentDirectoryBounded(browseAction, indent, objectId, [NSMutableSet set]);
 }
 
 void PrintDmsInfo(CGUpnpDevice* dev, int dmsNum)

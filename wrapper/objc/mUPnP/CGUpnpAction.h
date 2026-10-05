@@ -20,6 +20,8 @@ typedef void mUpnpAction;
  */
 @interface CGUpnpAction : NSObject {
 }
+/* Retains the native object's owning wrapper, including discovery snapshots. */
+@property (retain) NSObject* cObjectOwner;
 @property (assign, readonly) mUpnpAction* cObject;
 - (id)initWithCObject:(mUpnpAction*)cobj;
 /**

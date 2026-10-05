@@ -11,6 +11,7 @@
 #include <mupnp/device.h>
 #include <mupnp/icon.h>
 #include <mupnp/service.h>
+#include <mupnp/statevariable.h>
 
 #import "CGUpnpAction.h"
 #import "CGUpnpDevice.h"
@@ -18,6 +19,44 @@
 #import "CGUpnpService.h"
 
 static BOOL cg_upnp_device_action_listener(mUpnpAction* action);
+
+/* Description parsing only builds local trees; this never fetches URLs. */
+static BOOL cg_upnp_copy_discovery_details(mUpnpDevice* dst, mUpnpDevice* src)
+{
+  mupnp_device_setssdppacket(dst, mupnp_device_getssdppacket(src));
+  mupnp_device_setdescriptionuri(dst, mupnp_device_getdescriptionuri(src));
+  mUpnpService* sourceService = mupnp_device_getservices(src);
+  mUpnpService* targetService = mupnp_device_getservices(dst);
+  while (sourceService && targetService) {
+    mUpnpXmlNode* scpd = mupnp_service_getscpdnode(sourceService);
+    if (scpd) {
+      mUpnpString* xml = mupnp_string_new();
+      const char* text = mupnp_xml_node_tostring(scpd, true, xml);
+      BOOL copied = mupnp_service_parsedescription(targetService, text, mupnp_strlen(text));
+      mupnp_string_delete(xml);
+      if (!copied)
+        return NO;
+    }
+    for (mUpnpStateVariable* source = mupnp_service_getstatevariables(sourceService); source; source = mupnp_statevariable_next(source)) {
+      mUpnpStateVariable* target = mupnp_service_getstatevariablebyname(targetService, mupnp_statevariable_getname(source));
+      if (target)
+        mupnp_statevariable_setvalue(target, mupnp_statevariable_getvalue(source));
+    }
+    sourceService = mupnp_service_next(sourceService);
+    targetService = mupnp_service_next(targetService);
+  }
+  if (sourceService || targetService)
+    return NO;
+  mUpnpDevice* sourceChild = mupnp_device_getdevices(src);
+  mUpnpDevice* targetChild = mupnp_device_getdevices(dst);
+  while (sourceChild && targetChild) {
+    if (!cg_upnp_copy_discovery_details(targetChild, sourceChild))
+      return NO;
+    sourceChild = mupnp_device_next(sourceChild);
+    targetChild = mupnp_device_next(targetChild);
+  }
+  return !sourceChild && !targetChild;
+}
 
 @implementation CGUpnpDevice
 
@@ -43,6 +82,25 @@ static BOOL cg_upnp_device_action_listener(mUpnpAction* action);
     return nil;
   cObject = cobj;
   isCObjectCreated = NO;
+  return self;
+}
+
+- (id)initWithDeviceSnapshot:(mUpnpDevice*)cobj
+{
+  if ((self = [super init]) == nil)
+    return nil;
+  cObject = mupnp_device_new();
+  isCObjectCreated = YES;
+  mUpnpString* xml = mupnp_string_new();
+  mUpnpXmlNode* root = cobj ? mupnp_device_getrootnode(cobj) : NULL;
+  const char* text = root ? mupnp_xml_node_tostring(root, true, xml) : NULL;
+  BOOL copied = cObject && text && mupnp_device_parsedescription(cObject, text, mupnp_strlen(text))
+      && cg_upnp_copy_discovery_details(cObject, cobj);
+  mupnp_string_delete(xml);
+  if (!copied) {
+    [self release];
+    return nil;
+  }
   return self;
 }
 
@@ -225,6 +283,7 @@ static BOOL cg_upnp_device_action_listener(mUpnpAction* action);
   mUpnpService* cService;
   for (cService = mupnp_device_getservices(cObject); cService; cService = mupnp_service_next(cService)) {
     CGUpnpService* service = [[[CGUpnpService alloc] initWithCObject:(void*)cService] autorelease];
+    service.cObjectOwner = self;
     [serviceArray addObject:service];
   }
   return serviceArray;
@@ -237,7 +296,9 @@ static BOOL cg_upnp_device_action_listener(mUpnpAction* action);
   mUpnpService* foundService = mupnp_device_getservicebyserviceid(cObject, (char*)[serviceId UTF8String]);
   if (!foundService)
     return nil;
-  return [[[CGUpnpService alloc] initWithCObject:(void*)foundService] autorelease];
+  CGUpnpService* service = [[[CGUpnpService alloc] initWithCObject:(void*)foundService] autorelease];
+  service.cObjectOwner = self;
+  return service;
 }
 
 - (CGUpnpService*)getServiceForType:(NSString*)serviceType
@@ -247,7 +308,9 @@ static BOOL cg_upnp_device_action_listener(mUpnpAction* action);
   mUpnpService* foundService = mupnp_device_getservicebytype(cObject, (char*)[serviceType UTF8String]);
   if (!foundService)
     return nil;
-  return [[[CGUpnpService alloc] initWithCObject:(void*)foundService] autorelease];
+  CGUpnpService* service = [[[CGUpnpService alloc] initWithCObject:(void*)foundService] autorelease];
+  service.cObjectOwner = self;
+  return service;
 }
 
 - (NSArray*)icons
@@ -258,6 +321,7 @@ static BOOL cg_upnp_device_action_listener(mUpnpAction* action);
   mUpnpIcon* cIcon;
   for (cIcon = mupnp_device_geticons(cObject); cIcon; cIcon = mupnp_icon_next(cIcon)) {
     CGUpnpIcon* icon = [[CGUpnpIcon alloc] initWithCObject:(void*)cIcon];
+    icon.cObjectOwner = self;
     [iconArray addObject:icon];
     [icon release];
   }
@@ -337,7 +401,9 @@ static BOOL cg_upnp_device_action_listener(mUpnpAction* action);
   mUpnpIcon* cIcon = mupnp_device_getsmallesticon(cObject);
   if (!cIcon)
     return nil;
-  return [[[CGUpnpIcon alloc] initWithCObject:(void*)cIcon] autorelease];
+  CGUpnpIcon* icon = [[[CGUpnpIcon alloc] initWithCObject:(void*)cIcon] autorelease];
+  icon.cObjectOwner = self;
+  return icon;
 }
 
 - (CGUpnpIcon*)smallestIconWithMimeType:(NSString*)mimeType;
@@ -347,7 +413,9 @@ static BOOL cg_upnp_device_action_listener(mUpnpAction* action);
   mUpnpIcon* cIcon = mupnp_device_getsmallesticonbymimetype(cObject, (char*)[mimeType UTF8String]);
   if (!cIcon)
     return nil;
-  return [[[CGUpnpIcon alloc] initWithCObject:(void*)cIcon] autorelease];
+  CGUpnpIcon* icon = [[[CGUpnpIcon alloc] initWithCObject:(void*)cIcon] autorelease];
+  icon.cObjectOwner = self;
+  return icon;
 }
 
 - (NSString*)absoluteIconUrl:(CGUpnpIcon*)anIcon
@@ -385,7 +453,7 @@ static BOOL cg_upnp_device_action_listener(mUpnpAction* cUpnpAction)
 
   if ([[upnpDevice delegate] respondsToSelector:@selector(device:service:actionReceived:)]) {
     CGUpnpService* upnpService = [[CGUpnpService alloc] initWithCObject:(void*)cUpnpService];
-    CGUpnpAction* upnpAction = [[CGUpnpAction alloc] initWithCObject:(void*)upnpAction];
+    CGUpnpAction* upnpAction = [[CGUpnpAction alloc] initWithCObject:(void*)cUpnpAction];
     BOOL doActionResult = [[upnpDevice delegate] device:upnpDevice service:upnpService actionReceived:upnpAction];
     [upnpAction release];
     [upnpService release];

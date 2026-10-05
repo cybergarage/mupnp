@@ -23,6 +23,7 @@
 
 #include <mupnp/util/log.h>
 
+#include <limits.h>
 #include <string.h>
 
 #if !defined(WINCE)
@@ -392,7 +393,7 @@ bool mupnp_socket_close(mUpnpSocket* sock)
 
 #if defined(MUPNP_USE_OPENSSL)
   if (mupnp_socket_isssl(sock) == true) {
-    if (sock->ctx) {
+    if (sock->ssl) {
       SSL_shutdown(sock->ssl);
       SSL_free(sock->ssl);
       sock->ssl = NULL;
@@ -778,16 +779,38 @@ bool mupnp_socket_connect(mUpnpSocket* sock, const char* addr, int port)
 
 #if defined(MUPNP_USE_OPENSSL)
   if (mupnp_socket_isssl(sock) == true) {
+    if (ret != 0)
+      return false;
+#if OPENSSL_VERSION_NUMBER < 0x10002000L
+    /* Older backends cannot enforce peer identity; fail closed. */
+    mupnp_socket_close(sock);
+    return false;
+#else
     sock->ctx = SSL_CTX_new(SSLv23_client_method());
+    if (!sock->ctx || SSL_CTX_set_default_verify_paths(sock->ctx) != 1) {
+      mupnp_socket_close(sock);
+      return false;
+    }
+    SSL_CTX_set_verify(sock->ctx, SSL_VERIFY_PEER, NULL);
     sock->ssl = SSL_new(sock->ctx);
-    if (SSL_set_fd(sock->ssl, mupnp_socket_getid(sock)) == 0) {
+    if (!sock->ssl) {
       mupnp_socket_close(sock);
       return false;
     }
-    if (SSL_connect(sock->ssl) < 1) {
+    X509_VERIFY_PARAM* verify = SSL_get0_param(sock->ssl);
+    unsigned char address[16];
+    bool isIP = inet_pton(AF_INET, addr, address) == 1 || inet_pton(AF_INET6, addr, address) == 1;
+    if ((isIP ? X509_VERIFY_PARAM_set1_ip_asc(verify, addr)
+              : X509_VERIFY_PARAM_set1_host(verify, addr, 0))
+            != 1
+        || (!isIP && SSL_set_tlsext_host_name(sock->ssl, addr) != 1)
+        || SSL_set_fd(sock->ssl, mupnp_socket_getid(sock)) != 1
+        || SSL_connect(sock->ssl) != 1
+        || SSL_get_verify_result(sock->ssl) != X509_V_OK) {
       mupnp_socket_close(sock);
       return false;
     }
+#endif
   }
 #endif
 
@@ -836,9 +859,9 @@ ssize_t mupnp_socket_read(mUpnpSocket* sock, char* buffer, size_t bufferLen)
   mupnp_log_debug_l4("Entering...\n");
 
 #ifdef SOCKET_DEBUG
-  if (0 <= recvLen)
-    buffer[recvLen] = '\0';
-  mupnp_log_debug_s("r %d : %s\n", recvLen, (0 <= recvLen) ? buffer : "");
+  /* Debug output must not write a terminator beyond the caller's byte span. */
+  int debugLen = (recvLen > 0) ? (int)((recvLen > INT_MAX) ? INT_MAX : recvLen) : 0;
+  mupnp_log_debug_s("r %ld : %.*s\n", (long)recvLen, debugLen, (recvLen > 0) ? buffer : "");
 #endif
 
   mupnp_log_debug_l4("Leaving...\n");
@@ -1118,7 +1141,7 @@ ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt)
   mupnp_log_debug_l4("Entering...\n");
 
   if (recvLen <= 0)
-    return 0;
+    return recvLen;
 
   recvBuf[recvLen] = '\0';
   mupnp_socket_datagram_packet_setdata(dgmPkt, recvBuf);

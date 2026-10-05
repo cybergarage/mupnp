@@ -1,0 +1,53 @@
+/* Compile this fixture as C. It includes the actual sample traversal. */
+#include <assert.h>
+#include <mupnp/upnp.h>
+static bool fixture_post(mUpnpAction* action);
+#define mupnp_action_post fixture_post
+#define main fixture_sample_main
+#include "../../examples/upnpavdump/upnpavdump.c"
+#undef main
+#undef mupnp_action_post
+
+static int calls;
+static int mode;
+static bool fixture_post(mUpnpAction* action)
+{
+  calls++;
+  const char* id = mupnp_action_getargumentvaluebyname(action, "ObjectID");
+  const char* result;
+  if (mode == 0) /* A self-cycle at root. */
+    result = "<DIDL-Lite><container id=\"0\"/></DIDL-Lite>";
+  else if (mode == 1) /* Root -> A -> root. */
+    result = mupnp_streq(id, "0") ? "<DIDL-Lite><container id=\"A\"/></DIDL-Lite>"
+                                  : "<DIDL-Lite><container id=\"0\"/></DIDL-Lite>";
+  else /* A legitimate finite hierarchy with an item. */
+    result = mupnp_streq(id, "0") ? "<DIDL-Lite><container id=\"A\"/></DIDL-Lite>"
+                                  : "<DIDL-Lite><item id=\"item\"><res>http://localhost/item</res></item></DIDL-Lite>";
+  mupnp_action_setargumentvaluebyname(action, "Result", result);
+  return true;
+}
+int main(void)
+{
+  mUpnpAction* action = mupnp_action_new();
+  const char* names[] = { "ObjectID", "BrowseFlag", "Filter", "StartingIndex", "RequestedCount", "SortCriteria", "Result" };
+  mUpnpXmlNodeList* argumentNodes = mupnp_xml_nodelist_new();
+  for (size_t n = 0; n < sizeof(names) / sizeof(names[0]); n++) {
+    mUpnpArgument* argument = mupnp_argument_new();
+    mUpnpXmlNode* node = mupnp_xml_node_new();
+    mupnp_xml_nodelist_add(argumentNodes, node);
+    mupnp_argument_setargumentnode(argument, node);
+    mupnp_argument_setname(argument, names[n]);
+    mupnp_argumentlist_add(mupnp_action_getargumentlist(action), argument);
+  }
+  for (mode = 0; mode < 3; mode++) {
+    calls = 0;
+    print_content_directory(action, 0, "0");
+    assert(calls == (mode == 0 ? 1 : 2));
+  }
+  calls = 0;
+  print_content_directory(action, 64, "0");
+  assert(calls == 0);
+  mupnp_action_delete(action);
+  mupnp_xml_nodelist_delete(argumentNodes);
+  return 0;
+}

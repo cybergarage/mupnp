@@ -102,11 +102,14 @@ static void cg_upnp_control_point_device_listener(mUpnpControlPoint* ctrlPoint, 
   if (!cObject)
     return [NSArray array];
   NSMutableArray* devArray = [NSMutableArray array];
+  mupnp_controlpoint_lock(cObject);
   mUpnpDevice* cDevice;
   for (cDevice = mupnp_controlpoint_getdevices(cObject); cDevice; cDevice = mupnp_device_next(cDevice)) {
-    CGUpnpDevice* device = [[[CGUpnpDevice alloc] initWithCObject:cDevice] autorelease];
-    [devArray addObject:device];
+    CGUpnpDevice* device = [[[CGUpnpDevice alloc] initWithDeviceSnapshot:cDevice] autorelease];
+    if (device)
+      [devArray addObject:device];
   }
+  mupnp_controlpoint_unlock(cObject);
   return devArray;
 }
 
@@ -114,11 +117,16 @@ static void cg_upnp_control_point_device_listener(mUpnpControlPoint* ctrlPoint, 
 {
   if (!cObject)
     return nil;
+  mupnp_controlpoint_lock(cObject);
   mUpnpDevice* cDevice;
   for (cDevice = mupnp_controlpoint_getdevices(cObject); cDevice; cDevice = mupnp_device_next(cDevice)) {
-    if (mupnp_strcmp(mupnp_device_getudn(cDevice), (char*)[udn UTF8String]) == 0)
-      return [[[CGUpnpDevice alloc] initWithCObject:cDevice] autorelease];
+    if (mupnp_strcmp(mupnp_device_getudn(cDevice), (char*)[udn UTF8String]) == 0) {
+      CGUpnpDevice* device = [[[CGUpnpDevice alloc] initWithDeviceSnapshot:cDevice] autorelease];
+      mupnp_controlpoint_unlock(cObject);
+      return device;
+    }
   }
+  mupnp_controlpoint_unlock(cObject);
   return nil;
 }
 

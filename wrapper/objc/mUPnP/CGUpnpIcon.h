@@ -23,6 +23,8 @@ typedef void mUpnpIcon;
   NSString* resourceName;
 #endif
 }
+/* Retains the native object's owning wrapper, including discovery snapshots. */
+@property (retain) NSObject* cObjectOwner;
 @property (assign, readonly) mUpnpIcon* cObject;
 #if defined(TARGET_OS_IPHONE)
 @property (readonly) NSString* resourceName;

@@ -15,6 +15,7 @@
 @implementation CGUpnpIcon
 
 @synthesize cObject;
+@synthesize cObjectOwner;
 #if defined(TARGET_OS_IPHONE)
 @synthesize resourceName;
 #endif
@@ -38,6 +39,7 @@
 {
   self.resourceName = nil;
 
+  [cObjectOwner release];
   [super dealloc];
 }
 
