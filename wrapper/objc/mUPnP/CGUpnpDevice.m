@@ -18,7 +18,7 @@
 #import "CGUpnpIcon.h"
 #import "CGUpnpService.h"
 
-static BOOL cg_upnp_device_action_listener(mUpnpAction* action);
+static bool cg_upnp_device_action_listener(mUpnpAction* action);
 
 /* Description parsing only builds local trees; this never fetches URLs. */
 static BOOL cg_upnp_copy_discovery_details(mUpnpDevice* dst, mUpnpDevice* src)
@@ -434,7 +434,7 @@ static BOOL cg_upnp_copy_discovery_details(mUpnpDevice* dst, mUpnpDevice* src)
 
 @end
 
-static BOOL cg_upnp_device_action_listener(mUpnpAction* cUpnpAction)
+static bool cg_upnp_device_action_listener(mUpnpAction* cUpnpAction)
 {
   if (!cUpnpAction)
     return NO;

@@ -21,7 +21,7 @@
 		21AA0F131331226600A2338F /* SubscriptionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F071331226600A2338F /* SubscriptionTest.cpp */; };
 		21AA0F141331226600A2338F /* URITest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F081331226600A2338F /* URITest.cpp */; };
 		21AA0F191331227300A2338F /* TestDevice.c in Sources */ = {isa = PBXBuildFile; fileRef = 21AA0F171331227300A2338F /* TestDevice.c */; };
-		21E12B051924F3C0005D4F50 /* mUpnpTestMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E12B041924F3C0005D4F50 /* mUpnpTestMain.cpp */; };
+		21E12B051924F3C0005D4F50 /* TestMain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21E12B041924F3C0005D4F50 /* TestMain.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +70,7 @@
 		21AA0F081331226600A2338F /* URITest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = URITest.cpp; path = ../../URITest.cpp; sourceTree = "<group>"; };
 		21AA0F171331227300A2338F /* TestDevice.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TestDevice.c; path = ../../TestDevice.c; sourceTree = "<group>"; };
 		21AA0F181331227300A2338F /* TestDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestDevice.h; path = ../../TestDevice.h; sourceTree = "<group>"; };
-		21E12B041924F3C0005D4F50 /* mUpnpTestMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mUpnpTestMain.cpp; path = ../../mUpnpTestMain.cpp; sourceTree = "<group>"; };
+		21E12B041924F3C0005D4F50 /* TestMain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestMain.cpp; path = ../../TestMain.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +114,7 @@
 		21AA0EFE1331224E00A2338F /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				21E12B041924F3C0005D4F50 /* mUpnpTestMain.cpp */,
+				21E12B041924F3C0005D4F50 /* TestMain.cpp */,
 				21AA0F171331227300A2338F /* TestDevice.c */,
 				21AA0F181331227300A2338F /* TestDevice.h */,
 				212CAC5D186439810065C62C /* StringTest.cpp */,
@@ -211,7 +211,7 @@
 			files = (
 				212CAC5E186439810065C62C /* StringTest.cpp in Sources */,
 				21AA0F0D1331226600A2338F /* ControlPointTest.cpp in Sources */,
-				21E12B051924F3C0005D4F50 /* mUpnpTestMain.cpp in Sources */,
+				21E12B051924F3C0005D4F50 /* TestMain.cpp in Sources */,
 				21AA0F0E1331226600A2338F /* DeviceTest.cpp in Sources */,
 				219030B819067A4E003D4327 /* UPnPFuncTest.cpp in Sources */,
 				21AA0F0F1331226600A2338F /* DictionaryTest.cpp in Sources */,
@@ -286,7 +286,7 @@
 					/usr/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-lboost_unit_test_framework-mt",
@@ -343,7 +343,7 @@
 					/usr/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = /usr/local/lib;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				OTHER_LDFLAGS = (
 					"-lboost_unit_test_framework-mt",
 					"-lxml2",
@@ -373,7 +373,7 @@
 					/usr/local/lib,
 					/opt/homebrew/lib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				OTHER_LDFLAGS = (
 					"-lboost_unit_test_framework-mt",
 					"-lxml2",
@@ -401,7 +401,7 @@
 					/usr/local/lib,
 					/opt/homebrew/lib,
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				OTHER_LDFLAGS = (
 					"-lboost_unit_test_framework-mt",
 					"-lxml2",
