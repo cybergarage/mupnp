@@ -1,5 +1,7 @@
 var NAVTREEINDEX11 =
 {
+"struct__mUpnpDatagramPacket.html#ae9c3f36bc09fcf499a48a1bf3d72dbbd":[11,0,7,0],
+"struct__mUpnpDevice.html":[11,0,8],
 "struct__mUpnpDevice.html#a0514fb535685f6a542e456e414b97ce8":[11,0,8,0],
 "struct__mUpnpDevice.html#a1c44e7161c8c3d04b2d27ecd79143988":[11,0,8,6],
 "struct__mUpnpDevice.html#a209783954de20db4ef818ccf406f0bf8":[11,0,8,7],
@@ -247,7 +249,5 @@ var NAVTREEINDEX11 =
 "subscriber_8h.html#a39eacd6c3b5d2c91b0f07bef50c63da5":[12,0,1,0,1,3,24],
 "subscriber_8h.html#a48ec522dc5055e23ade7ca42ef4c27bb":[12,0,1,0,1,3,4],
 "subscriber_8h.html#a506cd3387646618471f3549db582fa6b":[12,0,1,0,1,3,23],
-"subscriber_8h.html#a5bb520a2f035d92bb5b56d62711cbf17":[12,0,1,0,1,3,30],
-"subscriber_8h.html#a6fd88900474df11cb7271b4a0aca7984":[12,0,1,0,1,3,20],
-"subscriber_8h.html#a71bb5966847b5b2e802538abdbd1cb54":[12,0,1,0,1,3,9]
+"subscriber_8h.html#a5bb520a2f035d92bb5b56d62711cbf17":[12,0,1,0,1,3,30]
 };

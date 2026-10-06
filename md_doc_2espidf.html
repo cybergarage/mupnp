@@ -73,8 +73,18 @@ $(function(){initNavTree('md_doc_2espidf.html',''); initResizable(true); });
 <h1><a class="anchor" id="autotoc_md10"></a>
 Scope and status</h1>
 <p>The initial port targets <b>ESP32, one active Wi-Fi station interface, and IPv4</b>. The build/CI baseline is <b>ESP-IDF v5.5.5</b>; the component manifest allows <code>&gt;=5.5,&lt;6.0</code>. Other ESP32-family targets, Ethernet, simultaneous STA/AP or multiple interfaces, IPv6, TLS/OpenSSL, and libcurl have not been validated by this port. Enabling IPv6 elsewhere in an application does not enable IPv6 in mUPnP.</p>
-<p>The complete mUPnP library is compiled, including device, control point, SOAP, and GENA code, but the supplied example exercises control-point discovery only. A successful cross-build is not an on-device interoperability, memory, or reconnection test. No hardware test results are claimed. Use the checklist below on your board before deployment; device hosting, SOAP actions, and GENA subscriptions require additional application-specific testing.</p>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<p>The complete mUPnP library is compiled, including device, control point, SOAP, and GENA code, but the supplied example exercises control-point discovery only. A successful cross-build alone does not establish interoperability or memory stability. The user-reported hardware results below cover a limited control-point configuration; device hosting and broader deployment scenarios remain unverified.</p>
+<h2><a class="anchor" id="autotoc_md11"></a>
+Reported hardware coverage</h2>
+<p>The reported configuration was ESP32 DevKitC-VE, PSRAM disabled, ESP-IDF 5.5.5, Expat 2.8.4, one Wi-Fi STA interface and IPv4. The patched control point ran for 29 minutes without the previously observed crash; heap measurements were stable for an 11-minute interval. Discovery, device leave/return, and single-address SOAP and GENA interactions were exercised with a test helper. These observations are limited smoke-test evidence, not long-term reliability or all-ESP32-family proof. See the public <a href="https://github.com/cybergarage/mupnp/pull/30">PR #30 report</a> and <a href="https://github.com/cybergarage/mupnp/pull/31">PR #31 report</a>.</p>
+<p>Actual multiple-LOCATION behavior was not reproduced on hardware. Its coverage comes from host tests, which announce the same endpoint with different URL spellings. Patched Wi-Fi reconnect testing was explicitly skipped. Device hosting, other ESP32-family boards, multiple interfaces, and long-duration operation remain unverified. Follow the checklist below for application-specific validation.</p>
+<h2><a class="anchor" id="autotoc_md12"></a>
+Release limits and compatibility</h2>
+<p>Version 3.0.5 already introduced the initial ESP-IDF port. Version 3.1.0 includes the subsequently merged XML allocation-failure and LOCATION/GENA fixes (#30), and HTTP TIME_WAIT rebinding changes (#31).</p>
+<p><code><a class="el" href="xml__attribute__list_8c.html#a2c8294fa591723c5f3b5719bec10d3a8">mupnp_xml_attributelist_set()</a></code> now returns <code>bool</code> instead of <code>void</code>; callers ignoring the result still compile, but function-pointer declarations must match. Allocation failure is reported as parse failure rather than a partial description. When a cached device is retained during a LOCATION update, listeners receive <code>mUpnpDeviceStatusUpdated</code>. Unchanged descriptions retain service pointers and subscriptions. Actual description replacement preserves the device pointer and carries subscription state by UDN/serviceId, but invalidates earlier service pointers; reacquire services after that change. Embedded devices without UDNs cannot carry subscription state in this replacement path.</p>
+<p>The public #30 report also records a pre-existing device-side SUBSCRIBE URI leak and a use-after-free when a device is deleted immediately after SUBSCRIBE while its initial-event thread is pending. They are not fixed by this release preparation and are not covered by the reported control-point smoke test.</p>
+<p>The component manifest currently labels the license <code>BSD-3-Clause</code>, while <code>COPYING</code> includes an additional patent-related condition. That metadata needs maintainer/legal review before registry publication; this preparation does not change the license terms or establish that the SPDX label is correct.</p>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Build the example</h1>
 <ol type="1">
 <li>Install and activate <a href="https://github.com/espressif/esp-idf/releases/tag/v5.5.5">ESP-IDF v5.5.5</a> using Espressif's <a href="https://docs.espressif.com/projects/esp-idf/en/v5.5.5/esp32/get-started/index.html">ESP32 getting-started instructions</a>.</li>
@@ -92,11 +102,11 @@ Build the example</h1>
 </li>
 </ol>
 <p>The ESP-IDF Component Manager downloads the real <a href="https://components.espressif.com/components/espressif/expat/versions/2.8.4/readme"><code>espressif/expat</code> component</a> from the official registry (<code>^2.8.4</code>). Internet access is needed on the first build. There is no replacement XML parser or header-only stub. Preserve the application's generated <code>dependencies.lock</code> for reproducible deployments; review dependency/security updates before upgrading it. The example uses <code>EXTRA_COMPONENT_DIRS</code> to build the repository root and shares exactly the same source list as the standalone host CMake build.</p>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Use in another application</h1>
 <p>Place this repository at <code>&lt;project&gt;/components/mupnp</code> (for example, as a Git submodule), or add its path to <code>EXTRA_COMPONENT_DIRS</code> <b>before</b> including ESP-IDF's <code>project.cmake</code>. In the application's component registration, add <code>REQUIRES mupnp</code> and include <code>&lt;<a class="el" href="upnp_8h.html" title="Main header file for the mUPnP for C library.">mupnp/upnp.h</a>&gt;</code>. ESP-IDF names a local component after its directory, so adjust <code>REQUIRES</code> if you use a different directory name. Leave Component Manager enabled so <code>idf_component.yml</code> resolves Expat.</p>
 <p>mUPnP's root CMake detects <code>ESP_PLATFORM</code>, registers an IDF component, exports its public headers and <code>MUPNP_</code> feature definitions, then returns without running the host project, examples, or <code>find_library()</code> logic. The existing standalone host options retain their behavior; they are not used for the IDF branch. The ESP branch uses Expat and IDF's lwIP, esp-netif, pthread, timer, and hardware random-number facilities. It does not require POSIX interface enumeration, Unix signals, or a host UUID library.</p>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md15"></a>
 Required configuration</h2>
 <p>The supplied <code>sdkconfig.defaults</code> sets:</p>
 <ul>
@@ -110,15 +120,15 @@ Required configuration</h2>
 </ul>
 <p>ESP-IDF 5.5 supplies lwIP IGMP/socket support; the application must initialize esp-netif and start an IPv4 network interface. Keep the default mUPnP per-interface addressing: do not define <code>MUPNP_NET_USE_ANYADDR</code>. The initial configuration intentionally does not enable <code>MUPNP_USE_IPV6</code>, HTTP persistent connections, OpenSSL, or libcurl. The example disables Wi-Fi power saving to make multicast reception more predictable; evaluate latency and power behavior on your hardware.</p>
 <p>These settings are <b>defaults for a new configuration</b>. Existing <code>sdkconfig</code> values take precedence. After changing defaults in a project that already has a configuration, use <code>idf.py menuconfig</code> to review the effective values. The component rejects configurations without IPv4, socket reuse, or select support.</p>
-<h2><a class="anchor" id="autotoc_md14"></a>
+<h2><a class="anchor" id="autotoc_md16"></a>
 Lifetime and memory</h2>
 <p>Initialize a control point only after <code>IP_EVENT_STA_GOT_IP</code>. Stop and delete it when the interface goes down or its address changes, then create it again after IPv4 is available. Socket/multicast bindings are snapshots of the active interface; the library does not run a Wi-Fi reconnection manager for you.</p>
 <p>The example's Wi-Fi callbacks only update an event group and reconnect Wi-Fi. One application task owns all control-point start/search/delete operations. Network-change bits remain pending during teardown, so rapid disconnects and reconnections still rebuild the bindings. The example deliberately does not use that task's notification slot: ESP-IDF's <code>pthread_join()</code> uses it internally. Never stop/delete a control point in one of its own listener callbacks, and do not stop it concurrently from multiple tasks. Callbacks should return promptly and must not retain library-owned packet/device pointers.</p>
 <p>Workers stop cooperatively and are joined before their sockets and objects are freed. Blocking network operations poll their runnable state; application callbacks and other unbounded user work can still delay shutdown. Size stacks for the deepest XML descriptions and callbacks you expect, measure heap and stack high-water marks, and budget for multiple worker stacks plus the complete device/service XML cache. Resource use scales with the number and complexity of discovered devices. The example searches only <code>upnp:rootdevice</code> to limit redundant discovery traffic, but discovery can still consume significant heap.</p>
 <p>UPnP discovers and downloads XML supplied by other hosts without authenticating them. Use a trusted LAN, do not expose the listeners to the Internet, and keep Expat and IDF security fixes current. The <a href="https://components.espressif.com/components/espressif/expat/versions/2.8.4/readme">Expat 2.8.4 README</a> links outstanding upstream security concerns. This port is not a security audit or a guarantee that arbitrary untrusted XML cannot exhaust memory.</p>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 Validation</h1>
-<h2><a class="anchor" id="autotoc_md16"></a>
+<h2><a class="anchor" id="autotoc_md18"></a>
 Automated cross-build</h2>
 <p>From the repository root, with the SDK activated:</p>
 <div class="fragment"><div class="line">cd examples/espidf/control_point</div>
@@ -134,8 +144,8 @@ Automated cross-build</h2>
 <p>The host build remains independent:</p>
 <div class="fragment"><div class="line">cmake -S . -B build</div>
 <div class="line">cmake --build build</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md17"></a>
-Hardware smoke-test checklist (not yet performed)</h2>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md19"></a>
+Additional hardware validation checklist</h2>
 <ol type="1">
 <li>Put the ESP32 and a known UPnP device on the same IPv4 LAN. Disable client/AP isolation and ensure the network permits IGMP and UDP multicast <code>239.255.255.250:1900</code>.</li>
 <li>Flash the example. Verify an IPv4 log, <code>Control point started</code>, <code>M-SEARCH sent for upnp:rootdevice</code>, and SSDP responses with a plausible <code>LOCATION</code>. A <code>Device added</code> log verifies that description retrieval and XML parsing progressed far enough to populate the device cache.</li>
