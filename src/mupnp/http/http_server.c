@@ -106,6 +106,22 @@ void mupnp_http_server_delete(mUpnpHttpServer* httpServer)
  * mupnp_http_server_delete
  ****************************************/
 
+/* A server that closed client connections leaves its address:port in
+   TIME_WAIT. Without SO_REUSEADDR, restarting a device or control point on
+   the same port then fails on that interface until TIME_WAIT expires, and on
+   a host with several interfaces mupnp_http_serverlist_open() succeeds with
+   only the other interfaces bound while the stack still advertises the
+   first one. On Linux, BSD/macOS and lwIP, SO_REUSEADDR on a stream socket
+   only permits rebinding over TIME_WAIT, not a second active listener
+   (mupnp_socket_setreuseaddress() adds SO_REUSEPORT for datagram sockets
+   only). On Windows, SO_REUSEADDR would let another socket bind a port that
+   is already listening, so it stays off there. */
+#if defined(WIN32)
+#define MUPNP_HTTP_SERVER_REUSEADDR false
+#else
+#define MUPNP_HTTP_SERVER_REUSEADDR true
+#endif
+
 bool mupnp_http_server_open(mUpnpHttpServer* httpServer, int bindPort, const char* bindAddr)
 {
   mupnp_log_debug_l4("Entering...\n");
@@ -114,7 +130,7 @@ bool mupnp_http_server_open(mUpnpHttpServer* httpServer, int bindPort, const cha
     return false;
 
   httpServer->sock = mupnp_socket_stream_new();
-  if (mupnp_socket_bind(httpServer->sock, bindPort, bindAddr, true, false) == false) {
+  if (mupnp_socket_bind(httpServer->sock, bindPort, bindAddr, true, MUPNP_HTTP_SERVER_REUSEADDR) == false) {
     mupnp_socket_delete(httpServer->sock);
     httpServer->sock = NULL;
     return false;
