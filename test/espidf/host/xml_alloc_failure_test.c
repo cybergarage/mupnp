@@ -9,13 +9,15 @@
  ******************************************************************/
 
 /*
- * Allocation-failure regression test for the XML attribute path.
+ * Allocation-failure regression for the XML attribute path (the ESP32
+ * LoadProhibited crash while building XML attributes).
  *
  * Linked with -Wl,--wrap=malloc,--wrap=realloc so that exactly the N-th
  * allocation made by mUPnP fails. For every N up to the number of allocations
  * a successful parse needs, the parser must either succeed or report failure;
- * it must never dereference a NULL allocation. Run under AddressSanitizer to
- * also catch leaks on the failure paths.
+ * it must never dereference a NULL allocation. Built and run by
+ * run_xml_alloc.sh under ASan/UBSan, which also catches leaks on the failure
+ * paths.
  */
 
 #include <stdio.h>
@@ -27,20 +29,30 @@
 
 void* __real_malloc(size_t size);
 void* __real_realloc(void* ptr, size_t size);
+void* __wrap_malloc(size_t size);
+void* __wrap_realloc(void* ptr, size_t size);
 
 static long alloc_count = 0;
 static long fail_at = -1; /* -1: not counting, 0: count only, N: fail the N-th (1-based) */
 
+static int injected_failure(void)
+{
+  if (fail_at < 0)
+    return 0;
+  alloc_count++;
+  return alloc_count == fail_at;
+}
+
 void* __wrap_malloc(size_t size)
 {
-  if (fail_at >= 0 && ++alloc_count == fail_at)
+  if (injected_failure())
     return NULL;
   return __real_malloc(size);
 }
 
 void* __wrap_realloc(void* ptr, size_t size)
 {
-  if (fail_at >= 0 && ++alloc_count == fail_at)
+  if (injected_failure())
     return NULL;
   return __real_realloc(ptr, size);
 }
@@ -58,38 +70,37 @@ static long disarm(void)
   return n;
 }
 
-static const char* DESCRIPTION = "<?xml version=\"1.0\"?>\n"
-                                 "<root xmlns=\"urn:schemas-upnp-org:device-1-0\" configId=\"1\">\n"
-                                 "  <specVersion><major>1</major><minor>0</minor></specVersion>\n"
-                                 "  <device a=\"1\" b=\"2\" c=\"3\">\n"
-                                 "    <deviceType>urn:schemas-upnp-org:device:BinaryLight:1</deviceType>\n"
-                                 "    <friendlyName lang=\"en\" x=\"y\">Light</friendlyName>\n"
-                                 "    <UDN>uuid:00000000-0000-0000-0000-000000000001</UDN>\n"
-                                 "  </device>\n"
-                                 "</root>\n";
+static const char* const DESCRIPTION = "<?xml version=\"1.0\"?>\n"
+                                       "<root xmlns=\"urn:schemas-upnp-org:device-1-0\" configId=\"1\">\n"
+                                       "  <specVersion><major>1</major><minor>0</minor></specVersion>\n"
+                                       "  <device a=\"1\" b=\"2\" c=\"3\">\n"
+                                       "    <deviceType>urn:schemas-upnp-org:device:BinaryLight:1</deviceType>\n"
+                                       "    <friendlyName lang=\"en\" x=\"y\">Light</friendlyName>\n"
+                                       "    <UDN>uuid:00000000-0000-0000-0000-000000000001</UDN>\n"
+                                       "  </device>\n"
+                                       "</root>\n";
 
 static int failures = 0;
 
-#define CHECK(cond, ...)               \
-  do {                                 \
-    if (!(cond)) {                     \
+#define CHECK(cond, ...)                     \
+  do {                                       \
+    if (!(cond)) {                           \
       fprintf(stderr, "FAIL: " __VA_ARGS__); \
-      failures++;                      \
-    }                                  \
+      failures++;                            \
+    }                                        \
   } while (0)
 
-/* Count how many attributes and nodes survived, to check consistency. */
+/* Count the attributes in the tree; a nameless attribute means a half-built
+   attribute leaked into the tree. */
 static int count_attrs(mUpnpXmlNode* node)
 {
   int n = 0;
-  mUpnpXmlAttribute* attr;
-  mUpnpXmlNode* child;
-  for (attr = mupnp_xml_node_getattributes(node); attr; attr = mupnp_xml_attribute_next(attr)) {
+  for (mUpnpXmlAttribute* attr = mupnp_xml_node_getattributes(node); attr; attr = mupnp_xml_attribute_next(attr)) {
     if (mupnp_xml_attribute_getname(attr) == NULL)
-      return -1000; /* half-built attribute leaked into the tree */
+      return -1000;
     n++;
   }
-  for (child = mupnp_xml_node_getchildnodes(node); child; child = mupnp_xml_node_next(child)) {
+  for (mUpnpXmlNode* child = mupnp_xml_node_getchildnodes(node); child; child = mupnp_xml_node_next(child)) {
     int c = count_attrs(child);
     if (c < 0)
       return c;
@@ -100,25 +111,18 @@ static int count_attrs(mUpnpXmlNode* node)
 
 static void test_parse_under_failure(void)
 {
-  mUpnpXmlParser* parser;
-  mUpnpXmlNodeList* nodes;
-  long total, n;
-  int expected_attrs;
-  bool ok;
-
-  /* Reference run with no failures. */
-  parser = mupnp_xml_parser_new();
-  nodes = mupnp_xml_nodelist_new();
+  mUpnpXmlParser* parser = mupnp_xml_parser_new();
+  mUpnpXmlNodeList* nodes = mupnp_xml_nodelist_new();
   arm(0);
-  ok = mupnp_xml_parse(parser, nodes, DESCRIPTION, strlen(DESCRIPTION));
-  total = disarm();
+  bool ok = mupnp_xml_parse(parser, nodes, DESCRIPTION, strlen(DESCRIPTION));
+  long total = disarm();
   CHECK(ok, "reference parse failed\n");
-  expected_attrs = count_attrs(mupnp_xml_nodelist_gets(nodes));
+  int expected_attrs = count_attrs(mupnp_xml_nodelist_gets(nodes));
   CHECK(expected_attrs == 7, "expected 7 attributes, got %d\n", expected_attrs);
   mupnp_xml_nodelist_delete(nodes);
   mupnp_xml_parser_delete(parser);
 
-  for (n = 1; n <= total; n++) {
+  for (long n = 1; n <= total; n++) {
     parser = mupnp_xml_parser_new();
     nodes = mupnp_xml_nodelist_new();
     if (!parser || !nodes) {
@@ -129,10 +133,9 @@ static void test_parse_under_failure(void)
     ok = mupnp_xml_parse(parser, nodes, DESCRIPTION, strlen(DESCRIPTION));
     disarm();
     if (ok) {
+      /* A reported success must not hide a half-built or dropped attribute.
+         Character data may still be dropped by unrelated code paths. */
       int attrs = count_attrs(mupnp_xml_nodelist_gets(nodes));
-      /* A reported success must not hide a half-built attribute. Values may
-         still be dropped by unrelated, pre-existing code paths (character
-         data), but every attribute that exists must have a name. */
       CHECK(attrs >= 0, "fail_at=%ld: parse succeeded with a nameless attribute\n", n);
       CHECK(attrs == expected_attrs, "fail_at=%ld: parse succeeded but lost attributes (%d/%d)\n", n, attrs, expected_attrs);
     }
@@ -144,13 +147,11 @@ static void test_parse_under_failure(void)
 
 static void test_attributelist_set_under_failure(void)
 {
-  long n;
   /* 1-3: attribute and its two strings, 4: name buffer, 5: value buffer */
-  for (n = 1; n <= 5; n++) {
+  for (long n = 1; n <= 5; n++) {
     mUpnpXmlNode* node = mupnp_xml_node_new();
-    bool ok;
     arm(n);
-    ok = mupnp_xml_node_setattribute(node, "name", "value");
+    bool ok = mupnp_xml_node_setattribute(node, "name", "value");
     disarm();
     CHECK(!ok, "fail_at=%ld: setattribute reported success\n", n);
     CHECK(mupnp_xml_attributelist_size(node->attrList) == 0,
@@ -170,8 +171,8 @@ static void test_string_consistency_after_failure(void)
   CHECK(mupnp_string_length(str) == 0, "length should be 0 after failed set\n");
   /* Before the fix valueSize stayed 6 and this append wrote at value+6. */
   mupnp_string_addvalue(str, "xy");
-  CHECK(mupnp_string_getvalue(str) && strcmp(mupnp_string_getvalue(str), "xy") == 0,
-      "append after failed set produced '%s'\n", mupnp_string_getvalue(str) ? mupnp_string_getvalue(str) : "(null)");
+  const char* value = mupnp_string_getvalue(str);
+  CHECK(value && strcmp(value, "xy") == 0, "append after failed set produced '%s'\n", value ? value : "(null)");
   mupnp_string_delete(str);
   printf("string: consistent after a failed set\n");
 }

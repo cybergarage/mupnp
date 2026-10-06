@@ -350,8 +350,10 @@ static bool mupnp_device_nodevalueequals(mUpnpXmlNode* a, mUpnpXmlNode* b, const
 /* true when both trees expose the same devices, services and service URLs */
 static bool mupnp_device_hassamestructure(mUpnpDevice* a, mUpnpDevice* b)
 {
-  mUpnpService *sa, *sb;
-  mUpnpDevice *ca, *cb;
+  mUpnpService* sa;
+  mUpnpService* sb;
+  mUpnpDevice* ca;
+  mUpnpDevice* cb;
 
   if (!mupnp_device_optstreq(mupnp_device_getudn(a), mupnp_device_getudn(b)))
     return false;
@@ -387,7 +389,8 @@ static bool mupnp_device_hassamestructure(mUpnpDevice* a, mUpnpDevice* b)
 
 static mUpnpDevice* mupnp_device_findbyudnintree(mUpnpDevice* dev, const char* udn)
 {
-  mUpnpDevice *childDev, *found;
+  mUpnpDevice* childDev;
+  mUpnpDevice* found;
 
   if (mupnp_strlen(udn) <= 0)
     return NULL;
@@ -406,8 +409,10 @@ static mUpnpDevice* mupnp_device_findbyudnintree(mUpnpDevice* dev, const char* u
    device and their serviceId. */
 static void mupnp_device_copysubscriptions(mUpnpDevice* newDev, mUpnpDevice* oldRoot)
 {
-  mUpnpService *newService, *oldService;
-  mUpnpDevice *oldDev, *childDev;
+  mUpnpService* newService;
+  mUpnpService* oldService;
+  mUpnpDevice* oldDev;
+  mUpnpDevice* childDev;
 
   oldDev = mupnp_device_findbyudnintree(oldRoot, mupnp_device_getudn(newDev));
 
@@ -533,14 +538,14 @@ bool mupnp_device_updatefromssdppacket(mUpnpDevice* dev,
   if (newDev == NULL || url == NULL) {
     mupnp_device_delete(newDev);
     if (url != NULL)
-      mupnp_net_url_delete(url);
+      mupnp_net_uri_delete(url);
     return true;
   }
 
   mupnp_net_url_set(url, newLocation);
   parseSuccess = mupnp_device_parsedescriptionurl(newDev, url);
   newHttpPort = mupnp_net_url_getport(url);
-  mupnp_net_url_delete(url);
+  mupnp_net_uri_delete(url);
 
   if (parseSuccess == false || !mupnp_streq(mupnp_device_getudn(newDev), mupnp_device_getudn(dev))) {
     mupnp_log_debug_s("Ignoring unusable LOCATION %s\n", newLocation);
