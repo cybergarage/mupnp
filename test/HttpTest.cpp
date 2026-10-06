@@ -15,8 +15,10 @@
 
 #if !defined(WIN32)
 #include "TestDevice.h"
+#include <arpa/inet.h>
 #include <chrono>
 #include <fcntl.h>
+#include <netinet/in.h>
 #include <string>
 #include <sys/socket.h>
 #include <thread>
@@ -271,6 +273,51 @@ BOOST_AUTO_TEST_CASE(HttpListenerCanDeleteItsServer)
   mupnp_http_request_delete(request);
   /* Allow the worker trampoline to complete; ASan checks its final accesses. */
   std::this_thread::sleep_for(std::chrono::milliseconds(100));
+}
+
+/* Send one request with "Connection: close" and read until the server closes
+   the connection, so the server side closes first and its address:port is
+   left in TIME_WAIT. */
+static void serve_one_and_let_server_close(int port)
+{
+  int sock = socket(AF_INET, SOCK_STREAM, 0);
+  BOOST_REQUIRE(0 <= sock);
+  struct sockaddr_in addr;
+  memset(&addr, 0, sizeof(addr));
+  addr.sin_family = AF_INET;
+  addr.sin_port = htons(static_cast<uint16_t>(port));
+  BOOST_REQUIRE_EQUAL(inet_pton(AF_INET, MUPNP_TESTCASE_HTTP_ADDR, &addr.sin_addr), 1);
+  BOOST_REQUIRE_EQUAL(connect(sock, reinterpret_cast<struct sockaddr*>(&addr), sizeof(addr)), 0);
+  const char request[] = "GET " MUPNP_TESTCASE_HTTP_URL " HTTP/1.1\r\nHost: " MUPNP_TESTCASE_HTTP_ADDR "\r\nConnection: close\r\n\r\n";
+  BOOST_REQUIRE_EQUAL(send(sock, request, sizeof(request) - 1, 0), static_cast<ssize_t>(sizeof(request) - 1));
+  char buf[512];
+  ssize_t total = 0;
+  for (ssize_t n = recv(sock, buf, sizeof(buf), 0); 0 < n; n = recv(sock, buf, sizeof(buf), 0))
+    total += n;
+  BOOST_CHECK(0 < total);
+  close(sock);
+}
+
+/* A server that closed a client connection leaves its address:port in
+   TIME_WAIT. Restarting a server on the same port (a device or control point
+   that is stopped and started again, or consecutive test cases) must still
+   bind; without SO_REUSEADDR the bind fails until TIME_WAIT expires. */
+BOOST_AUTO_TEST_CASE(HttpServerRebindsDuringTimeWait)
+{
+  const int port = MUPNP_TESTCASE_HTTP_PORT + 4;
+  for (int n = 0; n < 2; n++) {
+    mUpnpHttpServer* server = mupnp_http_server_new();
+    BOOST_REQUIRE(server);
+    BOOST_REQUIRE_MESSAGE(mupnp_http_server_open(server, port, MUPNP_TESTCASE_HTTP_ADDR), "bind failed on pass " << n);
+    mupnp_http_server_setlistener(server, clink_testcase_http_request_recieved);
+    BOOST_REQUIRE(mupnp_http_server_start(server));
+    /* SO_REUSEADDR must not allow a second listener on the same port. */
+    mUpnpHttpServer* second = mupnp_http_server_new();
+    BOOST_CHECK(!mupnp_http_server_open(second, port, MUPNP_TESTCASE_HTTP_ADDR));
+    mupnp_http_server_delete(second);
+    serve_one_and_let_server_close(port);
+    mupnp_http_server_delete(server);
+  }
 }
 
 BOOST_AUTO_TEST_CASE(TestPresentationIsDeterministic)
