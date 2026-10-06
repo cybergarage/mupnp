@@ -915,6 +915,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				USE_HEADERMAP = NO;
 				OTHER_CFLAGS = (
 					"-DHAVE_LIBUUID",
 					"-Wno-error=implicit-function-declaration",
@@ -941,6 +942,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				USE_HEADERMAP = NO;
 				OTHER_CFLAGS = (
 					"-DHAVE_LIBUUID",
 					"-Wno-error=implicit-function-declaration",
