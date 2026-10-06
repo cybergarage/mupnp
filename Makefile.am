@@ -24,14 +24,52 @@ devdocsdir = $(datadir)/doc/mupnp-dev
 docsdir = $(datadir)/doc/mupnp0
 
 EXTRA_DIST = debian/changelog \
-	debian/mupnp0.install \
-	debian/mupnp-dev.install \
+	debian/clinkc0.install \
+	debian/clinkc-dev.install \
 	debian/compat \
 	debian/control \
 	debian/copyright \
 	debian/rules \
 	debian/docs \
-	include/cybergarage/upnp/cupnp.h.in
+	examples/CMakeLists.txt \
+	examples/binarylight/CMakeLists.txt \
+	examples/clock/CMakeLists.txt \
+	examples/upnpavdump/CMakeLists.txt \
+	examples/upnpdump/CMakeLists.txt \
+	examples/upnpigddump/CMakeLists.txt \
+	include/Makefile.am.build \
+	lib/unix/Makefile.am.build \
+	test/CMakeLists.txt \
+	test/espidf/host/README.md \
+	test/espidf/host/check_generators.sh \
+	test/espidf/host/run.sh \
+	test/espidf/host/run_socket.sh \
+	test/espidf/host/run_xml_alloc.sh \
+	test/espidf/host/shims/esp_timer.h \
+	test/espidf/host/shims/sdkconfig.h \
+	test/espidf/host/socket_shutdown_test.c \
+	test/espidf/host/thread_lifecycle_test.c \
+	test/espidf/host/xml_alloc_failure_test.c \
+	test/unix/Makefile.am.build \
+	include/mupnp/upnp.h.in \
+	include/mupnp/version.h.build \
+	include/mupnp/version.h.gen \
+	test/LocationChangeTest.cpp \
+	bootstrap \
+	CMakeLists.txt \
+	CMakeLists.txt.build \
+	Kconfig \
+	idf_component.yml \
+	doc/espidf.md \
+	examples/common/content_directory.h \
+	examples/espidf/control_point/CMakeLists.txt \
+	examples/espidf/control_point/README.md \
+	examples/espidf/control_point/dependencies.lock \
+	examples/espidf/control_point/sdkconfig.defaults \
+	examples/espidf/control_point/sdkconfig.ci \
+	examples/espidf/control_point/main/CMakeLists.txt \
+	examples/espidf/control_point/main/Kconfig.projbuild \
+	examples/espidf/control_point/main/control_point.c
 
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = mupnp.pc

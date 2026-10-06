@@ -127,7 +127,7 @@
  * @see http://cybergarage.github.io/mupnp/ for documentation
  * @see https://github.com/cybergarage/mupnp for source code
  *
- * @version 3.0.5
+ * @version 3.1.0
  */
 
 #ifndef _MUPNP_UPNP_H_
