@@ -1,5 +1,6 @@
 var NAVTREEINDEX10 =
 {
+"ssdp__socket_8c.html":[12,0,2,0,6,10],
 "ssdp__socket_8c.html#a38f5dc8d63012a5de310e8240214f752":[12,0,2,0,6,10,0],
 "ssdp__socket_8c.html#a6c475620e1eb32952cb5501d2138c429":[12,0,2,0,6,10,2],
 "ssdp__socket_8c.html#a8d3253de9685178dc08efe4a3951e749":[12,0,2,0,6,10,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX10 =
 "struct__mUpnpDevice.html#a2b12e83f62d9ed39e6509b337623b49b":[11,0,8,4],
 "struct__mUpnpDevice.html#a2d0ceef227bf29b61c88454366e469ac":[11,0,8,8],
 "struct__mUpnpDevice.html#a47ea34ce774386a02e9104976e99e5e2":[11,0,8,15],
-"struct__mUpnpDevice.html#a50a77f9d2f5093532f7e6ce1182e25fc":[11,0,8,5],
-"struct__mUpnpDevice.html#a6136d38ea8b0f527cc24f29d687bed8a":[11,0,8,3]
+"struct__mUpnpDevice.html#a50a77f9d2f5093532f7e6ce1182e25fc":[11,0,8,5]
 };

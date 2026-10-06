@@ -1,5 +1,6 @@
 var NAVTREEINDEX6 =
 {
+"interface_8h.html#a24140fa2c82fbaa0117bb9310c2bd9cc":[12,0,1,0,4,0,7],
 "interface_8h.html#a29b452e10ccd31cb105551c83071f69f":[12,0,1,0,4,0,17],
 "interface_8h.html#a33c5fcab97622ac6baa3fd88b47099c0":[12,0,1,0,4,0,23],
 "interface_8h.html#a4077cb5bc0d611474a82f590d698cf13":[12,0,1,0,4,0,31],
@@ -248,6 +249,5 @@ var NAVTREEINDEX6 =
 "md_doc_2security-audit-2026-10-05.html#autotoc_md176":[7,5,2,13,3],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md177":[7,5,2,13,4],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md178":[7,5,2,13,5],
-"md_doc_2security-audit-2026-10-05.html#autotoc_md179":[7,5,2,13,6],
-"md_doc_2security-audit-2026-10-05.html#autotoc_md180":[7,5,3]
+"md_doc_2security-audit-2026-10-05.html#autotoc_md179":[7,5,2,13,6]
 };

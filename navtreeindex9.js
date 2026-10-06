@@ -1,5 +1,6 @@
 var NAVTREEINDEX9 =
 {
+"ssdp_8h.html#a35d64923642a1a247ddc1d82564e7f47":[12,0,1,0,6,0,88],
 "ssdp_8h.html#a3883115934917eae368504c3581147c8":[12,0,1,0,6,0,56],
 "ssdp_8h.html#a3a57ff64ab1a88093c28a5095aa913a4":[12,0,1,0,6,0,9],
 "ssdp_8h.html#a3d33a61152a26891c5cb7a4eae08b053":[12,0,1,0,6,0,41],
@@ -248,6 +249,5 @@ var NAVTREEINDEX9 =
 "ssdp__server__list_8c.html#a81e1452e21542c846b8a576dcd316a81":[12,0,2,0,6,9,0],
 "ssdp__server__list_8c.html#a9db49c35c441c724817e996a5683d13c":[12,0,2,0,6,9,7],
 "ssdp__server__list_8c.html#aadd73ed1f3f4cb5be7aba518f2d59512":[12,0,2,0,6,9,1],
-"ssdp__server__list_8c.html#ad3d0b20e4e810f8331dedfc3e74e921d":[12,0,2,0,6,9,4],
-"ssdp__socket_8c.html":[12,0,2,0,6,10]
+"ssdp__server__list_8c.html#ad3d0b20e4e810f8331dedfc3e74e921d":[12,0,2,0,6,9,4]
 };

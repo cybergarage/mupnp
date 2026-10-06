@@ -279,14 +279,14 @@ var NAVTREEINDEX =
 "file_8h.html",
 "http_8h.html#a63866201eb8f7180f9738c72524c8cba",
 "http__packet_8c.html#af5db1d2fce835cff3bc335da5c98a955",
-"interface_8h.html#a29b452e10ccd31cb105551c83071f69f",
-"md_doc_2security-audit-2026-10-05.html#autotoc_md181",
-"service_8h.html#aaa7dd457bc2bbef819feb04b2db95e0d",
-"ssdp_8h.html#a3883115934917eae368504c3581147c8",
-"ssdp__socket_8c.html#a38f5dc8d63012a5de310e8240214f752",
-"struct__mUpnpDevice.html#a617fb0eaffd613c044d7168566579ef8",
-"subscriber_8h.html#ab36f2ad2cb7e136d95a9dfe39cdeb016",
-"url_8h.html"
+"interface_8h.html#a24140fa2c82fbaa0117bb9310c2bd9cc",
+"md_doc_2security-audit-2026-10-05.html#autotoc_md180",
+"service_8h.html#aa4af9be9acb93d77918dd954ce6a551f",
+"ssdp_8h.html#a35d64923642a1a247ddc1d82564e7f47",
+"ssdp__socket_8c.html",
+"struct__mUpnpDevice.html#a6136d38ea8b0f527cc24f29d687bed8a",
+"subscriber_8h.html#ab224952bb0c04fc86de7bcc1e7541dc0",
+"url_8c.html#adf9213c27f9ac340db868f636e6e93b9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

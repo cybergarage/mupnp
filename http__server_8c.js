@@ -1,6 +1,7 @@
 var http__server_8c =
 [
     [ "_mUpnpHttpServerClientData", "struct__mUpnpHttpServerClientData.html", "struct__mUpnpHttpServerClientData" ],
+    [ "MUPNP_HTTP_SERVER_REUSEADDR", "http__server_8c.html#ace2d081d871076cf880077daf49dee36", null ],
     [ "mUpnpHttpServerClientData", "http__server_8c.html#af1f21dae1dc3553c443fdec01f6ebc73", null ],
     [ "mupnp_http_getservername", "http__server_8c.html#a95b31ee3b72dc5ff85eb8d4fa6c158cf", null ],
     [ "mupnp_http_server_clientdata_delete", "http__server_8c.html#a89e4dfba7772eeb73e749d6e360a9b37", null ],

@@ -1,5 +1,6 @@
 var NAVTREEINDEX7 =
 {
+"md_doc_2security-audit-2026-10-05.html#autotoc_md180":[7,5,3],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md181":[7,5,4],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md59":[7,0],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md60":[7,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "service_8h.html#a99097f9b57cd24dc08e7e71bad8e5d2c":[12,0,1,0,14,41],
 "service_8h.html#a9c07a49615f929751ff6ce02cb0ff046":[12,0,1,0,14,10],
 "service_8h.html#aa2b22ff35d429f77500b1a746699b98c":[12,0,1,0,14,1],
-"service_8h.html#aa2f47d387bdfe68bcf96c382ab164e12":[12,0,1,0,14,27],
-"service_8h.html#aa4af9be9acb93d77918dd954ce6a551f":[12,0,1,0,14,83]
+"service_8h.html#aa2f47d387bdfe68bcf96c382ab164e12":[12,0,1,0,14,27]
 };
