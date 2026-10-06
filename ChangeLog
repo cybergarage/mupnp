@@ -1,12 +1,18 @@
-2026-10-06 Satoshi Konno <skonno@cybergarage.org>
-	* 3.1.0 (release preparation; release held pending Xcode project work)
-	* Followed the initial ESP-IDF support in 3.0.5 with XML allocation-failure handling and LOCATION/GENA subscription retention (PR #30).
-	* Changed mupnp_xml_attributelist_set() from void to bool; allocation failures abort description parsing safely.
-	* Retained cached devices report Updated on LOCATION refresh. Actual description replacement preserves device identity and matching subscription state, but invalidates old service pointers; embedded devices without UDNs cannot carry subscription state.
-	* Allowed HTTP server rebinding over TIME_WAIT on non-Windows platforms; limited SO_REUSEPORT to datagram sockets (PR #31).
-	* Documented limited ESP32 DevKitC-VE control-point hardware coverage and remaining validation gaps in doc/espidf.md.
-	* Updated source-distribution metadata to include ESP-IDF integration and the control-point example.
-	* Public reports: https://github.com/cybergarage/mupnp/pull/30 and https://github.com/cybergarage/mupnp/pull/31
+2026-10-07 Satoshi Konno <skonno@cybergarage.org>
+	* 3.1.0
+	* ESP32 / ESP-IDF support (main topic of this release)
+	  - mUPnP can be used as an ESP-IDF component (idf_component.yml, Kconfig) on ESP32 with one Wi-Fi station interface and IPv4, using Espressif's managed Expat component (^2.8.4). Build baseline: ESP-IDF v5.5.5 (manifest: >=5.5,<6.0).
+	  - Added the Wi-Fi control-point example in examples/espidf/control_point and the ESP-IDF guide in doc/espidf.md.
+	  - Fixed an allocation-failure crash in XML attribute handling observed on ESP32; mupnp_xml_attributelist_set() now returns bool instead of void, and allocation failures abort description parsing safely (PR #30).
+	  - Kept GENA subscriptions across LOCATION changes: retained cached devices report mUpnpDeviceStatusUpdated; description replacement preserves device identity and matching subscription state but invalidates earlier service pointers. Embedded devices without UDNs cannot carry subscription state (PR #30).
+	  - Allowed HTTP servers to rebind over TIME_WAIT on non-Windows platforms; SO_REUSEPORT is limited to datagram sockets (PR #31).
+	  - Added ESP-IDF CI: an ESP-IDF v5.5.5 cross-build of the example and host regressions (thread lifecycle, socket shutdown, XML allocation failure) under ASan/UBSan.
+	  - Reported hardware coverage: ESP32 DevKitC-VE control point (discovery, device leave/return, SOAP and GENA smoke tests). Device hosting, other ESP32-family targets, Wi-Fi reconnect, and long-duration operation remain unverified; see doc/espidf.md.
+	* Made mupnp_xml_node_getchildnodebyname() and mupnp_xml_node_getchildnodes() NULL-safe functions instead of macros (PR #33).
+	* Stopped redefining bool, true and false when mUPnP headers are included from C++ (PR #34).
+	* Fixed Xcode 27 builds; Xcode projects now target macOS 12.0 / iOS 15.0 (PR #35).
+	* Updated source-distribution metadata to include ESP-IDF integration and the control-point example (PR #32).
+	* Note: the initial ESP-IDF port first appeared in 3.0.5 (PR #27); 3.1.0 is the first release with the hardware-tested fixes above.
 
 2026-10-05 Satoshi Konno <skonno@cybergarage.org>
 	* 3.0.5

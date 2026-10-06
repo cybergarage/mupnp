@@ -14,6 +14,17 @@ The UPnP™ architecture is designed to enable the discovery and control of netw
 
 mUPnP for C simplifies this process by handling these protocols automatically. It allows developers to focus on creating their devices and control points without worrying about the underlying protocol details.
 
+mUPnP for C runs on Unix-like systems, macOS/iOS, Windows, and, since 3.1.0, on **ESP32 microcontrollers as an ESP-IDF component**.
+
+## What's New in 3.1.0
+
+- **ESP32 / ESP-IDF support**: use mUPnP as an ESP-IDF component on ESP32 (Wi-Fi station, IPv4), with a ready-to-build [Wi-Fi control-point example](examples/espidf/control_point) and an [ESP-IDF guide](doc/espidf.md).
+- Reliability fixes found on ESP32 hardware: safe handling of XML allocation failures, GENA subscriptions kept across LOCATION changes, and HTTP server rebinding over TIME_WAIT.
+- ESP-IDF v5.5.5 cross-build and host regression tests in CI.
+- NULL-safe XML child-node lookups, correct `bool` handling from C++, and Xcode 27 project fixes.
+
+See the [ChangeLog](ChangeLog) for details, including one API change: `mupnp_xml_attributelist_set()` now returns `bool`.
+
 **mUPnP for C** is supported from IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY, JAPAN, as a project of [Mitoh Program 2004](https://www.ipa.go.jp/archive/jinzai/mitou/mitoipedia/2004shimoki-seika.html#sakamura).
 
 ## Building the Library and Samples
@@ -40,15 +51,34 @@ brew install mupnp
 
 For MacOSX, I have released a wrapper class for Objective-C on Cocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library if you need to use all functions of mUPnP for C.
 
-### ESP-IDF
+The bundled Xcode projects build with Xcode 27 and target macOS 12.0 / iOS 15.0 or later.
 
-The repository can also be used as an ESP-IDF component with Espressif's managed
-Expat dependency. The initial port targets ESP32 with one active Wi-Fi station
-interface and IPv4. See the [ESP-IDF guide](doc/espidf.md) for build instructions,
-configuration, limitations, and the [Wi-Fi control-point example](examples/espidf/control_point).
-The build baseline is ESP-IDF v5.5.5. Limited ESP32 DevKitC-VE control-point
-hardware testing is reported; see the validation scope and remaining limits in
-[doc/espidf.md](doc/espidf.md).
+### ESP32 (ESP-IDF)
+
+The repository can be used directly as an ESP-IDF component with Espressif's
+managed Expat dependency. The port targets **ESP32 with one active Wi-Fi station
+interface and IPv4**; the build baseline is ESP-IDF v5.5.5 (`>=5.5,<6.0`).
+
+To try the Wi-Fi control-point example:
+
+```
+cd mupnp/examples/espidf/control_point
+idf.py set-target esp32
+idf.py menuconfig   # mUPnP control point example -> Wi-Fi SSID/password
+idf.py build
+idf.py -p /dev/ttyUSB0 flash monitor
+```
+
+To use mUPnP in your own application, place this repository at
+`<project>/components/mupnp` (for example, as a Git submodule pinned to the
+`3.1.0` tag), add `REQUIRES mupnp` to your component, and include
+`<mupnp/upnp.h>`.
+
+Limited control-point hardware testing on an ESP32 DevKitC-VE is reported.
+Device hosting, other ESP32-family targets, IPv6, Ethernet, and long-duration
+operation have not been validated yet. See the [ESP-IDF guide](doc/espidf.md)
+for required `sdkconfig` settings, lifetime and memory notes, and a hardware
+validation checklist.
 
 ### Windows
 
@@ -78,6 +108,8 @@ To develop UPnP devices or control point applications using **mUPnP for C**, ple
   - UPnP controller for UPnP stardard devices
     - [UPnP Internet gateway utility ](https://github.com/cybergarage/mupnp/tree/master/examples/upnpigddump)
     - [UPnP/AV media server utility ](https://github.com/cybergarage/mupnp/tree/master/examples/upnpavdump)
+  - Embedded control point
+    - [ESP32 Wi-Fi control point (ESP-IDF)](https://github.com/cybergarage/mupnp/tree/master/examples/espidf/control_point)
  
 - UPnP device examples
   - UPnP standard devices

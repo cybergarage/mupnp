@@ -1,3 +1,4 @@
+version: "3.1.0"
 description: "mUPnP for C: UPnP devices and control points"
 url: "https://github.com/cybergarage/mupnp"
 license: "BSD-3-Clause"
