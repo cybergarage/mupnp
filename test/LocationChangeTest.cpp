@@ -18,7 +18,6 @@
 #include <boost/test/unit_test.hpp>
 #include <cstring>
 #include <string>
-#include <unistd.h>
 
 #include <mupnp/net/url.h>
 
@@ -63,21 +62,6 @@ void location_test_eventlistener(mUpnpProperty* prop)
 void location_test_reset()
 {
   events() = LocationTestEvents();
-}
-
-/* Ports for this test's device HTTP server and control point event server,
-   away from the defaults (38400/39500) that other test cases use.
-
-   On a host with several interfaces, mUPnP binds one HTTP server per
-   interface without SO_REUSEADDR and accepts a partial bind. A port still in
-   TIME_WAIT on the interface that carried earlier test traffic then binds on
-   the others only, and the advertised LOCATION or event callback points at an
-   address nobody listens on. Fresh ports keep these tests independent of the
-   tests that ran before them. The pid offset also separates back-to-back
-   runs. */
-int location_test_port(int slot)
-{
-  return 41000 + static_cast<int>(getpid() % 2000) * 4 + slot;
 }
 
 /* Discover the test device with a real M-SEARCH, as SubscriptionTest does,
@@ -183,14 +167,12 @@ BOOST_AUTO_TEST_CASE(LocationChangeKeepsSubscription)
   location_test_reset();
   mUpnpDevice* testDev = upnp_test_device_new();
   BOOST_REQUIRE(testDev);
-  mupnp_device_sethttpport(testDev, location_test_port(0));
   BOOST_REQUIRE(mupnp_device_start(testDev));
   int port = mupnp_device_gethttpport(testDev);
   const char* descPath = mupnp_device_getdescriptionuri(testDev);
 
   mUpnpControlPoint* cp = mupnp_controlpoint_new();
   BOOST_REQUIRE(cp);
-  mupnp_controlpoint_seteventport(cp, location_test_port(1));
   BOOST_REQUIRE(mupnp_controlpoint_start(cp));
   mupnp_controlpoint_addeventlistener(cp, location_test_eventlistener);
   mupnp_controlpoint_setdevicelistener(cp, location_test_devicelistener);
@@ -266,13 +248,11 @@ BOOST_AUTO_TEST_CASE(LocationChangeWithNewDescriptionCarriesSid)
 
   mUpnpDevice* testDev = upnp_test_device_new();
   BOOST_REQUIRE(testDev);
-  mupnp_device_sethttpport(testDev, location_test_port(2));
   BOOST_REQUIRE(mupnp_device_start(testDev));
   int port = mupnp_device_gethttpport(testDev);
 
   mUpnpControlPoint* cp = mupnp_controlpoint_new();
   BOOST_REQUIRE(cp);
-  mupnp_controlpoint_seteventport(cp, location_test_port(3));
   BOOST_REQUIRE(mupnp_controlpoint_start(cp));
 
   std::string locA = location_test_discover(cp);
