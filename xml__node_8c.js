@@ -4,6 +4,8 @@ var xml__node_8c =
     [ "mupnp_xml_node_attribute_tostring", "xml__node_8c.html#a0293cf4913d0f82134a016e2e1aeb58d", null ],
     [ "mupnp_xml_node_copy", "xml__node_8c.html#a58cd9269ca5baac57cccd56ce89c4e72", null ],
     [ "mupnp_xml_node_delete", "xml__node_8c.html#aed706038d9de2a3829ba75f964b213b8", null ],
+    [ "mupnp_xml_node_getchildnodebyname", "xml__node_8c.html#aaada4cedc3a6f1b7dace6571165d98b3", null ],
+    [ "mupnp_xml_node_getchildnodes", "xml__node_8c.html#a18b68e8fabac6ea52b36352117100813", null ],
     [ "mupnp_xml_node_getchildnodevalue", "xml__node_8c.html#a6f202591df140c494e7a48abae79ea99", null ],
     [ "mupnp_xml_node_getchildnodewithnamespace", "xml__node_8c.html#aff2920d2c1a7f02a98b2466334f1ee5a", null ],
     [ "mupnp_xml_node_getrootnode", "xml__node_8c.html#abc9b695a4fee5f35c7a9de67167f3cbd", null ],

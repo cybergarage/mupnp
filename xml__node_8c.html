@@ -90,6 +90,10 @@ Functions</h2></td></tr>
 <tr class="separator:adae25a912d31cfb8de5bcd458b369021"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff2920d2c1a7f02a98b2466334f1ee5a" id="r_aff2920d2c1a7f02a98b2466334f1ee5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aff2920d2c1a7f02a98b2466334f1ee5a">mupnp_xml_node_getchildnodewithnamespace</a> (<a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *node, const char *name, const char *ns, <a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a> ignoreNs)</td></tr>
 <tr class="separator:aff2920d2c1a7f02a98b2466334f1ee5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18b68e8fabac6ea52b36352117100813" id="r_a18b68e8fabac6ea52b36352117100813"><td class="memItemLeft" align="right" valign="top"><a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18b68e8fabac6ea52b36352117100813">mupnp_xml_node_getchildnodes</a> (<a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *node)</td></tr>
+<tr class="separator:a18b68e8fabac6ea52b36352117100813"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaada4cedc3a6f1b7dace6571165d98b3" id="r_aaada4cedc3a6f1b7dace6571165d98b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaada4cedc3a6f1b7dace6571165d98b3">mupnp_xml_node_getchildnodebyname</a> (<a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *node, const char *name)</td></tr>
+<tr class="separator:aaada4cedc3a6f1b7dace6571165d98b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6f202591df140c494e7a48abae79ea99" id="r_a6f202591df140c494e7a48abae79ea99"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a> (<a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *node, const char *name)</td></tr>
 <tr class="separator:a6f202591df140c494e7a48abae79ea99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbe109b5b3afbcafa82469264a6dad5e" id="r_afbe109b5b3afbcafa82469264a6dad5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbe109b5b3afbcafa82469264a6dad5e">mupnp_xml_node_removeattribute</a> (<a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *node, const char *name)</td></tr>
@@ -185,6 +189,44 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">void mupnp_xml_node_delete </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *</td>          <td class="paramname"><span class="paramname"><em>node</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaada4cedc3a6f1b7dace6571165d98b3" name="aaada4cedc3a6f1b7dace6571165d98b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaada4cedc3a6f1b7dace6571165d98b3">&#9670;&#160;</a></span>mupnp_xml_node_getchildnodebyname()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> * mupnp_xml_node_getchildnodebyname </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *</td>          <td class="paramname"><span class="paramname"><em>node</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a18b68e8fabac6ea52b36352117100813" name="a18b68e8fabac6ea52b36352117100813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18b68e8fabac6ea52b36352117100813">&#9670;&#160;</a></span>mupnp_xml_node_getchildnodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> * mupnp_xml_node_getchildnodes </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="xml_8h.html#aa8957c38a2ac808286b78a5b595ccdbd">mUpnpXmlNode</a> *</td>          <td class="paramname"><span class="paramname"><em>node</em></span></td><td>)</td>
           <td></td>
