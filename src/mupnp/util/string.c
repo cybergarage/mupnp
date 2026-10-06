@@ -139,6 +139,10 @@ void mupnp_string_setnvalue(mUpnpString* str, const char* value, size_t len)
       str->value = (char*)malloc(str->memSize * sizeof(char));
 
       if (NULL == str->value) {
+        /* Keep the string empty and consistent so that later appends
+           never write at a stale offset into a NULL buffer. */
+        str->valueSize = 0;
+        str->memSize = 0;
         mupnp_log_debug_s("Memory allocation failure!\n");
         return;
       }

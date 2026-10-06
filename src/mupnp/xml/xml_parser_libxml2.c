@@ -121,13 +121,23 @@ static void mupnp_libxml2_start_element(void* userData,
     return;
   }
 
-  libxml2Data->depth++;
   mupnp_xml_node_setname(node, (char*)name);
+  if (mupnp_xml_node_getname(node) == NULL) {
+    mupnp_xml_node_delete(node);
+    libxml2Data->failed = true;
+    return;
+  }
 
   if (attrs != NULL) {
-    for (n = 0; attrs[n]; n += 2)
-      mupnp_xml_node_setattribute(node, (char*)attrs[n], (char*)attrs[n + 1]);
+    for (n = 0; attrs[n]; n += 2) {
+      if (!mupnp_xml_node_setattribute(node, (char*)attrs[n], (char*)attrs[n + 1])) {
+        mupnp_xml_node_delete(node);
+        libxml2Data->failed = true;
+        return;
+      }
+    }
   }
+  libxml2Data->depth++;
 
   if (libxml2Data->rootNode != NULL) {
     if (!libxml2Data->failed && libxml2Data->currNode != NULL)

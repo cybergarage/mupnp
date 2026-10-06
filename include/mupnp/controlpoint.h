@@ -59,9 +59,11 @@ extern "C" {
  * Device listener status parameters.
  *
  * @ref mUpnpDeviceStatusAdded means a device has been added to local cache.
- * @ref mUpnpDeviceStatusUpdated means a device description has been updated
- * because its IP address or description has changed. The user should renew
- * any active subscriptions if this has been received.
+ * @ref mUpnpDeviceStatusUpdated means a cached device was announced again.
+ * Its LOCATION or description may have changed; if a new LOCATION could not
+ * be fetched, the cached device is kept unchanged and still reported as
+ * updated. Active subscriptions are carried over, so renewing them is
+ * optional.
  *
  * @ref mUpnpDeviceStatusInvalid is basically the same as @ref mUpnpDeviceStatusRemoved,
  * but @ref mUpnpDeviceStatusRemoved is sent only when a device leaves the

@@ -20,6 +20,8 @@ jobs:
         run: test/espidf/host/run.sh
       - name: ESP socket shutdown regression (ASan and UBSan)
         run: test/espidf/host/run_socket.sh
+      - name: XML allocation-failure regression (ASan and UBSan)
+        run: test/espidf/host/run_xml_alloc.sh
 
   build:
     runs-on: ubuntu-latest

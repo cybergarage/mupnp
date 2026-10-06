@@ -106,11 +106,21 @@ static void XMLCALL mupnp_expat_element_start(void* userData, const char* el, co
     XML_StopParser(expatData->parser, XML_FALSE);
     return;
   }
-  expatData->depth++;
   mupnp_xml_node_setname(node, (char*)el);
+  if (mupnp_xml_node_getname(node) == NULL) {
+    mupnp_xml_node_delete(node);
+    XML_StopParser(expatData->parser, XML_FALSE);
+    return;
+  }
 
-  for (n = 0; attr[n]; n += 2)
-    mupnp_xml_node_setattribute(node, (char*)attr[n], (char*)attr[n + 1]);
+  for (n = 0; attr[n]; n += 2) {
+    if (!mupnp_xml_node_setattribute(node, (char*)attr[n], (char*)attr[n + 1])) {
+      mupnp_xml_node_delete(node);
+      XML_StopParser(expatData->parser, XML_FALSE);
+      return;
+    }
+  }
+  expatData->depth++;
 
   if (expatData->rootNode != NULL) {
     if (expatData->currNode != NULL)

@@ -24,14 +24,23 @@ mUpnpXmlAttribute* mupnp_xml_attribute_new(void)
 
   attr = (mUpnpXmlAttribute*)malloc(sizeof(mUpnpXmlAttribute));
 
-  if (NULL != attr) {
-    mupnp_list_node_init((mUpnpList*)attr);
-    attr->name = mupnp_string_new();
-    attr->value = mupnp_string_new();
+  if (NULL == attr)
+    return NULL;
+
+  mupnp_list_node_init((mUpnpList*)attr);
+  attr->name = mupnp_string_new();
+  attr->value = mupnp_string_new();
+
+  if ((NULL == attr->name) || (NULL == attr->value)) {
+    mupnp_string_delete(attr->name);
+    mupnp_string_delete(attr->value);
+    free(attr);
+    return NULL;
   }
-  return attr;
 
   mupnp_log_debug_l4("Leaving...\n");
+
+  return attr;
 }
 
 /****************************************
@@ -41,6 +50,9 @@ mUpnpXmlAttribute* mupnp_xml_attribute_new(void)
 void mupnp_xml_attribute_delete(mUpnpXmlAttribute* attr)
 {
   mupnp_log_debug_l4("Entering...\n");
+
+  if (NULL == attr)
+    return;
 
   mupnp_list_remove((mUpnpList*)attr);
   mupnp_string_delete(attr->name);
