@@ -11,10 +11,52 @@ mUPnP.
 
 The complete mUPnP library is compiled, including device, control point, SOAP,
 and GENA code, but the supplied example exercises control-point discovery only.
-A successful cross-build is not an on-device interoperability, memory, or
-reconnection test. No hardware test results are claimed. Use the checklist
-below on your board before deployment; device hosting, SOAP actions, and GENA
-subscriptions require additional application-specific testing.
+A successful cross-build alone does not establish interoperability or memory
+stability. The user-reported hardware results below cover a limited control-point
+configuration; device hosting and broader deployment scenarios remain unverified.
+
+### Reported hardware coverage
+
+The reported configuration was ESP32 DevKitC-VE, PSRAM disabled, ESP-IDF 5.5.5,
+Expat 2.8.4, one Wi-Fi STA interface and IPv4. The patched control point ran for
+29 minutes without the previously observed crash; heap measurements were stable
+for an 11-minute interval. Discovery, device leave/return, and single-address SOAP
+and GENA interactions were exercised with a test helper. These observations are
+limited smoke-test evidence, not long-term reliability or all-ESP32-family proof.
+See the public [PR #30 report](https://github.com/cybergarage/mupnp/pull/30) and
+[PR #31 report](https://github.com/cybergarage/mupnp/pull/31).
+
+Actual multiple-LOCATION behavior was not reproduced on hardware. Its coverage
+comes from host tests, which announce the same endpoint with different URL
+spellings. Patched Wi-Fi reconnect testing was explicitly skipped. Device hosting,
+other ESP32-family boards, multiple interfaces, and long-duration operation remain
+unverified. Follow the checklist below for application-specific validation.
+
+### Release limits and compatibility
+
+Version 3.0.5 already introduced the initial ESP-IDF port. Version 3.1.0 includes
+the subsequently merged XML allocation-failure and LOCATION/GENA fixes (#30),
+and HTTP TIME_WAIT rebinding changes (#31).
+
+`mupnp_xml_attributelist_set()` now returns `bool` instead of `void`; callers
+ignoring the result still compile, but function-pointer declarations must match.
+Allocation failure is reported as parse failure rather than a partial description.
+When a cached device is retained during a LOCATION update, listeners receive
+`mUpnpDeviceStatusUpdated`. Unchanged descriptions retain service pointers and
+subscriptions. Actual description replacement preserves the device pointer and
+carries subscription state by UDN/serviceId, but invalidates earlier service
+pointers; reacquire services after that change. Embedded devices without UDNs
+cannot carry subscription state in this replacement path.
+
+The public #30 report also records a pre-existing device-side SUBSCRIBE URI leak
+and a use-after-free when a device is deleted immediately after SUBSCRIBE while
+its initial-event thread is pending. They are not fixed by this release preparation
+and are not covered by the reported control-point smoke test.
+
+The component manifest currently labels the license `BSD-3-Clause`, while
+`COPYING` includes an additional patent-related condition. That metadata needs
+maintainer/legal review before registry publication; this preparation does not
+change the license terms or establish that the SPDX label is correct.
 
 ## Build the example
 
@@ -171,7 +213,7 @@ cmake -S . -B build
 cmake --build build
 ```
 
-### Hardware smoke-test checklist (not yet performed)
+### Additional hardware validation checklist
 
 1. Put the ESP32 and a known UPnP device on the same IPv4 LAN. Disable client/AP
    isolation and ensure the network permits IGMP and UDP multicast

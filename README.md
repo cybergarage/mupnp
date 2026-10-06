@@ -46,7 +46,9 @@ The repository can also be used as an ESP-IDF component with Espressif's managed
 Expat dependency. The initial port targets ESP32 with one active Wi-Fi station
 interface and IPv4. See the [ESP-IDF guide](doc/espidf.md) for build instructions,
 configuration, limitations, and the [Wi-Fi control-point example](examples/espidf/control_point).
-The compile baseline is ESP-IDF v5.5.5; hardware validation is still required.
+The build baseline is ESP-IDF v5.5.5. Limited ESP32 DevKitC-VE control-point
+hardware testing is reported; see the validation scope and remaining limits in
+[doc/espidf.md](doc/espidf.md).
 
 ### Windows
 

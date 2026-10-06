@@ -46,9 +46,5 @@ mupnp_headers = \
 	./mupnp/upnp_function.h
 
 
-mupnp/upnp.h: $(top_builddir)/config.h
-	sed -e "s/MUPNP_VER/MUPNP_VER \"$(PACKAGE_VERSION)\"/" \
-	$(srcdir)/mupnp/upnp.h.in > $(srcdir)/mupnp/upnp.h
-
 nobase_include_HEADERS = \
 	$(mupnp_headers)
