@@ -222,6 +222,30 @@ mUpnpXmlNode* mupnp_xml_node_getchildnodewithnamespace(mUpnpXmlNode* node, const
 }
 
 /****************************************
+ * mupnp_xml_node_getchildnodes
+ ****************************************/
+
+mUpnpXmlNode* mupnp_xml_node_getchildnodes(mUpnpXmlNode* node)
+{
+  if (!node || !node->nodeList)
+    return NULL;
+
+  return mupnp_xml_nodelist_gets(node->nodeList);
+}
+
+/****************************************
+ * mupnp_xml_node_getchildnodebyname
+ ****************************************/
+
+mUpnpXmlNode* mupnp_xml_node_getchildnodebyname(mUpnpXmlNode* node, const char* name)
+{
+  if (!node || !node->nodeList || !name)
+    return NULL;
+
+  return mupnp_xml_nodelist_getbyname(node->nodeList, name);
+}
+
+/****************************************
  * mupnp_xml_node_getchildnodevalue
  ****************************************/
 

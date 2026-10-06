@@ -151,11 +151,11 @@ const char* mupnp_xml_node_getchildnodevalue(mUpnpXmlNode* node, const char* nam
 #define mupnp_xml_node_getuserdata(node) (node->userData)
 #define mupnp_xml_node_setuserdatadestructor(node, func) (node->userDataDestructorFunc = func)
 
-#define mupnp_xml_node_getchildnodes(node) mupnp_xml_nodelist_gets(node->nodeList)
+mUpnpXmlNode* mupnp_xml_node_getchildnodes(mUpnpXmlNode* node);
 #define mupnp_xml_node_haschildnodes(node) ((mupnp_xml_node_getchildnodes(node) != NULL) ? true : false)
+mUpnpXmlNode* mupnp_xml_node_getchildnodebyname(mUpnpXmlNode* node, const char* name);
 /* Deprecated : Use mupnp_xml_node_getchildnodebyname */
-#define mupnp_xml_node_getchildnode(node, name) ((node != NULL) ? mupnp_xml_nodelist_getbyname(node->nodeList, name) : NULL)
-#define mupnp_xml_node_getchildnodebyname(node, name) ((node != NULL) ? mupnp_xml_nodelist_getbyname(node->nodeList, name) : NULL)
+#define mupnp_xml_node_getchildnode(node, name) mupnp_xml_node_getchildnodebyname(node, name)
 #define mupnp_xml_node_getchildnodebyxpath(node, xpath) ((node != NULL) ? mupnp_xml_nodelist_getbyxpath(node->nodeList, xpath) : NULL)
 
 /* Get childnode with some specific namespace prefix, or ignore namespace prefix.
