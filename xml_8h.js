@@ -69,7 +69,7 @@ var xml_8h =
     [ "mupnp_xml_attributelist_get", "xml_8h.html#a6d7d1b95d8c4248c9a2ed2259aaa7b67", null ],
     [ "mupnp_xml_attributelist_getvalue", "xml_8h.html#a3a7f21f0cbfd954dbc01429c72ad974e", null ],
     [ "mupnp_xml_attributelist_new", "xml_8h.html#af41bae76d7a8186bfc2a779b6ca191db", null ],
-    [ "mupnp_xml_attributelist_set", "xml_8h.html#a98a375085892766dbf5158ffdbf35fe3", null ],
+    [ "mupnp_xml_attributelist_set", "xml_8h.html#a2c8294fa591723c5f3b5719bec10d3a8", null ],
     [ "mupnp_xml_escapechars", "xml_8h.html#a51a8bdfbcf254796e5ba0f83ecf33b7a", null ],
     [ "mupnp_xml_node_addchildnode", "xml_8h.html#a5ce2fa139c02bc0ab6335182a8c6b5c8", null ],
     [ "mupnp_xml_node_copy", "xml_8h.html#a58cd9269ca5baac57cccd56ce89c4e72", null ],

@@ -275,18 +275,18 @@ var NAVTREEINDEX =
 [
 "CGUpnpAction_8h.html",
 "control_8h.html#af20e85832643ce7e6f9aa07772958926",
-"device_8h.html#a7289e902282bee777fef39291a00e913",
-"file_8h.html",
-"http_8h.html#a63866201eb8f7180f9738c72524c8cba",
-"http__packet_8c.html#af5db1d2fce835cff3bc335da5c98a955",
-"interface_8h.html#a24140fa2c82fbaa0117bb9310c2bd9cc",
-"md_doc_2security-audit-2026-10-05.html#autotoc_md180",
-"service_8h.html#aa4af9be9acb93d77918dd954ce6a551f",
-"ssdp_8h.html#a35d64923642a1a247ddc1d82564e7f47",
-"ssdp__socket_8c.html",
-"struct__mUpnpDevice.html#a6136d38ea8b0f527cc24f29d687bed8a",
-"subscriber_8h.html#ab224952bb0c04fc86de7bcc1e7541dc0",
-"url_8c.html#adf9213c27f9ac340db868f636e6e93b9"
+"device_8h.html#a65c75151ea2d517a2b378c4a37f127e3",
+"eventlistener__list_8c.html",
+"http_8h.html#a5e3e8fb2afff90b9d4b04cbda3beb10b",
+"http__packet_8c.html#ab16d18475d31e8255df4097319024866",
+"interface_8h.html#a036cc7c6ff261c1d9b15f00e149baffd",
+"md_doc_2security-audit-2026-10-05.html#autotoc_md173",
+"service_8h.html#a948cb86cb4e8e691418c5f98da3cb0c1",
+"ssdp_8h.html#a2ca5a4efbd185f135b575bd3a32553ae",
+"ssdp__server__list_8c.html#a2e8ac74a7a5ee39347b21511b989b1c6",
+"struct__mUpnpDevice.html#a0514fb535685f6a542e456e414b97ce8",
+"subscriber_8h.html#a78589693ed9e4eb07949d5823ff289ea",
+"uri_8h.html#af95729a63b9b9ed6be3f7de30af26a0d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

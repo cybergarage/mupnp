@@ -1,5 +1,12 @@
 var NAVTREEINDEX10 =
 {
+"ssdp__server__list_8c.html#a2e8ac74a7a5ee39347b21511b989b1c6":[12,0,2,0,6,9,2],
+"ssdp__server__list_8c.html#a36e6c707949f22dfdc927a21ad547be1":[12,0,2,0,6,9,5],
+"ssdp__server__list_8c.html#a6b63a8f4a2fae92e35f2b7f458ef82ff":[12,0,2,0,6,9,3],
+"ssdp__server__list_8c.html#a81e1452e21542c846b8a576dcd316a81":[12,0,2,0,6,9,0],
+"ssdp__server__list_8c.html#a9db49c35c441c724817e996a5683d13c":[12,0,2,0,6,9,7],
+"ssdp__server__list_8c.html#aadd73ed1f3f4cb5be7aba518f2d59512":[12,0,2,0,6,9,1],
+"ssdp__server__list_8c.html#ad3d0b20e4e810f8331dedfc3e74e921d":[12,0,2,0,6,9,4],
 "ssdp__socket_8c.html":[12,0,2,0,6,10],
 "ssdp__socket_8c.html#a38f5dc8d63012a5de310e8240214f752":[12,0,2,0,6,10,0],
 "ssdp__socket_8c.html#a6c475620e1eb32952cb5501d2138c429":[12,0,2,0,6,10,2],
@@ -242,12 +249,5 @@ var NAVTREEINDEX10 =
 "struct__mUpnpDatagramPacket.html#a90f0047a0851a7d3b8cfa33b4c5c7d1b":[11,0,7,3],
 "struct__mUpnpDatagramPacket.html#aab3edbaf91ee2d4d8fb5fd1e2f87a791":[11,0,7,1],
 "struct__mUpnpDatagramPacket.html#ae9c3f36bc09fcf499a48a1bf3d72dbbd":[11,0,7,0],
-"struct__mUpnpDevice.html":[11,0,8],
-"struct__mUpnpDevice.html#a0514fb535685f6a542e456e414b97ce8":[11,0,8,0],
-"struct__mUpnpDevice.html#a1c44e7161c8c3d04b2d27ecd79143988":[11,0,8,6],
-"struct__mUpnpDevice.html#a209783954de20db4ef818ccf406f0bf8":[11,0,8,7],
-"struct__mUpnpDevice.html#a2b12e83f62d9ed39e6509b337623b49b":[11,0,8,4],
-"struct__mUpnpDevice.html#a2d0ceef227bf29b61c88454366e469ac":[11,0,8,8],
-"struct__mUpnpDevice.html#a47ea34ce774386a02e9104976e99e5e2":[11,0,8,15],
-"struct__mUpnpDevice.html#a50a77f9d2f5093532f7e6ce1182e25fc":[11,0,8,5]
+"struct__mUpnpDevice.html":[11,0,8]
 };

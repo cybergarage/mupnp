@@ -540,7 +540,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a>(<a class="code hl_define" href="#af06c3a59204d9ba3d029af2021dff8f8">mupnp_service_getservicenode</a>(service), <a class="code hl_define" href="#ab9fa941ca3cbab6115eca335b24d5db0">MUPNP_SERVICE_ID</a>)</div>
 <div class="ttc" id="aservice_8h_html_ab9fa941ca3cbab6115eca335b24d5db0"><div class="ttname"><a href="#ab9fa941ca3cbab6115eca335b24d5db0">MUPNP_SERVICE_ID</a></div><div class="ttdeci">#define MUPNP_SERVICE_ID</div><div class="ttdef"><b>Definition</b> service.h:40</div></div>
 <div class="ttc" id="aservice_8h_html_af06c3a59204d9ba3d029af2021dff8f8"><div class="ttname"><a href="#af06c3a59204d9ba3d029af2021dff8f8">mupnp_service_getservicenode</a></div><div class="ttdeci">#define mupnp_service_getservicenode(service)</div><div class="ttdef"><b>Definition</b> service.h:176</div></div>
-<div class="ttc" id="axml__node_8c_html_a6f202591df140c494e7a48abae79ea99"><div class="ttname"><a href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a></div><div class="ttdeci">const char * mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name)</div><div class="ttdef"><b>Definition</b> xml_node.c:216</div></div>
+<div class="ttc" id="axml__node_8c_html_a6f202591df140c494e7a48abae79ea99"><div class="ttname"><a href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a></div><div class="ttdeci">const char * mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name)</div><div class="ttdef"><b>Definition</b> xml_node.c:228</div></div>
 </div><!-- fragment --><p>Get the service's service ID</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -672,7 +672,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="string_8c.html#a58ab18a85e351ffe5b17325e7955133a">mupnp_string_getvalue</a>(service-&gt;subscriptionSid)</div>
-<div class="ttc" id="astring_8c_html_a58ab18a85e351ffe5b17325e7955133a"><div class="ttname"><a href="string_8c.html#a58ab18a85e351ffe5b17325e7955133a">mupnp_string_getvalue</a></div><div class="ttdeci">char * mupnp_string_getvalue(mUpnpString *str)</div><div class="ttdef"><b>Definition</b> string.c:177</div></div>
+<div class="ttc" id="astring_8c_html_a58ab18a85e351ffe5b17325e7955133a"><div class="ttname"><a href="string_8c.html#a58ab18a85e351ffe5b17325e7955133a">mupnp_string_getvalue</a></div><div class="ttdeci">char * mupnp_string_getvalue(mUpnpString *str)</div><div class="ttdef"><b>Definition</b> string.c:181</div></div>
 </div><!-- fragment --><p>Get the service's SID (subscription ID)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -908,7 +908,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt; <a class="code hl_function" href="string_8c.html#aa02858ab2bb009bba18232c1de5db25f">mupnp_string_length</a>(service-&gt;subscriptionSid)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="astring_8c_html_aa02858ab2bb009bba18232c1de5db25f"><div class="ttname"><a href="string_8c.html#aa02858ab2bb009bba18232c1de5db25f">mupnp_string_length</a></div><div class="ttdeci">size_t mupnp_string_length(mUpnpString *str)</div><div class="ttdef"><b>Definition</b> string.c:206</div></div>
+<div class="ttc" id="astring_8c_html_aa02858ab2bb009bba18232c1de5db25f"><div class="ttname"><a href="string_8c.html#aa02858ab2bb009bba18232c1de5db25f">mupnp_string_length</a></div><div class="ttdeci">size_t mupnp_string_length(mUpnpString *str)</div><div class="ttdef"><b>Definition</b> string.c:210</div></div>
 </div><!-- fragment --><p>Check, whether the service has any subscribers</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1049,7 +1049,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#a7e6b821d1a6eb0e73a234eb323da30c7">mupnp_xml_node_setchildnode</a>(<a class="code hl_define" href="#af06c3a59204d9ba3d029af2021dff8f8">mupnp_service_getservicenode</a>(service), <a class="code hl_define" href="#a14079a0a99dd0982e5e3dec1f3c30ed6">MUPNP_SERVICE_CONTROL_URL</a>, value)</div>
 <div class="ttc" id="aservice_8h_html_a14079a0a99dd0982e5e3dec1f3c30ed6"><div class="ttname"><a href="#a14079a0a99dd0982e5e3dec1f3c30ed6">MUPNP_SERVICE_CONTROL_URL</a></div><div class="ttdeci">#define MUPNP_SERVICE_CONTROL_URL</div><div class="ttdef"><b>Definition</b> service.h:42</div></div>
-<div class="ttc" id="axml__node_8c_html_a7e6b821d1a6eb0e73a234eb323da30c7"><div class="ttname"><a href="xml__node_8c.html#a7e6b821d1a6eb0e73a234eb323da30c7">mupnp_xml_node_setchildnode</a></div><div class="ttdeci">void mupnp_xml_node_setchildnode(mUpnpXmlNode *node, const char *name, const char *value)</div><div class="ttdef"><b>Definition</b> xml_node.c:105</div></div>
+<div class="ttc" id="axml__node_8c_html_a7e6b821d1a6eb0e73a234eb323da30c7"><div class="ttname"><a href="xml__node_8c.html#a7e6b821d1a6eb0e73a234eb323da30c7">mupnp_xml_node_setchildnode</a></div><div class="ttdeci">void mupnp_xml_node_setchildnode(mUpnpXmlNode *node, const char *name, const char *value)</div><div class="ttdef"><b>Definition</b> xml_node.c:117</div></div>
 </div><!-- fragment --><p>Set the service's control URL</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">

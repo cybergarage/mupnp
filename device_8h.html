@@ -564,7 +564,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="ssdp__server_8h.html#a669163dd7570c2fb0d0df1f081007059">mupnp_ssdp_packet_getlocaladdress</a>(<a class="code hl_define" href="#ad455a999a6a06d064d719aa2f08e2bdc">mupnp_device_getssdppacket</a>(dev))</div>
-<div class="ttc" id="adevice_8h_html_ad455a999a6a06d064d719aa2f08e2bdc"><div class="ttname"><a href="#ad455a999a6a06d064d719aa2f08e2bdc">mupnp_device_getssdppacket</a></div><div class="ttdeci">#define mupnp_device_getssdppacket(dev)</div><div class="ttdef"><b>Definition</b> device.h:1668</div></div>
+<div class="ttc" id="adevice_8h_html_ad455a999a6a06d064d719aa2f08e2bdc"><div class="ttname"><a href="#ad455a999a6a06d064d719aa2f08e2bdc">mupnp_device_getssdppacket</a></div><div class="ttdeci">#define mupnp_device_getssdppacket(dev)</div><div class="ttdef"><b>Definition</b> device.h:1670</div></div>
 <div class="ttc" id="assdp__server_8h_html_a669163dd7570c2fb0d0df1f081007059"><div class="ttname"><a href="ssdp__server_8h.html#a669163dd7570c2fb0d0df1f081007059">mupnp_ssdp_packet_getlocaladdress</a></div><div class="ttdeci">#define mupnp_ssdp_packet_getlocaladdress(ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_server.h:138</div></div>
 </div><!-- fragment --><p>Get the device associated to the given service</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -644,7 +644,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="string_8c.html#a58ab18a85e351ffe5b17325e7955133a">mupnp_string_getvalue</a>(dev-&gt;descriptionURI)</div>
-<div class="ttc" id="astring_8c_html_a58ab18a85e351ffe5b17325e7955133a"><div class="ttname"><a href="string_8c.html#a58ab18a85e351ffe5b17325e7955133a">mupnp_string_getvalue</a></div><div class="ttdeci">char * mupnp_string_getvalue(mUpnpString *str)</div><div class="ttdef"><b>Definition</b> string.c:177</div></div>
+<div class="ttc" id="astring_8c_html_a58ab18a85e351ffe5b17325e7955133a"><div class="ttname"><a href="string_8c.html#a58ab18a85e351ffe5b17325e7955133a">mupnp_string_getvalue</a></div><div class="ttdeci">char * mupnp_string_getvalue(mUpnpString *str)</div><div class="ttdef"><b>Definition</b> string.c:181</div></div>
 </div><!-- fragment --><p>Get the device's description URI</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -782,7 +782,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a>(<a class="code hl_define" href="#a247f25cdd849b04411bfcd9b80d6e19b">mupnp_device_getdevicenode</a>(dev), <a class="code hl_define" href="#a442a20038eabdc05ce0fd6f383388275">MUPNP_DEVICE_DEVICE_TYPE</a>)</div>
 <div class="ttc" id="adevice_8h_html_a247f25cdd849b04411bfcd9b80d6e19b"><div class="ttname"><a href="#a247f25cdd849b04411bfcd9b80d6e19b">mupnp_device_getdevicenode</a></div><div class="ttdeci">#define mupnp_device_getdevicenode(dev)</div><div class="ttdef"><b>Definition</b> device.h:294</div></div>
 <div class="ttc" id="adevice_8h_html_a442a20038eabdc05ce0fd6f383388275"><div class="ttname"><a href="#a442a20038eabdc05ce0fd6f383388275">MUPNP_DEVICE_DEVICE_TYPE</a></div><div class="ttdeci">#define MUPNP_DEVICE_DEVICE_TYPE</div><div class="ttdef"><b>Definition</b> device.h:71</div></div>
-<div class="ttc" id="axml__node_8c_html_a6f202591df140c494e7a48abae79ea99"><div class="ttname"><a href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a></div><div class="ttdeci">const char * mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name)</div><div class="ttdef"><b>Definition</b> xml_node.c:216</div></div>
+<div class="ttc" id="axml__node_8c_html_a6f202591df140c494e7a48abae79ea99"><div class="ttname"><a href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a></div><div class="ttdeci">const char * mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name)</div><div class="ttdef"><b>Definition</b> xml_node.c:228</div></div>
 </div><!-- fragment --><p>Return the device type</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1677,7 +1677,7 @@ For a safer alternative that doesn't require knowing the index, use <a class="el
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt; <a class="code hl_function" href="string__function_8c.html#ae379190e0c5579d7bac5226f5977f8ff">mupnp_strlen</a>(<a class="code hl_define" href="#a34f3bb56ba861c67d0da7b050ed507e0">mupnp_device_getudn</a>(dev))) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="adevice_8h_html_a34f3bb56ba861c67d0da7b050ed507e0"><div class="ttname"><a href="#a34f3bb56ba861c67d0da7b050ed507e0">mupnp_device_getudn</a></div><div class="ttdeci">#define mupnp_device_getudn(dev)</div><div class="ttdef"><b>Definition</b> device.h:662</div></div>
+<div class="ttc" id="adevice_8h_html_a34f3bb56ba861c67d0da7b050ed507e0"><div class="ttname"><a href="#a34f3bb56ba861c67d0da7b050ed507e0">mupnp_device_getudn</a></div><div class="ttdeci">#define mupnp_device_getudn(dev)</div><div class="ttdef"><b>Definition</b> device.h:664</div></div>
 <div class="ttc" id="astring__function_8c_html_ae379190e0c5579d7bac5226f5977f8ff"><div class="ttname"><a href="string__function_8c.html#ae379190e0c5579d7bac5226f5977f8ff">mupnp_strlen</a></div><div class="ttdeci">size_t mupnp_strlen(const char *str)</div><div class="ttdoc">Get the length of a string (NULL-safe wrapper for strlen)</div><div class="ttdef"><b>Definition</b> string_function.c:63</div></div>
 <div class="ttc" id="atypedef_8h_html_a41f9c5fb8b08eb5dc3edce4dcb37fee7"><div class="ttname"><a href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a></div><div class="ttdeci">#define true</div><div class="ttdef"><b>Definition</b> typedef.h:63</div></div>
 </div><!-- fragment --><p>Check whether the device has a Unique Device Name (UDN)</p>
@@ -1783,7 +1783,7 @@ For a safer alternative that doesn't require knowing the index, use <a class="el
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a>(<a class="code hl_define" href="#af830d0723bc64531753b4e7f42e4dcca">mupnp_device_getdevicetype</a>(dev), value)</div>
-<div class="ttc" id="adevice_8h_html_af830d0723bc64531753b4e7f42e4dcca"><div class="ttname"><a href="#af830d0723bc64531753b4e7f42e4dcca">mupnp_device_getdevicetype</a></div><div class="ttdeci">#define mupnp_device_getdevicetype(dev)</div><div class="ttdef"><b>Definition</b> device.h:393</div></div>
+<div class="ttc" id="adevice_8h_html_af830d0723bc64531753b4e7f42e4dcca"><div class="ttname"><a href="#af830d0723bc64531753b4e7f42e4dcca">mupnp_device_getdevicetype</a></div><div class="ttdeci">#define mupnp_device_getdevicetype(dev)</div><div class="ttdef"><b>Definition</b> device.h:395</div></div>
 </div><!-- fragment --><p>Check, whether the device is of the exact specified type (including version)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -2034,7 +2034,7 @@ For a safer alternative that doesn't require knowing the index, use <a class="el
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#adae25a912d31cfb8de5bcd458b369021">mupnp_xml_node_removechildnode</a>(<a class="code hl_define" href="#a247f25cdd849b04411bfcd9b80d6e19b">mupnp_device_getdevicenode</a>(dev), <a class="code hl_define" href="#af5d7143d0ec2561b46729e7164fe790e">MUPNP_DEVICE_PRESENTATION_URL</a>)</div>
-<div class="ttc" id="axml__node_8c_html_adae25a912d31cfb8de5bcd458b369021"><div class="ttname"><a href="xml__node_8c.html#adae25a912d31cfb8de5bcd458b369021">mupnp_xml_node_removechildnode</a></div><div class="ttdeci">bool mupnp_xml_node_removechildnode(mUpnpXmlNode *node, const char *name)</div><div class="ttdef"><b>Definition</b> xml_node.c:129</div></div>
+<div class="ttc" id="axml__node_8c_html_adae25a912d31cfb8de5bcd458b369021"><div class="ttname"><a href="xml__node_8c.html#adae25a912d31cfb8de5bcd458b369021">mupnp_xml_node_removechildnode</a></div><div class="ttdeci">bool mupnp_xml_node_removechildnode(mUpnpXmlNode *node, const char *name)</div><div class="ttdef"><b>Definition</b> xml_node.c:141</div></div>
 </div><!-- fragment --><p>Remove the device's presentation URL</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -2140,7 +2140,7 @@ For a safer alternative that doesn't require knowing the index, use <a class="el
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#a7e6b821d1a6eb0e73a234eb323da30c7">mupnp_xml_node_setchildnode</a>(<a class="code hl_define" href="#a247f25cdd849b04411bfcd9b80d6e19b">mupnp_device_getdevicenode</a>(dev), <a class="code hl_define" href="#a442a20038eabdc05ce0fd6f383388275">MUPNP_DEVICE_DEVICE_TYPE</a>, value)</div>
-<div class="ttc" id="axml__node_8c_html_a7e6b821d1a6eb0e73a234eb323da30c7"><div class="ttname"><a href="xml__node_8c.html#a7e6b821d1a6eb0e73a234eb323da30c7">mupnp_xml_node_setchildnode</a></div><div class="ttdeci">void mupnp_xml_node_setchildnode(mUpnpXmlNode *node, const char *name, const char *value)</div><div class="ttdef"><b>Definition</b> xml_node.c:105</div></div>
+<div class="ttc" id="axml__node_8c_html_a7e6b821d1a6eb0e73a234eb323da30c7"><div class="ttname"><a href="xml__node_8c.html#a7e6b821d1a6eb0e73a234eb323da30c7">mupnp_xml_node_setchildnode</a></div><div class="ttdeci">void mupnp_xml_node_setchildnode(mUpnpXmlNode *node, const char *name, const char *value)</div><div class="ttdef"><b>Definition</b> xml_node.c:117</div></div>
 </div><!-- fragment --><p>Modify the device type.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -4459,14 +4459,14 @@ Ensure proper firewall configuration to allow:<ul>
 <div class="line">}</div>
 <div class="ttc" id="adevice_8c_html_a5981b74558fe69136e90ebdd9a1f8dc1"><div class="ttname"><a href="device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new</a></div><div class="ttdeci">mUpnpDevice * mupnp_device_new(void)</div><div class="ttdoc">Create a new UPnP device instance.</div><div class="ttdef"><b>Definition</b> device.c:41</div></div>
 <div class="ttc" id="adevice_8c_html_a6eb99cb4d1c0f01e2597f8d0596dae65"><div class="ttname"><a href="device_8c.html#a6eb99cb4d1c0f01e2597f8d0596dae65">mupnp_device_delete</a></div><div class="ttdeci">void mupnp_device_delete(mUpnpDevice *dev)</div><div class="ttdoc">Delete a UPnP device and free all associated resources.</div><div class="ttdef"><b>Definition</b> device.c:95</div></div>
-<div class="ttc" id="adevice_8c_html_a7a2d960ccbb38229b8425f2925d0c40f"><div class="ttname"><a href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start</a></div><div class="ttdeci">bool mupnp_device_start(mUpnpDevice *dev)</div><div class="ttdoc">Start a UPnP device and begin advertising on the network.</div><div class="ttdef"><b>Definition</b> device.c:1380</div></div>
-<div class="ttc" id="adevice_8c_html_aa9aa9eca8ded521c760287d5bdc50ed2"><div class="ttname"><a href="device_8c.html#aa9aa9eca8ded521c760287d5bdc50ed2">mupnp_device_updateudn</a></div><div class="ttdeci">void mupnp_device_updateudn(mUpnpDevice *dev)</div><div class="ttdef"><b>Definition</b> device.c:2124</div></div>
-<div class="ttc" id="adevice_8c_html_abbaa80309b6fd82938cf17173c3ea9a9"><div class="ttname"><a href="device_8c.html#abbaa80309b6fd82938cf17173c3ea9a9">mupnp_device_setquerylistener</a></div><div class="ttdeci">void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER queryListner)</div><div class="ttdef"><b>Definition</b> device.c:1846</div></div>
-<div class="ttc" id="adevice_8c_html_ae6e0dbb589b5c06aeb99d9635a22eab0"><div class="ttname"><a href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener</a></div><div class="ttdeci">void mupnp_device_setactionlistener(mUpnpDevice *dev, MUPNP_ACTION_LISTNER actionListner)</div><div class="ttdef"><b>Definition</b> device.c:1826</div></div>
-<div class="ttc" id="adevice_8h_html_a20060d461a0c342e4ce281f27f9a4b9d"><div class="ttname"><a href="#a20060d461a0c342e4ce281f27f9a4b9d">mupnp_device_setmodelname</a></div><div class="ttdeci">#define mupnp_device_setmodelname(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:565</div></div>
-<div class="ttc" id="adevice_8h_html_a3b873ff433d66570ebdb606816ff0567"><div class="ttname"><a href="#a3b873ff433d66570ebdb606816ff0567">mupnp_device_setdevicetype</a></div><div class="ttdeci">#define mupnp_device_setdevicetype(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:384</div></div>
-<div class="ttc" id="adevice_8h_html_ab6c98a808406a530f2f71eb690fe3308"><div class="ttname"><a href="#ab6c98a808406a530f2f71eb690fe3308">mupnp_device_setfriendlyname</a></div><div class="ttdeci">#define mupnp_device_setfriendlyname(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:477</div></div>
-<div class="ttc" id="adevice_8h_html_ae1bfcc9c7dd2ed44d3cdc65a22cb0832"><div class="ttname"><a href="#ae1bfcc9c7dd2ed44d3cdc65a22cb0832">mupnp_device_setmanufacturer</a></div><div class="ttdeci">#define mupnp_device_setmanufacturer(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:499</div></div>
+<div class="ttc" id="adevice_8c_html_a7a2d960ccbb38229b8425f2925d0c40f"><div class="ttname"><a href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start</a></div><div class="ttdeci">bool mupnp_device_start(mUpnpDevice *dev)</div><div class="ttdoc">Start a UPnP device and begin advertising on the network.</div><div class="ttdef"><b>Definition</b> device.c:1581</div></div>
+<div class="ttc" id="adevice_8c_html_aa9aa9eca8ded521c760287d5bdc50ed2"><div class="ttname"><a href="device_8c.html#aa9aa9eca8ded521c760287d5bdc50ed2">mupnp_device_updateudn</a></div><div class="ttdeci">void mupnp_device_updateudn(mUpnpDevice *dev)</div><div class="ttdef"><b>Definition</b> device.c:2325</div></div>
+<div class="ttc" id="adevice_8c_html_abbaa80309b6fd82938cf17173c3ea9a9"><div class="ttname"><a href="device_8c.html#abbaa80309b6fd82938cf17173c3ea9a9">mupnp_device_setquerylistener</a></div><div class="ttdeci">void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER queryListner)</div><div class="ttdef"><b>Definition</b> device.c:2047</div></div>
+<div class="ttc" id="adevice_8c_html_ae6e0dbb589b5c06aeb99d9635a22eab0"><div class="ttname"><a href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener</a></div><div class="ttdeci">void mupnp_device_setactionlistener(mUpnpDevice *dev, MUPNP_ACTION_LISTNER actionListner)</div><div class="ttdef"><b>Definition</b> device.c:2027</div></div>
+<div class="ttc" id="adevice_8h_html_a20060d461a0c342e4ce281f27f9a4b9d"><div class="ttname"><a href="#a20060d461a0c342e4ce281f27f9a4b9d">mupnp_device_setmodelname</a></div><div class="ttdeci">#define mupnp_device_setmodelname(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:567</div></div>
+<div class="ttc" id="adevice_8h_html_a3b873ff433d66570ebdb606816ff0567"><div class="ttname"><a href="#a3b873ff433d66570ebdb606816ff0567">mupnp_device_setdevicetype</a></div><div class="ttdeci">#define mupnp_device_setdevicetype(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:386</div></div>
+<div class="ttc" id="adevice_8h_html_ab6c98a808406a530f2f71eb690fe3308"><div class="ttname"><a href="#ab6c98a808406a530f2f71eb690fe3308">mupnp_device_setfriendlyname</a></div><div class="ttdeci">#define mupnp_device_setfriendlyname(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:479</div></div>
+<div class="ttc" id="adevice_8h_html_ae1bfcc9c7dd2ed44d3cdc65a22cb0832"><div class="ttname"><a href="#ae1bfcc9c7dd2ed44d3cdc65a22cb0832">mupnp_device_setmanufacturer</a></div><div class="ttdeci">#define mupnp_device_setmanufacturer(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:501</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -4559,7 +4559,7 @@ Active event subscriptions are not explicitly cancelled. Subscribed control poin
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if the device was updated; otherwise false </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the cached device is still valid (updated, refreshed, or kept unchanged because the new LOCATION could not be used); false only for invalid arguments or a device without SSDP data </dd></dl>
 
 </div>
 </div>
