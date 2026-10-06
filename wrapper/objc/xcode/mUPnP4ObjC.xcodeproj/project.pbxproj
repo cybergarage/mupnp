@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		211481CF1959863A00B8EC17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211481CD1959863A00B8EC17 /* InfoPlist.strings */; };
 		211481DA1959863A00B8EC17 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481D91959863A00B8EC17 /* XCTest.framework */; };
-		211481DB1959863A00B8EC17 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C41959863A00B8EC17 /* Cocoa.framework */; };
+		211481DB1959863A00B8EC17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C71959863A00B8EC17 /* Foundation.framework */; };
 		211481DE1959863A00B8EC17 /* mUPnP4ObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C11959863A00B8EC17 /* mUPnP4ObjC.framework */; };
 		211481E41959863A00B8EC17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211481E21959863A00B8EC17 /* InfoPlist.strings */; };
 		211481E61959863A00B8EC17 /* mUPnP4ObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211481E51959863A00B8EC17 /* mUPnP4ObjCTests.m */; };
@@ -100,7 +100,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				211481DE1959863A00B8EC17 /* mUPnP4ObjC.framework in Frameworks */,
-				211481DB1959863A00B8EC17 /* Cocoa.framework in Frameworks */,
+				211481DB1959863A00B8EC17 /* Foundation.framework in Frameworks */,
 				211481DA1959863A00B8EC17 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -447,11 +447,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/skonno/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 					../../../include/,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -501,11 +500,10 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/skonno/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 					../../../include/,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -521,7 +519,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mUPnP4ObjC/mUPnP4ObjC-Prefix.pch";
 				INFOPLIST_FILE = "mUPnP4ObjC/mUPnP4ObjC-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cybergarage.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -542,7 +540,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mUPnP4ObjC/mUPnP4ObjC-Prefix.pch";
 				INFOPLIST_FILE = "mUPnP4ObjC/mUPnP4ObjC-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cybergarage.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -555,7 +553,6 @@
 		211481ED1959863A00B8EC17 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/mUPnP4ObjC.framework/Versions/A/mUPnP4ObjC";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -570,7 +567,6 @@
 				INFOPLIST_FILE = "mUPnP4ObjCTests/mUPnP4ObjCTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cybergarage.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -578,7 +574,6 @@
 		211481EE1959863A00B8EC17 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/mUPnP4ObjC.framework/Versions/A/mUPnP4ObjC";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
@@ -589,7 +584,6 @@
 				INFOPLIST_FILE = "mUPnP4ObjCTests/mUPnP4ObjCTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cybergarage.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
