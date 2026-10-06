@@ -1225,7 +1225,11 @@ bool mupnp_socket_setreuseaddress(mUpnpSocket* sock, bool flag)
   optval = (flag == true) ? 1 : 0;
   sockOptRet = setsockopt(sock->id, SOL_SOCKET, SO_REUSEADDR, (const char*)&optval, sizeof(optval));
 #if defined(USE_SO_REUSEPORT) || defined(TARGET_OS_MAC) || defined(TARGET_OS_IPHONE)
-  if (sockOptRet == 0) {
+  /* SO_REUSEPORT lets several datagram sockets share the SSDP multicast port.
+     On a stream socket it would also let a second listener bind the same
+     port, so stream sockets get SO_REUSEADDR only (rebinding over
+     TIME_WAIT). */
+  if (sockOptRet == 0 && mupnp_socket_isdatagramstream(sock)) {
     sockOptRet = setsockopt(sock->id, SOL_SOCKET, SO_REUSEPORT, (const char*)&optval, sizeof(optval));
   }
 #endif
