@@ -33,9 +33,20 @@ typedef void mUpnpService;
  */
 - (id)initWithCObject:(mUpnpService*)cobj;
 /**
- * Parse the specified XML description.
+ * Parse the specified service description (SCPD).
  *
- * @return YES if successfull; otherwise nui.
+ * The description is passed to the native parser as UTF-8 bytes, so non-ASCII
+ * text such as Japanese or emoji is preserved.
+ *
+ * Returns NO without touching the receiver when xmlDesc is nil, empty, not an
+ * NSString or not convertible to UTF-8. When the native parser rejects the
+ * XML, it returns NO after the native service has been cleared: the receiver
+ * then has no actions or state variables, and action and state variable
+ * wrappers previously obtained from it must not be used.
+ *
+ * @param xmlDesc The service description
+ *
+ * @return YES if successful; otherwise NO.
  */
 - (BOOL)parseXMLDescription:(NSString*)xmlDesc;
 /**

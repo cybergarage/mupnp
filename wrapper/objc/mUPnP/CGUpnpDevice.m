@@ -13,12 +13,27 @@
 #include <mupnp/service.h>
 #include <mupnp/statevariable.h>
 
+#import <Foundation/NSData.h>
+
 #import "CGUpnpAction.h"
 #import "CGUpnpDevice.h"
 #import "CGUpnpIcon.h"
 #import "CGUpnpService.h"
 
 static bool cg_upnp_device_action_listener(mUpnpAction* action);
+
+/* Returns the UTF-8 bytes of a description string, or nil for nil, empty,
+ * non-string or non-UTF-8-convertible input. The byte length (not the UTF-16
+ * NSString length) is what the native XML parser expects. */
+static NSData* cg_upnp_device_description_bytes(NSString* xmlDesc)
+{
+  if (![xmlDesc isKindOfClass:[NSString class]])
+    return nil;
+  NSData* bytes = [xmlDesc dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO];
+  if ([bytes length] == 0)
+    return nil;
+  return bytes;
+}
 
 /* Description parsing only builds local trees; this never fetches URLs. */
 static BOOL cg_upnp_copy_discovery_details(mUpnpDevice* dst, mUpnpDevice* src)
@@ -58,6 +73,18 @@ static BOOL cg_upnp_copy_discovery_details(mUpnpDevice* dst, mUpnpDevice* src)
   return !sourceChild && !targetChild;
 }
 
+#if defined(MUPNP_OBJC_TEST_HOOKS)
+/* Test-only injection points for allocation-failure and ownership tests.
+ * They are compiled only when MUPNP_OBJC_TEST_HOOKS is defined. */
+mUpnpDevice* (*cg_upnp_test_device_new)(void) = NULL;
+void (*cg_upnp_test_device_delete)(mUpnpDevice*) = NULL;
+#define CG_UPNP_DEVICE_NEW() (cg_upnp_test_device_new ? cg_upnp_test_device_new() : mupnp_device_new())
+#define CG_UPNP_DEVICE_DELETE(dev) (cg_upnp_test_device_delete ? cg_upnp_test_device_delete(dev) : mupnp_device_delete(dev))
+#else
+#define CG_UPNP_DEVICE_NEW() mupnp_device_new()
+#define CG_UPNP_DEVICE_DELETE(dev) mupnp_device_delete(dev)
+#endif
+
 @implementation CGUpnpDevice
 
 @synthesize cObject;
@@ -67,9 +94,11 @@ static BOOL cg_upnp_copy_discovery_details(mUpnpDevice* dst, mUpnpDevice* src)
 {
   if ((self = [super init]) == nil)
     return nil;
-  cObject = mupnp_device_new();
-  if (!cObject)
+  cObject = CG_UPNP_DEVICE_NEW();
+  if (!cObject) {
+    [self release];
     return nil;
+  }
   isCObjectCreated = YES;
   mupnp_device_setuserdata(cObject, self);
   mupnp_device_setactionlistener(cObject, cg_upnp_device_action_listener);
@@ -89,7 +118,7 @@ static BOOL cg_upnp_copy_discovery_details(mUpnpDevice* dst, mUpnpDevice* src)
 {
   if ((self = [super init]) == nil)
     return nil;
-  cObject = mupnp_device_new();
+  cObject = CG_UPNP_DEVICE_NEW();
   isCObjectCreated = YES;
   mUpnpString* xml = mupnp_string_new();
   mUpnpXmlNode* root = cobj ? mupnp_device_getrootnode(cobj) : NULL;
@@ -108,10 +137,9 @@ static BOOL cg_upnp_copy_discovery_details(mUpnpDevice* dst, mUpnpDevice* src)
 {
   if ((self = [self init]) == nil)
     return nil;
-  if (!cObject)
-    return nil;
+  /* -dealloc releases the native device created by -init exactly once. */
   if (![self parseXMLDescription:xmlDesc]) {
-    mupnp_device_delete(cObject);
+    [self release];
     return nil;
   }
   return self;
@@ -121,13 +149,16 @@ static BOOL cg_upnp_copy_discovery_details(mUpnpDevice* dst, mUpnpDevice* src)
 {
   if (!cObject)
     return NO;
-  return mupnp_device_parsedescription(cObject, (char*)[xmlDesc UTF8String], [xmlDesc length]);
+  NSData* bytes = cg_upnp_device_description_bytes(xmlDesc);
+  if (!bytes)
+    return NO;
+  return mupnp_device_parsedescription(cObject, (const char*)[bytes bytes], [bytes length]);
 }
 
 - (void)dealloc
 {
   if (isCObjectCreated && cObject) {
-    mupnp_device_delete(cObject);
+    CG_UPNP_DEVICE_DELETE(cObject);
     cObject = NULL;
   }
   [super dealloc];

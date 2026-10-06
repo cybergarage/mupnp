@@ -58,11 +58,18 @@ typedef void mUpnpAction;
  */
 - (BOOL)post;
 /**
- * Send action
+ * Set the specified argument values and send the action.
  *
- * @param arguments Arguments to set
+ * Every entry is validated before any argument is changed or any request is
+ * sent. The method returns NO without sending a request and without changing
+ * any argument value when arguments is not a dictionary, or when any key is
+ * not the name of an argument of this action, or when any key or value is not
+ * an NSString convertible to UTF-8. Arguments that are not in the dictionary
+ * keep their current values, as with setArgumentValue:forName:.
  *
- * @return YES if successfull; otherwise NO
+ * @param arguments Argument values keyed by argument name, or nil
+ *
+ * @return YES if successful; otherwise NO
  */
 - (BOOL)postWithArguments:(NSDictionary*)arguments;
 /**

@@ -12,9 +12,24 @@
 #include <mupnp/service.h>
 #include <mupnp/statevariable.h>
 
+#import <Foundation/NSData.h>
+
 #import "CGUpnpAction.h"
 #import "CGUpnpService.h"
 #import "CGUpnpStateVariable.h"
+
+/* Returns the UTF-8 bytes of a description string, or nil for nil, empty,
+ * non-string or non-UTF-8-convertible input. The byte length (not the UTF-16
+ * NSString length) is what the native XML parser expects. */
+static NSData* cg_upnp_service_description_bytes(NSString* xmlDesc)
+{
+  if (![xmlDesc isKindOfClass:[NSString class]])
+    return nil;
+  NSData* bytes = [xmlDesc dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO];
+  if ([bytes length] == 0)
+    return nil;
+  return bytes;
+}
 
 @implementation CGUpnpService
 
@@ -47,7 +62,10 @@
 {
   if (!cObject)
     return NO;
-  return mupnp_service_parsedescription(cObject, (char*)[xmlDesc UTF8String], [xmlDesc length]);
+  NSData* bytes = cg_upnp_service_description_bytes(xmlDesc);
+  if (!bytes)
+    return NO;
+  return mupnp_service_parsedescription(cObject, (const char*)[bytes bytes], [bytes length]);
 }
 
 - (NSString*)serviceId

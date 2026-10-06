@@ -39,7 +39,8 @@ typedef void mUpnpDevice;
 /**
  * Create a new UPnP device.
  *
- * @return New instance if successfull; otherwise nil.
+ * @return New instance if successful; otherwise nil (the partially initialized
+ *         instance is released).
  */
 - (id)init;
 /**
@@ -53,15 +54,29 @@ typedef void mUpnpDevice;
  */
 - (id)initWithDeviceSnapshot:(mUpnpDevice*)cobj;
 /**
- * Create a new UPnP device with the XML descriptioin.
+ * Create a new UPnP device with the XML description.
  *
- * @return New instance if successfull; otherwise nil.
+ * @param xmlDesc The device description. See parseXMLDescription:.
+ *
+ * @return New instance if successful; otherwise nil. On failure the instance
+ *         and its native device are released exactly once.
  */
 - (id)initWithXMLDescription:(NSString*)xmlDesc;
 /**
  * Parse the specified XML description.
  *
- * @return YES if successfull; otherwise nui.
+ * The description is passed to the native parser as UTF-8 bytes, so non-ASCII
+ * text such as Japanese or emoji is preserved.
+ *
+ * Returns NO without touching the receiver when xmlDesc is nil, empty, not an
+ * NSString or not convertible to UTF-8. When the native parser rejects the
+ * XML, it returns NO after the native device has been cleared: the receiver
+ * then has no description, and service, action, state variable and icon
+ * wrappers previously obtained from it must not be used.
+ *
+ * @param xmlDesc The device description
+ *
+ * @return YES if successful; otherwise NO.
  */
 - (BOOL)parseXMLDescription:(NSString*)xmlDesc;
 /**

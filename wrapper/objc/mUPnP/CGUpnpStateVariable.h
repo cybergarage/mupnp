@@ -22,6 +22,16 @@ typedef void mUpnpStateVariable;
 /* Retains the native object's owning wrapper, including discovery snapshots. */
 @property (retain) NSObject* cObjectOwner;
 @property (assign, readonly) mUpnpStateVariable* cObject;
+/**
+ * Create a wrapper for the specified native state variable.
+ *
+ * The native object is borrowed: the wrapper does not take ownership of it
+ * and does not modify its userdata. Passing NULL (or using -init) creates an
+ * invalid wrapper: name, value and statusCode return nil/0, allowedValues
+ * returns an empty array, and isAllowedValue: and query return NO.
+ *
+ * @param cobj The native state variable, or NULL
+ */
 - (id)initWithCObject:(mUpnpStateVariable*)cobj;
 /**
  * Get the name of the state variable.

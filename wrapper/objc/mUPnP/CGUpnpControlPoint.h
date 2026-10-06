@@ -28,8 +28,12 @@ typedef void mUpnpControlPoint;
 
 /**
  * The CGUpnpControlPoint class is a wrapper class for mUpnpControlPoint of mUPnP for C to
- * program using only Objective-C directly on MacOSX.
+ * program using only Objective-C directly on macOS and iOS.
  * Currently, the only basic methods are wrapped to control UPnP devices.
+ *
+ * -init creates and starts the native control point. It returns nil, without
+ * leaking the native object, when the native control point cannot be created
+ * or started.
  */
 @interface CGUpnpControlPoint : NSObject {
 }
@@ -60,30 +64,38 @@ typedef void mUpnpControlPoint;
  */
 - (BOOL)isRunning;
 /**
- * Send a M-SEARCH request to find for the all UPnP devices of UPnP in the network.
- * The method waits for the specified MX time. Use setSsdpSearchMX:(NSInteger)aMX to change the time.
- * The method is same as searchWithST() when the ST parameter is "ssdp:all".
+ * Send an M-SEARCH request for root devices in the network.
+ * The method is the same as searchWithST: with the ST parameter "upnp:rootdevice"
+ * (MUPNP_NT_ROOTDEVICE); it does not search for "ssdp:all".
+ * See searchWithST: for when the method returns and how results are delivered.
  */
 - (void)search;
 /**
- * Send a M-SEARCH request to find for the specified UPnP devices by a ST parameter in the network.
- * The method waits for the specified MX time. Use setSsdpSearchMX:(NSInteger)aMX to change the time.
+ * Send an M-SEARCH request for the specified search target (ST) in the network.
  *
- * @param aST The Search Target parameter (ex. "ssdp:all")
+ * By default the method returns once the native layer has sent the request
+ * (it repeats the send mupnp_ssdp_getannouncecount() times with a short delay
+ * in between); it does not wait for the MX period and does not report whether
+ * sending succeeded. Responses arrive asynchronously: found devices are reported
+ * through the delegate and are returned by devices and deviceForUDN: afterwards.
+ * Only when the wrapper is compiled with CG_UPNPCONTROLPOINT_ENABLE_SEARCH_SLEEP
+ * does the method additionally sleep for ssdpSearchMX seconds before returning.
+ *
+ * @param aST The Search Target parameter (ex. "upnp:rootdevice" or "ssdp:all")
  */
 - (void)searchWithST:(NSString*)aST;
 /**
- * Set a MX parameter used for SSDP searches in seconds.
- * The parameter is used to wait for M-SEARCH responses in search() and searchWithST:(NSString *)aST.
+ * Set the MX parameter, in seconds, sent in SSDP M-SEARCH requests.
+ * MX is the maximum time devices may wait before responding. The search methods
+ * wait for this time only when compiled with CG_UPNPCONTROLPOINT_ENABLE_SEARCH_SLEEP.
  *
- * @param aMX Time to wait
+ * @param aMX Maximum response delay in seconds
  */
 - (void)setSsdpSearchMX:(NSInteger)aMX;
 /**
- * Get a MX parameter used for SSDP searches in seconds.
- * The parameter is used to wait for M-SEARCH responses in search() and searchWithST:(NSString *)aST.
+ * Get the MX parameter, in seconds, sent in SSDP M-SEARCH requests.
  *
- * @return Time to wait
+ * @return Maximum response delay in seconds
  */
 - (NSInteger)ssdpSearchMX;
 /**

@@ -564,6 +564,10 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../mUPnP",
+				);
 				INFOPLIST_FILE = "mUPnP4ObjCTests/mUPnP4ObjCTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cybergarage.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -581,6 +585,10 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mUPnP4ObjC/mUPnP4ObjC-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../mUPnP",
+				);
 				INFOPLIST_FILE = "mUPnP4ObjCTests/mUPnP4ObjCTests-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cybergarage.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";

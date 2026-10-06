@@ -43,6 +43,11 @@ run(['clang', '-Iinclude', '-Iwrapper/objc/mUPnP', *sanitizers, '-framework', 'F
      *map(str, sorted((root / 'wrapper/objc/mUPnP').glob('*.m'))), 'test/security/objc-lifetime.m',
      str(output / 'TestDevice.o'), str(archive), *link, '-o', str(output / 'objc-lifetime')])
 run([str(output / 'objc-lifetime')], timeout=30)
+# Wrapper API regressions; MUPNP_OBJC_TEST_HOOKS exposes native alloc/delete hooks.
+run(['clang', '-DMUPNP_OBJC_TEST_HOOKS', '-Iinclude', '-Iwrapper/objc/mUPnP', *sanitizers, '-framework', 'Foundation',
+     *map(str, sorted((root / 'wrapper/objc/mUPnP').glob('*.m'))), 'test/security/objc-api-regression.m',
+     str(output / 'TestDevice.o'), str(archive), *link, '-o', str(output / 'objc-api-regression')])
+run([str(output / 'objc-api-regression')], timeout=60)
 run(['cc', '-x', 'c', '-Iinclude', *sanitizers, '-c', 'test/security/media-cycles.c.fixture', '-o', str(output / 'media-cycles.o')])
 run(['cc', *sanitizers, str(output / 'media-cycles.o'), str(archive), *link, '-o', str(output / 'media-cycles')])
 run([str(output / 'media-cycles')], timeout=10)
@@ -66,4 +71,4 @@ run(['cc', '-DHAVE_CONFIG_H', '-DMUPNP_USE_OPENSSL', '-DSOCKET_DEBUG', '-I.', '-
 run([*cpp, 'test/TestMain.cpp', 'test/HttpTest.cpp', str(output / 'TestDevice.o'),
      str(output / 'debug-socket.o'), str(archive), *test_link, '-o', str(output / 'debug-http-tests')])
 run([str(output / 'debug-http-tests'), '--run_test=HttpTruncatedBodies,HttpCompleteBodies', '--color_output=no'], timeout=10)
-print('PASS: Objective-C lifetime, media cycles, TLS trust/identity, full C suite, libxml2, and SOCKET_DEBUG (ASan/UBSan)')
+print('PASS: Objective-C lifetime and API regressions, media cycles, TLS trust/identity, full C suite, libxml2, and SOCKET_DEBUG (ASan/UBSan)')
