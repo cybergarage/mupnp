@@ -53,7 +53,9 @@ extern "C" {
  * Data Type
  ****************************************/
 
-#if defined(C99) || defined(HAVE_STDBOOL_H)
+#if defined(__cplusplus)
+/* bool, true and false are built-in keywords in C++ */
+#elif defined(C99) || defined(HAVE_STDBOOL_H)
 #include <stdbool.h>
 #else
 #if !defined(bool)
