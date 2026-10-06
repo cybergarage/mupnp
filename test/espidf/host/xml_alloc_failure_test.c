@@ -32,15 +32,15 @@ void* __real_realloc(void* ptr, size_t size);
 void* __wrap_malloc(size_t size);
 void* __wrap_realloc(void* ptr, size_t size);
 
-static long alloc_count = 0;
-static long fail_at = -1; /* -1: not counting, 0: count only, N: fail the N-th (1-based) */
+static long allocCount = 0;
+static long failAt = -1; /* -1: not counting, 0: count only, N: fail the N-th (1-based) */
 
 static int injected_failure(void)
 {
-  if (fail_at < 0)
+  if (failAt < 0)
     return 0;
-  alloc_count++;
-  return alloc_count == fail_at;
+  allocCount++;
+  return allocCount == failAt;
 }
 
 void* __wrap_malloc(size_t size)
@@ -59,14 +59,14 @@ void* __wrap_realloc(void* ptr, size_t size)
 
 static void arm(long n)
 {
-  alloc_count = 0;
-  fail_at = n;
+  allocCount = 0;
+  failAt = n;
 }
 
 static long disarm(void)
 {
-  long n = alloc_count;
-  fail_at = -1;
+  long n = allocCount;
+  failAt = -1;
   return n;
 }
 
@@ -117,8 +117,8 @@ static void test_parse_under_failure(void)
   bool ok = mupnp_xml_parse(parser, nodes, DESCRIPTION, strlen(DESCRIPTION));
   long total = disarm();
   CHECK(ok, "reference parse failed\n");
-  int expected_attrs = count_attrs(mupnp_xml_nodelist_gets(nodes));
-  CHECK(expected_attrs == 7, "expected 7 attributes, got %d\n", expected_attrs);
+  int expectedAttrs = count_attrs(mupnp_xml_nodelist_gets(nodes));
+  CHECK(expectedAttrs == 7, "expected 7 attributes, got %d\n", expectedAttrs);
   mupnp_xml_nodelist_delete(nodes);
   mupnp_xml_parser_delete(parser);
 
@@ -136,8 +136,8 @@ static void test_parse_under_failure(void)
       /* A reported success must not hide a half-built or dropped attribute.
          Character data may still be dropped by unrelated code paths. */
       int attrs = count_attrs(mupnp_xml_nodelist_gets(nodes));
-      CHECK(attrs >= 0, "fail_at=%ld: parse succeeded with a nameless attribute\n", n);
-      CHECK(attrs == expected_attrs, "fail_at=%ld: parse succeeded but lost attributes (%d/%d)\n", n, attrs, expected_attrs);
+      CHECK(attrs >= 0, "failAt=%ld: parse succeeded with a nameless attribute\n", n);
+      CHECK(attrs == expectedAttrs, "failAt=%ld: parse succeeded but lost attributes (%d/%d)\n", n, attrs, expectedAttrs);
     }
     mupnp_xml_nodelist_delete(nodes);
     mupnp_xml_parser_delete(parser);
@@ -153,9 +153,10 @@ static void test_attributelist_set_under_failure(void)
     arm(n);
     bool ok = mupnp_xml_node_setattribute(node, "name", "value");
     disarm();
-    CHECK(!ok, "fail_at=%ld: setattribute reported success\n", n);
+    CHECK(!ok, "failAt=%ld: setattribute reported success\n", n);
     CHECK(mupnp_xml_attributelist_size(node->attrList) == 0,
-        "fail_at=%ld: failed setattribute left an attribute behind\n", n);
+        "failAt=%ld: failed setattribute left an attribute behind\n",
+        n);
     mupnp_xml_node_delete(node);
   }
   printf("attributelist_set: failures reported and nothing left behind\n");

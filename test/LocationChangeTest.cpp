@@ -18,7 +18,6 @@
 #include <boost/test/unit_test.hpp>
 #include <cstring>
 #include <string>
-#include <vector>
 
 #include <mupnp/net/url.h>
 
@@ -26,9 +25,9 @@
 
 namespace {
 
-constexpr const char* kTestUdn = "uuid:1234567890";
-constexpr const char* kDefaultValue = "1234";
-constexpr const char* kUpdateValue = "4649";
+constexpr const char* TEST_UDN = "uuid:1234567890";
+constexpr const char* DEFAULT_VALUE = "1234";
+constexpr const char* UPDATE_VALUE = "4649";
 
 /* State written by the C listener callbacks, which take no user data. */
 struct LocationTestEvents {
@@ -47,7 +46,7 @@ LocationTestEvents& events()
 /* The signature is fixed by MUPNP_DEVICE_LISTENER. */
 void location_test_devicelistener(mUpnpControlPoint*, const char* udn, mUpnpDeviceStatus status)
 {
-  if (mupnp_streq(udn, kTestUdn))
+  if (mupnp_streq(udn, TEST_UDN))
     events().lastStatus = static_cast<int>(status);
 }
 
@@ -60,32 +59,35 @@ void location_test_eventlistener(mUpnpProperty* prop)
   }
 }
 
-/* Non-loopback IPv4 addresses; mUPnP binds its servers per interface. */
-std::vector<std::string> location_test_addresses()
+void location_test_reset()
 {
-  std::vector<std::string> addrs;
-  mUpnpNetworkInterfaceList* netIfList = mupnp_net_interfacelist_new();
-  if (netIfList == nullptr)
-    return addrs;
-  mupnp_net_gethostinterfaces(netIfList);
-  for (auto netIf = mupnp_net_interfacelist_gets(netIfList); netIf != nullptr; netIf = mupnp_net_interface_next(netIf)) {
-    const char* ifAddr = mupnp_net_interface_getaddress(netIf);
-    if (ifAddr == nullptr || mupnp_net_isipv6address(ifAddr) || std::strncmp(ifAddr, "127.", 4) == 0)
-      continue;
-    addrs.emplace_back(ifAddr);
-  }
-  mupnp_net_interfacelist_delete(netIfList);
-  return addrs;
+  events() = LocationTestEvents();
 }
 
-bool location_test_setup()
+/* Discover the test device with a real M-SEARCH, as SubscriptionTest does,
+   and remember the LOCATION and the local interface address the control
+   point actually used. Injected announcements reuse that address, so the test
+   does not depend on how many interfaces the host has. */
+std::string location_test_discover(mUpnpControlPoint* cp)
 {
-  std::vector<std::string> addrs = location_test_addresses();
-  if (addrs.empty())
-    return false;
-  events() = LocationTestEvents();
-  events().localAddress = addrs[0];
-  return true;
+  std::string location;
+  BOOST_REQUIRE(mupnp_controlpoint_search(cp, MUPNP_ST_ROOT_DEVICE));
+  for (int n = 0; n < (mupnp_controlpoint_getssdpsearchmx(cp) + 3) * 10 && location.empty(); n++) {
+    mupnp_sleep(100);
+    mupnp_controlpoint_lock(cp);
+    if (mUpnpDevice* dev = mupnp_controlpoint_getdevicebyudn(cp, TEST_UDN); dev != nullptr) {
+      mUpnpSSDPPacket* pkt = mupnp_device_getssdppacket(dev);
+      const char* loc = mupnp_ssdp_packet_getlocation(pkt);
+      const char* localAddr = mupnp_ssdp_packet_getlocaladdress(pkt);
+      if (loc != nullptr && localAddr != nullptr) {
+        location = loc;
+        events().localAddress = localAddr;
+      }
+    }
+    mupnp_controlpoint_unlock(cp);
+  }
+  BOOST_REQUIRE_MESSAGE(!location.empty(), "test device not discovered");
+  return location;
 }
 
 /* The LOCATION the device would advertise for host, built by the same
@@ -107,6 +109,7 @@ std::string location_test_respelled(const std::string& url, int port)
   std::string portPart = ":" + std::to_string(port) + "/";
   if (auto pos = respelled.find(portPart); pos != std::string::npos)
     respelled.insert(pos + 1, "0");
+  BOOST_REQUIRE(respelled != url);
   return respelled;
 }
 
@@ -144,7 +147,7 @@ LocationTestState location_test_state(mUpnpControlPoint* cp)
 {
   LocationTestState st;
   mupnp_controlpoint_lock(cp);
-  if (mUpnpDevice* dev = mupnp_controlpoint_getdevicebyudn(cp, kTestUdn); dev != nullptr) {
+  if (mUpnpDevice* dev = mupnp_controlpoint_getdevicebyudn(cp, TEST_UDN); dev != nullptr) {
     st.service = mupnp_device_getservicebyexacttype(dev, TEST_DEVICE_SERVICE_TYPE);
     if (st.service != nullptr) {
       st.subscribed = mupnp_service_issubscribed(st.service);
@@ -161,7 +164,7 @@ LocationTestState location_test_state(mUpnpControlPoint* cp)
 
 BOOST_AUTO_TEST_CASE(LocationChangeKeepsSubscription)
 {
-  BOOST_REQUIRE_MESSAGE(location_test_setup(), "needs a non-loopback IPv4 interface");
+  location_test_reset();
   mUpnpDevice* testDev = upnp_test_device_new();
   BOOST_REQUIRE(testDev);
   BOOST_REQUIRE(mupnp_device_start(testDev));
@@ -174,23 +177,20 @@ BOOST_AUTO_TEST_CASE(LocationChangeKeepsSubscription)
   mupnp_controlpoint_addeventlistener(cp, location_test_eventlistener);
   mupnp_controlpoint_setdevicelistener(cp, location_test_devicelistener);
 
-  std::vector<std::string> addrs = location_test_addresses();
-  std::string locA = location_test_url(addrs[0], port, descPath);
-  /* A second interface gives a real multi-homed LOCATION; otherwise spell the
-     same endpoint differently so the LOCATION string still changes. */
-  std::string locB = (1 < addrs.size()) ? location_test_url(addrs[1], port, descPath) : location_test_respelled(locA, port);
+  // Discover through the real LOCATION A; B is the same endpoint spelled
+  // differently, so only the LOCATION string changes.
+  std::string locA = location_test_discover(cp);
+  std::string locB = location_test_respelled(locA, port);
   std::string locDead = location_test_url("127.0.0.1", 1, descPath);
-  BOOST_TEST_MESSAGE("LOCATION A=" << locA << " B=" << locB);
-  BOOST_REQUIRE(locA != locB);
+  BOOST_TEST_MESSAGE("LOCATION A=" << locA << " B=" << locB << " local=" << events().localAddress);
 
   mUpnpService* devService = mupnp_device_getservicebyexacttype(testDev, TEST_DEVICE_SERVICE_TYPE);
   BOOST_REQUIRE(devService != nullptr);
   mUpnpStateVariable* devState = mupnp_service_getstatevariablebyname(devService, TEST_DEVICE_STATEVARIABLE_STATUS);
   BOOST_REQUIRE(devState != nullptr);
-  mupnp_statevariable_setvalue(devState, kDefaultValue);
+  mupnp_statevariable_setvalue(devState, DEFAULT_VALUE);
 
-  // Discover through LOCATION A and subscribe.
-  location_test_announce(cp, locA);
+  // Subscribe through LOCATION A.
   LocationTestState st0 = location_test_state(cp);
   BOOST_REQUIRE(st0.service != nullptr);
   BOOST_REQUIRE(mupnp_controlpoint_subscribe(cp, st0.service, 300));
@@ -209,7 +209,7 @@ BOOST_AUTO_TEST_CASE(LocationChangeKeepsSubscription)
   // NOTIFY is still matched to the cached service.
   events().eventCount = 0;
   events().lastSid.clear();
-  mupnp_statevariable_setvalue(devState, kUpdateValue);
+  mupnp_statevariable_setvalue(devState, UPDATE_VALUE);
   for (int n = 0; n < 20 && events().eventCount == 0; n++)
     mupnp_sleep(200);
   BOOST_CHECK(0 < events().eventCount);
@@ -244,20 +244,18 @@ BOOST_AUTO_TEST_CASE(LocationChangeKeepsSubscription)
 
 BOOST_AUTO_TEST_CASE(LocationChangeWithNewDescriptionCarriesSid)
 {
-  BOOST_REQUIRE_MESSAGE(location_test_setup(), "needs a non-loopback IPv4 interface");
+  location_test_reset();
 
   mUpnpDevice* testDev = upnp_test_device_new();
   BOOST_REQUIRE(testDev);
   BOOST_REQUIRE(mupnp_device_start(testDev));
   int port = mupnp_device_gethttpport(testDev);
-  const char* descPath = mupnp_device_getdescriptionuri(testDev);
 
   mUpnpControlPoint* cp = mupnp_controlpoint_new();
   BOOST_REQUIRE(cp);
   BOOST_REQUIRE(mupnp_controlpoint_start(cp));
 
-  std::string locA = location_test_url(events().localAddress, port, descPath);
-  location_test_announce(cp, locA);
+  std::string locA = location_test_discover(cp);
   LocationTestState st0 = location_test_state(cp);
   BOOST_REQUIRE(st0.service != nullptr);
   BOOST_REQUIRE(mupnp_controlpoint_subscribe(cp, st0.service, 300));
@@ -273,7 +271,7 @@ BOOST_AUTO_TEST_CASE(LocationChangeWithNewDescriptionCarriesSid)
   location_test_announce(cp, location_test_respelled(locA, port));
 
   mupnp_controlpoint_lock(cp);
-  mUpnpDevice* cpDev = mupnp_controlpoint_getdevicebyudn(cp, kTestUdn);
+  mUpnpDevice* cpDev = mupnp_controlpoint_getdevicebyudn(cp, TEST_UDN);
   BOOST_REQUIRE(cpDev != nullptr);
   mUpnpService* newService = mupnp_device_getservicebyexacttype(cpDev, TEST_DEVICE_SERVICE_TYPE);
   BOOST_REQUIRE(newService != nullptr);
