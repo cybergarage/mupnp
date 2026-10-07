@@ -340,9 +340,13 @@ static bool is_host_address(const std::string& addr)
 }
 
 /* Calls mupnp_net_selectaddr() and takes ownership of the returned string. */
-static std::string select_addr(const void* remote)
+struct FreeDeleter {
+  void operator()(char* p) const { std::free(p); } // NOSONAR: mupnp_net_selectaddr() returns malloc'ed memory
+};
+
+static std::string select_addr(struct sockaddr* remote)
 {
-  std::unique_ptr<char, void (*)(void*)> addr(mupnp_net_selectaddr((struct sockaddr*)remote), std::free);
+  std::unique_ptr<char, FreeDeleter> addr(mupnp_net_selectaddr(remote));
   return addr ? std::string(addr.get()) : std::string();
 }
 
@@ -352,7 +356,7 @@ BOOST_AUTO_TEST_CASE(SelectAddrReturnsHostAddress)
   struct sockaddr_in remote4 = {};
   remote4.sin_family = AF_INET;
   inet_pton(AF_INET, "203.0.113.5", &remote4.sin_addr); // NOSONAR: documentation address
-  std::string addr = select_addr(&remote4);
+  std::string addr = select_addr((struct sockaddr*)&remote4);
   BOOST_CHECK(is_host_address(addr));
   BOOST_CHECK(!mupnp_net_isipv6address(addr.c_str()));
 
@@ -364,7 +368,7 @@ BOOST_AUTO_TEST_CASE(SelectAddrReturnsHostAddress)
     struct sockaddr_in same = {};
     same.sin_family = AF_INET;
     inet_pton(AF_INET, mupnp_net_interface_getaddress(netIf), &same.sin_addr);
-    BOOST_CHECK_EQUAL(select_addr(&same), std::string(mupnp_net_interface_getaddress(netIf)));
+    BOOST_CHECK_EQUAL(select_addr((struct sockaddr*)&same), std::string(mupnp_net_interface_getaddress(netIf)));
   }
   mupnp_net_interfacelist_delete(ifList);
 
@@ -374,11 +378,11 @@ BOOST_AUTO_TEST_CASE(SelectAddrReturnsHostAddress)
   remote6.sin6_family = AF_INET6;
   inet_pton(AF_INET6, "fe80::1234", &remote6.sin6_addr);
   remote6.sin6_scope_id = 1;
-  BOOST_CHECK(is_host_address(select_addr(&remote6)));
+  BOOST_CHECK(is_host_address(select_addr((struct sockaddr*)&remote6)));
 
   /* With IPv6 enabled, an IPv6 address is chosen when the host has one. */
   mupnp_net_setipv6enabled(true);
-  addr = select_addr(&remote6);
+  addr = select_addr((struct sockaddr*)&remote6);
   BOOST_CHECK(is_host_address(addr));
   BOOST_TEST_MESSAGE("selected for IPv6 peer: " << addr);
   mupnp_net_setipv6enabled(false);

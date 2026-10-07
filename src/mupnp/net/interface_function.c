@@ -805,15 +805,21 @@ char* mupnp_net_selectaddr(struct sockaddr* remoteaddr)
 
   /* Only an IPv4 peer can be matched against IPv4 subnets. */
   raddr = (remoteaddr->sa_family == AF_INET) ? ntohl(((struct sockaddr_in*)remoteaddr)->sin_addr.s_addr) : 0;
-  for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf && !selectNetIf; netIf = mupnp_net_interface_next(netIf)) {
-    if (mupnp_net_interface_issubnetof(netIf, raddr) == true)
+  for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf; netIf = mupnp_net_interface_next(netIf)) {
+    if (mupnp_net_interface_issubnetof(netIf, raddr) == true) {
       selectNetIf = netIf;
+      break;
+    }
   }
 
   /* Prefer an IPv4 address when nothing matched. */
-  for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf && !selectNetIf; netIf = mupnp_net_interface_next(netIf)) {
-    if (mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf)) == false)
-      selectNetIf = netIf;
+  if (!selectNetIf) {
+    for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf; netIf = mupnp_net_interface_next(netIf)) {
+      if (mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf)) == false) {
+        selectNetIf = netIf;
+        break;
+      }
+    }
   }
   if (!selectNetIf)
     selectNetIf = mupnp_net_interfacelist_gets(netIfList);
