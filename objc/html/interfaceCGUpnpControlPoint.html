@@ -112,7 +112,8 @@ Properties</h2></td></tr>
 <tr class="separator:a5aabce13d286ffdd4d1da4a34e7d552c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="interfaceCGUpnpControlPoint.html">CGUpnpControlPoint</a> class is a wrapper class for mUpnpControlPoint of mUPnP for C to program using only Objective-C directly on MacOSX. Currently, the only basic methods are wrapped to control UPnP devices. </p>
+<div class="textblock"><p>The <a class="el" href="interfaceCGUpnpControlPoint.html">CGUpnpControlPoint</a> class is a wrapper class for mUpnpControlPoint of mUPnP for C to program using only Objective-C directly on macOS and iOS. Currently, the only basic methods are wrapped to control UPnP devices.</p>
+<p>-init creates and starts the native control point. It returns nil, without leaking the native object, when the native control point cannot be created or started. </p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="acbcd0ac65aa122c27f849e93293defcf" name="acbcd0ac65aa122c27f849e93293defcf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acbcd0ac65aa122c27f849e93293defcf">&#9670;&#160;</a></span>cObject</h2>
@@ -200,7 +201,7 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Send a M-SEARCH request to find for the all UPnP devices of UPnP in the network. The method waits for the specified MX time. Use <a class="el" href="#a5b4385e5396b29cd66cca675e6bd652b">setSsdpSearchMX:</a>aMX to change the time. The method is same as searchWithST() when the ST parameter is "ssdp:all". </p>
+<p>Send an M-SEARCH request for root devices in the network. The method is the same as searchWithST: with the ST parameter "upnp:rootdevice" (MUPNP_NT_ROOTDEVICE); it does not search for "ssdp:all". See searchWithST: for when the method returns and how results are delivered. </p>
 
 </div>
 </div>
@@ -218,10 +219,11 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Send a M-SEARCH request to find for the specified UPnP devices by a ST parameter in the network. The method waits for the specified MX time. Use <a class="el" href="#a5b4385e5396b29cd66cca675e6bd652b">setSsdpSearchMX:</a>aMX to change the time.</p>
+<p>Send an M-SEARCH request for the specified search target (ST) in the network.</p>
+<p>By default the method returns once the native layer has sent the request (it repeats the send mupnp_ssdp_getannouncecount() times with a short delay in between); it does not wait for the MX period and does not report whether sending succeeded. Responses arrive asynchronously: found devices are reported through the delegate and are returned by devices and deviceForUDN: afterwards. Only when the wrapper is compiled with CG_UPNPCONTROLPOINT_ENABLE_SEARCH_SLEEP does the method additionally sleep for ssdpSearchMX seconds before returning.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">aST</td><td>The Search Target parameter (ex. "ssdp:all") </td></tr>
+    <tr><td class="paramname">aST</td><td>The Search Target parameter (ex. "upnp:rootdevice" or "ssdp:all") </td></tr>
   </table>
   </dd>
 </dl>
@@ -242,10 +244,10 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set a MX parameter used for SSDP searches in seconds. The parameter is used to wait for M-SEARCH responses in <a class="el" href="#aa2ecd4b95780704d69b82012edce7672">search</a> and <a class="el" href="#a766273ced74e85a91375d387ae90150f">searchWithST:</a>aST.</p>
+<p>Set the MX parameter, in seconds, sent in SSDP M-SEARCH requests. MX is the maximum time devices may wait before responding. The search methods wait for this time only when compiled with CG_UPNPCONTROLPOINT_ENABLE_SEARCH_SLEEP.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">aMX</td><td>Time to wait </td></tr>
+    <tr><td class="paramname">aMX</td><td>Maximum response delay in seconds </td></tr>
   </table>
   </dd>
 </dl>
@@ -266,8 +268,8 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get a MX parameter used for SSDP searches in seconds. The parameter is used to wait for M-SEARCH responses in <a class="el" href="#aa2ecd4b95780704d69b82012edce7672">search</a> and <a class="el" href="#a766273ced74e85a91375d387ae90150f">searchWithST:</a>aST.</p>
-<dl class="section return"><dt>Returns</dt><dd>Time to wait </dd></dl>
+<p>Get the MX parameter, in seconds, sent in SSDP M-SEARCH requests.</p>
+<dl class="section return"><dt>Returns</dt><dd>Maximum response delay in seconds </dd></dl>
 
 </div>
 </div>

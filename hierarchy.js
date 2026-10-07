@@ -58,6 +58,6 @@ var hierarchy =
     ] ],
     [ "tm", "structtm.html", null ],
     [ "XCTestCase", null, [
-      [ "CyberLink4ObjCTests", "interfaceCyberLink4ObjCTests.html", null ]
+      [ "mUPnP4ObjCTests", "interfacemUPnP4ObjCTests.html", null ]
     ] ]
 ];

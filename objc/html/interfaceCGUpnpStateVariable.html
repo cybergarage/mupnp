@@ -141,6 +141,14 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Create a wrapper for the specified native state variable.</p>
+<p>The native object is borrowed: the wrapper does not take ownership of it and does not modify its userdata. Passing NULL (or using -init) creates an invalid wrapper: name, value and statusCode return nil/0, allowedValues returns an empty array, and isAllowedValue: and query return NO.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cobj</td><td>The native state variable, or NULL </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

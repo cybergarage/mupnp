@@ -75,7 +75,7 @@ $(function(){initNavTree('md_doc_2mupnpobjcproguide.html',''); initResizable(tru
 1 Introduction</h1>
 <p>UPnP™*[^1] architecture is based on open networking to enable discovery and control of networked devices and services, such as media servers and players at home.</p>
 <p>UPnP™ architecture is based on many standard protocols, such as GENA, SSDP, SOAP, HTTPU and HTTP. Therefore you have to understand and implement these protocols to create your devices of UPnP™.</p>
-<p>mUPnP for MacOSX is a development package for UPnP™ developers. The mUPnP controls these protocols automatically, and supports to create your control points quickly.</p>
+<p>mUPnP for Objective-C is a development package for UPnP™ developers on macOS and iOS. The mUPnP controls these protocols automatically, and supports to create your control points quickly.</p>
 <p>Please see the following site and documents to know about UPnP™ in more detail.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -91,11 +91,11 @@ $(function(){initNavTree('md_doc_2mupnpobjcproguide.html',''); initResizable(tru
 2 Setup</h1>
 <h2><a class="anchor" id="autotoc_md44"></a>
 2.1 System Requirement</h2>
-<p>Currently, the framework is based on Objective-C 2.0. Thus, the current framework requires MacOSX v10.5, Leopard, later. In the future, I will support other lower MacOSX and iPhone v2.0.</p>
+<p>The Xcode projects target macOS 12.0 or later and iOS 15.0 or later. The wrapper sources in <code>wrapper/objc/mUPnP</code> use manual reference counting (MRC); the Xcode project compiles them with <code>-fno-objc-arc</code>, so add the same flag when you build them in an ARC target.</p>
 <h2><a class="anchor" id="autotoc_md45"></a>
-2.2 Installer</h2>
-<p>The framework is distributed as a install package as the following. Using the installer, the framework is installed into \'/Library/Framework/mUPnP.framework\' as default.</p>
-<p><img src="img/mupnpc-objc-macosx-installer.jpg" alt="" class="inline"/></p>
+2.2 Building</h2>
+<p>Build the framework with <code>wrapper/objc/xcode/mUPnP4ObjC.xcodeproj</code>. The project builds the C library through <code>lib/macosx/xcode/libmupnp.xcodeproj</code> and links it into the <code>mUPnP4ObjC</code> framework. To use the sources directly, add <code>wrapper/objc/mUPnP/*.m</code> to your target and add <code>include</code> and <code>wrapper/objc</code> to the header search paths.</p>
+<p>The <code><a class="el" href="interfacemUPnP4ObjCTests.html">mUPnP4ObjCTests</a></code> target contains XCTest cases for the wrapper. <code>test/security/verify-macos.py</code> builds the wrapper with ASan/UBSan and runs the Objective-C lifetime and API regressions together with the C test suite.</p>
 <h1><a class="anchor" id="autotoc_md46"></a>
 3 Control Point</h1>
 <h2><a class="anchor" id="autotoc_md47"></a>
@@ -104,44 +104,58 @@ $(function(){initNavTree('md_doc_2mupnpobjcproguide.html',''); initResizable(tru
 <p><img src="img/mupnp-objc-ctrlpoint-class-overview.png" alt="" class="inline"/></p>
 <h2><a class="anchor" id="autotoc_md48"></a>
 3.2 Initiating</h2>
-<p>To create a UPnP™ control point, create a instance of <a class="el" href="interfaceCGUpnpControlPoint.html">CGUpnpControlPoint</a> class. The new instance is activated automatically using <a class="el" href="interfaceCGUpnpControlPoint.html#a2fa0d2fe4287bf9e6596d634ae800683">start (CGUpnpControlPoint)</a>. Use <a class="el" href="interfaceCGUpnpControlPoint.html#aa2ecd4b95780704d69b82012edce7672">search (CGUpnpControlPoint)</a> or searchWithST to find the devices in the local network.</p>
-<div class="fragment"><div class="line">#import &lt;mUPnP/UPnP.h&gt;</div>
+<p>To create a UPnP™ control point, create a instance of <a class="el" href="interfaceCGUpnpControlPoint.html">CGUpnpControlPoint</a> class. The new instance is activated automatically using <a class="el" href="interfaceCGUpnpControlPoint.html#a2fa0d2fe4287bf9e6596d634ae800683">start (CGUpnpControlPoint)</a>, and <code>init</code> returns nil when the control point cannot be created or started. Use <a class="el" href="interfaceCGUpnpControlPoint.html#aa2ecd4b95780704d69b82012edce7672">search (CGUpnpControlPoint)</a> or searchWithST to find the devices in the local network.</p>
+<p><code>search</code> sends an M-SEARCH request with the search target <code>upnp:rootdevice</code>; use <code>searchWithST:</code> with <code>ssdp:all</code> or another target to search for other devices. The methods return once the request has been sent and do not wait for responses (unless the wrapper is compiled with <code>CG_UPNPCONTROLPOINT_ENABLE_SEARCH_SLEEP</code>, which waits for <code>ssdpSearchMX</code> seconds). Found devices are reported asynchronously through the <code><a class="el" href="protocolCGUpnpControlPointDelegate-p.html">CGUpnpControlPointDelegate</a></code> methods and are returned by <code>devices</code> afterwards.</p>
+<div class="fragment"><div class="line">#import &lt;mUPnP/CGUpnp.h&gt;</div>
 <div class="line">......</div>
 <div class="line">CGUpnpControlPoint *ctrlPoint = [[CGUpnpControlPoint alloc] init];</div>
 <div class="line">......</div>
-<div class="line">[ctrolPoint search];</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md49"></a>
+<div class="line">[ctrlPoint search];</div>
+</div><!-- fragment --><p>On iOS, the application that uses the control point needs a <code>NSLocalNetworkUsageDescription</code> entry, and sending SSDP multicast requires the multicast networking entitlement. Configure them in the application; the framework does not change entitlements or signing settings.</p>
+<h2><a class="anchor" id="autotoc_md49"></a>
 3.3 Root Devices</h2>
-<p>Use <a class="el" href="interfaceCGUpnpControlPoint.html">CGUpnpControlPoint</a>:devices to get the all root devices which the control point found. The method returns a NSArray object which has the devices as instances of <a class="el" href="interfaceCGUpnpDevice.html">CGUpnpDevice</a>.</p>
-<div class="fragment"><div class="line">#import &lt;mUPnP/UPnP.h&gt;</div>
+<p>Use <a class="el" href="interfaceCGUpnpControlPoint.html">CGUpnpControlPoint</a>:devices to get the all root devices which the control point found. The method returns a NSArray object which has the devices as instances of <a class="el" href="interfaceCGUpnpDevice.html">CGUpnpDevice</a>. Each device is an independent snapshot taken when the method is called; it keeps its description after the device leaves the network, and it is not updated by later discovery or events.</p>
+<div class="fragment"><div class="line">#import &lt;mUPnP/CGUpnp.h&gt;</div>
 <div class="line">......</div>
-<div class="line">CGUpnpControlPoint \*ctrlPoint = [[CGUpnpControlPoint alloc] init];</div>
+<div class="line">CGUpnpControlPoint *ctrlPoint = [[CGUpnpControlPoint alloc] init];</div>
 <div class="line">......</div>
-<div class="line">[ctrolPoint search];</div>
+<div class="line">[ctrlPoint search];</div>
+<div class="line">// Wait for responses, for example in the delegate callbacks.</div>
 <div class="line"> </div>
 <div class="line">NSArray *devArray = [ctrlPoint devices];</div>
 <div class="line">for (CGUpnpDevice *dev in devArray)</div>
 <div class="line">    NSLog(@&quot;%@&quot;, [dev friendlyName]);</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md50"></a>
 3.4 Control</h2>
-<p>The control point can send action or query control messages to the discovered devices. To send the action control message, use CGUpnpAction:setArgumentValue:forName and <a class="el" href="interfaceCGUpnpAction.html">CGUpnpAction</a>:post. You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.</p>
+<p>The control point can send action or query control messages to the discovered devices. To send the action control message, use CGUpnpAction:setArgumentValue:forName and <a class="el" href="interfaceCGUpnpAction.html">CGUpnpAction</a>:post, or <a class="el" href="interfaceCGUpnpAction.html">CGUpnpAction</a>:postWithArguments. You should set the action values to the all input arguments, and the output argument values is ignored if you set. The following sample posts a action control request that sets a new time, and output the response result.</p>
 <div class="fragment"><div class="line">CGUpnpDevice *clockDev = .....</div>
 <div class="line">CGUpnpService *timeService = [clockDev getServiceForType:@&quot;urn:schemas-upnp-org:service:xxxxx:1&quot;];</div>
 <div class="line">CGUpnpAction *setTimeAct = [timeService getActionForName:@&quot;SetTime&quot;];</div>
 <div class="line"> </div>
 <div class="line">NSString *currTime = ......</div>
-<div class="line">[setTimeAct setArgumentValue: currTime forName:@&quot;NewTime&quot;];</div>
+<div class="line">[setTimeAct setArgumentValue:currTime forName:@&quot;NewTime&quot;];</div>
 <div class="line">if ([setTimeAct post]) {</div>
-<div class="line">    NSArray \*argArray = [ setTimeAct arguments]; for (CGUpnpArgument \*arg in argArray)</div>
-<div class="line">    NSLog(@&quot;%@ = %@&quot;, [arg name], [arg value]]);</div>
+<div class="line">    NSDictionary *args = [setTimeAct arguments];</div>
+<div class="line">    for (NSString *name in args)</div>
+<div class="line">        NSLog(@&quot;%@ = %@&quot;, name, [args objectForKey:name]);</div>
 <div class="line">}</div>
+<div class="line">else {</div>
+<div class="line">    NSLog(@&quot;UPnP status code = %ld&quot;, (long)[setTimeAct statusCode]);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p><code>postWithArguments:</code> checks every entry before it changes any argument or sends the request. It returns NO without sending anything when a key is not an argument name of the action, or when a key or value is not an <code>NSString</code>. Arguments that are not in the dictionary keep their current values.</p>
+<div class="fragment"><div class="line">if (![setTimeAct postWithArguments:@{ @&quot;NewTime&quot; : currTime }])</div>
+<div class="line">    NSLog(@&quot;SetTime failed&quot;);</div>
 </div><!-- fragment --><p>Similarly, to send the query control message, use <a class="el" href="interfaceCGUpnpStateVariable.html#a5a46cedaa5838d6cc8577077dc04b079">query (CGUpnpStateVariable)</a>. The following sample posts a query control request, and output the return value.</p>
 <div class="fragment"><div class="line">CGUpnpDevice *clockDev = ......</div>
 <div class="line">CGUpnpService *timeService = [clockDev getServiceForType:@&quot;urn:schemas-upnp-org:service:xxxxx:1&quot;];</div>
-<div class="line">CGUpnpStateVariable *timeStateVar = [timeService &quot;time&quot;]; </div>
+<div class="line">CGUpnpStateVariable *timeStateVar = [timeService getStateVariableForName:@&quot;Time&quot;];</div>
 <div class="line">if ([timeStateVar query])</div>
-<div class="line">    NSLog(@&quot;%@ = %@&quot;, [timeStateVar name], [timeStateVar value]]);</div>
-</div><!-- fragment --> </div></div><!-- contents -->
+<div class="line">    NSLog(@&quot;%@ = %@&quot;, [timeStateVar name], [timeStateVar value]);</div>
+</div><!-- fragment --><p>The SDK reports the result of each request but does not ask the user for confirmation or retry requests automatically. Applications that control real devices are responsible for confirming operations and for deciding whether to resend them.</p>
+<h2><a class="anchor" id="autotoc_md51"></a>
+3.5 Descriptions</h2>
+<p><a class="el" href="interfaceCGUpnpDevice.html">CGUpnpDevice</a>:parseXMLDescription and <a class="el" href="interfaceCGUpnpService.html">CGUpnpService</a>:parseXMLDescription pass the description to the parser as UTF-8 bytes, so names that contain Japanese text or emoji are kept. They return NO without changing the receiver for nil, empty or non-UTF-8 input. When the XML itself is rejected, they return NO after the previous description has been cleared; do not use service, action or state variable objects obtained from the receiver before the failed call. </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->

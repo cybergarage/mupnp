@@ -51,7 +51,7 @@ var annotated_dup =
     [ "CGUpnpIcon", "interfaceCGUpnpIcon.html", "interfaceCGUpnpIcon" ],
     [ "CGUpnpService", "interfaceCGUpnpService.html", "interfaceCGUpnpService" ],
     [ "CGUpnpStateVariable", "interfaceCGUpnpStateVariable.html", "interfaceCGUpnpStateVariable" ],
-    [ "CyberLink4ObjCTests", "interfaceCyberLink4ObjCTests.html", null ],
     [ "FdList", "structFdList.html", "structFdList" ],
+    [ "mUPnP4ObjCTests", "interfacemUPnP4ObjCTests.html", null ],
     [ "tm", "structtm.html", "structtm" ]
 ];

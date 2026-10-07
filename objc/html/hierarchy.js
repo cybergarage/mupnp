@@ -13,6 +13,6 @@ var hierarchy =
       [ "<CGUpnpDeviceDelegate>", "protocolCGUpnpDeviceDelegate-p.html", null ]
     ] ],
     [ "XCTestCase", null, [
-      [ "CyberLink4ObjCTests", "interfaceCyberLink4ObjCTests.html", null ]
+      [ "mUPnP4ObjCTests", "interfacemUPnP4ObjCTests.html", null ]
     ] ]
 ];

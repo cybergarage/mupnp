@@ -67,6 +67,7 @@ $(function(){initNavTree('CGUpnpDevice_8m.html',''); initResizable(true); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">CGUpnpDevice.m File Reference</div></div>
 </div><!--header-->
@@ -75,18 +76,67 @@ $(function(){initNavTree('CGUpnpDevice_8m.html',''); initResizable(true); });
 <code>#include &lt;<a class="el" href="icon_8h.html">mupnp/icon.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="service_8h.html">mupnp/service.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="statevariable_8h.html">mupnp/statevariable.h</a>&gt;</code><br />
+<code>import &lt;Foundation/NSData.h&gt;</code><br />
 <code>import &quot;<a class="el" href="CGUpnpAction_8h.html">CGUpnpAction.h</a>&quot;</code><br />
 <code>import &quot;<a class="el" href="CGUpnpDevice_8h.html">CGUpnpDevice.h</a>&quot;</code><br />
 <code>import &quot;<a class="el" href="CGUpnpIcon_8h.html">CGUpnpIcon.h</a>&quot;</code><br />
 <code>import &quot;<a class="el" href="CGUpnpService_8h.html">CGUpnpService.h</a>&quot;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a7dce02c15569ad5136602872b6dde418" id="r_a7dce02c15569ad5136602872b6dde418"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7dce02c15569ad5136602872b6dde418">CG_UPNP_DEVICE_NEW</a>()</td></tr>
+<tr class="separator:a7dce02c15569ad5136602872b6dde418"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1eb2bae6f1e805aa330f732de7bc15ba" id="r_a1eb2bae6f1e805aa330f732de7bc15ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1eb2bae6f1e805aa330f732de7bc15ba">CG_UPNP_DEVICE_DELETE</a>(dev)</td></tr>
+<tr class="separator:a1eb2bae6f1e805aa330f732de7bc15ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:adf18fe9ff642ca0fb2e215b9c4a4a521" id="r_adf18fe9ff642ca0fb2e215b9c4a4a521"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf18fe9ff642ca0fb2e215b9c4a4a521">cg_upnp_device_action_listener</a> (<a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *action)</td></tr>
 <tr class="separator:adf18fe9ff642ca0fb2e215b9c4a4a521"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a980e05963118e6f510d9131518541a5b" id="r_a980e05963118e6f510d9131518541a5b"><td class="memItemLeft" align="right" valign="top">static NSData *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a980e05963118e6f510d9131518541a5b">cg_upnp_device_description_bytes</a> (NSString *xmlDesc)</td></tr>
+<tr class="separator:a980e05963118e6f510d9131518541a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae817e673a4c6c05dcd205ce66eaa1162" id="r_ae817e673a4c6c05dcd205ce66eaa1162"><td class="memItemLeft" align="right" valign="top">static BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae817e673a4c6c05dcd205ce66eaa1162">cg_upnp_copy_discovery_details</a> (<a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dst, <a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *src)</td></tr>
 <tr class="separator:ae817e673a4c6c05dcd205ce66eaa1162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a1eb2bae6f1e805aa330f732de7bc15ba" name="a1eb2bae6f1e805aa330f732de7bc15ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eb2bae6f1e805aa330f732de7bc15ba">&#9670;&#160;</a></span>CG_UPNP_DEVICE_DELETE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CG_UPNP_DEVICE_DELETE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>dev</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="device_8c.html#a6eb99cb4d1c0f01e2597f8d0596dae65">mupnp_device_delete</a>(dev)</div>
+<div class="ttc" id="adevice_8c_html_a6eb99cb4d1c0f01e2597f8d0596dae65"><div class="ttname"><a href="device_8c.html#a6eb99cb4d1c0f01e2597f8d0596dae65">mupnp_device_delete</a></div><div class="ttdeci">void mupnp_device_delete(mUpnpDevice *dev)</div><div class="ttdoc">Delete a UPnP device and free all associated resources.</div><div class="ttdef"><b>Definition</b> device.c:95</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a7dce02c15569ad5136602872b6dde418" name="a7dce02c15569ad5136602872b6dde418"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dce02c15569ad5136602872b6dde418">&#9670;&#160;</a></span>CG_UPNP_DEVICE_NEW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CG_UPNP_DEVICE_NEW</td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new</a>()</div>
+<div class="ttc" id="adevice_8c_html_a5981b74558fe69136e90ebdd9a1f8dc1"><div class="ttname"><a href="device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new</a></div><div class="ttdeci">mUpnpDevice * mupnp_device_new(void)</div><div class="ttdoc">Create a new UPnP device instance.</div><div class="ttdef"><b>Definition</b> device.c:41</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ae817e673a4c6c05dcd205ce66eaa1162" name="ae817e673a4c6c05dcd205ce66eaa1162"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae817e673a4c6c05dcd205ce66eaa1162">&#9670;&#160;</a></span>cg_upnp_copy_discovery_details()</h2>
@@ -130,6 +180,31 @@ Functions</h2></td></tr>
           <td class="memname">static <a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a> cg_upnp_device_action_listener </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *</td>          <td class="paramname"><span class="paramname"><em>action</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a980e05963118e6f510d9131518541a5b" name="a980e05963118e6f510d9131518541a5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a980e05963118e6f510d9131518541a5b">&#9670;&#160;</a></span>cg_upnp_device_description_bytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static NSData * cg_upnp_device_description_bytes </td>
+          <td>(</td>
+          <td class="paramtype">NSString *</td>          <td class="paramname"><span class="paramname"><em>xmlDesc</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

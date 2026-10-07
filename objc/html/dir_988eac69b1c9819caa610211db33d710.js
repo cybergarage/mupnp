@@ -10,7 +10,7 @@ var dir_988eac69b1c9819caa610211db33d710 =
     [ "CGUpnpIcon.h", "CGUpnpIcon_8h.html", "CGUpnpIcon_8h" ],
     [ "CGUpnpIcon.m", "CGUpnpIcon_8m.html", null ],
     [ "CGUpnpService.h", "CGUpnpService_8h.html", "CGUpnpService_8h" ],
-    [ "CGUpnpService.m", "CGUpnpService_8m.html", null ],
+    [ "CGUpnpService.m", "CGUpnpService_8m.html", "CGUpnpService_8m" ],
     [ "CGUpnpStateVariable.h", "CGUpnpStateVariable_8h.html", "CGUpnpStateVariable_8h" ],
     [ "CGUpnpStateVariable.m", "CGUpnpStateVariable_8m.html", null ]
 ];

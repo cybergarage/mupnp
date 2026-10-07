@@ -69,10 +69,10 @@ $(function(){initNavTree('md_doc_2security-audit-2026-10-05.html',''); initResiz
   <div class="headertitle"><div class="title">修正結果（2026-10-05）</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md60"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md61"></a></p>
 <p>結果: **fixed（macOS/POSIX上で検証済み）**。監査で報告した13件に修正と回帰検証を追加しました。以下に元の監査レポートをそのまま保存しています。元レポートの行番号、severity、静的検証に関する記述は、修正前の revision <code>138e5f822aefff6bf39bb88a89e80be76228a984</code> を指します。</p>
 <p>PRブランチは最新masterの <code>8fbf1197fc8f75dea0272ed376f8fbbf27a3ca99</code> に統合しました。この更新に含まれるHTTP EOF/受信エラー修正とESP-IDFの既存ライフサイクルを保持し、追加の長さ検証・失敗時の内容消去・回帰テストを統合しています。</p>
-<h1><a class="anchor" id="autotoc_md61"></a>
+<h1><a class="anchor" id="autotoc_md62"></a>
 修正と検証の対応</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -102,7 +102,7 @@ $(function(){initNavTree('md_doc_2security-audit-2026-10-05.html',''); initResiz
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">13 空UDP   </td><td class="markdownTableBodyNone">recvfromの負のエラーとゼロ長の成功を区別し、両SSDP受信ワーカーは空データグラムを破棄して続行   </td><td class="markdownTableBodyNone">空UDP直後の正常データグラムを実際のSSDP応答ワーカーで処理   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md62"></a>
+<h1><a class="anchor" id="autotoc_md63"></a>
 検証コマンドと結果</h1>
 <ul>
 <li><code>./configure --enable-test --enable-examples CPPFLAGS=-I/opt/homebrew/opt/boost/include LDFLAGS=-L/opt/homebrew/opt/boost/lib</code>: 成功。</li>
@@ -129,10 +129,10 @@ $(function(){initNavTree('md_doc_2security-audit-2026-10-05.html',''); initResiz
 <div class="line">  CODE_COVERAGE_IGNORE_PATTERN=&quot;&#39;/Applications/*&#39; &#39;/opt/*&#39;&quot;</div>
 </div><!-- fragment --><p>修正前のHTTP実装だけを差し替えた同じfixtureでは、部分本文受信後のEOFが4秒のタイムアウトまで終了しませんでした。修正後はEOF/EAGAINを失敗として即座に返し、正常な固定長・chunked・接続終了本文は従来どおり取得できました。深いXML、キャッシュ破棄後の子参照、循環するメディア階層、TLSの正常・異常の各対照も上記fixtureで検証しています。</p>
 <p>独立した修正前調査と、1回の候補レビューを実施しました。レビューで確認した受信バッファの余分な終端領域、クライアント応答エラー伝播、HTTPリスナー内削除の問題を修正し、対応するテストを追加しています。</p>
-<h1><a class="anchor" id="autotoc_md63"></a>
+<h1><a class="anchor" id="autotoc_md64"></a>
 PRのCI指摘への対応</h1>
 <p>PR #28の初回CIではLinuxビルド、ESP-IDFビルド、host-regressionが成功しました。SonarCloudがSOCKET_DEBUGで1バイトの読み捨て先に終端NULを書き込む既存の境界問題を検出したため、受信バッファを書き換えない長さ指定ログへ変更しました。長いHTTPヘッダーを正常対照に追加し、SOCKET_DEBUGとASan/UBSanで検証しました。メディアサンプル3箇所は <code>examples/common/content_directory.h</code> の単一の走査・予算処理を利用し、循環防止の重複と複雑度を解消しています。共通ヘッダーはAutotoolsの配布対象にも追加しました。更新後の38ケース、カバレッジ、サニタイザーfixtureは成功しています。</p>
-<h1><a class="anchor" id="autotoc_md64"></a>
+<h1><a class="anchor" id="autotoc_md65"></a>
 マージ後の寿命管理の追補</h1>
 <p>PR #28は <code>8e321fe1f95242671874a43cb5ae9638166f3115</code> としてマージされました。最終確認で見つかった未反映の2箇所を、元レポート4の追補修正としてまとめています。</p>
 <ul>
@@ -141,7 +141,7 @@ PRのCI指摘への対応</h1>
 </ul>
 <p>回帰検証に、再起動したデバイスの直接削除と、要求直後のHTTPサーバーの反復削除・再作成を追加しました。ASan/UBSanの全38ケース、Objective-C寿命、TLS、メディア循環、libxml2、SOCKET_DEBUG検証は成功しました。ESP_PLATFORM定義で変更した2つのCソースの構文検証も成功しています。 HTTPの反復再作成はポート再利用の待ち時間と分離するため、再作成ごとに別のポートを使用します。</p>
 <p>追補の最終 <code>make check-code-coverage</code> 内の通常38ケースは失敗なし、行66.9（6007/8977）、関数78.1（634/812）でした。途中の実行では既存Subscriptionのイベント受信待ちが1回失敗しましたが、ASan/UBSan全体とその後の単独カバレッジ実行では成功しました。</p>
-<h1><a class="anchor" id="autotoc_md65"></a>
+<h1><a class="anchor" id="autotoc_md66"></a>
 互換性と検証範囲</h1>
 <ul>
 <li>制御点が返すObjective-Cデバイスは独立したスナップショットです。取得済みスナップショットへの後続キャッシュイベントの自動反映はありません。最新情報は再取得してください。サービスURL、SCPD、状態値、子デバイスを保持し、アクション送信は既存のネイティブAPIを利用します。</li>
@@ -152,9 +152,9 @@ PRのCI指摘への対応</h1>
 <li>既存のバージョン定義の重複や非推奨APIに関する警告は残っています。監査の未確認候補や未監査領域は、下記の元レポートに記載された範囲を維持します。</li>
 </ul>
 <hr  />
-<h1><a class="anchor" id="autotoc_md67"></a>
+<h1><a class="anchor" id="autotoc_md68"></a>
 Security Review: mupnp</h1>
-<h2><a class="anchor" id="autotoc_md68"></a>
+<h2><a class="anchor" id="autotoc_md69"></a>
 Scope</h2>
 <p>Single-pass static security review of current mUPnP project: native C library and public headers, Objective-C wrappers, runnable examples, tests and legacy AV executable source bodies.</p>
 <ul>
@@ -177,7 +177,7 @@ Scope</h2>
 <li>Excluded examples/binarylight/binarylight_device.c, examples/clock/clock_device.c, test/TestDevice.c, std/av/src/cybergarage/upnp/std/av/renderer/cavtransport_service.c, std/av/src/cybergarage/upnp/std/av/renderer/cconnectionmgrr_service.c, std/av/src/cybergarage/upnp/std/av/renderer/cmediarenderer_device.c, std/av/src/cybergarage/upnp/std/av/renderer/crenderingcontrol_service.c, std/av/src/cybergarage/upnp/std/av/server/cconnectionmgr_service.c, std/av/src/cybergarage/upnp/std/av/server/ccontentdir_service.c, std/av/src/cybergarage/upnp/std/av/server/cmediaserver_device.c: Executable bodies were audited; large trusted fixed XML/HTML literal sections were not exhaustively reviewed.</li>
 <li>Excluded Historical Xcode/Visual Studio project configurations and ancillary platform UI headers: Build routes and relevant flags inspected selectively; not every historical configuration/declaration was fully reviewed.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md69"></a>
+<h3><a class="anchor" id="autotoc_md70"></a>
 Scan Summary</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -196,10 +196,10 @@ Scan Summary</h3>
 <td class="markdownTableBodyNone">Validation mode   </td><td class="markdownTableBodyNone">static source trace   </td></tr>
 </table>
 <p>Canonical artifacts: <code>scan-manifest.json</code>, <code>findings.json</code>, and <code>coverage.json</code>. This report is a deterministic projection of those files.</p>
-<h2><a class="anchor" id="autotoc_md70"></a>
+<h2><a class="anchor" id="autotoc_md71"></a>
 Threat Model</h2>
 <p>mUPnP is an embeddable C library for UPnP devices and control points, with Objective-C wrappers and demonstration applications. Device startup creates HTTP and SSDP listeners and announces a device; control-point startup creates SSDP multicast/unicast and HTTP event listeners, discovers devices, fetches XML descriptions and SCPDs, and permits application-directed SOAP control. It runs with the embedding process's native memory, filesystem and network authority, rather than as an isolated service. Source: <a class="el" href="device_8c.html">src/mupnp/device.c</a>:1373-1419; <a class="el" href="controlpoint_8c.html">src/mupnp/controlpoint.c</a>:164-225; <a class="el" href="controlpoint_8c.html">src/mupnp/controlpoint.c</a>:585-624; <a class="el" href="action__ctrl_8c.html">src/mupnp/control/action_ctrl.c</a>:85-110; <a class="el" href="CGUpnpControlPoint_8m.html">wrapper/objc/mUPnP/CGUpnpControlPoint.m</a>:28; <a class="el" href="CGUpnpControlPoint_8m.html">wrapper/objc/mUPnP/CGUpnpControlPoint.m</a>:51. Examples and tests are distinct from the library: CMakeLists.txt:144-154; examples/clock/clock_device.c:262-282.</p>
-<h3><a class="anchor" id="autotoc_md71"></a>
+<h3><a class="anchor" id="autotoc_md72"></a>
 Assets</h3>
 <ul>
 <li>Integrity and availability of the embedding native process and its application-owned device action callbacks. Network input is parsed inside this process and action listeners execute directly: <a class="el" href="http__server_8c.html">src/mupnp/http/http_server.c</a>:182-200; <a class="el" href="action__ctrl_8c.html">src/mupnp/control/action_ctrl.c</a>:54-68; <a class="el" href="xml__parser__expat_8c.html">src/mupnp/xml/xml_parser_expat.c</a>:178-195.</li>
@@ -208,7 +208,7 @@ Assets</h3>
 <li>Optional local description-file reads and general file operations retain process filesystem authority; filenames are caller supplied: <a class="el" href="device_8c.html">src/mupnp/device.c</a>:286-307; <a class="el" href="file_8c.html">src/mupnp/io/file.c</a>:374-392; <a class="el" href="file_8c.html">src/mupnp/io/file.c</a>:439-455.</li>
 <li>Conditional CI credential and publication authority: CODECOV_TOKEN is passed to the Codecov action; GITHUB_TOKEN is passed to the GitHub Pages deployment action for ./doc/html. Source: .github/workflows/make.yml:34-40; .github/workflows/doxygen.yml:39-45.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md72"></a>
+<h3><a class="anchor" id="autotoc_md73"></a>
 Trust Boundaries</h3>
 <ul>
 <li>Network peers -&gt; device HTTP listener -&gt; parser and application actions. The listener binds configured host interfaces at port 38400 by default, incrementing on bind failure; MUPNP_NET_USE_ANYADDR changes the bind address to 0.0.0.0. GET/HEAD, POST, subscription and presentation requests have separate dispatch; custom HTTP/presentation/action listeners belong to the embedding application. Service URL and action routing are protocol controls, not actor authentication. Source: <a class="el" href="device_8h.html">include/mupnp/device.h</a>:56-59; <a class="el" href="device_8c.html">src/mupnp/device.c</a>:1388-1399; <a class="el" href="http__server__list_8c.html">src/mupnp/http/http_server_list.c</a>:71-84; <a class="el" href="interface_8c.html">src/mupnp/net/interface.c</a>:68-81; <a class="el" href="device__http__server_8c.html">src/mupnp/device_http_server.c</a>:68-89; <a class="el" href="device__http__server_8c.html">src/mupnp/device_http_server.c</a>:318-356; <a class="el" href="action__ctrl_8c.html">src/mupnp/control/action_ctrl.c</a>:54-68.</li>
@@ -220,7 +220,7 @@ Trust Boundaries</h3>
 <li>Trusted source/build configuration -&gt; produced native library. Autoconf emits MUPNP_* consumer macros. CMake advertises CG_* options and emits CG_* definitions instead, so those switches alone do not enable consumer paths guarded by MUPNP_*. Source: CMakeLists.txt:9-24; configure.ac:128-149; configure.ac:279-319; <a class="el" href="http__server__list_8c.html">src/mupnp/http/http_server_list.c</a>:72-77; <a class="el" href="xml__parser__expat_8c.html">src/mupnp/xml/xml_parser_expat.c</a>:22; <a class="el" href="xml__parser__libxml2_8c.html">src/mupnp/xml/xml_parser_libxml2.c</a>:22; <a class="el" href="socket_8h.html">include/mupnp/net/socket.h</a>:18.</li>
 <li>Repository source -&gt; CI runner and conditional external reporting/publication. Build CI triggers on master pushes and pull requests and executes repository bootstrap/configure/make; documentation publication triggers on master pushes and supplies GITHUB_TOKEN to the deployment action. Source: .github/workflows/make.yml:3-30; .github/workflows/doxygen.yml:7-9; .github/workflows/doxygen.yml:39-45.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md73"></a>
+<h3><a class="anchor" id="autotoc_md74"></a>
 Attacker Capabilities</h3>
 <ul>
 <li>A peer with network reachability can submit SSDP packets, device HTTP/SOAP/subscription requests and control-point notifications. Exact reachability depends on host interfaces, firewall and embedding deployment; LAN-only isolation is not enforced merely by the README's home-network description. Source: <a class="el" href="ssdp__server_8c.html">src/mupnp/ssdp/ssdp_server.c</a>:65-78; <a class="el" href="http__server__list_8c.html">src/mupnp/http/http_server_list.c</a>:71-84; <a class="el" href="device__http__server_8c.html">src/mupnp/device_http_server.c</a>:76-89.</li>
@@ -229,7 +229,7 @@ Attacker Capabilities</h3>
 <li>A caller can supply parser buffers, action objects, listener callbacks and optional filenames through the public C API. Callers normally already possess the same native process authority; caller choices are not themselves privilege escalation. Source: <a class="el" href="device_8c.html">src/mupnp/device.c</a>:288-307; <a class="el" href="action__ctrl_8c.html">src/mupnp/control/action_ctrl.c</a>:85-110.</li>
 <li>A pull-request author controls submitted source for CI execution but is not assumed to possess maintainer merge rights, repository secrets or master-only publication authority. Source: .github/workflows/make.yml:3-7; .github/workflows/doxygen.yml:7-9.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md74"></a>
+<h3><a class="anchor" id="autotoc_md75"></a>
 Security Objectives</h3>
 <ul>
 <li>Preserve embedding-process memory safety and availability while parsing network HTTP, SSDP and XML input; enforce bounds before native allocations and updates. Source consumers: <a class="el" href="http__packet_8c.html">src/mupnp/http/http_packet.c</a>:450-473; <a class="el" href="xml__parser__expat_8c.html">src/mupnp/xml/xml_parser_expat.c</a>:178-195.</li>
@@ -238,7 +238,7 @@ Security Objectives</h3>
 <li>Apply notifications only to the intended known subscription and preserve coherent service state; existing component controls include SID matching and sequence checks. Source: <a class="el" href="controlpoint__http__server_8c.html">src/mupnp/controlpoint_http_server.c</a>:53-89.</li>
 <li>Ensure build configuration establishes the advertised network, file, TLS and XML backend behavior at actual consumers, and preserve CI credential and publication target separation. Source: CMakeLists.txt:9-24; configure.ac:279-319; .github/workflows/make.yml:34-40; .github/workflows/doxygen.yml:39-45.</li>
 </ul>
-<h3><a class="anchor" id="autotoc_md75"></a>
+<h3><a class="anchor" id="autotoc_md76"></a>
 Assumptions</h3>
 <ul>
 <li>User context: 'Check the project'; no supplied threat model, deployment knowledge base or root SECURITY.md. Root policy resolution returned no policy. This architecture pass is read-only source mapping and does not constitute security-audit coverage.</li>
@@ -249,7 +249,7 @@ Assumptions</h3>
 <li>Expat is selected by its source guard when HAVE_CONFIG_H and TARGET_OS_IPHONE are absent; libxml2 has a different platform guard. Runtime parser version and entity/network behavior require later source/dependency validation, not assumptions from package names. Source: <a class="el" href="xml__parser__expat_8c.html">src/mupnp/xml/xml_parser_expat.c</a>:22; <a class="el" href="xml__parser__libxml2_8c.html">src/mupnp/xml/xml_parser_libxml2.c</a>:22; CMakeLists.txt:190-207.</li>
 <li>Objective-C wrappers use the same C objects/start APIs, and Unix/Windows clock startup uses the same device API; no distinct isolation boundary is established by wrappers or sample platform projects. Source: <a class="el" href="CGUpnpControlPoint_8m.html">wrapper/objc/mUPnP/CGUpnpControlPoint.m</a>:28; <a class="el" href="CGUpnpControlPoint_8m.html">wrapper/objc/mUPnP/CGUpnpControlPoint.m</a>:51; examples/clock/unix/clock_main.c:52; examples/clock/win32/vs2005/clock_main_win32.c:37.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md76"></a>
+<h2><a class="anchor" id="autotoc_md77"></a>
 Findings</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -281,7 +281,7 @@ Findings</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">A zero-length UDP packet permanently stops SSDP reception   </td><td class="markdownTableBodyNone">low   </td><td class="markdownTableBodyNone">high   </td><td class="markdownTableBodyNone">inline below   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md77"></a>
+<h3><a class="anchor" id="autotoc_md78"></a>
 Confidence Scale</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -294,7 +294,7 @@ Confidence Scale</h3>
 <td class="markdownTableBodyNone">low   </td><td class="markdownTableBodyNone">Evidence is incomplete and the item is retained only for explicit follow-up.   </td></tr>
 </table>
 <p><a class="anchor" id="finding-1"></a></p>
-<h3><a class="anchor" id="autotoc_md78"></a>
+<h3><a class="anchor" id="autotoc_md79"></a>
 [1] HTTP read errors become negative heap offsets</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -312,10 +312,10 @@ Confidence Scale</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="http__request_8c.html">src/mupnp/http/http_request.c</a>:740-745, <a class="el" href="http__packet_8c.html">src/mupnp/http/http_packet.c</a>:462-468, <a class="el" href="http__packet_8c.html">src/mupnp/http/http_packet.c</a>:414-422, <a class="el" href="socket_8c.html">src/mupnp/net/socket.c</a>:701-713   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md79"></a>
+<h4><a class="anchor" id="autotoc_md80"></a>
 Summary</h4>
 <p>A TCP peer delays a declared body past receive timeout; recv returns -1 which decreases readLen and the next receive pointer precedes the allocation. Native request and response readers share this code; chunk reader has the same operation. Receive timeout and retry limit do not preserve a nonnegative offset.</p>
-<h4><a class="anchor" id="autotoc_md80"></a>
+<h4><a class="anchor" id="autotoc_md81"></a>
 Root Cause</h4>
 <p>A TCP peer delays a declared body past receive timeout; recv returns -1 which decreases readLen and the next receive pointer precedes the allocation. Native request and response readers share this code; chunk reader has the same operation. Receive timeout and retry limit do not preserve a nonnegative offset.</p>
 <p><b>http input</b> — <code><a class="el" href="http__request_8c.html">src/mupnp/http/http_request.c</a>:740-745</code></p>
@@ -369,7 +369,7 @@ Root Cause</h4>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">else</span> {</div>
 <div class="line">    recvLen = SSL_read(sock-&gt;ssl, buffer, bufferLen);</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md81"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md82"></a>
 Validation</h4>
 <p>Parent source review confirms the input-to-control-to-outcome path. A TCP peer delays a declared body past receive timeout; recv returns -1 which decreases readLen and the next receive pointer precedes the allocation. Native request and response readers share this code; chunk reader has the same operation. Receive timeout and retry limit do not preserve a nonnegative offset.</p>
 <p>Validation method: static source trace</p>
@@ -419,7 +419,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code, exploit input or live network test was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md82"></a>
+<h4><a class="anchor" id="autotoc_md83"></a>
 Dataflow</h4>
 <p>http-input -&gt; http-read -&gt; http-chunk -&gt; socket-recv</p>
 <p><b>http input</b> — <code><a class="el" href="http__request_8c.html">src/mupnp/http/http_request.c</a>:740-745</code></p>
@@ -465,10 +465,10 @@ Dataflow</h4>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">else</span> {</div>
 <div class="line">    recvLen = SSL_read(sock-&gt;ssl, buffer, bufferLen);</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md83"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md84"></a>
 Reachability</h4>
 <p>Timing requires one receive error followed by more peer-controlled data; reachable on exposed native HTTP listeners.</p>
-<h4><a class="anchor" id="autotoc_md84"></a>
+<h4><a class="anchor" id="autotoc_md85"></a>
 Severity</h4>
 <p><b>High</b> — Timing requires one receive error followed by more peer-controlled data; reachable on exposed native HTTP listeners.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -480,7 +480,7 @@ Severity</h4>
 <li><b>Level:</b> high</li>
 <li><b>Why:</b> Timing requires one receive error followed by more peer-controlled data; reachable on exposed native HTTP listeners.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md85"></a>
+<h4><a class="anchor" id="autotoc_md86"></a>
 Remediation</h4>
 <p>Keep receive result separate; fail and free on nonpositive result; accumulate only positive bounded reads.</p>
 <p>Tests:</p><ul>
@@ -490,7 +490,7 @@ Remediation</h4>
 <li>Make the repaired invariant mandatory in the shared helper.</li>
 </ul>
 <p><a class="anchor" id="finding-2"></a></p>
-<h3><a class="anchor" id="autotoc_md86"></a>
+<h3><a class="anchor" id="autotoc_md87"></a>
 [2] Truncated HTTP body produces an infinite CPU loop</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -508,10 +508,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="http__request_8c.html">src/mupnp/http/http_request.c</a>:740-745, <a class="el" href="http__packet_8c.html">src/mupnp/http/http_packet.c</a>:462-468, <a class="el" href="socket_8c.html">src/mupnp/net/socket.c</a>:701-713   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md87"></a>
+<h4><a class="anchor" id="autotoc_md88"></a>
 Summary</h4>
 <p>After positive partial body data, EOF repeatedly returns zero. Accumulated readLen stays positive so tries does not increase. Timeouts do not bound immediate EOF and runnableFlag is never checked inside the loop. Repeated connections consume CPU and workers.</p>
-<h4><a class="anchor" id="autotoc_md88"></a>
+<h4><a class="anchor" id="autotoc_md89"></a>
 Root Cause</h4>
 <p>After positive partial body data, EOF repeatedly returns zero. Accumulated readLen stays positive so tries does not increase. Timeouts do not bound immediate EOF and runnableFlag is never checked inside the loop. Repeated connections consume CPU and workers.</p>
 <p><b>http input</b> — <code><a class="el" href="http__request_8c.html">src/mupnp/http/http_request.c</a>:740-745</code></p>
@@ -546,7 +546,7 @@ Root Cause</h4>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">else</span> {</div>
 <div class="line">    recvLen = SSL_read(sock-&gt;ssl, buffer, bufferLen);</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md89"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md90"></a>
 Validation</h4>
 <p>Parent source review confirms the input-to-control-to-outcome path. After positive partial body data, EOF repeatedly returns zero. Accumulated readLen stays positive so tries does not increase. Timeouts do not bound immediate EOF and runnableFlag is never checked inside the loop. Repeated connections consume CPU and workers.</p>
 <p>Validation method: static source trace</p>
@@ -585,7 +585,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code, exploit input or live network test was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md90"></a>
+<h4><a class="anchor" id="autotoc_md91"></a>
 Dataflow</h4>
 <p>http-input -&gt; http-read -&gt; socket-recv</p>
 <p><b>http input</b> — <code><a class="el" href="http__request_8c.html">src/mupnp/http/http_request.c</a>:740-745</code></p>
@@ -620,10 +620,10 @@ Dataflow</h4>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">else</span> {</div>
 <div class="line">    recvLen = SSL_read(sock-&gt;ssl, buffer, bufferLen);</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md91"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md92"></a>
 Reachability</h4>
 <p>A network peer can retain a worker in a busy loop; repeated connections affect service availability.</p>
-<h4><a class="anchor" id="autotoc_md92"></a>
+<h4><a class="anchor" id="autotoc_md93"></a>
 Severity</h4>
 <p><b>Medium</b> — A network peer can retain a worker in a busy loop; repeated connections affect service availability.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -635,7 +635,7 @@ Severity</h4>
 <li><b>Level:</b> high</li>
 <li><b>Why:</b> A network peer can retain a worker in a busy loop; repeated connections affect service availability.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md93"></a>
+<h4><a class="anchor" id="autotoc_md94"></a>
 Remediation</h4>
 <p>Stop immediately on EOF before completing the declared body.</p>
 <p>Tests:</p><ul>
@@ -645,7 +645,7 @@ Remediation</h4>
 <li>Make the repaired invariant mandatory in the shared helper.</li>
 </ul>
 <p><a class="anchor" id="finding-3"></a></p>
-<h3><a class="anchor" id="autotoc_md94"></a>
+<h3><a class="anchor" id="autotoc_md95"></a>
 [3] Objective-C device wrappers retain pointers freed by SSDP removal</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -663,10 +663,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="controlpoint_8c.html">src/mupnp/controlpoint.c</a>:863-867, <a class="el" href="CGUpnpControlPoint_8m.html">wrapper/objc/mUPnP/CGUpnpControlPoint.m</a>:103-113, <a class="el" href="CGUpnpDevice_8m.html">wrapper/objc/mUPnP/CGUpnpDevice.m</a>:41-48, <a class="el" href="controlpoint_8c.html">src/mupnp/controlpoint.c</a>:717-725, <a class="el" href="CGUpnpDevice_8m.html">wrapper/objc/mUPnP/CGUpnpDevice.m</a>:78-86   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md95"></a>
+<h4><a class="anchor" id="autotoc_md96"></a>
 Summary</h4>
 <p>Control-point enumeration returns retainable Objective-C wrappers around borrowed cache-device pointers. SSDP removal deletes the C device without invalidating those wrappers. Later property and subordinate-object access dereferences freed memory; the iOS browser retains and later reads such wrappers.</p>
-<h4><a class="anchor" id="autotoc_md96"></a>
+<h4><a class="anchor" id="autotoc_md97"></a>
 Root Cause</h4>
 <p>Control-point enumeration returns retainable Objective-C wrappers around borrowed cache-device pointers. SSDP removal deletes the C device without invalidating those wrappers. Later property and subordinate-object access dereferences freed memory; the iOS browser retains and later reads such wrappers.</p>
 <p><b>device byebye</b> — <code><a class="el" href="controlpoint_8c.html">src/mupnp/controlpoint.c</a>:863-867</code></p>
@@ -732,7 +732,7 @@ Root Cause</h4>
 <div class="line">    return [NSString stringWithUTF8String:name];</div>
 <div class="line">  }</div>
 <div class="line">  return nil;</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md97"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md98"></a>
 Validation</h4>
 <p>Control-point enumeration returns retainable Objective-C wrappers around borrowed cache-device pointers. SSDP removal deletes the C device without invalidating those wrappers. Later property and subordinate-object access dereferences freed memory; the iOS browser retains and later reads such wrappers.</p>
 <p>Validation method: static source trace</p>
@@ -793,7 +793,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code or vulnerability-triggering input was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md98"></a>
+<h4><a class="anchor" id="autotoc_md99"></a>
 Dataflow</h4>
 <p>device-byebye -&gt; objc-list -&gt; objc-borrow -&gt; device-remove -&gt; objc-read</p>
 <p><b>device byebye</b> — <code><a class="el" href="controlpoint_8c.html">src/mupnp/controlpoint.c</a>:863-867</code></p>
@@ -850,10 +850,10 @@ Dataflow</h4>
 <div class="line">    return [NSString stringWithUTF8String:name];</div>
 <div class="line">  }</div>
 <div class="line">  return nil;</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md99"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md100"></a>
 Reachability</h4>
 <p>Requires Objective-C wrapper use across asynchronous removal. Core cache locking does not protect external wrapper getters; an application that never retains wrappers across removal avoids the specific trigger. Arbitrary code execution was not established.</p>
-<h4><a class="anchor" id="autotoc_md100"></a>
+<h4><a class="anchor" id="autotoc_md101"></a>
 Severity</h4>
 <p><b>Medium</b> — Requires Objective-C wrapper use across asynchronous removal. Core cache locking does not protect external wrapper getters; an application that never retains wrappers across removal avoids the specific trigger. Arbitrary code execution was not established.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -865,7 +865,7 @@ Severity</h4>
 <li><b>Level:</b> medium</li>
 <li><b>Why:</b> Requires Objective-C wrapper use across asynchronous removal. Core cache locking does not protect external wrapper getters; an application that never retains wrappers across removal avoids the specific trigger. Arbitrary code execution was not established.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md101"></a>
+<h4><a class="anchor" id="autotoc_md102"></a>
 Remediation</h4>
 <p>Give wrappers refcounted native ownership or a shared invalidatable handle checked under the control-point lock; share that lifetime control with service, action, state-variable and icon wrappers.</p>
 <p>Tests:</p><ul>
@@ -875,7 +875,7 @@ Remediation</h4>
 <li>Centralize and enforce the repaired lifetime or input-limit invariant.</li>
 </ul>
 <p><a class="anchor" id="finding-4"></a></p>
-<h3><a class="anchor" id="autotoc_md102"></a>
+<h3><a class="anchor" id="autotoc_md103"></a>
 [4] POSIX worker shutdown frees live thread and server state</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -893,10 +893,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="http__server_8c.html">src/mupnp/http/http_server.c</a>:320-330, <a class="el" href="thread_8c.html">src/mupnp/util/thread.c</a>:451-463, <a class="el" href="thread_8c.html">src/mupnp/util/thread.c</a>:262-268, <a class="el" href="http__server_8c.html">src/mupnp/http/http_server.c</a>:218-230   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md103"></a>
+<h4><a class="anchor" id="autotoc_md104"></a>
 Summary</h4>
 <p>Detached worker stop sets runnableFlag, probes liveness with signal 0 and sleeps instead of waiting for completion. thread_delete frees state. Delayed HTTP worker resumes during legitimate shutdown and reads freed thread/server state; requires lifecycle transition. Sleeping is not lifetime synchronization.</p>
-<h4><a class="anchor" id="autotoc_md104"></a>
+<h4><a class="anchor" id="autotoc_md105"></a>
 Root Cause</h4>
 <p>Detached worker stop sets runnableFlag, probes liveness with signal 0 and sleeps instead of waiting for completion. thread_delete frees state. Delayed HTTP worker resumes during legitimate shutdown and reads freed thread/server state; requires lifecycle transition. Sleeping is not lifetime synchronization.</p>
 <p><b>http stop</b> — <code><a class="el" href="http__server_8c.html">src/mupnp/http/http_server.c</a>:320-330</code></p>
@@ -964,7 +964,7 @@ Root Cause</h4>
 <div class="ttc" id="asocket_8c_html_a645fe48f195076c7ef86bfe17154f14e"><div class="ttname"><a href="socket_8c.html#a645fe48f195076c7ef86bfe17154f14e">mupnp_socket_close</a></div><div class="ttdeci">bool mupnp_socket_close(mUpnpSocket *sock)</div><div class="ttdef"><b>Definition</b> socket.c:387</div></div>
 <div class="ttc" id="asocket_8c_html_a7aa1baa00203e2914b8b440393f749ad"><div class="ttname"><a href="socket_8c.html#a7aa1baa00203e2914b8b440393f749ad">mupnp_socket_delete</a></div><div class="ttdeci">bool mupnp_socket_delete(mUpnpSocket *sock)</div><div class="ttdef"><b>Definition</b> socket.c:313</div></div>
 <div class="ttc" id="athread_8c_html_af5ccab424c2d5845fbc45e71878312b3"><div class="ttname"><a href="thread_8c.html#af5ccab424c2d5845fbc45e71878312b3">mupnp_thread_setuserdata</a></div><div class="ttdeci">void mupnp_thread_setuserdata(mUpnpThread *thread, void *value)</div><div class="ttdef"><b>Definition</b> thread.c:830</div></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md105"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md106"></a>
 Validation</h4>
 <p>Parent source review confirms the input-to-control-to-outcome path. Detached worker stop sets runnableFlag, probes liveness with signal 0 and sleeps instead of waiting for completion. thread_delete frees state. Delayed HTTP worker resumes during legitimate shutdown and reads freed thread/server state; requires lifecycle transition. Sleeping is not lifetime synchronization.</p>
 <p>Validation method: static source trace</p>
@@ -1021,7 +1021,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code, exploit input or live network test was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md106"></a>
+<h4><a class="anchor" id="autotoc_md107"></a>
 Dataflow</h4>
 <p>http-stop -&gt; thread-stop -&gt; thread-free -&gt; http-cleanup</p>
 <p><b>http stop</b> — <code><a class="el" href="http__server_8c.html">src/mupnp/http/http_server.c</a>:320-330</code></p>
@@ -1074,10 +1074,10 @@ Dataflow</h4>
 <div class="line"><a class="code hl_define" href="http_8h.html#a2f29d165771beaa26e2985893c914936">mupnp_http_server_unlock</a>(httpServer);</div>
 <div class="line"> </div>
 <div class="line"><a class="code hl_define" href="mutex_8c.html#a3d0d3e435d0457b42bc50834a43205b1">mupnp_log_debug_l4</a>(<span class="stringliteral">&quot;Leaving...\n&quot;</span>);</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md107"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md108"></a>
 Reachability</h4>
 <p>Memory corruption requires a legitimate shutdown/restart while a peer keeps a worker active.</p>
-<h4><a class="anchor" id="autotoc_md108"></a>
+<h4><a class="anchor" id="autotoc_md109"></a>
 Severity</h4>
 <p><b>Medium</b> — Memory corruption requires a legitimate shutdown/restart while a peer keeps a worker active.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -1089,7 +1089,7 @@ Severity</h4>
 <li><b>Level:</b> medium</li>
 <li><b>Why:</b> Memory corruption requires a legitimate shutdown/restart while a peer keeps a worker active.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md109"></a>
+<h4><a class="anchor" id="autotoc_md110"></a>
 Remediation</h4>
 <p>Unblock sockets and synchronize worker completion before releasing worker or owner state.</p>
 <p>Tests:</p><ul>
@@ -1099,7 +1099,7 @@ Remediation</h4>
 <li>Make the repaired invariant mandatory in the shared helper.</li>
 </ul>
 <p><a class="anchor" id="finding-5"></a></p>
-<h3><a class="anchor" id="autotoc_md110"></a>
+<h3><a class="anchor" id="autotoc_md111"></a>
 [5] Libxml2 parsing uses a byte length larger than its input copy</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1117,10 +1117,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="soap__request_8c.html">src/mupnp/soap/soap_request.c</a>:180-188, <a class="el" href="soap__request_8c.html">src/mupnp/soap/soap_request.c</a>:202-207, <a class="el" href="xml__parser__libxml2_8c.html">src/mupnp/xml/xml_parser_libxml2.c</a>:288-295, <a class="el" href="xml__parser__libxml2_8c.html">src/mupnp/xml/xml_parser_libxml2.c</a>:355-358, <a class="el" href="xml__parser__libxml2_8c.html">src/mupnp/xml/xml_parser_libxml2.c</a>:298-308, <a class="el" href="xml__parser__libxml2_8c.html">src/mupnp/xml/xml_parser_libxml2.c</a>:182-191   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md111"></a>
+<h4><a class="anchor" id="autotoc_md112"></a>
 Summary</h4>
 <p>The optional libxml2 backend copies HTTP XML with <code>mupnp_strdup</code>, which stops at NUL, then passes the original explicit body length to the parser and recovery loop. Embedded NUL bytes make the copied allocation shorter than the consumed range, permitting out-of-bounds reads and, on invalid-character recovery, writes.</p>
-<h4><a class="anchor" id="autotoc_md112"></a>
+<h4><a class="anchor" id="autotoc_md113"></a>
 Root Cause</h4>
 <p>The optional libxml2 backend copies HTTP XML with <code>mupnp_strdup</code>, which stops at NUL, then passes the original explicit body length to the parser and recovery loop. Embedded NUL bytes make the copied allocation shorter than the consumed range, permitting out-of-bounds reads and, on invalid-character recovery, writes.</p>
 <p><b>soap input</b> — <code><a class="el" href="soap__request_8c.html">src/mupnp/soap/soap_request.c</a>:180-188</code></p>
@@ -1191,7 +1191,7 @@ Root Cause</h4>
 <div class="line">  <span class="comment">/* If not then we check if byte starts two byte sequence. */</span></div>
 <div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (UTF_RANGE2_1_R == (*(data + read) &amp; UTF_RANGE2_1)) {</div>
 <div class="line">    <span class="comment">/* We know that if this is correct two byte UTF8 char</span></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md113"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md114"></a>
 Validation</h4>
 <p>The optional libxml2 backend copies HTTP XML with <code>mupnp_strdup</code>, which stops at NUL, then passes the original explicit body length to the parser and recovery loop. Embedded NUL bytes make the copied allocation shorter than the consumed range, permitting out-of-bounds reads and, on invalid-character recovery, writes.</p>
 <p>Validation method: static source trace</p>
@@ -1258,7 +1258,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code or vulnerability-triggering input was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md114"></a>
+<h4><a class="anchor" id="autotoc_md115"></a>
 Dataflow</h4>
 <p>soap-input -&gt; soap-parse -&gt; xml-copy -&gt; xml-memory -&gt; xml-recover -&gt; xml-recover-loop</p>
 <p><b>soap input</b> — <code><a class="el" href="soap__request_8c.html">src/mupnp/soap/soap_request.c</a>:180-188</code></p>
@@ -1321,10 +1321,10 @@ Dataflow</h4>
 <div class="line">  <span class="comment">/* If not then we check if byte starts two byte sequence. */</span></div>
 <div class="line">  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (UTF_RANGE2_1_R == (*(data + read) &amp; UTF_RANGE2_1)) {</div>
 <div class="line">    <span class="comment">/* We know that if this is correct two byte UTF8 char</span></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md115"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md116"></a>
 Reachability</h4>
 <p>Requires the libxml2 backend (explicit MUPNP_XMLPARSER_LIBXML2 or iPhone guard); Expat does not use this copy. Normal NUL-free HTTP XML has consistent length. No memory disclosure channel or code execution was established.</p>
-<h4><a class="anchor" id="autotoc_md116"></a>
+<h4><a class="anchor" id="autotoc_md117"></a>
 Severity</h4>
 <p><b>Medium</b> — Requires the libxml2 backend (explicit MUPNP_XMLPARSER_LIBXML2 or iPhone guard); Expat does not use this copy. Normal NUL-free HTTP XML has consistent length. No memory disclosure channel or code execution was established.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -1336,7 +1336,7 @@ Severity</h4>
 <li><b>Level:</b> medium</li>
 <li><b>Why:</b> Requires the libxml2 backend (explicit MUPNP_XMLPARSER_LIBXML2 or iPhone guard); Expat does not use this copy. Normal NUL-free HTTP XML has consistent length. No memory disclosure channel or code execution was established.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md117"></a>
+<h4><a class="anchor" id="autotoc_md118"></a>
 Remediation</h4>
 <p>Copy exactly the explicit input length into a checked allocation, or reject embedded NUL before duplication; keep parser and UTF-8 recovery strictly within the owned buffer.</p>
 <p>Tests:</p><ul>
@@ -1346,7 +1346,7 @@ Remediation</h4>
 <li>Centralize and enforce the repaired lifetime or input-limit invariant.</li>
 </ul>
 <p><a class="anchor" id="finding-6"></a></p>
-<h3><a class="anchor" id="autotoc_md118"></a>
+<h3><a class="anchor" id="autotoc_md119"></a>
 [6] Native HTTPS accepts unverified peer certificates</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1364,10 +1364,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="http__request_8c.html">src/mupnp/http/http_request.c</a>:352-356, <a class="el" href="socket_8c.html">src/mupnp/net/socket.c</a>:668-680   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md119"></a>
+<h4><a class="anchor" id="autotoc_md120"></a>
 Summary</h4>
 <p>Native HTTPS creates fresh SSL_CTX and handshakes without peer verification, trust roots or hostname validation. On-path attacker can modify HTTPS content. Requires MUPNP_USE_OPENSSL and public native HTTPS API; Curl is separate and defaults do not enable this backend.</p>
-<h4><a class="anchor" id="autotoc_md120"></a>
+<h4><a class="anchor" id="autotoc_md121"></a>
 Root Cause</h4>
 <p>Native HTTPS creates fresh SSL_CTX and handshakes without peer verification, trust roots or hostname validation. On-path attacker can modify HTTPS content. Requires MUPNP_USE_OPENSSL and public native HTTPS API; Curl is separate and defaults do not enable this backend.</p>
 <p><b>https entry</b> — <code><a class="el" href="http__request_8c.html">src/mupnp/http/http_request.c</a>:352-356</code></p>
@@ -1396,7 +1396,7 @@ Root Cause</h4>
 <div class="line">    }</div>
 <div class="line">  }</div>
 <div class="ttc" id="asocket_8h_html_ad4487b6293aa5f52247f599198fd6368"><div class="ttname"><a href="socket_8h.html#ad4487b6293aa5f52247f599198fd6368">mupnp_socket_getid</a></div><div class="ttdeci">#define mupnp_socket_getid(socket)</div><div class="ttdef"><b>Definition</b> socket.h:120</div></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md121"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md122"></a>
 Validation</h4>
 <p>Parent source review confirms the input-to-control-to-outcome path. Native HTTPS creates fresh SSL_CTX and handshakes without peer verification, trust roots or hostname validation. On-path attacker can modify HTTPS content. Requires MUPNP_USE_OPENSSL and public native HTTPS API; Curl is separate and defaults do not enable this backend.</p>
 <p>Validation method: static source trace</p>
@@ -1425,7 +1425,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code, exploit input or live network test was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md122"></a>
+<h4><a class="anchor" id="autotoc_md123"></a>
 Dataflow</h4>
 <p>https-entry -&gt; tls-context</p>
 <p><b>https entry</b> — <code><a class="el" href="http__request_8c.html">src/mupnp/http/http_request.c</a>:352-356</code></p>
@@ -1450,10 +1450,10 @@ Dataflow</h4>
 <div class="line">      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line">    }</div>
 <div class="line">  }</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md123"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md124"></a>
 Reachability</h4>
 <p>Requires the optional native OpenSSL HTTPS API and an on-path attacker.</p>
-<h4><a class="anchor" id="autotoc_md124"></a>
+<h4><a class="anchor" id="autotoc_md125"></a>
 Severity</h4>
 <p><b>Medium</b> — Requires the optional native OpenSSL HTTPS API and an on-path attacker.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -1465,7 +1465,7 @@ Severity</h4>
 <li><b>Level:</b> medium</li>
 <li><b>Why:</b> Requires the optional native OpenSSL HTTPS API and an on-path attacker.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md125"></a>
+<h4><a class="anchor" id="autotoc_md126"></a>
 Remediation</h4>
 <p>Load trust roots, require peer chain verification and hostname verification, and fail closed.</p>
 <p>Tests:</p><ul>
@@ -1475,7 +1475,7 @@ Remediation</h4>
 <li>Make the repaired invariant mandatory in the shared helper.</li>
 </ul>
 <p><a class="anchor" id="finding-7"></a></p>
-<h3><a class="anchor" id="autotoc_md126"></a>
+<h3><a class="anchor" id="autotoc_md127"></a>
 [7] Action wrappers leave a dangling Objective-C callback target</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1493,10 +1493,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="CGUpnpAction_8m.html">wrapper/objc/mUPnP/CGUpnpAction.m</a>:36-44, <a class="el" href="CGUpnpAction_8m.html">wrapper/objc/mUPnP/CGUpnpAction.m</a>:53-56, <a class="el" href="action__ctrl_8c.html">src/mupnp/control/action_ctrl.c</a>:45-68, <a class="el" href="CGUpnpAction_8m.html">wrapper/objc/mUPnP/CGUpnpAction.m</a>:17-29   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md127"></a>
+<h4><a class="anchor" id="autotoc_md128"></a>
 Summary</h4>
 <p>Constructing a <code><a class="el" href="interfaceCGUpnpAction.html">CGUpnpAction</a></code> installs raw <code>self</code> as C userdata and replaces the listener. Its <code>dealloc</code> leaves both installed. If the wrapper is released while a hosted C action survives, a later SOAP action dispatch messages the freed Objective-C target.</p>
-<h4><a class="anchor" id="autotoc_md128"></a>
+<h4><a class="anchor" id="autotoc_md129"></a>
 Root Cause</h4>
 <p>Constructing a <code><a class="el" href="interfaceCGUpnpAction.html">CGUpnpAction</a></code> installs raw <code>self</code> as C userdata and replaces the listener. Its <code>dealloc</code> leaves both installed. If the wrapper is released while a hosted C action survives, a later SOAP action dispatch messages the freed Objective-C target.</p>
 <p><b>objc register</b> — <code><a class="el" href="CGUpnpAction_8m.html">wrapper/objc/mUPnP/CGUpnpAction.m</a>:36-44</code></p>
@@ -1577,7 +1577,7 @@ Root Cause</h4>
 <div class="line">    return FALSE;</div>
 <div class="line">  [objcAction performSelector:actionReceived];</div>
 <div class="line">  return TRUE;</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md129"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md130"></a>
 Validation</h4>
 <p>Constructing a <code><a class="el" href="interfaceCGUpnpAction.html">CGUpnpAction</a></code> installs raw <code>self</code> as C userdata and replaces the listener. Its <code>dealloc</code> leaves both installed. If the wrapper is released while a hosted C action survives, a later SOAP action dispatch messages the freed Objective-C target.</p>
 <p>Validation method: static source trace</p>
@@ -1645,7 +1645,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code or vulnerability-triggering input was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md130"></a>
+<h4><a class="anchor" id="autotoc_md131"></a>
 Dataflow</h4>
 <p>objc-register -&gt; objc-dealloc -&gt; action-callback -&gt; objc-callback</p>
 <p><b>objc register</b> — <code><a class="el" href="CGUpnpAction_8m.html">wrapper/objc/mUPnP/CGUpnpAction.m</a>:36-44</code></p>
@@ -1709,10 +1709,10 @@ Dataflow</h4>
 <div class="line">    return FALSE;</div>
 <div class="line">  [objcAction performSelector:actionReceived];</div>
 <div class="line">  return TRUE;</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md131"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md132"></a>
 Reachability</h4>
 <p>Requires an embedding application to wrap a hosted action, release the wrapper and keep the native action/listener alive. Retaining the wrapper avoids the immediate dangling condition. The callback accesses the object before checking whether the selector is supported.</p>
-<h4><a class="anchor" id="autotoc_md132"></a>
+<h4><a class="anchor" id="autotoc_md133"></a>
 Severity</h4>
 <p><b>Medium</b> — Requires an embedding application to wrap a hosted action, release the wrapper and keep the native action/listener alive. Retaining the wrapper avoids the immediate dangling condition. The callback accesses the object before checking whether the selector is supported.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -1724,7 +1724,7 @@ Severity</h4>
 <li><b>Level:</b> medium</li>
 <li><b>Why:</b> Requires an embedding application to wrap a hosted action, release the wrapper and keep the native action/listener alive. Retaining the wrapper avoids the immediate dangling condition. The callback accesses the object before checking whether the selector is supported.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md133"></a>
+<h4><a class="anchor" id="autotoc_md134"></a>
 Remediation</h4>
 <p>Separate inspection wrappers from registration; retain callback targets for the registration lifetime or unregister userdata/listener during synchronized teardown.</p>
 <p>Tests:</p><ul>
@@ -1734,7 +1734,7 @@ Remediation</h4>
 <li>Centralize and enforce the repaired lifetime or input-limit invariant.</li>
 </ul>
 <p><a class="anchor" id="finding-8"></a></p>
-<h3><a class="anchor" id="autotoc_md134"></a>
+<h3><a class="anchor" id="autotoc_md135"></a>
 [8] Deep XML input can exhaust the stack during tree cleanup</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -1752,10 +1752,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="soap__request_8c.html">src/mupnp/soap/soap_request.c</a>:180-188, <a class="el" href="soap__request_8c.html">src/mupnp/soap/soap_request.c</a>:202-207, <a class="el" href="xml__parser__expat_8c.html">src/mupnp/xml/xml_parser_expat.c</a>:95-112, <a class="el" href="xml__parser__expat_8c.html">src/mupnp/xml/xml_parser_expat.c</a>:194-199, <a class="el" href="xml__node_8c.html">src/mupnp/xml/xml_node.c</a>:48-59   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md135"></a>
+<h4><a class="anchor" id="autotoc_md136"></a>
 Summary</h4>
 <p>The Expat callbacks build an arbitrarily deep child tree without a depth budget. XML parse failure deletes that tree through recursive child-list destruction. Network SOAP input reaches parsing before service/action validation, so a deeply nested malformed document can exhaust the native stack.</p>
-<h4><a class="anchor" id="autotoc_md136"></a>
+<h4><a class="anchor" id="autotoc_md137"></a>
 Root Cause</h4>
 <p>The Expat callbacks build an arbitrarily deep child tree without a depth budget. XML parse failure deletes that tree through recursive child-list destruction. Network SOAP input reaches parsing before service/action validation, so a deeply nested malformed document can exhaust the native stack.</p>
 <p><b>soap input</b> — <code><a class="el" href="soap__request_8c.html">src/mupnp/soap/soap_request.c</a>:180-188</code></p>
@@ -1836,7 +1836,7 @@ Root Cause</h4>
 <div class="ttc" id="astruct__mUpnpXmlNode_html_af3c591f1fe5b6f09d0dd6fc919ff429d"><div class="ttname"><a href="struct__mUpnpXmlNode.html#af3c591f1fe5b6f09d0dd6fc919ff429d">_mUpnpXmlNode::userData</a></div><div class="ttdeci">void * userData</div><div class="ttdef"><b>Definition</b> xml.h:56</div></div>
 <div class="ttc" id="axml__attribute__list_8c_html_ad639ce3fe98736646e830f0a905da8c2"><div class="ttname"><a href="xml__attribute__list_8c.html#ad639ce3fe98736646e830f0a905da8c2">mupnp_xml_attributelist_delete</a></div><div class="ttdeci">void mupnp_xml_attributelist_delete(mUpnpXmlAttributeList *attrList)</div><div class="ttdef"><b>Definition</b> xml_attribute_list.c:42</div></div>
 <div class="ttc" id="axml__node__list_8c_html_abb236f64a13b9b33c837f0909efbd612"><div class="ttname"><a href="xml__node__list_8c.html#abb236f64a13b9b33c837f0909efbd612">mupnp_xml_nodelist_delete</a></div><div class="ttdeci">void mupnp_xml_nodelist_delete(mUpnpXmlNodeList *nodeList)</div><div class="ttdef"><b>Definition</b> xml_node_list.c:48</div></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md137"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md138"></a>
 Validation</h4>
 <p>The Expat callbacks build an arbitrarily deep child tree without a depth budget. XML parse failure deletes that tree through recursive child-list destruction. Network SOAP input reaches parsing before service/action validation, so a deeply nested malformed document can exhaust the native stack.</p>
 <p>Validation method: static source trace</p>
@@ -1904,7 +1904,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code or vulnerability-triggering input was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md138"></a>
+<h4><a class="anchor" id="autotoc_md139"></a>
 Dataflow</h4>
 <p>soap-input -&gt; soap-parse -&gt; expat-depth -&gt; expat-error -&gt; xml-delete</p>
 <p><b>soap input</b> — <code><a class="el" href="soap__request_8c.html">src/mupnp/soap/soap_request.c</a>:180-188</code></p>
@@ -1968,10 +1968,10 @@ Dataflow</h4>
 <div class="line">  <span class="keywordflow">if</span> (node-&gt;<a class="code hl_variable" href="struct__mUpnpXmlNode.html#a4a10dba526837f0917e15e44aa6c651b">userDataDestructorFunc</a> != NULL)</div>
 <div class="line">    node-&gt;<a class="code hl_variable" href="struct__mUpnpXmlNode.html#a4a10dba526837f0917e15e44aa6c651b">userDataDestructorFunc</a>(node-&gt;<a class="code hl_variable" href="struct__mUpnpXmlNode.html#af3c591f1fe5b6f09d0dd6fc919ff429d">userData</a>);</div>
 <div class="line">  free(node);</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md139"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md140"></a>
 Reachability</h4>
 <p>Applies to the Expat backend; libxml2 has separate parser limits. The exact exhaustion threshold depends on native stack size and dependency behavior. No runtime reproduction was performed.</p>
-<h4><a class="anchor" id="autotoc_md140"></a>
+<h4><a class="anchor" id="autotoc_md141"></a>
 Severity</h4>
 <p><b>Medium</b> — Applies to the Expat backend; libxml2 has separate parser limits. The exact exhaustion threshold depends on native stack size and dependency behavior. No runtime reproduction was performed.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -1983,7 +1983,7 @@ Severity</h4>
 <li><b>Level:</b> high</li>
 <li><b>Why:</b> Applies to the Expat backend; libxml2 has separate parser limits. The exact exhaustion threshold depends on native stack size and dependency behavior. No runtime reproduction was performed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md141"></a>
+<h4><a class="anchor" id="autotoc_md142"></a>
 Remediation</h4>
 <p>Enforce a conservative element-depth and node budget during parsing, abort safely on excess, and make tree destruction iterative.</p>
 <p>Tests:</p><ul>
@@ -1993,7 +1993,7 @@ Remediation</h4>
 <li>Centralize and enforce the repaired lifetime or input-limit invariant.</li>
 </ul>
 <p><a class="anchor" id="finding-9"></a></p>
-<h3><a class="anchor" id="autotoc_md142"></a>
+<h3><a class="anchor" id="autotoc_md143"></a>
 [9] Unbounded M-SEARCH MX blocks the SSDP worker</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2011,10 +2011,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="device__ssdp__server_8c.html">src/mupnp/device_ssdp_server.c</a>:84-107, <a class="el" href="time_8c.html">src/mupnp/util/time.c</a>:64-74   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md143"></a>
+<h4><a class="anchor" id="autotoc_md144"></a>
 Summary</h4>
 <p>Digit validation accepts excessive MX. Delay runs synchronously on sole SSDP worker; duplicate filtering does not cap first delay. Windows and Unix accepting long usleep durations can stop discovery processing for extended periods; platform applicability varies.</p>
-<h4><a class="anchor" id="autotoc_md144"></a>
+<h4><a class="anchor" id="autotoc_md145"></a>
 Root Cause</h4>
 <p>Digit validation accepts excessive MX. Delay runs synchronously on sole SSDP worker; duplicate filtering does not cap first delay. Windows and Unix accepting long usleep durations can stop discovery processing for extended periods; platform applicability varies.</p>
 <p><b>mx sleep</b> — <code><a class="el" href="device__ssdp__server_8c.html">src/mupnp/device_ssdp_server.c</a>:84-107</code></p>
@@ -2062,7 +2062,7 @@ Root Cause</h4>
 <div class="line">  <a class="code hl_function" href="time_8c.html#a479b02a1ea9289208b1e891c1297faa2">mupnp_wait</a>(waitTime);</div>
 <div class="ttc" id="atime_8c_html_a479b02a1ea9289208b1e891c1297faa2"><div class="ttname"><a href="time_8c.html#a479b02a1ea9289208b1e891c1297faa2">mupnp_wait</a></div><div class="ttdeci">void mupnp_wait(mUpnpTime mtime)</div><div class="ttdef"><b>Definition</b> time.c:46</div></div>
 <div class="ttc" id="atime_8h_html_a0b59cedb05cc09c39dc7c17ad4164953"><div class="ttname"><a href="time_8h.html#a0b59cedb05cc09c39dc7c17ad4164953">mUpnpTime</a></div><div class="ttdeci">long mUpnpTime</div><div class="ttdef"><b>Definition</b> time.h:39</div></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md145"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md146"></a>
 Validation</h4>
 <p>Parent source review confirms the input-to-control-to-outcome path. Digit validation accepts excessive MX. Delay runs synchronously on sole SSDP worker; duplicate filtering does not cap first delay. Windows and Unix accepting long usleep durations can stop discovery processing for extended periods; platform applicability varies.</p>
 <p>Validation method: static source trace</p>
@@ -2107,7 +2107,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code, exploit input or live network test was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md146"></a>
+<h4><a class="anchor" id="autotoc_md147"></a>
 Dataflow</h4>
 <p>mx-sleep -&gt; wait-random</p>
 <p><b>mx sleep</b> — <code><a class="el" href="device__ssdp__server_8c.html">src/mupnp/device_ssdp_server.c</a>:84-107</code></p>
@@ -2148,10 +2148,10 @@ Dataflow</h4>
 <div class="line">  factor = (double)rand() / (double)RAND_MAX;</div>
 <div class="line">  waitTime = (long)((<span class="keywordtype">double</span>)mtime * factor);</div>
 <div class="line">  <a class="code hl_function" href="time_8c.html#a479b02a1ea9289208b1e891c1297faa2">mupnp_wait</a>(waitTime);</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md147"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md148"></a>
 Reachability</h4>
 <p>The discovery subsystem stalls, with platform-dependent long-sleep behavior.</p>
-<h4><a class="anchor" id="autotoc_md148"></a>
+<h4><a class="anchor" id="autotoc_md149"></a>
 Severity</h4>
 <p><b>Low</b> — The discovery subsystem stalls, with platform-dependent long-sleep behavior.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -2163,7 +2163,7 @@ Severity</h4>
 <li><b>Level:</b> high</li>
 <li><b>Why:</b> The discovery subsystem stalls, with platform-dependent long-sleep behavior.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md149"></a>
+<h4><a class="anchor" id="autotoc_md150"></a>
 Remediation</h4>
 <p>Range-check and cap MX and schedule responses without blocking reception.</p>
 <p>Tests:</p><ul>
@@ -2173,7 +2173,7 @@ Remediation</h4>
 <li>Make the repaired invariant mandatory in the shared helper.</li>
 </ul>
 <p><a class="anchor" id="finding-10"></a></p>
-<h3><a class="anchor" id="autotoc_md150"></a>
+<h3><a class="anchor" id="autotoc_md151"></a>
 [10] Test presentation handler sends uninitialized stack contents</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2191,10 +2191,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone">test/TestDevice.c:309-313, test/DeviceTest.cpp:41-44, test/TestDevice.c:208-224, test/TestDevice.c:273-278   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md151"></a>
+<h4><a class="anchor" id="autotoc_md152"></a>
 Summary</h4>
 <p>The network test device's presentation handler declares a stack array whose only initialization is commented out, then copies and measures it as a C string before sending it. A reachable peer during test execution can receive residual stack bytes or cause an out-of-bounds read.</p>
-<h4><a class="anchor" id="autotoc_md152"></a>
+<h4><a class="anchor" id="autotoc_md153"></a>
 Root Cause</h4>
 <p>The network test device's presentation handler declares a stack array whose only initialization is commented out, then copies and measures it as a C string before sending it. A reachable peer during test execution can receive residual stack bytes or cause an out-of-bounds read.</p>
 <p><b>test register</b> — <code>test/TestDevice.c:309-313</code></p>
@@ -2251,7 +2251,7 @@ Root Cause</h4>
 <div class="ttc" id="ahttp__request_8c_html_a90f9530a402e220c258f7161f6b8851a"><div class="ttname"><a href="http__request_8c.html#a90f9530a402e220c258f7161f6b8851a">mupnp_http_request_postresponse</a></div><div class="ttdeci">bool mupnp_http_request_postresponse(mUpnpHttpRequest *httpReq, mUpnpHttpResponse *httpRes)</div><div class="ttdef"><b>Definition</b> http_request.c:757</div></div>
 <div class="ttc" id="ahttp__response_8c_html_a01e846ad5ee7ab9568695824f7d06864"><div class="ttname"><a href="http__response_8c.html#a01e846ad5ee7ab9568695824f7d06864">mupnp_http_response_new</a></div><div class="ttdeci">mUpnpHttpResponse * mupnp_http_response_new(void)</div><div class="ttdef"><b>Definition</b> http_response.c:20</div></div>
 <div class="ttc" id="ahttp__response_8c_html_aa2ae5be7bfe4bbfd25003611c225eeda"><div class="ttname"><a href="http__response_8c.html#aa2ae5be7bfe4bbfd25003611c225eeda">mupnp_http_response_setstatuscode</a></div><div class="ttdeci">void mupnp_http_response_setstatuscode(mUpnpHttpResponse *httpRes, int value)</div><div class="ttdef"><b>Definition</b> http_response.c:108</div></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md153"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md154"></a>
 Validation</h4>
 <p>The network test device's presentation handler declares a stack array whose only initialization is commented out, then copies and measures it as a C string before sending it. A reachable peer during test execution can receive residual stack bytes or cause an out-of-bounds read.</p>
 <p>Validation method: static source trace</p>
@@ -2298,7 +2298,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code or vulnerability-triggering input was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md154"></a>
+<h4><a class="anchor" id="autotoc_md155"></a>
 Dataflow</h4>
 <p>test-register -&gt; test-start -&gt; test-buffer -&gt; test-send</p>
 <p><b>test register</b> — <code>test/TestDevice.c:309-313</code></p>
@@ -2341,10 +2341,10 @@ Dataflow</h4>
 <div class="line"><a class="code hl_define" href="http_8h.html#a9ed1871141689d4ef9392080114f5fcb">mupnp_http_response_setcontenttype</a>(httpRes, <span class="stringliteral">&quot;text/html&quot;</span>);</div>
 <div class="line"><a class="code hl_define" href="http_8h.html#a8116e8e2a470be4798c369f903571029">mupnp_http_response_setcontentlength</a>(httpRes, strlen(content));</div>
 <div class="line"><a class="code hl_function" href="http__request_8c.html#a90f9530a402e220c258f7161f6b8851a">mupnp_http_request_postresponse</a>(httpReq, httpRes);</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md155"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md156"></a>
 Reachability</h4>
 <p>Test-only; CMake tests default OFF, CI explicitly enables them. The listener's exposure window and confidential stack contents depend on the test environment; no concrete secret was observed.</p>
-<h4><a class="anchor" id="autotoc_md156"></a>
+<h4><a class="anchor" id="autotoc_md157"></a>
 Severity</h4>
 <p><b>Low</b> — Test-only; CMake tests default OFF, CI explicitly enables them. The listener's exposure window and confidential stack contents depend on the test environment; no concrete secret was observed.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -2356,7 +2356,7 @@ Severity</h4>
 <li><b>Level:</b> low</li>
 <li><b>Why:</b> Test-only; CMake tests default OFF, CI explicitly enables them. The listener's exposure window and confidential stack contents depend on the test environment; no concrete secret was observed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md157"></a>
+<h4><a class="anchor" id="autotoc_md158"></a>
 Remediation</h4>
 <p>Send an initialized literal with an explicit known length; use loopback for network test listeners when external reachability is unnecessary.</p>
 <p>Tests:</p><ul>
@@ -2366,7 +2366,7 @@ Remediation</h4>
 <li>Centralize and enforce the repaired lifetime or input-limit invariant.</li>
 </ul>
 <p><a class="anchor" id="finding-11"></a></p>
-<h3><a class="anchor" id="autotoc_md158"></a>
+<h3><a class="anchor" id="autotoc_md159"></a>
 [11] Media directory dump follows container cycles without a bound</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2384,10 +2384,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone">examples/upnpavdump/upnpavdump.c:48-58, examples/upnpavdump/upnpavdump.c:60-70, examples/upnpavchk/upnpavchk.c:61-70, examples/upnpavdump/macosx/xcode30/upnpavdump.m:46-49   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md159"></a>
+<h4><a class="anchor" id="autotoc_md160"></a>
 Summary</h4>
 <p>The media dump utilities recursively browse every container ID supplied by a successful remote DIDL response. No visited-ID set or depth/request budget stops a cyclic or excessively deep hierarchy, retaining native frames and XML trees until stack or memory exhaustion.</p>
-<h4><a class="anchor" id="autotoc_md160"></a>
+<h4><a class="anchor" id="autotoc_md161"></a>
 Root Cause</h4>
 <p>The media dump utilities recursively browse every container ID supplied by a successful remote DIDL response. No visited-ID set or depth/request budget stops a cyclic or excessively deep hierarchy, retaining native frames and XML trees until stack or memory exhaustion.</p>
 <p><b>media response</b> — <code>examples/upnpavdump/upnpavdump.c:48-58</code></p>
@@ -2442,7 +2442,7 @@ Root Cause</h4>
 <div class="line">     NSLog(@&quot;%@  [%@] %@&quot;, indentStr, objId, title);</div>
 <div class="line">     PrintContentDirectory(browseAction, (indent + 1), objId);</div>
 <div class="line">   }</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md161"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md162"></a>
 Validation</h4>
 <p>The media dump utilities recursively browse every container ID supplied by a successful remote DIDL response. No visited-ID set or depth/request budget stops a cyclic or excessively deep hierarchy, retaining native frames and XML trees until stack or memory exhaustion.</p>
 <p>Validation method: static source trace</p>
@@ -2493,7 +2493,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code or vulnerability-triggering input was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md162"></a>
+<h4><a class="anchor" id="autotoc_md163"></a>
 Dataflow</h4>
 <p>media-response -&gt; media-recursion -&gt; media-chk-recursion -&gt; media-objc-recursion</p>
 <p><b>media response</b> — <code>examples/upnpavdump/upnpavdump.c:48-58</code></p>
@@ -2540,10 +2540,10 @@ Dataflow</h4>
 <div class="line">     NSLog(@&quot;%@  [%@] %@&quot;, indentStr, objId, title);</div>
 <div class="line">     PrintContentDirectory(browseAction, (indent + 1), objId);</div>
 <div class="line">   }</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md163"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md164"></a>
 Reachability</h4>
 <p>Availability impact is confined to a user-invoked dump utility. The primary C upnpavdump target is in default example builds; other sibling targets have separate/legacy build routes. Indentation is bounded, which prevents a distinct buffer overflow but does not bound recursion.</p>
-<h4><a class="anchor" id="autotoc_md164"></a>
+<h4><a class="anchor" id="autotoc_md165"></a>
 Severity</h4>
 <p><b>Low</b> — Availability impact is confined to a user-invoked dump utility. The primary C upnpavdump target is in default example builds; other sibling targets have separate/legacy build routes. Indentation is bounded, which prevents a distinct buffer overflow but does not bound recursion.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -2555,7 +2555,7 @@ Severity</h4>
 <li><b>Level:</b> high</li>
 <li><b>Why:</b> Availability impact is confined to a user-invoked dump utility. The primary C upnpavdump target is in default example builds; other sibling targets have separate/legacy build routes. Indentation is bounded, which prevents a distinct buffer overflow but does not bound recursion.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md165"></a>
+<h4><a class="anchor" id="autotoc_md166"></a>
 Remediation</h4>
 <p>Use iterative traversal with a per-device visited-ID set and explicit depth, response-count and content budgets.</p>
 <p>Tests:</p><ul>
@@ -2565,7 +2565,7 @@ Remediation</h4>
 <li>Centralize and enforce the repaired lifetime or input-limit invariant.</li>
 </ul>
 <p><a class="anchor" id="finding-12"></a></p>
-<h3><a class="anchor" id="autotoc_md166"></a>
+<h3><a class="anchor" id="autotoc_md167"></a>
 [12] Malformed SSDP packets leak tokenizers without bound</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2583,10 +2583,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="httpmu__socket_8c.html">src/mupnp/ssdp/httpmu_socket.c</a>:48-62, <a class="el" href="ssdp__packet_8c.html">src/mupnp/ssdp/ssdp_packet.c</a>:111-115   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md167"></a>
+<h4><a class="anchor" id="autotoc_md168"></a>
 Summary</h4>
 <p>Nonempty malformed datagram produces no tokenizer token. New tokenizer is abandoned on early return before message validation. Packet cleanup does not own the local tokenizer. Sustained unauthenticated UDP traffic leaks heap.</p>
-<h4><a class="anchor" id="autotoc_md168"></a>
+<h4><a class="anchor" id="autotoc_md169"></a>
 Root Cause</h4>
 <p>Nonempty malformed datagram produces no tokenizer token. New tokenizer is abandoned on early return before message validation. Packet cleanup does not own the local tokenizer. Sustained unauthenticated UDP traffic leaks heap.</p>
 <p><b>ssdp before validation</b> — <code><a class="el" href="httpmu__socket_8c.html">src/mupnp/ssdp/httpmu_socket.c</a>:48-62</code></p>
@@ -2619,7 +2619,7 @@ Root Cause</h4>
 <div class="ttc" id="ahttp_8h_html_a0b4f0fc8b64e9c2b1f5622b85af6fe6e"><div class="ttname"><a href="http_8h.html#a0b4f0fc8b64e9c2b1f5622b85af6fe6e">MUPNP_HTTP_CRLF</a></div><div class="ttdeci">#define MUPNP_HTTP_CRLF</div><div class="ttdef"><b>Definition</b> http.h:43</div></div>
 <div class="ttc" id="astring__tokenizer_8c_html_a1ce77d86b7aaca387fedba18b0b314c4"><div class="ttname"><a href="string__tokenizer_8c.html#a1ce77d86b7aaca387fedba18b0b314c4">mupnp_string_tokenizer_hasmoretoken</a></div><div class="ttdeci">bool mupnp_string_tokenizer_hasmoretoken(mUpnpStringTokenizer *strToken)</div><div class="ttdef"><b>Definition</b> string_tokenizer.c:70</div></div>
 <div class="ttc" id="astring__tokenizer_8c_html_a5bea4e3fdaca7beaab121cffc5eeca7d"><div class="ttname"><a href="string__tokenizer_8c.html#a5bea4e3fdaca7beaab121cffc5eeca7d">mupnp_string_tokenizer_new</a></div><div class="ttdeci">mUpnpStringTokenizer * mupnp_string_tokenizer_new(const char *value, const char *delim)</div><div class="ttdef"><b>Definition</b> string_tokenizer.c:19</div></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md169"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md170"></a>
 Validation</h4>
 <p>Parent source review confirms the input-to-control-to-outcome path. Nonempty malformed datagram produces no tokenizer token. New tokenizer is abandoned on early return before message validation. Packet cleanup does not own the local tokenizer. Sustained unauthenticated UDP traffic leaks heap.</p>
 <p>Validation method: static source trace</p>
@@ -2649,7 +2649,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code, exploit input or live network test was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md170"></a>
+<h4><a class="anchor" id="autotoc_md171"></a>
 Dataflow</h4>
 <p>ssdp-before-validation -&gt; ssdp-leak</p>
 <p><b>ssdp before validation</b> — <code><a class="el" href="httpmu__socket_8c.html">src/mupnp/ssdp/httpmu_socket.c</a>:48-62</code></p>
@@ -2675,10 +2675,10 @@ Dataflow</h4>
 <div class="line"><span class="comment">/**** skip the first line ****/</span></div>
 <div class="line"><span class="keywordflow">if</span> (<a class="code hl_function" href="string__tokenizer_8c.html#a1ce77d86b7aaca387fedba18b0b314c4">mupnp_string_tokenizer_hasmoretoken</a>(ssdpTok) == <span class="keyword">false</span>)</div>
 <div class="line">  <span class="keywordflow">return</span>;</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md171"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md172"></a>
 Reachability</h4>
 <p>Sustained traffic is required to turn a small per-packet leak into material memory pressure.</p>
-<h4><a class="anchor" id="autotoc_md172"></a>
+<h4><a class="anchor" id="autotoc_md173"></a>
 Severity</h4>
 <p><b>Low</b> — Sustained traffic is required to turn a small per-packet leak into material memory pressure.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -2690,7 +2690,7 @@ Severity</h4>
 <li><b>Level:</b> high</li>
 <li><b>Why:</b> Sustained traffic is required to turn a small per-packet leak into material memory pressure.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md173"></a>
+<h4><a class="anchor" id="autotoc_md174"></a>
 Remediation</h4>
 <p>Destroy tokenizer on all exit paths.</p>
 <p>Tests:</p><ul>
@@ -2700,7 +2700,7 @@ Remediation</h4>
 <li>Make the repaired invariant mandatory in the shared helper.</li>
 </ul>
 <p><a class="anchor" id="finding-13"></a></p>
-<h3><a class="anchor" id="autotoc_md174"></a>
+<h3><a class="anchor" id="autotoc_md175"></a>
 [13] A zero-length UDP packet permanently stops SSDP reception</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2718,10 +2718,10 @@ Remediation</h4>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Affected lines   </td><td class="markdownTableBodyNone"><a class="el" href="socket_8c.html">src/mupnp/net/socket.c</a>:966-977, <a class="el" href="ssdp__server_8c.html">src/mupnp/ssdp/ssdp_server.c</a>:148-153, <a class="el" href="ssdp__response__server_8c.html">src/mupnp/ssdp/ssdp_response_server.c</a>:150-157   </td></tr>
 </table>
-<h4><a class="anchor" id="autotoc_md175"></a>
+<h4><a class="anchor" id="autotoc_md176"></a>
 Summary</h4>
 <p>Empty datagram yields zero from recvfrom; socket_recv/HTTPMU/HTTPU propagate zero. Both multicast and response workers exit before validation. recvThread remains non-NULL; no automatic restart. Requires UDP reachability to targeted listener.</p>
-<h4><a class="anchor" id="autotoc_md176"></a>
+<h4><a class="anchor" id="autotoc_md177"></a>
 Root Cause</h4>
 <p>Empty datagram yields zero from recvfrom; socket_recv/HTTPMU/HTTPU propagate zero. Both multicast and response workers exit before validation. recvThread remains non-NULL; no automatic restart. Requires UDP reachability to targeted listener.</p>
 <p><b>udp recv</b> — <code><a class="el" href="socket_8c.html">src/mupnp/net/socket.c</a>:966-977</code></p>
@@ -2764,7 +2764,7 @@ Root Cause</h4>
 <div class="ttc" id="ahttpu__socket_8c_html_aefcfb3c225eae6b770a5e1d4d5199d0c"><div class="ttname"><a href="httpu__socket_8c.html#aefcfb3c225eae6b770a5e1d4d5199d0c">mupnp_httpu_socket_recv</a></div><div class="ttdeci">ssize_t mupnp_httpu_socket_recv(mUpnpHttpMuSocket *sock, mUpnpSSDPPacket *ssdpPkt)</div><div class="ttdef"><b>Definition</b> httpu_socket.c:19</div></div>
 <div class="ttc" id="assdp__packet_8c_html_a608d36cc2272a4968ea0c1c8294eaf53"><div class="ttname"><a href="ssdp__packet_8c.html#a608d36cc2272a4968ea0c1c8294eaf53">mupnp_ssdp_packet_print</a></div><div class="ttdeci">void mupnp_ssdp_packet_print(mUpnpSSDPPacket *ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_packet.c:208</div></div>
 <div class="ttc" id="assdp__response__server_8c_html_a251de61db0e96239176c037758377659"><div class="ttname"><a href="ssdp__response__server_8c.html#a251de61db0e96239176c037758377659">mupnp_ssdpresponse_server_performlistener</a></div><div class="ttdeci">void mupnp_ssdpresponse_server_performlistener(mUpnpSSDPResponseServer *server, mUpnpSSDPPacket *ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_response_server.c:115</div></div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md177"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md178"></a>
 Validation</h4>
 <p>Parent source review confirms the input-to-control-to-outcome path. Empty datagram yields zero from recvfrom; socket_recv/HTTPMU/HTTPU propagate zero. Both multicast and response workers exit before validation. recvThread remains non-NULL; no automatic restart. Requires UDP reachability to targeted listener.</p>
 <p>Validation method: static source trace</p>
@@ -2803,7 +2803,7 @@ Validation</h4>
 </div><!-- fragment --><p>Limitations:</p><ul>
 <li>No application code, exploit input or live network test was executed.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md178"></a>
+<h4><a class="anchor" id="autotoc_md179"></a>
 Dataflow</h4>
 <p>udp-recv -&gt; ssdp-zero -&gt; ssdp-response-zero</p>
 <p><b>udp recv</b> — <code><a class="el" href="socket_8c.html">src/mupnp/net/socket.c</a>:966-977</code></p>
@@ -2838,10 +2838,10 @@ Dataflow</h4>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_function" href="ssdp__response__server_8c.html#a251de61db0e96239176c037758377659">mupnp_ssdpresponse_server_performlistener</a>(server, ssdpPkt);</div>
 <div class="line">  <a class="code hl_function" href="ssdp__packet_8c.html#a213fbf5693f4062e11acb87aa3e2e66d">mupnp_ssdp_packet_clear</a>(ssdpPkt);</div>
-</div><!-- fragment --><h4><a class="anchor" id="autotoc_md179"></a>
+</div><!-- fragment --><h4><a class="anchor" id="autotoc_md180"></a>
 Reachability</h4>
 <p>Impact is limited to the targeted SSDP listener; host network reachability is required.</p>
-<h4><a class="anchor" id="autotoc_md180"></a>
+<h4><a class="anchor" id="autotoc_md181"></a>
 Severity</h4>
 <p><b>Low</b> — Impact is limited to the targeted SSDP listener; host network reachability is required.</p>
 <p>Additional runtime or deployment evidence could raise or lower this severity.</p>
@@ -2853,7 +2853,7 @@ Severity</h4>
 <li><b>Level:</b> high</li>
 <li><b>Why:</b> Impact is limited to the targeted SSDP listener; host network reachability is required.</li>
 </ul>
-<h4><a class="anchor" id="autotoc_md181"></a>
+<h4><a class="anchor" id="autotoc_md182"></a>
 Remediation</h4>
 <p>Discard empty datagrams and distinguish them from socket errors; keep listener running.</p>
 <p>Tests:</p><ul>
@@ -2862,7 +2862,7 @@ Remediation</h4>
 <p>Preventive controls:</p><ul>
 <li>Make the repaired invariant mandatory in the shared helper.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md182"></a>
+<h2><a class="anchor" id="autotoc_md183"></a>
 Reviewed Surfaces</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -2882,7 +2882,7 @@ Reviewed Surfaces</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">Build generators and CI publication routes   </td><td class="markdownTableBodyNone">not recorded   </td><td class="markdownTableBodyNone">No issue found   </td><td class="markdownTableBodyNone">Fixed bootstrap/generator shell and Perl commands require trusted repository/operator authority. CI build executes PR code but master-only documentation publication is distinct. CMake emits CG_* flags while consumers use MUPNP_*; preserved as configuration discrepancy, not evidence of activated TLS or XML guards.   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md183"></a>
+<h2><a class="anchor" id="autotoc_md184"></a>
 Open Questions And Follow Up</h2>
 <ul>
 <li>Historical std/av YouTube target uses inconsistent legacy Cg_* symbols/include paths. Raw URI suffix reaches unbounded strcpy into a small stack buffer at std/av/sample/upnpavserver/youtube/cdms_youtube_http.c:45,77-79, but working compilation/deployment was not established. Root builds omit std/av; preserve as deferred proof gap.</li>

@@ -67,6 +67,7 @@ $(function(){initNavTree('CGUpnpControlPoint_8m.html',''); initResizable(true); 
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">CGUpnpControlPoint.m File Reference</div></div>
 </div><!--header-->
@@ -76,11 +77,57 @@ $(function(){initNavTree('CGUpnpControlPoint_8m.html',''); initResizable(true); 
 <code>import &quot;<a class="el" href="CGUpnpControlPoint_8h.html">CGUpnpControlPoint.h</a>&quot;</code><br />
 <code>import &quot;<a class="el" href="CGUpnpDevice_8h.html">CGUpnpDevice.h</a>&quot;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a658b1bb0d6696d289bf6a804ccf28ae1" id="r_a658b1bb0d6696d289bf6a804ccf28ae1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a658b1bb0d6696d289bf6a804ccf28ae1">CG_UPNP_CONTROLPOINT_NEW</a>()</td></tr>
+<tr class="separator:a658b1bb0d6696d289bf6a804ccf28ae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6966820cff8c250cda782419ec6dd4c6" id="r_a6966820cff8c250cda782419ec6dd4c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6966820cff8c250cda782419ec6dd4c6">CG_UPNP_CONTROLPOINT_DELETE</a>(cp)</td></tr>
+<tr class="separator:a6966820cff8c250cda782419ec6dd4c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a6446d74a6d583282254d4b1e8d94c374" id="r_a6446d74a6d583282254d4b1e8d94c374"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6446d74a6d583282254d4b1e8d94c374">cg_upnp_control_point_device_listener</a> (<a class="el" href="controlpoint_8h.html#a4fd9c99783214a28c444ff995a95052c">mUpnpControlPoint</a> *ctrlPoint, const char *udn, <a class="el" href="controlpoint_8h.html#a4775fb3ec6882f565b2d25deadcd8d05">mUpnpDeviceStatus</a> status)</td></tr>
 <tr class="separator:a6446d74a6d583282254d4b1e8d94c374"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a6966820cff8c250cda782419ec6dd4c6" name="a6966820cff8c250cda782419ec6dd4c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6966820cff8c250cda782419ec6dd4c6">&#9670;&#160;</a></span>CG_UPNP_CONTROLPOINT_DELETE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CG_UPNP_CONTROLPOINT_DELETE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>cp</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="controlpoint_8c.html#a13ca075e0efce9811bcd2621036b5e74">mupnp_controlpoint_delete</a>(cp)</div>
+<div class="ttc" id="acontrolpoint_8c_html_a13ca075e0efce9811bcd2621036b5e74"><div class="ttname"><a href="controlpoint_8c.html#a13ca075e0efce9811bcd2621036b5e74">mupnp_controlpoint_delete</a></div><div class="ttdeci">void mupnp_controlpoint_delete(mUpnpControlPoint *ctrlPoint)</div><div class="ttdoc">Destroy a control point and free all associated resources.</div><div class="ttdef"><b>Definition</b> controlpoint.c:123</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a658b1bb0d6696d289bf6a804ccf28ae1" name="a658b1bb0d6696d289bf6a804ccf28ae1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a658b1bb0d6696d289bf6a804ccf28ae1">&#9670;&#160;</a></span>CG_UPNP_CONTROLPOINT_NEW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CG_UPNP_CONTROLPOINT_NEW</td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="controlpoint_8c.html#aa5ebe8ac088296517392651ed4937e51">mupnp_controlpoint_new</a>()</div>
+<div class="ttc" id="acontrolpoint_8c_html_aa5ebe8ac088296517392651ed4937e51"><div class="ttname"><a href="controlpoint_8c.html#aa5ebe8ac088296517392651ed4937e51">mupnp_controlpoint_new</a></div><div class="ttdeci">mUpnpControlPoint * mupnp_controlpoint_new(void)</div><div class="ttdoc">Create a new control point instance.</div><div class="ttdef"><b>Definition</b> controlpoint.c:70</div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a6446d74a6d583282254d4b1e8d94c374" name="a6446d74a6d583282254d4b1e8d94c374"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6446d74a6d583282254d4b1e8d94c374">&#9670;&#160;</a></span>cg_upnp_control_point_device_listener()</h2>

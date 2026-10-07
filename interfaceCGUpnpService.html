@@ -239,8 +239,16 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Parse the specified XML description.</p>
-<dl class="section return"><dt>Returns</dt><dd>YES if successfull; otherwise nui. </dd></dl>
+<p>Parse the specified service description (SCPD).</p>
+<p>The description is passed to the native parser as UTF-8 bytes, so non-ASCII text such as Japanese or emoji is preserved.</p>
+<p>Returns NO without touching the receiver when xmlDesc is nil, empty, not an NSString or not convertible to UTF-8. When the native parser rejects the XML, it returns NO after the native service has been cleared: the receiver then has no actions or state variables, and action and state variable wrappers previously obtained from it must not be used.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xmlDesc</td><td>The service description</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>YES if successful; otherwise NO. </dd></dl>
 
 </div>
 </div>

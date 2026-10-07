@@ -223,14 +223,15 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Send action</p>
+<p>Set the specified argument values and send the action.</p>
+<p>Every entry is validated before any argument is changed or any request is sent. The method returns NO without sending a request and without changing any argument value when arguments is not a dictionary, or when any key is not the name of an argument of this action, or when any key or value is not an NSString convertible to UTF-8. Arguments that are not in the dictionary keep their current values, as with setArgumentValue:forName:.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">arguments</td><td>Arguments to set</td></tr>
+    <tr><td class="paramname">arguments</td><td>Argument values keyed by argument name, or nil</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>YES if successfull; otherwise NO </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>YES if successful; otherwise NO </dd></dl>
 
 </div>
 </div>
