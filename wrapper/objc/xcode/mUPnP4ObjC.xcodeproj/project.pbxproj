@@ -13,19 +13,19 @@
 		211481DE1959863A00B8EC17 /* mUPnP4ObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C11959863A00B8EC17 /* mUPnP4ObjC.framework */; };
 		211481E41959863A00B8EC17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211481E21959863A00B8EC17 /* InfoPlist.strings */; };
 		211481E61959863A00B8EC17 /* mUPnP4ObjCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 211481E51959863A00B8EC17 /* mUPnP4ObjCTests.m */; };
-		213AF7ED195986C1009E7963 /* CGUpnpAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E0195986C1009E7963 /* CGUpnpAction.h */; };
+		213AF7ED195986C1009E7963 /* CGUpnpAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E0195986C1009E7963 /* CGUpnpAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		213AF7EE195986C1009E7963 /* CGUpnpAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E1195986C1009E7963 /* CGUpnpAction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		213AF7EF195986C1009E7963 /* CGUpnpControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E2195986C1009E7963 /* CGUpnpControlPoint.h */; };
+		213AF7EF195986C1009E7963 /* CGUpnpControlPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E2195986C1009E7963 /* CGUpnpControlPoint.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		213AF7F0195986C1009E7963 /* CGUpnpControlPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E3195986C1009E7963 /* CGUpnpControlPoint.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		213AF7F1195986C1009E7963 /* CGUpnpDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E4195986C1009E7963 /* CGUpnpDevice.h */; };
+		213AF7F1195986C1009E7963 /* CGUpnpDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E4195986C1009E7963 /* CGUpnpDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		213AF7F2195986C1009E7963 /* CGUpnpDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E5195986C1009E7963 /* CGUpnpDevice.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		213AF7F3195986C1009E7963 /* CGUpnpIcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E6195986C1009E7963 /* CGUpnpIcon.h */; };
+		213AF7F3195986C1009E7963 /* CGUpnpIcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E6195986C1009E7963 /* CGUpnpIcon.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		213AF7F4195986C1009E7963 /* CGUpnpIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E7195986C1009E7963 /* CGUpnpIcon.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		213AF7F5195986C1009E7963 /* CGUpnpService.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E8195986C1009E7963 /* CGUpnpService.h */; };
+		213AF7F5195986C1009E7963 /* CGUpnpService.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7E8195986C1009E7963 /* CGUpnpService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		213AF7F6195986C1009E7963 /* CGUpnpService.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7E9195986C1009E7963 /* CGUpnpService.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		213AF7F7195986C1009E7963 /* CGUpnpStateVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7EA195986C1009E7963 /* CGUpnpStateVariable.h */; };
+		213AF7F7195986C1009E7963 /* CGUpnpStateVariable.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7EA195986C1009E7963 /* CGUpnpStateVariable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		213AF7F8195986C1009E7963 /* CGUpnpStateVariable.m in Sources */ = {isa = PBXBuildFile; fileRef = 213AF7EB195986C1009E7963 /* CGUpnpStateVariable.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		213AF7F9195986C1009E7963 /* CGUpnp.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7EC195986C1009E7963 /* CGUpnp.h */; };
+		213AF7F9195986C1009E7963 /* CGUpnp.h in Headers */ = {isa = PBXBuildFile; fileRef = 213AF7EC195986C1009E7963 /* CGUpnp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		215AC1A31A842B5F000FC959 /* libmupnp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 215AC1A01A842B48000FC959 /* libmupnp.a */; };
 		217C0F0C195988AD00FA1929 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 217C0F0B195988AD00FA1929 /* libxml2.2.dylib */; };
 /* End PBXBuildFile section */
@@ -513,6 +513,8 @@
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				MODULEMAP_FILE = "../mUPnP/module.modulemap";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
@@ -534,6 +536,8 @@
 			buildSettings = {
 				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				MODULEMAP_FILE = "../mUPnP/module.modulemap";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				FRAMEWORK_VERSION = A;
