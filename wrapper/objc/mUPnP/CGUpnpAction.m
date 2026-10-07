@@ -105,11 +105,31 @@
 
 - (BOOL)postWithArguments:(NSDictionary*)arguments
 {
-  NSString* name;
+  if (!cObject)
+    return NO;
+  if (arguments && ![arguments isKindOfClass:[NSDictionary class]])
+    return NO;
 
-  for (name in arguments) {
-    NSString* value = [arguments valueForKey:name];
-    [self setArgumentValue:value forName:name];
+  /* Validate every entry before touching the native action, so that a
+   * rejected call neither sends a request nor leaves partially updated
+   * argument values behind. Entries are looked up with objectForKey: so that
+   * keys such as "@count" are not interpreted as key-value coding paths. */
+  for (id name in arguments) {
+    if (![name isKindOfClass:[NSString class]])
+      return NO;
+    id value = [arguments objectForKey:name];
+    if (![value isKindOfClass:[NSString class]])
+      return NO;
+    const char* cName = [(NSString*)name UTF8String];
+    if (!cName || ![(NSString*)value UTF8String])
+      return NO;
+    if (!mupnp_action_getargumentbyname(cObject, (char*)cName))
+      return NO;
+  }
+
+  for (NSString* name in arguments) {
+    if (![self setArgumentValue:[arguments objectForKey:name] forName:name])
+      return NO;
   }
   return [self post];
 }

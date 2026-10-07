@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
 }
 ''')
     client = directory / 'client'
-    subprocess.run(['cc', '-DMUPNP_USE_OPENSSL', '-fsanitize=address,undefined', '-g',
+    subprocess.run(['xcrun', 'clang', '-DMUPNP_USE_OPENSSL', '-fsanitize=address,undefined', '-g',
                     '-I' + str(root / 'include'), '-I' + str(openssl_dir / 'include'),
                     str(source), sys.argv[1], '-L' + str(openssl_dir / 'lib'),
                     '-lssl', '-lcrypto', '-lexpat', '-lpthread', '-o', str(client)], check=True)

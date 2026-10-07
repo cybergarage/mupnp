@@ -22,8 +22,11 @@
 {
   if ((self = [super init]) == nil)
     return nil;
+  /* The native state variable is borrowed: the wrapper neither owns it nor
+   * writes its userdata, matching CGUpnpAction. A NULL object yields an
+   * invalid wrapper whose getters return nil/empty values and whose query
+   * fails with NO. */
   cObject = cobj;
-  mupnp_statevariable_setuserdata(cObject, self);
   return self;
 }
 
@@ -44,14 +47,20 @@
 {
   if (!cObject)
     return nil;
-  return [[[NSString alloc] initWithUTF8String:mupnp_statevariable_getname(cObject)] autorelease];
+  const char* cName = mupnp_statevariable_getname(cObject);
+  if (!cName)
+    return nil;
+  return [[[NSString alloc] initWithUTF8String:cName] autorelease];
 }
 
 - (NSString*)value
 {
   if (!cObject)
     return nil;
-  return [[[NSString alloc] initWithUTF8String:mupnp_statevariable_getvalue(cObject)] autorelease];
+  const char* cValue = mupnp_statevariable_getvalue(cObject);
+  if (!cValue)
+    return nil;
+  return [[[NSString alloc] initWithUTF8String:cValue] autorelease];
 }
 
 - (NSArray*)allowedValues
@@ -62,14 +71,20 @@
 
   mUpnpAllowedValue* cAllowedValue;
   for (cAllowedValue = mupnp_statevariable_getallowedvaluelist(cObject); cAllowedValue; cAllowedValue = (mUpnpAllowedValue*)mupnp_list_next((mUpnpList*)cAllowedValue)) {
-    NSString* value = [[[NSString alloc] initWithUTF8String:mupnp_string_getvalue(cAllowedValue->value)] autorelease];
-    [valuesArray addObject:value];
+    const char* cValue = mupnp_string_getvalue(cAllowedValue->value);
+    if (!cValue)
+      continue;
+    NSString* value = [[[NSString alloc] initWithUTF8String:cValue] autorelease];
+    if (value)
+      [valuesArray addObject:value];
   }
   return valuesArray;
 }
 
 - (BOOL)isAllowedValue:(NSString*)value
 {
+  if (!cObject || ![value isKindOfClass:[NSString class]] || ![value UTF8String])
+    return NO;
   return mupnp_statevariable_is_allowed_value(cObject, [value UTF8String]);
 }
 

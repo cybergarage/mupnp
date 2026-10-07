@@ -16,6 +16,18 @@
 
 static void cg_upnp_control_point_device_listener(mUpnpControlPoint* ctrlPoint, const char* udn, mUpnpDeviceStatus status);
 
+#if defined(MUPNP_OBJC_TEST_HOOKS)
+/* Test-only injection points for allocation-failure and ownership tests.
+ * They are compiled only when MUPNP_OBJC_TEST_HOOKS is defined. */
+mUpnpControlPoint* (*cg_upnp_test_controlpoint_new)(void) = NULL;
+void (*cg_upnp_test_controlpoint_delete)(mUpnpControlPoint*) = NULL;
+#define CG_UPNP_CONTROLPOINT_NEW() (cg_upnp_test_controlpoint_new ? cg_upnp_test_controlpoint_new() : mupnp_controlpoint_new())
+#define CG_UPNP_CONTROLPOINT_DELETE(cp) (cg_upnp_test_controlpoint_delete ? cg_upnp_test_controlpoint_delete(cp) : mupnp_controlpoint_delete(cp))
+#else
+#define CG_UPNP_CONTROLPOINT_NEW() mupnp_controlpoint_new()
+#define CG_UPNP_CONTROLPOINT_DELETE(cp) mupnp_controlpoint_delete(cp)
+#endif
+
 @implementation CGUpnpControlPoint
 
 @synthesize cObject;
@@ -25,22 +37,27 @@ static void cg_upnp_control_point_device_listener(mUpnpControlPoint* ctrlPoint, 
 {
   if ((self = [super init]) == nil)
     return nil;
-  cObject = mupnp_controlpoint_new();
-  if (cObject) {
-    mupnp_controlpoint_setdevicelistener(cObject, cg_upnp_control_point_device_listener);
-    mupnp_controlpoint_setuserdata(cObject, self);
-    if (![self start])
-      self = nil;
+  cObject = CG_UPNP_CONTROLPOINT_NEW();
+  if (!cObject) {
+    [self release];
+    return nil;
   }
-  else
-    self = nil;
+  mupnp_controlpoint_setdevicelistener(cObject, cg_upnp_control_point_device_listener);
+  mupnp_controlpoint_setuserdata(cObject, self);
+  if (![self start]) {
+    /* -dealloc stops and deletes the native control point exactly once. */
+    [self release];
+    return nil;
+  }
   return self;
 }
 
 - (void)dealloc
 {
-  if (cObject)
-    mupnp_controlpoint_delete(cObject);
+  if (cObject) {
+    CG_UPNP_CONTROLPOINT_DELETE(cObject);
+    cObject = NULL;
+  }
   [super dealloc];
 }
 
