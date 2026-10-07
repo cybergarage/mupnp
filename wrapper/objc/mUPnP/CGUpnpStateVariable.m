@@ -63,6 +63,26 @@
   return [[[NSString alloc] initWithUTF8String:cValue] autorelease];
 }
 
+- (NSString*)dataType
+{
+  if (!cObject)
+    return nil;
+  const char* cValue = mupnp_statevariable_getdatatype(cObject);
+  if (!cValue)
+    return nil;
+  return [[[NSString alloc] initWithUTF8String:cValue] autorelease];
+}
+
+- (NSString*)defaultValue
+{
+  if (!cObject)
+    return nil;
+  const char* cValue = mupnp_statevariable_getdefaultvalue(cObject);
+  if (!cValue)
+    return nil;
+  return [[[NSString alloc] initWithUTF8String:cValue] autorelease];
+}
+
 - (NSArray*)allowedValues
 {
   if (!cObject)

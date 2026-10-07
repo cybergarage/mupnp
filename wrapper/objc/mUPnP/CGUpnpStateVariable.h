@@ -27,7 +27,7 @@ typedef void mUpnpStateVariable;
  *
  * The native object is borrowed: the wrapper does not take ownership of it
  * and does not modify its userdata. Passing NULL (or using -init) creates an
- * invalid wrapper: name, value and statusCode return nil/0, allowedValues
+ * invalid wrapper: name, value, dataType, defaultValue and statusCode return nil/0, allowedValues
  * returns an empty array, and isAllowedValue: and query return NO.
  *
  * @param cobj The native state variable, or NULL
@@ -40,11 +40,28 @@ typedef void mUpnpStateVariable;
  */
 - (NSString*)name;
 /**
- * Get the value of the state variable.
+ * Get the current value of the state variable.
+ *
+ * On a control point this is nil until the variable has been queried with
+ * -query or updated by an event. The value declared in the service
+ * description is available from -defaultValue.
  *
  * @return The value.
  */
 - (NSString*)value;
+/**
+ * Get the data type declared in the service description (e.g. "string",
+ * "ui4", "uri").
+ *
+ * @return The data type, or nil.
+ */
+- (NSString*)dataType;
+/**
+ * Get the default value declared in the service description.
+ *
+ * @return The default value, or nil if none is declared.
+ */
+- (NSString*)defaultValue;
 
 /**
  * Get an array of the allowed values for the state variable
