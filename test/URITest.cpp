@@ -11,7 +11,12 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <mupnp/http/http.h>
+#include <mupnp/net/interface.h>
 #include <mupnp/net/uri.h>
+#include <mupnp/net/url.h>
+#include <string>
+#include <strings.h>
 
 ////////////////////////////////////////
 // testURIParameter
@@ -224,4 +229,65 @@ BOOST_AUTO_TEST_CASE(URIAdd)
   uriStr = mupnp_net_uri_getvalue(uri);
   BOOST_REQUIRE(mupnp_streq(uriStr, MUPNP_TESTCASE_NET_URI_ADD_FULLPATH));
   mupnp_net_uri_delete(uri);
+}
+
+/* Issue #17: IPv6 link-local addresses carry a zone index. URLs built from
+   them encode it as "%25" (RFC 6874) and parse back to the numeric zone that
+   mupnp_net_getipv6scopeid() and getaddrinfo() expect. */
+BOOST_AUTO_TEST_CASE(URIIPv6ZoneRoundTrip)
+{
+  char buf[256];
+  mupnp_net_gethosturl("fe80::1%2", 4004, "/description.xml", buf, sizeof(buf));
+  BOOST_CHECK_EQUAL(std::string(buf), "http://[fe80::1%252]:4004/description.xml");
+
+  mupnp_net_gethosturl("2001:db8::1", 80, "/", buf, sizeof(buf));
+  BOOST_CHECK_EQUAL(std::string(buf), "http://[2001:db8::1]:80/");
+  mupnp_net_gethosturl("192.168.0.1", 80, "/", buf, sizeof(buf));
+  BOOST_CHECK_EQUAL(std::string(buf), "http://192.168.0.1:80/");
+
+  mUpnpNetURI* uri = mupnp_net_uri_new();
+  mupnp_net_uri_set(uri, "http://[fe80::1%252]:4004/description.xml");
+  BOOST_CHECK_EQUAL(std::string(mupnp_net_uri_gethost(uri)), "fe80::1%2");
+  BOOST_CHECK_EQUAL(mupnp_net_uri_getport(uri), 4004);
+  BOOST_CHECK_EQUAL(std::string(mupnp_net_uri_getpath(uri)), "/description.xml");
+  BOOST_CHECK_EQUAL(mupnp_net_getipv6scopeid(mupnp_net_uri_gethost(uri)), 2);
+
+  mupnp_net_uri_set(uri, "http://[2001:db8::1]:8080/a");
+  BOOST_CHECK_EQUAL(std::string(mupnp_net_uri_gethost(uri)), "2001:db8::1");
+  BOOST_CHECK_EQUAL(mupnp_net_uri_getport(uri), 8080);
+  mupnp_net_uri_delete(uri);
+
+  /* The HTTP Host header never carries the zone. */
+  mUpnpHttpRequest* req = mupnp_http_request_new();
+  mupnp_http_request_sethost(req, "fe80::1%2", 4004);
+  BOOST_CHECK_EQUAL(std::string(mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)req, MUPNP_HTTP_HOST)), "[fe80::1]:4004");
+  mupnp_http_request_sethost(req, "2001:db8::1", 4004);
+  BOOST_CHECK_EQUAL(std::string(mupnp_http_packet_getheadervalue((mUpnpHttpPacket*)req, MUPNP_HTTP_HOST)), "[2001:db8::1]:4004");
+  mupnp_http_request_delete(req);
+}
+
+BOOST_AUTO_TEST_CASE(NetIPv6OptIn)
+{
+  BOOST_CHECK(!mupnp_net_isipv6enabled());
+
+  /* With IPv6 disabled (the default) no IPv6 address is returned. */
+  mUpnpNetworkInterfaceList* ifList = mupnp_net_interfacelist_new();
+  mupnp_net_gethostinterfaces(ifList);
+  for (mUpnpNetworkInterface* netIf = mupnp_net_interfacelist_gets(ifList); netIf; netIf = mupnp_net_interface_next(netIf))
+    BOOST_CHECK(!mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf)));
+
+  /* When enabled, any IPv6 address must be link-local with a numeric zone. */
+  mupnp_net_setipv6enabled(true);
+  BOOST_CHECK(mupnp_net_isipv6enabled());
+  mupnp_net_gethostinterfaces(ifList);
+  for (mUpnpNetworkInterface* netIf = mupnp_net_interfacelist_gets(ifList); netIf; netIf = mupnp_net_interface_next(netIf)) {
+    const char* addr = mupnp_net_interface_getaddress(netIf);
+    if (!mupnp_net_isipv6address(addr))
+      continue;
+    BOOST_TEST_MESSAGE("IPv6 interface address: " << addr);
+    BOOST_CHECK(strncasecmp(addr, "fe80:", 5) == 0);
+    BOOST_CHECK(0 < mupnp_net_getipv6scopeid(addr));
+  }
+  mupnp_net_setipv6enabled(false);
+  mupnp_net_interfacelist_delete(ifList);
 }
