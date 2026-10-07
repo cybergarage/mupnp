@@ -359,7 +359,7 @@ BOOST_AUTO_TEST_CASE(SelectAddrReturnsHostAddress)
   /* IPv4 peer on the same subnet as an interface selects that interface. */
   auto* ifList = mupnp_net_interfacelist_new();
   mupnp_net_gethostinterfaces(ifList);
-  const auto* netIf = mupnp_net_interfacelist_gets(ifList);
+  auto* netIf = mupnp_net_interfacelist_gets(ifList);
   if (netIf && !mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf))) {
     struct sockaddr_in same = {};
     same.sin_family = AF_INET;
