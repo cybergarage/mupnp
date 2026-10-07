@@ -386,6 +386,55 @@ void mupnp_http_packet_read_headers(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock,
 }
 
 /****************************************
+ * mupnp_http_packet_read_exact
+ ****************************************/
+
+/* Initial buffer size used when reading a body whose length was declared by
+   the peer (Content-Length or chunk-size). */
+#define MUPNP_HTTP_PACKET_READ_INITIAL_BUFSIZE (64 * 1024)
+
+/* Reads exactly len bytes into a newly allocated, NUL-terminated buffer.
+   The declared length comes from the peer, so the buffer is grown as data
+   actually arrives instead of being allocated up front: a request that only
+   claims a huge Content-Length or chunk-size can no longer make the server
+   reserve that much memory (issue #21). Returns NULL on allocation failure
+   or when the peer closes the connection early. */
+static char* mupnp_http_packet_read_exact(mUpnpSocket* sock, size_t len)
+{
+  char* buf;
+  char* newBuf;
+  size_t bufSize;
+  size_t readLen = 0;
+  ssize_t received;
+
+  bufSize = (len < MUPNP_HTTP_PACKET_READ_INITIAL_BUFSIZE) ? len : MUPNP_HTTP_PACKET_READ_INITIAL_BUFSIZE;
+  buf = (char*)malloc(bufSize + 1);
+  if (!buf)
+    return NULL;
+
+  while (readLen < len) {
+    if (readLen == bufSize) {
+      bufSize = (bufSize <= (len - bufSize)) ? (bufSize * 2) : len;
+      newBuf = (char*)realloc(buf, bufSize + 1);
+      if (!newBuf) {
+        free(buf);
+        return NULL;
+      }
+      buf = newBuf;
+    }
+    received = mupnp_socket_read(sock, buf + readLen, bufSize - readLen);
+    if (received <= 0) {
+      free(buf);
+      return NULL;
+    }
+    readLen += (size_t)received;
+  }
+  buf[readLen] = '\0';
+
+  return buf;
+}
+
+/****************************************
  * mupnp_http_packet_read_chunk
  ****************************************/
 
@@ -416,17 +465,10 @@ static ssize_t mupnp_http_packet_read_chunk(mUpnpHttpPacket* httpPkt, mUpnpSocke
     } while (strcmp(lineBuf, "\r\n") != 0 && strcmp(lineBuf, "\n") != 0);
     return 0;
   }
-  content = (char*)malloc((size_t)chunkLen + 1);
+  content = mupnp_http_packet_read_exact(sock, (size_t)chunkLen);
   if (!content)
     return -1;
-  while (readLen < chunkLen) {
-    received = mupnp_socket_read(sock, content + readLen, (size_t)chunkLen - readLen);
-    if (received <= 0) {
-      free(content);
-      return -1;
-    }
-    readLen += (size_t)received;
-  }
+  readLen = (size_t)chunkLen;
   received = mupnp_socket_readline(sock, lineBuf, lineBufSize);
   if (received != 2 || strcmp(lineBuf, "\r\n") != 0) {
     free(content);
@@ -469,19 +511,10 @@ bool mupnp_http_packet_read_body(mUpnpHttpPacket* httpPkt, mUpnpSocket* sock, ch
     conLen = (size_t)length;
     if (!conLen)
       return true;
-    content = (char*)malloc(conLen + 1);
+    content = mupnp_http_packet_read_exact(sock, conLen);
     if (!content)
       return false;
-    while (readLen < conLen) {
-      received = mupnp_socket_read(sock, content + readLen, conLen - readLen);
-      if (received <= 0) {
-        free(content);
-        return false;
-      }
-      readLen += (size_t)received;
-    }
-    content[readLen] = '\0';
-    mupnp_http_packet_setcontentpointer(httpPkt, content, readLen);
+    mupnp_http_packet_setcontentpointer(httpPkt, content, conLen);
   }
   else if (mupnp_http_packet_ischunked(httpPkt)) {
     do {
