@@ -118,6 +118,20 @@ BOOST_AUTO_TEST_CASE(Subscription)
 
 #if !defined(WIN32)
 
+/* Reads up to the first CRLF and returns that line. */
+static std::string read_status_line(int fd)
+{
+  std::string received;
+  std::array<char, 256> buf {};
+  while (received.find("\r\n") == std::string::npos) {
+    ssize_t n = read(fd, buf.data(), buf.size());
+    if (n <= 0)
+      break;
+    received.append(buf.data(), (size_t)n);
+  }
+  return received.substr(0, received.find("\r\n"));
+}
+
 /* Sends a raw GENA SUBSCRIBE for the test device's SwitchPower service and
    returns the HTTP status line. */
 static std::string send_raw_subscribe(mUpnpDevice* dev, const char* callbackHost, int callbackPort)
@@ -144,24 +158,13 @@ static std::string send_raw_subscribe(mUpnpDevice* dev, const char* callbackHost
   addr.sin_family = AF_INET;
   addr.sin_port = htons(mupnp_device_gethttpport(dev));
   inet_pton(AF_INET, host.c_str(), &addr.sin_addr);
+  std::string req = "SUBSCRIBE " + path + " HTTP/1.1\r\n"
+      + "HOST: " + host + ":" + std::to_string(mupnp_device_gethttpport(dev)) + "\r\n"
+      + "CALLBACK: <http://" + callbackHost + ":" + std::to_string(callbackPort) + "/cb>\r\n"
+      + "NT: upnp:event\r\nTIMEOUT: Second-60\r\nContent-Length: 0\r\n\r\n";
   std::string status;
-  if (connect(fd, (struct sockaddr*)&addr, sizeof(addr)) == 0) {
-    std::string req = "SUBSCRIBE " + path + " HTTP/1.1\r\n"
-        + "HOST: " + host + ":" + std::to_string(mupnp_device_gethttpport(dev)) + "\r\n"
-        + "CALLBACK: <http://" + callbackHost + ":" + std::to_string(callbackPort) + "/cb>\r\n"
-        + "NT: upnp:event\r\nTIMEOUT: Second-60\r\nContent-Length: 0\r\n\r\n";
-    if (write(fd, req.data(), req.size()) == (ssize_t)req.size()) {
-      std::string received;
-      std::array<char, 256> buf {};
-      while (received.find("\r\n") == std::string::npos) {
-        ssize_t n = read(fd, buf.data(), buf.size());
-        if (n <= 0)
-          break;
-        received.append(buf.data(), (size_t)n);
-      }
-      status = received.substr(0, received.find("\r\n"));
-    }
-  }
+  if (connect(fd, (struct sockaddr*)&addr, sizeof(addr)) == 0 && write(fd, req.data(), req.size()) == (ssize_t)req.size())
+    status = read_status_line(fd);
   close(fd);
   return status;
 }
