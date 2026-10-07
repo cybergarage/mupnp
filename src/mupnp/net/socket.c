@@ -263,7 +263,7 @@ void mupnp_socket_cleanup(void)
  ****************************************/
 
 /* Applies sock->timeout as the receive/send timeout of the descriptor. */
-static bool mupnp_socket_applytimeout(mUpnpSocket* sock)
+static bool mupnp_socket_applytimeout(const mUpnpSocket* sock)
 {
   if (!sock)
     return false;

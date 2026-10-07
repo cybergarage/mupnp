@@ -224,6 +224,8 @@ static int open_test_listener(int backlog)
 /* Returns the port a listener was bound to, or -1. */
 static int listener_port(int fd)
 {
+  if (fd < 0)
+    return -1;
   struct sockaddr_in addr = {};
   socklen_t len = sizeof(addr);
   return (getsockname(fd, (struct sockaddr*)&addr, &len) == 0) ? ntohs(addr.sin_port) : -1;
