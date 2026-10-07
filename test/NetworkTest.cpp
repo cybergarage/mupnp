@@ -230,6 +230,7 @@ BOOST_AUTO_TEST_CASE(SocketTimeoutAppliesToReadAfterConnect)
   BOOST_REQUIRE(0 <= listener);
 
   mUpnpSocket* sock = mupnp_socket_stream_new();
+  BOOST_REQUIRE(sock);
   BOOST_CHECK(mupnp_socket_settimeout(sock, 1));
   BOOST_REQUIRE(mupnp_socket_connect(sock, "127.0.0.1", port));
 
@@ -255,6 +256,7 @@ BOOST_AUTO_TEST_CASE(SocketConnectRefusedFailsFast)
   close(listener); /* Nothing listens on the port any more. */
 
   mUpnpSocket* sock = mupnp_socket_stream_new();
+  BOOST_REQUIRE(sock);
   BOOST_CHECK(mupnp_socket_settimeout(sock, 3));
   auto start = std::chrono::steady_clock::now();
   BOOST_CHECK(!mupnp_socket_connect(sock, "127.0.0.1", port));
@@ -276,6 +278,7 @@ BOOST_AUTO_TEST_CASE(SocketConnectTimesOut)
   bool timedOut = false;
   for (int n = 0; n < 16 && !timedOut; n++) {
     mUpnpSocket* sock = mupnp_socket_stream_new();
+    BOOST_REQUIRE(sock);
     BOOST_CHECK(mupnp_socket_settimeout(sock, 1));
     auto start = std::chrono::steady_clock::now();
     bool connected = mupnp_socket_connect(sock, "127.0.0.1", port);

@@ -302,14 +302,14 @@ static int mupnp_socket_connectwithtimeout(mUpnpSocket* sock, const struct socka
 {
   fd_set writeFds;
   fd_set errorFds;
-  struct timeval timeout;
+  struct timeval timeout = { 0, 0 };
   int error = 0;
   socklen_t errorLen = sizeof(error);
-  int ret;
+  int ret = -1;
 #if defined(WIN32) && !defined(__CYGWIN__)
-  u_long mode;
+  u_long mode = 0;
 #else
-  int flags;
+  int flags = 0;
 #endif
 
   if (sock->timeout <= 0 || mupnp_socket_isbound(sock) == false)
