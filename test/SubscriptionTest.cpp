@@ -12,6 +12,17 @@
 #include <boost/test/unit_test.hpp>
 #include <string.h>
 
+#if !defined(WIN32)
+#include <arpa/inet.h>
+#include <array>
+#include <chrono>
+#include <netinet/in.h>
+#include <string>
+#include <sys/socket.h>
+#include <thread>
+#include <unistd.h>
+#endif
+
 #include "TestDevice.h"
 
 ////////////////////////////////////////
@@ -106,30 +117,23 @@ BOOST_AUTO_TEST_CASE(Subscription)
 }
 
 #if !defined(WIN32)
-#include <arpa/inet.h>
-#include <chrono>
-#include <netinet/in.h>
-#include <string>
-#include <sys/socket.h>
-#include <thread>
-#include <unistd.h>
 
 /* Sends a raw GENA SUBSCRIBE for the test device's SwitchPower service and
    returns the HTTP status line. */
 static std::string send_raw_subscribe(mUpnpDevice* dev, const char* callbackHost, int callbackPort)
 {
-  mUpnpService* service = mupnp_device_getservicebyexacttype(dev, TEST_DEVICE_SERVICE_TYPE);
+  auto* service = mupnp_device_getservicebyexacttype(dev, TEST_DEVICE_SERVICE_TYPE);
   if (!service)
     return "";
-  mUpnpNetURL* eventSubURL = mupnp_service_geteventsuburl(service);
+  auto* eventSubURL = mupnp_service_geteventsuburl(service);
   if (!eventSubURL)
     return "";
   std::string path = mupnp_net_url_getpath(eventSubURL);
   mupnp_net_url_delete(eventSubURL);
 
-  mUpnpNetworkInterfaceList* ifList = mupnp_net_interfacelist_new();
+  auto* ifList = mupnp_net_interfacelist_new();
   mupnp_net_gethostinterfaces(ifList);
-  mUpnpNetworkInterface* netIf = mupnp_net_interfacelist_gets(ifList);
+  auto* netIf = mupnp_net_interfacelist_gets(ifList);
   std::string host = netIf ? mupnp_net_interface_getaddress(netIf) : "127.0.0.1";
   mupnp_net_interfacelist_delete(ifList);
 
@@ -148,10 +152,13 @@ static std::string send_raw_subscribe(mUpnpDevice* dev, const char* callbackHost
         + "NT: upnp:event\r\nTIMEOUT: Second-60\r\nContent-Length: 0\r\n\r\n";
     if (write(fd, req.data(), req.size()) == (ssize_t)req.size()) {
       std::string received;
-      char buf[256];
-      ssize_t n;
-      while (received.find("\r\n") == std::string::npos && 0 < (n = read(fd, buf, sizeof(buf))))
-        received.append(buf, (size_t)n);
+      std::array<char, 256> buf {};
+      while (received.find("\r\n") == std::string::npos) {
+        ssize_t n = read(fd, buf.data(), buf.size());
+        if (n <= 0)
+          break;
+        received.append(buf.data(), (size_t)n);
+      }
       status = received.substr(0, received.find("\r\n"));
     }
   }
@@ -166,7 +173,10 @@ BOOST_AUTO_TEST_CASE(DeviceDeleteRightAfterSubscribe)
 {
   /* A callback listener that accepts nothing in particular. */
   int listener = socket(AF_INET, SOCK_STREAM, 0);
-  BOOST_REQUIRE(0 <= listener);
+  if (listener < 0) {
+    BOOST_FAIL("Could not create the callback listener");
+    return;
+  }
   struct sockaddr_in cbAddr = {};
   cbAddr.sin_family = AF_INET;
   cbAddr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);

@@ -36,8 +36,8 @@ typedef struct _mUpnpNetURI mUpnpNetURL;
  ****************************************/
 
 #define mupnp_net_url_new() mupnp_net_uri_new()
-#define mupnp_net_url_delete(urip) mupnp_net_uri_delete(urip);
-#define mupnp_net_url_clear(urip) mupnp_net_uri_clear(urip);
+#define mupnp_net_url_delete(urip) mupnp_net_uri_delete(urip)
+#define mupnp_net_url_clear(urip) mupnp_net_uri_clear(urip)
 
 #define mupnp_net_url_set(urip, value) mupnp_net_uri_set(urip, value)
 #define mupnp_net_url_setvalue(urip, value) mupnp_net_uri_setvalue(urip, value)
