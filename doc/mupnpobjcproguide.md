@@ -114,3 +114,36 @@ The SDK reports the result of each request but does not ask the user for confirm
 ### 3.5 Descriptions
 
 CGUpnpDevice:parseXMLDescription and CGUpnpService:parseXMLDescription pass the description to the parser as UTF-8 bytes, so names that contain Japanese text or emoji are kept. They return NO without changing the receiver for nil, empty or non-UTF-8 input. When the XML itself is rejected, they return NO after the previous description has been cleared; do not use service, action or state variable objects obtained from the receiver before the failed call.
+
+
+## Swift framework consumers
+
+The Xcode framework exports its Objective-C headers and the `mUPnP4ObjC`
+Clang module. Objective-C framework consumers use
+`#import <mUPnP4ObjC/CGUpnp.h>` (the previous umbrella referenced a different
+framework name). Swift consumers can now use:
+
+```swift
+import mUPnP4ObjC
+func inspect(_ device: CGUpnpDevice) { _ = device }
+```
+
+Build the shared `mUPnP4ObjC` scheme with an explicit SDK. The scheme includes
+only local XML XCTest fixtures. For a Mac test run:
+
+```sh
+xcodebuild -project wrapper/objc/xcode/mUPnP4ObjC.xcodeproj \
+  -scheme mUPnP4ObjC -sdk macosx -destination 'platform=macOS' \
+  -derivedDataPath /tmp/mupnp-mac CODE_SIGNING_ALLOWED=NO test
+```
+
+Validated on Apple silicon with Xcode 27: unsigned macOS and generic Simulator
+builds, Swift consumer imports on both platforms, six Mac XCTest regressions,
+and `python3 test/security/verify-macos.py /tmp/mupnp-sanitizers` (ASan/UBSan
+Objective-C and C fixtures). This is not leak-detector coverage: macOS ASan
+has no LeakSanitizer, and the pre-existing C allowedValueList allocation leak
+is not fixed or certified by these runs. Any earlier Linux suppression remains
+a separate limitation. Failed XML reparse can invalidate child wrappers;
+do not keep child wrappers across reparsing their native owner. Async SOAP,
+NSError reporting and broader GENA/lifecycle changes remain separate work.
+No network discovery or physical control was exercised by the Swift imports.

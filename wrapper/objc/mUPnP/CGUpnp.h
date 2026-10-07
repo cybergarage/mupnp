@@ -8,9 +8,9 @@
  *
  ******************************************************************/
 
-#import <mUPnP/CGUpnpAction.h>
-#import <mUPnP/CGUpnpControlPoint.h>
-#import <mUPnP/CGUpnpDevice.h>
-#import <mUPnP/CGUpnpIcon.h>
-#import <mUPnP/CGUpnpService.h>
-#import <mUPnP/CGUpnpStateVariable.h>
+#import <mUPnP4ObjC/CGUpnpAction.h>
+#import <mUPnP4ObjC/CGUpnpControlPoint.h>
+#import <mUPnP4ObjC/CGUpnpDevice.h>
+#import <mUPnP4ObjC/CGUpnpIcon.h>
+#import <mUPnP4ObjC/CGUpnpService.h>
+#import <mUPnP4ObjC/CGUpnpStateVariable.h>
