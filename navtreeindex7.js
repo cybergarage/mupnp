@@ -1,5 +1,7 @@
 var NAVTREEINDEX7 =
 {
+"md_doc_2security-audit-2026-10-05.html#autotoc_md151":[8,5,2,9,6],
+"md_doc_2security-audit-2026-10-05.html#autotoc_md152":[8,5,2,10],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md153":[8,5,2,10,0],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md154":[8,5,2,10,1],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md155":[8,5,2,10,2],
@@ -83,10 +85,13 @@ var NAVTREEINDEX7 =
 "mutex_8h.html#aecabd43349905fbe006af74938341a5a":[13,0,1,0,7,4,5],
 "net__function_8c.html":[13,0,2,0,4,4],
 "net__function_8c.html#a051e196fad34155818f873a4a05bfb2a":[13,0,2,0,4,4,1],
-"net__function_8c.html#a1e58dd4a22ddf748de4602d871e08188":[13,0,2,0,4,4,3],
-"net__function_8c.html#a99b79ae69408cccec95e82539ad49d1d":[13,0,2,0,4,4,2],
+"net__function_8c.html#a11bcba0d5029ac3b351af6b8d320d234":[13,0,2,0,4,4,5],
+"net__function_8c.html#a1e58dd4a22ddf748de4602d871e08188":[13,0,2,0,4,4,6],
+"net__function_8c.html#a45fef8ac4366876e4361917665f72462":[13,0,2,0,4,4,4],
+"net__function_8c.html#a748bf1fe634db334f93ee40051f0324a":[13,0,2,0,4,4,2],
+"net__function_8c.html#a99b79ae69408cccec95e82539ad49d1d":[13,0,2,0,4,4,3],
 "net__function_8c.html#abb71d242bc4402c0f2b7da1ef1f87b5a":[13,0,2,0,4,4,0],
-"net__function_8c.html#ac49b2b86996f116d5bbde5f02960244b":[13,0,2,0,4,4,4],
+"net__function_8c.html#ac49b2b86996f116d5bbde5f02960244b":[13,0,2,0,4,4,7],
 "notify_8h.html":[13,0,1,0,1,1],
 "notify_8h.html#a07f587b5444f6beac69bf127319331c9":[13,0,1,0,1,1,20],
 "notify_8h.html#a1207e11a1ea7a8f3691b0de81c8b85d6":[13,0,1,0,1,1,13],
@@ -244,10 +249,5 @@ var NAVTREEINDEX7 =
 "service_8h.html#a309e341d949578274801e14e41895c40":[13,0,1,0,14,17],
 "service_8h.html#a31fe41db4f1ff0ce296705551fed1acb":[13,0,1,0,14,15],
 "service_8h.html#a3527599005791b985f129b2a1be1ebc1":[13,0,1,0,14,48],
-"service_8h.html#a36ac15f6fae6cee6dc97b9f45bf6dde1":[13,0,1,0,14,63],
-"service_8h.html#a383b34beed645a6ba68043c05ce5d2b8":[13,0,1,0,14,74],
-"service_8h.html#a3acc0d3373bb75c09782dc4c1e247758":[13,0,1,0,14,42],
-"service_8h.html#a44a0ca0d4ff4f86dfc2948d3bdd522eb":[13,0,1,0,14,71],
-"service_8h.html#a4a922c69349eba133c6e216a48f05e73":[13,0,1,0,14,38],
-"service_8h.html#a4c968814ce3f9a52e9a01789b3abdf24":[13,0,1,0,14,70]
+"service_8h.html#a36ac15f6fae6cee6dc97b9f45bf6dde1":[13,0,1,0,14,63]
 };

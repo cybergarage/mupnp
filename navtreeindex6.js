@@ -15,7 +15,7 @@ var NAVTREEINDEX6 =
 "interface_8h.html#a036cc7c6ff261c1d9b15f00e149baffd":[13,0,1,0,4,0,3],
 "interface_8h.html#a0475b13314c1dc87f51af316a1fcec76":[13,0,1,0,4,0,10],
 "interface_8h.html#a051e196fad34155818f873a4a05bfb2a":[13,0,1,0,4,0,34],
-"interface_8h.html#a081d101667c26e383de73e520e162d85":[13,0,1,0,4,0,35],
+"interface_8h.html#a081d101667c26e383de73e520e162d85":[13,0,1,0,4,0,36],
 "interface_8h.html#a1ed571bef63e7a01dd7fda977fcd5331":[13,0,1,0,4,0,33],
 "interface_8h.html#a2098ba29c626e4bc3c0340468751f8f8":[13,0,1,0,4,0,29],
 "interface_8h.html#a2268fad8c67cfdae21fabb75ab75ccc1":[13,0,1,0,4,0,27],
@@ -24,12 +24,14 @@ var NAVTREEINDEX6 =
 "interface_8h.html#a33c5fcab97622ac6baa3fd88b47099c0":[13,0,1,0,4,0,23],
 "interface_8h.html#a4077cb5bc0d611474a82f590d698cf13":[13,0,1,0,4,0,31],
 "interface_8h.html#a436491e4d7cf7f463959b38c7f5b4253":[13,0,1,0,4,0,8],
+"interface_8h.html#a45fef8ac4366876e4361917665f72462":[13,0,1,0,4,0,37],
 "interface_8h.html#a4812502c5222479424d80bae3d963dcc":[13,0,1,0,4,0,18],
 "interface_8h.html#a490684ebaef4d1a6f47c59e1b4582b35":[13,0,1,0,4,0,20],
 "interface_8h.html#a54b41005e83f0acc5cd1333296c4a98c":[13,0,1,0,4,0,15],
 "interface_8h.html#a5f9afe43c648aaf0af8aa49de8e326ea":[13,0,1,0,4,0,24],
 "interface_8h.html#a67c3af7a0042fec5cbab6577bddfc0f4":[13,0,1,0,4,0,30],
 "interface_8h.html#a72d756a7a0b0f70c590f3149b26cc51e":[13,0,1,0,4,0,2],
+"interface_8h.html#a748bf1fe634db334f93ee40051f0324a":[13,0,1,0,4,0,35],
 "interface_8h.html#a7ed1d0055944d20d481060871df4fa0b":[13,0,1,0,4,0,13],
 "interface_8h.html#a83036a3662def6bfc26e82b68cbd2aa1":[13,0,1,0,4,0,21],
 "interface_8h.html#a9649f7dca633d59a97ce7ff418771cea":[13,0,1,0,4,0,22],
@@ -247,7 +249,5 @@ var NAVTREEINDEX6 =
 "md_doc_2security-audit-2026-10-05.html#autotoc_md147":[8,5,2,9,2],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md148":[8,5,2,9,3],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md149":[8,5,2,9,4],
-"md_doc_2security-audit-2026-10-05.html#autotoc_md150":[8,5,2,9,5],
-"md_doc_2security-audit-2026-10-05.html#autotoc_md151":[8,5,2,9,6],
-"md_doc_2security-audit-2026-10-05.html#autotoc_md152":[8,5,2,10]
+"md_doc_2security-audit-2026-10-05.html#autotoc_md150":[8,5,2,9,5]
 };

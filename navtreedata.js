@@ -286,13 +286,13 @@ var NAVTREEINDEX =
 "http_8h.html#a533aa98dca52dd1410783c7c44901d6f",
 "http__packet_8c.html#a28e0decaba777130b125eb59e0657357",
 "interface_8c.html",
-"md_doc_2security-audit-2026-10-05.html#autotoc_md153",
-"service_8h.html#a53d91a974686bfa81f5c7e91be1fb343",
-"ssdp_8c.html#a3eb81b58392a886feb1b72a5ead381d4",
-"ssdp__server_8h.html#ae30932718ae6a544b7cfb0c83e8d2662",
-"struct__mUpnpControlPoint.html#a45a48ddc445235c0153aef8c9cdb0ac9",
-"subscriber_8c.html#a506cd3387646618471f3549db582fa6b",
-"uri_8h.html#aba648dd9c6aeb2b32481ab968af95441"
+"md_doc_2security-audit-2026-10-05.html#autotoc_md151",
+"service_8h.html#a383b34beed645a6ba68043c05ce5d2b8",
+"socket_8h.html#af16472f5f7580fed6072da8f8fab6e15",
+"ssdp__server_8h.html#ad6e995890e1017bc49b7984b8b2c6cc7",
+"struct__mUpnpControlPoint.html#a221f46af4a6128a0afa894d532afde19",
+"subscriber_8c.html",
+"uri_8h.html#a9ea524fdbd557568e0ea087277b3a482"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -35,5 +35,7 @@ var interface_8h =
     [ "mupnp_net_interfacelist_getchanges", "interface_8h.html#aee394ed2c2e19eded508dea414d006ab", null ],
     [ "mupnp_net_interfacelist_new", "interface_8h.html#a1ed571bef63e7a01dd7fda977fcd5331", null ],
     [ "mupnp_net_isipv6address", "interface_8h.html#a051e196fad34155818f873a4a05bfb2a", null ],
-    [ "mupnp_net_selectaddr", "interface_8h.html#a081d101667c26e383de73e520e162d85", null ]
+    [ "mupnp_net_isipv6enabled", "interface_8h.html#a748bf1fe634db334f93ee40051f0324a", null ],
+    [ "mupnp_net_selectaddr", "interface_8h.html#a081d101667c26e383de73e520e162d85", null ],
+    [ "mupnp_net_setipv6enabled", "interface_8h.html#a45fef8ac4366876e4361917665f72462", null ]
 ];
