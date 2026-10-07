@@ -84,6 +84,8 @@ $(function(){initNavTree('http__packet_8c.html',''); initResizable(true); });
 Macros</h2></td></tr>
 <tr class="memitem:afd88348ffbfc3955b418720cf5ce0722" id="r_afd88348ffbfc3955b418720cf5ce0722"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd88348ffbfc3955b418720cf5ce0722">READBUF_LENGTH</a>&#160;&#160;&#160;1024</td></tr>
 <tr class="separator:afd88348ffbfc3955b418720cf5ce0722"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28e0decaba777130b125eb59e0657357" id="r_a28e0decaba777130b125eb59e0657357"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28e0decaba777130b125eb59e0657357">MUPNP_HTTP_PACKET_READ_INITIAL_BUFSIZE</a>&#160;&#160;&#160;(64 * 1024)</td></tr>
+<tr class="separator:a28e0decaba777130b125eb59e0657357"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -123,6 +125,8 @@ Functions</h2></td></tr>
 <tr class="separator:a91d2e4ac8f4c1654735455f938889256"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19dab0f80fed06fbab7df149e6a1fb94" id="r_a19dab0f80fed06fbab7df149e6a1fb94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19dab0f80fed06fbab7df149e6a1fb94">mupnp_http_packet_read_headers</a> (<a class="el" href="http_8h.html#afb8159164830f2db20e460e17fc5c873">mUpnpHttpPacket</a> *httpPkt, <a class="el" href="socket_8h.html#aad3158bb4abcafffcb4828e7450da8d4">mUpnpSocket</a> *sock, char *lineBuf, size_t lineBufSize)</td></tr>
 <tr class="separator:a19dab0f80fed06fbab7df149e6a1fb94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a113b1b45f7cc387dfea71dc042aed2ee" id="r_a113b1b45f7cc387dfea71dc042aed2ee"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a113b1b45f7cc387dfea71dc042aed2ee">mupnp_http_packet_read_exact</a> (<a class="el" href="socket_8h.html#aad3158bb4abcafffcb4828e7450da8d4">mUpnpSocket</a> *sock, size_t len)</td></tr>
+<tr class="separator:a113b1b45f7cc387dfea71dc042aed2ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a944fc4c55db25563a10377ee858c9aca" id="r_a944fc4c55db25563a10377ee858c9aca"><td class="memItemLeft" align="right" valign="top">static ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a944fc4c55db25563a10377ee858c9aca">mupnp_http_packet_read_chunk</a> (<a class="el" href="http_8h.html#afb8159164830f2db20e460e17fc5c873">mUpnpHttpPacket</a> *httpPkt, <a class="el" href="socket_8h.html#aad3158bb4abcafffcb4828e7450da8d4">mUpnpSocket</a> *sock, char *lineBuf, size_t lineBufSize)</td></tr>
 <tr class="separator:a944fc4c55db25563a10377ee858c9aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21a1c08028b601895128db3fc772dc32" id="r_a21a1c08028b601895128db3fc772dc32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a21a1c08028b601895128db3fc772dc32">mupnp_http_packet_read_body</a> (<a class="el" href="http_8h.html#afb8159164830f2db20e460e17fc5c873">mUpnpHttpPacket</a> *httpPkt, <a class="el" href="socket_8h.html#aad3158bb4abcafffcb4828e7450da8d4">mUpnpSocket</a> *sock, char *lineBuf, size_t lineBufSize)</td></tr>
@@ -137,6 +141,20 @@ Functions</h2></td></tr>
 <tr class="separator:aecbf87e7dda2f118d429a7c862764031"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a28e0decaba777130b125eb59e0657357" name="a28e0decaba777130b125eb59e0657357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28e0decaba777130b125eb59e0657357">&#9670;&#160;</a></span>MUPNP_HTTP_PACKET_READ_INITIAL_BUFSIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MUPNP_HTTP_PACKET_READ_INITIAL_BUFSIZE&#160;&#160;&#160;(64 * 1024)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="afd88348ffbfc3955b418720cf5ce0722" name="afd88348ffbfc3955b418720cf5ce0722"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afd88348ffbfc3955b418720cf5ce0722">&#9670;&#160;</a></span>READBUF_LENGTH</h2>
 
@@ -513,6 +531,35 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>lineBufSize</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a113b1b45f7cc387dfea71dc042aed2ee" name="a113b1b45f7cc387dfea71dc042aed2ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a113b1b45f7cc387dfea71dc042aed2ee">&#9670;&#160;</a></span>mupnp_http_packet_read_exact()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static char * mupnp_http_packet_read_exact </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="socket_8h.html#aad3158bb4abcafffcb4828e7450da8d4">mUpnpSocket</a> *</td>          <td class="paramname"><span class="paramname"><em>sock</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>len</em></span>&#160;)</td>
         </tr>
       </table>
   </td>

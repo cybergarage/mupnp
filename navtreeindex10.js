@@ -1,5 +1,7 @@
 var NAVTREEINDEX10 =
 {
+"ssdp__server_8h.html#ae30932718ae6a544b7cfb0c83e8d2662":[13,0,1,0,6,1,36],
+"ssdp__server_8h.html#ae38395c809d7c45f1d155b56bf882e95":[13,0,1,0,6,1,88],
 "ssdp__server_8h.html#ae38d1e4b61900bfa20d61522d589d722":[13,0,1,0,6,1,34],
 "ssdp__server_8h.html#ae467d0c8758fe5340aaf8733f8e21a0d":[13,0,1,0,6,1,111],
 "ssdp__server_8h.html#ae4b5a83c995fc5d0bc1503fc99f362c3":[13,0,1,0,6,1,9],
@@ -247,7 +249,5 @@ var NAVTREEINDEX10 =
 "struct__mUpnpControlPoint.html#a336f660ada53a7abd56ddac5b90ae796":[12,0,6,18],
 "struct__mUpnpControlPoint.html#a38629296cd1035dd8ca7bfa21f1c27e4":[12,0,6,8],
 "struct__mUpnpControlPoint.html#a3984fef24208a2b848913b37acb585b4":[12,0,6,19],
-"struct__mUpnpControlPoint.html#a3b20b7fa15154442c10b0caaccf8a208":[12,0,6,7],
-"struct__mUpnpControlPoint.html#a45a48ddc445235c0153aef8c9cdb0ac9":[12,0,6,4],
-"struct__mUpnpControlPoint.html#a59a2bc23337ae133576b8616cc481e63":[12,0,6,13]
+"struct__mUpnpControlPoint.html#a3b20b7fa15154442c10b0caaccf8a208":[12,0,6,7]
 };

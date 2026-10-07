@@ -1,5 +1,6 @@
 var http__packet_8c =
 [
+    [ "MUPNP_HTTP_PACKET_READ_INITIAL_BUFSIZE", "http__packet_8c.html#a28e0decaba777130b125eb59e0657357", null ],
     [ "READBUF_LENGTH", "http__packet_8c.html#afd88348ffbfc3955b418720cf5ce0722", null ],
     [ "mupnp_http_packet_clean", "http__packet_8c.html#ae1d06f5649f2cf516ba19efd4250d708", null ],
     [ "mupnp_http_packet_clear", "http__packet_8c.html#a0faeab1b89b120f007b613651017bd12", null ],
@@ -18,6 +19,7 @@ var http__packet_8c =
     [ "mupnp_http_packet_read", "http__packet_8c.html#a064187da0f1350f514e8dc606eb1cc95", null ],
     [ "mupnp_http_packet_read_body", "http__packet_8c.html#a21a1c08028b601895128db3fc772dc32", null ],
     [ "mupnp_http_packet_read_chunk", "http__packet_8c.html#a944fc4c55db25563a10377ee858c9aca", null ],
+    [ "mupnp_http_packet_read_exact", "http__packet_8c.html#a113b1b45f7cc387dfea71dc042aed2ee", null ],
     [ "mupnp_http_packet_read_headers", "http__packet_8c.html#a19dab0f80fed06fbab7df149e6a1fb94", null ],
     [ "mupnp_http_packet_setheaderinteger", "http__packet_8c.html#ada8f7dadf2b2badfcd4a0f7813bd6b07", null ],
     [ "mupnp_http_packet_setheaderlong", "http__packet_8c.html#a733b2732a0bf936c87f9c4972b53fc49", null ],
