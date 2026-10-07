@@ -97,6 +97,8 @@ Macros</h2></td></tr>
 <tr class="separator:af0b4e771747f23cb8531cb3058ef5c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af92566675759662bf608f2926afc733c" id="r_af92566675759662bf608f2926afc733c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af92566675759662bf608f2926afc733c">MUPNP_STATEVARIABLE_DATATYPE</a>&#160;&#160;&#160;&quot;dataType&quot;</td></tr>
 <tr class="separator:af92566675759662bf608f2926afc733c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a495702bdcc2b71a3c8ff332bfb295e6c" id="r_a495702bdcc2b71a3c8ff332bfb295e6c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a495702bdcc2b71a3c8ff332bfb295e6c">MUPNP_STATEVARIABLE_DEFAULTVALUE</a>&#160;&#160;&#160;&quot;defaultValue&quot;</td></tr>
+<tr class="separator:a495702bdcc2b71a3c8ff332bfb295e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88fcd87e82ab61a0581f031c6944d123" id="r_a88fcd87e82ab61a0581f031c6944d123"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88fcd87e82ab61a0581f031c6944d123">MUPNP_STATEVARIABLE_SENDEVENTS</a>&#160;&#160;&#160;&quot;sendEvents&quot;</td></tr>
 <tr class="separator:a88fcd87e82ab61a0581f031c6944d123"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a569615e32303984926b8b406c9a9a45c" id="r_a569615e32303984926b8b406c9a9a45c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a569615e32303984926b8b406c9a9a45c">MUPNP_STATEVARIABLE_SENDEVENTS_YES</a>&#160;&#160;&#160;&quot;yes&quot;</td></tr>
@@ -131,6 +133,10 @@ Macros</h2></td></tr>
 <tr class="separator:ae0c3b1bc413155ac1c95ac46c1d07a13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8b063acf80de8a5dd74d5e3e62e853a" id="r_ab8b063acf80de8a5dd74d5e3e62e853a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab8b063acf80de8a5dd74d5e3e62e853a">mupnp_statevariable_getdatatype</a>(statVar)</td></tr>
 <tr class="separator:ab8b063acf80de8a5dd74d5e3e62e853a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac97690994a5fcfad77d93c086af8906a" id="r_ac97690994a5fcfad77d93c086af8906a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac97690994a5fcfad77d93c086af8906a">mupnp_statevariable_setdefaultvalue</a>(statVar,  value)</td></tr>
+<tr class="separator:ac97690994a5fcfad77d93c086af8906a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac09a62cdbe9f0fb9be96bfd6ff492c61" id="r_ac09a62cdbe9f0fb9be96bfd6ff492c61"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac09a62cdbe9f0fb9be96bfd6ff492c61">mupnp_statevariable_getdefaultvalue</a>(statVar)</td></tr>
+<tr class="separator:ac09a62cdbe9f0fb9be96bfd6ff492c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a032b3729c50a52e64dacd74deef9a87a" id="r_a032b3729c50a52e64dacd74deef9a87a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a032b3729c50a52e64dacd74deef9a87a">mupnp_statevariable_setsendevents</a>(statVar,  value)</td></tr>
 <tr class="separator:a032b3729c50a52e64dacd74deef9a87a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a562770ce871faed5383a78980bd47eee" id="r_a562770ce871faed5383a78980bd47eee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a562770ce871faed5383a78980bd47eee">mupnp_statevariable_getsendevents</a>(statVar)</td></tr>
@@ -279,7 +285,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_struct" href="struct__mUpnpStateVariable.html">mUpnpStateVariable</a>*)<a class="code hl_function" href="list_8c.html#a2a9efe9bcae6cdc8ee0783bc4b883cc3">mupnp_list_next</a>((<a class="code hl_struct" href="struct__mUpnpList.html">mUpnpList</a>*)stateTable)</div>
 <div class="ttc" id="alist_8c_html_a2a9efe9bcae6cdc8ee0783bc4b883cc3"><div class="ttname"><a href="list_8c.html#a2a9efe9bcae6cdc8ee0783bc4b883cc3">mupnp_list_next</a></div><div class="ttdeci">mUpnpList * mupnp_list_next(mUpnpList *list)</div><div class="ttdef"><b>Definition</b> list.c:234</div></div>
-<div class="ttc" id="astruct__mUpnpStateVariable_html"><div class="ttname"><a href="struct__mUpnpStateVariable.html">_mUpnpStateVariable</a></div><div class="ttdef"><b>Definition</b> statevariable.h:86</div></div>
+<div class="ttc" id="astruct__mUpnpStateVariable_html"><div class="ttname"><a href="struct__mUpnpStateVariable.html">_mUpnpStateVariable</a></div><div class="ttdef"><b>Definition</b> statevariable.h:91</div></div>
 </div><!-- fragment --><p>Get next service state table from service state table list</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -362,6 +368,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a495702bdcc2b71a3c8ff332bfb295e6c" name="a495702bdcc2b71a3c8ff332bfb295e6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a495702bdcc2b71a3c8ff332bfb295e6c">&#9670;&#160;</a></span>MUPNP_STATEVARIABLE_DEFAULTVALUE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MUPNP_STATEVARIABLE_DEFAULTVALUE&#160;&#160;&#160;&quot;defaultValue&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Definition for state variable default value element </p>
+
+</div>
+</div>
 <a id="a66d7bc837a54e437b82f673c86545bf8" name="a66d7bc837a54e437b82f673c86545bf8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a66d7bc837a54e437b82f673c86545bf8">&#9670;&#160;</a></span>MUPNP_STATEVARIABLE_ELEM_NAME</h2>
 
@@ -418,7 +439,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a>(<a class="code hl_define" href="#a50bfdda793d85f1c02adc05999862e7d">mupnp_statevariable_getstatevariablenode</a>(statVar), <a class="code hl_define" href="#af92566675759662bf608f2926afc733c">MUPNP_STATEVARIABLE_DATATYPE</a>)</div>
-<div class="ttc" id="astatevariable_8h_html_a50bfdda793d85f1c02adc05999862e7d"><div class="ttname"><a href="#a50bfdda793d85f1c02adc05999862e7d">mupnp_statevariable_getstatevariablenode</a></div><div class="ttdeci">#define mupnp_statevariable_getstatevariablenode(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:196</div></div>
+<div class="ttc" id="astatevariable_8h_html_a50bfdda793d85f1c02adc05999862e7d"><div class="ttname"><a href="#a50bfdda793d85f1c02adc05999862e7d">mupnp_statevariable_getstatevariablenode</a></div><div class="ttdeci">#define mupnp_statevariable_getstatevariablenode(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:201</div></div>
 <div class="ttc" id="astatevariable_8h_html_af92566675759662bf608f2926afc733c"><div class="ttname"><a href="#af92566675759662bf608f2926afc733c">MUPNP_STATEVARIABLE_DATATYPE</a></div><div class="ttdeci">#define MUPNP_STATEVARIABLE_DATATYPE</div><div class="ttdef"><b>Definition</b> statevariable.h:48</div></div>
 <div class="ttc" id="axml__node_8c_html_a6f202591df140c494e7a48abae79ea99"><div class="ttname"><a href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a></div><div class="ttdeci">const char * mupnp_xml_node_getchildnodevalue(mUpnpXmlNode *node, const char *name)</div><div class="ttdef"><b>Definition</b> xml_node.c:252</div></div>
 </div><!-- fragment --><p>Get data type from state variable</p>
@@ -429,6 +450,34 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Data type </dd></dl>
+
+</div>
+</div>
+<a id="ac09a62cdbe9f0fb9be96bfd6ff492c61" name="ac09a62cdbe9f0fb9be96bfd6ff492c61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac09a62cdbe9f0fb9be96bfd6ff492c61">&#9670;&#160;</a></span>mupnp_statevariable_getdefaultvalue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define mupnp_statevariable_getdefaultvalue</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>statVar</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#a6f202591df140c494e7a48abae79ea99">mupnp_xml_node_getchildnodevalue</a>(<a class="code hl_define" href="#a50bfdda793d85f1c02adc05999862e7d">mupnp_statevariable_getstatevariablenode</a>(statVar), <a class="code hl_define" href="#a495702bdcc2b71a3c8ff332bfb295e6c">MUPNP_STATEVARIABLE_DEFAULTVALUE</a>)</div>
+<div class="ttc" id="astatevariable_8h_html_a495702bdcc2b71a3c8ff332bfb295e6c"><div class="ttname"><a href="#a495702bdcc2b71a3c8ff332bfb295e6c">MUPNP_STATEVARIABLE_DEFAULTVALUE</a></div><div class="ttdeci">#define MUPNP_STATEVARIABLE_DEFAULTVALUE</div><div class="ttdef"><b>Definition</b> statevariable.h:53</div></div>
+</div><!-- fragment --><p>Get the default value declared in the service description (SCPD).</p>
+<p>This is the static &lt;defaultValue&gt; element of the SCPD, not the current value. On a control point, <a class="el" href="#ac344af058244337fccd20f623ba18071">mupnp_statevariable_getvalue()</a> stays NULL until the variable is queried or an event updates it.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">statVar</td><td>State variable</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Default value, or NULL if the description declares none </dd></dl>
 
 </div>
 </div>
@@ -499,7 +548,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="xml_8h.html#acb84cacd14137c6c6d322fc9f7723deb">mupnp_xml_node_getattributevalue</a>(<a class="code hl_define" href="#a50bfdda793d85f1c02adc05999862e7d">mupnp_statevariable_getstatevariablenode</a>(statVar), <a class="code hl_define" href="#a88fcd87e82ab61a0581f031c6944d123">MUPNP_STATEVARIABLE_SENDEVENTS</a>)</div>
-<div class="ttc" id="astatevariable_8h_html_a88fcd87e82ab61a0581f031c6944d123"><div class="ttname"><a href="#a88fcd87e82ab61a0581f031c6944d123">MUPNP_STATEVARIABLE_SENDEVENTS</a></div><div class="ttdeci">#define MUPNP_STATEVARIABLE_SENDEVENTS</div><div class="ttdef"><b>Definition</b> statevariable.h:53</div></div>
+<div class="ttc" id="astatevariable_8h_html_a88fcd87e82ab61a0581f031c6944d123"><div class="ttname"><a href="#a88fcd87e82ab61a0581f031c6944d123">MUPNP_STATEVARIABLE_SENDEVENTS</a></div><div class="ttdeci">#define MUPNP_STATEVARIABLE_SENDEVENTS</div><div class="ttdef"><b>Definition</b> statevariable.h:58</div></div>
 <div class="ttc" id="axml_8h_html_acb84cacd14137c6c6d322fc9f7723deb"><div class="ttname"><a href="xml_8h.html#acb84cacd14137c6c6d322fc9f7723deb">mupnp_xml_node_getattributevalue</a></div><div class="ttdeci">#define mupnp_xml_node_getattributevalue(node, name)</div><div class="ttdef"><b>Definition</b> xml.h:169</div></div>
 </div><!-- fragment --><p>Get state variable event sending option value</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -741,7 +790,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a>(<a class="code hl_define" href="#a129346e55f032a0fe2993ad6b92fcd90">mupnp_statevariable_getname</a>(statVar), name)</div>
-<div class="ttc" id="astatevariable_8h_html_a129346e55f032a0fe2993ad6b92fcd90"><div class="ttname"><a href="#a129346e55f032a0fe2993ad6b92fcd90">mupnp_statevariable_getname</a></div><div class="ttdeci">#define mupnp_statevariable_getname(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:289</div></div>
+<div class="ttc" id="astatevariable_8h_html_a129346e55f032a0fe2993ad6b92fcd90"><div class="ttname"><a href="#a129346e55f032a0fe2993ad6b92fcd90">mupnp_statevariable_getname</a></div><div class="ttdeci">#define mupnp_statevariable_getname(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:294</div></div>
 <div class="ttc" id="astring__function_8c_html_a87e4a8c1183b47bda9414e1bdb2a265b"><div class="ttname"><a href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a></div><div class="ttdeci">bool mupnp_streq(const char *str1, const char *str2)</div><div class="ttdoc">Test if two strings are equal (NULL-safe)</div><div class="ttdef"><b>Definition</b> string_function.c:158</div></div>
 </div><!-- fragment --><p>Checks if state variable has certain name</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -770,8 +819,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(<a class="code hl_function" href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a>(<a class="code hl_define" href="#a562770ce871faed5383a78980bd47eee">mupnp_statevariable_getsendevents</a>(statVar), <a class="code hl_define" href="#a569615e32303984926b8b406c9a9a45c">MUPNP_STATEVARIABLE_SENDEVENTS_YES</a>))</div>
-<div class="ttc" id="astatevariable_8h_html_a562770ce871faed5383a78980bd47eee"><div class="ttname"><a href="#a562770ce871faed5383a78980bd47eee">mupnp_statevariable_getsendevents</a></div><div class="ttdeci">#define mupnp_statevariable_getsendevents(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:338</div></div>
-<div class="ttc" id="astatevariable_8h_html_a569615e32303984926b8b406c9a9a45c"><div class="ttname"><a href="#a569615e32303984926b8b406c9a9a45c">MUPNP_STATEVARIABLE_SENDEVENTS_YES</a></div><div class="ttdeci">#define MUPNP_STATEVARIABLE_SENDEVENTS_YES</div><div class="ttdef"><b>Definition</b> statevariable.h:58</div></div>
+<div class="ttc" id="astatevariable_8h_html_a562770ce871faed5383a78980bd47eee"><div class="ttname"><a href="#a562770ce871faed5383a78980bd47eee">mupnp_statevariable_getsendevents</a></div><div class="ttdeci">#define mupnp_statevariable_getsendevents(statVar)</div><div class="ttdef"><b>Definition</b> statevariable.h:366</div></div>
+<div class="ttc" id="astatevariable_8h_html_a569615e32303984926b8b406c9a9a45c"><div class="ttname"><a href="#a569615e32303984926b8b406c9a9a45c">MUPNP_STATEVARIABLE_SENDEVENTS_YES</a></div><div class="ttdeci">#define MUPNP_STATEVARIABLE_SENDEVENTS_YES</div><div class="ttdef"><b>Definition</b> statevariable.h:63</div></div>
 </div><!-- fragment --><p>Check if events are sent to subscribers when this state variable changes</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -920,6 +969,36 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">statVar</td><td>State variable </td></tr>
     <tr><td class="paramname">value</td><td>Data type </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac97690994a5fcfad77d93c086af8906a" name="ac97690994a5fcfad77d93c086af8906a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac97690994a5fcfad77d93c086af8906a">&#9670;&#160;</a></span>mupnp_statevariable_setdefaultvalue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define mupnp_statevariable_setdefaultvalue</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>statVar</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>value</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="xml__node_8c.html#a7e6b821d1a6eb0e73a234eb323da30c7">mupnp_xml_node_setchildnode</a>(<a class="code hl_define" href="#a50bfdda793d85f1c02adc05999862e7d">mupnp_statevariable_getstatevariablenode</a>(statVar), <a class="code hl_define" href="#a495702bdcc2b71a3c8ff332bfb295e6c">MUPNP_STATEVARIABLE_DEFAULTVALUE</a>, value)</div>
+</div><!-- fragment --><p>Set the default value declared in the service description (SCPD).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">statVar</td><td>State variable </td></tr>
+    <tr><td class="paramname">value</td><td>Default value </td></tr>
   </table>
   </dd>
 </dl>

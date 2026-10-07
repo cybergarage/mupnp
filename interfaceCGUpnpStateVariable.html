@@ -89,6 +89,10 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a69e4c6092d5686153daf3ca471de60ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65cc40ec260a46058fc3e7a0011c4dfc" id="r_a65cc40ec260a46058fc3e7a0011c4dfc"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a65cc40ec260a46058fc3e7a0011c4dfc">value</a></td></tr>
 <tr class="separator:a65cc40ec260a46058fc3e7a0011c4dfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af20324a890299653d9a331ea23e025b1" id="r_af20324a890299653d9a331ea23e025b1"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#af20324a890299653d9a331ea23e025b1">dataType</a></td></tr>
+<tr class="separator:af20324a890299653d9a331ea23e025b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe04b8744376f495e338ab3a0e407632" id="r_abe04b8744376f495e338ab3a0e407632"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#abe04b8744376f495e338ab3a0e407632">defaultValue</a></td></tr>
+<tr class="separator:abe04b8744376f495e338ab3a0e407632"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a647b10c9e528833b2bace189f4598be9" id="r_a647b10c9e528833b2bace189f4598be9"><td class="memItemLeft" align="right" valign="top">(NSArray *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a647b10c9e528833b2bace189f4598be9">allowedValues</a></td></tr>
 <tr class="separator:a647b10c9e528833b2bace189f4598be9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab515de3489f9f5186192eaa5e654c3ef" id="r_ab515de3489f9f5186192eaa5e654c3ef"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#ab515de3489f9f5186192eaa5e654c3ef">isAllowedValue:</a></td></tr>
@@ -127,6 +131,44 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="af20324a890299653d9a331ea23e025b1" name="af20324a890299653d9a331ea23e025b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af20324a890299653d9a331ea23e025b1">&#9670;&#160;</a></span>dataType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSString *) dataType </td>
+          <td></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the data type declared in the service description (e.g. "string", "ui4", "uri").</p>
+<dl class="section return"><dt>Returns</dt><dd>The data type, or nil. </dd></dl>
+
+</div>
+</div>
+<a id="abe04b8744376f495e338ab3a0e407632" name="abe04b8744376f495e338ab3a0e407632"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe04b8744376f495e338ab3a0e407632">&#9670;&#160;</a></span>defaultValue</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSString *) defaultValue </td>
+          <td></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the default value declared in the service description.</p>
+<dl class="section return"><dt>Returns</dt><dd>The default value, or nil if none is declared. </dd></dl>
+
+</div>
+</div>
 <a id="a7129f70e1da2f3c361e0484f25700d2e" name="a7129f70e1da2f3c361e0484f25700d2e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7129f70e1da2f3c361e0484f25700d2e">&#9670;&#160;</a></span>initWithCObject:</h2>
 
@@ -142,7 +184,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Create a wrapper for the specified native state variable.</p>
-<p>The native object is borrowed: the wrapper does not take ownership of it and does not modify its userdata. Passing NULL (or using -init) creates an invalid wrapper: name, value and statusCode return nil/0, allowedValues returns an empty array, and isAllowedValue: and query return NO.</p>
+<p>The native object is borrowed: the wrapper does not take ownership of it and does not modify its userdata. Passing NULL (or using -init) creates an invalid wrapper: name, value, dataType, defaultValue and statusCode return nil/0, allowedValues returns an empty array, and isAllowedValue: and query return NO.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cobj</td><td>The native state variable, or NULL </td></tr>
@@ -248,7 +290,8 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get the value of the state variable.</p>
+<p>Get the current value of the state variable.</p>
+<p>On a control point this is nil until the variable has been queried with -query or updated by an event. The value declared in the service description is available from -defaultValue.</p>
 <dl class="section return"><dt>Returns</dt><dd>The value. </dd></dl>
 
 </div>

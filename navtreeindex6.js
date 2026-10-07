@@ -1,5 +1,7 @@
 var NAVTREEINDEX6 =
 {
+"interfaceCGUpnpStateVariable.html#abe5e011694b2cd1c01e34129873d2a5a":[12,0,50,7],
+"interfaceCGUpnpStateVariable.html#af20324a890299653d9a331ea23e025b1":[12,0,50,1],
 "interface_8c.html":[13,0,2,0,4,1],
 "interface_8c.html#a40933ff6dd609d345ca4f16f4990f57c":[13,0,2,0,4,1,9],
 "interface_8c.html#a490684ebaef4d1a6f47c59e1b4582b35":[13,0,2,0,4,1,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX6 =
 "md_doc_2security-audit-2026-10-05.html#autotoc_md145":[8,5,2,9,0],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md146":[8,5,2,9,1],
 "md_doc_2security-audit-2026-10-05.html#autotoc_md147":[8,5,2,9,2],
-"md_doc_2security-audit-2026-10-05.html#autotoc_md148":[8,5,2,9,3],
-"md_doc_2security-audit-2026-10-05.html#autotoc_md149":[8,5,2,9,4],
-"md_doc_2security-audit-2026-10-05.html#autotoc_md150":[8,5,2,9,5]
+"md_doc_2security-audit-2026-10-05.html#autotoc_md148":[8,5,2,9,3]
 };
