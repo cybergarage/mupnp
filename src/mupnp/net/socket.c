@@ -259,6 +259,136 @@ void mupnp_socket_cleanup(void)
 }
 
 /****************************************
+ * mupnp_socket_applytimeout
+ ****************************************/
+
+/* Applies sock->timeout as the receive/send timeout of the descriptor. */
+static bool mupnp_socket_applytimeout(const mUpnpSocket* sock)
+{
+  if (!sock)
+    return false;
+#if defined(ESP_PLATFORM)
+  /* ESP-IDF descriptors are nonblocking; sock->timeout is honoured while
+     polling in mupnp_socket_waitready(). */
+  return true;
+#elif defined(BTRON) || defined(TENGINE) || defined(ITRON)
+  return false;
+#elif defined(WIN32) && !defined(__CYGWIN__)
+  /* Winsock takes the timeout as a DWORD in milliseconds, not a timeval. */
+  DWORD timeout = (DWORD)sock->timeout * 1000;
+  if (setsockopt(sock->id, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(timeout)) != 0)
+    return false;
+  return (setsockopt(sock->id, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeout, sizeof(timeout)) == 0) ? true : false;
+#else
+  struct timeval timeout;
+  timeout.tv_sec = (time_t)sock->timeout;
+  timeout.tv_usec = 0;
+  if (setsockopt(sock->id, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(timeout)) != 0)
+    return false;
+  return (setsockopt(sock->id, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeout, sizeof(timeout)) == 0) ? true : false;
+#endif
+}
+
+#if !defined(ESP_PLATFORM) && !defined(BTRON) && !defined(TENGINE) && !defined(ITRON)
+
+/****************************************
+ * mupnp_socket_connectwithtimeout
+ ****************************************/
+
+/* connect() honouring sock->timeout (issue #10). A blocking connect() to an
+   unreachable or silently dropped peer only fails after the kernel's own
+   timeout (minutes on most systems), which stalled the control point while
+   fetching device descriptions. When a timeout is set, the descriptor is
+   switched to nonblocking mode, the connection is awaited for at most
+   sock->timeout seconds, and blocking mode is restored. Returns 0 on success
+   and -1 on failure, like connect(). */
+static int mupnp_socket_connectwithtimeout(mUpnpSocket* sock, const struct sockaddr* addr, socklen_t addrLen)
+{
+  fd_set writeFds;
+  fd_set errorFds;
+  struct timeval timeout = { 0, 0 };
+  int error = 0;
+  socklen_t errorLen = sizeof(error);
+  int ret = -1;
+#if defined(WIN32) && !defined(__CYGWIN__)
+  u_long mode = 0;
+#else
+  int flags = 0;
+#endif
+
+  if (sock->timeout <= 0 || mupnp_socket_isbound(sock) == false)
+    return connect(sock->id, addr, addrLen);
+
+#if defined(WIN32) && !defined(__CYGWIN__)
+  mode = 1;
+  if (ioctlsocket(sock->id, FIONBIO, &mode) != 0)
+    return connect(sock->id, addr, addrLen);
+  ret = connect(sock->id, addr, addrLen);
+  if (ret != 0 && WSAGetLastError() != WSAEWOULDBLOCK) {
+    mode = 0;
+    ioctlsocket(sock->id, FIONBIO, &mode);
+    return -1;
+  }
+#else
+  if (FD_SETSIZE <= sock->id)
+    return connect(sock->id, addr, addrLen);
+  flags = fcntl(sock->id, F_GETFL, 0);
+  if (flags < 0 || fcntl(sock->id, F_SETFL, flags | O_NONBLOCK) < 0)
+    return connect(sock->id, addr, addrLen);
+  ret = connect(sock->id, addr, addrLen);
+  if (ret != 0 && errno != EINPROGRESS) {
+    error = errno;
+    fcntl(sock->id, F_SETFL, flags);
+    errno = error;
+    return -1;
+  }
+#endif
+
+  if (ret != 0) {
+    FD_ZERO(&writeFds);
+    FD_SET(sock->id, &writeFds);
+    FD_ZERO(&errorFds);
+    FD_SET(sock->id, &errorFds);
+    timeout.tv_sec = sock->timeout;
+    timeout.tv_usec = 0;
+    ret = select((int)sock->id + 1, NULL, &writeFds, &errorFds, &timeout);
+#if !defined(WIN32) || defined(__CYGWIN__)
+    /* Linux updates the timeout to the time remaining, so retrying after a
+       signal keeps the overall limit. */
+    while (ret < 0 && errno == EINTR) {
+      FD_ZERO(&writeFds);
+      FD_SET(sock->id, &writeFds);
+      FD_ZERO(&errorFds);
+      FD_SET(sock->id, &errorFds);
+      ret = select((int)sock->id + 1, NULL, &writeFds, &errorFds, &timeout);
+    }
+#endif
+    if (ret == 0) {
+      error = ETIMEDOUT;
+      ret = -1;
+    }
+    else if (0 < ret) {
+      if (getsockopt(sock->id, SOL_SOCKET, SO_ERROR, (char*)&error, &errorLen) != 0)
+        error = errno;
+      ret = (error == 0) ? 0 : -1;
+    }
+  }
+
+#if defined(WIN32) && !defined(__CYGWIN__)
+  mode = 0;
+  ioctlsocket(sock->id, FIONBIO, &mode);
+#else
+  fcntl(sock->id, F_SETFL, flags);
+  if (ret != 0 && error != 0)
+    errno = error;
+#endif
+
+  return ret;
+}
+
+#endif
+
+/****************************************
  * mupnp_socket_new
  ****************************************/
 
@@ -280,9 +410,7 @@ mUpnpSocket* mupnp_socket_new(int type)
 #endif
 
     mupnp_socket_settype(sock, type);
-#if defined(ESP_PLATFORM)
     sock->timeout = 0;
-#endif
     mupnp_socket_setdirection(sock, MUPNP_NET_SOCKET_NONE);
 
     sock->ipaddr = mupnp_string_new();
@@ -376,6 +504,11 @@ void mupnp_socket_setid(mUpnpSocket* socket, SOCKET value)
 #if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && defined(HAVE_SO_NOSIGPIPE)
   setsockopt(socket->id, SOL_SOCKET, SO_NOSIGPIPE, &on, sizeof(on));
 #endif
+
+  /* A timeout requested before the descriptor existed (for example by
+     mupnp_http_request_post() before connect) is applied now. */
+  if (0 < socket->timeout && mupnp_socket_isbound(socket) == true)
+    mupnp_socket_applytimeout(socket);
 
   mupnp_log_debug_l4("Leaving...\n");
 }
@@ -758,7 +891,11 @@ bool mupnp_socket_connect(mUpnpSocket* sock, const char* addr, int port)
     return false;
   if (mupnp_socket_isbound(sock) == false)
     mupnp_socket_setid(sock, socket(toaddrInfo->ai_family, toaddrInfo->ai_socktype, 0));
+#if !defined(ESP_PLATFORM)
+  ret = mupnp_socket_connectwithtimeout(sock, toaddrInfo->ai_addr, (socklen_t)toaddrInfo->ai_addrlen);
+#else
   ret = connect(sock->id, toaddrInfo->ai_addr, toaddrInfo->ai_addrlen);
+#endif
 #if defined(ESP_PLATFORM)
   if (ret < 0 && errno == EINPROGRESS && mupnp_socket_waitready(sock, true)) {
     int error = 0;
@@ -1282,44 +1419,31 @@ bool mupnp_socket_setmulticastttl(mUpnpSocket* sock, int ttl)
 
 bool mupnp_socket_settimeout(mUpnpSocket* sock, int sec)
 {
-  int sockOptRet;
-#if defined(ESP_PLATFORM)
-  if (sec < 0)
+  bool success;
+
+  mupnp_log_debug_l4("Entering...\n");
+
+  if (!sock || sec < 0)
     return false;
-  sock->timeout = sec;
-  sockOptRet = 0;
-#elif defined(BTRON) || (defined(TENGINE) && !defined(MUPNP_TENGINE_NET_KASAGO))
-  sockOptRet = -1; /* TODO: Implement this */
-#elif defined(TENGINE) && defined(MUPNP_TENGINE_NET_KASAGO)
-  sockOptRet = -1; /* TODO: Implement this */
-#elif defined(ITRON)
-  /**** Not Implemented for NORTi ***/
-  sockOptRet = -1;
-#elif defined(WIN32)
-  struct timeval timeout;
-  timeout.tv_sec = sec;
-  timeout.tv_usec = 0;
 
-  mupnp_log_debug_l4("Entering...\n");
-
-  sockOptRet = setsockopt(sock->id, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(timeout));
-  if (sockOptRet == 0)
-    sockOptRet = setsockopt(sock->id, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeout, sizeof(timeout));
+#if defined(BTRON) || defined(TENGINE) || defined(ITRON)
+  /* Not implemented for these platforms. */
+  success = false;
 #else
-  struct timeval timeout;
-  timeout.tv_sec = (time_t)sec;
-  timeout.tv_usec = 0;
-
-  mupnp_log_debug_l4("Entering...\n");
-
-  sockOptRet = setsockopt(sock->id, SOL_SOCKET, SO_RCVTIMEO, (const char*)&timeout, sizeof(timeout));
-  if (sockOptRet == 0)
-    sockOptRet = setsockopt(sock->id, SOL_SOCKET, SO_SNDTIMEO, (const char*)&timeout, sizeof(timeout));
+  sock->timeout = sec;
+#if defined(ESP_PLATFORM)
+  /* ESP-IDF sockets are nonblocking and honour sock->timeout while polling. */
+  success = true;
+#else
+  /* The descriptor may not exist yet (a client socket is created inside
+     mupnp_socket_connect()); mupnp_socket_setid() applies it later. */
+  success = (mupnp_socket_isbound(sock) == true) ? mupnp_socket_applytimeout(sock) : true;
+#endif
 #endif
 
   mupnp_log_debug_l4("Leaving...\n");
 
-  return (sockOptRet == 0) ? true : false;
+  return success;
 }
 
 /****************************************
