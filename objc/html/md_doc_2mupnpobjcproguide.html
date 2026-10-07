@@ -154,7 +154,17 @@ $(function(){initNavTree('md_doc_2mupnpobjcproguide.html',''); initResizable(tru
 </div><!-- fragment --><p>The SDK reports the result of each request but does not ask the user for confirmation or retry requests automatically. Applications that control real devices are responsible for confirming operations and for deciding whether to resend them.</p>
 <h2><a class="anchor" id="autotoc_md51"></a>
 3.5 Descriptions</h2>
-<p><a class="el" href="interfaceCGUpnpDevice.html">CGUpnpDevice</a>:parseXMLDescription and <a class="el" href="interfaceCGUpnpService.html">CGUpnpService</a>:parseXMLDescription pass the description to the parser as UTF-8 bytes, so names that contain Japanese text or emoji are kept. They return NO without changing the receiver for nil, empty or non-UTF-8 input. When the XML itself is rejected, they return NO after the previous description has been cleared; do not use service, action or state variable objects obtained from the receiver before the failed call. </p>
+<p><a class="el" href="interfaceCGUpnpDevice.html">CGUpnpDevice</a>:parseXMLDescription and <a class="el" href="interfaceCGUpnpService.html">CGUpnpService</a>:parseXMLDescription pass the description to the parser as UTF-8 bytes, so names that contain Japanese text or emoji are kept. They return NO without changing the receiver for nil, empty or non-UTF-8 input. When the XML itself is rejected, they return NO after the previous description has been cleared; do not use service, action or state variable objects obtained from the receiver before the failed call.</p>
+<h1><a class="anchor" id="autotoc_md52"></a>
+Swift framework consumers</h1>
+<p>The Xcode framework exports its Objective-C headers and the <code>mUPnP4ObjC</code> Clang module. Objective-C framework consumers use <code>#import &lt;mUPnP4ObjC/CGUpnp.h&gt;</code> (the previous umbrella referenced a different framework name). Swift consumers can now use:</p>
+<div class="fragment"><div class="line">import mUPnP4ObjC</div>
+<div class="line">func inspect(_ device: CGUpnpDevice) { _ = device }</div>
+</div><!-- fragment --><p>Build the shared <code>mUPnP4ObjC</code> scheme with an explicit SDK. The scheme includes only local XML XCTest fixtures. For a Mac test run:</p>
+<div class="fragment"><div class="line">xcodebuild -project wrapper/objc/xcode/mUPnP4ObjC.xcodeproj \</div>
+<div class="line">  -scheme mUPnP4ObjC -sdk macosx -destination &#39;platform=macOS&#39; \</div>
+<div class="line">  -derivedDataPath /tmp/mupnp-mac CODE_SIGNING_ALLOWED=NO test</div>
+</div><!-- fragment --><p>Validated on Apple silicon with Xcode 27: unsigned macOS and generic Simulator builds, Swift consumer imports on both platforms, six Mac XCTest regressions, and <code>python3 test/security/verify-macos.py /tmp/mupnp-sanitizers</code> (ASan/UBSan Objective-C and C fixtures). This is not leak-detector coverage: macOS ASan has no LeakSanitizer, and the pre-existing C allowedValueList allocation leak is not fixed or certified by these runs. Any earlier Linux suppression remains a separate limitation. Failed XML reparse can invalidate child wrappers; do not keep child wrappers across reparsing their native owner. Async SOAP, NSError reporting and broader GENA/lifecycle changes remain separate work. No network discovery or physical control was exercised by the Swift imports. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

@@ -3,6 +3,7 @@ var interfaceCGUpnpControlPoint =
     [ "cObject", "interfaceCGUpnpControlPoint.html#acbcd0ac65aa122c27f849e93293defcf", null ],
     [ "deviceForUDN:", "interfaceCGUpnpControlPoint.html#a7547ad1c5da99994b87498e9f845498c", null ],
     [ "devices", "interfaceCGUpnpControlPoint.html#ae344dfa94337e21f1f1e4bb9c4004fbc", null ],
+    [ "init", "interfaceCGUpnpControlPoint.html#a212786791b6617074381afa0126d44f8", null ],
     [ "isRunning", "interfaceCGUpnpControlPoint.html#a52e1f9d239f219773ee44275371cad77", null ],
     [ "search", "interfaceCGUpnpControlPoint.html#aa2ecd4b95780704d69b82012edce7672", null ],
     [ "searchWithST:", "interfaceCGUpnpControlPoint.html#a766273ced74e85a91375d387ae90150f", null ],

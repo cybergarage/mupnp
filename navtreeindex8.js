@@ -1,5 +1,7 @@
 var NAVTREEINDEX8 =
 {
+"service_8h.html#a610cd06b60ef200dc5395e5d52d334b2":[13,0,1,0,14,36],
+"service_8h.html#a61637321367c8d71e5c7640a01384fd7":[13,0,1,0,14,57],
 "service_8h.html#a68ab92e4b58feb60e9eebf379139c22f":[13,0,1,0,14,43],
 "service_8h.html#a693be306ce8ddbacc3661f63a04a98f4":[13,0,1,0,14,54],
 "service_8h.html#a69c9d8d368606188591de67763e289b0":[13,0,1,0,14,64],
@@ -247,7 +249,5 @@ var NAVTREEINDEX8 =
 "socket__list_8c.html":[13,0,2,0,4,6],
 "ssdp_8c.html":[13,0,2,0,6,2],
 "ssdp_8c.html#a3eb81b58392a886feb1b72a5ead381d4":[13,0,2,0,6,2,2],
-"ssdp_8c.html#a4de05bb32041430e72be6c3450bfb749":[13,0,2,0,6,2,6],
-"ssdp_8c.html#a77d3de040b88aff7dc631932593e351d":[13,0,2,0,6,2,7],
-"ssdp_8c.html#a88968fd66fe37d53c7947395e1c40fc1":[13,0,2,0,6,2,5]
+"ssdp_8c.html#a4de05bb32041430e72be6c3450bfb749":[13,0,2,0,6,2,6]
 };
