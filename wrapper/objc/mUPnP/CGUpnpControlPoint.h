@@ -37,6 +37,8 @@ typedef void mUpnpControlPoint;
  */
 @interface CGUpnpControlPoint : NSObject {
 }
+// Initialization can fail to allocate or start native networking.
+- (nullable instancetype)init;
 @property (assign, readonly) mUpnpControlPoint* cObject;
 @property (assign) id<CGUpnpControlPointDelegate> delegate;
 - (mUpnpControlPoint*)cObject;
