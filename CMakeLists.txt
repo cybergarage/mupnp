@@ -129,23 +129,34 @@ project(mUPnP LANGUAGES C)
 # Build options
 #
 
-option(CG_HTTP_CURL "Enable Libcurl support" OFF)
-option(CG_HTTP_USE_PERSISTENT_CONNECTIONS
+# The sources are configured with MUPNP_* macros, the same ones Autotools
+# defines. The former CG_* option names never reached the sources; they are
+# still accepted as deprecated aliases. Defaults match ./configure.
+option(MUPNP_HTTP_CURL "Enable Libcurl support" OFF)
+option(MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS
   "Enable persistent connections support" ON)
-option(CG_NET_USE_ANYADDR
-  "Enables the usage of IPV4_ADDRANY instead of registering an explicit server for each interface" ON)
-option(CG_OPTIMIZED_CP_MODE "Enable optimized control point mode" OFF)
-option(CG_USE_CFILE "Enable file functions" OFF)
-option(CG_USE_OPENSSL "Enable OpenSSL support" OFF)
-option(CG_XMLPARSER_LIBXML2 "Use Libxml2 instead of Expat for XML parsing" OFF)
+option(MUPNP_NET_USE_ANYADDR
+  "Bind servers to INADDR_ANY instead of registering an explicit server for each interface" OFF)
+option(MUPNP_OPTIMIZED_CP_MODE "Enable optimized control point mode" OFF)
+option(MUPNP_USE_CFILE "Enable file functions" OFF)
+option(MUPNP_USE_OPENSSL "Enable OpenSSL support" OFF)
+option(MUPNP_XMLPARSER_LIBXML2 "Use Libxml2 instead of Expat for XML parsing" OFF)
 
 foreach(OPT
-    CG_HTTP_CURL CG_HTTP_USE_PERSISTENT_CONNECTIONS CG_NET_USE_ANYADDR
-    CG_OPTIMIZED_CP_MODE CG_USE_CFILE CG_USE_OPENSSL CG_XMLPARSER_LIBXML2)
-  if(${OPT})
-    add_definitions(-D${OPT})
-  endif(${OPT})
+    HTTP_CURL HTTP_USE_PERSISTENT_CONNECTIONS NET_USE_ANYADDR
+    OPTIMIZED_CP_MODE USE_CFILE USE_OPENSSL XMLPARSER_LIBXML2)
+  if(DEFINED CG_${OPT})
+    message(DEPRECATION "CG_${OPT} is deprecated; use MUPNP_${OPT}")
+    set(MUPNP_${OPT} ${CG_${OPT}})
+  endif()
+  if(MUPNP_${OPT})
+    add_definitions(-DMUPNP_${OPT})
+  endif()
 endforeach()
+
+if(NOT MUPNP_XMLPARSER_LIBXML2)
+  add_definitions(-DMUPNP_XMLPARSER_EXPAT)
+endif()
 
 #
 # Compiler related
@@ -200,24 +211,24 @@ if(NOT WIN32)
   endif()
 endif(NOT WIN32)
 
-if(CG_HTTP_CURL)
+if(MUPNP_HTTP_CURL)
   find_package(CURL REQUIRED)
   include_directories(${CURL_INCLUDE_DIRS})
   target_link_libraries(MUPNP PUBLIC ${CURL_LIBRARIES})
-endif(CG_HTTP_CURL)
+endif(MUPNP_HTTP_CURL)
 
-if(CG_USE_OPENSSL)
+if(MUPNP_USE_OPENSSL)
   find_package(OpenSSL REQUIRED)
   include_directories(${OPENSSL_INCLUDE_DIR})
   target_link_libraries(MUPNP PUBLIC ${OPENSSL_LIBRARIES})
-endif(CG_USE_OPENSSL)
+endif(MUPNP_USE_OPENSSL)
 
-if(CG_XMLPARSER_LIBXML2)
+if(MUPNP_XMLPARSER_LIBXML2)
   find_package(LibXml2 REQUIRED)
   add_definitions(${LIBXML2_DEFINITIONS})
   include_directories(${LIBXML2_INCLUDE_DIR})
   target_link_libraries(MUPNP PUBLIC ${LIBXML2_LIBRARIES})
-else(CG_XMLPARSER_LIBXML2)
+else(MUPNP_XMLPARSER_LIBXML2)
   find_library(LIBEXPAT_LIBRARY expat)
   find_path(LIBEXPAT_INCLUDE_DIR expat.h PATH_SUFFIXES expat)
   include_directories(${LIBEXPAT_INCLUDE_DIR})
@@ -229,7 +240,7 @@ else(CG_XMLPARSER_LIBXML2)
       target_link_libraries(MUPNP PUBLIC ${LIBXML2_LIBRARIES})
     endif()
   endif()
-endif(CG_XMLPARSER_LIBXML2)
+endif(MUPNP_XMLPARSER_LIBXML2)
 
 #
 # Installation

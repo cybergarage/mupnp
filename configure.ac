@@ -6,10 +6,11 @@
 #
 #############################################################################
 
+AC_INIT([mupnp],[3.1.0])
+# Must follow AC_INIT: before it, config.h is not recorded in config_headers,
+# so config.status writes stamp-h2 and `make distcheck` fails in distcleancheck.
 AC_CONFIG_AUX_DIR(config)
 AC_CONFIG_HEADERS(config.h)
-
-AC_INIT([mupnp],[3.1.0])
 AC_CONFIG_SRCDIR([include/mupnp/typedef.h])
 AM_INIT_AUTOMAKE([subdir-objects])
 

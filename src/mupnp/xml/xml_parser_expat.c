@@ -20,7 +20,7 @@
  *	Compiler Switch (BEGIN)
  ****************************************/
 
-#if defined(MUPNP_XMLPARSER_EXPAT) || (!defined(HAVE_CONFIG_H) && !defined(TARGET_OS_IPHONE))
+#if defined(MUPNP_XMLPARSER_EXPAT) || (!defined(HAVE_CONFIG_H) && !defined(TARGET_OS_IPHONE) && !defined(MUPNP_XMLPARSER_LIBXML2))
 
 /****************************************
  * Header Files
