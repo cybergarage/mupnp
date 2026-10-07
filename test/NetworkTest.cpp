@@ -18,10 +18,12 @@
 #include <array>
 #include <atomic>
 #include <chrono>
+#include <cstring>
 #include <mupnp/net/socket.h>
 #include <mupnp/ssdp/ssdp_server.h>
 #include <mupnp/util/thread.h>
 #include <netinet/in.h>
+#include <string>
 #include <sys/socket.h>
 #include <thread>
 #include <unistd.h>
@@ -309,6 +311,74 @@ BOOST_AUTO_TEST_CASE(SocketConnectTimesOut)
     mupnp_socket_delete(sock);
   }
   close(listener);
+}
+
+#endif
+
+#if !defined(WIN32)
+
+/* mupnp_net_selectaddr() picks the local address advertised in SSDP replies.
+   It must always return one of this host's interface addresses (or the
+   loopback fallback), whatever the peer's address family. */
+static bool is_host_address(const char* addr)
+{
+  if (!addr)
+    return false;
+  if (strcmp(addr, "127.0.0.1") == 0)
+    return true;
+  bool found = false;
+  mUpnpNetworkInterfaceList* ifList = mupnp_net_interfacelist_new();
+  mupnp_net_gethostinterfaces(ifList);
+  for (mUpnpNetworkInterface* netIf = mupnp_net_interfacelist_gets(ifList); netIf; netIf = mupnp_net_interface_next(netIf)) {
+    if (strcmp(mupnp_net_interface_getaddress(netIf), addr) == 0)
+      found = true;
+  }
+  mupnp_net_interfacelist_delete(ifList);
+  return found;
+}
+
+BOOST_AUTO_TEST_CASE(SelectAddrReturnsHostAddress)
+{
+  /* IPv4 peer on an unrelated subnet. */
+  struct sockaddr_in remote4 = {};
+  remote4.sin_family = AF_INET;
+  inet_pton(AF_INET, "203.0.113.5", &remote4.sin_addr);
+  char* addr = mupnp_net_selectaddr((struct sockaddr*)&remote4);
+  BOOST_CHECK(is_host_address(addr));
+  BOOST_CHECK(!mupnp_net_isipv6address(addr));
+  free(addr);
+
+  /* IPv4 peer on the same subnet as an interface selects that interface. */
+  mUpnpNetworkInterfaceList* ifList = mupnp_net_interfacelist_new();
+  mupnp_net_gethostinterfaces(ifList);
+  mUpnpNetworkInterface* netIf = mupnp_net_interfacelist_gets(ifList);
+  if (netIf && !mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf))) {
+    struct sockaddr_in same = {};
+    same.sin_family = AF_INET;
+    inet_pton(AF_INET, mupnp_net_interface_getaddress(netIf), &same.sin_addr);
+    addr = mupnp_net_selectaddr((struct sockaddr*)&same);
+    BOOST_CHECK_EQUAL(std::string(addr), std::string(mupnp_net_interface_getaddress(netIf)));
+    free(addr);
+  }
+  mupnp_net_interfacelist_delete(ifList);
+
+  /* IPv6 peer: never an IPv4 address decoded from IPv6 bytes. With IPv6
+     disabled (the default) an IPv4 host address is used. */
+  struct sockaddr_in6 remote6 = {};
+  remote6.sin6_family = AF_INET6;
+  inet_pton(AF_INET6, "fe80::1234", &remote6.sin6_addr);
+  remote6.sin6_scope_id = 1;
+  addr = mupnp_net_selectaddr((struct sockaddr*)&remote6);
+  BOOST_CHECK(is_host_address(addr));
+  free(addr);
+
+  /* With IPv6 enabled, an IPv6 address is chosen when the host has one. */
+  mupnp_net_setipv6enabled(true);
+  addr = mupnp_net_selectaddr((struct sockaddr*)&remote6);
+  BOOST_CHECK(is_host_address(addr));
+  BOOST_TEST_MESSAGE("selected for IPv6 peer: " << (addr ? addr : "(null)"));
+  free(addr);
+  mupnp_net_setipv6enabled(false);
 }
 
 #endif
