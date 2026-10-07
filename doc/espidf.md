@@ -1,8 +1,13 @@
 # ESP-IDF port
 
+mUPnP for C 3.1.0 is the first release that features ESP32 support, building
+on the initial port introduced in 3.0.5 with fixes found during ESP32 hardware
+testing. For a reproducible build, use the `3.1.0` release tag rather than an
+arbitrary `master` revision.
+
 ## Scope and status
 
-The initial port targets **ESP32, one active Wi-Fi station interface, and IPv4**.
+The port targets **ESP32, one active Wi-Fi station interface, and IPv4**.
 The build/CI baseline is **ESP-IDF v5.5.5**; the component manifest allows
 `>=5.5,<6.0`. Other ESP32-family targets, Ethernet, simultaneous STA/AP or
 multiple interfaces, IPv6, TLS/OpenSSL, and libcurl have not been validated by
@@ -34,9 +39,9 @@ unverified. Follow the checklist below for application-specific validation.
 
 ### Release limits and compatibility
 
-Version 3.0.5 already introduced the initial ESP-IDF port. Version 3.1.0 includes
-the subsequently merged XML allocation-failure and LOCATION/GENA fixes (#30),
-and HTTP TIME_WAIT rebinding changes (#31).
+Version 3.0.5 introduced the initial ESP-IDF port (#27). Version 3.1.0 adds the
+XML allocation-failure and LOCATION/GENA fixes (#30) and HTTP TIME_WAIT
+rebinding changes (#31), and is the version the hardware results above refer to.
 
 `mupnp_xml_attributelist_set()` now returns `bool` instead of `void`; callers
 ignoring the result still compile, but function-pointer declarations must match.
@@ -50,13 +55,14 @@ cannot carry subscription state in this replacement path.
 
 The public #30 report also records a pre-existing device-side SUBSCRIBE URI leak
 and a use-after-free when a device is deleted immediately after SUBSCRIBE while
-its initial-event thread is pending. They are not fixed by this release preparation
-and are not covered by the reported control-point smoke test.
+its initial-event thread is pending. They are not fixed in 3.1.0 and are not
+covered by the reported control-point smoke test.
 
 The component manifest currently labels the license `BSD-3-Clause`, while
 `COPYING` includes an additional patent-related condition. That metadata needs
-maintainer/legal review before registry publication; this preparation does not
-change the license terms or establish that the SPDX label is correct.
+maintainer/legal review before publication to the ESP Component Registry; 3.1.0
+does not change the license terms or establish that the SPDX label is correct.
+Until then, use the component from this repository as described below.
 
 ## Build the example
 
@@ -65,7 +71,7 @@ change the license terms or establish that the SPDX label is correct.
 2. Clone this repository and enter the example:
 
    ```sh
-   git clone https://github.com/cybergarage/mupnp.git
+   git clone --branch 3.1.0 https://github.com/cybergarage/mupnp.git
    cd mupnp/examples/espidf/control_point
    idf.py set-target esp32
    idf.py menuconfig
@@ -97,7 +103,7 @@ source list as the standalone host CMake build.
 ## Use in another application
 
 Place this repository at `<project>/components/mupnp` (for example, as a Git
-submodule), or add its path to `EXTRA_COMPONENT_DIRS` **before** including
+submodule checked out at the `3.1.0` tag), or add its path to `EXTRA_COMPONENT_DIRS` **before** including
 ESP-IDF's `project.cmake`. In the application's component registration, add
 `REQUIRES mupnp` and include `<mupnp/upnp.h>`. ESP-IDF names a local component
 after its directory, so adjust `REQUIRES` if you use a different directory name.
@@ -195,12 +201,15 @@ the complete application after its blank-SSID guard. A build with a blank SSID
 still compiles library objects but can optimize away most application/library
 code at final link. Use the fresh configuration above for full-link validation,
 and real local credentials before flashing. The CI build compiles and links the example and library; it does not verify radio behavior.
-A separate host job runs the ESP-specific thread lifecycle and socket-shutdown
+A separate host job checks the bootstrap build generators and runs the
+ESP-specific thread lifecycle, socket-shutdown, and XML allocation-failure
 regressions with AddressSanitizer and UndefinedBehaviorSanitizer:
 
 ```sh
+test/espidf/host/check_generators.sh
 test/espidf/host/run.sh
 test/espidf/host/run_socket.sh
+test/espidf/host/run_xml_alloc.sh
 ```
 
 These tests exercise the ESP conditional code using small host adapters. They

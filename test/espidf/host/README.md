@@ -6,6 +6,7 @@ Run from the repository root on Linux with a C11 compiler and pthreads:
 test/espidf/host/check_generators.sh
 test/espidf/host/run.sh
 test/espidf/host/run_socket.sh
+test/espidf/host/run_xml_alloc.sh
 ```
 
 This builds the actual `ESP_PLATFORM` thread, time, condition, mutex and list
