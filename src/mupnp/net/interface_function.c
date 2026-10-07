@@ -746,16 +746,53 @@ static char* mupnp_net_selectipv6addr(const struct sockaddr_in6* remoteaddr)
 #endif
 
 #if !defined(HAVE_IFADDRS_H) || defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR)
+
+/* Whether an IPv4 interface address is on the same subnet as raddr. */
+static bool mupnp_net_interface_issubnetof(mUpnpNetworkInterface* netIf, u_long raddr)
+{
+  struct addrinfo hints;
+  struct addrinfo* netIfAddrInfo;
+  struct addrinfo* netMaskAddrInfo;
+  bool matched = false;
+
+  /* Windows also lists IPv6 addresses; they cannot be read as IPv4. */
+  if (mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf)) == true)
+    return false;
+
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_flags = AI_NUMERICHOST | AI_PASSIVE;
+  if (getaddrinfo(mupnp_net_interface_getaddress(netIf), NULL, &hints, &netIfAddrInfo) != 0)
+    return false;
+  if (getaddrinfo(mupnp_net_interface_getnetmask(netIf), NULL, &hints, &netMaskAddrInfo) != 0) {
+    freeaddrinfo(netIfAddrInfo);
+    return false;
+  }
+  if (netIfAddrInfo->ai_family == AF_INET && netMaskAddrInfo->ai_family == AF_INET) {
+    u_long laddr = ntohl(((struct sockaddr_in*)netIfAddrInfo->ai_addr)->sin_addr.s_addr);
+    u_long lmask = ntohl(((struct sockaddr_in*)netMaskAddrInfo->ai_addr)->sin_addr.s_addr);
+    matched = ((laddr & lmask) == (raddr & lmask)) ? true : false;
+  }
+  freeaddrinfo(netIfAddrInfo);
+  freeaddrinfo(netMaskAddrInfo);
+
+  return matched;
+}
+
 char* mupnp_net_selectaddr(struct sockaddr* remoteaddr)
 {
   mUpnpNetworkInterfaceList* netIfList;
   mUpnpNetworkInterface* netIf;
-  mUpnpNetworkInterface* selectNetIf;
+  mUpnpNetworkInterface* selectNetIf = NULL;
   char* selectNetIfAddr;
-  u_long laddr, lmask, raddr;
-  struct addrinfo hints;
-  struct addrinfo* netIfAddrInfo;
-  struct addrinfo* netMaskAddrInfo;
+  u_long raddr;
+
+#if defined(MUPNP_NET_SELECTADDR_IPV6)
+  if (remoteaddr->sa_family == AF_INET6) {
+    selectNetIfAddr = mupnp_net_selectipv6addr((const struct sockaddr_in6*)remoteaddr);
+    if (selectNetIfAddr)
+      return selectNetIfAddr;
+  }
+#endif
 
   netIfList = mupnp_net_interfacelist_new();
   if (!netIfList)
@@ -766,55 +803,17 @@ char* mupnp_net_selectaddr(struct sockaddr* remoteaddr)
     return mupnp_strdup("127.0.0.1");
   }
 
-#if defined(MUPNP_NET_SELECTADDR_IPV6)
-  if (remoteaddr->sa_family == AF_INET6) {
-    selectNetIfAddr = mupnp_net_selectipv6addr((const struct sockaddr_in6*)remoteaddr);
-    if (selectNetIfAddr) {
-      mupnp_net_interfacelist_delete(netIfList);
-      return selectNetIfAddr;
-    }
-  }
-#endif
-
-  /* Only an IPv4 peer can be matched against IPv4 subnets below. */
+  /* Only an IPv4 peer can be matched against IPv4 subnets. */
   raddr = (remoteaddr->sa_family == AF_INET) ? ntohl(((struct sockaddr_in*)remoteaddr)->sin_addr.s_addr) : 0;
-
-  memset(&hints, 0, sizeof(hints));
-  hints.ai_flags = AI_NUMERICHOST | AI_PASSIVE;
-
-  selectNetIf = NULL;
-  if (1 <= mupnp_net_gethostinterfaces(netIfList)) {
-    for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf; netIf = mupnp_net_interface_next(netIf)) {
-      /* Windows also lists IPv6 addresses; they cannot be read as IPv4. */
-      if (mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf)) == true)
-        continue;
-      if (getaddrinfo(mupnp_net_interface_getaddress(netIf), NULL, &hints, &netIfAddrInfo) != 0)
-        continue;
-      if (getaddrinfo(mupnp_net_interface_getnetmask(netIf), NULL, &hints, &netMaskAddrInfo) != 0) {
-        freeaddrinfo(netIfAddrInfo);
-        continue;
-      }
-      if (netIfAddrInfo->ai_family == AF_INET && netMaskAddrInfo->ai_family == AF_INET) {
-        laddr = ntohl(((struct sockaddr_in*)netIfAddrInfo->ai_addr)->sin_addr.s_addr);
-        lmask = ntohl(((struct sockaddr_in*)netMaskAddrInfo->ai_addr)->sin_addr.s_addr);
-        if ((laddr & lmask) == (raddr & lmask))
-          selectNetIf = netIf;
-      }
-      freeaddrinfo(netIfAddrInfo);
-      freeaddrinfo(netMaskAddrInfo);
-      if (selectNetIf)
-        break;
-    }
+  for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf && !selectNetIf; netIf = mupnp_net_interface_next(netIf)) {
+    if (mupnp_net_interface_issubnetof(netIf, raddr) == true)
+      selectNetIf = netIf;
   }
 
-  if (!selectNetIf) {
-    /* Prefer an IPv4 address when nothing matched. */
-    for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf; netIf = mupnp_net_interface_next(netIf)) {
-      if (mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf)) == false) {
-        selectNetIf = netIf;
-        break;
-      }
-    }
+  /* Prefer an IPv4 address when nothing matched. */
+  for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf && !selectNetIf; netIf = mupnp_net_interface_next(netIf)) {
+    if (mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf)) == false)
+      selectNetIf = netIf;
   }
   if (!selectNetIf)
     selectNetIf = mupnp_net_interfacelist_gets(netIfList);
