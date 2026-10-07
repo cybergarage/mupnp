@@ -83,9 +83,9 @@ typedef struct _mUpnpSocket {
   int direction;
   mUpnpString* ipaddr;
   int port;
-#if defined(ESP_PLATFORM)
-  int timeout; /* Seconds; zero means no timeout. */
-#endif
+  int timeout; /* Seconds; zero means no timeout. Kept so that a timeout set
+                  before the descriptor exists (e.g. before connect) still
+                  applies once the socket is created. */
 #if defined(ITRON)
   UH* sendWinBuf;
   UH* recvWinBuf;
