@@ -656,10 +656,15 @@ bool mupnp_service_notify(mUpnpService* service, mUpnpStateVariable* statVar);
 bool mupnp_service_notifyall(mUpnpService* service, bool doBracket);
 
 /**
- * Create a new thread to send a notification message to all of the service's subscribers
+ * Send the initial event to all of the service's subscribers after waitTime.
+ *
+ * Despite its name this no longer starts a thread: the message is sent from
+ * the calling thread (the device's HTTP worker for a new subscription), so
+ * mupnp_device_stop() waits for it and the service cannot be freed while it
+ * is sent. Nothing is sent if the calling mUPnP thread is being stopped.
  *
  * @param service The service in question
- *  @param waitTime The wait time to send
+ * @param waitTime The wait time to send (milliseconds)
  */
 void mupnp_service_createnotifyallthread(mUpnpService* service, mUpnpTime waitTime);
 

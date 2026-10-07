@@ -11,6 +11,7 @@
 
 #include <mupnp/service.h>
 #include <mupnp/util/log.h>
+#include <mupnp/util/thread.h>
 
 /****************************************
  * MUPNP_NOUSE_SUBSCRIPTION (Begin)
@@ -142,28 +143,27 @@ bool mupnp_service_notifyall(mUpnpService* service, bool doBracket)
 }
 
 /****************************************
- * mupnp_service_notifyall
+ * mupnp_service_createnotifyallthread
  ****************************************/
 
-static void mupnp_service_notifyall_thread(mUpnpThread* thread)
-{
-  mUpnpService* service;
-
-  service = (mUpnpService*)mupnp_thread_getuserdata(thread);
-  mupnp_service_notifyall(service, true);
-  mupnp_thread_delete(thread);
-}
-
+/* Sends the initial event after a new subscription. It used to start a
+   detached thread holding a raw service pointer, so deleting the device
+   right after a SUBSCRIBE let that thread notify from freed memory. The
+   event is now sent from the calling HTTP worker, which mupnp_device_stop()
+   already waits for, and is skipped when that worker is being stopped. */
 void mupnp_service_createnotifyallthread(mUpnpService* service, mUpnpTime waitTime)
 {
-  mUpnpThread* thread;
-
-  thread = mupnp_thread_new();
-  mupnp_thread_setaction(thread, mupnp_service_notifyall_thread);
-  mupnp_thread_setuserdata(thread, service);
-
   mupnp_wait(waitTime);
-  mupnp_thread_start(thread);
+
+#if !defined(WIN32) && !defined(WINCE) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
+  {
+    mUpnpThread* self = mupnp_thread_self();
+    if (self && mupnp_thread_isrunnable(self) == false)
+      return;
+  }
+#endif
+
+  mupnp_service_notifyall(service, true);
 }
 
 /****************************************

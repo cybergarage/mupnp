@@ -2075,7 +2075,12 @@ mUpnpService* mupnp_device_getservicebyeventsuburl(mUpnpDevice* dev, const char*
     return NULL;
 
   for (service = mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
-    if (mupnp_streq(mupnp_net_url_getpath(mupnp_service_geteventsuburl(service)), url) == true)
+    /* mupnp_service_geteventsuburl() returns a newly allocated URL. */
+    mUpnpNetURL* eventSubURL = mupnp_service_geteventsuburl(service);
+    bool matched = (eventSubURL && mupnp_streq(mupnp_net_url_getpath(eventSubURL), url) == true) ? true : false;
+    if (eventSubURL)
+      mupnp_net_url_delete(eventSubURL);
+    if (matched)
       return service;
   }
 
