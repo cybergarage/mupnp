@@ -288,11 +288,11 @@ var NAVTREEINDEX =
 "interfaceCGUpnpStateVariable.html#abe5e011694b2cd1c01e34129873d2a5a",
 "md_doc_2security-audit-2026-10-05.html#autotoc_md149",
 "service_8h.html#a3527599005791b985f129b2a1be1ebc1",
-"socket_8h.html#af105040559ea7f82d47636cd7ef1bd81",
-"ssdp__server_8h.html#ad621e61ff4addcda306d89ceee4f8159",
-"struct__mUpnpCond.html",
-"structtm.html#a928f597df999fbfb7b88b1482ae656df",
-"uri_8h.html#a86085f96ec3cc0b5381b5dbe533355f7"
+"socket_8h.html#ae49ab1168a38c59cf2577a48834247c5",
+"ssdp__server_8h.html#ad31d8b0647fc7a3042be55df00a39fd9",
+"struct__mUpnpArgument.html#ae3edb1e4b7264025afe189b4c982277d",
+"structtm.html#a4d098a9a5c03a00b2ee61e10851de81e",
+"uri_8h.html#a7aba30b89068795c2914078aa97139f8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

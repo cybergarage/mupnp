@@ -1,5 +1,7 @@
 var NAVTREEINDEX11 =
 {
+"struct__mUpnpArgument.html#ae3edb1e4b7264025afe189b4c982277d":[12,0,4,2],
+"struct__mUpnpArgument.html#af9fd16e88b4345bb415599f859747372":[12,0,4,0],
 "struct__mUpnpCond.html":[12,0,5],
 "struct__mUpnpCond.html#a8c7e4f806e70b30d47fdc090a596d3d2":[12,0,5,0],
 "struct__mUpnpControlPoint.html":[12,0,6],
@@ -182,8 +184,9 @@ var NAVTREEINDEX11 =
 "struct__mUpnpSoapResponse.html#ae765e5b016acf3370379d4b766048627":[12,0,29,2],
 "struct__mUpnpSocket.html":[12,0,30],
 "struct__mUpnpSocket.html#a019e343e553cf7a105156e4401089a9e":[12,0,30,2],
+"struct__mUpnpSocket.html#a526696275cea7ead3444745e90d0cb14":[12,0,30,4],
 "struct__mUpnpSocket.html#a6a9263d4410f5b8d0464e6af167829c7":[12,0,30,0],
-"struct__mUpnpSocket.html#a6d3d0646e60ac58fa8e80f177eb3abf6":[12,0,30,4],
+"struct__mUpnpSocket.html#a6d3d0646e60ac58fa8e80f177eb3abf6":[12,0,30,5],
 "struct__mUpnpSocket.html#a75cf146eeb4e9a1b594fbeb00e31647e":[12,0,30,3],
 "struct__mUpnpSocket.html#a9407bc0376f5348750de72832f09d173":[12,0,30,1],
 "struct__mUpnpStateVariable.html":[12,0,34],
@@ -246,8 +249,5 @@ var NAVTREEINDEX11 =
 "structtm.html":[12,0,53],
 "structtm.html#a112ac36fa2f593777138a417cf031e17":[12,0,53,5],
 "structtm.html#a33adf78fd6476b2120ce3b9c4a852053":[12,0,53,9],
-"structtm.html#a3e7ca4e37f1abcaf56b8a916c38eb9fe":[12,0,53,1],
-"structtm.html#a4d098a9a5c03a00b2ee61e10851de81e":[12,0,53,6],
-"structtm.html#a5645ca0580c8ab2c24f6c2965d9c9f9c":[12,0,53,2],
-"structtm.html#a87c1c81b9b9db818f095fb981f7de07e":[12,0,53,10]
+"structtm.html#a3e7ca4e37f1abcaf56b8a916c38eb9fe":[12,0,53,1]
 };

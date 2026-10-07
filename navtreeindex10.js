@@ -1,5 +1,7 @@
 var NAVTREEINDEX10 =
 {
+"ssdp__server_8h.html#ad31d8b0647fc7a3042be55df00a39fd9":[13,0,1,0,6,1,11],
+"ssdp__server_8h.html#ad3d0b20e4e810f8331dedfc3e74e921d":[13,0,1,0,6,1,94],
 "ssdp__server_8h.html#ad621e61ff4addcda306d89ceee4f8159":[13,0,1,0,6,1,80],
 "ssdp__server_8h.html#ad69c6e39ff3a31c0466b40b5a497556a":[13,0,1,0,6,1,32],
 "ssdp__server_8h.html#ad6e995890e1017bc49b7984b8b2c6cc7":[13,0,1,0,6,1,69],
@@ -247,7 +249,5 @@ var NAVTREEINDEX10 =
 "struct__mUpnpAllowedValuesList.html":[12,0,3],
 "struct__mUpnpAllowedValuesList.html#af4f639347cd419a0cac342611ca44426":[12,0,3,0],
 "struct__mUpnpArgument.html":[12,0,4],
-"struct__mUpnpArgument.html#a22f80f935ad061e16823b55d2e7449a4":[12,0,4,1],
-"struct__mUpnpArgument.html#ae3edb1e4b7264025afe189b4c982277d":[12,0,4,2],
-"struct__mUpnpArgument.html#af9fd16e88b4345bb415599f859747372":[12,0,4,0]
+"struct__mUpnpArgument.html#a22f80f935ad061e16823b55d2e7449a4":[12,0,4,1]
 };
