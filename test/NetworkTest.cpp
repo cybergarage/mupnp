@@ -205,7 +205,7 @@ BOOST_AUTO_TEST_CASE(SSDPWorkerIgnoresEmptyDatagram)
 /* Issue #10: a timeout set before mupnp_socket_connect() creates the
    descriptor must still apply, both to connect() and to later reads. */
 
-static int open_test_listener(int backlog, int* port)
+static int open_test_listener(int backlog)
 {
   int fd = socket(AF_INET, SOCK_STREAM, 0);
   if (fd < 0)
@@ -214,20 +214,27 @@ static int open_test_listener(int backlog, int* port)
   addr.sin_family = AF_INET;
   addr.sin_addr.s_addr = htonl(INADDR_LOOPBACK);
   addr.sin_port = 0;
-  socklen_t len = sizeof(addr);
-  if (bind(fd, (struct sockaddr*)&addr, sizeof(addr)) != 0 || listen(fd, backlog) != 0 || getsockname(fd, (struct sockaddr*)&addr, &len) != 0) {
+  if (bind(fd, (struct sockaddr*)&addr, sizeof(addr)) != 0 || listen(fd, backlog) != 0) {
     close(fd);
     return -1;
   }
-  *port = ntohs(addr.sin_port);
   return fd;
+}
+
+/* Returns the port a listener was bound to, or -1. */
+static int listener_port(int fd)
+{
+  struct sockaddr_in addr = {};
+  socklen_t len = sizeof(addr);
+  return (getsockname(fd, (struct sockaddr*)&addr, &len) == 0) ? ntohs(addr.sin_port) : -1;
 }
 
 BOOST_AUTO_TEST_CASE(SocketTimeoutAppliesToReadAfterConnect)
 {
-  int port;
-  int listener = open_test_listener(4, &port);
+  int listener = open_test_listener(4);
   BOOST_REQUIRE(0 <= listener);
+  int port = listener_port(listener);
+  BOOST_REQUIRE(0 < port);
 
   mUpnpSocket* sock = mupnp_socket_stream_new();
   BOOST_REQUIRE(sock);
@@ -236,9 +243,9 @@ BOOST_AUTO_TEST_CASE(SocketTimeoutAppliesToReadAfterConnect)
 
   /* The peer never answers: the read must give up after the timeout
      instead of blocking forever. */
-  char buf[16];
+  std::array<char, 16> buf {};
   auto start = std::chrono::steady_clock::now();
-  ssize_t n = mupnp_socket_read(sock, buf, sizeof(buf));
+  ssize_t n = mupnp_socket_read(sock, buf.data(), buf.size());
   auto elapsed = std::chrono::steady_clock::now() - start;
   BOOST_CHECK(n <= 0);
   BOOST_CHECK(elapsed < std::chrono::seconds(5));
@@ -250,9 +257,10 @@ BOOST_AUTO_TEST_CASE(SocketTimeoutAppliesToReadAfterConnect)
 
 BOOST_AUTO_TEST_CASE(SocketConnectRefusedFailsFast)
 {
-  int port;
-  int listener = open_test_listener(1, &port);
+  int listener = open_test_listener(1);
   BOOST_REQUIRE(0 <= listener);
+  int port = listener_port(listener);
+  BOOST_REQUIRE(0 < port);
   close(listener); /* Nothing listens on the port any more. */
 
   mUpnpSocket* sock = mupnp_socket_stream_new();
@@ -270,23 +278,26 @@ BOOST_AUTO_TEST_CASE(SocketConnectTimesOut)
   /* A listener that never accepts drops SYNs once its backlog is full, so
      further connects hang in the kernel. Each attempt must give up within
      the requested timeout. */
-  int port;
-  int listener = open_test_listener(0, &port);
+  int listener = open_test_listener(0);
   BOOST_REQUIRE(0 <= listener);
+  int port = listener_port(listener);
+  BOOST_REQUIRE(0 < port);
 
   std::vector<mUpnpSocket*> socks;
   bool timedOut = false;
-  for (int n = 0; n < 16 && !timedOut; n++) {
+  for (int n = 0; n < 16; n++) {
     mUpnpSocket* sock = mupnp_socket_stream_new();
     BOOST_REQUIRE(sock);
+    socks.push_back(sock);
     BOOST_CHECK(mupnp_socket_settimeout(sock, 1));
     auto start = std::chrono::steady_clock::now();
     bool connected = mupnp_socket_connect(sock, "127.0.0.1", port);
     auto elapsed = std::chrono::steady_clock::now() - start;
     BOOST_CHECK(elapsed < std::chrono::seconds(4));
-    if (!connected && std::chrono::milliseconds(800) <= elapsed)
+    if (!connected && std::chrono::milliseconds(800) <= elapsed) {
       timedOut = true;
-    socks.push_back(sock);
+      break;
+    }
   }
   /* Some kernels answer a full backlog with RST; only require the bound. */
   BOOST_TEST_MESSAGE("connect timeout observed: " << timedOut);

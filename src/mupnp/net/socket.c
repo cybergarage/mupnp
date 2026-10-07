@@ -265,7 +265,11 @@ void mupnp_socket_cleanup(void)
 /* Applies sock->timeout as the receive/send timeout of the descriptor. */
 static bool mupnp_socket_applytimeout(mUpnpSocket* sock)
 {
+  if (!sock)
+    return false;
 #if defined(ESP_PLATFORM)
+  /* ESP-IDF descriptors are nonblocking; sock->timeout is honoured while
+     polling in mupnp_socket_waitready(). */
   return true;
 #elif defined(BTRON) || defined(TENGINE) || defined(ITRON)
   return false;
