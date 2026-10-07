@@ -25,21 +25,22 @@
 var NAVTREE =
 [
   [ "mUPnP for C", "index.html", [
-    [ "Building the Library and Samples", "index.html#autotoc_md185", [
-      [ "Unix", "index.html#autotoc_md186", null ],
-      [ "MacOSX", "index.html#autotoc_md187", null ],
-      [ "ESP-IDF", "index.html#autotoc_md188", null ],
-      [ "Windows", "index.html#autotoc_md189", null ]
+    [ "What's New in 3.1.0", "index.html#autotoc_md185", null ],
+    [ "Building the Library and Samples", "index.html#autotoc_md186", [
+      [ "Unix", "index.html#autotoc_md187", null ],
+      [ "MacOSX", "index.html#autotoc_md188", null ],
+      [ "ESP32 (ESP-IDF)", "index.html#autotoc_md189", null ],
+      [ "Windows", "index.html#autotoc_md190", null ]
     ] ],
-    [ "References", "index.html#autotoc_md190", [
-      [ "mUPnP for C", "index.html#autotoc_md191", null ],
-      [ "mUPnP for Objective-C", "index.html#autotoc_md192", null ]
+    [ "References", "index.html#autotoc_md191", [
+      [ "mUPnP for C", "index.html#autotoc_md192", null ],
+      [ "mUPnP for Objective-C", "index.html#autotoc_md193", null ]
     ] ],
-    [ "Examples", "index.html#autotoc_md193", null ],
-    [ "Adoption in Consumer Products", "index.html#autotoc_md194", [
-      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md195", null ],
-      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md196", null ],
-      [ "Toshiba REGZA Televisions", "index.html#autotoc_md197", null ]
+    [ "Examples", "index.html#autotoc_md194", null ],
+    [ "Adoption in Consumer Products", "index.html#autotoc_md195", [
+      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md196", null ],
+      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md197", null ],
+      [ "Toshiba REGZA Televisions", "index.html#autotoc_md198", null ]
     ] ],
     [ "ESP-IDF port", "md_doc_2espidf.html", [
       [ "Scope and status", "md_doc_2espidf.html#autotoc_md10", [
@@ -282,14 +283,14 @@ var NAVTREEINDEX =
 "eventlistener__list_8c.html",
 "http_8h.html#a5e3e8fb2afff90b9d4b04cbda3beb10b",
 "http__packet_8c.html#ab16d18475d31e8255df4097319024866",
-"interface_8h.html#a036cc7c6ff261c1d9b15f00e149baffd",
-"md_doc_2security-audit-2026-10-05.html#autotoc_md171",
-"service_8h.html#a8e939fd1bc3327b98ed1160d8fba3cf8",
-"ssdp_8h.html#a1f77fd5adae57986985ac7a0cb52dbea",
-"ssdp__server__list_8c.html",
-"struct__mUpnpDatagramPacket.html#ae9c3f36bc09fcf499a48a1bf3d72dbbd",
-"subscriber_8h.html#a6fd88900474df11cb7271b4a0aca7984",
-"uri_8h.html#af5a4e3f74768434ea09a9bf2a5522e8f"
+"interface_8h.html",
+"md_doc_2security-audit-2026-10-05.html#autotoc_md170",
+"service_8h.html#a8070b70d2bdfe48d071d3cdba6c4e164",
+"ssdp_8h.html#a1eecf2aba4479cc5b7a848952a57c2f3",
+"ssdp__server_8h.html#afbebd7be0aa5d0a4047cd6443f40acbe",
+"struct__mUpnpDatagramPacket.html#aab3edbaf91ee2d4d8fb5fd1e2f87a791",
+"subscriber_8h.html#a5bb520a2f035d92bb5b56d62711cbf17",
+"uri_8h.html#af43d058d6b69ada3abf62e13fa631e54"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
