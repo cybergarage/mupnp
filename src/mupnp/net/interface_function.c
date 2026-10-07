@@ -453,18 +453,43 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
     if (i->ifa_addr == NULL || i->ifa_netmask == NULL)
       continue;
 
-    // Thanks for Tobias.Gansen (01/15/06)
-    if (i->ifa_addr->sa_family != AF_INET)
-      continue;
     if (!(i->ifa_flags & IFF_UP))
       continue;
     if (i->ifa_flags & IFF_LOOPBACK)
       continue;
 
-    if (getnameinfo(i->ifa_addr, sizeof(struct sockaddr), addr, NI_MAXHOST, NULL, 0, NI_NUMERICHOST) != 0)
-      continue;
-
-    if (getnameinfo(i->ifa_netmask, sizeof(struct sockaddr), netmask, NI_MAXHOST, NULL, 0, NI_NUMERICHOST) != 0)
+    // Thanks for Tobias.Gansen (01/15/06)
+    if (i->ifa_addr->sa_family == AF_INET) {
+      if (getnameinfo(i->ifa_addr, sizeof(struct sockaddr_in), addr, NI_MAXHOST, NULL, 0, NI_NUMERICHOST) != 0)
+        continue;
+      if (getnameinfo(i->ifa_netmask, sizeof(struct sockaddr_in), netmask, NI_MAXHOST, NULL, 0, NI_NUMERICHOST) != 0)
+        continue;
+    }
+#if defined(AF_INET6) && defined(IN6_IS_ADDR_LINKLOCAL)
+    else if (i->ifa_addr->sa_family == AF_INET6 && mupnp_net_isipv6enabled() == true) {
+      /* Only link-local addresses: SSDP over IPv6 uses the link-local
+         multicast group, which is joined once per interface. The zone is
+         written as the numeric interface index ("fe80::1%2") because
+         getnameinfo() returns the interface name on most systems, while
+         mupnp_net_getipv6scopeid() and getaddrinfo() expect a number. */
+      struct sockaddr_in6* addr6 = (struct sockaddr_in6*)i->ifa_addr;
+      char addr6Buf[INET6_ADDRSTRLEN];
+      unsigned int scopeId;
+      if (!IN6_IS_ADDR_LINKLOCAL(&addr6->sin6_addr))
+        continue;
+      if (inet_ntop(AF_INET6, &addr6->sin6_addr, addr6Buf, sizeof(addr6Buf)) == NULL)
+        continue;
+      scopeId = addr6->sin6_scope_id;
+      if (scopeId == 0)
+        scopeId = if_nametoindex(i->ifa_name);
+      if (scopeId == 0)
+        continue;
+      snprintf(addr, sizeof(addr), "%s%%%u", addr6Buf, scopeId);
+      if (inet_ntop(AF_INET6, &((struct sockaddr_in6*)i->ifa_netmask)->sin6_addr, netmask, sizeof(netmask)) == NULL)
+        netmask[0] = '\0';
+    }
+#endif
+    else
       continue;
 
     ifname = i->ifa_name;

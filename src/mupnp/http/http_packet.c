@@ -260,6 +260,7 @@ void mupnp_http_packet_sethost(mUpnpHttpPacket* httpPkt, const char* addr, int p
 {
   char* host;
   size_t hostMaxLen;
+  int addrLen;
 
   mupnp_log_debug_l4("Entering...\n");
 
@@ -273,29 +274,34 @@ void mupnp_http_packet_sethost(mUpnpHttpPacket* httpPkt, const char* addr, int p
     /* Memory allocation failure */
     return;
 
+  /* The Host header must not carry an IPv6 zone index (RFC 6874). */
+  addrLen = (int)mupnp_strlen(addr);
+  if (mupnp_net_isipv6address(addr) == true && strchr(addr, '%'))
+    addrLen = (int)(strchr(addr, '%') - addr);
+
 #if defined(HAVE_SNPRINTF)
   if (0 < port && port != MUPNP_HTTP_DEFAULT_PORT) {
     if (mupnp_net_isipv6address(addr) == true)
-      snprintf(host, hostMaxLen, "[%s]:%d", addr, port);
+      snprintf(host, hostMaxLen, "[%.*s]:%d", addrLen, addr, port);
     else
       snprintf(host, hostMaxLen, "%s:%d", addr, port);
   }
   else {
     if (mupnp_net_isipv6address(addr) == true)
-      snprintf(host, hostMaxLen, "[%s]", addr);
+      snprintf(host, hostMaxLen, "[%.*s]", addrLen, addr);
     else
       snprintf(host, hostMaxLen, "%s", addr);
   }
 #else
   if (0 < port && port != MUPNP_HTTP_DEFAULT_PORT) {
     if (mupnp_net_isipv6address(addr) == true)
-      sprintf(host, "[%s]:%d", addr, port);
+      sprintf(host, "[%.*s]:%d", addrLen, addr, port);
     else
       sprintf(host, "%s:%d", addr, port);
   }
   else {
     if (mupnp_net_isipv6address(addr) == true)
-      sprintf(host, "[%s]", addr);
+      sprintf(host, "[%.*s]", addrLen, addr);
     else
       sprintf(host, "%s", addr);
   }

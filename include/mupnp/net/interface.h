@@ -129,6 +129,29 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList);
 bool mupnp_net_isipv6address(const char* addr);
 int mupnp_net_getipv6scopeid(const char* addr);
 
+/**
+ * Enable or disable IPv6 interface addresses (issue #17).
+ *
+ * Disabled by default. When enabled before a device or control point is
+ * started, mupnp_net_gethostinterfaces() on getifaddrs() platforms
+ * (Linux, macOS, BSD) also returns the IPv6 link-local address of each
+ * interface, formatted with a numeric zone index ("fe80::1%2"), so SSDP
+ * also runs on the link-local multicast group (see
+ * mupnp_ssdp_setipv6address()) and HTTP is served on that address.
+ *
+ * Windows always returned IPv6 addresses and is not affected.
+ *
+ * @param enabled true to use IPv6 link-local addresses as well as IPv4.
+ */
+void mupnp_net_setipv6enabled(bool enabled);
+
+/**
+ * Check whether IPv6 interface addresses are enabled.
+ *
+ * @return true if enabled by mupnp_net_setipv6enabled().
+ */
+bool mupnp_net_isipv6enabled(void);
+
 #ifdef __cplusplus
 }
 #endif
