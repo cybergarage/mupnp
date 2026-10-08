@@ -65,11 +65,11 @@ BOOST_AUTO_TEST_CASE(StateVariableDefaultValueAndDataType)
   BOOST_REQUIRE(uriVar);
   BOOST_CHECK(mupnp_streq(mupnp_statevariable_getdatatype(uriVar), "uri"));
   BOOST_CHECK(mupnp_streq(mupnp_statevariable_getdefaultvalue(uriVar), "Vinput://0.0.0.0:8822/"));
-  BOOST_CHECK(mupnp_statevariable_getvalue(uriVar) == NULL);
+  BOOST_CHECK(mupnp_statevariable_getvalue(uriVar) == nullptr);
 
   mUpnpStateVariable* plainVar = mupnp_service_getstatevariablebyname(service, "NoDefault");
   BOOST_REQUIRE(plainVar);
-  BOOST_CHECK(mupnp_statevariable_getdefaultvalue(plainVar) == NULL);
+  BOOST_CHECK(mupnp_statevariable_getdefaultvalue(plainVar) == nullptr);
 
   mupnp_statevariable_setdefaultvalue(plainVar, "abc");
   BOOST_CHECK(mupnp_streq(mupnp_statevariable_getdefaultvalue(plainVar), "abc"));
