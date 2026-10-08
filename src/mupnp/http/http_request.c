@@ -519,7 +519,7 @@ static int mupnp_http_request_progress_callback(void* ptr, double dltotal, doubl
   return false;
 }
 
-mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, char* ipaddr, int port)
+mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, const char* ipaddr, int port)
 {
   mUpnpHttpResponse* httpRes;
   bool newCurl = false;

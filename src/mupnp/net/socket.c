@@ -498,7 +498,7 @@ void mupnp_socket_setid(mUpnpSocket* socket, SOCKET value)
 
 #if defined(WIN32) || defined(HAVE_IP_PKTINFO)
   if (MUPNP_NET_SOCKET_DGRAM == mupnp_socket_gettype(socket))
-    setsockopt(socket->id, IPPROTO_IP, IP_PKTINFO, &on, sizeof(on));
+    setsockopt(socket->id, IPPROTO_IP, IP_PKTINFO, (const char*)&on, sizeof(on));
 #endif
 
 #if (!defined(WIN32) || defined(__CYGWIN__)) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && defined(HAVE_SO_NOSIGPIPE)
@@ -1405,7 +1405,7 @@ bool mupnp_socket_setmulticastttl(mUpnpSocket* sock, int ttl)
   else {
     len = sizeof(ttl);
     getsockopt(sock->id, IPPROTO_IP, IP_MULTICAST_TTL, &ttl, (socklen_t*)&len);
-    mupnp_log_debug("Multicast time to live is %i\n", ttl_);
+    mupnp_log_debug("Multicast time to live is %i\n", ttl);
   }
 #endif
   mupnp_log_debug_l4("Leaving...\n");

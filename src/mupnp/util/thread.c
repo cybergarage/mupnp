@@ -31,6 +31,18 @@ static void sig_handler(int sign);
  ****************************************/
 
 #if defined(WIN32) && !defined(WINCE) && !defined(ITRON)
+/* Borrow the existing worker object; external threads keep a NULL reference. */
+#if defined(_MSC_VER)
+static __declspec(thread) mUpnpThread* mupnpThreadSelfRef;
+#else
+static __thread mUpnpThread* mupnpThreadSelfRef;
+#endif
+
+mUpnpThread* mupnp_thread_self(void)
+{
+  return mupnpThreadSelfRef;
+}
+
 static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 {
   mUpnpThread* thread;
@@ -38,8 +50,10 @@ static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
   mupnp_log_debug_l4("Entering...\n");
 
   thread = (mUpnpThread*)lpParam;
+  mupnpThreadSelfRef = thread;
   if (thread->action != NULL)
     thread->action(thread);
+  mupnpThreadSelfRef = NULL;
 
   return 0;
 }

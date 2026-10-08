@@ -1,0 +1,126 @@
+/* Isolated build/runtime coverage for issue #49: no discovery or network I/O. */
+#undef NDEBUG
+#include <assert.h>
+#include <mupnp/http/http.h>
+#include <mupnp/io/file.h>
+#include <mupnp/util/log.h>
+#include <mupnp/util/thread.h>
+#include <stdio.h>
+#include <string.h>
+
+/* Force the selected HTTP backend and its dependencies to be linked. */
+mUpnpHttpResponse* (*volatile httpPost)(mUpnpHttpRequest*, const char*, int) = mupnp_http_request_post;
+
+#if defined(WIN32)
+static HANDLE ready[2];
+static HANDLE releaseWorkers;
+#endif
+
+static void worker(mUpnpThread* thread)
+{
+  int* index = mupnp_thread_getuserdata(thread);
+  assert(mupnp_thread_self() == thread);
+  assert(mupnp_thread_getuserdata(mupnp_thread_self()) == index);
+#if defined(WIN32)
+  assert(thread->threadID == GetCurrentThreadId());
+  assert(SetEvent(ready[*index]));
+  assert(WaitForSingleObject(releaseWorkers, 10000) == WAIT_OBJECT_0);
+#endif
+  for (int i = 0; i < 1000; i++)
+    assert(mupnp_thread_self() == thread);
+  thread->runnableFlag = false;
+  assert(!mupnp_thread_isrunnable(mupnp_thread_self()));
+}
+
+#if defined(WIN32)
+static DWORD WINAPI external_worker(LPVOID unused)
+#else
+static void* external_worker(void* unused)
+#endif
+{
+  (void)unused;
+  assert(mupnp_thread_self() == NULL);
+  return 0;
+}
+
+int main(void)
+{
+  assert(sizeof(mUpnpInt64) == 8);
+  assert(mupnp_thread_self() == NULL);
+#if defined(WIN32)
+  releaseWorkers = CreateEvent(NULL, TRUE, FALSE, NULL);
+  assert(releaseWorkers);
+  for (int i = 0; i < 2; i++) {
+    ready[i] = CreateEvent(NULL, TRUE, FALSE, NULL);
+    assert(ready[i]);
+  }
+#endif
+  int indices[] = { 0, 1 };
+  mUpnpThread* threads[2];
+  for (int i = 0; i < 2; i++) {
+    threads[i] = mupnp_thread_new();
+    assert(threads[i]);
+    mupnp_thread_setuserdata(threads[i], &indices[i]);
+    mupnp_thread_setaction(threads[i], worker);
+    assert(mupnp_thread_start(threads[i]));
+  }
+#if defined(WIN32)
+  assert(WaitForMultipleObjects(2, ready, TRUE, 10000) == WAIT_OBJECT_0);
+  assert(mupnp_thread_self() == NULL);
+  assert(SetEvent(releaseWorkers));
+#endif
+  for (int i = 0; i < 2; i++) {
+#if defined(WIN32)
+    assert(WaitForSingleObject(threads[i]->hThread, 10000) == WAIT_OBJECT_0);
+    assert(CloseHandle(threads[i]->hThread));
+    threads[i]->hThread = NULL;
+    assert(CloseHandle(ready[i]));
+#else
+    /* Native POSIX workers are detached; wait for the trampoline to finish. */
+    pthread_mutex_lock(&threads[i]->stateMutex);
+    while (threads[i]->isRunning)
+      pthread_cond_wait(&threads[i]->completion, &threads[i]->stateMutex);
+    pthread_mutex_unlock(&threads[i]->stateMutex);
+#endif
+    assert(mupnp_thread_delete(threads[i]));
+  }
+#if defined(WIN32)
+  assert(CloseHandle(releaseWorkers));
+  HANDLE external = CreateThread(NULL, 0, external_worker, NULL, 0, NULL);
+  assert(external);
+  assert(WaitForSingleObject(external, 10000) == WAIT_OBJECT_0);
+  assert(CloseHandle(external));
+#else
+  pthread_t external;
+  assert(pthread_create(&external, NULL, external_worker, NULL) == 0);
+  assert(pthread_join(external, NULL) == 0);
+#endif
+  assert(mupnp_thread_self() == NULL);
+#if defined(MUPNP_USE_CFILE)
+  mUpnpFile* file = mupnp_file_new();
+  assert(file);
+  file->fp = tmpfile();
+  assert(file->fp);
+  assert(fputs("abc", file->fp) >= 0);
+  assert(mupnp_file_seek(file, (mUpnpInt64)1, MUPNP_FILE_SEEK_SET));
+  assert(fgetc(file->fp) == 'b');
+  assert(mupnp_file_close(file));
+  mupnp_file_delete(file);
+#endif
+#if defined(WIN32)
+  assert(mupnp_log_add_target("platform-smoke.log", SEV_INFO) == 1);
+  mupnp_log_print(SEV_INFO, __FILE__, __LINE__, "main", "platform smoke marker\n");
+  assert(mupnp_log_clear_targets() == 1);
+  FILE* log = fopen("platform-smoke.log", "r");
+  char line[MAX_LOG_STRING];
+  assert(log && fgets(line, sizeof(line), log));
+  assert(strstr(line, "platform smoke marker"));
+  int year, month, day, hour, minute, second;
+  assert(sscanf(line, "%d-%d-%d %d:%d %d", &year, &month, &day, &hour, &minute, &second) == 6);
+  assert(year >= 2020 && month >= 1 && month <= 12 && day >= 1 && day <= 31);
+  fclose(log);
+  remove("platform-smoke.log");
+#endif
+  puts("platform smoke passed");
+  return 0;
+}

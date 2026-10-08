@@ -172,6 +172,19 @@ endif(MSVC)
 
 include_directories(include)
 add_library(MUPNP STATIC ${MUPNP_SRCS})
+if(WIN32)
+  target_link_libraries(MUPNP PUBLIC ws2_32 iphlpapi)
+endif()
+
+option(MUPNP_ENABLE_PLATFORM_SMOKE "Build isolated platform regression checks" OFF)
+if(MUPNP_ENABLE_PLATFORM_SMOKE)
+  enable_testing()
+  configure_file(test/platform-smoke.c.in platform-smoke.c COPYONLY)
+  add_executable(mupnp_platform_smoke ${CMAKE_CURRENT_BINARY_DIR}/platform-smoke.c)
+  target_link_libraries(mupnp_platform_smoke PRIVATE MUPNP)
+  add_test(NAME platform_smoke COMMAND mupnp_platform_smoke)
+  set_tests_properties(platform_smoke PROPERTIES TIMEOUT 30)
+endif()
 
 #
 # Optional subdirectories
