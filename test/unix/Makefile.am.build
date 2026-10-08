@@ -8,8 +8,10 @@ print<<HEADER;
 #
 ############################################################
 
-TESTS = mupnptest
+TESTS = mupnptest device-start-no-interfaces.sh
 check_PROGRAMS = mupnptest
+EXTRA_DIST = device-start-no-interfaces.sh
+TESTS_ENVIRONMENT = CC="\$(CC)" XML_LIBS="\@XML_LIBS\@" CODE_COVERAGE_LIBS="\$(CODE_COVERAGE_LIBS)"
 
 AM_CPPFLAGS = -I\$(top_srcdir)/include -I../ \$(CODE_COVERAGE_CPPFLAGS)
 AM_CFLAGS = \$(CODE_COVERAGE_CFLAGS)
