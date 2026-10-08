@@ -25,22 +25,22 @@
 var NAVTREE =
 [
   [ "mUPnP for C", "index.html", [
-    [ "What's New in 3.1.0", "index.html#autotoc_md187", null ],
-    [ "Building the Library and Samples", "index.html#autotoc_md188", [
-      [ "Unix", "index.html#autotoc_md189", null ],
-      [ "MacOSX", "index.html#autotoc_md190", null ],
-      [ "ESP32 (ESP-IDF)", "index.html#autotoc_md191", null ],
-      [ "Windows", "index.html#autotoc_md192", null ]
+    [ "What's New in 3.1.0", "index.html#autotoc_md191", null ],
+    [ "Building the Library and Samples", "index.html#autotoc_md192", [
+      [ "Unix", "index.html#autotoc_md193", null ],
+      [ "MacOSX", "index.html#autotoc_md194", null ],
+      [ "ESP32 (ESP-IDF)", "index.html#autotoc_md195", null ],
+      [ "Windows", "index.html#autotoc_md196", null ]
     ] ],
-    [ "References", "index.html#autotoc_md193", [
-      [ "mUPnP for C", "index.html#autotoc_md194", null ],
-      [ "mUPnP for Objective-C", "index.html#autotoc_md195", null ]
+    [ "References", "index.html#autotoc_md197", [
+      [ "mUPnP for C", "index.html#autotoc_md198", null ],
+      [ "mUPnP for Objective-C", "index.html#autotoc_md199", null ]
     ] ],
-    [ "Examples", "index.html#autotoc_md196", null ],
-    [ "Adoption in Consumer Products", "index.html#autotoc_md197", [
-      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md198", null ],
-      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md199", null ],
-      [ "Toshiba REGZA Televisions", "index.html#autotoc_md200", null ]
+    [ "Examples", "index.html#autotoc_md200", null ],
+    [ "Adoption in Consumer Products", "index.html#autotoc_md201", [
+      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md202", null ],
+      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md203", null ],
+      [ "Toshiba REGZA Televisions", "index.html#autotoc_md204", null ]
     ] ],
     [ "ESP-IDF port", "md_doc_2espidf.html", [
       [ "Scope and status", "md_doc_2espidf.html#autotoc_md10", [
@@ -249,6 +249,11 @@ var NAVTREE =
         [ "Open Questions And Follow Up", "md_doc_2security-audit-2026-10-05.html#autotoc_md185", null ]
       ] ]
     ] ],
+    [ "StateVariable startup stall investigation", "md_doc_2statevariable-startup-diagnostics.html", [
+      [ "Finding (2026-10-08)", "md_doc_2statevariable-startup-diagnostics.html#autotoc_md187", null ],
+      [ "Minimal change and regression", "md_doc_2statevariable-startup-diagnostics.html#autotoc_md188", null ],
+      [ "Compare a developer host with CI", "md_doc_2statevariable-startup-diagnostics.html#autotoc_md189", null ]
+    ] ],
     [ "Todo List", "todo.html", null ],
     [ "Deprecated List", "deprecated.html", null ],
     [ "Bug List", "bug.html", null ],
@@ -287,12 +292,12 @@ var NAVTREEINDEX =
 "http__packet_8c.html#a28e0decaba777130b125eb59e0657357",
 "interfaceCGUpnpStateVariable.html#abe5e011694b2cd1c01e34129873d2a5a",
 "md_doc_2security-audit-2026-10-05.html#autotoc_md149",
-"service_8h.html#a3527599005791b985f129b2a1be1ebc1",
-"socket_8h.html#ae49ab1168a38c59cf2577a48834247c5",
-"ssdp__server_8h.html#ad31d8b0647fc7a3042be55df00a39fd9",
-"struct__mUpnpArgument.html#ae3edb1e4b7264025afe189b4c982277d",
-"structtm.html#a4d098a9a5c03a00b2ee61e10851de81e",
-"uri_8h.html#a7aba30b89068795c2914078aa97139f8"
+"service_8h.html#a2e8eb56eb3dbd8d4a30993a8a597b0ab",
+"socket_8h.html#ad40a9628770370279a6a65277b0d3bd6",
+"ssdp__server_8h.html#ac923620a272a4d75e06db226c0b0257d",
+"struct__mUpnpAllowedValuesList.html",
+"structtm.html",
+"uri_8h.html#a72c802dfa9e8fb8a42deee569d1a5db7"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

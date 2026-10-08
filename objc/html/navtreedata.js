@@ -233,6 +233,11 @@ var NAVTREE =
         [ "Open Questions And Follow Up", "md_doc_2security-audit-2026-10-05.html#autotoc_md176", null ]
       ] ]
     ] ],
+    [ "StateVariable startup stall investigation", "md_doc_2statevariable-startup-diagnostics.html", [
+      [ "Finding (2026-10-08)", "md_doc_2statevariable-startup-diagnostics.html#autotoc_md178", null ],
+      [ "Minimal change and regression", "md_doc_2statevariable-startup-diagnostics.html#autotoc_md179", null ],
+      [ "Compare a developer host with CI", "md_doc_2statevariable-startup-diagnostics.html#autotoc_md180", null ]
+    ] ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
