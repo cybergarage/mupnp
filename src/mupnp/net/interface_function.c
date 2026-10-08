@@ -701,17 +701,98 @@ int mupnp_net_gethostinterfaces(mUpnpNetworkInterfaceList* netIfList)
  * mupnp_net_selectaddr
  ****************************************/
 
+#if defined(AF_INET6) && !defined(ESP_PLATFORM) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE)
+#define MUPNP_NET_SELECTADDR_IPV6 1
+
+/* Picks the local IPv6 address used to answer a peer that reached us over
+   IPv6: the address on the interface the datagram arrived on (matching zone
+   index), otherwise the first IPv6 address. Returns NULL when the host has no
+   usable IPv6 interface address (for example when IPv6 is not enabled with
+   mupnp_net_setipv6enabled()). */
+static char* mupnp_net_selectipv6addr(const struct sockaddr_in6* remoteaddr)
+{
+  mUpnpNetworkInterfaceList* netIfList;
+  mUpnpNetworkInterface* netIf;
+  const char* firstAddr = NULL;
+  const char* matchAddr = NULL;
+  char* selectAddr = NULL;
+
+  netIfList = mupnp_net_interfacelist_new();
+  if (!netIfList)
+    return NULL;
+
+  mupnp_net_gethostinterfaces(netIfList);
+  for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf; netIf = mupnp_net_interface_next(netIf)) {
+    const char* addr = mupnp_net_interface_getaddress(netIf);
+    if (mupnp_net_isipv6address(addr) == false)
+      continue;
+    if (!firstAddr)
+      firstAddr = addr;
+    if (remoteaddr->sin6_scope_id != 0 && (unsigned int)mupnp_net_getipv6scopeid(addr) == remoteaddr->sin6_scope_id) {
+      matchAddr = addr;
+      break;
+    }
+  }
+
+  if (matchAddr)
+    selectAddr = mupnp_strdup(matchAddr);
+  else if (firstAddr)
+    selectAddr = mupnp_strdup(firstAddr);
+
+  mupnp_net_interfacelist_delete(netIfList);
+
+  return selectAddr;
+}
+#endif
+
 #if !defined(HAVE_IFADDRS_H) || defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR)
+
+/* Whether an IPv4 interface address is on the same subnet as raddr. */
+static bool mupnp_net_interface_issubnetof(mUpnpNetworkInterface* netIf, u_long raddr)
+{
+  struct addrinfo hints;
+  struct addrinfo* netIfAddrInfo;
+  struct addrinfo* netMaskAddrInfo;
+  bool matched = false;
+
+  /* Windows also lists IPv6 addresses; they cannot be read as IPv4. */
+  if (mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf)) == true)
+    return false;
+
+  memset(&hints, 0, sizeof(hints));
+  hints.ai_flags = AI_NUMERICHOST | AI_PASSIVE;
+  if (getaddrinfo(mupnp_net_interface_getaddress(netIf), NULL, &hints, &netIfAddrInfo) != 0)
+    return false;
+  if (getaddrinfo(mupnp_net_interface_getnetmask(netIf), NULL, &hints, &netMaskAddrInfo) != 0) {
+    freeaddrinfo(netIfAddrInfo);
+    return false;
+  }
+  if (netIfAddrInfo->ai_family == AF_INET && netMaskAddrInfo->ai_family == AF_INET) {
+    u_long laddr = ntohl(((struct sockaddr_in*)netIfAddrInfo->ai_addr)->sin_addr.s_addr);
+    u_long lmask = ntohl(((struct sockaddr_in*)netMaskAddrInfo->ai_addr)->sin_addr.s_addr);
+    matched = ((laddr & lmask) == (raddr & lmask)) ? true : false;
+  }
+  freeaddrinfo(netIfAddrInfo);
+  freeaddrinfo(netMaskAddrInfo);
+
+  return matched;
+}
+
 char* mupnp_net_selectaddr(struct sockaddr* remoteaddr)
 {
   mUpnpNetworkInterfaceList* netIfList;
   mUpnpNetworkInterface* netIf;
-  mUpnpNetworkInterface* selectNetIf;
+  mUpnpNetworkInterface* selectNetIf = NULL;
   char* selectNetIfAddr;
-  u_long laddr, lmask, raddr;
-  struct addrinfo hints;
-  struct addrinfo* netIfAddrInfo;
-  struct addrinfo* netMaskAddrInfo;
+  u_long raddr;
+
+#if defined(MUPNP_NET_SELECTADDR_IPV6)
+  if (remoteaddr->sa_family == AF_INET6) {
+    selectNetIfAddr = mupnp_net_selectipv6addr((const struct sockaddr_in6*)remoteaddr);
+    if (selectNetIfAddr)
+      return selectNetIfAddr;
+  }
+#endif
 
   netIfList = mupnp_net_interfacelist_new();
   if (!netIfList)
@@ -722,31 +803,24 @@ char* mupnp_net_selectaddr(struct sockaddr* remoteaddr)
     return mupnp_strdup("127.0.0.1");
   }
 
-  raddr = ntohl(((struct sockaddr_in*)remoteaddr)->sin_addr.s_addr);
-
-  memset(&hints, 0, sizeof(hints));
-  hints.ai_flags = AI_NUMERICHOST | AI_PASSIVE;
-
-  selectNetIf = NULL;
-  if (1 <= mupnp_net_gethostinterfaces(netIfList)) {
-    for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf; netIf = mupnp_net_interface_next(netIf)) {
-      if (getaddrinfo(mupnp_net_interface_getaddress(netIf), NULL, &hints, &netIfAddrInfo) != 0)
-        continue;
-      if (getaddrinfo(mupnp_net_interface_getnetmask(netIf), NULL, &hints, &netMaskAddrInfo) != 0) {
-        freeaddrinfo(netIfAddrInfo);
-        continue;
-      }
-      laddr = ntohl(((struct sockaddr_in*)netIfAddrInfo->ai_addr)->sin_addr.s_addr);
-      lmask = ntohl(((struct sockaddr_in*)netMaskAddrInfo->ai_addr)->sin_addr.s_addr);
-      if ((laddr & lmask) == (raddr & lmask))
-        selectNetIf = netIf;
-      freeaddrinfo(netIfAddrInfo);
-      freeaddrinfo(netMaskAddrInfo);
-      if (selectNetIf)
-        break;
+  /* Only an IPv4 peer can be matched against IPv4 subnets. */
+  raddr = (remoteaddr->sa_family == AF_INET) ? ntohl(((struct sockaddr_in*)remoteaddr)->sin_addr.s_addr) : 0;
+  for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf; netIf = mupnp_net_interface_next(netIf)) {
+    if (mupnp_net_interface_issubnetof(netIf, raddr) == true) {
+      selectNetIf = netIf;
+      break;
     }
   }
 
+  /* Prefer an IPv4 address when nothing matched. */
+  if (!selectNetIf) {
+    for (netIf = mupnp_net_interfacelist_gets(netIfList); netIf; netIf = mupnp_net_interface_next(netIf)) {
+      if (mupnp_net_isipv6address(mupnp_net_interface_getaddress(netIf)) == false) {
+        selectNetIf = netIf;
+        break;
+      }
+    }
+  }
   if (!selectNetIf)
     selectNetIf = mupnp_net_interfacelist_gets(netIfList);
 
@@ -763,7 +837,16 @@ char* mupnp_net_selectaddr(struct sockaddr* remoteaddr)
   uint32_t laddr, lmask, raddr;
   char *address_candidate = NULL, *auto_ip_address_candidate = NULL;
 
-  raddr = ntohl(((struct sockaddr_in*)remoteaddr)->sin_addr.s_addr);
+#if defined(MUPNP_NET_SELECTADDR_IPV6)
+  if (remoteaddr->sa_family == AF_INET6) {
+    address_candidate = mupnp_net_selectipv6addr((const struct sockaddr_in6*)remoteaddr);
+    if (address_candidate)
+      return address_candidate;
+  }
+#endif
+
+  /* Only an IPv4 peer can be matched against IPv4 subnets below. */
+  raddr = (remoteaddr->sa_family == AF_INET) ? ntohl(((struct sockaddr_in*)remoteaddr)->sin_addr.s_addr) : 0;
 
   if (0 != getifaddrs(&ifaddrs)) {
     return NULL;
@@ -771,6 +854,10 @@ char* mupnp_net_selectaddr(struct sockaddr* remoteaddr)
 
   for (ifaddr = ifaddrs; NULL != ifaddr; ifaddr = ifaddr->ifa_next) {
     if (ifaddr->ifa_addr == NULL)
+      continue;
+    /* getifaddrs() also returns AF_INET6 and link-layer (AF_PACKET/AF_LINK)
+       entries; reading them as sockaddr_in yielded bogus LOCATION addresses. */
+    if (ifaddr->ifa_addr->sa_family != AF_INET)
       continue;
     if (!(ifaddr->ifa_flags & IFF_UP))
       continue;
