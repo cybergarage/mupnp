@@ -1594,10 +1594,9 @@ bool mupnp_device_start(mUpnpDevice* dev)
   if (dev->ifCache == NULL)
     dev->ifCache = mupnp_net_interfacelist_new();
   mupnp_net_gethostinterfaces(dev->ifCache);
-#if defined(ESP_PLATFORM)
+  /* Retrying HTTP ports cannot help when there is no usable interface. */
   if (mupnp_net_interfacelist_size(dev->ifCache) == 0)
     return false;
-#endif
 
   /**** HTTP Server ****/
   httpPort = mupnp_device_gethttpport(dev);
