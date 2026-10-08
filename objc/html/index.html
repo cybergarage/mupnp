@@ -77,6 +77,15 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <p>mUPnP for C simplifies this process by handling these protocols automatically. It allows developers to focus on creating their devices and control points without worrying about the underlying protocol details.</p>
 <p>mUPnP for C runs on Unix-like systems, macOS/iOS, Windows, and, since 3.1.0, on <b>ESP32 microcontrollers as an ESP-IDF component</b>.</p>
 <h1><a class="anchor" id="autotoc_md182"></a>
+What's New in 3.1.1</h1>
+<ul>
+<li><b>Reliability and security fixes</b>: bounded HTTP body allocation, working connect/read timeouts for HTTP clients, no leak or use-after-free in device-side GENA subscriptions, and correct LOCATION addresses in SSDP replies.</li>
+<li><b>Opt-in IPv6</b> (experimental) on Linux, macOS and BSD via <code>mupnp_net_setipv6enabled(true)</code>.</li>
+<li>State variables expose their SCPD <code>dataType</code> and <code>defaultValue</code> in C and Objective-C.</li>
+<li><code>make distcheck</code> passes, and CMake options (now <code>MUPNP_*</code>) take effect.</li>
+</ul>
+<p>See the [ChangeLog](ChangeLog) for details, including a struct change in <code>mUpnpSocket</code> that requires rebuilding dependent code.</p>
+<h1><a class="anchor" id="autotoc_md183"></a>
 What's New in 3.1.0</h1>
 <ul>
 <li><b>ESP32 / ESP-IDF support</b>: use mUPnP as an ESP-IDF component on ESP32 (Wi-Fi station, IPv4), with a ready-to-build <a href="examples/espidf/control_point">Wi-Fi control-point example</a> and an <a class="el" href="md_doc_2espidf.html">ESP-IDF guide</a>.</li>
@@ -86,23 +95,23 @@ What's New in 3.1.0</h1>
 </ul>
 <p>See the [ChangeLog](ChangeLog) for details, including one API change: <code>mupnp_xml_attributelist_set()</code> now returns <code>bool</code>.</p>
 <p><b>mUPnP for C</b> is supported from IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY, JAPAN, as a project of <a href="https://www.ipa.go.jp/archive/jinzai/mitou/mitoipedia/2004shimoki-seika.html#sakamura">Mitoh Program 2004</a>.</p>
-<h1><a class="anchor" id="autotoc_md183"></a>
+<h1><a class="anchor" id="autotoc_md184"></a>
 Building the Library and Samples</h1>
 <p>To build the library and samples, you need to have the following tools installed on your system:</p>
-<h2><a class="anchor" id="autotoc_md184"></a>
+<h2><a class="anchor" id="autotoc_md185"></a>
 Unix</h2>
 <p>mUPnP for C is distributed as an Automake project, and so you can install the libary from the source codes with the following commands:</p>
 <div class="fragment"><div class="line">cd mupnp</div>
 <div class="line">./configure</div>
 <div class="line">make</div>
-</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md185"></a>
+</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md186"></a>
 MacOSX</h2>
 <p>For macOS platforms, you can easily install using Homebrew with the following <code>brew</code> commands:</p>
 <div class="fragment"><div class="line">brew tap cybergarage/homebrew</div>
 <div class="line">brew install mupnp</div>
 </div><!-- fragment --><p>For MacOSX, I have released a wrapper class for Objective-C on Cocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library if you need to use all functions of mUPnP for C.</p>
 <p>The bundled Xcode projects build with Xcode 27 and target macOS 12.0 / iOS 15.0 or later.</p>
-<h2><a class="anchor" id="autotoc_md186"></a>
+<h2><a class="anchor" id="autotoc_md187"></a>
 ESP32 (ESP-IDF)</h2>
 <p>The repository can be used directly as an ESP-IDF component with Espressif's managed Expat dependency. The port targets <b>ESP32 with one active Wi-Fi station interface and IPv4</b>; the build baseline is ESP-IDF v5.5.5 (<code>&gt;=5.5,&lt;6.0</code>).</p>
 <p>To try the Wi-Fi control-point example:</p>
@@ -111,28 +120,28 @@ ESP32 (ESP-IDF)</h2>
 <div class="line">idf.py menuconfig   # mUPnP control point example -&gt; Wi-Fi SSID/password</div>
 <div class="line">idf.py build</div>
 <div class="line">idf.py -p /dev/ttyUSB0 flash monitor</div>
-</div><!-- fragment --><p>To use mUPnP in your own application, place this repository at <code>&lt;project&gt;/components/mupnp</code> (for example, as a Git submodule pinned to the <code>3.1.0</code> tag), add <code>REQUIRES mupnp</code> to your component, and include <code>&lt;mupnp/upnp.h&gt;</code>.</p>
+</div><!-- fragment --><p>To use mUPnP in your own application, place this repository at <code>&lt;project&gt;/components/mupnp</code> (for example, as a Git submodule pinned to the <code>3.1.1</code> tag), add <code>REQUIRES mupnp</code> to your component, and include <code>&lt;mupnp/upnp.h&gt;</code>.</p>
 <p>Limited control-point hardware testing on an ESP32 DevKitC-VE is reported. Device hosting, other ESP32-family targets, IPv6, Ethernet, and long-duration operation have not been validated yet. See the <a class="el" href="md_doc_2espidf.html">ESP-IDF guide</a> for required <code>sdkconfig</code> settings, lifetime and memory notes, and a hardware validation checklist.</p>
-<h2><a class="anchor" id="autotoc_md187"></a>
+<h2><a class="anchor" id="autotoc_md188"></a>
 Windows</h2>
 <p>For Windows platforms, mUPnP includes platform projects for Visual Studio 2005. Please check the platform directories, mupnp/*/win32/vs2005, to use the projects. On WindowsCE, mUPnP does not have platform projects, but a contributor has verified that the source codes compile normally.</p>
-<h1><a class="anchor" id="autotoc_md188"></a>
+<h1><a class="anchor" id="autotoc_md189"></a>
 References</h1>
-<h2><a class="anchor" id="autotoc_md189"></a>
+<h2><a class="anchor" id="autotoc_md190"></a>
 mUPnP for C</h2>
 <p>To develop UPnP devices or control point applications using <b>mUPnP for C</b>, please check the following developer's documentation.</p>
 <ul>
 <li><a href="http://cybergarage.github.io/mupnp/">Programming Guide for C</a></li>
 <li><a href="http://cybergarage.github.io/mupnp/">Doxygen</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md190"></a>
+<h2><a class="anchor" id="autotoc_md191"></a>
 mUPnP for Objective-C</h2>
 <p><b>mUPnP for C</b> releases the wrapper library for Objective-C to use the UPnP library on iOS and MacOSX platforms too. Please check the following developer's documentation to know the wrapper library in more detail.</p>
 <ul>
 <li><a href="http://cybergarage.github.io/mupnp/objc/html/">Programming Guide for Objective-C</a></li>
 <li><a href="http://cybergarage.github.io/mupnp/objc/html/">Doxygen</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md191"></a>
+<h1><a class="anchor" id="autotoc_md192"></a>
 Examples</h1>
 <ul>
 <li>UPnP control point examples<ul>
@@ -163,20 +172,20 @@ Examples</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md192"></a>
+<h1><a class="anchor" id="autotoc_md193"></a>
 Adoption in Consumer Products</h1>
 <p><b>mUPnP for C</b> is used in a variety of consumer products. While not exhaustive, the following is a list of notable implementations.</p>
-<h2><a class="anchor" id="autotoc_md193"></a>
+<h2><a class="anchor" id="autotoc_md194"></a>
 Nokia 770 Internet Tablet</h2>
 <p>Nokia engineers contributed to the improvement of the initial <b>mUPnP for C</b> release. Nokia developed the UPnP/AV Control Point application, <b>Media Streamer</b>, for the Nokia 770 Internet Tablet.　The application is based on <b>mUPnP for C</b>, incorporating custom patches by Nokia. <br  />
 </p>
 <p><img src="doc/img/mupnpc-example-nokia770-01.jpg" alt="Nokia 770 Internet Tablet" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md194"></a>
+<h2><a class="anchor" id="autotoc_md195"></a>
 Panasonic VIERA Remote for iOS Devices</h2>
 <p>The <a href="http://panasonic.jp/support/global/cs/tv/vremote/index.html"><b>VIERA Remote</b></a> is a TV remote control app for Panasonic VIERA TVs (plasma and LCD models). It allows users to control channels, switch inputs, and adjust the volume directly from an <b>iPhone, iPod touch, or iPad</b> (iOS 4.2 or later). <b>mUPnP for C</b> functions as the UPnP framework for this app. <br  />
 </p>
 <p><img src="doc/img/mupnpc-example-vieraremote-02.gif" alt="VIERA Remote" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md195"></a>
+<h2><a class="anchor" id="autotoc_md196"></a>
 Toshiba REGZA Televisions</h2>
 <p><a href="https://www.regza.com/"><b>REGZA</b></a> is Toshiba’s former AV equipment brand. <b>mUPnP for C</b> is embedded in REGZA televisions, enabling seamless media streaming and connectivity. <br  />
 </p>

@@ -25,22 +25,23 @@
 var NAVTREE =
 [
   [ "mUPnP for C", "index.html", [
-    [ "What's New in 3.1.0", "index.html#autotoc_md191", null ],
-    [ "Building the Library and Samples", "index.html#autotoc_md192", [
-      [ "Unix", "index.html#autotoc_md193", null ],
-      [ "MacOSX", "index.html#autotoc_md194", null ],
-      [ "ESP32 (ESP-IDF)", "index.html#autotoc_md195", null ],
-      [ "Windows", "index.html#autotoc_md196", null ]
+    [ "What's New in 3.1.1", "index.html#autotoc_md191", null ],
+    [ "What's New in 3.1.0", "index.html#autotoc_md192", null ],
+    [ "Building the Library and Samples", "index.html#autotoc_md193", [
+      [ "Unix", "index.html#autotoc_md194", null ],
+      [ "MacOSX", "index.html#autotoc_md195", null ],
+      [ "ESP32 (ESP-IDF)", "index.html#autotoc_md196", null ],
+      [ "Windows", "index.html#autotoc_md197", null ]
     ] ],
-    [ "References", "index.html#autotoc_md197", [
-      [ "mUPnP for C", "index.html#autotoc_md198", null ],
-      [ "mUPnP for Objective-C", "index.html#autotoc_md199", null ]
+    [ "References", "index.html#autotoc_md198", [
+      [ "mUPnP for C", "index.html#autotoc_md199", null ],
+      [ "mUPnP for Objective-C", "index.html#autotoc_md200", null ]
     ] ],
-    [ "Examples", "index.html#autotoc_md200", null ],
-    [ "Adoption in Consumer Products", "index.html#autotoc_md201", [
-      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md202", null ],
-      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md203", null ],
-      [ "Toshiba REGZA Televisions", "index.html#autotoc_md204", null ]
+    [ "Examples", "index.html#autotoc_md201", null ],
+    [ "Adoption in Consumer Products", "index.html#autotoc_md202", [
+      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md203", null ],
+      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md204", null ],
+      [ "Toshiba REGZA Televisions", "index.html#autotoc_md205", null ]
     ] ],
     [ "ESP-IDF port", "md_doc_2espidf.html", [
       [ "Scope and status", "md_doc_2espidf.html#autotoc_md10", [
@@ -290,14 +291,14 @@ var NAVTREEINDEX =
 "event_8h.html#af5ca180a11faba024c42792c5140d0da",
 "http_8h.html#a533aa98dca52dd1410783c7c44901d6f",
 "http__packet_8c.html#a28e0decaba777130b125eb59e0657357",
-"interfaceCGUpnpStateVariable.html#abe5e011694b2cd1c01e34129873d2a5a",
-"md_doc_2security-audit-2026-10-05.html#autotoc_md148",
-"service_8h.html#a2db8d5719b48316cb827f756577c7604",
-"socket_8h.html#ad40a9628770370279a6a65277b0d3bd6",
-"ssdp__server_8h.html#ac923620a272a4d75e06db226c0b0257d",
-"struct__mUpnpAllowedValuesList.html",
-"structtm.html",
-"uri_8h.html#a72c802dfa9e8fb8a42deee569d1a5db7"
+"interfaceCGUpnpStateVariable.html#abe04b8744376f495e338ab3a0e407632",
+"md_doc_2security-audit-2026-10-05.html#autotoc_md147",
+"service_8h.html#a2d1505e8af7bc70b33681d2e76c884ad",
+"socket_8h.html#ad3b7e962eb32ccd551188d1160604ea3",
+"ssdp__server_8h.html#ac31dc0465dec017cf72c3b2e2f1e6114",
+"struct__mUpnpActionResponse.html#ae46ee860aa274b22e52b527b4afceb53",
+"struct__mUpnpXmlParser.html#a4139e7143ad6b8f0c8cae488e38ff91a",
+"uri_8h.html#a71e6ba7d77fe2417fffc29473dedd5a9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
