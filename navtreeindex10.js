@@ -1,5 +1,6 @@
 var NAVTREEINDEX10 =
 {
+"ssdp__server_8h.html#ac923620a272a4d75e06db226c0b0257d":[14,0,1,0,6,1,105],
 "ssdp__server_8h.html#aca502aa40ce936397c0229bd44adceab":[14,0,1,0,6,1,54],
 "ssdp__server_8h.html#acc6f1db0af9d834df33469a27f54ddcf":[14,0,1,0,6,1,112],
 "ssdp__server_8h.html#acda97b840976a1c23b507ccb50afba33":[14,0,1,0,6,1,60],
@@ -248,6 +249,5 @@ var NAVTREEINDEX10 =
 "struct__mUpnpActionResponse.html":[13,0,2],
 "struct__mUpnpActionResponse.html#ab478f2d2b1cbc637b59494b4daa58a2b":[13,0,2,0],
 "struct__mUpnpActionResponse.html#acd97f65a39c8e25f6fde4c0976a5e4b8":[13,0,2,2],
-"struct__mUpnpActionResponse.html#ae46ee860aa274b22e52b527b4afceb53":[13,0,2,1],
-"struct__mUpnpAllowedValuesList.html":[13,0,3]
+"struct__mUpnpActionResponse.html#ae46ee860aa274b22e52b527b4afceb53":[13,0,2,1]
 };
