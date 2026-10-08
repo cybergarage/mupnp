@@ -1,3 +1,21 @@
+2026-10-08 Satoshi Konno <skonno@cybergarage.org>
+	* 3.1.1
+	* Security and reliability fixes
+	  - HTTP: message bodies are read into a buffer that grows as data arrives, instead of allocating the Content-Length or chunk size declared by the peer up front (PR #39, issue #21).
+	  - Sockets: a timeout set before connect now takes effect on POSIX and Windows, connect() is bounded by it, and Windows receives SO_RCVTIMEO/SO_SNDTIMEO in milliseconds. Previously HTTP clients had no connect or read timeout (PR #40, issue #10). mUpnpSocket gains a timeout member on every platform; rebuild code that embeds the struct.
+	  - Eventing: fixed a URL leak on every SUBSCRIBE, renew and UNSUBSCRIBE received by a device, and a use-after-free when a device was deleted right after a SUBSCRIBE. The initial event is now sent from the HTTP worker that handled the SUBSCRIBE (PR #44).
+	  - SSDP: the LOCATION address of replies is selected by address family; link-layer and IPv6 interface entries are no longer misread as IPv4 addresses (PR #43).
+	  - Device: mupnp_device_start() fails immediately when no usable network interface exists, instead of retrying HTTP ports indefinitely (PR #47).
+	* New features
+	  - Opt-in IPv6 link-local support on getifaddrs() platforms (Linux, macOS, BSD) with mupnp_net_setipv6enabled() and mupnp_net_isipv6enabled(). URLs carry the zone as "%25" (RFC 6874) (PR #42, #43, issue #17). Experimental: not yet validated on a real IPv6 network.
+	  - mupnp_statevariable_getdefaultvalue()/mupnp_statevariable_setdefaultvalue() and -[CGUpnpStateVariable dataType]/-defaultValue expose the SCPD declarations (PR #41, #46, issue #9).
+	* Objective-C wrapper: P0 fixes with regressions (PR #37); the framework is exported as a module for Swift, reports control point initialization failure, and loads embedded frameworks through rpath (PR #38).
+	* Build
+	  - make distcheck passes: the dump examples build outside the source tree and config.h is registered after AC_INIT (PR #45).
+	  - CMake options are now MUPNP_* and take effect; CG_* names remain as deprecated aliases. Persistent HTTP connections are now actually enabled in CMake builds, matching ./configure (PR #45).
+	  - mupnp_net_url_delete() and mupnp_net_url_clear() no longer expand with a trailing semicolon (PR #44).
+	* Not verified in CI: the Windows code path of PR #40 and Objective-C compilation of PR #41.
+
 2026-10-07 Satoshi Konno <skonno@cybergarage.org>
 	* 3.1.0
 	* ESP32 / ESP-IDF support (main topic of this release)
