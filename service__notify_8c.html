@@ -73,6 +73,7 @@ $(function(){initNavTree('service__notify_8c.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="service_8h.html">mupnp/service.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="log_8h.html">mupnp/util/log.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="thread_8h.html">mupnp/util/thread.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -84,8 +85,6 @@ Functions</h2></td></tr>
 <tr class="separator:a7abb8ac9ffd725773a671b96bff37e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac0fe1d7f8dd4a50b582504c3c8a9c5d" id="r_aac0fe1d7f8dd4a50b582504c3c8a9c5d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac0fe1d7f8dd4a50b582504c3c8a9c5d">mupnp_service_notifyall</a> (<a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service, <a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a> doBracket)</td></tr>
 <tr class="separator:aac0fe1d7f8dd4a50b582504c3c8a9c5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5c42cc941a6b1e91ec9fc5e6e842bf5" id="r_ad5c42cc941a6b1e91ec9fc5e6e842bf5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad5c42cc941a6b1e91ec9fc5e6e842bf5">mupnp_service_notifyall_thread</a> (<a class="el" href="thread_8h.html#a1e484dbc829e6aadf236d0bec622d131">mUpnpThread</a> *thread)</td></tr>
-<tr class="separator:ad5c42cc941a6b1e91ec9fc5e6e842bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61637321367c8d71e5c7640a01384fd7" id="r_a61637321367c8d71e5c7640a01384fd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61637321367c8d71e5c7640a01384fd7">mupnp_service_createnotifyallthread</a> (<a class="el" href="service_8h.html#a15174b12895b5407976e6e537d5c89fc">mUpnpService</a> *service, <a class="el" href="time_8h.html#a0b59cedb05cc09c39dc7c17ad4164953">mUpnpTime</a> waitTime)</td></tr>
 <tr class="separator:a61637321367c8d71e5c7640a01384fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -108,11 +107,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a new thread to send a notification message to all of the service's subscribers</p>
+<p>Send the initial event to all of the service's subscribers after waitTime.</p>
+<p>Despite its name this no longer starts a thread: the message is sent from the calling thread (the device's HTTP worker for a new subscription), so <a class="el" href="device_8c.html#aa29f22524439920db536643028a799cb" title="Stop a UPnP device and cease network advertising.">mupnp_device_stop()</a> waits for it and the service cannot be freed while it is sent. Nothing is sent if the calling mUPnP thread is being stopped.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">service</td><td>The service in question </td></tr>
-    <tr><td class="paramname">waitTime</td><td>The wait time to send </td></tr>
+    <tr><td class="paramname">waitTime</td><td>The wait time to send (milliseconds) </td></tr>
   </table>
   </dd>
 </dl>
@@ -173,31 +173,6 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="ad5c42cc941a6b1e91ec9fc5e6e842bf5" name="ad5c42cc941a6b1e91ec9fc5e6e842bf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5c42cc941a6b1e91ec9fc5e6e842bf5">&#9670;&#160;</a></span>mupnp_service_notifyall_thread()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void mupnp_service_notifyall_thread </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="thread_8h.html#a1e484dbc829e6aadf236d0bec622d131">mUpnpThread</a> *</td>          <td class="paramname"><span class="paramname"><em>thread</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>

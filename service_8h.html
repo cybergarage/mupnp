@@ -1003,7 +1003,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="#aac0fe1d7f8dd4a50b582504c3c8a9c5d">mupnp_service_notifyall</a>(service, <span class="keyword">false</span>);</div>
-<div class="ttc" id="aservice_8h_html_aac0fe1d7f8dd4a50b582504c3c8a9c5d"><div class="ttname"><a href="#aac0fe1d7f8dd4a50b582504c3c8a9c5d">mupnp_service_notifyall</a></div><div class="ttdeci">bool mupnp_service_notifyall(mUpnpService *service, bool doBracket)</div><div class="ttdef"><b>Definition</b> service_notify.c:123</div></div>
+<div class="ttc" id="aservice_8h_html_aac0fe1d7f8dd4a50b582504c3c8a9c5d"><div class="ttname"><a href="#aac0fe1d7f8dd4a50b582504c3c8a9c5d">mupnp_service_notifyall</a></div><div class="ttdeci">bool mupnp_service_notifyall(mUpnpService *service, bool doBracket)</div><div class="ttdef"><b>Definition</b> service_notify.c:124</div></div>
 </div><!-- fragment --><p>Send a notification message to all of the service's subscribers</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1717,11 +1717,12 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a new thread to send a notification message to all of the service's subscribers</p>
+<p>Send the initial event to all of the service's subscribers after waitTime.</p>
+<p>Despite its name this no longer starts a thread: the message is sent from the calling thread (the device's HTTP worker for a new subscription), so <a class="el" href="device_8c.html#aa29f22524439920db536643028a799cb" title="Stop a UPnP device and cease network advertising.">mupnp_device_stop()</a> waits for it and the service cannot be freed while it is sent. Nothing is sent if the calling mUPnP thread is being stopped.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">service</td><td>The service in question </td></tr>
-    <tr><td class="paramname">waitTime</td><td>The wait time to send </td></tr>
+    <tr><td class="paramname">waitTime</td><td>The wait time to send (milliseconds) </td></tr>
   </table>
   </dd>
 </dl>
