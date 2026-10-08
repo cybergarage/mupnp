@@ -16,6 +16,15 @@ mUPnP for C simplifies this process by handling these protocols automatically. I
 
 mUPnP for C runs on Unix-like systems, macOS/iOS, Windows, and, since 3.1.0, on **ESP32 microcontrollers as an ESP-IDF component**.
 
+## What's New in 3.1.1
+
+- **Reliability and security fixes**: bounded HTTP body allocation, working connect/read timeouts for HTTP clients, no leak or use-after-free in device-side GENA subscriptions, and correct LOCATION addresses in SSDP replies.
+- **Opt-in IPv6** (experimental) on Linux, macOS and BSD via `mupnp_net_setipv6enabled(true)`.
+- State variables expose their SCPD `dataType` and `defaultValue` in C and Objective-C.
+- `make distcheck` passes, and CMake options (now `MUPNP_*`) take effect.
+
+See the [ChangeLog](ChangeLog) for details, including a struct change in `mUpnpSocket` that requires rebuilding dependent code.
+
 ## What's New in 3.1.0
 
 - **ESP32 / ESP-IDF support**: use mUPnP as an ESP-IDF component on ESP32 (Wi-Fi station, IPv4), with a ready-to-build [Wi-Fi control-point example](examples/espidf/control_point) and an [ESP-IDF guide](doc/espidf.md).
@@ -71,7 +80,7 @@ idf.py -p /dev/ttyUSB0 flash monitor
 
 To use mUPnP in your own application, place this repository at
 `<project>/components/mupnp` (for example, as a Git submodule pinned to the
-`3.1.0` tag), add `REQUIRES mupnp` to your component, and include
+`3.1.1` tag), add `REQUIRES mupnp` to your component, and include
 `<mupnp/upnp.h>`.
 
 Limited control-point hardware testing on an ESP32 DevKitC-VE is reported.

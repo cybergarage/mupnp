@@ -6,7 +6,7 @@
 #
 #############################################################################
 
-AC_INIT([mupnp],[3.1.0])
+AC_INIT([mupnp],[3.1.1])
 # Must follow AC_INIT: before it, config.h is not recorded in config_headers,
 # so config.status writes stamp-h2 and `make distcheck` fails in distcleancheck.
 AC_CONFIG_AUX_DIR(config)

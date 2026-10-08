@@ -94,7 +94,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-TESTS = mupnptest$(EXEEXT)
+TESTS = mupnptest$(EXEEXT) device-start-no-interfaces.sh
 check_PROGRAMS = mupnptest$(EXEEXT)
 subdir = test/unix
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -516,6 +516,8 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+EXTRA_DIST = device-start-no-interfaces.sh
+TESTS_ENVIRONMENT = CC="$(CC)" XML_LIBS="@XML_LIBS@" CODE_COVERAGE_LIBS="$(CODE_COVERAGE_LIBS)"
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../ $(CODE_COVERAGE_CPPFLAGS)
 AM_CFLAGS = $(CODE_COVERAGE_CFLAGS)
 AM_CXXFLAGS = $(CODE_COVERAGE_CXXFLAGS)
@@ -867,6 +869,13 @@ recheck: all $(check_PROGRAMS)
 mupnptest.log: mupnptest$(EXEEXT)
 	@p='mupnptest$(EXEEXT)'; \
 	b='mupnptest'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+device-start-no-interfaces.sh.log: device-start-no-interfaces.sh
+	@p='device-start-no-interfaces.sh'; \
+	b='device-start-no-interfaces.sh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
