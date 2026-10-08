@@ -49,14 +49,17 @@ cd mupnp
 ./configure
 make
 ```
-### MacOSX
 
-For macOS platforms, you can easily install using Homebrew with the following `brew` commands:
+### Homebrew (macOS, Linux)
+
+For platforms that support [Homebrew](https://brew.sh/), you can easily install using the following `brew` commands:
 
 ```
 brew tap cybergarage/homebrew
 brew install mupnp
 ```
+
+### MacOSX
 
 For MacOSX, I have released a wrapper class for Objective-C on Cocoa. Currently, the framework supports only basic functions of the control point. Please use the standard C library if you need to use all functions of mUPnP for C.
 
