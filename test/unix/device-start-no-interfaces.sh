@@ -54,7 +54,8 @@ int main(void)
 EOF
 
 # Automake runs tests in the build tree's test/unix directory. For a manual
-# invocation, cd there first. XML_LIBS is supplied by the configured Makefile.
+# invocation, cd there first. XML_LIBS and LIBS are supplied by the configured
+# Makefile.
 ${CC:-cc} -std=gnu11 -Wall -Wextra -Werror -g -pthread \
   -DHAVE_CONFIG_H -I../.. -I"$root/include" -I"$root/test" \
   -c "$build/test.c" -o "$build/test.o"
@@ -62,6 +63,6 @@ ${CC:-cc} -g -pthread -DHAVE_CONFIG_H -I../.. \
   -I"$root/include" -I"$root/test" \
   "$build/test.o" "$root/test/TestDevice.c" ../../lib/unix/libmupnp.a \
   -Wl,--wrap=mupnp_net_gethostinterfaces \
-  -Wl,--wrap=mupnp_http_serverlist_open ${XML_LIBS--lexpat} ${CODE_COVERAGE_LIBS-} \
+  -Wl,--wrap=mupnp_http_serverlist_open ${XML_LIBS--lexpat} ${LIBS-} ${CODE_COVERAGE_LIBS-} \
   -o "$build/test"
 "$build/test"

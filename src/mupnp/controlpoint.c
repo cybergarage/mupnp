@@ -188,10 +188,11 @@ bool mupnp_controlpoint_start(mUpnpControlPoint* ctrlPoint)
 
   /**** Cache current interfaces ****/
   mupnp_net_gethostinterfaces(ctrlPoint->ifCache);
-#if defined(ESP_PLATFORM)
-  if (mupnp_net_interfacelist_size(ctrlPoint->ifCache) == 0)
-    goto startup_failed;
-#endif
+  /* Retrying HTTP ports cannot help when there is no usable interface. */
+  if (mupnp_net_interfacelist_size(ctrlPoint->ifCache) == 0) {
+    mupnp_controlpoint_stop(ctrlPoint);
+    return false;
+  }
 
   /**** HTTP Server ****/
   httpEventPort = mupnp_controlpoint_geteventport(ctrlPoint);
