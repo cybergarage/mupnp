@@ -69,6 +69,12 @@ typedef void mUpnpStateVariable;
  * @return The array.
  */
 - (NSArray*)allowedValues;
+/// Owned immutable description snapshot: name/dataType/defaultValue when
+/// present, allowedValues (always an immutable array), and allowedValueRange
+/// (only when the XML element exists). Range minimum/maximum/step retain exact
+/// strings, including incomplete/malformed declarations, for strict validation
+/// by the consumer. A declaration never establishes device permission/support.
+- (NSDictionary<NSString*, id>*)metadata;
 
 /**
  * Checks whether value is allowed for this state variable

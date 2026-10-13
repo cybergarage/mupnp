@@ -101,6 +101,39 @@
   return valuesArray;
 }
 
+- (NSDictionary<NSString*, id>*)metadata
+{
+  if (!cObject)
+    return @{ };
+  NSMutableDictionary* snapshot = [NSMutableDictionary dictionary];
+  NSString* name = [self name];
+  NSString* type = [self dataType];
+  NSString* defaultValue = [self defaultValue];
+  if (name)
+    snapshot[@"name"] = name;
+  if (type)
+    snapshot[@"dataType"] = type;
+  if (defaultValue)
+    snapshot[@"defaultValue"] = defaultValue;
+  snapshot[@"allowedValues"] = [NSArray arrayWithArray:[self allowedValues]];
+  snapshot[@"allowedValueListPresent"] = @(mupnp_xml_node_getchildnode(mupnp_statevariable_getstatevariablenode(cObject), "allowedValueList") != NULL);
+  // Legacy C range macros reference a removed ABI member. Read the retained
+  // SCPD node instead; do not change the C object layout or invent range values.
+  mUpnpXmlNode* node = mupnp_statevariable_getstatevariablenode(cObject);
+  mUpnpXmlNode* range = node ? mupnp_xml_node_getchildnode(node, "allowedValueRange") : NULL;
+  if (range) {
+    NSMutableDictionary* values = [NSMutableDictionary dictionary];
+    for (NSString* key in @[ @"minimum", @"maximum", @"step" ]) {
+      const char* raw = mupnp_xml_node_getchildnodevalue(range, [key UTF8String]);
+      NSString* value = raw ? [NSString stringWithUTF8String:raw] : nil;
+      if (value)
+        values[key] = value;
+    }
+    snapshot[@"allowedValueRange"] = [NSDictionary dictionaryWithDictionary:values];
+  }
+  return [NSDictionary dictionaryWithDictionary:snapshot];
+}
+
 - (BOOL)isAllowedValue:(NSString*)value
 {
   if (!cObject || ![value isKindOfClass:[NSString class]] || ![value UTF8String])
