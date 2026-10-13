@@ -12,6 +12,7 @@
 #include <mupnp/control/control.h>
 
 #import "CGUpnpAction.h"
+#import "CGUpnpStateVariable.h"
 
 @implementation CGUpnpAction
 
@@ -64,6 +65,37 @@
     [key release];
   }
   return argDir;
+}
+
+- (NSArray<NSDictionary<NSString*, id>*>*)argumentMetadata
+{
+  if (!cObject)
+    return @[];
+  NSMutableArray* snapshots = [NSMutableArray array];
+  mUpnpService* service = mupnp_action_getservice(cObject);
+  for (mUpnpArgument* argument = mupnp_action_getarguments(cObject); argument; argument = mupnp_argument_next(argument)) {
+    NSMutableDictionary* snapshot = [NSMutableDictionary dictionary];
+    const char* rawName = mupnp_argument_getname(argument);
+    const char* rawDirection = mupnp_argument_getdirection(argument);
+    const char* rawRelated = mupnp_argument_getrelatedstatevariable(argument);
+    NSString* name = rawName ? [NSString stringWithUTF8String:rawName] : nil;
+    NSString* direction = rawDirection ? [NSString stringWithUTF8String:rawDirection] : nil;
+    NSString* related = rawRelated ? [NSString stringWithUTF8String:rawRelated] : nil;
+    if (name)
+      snapshot[@"name"] = name;
+    if (direction)
+      snapshot[@"direction"] = direction;
+    if (related)
+      snapshot[@"relatedStateVariable"] = related;
+    mUpnpStateVariable* native = service && rawRelated ? mupnp_service_getstatevariablebyname(service, rawRelated) : NULL;
+    if (native) {
+      CGUpnpStateVariable* variable = [[CGUpnpStateVariable alloc] initWithCObject:native];
+      snapshot[@"stateVariable"] = [variable metadata];
+      [variable release];
+    }
+    [snapshots addObject:[NSDictionary dictionaryWithDictionary:snapshot]];
+  }
+  return [NSArray arrayWithArray:snapshots];
 }
 
 - (BOOL)setArgumentValue:(NSString*)value forName:(NSString*)name

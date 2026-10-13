@@ -36,6 +36,12 @@ typedef void mUpnpAction;
  * @return NSDictionary of the arguments.
  */
 - (NSDictionary*)arguments;
+/// Owned immutable SCPD snapshots, in declared argument order. Each dictionary
+/// retains name/direction/relatedStateVariable when present, plus a resolved
+/// stateVariable metadata dictionary when that relationship exists. Missing or
+/// malformed metadata is not replaced by a default or a capability claim.
+/// Contains no native pointers and remains readable after the service is freed.
+- (NSArray<NSDictionary<NSString*, id>*>*)argumentMetadata;
 /**
  * Set a value of the specified argument from the action by the argument's name directly.
  *
