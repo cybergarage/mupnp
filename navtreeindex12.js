@@ -1,5 +1,7 @@
 var NAVTREEINDEX12 =
 {
+"struct__mUpnpXmlNode.html#ac4af10431ae4edf17b99f1a4f1c3bd08":[14,0,41,0],
+"struct__mUpnpXmlNode.html#af3c591f1fe5b6f09d0dd6fc919ff429d":[14,0,41,4],
 "struct__mUpnpXmlParser.html":[14,0,42],
 "struct__mUpnpXmlParser.html#a4139e7143ad6b8f0c8cae488e38ff91a":[14,0,42,0],
 "structtm.html":[14,0,53],
@@ -247,7 +249,5 @@ var NAVTREEINDEX12 =
 "uri_8h.html#a3390f627831e393fd5ba84abe5a43ddf":[15,0,1,0,4,2,36],
 "uri_8h.html#a3c109d6d63ed9688bdba759880cdff51":[15,0,1,0,4,2,56],
 "uri_8h.html#a43dd3648dffec43c0a23137fc97c0b3d":[15,0,1,0,4,2,60],
-"uri_8h.html#a4da8a0f320632e5674f065954a167ba4":[15,0,1,0,4,2,12],
-"uri_8h.html#a4e7a435e0d05a60b307fb37477d5154b":[15,0,1,0,4,2,38],
-"uri_8h.html#a5bb29e9d72b13e2b6deaf9ff90561bda":[15,0,1,0,4,2,15]
+"uri_8h.html#a4da8a0f320632e5674f065954a167ba4":[15,0,1,0,4,2,12]
 };

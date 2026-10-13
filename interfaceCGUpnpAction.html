@@ -89,6 +89,8 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a2346d614e2444c496af06c7a36fb76c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6de7e0e090933412570a448ad76a23d" id="r_af6de7e0e090933412570a448ad76a23d"><td class="memItemLeft" align="right" valign="top">(NSDictionary *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#af6de7e0e090933412570a448ad76a23d">arguments</a></td></tr>
 <tr class="separator:af6de7e0e090933412570a448ad76a23d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf8a7da361d402556f896eb7be100d1a" id="r_abf8a7da361d402556f896eb7be100d1a"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; NSDictionary&lt; NSString *, id &gt; * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#abf8a7da361d402556f896eb7be100d1a">argumentMetadata</a></td></tr>
+<tr class="separator:abf8a7da361d402556f896eb7be100d1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00b84e0f87a1779d64d730aae84afd8a" id="r_a00b84e0f87a1779d64d730aae84afd8a"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a00b84e0f87a1779d64d730aae84afd8a">setArgumentValue:forName:</a></td></tr>
 <tr class="separator:a00b84e0f87a1779d64d730aae84afd8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a907d7fa75697852f78360c9aadd812bf" id="r_a907d7fa75697852f78360c9aadd812bf"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a907d7fa75697852f78360c9aadd812bf">argumentValueForName:</a></td></tr>
@@ -110,6 +112,24 @@ Properties</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="interfaceCGUpnpAction.html">CGUpnpAction</a> class is a wrapper class for mUpnpAction of mUPnP for C. </p>
 </div><h2 class="groupheader">Method Documentation</h2>
+<a id="abf8a7da361d402556f896eb7be100d1a" name="abf8a7da361d402556f896eb7be100d1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf8a7da361d402556f896eb7be100d1a">&#9670;&#160;</a></span>argumentMetadata</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSArray&lt; NSDictionary&lt; NSString *, id &gt; * &gt; *) argumentMetadata </td>
+          <td></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Owned immutable SCPD snapshots, in declared argument order. Each dictionary retains name/direction/relatedStateVariable when present, plus a resolved stateVariable metadata dictionary when that relationship exists. Missing or malformed metadata is not replaced by a default or a capability claim. Contains no native pointers and remains readable after the service is freed. </p>
+
+</div>
+</div>
 <a id="af6de7e0e090933412570a448ad76a23d" name="af6de7e0e090933412570a448ad76a23d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af6de7e0e090933412570a448ad76a23d">&#9670;&#160;</a></span>arguments</h2>
 

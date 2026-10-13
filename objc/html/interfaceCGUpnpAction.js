@@ -1,5 +1,6 @@
 var interfaceCGUpnpAction =
 [
+    [ "argumentMetadata", "interfaceCGUpnpAction.html#abf8a7da361d402556f896eb7be100d1a", null ],
     [ "arguments", "interfaceCGUpnpAction.html#af6de7e0e090933412570a448ad76a23d", null ],
     [ "argumentValueForName:", "interfaceCGUpnpAction.html#a907d7fa75697852f78360c9aadd812bf", null ],
     [ "initWithCObject:", "interfaceCGUpnpAction.html#a25cfa090c88592f90a0a2e0e24ded9ea", null ],

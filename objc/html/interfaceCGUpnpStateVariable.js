@@ -5,6 +5,7 @@ var interfaceCGUpnpStateVariable =
     [ "defaultValue", "interfaceCGUpnpStateVariable.html#abe04b8744376f495e338ab3a0e407632", null ],
     [ "initWithCObject:", "interfaceCGUpnpStateVariable.html#a7129f70e1da2f3c361e0484f25700d2e", null ],
     [ "isAllowedValue:", "interfaceCGUpnpStateVariable.html#ab515de3489f9f5186192eaa5e654c3ef", null ],
+    [ "metadata", "interfaceCGUpnpStateVariable.html#a508f65374e6a38f0c8cfe173cf6a8375", null ],
     [ "name", "interfaceCGUpnpStateVariable.html#a69e4c6092d5686153daf3ca471de60ea", null ],
     [ "query", "interfaceCGUpnpStateVariable.html#a5a46cedaa5838d6cc8577077dc04b079", null ],
     [ "statusCode", "interfaceCGUpnpStateVariable.html#abe5e011694b2cd1c01e34129873d2a5a", null ],

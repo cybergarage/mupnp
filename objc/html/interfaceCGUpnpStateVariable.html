@@ -95,6 +95,8 @@ Instance Methods</h2></td></tr>
 <tr class="separator:abe04b8744376f495e338ab3a0e407632"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a647b10c9e528833b2bace189f4598be9" id="r_a647b10c9e528833b2bace189f4598be9"><td class="memItemLeft" align="right" valign="top">(NSArray *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a647b10c9e528833b2bace189f4598be9">allowedValues</a></td></tr>
 <tr class="separator:a647b10c9e528833b2bace189f4598be9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a508f65374e6a38f0c8cfe173cf6a8375" id="r_a508f65374e6a38f0c8cfe173cf6a8375"><td class="memItemLeft" align="right" valign="top">(NSDictionary&lt; NSString *, id &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a508f65374e6a38f0c8cfe173cf6a8375">metadata</a></td></tr>
+<tr class="separator:a508f65374e6a38f0c8cfe173cf6a8375"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab515de3489f9f5186192eaa5e654c3ef" id="r_ab515de3489f9f5186192eaa5e654c3ef"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#ab515de3489f9f5186192eaa5e654c3ef">isAllowedValue:</a></td></tr>
 <tr class="separator:ab515de3489f9f5186192eaa5e654c3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a46cedaa5838d6cc8577077dc04b079" id="r_a5a46cedaa5838d6cc8577077dc04b079"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a5a46cedaa5838d6cc8577077dc04b079">query</a></td></tr>
@@ -216,6 +218,24 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>YES if true </dd></dl>
+
+</div>
+</div>
+<a id="a508f65374e6a38f0c8cfe173cf6a8375" name="a508f65374e6a38f0c8cfe173cf6a8375"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a508f65374e6a38f0c8cfe173cf6a8375">&#9670;&#160;</a></span>metadata</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSDictionary&lt; NSString *, id &gt; *) metadata </td>
+          <td></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Owned immutable description snapshot: name/dataType/defaultValue when present, allowedValues (always an immutable array), and allowedValueRange (only when the XML element exists). Range minimum/maximum/step retain exact strings, including incomplete/malformed declarations, for strict validation by the consumer. A declaration never establishes device permission/support. </p>
 
 </div>
 </div>
