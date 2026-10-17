@@ -1,3 +1,21 @@
+2026-10-17 Satoshi Konno <skonno@cybergarage.org>
+	* 3.1.2
+	* Gateway ownership and independent action results (PR #53)
+	  - C: added mupnp_device_getownedservicebyserviceid() and mupnp_device_getservicebyownerudn() for direct-only and owner-UDN-qualified service lookup, reusing the existing device tree. Service identity includes root UDN, owning-device UDN and service ID; multiple WAN connections may advertise the same service ID.
+	  - C: added mupnp_action_postwitharguments() for strict complete-input invocation and mupnp_action_result_fromresponse() for offline decoding, with a separately owned result. Missing outputs and present empty strings are distinct; HTTP status, SOAP fault, UPnP error, parse failure, transport failure and incomplete output have separate representations. Result values survive deletion of the source action/device.
+	  - Strict invocation validates input names, completeness and direction before I/O, does not change shared action arguments/status, and makes one HTTP attempt without SOAP 405/M-POST fallback or automatic write retry. A transport failure can still follow remote execution of a write.
+	  - Objective-C: added embeddedDevices, root/owner UDN access and owner-qualified service lookup. Embedded wrappers retain the owning snapshot chain; postResultWithArguments: returns an immutable value-only result copied from C.
+	  - Compatibility: existing recursive first-match lookups and partial-update post APIs retain their behavior. Existing C struct layouts are unchanged by these additions. Borrowed C pointers still require owner lifetime; description replacement/reparse still invalidates earlier descendants. New consumers must link the updated library/framework.
+	  - Added local IGD1/2 multi-WAN, AV, deep hierarchy, snapshot/result lifetime, repeated success/missing/fault/empty/truncated response and no-retry fixtures. macOS CI runs C/Objective-C fixtures with ASan/UBSan on Expat, libxml2 and curl. These tests do not establish real-gateway interoperability or new ESP32 hardware coverage.
+	  - DIDL parsing/paging, SCPD value-constraint validation and a session facade remain future work; see doc/gateway-action-results.md for contracts and migration.
+	* Objective-C SCPD metadata (PR #52)
+	  - Added owned argumentMetadata and state-variable metadata snapshots, preserving declared direction, related state variable, type, default value and allowed-value metadata without inventing capability claims. Also fixed the NSDictionary import needed for standalone state-variable wrapper compilation (PR #53).
+	* Reliability and portability since 3.1.1
+	  - Control point startup now fails promptly when no usable network interfaces exist instead of retrying the HTTP event port indefinitely, with a deterministic regression test.
+	  - Restored GCC/MinGW-w64 builds and Windows current-thread identity; fixed enabled logging/file/socket and curl signature build paths. Added MSVCRT/UCRT and Linux/macOS platform CI with curl on/off (PR #50).
+	  - Documented Homebrew installation on macOS/Linux (PR #51).
+	* Release metadata: synchronized configure.ac/configure, public version headers and the ESP-IDF component manifest at 3.1.2. Publishing the tag/GitHub Release is a separate step after merge verification.
+
 2026-10-08 Satoshi Konno <skonno@cybergarage.org>
 	* 3.1.1
 	* Security and reliability fixes
