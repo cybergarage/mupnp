@@ -36,8 +36,8 @@ BOOST_AUTO_TEST_CASE(GatewayOwnerQualifiedServices)
     BOOST_CHECK_EQUAL(mupnp_device_getservicebyownerudn(owner, "uuid:conn2", id), two);
     BOOST_CHECK(!mupnp_device_getservicebyownerudn(owner, "uuid:conn1", id));
     BOOST_CHECK(!mupnp_device_getservicebyownerudn(root, "uuid:missing", id));
-    BOOST_CHECK(!mupnp_device_getservicebyownerudn(root, NULL, id));
-    BOOST_CHECK(!mupnp_device_getownedservicebyserviceid(NULL, id));
+    BOOST_CHECK(!mupnp_device_getservicebyownerudn(root, nullptr, id));
+    BOOST_CHECK(!mupnp_device_getownedservicebyserviceid(nullptr, id));
     BOOST_CHECK_EQUAL(mupnp_device_getrootdevice(mupnp_service_getdevice(deep)), root);
     mupnp_device_delete(root);
   }

@@ -206,30 +206,35 @@ static bool mupnp_action_node_is(mUpnpXmlNode* node, const char* name, const cha
   return false;
 }
 
-static bool mupnp_action_validinputs(mUpnpAction* action, mUpnpDictionary* inputs)
+static bool mupnp_action_validschema(mUpnpAction* action)
 {
-  mUpnpArgument* arg;
-  mUpnpDictionaryElement* entry;
   if (!action || !mupnp_action_getservice(action) || mupnp_strlen(mupnp_action_getname(action)) <= 0)
     return false;
-  for (arg = mupnp_action_getarguments(action); arg; arg = mupnp_argument_next(arg)) {
+  for (mUpnpArgument* arg = mupnp_action_getarguments(action); arg; arg = mupnp_argument_next(arg)) {
     const char* name = mupnp_argument_getname(arg);
-    mUpnpArgument* previous;
     if (mupnp_strlen(name) <= 0 || (!mupnp_streq(mupnp_argument_getdirection(arg), "in") && !mupnp_streq(mupnp_argument_getdirection(arg), "out")))
       return false;
-    for (previous = mupnp_action_getarguments(action); previous != arg; previous = mupnp_argument_next(previous)) {
+    for (mUpnpArgument* previous = mupnp_action_getarguments(action); previous != arg; previous = mupnp_argument_next(previous)) {
       if (mupnp_streq(mupnp_argument_getname(previous), name))
         return false;
     }
-    if (mupnp_argument_isindirection(arg) && (!inputs || !mupnp_dictionary_getvalue(inputs, name)))
+  }
+  return true;
+}
+
+static bool mupnp_action_validinputs(mUpnpAction* action, mUpnpDictionary* inputs)
+{
+  if (!mupnp_action_validschema(action))
+    return false;
+  for (mUpnpArgument* arg = mupnp_action_getarguments(action); arg; arg = mupnp_argument_next(arg)) {
+    if (mupnp_argument_isindirection(arg) && (!inputs || !mupnp_dictionary_getvalue(inputs, mupnp_argument_getname(arg))))
       return false;
   }
-  for (entry = inputs ? mupnp_dictionary_gets(inputs) : NULL; entry; entry = mupnp_dictionary_element_next(entry)) {
-    mUpnpDictionaryElement* previous;
-    arg = mupnp_action_getargumentbyname(action, mupnp_dictionary_element_getkey(entry));
+  for (mUpnpDictionaryElement* entry = inputs ? mupnp_dictionary_gets(inputs) : NULL; entry; entry = mupnp_dictionary_element_next(entry)) {
+    mUpnpArgument* arg = mupnp_action_getargumentbyname(action, mupnp_dictionary_element_getkey(entry));
     if (!arg || !mupnp_argument_isindirection(arg) || !mupnp_dictionary_element_getvalue(entry))
       return false;
-    for (previous = mupnp_dictionary_gets(inputs); previous != entry; previous = mupnp_dictionary_element_next(previous)) {
+    for (mUpnpDictionaryElement* previous = mupnp_dictionary_gets(inputs); previous != entry; previous = mupnp_dictionary_element_next(previous)) {
       if (mupnp_streq(mupnp_dictionary_element_getkey(previous), mupnp_dictionary_element_getkey(entry)))
         return false;
     }
@@ -237,14 +242,93 @@ static bool mupnp_action_validinputs(mUpnpAction* action, mUpnpDictionary* input
   return true;
 }
 
+static mUpnpXmlNode* mupnp_action_responsecontent(mUpnpXmlNode* envelope)
+{
+  mUpnpXmlNode* body = NULL;
+  mUpnpXmlNode* response;
+  if (!mupnp_action_node_is(envelope, "Envelope", MUPNP_SOAP_XMLNS_URL) || mupnp_xml_node_next(envelope))
+    return NULL;
+  for (mUpnpXmlNode* node = mupnp_xml_node_getchildnodes(envelope); node; node = mupnp_xml_node_next(node)) {
+    if (mupnp_action_node_is(node, "Body", MUPNP_SOAP_XMLNS_URL)) {
+      if (body)
+        return NULL;
+      body = node;
+    }
+  }
+  response = body ? mupnp_xml_node_getchildnodes(body) : NULL;
+  return response && !mupnp_xml_node_next(response) ? response : NULL;
+}
+
+static int mupnp_action_parseerrorcode(mUpnpXmlNode* node)
+{
+  const char* value = node ? mupnp_xml_node_getvalue(node) : NULL;
+  char* end = NULL;
+  long code;
+  if (!value)
+    return 0;
+  errno = 0;
+  code = strtol(value, &end, 10);
+  return end != value && !*end && errno == 0 && code > 0 && code <= INT_MAX ? (int)code : 0;
+}
+
+static void mupnp_action_result_setfault(mUpnpActionResult* result, mUpnpXmlNode* response)
+{
+  mUpnpXmlNode* node;
+  mUpnpXmlNode* detail;
+  mUpnpXmlNode* error;
+  result->code = MUPNP_ACTION_RESULT_SOAP_FAULT;
+  node = mupnp_xml_node_getchildnodewithnamespace(response, "faultcode", NULL, true);
+  if (node)
+    mupnp_string_setvalue(result->faultCode, mupnp_xml_node_getvalue(node));
+  node = mupnp_xml_node_getchildnodewithnamespace(response, "faultstring", NULL, true);
+  if (node)
+    mupnp_string_setvalue(result->faultString, mupnp_xml_node_getvalue(node));
+  detail = mupnp_xml_node_getchildnodewithnamespace(response, "detail", NULL, true);
+  error = detail ? mupnp_xml_node_getchildnodewithnamespace(detail, "UPnPError", NULL, true) : NULL;
+  if (!mupnp_action_node_is(error, "UPnPError", "urn:schemas-upnp-org:control-1-0"))
+    return;
+  node = mupnp_xml_node_getchildnodewithnamespace(error, "errorCode", NULL, true);
+  result->upnpErrorCode = mupnp_action_parseerrorcode(node);
+  node = mupnp_xml_node_getchildnodewithnamespace(error, "errorDescription", NULL, true);
+  if (node)
+    mupnp_string_setvalue(result->errorDescription, mupnp_xml_node_getvalue(node));
+}
+
+static void mupnp_action_result_setoutputs(mUpnpActionResult* result, mUpnpAction* action, mUpnpXmlNode* response)
+{
+  mUpnpString* responseName = mupnp_string_new();
+  bool matches;
+  if (!responseName)
+    return;
+  mupnp_string_setvalue(responseName, mupnp_action_getname(action));
+  mupnp_string_addvalue(responseName, "Response");
+  matches = mupnp_action_node_is(response, mupnp_string_getvalue(responseName), mupnp_service_getservicetype(mupnp_action_getservice(action)));
+  mupnp_string_delete(responseName);
+  if (!matches)
+    return;
+  for (mUpnpXmlNode* node = mupnp_xml_node_getchildnodes(response); node; node = mupnp_xml_node_next(node)) {
+    const char* name = mupnp_action_localname(node);
+    const char* value = mupnp_xml_node_getvalue(node);
+    mUpnpArgument* arg = mupnp_action_getargumentbyname(action, name);
+    if (!arg || !mupnp_argument_isoutdirection(arg) || mupnp_dictionary_getvalue(result->outputs, name) || mupnp_xml_node_haschildnodes(node)) {
+      mupnp_dictionary_clear(result->outputs);
+      return;
+    }
+    mupnp_dictionary_setvalue(result->outputs, name, value ? value : "");
+  }
+  result->code = MUPNP_ACTION_RESULT_SUCCESS;
+  for (mUpnpArgument* arg = mupnp_action_getarguments(action); arg; arg = mupnp_argument_next(arg)) {
+    if (mupnp_argument_isoutdirection(arg) && !mupnp_dictionary_getvalue(result->outputs, mupnp_argument_getname(arg)))
+      result->code = MUPNP_ACTION_RESULT_INCOMPLETE;
+  }
+}
+
 mUpnpActionResult* mupnp_action_result_fromresponse(mUpnpAction* action, int httpStatusCode, const char* content, size_t length)
 {
   mUpnpActionResult* result = mupnp_action_result_new();
   mUpnpXmlParser* parser;
   mUpnpXmlNodeList* nodes;
-  mUpnpXmlNode *envelope, *body, *response, *node;
-  mUpnpArgument* arg;
-  mUpnpString* responseName;
+  mUpnpXmlNode* response;
   bool parsed;
   if (!result)
     return NULL;
@@ -270,76 +354,13 @@ mUpnpActionResult* mupnp_action_result_fromresponse(mUpnpAction* action, int htt
   }
   parsed = mupnp_xml_parse(parser, nodes, content, length);
   mupnp_xml_parser_delete(parser);
-  envelope = mupnp_xml_nodelist_gets(nodes);
-  if (!parsed || !mupnp_action_node_is(envelope, "Envelope", MUPNP_SOAP_XMLNS_URL) || mupnp_xml_node_next(envelope))
-    goto done;
-  body = NULL;
-  for (node = mupnp_xml_node_getchildnodes(envelope); node; node = mupnp_xml_node_next(node)) {
-    if (mupnp_action_node_is(node, "Body", MUPNP_SOAP_XMLNS_URL)) {
-      if (body)
-        goto done;
-      body = node;
-    }
+  response = parsed ? mupnp_action_responsecontent(mupnp_xml_nodelist_gets(nodes)) : NULL;
+  if (response) {
+    if (mupnp_action_node_is(response, "Fault", MUPNP_SOAP_XMLNS_URL))
+      mupnp_action_result_setfault(result, response);
+    else if (result->code != MUPNP_ACTION_RESULT_HTTP_ERROR)
+      mupnp_action_result_setoutputs(result, action, response);
   }
-  response = body ? mupnp_xml_node_getchildnodes(body) : NULL;
-  if (!response || mupnp_xml_node_next(response))
-    goto done;
-  if (mupnp_action_node_is(response, "Fault", MUPNP_SOAP_XMLNS_URL)) {
-    mUpnpXmlNode* detail;
-    mUpnpXmlNode* error;
-    result->code = MUPNP_ACTION_RESULT_SOAP_FAULT;
-    node = mupnp_xml_node_getchildnodewithnamespace(response, "faultcode", NULL, true);
-    if (node)
-      mupnp_string_setvalue(result->faultCode, mupnp_xml_node_getvalue(node));
-    node = mupnp_xml_node_getchildnodewithnamespace(response, "faultstring", NULL, true);
-    if (node)
-      mupnp_string_setvalue(result->faultString, mupnp_xml_node_getvalue(node));
-    detail = mupnp_xml_node_getchildnodewithnamespace(response, "detail", NULL, true);
-    error = detail ? mupnp_xml_node_getchildnodewithnamespace(detail, "UPnPError", NULL, true) : NULL;
-    if (error && mupnp_action_node_is(error, "UPnPError", "urn:schemas-upnp-org:control-1-0")) {
-      node = mupnp_xml_node_getchildnodewithnamespace(error, "errorCode", NULL, true);
-      if (node) {
-        const char* value = mupnp_xml_node_getvalue(node);
-        char* end = NULL;
-        long code;
-        errno = 0;
-        code = value ? strtol(value, &end, 10) : 0;
-        if (value && end != value && !*end && errno == 0 && code > 0 && code <= INT_MAX)
-          result->upnpErrorCode = (int)code;
-      }
-      node = mupnp_xml_node_getchildnodewithnamespace(error, "errorDescription", NULL, true);
-      if (node)
-        mupnp_string_setvalue(result->errorDescription, mupnp_xml_node_getvalue(node));
-    }
-    goto done;
-  }
-  if (result->code == MUPNP_ACTION_RESULT_HTTP_ERROR)
-    goto done;
-  responseName = mupnp_string_new();
-  if (!responseName)
-    goto done;
-  mupnp_string_setvalue(responseName, mupnp_action_getname(action));
-  mupnp_string_addvalue(responseName, "Response");
-  parsed = mupnp_action_node_is(response, mupnp_string_getvalue(responseName), mupnp_service_getservicetype(mupnp_action_getservice(action)));
-  mupnp_string_delete(responseName);
-  if (!parsed)
-    goto done;
-  for (node = mupnp_xml_node_getchildnodes(response); node; node = mupnp_xml_node_next(node)) {
-    const char* name = mupnp_action_localname(node);
-    const char* value = mupnp_xml_node_getvalue(node);
-    arg = mupnp_action_getargumentbyname(action, name);
-    if (!arg || !mupnp_argument_isoutdirection(arg) || mupnp_dictionary_getvalue(result->outputs, name) || mupnp_xml_node_haschildnodes(node)) {
-      mupnp_dictionary_clear(result->outputs);
-      goto done;
-    }
-    mupnp_dictionary_setvalue(result->outputs, name, value ? value : "");
-  }
-  result->code = MUPNP_ACTION_RESULT_SUCCESS;
-  for (arg = mupnp_action_getarguments(action); arg; arg = mupnp_argument_next(arg)) {
-    if (mupnp_argument_isoutdirection(arg) && !mupnp_dictionary_getvalue(result->outputs, mupnp_argument_getname(arg)))
-      result->code = MUPNP_ACTION_RESULT_INCOMPLETE;
-  }
-done:
   mupnp_xml_nodelist_delete(nodes);
   return result;
 }
@@ -353,7 +374,6 @@ mUpnpActionResult* mupnp_action_postwitharguments(mUpnpAction* action, mUpnpDict
   mUpnpHttpRequest* http;
   mUpnpHttpResponse* response;
   mUpnpNetURL* url;
-  mUpnpArgument* arg;
   bool received = false;
   if (!mupnp_action_validinputs(action, inputs)) {
     result = mupnp_action_result_new();
@@ -367,7 +387,7 @@ mUpnpActionResult* mupnp_action_postwitharguments(mUpnpAction* action, mUpnpDict
   /* Argument values are independent; the SCPD node is borrowed read-only. */
   mupnp_action_setactionnode(invocation, mupnp_action_getactionnode(action));
   mupnp_action_setservice(invocation, mupnp_action_getservice(action));
-  for (arg = mupnp_action_getarguments(invocation); arg; arg = mupnp_argument_next(arg)) {
+  for (mUpnpArgument* arg = mupnp_action_getarguments(invocation); arg; arg = mupnp_argument_next(arg)) {
     if (mupnp_argument_isindirection(arg))
       mupnp_argument_setvalue(arg, mupnp_dictionary_getvalue(inputs, mupnp_argument_getname(arg)));
   }

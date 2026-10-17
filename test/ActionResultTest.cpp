@@ -4,10 +4,10 @@
 #include <mupnp/device.h>
 #include <string>
 
-static const char* scpd = "<scpd><actionList><action><name>Read</name><argumentList>"
-                          "<argument><name>Input</name><direction>in</direction></argument>"
-                          "<argument><name>Output</name><direction>out</direction></argument>"
-                          "</argumentList></action></actionList></scpd>";
+static const char* const scpd = "<scpd><actionList><action><name>Read</name><argumentList>"
+                                "<argument><name>Input</name><direction>in</direction></argument>"
+                                "<argument><name>Output</name><direction>out</direction></argument>"
+                                "</argumentList></action></actionList></scpd>";
 
 struct ActionFixture {
   mUpnpDevice* device = mupnp_device_new();
@@ -24,12 +24,14 @@ struct ActionFixture {
     mupnp_action_setargumentvaluebyname(action, "Output", "old");
     mupnp_action_setstatuscode(action, 999);
   }
+  ActionFixture(const ActionFixture&) = delete;
+  ActionFixture& operator=(const ActionFixture&) = delete;
   ~ActionFixture()
   {
     if (device)
       mupnp_device_delete(device);
   }
-  mUpnpActionResult* decode(const std::string& body, int status = 200)
+  mUpnpActionResult* decode(std::string body, int status = 200)
   {
     return mupnp_action_result_fromresponse(action, status, body.data(), body.size());
   }
@@ -62,7 +64,7 @@ BOOST_FIXTURE_TEST_CASE(ActionResultsAreFresh, ActionFixture)
   BOOST_CHECK_EQUAL(mupnp_action_getargumentvaluebyname(action, "Output"), "old");
   BOOST_CHECK_EQUAL(mupnp_action_getstatuscode(action), 999);
   mupnp_device_delete(device);
-  device = NULL;
+  device = nullptr;
   BOOST_CHECK_EQUAL(mupnp_action_result_getoutput(first, "Output"), "new");
   mupnp_action_result_delete(first);
 }
@@ -115,7 +117,7 @@ BOOST_FIXTURE_TEST_CASE(ActionStrictInputsRejectBeforeIO, ActionFixture)
     mupnp_action_result_delete(result);
     mupnp_dictionary_clear(inputs);
   }
-  auto result = mupnp_action_postwitharguments(action, NULL);
+  auto result = mupnp_action_postwitharguments(action, nullptr);
   BOOST_CHECK_EQUAL(mupnp_action_result_getcode(result), MUPNP_ACTION_RESULT_INVALID_ARGUMENTS);
   mupnp_action_result_delete(result);
   mupnp_dictionary_setvalue(inputs, "Input", "x");

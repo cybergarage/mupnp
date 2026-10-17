@@ -1,5 +1,5 @@
 /* Local-only multi-WAN / AV hierarchy fixture. */
-static const char* gatewayDescription =
+static const char* const gatewayDescription =
   "<root>"
   "<URLBase>http://127.0.0.1:1/</URLBase>"
   "<device>"

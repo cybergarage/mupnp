@@ -1762,10 +1762,9 @@ static void mupnp_device_initservicelist(mUpnpDevice* dev)
 
 mUpnpService* mupnp_device_getownedservicebyserviceid(mUpnpDevice* dev, const char* serviceId)
 {
-  mUpnpService* service;
   if (!dev || mupnp_strlen(serviceId) <= 0)
     return NULL;
-  for (service = mupnp_device_getservices(dev); service; service = mupnp_service_next(service)) {
+  for (mUpnpService* service = mupnp_device_getservices(dev); service; service = mupnp_service_next(service)) {
     if (mupnp_streq(mupnp_service_getserviceid(service), serviceId))
       return service;
   }
