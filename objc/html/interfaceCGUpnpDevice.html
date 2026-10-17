@@ -128,6 +128,17 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a666a4fa9ff6394de2f0d976e0d17e1b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed4255e525589b24cbb5afdafc474a0b" id="r_aed4255e525589b24cbb5afdafc474a0b"><td class="memItemLeft" align="right" valign="top">(NSArray *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#aed4255e525589b24cbb5afdafc474a0b">services</a></td></tr>
 <tr class="separator:aed4255e525589b24cbb5afdafc474a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea3e3d6a881ec94014f27e0a9d04ac5" id="r_a0ea3e3d6a881ec94014f27e0a9d04ac5"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; <a class="el" href="interfaceCGUpnpDevice.html">CGUpnpDevice</a> * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a0ea3e3d6a881ec94014f27e0a9d04ac5">embeddedDevices</a></td></tr>
+<tr class="memdesc:a0ea3e3d6a881ec94014f27e0a9d04ac5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immediate children, retaining this wrapper and its snapshot lifetime.  <br /></td></tr>
+<tr class="separator:a0ea3e3d6a881ec94014f27e0a9d04ac5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60fec1657142d97e1c8e02fa772e7b94" id="r_a60fec1657142d97e1c8e02fa772e7b94"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a60fec1657142d97e1c8e02fa772e7b94">rootUDN</a></td></tr>
+<tr class="separator:a60fec1657142d97e1c8e02fa772e7b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acef79f16fd09b0859e534f552cb22d99" id="r_acef79f16fd09b0859e534f552cb22d99"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interfaceCGUpnpService.html">CGUpnpService</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#acef79f16fd09b0859e534f552cb22d99">getOwnedServiceForID:</a></td></tr>
+<tr class="memdesc:acef79f16fd09b0859e534f552cb22d99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direct service lookup; never descends into embedded devices.  <br /></td></tr>
+<tr class="separator:acef79f16fd09b0859e534f552cb22d99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a7f14d4a3a3220ee9703b0243e8b2f0" id="r_a2a7f14d4a3a3220ee9703b0243e8b2f0"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interfaceCGUpnpService.html">CGUpnpService</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a2a7f14d4a3a3220ee9703b0243e8b2f0">getServiceForID:owningDeviceUDN:</a></td></tr>
+<tr class="memdesc:a2a7f14d4a3a3220ee9703b0243e8b2f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owner UDN is searched within this subtree; service ID is local to that owner.  <br /></td></tr>
+<tr class="separator:a2a7f14d4a3a3220ee9703b0243e8b2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a07313c7563ddfe3a542c5a549c9b04f0" id="r_a07313c7563ddfe3a542c5a549c9b04f0"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interfaceCGUpnpService.html">CGUpnpService</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a07313c7563ddfe3a542c5a549c9b04f0">getServiceForID:</a></td></tr>
 <tr class="separator:a07313c7563ddfe3a542c5a549c9b04f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a977d489370f0fa5178cb545ae8995310" id="r_a977d489370f0fa5178cb545ae8995310"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interfaceCGUpnpService.html">CGUpnpService</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="#a977d489370f0fa5178cb545ae8995310">getServiceForType:</a></td></tr>
@@ -164,6 +175,8 @@ Protected Attributes</h2></td></tr>
 Properties</h2></td></tr>
 <tr class="memitem:acbda2eb0839a962c8d2e271d169316a5" id="r_acbda2eb0839a962c8d2e271d169316a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="CGUpnpDevice_8h.html#a49eaa993fd0bbd8efc8a358a0e40e67b">mUpnpDevice</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbda2eb0839a962c8d2e271d169316a5">cObject</a></td></tr>
 <tr class="separator:acbda2eb0839a962c8d2e271d169316a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1729dcc3b15cd13c2be00e0ecbd71f8" id="r_ab1729dcc3b15cd13c2be00e0ecbd71f8"><td class="memItemLeft" align="right" valign="top">NSObject *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab1729dcc3b15cd13c2be00e0ecbd71f8">cObjectOwner</a></td></tr>
+<tr class="separator:ab1729dcc3b15cd13c2be00e0ecbd71f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1a85a2d4d616c87c3a6f51795b05a7a" id="r_ad1a85a2d4d616c87c3a6f51795b05a7a"><td class="memItemLeft" align="right" valign="top">id&lt; <a class="el" href="protocolCGUpnpDeviceDelegate-p.html">CGUpnpDeviceDelegate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1a85a2d4d616c87c3a6f51795b05a7a">delegate</a></td></tr>
 <tr class="separator:ad1a85a2d4d616c87c3a6f51795b05a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -252,6 +265,25 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a0ea3e3d6a881ec94014f27e0a9d04ac5" name="a0ea3e3d6a881ec94014f27e0a9d04ac5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ea3e3d6a881ec94014f27e0a9d04ac5">&#9670;&#160;</a></span>embeddedDevices</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSArray&lt; <a class="el" href="interfaceCGUpnpDevice.html">CGUpnpDevice</a> * &gt; *) embeddedDevices </td>
+          <td></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Immediate children, retaining this wrapper and its snapshot lifetime. </p>
+
+</div>
+</div>
 <a id="ae15d569f7de9cbc9aa751d380e2fd8f1" name="ae15d569f7de9cbc9aa751d380e2fd8f1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae15d569f7de9cbc9aa751d380e2fd8f1">&#9670;&#160;</a></span>friendlyName</h2>
 
@@ -268,6 +300,25 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the friendly name of the device.</p>
 <dl class="section return"><dt>Returns</dt><dd>Friendly name. </dd></dl>
+
+</div>
+</div>
+<a id="acef79f16fd09b0859e534f552cb22d99" name="acef79f16fd09b0859e534f552cb22d99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acef79f16fd09b0859e534f552cb22d99">&#9670;&#160;</a></span>getOwnedServiceForID:</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (<a class="el" href="interfaceCGUpnpService.html">CGUpnpService</a> *) getOwnedServiceForID: </td>
+          <td></td>
+          <td class="paramtype">(NSString*)</td>          <td class="paramname"><span class="paramname"><em>serviceId</em></span></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Direct service lookup; never descends into embedded devices. </p>
 
 </div>
 </div>
@@ -293,6 +344,29 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="interfaceCGUpnpService.html">CGUpnpService</a> if the specified service is found; otherwise nil. </dd></dl>
+
+</div>
+</div>
+<a id="a2a7f14d4a3a3220ee9703b0243e8b2f0" name="a2a7f14d4a3a3220ee9703b0243e8b2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a7f14d4a3a3220ee9703b0243e8b2f0">&#9670;&#160;</a></span>getServiceForID:owningDeviceUDN:</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (<a class="el" href="interfaceCGUpnpService.html">CGUpnpService</a> *) <a class="el" href="#a07313c7563ddfe3a542c5a549c9b04f0">getServiceForID:</a> </td>
+          <td></td>
+          <td class="paramtype">(NSString*)</td>          <td class="paramname"><span class="paramname"><em>serviceId</em></span></td>
+        </tr>
+        <tr>
+          <td class="paramkey">owningDeviceUDN:</td>
+          <td></td>
+          <td class="paramtype">(NSString*)</td>          <td class="paramname"><span class="paramname"><em>ownerUDN</em></span>&#160;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Owner UDN is searched within this subtree; service ID is local to that owner. </p>
 
 </div>
 </div>
@@ -656,6 +730,23 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="a60fec1657142d97e1c8e02fa772e7b94" name="a60fec1657142d97e1c8e02fa772e7b94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60fec1657142d97e1c8e02fa772e7b94">&#9670;&#160;</a></span>rootUDN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSString *) rootUDN </td>
+          <td></td>
+          <td class="paramname"><span class="paramname"><em></em></span></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aed4255e525589b24cbb5afdafc474a0b" name="aed4255e525589b24cbb5afdafc474a0b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aed4255e525589b24cbb5afdafc474a0b">&#9670;&#160;</a></span>services</h2>
 
@@ -945,6 +1036,28 @@ Properties</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">atomic</span><span class="mlabel">assign</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab1729dcc3b15cd13c2be00e0ecbd71f8" name="ab1729dcc3b15cd13c2be00e0ecbd71f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1729dcc3b15cd13c2be00e0ecbd71f8">&#9670;&#160;</a></span>cObjectOwner</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSObject*) cObjectOwner</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">atomic</span><span class="mlabel">retain</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

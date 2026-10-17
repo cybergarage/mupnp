@@ -70,11 +70,13 @@ $(function(){initNavTree('control_8h.html',''); initResizable(true); });
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">control.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="typedef_8h.html">mupnp/typedef.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="dictionary_8h.html">mupnp/util/dictionary.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="action_8h.html">mupnp/action.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="argument_8h.html">mupnp/argument.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="service_8h.html">mupnp/service.h</a>&gt;</code><br />
@@ -200,6 +202,23 @@ Typedefs</h2></td></tr>
 <tr class="separator:a19e600f1eed3a6f940b77c6a1c1757cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19c93503b2e48e07b735a36f92ed3a04" id="r_a19c93503b2e48e07b735a36f92ed3a04"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct__mUpnpQueryRequest.html">_mUpnpQueryRequest</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19c93503b2e48e07b735a36f92ed3a04">mUpnpQueryRequest</a></td></tr>
 <tr class="separator:a19c93503b2e48e07b735a36f92ed3a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49db63c3644b8e23eb6bd45a463fd0f6" id="r_a49db63c3644b8e23eb6bd45a463fd0f6"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct__mUpnpActionResult.html">_mUpnpActionResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a></td></tr>
+<tr class="separator:a49db63c3644b8e23eb6bd45a463fd0f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a4110e858dd863dbeaaf4e658bedb54a5" id="r_a4110e858dd863dbeaaf4e658bedb54a5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5">mUpnpActionResultCode</a> { <br />
+&#160;&#160;<a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5a51d3c748fea41103ca6965cd82febad2">MUPNP_ACTION_RESULT_SUCCESS</a> = 0
+, <a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5a9aca619cc1d8e5622444183cbf109157">MUPNP_ACTION_RESULT_INVALID_ARGUMENTS</a>
+, <a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5aa0f71b1af52712a316b4a5de74d3a2e4">MUPNP_ACTION_RESULT_TRANSPORT_ERROR</a>
+, <a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5ae0ce322235fd8135d2793c5302a058b2">MUPNP_ACTION_RESULT_HTTP_ERROR</a>
+, <br />
+&#160;&#160;<a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5ac1ccefdc4575990cccafc31942607b39">MUPNP_ACTION_RESULT_SOAP_FAULT</a>
+, <a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5a27be3e039d4cb33eacc226b24be7ef46">MUPNP_ACTION_RESULT_PARSE_ERROR</a>
+, <a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5aabe5061409a7d1e10e569d2bd207e175">MUPNP_ACTION_RESULT_INCOMPLETE</a>
+<br />
+ }</td></tr>
+<tr class="separator:a4110e858dd863dbeaaf4e658bedb54a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -283,6 +302,28 @@ Functions</h2></td></tr>
 <tr class="separator:a3580c2bf630b2e3f5f141dfd1ebdddac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28717002331c1cf0d389d8984339820a" id="r_a28717002331c1cf0d389d8984339820a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a28717002331c1cf0d389d8984339820a">mupnp_action_post</a> (<a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *action)</td></tr>
 <tr class="separator:a28717002331c1cf0d389d8984339820a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f2e2560446263f68a32006f453d4d96" id="r_a1f2e2560446263f68a32006f453d4d96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f2e2560446263f68a32006f453d4d96">mupnp_action_postwitharguments</a> (<a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *action, <a class="el" href="dictionary_8h.html#ad320a1ddbec02de6d74668ca6981b9af">mUpnpDictionary</a> *inputs)</td></tr>
+<tr class="separator:a1f2e2560446263f68a32006f453d4d96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dd95e73d59eb2bf535d570bd7fa6868" id="r_a4dd95e73d59eb2bf535d570bd7fa6868"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4dd95e73d59eb2bf535d570bd7fa6868">mupnp_action_result_fromresponse</a> (<a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *action, int httpStatusCode, const char *content, size_t length)</td></tr>
+<tr class="separator:a4dd95e73d59eb2bf535d570bd7fa6868"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0078a6e04d8ea9f032484c5b6b4c44b" id="r_ae0078a6e04d8ea9f032484c5b6b4c44b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0078a6e04d8ea9f032484c5b6b4c44b">mupnp_action_result_delete</a> (<a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *result)</td></tr>
+<tr class="separator:ae0078a6e04d8ea9f032484c5b6b4c44b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1348428f185d2706d237e3e82a37f600" id="r_a1348428f185d2706d237e3e82a37f600"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5">mUpnpActionResultCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1348428f185d2706d237e3e82a37f600">mupnp_action_result_getcode</a> (const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *result)</td></tr>
+<tr class="separator:a1348428f185d2706d237e3e82a37f600"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5dc27f78ae23e1587f474a29599d0d1" id="r_ab5dc27f78ae23e1587f474a29599d0d1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5dc27f78ae23e1587f474a29599d0d1">mupnp_action_result_gethttpstatuscode</a> (const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *result)</td></tr>
+<tr class="separator:ab5dc27f78ae23e1587f474a29599d0d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48762bb78859ef39a3eacd1474235021" id="r_a48762bb78859ef39a3eacd1474235021"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48762bb78859ef39a3eacd1474235021">mupnp_action_result_getupnperrorcode</a> (const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *result)</td></tr>
+<tr class="separator:a48762bb78859ef39a3eacd1474235021"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b44aa18bedf53982add0f1fd2ba4817" id="r_a7b44aa18bedf53982add0f1fd2ba4817"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7b44aa18bedf53982add0f1fd2ba4817">mupnp_action_result_getfaultcode</a> (const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *result)</td></tr>
+<tr class="separator:a7b44aa18bedf53982add0f1fd2ba4817"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3afaa2e3bb4bc72bbc766360346374b0" id="r_a3afaa2e3bb4bc72bbc766360346374b0"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3afaa2e3bb4bc72bbc766360346374b0">mupnp_action_result_getfaultstring</a> (const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *result)</td></tr>
+<tr class="separator:a3afaa2e3bb4bc72bbc766360346374b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8d7a46bf369f8f79869843894c819cc" id="r_aa8d7a46bf369f8f79869843894c819cc"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa8d7a46bf369f8f79869843894c819cc">mupnp_action_result_geterrordescription</a> (const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *result)</td></tr>
+<tr class="separator:aa8d7a46bf369f8f79869843894c819cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad287e99ab6873a0b203f73c6097ff31c" id="r_ad287e99ab6873a0b203f73c6097ff31c"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad287e99ab6873a0b203f73c6097ff31c">mupnp_action_result_getoutput</a> (const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *result, const char *name)</td></tr>
+<tr class="separator:ad287e99ab6873a0b203f73c6097ff31c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad649c092a369dbe15efaa2b1ef266cf3" id="r_ad649c092a369dbe15efaa2b1ef266cf3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="dictionary_8h.html#ad320a1ddbec02de6d74668ca6981b9af">mUpnpDictionary</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad649c092a369dbe15efaa2b1ef266cf3">mupnp_action_result_getoutputs</a> (const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *result)</td></tr>
+<tr class="separator:ad649c092a369dbe15efaa2b1ef266cf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6105d76751463fdcba9eaa16e9db0f60" id="r_a6105d76751463fdcba9eaa16e9db0f60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6105d76751463fdcba9eaa16e9db0f60">mupnp_statevariable_post</a> (<a class="el" href="statevariable_8h.html#aab6f74a312e4bfd1d64492e544d4626f">mUpnpStateVariable</a> *statVar)</td></tr>
 <tr class="separator:a6105d76751463fdcba9eaa16e9db0f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -493,7 +534,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((<a class="code hl_define" href="#a1b5cef06eb345b8763400350f060faad">mupnp_control_isqueryrequest</a>(httpReq) == <span class="keyword">true</span>) ? <a class="code hl_define" href="typedef_8h.html#a65e9886d74aaee76545e83dd09011727">false</a> : <span class="keyword">true</span>)</div>
-<div class="ttc" id="acontrol_8h_html_a1b5cef06eb345b8763400350f060faad"><div class="ttname"><a href="#a1b5cef06eb345b8763400350f060faad">mupnp_control_isqueryrequest</a></div><div class="ttdeci">#define mupnp_control_isqueryrequest(httpReq)</div><div class="ttdef"><b>Definition</b> control.h:221</div></div>
+<div class="ttc" id="acontrol_8h_html_a1b5cef06eb345b8763400350f060faad"><div class="ttname"><a href="#a1b5cef06eb345b8763400350f060faad">mupnp_control_isqueryrequest</a></div><div class="ttdeci">#define mupnp_control_isqueryrequest(httpReq)</div><div class="ttdef"><b>Definition</b> control.h:222</div></div>
 <div class="ttc" id="atypedef_8h_html_a65e9886d74aaee76545e83dd09011727"><div class="ttname"><a href="typedef_8h.html#a65e9886d74aaee76545e83dd09011727">false</a></div><div class="ttdeci">#define false</div><div class="ttdef"><b>Definition</b> typedef.h:69</div></div>
 </div><!-- fragment -->
 </div>
@@ -513,7 +554,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">(((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(<a class="code hl_define" href="soap_8h.html#a62afba1924517745aaefaa9cc4bcc6ff">mupnp_soap_request_getsoapaction</a>(httpReq), <a class="code hl_define" href="#a305193197315d0ab821d7165841297d0">MUPNP_CONTROL_QUERY_SOAPACTION</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>) || ((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(<a class="code hl_define" href="soap_8h.html#abdb4c6f2f5db54946aa0d38245736f81">mupnp_soap_request_getsoapactionwithns</a>(httpReq), <a class="code hl_define" href="#a305193197315d0ab821d7165841297d0">MUPNP_CONTROL_QUERY_SOAPACTION</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>))</div>
-<div class="ttc" id="acontrol_8h_html_a305193197315d0ab821d7165841297d0"><div class="ttname"><a href="#a305193197315d0ab821d7165841297d0">MUPNP_CONTROL_QUERY_SOAPACTION</a></div><div class="ttdeci">#define MUPNP_CONTROL_QUERY_SOAPACTION</div><div class="ttdef"><b>Definition</b> control.h:115</div></div>
+<div class="ttc" id="acontrol_8h_html_a305193197315d0ab821d7165841297d0"><div class="ttname"><a href="#a305193197315d0ab821d7165841297d0">MUPNP_CONTROL_QUERY_SOAPACTION</a></div><div class="ttdeci">#define MUPNP_CONTROL_QUERY_SOAPACTION</div><div class="ttdef"><b>Definition</b> control.h:116</div></div>
 <div class="ttc" id="asoap_8h_html_a62afba1924517745aaefaa9cc4bcc6ff"><div class="ttname"><a href="soap_8h.html#a62afba1924517745aaefaa9cc4bcc6ff">mupnp_soap_request_getsoapaction</a></div><div class="ttdeci">#define mupnp_soap_request_getsoapaction(soapReq)</div><div class="ttdef"><b>Definition</b> soap.h:84</div></div>
 <div class="ttc" id="asoap_8h_html_abdb4c6f2f5db54946aa0d38245736f81"><div class="ttname"><a href="soap_8h.html#abdb4c6f2f5db54946aa0d38245736f81">mupnp_soap_request_getsoapactionwithns</a></div><div class="ttdeci">#define mupnp_soap_request_getsoapactionwithns(soapReq)</div><div class="ttdef"><b>Definition</b> soap.h:85</div></div>
 <div class="ttc" id="astring__function_8c_html_adfbcd151d770f1084ace2e7f01a8c105"><div class="ttname"><a href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a></div><div class="ttdeci">ssize_t mupnp_strstr(const char *haystack, const char *needle)</div><div class="ttdoc">Find substring (NULL-safe wrapper for strstr)</div><div class="ttdef"><b>Definition</b> string_function.c:190</div></div>
@@ -767,7 +808,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 == <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#aa9463e334a56899b13a2e8af96148bbe">MUPNP_MAN_DISCOVER</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_aa9463e334a56899b13a2e8af96148bbe"><div class="ttname"><a href="#aa9463e334a56899b13a2e8af96148bbe">MUPNP_MAN_DISCOVER</a></div><div class="ttdeci">#define MUPNP_MAN_DISCOVER</div><div class="ttdef"><b>Definition</b> control.h:37</div></div>
+<div class="ttc" id="acontrol_8h_html_aa9463e334a56899b13a2e8af96148bbe"><div class="ttname"><a href="#aa9463e334a56899b13a2e8af96148bbe">MUPNP_MAN_DISCOVER</a></div><div class="ttdeci">#define MUPNP_MAN_DISCOVER</div><div class="ttdef"><b>Definition</b> control.h:38</div></div>
 </div><!-- fragment --><p>Check if string is correct mandatory header value as specified in UPnP Device Architecture 1.2.2</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -809,7 +850,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#a26117a0f938d8556bbec718316ec5718">MUPNP_NT_ROOTDEVICE</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_a26117a0f938d8556bbec718316ec5718"><div class="ttname"><a href="#a26117a0f938d8556bbec718316ec5718">MUPNP_NT_ROOTDEVICE</a></div><div class="ttdeci">#define MUPNP_NT_ROOTDEVICE</div><div class="ttdef"><b>Definition</b> control.h:44</div></div>
+<div class="ttc" id="acontrol_8h_html_a26117a0f938d8556bbec718316ec5718"><div class="ttname"><a href="#a26117a0f938d8556bbec718316ec5718">MUPNP_NT_ROOTDEVICE</a></div><div class="ttdeci">#define MUPNP_NT_ROOTDEVICE</div><div class="ttdef"><b>Definition</b> control.h:45</div></div>
 </div><!-- fragment --><p>Check if NT (notification target) is for root device</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -881,7 +922,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#ae771e90ed14110078ae5c96307420df5">MUPNP_NTS_ALIVE</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_ae771e90ed14110078ae5c96307420df5"><div class="ttname"><a href="#ae771e90ed14110078ae5c96307420df5">MUPNP_NTS_ALIVE</a></div><div class="ttdeci">#define MUPNP_NTS_ALIVE</div><div class="ttdef"><b>Definition</b> control.h:56</div></div>
+<div class="ttc" id="acontrol_8h_html_ae771e90ed14110078ae5c96307420df5"><div class="ttname"><a href="#ae771e90ed14110078ae5c96307420df5">MUPNP_NTS_ALIVE</a></div><div class="ttdeci">#define MUPNP_NTS_ALIVE</div><div class="ttdef"><b>Definition</b> control.h:57</div></div>
 </div><!-- fragment --><p>Check if NTS (notification sub target) is of type "alive"</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -908,7 +949,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#af20e85832643ce7e6f9aa07772958926">MUPNP_NTS_BYEBYE</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_af20e85832643ce7e6f9aa07772958926"><div class="ttname"><a href="#af20e85832643ce7e6f9aa07772958926">MUPNP_NTS_BYEBYE</a></div><div class="ttdeci">#define MUPNP_NTS_BYEBYE</div><div class="ttdef"><b>Definition</b> control.h:61</div></div>
+<div class="ttc" id="acontrol_8h_html_af20e85832643ce7e6f9aa07772958926"><div class="ttname"><a href="#af20e85832643ce7e6f9aa07772958926">MUPNP_NTS_BYEBYE</a></div><div class="ttdeci">#define MUPNP_NTS_BYEBYE</div><div class="ttdef"><b>Definition</b> control.h:62</div></div>
 </div><!-- fragment --><p>Check if string type is "byebye"</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -935,7 +976,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#ab266ee2149ab4c4f0c9108b524baa5bd">MUPNP_NTS_PROPCHANGE</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_ab266ee2149ab4c4f0c9108b524baa5bd"><div class="ttname"><a href="#ab266ee2149ab4c4f0c9108b524baa5bd">MUPNP_NTS_PROPCHANGE</a></div><div class="ttdeci">#define MUPNP_NTS_PROPCHANGE</div><div class="ttdef"><b>Definition</b> control.h:66</div></div>
+<div class="ttc" id="acontrol_8h_html_ab266ee2149ab4c4f0c9108b524baa5bd"><div class="ttname"><a href="#ab266ee2149ab4c4f0c9108b524baa5bd">MUPNP_NTS_PROPCHANGE</a></div><div class="ttdeci">#define MUPNP_NTS_PROPCHANGE</div><div class="ttdef"><b>Definition</b> control.h:67</div></div>
 </div><!-- fragment --><p>Check if string type is "property change"</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -992,7 +1033,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#aee2e0660e7bb4fe974f7d2b019fc863b">MUPNP_ST_ALL_DEVICE</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_aee2e0660e7bb4fe974f7d2b019fc863b"><div class="ttname"><a href="#aee2e0660e7bb4fe974f7d2b019fc863b">MUPNP_ST_ALL_DEVICE</a></div><div class="ttdeci">#define MUPNP_ST_ALL_DEVICE</div><div class="ttdef"><b>Definition</b> control.h:73</div></div>
+<div class="ttc" id="acontrol_8h_html_aee2e0660e7bb4fe974f7d2b019fc863b"><div class="ttname"><a href="#aee2e0660e7bb4fe974f7d2b019fc863b">MUPNP_ST_ALL_DEVICE</a></div><div class="ttdeci">#define MUPNP_ST_ALL_DEVICE</div><div class="ttdef"><b>Definition</b> control.h:74</div></div>
 </div><!-- fragment --><p>Check if device is of type "all"</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1019,7 +1060,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#a6fd0299f35717a5ef499bfd5a2c2f4f9">MUPNP_ST_ROOT_DEVICE</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_a6fd0299f35717a5ef499bfd5a2c2f4f9"><div class="ttname"><a href="#a6fd0299f35717a5ef499bfd5a2c2f4f9">MUPNP_ST_ROOT_DEVICE</a></div><div class="ttdeci">#define MUPNP_ST_ROOT_DEVICE</div><div class="ttdef"><b>Definition</b> control.h:78</div></div>
+<div class="ttc" id="acontrol_8h_html_a6fd0299f35717a5ef499bfd5a2c2f4f9"><div class="ttname"><a href="#a6fd0299f35717a5ef499bfd5a2c2f4f9">MUPNP_ST_ROOT_DEVICE</a></div><div class="ttdeci">#define MUPNP_ST_ROOT_DEVICE</div><div class="ttdef"><b>Definition</b> control.h:79</div></div>
 </div><!-- fragment --><p>Check if device string is from root device</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1046,7 +1087,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#af82c7a7a237cf5bc536aa6398b0d7f52">MUPNP_ST_URN</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_af82c7a7a237cf5bc536aa6398b0d7f52"><div class="ttname"><a href="#af82c7a7a237cf5bc536aa6398b0d7f52">MUPNP_ST_URN</a></div><div class="ttdeci">#define MUPNP_ST_URN</div><div class="ttdef"><b>Definition</b> control.h:88</div></div>
+<div class="ttc" id="acontrol_8h_html_af82c7a7a237cf5bc536aa6398b0d7f52"><div class="ttname"><a href="#af82c7a7a237cf5bc536aa6398b0d7f52">MUPNP_ST_URN</a></div><div class="ttdeci">#define MUPNP_ST_URN</div><div class="ttdef"><b>Definition</b> control.h:89</div></div>
 </div><!-- fragment --><p>Check if string is from urn</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1073,7 +1114,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#ab329274d1a53e17db24a94dee7b869b2">MUPNP_ST_URN_DEVICE</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_ab329274d1a53e17db24a94dee7b869b2"><div class="ttname"><a href="#ab329274d1a53e17db24a94dee7b869b2">MUPNP_ST_URN_DEVICE</a></div><div class="ttdeci">#define MUPNP_ST_URN_DEVICE</div><div class="ttdef"><b>Definition</b> control.h:93</div></div>
+<div class="ttc" id="acontrol_8h_html_ab329274d1a53e17db24a94dee7b869b2"><div class="ttname"><a href="#ab329274d1a53e17db24a94dee7b869b2">MUPNP_ST_URN_DEVICE</a></div><div class="ttdeci">#define MUPNP_ST_URN_DEVICE</div><div class="ttdef"><b>Definition</b> control.h:94</div></div>
 </div><!-- fragment --><p>Check if string is from urn device</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1100,7 +1141,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#add5689c53ba087523e46778b6cb575dc">MUPNP_ST_URN_SERVICE</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_add5689c53ba087523e46778b6cb575dc"><div class="ttname"><a href="#add5689c53ba087523e46778b6cb575dc">MUPNP_ST_URN_SERVICE</a></div><div class="ttdeci">#define MUPNP_ST_URN_SERVICE</div><div class="ttdef"><b>Definition</b> control.h:98</div></div>
+<div class="ttc" id="acontrol_8h_html_add5689c53ba087523e46778b6cb575dc"><div class="ttname"><a href="#add5689c53ba087523e46778b6cb575dc">MUPNP_ST_URN_SERVICE</a></div><div class="ttdeci">#define MUPNP_ST_URN_SERVICE</div><div class="ttdef"><b>Definition</b> control.h:99</div></div>
 </div><!-- fragment --><p>Check if string is from urn service</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1127,7 +1168,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#af680628bb494f40f2112287adb015e66">MUPNP_ST_UUID_DEVICE</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_af680628bb494f40f2112287adb015e66"><div class="ttname"><a href="#af680628bb494f40f2112287adb015e66">MUPNP_ST_UUID_DEVICE</a></div><div class="ttdeci">#define MUPNP_ST_UUID_DEVICE</div><div class="ttdef"><b>Definition</b> control.h:83</div></div>
+<div class="ttc" id="acontrol_8h_html_af680628bb494f40f2112287adb015e66"><div class="ttname"><a href="#af680628bb494f40f2112287adb015e66">MUPNP_ST_UUID_DEVICE</a></div><div class="ttdeci">#define MUPNP_ST_UUID_DEVICE</div><div class="ttdef"><b>Definition</b> control.h:84</div></div>
 </div><!-- fragment --><p>Check if string is from uuid device</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1229,7 +1270,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt;= <a class="code hl_function" href="string__function_8c.html#adfbcd151d770f1084ace2e7f01a8c105">mupnp_strstr</a>(str, <a class="code hl_define" href="#a8de9a33af89ee42e5cf0e28a82b19527">MUPNP_USN_ROOTDEVICE</a>)) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="acontrol_8h_html_a8de9a33af89ee42e5cf0e28a82b19527"><div class="ttname"><a href="#a8de9a33af89ee42e5cf0e28a82b19527">MUPNP_USN_ROOTDEVICE</a></div><div class="ttdeci">#define MUPNP_USN_ROOTDEVICE</div><div class="ttdef"><b>Definition</b> control.h:105</div></div>
+<div class="ttc" id="acontrol_8h_html_a8de9a33af89ee42e5cf0e28a82b19527"><div class="ttname"><a href="#a8de9a33af89ee42e5cf0e28a82b19527">MUPNP_USN_ROOTDEVICE</a></div><div class="ttdeci">#define MUPNP_USN_ROOTDEVICE</div><div class="ttdef"><b>Definition</b> control.h:106</div></div>
 </div><!-- fragment --><p>Check if usn is from root device</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1287,6 +1328,20 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a49db63c3644b8e23eb6bd45a463fd0f6" name="a49db63c3644b8e23eb6bd45a463fd0f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49db63c3644b8e23eb6bd45a463fd0f6">&#9670;&#160;</a></span>mUpnpActionResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct__mUpnpActionResult.html">_mUpnpActionResult</a> <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a19c93503b2e48e07b735a36f92ed3a04" name="a19c93503b2e48e07b735a36f92ed3a04"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a19c93503b2e48e07b735a36f92ed3a04">&#9670;&#160;</a></span>mUpnpQueryRequest</h2>
 
@@ -1314,6 +1369,31 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Data type definition for query response </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a4110e858dd863dbeaaf4e658bedb54a5" name="a4110e858dd863dbeaaf4e658bedb54a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4110e858dd863dbeaaf4e658bedb54a5">&#9670;&#160;</a></span>mUpnpActionResultCode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5">mUpnpActionResultCode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Independent strict invocation result. Owned by caller; free with delete. Values and error strings are borrowed from the result, never from the action. Missing outputs return NULL; present empty output returns "". </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a4110e858dd863dbeaaf4e658bedb54a5a51d3c748fea41103ca6965cd82febad2" name="a4110e858dd863dbeaaf4e658bedb54a5a51d3c748fea41103ca6965cd82febad2"></a>MUPNP_ACTION_RESULT_SUCCESS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4110e858dd863dbeaaf4e658bedb54a5a9aca619cc1d8e5622444183cbf109157" name="a4110e858dd863dbeaaf4e658bedb54a5a9aca619cc1d8e5622444183cbf109157"></a>MUPNP_ACTION_RESULT_INVALID_ARGUMENTS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4110e858dd863dbeaaf4e658bedb54a5aa0f71b1af52712a316b4a5de74d3a2e4" name="a4110e858dd863dbeaaf4e658bedb54a5aa0f71b1af52712a316b4a5de74d3a2e4"></a>MUPNP_ACTION_RESULT_TRANSPORT_ERROR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4110e858dd863dbeaaf4e658bedb54a5ae0ce322235fd8135d2793c5302a058b2" name="a4110e858dd863dbeaaf4e658bedb54a5ae0ce322235fd8135d2793c5302a058b2"></a>MUPNP_ACTION_RESULT_HTTP_ERROR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4110e858dd863dbeaaf4e658bedb54a5ac1ccefdc4575990cccafc31942607b39" name="a4110e858dd863dbeaaf4e658bedb54a5ac1ccefdc4575990cccafc31942607b39"></a>MUPNP_ACTION_RESULT_SOAP_FAULT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4110e858dd863dbeaaf4e658bedb54a5a27be3e039d4cb33eacc226b24be7ef46" name="a4110e858dd863dbeaaf4e658bedb54a5a27be3e039d4cb33eacc226b24be7ef46"></a>MUPNP_ACTION_RESULT_PARSE_ERROR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a4110e858dd863dbeaaf4e658bedb54a5aabe5061409a7d1e10e569d2bd207e175" name="a4110e858dd863dbeaaf4e658bedb54a5aabe5061409a7d1e10e569d2bd207e175"></a>MUPNP_ACTION_RESULT_INCOMPLETE&#160;</td><td class="fielddoc"></td></tr>
+</table>
 
 </div>
 </div>
@@ -1368,6 +1448,218 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a1f2e2560446263f68a32006f453d4d96" name="a1f2e2560446263f68a32006f453d4d96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f2e2560446263f68a32006f453d4d96">&#9670;&#160;</a></span>mupnp_action_postwitharguments()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> * mupnp_action_postwitharguments </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *</td>          <td class="paramname"><span class="paramname"><em>action</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="dictionary_8h.html#ad320a1ddbec02de6d74668ca6981b9af">mUpnpDictionary</a> *</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>All declared input arguments must be supplied exactly once, with non-NULL values. Unknown names, output arguments and invalid directions are rejected before I/O. NULL inputs means an empty set. Never mutates action values or status. Exactly one HTTP attempt, including on 405; no automatic retry. Caller must keep the action/service/device alive and unchanged during call. Result remains valid after those objects are destroyed. NULL means allocation failure. Transport failure after sending may have executed a write remotely. </p>
+
+</div>
+</div>
+<a id="ae0078a6e04d8ea9f032484c5b6b4c44b" name="ae0078a6e04d8ea9f032484c5b6b4c44b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0078a6e04d8ea9f032484c5b6b4c44b">&#9670;&#160;</a></span>mupnp_action_result_delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mupnp_action_result_delete </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *</td>          <td class="paramname"><span class="paramname"><em>result</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4dd95e73d59eb2bf535d570bd7fa6868" name="a4dd95e73d59eb2bf535d570bd7fa6868"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dd95e73d59eb2bf535d570bd7fa6868">&#9670;&#160;</a></span>mupnp_action_result_fromresponse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> * mupnp_action_result_fromresponse </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="action_8h.html#abf012aae6ebac3890349044bdffb51e3">mUpnpAction</a> *</td>          <td class="paramname"><span class="paramname"><em>action</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>httpStatusCode</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>content</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Decode one HTTP response without I/O, using action only as an SCPD schema. httpStatusCode=0 represents transport failure. Never mutates the schema. </p>
+
+</div>
+</div>
+<a id="a1348428f185d2706d237e3e82a37f600" name="a1348428f185d2706d237e3e82a37f600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1348428f185d2706d237e3e82a37f600">&#9670;&#160;</a></span>mupnp_action_result_getcode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a4110e858dd863dbeaaf4e658bedb54a5">mUpnpActionResultCode</a> mupnp_action_result_getcode </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *</td>          <td class="paramname"><span class="paramname"><em>result</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8d7a46bf369f8f79869843894c819cc" name="aa8d7a46bf369f8f79869843894c819cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8d7a46bf369f8f79869843894c819cc">&#9670;&#160;</a></span>mupnp_action_result_geterrordescription()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * mupnp_action_result_geterrordescription </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *</td>          <td class="paramname"><span class="paramname"><em>result</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b44aa18bedf53982add0f1fd2ba4817" name="a7b44aa18bedf53982add0f1fd2ba4817"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b44aa18bedf53982add0f1fd2ba4817">&#9670;&#160;</a></span>mupnp_action_result_getfaultcode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * mupnp_action_result_getfaultcode </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *</td>          <td class="paramname"><span class="paramname"><em>result</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3afaa2e3bb4bc72bbc766360346374b0" name="a3afaa2e3bb4bc72bbc766360346374b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3afaa2e3bb4bc72bbc766360346374b0">&#9670;&#160;</a></span>mupnp_action_result_getfaultstring()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * mupnp_action_result_getfaultstring </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *</td>          <td class="paramname"><span class="paramname"><em>result</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab5dc27f78ae23e1587f474a29599d0d1" name="ab5dc27f78ae23e1587f474a29599d0d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5dc27f78ae23e1587f474a29599d0d1">&#9670;&#160;</a></span>mupnp_action_result_gethttpstatuscode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mupnp_action_result_gethttpstatuscode </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *</td>          <td class="paramname"><span class="paramname"><em>result</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad287e99ab6873a0b203f73c6097ff31c" name="ad287e99ab6873a0b203f73c6097ff31c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad287e99ab6873a0b203f73c6097ff31c">&#9670;&#160;</a></span>mupnp_action_result_getoutput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * mupnp_action_result_getoutput </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *</td>          <td class="paramname"><span class="paramname"><em>result</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>name</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad649c092a369dbe15efaa2b1ef266cf3" name="ad649c092a369dbe15efaa2b1ef266cf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad649c092a369dbe15efaa2b1ef266cf3">&#9670;&#160;</a></span>mupnp_action_result_getoutputs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="dictionary_8h.html#ad320a1ddbec02de6d74668ca6981b9af">mUpnpDictionary</a> * mupnp_action_result_getoutputs </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *</td>          <td class="paramname"><span class="paramname"><em>result</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Borrowed output dictionary, read-only by contract. </p>
+
+</div>
+</div>
+<a id="a48762bb78859ef39a3eacd1474235021" name="a48762bb78859ef39a3eacd1474235021"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48762bb78859ef39a3eacd1474235021">&#9670;&#160;</a></span>mupnp_action_result_getupnperrorcode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mupnp_action_result_getupnperrorcode </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#a49db63c3644b8e23eb6bd45a463fd0f6">mUpnpActionResult</a> *</td>          <td class="paramname"><span class="paramname"><em>result</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

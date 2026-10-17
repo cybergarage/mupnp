@@ -1,6 +1,8 @@
 var annotated_dup =
 [
     [ "CGUpnpAction", "interfaceCGUpnpAction.html", "interfaceCGUpnpAction" ],
+    [ "CGUpnpActionResult", "interfaceCGUpnpActionResult.html", "interfaceCGUpnpActionResult" ],
+    [ "CGUpnpActionResult()", "categoryCGUpnpActionResult_07_08.html", "categoryCGUpnpActionResult_07_08" ],
     [ "CGUpnpControlPoint", "interfaceCGUpnpControlPoint.html", "interfaceCGUpnpControlPoint" ],
     [ "<CGUpnpControlPointDelegate>", "protocolCGUpnpControlPointDelegate-p.html", "protocolCGUpnpControlPointDelegate-p" ],
     [ "CGUpnpDevice", "interfaceCGUpnpDevice.html", "interfaceCGUpnpDevice" ],

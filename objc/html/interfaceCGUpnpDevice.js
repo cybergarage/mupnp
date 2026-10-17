@@ -4,8 +4,11 @@ var interfaceCGUpnpDevice =
     [ "announce", "interfaceCGUpnpDevice.html#a8f0e3b8b65be9ba67f9fb90ccd3ee447", null ],
     [ "descriptionURL", "interfaceCGUpnpDevice.html#ad4f3c7440fb4d70fd945bac3f1aebda9", null ],
     [ "deviceType", "interfaceCGUpnpDevice.html#a626b42555e6122b8ec08877981a9b515", null ],
+    [ "embeddedDevices", "interfaceCGUpnpDevice.html#a0ea3e3d6a881ec94014f27e0a9d04ac5", null ],
     [ "friendlyName", "interfaceCGUpnpDevice.html#ae15d569f7de9cbc9aa751d380e2fd8f1", null ],
+    [ "getOwnedServiceForID:", "interfaceCGUpnpDevice.html#acef79f16fd09b0859e534f552cb22d99", null ],
     [ "getServiceForID:", "interfaceCGUpnpDevice.html#a07313c7563ddfe3a542c5a549c9b04f0", null ],
+    [ "getServiceForID:owningDeviceUDN:", "interfaceCGUpnpDevice.html#a2a7f14d4a3a3220ee9703b0243e8b2f0", null ],
     [ "getServiceForType:", "interfaceCGUpnpDevice.html#a977d489370f0fa5178cb545ae8995310", null ],
     [ "icons", "interfaceCGUpnpDevice.html#aaef110b3cda7e7018bc164a250c942b3", null ],
     [ "init", "interfaceCGUpnpDevice.html#aa0351efbdcee98c85687861faab2d372", null ],
@@ -23,6 +26,7 @@ var interfaceCGUpnpDevice =
     [ "modelNumber", "interfaceCGUpnpDevice.html#af1bcb76a0ddf6530179f224802fdab2f", null ],
     [ "parseXMLDescription:", "interfaceCGUpnpDevice.html#ac86396c6f776f9436e2b0f92dea8ea03", null ],
     [ "presentationURL", "interfaceCGUpnpDevice.html#a666a4fa9ff6394de2f0d976e0d17e1b1", null ],
+    [ "rootUDN", "interfaceCGUpnpDevice.html#a60fec1657142d97e1c8e02fa772e7b94", null ],
     [ "services", "interfaceCGUpnpDevice.html#aed4255e525589b24cbb5afdafc474a0b", null ],
     [ "setDeviceType:", "interfaceCGUpnpDevice.html#af37ea8d866eef20a842ad9851fb344e2", null ],
     [ "setFriendlyName:", "interfaceCGUpnpDevice.html#a93bab5af0d18a16def3c6f28da0c0113", null ],
@@ -37,5 +41,6 @@ var interfaceCGUpnpDevice =
     [ "userData", "interfaceCGUpnpDevice.html#a420fd4621ae036b53494d35339261285", null ],
     [ "isCObjectCreated", "interfaceCGUpnpDevice.html#aec91a483ed32fefce1f00872ec9222e3", null ],
     [ "cObject", "interfaceCGUpnpDevice.html#acbda2eb0839a962c8d2e271d169316a5", null ],
+    [ "cObjectOwner", "interfaceCGUpnpDevice.html#ab1729dcc3b15cd13c2be00e0ecbd71f8", null ],
     [ "delegate", "interfaceCGUpnpDevice.html#ad1a85a2d4d616c87c3a6f51795b05a7a", null ]
 ];

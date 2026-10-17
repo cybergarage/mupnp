@@ -1,6 +1,27 @@
 var action__ctrl_8c =
 [
+    [ "_mUpnpActionResult", "struct__mUpnpActionResult.html", "struct__mUpnpActionResult" ],
     [ "mupnp_action_clearoutputargumentvalues", "action__ctrl_8c.html#acfc7a6add810b86c1238ea0fd79047a4", null ],
+    [ "mupnp_action_localname", "action__ctrl_8c.html#a592c98b26195f626b6bb0eaf2cd1aa7a", null ],
+    [ "mupnp_action_node_is", "action__ctrl_8c.html#a46dbffafab9e58589fd6a61457072a2a", null ],
+    [ "mupnp_action_parseerrorcode", "action__ctrl_8c.html#a50e3228f26d1ff015c1caa0c2608cd09", null ],
     [ "mupnp_action_performlistner", "action__ctrl_8c.html#ae9ec87fb32262ea106aa5f366d2caf76", null ],
-    [ "mupnp_action_post", "action__ctrl_8c.html#a28717002331c1cf0d389d8984339820a", null ]
+    [ "mupnp_action_post", "action__ctrl_8c.html#a28717002331c1cf0d389d8984339820a", null ],
+    [ "mupnp_action_postwitharguments", "action__ctrl_8c.html#a1f2e2560446263f68a32006f453d4d96", null ],
+    [ "mupnp_action_responsecontent", "action__ctrl_8c.html#a6c714700ad799e190d31b73601ae946c", null ],
+    [ "mupnp_action_result_delete", "action__ctrl_8c.html#ae0078a6e04d8ea9f032484c5b6b4c44b", null ],
+    [ "mupnp_action_result_fromresponse", "action__ctrl_8c.html#a4dd95e73d59eb2bf535d570bd7fa6868", null ],
+    [ "mupnp_action_result_getcode", "action__ctrl_8c.html#a1348428f185d2706d237e3e82a37f600", null ],
+    [ "mupnp_action_result_geterrordescription", "action__ctrl_8c.html#aa8d7a46bf369f8f79869843894c819cc", null ],
+    [ "mupnp_action_result_getfaultcode", "action__ctrl_8c.html#a7b44aa18bedf53982add0f1fd2ba4817", null ],
+    [ "mupnp_action_result_getfaultstring", "action__ctrl_8c.html#a3afaa2e3bb4bc72bbc766360346374b0", null ],
+    [ "mupnp_action_result_gethttpstatuscode", "action__ctrl_8c.html#ab5dc27f78ae23e1587f474a29599d0d1", null ],
+    [ "mupnp_action_result_getoutput", "action__ctrl_8c.html#ad287e99ab6873a0b203f73c6097ff31c", null ],
+    [ "mupnp_action_result_getoutputs", "action__ctrl_8c.html#ad649c092a369dbe15efaa2b1ef266cf3", null ],
+    [ "mupnp_action_result_getupnperrorcode", "action__ctrl_8c.html#a48762bb78859ef39a3eacd1474235021", null ],
+    [ "mupnp_action_result_new", "action__ctrl_8c.html#a4cc83aa97cea9260a3acb6a76c4e23ee", null ],
+    [ "mupnp_action_result_setfault", "action__ctrl_8c.html#aa4b2ce8e39aa79a6a9dfc1840570abba", null ],
+    [ "mupnp_action_result_setoutputs", "action__ctrl_8c.html#a7c21ea586fc632ca17bcf60cd224d971", null ],
+    [ "mupnp_action_validinputs", "action__ctrl_8c.html#a2ee69621cd396df765f8f30fa356ee76", null ],
+    [ "mupnp_action_validschema", "action__ctrl_8c.html#acf3a975ef66addcd36d7d255f3b0c3f4", null ]
 ];

@@ -295,6 +295,7 @@ var http_8h =
     [ "mupnp_http_request_postchunkedsize", "http_8h.html#a1ce59066c16cd2e684e601e311a7ecad", null ],
     [ "mupnp_http_request_postdata", "http_8h.html#a249074ca5be82325d5f11bb2ddd12483", null ],
     [ "mupnp_http_request_postlastchunk", "http_8h.html#aad9f224f03f17de43636f45cab69aeaa", null ],
+    [ "mupnp_http_request_postonce", "http_8h.html#a37054542062c4d960ef7c5b0c3f853c3", null ],
     [ "mupnp_http_request_postresponse", "http_8h.html#a90f9530a402e220c258f7161f6b8851a", null ],
     [ "mupnp_http_request_poststatuscode", "http_8h.html#a4e7720862764411357a11482a788488b", null ],
     [ "mupnp_http_request_print", "http_8h.html#ae93e5d356865e0b67175ca4600297154", null ],
