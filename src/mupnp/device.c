@@ -1760,6 +1760,25 @@ static void mupnp_device_initservicelist(mUpnpDevice* dev)
   mupnp_log_debug_l4("Leaving...\n");
 }
 
+mUpnpService* mupnp_device_getownedservicebyserviceid(mUpnpDevice* dev, const char* serviceId)
+{
+  mUpnpService* service;
+  if (!dev || mupnp_strlen(serviceId) <= 0)
+    return NULL;
+  for (service = mupnp_device_getservices(dev); service; service = mupnp_service_next(service)) {
+    if (mupnp_streq(mupnp_service_getserviceid(service), serviceId))
+      return service;
+  }
+  return NULL;
+}
+
+mUpnpService* mupnp_device_getservicebyownerudn(mUpnpDevice* dev, const char* ownerUdn, const char* serviceId)
+{
+  if (!dev || mupnp_strlen(ownerUdn) <= 0)
+    return NULL;
+  return mupnp_device_getownedservicebyserviceid(mupnp_streq(mupnp_device_getudn(dev), ownerUdn) ? dev : mupnp_device_getdevicebyudn(dev, ownerUdn), serviceId);
+}
+
 mUpnpService* mupnp_device_getservicebyserviceid(mUpnpDevice* dev, const char* serviceId)
 {
   mUpnpService* service;

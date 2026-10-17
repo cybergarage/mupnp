@@ -35,6 +35,8 @@ typedef void mUpnpDevice;
   BOOL isCObjectCreated;
 }
 @property (assign) mUpnpDevice* cObject;
+/* Embedded wrappers retain the parent snapshot. */
+@property (retain) NSObject* cObjectOwner;
 @property (assign) id<CGUpnpDeviceDelegate> delegate;
 /**
  * Create a new UPnP device.
@@ -190,6 +192,13 @@ typedef void mUpnpDevice;
  * @return NSArray of CGUpnpService.
  */
 - (NSArray*)services;
+/// Immediate children, retaining this wrapper and its snapshot lifetime.
+- (NSArray<CGUpnpDevice*>*)embeddedDevices;
+- (NSString*)rootUDN;
+/// Direct service lookup; never descends into embedded devices.
+- (CGUpnpService*)getOwnedServiceForID:(NSString*)serviceId;
+/// Owner UDN is searched within this subtree; service ID is local to that owner.
+- (CGUpnpService*)getServiceForID:(NSString*)serviceId owningDeviceUDN:(NSString*)ownerUDN;
 /**
  * Get a service in the device by the specified service ID.
  *

@@ -4,6 +4,7 @@
  * MUPNP_OBJC_TEST_HOOKS so that native allocation and deletion can be
  * observed. The HTTP fixture listens on 127.0.0.1 only; no LAN device or
  * multicast response is required. */
+#include "../GatewayFixture.h"
 #include <mupnp/upnp.h>
 
 #import "CGUpnpAction.h"
@@ -218,6 +219,12 @@ static NSString* service_description(void)
 typedef enum {
   FixtureReplySuccess,
   FixtureReplyFault,
+  FixtureReplyMissing,
+  FixtureReplyEmpty,
+  FixtureReplyNoBody,
+  FixtureReplyMalformed,
+  FixtureReply405,
+  FixtureReplyTruncated,
 } FixtureReply;
 
 typedef struct {
@@ -277,11 +284,24 @@ static void fixture_handle(HttpFixture* fixture, int client)
   pthread_mutex_unlock(&fixture->mutex);
 
   const char* replyBody = (reply == FixtureReplySuccess) ? kSuccessBody : kFaultBody;
+  const char* status = reply == FixtureReplyFault ? "500 Internal Server Error" : "200 OK";
+  if (reply == FixtureReplyMissing)
+    replyBody = "<s:Envelope xmlns:s='http://schemas.xmlsoap.org/soap/envelope/'><s:Body><u:SetTargetResponse xmlns:u='urn:schemas-upnp-org:service:SwitchPower:1'/></s:Body></s:Envelope>";
+  if (reply == FixtureReplyEmpty)
+    replyBody = "<s:Envelope xmlns:s='http://schemas.xmlsoap.org/soap/envelope/'><s:Body><u:SetTargetResponse xmlns:u='urn:schemas-upnp-org:service:SwitchPower:1'><Result/></u:SetTargetResponse></s:Body></s:Envelope>";
+  if (reply == FixtureReplyNoBody)
+    replyBody = "";
+  if (reply == FixtureReplyMalformed)
+    replyBody = "<broken";
+  if (reply == FixtureReply405) {
+    replyBody = "";
+    status = "405 Method Not Allowed";
+  }
   char header[512];
   int headerLen = snprintf(header, sizeof(header), "HTTP/1.1 %s\r\nContent-Type: text/xml; charset=\"utf-8\"\r\n"
                                                    "Content-Length: %zu\r\nConnection: close\r\n\r\n",
-      (reply == FixtureReplySuccess) ? "200 OK" : "500 Internal Server Error",
-      strlen(replyBody));
+      status,
+      strlen(replyBody) + (reply == FixtureReplyTruncated ? 10 : 0));
   send(client, header, (size_t)headerLen, 0);
   send(client, replyBody, strlen(replyBody), 0);
   close(client);
@@ -719,6 +739,102 @@ static void run_action_reports_fault_and_connection_failure(void)
   test_action_reports_fault_and_connection_failure(&httpFixture);
 }
 
+static void test_gateway_lifetime(void)
+{
+  CGUpnpDevice* retainedChild = nil;
+  CGUpnpAction* retainedAction = nil;
+  NSString* serviceID = @"urn:upnp-org:serviceId:WANIPConn1";
+  @autoreleasepool {
+    CGUpnpDevice* original = [[CGUpnpDevice alloc] initWithXMLDescription:[NSString stringWithUTF8String:gatewayDescription]];
+    CHECK(original != nil);
+    CGUpnpService* originalService = [original getServiceForID:serviceID owningDeviceUDN:@"uuid:deepest"];
+    CHECK([originalService parseXMLDescription:service_description()]);
+    CGUpnpDevice* root = [[CGUpnpDevice alloc] initWithDeviceSnapshot:original.cObject];
+    [original release];
+    CHECK([[root embeddedDevices] count] == 3);
+    CHECK([root getOwnedServiceForID:serviceID] == nil);
+    CHECK([[[root getServiceForID:serviceID] owningDeviceUDN] isEqualToString:@"uuid:conn1"]);
+    CGUpnpDevice* wan = [[root embeddedDevices] objectAtIndex:1];
+    CGUpnpDevice* connection = [[wan embeddedDevices] objectAtIndex:0];
+    retainedChild = [[[[[connection embeddedDevices] objectAtIndex:0] embeddedDevices] objectAtIndex:0] retain];
+    CGUpnpService* service = [retainedChild getOwnedServiceForID:serviceID];
+    CHECK([[service owningDeviceUDN] isEqualToString:@"uuid:deepest"]);
+    CHECK([[service rootUDN] isEqualToString:@"uuid:root"]);
+    CHECK([service cObject] != [[root getServiceForID:serviceID owningDeviceUDN:@"uuid:conn2"] cObject]);
+    CHECK([connection getServiceForID:serviceID owningDeviceUDN:@"uuid:conn1"] == nil);
+    retainedAction = [[service getActionForName:@"SetTarget"] retain];
+    CHECK(retainedAction != nil);
+    [root release];
+  }
+  CHECK([[retainedChild udn] isEqualToString:@"uuid:deepest"]);
+  CHECK([[retainedChild rootUDN] isEqualToString:@"uuid:root"]);
+  [retainedChild release];
+  CHECK([[retainedAction name] isEqualToString:@"SetTarget"]);
+  CHECK([[retainedAction argumentMetadata] count] == 2);
+  [retainedAction release];
+}
+
+static void test_strict_action_results(void)
+{
+  CGUpnpActionResult* saved = nil;
+  int before = fixture_count(&httpFixture);
+  @autoreleasepool {
+    CGUpnpAction* action = action_for_port(httpFixture.port, NULL);
+    CHECK([action setArgumentValue:@"oldInput" forName:@"NewTargetValue"]);
+    CHECK([action setArgumentValue:@"oldOutput" forName:@"Result"]);
+    NSArray* invalid = @[ @ { }, @ { @"Result" : @"" }, @ { @"Unknown" : @"x" }, @{@"NewTargetValue" : @1}, @{@1 : @"x"}, @[ @"bad" ] ];
+    for (id input in invalid) {
+      CHECK([[action postResultWithArguments:input] outcome] == CGUpnpActionResultInvalidArguments);
+    }
+    CHECK([[action postResultWithArguments:nil] outcome] == CGUpnpActionResultInvalidArguments);
+    NSString* nul = [NSString stringWithCharacters:(const unichar[]) { 0 } length:1];
+    CHECK([[action postResultWithArguments:@ { @"NewTargetValue" : nul }] outcome] == CGUpnpActionResultInvalidArguments);
+    NSString* surrogate = [NSString stringWithCharacters:(const unichar[]) { 0xD800 } length:1];
+    CHECK([[action postResultWithArguments:@ { @"NewTargetValue" : surrogate }] outcome] == CGUpnpActionResultInvalidArguments);
+    CHECK(fixture_count(&httpFixture) == before);
+    httpFixture.reply = FixtureReplySuccess;
+    saved = [[action postResultWithArguments:@ { @"NewTargetValue" : @"値✓" }] retain];
+    CHECK(saved.outcome == CGUpnpActionResultSuccess);
+    CHECK(saved.httpStatusCode == 200);
+    CHECK([saved.outputs[@"Result"] isEqualToString:@"結果OK"]);
+    CHECK(fixture_last_body_contains(&httpFixture, "<NewTargetValue>値✓</NewTargetValue>"));
+    for (int i = 0; i < 4; ++i) {
+      httpFixture.reply = FixtureReplyMissing;
+      CGUpnpActionResult* missing = [action postResultWithArguments:@ { @"NewTargetValue" : @"" }];
+      CHECK(missing.outcome == CGUpnpActionResultIncomplete);
+      CHECK(missing.outputs[@"Result"] == nil);
+      httpFixture.reply = FixtureReplyEmpty;
+      CGUpnpActionResult* empty = [action postResultWithArguments:@ { @"NewTargetValue" : @"x" }];
+      CHECK(empty.outcome == CGUpnpActionResultSuccess);
+      CHECK([empty.outputs[@"Result"] isEqualToString:@""]);
+    }
+    httpFixture.reply = FixtureReplyFault;
+    CGUpnpActionResult* fault = [action postResultWithArguments:@ { @"NewTargetValue" : @"x" }];
+    CHECK(fault.outcome == CGUpnpActionResultSOAPFault);
+    CHECK(fault.httpStatusCode == 500 && fault.upnpErrorCode == 401);
+    CHECK([fault.faultCode isEqualToString:@"s:Client"]);
+    CHECK([fault.errorDescription isEqualToString:@"Invalid Action"]);
+    CHECK([fault.outputs count] == 0);
+    httpFixture.reply = FixtureReplyNoBody;
+    CHECK([[action postResultWithArguments:@ { @"NewTargetValue" : @"x" }] outcome] == CGUpnpActionResultParseError);
+    httpFixture.reply = FixtureReplyMalformed;
+    CHECK([[action postResultWithArguments:@ { @"NewTargetValue" : @"x" }] outcome] == CGUpnpActionResultParseError);
+    httpFixture.reply = FixtureReplyTruncated;
+    CHECK([[action postResultWithArguments:@ { @"NewTargetValue" : @"x" }] outcome] == CGUpnpActionResultTransportError);
+    httpFixture.reply = FixtureReply405;
+    int count = fixture_count(&httpFixture);
+    CGUpnpActionResult* http = [action postResultWithArguments:@ { @"NewTargetValue" : @"x" }];
+    CHECK(http.outcome == CGUpnpActionResultHTTPError && http.httpStatusCode == 405);
+    CHECK(fixture_count(&httpFixture) == count + 1);
+    CHECK([[action argumentValueForName:@"NewTargetValue"] isEqualToString:@"oldInput"]);
+    CHECK([[action argumentValueForName:@"Result"] isEqualToString:@"oldOutput"]);
+    CGUpnpAction* unreachable = action_for_port(1, NULL);
+    CHECK([[unreachable postResultWithArguments:@ { @"NewTargetValue" : @"x" }] outcome] == CGUpnpActionResultTransportError);
+  }
+  CHECK([saved.outputs[@"Result"] isEqualToString:@"結果OK"]);
+  [saved release];
+}
+
 typedef struct {
   const char* name;
   void (*run)(void);
@@ -738,6 +854,8 @@ static const RegressionTest tests[] = {
   { "ActionRejectsInvalidArguments", run_action_rejects_invalid_arguments },
   { "ActionPostsValidArguments", run_action_posts_valid_arguments },
   { "ActionReportsFaultAndConnectionFailure", run_action_reports_fault_and_connection_failure },
+  { "GatewayLifetime", test_gateway_lifetime },
+  { "StrictActionResults", test_strict_action_results },
 };
 
 /* Usage: objc-api-regression [TestName ...]; runs every test by default. */

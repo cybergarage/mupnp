@@ -13,6 +13,7 @@
 #define _MUPNP_CONTROL_H_
 
 #include <mupnp/typedef.h>
+#include <mupnp/util/dictionary.h>
 
 #include <mupnp/action.h>
 #include <mupnp/argument.h>
@@ -757,6 +758,42 @@ const char* mupnp_usn_getudn(const char* usn, char* udnBuf, size_t udnBufLen);
  * @param action Action
  */
 bool mupnp_action_post(mUpnpAction* action);
+
+/** Independent strict invocation result. Owned by caller; free with delete.
+ * Values and error strings are borrowed from the result, never from the action.
+ * Missing outputs return NULL; present empty output returns "". */
+typedef enum {
+  MUPNP_ACTION_RESULT_SUCCESS = 0,
+  MUPNP_ACTION_RESULT_INVALID_ARGUMENTS,
+  MUPNP_ACTION_RESULT_TRANSPORT_ERROR,
+  MUPNP_ACTION_RESULT_HTTP_ERROR,
+  MUPNP_ACTION_RESULT_SOAP_FAULT,
+  MUPNP_ACTION_RESULT_PARSE_ERROR,
+  MUPNP_ACTION_RESULT_INCOMPLETE
+} mUpnpActionResultCode;
+typedef struct _mUpnpActionResult mUpnpActionResult;
+
+/** All declared input arguments must be supplied exactly once, with non-NULL
+ * values. Unknown names, output arguments and invalid directions are rejected
+ * before I/O. NULL inputs means an empty set. Never mutates action values or
+ * status. Exactly one HTTP attempt, including on 405; no automatic retry.
+ * Caller must keep the action/service/device alive and unchanged during call.
+ * Result remains valid after those objects are destroyed. NULL means allocation
+ * failure. Transport failure after sending may have executed a write remotely. */
+mUpnpActionResult* mupnp_action_postwitharguments(mUpnpAction* action, mUpnpDictionary* inputs);
+/** Decode one HTTP response without I/O, using action only as an SCPD schema.
+ * httpStatusCode=0 represents transport failure. Never mutates the schema. */
+mUpnpActionResult* mupnp_action_result_fromresponse(mUpnpAction* action, int httpStatusCode, const char* content, size_t length);
+void mupnp_action_result_delete(mUpnpActionResult* result);
+mUpnpActionResultCode mupnp_action_result_getcode(const mUpnpActionResult* result);
+int mupnp_action_result_gethttpstatuscode(const mUpnpActionResult* result);
+int mupnp_action_result_getupnperrorcode(const mUpnpActionResult* result);
+const char* mupnp_action_result_getfaultcode(const mUpnpActionResult* result);
+const char* mupnp_action_result_getfaultstring(const mUpnpActionResult* result);
+const char* mupnp_action_result_geterrordescription(const mUpnpActionResult* result);
+const char* mupnp_action_result_getoutput(const mUpnpActionResult* result, const char* name);
+/** Borrowed output dictionary, read-only by contract. */
+mUpnpDictionary* mupnp_action_result_getoutputs(const mUpnpActionResult* result);
 
 /****************************************
  * Function (Query)

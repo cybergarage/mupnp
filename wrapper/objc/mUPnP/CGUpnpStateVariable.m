@@ -12,6 +12,7 @@
 #include <mupnp/statevariable.h>
 
 #import "CGUpnpStateVariable.h"
+#import <Foundation/NSDictionary.h>
 
 @implementation CGUpnpStateVariable
 

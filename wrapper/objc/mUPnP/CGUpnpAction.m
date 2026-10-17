@@ -14,6 +14,49 @@
 #import "CGUpnpAction.h"
 #import "CGUpnpStateVariable.h"
 
+_Static_assert((int)CGUpnpActionResultIncomplete == (int)MUPNP_ACTION_RESULT_INCOMPLETE, "Result codes must agree");
+
+@interface CGUpnpActionResult ()
+- (id)initWithNativeResult:(const mUpnpActionResult*)result;
+@end
+
+@implementation CGUpnpActionResult
+@synthesize outcome, httpStatusCode, upnpErrorCode, outputs, faultCode, faultString, errorDescription;
+- (id)initWithNativeResult:(const mUpnpActionResult*)result
+{
+  if (!(self = [super init]))
+    return nil;
+  outcome = (CGUpnpActionResultCode)mupnp_action_result_getcode(result);
+  httpStatusCode = mupnp_action_result_gethttpstatuscode(result);
+  upnpErrorCode = mupnp_action_result_getupnperrorcode(result);
+  NSMutableDictionary* values = [NSMutableDictionary dictionary];
+  for (mUpnpDictionaryElement* entry = mupnp_dictionary_gets(mupnp_action_result_getoutputs(result)); entry; entry = mupnp_dictionary_element_next(entry)) {
+    const char* name = mupnp_dictionary_element_getkey(entry);
+    const char* value = mupnp_action_result_getoutput(result, name);
+    NSString* key = name ? [NSString stringWithUTF8String:name] : nil;
+    NSString* text = value ? [NSString stringWithUTF8String:value] : nil;
+    if (key && text)
+      values[key] = text;
+  }
+  outputs = [[NSDictionary alloc] initWithDictionary:values];
+  const char* code = mupnp_action_result_getfaultcode(result);
+  const char* text = mupnp_action_result_getfaultstring(result);
+  const char* description = mupnp_action_result_geterrordescription(result);
+  faultCode = code ? [[NSString alloc] initWithUTF8String:code] : nil;
+  faultString = text ? [[NSString alloc] initWithUTF8String:text] : nil;
+  errorDescription = description ? [[NSString alloc] initWithUTF8String:description] : nil;
+  return self;
+}
+- (void)dealloc
+{
+  [outputs release];
+  [faultCode release];
+  [faultString release];
+  [errorDescription release];
+  [super dealloc];
+}
+@end
+
 @implementation CGUpnpAction
 
 @synthesize cObject;
@@ -133,6 +176,35 @@
     return NO;
   BOOL ret = mupnp_action_post(cObject);
   return ret;
+}
+
+- (CGUpnpActionResult*)postResultWithArguments:(NSDictionary<NSString*, NSString*>*)arguments
+{
+  BOOL valid = !arguments || [arguments isKindOfClass:[NSDictionary class]];
+  mUpnpDictionary* inputs = mupnp_dictionary_new();
+  if (!inputs)
+    return nil;
+  NSString* nul = [NSString stringWithCharacters:(const unichar[]) { 0 } length:1];
+  if (valid) {
+    for (id key in arguments) {
+      id value = [arguments objectForKey:key];
+      if (![key isKindOfClass:[NSString class]] || ![value isKindOfClass:[NSString class]]
+          || ![key UTF8String] || ![value UTF8String]
+          || [key rangeOfString:nul].location != NSNotFound
+          || [value rangeOfString:nul].location != NSNotFound) {
+        valid = NO;
+        break;
+      }
+      mupnp_dictionary_setvalue(inputs, [key UTF8String], [value UTF8String]);
+    }
+  }
+  mUpnpActionResult* native = mupnp_action_postwitharguments(valid ? cObject : NULL, inputs);
+  mupnp_dictionary_delete(inputs);
+  if (!native)
+    return nil;
+  CGUpnpActionResult* result = [[[CGUpnpActionResult alloc] initWithNativeResult:native] autorelease];
+  mupnp_action_result_delete(native);
+  return result;
 }
 
 - (BOOL)postWithArguments:(NSDictionary*)arguments

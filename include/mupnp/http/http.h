@@ -349,6 +349,11 @@ void mupnp_http_request_setsocket(mUpnpHttpRequest* httpReq, mUpnpSocket* sock);
 mUpnpSocket* mupnp_http_request_getsocket(mUpnpHttpRequest* httpReq);
 #define mupnp_http_request_closesocket(httpReq) mupnp_socket_close(mupnp_http_request_getsocket(httpReq))
 mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, const char* ipaddr, int port);
+
+/** Single HTTP transaction on a fresh connection. received is false for
+ * connection/send/read failures, even when the legacy response has a synthetic
+ * status. No SOAP fallback or application retry. Response is borrowed. */
+mUpnpHttpResponse* mupnp_http_request_postonce(mUpnpHttpRequest* httpReq, const char* ipaddr, int port, bool* received);
 #if defined(MUPNP_USE_OPENSSL)
 mUpnpHttpResponse* mupnp_https_request_post(mUpnpHttpRequest* httpReq, const char* ipaddr, int port);
 #endif
