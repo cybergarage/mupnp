@@ -22,15 +22,14 @@ FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=C.UTF-8
 
+# Keep package installation privileged; build and scan as an ordinary user.
 RUN apt-get update && apt-get install -y --no-install-recommends \
       ca-certificates git build-essential clang libclang-rt-18-dev llvm cmake ninja-build pkg-config \
       autoconf autoconf-archive automake libtool \
       libexpat1-dev libxml2-dev libcurl4-openssl-dev libssl-dev uuid-dev libboost-test-dev \
       python3 gdb iproute2 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Keep package installation privileged; build and scan as an ordinary user.
-RUN groupadd --gid 10001 scanner \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --gid 10001 scanner \
     && useradd --uid 10001 --gid scanner --create-home --shell /bin/bash scanner \
     && install -d -o scanner -g scanner /src
 
