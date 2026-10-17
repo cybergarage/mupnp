@@ -22,16 +22,28 @@ FROM ubuntu:24.04
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=C.UTF-8
 
+# Keep package installation privileged; build and scan as an ordinary user.
 RUN apt-get update && apt-get install -y --no-install-recommends \
       ca-certificates git build-essential clang libclang-rt-18-dev llvm cmake ninja-build pkg-config \
       autoconf autoconf-archive automake libtool \
       libexpat1-dev libxml2-dev libcurl4-openssl-dev libssl-dev uuid-dev libboost-test-dev \
       python3 gdb iproute2 \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --gid 10001 scanner \
+    && useradd --uid 10001 --gid scanner --create-home --shell /bin/bash scanner \
+    && install -d -o scanner -g scanner /src
 
-# scanner contract: the checkout lives inside the image, at /src
-COPY . /src
+# Scanner contract: source and both build trees live inside the image at /src.
+# Dockerfile.dockerignore restricts these directories to build/source inputs.
+COPY --chown=scanner:scanner CMakeLists.txt CMakeLists.txt.build COPYING /src/
+COPY --chown=scanner:scanner include/ /src/include/
+COPY --chown=scanner:scanner src/ /src/src/
+COPY --chown=scanner:scanner test/ /src/test/
+COPY --chown=scanner:scanner examples/ /src/examples/
+COPY --chown=scanner:scanner .oss-scanner/threat_model.md /src/.oss-scanner/threat_model.md
 WORKDIR /src
+ENV HOME=/home/scanner
+USER scanner:scanner
 
 # 1) Reference build (gcc, debug info, frame pointers), with tests and examples.
 RUN cmake -S /src -B /src/build -G Ninja \
@@ -63,7 +75,7 @@ ENV ASAN_OPTIONS=detect_leaks=1:abort_on_error=1:symbolize=1 \
 # Smoke tests so the log shows whether the image works. Some unit tests open sockets and enumerate network interfaces,
 # so results can differ between the build container and the offline scan VM. Failures are printed but never fail the
 # build. LeakSanitizer needs ptrace, which `docker build` does not grant, so leak detection is off in this step only.
-RUN (timeout 5m ctest --test-dir /src/build --output-on-failure --timeout 120 \
+RUN --network=none (timeout 5m ctest --test-dir /src/build --output-on-failure --timeout 120 \
        || echo "WARNING: ctest (/src/build) reported failures") \
     && (ASAN_OPTIONS=detect_leaks=0:abort_on_error=1 timeout 5m ctest --test-dir /src/build-asan --output-on-failure --timeout 180 \
        || echo "WARNING: ctest (/src/build-asan) reported failures") \

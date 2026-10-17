@@ -1,0 +1,17 @@
+name: scanner image
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - '.oss-scanner/**'
+      - '.github/workflows/scanner-image.yml'
+permissions:
+  contents: read
+jobs:
+  scanner-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Check context, non-root image, offline fixtures and source mounts
+        run: python3 .oss-scanner/verify.py
