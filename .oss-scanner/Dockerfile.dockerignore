@@ -1,0 +1,23 @@
+# This allowlist applies only to .oss-scanner/Dockerfile, not other images.
+# Admit source/build inputs, not arbitrary files under the selected directories.
+**
+!CMakeLists.txt
+!CMakeLists.txt.build
+!COPYING
+!include/**/*.h
+!src/**/*.c
+!test/**/CMakeLists.txt
+!test/**/*.c
+!test/**/*.cpp
+!test/**/*.h
+!test/**/*.sh
+!test/platform-smoke.c.in
+!test/unix/Makefile.am.build
+!examples/**/CMakeLists.txt
+!examples/**/*.c
+!examples/**/*.h
+!.oss-scanner/threat_model.md
+# Reject VCS metadata and environment files even when names resemble source.
+**/.git
+**/.git/**
+**/.env*
