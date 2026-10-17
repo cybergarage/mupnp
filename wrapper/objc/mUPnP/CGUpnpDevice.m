@@ -88,6 +88,7 @@ void (*cg_upnp_test_device_delete)(mUpnpDevice*) = NULL;
 @implementation CGUpnpDevice
 
 @synthesize cObject;
+@synthesize cObjectOwner;
 @synthesize delegate;
 
 - (id)init
@@ -161,6 +162,7 @@ void (*cg_upnp_test_device_delete)(mUpnpDevice*) = NULL;
     CG_UPNP_DEVICE_DELETE(cObject);
     cObject = NULL;
   }
+  [cObjectOwner release];
   [super dealloc];
 }
 
@@ -318,6 +320,40 @@ void (*cg_upnp_test_device_delete)(mUpnpDevice*) = NULL;
     [serviceArray addObject:service];
   }
   return serviceArray;
+}
+
+- (NSArray<CGUpnpDevice*>*)embeddedDevices
+{
+  NSMutableArray* children = [NSMutableArray array];
+  for (mUpnpDevice* child = cObject ? mupnp_device_getdevices(cObject) : NULL; child; child = mupnp_device_next(child)) {
+    CGUpnpDevice* wrapper = [[[CGUpnpDevice alloc] initWithCObject:child] autorelease];
+    wrapper.cObjectOwner = self;
+    [children addObject:wrapper];
+  }
+  return [NSArray arrayWithArray:children];
+}
+
+- (NSString*)rootUDN
+{
+  const char* udn = cObject ? mupnp_device_getudn(mupnp_device_getrootdevice(cObject)) : NULL;
+  return udn ? [NSString stringWithUTF8String:udn] : nil;
+}
+
+- (CGUpnpService*)getOwnedServiceForID:(NSString*)serviceId
+{
+  return [self getServiceForID:serviceId owningDeviceUDN:[self udn]];
+}
+
+- (CGUpnpService*)getServiceForID:(NSString*)serviceId owningDeviceUDN:(NSString*)ownerUDN
+{
+  if (![serviceId isKindOfClass:[NSString class]] || ![ownerUDN isKindOfClass:[NSString class]])
+    return nil;
+  mUpnpService* native = mupnp_device_getservicebyownerudn(cObject, [ownerUDN UTF8String], [serviceId UTF8String]);
+  if (!native)
+    return nil;
+  CGUpnpService* wrapper = [[[CGUpnpService alloc] initWithCObject:native] autorelease];
+  wrapper.cObjectOwner = self;
+  return wrapper;
 }
 
 - (CGUpnpService*)getServiceForID:(NSString*)serviceId

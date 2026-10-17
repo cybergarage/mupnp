@@ -2,7 +2,7 @@
 
 mUPnP for C 3.1.0 is the first release that features ESP32 support, building
 on the initial port introduced in 3.0.5 with fixes found during ESP32 hardware
-testing. For a reproducible build, use the latest release tag (`3.1.1`) rather
+testing. For a reproducible build, use the latest release tag (`3.1.2`) rather
 than an arbitrary `master` revision.
 
 ## Scope and status
@@ -64,6 +64,15 @@ that check to other platforms). The 3.1.1 changes were verified by host
 regression tests and the ESP-IDF cross-build in CI, not on ESP32 hardware; the
 hardware results above refer to 3.1.0.
 
+Version 3.1.2 adds portable owner-qualified service lookup and independent strict
+action results, plus Objective-C hierarchy/metadata wrappers. Existing recursive
+lookup and partial-update action APIs retain their behavior. The strict API
+validates complete inputs and does not retry writes automatically. See the
+[Gateway/action guide](gateway-action-results.md). Local host fixtures cover
+multiple WAN connections; an ESP-IDF cross-build does not establish new gateway
+interoperability or ESP32 hardware coverage. The hardware observations above
+continue to refer to 3.1.0.
+
 The component manifest currently labels the license `BSD-3-Clause`, while
 `COPYING` includes an additional patent-related condition. That metadata needs
 maintainer/legal review before publication to the ESP Component Registry; 3.1.0
@@ -77,7 +86,7 @@ Until then, use the component from this repository as described below.
 2. Clone this repository and enter the example:
 
    ```sh
-   git clone --branch 3.1.1 https://github.com/cybergarage/mupnp.git
+   git clone --branch 3.1.2 https://github.com/cybergarage/mupnp.git
    cd mupnp/examples/espidf/control_point
    idf.py set-target esp32
    idf.py menuconfig
@@ -109,7 +118,7 @@ source list as the standalone host CMake build.
 ## Use in another application
 
 Place this repository at `<project>/components/mupnp` (for example, as a Git
-submodule checked out at the `3.1.1` tag), or add its path to `EXTRA_COMPONENT_DIRS` **before** including
+submodule checked out at the `3.1.2` tag), or add its path to `EXTRA_COMPONENT_DIRS` **before** including
 ESP-IDF's `project.cmake`. In the application's component registration, add
 `REQUIRES mupnp` and include `<mupnp/upnp.h>`. ESP-IDF names a local component
 after its directory, so adjust `REQUIRES` if you use a different directory name.

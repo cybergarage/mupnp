@@ -16,10 +16,13 @@ AM_CFLAGS = $(CODE_COVERAGE_CFLAGS)
 AM_CXXFLAGS = $(CODE_COVERAGE_CXXFLAGS)
 
 noinst_HEADERS = \
+	../GatewayFixture.h \
 	../TestDevice.h \
 	../ClinkUnitTest.h
 
 mupnptest_SOURCES = \
+	../ActionResultTest.cpp \
+	../GatewayTest.cpp \
 	../NetworkTest.cpp \
 	../SubscriptionTest.cpp \
 	../ServiceTest.cpp \

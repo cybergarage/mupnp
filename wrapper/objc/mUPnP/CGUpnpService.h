@@ -55,6 +55,8 @@ typedef void mUpnpService;
  * @return The service ID.
  */
 - (NSString*)serviceId;
+- (NSString*)owningDeviceUDN;
+- (NSString*)rootUDN;
 /**
  * Get the service type of the service.
  *

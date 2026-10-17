@@ -16,6 +16,15 @@ mUPnP for C simplifies this process by handling these protocols automatically. I
 
 mUPnP for C runs on Unix-like systems, macOS/iOS, Windows, and, since 3.1.0, on **ESP32 microcontrollers as an ESP-IDF component**.
 
+## What's New in 3.1.2
+
+- **Gateway ownership**: select direct services or qualify a service ID by its owning-device UDN. Objective-C exposes embedded devices and root/owner identities while retaining discovery snapshot lifetimes, including multi-WAN hierarchies.
+- **Independent action results**: new strict C and Objective-C APIs require the complete input set and return only the current response. Missing output differs from an empty string; HTTP/SOAP/UPnP faults and parse/transport failures stay distinct. The new API never retries automatically.
+- **Owned SCPD metadata**: Objective-C argument and state-variable snapshots expose the declared metadata without retaining native pointers.
+- Control point startup fails promptly without usable interfaces; GCC/MinGW-w64 builds and Windows thread identity are repaired.
+
+Existing recursive first-match service lookup and partial-update action calls retain their behavior. New API consumers must link the updated library/framework; replacing a description still invalidates previous descendants. See the [ChangeLog](ChangeLog) and [Gateway/action migration guide](doc/gateway-action-results.md) for ownership, failure and validation limits. DIDL/paging, SCPD value-constraint validation and a session facade remain future work.
+
 ## What's New in 3.1.1
 
 - **Reliability and security fixes**: bounded HTTP body allocation, working connect/read timeouts for HTTP clients, no leak or use-after-free in device-side GENA subscriptions, and correct LOCATION addresses in SSDP replies.
@@ -83,7 +92,7 @@ idf.py -p /dev/ttyUSB0 flash monitor
 
 To use mUPnP in your own application, place this repository at
 `<project>/components/mupnp` (for example, as a Git submodule pinned to the
-`3.1.1` tag), add `REQUIRES mupnp` to your component, and include
+`3.1.2` tag), add `REQUIRES mupnp` to your component, and include
 `<mupnp/upnp.h>`.
 
 Limited control-point hardware testing on an ESP32 DevKitC-VE is reported.

@@ -1,0 +1,22 @@
+name: gateway fixtures
+on:
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  local-regression:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        backend: [expat, libxml2, curl]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - run: brew install boost
+      - name: C and Objective-C local fixtures with ASan and UBSan
+        run: |
+          args=()
+          if [ "${{ matrix.backend }}" = libxml2 ]; then args+=(--libxml2); fi
+          if [ "${{ matrix.backend }}" = curl ]; then args+=(--curl); fi
+          python3 test/security/verify-gateway.py "$RUNNER_TEMP/gateway-fixtures" "${args[@]}"

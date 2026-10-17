@@ -62,6 +62,8 @@ EXTRA_DIST = test/platform-smoke.c.in \
 	Kconfig \
 	idf_component.yml \
 	doc/espidf.md \
+	doc/gateway-action-results.md \
+	doc/releasing.md \
 	examples/common/content_directory.h \
 	examples/espidf/control_point/CMakeLists.txt \
 	examples/espidf/control_point/README.md \

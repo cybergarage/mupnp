@@ -15,6 +15,29 @@
 typedef void mUpnpAction;
 #endif
 
+typedef NS_ENUM(NSInteger, CGUpnpActionResultCode) {
+  CGUpnpActionResultSuccess = 0,
+  CGUpnpActionResultInvalidArguments,
+  CGUpnpActionResultTransportError,
+  CGUpnpActionResultHTTPError,
+  CGUpnpActionResultSOAPFault,
+  CGUpnpActionResultParseError,
+  CGUpnpActionResultIncomplete
+};
+
+/** Immutable value snapshot; outcome values correspond to mUpnpActionResultCode
+ * in <mupnp/control/control.h>. Outputs contain only present response arguments;
+ * an empty NSString is a present empty value. No native pointers are retained. */
+@interface CGUpnpActionResult : NSObject
+@property (readonly) CGUpnpActionResultCode outcome;
+@property (readonly) NSInteger httpStatusCode;
+@property (readonly) NSInteger upnpErrorCode;
+@property (readonly, copy) NSDictionary<NSString*, NSString*>* outputs;
+@property (readonly, copy) NSString* faultCode;
+@property (readonly, copy) NSString* faultString;
+@property (readonly, copy) NSString* errorDescription;
+@end
+
 /**
  * The CGUpnpAction class is a wrapper class for mUpnpAction of mUPnP for C.
  */
@@ -63,6 +86,10 @@ typedef void mUpnpAction;
  * @return YES if successfull; otherwise NO
  */
 - (BOOL)post;
+/// Complete input set, strict direction validation, independent result, one HTTP
+/// attempt. Does not change this action's arguments/status. nil on allocation
+/// failure; invalid input returns an invalid-arguments result without sending.
+- (CGUpnpActionResult*)postResultWithArguments:(NSDictionary<NSString*, NSString*>*)arguments;
 /**
  * Set the specified argument values and send the action.
  *

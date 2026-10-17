@@ -1243,6 +1243,11 @@ mUpnpDevice* mupnp_device_getdevicebydescriptionuri(mUpnpDevice* dev, const char
  */
 mUpnpService* mupnp_device_getservicebyserviceid(mUpnpDevice* dev, const char* serviceId);
 
+/** Direct services only; returned pointer is borrowed from dev. No network I/O. */
+mUpnpService* mupnp_device_getownedservicebyserviceid(mUpnpDevice* dev, const char* serviceId);
+/** Search owner UDN within dev's subtree, then only that owner's services. */
+mUpnpService* mupnp_device_getservicebyownerudn(mUpnpDevice* dev, const char* ownerUdn, const char* serviceId);
+
 /**
  * Find a service from the device by the type of the service.
  * This function searches for services, whose *complete type string*
