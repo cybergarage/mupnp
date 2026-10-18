@@ -14,7 +14,8 @@
 
 #include <mupnp/upnp.h>
 
-#define UPNPAVDUMP_IGD_DEVICETYPE "urn:schemas-upnp-org:device:InternetGatewayDevice:1"
+#define UPNPAVDUMP_IGD_DEVICETYPE_1 "urn:schemas-upnp-org:device:InternetGatewayDevice:1"
+#define UPNPAVDUMP_IGD_DEVICETYPE_2 "urn:schemas-upnp-org:device:InternetGatewayDevice:2"
 
 #define UPNPAVDUMP_IGD_WANIPCON_SERVICETYPE "urn:schemas-upnp-org:service:WANIPConnection:1"
 #define UPNPAVDUMP_IGD_WANCOMIFCFG_SERVICETYPE "urn:schemas-upnp-org:service:WANCommonInterfaceConfig:1"
@@ -22,6 +23,15 @@
 /////////////////////////////////////////////////////////////////////////////////
 // PrintIGDInfo
 /////////////////////////////////////////////////////////////////////////////////
+
+bool mupnp_device_isigd(mUpnpDevice* dev)
+{
+  if (mupnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE_1))
+    return true;
+  if (mupnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE_2))
+    return true;
+  return false;
+}
 
 void print_igd_info(mUpnpDevice* dev, int igdNum)
 {
@@ -31,7 +41,7 @@ void print_igd_info(mUpnpDevice* dev, int igdNum)
   mUpnpAction* totalBytesSentAction;
   mUpnpAction* totalBytesRecvAction;
 
-  if (!mupnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE))
+  if (!mupnp_device_isigd(dev))
     return;
 
   printf("[%d] : %s\n", igdNum, mupnp_device_getfriendlyname(dev));
@@ -71,7 +81,7 @@ void print_igd_infos(mUpnpControlPoint* ctrlPoint)
 
   igdNum = 0;
   for (dev = mupnp_controlpoint_getdevices(ctrlPoint); dev != NULL; dev = mupnp_device_next(dev)) {
-    if (mupnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE))
+    if (mupnp_device_isdevicetype(dev, UPNPAVDUMP_IGD_DEVICETYPE_1))
       print_igd_info(dev, ++igdNum);
   }
 
