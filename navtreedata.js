@@ -25,26 +25,22 @@
 var NAVTREE =
 [
   [ "mUPnP for C", "index.html", [
-    [ "What's New in 3.1.3", "index.html#autotoc_md198", null ],
-    [ "What's New in 3.1.2", "index.html#autotoc_md199", null ],
-    [ "What's New in 3.1.1", "index.html#autotoc_md200", null ],
-    [ "What's New in 3.1.0", "index.html#autotoc_md201", null ],
-    [ "Building the Library and Samples", "index.html#autotoc_md202", [
-      [ "Unix", "index.html#autotoc_md203", null ],
-      [ "Homebrew (macOS, Linux)", "index.html#autotoc_md204", null ],
-      [ "macOS", "index.html#autotoc_md205", null ],
-      [ "ESP32 (ESP-IDF)", "index.html#autotoc_md206", null ],
-      [ "Windows", "index.html#autotoc_md207", null ]
+    [ "Building the Library and Samples", "index.html#autotoc_md198", [
+      [ "Unix", "index.html#autotoc_md199", null ],
+      [ "Homebrew (macOS, Linux)", "index.html#autotoc_md200", null ],
+      [ "macOS", "index.html#autotoc_md201", null ],
+      [ "ESP32 (ESP-IDF)", "index.html#autotoc_md202", null ],
+      [ "Windows", "index.html#autotoc_md203", null ]
     ] ],
-    [ "References", "index.html#autotoc_md208", [
-      [ "mUPnP for C", "index.html#autotoc_md209", null ],
-      [ "mUPnP for Objective-C", "index.html#autotoc_md210", null ]
+    [ "References", "index.html#autotoc_md204", [
+      [ "mUPnP for C", "index.html#autotoc_md205", null ],
+      [ "mUPnP for Objective-C", "index.html#autotoc_md206", null ]
     ] ],
-    [ "Examples", "index.html#autotoc_md211", null ],
-    [ "Adoption in Consumer Products", "index.html#autotoc_md212", [
-      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md213", null ],
-      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md214", null ],
-      [ "Toshiba REGZA Televisions", "index.html#autotoc_md215", null ]
+    [ "Examples", "index.html#autotoc_md207", null ],
+    [ "Adoption in Consumer Products", "index.html#autotoc_md208", [
+      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md209", null ],
+      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md210", null ],
+      [ "Toshiba REGZA Televisions", "index.html#autotoc_md211", null ]
     ] ],
     [ "ESP-IDF port", "md_doc_2espidf.html", [
       [ "Scope and status", "md_doc_2espidf.html#autotoc_md10", [
@@ -302,15 +298,15 @@ var NAVTREEINDEX =
 "event_8h.html#a1d172fd869ae8e2431b14f057a79c977",
 "http_8h.html#a2dcc5f47055151edcab879ec0c9cb71f",
 "http_8h.html#aee5507493835580f5f996825d3582a24",
-"interfaceCGUpnpDevice.html#a0212353e65464c7549bf084a2dd7f7a8",
-"md_doc_2mupnpcproguide.html#autotoc_md35",
-"protocolCGUpnpControlPointDelegate-p.html",
-"socket_8c.html#a0c2df24dcbbd578f09658f73f032953c",
-"ssdp__response__server__list_8c.html#ae467d0c8758fe5340aaf8733f8e21a0d",
-"string_8h.html#a82fe19c5ccadeedab1164ff205c34114",
-"struct__mUpnpSSDPPacket.html#adb80f19eed04649b7196ba8dff3308e8",
-"typedef_8h.html",
-"xml_8h.html#ab0148be7dcaca5e5741a2d2587021f23"
+"interfaceCGUpnpDevice.html#a0ea3e3d6a881ec94014f27e0a9d04ac5",
+"md_doc_2mupnpcproguide.html#autotoc_md39",
+"protocolCGUpnpControlPointDelegate-p.html#af5515de19b445fa37f5f8ec27770489e",
+"socket_8c.html#a2c595d4e9ee8dcea40ba8dadeafa0d58",
+"ssdp__server_8c.html#a551ac5c74c519bfefe16878c81c5f80d",
+"string_8h.html#a8fb40e45eecebc8c5deb80e13dcf0d50",
+"struct__mUpnpSSDPResponseServer.html#aceb3ae566587640541ecb244aa4c9732",
+"typedef_8h.html#abb452686968e48b67397da5f97445f5b",
+"xml_8h.html#ab830311e383a02cf3d7a6d6866a54040"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
