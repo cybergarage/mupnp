@@ -69,7 +69,7 @@ $(function(){initNavTree('md_doc_2releasing.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">Release preparation and publication</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md58"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md59"></a></p>
 <p>The 3.1.2 preparation is in <a href="https://github.com/cybergarage/mupnp/pull/53">PR #53</a>. It does not publish a tag or GitHub Release. Preserve the PR's review state; merging and publication are separate maintainer actions.</p>
 <p>Version sources follow the 3.1.1 release: <code>configure.ac</code> / committed <code>configure</code>, <code>include/mupnp/version.h</code>, the Doxygen version in <code>include/mupnp/upnp.h</code>, and <code>idf_component.yml</code>. <code>mupnp.pc</code> and source archive names derive from Autotools <code>VERSION</code>. CMake and the legacy Objective-C bundle have no synchronized release version in the preceding release and keep their existing build conventions.</p>
 <p>The committed configure script uses Autoconf 2.71. For a version-only update, keep its generated version strings synchronized without unrelated generator changes. Do not create backup or staging copies of the checkout. The current <code>version.h.gen</code> script is legacy; check the resulting quoted <code>MUPNP_VER</code> value rather than assuming regeneration produces a usable C string macro.</p>

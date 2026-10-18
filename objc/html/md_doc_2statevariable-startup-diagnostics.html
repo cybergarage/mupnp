@@ -69,8 +69,8 @@ $(function(){initNavTree('md_doc_2statevariable-startup-diagnostics.html',''); i
   <div class="headertitle"><div class="title">StateVariable startup stall investigation</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md183"></a></p>
-<h1><a class="anchor" id="autotoc_md184"></a>
+<div class="textblock"><p><a class="anchor" id="autotoc_md184"></a></p>
+<h1><a class="anchor" id="autotoc_md185"></a>
 Finding (2026-10-08)</h1>
 <p>Investigated PR #46 at <code>3d84d76f3bebc3017601ca29eac870ffe6fe7c6a</code>. The existing <code>StateVariable</code> test starts a network device; the new <code>StateVariableDefaultValueAndDataType</code> test only parses SCPD XML. Neither the SCPD accessors nor either existing test is changed here.</p>
 <p>A C probe using the actual <code>test/TestDevice.c</code> and library reproduced the startup stall in the current restricted Linux environment:</p>
@@ -91,7 +91,7 @@ Finding (2026-10-08)</h1>
 <li>The non-ESP device-start path retries forever, incrementing the integer HTTP port even beyond 65535. It does not reach the state update, the test's explicit stop, or its final delete.</li>
 </ol>
 <p>This establishes a reproducible cause of the observed type of stall. There is no syscall trace of the October 7 run, so its exact runtime cause cannot be proved retrospectively. A different host could still block elsewhere.</p>
-<h1><a class="anchor" id="autotoc_md185"></a>
+<h1><a class="anchor" id="autotoc_md186"></a>
 Minimal change and regression</h1>
 <p>Extend the existing ESP empty-interface check to all platforms. If the cached interface list is empty, startup returns false before attempting HTTP ports. The normal startup and shutdown paths are otherwise unchanged.</p>
 <p><code>test/unix/device-start-no-interfaces.sh</code> injects an empty interface list using Linux linker wrapping. It uses the real TestDevice fixture and device lifecycle. An HTTP-open attempt fails the test immediately, so the old implementation produces a clear failure instead of hanging the test runner. The test checks failed startup, unchanged port, inactive advertiser, empty server lists, two successive attempts, stop, and delete. Automake and its source generator both include this test. Non-Linux hosts skip this GNU-linker-specific check.</p>
@@ -107,7 +107,7 @@ Minimal change and regression</h1>
 </ul>
 <p>The current environment lacks Boost.Test, Autoconf/Automake, and clang-format; the package installation attempt could not locate those packages. The old Boost test executable cannot load <code>libboost_unit_test_framework.so.1.83.0</code>. Consequently, this investigation does not claim a fresh full Boost suite, full coverage run, or formatter run. The C build used the checked-in configure script, an explicit <code>./config.status config.h</code>, and suppressed regeneration of Autotools outputs. It is not a substitute for the normal CI build below.</p>
 <p>The original <code>StateVariable</code> test will report a startup assertion failure in an environment with no usable interfaces after this fix; that environment still cannot run network integration tests successfully. It will no longer spin in this particular retry loop. Persistent bind failures with a nonempty interface list, or interfaces disappearing after the cache check, remain separate cases; this change does not redesign the HTTP retry policy.</p>
-<h1><a class="anchor" id="autotoc_md186"></a>
+<h1><a class="anchor" id="autotoc_md187"></a>
 Compare a developer host with CI</h1>
 <p>PR #46's build run <code>37639510483</code>, job <code>112854401345</code>, passed <code>make check</code> on Ubuntu 24.04.5. Its runner image was <code>ubuntu24/20261004.327</code>. The test executable ran for approximately 37 seconds after linking, and ran successfully again during coverage generation. The published job log does not record interface inventory, so a particular CI NIC configuration is not established.</p>
 <p>The ESP-IDF success is additional, separate evidence: its host regressions and ESP32 cross-build do not run the ordinary Boost <code>StateVariable</code> case.</p>

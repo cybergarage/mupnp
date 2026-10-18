@@ -13,7 +13,6 @@ var thread_8c =
     [ "mupnp_thread_stop", "thread_8c.html#a7c34f0c58d901eb7cd1c40d46778357a", null ],
     [ "mupnp_thread_stop_with_cond", "thread_8c.html#aec1dd53cdf9f4082715392556acec67c", null ],
     [ "posix_thread_proc", "thread_8c.html#a9f2ff5c7da7238bebf3e56d1e33a0f0d", null ],
-    [ "sig_handler", "thread_8c.html#a96342dc75c740f4d2bd7ffd7cc64c47f", null ],
     [ "mupnpThreadMykeycreated", "thread_8c.html#a6f3803e68b04db41751f6ba8dfeea3e2", null ],
     [ "mupnpThreadSelfRef", "thread_8c.html#aa41c473ef7f11f968aec4d93776d872f", null ]
 ];
