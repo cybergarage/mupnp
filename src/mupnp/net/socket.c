@@ -23,7 +23,20 @@
 
 #include <mupnp/util/log.h>
 
+#if defined(MUPNP_USE_OPENSSL)
+#include <openssl/err.h>
+#endif
+
 #include <limits.h>
+#include <stdint.h>
+#include <time.h>
+
+#if !defined(WIN32) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && !defined(ESP_PLATFORM)
+#define MUPNP_SOCKET_POSIX_COOPERATIVE
+#include <mupnp/util/thread.h>
+#include <poll.h>
+#include <sys/select.h>
+#endif
 #include <string.h>
 
 #if !defined(WINCE)
@@ -71,45 +84,196 @@
 #define SOCKET_DEBUG
 */
 
+#if defined(ESP_PLATFORM) || defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+/* Keep cancellation in the C socket wrapper. A stopped worker observes its
+ * runnable flag within 100ms without signals or cross-thread descriptor close.
+ * A single monotonic deadline covers retries, including spurious readiness. */
+static int64_t mupnp_socket_monotonic(void)
+{
 #if defined(ESP_PLATFORM)
-/* ESP-IDF has no pthread signals/cancellation. Poll readiness so a stopped
- * worker can leave accept/recv/connect without another task closing its fd.
- * Keep descriptors nonblocking: readiness can change before the next call. */
-static bool mupnp_socket_waitready(mUpnpSocket* sock, bool writing)
+  return esp_timer_get_time();
+#else
+  struct timespec now;
+  if (clock_gettime(CLOCK_MONOTONIC, &now) != 0)
+    return -1;
+  return (int64_t)now.tv_sec * 1000000 + now.tv_nsec / 1000;
+#endif
+}
+
+static bool mupnp_socket_worker_stopped(void)
 {
   mUpnpThread* thread = mupnp_thread_self();
-  int64_t deadline = sock->timeout > 0 ? esp_timer_get_time() + (int64_t)sock->timeout * 1000000 : 0;
+  return thread && !mupnp_thread_isrunnable(thread);
+}
 
+static int64_t mupnp_socket_deadline(mUpnpSocket* sock, bool writing)
+{
+  int64_t duration = (int64_t)sock->timeout * 1000000;
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+  /* Honor descriptor timeouts too, including caller-supplied subsecond values. */
+  struct timeval timeout;
+  socklen_t length = sizeof(timeout);
+  if (getsockopt(sock->id, SOL_SOCKET, writing ? SO_SNDTIMEO : SO_RCVTIMEO, &timeout, &length) != 0)
+    return -1;
+  duration = (int64_t)timeout.tv_sec * 1000000 + timeout.tv_usec;
+#else
+  (void)writing;
+#endif
+  if (duration <= 0)
+    return 0;
+  int64_t now = mupnp_socket_monotonic();
+  return now < 0 ? -1 : now + duration;
+}
+
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+#define MUPNP_SOCKET_IO_FLAGS MSG_DONTWAIT
+static bool mupnp_socket_nonblocking(mUpnpSocket* sock)
+{
+  int flags = fcntl(sock->id, F_GETFL, 0);
+  return flags >= 0 && (flags & O_NONBLOCK);
+}
+
+/* Darwin may not honor MSG_DONTWAIT for every send path. A short native
+ * timeout bounds the syscall too; restore the caller's option immediately.
+ * Read and write options are independent, so a UDP sender does not change a
+ * simultaneous receiver's descriptor flags or receive timeout. */
+static ssize_t mupnp_socket_transfer(mUpnpSocket* sock, void* buffer, size_t length, bool writing, struct sockaddr* address, socklen_t* addressLength)
+{
+  struct timeval original;
+  int option = writing ? SO_SNDTIMEO : SO_RCVTIMEO;
+  bool bounded = false;
+  if (writing && !mupnp_socket_nonblocking(sock)) {
+    socklen_t size = sizeof(original);
+    if (getsockopt(sock->id, SOL_SOCKET, option, &original, &size) != 0)
+      return -1;
+    if (original.tv_sec > 0 || original.tv_usec == 0 || original.tv_usec > 100000) {
+      struct timeval slice = { 0, 100000 };
+      if (setsockopt(sock->id, SOL_SOCKET, option, &slice, sizeof(slice)) != 0)
+        return -1;
+      bounded = true;
+    }
+  }
+  ssize_t result;
+  if (writing)
+    result = address ? sendto(sock->id, buffer, length, MSG_DONTWAIT, address, *addressLength)
+                     : send(sock->id, buffer, length, MSG_DONTWAIT);
+  else
+    result = address ? recvfrom(sock->id, buffer, length, MSG_DONTWAIT, address, addressLength)
+                     : recv(sock->id, buffer, length, MSG_DONTWAIT);
+  int error = errno;
+  if (bounded && setsockopt(sock->id, SOL_SOCKET, option, &original, sizeof(original)) != 0)
+    return -1;
+  errno = error;
+  return result;
+}
+
+static int mupnp_socket_restoreflags(mUpnpSocket* sock, int flags, int result)
+{
+  int error = errno;
+  if (fcntl(sock->id, F_SETFL, flags) < 0)
+    return -1;
+  errno = error;
+  return result;
+}
+#else
+#define MUPNP_SOCKET_IO_FLAGS 0
+#define mupnp_socket_nonblocking(sock) false
+#endif
+
+static bool mupnp_socket_waitready(mUpnpSocket* sock, bool writing, int64_t deadline)
+{
+  if (deadline < 0)
+    return false;
   for (;;) {
+#if defined(ESP_PLATFORM)
     fd_set fds;
+#endif
     struct timeval interval = { 0, 100000 };
-    int result;
-
-    if (thread && !mupnp_thread_isrunnable(thread)) {
+    if (mupnp_socket_worker_stopped()) {
       errno = EINTR;
       return false;
     }
-    if (sock->id < 0 || sock->id >= FD_SETSIZE) {
+    if (sock->id < 0
+#if defined(ESP_PLATFORM)
+        || sock->id >= FD_SETSIZE
+#endif
+    ) {
       errno = EBADF;
       return false;
     }
     if (deadline) {
-      int64_t remaining = deadline - esp_timer_get_time();
+      int64_t now = mupnp_socket_monotonic();
+      if (now < 0)
+        return false;
+      int64_t remaining = deadline - now;
       if (remaining <= 0) {
+#if defined(ESP_PLATFORM)
         errno = ETIMEDOUT;
+#else
+        /* Preserve the native SO_RCVTIMEO/SO_SNDTIMEO error contract. */
+        errno = EAGAIN;
+#endif
         return false;
       }
       if (remaining < interval.tv_usec)
         interval.tv_usec = remaining;
     }
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+    struct pollfd descriptor = { sock->id, writing ? POLLOUT : POLLIN, 0 };
+    int result = poll(&descriptor, 1, (int)((interval.tv_usec + 999) / 1000));
+    if (result > 0 && (descriptor.revents & POLLNVAL)) {
+      errno = EBADF;
+      return false;
+    }
+#else
     FD_ZERO(&fds);
     FD_SET(sock->id, &fds);
-    result = select(sock->id + 1, writing ? NULL : &fds, writing ? &fds : NULL, NULL, &interval);
+    int result = select(sock->id + 1, writing ? NULL : &fds, writing ? &fds : NULL, NULL, &interval);
+#endif
     if (result > 0)
       return true;
     if (result < 0 && errno != EINTR)
       return false;
   }
+}
+#endif
+
+#if defined(MUPNP_USE_OPENSSL) && defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+/* SSL may have buffered plaintext, or require the opposite I/O direction.
+ * Attempt first, then wait for the direction reported by SSL_get_error.
+ * Never change certificate validation or turn a TLS error into plaintext I/O. */
+static int mupnp_socket_ssl_perform(mUpnpSocket* sock, void* buffer, int length, int operation)
+{
+  int flags = fcntl(sock->id, F_GETFL, 0);
+  if (flags < 0)
+    return -1;
+  int64_t deadline = mupnp_socket_deadline(sock, operation == 2);
+  if (deadline < 0)
+    return -1;
+  if (fcntl(sock->id, F_SETFL, flags | O_NONBLOCK) < 0)
+    return -1;
+  int result = -1;
+  for (;;) {
+    if (mupnp_socket_worker_stopped()) {
+      errno = EINTR;
+      break;
+    }
+    ERR_clear_error();
+    errno = 0;
+    result = operation == 0 ? SSL_connect(sock->ssl)
+        : operation == 1    ? SSL_read(sock->ssl, buffer, length)
+                            : SSL_write(sock->ssl, buffer, length);
+    if (result > 0 || (flags & O_NONBLOCK))
+      break;
+    int error = SSL_get_error(sock->ssl, result);
+    if (error != SSL_ERROR_WANT_READ && error != SSL_ERROR_WANT_WRITE)
+      break;
+    if (!mupnp_socket_waitready(sock, error == SSL_ERROR_WANT_WRITE, deadline)) {
+      result = -1;
+      break;
+    }
+  }
+  return mupnp_socket_restoreflags(sock, flags, result);
 }
 #endif
 
@@ -304,6 +468,39 @@ static bool mupnp_socket_applytimeout(const mUpnpSocket* sock)
    and -1 on failure, like connect(). */
 static int mupnp_socket_connectwithtimeout(mUpnpSocket* sock, const struct sockaddr* addr, socklen_t addrLen)
 {
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+  if (mupnp_socket_worker_stopped()) {
+    errno = EINTR;
+    return -1;
+  }
+  int flags = fcntl(sock->id, F_GETFL, 0);
+  if (flags < 0)
+    return -1;
+  if ((flags & O_NONBLOCK) && sock->timeout <= 0)
+    return connect(sock->id, addr, addrLen);
+  int64_t deadline = mupnp_socket_deadline(sock, true);
+  if (deadline < 0 || fcntl(sock->id, F_SETFL, flags | O_NONBLOCK) < 0)
+    return -1;
+  int result = connect(sock->id, addr, addrLen);
+  if (result != 0 && (errno == EINPROGRESS || errno == EALREADY)) {
+    if (!mupnp_socket_waitready(sock, true, deadline)) {
+      if (errno == EAGAIN)
+        errno = ETIMEDOUT;
+      result = -1;
+    }
+    else {
+      int error = 0;
+      socklen_t errorLen = sizeof(error);
+      result = getsockopt(sock->id, SOL_SOCKET, SO_ERROR, &error, &errorLen);
+      if (result == 0 && error) {
+        errno = error;
+        result = -1;
+      }
+    }
+  }
+  return mupnp_socket_restoreflags(sock, flags, result);
+#else
+
   fd_set writeFds;
   fd_set errorFds;
   struct timeval timeout = { 0, 0 };
@@ -384,6 +581,7 @@ static int mupnp_socket_connectwithtimeout(mUpnpSocket* sock, const struct socka
 #endif
 
   return ret;
+#endif
 }
 
 #endif
@@ -490,9 +688,14 @@ void mupnp_socket_setid(mUpnpSocket* socket, SOCKET value)
 
   socket->id = value;
 #if defined(ESP_PLATFORM)
-  if (value >= 0 && fcntl(value, F_SETFL, O_NONBLOCK) < 0) {
-    close(value);
-    socket->id = -1;
+  if (value >= 0) {
+    int flags = fcntl(value, F_GETFL, 0);
+    if (flags < 0 || fcntl(value, F_SETFL, flags | O_NONBLOCK) < 0) {
+      int error = errno;
+      close(value);
+      socket->id = -1;
+      errno = error;
+    }
   }
 #endif
 
@@ -788,14 +991,39 @@ bool mupnp_socket_accept(mUpnpSocket* serverSock, mUpnpSocket* clientSock)
 #else
   struct sockaddr_storage sockClientAddr;
   socklen_t nLength = sizeof(sockClientAddr);
-#if defined(ESP_PLATFORM)
-  int accepted;
+#if defined(ESP_PLATFORM) || defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+  int64_t deadline = mupnp_socket_deadline(serverSock, false);
+  int accepted = -1;
+  bool nonblocking = mupnp_socket_nonblocking(serverSock);
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+  int flags = fcntl(serverSock->id, F_GETFL, 0);
+  if (flags < 0 || fcntl(serverSock->id, F_SETFL, flags | O_NONBLOCK) < 0)
+    return false;
+#endif
   do {
-    if (!mupnp_socket_waitready(serverSock, false))
-      return false;
+    if (!nonblocking && !mupnp_socket_waitready(serverSock, false, deadline))
+      break;
     nLength = sizeof(sockClientAddr);
     accepted = accept(serverSock->id, (struct sockaddr*)&sockClientAddr, &nLength);
-  } while (accepted < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR || errno == ECONNABORTED));
+  } while (!nonblocking && accepted < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR || errno == ECONNABORTED));
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+  if (mupnp_socket_restoreflags(serverSock, flags, 0) < 0) {
+    if (accepted >= 0)
+      close(accepted);
+    return false;
+  }
+  /* BSD may inherit the temporary listener mode; Linux does not. Preserve
+   * the original blocking-listener contract on both platforms. */
+  if (accepted >= 0 && !(flags & O_NONBLOCK)) {
+    int clientFlags = fcntl(accepted, F_GETFL, 0);
+    if (clientFlags < 0 || fcntl(accepted, F_SETFL, clientFlags & ~O_NONBLOCK) < 0) {
+      int error = errno;
+      close(accepted);
+      errno = error;
+      return false;
+    }
+  }
+#endif
   mupnp_socket_setid(clientSock, accepted);
 #else
   mupnp_socket_setid(clientSock, accept(serverSock->id, (struct sockaddr*)&sockClientAddr, &nLength));
@@ -897,7 +1125,7 @@ bool mupnp_socket_connect(mUpnpSocket* sock, const char* addr, int port)
   ret = connect(sock->id, toaddrInfo->ai_addr, toaddrInfo->ai_addrlen);
 #endif
 #if defined(ESP_PLATFORM)
-  if (ret < 0 && errno == EINPROGRESS && mupnp_socket_waitready(sock, true)) {
+  if (ret < 0 && errno == EINPROGRESS && mupnp_socket_waitready(sock, true, mupnp_socket_deadline(sock, false))) {
     int error = 0;
     socklen_t errorLen = sizeof(error);
     ret = getsockopt(sock->id, SOL_SOCKET, SO_ERROR, &error, &errorLen);
@@ -942,9 +1170,15 @@ bool mupnp_socket_connect(mUpnpSocket* sock, const char* addr, int port)
             != 1
         || (!isIP && SSL_set_tlsext_host_name(sock->ssl, addr) != 1)
         || SSL_set_fd(sock->ssl, mupnp_socket_getid(sock)) != 1
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+        || mupnp_socket_ssl_perform(sock, NULL, 0, 0) != 1
+#else
         || SSL_connect(sock->ssl) != 1
+#endif
         || SSL_get_verify_result(sock->ssl) != X509_V_OK) {
+      int error = errno;
       mupnp_socket_close(sock);
+      errno = error;
       return false;
     }
 #endif
@@ -962,6 +1196,8 @@ bool mupnp_socket_connect(mUpnpSocket* sock, const char* addr, int port)
 
 ssize_t mupnp_socket_read(mUpnpSocket* sock, char* buffer, size_t bufferLen)
 {
+  if (bufferLen == 0)
+    return 0;
   ssize_t recvLen;
 
 #if defined(MUPNP_USE_OPENSSL)
@@ -975,12 +1211,18 @@ ssize_t mupnp_socket_read(mUpnpSocket* sock, char* buffer, size_t bufferLen)
 #elif defined(ITRON)
   recvLen = tcp_rcv_dat(sock->id, buffer, bufferLen, TMO_FEVR);
 #else
-#if defined(ESP_PLATFORM)
+#if defined(ESP_PLATFORM) || defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+  int64_t deadline = mupnp_socket_deadline(sock, false);
+  bool nonblocking = mupnp_socket_nonblocking(sock);
   do {
-    if (!mupnp_socket_waitready(sock, false))
+    if (!nonblocking && !mupnp_socket_waitready(sock, false, deadline))
       return -1;
-    recvLen = recv(sock->id, buffer, bufferLen, 0);
-  } while (recvLen < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR));
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+    recvLen = mupnp_socket_transfer(sock, buffer, bufferLen, false, NULL, NULL);
+#else
+    recvLen = recv(sock->id, buffer, bufferLen, MUPNP_SOCKET_IO_FLAGS);
+#endif
+  } while (!nonblocking && recvLen < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR));
 #else
   recvLen = recv(sock->id, buffer, bufferLen, 0);
 #endif
@@ -989,7 +1231,11 @@ ssize_t mupnp_socket_read(mUpnpSocket* sock, char* buffer, size_t bufferLen)
 #if defined(MUPNP_USE_OPENSSL)
   }
   else {
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+    recvLen = mupnp_socket_ssl_perform(sock, buffer, bufferLen > INT_MAX ? INT_MAX : (int)bufferLen, 1);
+#else
     recvLen = SSL_read(sock->ssl, buffer, bufferLen);
+#endif
   }
 #endif
 
@@ -1037,17 +1283,33 @@ size_t mupnp_socket_write(mUpnpSocket* sock, const char* cmd, size_t cmdLen)
 #elif defined(ITRON)
     nSent = tcp_snd_dat(sock->id, cmd + cmdPos, cmdLen, TMO_FEVR);
 #else
-#if defined(ESP_PLATFORM)
-    if (!mupnp_socket_waitready(sock, true))
-      return 0;
+#if defined(ESP_PLATFORM) || defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+    int64_t deadline = mupnp_socket_deadline(sock, true);
+    bool nonblocking = mupnp_socket_nonblocking(sock);
+    do {
+      if (!nonblocking && !mupnp_socket_waitready(sock, true, deadline))
+        return 0;
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+      nSent = mupnp_socket_transfer(sock, (void*)(cmd + cmdPos), cmdLen, true, NULL, NULL);
+#else
+      nSent = send(sock->id, cmd + cmdPos, cmdLen, MUPNP_SOCKET_IO_FLAGS);
 #endif
+    } while (!nonblocking && nSent < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR));
+#else
     nSent = send(sock->id, cmd + cmdPos, cmdLen, 0);
+#endif
 #endif
 
 #if defined(MUPNP_USE_OPENSSL)
     }
     else {
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+      nSent = mupnp_socket_ssl_perform(sock, (void*)(cmd + cmdPos), cmdLen > INT_MAX ? INT_MAX : (int)cmdLen, 2);
+      if (nSent < 0 && (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK))
+        return 0;
+#else
       nSent = SSL_write(sock->ssl, cmd + cmdPos, cmdLen);
+#endif
     }
 #endif
 
@@ -1155,7 +1417,7 @@ size_t mupnp_socket_sendto(mUpnpSocket* sock, const char* addr, int port, const 
 #else
   struct addrinfo* addrInfo;
 #endif
-  ssize_t sentLen;
+  ssize_t sentLen = -1;
   bool isBoundFlag;
 
   mupnp_log_debug_l4("Entering...\n");
@@ -1206,12 +1468,19 @@ size_t mupnp_socket_sendto(mUpnpSocket* sock, const char* addr, int port, const 
   mupnp_socket_setmulticastttl(sock, MUPNP_NET_SOCKET_MULTICAST_DEFAULT_TTL);
 
   if (0 <= sock->id) {
-#if defined(ESP_PLATFORM)
+#if defined(ESP_PLATFORM) || defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+    int64_t deadline = mupnp_socket_deadline(sock, true);
+    bool nonblocking = mupnp_socket_nonblocking(sock);
     do {
-      if (!mupnp_socket_waitready(sock, true))
+      if (!nonblocking && !mupnp_socket_waitready(sock, true, deadline))
         break;
-      sentLen = sendto(sock->id, data, dataLen, 0, addrInfo->ai_addr, addrInfo->ai_addrlen);
-    } while (sentLen < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR));
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+      socklen_t length = (socklen_t)addrInfo->ai_addrlen;
+      sentLen = mupnp_socket_transfer(sock, (void*)data, dataLen, true, addrInfo->ai_addr, &length);
+#else
+      sentLen = sendto(sock->id, data, dataLen, MUPNP_SOCKET_IO_FLAGS, addrInfo->ai_addr, addrInfo->ai_addrlen);
+#endif
+    } while (!nonblocking && sentLen < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR));
 #else
     sentLen = sendto(sock->id, data, dataLen, 0, addrInfo->ai_addr, addrInfo->ai_addrlen);
 #endif
@@ -1263,13 +1532,19 @@ ssize_t mupnp_socket_recv(mUpnpSocket* sock, mUpnpDatagramPacket* dgmPkt)
 #else
   struct sockaddr_storage from;
   socklen_t fromLen = sizeof(from);
-#if defined(ESP_PLATFORM)
+#if defined(ESP_PLATFORM) || defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+  int64_t deadline = mupnp_socket_deadline(sock, false);
+  bool nonblocking = mupnp_socket_nonblocking(sock);
   do {
-    if (!mupnp_socket_waitready(sock, false))
+    if (!nonblocking && !mupnp_socket_waitready(sock, false, deadline))
       return -1;
     fromLen = sizeof(from);
-    recvLen = recvfrom(sock->id, recvBuf, sizeof(recvBuf) - 1, 0, (struct sockaddr*)&from, &fromLen);
-  } while (recvLen < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR));
+#if defined(MUPNP_SOCKET_POSIX_COOPERATIVE)
+    recvLen = mupnp_socket_transfer(sock, recvBuf, sizeof(recvBuf) - 1, false, (struct sockaddr*)&from, &fromLen);
+#else
+    recvLen = recvfrom(sock->id, recvBuf, sizeof(recvBuf) - 1, MUPNP_SOCKET_IO_FLAGS, (struct sockaddr*)&from, &fromLen);
+#endif
+  } while (!nonblocking && recvLen < 0 && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR));
 #else
   recvLen = recvfrom(sock->id, recvBuf, sizeof(recvBuf) - 1, 0, (struct sockaddr*)&from, &fromLen);
 #endif
