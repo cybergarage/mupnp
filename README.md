@@ -15,41 +15,6 @@ mUPnP for C simplifies this process by handling these protocols automatically. I
 
 mUPnP for C runs on Unix-like systems, macOS, iOS, and Windows. Since version 3.1.0, it also runs on **ESP32 microcontrollers as an ESP-IDF component**.
 
-## What's New in 3.1.3
-
-- Native POSIX workers stop cooperatively without installing or sending SIGQUIT. Socket readiness and managed sleeps observe cancellation while preserving descriptor flags, timeouts and TLS verification.
-- Linux/macOS sanitizer fixtures cover 200 lifecycle cycles plus socket/TLS cancellation and timeout contracts. DNS and arbitrary external callbacks remain cooperative limits; see [POSIX shutdown](doc/posix-shutdown.md).
-- Git build instructions now include `./bootstrap` and a brief Autotools prerequisite notice. Scanner image build context and runtime-user handling are hardened.
-
-See the [ChangeLog](ChangeLog) for compatibility notes, validation limits and the remaining IGD:2 limitation in the gateway dump example.
-
-## What's New in 3.1.2
-
-- **Gateway ownership**: select direct services or qualify a service ID by its owning-device UDN. Objective-C exposes embedded devices and root/owner identities while retaining discovery snapshot lifetimes, including multi-WAN hierarchies.
-- **Independent action results**: new strict C and Objective-C APIs require the complete input set and return only the current response. Missing output is distinct from an empty string; HTTP/SOAP/UPnP faults and parse/transport failures remain distinct. These APIs never retry automatically.
-- **Owned SCPD metadata**: Objective-C argument and state-variable snapshots expose the declared metadata without retaining native pointers.
-- Control point startup fails promptly without usable interfaces; issues with GCC/MinGW-w64 builds and Windows thread identity are fixed.
-
-Existing recursive first-match service lookup and partial-update action calls retain their behavior. New API consumers must link the updated library/framework; replacing a description still invalidates previous descendants. See the [ChangeLog](ChangeLog) and [Gateway/action migration guide](doc/gateway-action-results.md) for details on ownership, failure handling, and validation limits. DIDL/paging, SCPD value-constraint validation, and a session facade remain future work.
-
-## What's New in 3.1.1
-
-- **Reliability and security fixes**: bounded HTTP body allocation, working connect/read timeouts for HTTP clients, fixes for leaks and use-after-free in device-side GENA subscriptions, and correct LOCATION addresses in SSDP replies.
-- **Opt-in IPv6** (experimental) on Linux, macOS, and BSD via `mupnp_net_setipv6enabled(true)`.
-- State variables expose their SCPD `dataType` and `defaultValue` in C and Objective-C.
-- `make distcheck` passes, and CMake options (now `MUPNP_*`) take effect.
-
-See the [ChangeLog](ChangeLog) for details, including a struct change in `mUpnpSocket` that requires rebuilding dependent code.
-
-## What's New in 3.1.0
-
-- **ESP32 / ESP-IDF support**: use mUPnP as an ESP-IDF component on ESP32 (Wi-Fi station, IPv4), with a ready-to-build [Wi-Fi control-point example](examples/espidf/control_point) and an [ESP-IDF guide](doc/espidf.md).
-- Fixes for reliability issues found on ESP32 hardware: safe handling of XML allocation failures, GENA subscriptions retained across LOCATION changes, and HTTP server rebinding over TIME_WAIT.
-- CI includes an ESP-IDF v5.5.5 cross-build and host regression tests.
-- NULL-safe XML child-node lookups, correct `bool` handling from C++, and Xcode 27 project fixes.
-
-See the [ChangeLog](ChangeLog) for details, including one API change: `mupnp_xml_attributelist_set()` now returns `bool`.
-
 **mUPnP for C** is supported by IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY, JAPAN, as part of [Mitoh Program 2004](https://www.ipa.go.jp/archive/jinzai/mitou/mitoipedia/2004shimoki-seika.html#sakamura).
 
 ## Building the Library and Samples
