@@ -1,3 +1,19 @@
+2026-10-18 Satoshi Konno <skonno@cybergarage.org>
+	* 3.1.3
+	* Cooperative native POSIX shutdown (PR #56)
+	  - Thread stop no longer installs a SIGQUIT handler, rewrites worker signal masks or sends pthread_kill(SIGQUIT). Library socket waits and managed sleeps observe runnable state cooperatively; condition waits retain explicit repeated wakeups.
+	  - Native poll-based readiness checks support descriptors above FD_SETSIZE and retain caller O_NONBLOCK flags, native subsecond timeouts and existing error contracts. Accept/connect and serialized TLS operations restore descriptor flags. Plain sends restore their temporary bounded SO_SNDTIMEO.
+	  - TLS retries preserve WANT_READ/WANT_WRITE direction, buffered plaintext, EOF and existing certificate-chain/DNS/IP validation. No new public library function or struct field is introduced. Windows and legacy stop implementations retain their behavior; ESP-IDF host regressions remain separate.
+	  - Native Linux/macOS ASan/UBSan regressions cover 200 repeated lifecycle cycles, zero SIGQUIT sends, application-owned signal handling, socket deadlines and local TLS cancellation/verification. Fixtures use local sockets/loopback, not household appliances.
+	  - Limits: DNS resolution and arbitrary external callbacks are not forcibly interrupted. Callers must cooperate and must not hold locks needed by a stopping worker. Serialized operations must not race with caller changes to descriptor flags or TLS objects; idle readiness checks trade periodic wakeups for cooperative cancellation. See doc/posix-shutdown.md.
+	* Gateway dump example
+	  - Added an InternetGatewayDevice:1/:2 type helper in upnpigddump (f2a11d44). The outer list still selects version 1, and getter service types remain version 1; this release does not claim complete IGD:2 dump support.
+	* Build, tooling and documentation
+	  - Added standalone POSIX shutdown characterization and make-check/generator registration (PR #55), promoted to signal-free lifecycle and socket/TLS regression gates in PR #56.
+	  - Restricted scanner image build context and selected a non-root runtime user (PR #54).
+	  - Documented ./bootstrap and Autotools prerequisites for Git builds and reviewed README English (PR #57).
+	* Release metadata: synchronized configure.ac/configure, public version headers and the ESP-IDF component manifest at 3.1.3. Tag/GitHub Release publication follows merge and merged-commit validation; no new physical-device or ESP32 hardware validation is implied.
+
 2026-10-17 Satoshi Konno <skonno@cybergarage.org>
 	* 3.1.2
 	* Gateway ownership and independent action results (PR #53)

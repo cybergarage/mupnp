@@ -15,6 +15,14 @@ mUPnP for C simplifies this process by handling these protocols automatically. I
 
 mUPnP for C runs on Unix-like systems, macOS, iOS, and Windows. Since version 3.1.0, it also runs on **ESP32 microcontrollers as an ESP-IDF component**.
 
+## What's New in 3.1.3
+
+- Native POSIX workers stop cooperatively without installing or sending SIGQUIT. Socket readiness and managed sleeps observe cancellation while preserving descriptor flags, timeouts and TLS verification.
+- Linux/macOS sanitizer fixtures cover 200 lifecycle cycles plus socket/TLS cancellation and timeout contracts. DNS and arbitrary external callbacks remain cooperative limits; see [POSIX shutdown](doc/posix-shutdown.md).
+- Git build instructions now include `./bootstrap` and a brief Autotools prerequisite notice. Scanner image build context and runtime-user handling are hardened.
+
+See the [ChangeLog](ChangeLog) for compatibility notes, validation limits and the remaining IGD:2 limitation in the gateway dump example.
+
 ## What's New in 3.1.2
 
 - **Gateway ownership**: select direct services or qualify a service ID by its owning-device UDN. Objective-C exposes embedded devices and root/owner identities while retaining discovery snapshot lifetimes, including multi-WAN hierarchies.
@@ -97,7 +105,7 @@ idf.py -p /dev/ttyUSB0 flash monitor
 
 To use mUPnP in your own application, place this repository at
 `<project>/components/mupnp` (for example, as a Git submodule pinned to the
-`3.1.2` tag), add `REQUIRES mupnp` to your component, and include
+`3.1.3` tag), add `REQUIRES mupnp` to your component, and include
 `<mupnp/upnp.h>`.
 
 Limited hardware testing of the control point on an ESP32 DevKitC-VE has been reported.
