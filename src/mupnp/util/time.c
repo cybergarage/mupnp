@@ -10,6 +10,12 @@
  ******************************************************************/
 
 #include <limits.h>
+#if !defined(WIN32) && !defined(BTRON) && !defined(ITRON) && !defined(TENGINE) && !defined(ESP_PLATFORM)
+#include <errno.h>
+#include <mupnp/util/thread.h>
+#include <stdint.h>
+#include <time.h>
+#endif
 #if defined(ESP_PLATFORM)
 #include <errno.h>
 #include <esp_timer.h>
@@ -93,7 +99,31 @@ void mupnp_wait(mUpnpTime mtime)
 #elif defined(TENGINE) && defined(PROCESS_BASE)
   b_slp_tsk(mtime);
 #else
-  usleep(((useconds_t)(mtime * 1000)));
+  if (mtime <= 0)
+    return;
+  mUpnpThread* thread = mupnp_thread_self();
+  if (!thread) {
+    struct timespec duration = { mtime / 1000, (mtime % 1000) * 1000000 };
+    (void)nanosleep(&duration, NULL);
+  }
+  else {
+    /* Advertisers/notification workers can wait for minutes. Slice only managed
+     * workers, preserving elapsed monotonic time and observing cooperative stop. */
+    struct timespec now;
+    if (clock_gettime(CLOCK_MONOTONIC, &now) != 0)
+      return;
+    int64_t started = (int64_t)now.tv_sec * 1000 + now.tv_nsec / 1000000;
+    while (mupnp_thread_isrunnable(thread)) {
+      if (clock_gettime(CLOCK_MONOTONIC, &now) != 0)
+        break;
+      int64_t remaining = mtime - ((int64_t)now.tv_sec * 1000 + now.tv_nsec / 1000000 - started);
+      if (remaining <= 0)
+        break;
+      struct timespec slice = { 0, (remaining < 100 ? remaining : 100) * 1000000 };
+      if (nanosleep(&slice, NULL) != 0 && errno != EINTR)
+        break;
+    }
+  }
 #endif
 
   mupnp_log_debug_l4("Leaving...\n");

@@ -269,7 +269,9 @@ bool mupnp_thread_start(mUpnpThread* thread);
  *
  * On ESP-IDF this waits for the worker to terminate, except when called by
  * the worker itself. Blocking library waits are interrupted cooperatively.
- * Native POSIX also waits for action completion; callers must not hold
+ * Native POSIX uses cooperative socket/readiness and managed sleep waits,
+ * without installing or sending a process signal. It waits for action
+ * completion; callers must not hold
  * locks required by the action. Other platforms retain their shutdown behavior.
  *
  * @param thread The thread to stop. Must not be NULL.
