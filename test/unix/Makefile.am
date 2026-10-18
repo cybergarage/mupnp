@@ -6,9 +6,9 @@
 #
 ############################################################
 
-TESTS = mupnptest device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh
+TESTS = mupnptest device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh thread-shutdown.sh
 check_PROGRAMS = mupnptest
-EXTRA_DIST = device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh
+EXTRA_DIST = device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh thread-shutdown.sh ../posix/ThreadShutdownTest.c ../posix/README.md
 TESTS_ENVIRONMENT = CC="$(CC)" XML_LIBS="@XML_LIBS@" LIBS="$(LIBS)" CODE_COVERAGE_LIBS="$(CODE_COVERAGE_LIBS)"
 
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../ $(CODE_COVERAGE_CPPFLAGS)

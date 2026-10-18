@@ -95,7 +95,7 @@ NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
 TESTS = mupnptest$(EXEEXT) device-start-no-interfaces.sh \
-	controlpoint-start-no-interfaces.sh
+	controlpoint-start-no-interfaces.sh thread-shutdown.sh
 check_PROGRAMS = mupnptest$(EXEEXT)
 subdir = test/unix
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -519,7 +519,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh
+EXTRA_DIST = device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh thread-shutdown.sh ../posix/ThreadShutdownTest.c ../posix/README.md
 TESTS_ENVIRONMENT = CC="$(CC)" XML_LIBS="@XML_LIBS@" LIBS="$(LIBS)" CODE_COVERAGE_LIBS="$(CODE_COVERAGE_LIBS)"
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../ $(CODE_COVERAGE_CPPFLAGS)
 AM_CFLAGS = $(CODE_COVERAGE_CFLAGS)
@@ -893,6 +893,13 @@ device-start-no-interfaces.sh.log: device-start-no-interfaces.sh
 controlpoint-start-no-interfaces.sh.log: controlpoint-start-no-interfaces.sh
 	@p='controlpoint-start-no-interfaces.sh'; \
 	b='controlpoint-start-no-interfaces.sh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+thread-shutdown.sh.log: thread-shutdown.sh
+	@p='thread-shutdown.sh'; \
+	b='thread-shutdown.sh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
