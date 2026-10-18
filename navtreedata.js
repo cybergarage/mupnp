@@ -31,7 +31,7 @@ var NAVTREE =
     [ "Building the Library and Samples", "index.html#autotoc_md200", [
       [ "Unix", "index.html#autotoc_md201", null ],
       [ "Homebrew (macOS, Linux)", "index.html#autotoc_md202", null ],
-      [ "MacOSX", "index.html#autotoc_md203", null ],
+      [ "macOS", "index.html#autotoc_md203", null ],
       [ "ESP32 (ESP-IDF)", "index.html#autotoc_md204", null ],
       [ "Windows", "index.html#autotoc_md205", null ]
     ] ],

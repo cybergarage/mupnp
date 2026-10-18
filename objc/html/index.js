@@ -6,7 +6,7 @@ var index =
     [ "Building the Library and Samples", "index.html#autotoc_md191", [
       [ "Unix", "index.html#autotoc_md192", null ],
       [ "Homebrew (macOS, Linux)", "index.html#autotoc_md193", null ],
-      [ "MacOSX", "index.html#autotoc_md194", null ],
+      [ "macOS", "index.html#autotoc_md194", null ],
       [ "ESP32 (ESP-IDF)", "index.html#autotoc_md195", null ],
       [ "Windows", "index.html#autotoc_md196", null ]
     ] ],
