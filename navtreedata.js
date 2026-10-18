@@ -25,25 +25,26 @@
 var NAVTREE =
 [
   [ "mUPnP for C", "index.html", [
-    [ "What's New in 3.1.2", "index.html#autotoc_md198", null ],
-    [ "What's New in 3.1.1", "index.html#autotoc_md199", null ],
-    [ "What's New in 3.1.0", "index.html#autotoc_md200", null ],
-    [ "Building the Library and Samples", "index.html#autotoc_md201", [
-      [ "Unix", "index.html#autotoc_md202", null ],
-      [ "Homebrew (macOS, Linux)", "index.html#autotoc_md203", null ],
-      [ "macOS", "index.html#autotoc_md204", null ],
-      [ "ESP32 (ESP-IDF)", "index.html#autotoc_md205", null ],
-      [ "Windows", "index.html#autotoc_md206", null ]
+    [ "What's New in 3.1.3", "index.html#autotoc_md198", null ],
+    [ "What's New in 3.1.2", "index.html#autotoc_md199", null ],
+    [ "What's New in 3.1.1", "index.html#autotoc_md200", null ],
+    [ "What's New in 3.1.0", "index.html#autotoc_md201", null ],
+    [ "Building the Library and Samples", "index.html#autotoc_md202", [
+      [ "Unix", "index.html#autotoc_md203", null ],
+      [ "Homebrew (macOS, Linux)", "index.html#autotoc_md204", null ],
+      [ "macOS", "index.html#autotoc_md205", null ],
+      [ "ESP32 (ESP-IDF)", "index.html#autotoc_md206", null ],
+      [ "Windows", "index.html#autotoc_md207", null ]
     ] ],
-    [ "References", "index.html#autotoc_md207", [
-      [ "mUPnP for C", "index.html#autotoc_md208", null ],
-      [ "mUPnP for Objective-C", "index.html#autotoc_md209", null ]
+    [ "References", "index.html#autotoc_md208", [
+      [ "mUPnP for C", "index.html#autotoc_md209", null ],
+      [ "mUPnP for Objective-C", "index.html#autotoc_md210", null ]
     ] ],
-    [ "Examples", "index.html#autotoc_md210", null ],
-    [ "Adoption in Consumer Products", "index.html#autotoc_md211", [
-      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md212", null ],
-      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md213", null ],
-      [ "Toshiba REGZA Televisions", "index.html#autotoc_md214", null ]
+    [ "Examples", "index.html#autotoc_md211", null ],
+    [ "Adoption in Consumer Products", "index.html#autotoc_md212", [
+      [ "Nokia 770 Internet Tablet", "index.html#autotoc_md213", null ],
+      [ "Panasonic VIERA Remote for iOS Devices", "index.html#autotoc_md214", null ],
+      [ "Toshiba REGZA Televisions", "index.html#autotoc_md215", null ]
     ] ],
     [ "ESP-IDF port", "md_doc_2espidf.html", [
       [ "Scope and status", "md_doc_2espidf.html#autotoc_md10", [
@@ -301,15 +302,15 @@ var NAVTREEINDEX =
 "event_8h.html#a1d172fd869ae8e2431b14f057a79c977",
 "http_8h.html#a2dcc5f47055151edcab879ec0c9cb71f",
 "http_8h.html#aee5507493835580f5f996825d3582a24",
-"interfaceCGUpnpDevice.html#a02a6aa8bc0369d945b75d1c41cc1df94",
-"md_doc_2mupnpcproguide.html#autotoc_md36",
-"protocolCGUpnpControlPointDelegate-p.html#a1be29671cfc3192cff35aa4e829810e3",
-"socket_8c.html#a17f25c4454e96090e7498a819bc0c5a4",
-"ssdp__server_8c.html",
-"string_8h.html#a8682b33c69ff2a6cfc2af91edf2174cf",
-"struct__mUpnpSSDPResponseServer.html",
-"typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7",
-"xml_8h.html#ab23b5ec2459faee377925bb8394ae16e"
+"interfaceCGUpnpDevice.html#a0212353e65464c7549bf084a2dd7f7a8",
+"md_doc_2mupnpcproguide.html#autotoc_md35",
+"protocolCGUpnpControlPointDelegate-p.html",
+"socket_8c.html#a0c2df24dcbbd578f09658f73f032953c",
+"ssdp__response__server__list_8c.html#ae467d0c8758fe5340aaf8733f8e21a0d",
+"string_8h.html#a82fe19c5ccadeedab1164ff205c34114",
+"struct__mUpnpSSDPPacket.html#adb80f19eed04649b7196ba8dff3308e8",
+"typedef_8h.html",
+"xml_8h.html#ab0148be7dcaca5e5741a2d2587021f23"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
