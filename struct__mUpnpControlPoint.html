@@ -116,6 +116,14 @@ Data Fields</h2></td></tr>
 <tr class="separator:a45a48ddc445235c0153aef8c9cdb0ac9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0faadfc8210157a3fc93fc25e76d75c" id="r_aa0faadfc8210157a3fc93fc25e76d75c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_8h.html#a29b452e10ccd31cb105551c83071f69f">mUpnpNetworkInterfaceList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa0faadfc8210157a3fc93fc25e76d75c">ifCache</a></td></tr>
 <tr class="separator:aa0faadfc8210157a3fc93fc25e76d75c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87e4e0c3e6dbfa4f0d848fb32b9fa60a" id="r_a87e4e0c3e6dbfa4f0d848fb32b9fa60a"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct__mUpnpControlPointFetch.html">_mUpnpControlPointFetch</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a87e4e0c3e6dbfa4f0d848fb32b9fa60a">pendingFetches</a></td></tr>
+<tr class="separator:a87e4e0c3e6dbfa4f0d848fb32b9fa60a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65c14719de4908d3e2c9c5eae1a166c6" id="r_a65c14719de4908d3e2c9c5eae1a166c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="cond_8h.html#abc65bd78fb72a62bdbe716e1ec5d8542">mUpnpCond</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a65c14719de4908d3e2c9c5eae1a166c6">fetchCond</a></td></tr>
+<tr class="separator:a65c14719de4908d3e2c9c5eae1a166c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac42f2c596cb3bbf061b99a22e5024922" id="r_ac42f2c596cb3bbf061b99a22e5024922"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac42f2c596cb3bbf061b99a22e5024922">discoveryEpoch</a></td></tr>
+<tr class="separator:ac42f2c596cb3bbf061b99a22e5024922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9aff598ad7845fe32120905cf5c9427" id="r_af9aff598ad7845fe32120905cf5c9427"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9aff598ad7845fe32120905cf5c9427">stopping</a></td></tr>
+<tr class="separator:af9aff598ad7845fe32120905cf5c9427"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Prototype for control point's device listener callback.</p>
@@ -163,6 +171,20 @@ Data Fields</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="xml_8h.html#accae86d47cedcfd67d1f762e155acc31">mUpnpXmlNodeList</a>* _mUpnpControlPoint::deviceRootNodeList</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac42f2c596cb3bbf061b99a22e5024922" name="ac42f2c596cb3bbf061b99a22e5024922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac42f2c596cb3bbf061b99a22e5024922">&#9670;&#160;</a></span>discoveryEpoch</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long _mUpnpControlPoint::discoveryEpoch</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -219,6 +241,20 @@ Data Fields</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="thread_8h.html#a1e484dbc829e6aadf236d0bec622d131">mUpnpThread</a>* _mUpnpControlPoint::expThread</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a65c14719de4908d3e2c9c5eae1a166c6" name="a65c14719de4908d3e2c9c5eae1a166c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65c14719de4908d3e2c9c5eae1a166c6">&#9670;&#160;</a></span>fetchCond</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="cond_8h.html#abc65bd78fb72a62bdbe716e1ec5d8542">mUpnpCond</a>* _mUpnpControlPoint::fetchCond</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -310,6 +346,20 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a87e4e0c3e6dbfa4f0d848fb32b9fa60a" name="a87e4e0c3e6dbfa4f0d848fb32b9fa60a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87e4e0c3e6dbfa4f0d848fb32b9fa60a">&#9670;&#160;</a></span>pendingFetches</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="struct__mUpnpControlPointFetch.html">_mUpnpControlPointFetch</a>* _mUpnpControlPoint::pendingFetches</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a59a2bc23337ae133576b8616cc481e63" name="a59a2bc23337ae133576b8616cc481e63"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59a2bc23337ae133576b8616cc481e63">&#9670;&#160;</a></span>ssdpListener</h2>
 
@@ -388,6 +438,20 @@ Data Fields</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="ssdp__server_8h.html#add57acd99c8c74db3b36fc4339ad00d6">mUpnpSSDPServerList</a>* _mUpnpControlPoint::ssdpServerList</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af9aff598ad7845fe32120905cf5c9427" name="af9aff598ad7845fe32120905cf5c9427"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9aff598ad7845fe32120905cf5c9427">&#9670;&#160;</a></span>stopping</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a> _mUpnpControlPoint::stopping</td>
         </tr>
       </table>
 </div><div class="memdoc">

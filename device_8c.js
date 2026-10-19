@@ -55,6 +55,7 @@ var device_8c =
     [ "mupnp_device_start", "device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f", null ],
     [ "mupnp_device_stop", "device_8c.html#aa29f22524439920db536643028a799cb", null ],
     [ "mupnp_device_swapdescription", "device_8c.html#a21de5bdb07e70a2d600df656c64c1274", null ],
+    [ "mupnp_device_updatefromdevice", "device_8c.html#a54477e4310f783bc6854d6081cf7e2d6", null ],
     [ "mupnp_device_updatefromssdppacket", "device_8c.html#ade48d179a5cfe9471c2e63cf4fadfcf1", null ],
     [ "mupnp_device_updateudn", "device_8c.html#aa9aa9eca8ded521c760287d5bdc50ed2", null ],
     [ "mupnp_devicetype_getdevice", "device_8c.html#a82f6b342513ed88b6a9d2e84c9f4ea7f", null ],

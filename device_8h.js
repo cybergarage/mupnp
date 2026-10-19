@@ -153,6 +153,7 @@ var device_8h =
     [ "mupnp_device_ssdpmessagereceived", "device_8h.html#a9d62f9e100a0cb7ddb2d08d49c1a5f28", null ],
     [ "mupnp_device_start", "device_8h.html#a7a2d960ccbb38229b8425f2925d0c40f", null ],
     [ "mupnp_device_stop", "device_8h.html#aa29f22524439920db536643028a799cb", null ],
+    [ "mupnp_device_updatefromdevice", "device_8h.html#ac4e30201ba52918903c988b078c2ea5d", null ],
     [ "mupnp_device_updatefromssdppacket", "device_8h.html#ade48d179a5cfe9471c2e63cf4fadfcf1", null ],
     [ "mupnp_device_updateudn", "device_8h.html#aa9aa9eca8ded521c760287d5bdc50ed2", null ],
     [ "mupnp_devicelist_delete", "device_8h.html#a2ed620ce3f341056488e0db77e951bd7", null ],

@@ -8,6 +8,7 @@ var annotated_dup =
     [ "_mUpnpArgument", "struct__mUpnpArgument.html", "struct__mUpnpArgument" ],
     [ "_mUpnpCond", "struct__mUpnpCond.html", "struct__mUpnpCond" ],
     [ "_mUpnpControlPoint", "struct__mUpnpControlPoint.html", "struct__mUpnpControlPoint" ],
+    [ "_mUpnpControlPointFetch", "struct__mUpnpControlPointFetch.html", "struct__mUpnpControlPointFetch" ],
     [ "_mUpnpDatagramPacket", "struct__mUpnpDatagramPacket.html", "struct__mUpnpDatagramPacket" ],
     [ "_mUpnpDevice", "struct__mUpnpDevice.html", "struct__mUpnpDevice" ],
     [ "_mUpnpDictionary", "struct__mUpnpDictionary.html", "struct__mUpnpDictionary" ],

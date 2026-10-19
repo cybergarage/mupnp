@@ -1,8 +1,11 @@
 var controlpoint_8c =
 [
+    [ "_mUpnpControlPointFetch", "struct__mUpnpControlPointFetch.html", "struct__mUpnpControlPointFetch" ],
+    [ "mUpnpControlPointFetch", "controlpoint_8c.html#a4e52c6bf5f3a205711608a91fc45146d", null ],
     [ "mupnp_controlpoint_adddevicebyssdppacket", "controlpoint_8c.html#a95e28779f64cd90a8867daeb97deaf3e", null ],
     [ "mupnp_controlpoint_createdevicefromssdkpacket", "controlpoint_8c.html#ac75429431bb1fb055ca1e6d1d7a0f8a1", null ],
     [ "mupnp_controlpoint_delete", "controlpoint_8c.html#a13ca075e0efce9811bcd2621036b5e74", null ],
+    [ "mupnp_controlpoint_fetchdevice", "controlpoint_8c.html#a4a302ad9c1c6616c92b82b1cc9ee32cf", null ],
     [ "mupnp_controlpoint_getdevicebyexacttype", "controlpoint_8c.html#abf20acd68e20cd6fdf03ad58e0cdfca1", null ],
     [ "mupnp_controlpoint_getdevicebytype", "controlpoint_8c.html#a7ddec7238d44130fef116206df5f511f", null ],
     [ "mupnp_controlpoint_getdevicebyudn", "controlpoint_8c.html#a907d7de7c81c90182c6604bb76f061e6", null ],

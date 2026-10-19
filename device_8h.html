@@ -327,6 +327,8 @@ Functions</h2></td></tr>
 <tr class="separator:a1cfd480edf457d8b980743f1110887d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af155e0f6bbcfe9d77d969185d8b9736f" id="r_af155e0f6bbcfe9d77d969185d8b9736f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af155e0f6bbcfe9d77d969185d8b9736f">mupnp_device_parsedescriptionurl</a> (<a class="el" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev, <a class="el" href="url_8h.html#ac243f25fce6502c373159c84eef61b37">mUpnpNetURL</a> *url)</td></tr>
 <tr class="separator:af155e0f6bbcfe9d77d969185d8b9736f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4e30201ba52918903c988b078c2ea5d" id="r_ac4e30201ba52918903c988b078c2ea5d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac4e30201ba52918903c988b078c2ea5d">mupnp_device_updatefromdevice</a> (<a class="el" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev, <a class="el" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *candidate, <a class="el" href="ssdp__server_8h.html#af6c745383baac796f372825da3b666d9">mUpnpSSDPPacket</a> *ssdpPkt)</td></tr>
+<tr class="separator:ac4e30201ba52918903c988b078c2ea5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade48d179a5cfe9471c2e63cf4fadfcf1" id="r_ade48d179a5cfe9471c2e63cf4fadfcf1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade48d179a5cfe9471c2e63cf4fadfcf1">mupnp_device_updatefromssdppacket</a> (<a class="el" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *dev, <a class="el" href="ssdp__server_8h.html#af6c745383baac796f372825da3b666d9">mUpnpSSDPPacket</a> *ssdpPkt)</td></tr>
 <tr class="separator:ade48d179a5cfe9471c2e63cf4fadfcf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e7757adcd86259b4c12074e40e0fb1b" id="r_a5e7757adcd86259b4c12074e40e0fb1b"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e7757adcd86259b4c12074e40e0fb1b">mupnp_devicetype_getidentifier</a> (const char *deviceType)</td></tr>
@@ -568,7 +570,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="ssdp__server_8h.html#a669163dd7570c2fb0d0df1f081007059">mupnp_ssdp_packet_getlocaladdress</a>(<a class="code hl_define" href="#ad455a999a6a06d064d719aa2f08e2bdc">mupnp_device_getssdppacket</a>(dev))</div>
-<div class="ttc" id="adevice_8h_html_ad455a999a6a06d064d719aa2f08e2bdc"><div class="ttname"><a href="#ad455a999a6a06d064d719aa2f08e2bdc">mupnp_device_getssdppacket</a></div><div class="ttdeci">#define mupnp_device_getssdppacket(dev)</div><div class="ttdef"><b>Definition</b> device.h:1675</div></div>
+<div class="ttc" id="adevice_8h_html_ad455a999a6a06d064d719aa2f08e2bdc"><div class="ttname"><a href="#ad455a999a6a06d064d719aa2f08e2bdc">mupnp_device_getssdppacket</a></div><div class="ttdeci">#define mupnp_device_getssdppacket(dev)</div><div class="ttdef"><b>Definition</b> device.h:1679</div></div>
 <div class="ttc" id="assdp__server_8h_html_a669163dd7570c2fb0d0df1f081007059"><div class="ttname"><a href="ssdp__server_8h.html#a669163dd7570c2fb0d0df1f081007059">mupnp_ssdp_packet_getlocaladdress</a></div><div class="ttdeci">#define mupnp_ssdp_packet_getlocaladdress(ssdpPkt)</div><div class="ttdef"><b>Definition</b> ssdp_server.h:138</div></div>
 </div><!-- fragment --><p>Get the device associated to the given service</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -1681,7 +1683,7 @@ For a safer alternative that doesn't require knowing the index, use <a class="el
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((0 &lt; <a class="code hl_function" href="string__function_8c.html#ae379190e0c5579d7bac5226f5977f8ff">mupnp_strlen</a>(<a class="code hl_define" href="#a34f3bb56ba861c67d0da7b050ed507e0">mupnp_device_getudn</a>(dev))) ? <a class="code hl_define" href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a> : <span class="keyword">false</span>)</div>
-<div class="ttc" id="adevice_8h_html_a34f3bb56ba861c67d0da7b050ed507e0"><div class="ttname"><a href="#a34f3bb56ba861c67d0da7b050ed507e0">mupnp_device_getudn</a></div><div class="ttdeci">#define mupnp_device_getudn(dev)</div><div class="ttdef"><b>Definition</b> device.h:664</div></div>
+<div class="ttc" id="adevice_8h_html_a34f3bb56ba861c67d0da7b050ed507e0"><div class="ttname"><a href="#a34f3bb56ba861c67d0da7b050ed507e0">mupnp_device_getudn</a></div><div class="ttdeci">#define mupnp_device_getudn(dev)</div><div class="ttdef"><b>Definition</b> device.h:668</div></div>
 <div class="ttc" id="astring__function_8c_html_ae379190e0c5579d7bac5226f5977f8ff"><div class="ttname"><a href="string__function_8c.html#ae379190e0c5579d7bac5226f5977f8ff">mupnp_strlen</a></div><div class="ttdeci">size_t mupnp_strlen(const char *str)</div><div class="ttdoc">Get the length of a string (NULL-safe wrapper for strlen)</div><div class="ttdef"><b>Definition</b> string_function.c:63</div></div>
 <div class="ttc" id="atypedef_8h_html_a41f9c5fb8b08eb5dc3edce4dcb37fee7"><div class="ttname"><a href="typedef_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">true</a></div><div class="ttdeci">#define true</div><div class="ttdef"><b>Definition</b> typedef.h:66</div></div>
 </div><!-- fragment --><p>Check whether the device has a Unique Device Name (UDN)</p>
@@ -1787,7 +1789,7 @@ For a safer alternative that doesn't require knowing the index, use <a class="el
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line"><a class="code hl_function" href="string__function_8c.html#a87e4a8c1183b47bda9414e1bdb2a265b">mupnp_streq</a>(<a class="code hl_define" href="#af830d0723bc64531753b4e7f42e4dcca">mupnp_device_getdevicetype</a>(dev), value)</div>
-<div class="ttc" id="adevice_8h_html_af830d0723bc64531753b4e7f42e4dcca"><div class="ttname"><a href="#af830d0723bc64531753b4e7f42e4dcca">mupnp_device_getdevicetype</a></div><div class="ttdeci">#define mupnp_device_getdevicetype(dev)</div><div class="ttdef"><b>Definition</b> device.h:395</div></div>
+<div class="ttc" id="adevice_8h_html_af830d0723bc64531753b4e7f42e4dcca"><div class="ttname"><a href="#af830d0723bc64531753b4e7f42e4dcca">mupnp_device_getdevicetype</a></div><div class="ttdeci">#define mupnp_device_getdevicetype(dev)</div><div class="ttdef"><b>Definition</b> device.h:399</div></div>
 </div><!-- fragment --><p>Check, whether the device is of the exact specified type (including version)</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -4512,14 +4514,14 @@ Ensure proper firewall configuration to allow:<ul>
 <div class="line">}</div>
 <div class="ttc" id="adevice_8c_html_a5981b74558fe69136e90ebdd9a1f8dc1"><div class="ttname"><a href="device_8c.html#a5981b74558fe69136e90ebdd9a1f8dc1">mupnp_device_new</a></div><div class="ttdeci">mUpnpDevice * mupnp_device_new(void)</div><div class="ttdoc">Create a new UPnP device instance.</div><div class="ttdef"><b>Definition</b> device.c:41</div></div>
 <div class="ttc" id="adevice_8c_html_a6eb99cb4d1c0f01e2597f8d0596dae65"><div class="ttname"><a href="device_8c.html#a6eb99cb4d1c0f01e2597f8d0596dae65">mupnp_device_delete</a></div><div class="ttdeci">void mupnp_device_delete(mUpnpDevice *dev)</div><div class="ttdoc">Delete a UPnP device and free all associated resources.</div><div class="ttdef"><b>Definition</b> device.c:95</div></div>
-<div class="ttc" id="adevice_8c_html_a7a2d960ccbb38229b8425f2925d0c40f"><div class="ttname"><a href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start</a></div><div class="ttdeci">bool mupnp_device_start(mUpnpDevice *dev)</div><div class="ttdoc">Start a UPnP device and begin advertising on the network.</div><div class="ttdef"><b>Definition</b> device.c:1581</div></div>
-<div class="ttc" id="adevice_8c_html_aa9aa9eca8ded521c760287d5bdc50ed2"><div class="ttname"><a href="device_8c.html#aa9aa9eca8ded521c760287d5bdc50ed2">mupnp_device_updateudn</a></div><div class="ttdeci">void mupnp_device_updateudn(mUpnpDevice *dev)</div><div class="ttdef"><b>Definition</b> device.c:2347</div></div>
-<div class="ttc" id="adevice_8c_html_abbaa80309b6fd82938cf17173c3ea9a9"><div class="ttname"><a href="device_8c.html#abbaa80309b6fd82938cf17173c3ea9a9">mupnp_device_setquerylistener</a></div><div class="ttdeci">void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER queryListner)</div><div class="ttdef"><b>Definition</b> device.c:2064</div></div>
-<div class="ttc" id="adevice_8c_html_ae6e0dbb589b5c06aeb99d9635a22eab0"><div class="ttname"><a href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener</a></div><div class="ttdeci">void mupnp_device_setactionlistener(mUpnpDevice *dev, MUPNP_ACTION_LISTNER actionListner)</div><div class="ttdef"><b>Definition</b> device.c:2044</div></div>
-<div class="ttc" id="adevice_8h_html_a20060d461a0c342e4ce281f27f9a4b9d"><div class="ttname"><a href="#a20060d461a0c342e4ce281f27f9a4b9d">mupnp_device_setmodelname</a></div><div class="ttdeci">#define mupnp_device_setmodelname(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:567</div></div>
-<div class="ttc" id="adevice_8h_html_a3b873ff433d66570ebdb606816ff0567"><div class="ttname"><a href="#a3b873ff433d66570ebdb606816ff0567">mupnp_device_setdevicetype</a></div><div class="ttdeci">#define mupnp_device_setdevicetype(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:386</div></div>
-<div class="ttc" id="adevice_8h_html_ab6c98a808406a530f2f71eb690fe3308"><div class="ttname"><a href="#ab6c98a808406a530f2f71eb690fe3308">mupnp_device_setfriendlyname</a></div><div class="ttdeci">#define mupnp_device_setfriendlyname(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:479</div></div>
-<div class="ttc" id="adevice_8h_html_ae1bfcc9c7dd2ed44d3cdc65a22cb0832"><div class="ttname"><a href="#ae1bfcc9c7dd2ed44d3cdc65a22cb0832">mupnp_device_setmanufacturer</a></div><div class="ttdeci">#define mupnp_device_setmanufacturer(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:501</div></div>
+<div class="ttc" id="adevice_8c_html_a7a2d960ccbb38229b8425f2925d0c40f"><div class="ttname"><a href="device_8c.html#a7a2d960ccbb38229b8425f2925d0c40f">mupnp_device_start</a></div><div class="ttdeci">bool mupnp_device_start(mUpnpDevice *dev)</div><div class="ttdoc">Start a UPnP device and begin advertising on the network.</div><div class="ttdef"><b>Definition</b> device.c:1602</div></div>
+<div class="ttc" id="adevice_8c_html_aa9aa9eca8ded521c760287d5bdc50ed2"><div class="ttname"><a href="device_8c.html#aa9aa9eca8ded521c760287d5bdc50ed2">mupnp_device_updateudn</a></div><div class="ttdeci">void mupnp_device_updateudn(mUpnpDevice *dev)</div><div class="ttdef"><b>Definition</b> device.c:2368</div></div>
+<div class="ttc" id="adevice_8c_html_abbaa80309b6fd82938cf17173c3ea9a9"><div class="ttname"><a href="device_8c.html#abbaa80309b6fd82938cf17173c3ea9a9">mupnp_device_setquerylistener</a></div><div class="ttdeci">void mupnp_device_setquerylistener(mUpnpDevice *dev, MUPNP_STATEVARIABLE_LISTNER queryListner)</div><div class="ttdef"><b>Definition</b> device.c:2085</div></div>
+<div class="ttc" id="adevice_8c_html_ae6e0dbb589b5c06aeb99d9635a22eab0"><div class="ttname"><a href="device_8c.html#ae6e0dbb589b5c06aeb99d9635a22eab0">mupnp_device_setactionlistener</a></div><div class="ttdeci">void mupnp_device_setactionlistener(mUpnpDevice *dev, MUPNP_ACTION_LISTNER actionListner)</div><div class="ttdef"><b>Definition</b> device.c:2065</div></div>
+<div class="ttc" id="adevice_8h_html_a20060d461a0c342e4ce281f27f9a4b9d"><div class="ttname"><a href="#a20060d461a0c342e4ce281f27f9a4b9d">mupnp_device_setmodelname</a></div><div class="ttdeci">#define mupnp_device_setmodelname(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:571</div></div>
+<div class="ttc" id="adevice_8h_html_a3b873ff433d66570ebdb606816ff0567"><div class="ttname"><a href="#a3b873ff433d66570ebdb606816ff0567">mupnp_device_setdevicetype</a></div><div class="ttdeci">#define mupnp_device_setdevicetype(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:390</div></div>
+<div class="ttc" id="adevice_8h_html_ab6c98a808406a530f2f71eb690fe3308"><div class="ttname"><a href="#ab6c98a808406a530f2f71eb690fe3308">mupnp_device_setfriendlyname</a></div><div class="ttdeci">#define mupnp_device_setfriendlyname(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:483</div></div>
+<div class="ttc" id="adevice_8h_html_ae1bfcc9c7dd2ed44d3cdc65a22cb0832"><div class="ttname"><a href="#ae1bfcc9c7dd2ed44d3cdc65a22cb0832">mupnp_device_setmanufacturer</a></div><div class="ttdeci">#define mupnp_device_setmanufacturer(dev, value)</div><div class="ttdef"><b>Definition</b> device.h:505</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -4583,6 +4585,32 @@ Active event subscriptions are not explicitly cancelled. Subscribed control poin
 <a class="el" href="#a94008fd7869299b65b5596d3093a2cb2">mupnp_device_isrunning()</a> </dd>
 <dd>
 <a class="el" href="#a6eb99cb4d1c0f01e2597f8d0596dae65" title="Delete a UPnP device and free all associated resources.">mupnp_device_delete()</a> </dd></dl>
+
+</div>
+</div>
+<a id="ac4e30201ba52918903c988b078c2ea5d" name="ac4e30201ba52918903c988b078c2ea5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4e30201ba52918903c988b078c2ea5d">&#9670;&#160;</a></span>mupnp_device_updatefromdevice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a> mupnp_device_updatefromdevice </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *</td>          <td class="paramname"><span class="paramname"><em>dev</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *</td>          <td class="paramname"><span class="paramname"><em>candidate</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ssdp__server_8h.html#af6c745383baac796f372825da3b666d9">mUpnpSSDPPacket</a> *</td>          <td class="paramname"><span class="paramname"><em>ssdpPkt</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

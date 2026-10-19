@@ -8,6 +8,7 @@ var hierarchy =
     [ "_mUpnpArgument", "struct__mUpnpArgument.html", null ],
     [ "_mUpnpCond", "struct__mUpnpCond.html", null ],
     [ "_mUpnpControlPoint", "struct__mUpnpControlPoint.html", null ],
+    [ "_mUpnpControlPointFetch", "struct__mUpnpControlPointFetch.html", null ],
     [ "_mUpnpDatagramPacket", "struct__mUpnpDatagramPacket.html", null ],
     [ "_mUpnpDevice", "struct__mUpnpDevice.html", null ],
     [ "_mUpnpDictionary", "struct__mUpnpDictionary.html", null ],

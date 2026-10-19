@@ -67,6 +67,8 @@ $(function(){initNavTree('controlpoint_8c.html',''); initResizable(true); });
 <div id="doc-content">
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">controlpoint.c File Reference</div></div>
 </div><!--header-->
@@ -77,6 +79,16 @@ $(function(){initNavTree('controlpoint_8c.html',''); initResizable(true); });
 <code>#include &lt;<a class="el" href="upnp__limit_8h.html">mupnp/upnp_limit.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="log_8h.html">mupnp/util/log.h</a>&gt;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__mUpnpControlPointFetch.html">_mUpnpControlPointFetch</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a4e52c6bf5f3a205711608a91fc45146d" id="r_a4e52c6bf5f3a205711608a91fc45146d"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct__mUpnpControlPointFetch.html">_mUpnpControlPointFetch</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e52c6bf5f3a205711608a91fc45146d">mUpnpControlPointFetch</a></td></tr>
+<tr class="separator:a4e52c6bf5f3a205711608a91fc45146d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:afd062537f90eca176214dd7040cbd0e2" id="r_afd062537f90eca176214dd7040cbd0e2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afd062537f90eca176214dd7040cbd0e2">mupnp_controlpoint_ssdplistner</a> (<a class="el" href="ssdp__server_8h.html#af6c745383baac796f372825da3b666d9">mUpnpSSDPPacket</a> *ssdpPkt)</td></tr>
@@ -119,6 +131,8 @@ Functions</h2></td></tr>
 <tr class="separator:afa98c7641125219d381d822b689d0b4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac75429431bb1fb055ca1e6d1d7a0f8a1" id="r_ac75429431bb1fb055ca1e6d1d7a0f8a1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="device_8h.html#a65c75151ea2d517a2b378c4a37f127e3">mUpnpDevice</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac75429431bb1fb055ca1e6d1d7a0f8a1">mupnp_controlpoint_createdevicefromssdkpacket</a> (<a class="el" href="ssdp__server_8h.html#af6c745383baac796f372825da3b666d9">mUpnpSSDPPacket</a> *ssdpPkt)</td></tr>
 <tr class="separator:ac75429431bb1fb055ca1e6d1d7a0f8a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a302ad9c1c6616c92b82b1cc9ee32cf" id="r_a4a302ad9c1c6616c92b82b1cc9ee32cf"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a302ad9c1c6616c92b82b1cc9ee32cf">mupnp_controlpoint_fetchdevice</a> (<a class="el" href="controlpoint_8h.html#a4fd9c99783214a28c444ff995a95052c">mUpnpControlPoint</a> *ctrlPoint, <a class="el" href="ssdp__server_8h.html#af6c745383baac796f372825da3b666d9">mUpnpSSDPPacket</a> *ssdpPkt)</td></tr>
+<tr class="separator:a4a302ad9c1c6616c92b82b1cc9ee32cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95e28779f64cd90a8867daeb97deaf3e" id="r_a95e28779f64cd90a8867daeb97deaf3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95e28779f64cd90a8867daeb97deaf3e">mupnp_controlpoint_adddevicebyssdppacket</a> (<a class="el" href="controlpoint_8h.html#a4fd9c99783214a28c444ff995a95052c">mUpnpControlPoint</a> *ctrlPoint, <a class="el" href="ssdp__server_8h.html#af6c745383baac796f372825da3b666d9">mUpnpSSDPPacket</a> *ssdpPkt)</td></tr>
 <tr class="separator:a95e28779f64cd90a8867daeb97deaf3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a020d02824724feaae6ebda1beb414d3f" id="r_a020d02824724feaae6ebda1beb414d3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a020d02824724feaae6ebda1beb414d3f">mupnp_controlpoint_removedevicebyssdppacket</a> (<a class="el" href="controlpoint_8h.html#a4fd9c99783214a28c444ff995a95052c">mUpnpControlPoint</a> *ctrlPoint, <a class="el" href="ssdp__server_8h.html#af6c745383baac796f372825da3b666d9">mUpnpSSDPPacket</a> *ssdpPkt)</td></tr>
@@ -129,6 +143,21 @@ Functions</h2></td></tr>
 <tr class="memitem:a973f672681b7a76c822919a2ecfcdd88" id="r_a973f672681b7a76c822919a2ecfcdd88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedef_8h.html#abb452686968e48b67397da5f97445f5b">bool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a973f672681b7a76c822919a2ecfcdd88">mupnp_controlpoint_ipchanged</a> (<a class="el" href="controlpoint_8h.html#a4fd9c99783214a28c444ff995a95052c">mUpnpControlPoint</a> *ctrlPoint)</td></tr>
 <tr class="separator:a973f672681b7a76c822919a2ecfcdd88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a4e52c6bf5f3a205711608a91fc45146d" name="a4e52c6bf5f3a205711608a91fc45146d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e52c6bf5f3a205711608a91fc45146d">&#9670;&#160;</a></span>mUpnpControlPointFetch</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct__mUpnpControlPointFetch.html">_mUpnpControlPointFetch</a> <a class="el" href="#a4e52c6bf5f3a205711608a91fc45146d">mUpnpControlPointFetch</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a95e28779f64cd90a8867daeb97deaf3e" name="a95e28779f64cd90a8867daeb97deaf3e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95e28779f64cd90a8867daeb97deaf3e">&#9670;&#160;</a></span>mupnp_controlpoint_adddevicebyssdppacket()</h2>
@@ -207,6 +236,35 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a4a302ad9c1c6616c92b82b1cc9ee32cf" name="a4a302ad9c1c6616c92b82b1cc9ee32cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a302ad9c1c6616c92b82b1cc9ee32cf">&#9670;&#160;</a></span>mupnp_controlpoint_fetchdevice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void mupnp_controlpoint_fetchdevice </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="controlpoint_8h.html#a4fd9c99783214a28c444ff995a95052c">mUpnpControlPoint</a> *</td>          <td class="paramname"><span class="paramname"><em>ctrlPoint</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="ssdp__server_8h.html#af6c745383baac796f372825da3b666d9">mUpnpSSDPPacket</a> *</td>          <td class="paramname"><span class="paramname"><em>ssdpPkt</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
