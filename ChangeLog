@@ -1,3 +1,13 @@
+2026-10-19 Satoshi Konno <skonno@cybergarage.org>
+	* 3.1.4
+	* Control point description-fetch lifecycle (PR #59)
+	  - Fetch device descriptions and SCPDs into owned candidates outside the device-cache mutex, so slow HTTP endpoints do not block cache snapshots for the entire HTTP timeout.
+	  - Deduplicate in-flight LOCATION requests, reject superseded or stopped discovery results, resolve embedded announcements to their owning root, and preserve cached devices and GENA subscription state when committing updates.
+	  - Invalidate unpublished work before cooperative SSDP worker shutdown and join pending fetch scopes before clearing the cache. Direct non-SDK callers still wait for their HTTP operation to return or time out; existing transport and application-level read cancellation limits are unchanged.
+	  - Compatibility: mUpnpControlPoint gains lifecycle fields at the end of the public struct. Rebuild consumers against the updated headers and library; retain constructor-managed ownership and serialized lifecycle calls.
+	  - Added deterministic loopback regressions for slow HTTP, duplicate/embedded notifications, alternate LOCATION ownership, superseded updates, byebye, cancellation and retry. Existing curl LocationChangeWithNewDescriptionCarriesSid failure also reproduces with 3.1.3 under matched compiler, configuration, ASan/UBSan and test conditions; this release does not claim to fix it.
+	* Release metadata: synchronized configure.ac/configure, public version headers and the ESP-IDF component manifest at 3.1.4. Publication follows preparation-PR merge and exact merged-commit validation. No new physical-device, registered Apple Home accessory or ESP32 hardware interoperability coverage is implied.
+
 2026-10-18 Satoshi Konno <skonno@cybergarage.org>
 	* 3.1.3
 	* Cooperative native POSIX shutdown (PR #56)

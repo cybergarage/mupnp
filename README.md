@@ -70,7 +70,7 @@ idf.py -p /dev/ttyUSB0 flash monitor
 
 To use mUPnP in your own application, place this repository at
 `<project>/components/mupnp` (for example, as a Git submodule pinned to the
-`3.1.3` tag), add `REQUIRES mupnp` to your component, and include
+`3.1.4` tag), add `REQUIRES mupnp` to your component, and include
 `<mupnp/upnp.h>`.
 
 Limited hardware testing of the control point on an ESP32 DevKitC-VE has been reported.
