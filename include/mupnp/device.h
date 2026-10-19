@@ -361,6 +361,10 @@ bool mupnp_device_loaddescriptionfile(mUpnpDevice* dev, char* fileName);
  * Description updates
  ****************************************************************************/
 
+/* Internal cache commit: candidate owns a fully fetched description; no I/O.
+ * Caller retains candidate ownership and serializes access to dev. */
+bool mupnp_device_updatefromdevice(mUpnpDevice* dev, mUpnpDevice* candidate, mUpnpSSDPPacket* ssdpPkt);
+
 /**
  * Update the device's contents from an SSDP packet if necessary.
  *

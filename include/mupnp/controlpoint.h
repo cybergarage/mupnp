@@ -109,6 +109,12 @@ typedef struct _mUpnpControlPoint {
 
   /** List of cached interfaces */
   mUpnpNetworkInterfaceList* ifCache;
+
+  /* Protected by mutex; pending entries belong to synchronous SSDP workers. */
+  struct _mUpnpControlPointFetch* pendingFetches;
+  mUpnpCond* fetchCond;
+  unsigned long discoveryEpoch;
+  bool stopping;
 } mUpnpControlPoint;
 
 typedef void (*MUPNP_DEVICE_LISTENER)(mUpnpControlPoint* ctrlPoint, const char* udn, mUpnpDeviceStatus status);
