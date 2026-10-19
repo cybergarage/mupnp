@@ -62,6 +62,14 @@ const char* mupnp_controlpoint_geteventsubcallbackurl(mUpnpControlPoint* ctrlPoi
  * Control Point top-level control
  ****************************************************************************/
 
+typedef struct _mUpnpControlPointFetch {
+  struct _mUpnpControlPointFetch* next;
+  char udn[MUPNP_UDN_LEN_MAX];
+  char rootUdn[MUPNP_UDN_LEN_MAX];
+  const char* location;
+  bool superseded;
+} mUpnpControlPointFetch;
+
 /**
  * Create a new control point. Does not start any threads.
  *
@@ -80,6 +88,10 @@ mUpnpControlPoint* mupnp_controlpoint_new(void)
     mupnp_http_persistentconnection_init();
 #endif
     ctrlPoint->mutex = mupnp_mutex_new();
+    ctrlPoint->pendingFetches = NULL;
+    ctrlPoint->fetchCond = mupnp_cond_new();
+    ctrlPoint->discoveryEpoch = 0;
+    ctrlPoint->stopping = false;
     ctrlPoint->deviceRootNodeList = mupnp_xml_nodelist_new();
     ctrlPoint->deviceList = mupnp_devicelist_new();
     ctrlPoint->ssdpServerList = mupnp_ssdp_serverlist_new();
@@ -135,6 +147,7 @@ void mupnp_controlpoint_delete(mUpnpControlPoint* ctrlPoint)
   mupnp_cond_delete(ctrlPoint->expCond);
 
   /* Delete others */
+  mupnp_cond_delete(ctrlPoint->fetchCond);
   mupnp_mutex_delete(ctrlPoint->mutex);
   mupnp_xml_nodelist_delete(ctrlPoint->deviceRootNodeList);
   mupnp_devicelist_delete(ctrlPoint->deviceList);
@@ -177,6 +190,9 @@ bool mupnp_controlpoint_start(mUpnpControlPoint* ctrlPoint)
   mupnp_log_debug_l4("Entering...\n");
 
   mupnp_controlpoint_stop(ctrlPoint);
+  mupnp_controlpoint_lock(ctrlPoint);
+  ctrlPoint->stopping = false;
+  mupnp_controlpoint_unlock(ctrlPoint);
 
   /* Expiration handling */
 #if defined(ESP_PLATFORM)
@@ -287,6 +303,13 @@ bool mupnp_controlpoint_stop(mUpnpControlPoint* ctrlPoint)
 
   mupnp_log_debug_l4("Entering...\n");
 
+  /* Reject new work and invalidate unpublished descriptions before joining
+     the SSDP workers. Their existing cooperative stop cancels socket waits. */
+  mupnp_controlpoint_lock(ctrlPoint);
+  ctrlPoint->stopping = true;
+  ctrlPoint->discoveryEpoch++;
+  mupnp_controlpoint_unlock(ctrlPoint);
+
   /* Stop expiration handling */
   mupnp_thread_stop_with_cond(ctrlPoint->expThread, ctrlPoint->expCond);
   mupnp_log_debug_s("Expiration thread stopped.\n");
@@ -321,6 +344,10 @@ bool mupnp_controlpoint_stop(mUpnpControlPoint* ctrlPoint)
   mupnp_http_serverlist_clear(httpServerList);
 
   mupnp_controlpoint_lock(ctrlPoint);
+
+  /* Also join synchronous callers which are not SDK SSDP worker threads. */
+  while (ctrlPoint->pendingFetches != NULL)
+    mupnp_cond_wait(ctrlPoint->fetchCond, ctrlPoint->mutex, 0);
 
   mupnp_log_debug_s("Got controlpoint lock.\n");
 
@@ -671,65 +698,145 @@ static mUpnpDevice* mupnp_controlpoint_createdevicefromssdkpacket(mUpnpSSDPPacke
  * mupnp_controlpoint_adddevicebyssdppacket
  ****************************************/
 
-void mupnp_controlpoint_adddevicebyssdppacket(mUpnpControlPoint* ctrlPoint, mUpnpSSDPPacket* ssdpPkt)
+static void mupnp_controlpoint_fetchdevice(mUpnpControlPoint* ctrlPoint, mUpnpSSDPPacket* ssdpPkt)
 {
-  mUpnpDevice* dev = NULL;
-  const char* usn = NULL;
-  char udn[MUPNP_UDN_LEN_MAX];
-  MUPNP_DEVICE_LISTENER listener = NULL;
-  mUpnpDeviceStatus status = 0;
+  mUpnpDevice* dev;
+  mUpnpDevice* candidate = NULL;
+  mUpnpControlPointFetch fetch;
+  mUpnpControlPointFetch* pending;
+  mUpnpControlPointFetch** link;
+  unsigned long epoch;
+  mUpnpString* cachedLocation;
+  MUPNP_DEVICE_LISTENER listener;
+  mUpnpDeviceStatus status = mUpnpDeviceStatusInvalid;
+  bool publish = false;
 
-  mupnp_log_debug_l4("Entering...\n");
-
-  listener = mupnp_controlpoint_getdevicelistener(ctrlPoint);
-
-  usn = mupnp_ssdp_packet_getusn(ssdpPkt);
-  mupnp_usn_getudn(usn, udn, sizeof(udn));
+  mupnp_usn_getudn(mupnp_ssdp_packet_getusn(ssdpPkt), fetch.udn, sizeof(fetch.udn));
+  /* The packet and this reservation belong to the synchronous caller, which
+     cannot return until fetching and publication have both finished. */
+  fetch.location = mupnp_ssdp_packet_getlocation(ssdpPkt);
+  if (mupnp_strlen(fetch.udn) <= 0 || mupnp_strlen(fetch.location) <= 0)
+    return;
 
   mupnp_controlpoint_lock(ctrlPoint);
-
-  dev = mupnp_controlpoint_getdevicebyudn(ctrlPoint, udn);
-
-  if (dev != NULL) {
-    /* Device was found from local cache */
-    if (mupnp_device_updatefromssdppacket(dev, ssdpPkt) == true) {
-      mupnp_mutex_lock(ctrlPoint->expMutex);
-      mupnp_cond_signal(ctrlPoint->expCond);
-      mupnp_mutex_unlock(ctrlPoint->expMutex);
-
-      /* Device was successfully updated */
-      status = mUpnpDeviceStatusUpdated;
-    }
-    else { /* Problems occurred in device update */
-      status = mUpnpDeviceStatusInvalid;
-    }
+  if (ctrlPoint->stopping) {
+    mupnp_controlpoint_unlock(ctrlPoint);
+    return;
   }
-  else {
-    /* This is a new device */
-    dev = mupnp_controlpoint_createdevicefromssdkpacket(ssdpPkt);
-    if (dev == NULL) {
-      /* Problems occurred in device creation */
-      status = mUpnpDeviceStatusInvalid;
-    }
-    else {
-      mupnp_controlpoint_adddevice(ctrlPoint, dev);
-
-      /* Device added, wake up expirationhandler thread */
-      mupnp_mutex_lock(ctrlPoint->expMutex);
-      mupnp_cond_signal(ctrlPoint->expCond);
-      mupnp_mutex_unlock(ctrlPoint->expMutex);
-
-      status = mUpnpDeviceStatusAdded;
-    }
+  dev = mupnp_controlpoint_getdevicebyudn(ctrlPoint, fetch.udn);
+  if (dev != NULL)
+    dev = mupnp_device_getrootdevice(dev);
+  if (dev != NULL && mupnp_streq(mupnp_ssdp_packet_getlocation(mupnp_device_getssdppacket(dev)), fetch.location)) {
+    /* A plain alive/response refresh needs no description request. */
+    mupnp_device_setssdppacket(dev, ssdpPkt);
+    status = mUpnpDeviceStatusUpdated;
+    mupnp_mutex_lock(ctrlPoint->expMutex);
+    mupnp_cond_signal(ctrlPoint->expCond);
+    mupnp_mutex_unlock(ctrlPoint->expMutex);
+    listener = mupnp_controlpoint_getdevicelistener(ctrlPoint);
+    mupnp_controlpoint_unlock(ctrlPoint);
+    if (listener != NULL)
+      listener(ctrlPoint, fetch.udn, status);
+    return;
   }
-
+  mupnp_strncpy(fetch.rootUdn, dev != NULL ? mupnp_device_getudn(dev) : fetch.udn, sizeof(fetch.rootUdn));
+  fetch.rootUdn[sizeof(fetch.rootUdn) - 1] = '\0';
+  fetch.superseded = false;
+  for (pending = ctrlPoint->pendingFetches; pending != NULL; pending = pending->next) {
+    if (mupnp_streq(pending->location, fetch.location)) {
+      mupnp_controlpoint_unlock(ctrlPoint);
+      return;
+    }
+    if (mupnp_streq(pending->udn, fetch.udn) || mupnp_streq(pending->rootUdn, fetch.rootUdn))
+      pending->superseded = true;
+  }
+  cachedLocation = mupnp_string_new();
+  if (cachedLocation == NULL) {
+    mupnp_controlpoint_unlock(ctrlPoint);
+    return;
+  }
+  if (dev != NULL)
+    mupnp_string_setvalue(cachedLocation, mupnp_ssdp_packet_getlocation(mupnp_device_getssdppacket(dev)));
+  epoch = ctrlPoint->discoveryEpoch;
+  fetch.next = ctrlPoint->pendingFetches;
+  ctrlPoint->pendingFetches = &fetch;
   mupnp_controlpoint_unlock(ctrlPoint);
 
-  if (listener != NULL) {
-    listener(ctrlPoint, udn, status);
+  /* Never retain a borrowed cached device across network I/O. The candidate
+     owns its XML, embedded devices, services and copied SSDP data. */
+  candidate = mupnp_controlpoint_createdevicefromssdkpacket(ssdpPkt);
+  if (candidate != NULL && !mupnp_streq(mupnp_device_getudn(candidate), fetch.udn)
+      && mupnp_device_getdevicebyudn(candidate, fetch.udn) == NULL) {
+    mupnp_device_delete(candidate);
+    candidate = NULL;
   }
 
-  mupnp_log_debug_l4("Leaving...\n");
+  mupnp_controlpoint_lock(ctrlPoint);
+  if (!ctrlPoint->stopping && !fetch.superseded && epoch == ctrlPoint->discoveryEpoch) {
+    publish = true;
+    dev = mupnp_controlpoint_getdevicebyudn(ctrlPoint, fetch.udn);
+    if (dev != NULL)
+      dev = mupnp_device_getrootdevice(dev);
+    if (dev != NULL && !mupnp_streq(mupnp_string_getvalue(cachedLocation), mupnp_ssdp_packet_getlocation(mupnp_device_getssdppacket(dev)))) {
+      /* Another announcement published this root while HTTP was in flight.
+         Do not overwrite the newer cache with an older response. */
+      publish = false;
+    }
+    else if (dev != NULL) {
+      /* Failed alternate LOCATIONs leave the cache and subscriptions intact. */
+      if (candidate != NULL)
+        mupnp_device_updatefromdevice(dev, candidate, ssdpPkt);
+      status = mUpnpDeviceStatusUpdated;
+    }
+    else if (candidate != NULL) {
+      /* Embedded advertisements describe a root tree. Recheck the root UDN
+         too, so distinct SSDP targets cannot insert duplicate root objects. */
+      dev = mupnp_controlpoint_getdevicebyudn(ctrlPoint, mupnp_device_getudn(candidate));
+      if (dev == NULL) {
+        mupnp_controlpoint_adddevice(ctrlPoint, candidate);
+        candidate = NULL;
+        status = mUpnpDeviceStatusAdded;
+      }
+      else {
+        /* The root was added by another target while we fetched. Retain its
+           newer description rather than replace it with this response. */
+        publish = false;
+      }
+    }
+  }
+  mupnp_string_delete(cachedLocation);
+  if (candidate != NULL)
+    mupnp_device_delete(candidate);
+  if (publish && status != mUpnpDeviceStatusInvalid) {
+    mupnp_mutex_lock(ctrlPoint->expMutex);
+    mupnp_cond_signal(ctrlPoint->expCond);
+    mupnp_mutex_unlock(ctrlPoint->expMutex);
+  }
+  for (link = &ctrlPoint->pendingFetches; *link != NULL; link = &(*link)->next) {
+    if (*link == &fetch) {
+      *link = fetch.next;
+      break;
+    }
+  }
+  mupnp_cond_signal(ctrlPoint->fetchCond);
+  listener = mupnp_controlpoint_getdevicelistener(ctrlPoint);
+  mupnp_controlpoint_unlock(ctrlPoint);
+  if (publish && listener != NULL)
+    listener(ctrlPoint, fetch.udn, status);
+}
+
+/* Each fetch owns its packet for the complete reservation/HTTP/commit scope. */
+void mupnp_controlpoint_adddevicebyssdppacket(mUpnpControlPoint* ctrlPoint, mUpnpSSDPPacket* ssdpPkt)
+{
+  mUpnpSSDPPacket* packet;
+  if (ctrlPoint == NULL || ssdpPkt == NULL)
+    return;
+  packet = mupnp_ssdp_packet_new();
+  if (packet == NULL)
+    return;
+  mupnp_ssdp_packet_copy(packet, ssdpPkt);
+  mupnp_controlpoint_fetchdevice(ctrlPoint, packet);
+  mupnp_ssdp_packet_delete(packet);
 }
 
 /****************************************
@@ -749,6 +856,9 @@ void mupnp_controlpoint_removedevicebyssdppacket(mUpnpControlPoint* ctrlPoint, m
   mupnp_usn_getudn(usn, udn, sizeof(udn));
 
   mupnp_controlpoint_lock(ctrlPoint);
+
+  /* A byebye invalidates descriptions that have not yet been published. */
+  ctrlPoint->discoveryEpoch++;
 
   dev = mupnp_controlpoint_getdevicebyudn(ctrlPoint, udn);
 

@@ -478,6 +478,27 @@ static void mupnp_device_swapdescription(mUpnpDevice* dst, mUpnpDevice* src)
     mupnp_device_setparentdevice(childDev, src);
 }
 
+/* Commit an already fetched, privately owned description. The caller must
+   serialize access to dev. No network I/O is performed here. */
+bool mupnp_device_updatefromdevice(mUpnpDevice* dev, mUpnpDevice* newDev, mUpnpSSDPPacket* ssdpPkt)
+{
+  const char* oldConfigId;
+  const char* newConfigId;
+  mUpnpSSDPPacket* oldPacket = mupnp_device_getssdppacket(dev);
+
+  if (!mupnp_streq(mupnp_device_getudn(newDev), mupnp_device_getudn(dev)))
+    return false;
+  oldConfigId = mupnp_http_headerlist_getvalue(oldPacket->headerList, MUPNP_DEVICE_SSDP_CONFIGID);
+  newConfigId = mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_DEVICE_SSDP_CONFIGID);
+  if (!mupnp_device_optstreq(oldConfigId, newConfigId) || !mupnp_device_hassamestructure(dev, newDev)) {
+    mupnp_device_copysubscriptions(newDev, dev);
+    mupnp_device_swapdescription(dev, newDev);
+  }
+  mupnp_device_setssdppacket(dev, ssdpPkt);
+  mupnp_device_sethttpport(dev, mupnp_device_gethttpport(newDev));
+  return true;
+}
+
 /**
  * Update the device's contents from an SSDP packet if necessary.
  *

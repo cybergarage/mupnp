@@ -21,6 +21,8 @@ noinst_HEADERS = \
 	../ClinkUnitTest.h
 
 mupnptest_SOURCES = \
+	../DiscoveryFetchTest.cpp \
+	../LocationChangeTest.cpp \
 	../ActionResultTest.cpp \
 	../GatewayTest.cpp \
 	../NetworkTest.cpp \
