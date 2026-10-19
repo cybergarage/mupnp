@@ -20,7 +20,7 @@ extern "C" {
  * Define
  ****************************************/
 
-#define MUPNP_VER "3.1.3"
+#define MUPNP_VER "3.1.4"
 
 #ifdef __cplusplus
 } /* extern C */

@@ -2,7 +2,7 @@
 
 mUPnP for C 3.1.0 is the first release that features ESP32 support, building
 on the initial port introduced in 3.0.5 with fixes found during ESP32 hardware
-testing. For a reproducible build, use the latest release tag (`3.1.2`) rather
+testing. For a reproducible build, use the latest release tag (`3.1.4`) rather
 than an arbitrary `master` revision.
 
 ## Scope and status
@@ -86,7 +86,7 @@ Until then, use the component from this repository as described below.
 2. Clone this repository and enter the example:
 
    ```sh
-   git clone --branch 3.1.2 https://github.com/cybergarage/mupnp.git
+   git clone --branch 3.1.4 https://github.com/cybergarage/mupnp.git
    cd mupnp/examples/espidf/control_point
    idf.py set-target esp32
    idf.py menuconfig
@@ -118,7 +118,7 @@ source list as the standalone host CMake build.
 ## Use in another application
 
 Place this repository at `<project>/components/mupnp` (for example, as a Git
-submodule checked out at the `3.1.2` tag), or add its path to `EXTRA_COMPONENT_DIRS` **before** including
+submodule checked out at the `3.1.4` tag), or add its path to `EXTRA_COMPONENT_DIRS` **before** including
 ESP-IDF's `project.cmake`. In the application's component registration, add
 `REQUIRES mupnp` and include `<mupnp/upnp.h>`. ESP-IDF names a local component
 after its directory, so adjust `REQUIRES` if you use a different directory name.
