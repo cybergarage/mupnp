@@ -12,21 +12,6 @@ history into separate projects. A source naming 2.x does not establish use of
 the latest 3.x release. No partnership, endorsement, sales volume or particular
 implementation role is inferred.
 
-## Panasonic
-
-- Product: **Panasonic Blu-ray Remote 2011 (Remote 2011)** app.
-- Sources: [Enjoy your Blu-ray Disc Player with Remote 2011](https://av.jpn.support.panasonic.com/support/global/cs/bd/bremote/),
-  which directly links its [Licensed Application End User License Agreement](https://av.jpn.support.panasonic.com/support/global/cs/bd/bremote/agreement.html).
-- EULA section **j** names **CyberLink for C** and the three copyright holders;
-  no component version is given. The product page identifies the app and its
-  compatible players; it does not establish library embedding in those players.
-- The Japanese [ライセンスアプリケーション・エンドユーザ使用許諾契約](https://av.jpn.support.panasonic.com/support/bd_agreement.html),
-  section **j**, also names CyberLink for C without a version. Its text describes
-  a remote-controller app but does not itself give a specific app name.
-  Neither EULA is used here as VIERA Remote-specific evidence.
-
-![Existing project illustration of VIERA Remote](img/mupnpc-example-vieraremote-02.gif)
-
 ## Nokia 770 — Media Streamer
 
 The existing project README reports Nokia's Media Streamer app for the Nokia 770
@@ -42,6 +27,21 @@ installation on every Nokia 770.
   not independent manufacturer confirmation.
 
 ![Existing project illustration of the Nokia 770](img/mupnpc-example-nokia770-01.jpg)
+
+## Panasonic
+
+- Product: **Panasonic Blu-ray Remote 2011 (Remote 2011)** app.
+- Sources: [Enjoy your Blu-ray Disc Player with Remote 2011](https://av.jpn.support.panasonic.com/support/global/cs/bd/bremote/),
+  which directly links its [Licensed Application End User License Agreement](https://av.jpn.support.panasonic.com/support/global/cs/bd/bremote/agreement.html).
+- EULA section **j** names **CyberLink for C** and the three copyright holders;
+  no component version is given. The product page identifies the app and its
+  compatible players; it does not establish library embedding in those players.
+- The Japanese [ライセンスアプリケーション・エンドユーザ使用許諾契約](https://av.jpn.support.panasonic.com/support/bd_agreement.html),
+  section **j**, also names CyberLink for C without a version. Its text describes
+  a remote-controller app but does not itself give a specific app name.
+  Neither EULA is used here as VIERA Remote-specific evidence.
+
+![Existing project illustration of VIERA Remote](img/mupnpc-example-vieraremote-02.gif)
 
 ## Toshiba / REGZA televisions
 
