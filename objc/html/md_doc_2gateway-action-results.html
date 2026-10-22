@@ -69,15 +69,15 @@ $(function(){initNavTree('md_doc_2gateway-action-results.html',''); initResizabl
   <div class="headertitle"><div class="title">Gateway ownership and independent action results</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md27"></a></p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md26"></a></p>
 <p>These additive APIs preserve the legacy recursive first-match lookups and partial-update action API. The core is portable C; Objective-C only retains owners, validates NSString conversion, and copies result values.</p>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 Device identity</h1>
 <p>Keep <code>(root UDN, owning-device UDN, service ID)</code> together. Service IDs are scoped to the owning device, so a recursive first match cannot identify multiple WAN connections. Enumerate <code>embeddedDevices</code> recursively and inspect each device's <code>deviceType</code> and direct <code>services</code>. Use <code>getOwnedServiceForID:</code> on an owner, or <code>getServiceForID:owningDeviceUDN:</code> on a root/subtree. The latter includes the receiver itself but never searches outside its subtree. <code>rootUDN</code> and <code><a class="el" href="interfaceCGUpnpService.html#ad36d7f0ca4fe5b2c135a8067fae28455">owningDeviceUDN (CGUpnpService)</a></code> expose the two identities explicitly.</p>
 <p>C callers use existing device tree iterators and <code>mupnp_device_getrootdevice</code>, plus <code>mupnp_device_getownedservicebyserviceid</code> and <code>mupnp_device_getservicebyownerudn</code>. The pointers are borrowed. These new lookups perform no I/O, including in optimized CP builds; load SCPDs explicitly before invoking actions when that build mode requires it.</p>
 <p>The <a href="https://openconnectivity.org/wp-content/uploads/2015/11/UPnP-gw-InternetGatewayDevice-v2-Device-20100910.pdf">IGD:2 specification, sections 1.1 and 2.2</a> permits multiple WANDevice and WANConnectionDevice instances. Traverse the actual hierarchy and exact advertised service versions for IGD:1 and IGD:2; do not infer a WAN connection from an AV service elsewhere in the same tree. The API deliberately implements no preferred-WAN selection or gateway writes.</p>
 <p>Embedded Objective-C wrappers retain their parent, services retain their owning wrapper, and actions retain services. Discovery snapshots and their copied SCPDs therefore outlive release of the root wrapper by its caller. Retaining a borrowed <code>initWithCObject:</code> wrapper does not make externally owned C memory owned: use <code>initWithDeviceSnapshot:</code> when crossing cache/lifetime boundaries. As with existing wrappers, reparsing/replacing native objects invalidates previous descendants; retaining them is not permission to mutate the tree.</p>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Strict action calls</h1>
 <p><code>mupnp_action_postwitharguments(action, inputs)</code> accepts exactly the declared input set, including present empty strings. It rejects unknown names, duplicate entries, output arguments, missing inputs and invalid/duplicate SCPD argument names/directions before I/O. NULL inputs is the empty set. It creates private argument values and never changes the source action's values or status.</p>
 <p>The returned <code>mUpnpActionResult</code> owns copied values and error strings. Free it with <code>mupnp_action_result_delete</code>; it remains valid after action/device deletion. <code>mupnp_action_result_fromresponse</code> provides the same decoding for offline HTTP fixtures/transports. A NULL result indicates allocation failure.</p>
@@ -102,7 +102,7 @@ Strict action calls</h1>
 <p>SOAP fault detection applies even on HTTP 200. UPnP code 0 means absent/invalid; its numeric space is distinct from HTTP status and the result outcome. Missing output returns NULL in C / absent dictionary key in Objective-C; an empty XML output element returns an empty string. A valid empty action response succeeds when the action declares no outputs; an empty HTTP body is a parse error. Malformed responses and faults have no output values.</p>
 <p>The single-attempt HTTP path reports actual receive completion separately from legacy synthetic HTTP error status. It bypasses SOAP's 405/M-POST fallback; the curl backend uses a new connection/handle and does not reuse its connection cache. No automatic write retry is performed. A transport failure after sending can still mean the device executed the action; do not blindly retry writes. Caller owns action/service/device lifetime and serializes description mutation during a call. Result objects share no mutable action values.</p>
 <p>Objective-C exposes <code>postResultWithArguments:</code> and immutable <code><a class="el" href="interfaceCGUpnpActionResult.html">CGUpnpActionResult</a></code> with <code>outcome</code>, <code>httpStatusCode</code>, <code>upnpErrorCode</code>, fault strings and <code>outputs</code>. The C result is freed after copying; no native pointers escape in this object.</p>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 HomeKit migration (baseline 2cbd9d2)</h1>
 <p><code>Sources/ConciergeCore/UPnPReadAdapter.swift</code> currently clears previous outputs before <code>perform</code> and <code>browse</code>, then calls <code>post(withArguments:)</code>. After updating the dependency pin, pass the complete catalog-derived input dictionary to <code>postResult(withArguments:)</code>, check <code>.outcome == .success</code>, and read the returned <code>outputs</code>. Remove the manual <code>setArgumentValue("", forName:)</code> loops. Handle an absent requested output separately from a present empty string. Browse may pass the independent outputs to its existing page decoder; this PR does not change DIDL or paging behavior.</p>
 <p>Objective-C equivalent:</p>
@@ -113,7 +113,7 @@ HomeKit migration (baseline 2cbd9d2)</h1>
 <div class="line">  NSString* value = result.outputs[outputName]; // nil != @&quot;&quot;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>Carry root and owner UDNs in HomeKit action/binding identities before switching lookup, including discovery of embedded devices. Continue the current action allowlist, session/generation checks, and explicit confirmation for writes. No HomeKit source files are changed by this PR.</p>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 Validation and follow-ups</h1>
 <p>On macOS with CMake and Boost installed:</p>
 <div class="fragment"><div class="line">python3 test/security/verify-gateway.py /tmp/mupnp-gateway-asan</div>
