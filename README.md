@@ -124,16 +124,15 @@ these entries describe one continuous project's adoption history.
 
 | Manufacturer / project | Product / project scope | Evidence |
 | --- | --- | --- |
-| NEC Aterm | WG2600HP, WG2600HP2, WG2600HP3 | [Official manuals](doc/adoption.md#nec-aterm) |
+| Nokia | Media Streamer app for Nokia 770 | [Project report and historical references](doc/adoption.md#nokia-770--media-streamer) |
+| Panasonic | Blu-ray Remote 2011 app | [Official app page and EULA](doc/adoption.md#panasonic) |
+| Toshiba / REGZA | Televisions reported by the project | [Project report and user-provided photo](doc/adoption.md#toshiba--regza-televisions) |
 | TCL | 50CF630K, 55CF630K (UK manual) | [Official manual](doc/adoption.md#tcl) |
+| NEC Aterm | WG2600HP, WG2600HP2, WG2600HP3 | [Official manuals](doc/adoption.md#nec-aterm) |
 | iFFALCON | U75A / U85A series | [Official manual](doc/adoption.md#iffalcon) |
 | Zyxel | EX5601-T1, EX3600-T0, DX3300-T0 and related models; specified firmware | [Official release notes](doc/adoption.md#zyxel) |
 | Audio Group Denmark | Aavik Stream app | [Official licenses](doc/adoption.md#audio-group-denmark) |
-| Panasonic | Blu-ray Remote 2011 app | [Official app page and EULA](doc/adoption.md#panasonic) |
 | llink (open source) | Media server, macOS build integration | [Adopting project's README](doc/adoption.md#llink) |
-| Nokia | Media Streamer app for Nokia 770 | [Project report and historical references](doc/adoption.md#nokia-770--media-streamer) |
-| Panasonic | VIERA Remote for iOS | [Project report](doc/adoption.md#panasonic-viera-remote) |
-| Toshiba / REGZA | Televisions reported by the project | [Project report and user-provided photo](doc/adoption.md#toshiba--regza-televisions) |
 
 [Adoption evidence](doc/adoption.md) records source-reported component names and
 versions, verification dates, product and firmware limits, and supporting images.
