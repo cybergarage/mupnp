@@ -77,10 +77,10 @@ $(function(){initNavTree('index.html',''); initResizable(true); });
 <p>mUPnP for C simplifies this process by handling these protocols automatically. It allows developers to focus on creating their devices and control points without worrying about the underlying protocol details.</p>
 <p>mUPnP for C runs on Unix-like systems, macOS, iOS, and Windows. Since version 3.1.0, it also runs on <b>ESP32 microcontrollers as an ESP-IDF component</b>.</p>
 <p><b>mUPnP for C</b> is supported by IPA, INFORMATION-TECHNOLOGY PROMOTION AGENCY, JAPAN, as part of <a href="https://www.ipa.go.jp/archive/jinzai/mitou/mitoipedia/2004shimoki-seika.html#sakamura">Mitoh Program 2004</a>.</p>
-<h1><a class="anchor" id="autotoc_md192"></a>
+<h1><a class="anchor" id="autotoc_md207"></a>
 Building the Library and Samples</h1>
 <p>The following sections describe how to build or install the library and samples on each platform.</p>
-<h2><a class="anchor" id="autotoc_md193"></a>
+<h2><a class="anchor" id="autotoc_md208"></a>
 Unix</h2>
 <p>mUPnP for C is distributed as an Automake project. For a Git checkout, install Autoconf, Automake, and the Autoconf Archive macros before building:</p>
 <div class="fragment"><div class="line">cd mupnp</div>
@@ -88,16 +88,16 @@ Unix</h2>
 <div class="line">./configure</div>
 <div class="line">make</div>
 </div><!-- fragment --><p>Run <code>./bootstrap</code> for the first Git build and after changes to build definitions or source/header file lists, then rerun <code>./configure</code>. Ordinary edits to existing source files only need <code>make</code>. Prepared <code>make dist</code> release tarballs can start at <code>./configure</code>; GitHub-generated source archives follow the Git checkout steps.</p>
-<h2><a class="anchor" id="autotoc_md194"></a>
+<h2><a class="anchor" id="autotoc_md209"></a>
 Homebrew (macOS, Linux)</h2>
 <p>On platforms that support <a href="https://brew.sh/">Homebrew</a>, install mUPnP with the following commands:</p>
 <div class="fragment"><div class="line">brew tap cybergarage/homebrew</div>
 <div class="line">brew install mupnp</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md195"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md210"></a>
 macOS</h2>
 <p>An Objective-C wrapper is available for Cocoa on macOS. The framework currently supports only basic control point functionality. Use the C library if you need the full functionality of mUPnP for C.</p>
 <p>The bundled Xcode projects build with Xcode 27 and target macOS 12.0 or later and iOS 15.0 or later.</p>
-<h2><a class="anchor" id="autotoc_md196"></a>
+<h2><a class="anchor" id="autotoc_md211"></a>
 ESP32 (ESP-IDF)</h2>
 <p>The repository can be used directly as an ESP-IDF component with Espressif's managed Expat dependency. The port targets <b>ESP32 with one active Wi-Fi station interface and IPv4</b>; the build baseline is ESP-IDF v5.5.5 (<code>&gt;=5.5,&lt;6.0</code>).</p>
 <p>To try the Wi-Fi control-point example:</p>
@@ -108,26 +108,26 @@ ESP32 (ESP-IDF)</h2>
 <div class="line">idf.py -p /dev/ttyUSB0 flash monitor</div>
 </div><!-- fragment --><p>To use mUPnP in your own application, place this repository at <code>&lt;project&gt;/components/mupnp</code> (for example, as a Git submodule pinned to the <code>3.1.4</code> tag), add <code>REQUIRES mupnp</code> to your component, and include <code>&lt;mupnp/upnp.h&gt;</code>.</p>
 <p>Limited hardware testing of the control point on an ESP32 DevKitC-VE has been reported. Device hosting, other ESP32-family targets, IPv6, Ethernet, and long-duration operation have not been validated yet. See the <a class="el" href="md_doc_2espidf.html">ESP-IDF guide</a> for required <code>sdkconfig</code> settings, notes on lifetime and memory, and a hardware validation checklist.</p>
-<h2><a class="anchor" id="autotoc_md197"></a>
+<h2><a class="anchor" id="autotoc_md212"></a>
 Windows</h2>
 <p>mUPnP includes Visual Studio 2005 projects for Windows in the <code>mupnp/*/win32/vs2005</code> directories. No platform projects are provided for Windows CE, but a contributor has verified that the source code compiles successfully.</p>
-<h1><a class="anchor" id="autotoc_md198"></a>
+<h1><a class="anchor" id="autotoc_md213"></a>
 References</h1>
-<h2><a class="anchor" id="autotoc_md199"></a>
+<h2><a class="anchor" id="autotoc_md214"></a>
 mUPnP for C</h2>
 <p>For information on developing UPnP devices or control point applications with <b>mUPnP for C</b>, see the following developer documentation:</p>
 <ul>
 <li><a href="http://cybergarage.github.io/mupnp/">Programming Guide for C</a></li>
 <li><a href="http://cybergarage.github.io/mupnp/">Doxygen</a></li>
 </ul>
-<h2><a class="anchor" id="autotoc_md200"></a>
+<h2><a class="anchor" id="autotoc_md215"></a>
 mUPnP for Objective-C</h2>
 <p><b>mUPnP for C</b> includes an Objective-C wrapper for iOS and macOS. For details, see the following developer documentation:</p>
 <ul>
 <li><a href="http://cybergarage.github.io/mupnp/objc/html/">Programming Guide for Objective-C</a></li>
 <li><a href="http://cybergarage.github.io/mupnp/objc/html/">Doxygen</a></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md201"></a>
+<h1><a class="anchor" id="autotoc_md216"></a>
 Examples</h1>
 <ul>
 <li>UPnP control point examples<ul>
@@ -158,21 +158,34 @@ Examples</h1>
 </ul>
 </li>
 </ul>
-<h1><a class="anchor" id="autotoc_md202"></a>
-Adoption in Consumer Products</h1>
-<p><b>mUPnP for C</b> is used in a variety of consumer products. The following is a non-exhaustive list of notable implementations.</p>
-<h2><a class="anchor" id="autotoc_md203"></a>
-Nokia 770 Internet Tablet</h2>
-<p>Nokia engineers helped improve the initial <b>mUPnP for C</b> release. Nokia developed the UPnP/AV Control Point application, <b>Media Streamer</b>, for the Nokia 770 Internet Tablet. The application is based on <b>mUPnP for C</b>, with custom patches from Nokia.</p>
-<p><img src="doc/img/mupnpc-example-nokia770-01.jpg" alt="Nokia 770 Internet Tablet" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md204"></a>
-Panasonic VIERA Remote for iOS Devices</h2>
-<p>The <a href="http://panasonic.jp/support/global/cs/tv/vremote/index.html"><b>VIERA Remote</b></a> is a TV remote control app for Panasonic VIERA TVs (plasma and LCD models). It allows users to control channels, switch inputs, and adjust the volume directly from an <b>iPhone, iPod touch, or iPad</b> (iOS 4.2 or later). <b>mUPnP for C</b> functions as the UPnP framework for this app.</p>
-<p><img src="doc/img/mupnpc-example-vieraremote-02.gif" alt="VIERA Remote" class="inline"/></p>
-<h2><a class="anchor" id="autotoc_md205"></a>
-Toshiba REGZA Televisions</h2>
-<p><a href="https://www.regza.com/"><b>REGZA</b></a> is Toshiba’s former AV equipment brand. <b>mUPnP for C</b> is embedded in REGZA televisions, enabling seamless media streaming and connectivity.</p>
-<p><img src="doc/img/mupnpc-example-regzatv-01.png" alt="REGZA Televisions" class="inline"/></p>
+<h1><a class="anchor" id="autotoc_md217"></a>
+Adoption and Usage</h1>
+<p><b>mUPnP for C (formerly CyberLink for C)</b> has been used in the products and projects below. The [ChangeLog](ChangeLog) records the name change in 2015; these entries describe one continuous project's adoption history.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Manufacturer / project   </th><th class="markdownTableHeadNone">Product / project scope   </th><th class="markdownTableHeadNone">Evidence    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">NEC Aterm   </td><td class="markdownTableBodyNone">WG2600HP, WG2600HP2, WG2600HP3   </td><td class="markdownTableBodyNone"><a href="doc/adoption.md#nec-aterm">Official manuals</a>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">TCL   </td><td class="markdownTableBodyNone">50CF630K, 55CF630K (UK manual)   </td><td class="markdownTableBodyNone"><a href="doc/adoption.md#tcl">Official manual</a>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">iFFALCON   </td><td class="markdownTableBodyNone">U75A / U85A series   </td><td class="markdownTableBodyNone"><a href="doc/adoption.md#iffalcon">Official manual</a>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Zyxel   </td><td class="markdownTableBodyNone">EX5601-T1, EX3600-T0, DX3300-T0 and related models; specified firmware   </td><td class="markdownTableBodyNone"><a href="doc/adoption.md#zyxel">Official release notes</a>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Audio Group Denmark   </td><td class="markdownTableBodyNone">Aavik Stream app   </td><td class="markdownTableBodyNone"><a href="doc/adoption.md#audio-group-denmark">Official licenses</a>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Panasonic   </td><td class="markdownTableBodyNone">Blu-ray Remote 2011 app   </td><td class="markdownTableBodyNone"><a href="doc/adoption.md#panasonic">Official app page and EULA</a>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">llink (open source)   </td><td class="markdownTableBodyNone">Media server, macOS build integration   </td><td class="markdownTableBodyNone"><a href="doc/adoption.md#llink">Adopting project's README</a>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Nokia   </td><td class="markdownTableBodyNone">Media Streamer app for Nokia 770   </td><td class="markdownTableBodyNone"><a href="doc/adoption.md#nokia-770--media-streamer">Project report and historical references</a>    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Panasonic   </td><td class="markdownTableBodyNone">VIERA Remote for iOS   </td><td class="markdownTableBodyNone"><a href="doc/adoption.md#panasonic-viera-remote">Project report</a>    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Toshiba / REGZA   </td><td class="markdownTableBodyNone">Televisions reported by the project   </td><td class="markdownTableBodyNone"><a href="doc/adoption.md#toshiba--regza-televisions">Project report and user-provided photo</a>   </td></tr>
+</table>
+<p><a class="el" href="md_doc_2adoption.html">Adoption evidence</a> records source-reported component names and versions, verification dates, product and firmware limits, and supporting images. It distinguishes manufacturer disclosures, project reports and copyright-only notices. The list does not imply manufacturer endorsement or use throughout a manufacturer's range.</p>
 <p>[^1]: UPnP™ is a certification mark of the UPnP™ Implementers Corporation. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
