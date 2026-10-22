@@ -164,4 +164,53 @@ static NSString* ServiceDescription(NSString* allowedValue)
   XCTAssertEqualObjects([variable name], @"Target");
 }
 
+- (void)testOwnedArgumentAndRangeMetadataWithoutNetwork
+{
+  NSString* xml = @"<scpd><actionList><action><name>SetVolume</name><argumentList><argument><name>DesiredVolume</name><direction>in</direction><relatedStateVariable>Volume</relatedStateVariable></argument><argument><name>Unknown</name><direction>bad</direction><relatedStateVariable>Missing</relatedStateVariable></argument></argumentList></action></actionList><serviceStateTable><stateVariable sendEvents='yes'><name>Volume</name><dataType>ui2</dataType><allowedValueRange><minimum>10</minimum><maximum>255</maximum><step>5</step></allowedValueRange><allowedValueList><allowedValue>10</allowedValue><allowedValue>20</allowedValue></allowedValueList></stateVariable></serviceStateTable></scpd>";
+  // A valid owned native service is created by the existing local fixture helper.
+  CGUpnpDevice* owner = nil;
+  CGUpnpService* service = [self serviceWithAllowedValue:@"1" device:&owner];
+  XCTAssertTrue([service parseXMLDescription:xml]);
+  NSArray* snapshot = [[service getActionForName:@"SetVolume"] argumentMetadata];
+  XCTAssertEqual(snapshot.count, (NSUInteger)2);
+  XCTAssertEqualObjects(snapshot[0][@"direction"], @"in");
+  XCTAssertEqualObjects(snapshot[0][@"relatedStateVariable"], @"Volume");
+  NSDictionary* metadata = snapshot[0][@"stateVariable"];
+  XCTAssertEqualObjects(metadata[@"dataType"], @"ui2");
+  XCTAssertEqualObjects(metadata[@"allowedValueListPresent"], @YES);
+  XCTAssertEqualObjects(metadata[@"allowedValueRange"][@"step"], @"5");
+  XCTAssertEqualObjects(metadata[@"allowedValues"], (@[ @"10", @"20" ]));
+  XCTAssertNil(snapshot[1][@"stateVariable"]);
+  XCTAssertEqualObjects(snapshot[1][@"direction"], @"bad");
+  XCTAssertFalse([snapshot isKindOfClass:[NSMutableArray class]]);
+  XCTAssertFalse([metadata isKindOfClass:[NSMutableDictionary class]]);
+  XCTAssertFalse([metadata[@"allowedValueRange"] isKindOfClass:[NSMutableDictionary class]]);
+  // Reparse invalidates native wrappers, but retained snapshots remain valid.
+  XCTAssertTrue([service parseXMLDescription:ServiceDescription(@"2")]);
+  XCTAssertEqualObjects(metadata[@"allowedValueRange"][@"maximum"], @"255");
+  XCTAssertEqualObjects(snapshot[0][@"name"], @"DesiredVolume");
+  XCTAssertEqual([[[CGUpnpAction alloc] init] argumentMetadata].count, (NSUInteger)0);
+  XCTAssertEqual([[[CGUpnpStateVariable alloc] init] metadata].count, (NSUInteger)0);
+}
+
+- (void)testAbsentEmptyAndMalformedMetadataDeclarations
+{
+  CGUpnpDevice* owner = nil;
+  CGUpnpService* service = [self serviceWithAllowedValue:@"1" device:&owner];
+  for (NSString* declaration in @[ @"", @"<allowedValueList/>", @"<allowedValueRange><minimum>bad</minimum><step>0</step></allowedValueRange>" ]) {
+    NSString* xml = [NSString stringWithFormat:@"<scpd><serviceStateTable><stateVariable><name>Volume</name><dataType>ui2</dataType>%@</stateVariable></serviceStateTable></scpd>", declaration];
+    XCTAssertTrue([service parseXMLDescription:xml]);
+    NSDictionary* metadata = [[service getStateVariableForName:@"Volume"] metadata];
+    XCTAssertEqualObjects(metadata[@"allowedValueListPresent"], @([declaration containsString:@"allowedValueList"]));
+    XCTAssertEqualObjects(metadata[@"allowedValues"], @[]);
+    if ([declaration containsString:@"allowedValueRange"]) {
+      XCTAssertEqualObjects(metadata[@"allowedValueRange"][@"minimum"], @"bad");
+      XCTAssertEqualObjects(metadata[@"allowedValueRange"][@"step"], @"0");
+      XCTAssertNil(metadata[@"allowedValueRange"][@"maximum"]);
+    } else {
+      XCTAssertNil(metadata[@"allowedValueRange"]);
+    }
+  }
+}
+
 @end

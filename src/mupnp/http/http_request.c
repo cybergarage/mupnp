@@ -258,7 +258,7 @@ mUpnpSocket* mupnp_http_request_getsocket(mUpnpHttpRequest* httpReq)
 
 #if !defined(MUPNP_HTTP_CURL)
 
-mUpnpHttpResponse* mupnp_http_request_post_main(mUpnpHttpRequest* httpReq, const char* ipaddr, int port, bool isSecure)
+static mUpnpHttpResponse* mupnp_http_request_post_main_status(mUpnpHttpRequest* httpReq, const char* ipaddr, int port, bool isSecure, bool* received)
 {
   mUpnpSocket* sock;
   char *method, *uri, *version;
@@ -273,6 +273,8 @@ mUpnpHttpResponse* mupnp_http_request_post_main(mUpnpHttpRequest* httpReq, const
   gettimeofday(&start_time, NULL);
 #endif
 
+  if (received)
+    *received = false;
   mupnp_http_response_clear(httpReq->httpRes);
 
   mupnp_log_debug_s("(HTTP) Posting:\n");
@@ -326,6 +328,8 @@ mUpnpHttpResponse* mupnp_http_request_post_main(mUpnpHttpRequest* httpReq, const
   /**** read response ****/
   if (!mupnp_http_response_read(httpReq->httpRes, sock, mupnp_http_request_isheadrequest(httpReq)))
     mupnp_http_response_clear(httpReq->httpRes);
+  else if (received)
+    *received = true;
 
 #ifdef MUPNP_SHOW_TIMINGS
   gettimeofday(&end_time, NULL);
@@ -343,6 +347,16 @@ mUpnpHttpResponse* mupnp_http_request_post_main(mUpnpHttpRequest* httpReq, const
   mupnp_log_debug_l4("Leaving...\n");
 
   return httpReq->httpRes;
+}
+
+mUpnpHttpResponse* mupnp_http_request_post_main(mUpnpHttpRequest* httpReq, const char* ipaddr, int port, bool isSecure)
+{
+  return mupnp_http_request_post_main_status(httpReq, ipaddr, port, isSecure, NULL);
+}
+
+mUpnpHttpResponse* mupnp_http_request_postonce(mUpnpHttpRequest* httpReq, const char* ipaddr, int port, bool* received)
+{
+  return mupnp_http_request_post_main_status(httpReq, ipaddr, port, false, received);
 }
 
 mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, const char* ipaddr, int port)
@@ -519,7 +533,7 @@ static int mupnp_http_request_progress_callback(void* ptr, double dltotal, doubl
   return false;
 }
 
-mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, char* ipaddr, int port)
+static mUpnpHttpResponse* mupnp_http_request_post_curl(mUpnpHttpRequest* httpReq, const char* ipaddr, int port, bool* received)
 {
   mUpnpHttpResponse* httpRes;
   bool newCurl = false;
@@ -541,6 +555,8 @@ mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, char* ipad
   gettimeofday(&start_time, NULL);
 #endif
 
+  if (received)
+    *received = false;
   httpRes = httpReq->httpRes;
 
   /* Clear the response data because new data will not
@@ -553,7 +569,7 @@ mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, char* ipad
   mupnp_http_persistentconnection_lock();
 #ifdef MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS
   mupnp_log_debug_s("Looking for persistent connection to %s, port %d\n", ipaddr, port);
-  curl = (CURL*)mupnp_http_persistentconnection_get(ipaddr, port);
+  curl = received ? NULL : (CURL*)mupnp_http_persistentconnection_get(ipaddr, port);
 
   if (curl == NULL) {
     mupnp_log_debug_s("Persistent connection not found...\n");
@@ -567,6 +583,10 @@ mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, char* ipad
     newCurl = true;
   }
 #endif
+  if (received) {
+    curl_easy_setopt(curl, CURLOPT_FRESH_CONNECT, 1L);
+    curl_easy_setopt(curl, CURLOPT_FORBID_REUSE, 1L);
+  }
   method = mupnp_http_request_getmethod(httpReq);
   uri = mupnp_http_request_geturi(httpReq);
 
@@ -650,6 +670,8 @@ mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, char* ipad
 
   curl_easy_getinfo(curl, CURLINFO_HTTP_CODE, &retcode);
   mupnp_http_response_setstatuscode(httpRes, retcode);
+  if (received)
+    *received = res == CURLE_OK && retcode > 0;
 
 #ifdef MUPNP_SHOW_TIMINGS
   gettimeofday(&end_time, NULL);
@@ -661,7 +683,9 @@ mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, char* ipad
 #endif
 
 #ifdef MUPNP_HTTP_USE_PERSISTENT_CONNECTIONS
-  if (newCurl) {
+  if (received)
+    curl_easy_cleanup(curl);
+  else if (newCurl) {
     mupnp_log_debug_s("Putting new connection into cache: %s %d\n", ipaddr, port);
     mupnp_http_persistentconnection_put(ipaddr, port, curl);
   }
@@ -676,6 +700,17 @@ mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, char* ipad
   return httpReq->httpRes;
 
   mupnp_log_debug_l4("Leaving...\n");
+}
+
+mUpnpHttpResponse* mupnp_http_request_post(mUpnpHttpRequest* httpReq, const char* ipaddr, int port)
+{
+  return mupnp_http_request_post_curl(httpReq, ipaddr, port, NULL);
+}
+
+mUpnpHttpResponse* mupnp_http_request_postonce(mUpnpHttpRequest* httpReq, const char* ipaddr, int port, bool* received)
+{
+  bool complete;
+  return mupnp_http_request_post_curl(httpReq, ipaddr, port, received ? received : &complete);
 }
 
 #endif

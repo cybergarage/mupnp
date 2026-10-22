@@ -1,0 +1,62 @@
+name: platform build
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  mingw:
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {sys: MINGW64, prefix: mingw-w64-x86_64, curl: "OFF"}
+          - {sys: MINGW64, prefix: mingw-w64-x86_64, curl: "ON"}
+          - {sys: UCRT64, prefix: mingw-w64-ucrt-x86_64, curl: "OFF"}
+          - {sys: UCRT64, prefix: mingw-w64-ucrt-x86_64, curl: "ON"}
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: msys2/setup-msys2@ec48f7c5447b3140e2b088413ae3a55687bccb6e # v2
+        with:
+          msystem: ${{ matrix.sys }}
+          update: true
+          install: >-
+            ${{ matrix.prefix }}-gcc
+            ${{ matrix.prefix }}-cmake
+            ${{ matrix.prefix }}-ninja
+            ${{ matrix.prefix }}-expat
+            ${{ matrix.prefix }}-curl
+      - name: Toolchain versions
+        run: |
+          gcc -v
+          pacman -Q
+      - name: Build with logging and file I/O enabled
+        run: |
+          cmake -S . -B build -G Ninja -DMUPNP_ENABLE_EXAMPLES=OFF -DMUPNP_ENABLE_PLATFORM_SMOKE=ON -DMUPNP_HTTP_CURL=${{ matrix.curl }} -DMUPNP_USE_CFILE=ON -DCMAKE_C_FLAGS=-DCLOG_DEBUG
+          cmake --build build
+      - name: Execute isolated Windows regression checks
+        run: ctest --test-dir build --output-on-failure
+
+  posix:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        curl: ["OFF", "ON"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Linux dependencies
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libexpat1-dev libcurl4-openssl-dev
+      - name: Build with logging and file I/O enabled
+        run: |
+          cmake -S . -B build -DMUPNP_ENABLE_EXAMPLES=OFF -DMUPNP_ENABLE_PLATFORM_SMOKE=ON -DMUPNP_HTTP_CURL=${{ matrix.curl }} -DMUPNP_USE_CFILE=ON -DCMAKE_C_FLAGS=-DCLOG_DEBUG
+          cmake --build build -j 4
+      - name: Execute isolated regression checks
+        run: ctest --test-dir build --output-on-failure

@@ -1,0 +1,32 @@
+name: POSIX shutdown fixtures
+on:
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  shutdown:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Offline native POSIX lifecycle characterization (ASan and UBSan)
+        run: test/unix/thread-shutdown.sh --require-signal-free
+      - name: Prepare OpenSSL fixture dependencies
+        shell: bash
+        run: |
+          if ! pkg-config --exists openssl; then
+            if [ "$RUNNER_OS" = macOS ]; then
+              brew install openssl@3 pkgconf
+              echo "PKG_CONFIG_PATH=$(brew --prefix openssl@3)/lib/pkgconfig" >> "$GITHUB_ENV"
+            else
+              sudo apt-get update
+              sudo apt-get install -y libssl-dev pkg-config
+            fi
+          fi
+      - name: Socket and TLS timeout/cancellation contracts (ASan and UBSan)
+        run: test/unix/socket-wait.sh

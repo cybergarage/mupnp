@@ -7,8 +7,8 @@ cd "$root"
 ./CMakeLists.txt.build > "$build/CMakeLists.txt"
 cmp CMakeLists.txt "$build/CMakeLists.txt"
 (cd test/unix && ./Makefile.am.build) > "$build/Makefile.am"
-if grep -q 'espidf/' "$build/Makefile.am"; then
-  echo 'Standalone ESP regression programs leaked into the host test binary' >&2
+if sed -n '/^mupnptest_SOURCES =/,$p' "$build/Makefile.am" | grep -Eq 'espidf/|posix/'; then
+  echo 'Standalone regression programs leaked into the host test binary' >&2
   exit 1
 fi
 grep -q '../HttpTest.cpp' "$build/Makefile.am"

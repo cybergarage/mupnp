@@ -224,7 +224,7 @@ void mupnp_log_print(int severity, const char* file, int lineN, const char* func
 #if !defined(WIN32)
   strftime(tPtr, MAX_LOG_STRING, "%c", timestampHumanReadable);
 #else
-  snprintf(log_line, MAX_LOG_STRING, "%d-%d-%d %d:%d %d", timestamp_human_readable->tm_year + 1900, timestamp_human_readable->tm_mon + 1, timestamp_human_readable->tm_mday, timestamp_human_readable->tm_hour, timestamp_human_readable->tm_min, timestamp_human_readable->tm_sec);
+  snprintf(tPtr, MAX_LOG_STRING, "%d-%d-%d %d:%d %d", timestampHumanReadable->tm_year + 1900, timestampHumanReadable->tm_mon + 1, timestampHumanReadable->tm_mday, timestampHumanReadable->tm_hour, timestampHumanReadable->tm_min, timestampHumanReadable->tm_sec);
 #endif
   /* Creating the full log prefix */
   prefixLength = snprintf(logLine, MAX_LOG_STRING, "%s%s%s%s%s%s%d%s%s%s ", tPtr, separator, map_severity(severity), separator, file, separator, lineN, separator, function, separator);

@@ -22,6 +22,25 @@
 
 static bool mupnpNetUseOnlyIpV4Addr = false;
 static bool mupnpNetUseOnlyIpV6Addr = false;
+static bool mupnpNetIpV6Enabled = false;
+
+////////////////////////////////////////////////
+//	mupnp_net_setipv6enabled
+////////////////////////////////////////////////
+
+void mupnp_net_setipv6enabled(bool enabled)
+{
+  mupnpNetIpV6Enabled = enabled;
+}
+
+////////////////////////////////////////////////
+//	mupnp_net_isipv6enabled
+////////////////////////////////////////////////
+
+bool mupnp_net_isipv6enabled(void)
+{
+  return mupnpNetIpV6Enabled;
+}
 
 ////////////////////////////////////////////////
 //	mupnp_net_isuseaddress

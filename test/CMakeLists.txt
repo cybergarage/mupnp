@@ -3,6 +3,9 @@ enable_language(CXX)
 find_package(Boost REQUIRED COMPONENTS unit_test_framework)
 
 add_executable(mupnptest
+  DiscoveryFetchTest.cpp
+  ActionResultTest.cpp
+  GatewayTest.cpp
   TestMain.cpp
   NetworkTest.cpp
   SubscriptionTest.cpp

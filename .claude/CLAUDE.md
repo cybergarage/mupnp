@@ -38,7 +38,7 @@ cmake ..
 make
 ```
 
-Key CMake options: `-DCG_XMLPARSER_LIBXML2=ON`, `-DCG_HTTP_CURL=ON`, `-DCG_USE_OPENSSL=ON`
+Key CMake options: `-DMUPNP_XMLPARSER_LIBXML2=ON`, `-DMUPNP_HTTP_CURL=ON`, `-DMUPNP_USE_OPENSSL=ON` (the old `CG_*` names are deprecated aliases)
 
 ### Dependencies
 

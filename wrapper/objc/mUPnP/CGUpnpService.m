@@ -9,6 +9,7 @@
  ******************************************************************/
 
 #include <mupnp/action.h>
+#include <mupnp/device.h>
 #include <mupnp/service.h>
 #include <mupnp/statevariable.h>
 
@@ -66,6 +67,20 @@ static NSData* cg_upnp_service_description_bytes(NSString* xmlDesc)
   if (!bytes)
     return NO;
   return mupnp_service_parsedescription(cObject, (const char*)[bytes bytes], [bytes length]);
+}
+
+- (NSString*)owningDeviceUDN
+{
+  mUpnpDevice* device = cObject ? mupnp_service_getdevice(cObject) : NULL;
+  const char* udn = device ? mupnp_device_getudn(device) : NULL;
+  return udn ? [NSString stringWithUTF8String:udn] : nil;
+}
+
+- (NSString*)rootUDN
+{
+  mUpnpDevice* device = cObject ? mupnp_service_getdevice(cObject) : NULL;
+  const char* udn = device ? mupnp_device_getudn(mupnp_device_getrootdevice(device)) : NULL;
+  return udn ? [NSString stringWithUTF8String:udn] : nil;
 }
 
 - (NSString*)serviceId

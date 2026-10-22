@@ -1,3 +1,65 @@
+2026-10-19 Satoshi Konno <skonno@cybergarage.org>
+	* 3.1.4
+	* Control point description-fetch lifecycle (PR #59)
+	  - Fetch device descriptions and SCPDs into owned candidates outside the device-cache mutex, so slow HTTP endpoints do not block cache snapshots for the entire HTTP timeout.
+	  - Deduplicate in-flight LOCATION requests, reject superseded or stopped discovery results, resolve embedded announcements to their owning root, and preserve cached devices and GENA subscription state when committing updates.
+	  - Invalidate unpublished work before cooperative SSDP worker shutdown and join pending fetch scopes before clearing the cache. Direct non-SDK callers still wait for their HTTP operation to return or time out; existing transport and application-level read cancellation limits are unchanged.
+	  - Compatibility: mUpnpControlPoint gains lifecycle fields at the end of the public struct. Rebuild consumers against the updated headers and library; retain constructor-managed ownership and serialized lifecycle calls.
+	  - Added deterministic loopback regressions for slow HTTP, duplicate/embedded notifications, alternate LOCATION ownership, superseded updates, byebye, cancellation and retry. Existing curl LocationChangeWithNewDescriptionCarriesSid failure also reproduces with 3.1.3 under matched compiler, configuration, ASan/UBSan and test conditions; this release does not claim to fix it.
+	* Release metadata: synchronized configure.ac/configure, public version headers and the ESP-IDF component manifest at 3.1.4. Publication follows preparation-PR merge and exact merged-commit validation. No new physical-device, registered Apple Home accessory or ESP32 hardware interoperability coverage is implied.
+
+2026-10-18 Satoshi Konno <skonno@cybergarage.org>
+	* 3.1.3
+	* Cooperative native POSIX shutdown (PR #56)
+	  - Thread stop no longer installs a SIGQUIT handler, rewrites worker signal masks or sends pthread_kill(SIGQUIT). Library socket waits and managed sleeps observe runnable state cooperatively; condition waits retain explicit repeated wakeups.
+	  - Native poll-based readiness checks support descriptors above FD_SETSIZE and retain caller O_NONBLOCK flags, native subsecond timeouts and existing error contracts. Accept/connect and serialized TLS operations restore descriptor flags. Plain sends restore their temporary bounded SO_SNDTIMEO.
+	  - TLS retries preserve WANT_READ/WANT_WRITE direction, buffered plaintext, EOF and existing certificate-chain/DNS/IP validation. No new public library function or struct field is introduced. Windows and legacy stop implementations retain their behavior; ESP-IDF host regressions remain separate.
+	  - Native Linux/macOS ASan/UBSan regressions cover 200 repeated lifecycle cycles, zero SIGQUIT sends, application-owned signal handling, socket deadlines and local TLS cancellation/verification. Fixtures use local sockets/loopback, not household appliances.
+	  - Limits: DNS resolution and arbitrary external callbacks are not forcibly interrupted. Callers must cooperate and must not hold locks needed by a stopping worker. Serialized operations must not race with caller changes to descriptor flags or TLS objects; idle readiness checks trade periodic wakeups for cooperative cancellation. See doc/posix-shutdown.md.
+	* Gateway dump example
+	  - Added an InternetGatewayDevice:1/:2 type helper in upnpigddump (f2a11d44). The outer list still selects version 1, and getter service types remain version 1; this release does not claim complete IGD:2 dump support.
+	* Build, tooling and documentation
+	  - Added standalone POSIX shutdown characterization and make-check/generator registration (PR #55), promoted to signal-free lifecycle and socket/TLS regression gates in PR #56.
+	  - Restricted scanner image build context and selected a non-root runtime user (PR #54).
+	  - Documented ./bootstrap and Autotools prerequisites for Git builds and reviewed README English (PR #57).
+	* Release metadata: synchronized configure.ac/configure, public version headers and the ESP-IDF component manifest at 3.1.3. Tag/GitHub Release publication follows merge and merged-commit validation; no new physical-device or ESP32 hardware validation is implied.
+
+2026-10-17 Satoshi Konno <skonno@cybergarage.org>
+	* 3.1.2
+	* Gateway ownership and independent action results (PR #53)
+	  - C: added mupnp_device_getownedservicebyserviceid() and mupnp_device_getservicebyownerudn() for direct-only and owner-UDN-qualified service lookup, reusing the existing device tree. Service identity includes root UDN, owning-device UDN and service ID; multiple WAN connections may advertise the same service ID.
+	  - C: added mupnp_action_postwitharguments() for strict complete-input invocation and mupnp_action_result_fromresponse() for offline decoding, with a separately owned result. Missing outputs and present empty strings are distinct; HTTP status, SOAP fault, UPnP error, parse failure, transport failure and incomplete output have separate representations. Result values survive deletion of the source action/device.
+	  - Strict invocation validates input names, completeness and direction before I/O, does not change shared action arguments/status, and makes one HTTP attempt without SOAP 405/M-POST fallback or automatic write retry. A transport failure can still follow remote execution of a write.
+	  - Objective-C: added embeddedDevices, root/owner UDN access and owner-qualified service lookup. Embedded wrappers retain the owning snapshot chain; postResultWithArguments: returns an immutable value-only result copied from C.
+	  - Compatibility: existing recursive first-match lookups and partial-update post APIs retain their behavior. Existing C struct layouts are unchanged by these additions. Borrowed C pointers still require owner lifetime; description replacement/reparse still invalidates earlier descendants. New consumers must link the updated library/framework.
+	  - Added local IGD1/2 multi-WAN, AV, deep hierarchy, snapshot/result lifetime, repeated success/missing/fault/empty/truncated response and no-retry fixtures. macOS CI runs C/Objective-C fixtures with ASan/UBSan on Expat, libxml2 and curl. These tests do not establish real-gateway interoperability or new ESP32 hardware coverage.
+	  - DIDL parsing/paging, SCPD value-constraint validation and a session facade remain future work; see doc/gateway-action-results.md for contracts and migration.
+	* Objective-C SCPD metadata (PR #52)
+	  - Added owned argumentMetadata and state-variable metadata snapshots, preserving declared direction, related state variable, type, default value and allowed-value metadata without inventing capability claims. Also fixed the NSDictionary import needed for standalone state-variable wrapper compilation (PR #53).
+	* Reliability and portability since 3.1.1
+	  - Control point startup now fails promptly when no usable network interfaces exist instead of retrying the HTTP event port indefinitely, with a deterministic regression test.
+	  - Restored GCC/MinGW-w64 builds and Windows current-thread identity; fixed enabled logging/file/socket and curl signature build paths. Added MSVCRT/UCRT and Linux/macOS platform CI with curl on/off (PR #50).
+	  - Documented Homebrew installation on macOS/Linux (PR #51).
+	* Release metadata: synchronized configure.ac/configure, public version headers and the ESP-IDF component manifest at 3.1.2. Publishing the tag/GitHub Release is a separate step after merge verification.
+
+2026-10-08 Satoshi Konno <skonno@cybergarage.org>
+	* 3.1.1
+	* Security and reliability fixes
+	  - HTTP: message bodies are read into a buffer that grows as data arrives, instead of allocating the Content-Length or chunk size declared by the peer up front (PR #39, issue #21).
+	  - Sockets: a timeout set before connect now takes effect on POSIX and Windows, connect() is bounded by it, and Windows receives SO_RCVTIMEO/SO_SNDTIMEO in milliseconds. Previously HTTP clients had no connect or read timeout (PR #40, issue #10). mUpnpSocket gains a timeout member on every platform; rebuild code that embeds the struct.
+	  - Eventing: fixed a URL leak on every SUBSCRIBE, renew and UNSUBSCRIBE received by a device, and a use-after-free when a device was deleted right after a SUBSCRIBE. The initial event is now sent from the HTTP worker that handled the SUBSCRIBE (PR #44).
+	  - SSDP: the LOCATION address of replies is selected by address family; link-layer and IPv6 interface entries are no longer misread as IPv4 addresses (PR #43).
+	  - Device: mupnp_device_start() fails immediately when no usable network interface exists, instead of retrying HTTP ports indefinitely (PR #47).
+	* New features
+	  - Opt-in IPv6 link-local support on getifaddrs() platforms (Linux, macOS, BSD) with mupnp_net_setipv6enabled() and mupnp_net_isipv6enabled(). URLs carry the zone as "%25" (RFC 6874) (PR #42, #43, issue #17). Experimental: not yet validated on a real IPv6 network.
+	  - mupnp_statevariable_getdefaultvalue()/mupnp_statevariable_setdefaultvalue() and -[CGUpnpStateVariable dataType]/-defaultValue expose the SCPD declarations (PR #41, #46, issue #9).
+	* Objective-C wrapper: P0 fixes with regressions (PR #37); the framework is exported as a module for Swift, reports control point initialization failure, and loads embedded frameworks through rpath (PR #38).
+	* Build
+	  - make distcheck passes: the dump examples build outside the source tree and config.h is registered after AC_INIT (PR #45).
+	  - CMake options are now MUPNP_* and take effect; CG_* names remain as deprecated aliases. Persistent HTTP connections are now actually enabled in CMake builds, matching ./configure (PR #45).
+	  - mupnp_net_url_delete() and mupnp_net_url_clear() no longer expand with a trailing semicolon (PR #44).
+	* Not verified in CI: the Windows code path of PR #40 and Objective-C compilation of PR #41.
+
 2026-10-07 Satoshi Konno <skonno@cybergarage.org>
 	* 3.1.0
 	* ESP32 / ESP-IDF support (main topic of this release)

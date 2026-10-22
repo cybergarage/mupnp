@@ -361,6 +361,10 @@ bool mupnp_device_loaddescriptionfile(mUpnpDevice* dev, char* fileName);
  * Description updates
  ****************************************************************************/
 
+/* Internal cache commit: candidate owns a fully fetched description; no I/O.
+ * Caller retains candidate ownership and serializes access to dev. */
+bool mupnp_device_updatefromdevice(mUpnpDevice* dev, mUpnpDevice* candidate, mUpnpSSDPPacket* ssdpPkt);
+
 /**
  * Update the device's contents from an SSDP packet if necessary.
  *
@@ -1242,6 +1246,11 @@ mUpnpDevice* mupnp_device_getdevicebydescriptionuri(mUpnpDevice* dev, const char
  * \return service matching the given serviceId
  */
 mUpnpService* mupnp_device_getservicebyserviceid(mUpnpDevice* dev, const char* serviceId);
+
+/** Direct services only; returned pointer is borrowed from dev. No network I/O. */
+mUpnpService* mupnp_device_getownedservicebyserviceid(mUpnpDevice* dev, const char* serviceId);
+/** Search owner UDN within dev's subtree, then only that owner's services. */
+mUpnpService* mupnp_device_getservicebyownerudn(mUpnpDevice* dev, const char* ownerUdn, const char* serviceId);
 
 /**
  * Find a service from the device by the type of the service.

@@ -83,9 +83,9 @@ typedef struct _mUpnpSocket {
   int direction;
   mUpnpString* ipaddr;
   int port;
-#if defined(ESP_PLATFORM)
-  int timeout; /* Seconds; zero means no timeout. */
-#endif
+  int timeout; /* Seconds; zero means no timeout. Kept so that a timeout set
+                  before the descriptor exists (e.g. before connect) still
+                  applies once the socket is created. */
 #if defined(ITRON)
   UH* sendWinBuf;
   UH* recvWinBuf;
@@ -116,6 +116,10 @@ mUpnpSocket* mupnp_socket_new(int type);
 #define mupnp_socket_dgram_new() mupnp_socket_new(MUPNP_NET_SOCKET_DGRAM)
 bool mupnp_socket_delete(mUpnpSocket* socket);
 
+/* Native POSIX wrapper operations preserve descriptor flags. A caller-supplied
+ * O_NONBLOCK retains immediate I/O behavior; ordinary blocking operations use
+ * bounded internal readiness waits, preserving SO_RCVTIMEO/SO_SNDTIMEO.
+ * Do not concurrently change flags or operate the same SSL object during I/O. */
 void mupnp_socket_setid(mUpnpSocket* socket, SOCKET value);
 #define mupnp_socket_getid(socket) (socket->id)
 

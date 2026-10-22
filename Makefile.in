@@ -15,7 +15,7 @@
 @SET_MAKE@
 
 # aminclude_static.am generated automatically by Autoconf
-# from AX_AM_MACROS_STATIC on Thu Apr 16 22:19:14 JST 2026
+# from AX_AM_MACROS_STATIC on Wed Oct  7 22:44:48 JST 2026
 
 VPATH = @srcdir@
 am__is_gnu_make = { \
@@ -378,7 +378,8 @@ SUBDIRS = include lib $(am__append_1) $(am__append_2)
 ##############################
 devdocsdir = $(datadir)/doc/mupnp-dev
 docsdir = $(datadir)/doc/mupnp0
-EXTRA_DIST = debian/changelog \
+EXTRA_DIST = test/platform-smoke.c.in \
+	debian/changelog \
 	debian/clinkc0.install \
 	debian/clinkc-dev.install \
 	debian/compat \
@@ -416,6 +417,8 @@ EXTRA_DIST = debian/changelog \
 	Kconfig \
 	idf_component.yml \
 	doc/espidf.md \
+	doc/gateway-action-results.md \
+	doc/releasing.md \
 	examples/common/content_directory.h \
 	examples/espidf/control_point/CMakeLists.txt \
 	examples/espidf/control_point/README.md \

@@ -21,16 +21,23 @@
 #include <mupnp/util/thread.h>
 #include <mupnp/util/time.h>
 
-/* Private function prototypes */
-#if !defined(ESP_PLATFORM)
-static void sig_handler(int sign);
-#endif
-
 /****************************************
  * Thread Function
  ****************************************/
 
 #if defined(WIN32) && !defined(WINCE) && !defined(ITRON)
+/* Borrow the existing worker object; external threads keep a NULL reference. */
+#if defined(_MSC_VER)
+static __declspec(thread) mUpnpThread* mupnpThreadSelfRef;
+#else
+static __thread mUpnpThread* mupnpThreadSelfRef;
+#endif
+
+mUpnpThread* mupnp_thread_self(void)
+{
+  return mupnpThreadSelfRef;
+}
+
 static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
 {
   mUpnpThread* thread;
@@ -38,8 +45,10 @@ static DWORD WINAPI Win32ThreadProc(LPVOID lpParam)
   mupnp_log_debug_l4("Entering...\n");
 
   thread = (mUpnpThread*)lpParam;
+  mupnpThreadSelfRef = thread;
   if (thread->action != NULL)
     thread->action(thread);
+  mupnpThreadSelfRef = NULL;
 
   return 0;
 }
@@ -164,20 +173,7 @@ static void* posix_thread_proc(void* param)
 {
   mupnp_log_debug_l4("Entering...\n");
 
-#if !defined(ESP_PLATFORM)
-  sigset_t set;
-#endif
   mUpnpThread* thread = (mUpnpThread*)param;
-
-#if !defined(ESP_PLATFORM)
-  /* SIGQUIT is used in thread deletion routine
-   * to force accept and recvmsg to return during thread
-   * termination process. */
-  sigfillset(&set);
-  sigdelset(&set, SIGQUIT);
-  pthread_sigmask(SIG_SETMASK, &set, NULL);
-
-#endif
 
 #if defined(ESP_PLATFORM)
   /* Do not run before start has stored the pthread handle and lifecycle state. */
@@ -506,16 +502,6 @@ bool mupnp_thread_start(mUpnpThread* thread)
       pthread_mutex_unlock(&thread->stateMutex);
       return false;
     }
-#if !defined(ESP_PLATFORM)
-    struct sigaction actions;
-    memset(&actions, 0, sizeof(actions));
-    sigemptyset(&actions.sa_mask);
-    actions.sa_handler = sig_handler;
-    if (sigaction(SIGQUIT, &actions, NULL) != 0) {
-      pthread_mutex_unlock(&thread->stateMutex);
-      return false;
-    }
-#endif
     thread->stopWaiting = false;
     thread->deletePending = false;
     thread->isRunning = true;
@@ -615,10 +601,8 @@ bool mupnp_thread_stop_with_cond(mUpnpThread* thread, mUpnpCond* cond)
     while (thread->isRunning) {
       if (cond)
         mupnp_cond_signal(cond);
-#if !defined(ESP_PLATFORM)
-      pthread_kill(thread->pThread, SIGQUIT);
-#endif
-      /* Repeat the wakeup: the action may enter I/O just after a signal. */
+      /* Repeat condition wakeups to close the check-to-wait window.
+       * Socket workers observe runnableFlag in bounded readiness waits. */
       struct timespec until;
       clock_gettime(CLOCK_REALTIME, &until);
       until.tv_nsec += 100000000;
@@ -848,13 +832,3 @@ void* mupnp_thread_getuserdata(mUpnpThread* thread)
 
   mupnp_log_debug_l4("Leaving...\n");
 }
-
-/* Private helper functions */
-
-#if !defined(ESP_PLATFORM)
-static void sig_handler(int sign)
-{
-  (void)sign;
-  return;
-}
-#endif

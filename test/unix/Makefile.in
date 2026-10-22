@@ -94,7 +94,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-TESTS = mupnptest$(EXEEXT)
+TESTS = mupnptest$(EXEEXT) device-start-no-interfaces.sh \
+	controlpoint-start-no-interfaces.sh thread-shutdown.sh socket-wait.sh
 check_PROGRAMS = mupnptest$(EXEEXT)
 subdir = test/unix
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -108,7 +109,8 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__dirstamp = $(am__leading_dot)dirstamp
-am_mupnptest_OBJECTS = ../NetworkTest.$(OBJEXT) \
+am_mupnptest_OBJECTS = ../ActionResultTest.$(OBJEXT) ../GatewayTest.$(OBJEXT) \
+	../NetworkTest.$(OBJEXT) \
 	../SubscriptionTest.$(OBJEXT) ../ServiceTest.$(OBJEXT) \
 	../StringTest.$(OBJEXT) ../TestDevice.$(OBJEXT) \
 	../DeviceTest.$(OBJEXT) ../XMLTest.$(OBJEXT) \
@@ -135,7 +137,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ../$(DEPDIR)/ControlPointTest.Po \
+am__depfiles_remade = ../$(DEPDIR)/ActionResultTest.Po ../$(DEPDIR)/GatewayTest.Po \
+	../$(DEPDIR)/ControlPointTest.Po \
 	../$(DEPDIR)/DeviceTest.Po ../$(DEPDIR)/DictionaryTest.Po \
 	../$(DEPDIR)/HttpTest.Po ../$(DEPDIR)/NetworkTest.Po \
 	../$(DEPDIR)/ServiceTest.Po ../$(DEPDIR)/StateVariableTest.Po \
@@ -516,14 +519,19 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+EXTRA_DIST = device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh thread-shutdown.sh socket-wait.sh ../posix/ThreadShutdownTest.c ../posix/SocketWaitTest.c ../posix/README.md ../../doc/posix-shutdown.md
+TESTS_ENVIRONMENT = CC="$(CC)" XML_LIBS="@XML_LIBS@" LIBS="$(LIBS)" CODE_COVERAGE_LIBS="$(CODE_COVERAGE_LIBS)"
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../ $(CODE_COVERAGE_CPPFLAGS)
 AM_CFLAGS = $(CODE_COVERAGE_CFLAGS)
 AM_CXXFLAGS = $(CODE_COVERAGE_CXXFLAGS)
 noinst_HEADERS = \
+	../GatewayFixture.h \
 	../TestDevice.h \
 	../ClinkUnitTest.h
 
 mupnptest_SOURCES = \
+	../ActionResultTest.cpp \
+	../GatewayTest.cpp \
 	../NetworkTest.cpp \
 	../SubscriptionTest.cpp \
 	../ServiceTest.cpp \
@@ -582,6 +590,8 @@ clean-checkPROGRAMS:
 ../$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) ../$(DEPDIR)
 	@: > ../$(DEPDIR)/$(am__dirstamp)
+../ActionResultTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../GatewayTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
 ../NetworkTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
@@ -618,6 +628,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ActionResultTest.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/GatewayTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ControlPointTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/DeviceTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/DictionaryTest.Po@am__quote@ # am--include-marker
@@ -871,6 +883,34 @@ mupnptest.log: mupnptest$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+device-start-no-interfaces.sh.log: device-start-no-interfaces.sh
+	@p='device-start-no-interfaces.sh'; \
+	b='device-start-no-interfaces.sh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+controlpoint-start-no-interfaces.sh.log: controlpoint-start-no-interfaces.sh
+	@p='controlpoint-start-no-interfaces.sh'; \
+	b='controlpoint-start-no-interfaces.sh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+thread-shutdown.sh.log: thread-shutdown.sh
+	@p='thread-shutdown.sh'; \
+	b='thread-shutdown.sh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+socket-wait.sh.log: socket-wait.sh
+	@p='socket-wait.sh'; \
+	b='socket-wait.sh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 .test.log:
 	@p='$<'; \
 	$(am__set_b); \
@@ -964,7 +1004,9 @@ clean: clean-am
 clean-am: clean-checkPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ../$(DEPDIR)/ControlPointTest.Po
+		-rm -f ../$(DEPDIR)/ActionResultTest.Po
+	-rm -f ../$(DEPDIR)/GatewayTest.Po
+	-rm -f ../$(DEPDIR)/ControlPointTest.Po
 	-rm -f ../$(DEPDIR)/DeviceTest.Po
 	-rm -f ../$(DEPDIR)/DictionaryTest.Po
 	-rm -f ../$(DEPDIR)/HttpTest.Po
@@ -1023,7 +1065,9 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ../$(DEPDIR)/ControlPointTest.Po
+		-rm -f ../$(DEPDIR)/ActionResultTest.Po
+	-rm -f ../$(DEPDIR)/GatewayTest.Po
+	-rm -f ../$(DEPDIR)/ControlPointTest.Po
 	-rm -f ../$(DEPDIR)/DeviceTest.Po
 	-rm -f ../$(DEPDIR)/DictionaryTest.Po
 	-rm -f ../$(DEPDIR)/HttpTest.Po

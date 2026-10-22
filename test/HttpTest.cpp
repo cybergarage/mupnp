@@ -226,6 +226,62 @@ BOOST_AUTO_TEST_CASE(HttpCompleteBodies)
   BOOST_CHECK(read_wire_message(wire.c_str(), true, false, &content));
   BOOST_CHECK_EQUAL(content, "body");
 }
+
+/* Issue #21: a peer can declare a huge Content-Length or chunk-size without
+   sending the data. The reader must fail cleanly on EOF instead of reserving
+   the declared size up front. */
+BOOST_AUTO_TEST_CASE(HttpHugeDeclaredLengthWithoutData)
+{
+  BOOST_CHECK(!read_wire_message("HTTP/1.1 200 OK\r\nContent-Length: 1099511627776\r\n\r\nbody", true, false));
+  BOOST_CHECK(!read_wire_message("POST / HTTP/1.1\r\nContent-Length: 1099511627776\r\n\r\nbody", false, false));
+  BOOST_CHECK(!read_wire_message("HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n10000000000\r\nbody", true, false));
+  BOOST_CHECK(!read_wire_message("POST / HTTP/1.1\r\nTransfer-Encoding: chunked\r\n\r\n10000000000\r\nbody", false, false));
+}
+
+/* Bodies larger than the initial read buffer must still be read completely. */
+static bool read_large_wire_response(const std::string& wire, std::string* content)
+{
+  int descriptors[2];
+  BOOST_REQUIRE_EQUAL(socketpair(AF_UNIX, SOCK_STREAM, 0, descriptors), 0);
+  std::thread writer([&]() {
+    size_t off = 0;
+    while (off < wire.size()) {
+      ssize_t n = write(descriptors[1], wire.data() + off, wire.size() - off);
+      if (n <= 0)
+        break;
+      off += (size_t)n;
+    }
+    shutdown(descriptors[1], SHUT_WR);
+  });
+  mUpnpSocket* socket = mupnp_socket_stream_new();
+  mupnp_socket_setid(socket, descriptors[0]);
+  mUpnpHttpResponse* message = mupnp_http_response_new();
+  bool result = mupnp_http_response_read(message, socket, false);
+  if (result)
+    content->assign(mupnp_http_response_getcontent(message), mupnp_http_response_getcontentlength(message));
+  mupnp_http_response_delete(message);
+  writer.join();
+  mupnp_socket_delete(socket);
+  close(descriptors[1]);
+  return result;
+}
+
+BOOST_AUTO_TEST_CASE(HttpLargeBodies)
+{
+  std::string body(300 * 1024 + 7, 'x');
+  for (size_t n = 0; n < body.size(); n += 997)
+    body[n] = (char)('a' + (n % 26));
+  std::string content;
+  std::string wire = "HTTP/1.1 200 OK\r\nContent-Length: " + std::to_string(body.size()) + "\r\n\r\n" + body;
+  BOOST_CHECK(read_large_wire_response(wire, &content));
+  BOOST_CHECK(content == body);
+  char chunkSize[32];
+  snprintf(chunkSize, sizeof(chunkSize), "%zx", body.size());
+  wire = std::string("HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n") + chunkSize + "\r\n" + body + "\r\n0\r\n\r\n";
+  content.clear();
+  BOOST_CHECK(read_large_wire_response(wire, &content));
+  BOOST_CHECK(content == body);
+}
 #endif
 
 #if !defined(WIN32)

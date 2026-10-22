@@ -12,6 +12,7 @@
 #ifndef _MUPNP_TYPEDEF_H_
 #define _MUPNP_TYPEDEF_H_
 
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -70,6 +71,7 @@ extern "C" {
 #endif
 
 typedef unsigned char mUpnpByte;
+typedef int64_t mUpnpInt64;
 
 #ifdef __cplusplus
 }

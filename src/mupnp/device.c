@@ -478,6 +478,27 @@ static void mupnp_device_swapdescription(mUpnpDevice* dst, mUpnpDevice* src)
     mupnp_device_setparentdevice(childDev, src);
 }
 
+/* Commit an already fetched, privately owned description. The caller must
+   serialize access to dev. No network I/O is performed here. */
+bool mupnp_device_updatefromdevice(mUpnpDevice* dev, mUpnpDevice* newDev, mUpnpSSDPPacket* ssdpPkt)
+{
+  const char* oldConfigId;
+  const char* newConfigId;
+  mUpnpSSDPPacket* oldPacket = mupnp_device_getssdppacket(dev);
+
+  if (!mupnp_streq(mupnp_device_getudn(newDev), mupnp_device_getudn(dev)))
+    return false;
+  oldConfigId = mupnp_http_headerlist_getvalue(oldPacket->headerList, MUPNP_DEVICE_SSDP_CONFIGID);
+  newConfigId = mupnp_http_headerlist_getvalue(ssdpPkt->headerList, MUPNP_DEVICE_SSDP_CONFIGID);
+  if (!mupnp_device_optstreq(oldConfigId, newConfigId) || !mupnp_device_hassamestructure(dev, newDev)) {
+    mupnp_device_copysubscriptions(newDev, dev);
+    mupnp_device_swapdescription(dev, newDev);
+  }
+  mupnp_device_setssdppacket(dev, ssdpPkt);
+  mupnp_device_sethttpport(dev, mupnp_device_gethttpport(newDev));
+  return true;
+}
+
 /**
  * Update the device's contents from an SSDP packet if necessary.
  *
@@ -1594,10 +1615,9 @@ bool mupnp_device_start(mUpnpDevice* dev)
   if (dev->ifCache == NULL)
     dev->ifCache = mupnp_net_interfacelist_new();
   mupnp_net_gethostinterfaces(dev->ifCache);
-#if defined(ESP_PLATFORM)
+  /* Retrying HTTP ports cannot help when there is no usable interface. */
   if (mupnp_net_interfacelist_size(dev->ifCache) == 0)
     return false;
-#endif
 
   /**** HTTP Server ****/
   httpPort = mupnp_device_gethttpport(dev);
@@ -1759,6 +1779,24 @@ static void mupnp_device_initservicelist(mUpnpDevice* dev)
   }
 
   mupnp_log_debug_l4("Leaving...\n");
+}
+
+mUpnpService* mupnp_device_getownedservicebyserviceid(mUpnpDevice* dev, const char* serviceId)
+{
+  if (!dev || mupnp_strlen(serviceId) <= 0)
+    return NULL;
+  for (mUpnpService* service = mupnp_device_getservices(dev); service; service = mupnp_service_next(service)) {
+    if (mupnp_streq(mupnp_service_getserviceid(service), serviceId))
+      return service;
+  }
+  return NULL;
+}
+
+mUpnpService* mupnp_device_getservicebyownerudn(mUpnpDevice* dev, const char* ownerUdn, const char* serviceId)
+{
+  if (!dev || mupnp_strlen(ownerUdn) <= 0)
+    return NULL;
+  return mupnp_device_getownedservicebyserviceid(mupnp_streq(mupnp_device_getudn(dev), ownerUdn) ? dev : mupnp_device_getdevicebyudn(dev, ownerUdn), serviceId);
 }
 
 mUpnpService* mupnp_device_getservicebyserviceid(mUpnpDevice* dev, const char* serviceId)
@@ -2075,7 +2113,12 @@ mUpnpService* mupnp_device_getservicebyeventsuburl(mUpnpDevice* dev, const char*
     return NULL;
 
   for (service = mupnp_device_getservices(dev); service != NULL; service = mupnp_service_next(service)) {
-    if (mupnp_streq(mupnp_net_url_getpath(mupnp_service_geteventsuburl(service)), url) == true)
+    /* mupnp_service_geteventsuburl() returns a newly allocated URL. */
+    mUpnpNetURL* eventSubURL = mupnp_service_geteventsuburl(service);
+    bool matched = (eventSubURL && mupnp_streq(mupnp_net_url_getpath(eventSubURL), url) == true) ? true : false;
+    if (eventSubURL)
+      mupnp_net_url_delete(eventSubURL);
+    if (matched)
       return service;
   }
 

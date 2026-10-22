@@ -115,11 +115,11 @@ am__v_P_1 = :
 AM_V_GEN = $(am__v_GEN_@AM_V@)
 am__v_GEN_ = $(am__v_GEN_@AM_DEFAULT_V@)
 am__v_GEN_0 = @echo "  GEN     " $@;
-am__v_GEN_1 =
+am__v_GEN_1 = 
 AM_V_at = $(am__v_at_@AM_V@)
 am__v_at_ = $(am__v_at_@AM_DEFAULT_V@)
 am__v_at_0 = @
-am__v_at_1 =
+am__v_at_1 = 
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__maybe_remake_depfiles = depfiles
@@ -132,13 +132,13 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 AM_V_CC = $(am__v_CC_@AM_V@)
 am__v_CC_ = $(am__v_CC_@AM_DEFAULT_V@)
 am__v_CC_0 = @echo "  CC      " $@;
-am__v_CC_1 =
+am__v_CC_1 = 
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
-am__v_CCLD_1 =
+am__v_CCLD_1 = 
 SOURCES = $(upnpbinarylight_SOURCES)
 DIST_SOURCES = $(upnpbinarylight_SOURCES)
 am__can_run_installinfo = \
@@ -384,7 +384,7 @@ clean-samplesPROGRAMS:
 ../../common/kb_util.$(OBJEXT): ../../common/$(am__dirstamp) \
 	../../common/$(DEPDIR)/$(am__dirstamp)
 
-upnpbinarylight$(EXEEXT): $(upnpbinarylight_OBJECTS) $(upnpbinarylight_DEPENDENCIES) $(EXTRA_upnpbinarylight_DEPENDENCIES)
+upnpbinarylight$(EXEEXT): $(upnpbinarylight_OBJECTS) $(upnpbinarylight_DEPENDENCIES) $(EXTRA_upnpbinarylight_DEPENDENCIES) 
 	@rm -f upnpbinarylight$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(upnpbinarylight_OBJECTS) $(upnpbinarylight_LDADD) $(LIBS)
 
@@ -552,7 +552,7 @@ clean: clean-am
 clean-am: clean-generic clean-samplesPROGRAMS mostlyclean-am
 
 distclean: distclean-am
-	-rm -f ../$(DEPDIR)/binarylight_device.Po
+		-rm -f ../$(DEPDIR)/binarylight_device.Po
 	-rm -f ../../common/$(DEPDIR)/kb_util.Po
 	-rm -f ./$(DEPDIR)/binarylight_main.Po
 	-rm -f Makefile
@@ -600,7 +600,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -f ../$(DEPDIR)/binarylight_device.Po
+		-rm -f ../$(DEPDIR)/binarylight_device.Po
 	-rm -f ../../common/$(DEPDIR)/kb_util.Po
 	-rm -f ./$(DEPDIR)/binarylight_main.Po
 	-rm -f Makefile

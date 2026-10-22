@@ -48,6 +48,11 @@ extern "C" {
 #define MUPNP_STATEVARIABLE_DATATYPE "dataType"
 
 /**
+ * Definition for state variable default value element
+ */
+#define MUPNP_STATEVARIABLE_DEFAULTVALUE "defaultValue"
+
+/**
  * Definition for state variable send events element name
  */
 #define MUPNP_STATEVARIABLE_SENDEVENTS "sendEvents"
@@ -316,6 +321,29 @@ mUpnpAllowedValuesList* mupnp_allowedvaluelist_new(void);
  * @return Data type
  */
 #define mupnp_statevariable_getdatatype(statVar) mupnp_xml_node_getchildnodevalue(mupnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_DATATYPE)
+
+/**** defaultValue ****/
+
+/**
+ * Set the default value declared in the service description (SCPD).
+ *
+ * @param statVar State variable
+ * @param value Default value
+ */
+#define mupnp_statevariable_setdefaultvalue(statVar, value) mupnp_xml_node_setchildnode(mupnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_DEFAULTVALUE, value)
+
+/**
+ * Get the default value declared in the service description (SCPD).
+ *
+ * This is the static <defaultValue> element of the SCPD, not the current
+ * value. On a control point, mupnp_statevariable_getvalue() stays NULL until
+ * the variable is queried or an event updates it.
+ *
+ * @param statVar State variable
+ *
+ * @return Default value, or NULL if the description declares none
+ */
+#define mupnp_statevariable_getdefaultvalue(statVar) mupnp_xml_node_getchildnodevalue(mupnp_statevariable_getstatevariablenode(statVar), MUPNP_STATEVARIABLE_DEFAULTVALUE)
 
 /**** sendEvents ****/
 

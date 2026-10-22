@@ -23,7 +23,8 @@ distclean-local: code-coverage-dist-clean
 devdocsdir = $(datadir)/doc/mupnp-dev
 docsdir = $(datadir)/doc/mupnp0
 
-EXTRA_DIST = debian/changelog \
+EXTRA_DIST = test/platform-smoke.c.in \
+	debian/changelog \
 	debian/clinkc0.install \
 	debian/clinkc-dev.install \
 	debian/compat \
@@ -61,6 +62,8 @@ EXTRA_DIST = debian/changelog \
 	Kconfig \
 	idf_component.yml \
 	doc/espidf.md \
+	doc/gateway-action-results.md \
+	doc/releasing.md \
 	examples/common/content_directory.h \
 	examples/espidf/control_point/CMakeLists.txt \
 	examples/espidf/control_point/README.md \

@@ -13,7 +13,7 @@ jobs:
   host-regression:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check bootstrap build generators
         run: test/espidf/host/check_generators.sh
       - name: ESP lifecycle regression (ASan and UBSan)
@@ -26,7 +26,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build ESP32 control point with ESP-IDF 5.5.5
         uses: espressif/esp-idf-ci-action@9d38657f3d789ca759b2b37aaf5ceffbc42c4f0d # v1
         with:

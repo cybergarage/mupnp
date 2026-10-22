@@ -8,8 +8,10 @@ print<<HEADER;
 #
 ############################################################
 
-TESTS = mupnptest
+TESTS = mupnptest device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh thread-shutdown.sh socket-wait.sh
 check_PROGRAMS = mupnptest
+EXTRA_DIST = device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh thread-shutdown.sh socket-wait.sh ../posix/ThreadShutdownTest.c ../posix/SocketWaitTest.c ../posix/README.md ../../doc/posix-shutdown.md
+TESTS_ENVIRONMENT = CC="\$(CC)" XML_LIBS="\@XML_LIBS\@" LIBS="\$(LIBS)" CODE_COVERAGE_LIBS="\$(CODE_COVERAGE_LIBS)"
 
 AM_CPPFLAGS = -I\$(top_srcdir)/include -I../ \$(CODE_COVERAGE_CPPFLAGS)
 AM_CFLAGS = \$(CODE_COVERAGE_CFLAGS)
@@ -21,7 +23,7 @@ print<<NOINST_HEADERS;
 noinst_HEADERS = \\
 NOINST_HEADERS
 
-my @find_files = `find ../ -path '../espidf' -prune -o -name '*.h' -print`;
+my @find_files = `find ../ -path '../espidf' -prune -o -path '../posix' -prune -o -name '*.h' -print`;
 my @include_files;
 foreach $file (@find_files) {
 	$file =~ s/\n//;
@@ -35,7 +37,7 @@ print<<SOURCES;
 mupnptest_SOURCES = \\
 SOURCES
 
-my @find_files = `find ../ -path '../espidf' -prune -o -name '*.cpp' -print -o -name '*.c' -print`;
+my @find_files = `find ../ -path '../espidf' -prune -o -path '../posix' -prune -o -name '*.cpp' -print -o -name '*.c' -print`;
 my @source_files;
 foreach $file (@find_files) {
 	$file =~ s/\n//;

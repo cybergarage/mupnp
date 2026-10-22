@@ -9,9 +9,11 @@
  *
  ******************************************************************/
 
+#include <mupnp/net/interface.h>
 #include <mupnp/net/uri.h>
 #include <mupnp/util/log.h>
 #include <mupnp/util/string.h>
+#include <string.h>
 
 #if defined(MUPNP_HTTP_CURL)
 #include <curl/curl.h>
@@ -199,6 +201,19 @@ void mupnp_net_uri_setvalue(mUpnpNetURI* uri, const char* value)
       uri->port = MUPNP_NET_URI_DEFAULT_HTTP_PORT;
     if (mupnp_strcmp(protocol, MUPNP_NET_URI_PROTOCOL_FTP) == 0)
       uri->port = MUPNP_NET_URI_DEFAULT_FTP_PORT;
+  }
+
+  /* Decode an RFC 6874 zone index ("fe80::1%252" -> "fe80::1%2"). */
+  host = mupnp_net_uri_gethost(uri);
+  if (mupnp_net_isipv6address(host) == true) {
+    char* zone = strstr(host, "%25");
+    if (zone) {
+      mUpnpString* decoded = mupnp_string_new();
+      mupnp_string_setnvalue(decoded, host, (size_t)(zone - host) + 1);
+      mupnp_string_addvalue(decoded, zone + 3);
+      mupnp_string_setvalue(uri->host, mupnp_string_getvalue(decoded));
+      mupnp_string_delete(decoded);
+    }
   }
 
   /*
