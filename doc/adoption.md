@@ -116,11 +116,6 @@ The existing project README reports use in REGZA televisions. No manufacturer
 Web document directly naming CyberLink for C or mUPnP was verified in this review.
 No model-wide, current-version or implementation-purpose claim is made.
 
-![Existing project illustration of REGZA connectivity](img/mupnpc-example-regzatv-01.png)
-
-This existing illustration describes connectivity; it is not a component license
-or version disclosure.
-
 ![User-provided photograph of a REGZA display showing Exhibit 21 copyright notices](img/regza-x8900n-license-user-photo.png)
 
 User-provided photograph, inspected on **2026-10-22** and reproduced with the
