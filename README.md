@@ -116,25 +116,29 @@ For information on developing UPnP devices or control point applications with **
   - UPnP non-standard devices
     - [UPnP clock device](https://github.com/cybergarage/mupnp/tree/master/examples/clock)
 
-## Adoption in Consumer Products
+## Adoption and Usage
 
-**mUPnP for C** is used in a variety of consumer products. The following is a non-exhaustive list of notable implementations.
+**mUPnP for C (formerly CyberLink for C)** has been used in the products and
+projects below. The [ChangeLog](ChangeLog) records the name change in 2015;
+these entries describe one continuous project's adoption history.
 
-### Nokia 770 Internet Tablet
+| Manufacturer / project | Product / project scope | Evidence |
+| --- | --- | --- |
+| NEC Aterm | WG2600HP, WG2600HP2, WG2600HP3 | [Official manuals](doc/adoption.md#nec-aterm) |
+| TCL | 50CF630K, 55CF630K (UK manual) | [Official manual](doc/adoption.md#tcl) |
+| iFFALCON | U75A / U85A series | [Official manual](doc/adoption.md#iffalcon) |
+| Zyxel | EX5601-T1, EX3600-T0, DX3300-T0 and related models; specified firmware | [Official release notes](doc/adoption.md#zyxel) |
+| Audio Group Denmark | Aavik Stream app | [Official licenses](doc/adoption.md#audio-group-denmark) |
+| Panasonic | Blu-ray Remote 2011 app | [Official app page and EULA](doc/adoption.md#panasonic) |
+| llink (open source) | Media server, macOS build integration | [Adopting project's README](doc/adoption.md#llink) |
+| Nokia | Media Streamer app for Nokia 770 | [Project report and historical references](doc/adoption.md#nokia-770--media-streamer) |
+| Panasonic | VIERA Remote for iOS | [Project report](doc/adoption.md#panasonic-viera-remote) |
+| Toshiba / REGZA | Televisions reported by the project | [Project report and user-provided photo](doc/adoption.md#toshiba--regza-televisions) |
 
-Nokia engineers helped improve the initial **mUPnP for C** release. Nokia developed the UPnP/AV Control Point application, **Media Streamer**, for the Nokia 770 Internet Tablet. The application is based on **mUPnP for C**, with custom patches from Nokia.
-
-![Nokia 770 Internet Tablet](doc/img/mupnpc-example-nokia770-01.jpg)
-
-### Panasonic VIERA Remote for iOS Devices
-The [**VIERA Remote**](http://panasonic.jp/support/global/cs/tv/vremote/index.html) is a TV remote control app for Panasonic VIERA TVs (plasma and LCD models). It allows users to control channels, switch inputs, and adjust the volume directly from an **iPhone, iPod touch, or iPad** (iOS 4.2 or later). **mUPnP for C** functions as the UPnP framework for this app.
-
-![VIERA Remote](doc/img/mupnpc-example-vieraremote-02.gif)
-
-### Toshiba REGZA Televisions
-
-[**REGZA**](https://www.regza.com/) is Toshiba’s former AV equipment brand. **mUPnP for C** is embedded in REGZA televisions, enabling seamless media streaming and connectivity.
-
-![REGZA Televisions](doc/img/mupnpc-example-regzatv-01.png)
+[Adoption evidence](doc/adoption.md) records source-reported component names and
+versions, verification dates, product and firmware limits, and supporting images.
+It distinguishes manufacturer disclosures, project reports and copyright-only
+notices. The list does not imply manufacturer endorsement or use throughout a
+manufacturer's range.
 
 [^1]: UPnP™ is a certification mark of the UPnP™ Implementers Corporation.
