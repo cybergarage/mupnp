@@ -39,8 +39,8 @@ var NAVTREE =
     [ "Examples", "index.html#autotoc_md222", null ],
     [ "Adoption and Usage", "index.html#autotoc_md223", null ],
     [ "Adoption evidence", "md_doc_2adoption.html", [
-      [ "Panasonic", "md_doc_2adoption.html#autotoc_md10", null ],
-      [ "Nokia 770 — Media Streamer", "md_doc_2adoption.html#autotoc_md11", null ],
+      [ "Nokia 770 — Media Streamer", "md_doc_2adoption.html#autotoc_md10", null ],
+      [ "Panasonic", "md_doc_2adoption.html#autotoc_md11", null ],
       [ "Toshiba / REGZA televisions", "md_doc_2adoption.html#autotoc_md12", null ],
       [ "TCL", "md_doc_2adoption.html#autotoc_md13", null ],
       [ "NEC Aterm", "md_doc_2adoption.html#autotoc_md14", null ],

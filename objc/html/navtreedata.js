@@ -27,8 +27,8 @@ var NAVTREE =
   [ "mUPnP for Objective-C", "index.html", [
     [ "mUPnP for C", "index.html", "index" ],
     [ "Adoption evidence", "md_doc_2adoption.html", [
-      [ "Panasonic", "md_doc_2adoption.html#autotoc_md1", null ],
-      [ "Nokia 770 — Media Streamer", "md_doc_2adoption.html#autotoc_md2", null ],
+      [ "Nokia 770 — Media Streamer", "md_doc_2adoption.html#autotoc_md1", null ],
+      [ "Panasonic", "md_doc_2adoption.html#autotoc_md2", null ],
       [ "Toshiba / REGZA televisions", "md_doc_2adoption.html#autotoc_md3", null ],
       [ "TCL", "md_doc_2adoption.html#autotoc_md4", null ],
       [ "NEC Aterm", "md_doc_2adoption.html#autotoc_md5", null ],
