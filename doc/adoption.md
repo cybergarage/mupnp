@@ -12,9 +12,7 @@ history into separate projects. A source naming 2.x does not establish use of
 the latest 3.x release. No partnership, endorsement, sales volume or particular
 implementation role is inferred.
 
-## Explicit component names in manufacturer or adopting-project sources
-
-### NEC Aterm
+## NEC Aterm
 
 - Products: WG2600HP, WG2600HP2 and WG2600HP3.
 - Sources: official user manuals, “本商品で使用しているソフトウェアライセンスについて”:
@@ -24,21 +22,21 @@ implementation role is inferred.
 - Each names **CyberLink for C v2.0**, with copyright notices for Satoshi Konno,
   Nokia Corporation and Theo Beisch. This confirms those models' license listings.
 
-### TCL
+## TCL
 
 - Products: **50CF630K / 55CF630K**, UK manual.
 - Source: [TCL Important information and manual](https://www.tcl.com/content/dam/brandsite/europe-documents/tv/um/cf630k/TCL_D6100_UK_50_55CF630K.pdf), PDF page **6**.
 - The product notice explicitly identifies **CyberLink for C**. No component
   version is stated; the claim is limited to the models covered by this manual.
 
-### iFFALCON
+## iFFALCON
 
 - Products: **U75A / U85A series**.
 - Source: [U75A / U85A User Manual](https://www.iffalcon.com/content/dam/brandsite/region/turkey/user-manual/tv/%E9%9B%B7%E9%B8%9FJ0101-003566%20U75A%20U85A%20TR.pdf), PDF page **5**, “OSS Notice”.
 - The notice names **CyberLink for C** as used by the product. No component
   version is stated. This is the manual hosted on the Turkish regional site.
 
-### Zyxel
+## Zyxel
 
 The official *Firmware Release Note* documents list **clinkc**, version **2.4**,
 with status **Modified**, under “Public Domain Software Announcements”. Their
@@ -53,7 +51,7 @@ covers and Supported Platforms sections define the following firmware scope:
 These are shared firmware listings, not a count of independent adoption projects.
 The documents do not establish use in every firmware version or Zyxel product.
 
-### Audio Group Denmark
+## Audio Group Denmark
 
 - Product: **Aavik Stream app**.
 - Source: [Privacy Policy – App](https://audiogroupdenmark.com/privacy-policy-app/),
@@ -62,7 +60,7 @@ The documents do not establish use in every firmware version or Zyxel product.
   and the historical CyberGarage project URL. No component version is stated.
   This is an app disclosure, not evidence for all Aavik hardware.
 
-### Panasonic
+## Panasonic
 
 - Product: **Panasonic Blu-ray Remote 2011 (Remote 2011)** app.
 - Sources: [Enjoy your Blu-ray Disc Player with Remote 2011](https://av.jpn.support.panasonic.com/support/global/cs/bd/bremote/),
@@ -75,7 +73,7 @@ The documents do not establish use in every firmware version or Zyxel product.
   a remote-controller app but does not itself give a specific app name.
   Neither EULA is used here as VIERA Remote-specific evidence.
 
-### llink
+## llink
 
 - Project: **llink media server**, an open-source project.
 - Source: [Project README](https://github.com/lundman/llink/blob/main/README.md),
@@ -84,9 +82,7 @@ The documents do not establish use in every firmware version or Zyxel product.
   the llink configuration, and list **libclinkcav.0.dylib** for app bundling.
   This establishes the documented build integration, not every distributed build.
 
-## Project reports and historical illustrations
-
-### Nokia 770 — Media Streamer
+## Nokia 770 — Media Streamer
 
 The existing project README reports Nokia's Media Streamer app for the Nokia 770
 using this library with Nokia patches. This concerns the app, not factory
@@ -102,7 +98,7 @@ installation on every Nokia 770.
 
 ![Existing project illustration of the Nokia 770](img/mupnpc-example-nokia770-01.jpg)
 
-### Panasonic VIERA Remote
+## Panasonic VIERA Remote
 
 The existing project README reports library use in **VIERA Remote for iOS**.
 Retained as a project report, with no component version established. The official
@@ -110,7 +106,7 @@ Blu-ray Remote EULAs above are separate evidence and do not verify this app.
 
 ![Existing project illustration of VIERA Remote](img/mupnpc-example-vieraremote-02.gif)
 
-### Toshiba / REGZA televisions
+## Toshiba / REGZA televisions
 
 The existing project README reports use in REGZA televisions. No manufacturer
 Web document directly naming CyberLink for C or mUPnP was verified in this review.
