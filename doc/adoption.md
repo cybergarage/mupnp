@@ -12,6 +12,61 @@ history into separate projects. A source naming 2.x does not establish use of
 the latest 3.x release. No partnership, endorsement, sales volume or particular
 implementation role is inferred.
 
+## Panasonic
+
+- Product: **Panasonic Blu-ray Remote 2011 (Remote 2011)** app.
+- Sources: [Enjoy your Blu-ray Disc Player with Remote 2011](https://av.jpn.support.panasonic.com/support/global/cs/bd/bremote/),
+  which directly links its [Licensed Application End User License Agreement](https://av.jpn.support.panasonic.com/support/global/cs/bd/bremote/agreement.html).
+- EULA section **j** names **CyberLink for C** and the three copyright holders;
+  no component version is given. The product page identifies the app and its
+  compatible players; it does not establish library embedding in those players.
+- The Japanese [ライセンスアプリケーション・エンドユーザ使用許諾契約](https://av.jpn.support.panasonic.com/support/bd_agreement.html),
+  section **j**, also names CyberLink for C without a version. Its text describes
+  a remote-controller app but does not itself give a specific app name.
+  Neither EULA is used here as VIERA Remote-specific evidence.
+
+![Existing project illustration of VIERA Remote](img/mupnpc-example-vieraremote-02.gif)
+
+## Nokia 770 — Media Streamer
+
+The existing project README reports Nokia's Media Streamer app for the Nokia 770
+using this library with Nokia patches. This concerns the app, not factory
+installation on every Nokia 770.
+
+- [CyberGarage: Nokia 770](https://www.cybergarage.org/awards/nokia770/): project-authored account.
+- [Maemo developers mailing-list message, 2006-11-02](https://lists.maemo.org/pipermail/maemo-developers/2006-November/006019.html):
+  a user reports the required **clinkc** while installing Media Streamer. No
+  component version is established by that message.
+- [Vulnerability Analysis and Protection Schemes of Universal Plug and Play Protocol](https://www.researchgate.net/publication/220775334_Vulnerability_Analysis_and_Protection_Schemes_of_Universal_Plug_and_Play_Protocol),
+  section **II.C, Cyberlink**: secondary discussion. It cites CyberGarage and is
+  not independent manufacturer confirmation.
+
+![Existing project illustration of the Nokia 770](img/mupnpc-example-nokia770-01.jpg)
+
+## Toshiba / REGZA televisions
+
+The existing project README reports use in REGZA televisions. No manufacturer
+Web document directly naming CyberLink for C or mUPnP was verified in this review.
+No model-wide, current-version or implementation-purpose claim is made.
+
+![User-provided photograph of a REGZA display showing Exhibit 21 copyright notices](img/regza-x8900n-license-user-photo.png)
+
+User-provided photograph, inspected on **2026-10-22** and reproduced with the
+user's permission. Store signage reads **X8900N / 48V** and the price label reads
+**48X8900N**. The television's software-license screen shows **Exhibit 21** and
+copyright notices for Satoshi Konno (**2004–2011**), Nokia Corporation
+(**2005–2011**) and Theo Beisch (**2005–2011**). The photograph does **not** show
+a component name or version, establish its capture date or model year, or prove
+use throughout the REGZA range. It supplements the project report as
+copyright-only evidence; it is not a manufacturer Web disclosure.
+
+## TCL
+
+- Products: **50CF630K / 55CF630K**, UK manual.
+- Source: [TCL Important information and manual](https://www.tcl.com/content/dam/brandsite/europe-documents/tv/um/cf630k/TCL_D6100_UK_50_55CF630K.pdf), PDF page **6**.
+- The product notice explicitly identifies **CyberLink for C**. No component
+  version is stated; the claim is limited to the models covered by this manual.
+
 ## NEC Aterm
 
 - Products: WG2600HP, WG2600HP2 and WG2600HP3.
@@ -21,13 +76,6 @@ implementation role is inferred.
   [WG2600HP3](https://www.aterm.jp/function/wg2600hp3/appendix/license.html).
 - Each names **CyberLink for C v2.0**, with copyright notices for Satoshi Konno,
   Nokia Corporation and Theo Beisch. This confirms those models' license listings.
-
-## TCL
-
-- Products: **50CF630K / 55CF630K**, UK manual.
-- Source: [TCL Important information and manual](https://www.tcl.com/content/dam/brandsite/europe-documents/tv/um/cf630k/TCL_D6100_UK_50_55CF630K.pdf), PDF page **6**.
-- The product notice explicitly identifies **CyberLink for C**. No component
-  version is stated; the claim is limited to the models covered by this manual.
 
 ## iFFALCON
 
@@ -60,19 +108,6 @@ The documents do not establish use in every firmware version or Zyxel product.
   and the historical CyberGarage project URL. No component version is stated.
   This is an app disclosure, not evidence for all Aavik hardware.
 
-## Panasonic
-
-- Product: **Panasonic Blu-ray Remote 2011 (Remote 2011)** app.
-- Sources: [Enjoy your Blu-ray Disc Player with Remote 2011](https://av.jpn.support.panasonic.com/support/global/cs/bd/bremote/),
-  which directly links its [Licensed Application End User License Agreement](https://av.jpn.support.panasonic.com/support/global/cs/bd/bremote/agreement.html).
-- EULA section **j** names **CyberLink for C** and the three copyright holders;
-  no component version is given. The product page identifies the app and its
-  compatible players; it does not establish library embedding in those players.
-- The Japanese [ライセンスアプリケーション・エンドユーザ使用許諾契約](https://av.jpn.support.panasonic.com/support/bd_agreement.html),
-  section **j**, also names CyberLink for C without a version. Its text describes
-  a remote-controller app but does not itself give a specific app name.
-  Neither EULA is used here as VIERA Remote-specific evidence.
-
 ## llink
 
 - Project: **llink media server**, an open-source project.
@@ -81,47 +116,6 @@ The documents do not establish use in every firmware version or Zyxel product.
 - Build instructions identify **clinkc-2.4**, **clinkcav-trunk**, enable clinkc in
   the llink configuration, and list **libclinkcav.0.dylib** for app bundling.
   This establishes the documented build integration, not every distributed build.
-
-## Nokia 770 — Media Streamer
-
-The existing project README reports Nokia's Media Streamer app for the Nokia 770
-using this library with Nokia patches. This concerns the app, not factory
-installation on every Nokia 770.
-
-- [CyberGarage: Nokia 770](https://www.cybergarage.org/awards/nokia770/): project-authored account.
-- [Maemo developers mailing-list message, 2006-11-02](https://lists.maemo.org/pipermail/maemo-developers/2006-November/006019.html):
-  a user reports the required **clinkc** while installing Media Streamer. No
-  component version is established by that message.
-- [Vulnerability Analysis and Protection Schemes of Universal Plug and Play Protocol](https://www.researchgate.net/publication/220775334_Vulnerability_Analysis_and_Protection_Schemes_of_Universal_Plug_and_Play_Protocol),
-  section **II.C, Cyberlink**: secondary discussion. It cites CyberGarage and is
-  not independent manufacturer confirmation.
-
-![Existing project illustration of the Nokia 770](img/mupnpc-example-nokia770-01.jpg)
-
-## Panasonic VIERA Remote
-
-The existing project README reports library use in **VIERA Remote for iOS**.
-Retained as a project report, with no component version established. The official
-Blu-ray Remote EULAs above are separate evidence and do not verify this app.
-
-![Existing project illustration of VIERA Remote](img/mupnpc-example-vieraremote-02.gif)
-
-## Toshiba / REGZA televisions
-
-The existing project README reports use in REGZA televisions. No manufacturer
-Web document directly naming CyberLink for C or mUPnP was verified in this review.
-No model-wide, current-version or implementation-purpose claim is made.
-
-![User-provided photograph of a REGZA display showing Exhibit 21 copyright notices](img/regza-x8900n-license-user-photo.png)
-
-User-provided photograph, inspected on **2026-10-22** and reproduced with the
-user's permission. Store signage reads **X8900N / 48V** and the price label reads
-**48X8900N**. The television's software-license screen shows **Exhibit 21** and
-copyright notices for Satoshi Konno (**2004–2011**), Nokia Corporation
-(**2005–2011**) and Theo Beisch (**2005–2011**). The photograph does **not** show
-a component name or version, establish its capture date or model year, or prove
-use throughout the REGZA range. It supplements the project report as
-copyright-only evidence; it is not a manufacturer Web disclosure.
 
 ## Copyright-only evidence and investigation candidates
 
