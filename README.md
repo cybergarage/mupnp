@@ -125,7 +125,7 @@ these entries describe one continuous project's adoption history.
 | Manufacturer / project | Product / project scope | Evidence |
 | --- | --- | --- |
 | Nokia | Media Streamer app for Nokia 770 | [Project report and historical references](doc/adoption.md#nokia-770--media-streamer) |
-| Panasonic | Blu-ray Remote 2011 app | [Official app page and EULA](doc/adoption.md#panasonic) |
+| Panasonic | Blu-ray Remote app | [Official app page and EULA](doc/adoption.md#panasonic) |
 | Toshiba / REGZA | Televisions reported by the project | [Project report and user-provided photo](doc/adoption.md#toshiba--regza-televisions) |
 | TCL | 50CF630K, 55CF630K (UK manual) | [Official manual](doc/adoption.md#tcl) |
 | NEC Aterm | WG2600HP, WG2600HP2, WG2600HP3 | [Official manuals](doc/adoption.md#nec-aterm) |
