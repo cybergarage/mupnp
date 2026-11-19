@@ -7,6 +7,7 @@
 ############################################################
 
 mupnp_headers = \
+	./mupnp/std/av/cmediarenderer.h \
 	./mupnp/event/notify.h \
 	./mupnp/event/property.h \
 	./mupnp/event/subscription.h \

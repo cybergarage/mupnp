@@ -55,9 +55,10 @@ AC_CHECK_HEADERS([stdbool.h])
 
 AX_CODE_COVERAGE
 
-# Set lcov options to ignore mismatch errors (needed for Boost.Test)
-CODE_COVERAGE_LCOV_OPTIONS_DEFAULT="--ignore-errors mismatch --ignore-errors unused --ignore-errors empty --rc geninfo_unexecuted_blocks=1"
-CODE_COVERAGE_LCOV_RMOPTS_DEFAULT="--ignore-errors unused --ignore-errors empty"
+# Boost.Test generates distinct wrapper functions on one source line.
+# Keep LCOV inconsistent warnings visible while retaining their coverage records.
+CODE_COVERAGE_LCOV_OPTIONS_DEFAULT="--ignore-errors mismatch --ignore-errors inconsistent --ignore-errors unused --ignore-errors empty --rc geninfo_unexecuted_blocks=1"
+CODE_COVERAGE_LCOV_RMOPTS_DEFAULT="--ignore-errors inconsistent --ignore-errors unused --ignore-errors empty"
 AC_SUBST([CODE_COVERAGE_LCOV_OPTIONS_DEFAULT])
 AC_SUBST([CODE_COVERAGE_LCOV_RMOPTS_DEFAULT])
 

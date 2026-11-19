@@ -11,6 +11,7 @@ endif
 ##############################
 
 include $(top_srcdir)/aminclude_static.am
+include $(top_srcdir)/config/coverage.mk
 
 clean-local: code-coverage-clean
 distclean-local: code-coverage-dist-clean
@@ -23,7 +24,20 @@ distclean-local: code-coverage-dist-clean
 devdocsdir = $(datadir)/doc/mupnp-dev
 docsdir = $(datadir)/doc/mupnp0
 
-EXTRA_DIST = test/platform-smoke.c.in \
+EXTRA_DIST = config/coverage.mk \
+	config/validate-coverage.py \
+	test/coverage_trace_test.py \
+	doc/coverage.md \
+	test/RendererLifecycleTest.c \
+	test/AvChkLifecycleTest.c \
+	test/RendererObjCTest.m \
+	test/unix/renderer-objc.sh \
+	examples/upnpavchk/CMakeLists.txt \
+	examples/upnpavchk/upnpavchk.c \
+	src/mupnp/std/av/renderer_internal.h \
+	src/mupnp/std/av/cmediarenderer.c \
+	std/av/renderer/README.md \
+	test/platform-smoke.c.in \
 	debian/changelog \
 	debian/clinkc0.install \
 	debian/clinkc-dev.install \

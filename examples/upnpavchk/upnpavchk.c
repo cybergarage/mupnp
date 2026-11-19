@@ -13,7 +13,10 @@
  ************************************************************/
 
 #include "../common/content_directory.h"
+#include <mupnp/std/av/cmediarenderer.h>
 #include <mupnp/upnp.h>
+#include <signal.h>
+#include <string.h>
 
 #define UPNPAVDUMP_DMS_DEVICETYPE "urn:schemas-upnp-org:device:MediaServer:1"
 #define UPNPAVDUMP_DMS_CONTENTDIR_SERVICETYPE "urn:schemas-upnp-org:service:ContentDirectory:1"
@@ -90,28 +93,72 @@ void PrintDMSInfos(mUpnpControlPoint* ctrlPoint)
 // main
 /////////////////////////////////////////////////////////////////////////////////
 
+static volatile sig_atomic_t interrupted;
+static void stop_requested(int signalNumber)
+{
+  interrupted = signalNumber;
+}
+
 #if defined(TENGINE)
 MBEG
 #else
 int main(int argc, char* argv[])
 #endif
 {
-  mUpnpControlPoint* ctrlPoint;
-
-  ctrlPoint = mupnp_controlpoint_new();
-  if (mupnp_controlpoint_start(ctrlPoint) == FALSE) {
-    printf("Couldn't start this control point !!");
-    exit(1);
+  bool withRenderer = false;
+  if (argc == 2 && strcmp(argv[1], "--with-renderer") == 0)
+    withRenderer = true;
+  else if (argc != 1) {
+    printf("Usage: upnpavchk [--with-renderer]\n");
+    return argc == 2 && strcmp(argv[1], "--help") == 0 ? 0 : 2;
   }
-
-  mupnp_controlpoint_search(ctrlPoint, MUPNP_ST_ROOT_DEVICE);
-
-  mupnp_sleep(mupnp_controlpoint_getssdpsearchmx(ctrlPoint) * 1000);
-
+  interrupted = 0;
+  void (*oldInt)(int) = signal(SIGINT, stop_requested);
+  void (*oldTerm)(int) = signal(SIGTERM, stop_requested);
+#ifdef SIGBREAK
+  void (*oldBreak)(int) = signal(SIGBREAK, stop_requested);
+#endif
+  CgUpnpAvRenderer* dmr = NULL;
+  mUpnpControlPoint* ctrlPoint = NULL;
+  int result = 1;
+  if (withRenderer) {
+    dmr = cg_upnpav_dmr_new();
+    if (!dmr || !cg_upnpav_dmr_start(dmr)) {
+      fputs("Couldn't start this media renderer !!\n", stderr);
+      goto cleanup;
+    }
+  }
+  if (interrupted)
+    goto cleanup;
+  ctrlPoint = mupnp_controlpoint_new();
+  if (!ctrlPoint || !mupnp_controlpoint_start(ctrlPoint)) {
+    fputs("Couldn't start this control point !!\n", stderr);
+    goto cleanup;
+  }
+  if (interrupted || !mupnp_controlpoint_search(ctrlPoint, MUPNP_ST_ROOT_DEVICE))
+    goto cleanup;
+  for (int remaining = mupnp_controlpoint_getssdpsearchmx(ctrlPoint) * 10; remaining > 0 && !interrupted; remaining--)
+    mupnp_sleep(100);
+  if (interrupted)
+    goto cleanup;
   PrintDMSInfos(ctrlPoint);
-
-  mupnp_controlpoint_stop(ctrlPoint);
-  mupnp_controlpoint_delete(ctrlPoint);
-
-  return (0);
+  result = 0;
+cleanup:
+  if (ctrlPoint) {
+    mupnp_controlpoint_stop(ctrlPoint);
+    mupnp_controlpoint_delete(ctrlPoint);
+  }
+  if (dmr) {
+    cg_upnpav_dmr_stop(dmr);
+    cg_upnpav_dmr_delete(dmr);
+  }
+  if (oldInt != SIG_ERR)
+    signal(SIGINT, oldInt);
+  if (oldTerm != SIG_ERR)
+    signal(SIGTERM, oldTerm);
+#ifdef SIGBREAK
+  if (oldBreak != SIG_ERR)
+    signal(SIGBREAK, oldBreak);
+#endif
+  return interrupted ? 128 + interrupted : result;
 }
