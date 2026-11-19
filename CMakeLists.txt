@@ -190,6 +190,25 @@ endif()
 # Optional subdirectories
 #
 
+# Internal construction model only: no installed API, sample or network lifecycle.
+option(MUPNP_ENABLE_RENDERER_MODEL "Build experimental offline renderer model and checks" OFF)
+if(MUPNP_ENABLE_RENDERER_MODEL)
+  add_library(MUPNP_RENDERER_MODEL STATIC std/av/renderer/renderer_model.c)
+  target_link_libraries(MUPNP_RENDERER_MODEL PUBLIC MUPNP)
+  target_include_directories(MUPNP_RENDERER_MODEL PRIVATE std/av/renderer)
+  enable_testing()
+  add_executable(mupnp_renderer_model_test test/RendererModelTest.c)
+  if(UNIX)
+    target_sources(mupnp_renderer_model_test PRIVATE test/RendererNetworkGuard.c)
+  endif()
+  target_include_directories(mupnp_renderer_model_test PRIVATE std/av/renderer)
+  target_link_libraries(mupnp_renderer_model_test PRIVATE MUPNP_RENDERER_MODEL)
+  set_target_properties(MUPNP_RENDERER_MODEL mupnp_renderer_model_test PROPERTIES
+    C_STANDARD 99 C_STANDARD_REQUIRED YES)
+  add_test(NAME renderer_model COMMAND mupnp_renderer_model_test)
+  set_tests_properties(renderer_model PROPERTIES TIMEOUT 10)
+endif()
+
 option(MUPNP_ENABLE_EXAMPLES "Build examples" ON)
 option(MUPNP_ENABLE_TEST "Build tests" OFF)
 

@@ -94,7 +94,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-TESTS = mupnptest$(EXEEXT) device-start-no-interfaces.sh \
+TESTS = renderer-model.sh mupnptest$(EXEEXT) device-start-no-interfaces.sh \
 	controlpoint-start-no-interfaces.sh thread-shutdown.sh socket-wait.sh
 check_PROGRAMS = mupnptest$(EXEEXT)
 subdir = test/unix
@@ -519,7 +519,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh thread-shutdown.sh socket-wait.sh ../posix/ThreadShutdownTest.c ../posix/SocketWaitTest.c ../posix/README.md ../../doc/posix-shutdown.md
+EXTRA_DIST = renderer-model.sh ../RendererModelTest.c ../RendererNetworkGuard.c device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh thread-shutdown.sh socket-wait.sh ../posix/ThreadShutdownTest.c ../posix/SocketWaitTest.c ../posix/README.md ../../doc/posix-shutdown.md
 TESTS_ENVIRONMENT = CC="$(CC)" XML_LIBS="@XML_LIBS@" LIBS="$(LIBS)" CODE_COVERAGE_LIBS="$(CODE_COVERAGE_LIBS)"
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../ $(CODE_COVERAGE_CPPFLAGS)
 AM_CFLAGS = $(CODE_COVERAGE_CFLAGS)
@@ -900,6 +900,13 @@ controlpoint-start-no-interfaces.sh.log: controlpoint-start-no-interfaces.sh
 thread-shutdown.sh.log: thread-shutdown.sh
 	@p='thread-shutdown.sh'; \
 	b='thread-shutdown.sh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+renderer-model.sh.log: renderer-model.sh
+	@p='renderer-model.sh'; \
+	b='renderer-model.sh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

@@ -23,7 +23,10 @@ distclean-local: code-coverage-dist-clean
 devdocsdir = $(datadir)/doc/mupnp-dev
 docsdir = $(datadir)/doc/mupnp0
 
-EXTRA_DIST = test/platform-smoke.c.in \
+EXTRA_DIST = std/av/renderer/renderer_internal.h \
+	std/av/renderer/renderer_model.c \
+	std/av/renderer/README.md \
+	test/platform-smoke.c.in \
 	debian/changelog \
 	debian/clinkc0.install \
 	debian/clinkc-dev.install \
