@@ -11,6 +11,7 @@ lib_LIBRARIES = libmupnp.a
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@ @CODE_COVERAGE_CFLAGS@
 
 mupnp_sources = \
+	../../src/mupnp/std/av/cmediarenderer.c \
 	../../src/mupnp/device_http_server.c \
 	../../src/mupnp/event/subscriber.c \
 	../../src/mupnp/event/eventlistener_list.c \

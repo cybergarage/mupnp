@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+        640000000000000000000011 /* cmediarenderer.c in Sources */ = {isa = PBXBuildFile; fileRef = 640000000000000000000012; };
 		216F02391A83C57D00165CB3 /* action.h in Headers */ = {isa = PBXBuildFile; fileRef = 216F020B1A83C57C00165CB3 /* action.h */; };
 		216F023A1A83C57D00165CB3 /* argument.h in Headers */ = {isa = PBXBuildFile; fileRef = 216F020C1A83C57C00165CB3 /* argument.h */; };
 		216F023B1A83C57D00165CB3 /* controlpoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 216F020D1A83C57C00165CB3 /* controlpoint.h */; };
@@ -141,6 +142,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+        640000000000000000000012 /* cmediarenderer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = cmediarenderer.c; path = std/av/cmediarenderer.c; sourceTree = "<group>"; };
 		210AF4181331182E00A2EB09 /* libmupnp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmupnp.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		216F020B1A83C57C00165CB3 /* action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = action.h; sourceTree = "<group>"; };
 		216F020C1A83C57C00165CB3 /* argument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = argument.h; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 				216F02691A83C58E00165CB3 /* device_ssdp_server.c */,
 				216F026A1A83C58E00165CB3 /* icon.c */,
 				216F026B1A83C58E00165CB3 /* icon_list.c */,
+                640000000000000000000012 /* cmediarenderer.c */,
 				216F026C1A83C58E00165CB3 /* control */,
 				216F027E1A83C58E00165CB3 /* service.c */,
 				216F027F1A83C58E00165CB3 /* service_list.c */,
@@ -733,6 +736,7 @@
 				216F03481A83C58E00165CB3 /* notify_request.c in Sources */,
 				216F036D1A83C58E00165CB3 /* ssdp_response.c in Sources */,
 				216F03291A83C58E00165CB3 /* action.c in Sources */,
+                640000000000000000000011 /* cmediarenderer.c in Sources */,
 				216F032F1A83C58E00165CB3 /* controlpoint_http_server.c in Sources */,
 				216F03681A83C58E00165CB3 /* httpmu_socket.c in Sources */,
 				216F036A1A83C58E00165CB3 /* ssdp.c in Sources */,

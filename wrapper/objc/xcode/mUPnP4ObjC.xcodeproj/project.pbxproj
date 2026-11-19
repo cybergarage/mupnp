@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+        640000000000000000000001 /* CGUpnpAvRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 640000000000000000000003; settings = {ATTRIBUTES = (Public, ); }; };
+        640000000000000000000002 /* CGUpnpAvRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 640000000000000000000004; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		211481CF1959863A00B8EC17 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 211481CD1959863A00B8EC17 /* InfoPlist.strings */; };
 		211481DA1959863A00B8EC17 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481D91959863A00B8EC17 /* XCTest.framework */; };
 		211481DB1959863A00B8EC17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 211481C71959863A00B8EC17 /* Foundation.framework */; };
@@ -55,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+        640000000000000000000003 /* CGUpnpAvRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CGUpnpAvRenderer.h; sourceTree = "<group>"; };
+        640000000000000000000004 /* CGUpnpAvRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CGUpnpAvRenderer.m; sourceTree = "<group>"; };
 		211481C11959863A00B8EC17 /* mUPnP4ObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = mUPnP4ObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		211481C41959863A00B8EC17 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		211481C71959863A00B8EC17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -194,6 +198,8 @@
 				213AF7E2195986C1009E7963 /* CGUpnpControlPoint.h */,
 				213AF7E3195986C1009E7963 /* CGUpnpControlPoint.m */,
 				213AF7E4195986C1009E7963 /* CGUpnpDevice.h */,
+                640000000000000000000003 /* CGUpnpAvRenderer.h */,
+                640000000000000000000004 /* CGUpnpAvRenderer.m */,
 				213AF7E5195986C1009E7963 /* CGUpnpDevice.m */,
 				213AF7E6195986C1009E7963 /* CGUpnpIcon.h */,
 				213AF7E7195986C1009E7963 /* CGUpnpIcon.m */,
@@ -226,6 +232,7 @@
 				213AF7EF195986C1009E7963 /* CGUpnpControlPoint.h in Headers */,
 				213AF7F9195986C1009E7963 /* CGUpnp.h in Headers */,
 				213AF7F1195986C1009E7963 /* CGUpnpDevice.h in Headers */,
+                640000000000000000000001 /* CGUpnpAvRenderer.h in Headers */,
 				213AF7F7195986C1009E7963 /* CGUpnpStateVariable.h in Headers */,
 				213AF7F5195986C1009E7963 /* CGUpnpService.h in Headers */,
 				213AF7ED195986C1009E7963 /* CGUpnpAction.h in Headers */,
@@ -351,6 +358,7 @@
 				213AF7F0195986C1009E7963 /* CGUpnpControlPoint.m in Sources */,
 				213AF7F6195986C1009E7963 /* CGUpnpService.m in Sources */,
 				213AF7F2195986C1009E7963 /* CGUpnpDevice.m in Sources */,
+                640000000000000000000002 /* CGUpnpAvRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

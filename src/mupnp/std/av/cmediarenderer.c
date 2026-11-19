@@ -1,4 +1,4 @@
-/* Experimental in-memory MediaRenderer service model. BSD-style license; see COPYING. */
+/* Modern implementation of the cg_upnpav_dmr_* C API. BSD-style; see COPYING. */
 #include "renderer_internal.h"
 #include <stdlib.h>
 #include <string.h>
@@ -18,25 +18,24 @@
                                  "</actionList><serviceStateTable>" variables "</serviceStateTable></scpd>"
 #define INSTANCE ARG("InstanceID", "in", "A_ARG_TYPE_InstanceID")
 #define INSTANCE_VAR VAR("A_ARG_TYPE_InstanceID", "ui4", "no")
-#define LAST_CHANGE VAR("LastChange", "string", "yes")
+#define LAST_CHANGE VAR("LastChange", "string", "no")
 
 static const char DEVICE_DESCRIPTION[] = "<root xmlns=\"urn:schemas-upnp-org:device-1-0\">"
                                          "<specVersion><major>1</major><minor>0</minor></specVersion><device>"
                                          "<deviceType>urn:schemas-upnp-org:device:MediaRenderer:1</deviceType>"
-                                         "<friendlyName>Internal renderer construction fixture</friendlyName>"
-                                         "<manufacturer>Cyber Garage</manufacturer><modelName>In-memory model</modelName>"
+                                         "<friendlyName>mUPnP MediaRenderer (no playback)</friendlyName>"
+                                         "<manufacturer>Cyber Garage</manufacturer><modelName>Service-only MediaRenderer</modelName>"
                                          "<UDN>uuid:00000000-0000-0000-0000-000000000064</UDN><serviceList>" SERVICE("ConnectionManager") SERVICE("AVTransport") SERVICE("RenderingControl") "</serviceList></device></root>";
 
 static const char* const SERVICE_TYPES[] = {
   SERVICE_TYPE("ConnectionManager"), SERVICE_TYPE("AVTransport"), SERVICE_TYPE("RenderingControl")
 };
 
-/* Incomplete construction/diagnostic profile. Playback actions are included
- * for explicit rejection; there is no DLNA/conformance claim. Only the
- * opt-in CLI adapts the identity/event declarations for transient LAN use. */
+/* Service-only profile: playback is explicitly rejected. No formats,
+ * event callbacks, playback backend, DLNA or conformance claim. */
 static const char* const SERVICE_DESCRIPTIONS[] = {
   SCPD(ACTION("GetProtocolInfo", ARG("Source", "out", "SourceProtocolInfo") ARG("Sink", "out", "SinkProtocolInfo")),
-      VAR("SourceProtocolInfo", "string", "yes") VAR("SinkProtocolInfo", "string", "yes")),
+      VAR("SourceProtocolInfo", "string", "no") VAR("SinkProtocolInfo", "string", "no")),
   SCPD(ACTION("GetTransportInfo", INSTANCE ARG("CurrentTransportState", "out", "TransportState") ARG("CurrentTransportStatus", "out", "TransportStatus") ARG("CurrentSpeed", "out", "TransportPlaySpeed"))
            ACTION("SetAVTransportURI", INSTANCE ARG("CurrentURI", "in", "AVTransportURI") ARG("CurrentURIMetaData", "in", "AVTransportURIMetaData"))
                ACTION("Play", INSTANCE ARG("Speed", "in", "TransportPlaySpeed"))
@@ -48,28 +47,36 @@ static const char* const SERVICE_DESCRIPTIONS[] = {
       INSTANCE_VAR LAST_CHANGE VAR("A_ARG_TYPE_Channel", "string", "no") VAR("Volume", "ui2", "no"))
 };
 
-struct mUpnpRendererModel {
+struct CgUpnpAvRenderer {
   mUpnpDevice* device;
+  mUpnpMutex* mutex;
+  bool running;
   mUpnpService* services[MUPNP_RENDERER_SERVICE_COUNT];
 };
 
-mUpnpService* mupnp_renderer_model_service(mUpnpRendererModel* model, mUpnpRendererService service)
+mUpnpService* cg_upnpav_dmr_service(CgUpnpAvRenderer* model, mUpnpRendererService service)
 {
   if (!model || service < 0 || service >= MUPNP_RENDERER_SERVICE_COUNT)
     return NULL;
   return model->services[service];
 }
 
-void mupnp_renderer_model_delete(mUpnpRendererModel* model)
+void cg_upnpav_dmr_delete(CgUpnpAvRenderer* model)
 {
   if (!model)
     return;
+  cg_upnpav_dmr_stop(model);
   if (model->device)
     mupnp_device_delete(model->device);
+  if (model->mutex)
+    mupnp_mutex_delete(model->mutex);
   free(model);
 }
 
-mUpnpRendererModel* mupnp_renderer_model_from_xml(const char* deviceXml, const char* const serviceXml[MUPNP_RENDERER_SERVICE_COUNT])
+static bool renderer_action(mUpnpAction* action);
+static void renderer_http(mUpnpHttpRequest* request);
+
+CgUpnpAvRenderer* cg_upnpav_dmr_from_xml(const char* deviceXml, const char* const serviceXml[MUPNP_RENDERER_SERVICE_COUNT])
 {
   if (!deviceXml || !serviceXml)
     return NULL;
@@ -77,7 +84,7 @@ mUpnpRendererModel* mupnp_renderer_model_from_xml(const char* deviceXml, const c
     if (!serviceXml[i])
       return NULL;
   }
-  mUpnpRendererModel* model = calloc(1, sizeof(*model));
+  CgUpnpAvRenderer* model = calloc(1, sizeof(*model));
   if (!model)
     return NULL;
   model->device = mupnp_device_new();
@@ -96,20 +103,28 @@ mUpnpRendererModel* mupnp_renderer_model_from_xml(const char* deviceXml, const c
       || !mupnp_service_getstatevariablebyname(model->services[1], "LastChange")
       || !mupnp_service_getstatevariablebyname(model->services[2], "LastChange"))
     goto fail;
-  mupnp_renderer_model_set_last_change(model, MUPNP_RENDERER_AV_TRANSPORT, "<Event xmlns=\"urn:schemas-upnp-org:metadata-1-0/AVT/\"/>");
-  mupnp_renderer_model_set_last_change(model, MUPNP_RENDERER_RENDERING_CONTROL, "<Event xmlns=\"urn:schemas-upnp-org:metadata-1-0/RCS/\"/>");
+  cg_upnpav_dmr_set_last_change(model, MUPNP_RENDERER_AV_TRANSPORT, "<Event xmlns=\"urn:schemas-upnp-org:metadata-1-0/AVT/\"/>");
+  cg_upnpav_dmr_set_last_change(model, MUPNP_RENDERER_RENDERING_CONTROL, "<Event xmlns=\"urn:schemas-upnp-org:metadata-1-0/RCS/\"/>");
+  model->mutex = mupnp_mutex_new();
+  if (!model->mutex)
+    goto fail;
+  mupnp_device_updateudn(model->device);
+  mupnp_device_setleasetime(model->device, 30);
+  mupnp_device_setuserdata(model->device, model);
+  mupnp_device_setactionlistener(model->device, renderer_action);
+  mupnp_device_sethttplistener(model->device, renderer_http);
   return model;
 fail:
-  mupnp_renderer_model_delete(model);
+  cg_upnpav_dmr_delete(model);
   return NULL;
 }
 
-mUpnpRendererModel* mupnp_renderer_model_new(void)
+CgUpnpAvRenderer* cg_upnpav_dmr_new(void)
 {
-  return mupnp_renderer_model_from_xml(DEVICE_DESCRIPTION, SERVICE_DESCRIPTIONS);
+  return cg_upnpav_dmr_from_xml(DEVICE_DESCRIPTION, SERVICE_DESCRIPTIONS);
 }
 
-bool mupnp_renderer_model_dispatch(mUpnpRendererModel* model, mUpnpAction* action)
+bool cg_upnpav_dmr_dispatch(CgUpnpAvRenderer* model, mUpnpAction* action)
 {
   if (!action)
     return false;
@@ -151,15 +166,15 @@ bool mupnp_renderer_model_dispatch(mUpnpRendererModel* model, mUpnpAction* actio
   return true;
 }
 
-static mUpnpStateVariable* last_change(mUpnpRendererModel* model, mUpnpRendererService service)
+static mUpnpStateVariable* last_change(CgUpnpAvRenderer* model, mUpnpRendererService service)
 {
   if (service != MUPNP_RENDERER_AV_TRANSPORT && service != MUPNP_RENDERER_RENDERING_CONTROL)
     return NULL;
-  mUpnpService* owner = mupnp_renderer_model_service(model, service);
+  mUpnpService* owner = cg_upnpav_dmr_service(model, service);
   return owner ? mupnp_service_getstatevariablebyname(owner, "LastChange") : NULL;
 }
 
-bool mupnp_renderer_model_set_last_change(mUpnpRendererModel* model, mUpnpRendererService service, const char* value)
+bool cg_upnpav_dmr_set_last_change(CgUpnpAvRenderer* model, mUpnpRendererService service, const char* value)
 {
   mUpnpStateVariable* variable = last_change(model, service);
   if (!variable || !value)
@@ -169,8 +184,73 @@ bool mupnp_renderer_model_set_last_change(mUpnpRendererModel* model, mUpnpRender
   return true;
 }
 
-const char* mupnp_renderer_model_get_last_change(mUpnpRendererModel* model, mUpnpRendererService service)
+const char* cg_upnpav_dmr_get_last_change(CgUpnpAvRenderer* model, mUpnpRendererService service)
 {
   mUpnpStateVariable* variable = last_change(model, service);
   return variable ? mupnp_statevariable_getvalue(variable) : NULL;
+}
+
+mUpnpDevice* cg_upnpav_dmr_getdevice(CgUpnpAvRenderer* renderer)
+{
+  return renderer ? renderer->device : NULL;
+}
+
+bool cg_upnpav_dmr_isrunning(CgUpnpAvRenderer* renderer)
+{
+  return renderer && renderer->running && mupnp_device_isrunning(renderer->device);
+}
+
+bool cg_upnpav_dmr_stop(CgUpnpAvRenderer* renderer)
+{
+  if (!renderer)
+    return false;
+  if (!renderer->running)
+    return true;
+  bool stopped = mupnp_device_stop(renderer->device);
+  renderer->running = false;
+  return stopped;
+}
+
+bool cg_upnpav_dmr_start(CgUpnpAvRenderer* renderer)
+{
+  if (!renderer)
+    return false;
+  if (renderer->running)
+    return cg_upnpav_dmr_isrunning(renderer);
+  if (!mupnp_device_start(renderer->device) || !mupnp_device_isrunning(renderer->device)) {
+    mupnp_device_stop(renderer->device);
+    return false;
+  }
+  renderer->running = true;
+  return true;
+}
+
+static bool renderer_action(mUpnpAction* action)
+{
+  mUpnpDevice* device = mupnp_service_getdevice(mupnp_action_getservice(action));
+  CgUpnpAvRenderer* renderer = mupnp_device_getuserdata(device);
+  return cg_upnpav_dmr_dispatch(renderer, action);
+}
+
+static void renderer_http(mUpnpHttpRequest* request)
+{
+  mUpnpDevice* device = mupnp_http_request_getuserdata(request);
+  CgUpnpAvRenderer* renderer = mupnp_device_getuserdata(device);
+  const char* method = mupnp_http_request_getmethod(request);
+  /* No eventing/playback backend: never accept or fetch CALLBACK URLs. */
+  if (!method || (strcmp(method, "GET") && strcmp(method, "HEAD") && strcmp(method, "POST"))) {
+    mupnp_http_request_poststatuscode(request, 405);
+    return;
+  }
+  mupnp_mutex_lock(renderer->mutex);
+  for (int i = 0; i < MUPNP_RENDERER_SERVICE_COUNT; i++) {
+    for (mUpnpAction* command = mupnp_service_getactions(renderer->services[i]); command; command = mupnp_action_next(command)) {
+      for (mUpnpArgument* arg = mupnp_action_getarguments(command); arg; arg = mupnp_argument_next(arg)) {
+        if (mupnp_argument_isindirection(arg))
+          mupnp_argument_setvalue(arg, "");
+      }
+    }
+  }
+  mupnp_device_httprequestrecieved(request);
+  mupnp_mutex_unlock(renderer->mutex);
 }

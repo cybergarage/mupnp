@@ -74,6 +74,7 @@ set(MUPNP_SRCS
   src/mupnp/ssdp/ssdp_server_list.c
   src/mupnp/ssdp/ssdp_socket.c
   src/mupnp/statevariable.c
+  src/mupnp/std/av/cmediarenderer.c
   src/mupnp/upnp_function.c
   src/mupnp/upnp_status.c
   src/mupnp/util/cond.c
@@ -173,7 +174,7 @@ endif(MSVC)
 include_directories(include)
 add_library(MUPNP STATIC ${MUPNP_SRCS})
 if(WIN32)
-  target_link_libraries(MUPNP PUBLIC ws2_32 iphlpapi)
+  target_link_libraries(MUPNP PUBLIC ws2_32 iphlpapi rpcrt4)
 endif()
 
 option(MUPNP_ENABLE_PLATFORM_SMOKE "Build isolated platform regression checks" OFF)
@@ -190,23 +191,31 @@ endif()
 # Optional subdirectories
 #
 
-# Internal construction model only: no installed API, sample or network lifecycle.
-option(MUPNP_ENABLE_RENDERER_MODEL "Build experimental offline renderer model and checks" OFF)
-if(MUPNP_ENABLE_RENDERER_MODEL)
-  add_library(MUPNP_RENDERER_MODEL STATIC std/av/renderer/renderer_model.c)
-  target_link_libraries(MUPNP_RENDERER_MODEL PUBLIC MUPNP)
-  target_include_directories(MUPNP_RENDERER_MODEL PRIVATE std/av/renderer)
+option(MUPNP_ENABLE_RENDERER_TESTS "Build isolated renderer API checks" OFF)
+if(MUPNP_ENABLE_RENDERER_TESTS)
   enable_testing()
-  add_executable(mupnp_renderer_model_test test/RendererModelTest.c)
+  add_executable(mupnp_renderer_test test/RendererTest.c)
+  target_include_directories(mupnp_renderer_test PRIVATE src/mupnp/std/av)
+  target_link_libraries(mupnp_renderer_test PRIVATE MUPNP)
   if(UNIX)
-    target_sources(mupnp_renderer_model_test PRIVATE test/RendererNetworkGuard.c)
+    target_sources(mupnp_renderer_test PRIVATE test/RendererNetworkGuard.c)
   endif()
-  target_include_directories(mupnp_renderer_model_test PRIVATE std/av/renderer)
-  target_link_libraries(mupnp_renderer_model_test PRIVATE MUPNP_RENDERER_MODEL)
-  set_target_properties(MUPNP_RENDERER_MODEL mupnp_renderer_model_test PROPERTIES
-    C_STANDARD 99 C_STANDARD_REQUIRED YES)
-  add_test(NAME renderer_model COMMAND mupnp_renderer_model_test)
-  set_tests_properties(renderer_model PROPERTIES TIMEOUT 10)
+  add_executable(mupnp_renderer_lifecycle_test test/RendererLifecycleTest.c src/mupnp/std/av/cmediarenderer.c)
+  target_compile_definitions(mupnp_renderer_lifecycle_test PRIVATE
+    mupnp_device_start=mupnp_test_device_start
+    mupnp_device_stop=mupnp_test_device_stop
+    mupnp_device_isrunning=mupnp_test_device_isrunning)
+  target_link_libraries(mupnp_renderer_lifecycle_test PRIVATE MUPNP)
+  add_executable(mupnp_avchk_lifecycle_test test/AvChkLifecycleTest.c)
+  target_link_libraries(mupnp_avchk_lifecycle_test PRIVATE MUPNP)
+  if(UNIX)
+    target_sources(mupnp_renderer_lifecycle_test PRIVATE test/RendererNetworkGuard.c)
+    target_sources(mupnp_avchk_lifecycle_test PRIVATE test/RendererNetworkGuard.c)
+  endif()
+  add_test(NAME renderer_lifecycle COMMAND mupnp_renderer_lifecycle_test)
+  add_test(NAME avchk_lifecycle COMMAND mupnp_avchk_lifecycle_test)
+  add_test(NAME renderer_api COMMAND mupnp_renderer_test)
+  set_tests_properties(renderer_api PROPERTIES TIMEOUT 10)
 endif()
 
 option(MUPNP_ENABLE_EXAMPLES "Build examples" ON)
@@ -278,7 +287,7 @@ endif(MUPNP_XMLPARSER_LIBXML2)
 # Installation
 #
 
-install(DIRECTORY include/mupnp/ DESTINATION include/cybergarage
+install(DIRECTORY include/mupnp/ DESTINATION include/mupnp
   FILES_MATCHING PATTERN "*.h")
 install(TARGETS MUPNP ARCHIVE DESTINATION lib LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)

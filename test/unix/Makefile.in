@@ -94,8 +94,10 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-TESTS = renderer-model.sh mupnptest$(EXEEXT) device-start-no-interfaces.sh \
-	controlpoint-start-no-interfaces.sh thread-shutdown.sh socket-wait.sh
+TESTS = renderer-api.sh mupnptest$(EXEEXT) \
+	device-start-no-interfaces.sh \
+	controlpoint-start-no-interfaces.sh thread-shutdown.sh \
+	socket-wait.sh
 check_PROGRAMS = mupnptest$(EXEEXT)
 subdir = test/unix
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -109,8 +111,9 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__dirstamp = $(am__leading_dot)dirstamp
-am_mupnptest_OBJECTS = ../ActionResultTest.$(OBJEXT) ../GatewayTest.$(OBJEXT) \
-	../NetworkTest.$(OBJEXT) \
+am_mupnptest_OBJECTS = ../DiscoveryFetchTest.$(OBJEXT) \
+	../LocationChangeTest.$(OBJEXT) ../ActionResultTest.$(OBJEXT) \
+	../GatewayTest.$(OBJEXT) ../NetworkTest.$(OBJEXT) \
 	../SubscriptionTest.$(OBJEXT) ../ServiceTest.$(OBJEXT) \
 	../StringTest.$(OBJEXT) ../TestDevice.$(OBJEXT) \
 	../DeviceTest.$(OBJEXT) ../XMLTest.$(OBJEXT) \
@@ -137,15 +140,16 @@ am__v_at_1 =
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/config/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ../$(DEPDIR)/ActionResultTest.Po ../$(DEPDIR)/GatewayTest.Po \
-	../$(DEPDIR)/ControlPointTest.Po \
-	../$(DEPDIR)/DeviceTest.Po ../$(DEPDIR)/DictionaryTest.Po \
-	../$(DEPDIR)/HttpTest.Po ../$(DEPDIR)/NetworkTest.Po \
-	../$(DEPDIR)/ServiceTest.Po ../$(DEPDIR)/StateVariableTest.Po \
-	../$(DEPDIR)/StringTest.Po ../$(DEPDIR)/SubscriptionTest.Po \
-	../$(DEPDIR)/TestDevice.Po ../$(DEPDIR)/TestMain.Po \
-	../$(DEPDIR)/UPnPFuncTest.Po ../$(DEPDIR)/URITest.Po \
-	../$(DEPDIR)/XMLTest.Po
+am__depfiles_remade = ../$(DEPDIR)/ActionResultTest.Po \
+	../$(DEPDIR)/ControlPointTest.Po ../$(DEPDIR)/DeviceTest.Po \
+	../$(DEPDIR)/DictionaryTest.Po \
+	../$(DEPDIR)/DiscoveryFetchTest.Po ../$(DEPDIR)/GatewayTest.Po \
+	../$(DEPDIR)/HttpTest.Po ../$(DEPDIR)/LocationChangeTest.Po \
+	../$(DEPDIR)/NetworkTest.Po ../$(DEPDIR)/ServiceTest.Po \
+	../$(DEPDIR)/StateVariableTest.Po ../$(DEPDIR)/StringTest.Po \
+	../$(DEPDIR)/SubscriptionTest.Po ../$(DEPDIR)/TestDevice.Po \
+	../$(DEPDIR)/TestMain.Po ../$(DEPDIR)/UPnPFuncTest.Po \
+	../$(DEPDIR)/URITest.Po ../$(DEPDIR)/XMLTest.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -519,7 +523,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = renderer-model.sh ../RendererModelTest.c ../RendererNetworkGuard.c device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh thread-shutdown.sh socket-wait.sh ../posix/ThreadShutdownTest.c ../posix/SocketWaitTest.c ../posix/README.md ../../doc/posix-shutdown.md
+EXTRA_DIST = renderer-api.sh renderer-objc.sh ../RendererObjCTest.m ../RendererLifecycleTest.c ../AvChkLifecycleTest.c ../RendererTest.c ../RendererNetworkGuard.c device-start-no-interfaces.sh controlpoint-start-no-interfaces.sh thread-shutdown.sh socket-wait.sh ../posix/ThreadShutdownTest.c ../posix/SocketWaitTest.c ../posix/README.md ../../doc/posix-shutdown.md
 TESTS_ENVIRONMENT = CC="$(CC)" XML_LIBS="@XML_LIBS@" LIBS="$(LIBS)" CODE_COVERAGE_LIBS="$(CODE_COVERAGE_LIBS)"
 AM_CPPFLAGS = -I$(top_srcdir)/include -I../ $(CODE_COVERAGE_CPPFLAGS)
 AM_CFLAGS = $(CODE_COVERAGE_CFLAGS)
@@ -530,6 +534,8 @@ noinst_HEADERS = \
 	../ClinkUnitTest.h
 
 mupnptest_SOURCES = \
+	../DiscoveryFetchTest.cpp \
+	../LocationChangeTest.cpp \
 	../ActionResultTest.cpp \
 	../GatewayTest.cpp \
 	../NetworkTest.cpp \
@@ -561,9 +567,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu test/unix/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign test/unix/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu test/unix/Makefile
+	  $(AUTOMAKE) --foreign test/unix/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -590,8 +596,14 @@ clean-checkPROGRAMS:
 ../$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) ../$(DEPDIR)
 	@: > ../$(DEPDIR)/$(am__dirstamp)
-../ActionResultTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
-../GatewayTest.$(OBJEXT): ../$(am__dirstamp) ../$(DEPDIR)/$(am__dirstamp)
+../DiscoveryFetchTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../LocationChangeTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../ActionResultTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
+../GatewayTest.$(OBJEXT): ../$(am__dirstamp) \
+	../$(DEPDIR)/$(am__dirstamp)
 ../NetworkTest.$(OBJEXT): ../$(am__dirstamp) \
 	../$(DEPDIR)/$(am__dirstamp)
 ../SubscriptionTest.$(OBJEXT): ../$(am__dirstamp) \
@@ -629,11 +641,13 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ActionResultTest.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/GatewayTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ControlPointTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/DeviceTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/DictionaryTest.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/DiscoveryFetchTest.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/GatewayTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/HttpTest.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/LocationChangeTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/NetworkTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/ServiceTest.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../$(DEPDIR)/StateVariableTest.Po@am__quote@ # am--include-marker
@@ -876,6 +890,13 @@ recheck: all $(check_PROGRAMS)
 	        am__force_recheck=am--force-recheck \
 	        TEST_LOGS="$$log_list"; \
 	exit $$?
+renderer-api.sh.log: renderer-api.sh
+	@p='renderer-api.sh'; \
+	b='renderer-api.sh'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 mupnptest.log: mupnptest$(EXEEXT)
 	@p='mupnptest$(EXEEXT)'; \
 	b='mupnptest'; \
@@ -900,13 +921,6 @@ controlpoint-start-no-interfaces.sh.log: controlpoint-start-no-interfaces.sh
 thread-shutdown.sh.log: thread-shutdown.sh
 	@p='thread-shutdown.sh'; \
 	b='thread-shutdown.sh'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
-renderer-model.sh.log: renderer-model.sh
-	@p='renderer-model.sh'; \
-	b='renderer-model.sh'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -1012,11 +1026,13 @@ clean-am: clean-checkPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
 		-rm -f ../$(DEPDIR)/ActionResultTest.Po
-	-rm -f ../$(DEPDIR)/GatewayTest.Po
 	-rm -f ../$(DEPDIR)/ControlPointTest.Po
 	-rm -f ../$(DEPDIR)/DeviceTest.Po
 	-rm -f ../$(DEPDIR)/DictionaryTest.Po
+	-rm -f ../$(DEPDIR)/DiscoveryFetchTest.Po
+	-rm -f ../$(DEPDIR)/GatewayTest.Po
 	-rm -f ../$(DEPDIR)/HttpTest.Po
+	-rm -f ../$(DEPDIR)/LocationChangeTest.Po
 	-rm -f ../$(DEPDIR)/NetworkTest.Po
 	-rm -f ../$(DEPDIR)/ServiceTest.Po
 	-rm -f ../$(DEPDIR)/StateVariableTest.Po
@@ -1073,11 +1089,13 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ../$(DEPDIR)/ActionResultTest.Po
-	-rm -f ../$(DEPDIR)/GatewayTest.Po
 	-rm -f ../$(DEPDIR)/ControlPointTest.Po
 	-rm -f ../$(DEPDIR)/DeviceTest.Po
 	-rm -f ../$(DEPDIR)/DictionaryTest.Po
+	-rm -f ../$(DEPDIR)/DiscoveryFetchTest.Po
+	-rm -f ../$(DEPDIR)/GatewayTest.Po
 	-rm -f ../$(DEPDIR)/HttpTest.Po
+	-rm -f ../$(DEPDIR)/LocationChangeTest.Po
 	-rm -f ../$(DEPDIR)/NetworkTest.Po
 	-rm -f ../$(DEPDIR)/ServiceTest.Po
 	-rm -f ../$(DEPDIR)/StateVariableTest.Po

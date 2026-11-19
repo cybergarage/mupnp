@@ -15,7 +15,7 @@
 @SET_MAKE@
 
 # aminclude_static.am generated automatically by Autoconf
-# from AX_AM_MACROS_STATIC on Wed Oct  7 22:44:48 JST 2026
+# from AX_AM_MACROS_STATIC on Thu Nov 19 16:17:03 JST 2026
 
 VPATH = @srcdir@
 am__is_gnu_make = { \
@@ -378,15 +378,14 @@ SUBDIRS = include lib $(am__append_1) $(am__append_2)
 ##############################
 devdocsdir = $(datadir)/doc/mupnp-dev
 docsdir = $(datadir)/doc/mupnp0
-EXTRA_DIST = examples/upnpavchk/CMakeLists.txt \
-	examples/upnpavchk/diagnostic.c \
-	examples/upnpavchk/diagnostic.h \
-	examples/upnpavchk/diagnostic_renderer.c \
+EXTRA_DIST = test/RendererLifecycleTest.c \
+	test/AvChkLifecycleTest.c \
+	test/RendererObjCTest.m \
+	test/unix/renderer-objc.sh \
+	examples/upnpavchk/CMakeLists.txt \
 	examples/upnpavchk/upnpavchk.c \
-	test/AvChkDiagnosticTest.c \
-	test/avchk-loopback.py \
-	std/av/renderer/renderer_internal.h \
-	std/av/renderer/renderer_model.c \
+	src/mupnp/std/av/renderer_internal.h \
+	src/mupnp/std/av/cmediarenderer.c \
 	std/av/renderer/README.md \
 	test/platform-smoke.c.in \
 	debian/changelog \
@@ -459,15 +458,15 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(top_srcdir)/aminclude_static.am 
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
-	      echo ' cd $(srcdir) && $(AUTOMAKE) --gnu'; \
-	      $(am__cd) $(srcdir) && $(AUTOMAKE) --gnu \
+	      echo ' cd $(srcdir) && $(AUTOMAKE) --foreign'; \
+	      $(am__cd) $(srcdir) && $(AUTOMAKE) --foreign \
 		&& exit 0; \
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu Makefile
+	  $(AUTOMAKE) --foreign Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \

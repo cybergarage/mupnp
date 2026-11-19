@@ -9,6 +9,7 @@
  ******************************************************************/
 
 #import <mUPnP4ObjC/CGUpnpAction.h>
+#import <mUPnP4ObjC/CGUpnpAvRenderer.h>
 #import <mUPnP4ObjC/CGUpnpControlPoint.h>
 #import <mUPnP4ObjC/CGUpnpDevice.h>
 #import <mUPnP4ObjC/CGUpnpIcon.h>

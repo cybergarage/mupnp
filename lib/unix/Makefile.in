@@ -146,6 +146,7 @@ am__DEPENDENCIES_1 =
 libmupnp_a_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am__dirstamp = $(am__leading_dot)dirstamp
 am__objects_1 =  \
+	../../src/mupnp/std/av/libmupnp_a-cmediarenderer.$(OBJEXT) \
 	../../src/mupnp/libmupnp_a-device_http_server.$(OBJEXT) \
 	../../src/mupnp/event/libmupnp_a-subscriber.$(OBJEXT) \
 	../../src/mupnp/event/libmupnp_a-eventlistener_list.$(OBJEXT) \
@@ -332,6 +333,7 @@ am__depfiles_remade = ../../src/mupnp/$(DEPDIR)/libmupnp_a-action.Po \
 	../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_server.Po \
 	../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_server_list.Po \
 	../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_socket.Po \
+	../../src/mupnp/std/av/$(DEPDIR)/libmupnp_a-cmediarenderer.Po \
 	../../src/mupnp/util/$(DEPDIR)/libmupnp_a-cond.Po \
 	../../src/mupnp/util/$(DEPDIR)/libmupnp_a-dictionary.Po \
 	../../src/mupnp/util/$(DEPDIR)/libmupnp_a-dictionary_elem.Po \
@@ -514,6 +516,7 @@ top_srcdir = @top_srcdir@
 lib_LIBRARIES = libmupnp.a
 AM_CFLAGS = -I$(top_srcdir)/include -I$(top_builddir)/include @XML_CFLAGS@ @HTTP_CFLAGS@ @CLOG_DEBUG_FLAGS@ @CODE_COVERAGE_CFLAGS@
 mupnp_sources = \
+	../../src/mupnp/std/av/cmediarenderer.c \
 	../../src/mupnp/device_http_server.c \
 	../../src/mupnp/event/subscriber.c \
 	../../src/mupnp/event/eventlistener_list.c \
@@ -632,9 +635,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu lib/unix/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign lib/unix/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu lib/unix/Makefile
+	  $(AUTOMAKE) --foreign lib/unix/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -683,6 +686,15 @@ uninstall-libLIBRARIES:
 
 clean-libLIBRARIES:
 	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
+../../src/mupnp/std/av/$(am__dirstamp):
+	@$(MKDIR_P) ../../src/mupnp/std/av
+	@: > ../../src/mupnp/std/av/$(am__dirstamp)
+../../src/mupnp/std/av/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) ../../src/mupnp/std/av/$(DEPDIR)
+	@: > ../../src/mupnp/std/av/$(DEPDIR)/$(am__dirstamp)
+../../src/mupnp/std/av/libmupnp_a-cmediarenderer.$(OBJEXT):  \
+	../../src/mupnp/std/av/$(am__dirstamp) \
+	../../src/mupnp/std/av/$(DEPDIR)/$(am__dirstamp)
 ../../src/mupnp/$(am__dirstamp):
 	@$(MKDIR_P) ../../src/mupnp
 	@: > ../../src/mupnp/$(am__dirstamp)
@@ -1044,6 +1056,7 @@ mostlyclean-compile:
 	-rm -f ../../src/mupnp/net/*.$(OBJEXT)
 	-rm -f ../../src/mupnp/soap/*.$(OBJEXT)
 	-rm -f ../../src/mupnp/ssdp/*.$(OBJEXT)
+	-rm -f ../../src/mupnp/std/av/*.$(OBJEXT)
 	-rm -f ../../src/mupnp/util/*.$(OBJEXT)
 	-rm -f ../../src/mupnp/xml/*.$(OBJEXT)
 
@@ -1124,6 +1137,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_server.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_server_list.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_socket.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@../../src/mupnp/std/av/$(DEPDIR)/libmupnp_a-cmediarenderer.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../../src/mupnp/util/$(DEPDIR)/libmupnp_a-cond.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../../src/mupnp/util/$(DEPDIR)/libmupnp_a-dictionary.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@../../src/mupnp/util/$(DEPDIR)/libmupnp_a-dictionary_elem.Po@am__quote@ # am--include-marker
@@ -1167,6 +1181,20 @@ am--depfiles: $(am__depfiles_remade)
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+../../src/mupnp/std/av/libmupnp_a-cmediarenderer.o: ../../src/mupnp/std/av/cmediarenderer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libmupnp_a_CFLAGS) $(CFLAGS) -MT ../../src/mupnp/std/av/libmupnp_a-cmediarenderer.o -MD -MP -MF ../../src/mupnp/std/av/$(DEPDIR)/libmupnp_a-cmediarenderer.Tpo -c -o ../../src/mupnp/std/av/libmupnp_a-cmediarenderer.o `test -f '../../src/mupnp/std/av/cmediarenderer.c' || echo '$(srcdir)/'`../../src/mupnp/std/av/cmediarenderer.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) ../../src/mupnp/std/av/$(DEPDIR)/libmupnp_a-cmediarenderer.Tpo ../../src/mupnp/std/av/$(DEPDIR)/libmupnp_a-cmediarenderer.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='../../src/mupnp/std/av/cmediarenderer.c' object='../../src/mupnp/std/av/libmupnp_a-cmediarenderer.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libmupnp_a_CFLAGS) $(CFLAGS) -c -o ../../src/mupnp/std/av/libmupnp_a-cmediarenderer.o `test -f '../../src/mupnp/std/av/cmediarenderer.c' || echo '$(srcdir)/'`../../src/mupnp/std/av/cmediarenderer.c
+
+../../src/mupnp/std/av/libmupnp_a-cmediarenderer.obj: ../../src/mupnp/std/av/cmediarenderer.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libmupnp_a_CFLAGS) $(CFLAGS) -MT ../../src/mupnp/std/av/libmupnp_a-cmediarenderer.obj -MD -MP -MF ../../src/mupnp/std/av/$(DEPDIR)/libmupnp_a-cmediarenderer.Tpo -c -o ../../src/mupnp/std/av/libmupnp_a-cmediarenderer.obj `if test -f '../../src/mupnp/std/av/cmediarenderer.c'; then $(CYGPATH_W) '../../src/mupnp/std/av/cmediarenderer.c'; else $(CYGPATH_W) '$(srcdir)/../../src/mupnp/std/av/cmediarenderer.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) ../../src/mupnp/std/av/$(DEPDIR)/libmupnp_a-cmediarenderer.Tpo ../../src/mupnp/std/av/$(DEPDIR)/libmupnp_a-cmediarenderer.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='../../src/mupnp/std/av/cmediarenderer.c' object='../../src/mupnp/std/av/libmupnp_a-cmediarenderer.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libmupnp_a_CFLAGS) $(CFLAGS) -c -o ../../src/mupnp/std/av/libmupnp_a-cmediarenderer.obj `if test -f '../../src/mupnp/std/av/cmediarenderer.c'; then $(CYGPATH_W) '../../src/mupnp/std/av/cmediarenderer.c'; else $(CYGPATH_W) '$(srcdir)/../../src/mupnp/std/av/cmediarenderer.c'; fi`
 
 ../../src/mupnp/libmupnp_a-device_http_server.o: ../../src/mupnp/device_http_server.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libmupnp_a_CFLAGS) $(CFLAGS) -MT ../../src/mupnp/libmupnp_a-device_http_server.o -MD -MP -MF ../../src/mupnp/$(DEPDIR)/libmupnp_a-device_http_server.Tpo -c -o ../../src/mupnp/libmupnp_a-device_http_server.o `test -f '../../src/mupnp/device_http_server.c' || echo '$(srcdir)/'`../../src/mupnp/device_http_server.c
@@ -2655,6 +2683,8 @@ distclean-generic:
 	-rm -f ../../src/mupnp/soap/$(am__dirstamp)
 	-rm -f ../../src/mupnp/ssdp/$(DEPDIR)/$(am__dirstamp)
 	-rm -f ../../src/mupnp/ssdp/$(am__dirstamp)
+	-rm -f ../../src/mupnp/std/av/$(DEPDIR)/$(am__dirstamp)
+	-rm -f ../../src/mupnp/std/av/$(am__dirstamp)
 	-rm -f ../../src/mupnp/util/$(DEPDIR)/$(am__dirstamp)
 	-rm -f ../../src/mupnp/util/$(am__dirstamp)
 	-rm -f ../../src/mupnp/xml/$(DEPDIR)/$(am__dirstamp)
@@ -2742,6 +2772,7 @@ distclean: distclean-am
 	-rm -f ../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_server.Po
 	-rm -f ../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_server_list.Po
 	-rm -f ../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_socket.Po
+	-rm -f ../../src/mupnp/std/av/$(DEPDIR)/libmupnp_a-cmediarenderer.Po
 	-rm -f ../../src/mupnp/util/$(DEPDIR)/libmupnp_a-cond.Po
 	-rm -f ../../src/mupnp/util/$(DEPDIR)/libmupnp_a-dictionary.Po
 	-rm -f ../../src/mupnp/util/$(DEPDIR)/libmupnp_a-dictionary_elem.Po
@@ -2882,6 +2913,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_server.Po
 	-rm -f ../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_server_list.Po
 	-rm -f ../../src/mupnp/ssdp/$(DEPDIR)/libmupnp_a-ssdp_socket.Po
+	-rm -f ../../src/mupnp/std/av/$(DEPDIR)/libmupnp_a-cmediarenderer.Po
 	-rm -f ../../src/mupnp/util/$(DEPDIR)/libmupnp_a-cond.Po
 	-rm -f ../../src/mupnp/util/$(DEPDIR)/libmupnp_a-dictionary.Po
 	-rm -f ../../src/mupnp/util/$(DEPDIR)/libmupnp_a-dictionary_elem.Po
