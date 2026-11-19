@@ -1,5 +1,6 @@
-/* Internal, uninstalled construction fixture. Not a playable MediaRenderer.
- * BSD-style license; see COPYING. Never start its underlying device. */
+/* Internal, uninstalled model. Not a playable MediaRenderer.
+ * BSD-style license; see COPYING. Network lifecycle belongs only to the
+ * explicit, bounded diagnostic CLI; never use device-wide start here. */
 #ifndef MUPNP_RENDERER_INTERNAL_H
 #define MUPNP_RENDERER_INTERNAL_H
 #include <mupnp/upnp.h>

@@ -31,8 +31,9 @@ static const char* const SERVICE_TYPES[] = {
   SERVICE_TYPE("ConnectionManager"), SERVICE_TYPE("AVTransport"), SERVICE_TYPE("RenderingControl")
 };
 
-/* Deliberately incomplete, never published. Unsupported actions are included
- * solely to test explicit rejection; there is no DLNA/conformance claim. */
+/* Incomplete construction/diagnostic profile. Playback actions are included
+ * for explicit rejection; there is no DLNA/conformance claim. Only the
+ * opt-in CLI adapts the identity/event declarations for transient LAN use. */
 static const char* const SERVICE_DESCRIPTIONS[] = {
   SCPD(ACTION("GetProtocolInfo", ARG("Source", "out", "SourceProtocolInfo") ARG("Sink", "out", "SinkProtocolInfo")),
       VAR("SourceProtocolInfo", "string", "yes") VAR("SinkProtocolInfo", "string", "yes")),

@@ -23,7 +23,14 @@ distclean-local: code-coverage-dist-clean
 devdocsdir = $(datadir)/doc/mupnp-dev
 docsdir = $(datadir)/doc/mupnp0
 
-EXTRA_DIST = std/av/renderer/renderer_internal.h \
+EXTRA_DIST = examples/upnpavchk/CMakeLists.txt \
+	examples/upnpavchk/diagnostic.c \
+	examples/upnpavchk/diagnostic.h \
+	examples/upnpavchk/diagnostic_renderer.c \
+	examples/upnpavchk/upnpavchk.c \
+	test/AvChkDiagnosticTest.c \
+	test/avchk-loopback.py \
+	std/av/renderer/renderer_internal.h \
 	std/av/renderer/renderer_model.c \
 	std/av/renderer/README.md \
 	test/platform-smoke.c.in \

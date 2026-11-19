@@ -40,7 +40,7 @@ SOURCES
 my @find_files = `find ../ -path '../espidf' -prune -o -path '../posix' -prune -o -name '*.cpp' -print -o -name '*.c' -print`;
 my @source_files;
 foreach $file (@find_files) {
-	next if $file =~ m{/(RendererModelTest|RendererNetworkGuard)\.c$};
+	next if $file =~ m{/(RendererModelTest|RendererNetworkGuard|AvChkDiagnosticTest)\.c$};
 	$file =~ s/\n//;
 	$file = "\t" . $file;
 	push @source_files, $file;

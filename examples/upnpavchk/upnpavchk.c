@@ -14,6 +14,9 @@
 
 #include "../common/content_directory.h"
 #include <mupnp/upnp.h>
+#ifdef MUPNP_AVCHK_DIAGNOSTIC
+#include "diagnostic.h"
+#endif
 
 #define UPNPAVDUMP_DMS_DEVICETYPE "urn:schemas-upnp-org:device:MediaServer:1"
 #define UPNPAVDUMP_DMS_CONTENTDIR_SERVICETYPE "urn:schemas-upnp-org:service:ContentDirectory:1"
@@ -96,10 +99,22 @@ MBEG
 int main(int argc, char* argv[])
 #endif
 {
+#ifdef MUPNP_AVCHK_DIAGNOSTIC
+  mUpnpAvChkOptions options;
+  int parsed = mupnp_avchk_parse(argc, argv, &options);
+  if (parsed == 2 || parsed < 0) {
+    if (parsed == -2)
+      fputs("Renderer diagnostics require MUPNP_ENABLE_RENDERER_MODEL=ON.\n", stderr);
+    mupnp_avchk_usage();
+    return parsed < 0 ? 2 : 0;
+  }
+  if (parsed == 1)
+    return mupnp_avchk_run(&options);
+#endif
   mUpnpControlPoint* ctrlPoint;
 
   ctrlPoint = mupnp_controlpoint_new();
-  if (mupnp_controlpoint_start(ctrlPoint) == FALSE) {
+  if (mupnp_controlpoint_start(ctrlPoint) == false) {
     printf("Couldn't start this control point !!");
     exit(1);
   }
