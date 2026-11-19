@@ -4,6 +4,7 @@ var hierarchy =
     [ "NSObject", null, [
       [ "CGUpnpAction", "interfaceCGUpnpAction.html", null ],
       [ "CGUpnpActionResult", "interfaceCGUpnpActionResult.html", null ],
+      [ "CGUpnpAvRenderer", "interfaceCGUpnpAvRenderer.html", null ],
       [ "CGUpnpControlPoint", "interfaceCGUpnpControlPoint.html", null ],
       [ "CGUpnpDevice", "interfaceCGUpnpDevice.html", null ],
       [ "CGUpnpIcon", "interfaceCGUpnpIcon.html", null ],

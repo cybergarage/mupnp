@@ -46,10 +46,12 @@ var hierarchy =
     [ "_mUpnpXmlNode", "struct__mUpnpXmlNode.html", null ],
     [ "_mUpnpXmlParser", "struct__mUpnpXmlParser.html", null ],
     [ "CGUpnpActionResult()", "categoryCGUpnpActionResult_07_08.html", null ],
+    [ "CgUpnpAvRenderer", "structCgUpnpAvRenderer.html", null ],
     [ "FdList", "structFdList.html", null ],
     [ "NSObject", null, [
       [ "CGUpnpAction", "interfaceCGUpnpAction.html", null ],
       [ "CGUpnpActionResult", "interfaceCGUpnpActionResult.html", null ],
+      [ "CGUpnpAvRenderer", "interfaceCGUpnpAvRenderer.html", null ],
       [ "CGUpnpControlPoint", "interfaceCGUpnpControlPoint.html", null ],
       [ "CGUpnpDevice", "interfaceCGUpnpDevice.html", null ],
       [ "CGUpnpIcon", "interfaceCGUpnpIcon.html", null ],
