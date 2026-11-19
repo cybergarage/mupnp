@@ -28,13 +28,21 @@ jobs:
     - name: make check
       run: |
         make check -j 20 || { cat test/unix/test-suite.log; exit 1; }
-    - name: generate coverage
+    - name: Generate and validate coverage trace
+      id: coverage_trace
       run: |
-        make check-code-coverage
+        python3 -m unittest discover -s test -p coverage_trace_test.py
+        make code-coverage-trace CODE_COVERAGE_OUTPUT_FILE=mupnp-coverage.info
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v7
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         slug: cybergarage/mupnp
-        files: mupnp-*-coverage.info
+        files: mupnp-coverage.info
+        disable_search: true
+        fail_ci_if_error: true
         directory: '.'
+
+    - name: Generate optional coverage HTML (after upload)
+      if: ${{ !cancelled() && steps.coverage_trace.outcome == 'success' }}
+      run: make code-coverage-html CODE_COVERAGE_OUTPUT_FILE=mupnp-coverage.info
