@@ -1,5 +1,8 @@
 """In-memory/local-file negative cases for the coverage upload gate."""
 import importlib.util
+import io
+import subprocess
+import sys
 from pathlib import Path
 import tempfile
 import unittest
@@ -48,6 +51,46 @@ class CoverageTraceTest(unittest.TestCase):
         # other real production lines were exercised. LCOV reports its warning.
         text = self.valid.replace("FNF:1", "FNL:1,3,3\nFNA:1,1,inconsistent\nFNF:2").replace("FNH:1", "FNH:2")
         self.assertEqual(self.check(text), (1, 1, 2, 2, 2))
+
+    def test_parsing_is_separate_from_semantic_validation(self):
+        text = self.valid.replace("LH:2", "LH:0")
+        records = list(validator.parse_records(io.StringIO(text)))
+        self.assertEqual(len(records), 1)
+        self.assertEqual(records[0][1], 11)
+        with self.assertRaisesRegex(ValueError, "line 11: line summary does not match DA records"):
+            self.check(text)
+
+    def test_parse_failure_keeps_its_input_line_number(self):
+        text = self.valid.replace("DA:2,1", "DA:2,-1")
+        with self.assertRaisesRegex(ValueError, "line 8: invalid nonnegative integer"):
+            list(validator.parse_records(io.StringIO(text)))
+
+    def run_cli(self):
+        return subprocess.run([sys.executable, validator.__file__, str(self.report), "--source-root", str(self.root)], capture_output=True, text=True)
+
+    def test_cli_malformed_utf8_is_rejected_without_traceback(self):
+        self.report.write_bytes(self.valid.encode("utf-8") + b"\xff")
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(result.stdout, "")
+        self.assertIn("Coverage validation failed:", result.stderr)
+        self.assertIn("utf-8", result.stderr)
+        self.assertNotIn("Traceback", result.stderr)
+
+    def test_cli_status_and_output_for_success_parse_and_semantic_failures(self):
+        self.report.write_text(self.valid)
+        result = self.run_cli()
+        self.assertEqual(result.returncode, 0)
+        self.assertIn("Validated 1 LCOV records; production: 1 files, 2/2 hit lines, 1 function definitions", result.stdout)
+        self.assertEqual(result.stderr, "")
+        for text in ("DA:1,1\n", self.valid.replace("LH:2", "LH:0")):
+            with self.subTest(text=text):
+                self.report.write_text(text)
+                result = self.run_cli()
+                self.assertEqual(result.returncode, 1)
+                self.assertEqual(result.stdout, "")
+                self.assertIn("Coverage validation failed:", result.stderr)
+                self.assertNotIn("Traceback", result.stderr)
 
 
 if __name__ == "__main__":
