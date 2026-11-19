@@ -37,8 +37,8 @@ jobs:
           pacman -Q
       - name: Build with logging and file I/O enabled
         run: |
-          cmake -S . -B build -G Ninja -DMUPNP_ENABLE_EXAMPLES=OFF -DMUPNP_ENABLE_PLATFORM_SMOKE=ON -DMUPNP_HTTP_CURL=${{ matrix.curl }} -DMUPNP_USE_CFILE=ON -DCMAKE_C_FLAGS=-DCLOG_DEBUG
-          cmake --build build
+          cmake -S . -B build -G Ninja -DMUPNP_ENABLE_EXAMPLES=ON -DMUPNP_ENABLE_RENDERER_TESTS=ON -DMUPNP_ENABLE_PLATFORM_SMOKE=ON -DMUPNP_HTTP_CURL=${{ matrix.curl }} -DMUPNP_USE_CFILE=ON -DCMAKE_C_FLAGS=-DCLOG_DEBUG
+          cmake --build build --target mupnp_platform_smoke mupnp_renderer_test mupnp_renderer_lifecycle_test mupnp_avchk_lifecycle_test upnpavchk
       - name: Execute isolated Windows regression checks
         run: ctest --test-dir build --output-on-failure
 
@@ -56,7 +56,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libexpat1-dev libcurl4-openssl-dev
       - name: Build with logging and file I/O enabled
         run: |
-          cmake -S . -B build -DMUPNP_ENABLE_EXAMPLES=OFF -DMUPNP_ENABLE_PLATFORM_SMOKE=ON -DMUPNP_HTTP_CURL=${{ matrix.curl }} -DMUPNP_USE_CFILE=ON -DCMAKE_C_FLAGS=-DCLOG_DEBUG
-          cmake --build build -j 4
+          cmake -S . -B build -DMUPNP_ENABLE_EXAMPLES=ON -DMUPNP_ENABLE_RENDERER_TESTS=ON -DMUPNP_ENABLE_PLATFORM_SMOKE=ON -DMUPNP_HTTP_CURL=${{ matrix.curl }} -DMUPNP_USE_CFILE=ON -DCMAKE_C_FLAGS=-DCLOG_DEBUG
+          cmake --build build -j 4 --target mupnp_platform_smoke mupnp_renderer_test mupnp_renderer_lifecycle_test mupnp_avchk_lifecycle_test upnpavchk
       - name: Execute isolated regression checks
         run: ctest --test-dir build --output-on-failure

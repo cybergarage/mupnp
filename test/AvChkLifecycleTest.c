@@ -8,7 +8,7 @@
 
 static char trace[64];
 static int count, failure;
-static bool stopDuringWait;
+static int stopSignal;
 static void record(char value)
 {
   trace[count++] = value;
@@ -69,8 +69,8 @@ static void wait_for_search(long milliseconds)
   assert(milliseconds == 100);
   if (!strchr(trace, 'W'))
     record('W');
-  if (stopDuringWait)
-    raise(SIGINT);
+  if (stopSignal)
+    raise(stopSignal);
 }
 
 #define main avchk_main
@@ -107,7 +107,16 @@ int main(void)
   for (failure = 1; failure <= 5; failure++)
     check(2, enabled, 1, failed[failure]);
   failure = 0;
-  stopDuringWait = true;
-  check(2, enabled, 128 + SIGINT, "DSCTFWXYQR");
+  const int stopSignals[] = {
+    SIGINT,
+    SIGTERM,
+#ifdef SIGBREAK
+    SIGBREAK,
+#endif
+  };
+  for (size_t i = 0; i < sizeof(stopSignals) / sizeof(stopSignals[0]); i++) {
+    stopSignal = stopSignals[i];
+    check(2, enabled, 128 + stopSignal, "DSCTFWXYQR");
+  }
   return 0;
 }

@@ -115,6 +115,9 @@ int main(int argc, char* argv[])
   interrupted = 0;
   void (*oldInt)(int) = signal(SIGINT, stop_requested);
   void (*oldTerm)(int) = signal(SIGTERM, stop_requested);
+#ifdef SIGBREAK
+  void (*oldBreak)(int) = signal(SIGBREAK, stop_requested);
+#endif
   CgUpnpAvRenderer* dmr = NULL;
   mUpnpControlPoint* ctrlPoint = NULL;
   int result = 1;
@@ -153,5 +156,9 @@ cleanup:
     signal(SIGINT, oldInt);
   if (oldTerm != SIG_ERR)
     signal(SIGTERM, oldTerm);
+#ifdef SIGBREAK
+  if (oldBreak != SIG_ERR)
+    signal(SIGBREAK, oldBreak);
+#endif
   return interrupted ? 128 + interrupted : result;
 }

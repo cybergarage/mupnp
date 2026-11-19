@@ -4,6 +4,4 @@ add_subdirectory(upnpdump)
 add_subdirectory(upnpavdump)
 add_subdirectory(upnpigddump)
 
-if(UNIX)
-  add_subdirectory(upnpavchk)
-endif()
+add_subdirectory(upnpavchk)
